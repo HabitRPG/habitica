@@ -3,13 +3,13 @@
   small.muted(v-html="$t('blurbHallContributors')")
   .well(v-if='user.contributor.admin')
       h2 {{ $t('rewardUser') }}
-      form(v-submit='loadHero(_heroID)')
+      form(submit='loadHero(heroID)') // @TODO: make click
         .form-group
-          input.form-control(type='text', v-model='_heroID', placeholder {{ $t('UUID') }})
+          input.form-control(type='text', v-model='heroID', placeholder="$t('UUID')")
         .form-group
           input.btn.btn-default(type='submit')
           | {{ $t('loadUser') }}
-      form(v-show='hero', v-submit='saveHero(hero)')
+      form(v-if='hero && hero.profile', submit='saveHero(hero)') // @TODO: make click
         a(v-click='clickMember(hero._id, true)')
           h3 {{hero.profile.name}}
         .form-group
@@ -70,19 +70,19 @@
           thead
             tr
               th {{ $t('name') }}
-              th(v-if='user.contributor.admin') {{ $t('UUID') }}
+              th(v-if='user.contributor && user.contributor.admin') {{ $t('UUID') }}
               th {{ $t('contribLevel') }}
               th {{ $t('title') }}
               th {{ $t('contributions') }}
           tbody
-            tr(v-repeat='hero in heroes')
+            tr(v-for='(hero, $index) in heroes')
               td
-                span(v-if='hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
+                span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
                   a.label.label-default(v-class='userLevelStyle(hero)', v-click='clickMember(hero._id, true)')
                     | {{hero.profile.name}}&nbsp;
                     span(v-class='userAdminGlyphiconStyle(hero)')
-                span(v-if='!hero.contributor.admin')
-                  a.label.label-default(v-class='userLevelStyle(hero)', v-click='clickMember(hero._id, true)') {{hero.profile.name}}
+                span(v-if='!hero.contributor || !hero.contributor.admin')
+                  a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', v-click='clickMember(hero._id, true)') {{hero.profile.name}}
               td(v-if='user.contributor.admin', v-click='populateContributorInput(hero._id, $index)').btn-link {{hero._id}}
               td {{hero.contributor.level}}
               td {{hero.contributor.text}}
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import keys from 'lodash/keys';
+// import keys from 'lodash/keys';
 import each from 'lodash/each';
 
 import { mapState } from 'client/libs/store';
@@ -105,6 +105,7 @@ export default {
     return {
       heroes: [],
       hero: {},
+      heroID: '',
       currentHeroIndex: -1,
       allItemPaths: this.getAllItemPaths(),
       quests,
@@ -124,22 +125,22 @@ export default {
   },
   methods: {
     getAllItemPaths () {
-      let questsFormat = this.getFormattedItemReference('items.quests', keys(this.quests), 'Numeric Quantity');
-      let mountsFormat = this.getFormattedItemReference('items.mounts', keys(this.mountInfo), 'Boolean');
-      let foodFormat = this.getFormattedItemReference('items.food', keys(this.food), 'Numeric Quantity');
-      let eggsFormat = this.getFormattedItemReference('items.eggs', keys(this.eggs), 'Numeric Quantity');
-      let hatchingPotionsFormat = this.getFormattedItemReference('items.hatchingPotions', keys(this.hatchingPotions), 'Numeric Quantity');
-      let petsFormat = this.getFormattedItemReference('items.pets', keys(this.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
-      let specialFormat = this.getFormattedItemReference('items.special', keys(this.special), 'Numeric Quantity');
-      let gearFormat = this.getFormattedItemReference('items.gear.owned', keys(this.gear.flat), 'Boolean');
-
-      let equippedGearFormat = '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
-      let equippedPetFormat = '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
-      let equippedMountFormat = '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
-
-      let data = questsFormat.concat(mountsFormat, foodFormat, eggsFormat, hatchingPotionsFormat, petsFormat, specialFormat, gearFormat, equippedGearFormat, equippedPetFormat, equippedMountFormat);
-
-      return data;
+      // let questsFormat = this.getFormattedItemReference('items.quests', keys(this.quests), 'Numeric Quantity');
+      // let mountsFormat = this.getFormattedItemReference('items.mounts', keys(this.mountInfo), 'Boolean');
+      // let foodFormat = this.getFormattedItemReference('items.food', keys(this.food), 'Numeric Quantity');
+      // let eggsFormat = this.getFormattedItemReference('items.eggs', keys(this.eggs), 'Numeric Quantity');
+      // let hatchingPotionsFormat = this.getFormattedItemReference('items.hatchingPotions', keys(this.hatchingPotions), 'Numeric Quantity');
+      // let petsFormat = this.getFormattedItemReference('items.pets', keys(this.petInfo), '-1: Owns Mount, 0: Not Owned, 1-49: Progress to mount');
+      // let specialFormat = this.getFormattedItemReference('items.special', keys(this.special), 'Numeric Quantity');
+      // let gearFormat = this.getFormattedItemReference('items.gear.owned', keys(this.gear.flat), 'Boolean');
+      //
+      // let equippedGearFormat = ''; // @TODO: '\nEquipped Gear:\n\titems.gear.{equipped/costume}.{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
+      // let equippedPetFormat = ''; // @TODO: '\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
+      // let equippedMountFormat = ''; // @TODO: '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
+      //
+      // let data = questsFormat.concat(mountsFormat, foodFormat, eggsFormat, hatchingPotionsFormat, petsFormat, specialFormat, gearFormat, equippedGearFormat, equippedPetFormat, equippedMountFormat);
+      //
+      // return data;
     },
     getFormattedItemReference (pathPrefix, itemKeys, values) {
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
@@ -152,6 +153,7 @@ export default {
     },
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
+      if (!heroIndex) return;
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = hero;
     },
@@ -161,14 +163,20 @@ export default {
       // @TODO: Import
       // Notification.text("User updated");
       this.hero = {};
-      this._heroID = -1;
+      this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
     },
     populateContributorInput (id, index) {
-      this._heroID = id;
+      this.heroID = id;
       window.scrollTo(0, 200);
       this.loadHero(id, index);
+    },
+    clickMember () {
+      // @TODO: implement
+    },
+    userLevelStyle () {
+      // @TODO: implement
     },
   },
 };
