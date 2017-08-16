@@ -557,8 +557,8 @@ api.exportChallengeCsv = {
         index++;
       }
 
-      // Occasional error does not completely remove user data after they leave a challenge resulting in export code failing.
-      // Code below checks for user data before executing. See more at https://github.com/HabitRPG/habitica/issues/8350
+      // Occasional error does not completely remove user data after they leave a challenge, resulting in export code failing.
+      // Code checks for user data before executing. See more at https://github.com/HabitRPG/habitica/issues/8350
       if (resArray[index]) {
         resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
       }
