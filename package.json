@@ -162,7 +162,7 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "gulp bootstrap && node webpack/dev-server.js",
-    "client:build": "gulp bootstrap && node webpack/build.js",
+    "client:build": "cross-env NODE_ENV=production && gulp bootstrap && node webpack/build.js",
     "client:unit": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js --single-run",
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
     "client:e2e": "node test/client/e2e/runner.js",

@@ -6,14 +6,14 @@ const IS_PROD = nconf.get('IS_PROD');
 const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 const MAX_AGE = IS_PROD ? 31536000000 : 0;
 const ASSETS_DIR = path.join(__dirname, '/../../assets');
-const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
+const PUBLIC_DIR = path.join(__dirname, '/../../client');
 const BUILD_DIR = path.join(__dirname, '/../../build');
 
 module.exports = function staticMiddleware (expressApp) {
   // Expose static files for new client
-  if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
-    expressApp.use('/new-app/static', express.static(`${PUBLIC_DIR}/../../dist-client/static`));
-  }
+  // if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
+  expressApp.use('/static', express.static(`${PUBLIC_DIR}/../../dist-client/static`));
+  // }
 
   // TODO move all static files to a single location (one for public and one for build)
   expressApp.use(express.static(BUILD_DIR, { maxAge: MAX_AGE }));
