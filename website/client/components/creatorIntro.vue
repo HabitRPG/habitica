@@ -15,28 +15,28 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       .col-12.text-center
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
     .section.row.text-center.customize-menu
-      .col-3
+      div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
         .menu-item(@click='changeTopPage("body", "size")')
           .svg-icon(v-html='icons.bodyIcon')
         strong(v-once) {{$t('body')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("skin", "color")')
           .svg-icon(v-html='icons.skinIcon')
         strong(v-once) {{$t('skin')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("hair", "color")')
           .svg-icon(v-html='icons.hairIcon')
         strong(v-once) {{$t('hair')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("extra", "glasses")')
           .svg-icon(v-html='icons.accessoriesIcon')
         strong(v-once) {{$t('extra')}}
-      .col-3(v-if='editing')
+      .col-2(v-if='editing')
         .menu-item(@click='changeTopPage("backgrounds", "2017")')
           .svg-icon(v-html='icons.backgroundsIcon')
         strong(v-once) {{$t('backgrounds')}}
     .section.customize-section(v-if='activeTopPage === "body"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
             strong(v-once) {{$t('size')}}
           .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
@@ -57,7 +57,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
             strong(v-once) {{$t('color')}}
       .row
@@ -72,7 +72,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})', :class='{active: user.preferences.skin === "6bd049"}')
 
     .section.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
             strong(v-once) {{$t('color')}}
           .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
@@ -100,7 +100,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="[{ active: user.preferences.hair.base === 3 }, 'hair_base_3_' + user.preferences.hair.color]")
 
     .section.container.customize-section(v-if='activeTopPage === "extra"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
             strong(v-once) {{$t('glasses')}}
           .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
