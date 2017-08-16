@@ -278,6 +278,68 @@ describe('shouldDo', () => {
       });
     });
 
+    context('When repeat after completion is on', () => {
+      beforeEach(() => {
+        dailyTask.repeatAfterCompletion = true;
+        dailyTask.everyX = 5;
+        day = moment('2017-05-01').toDate();
+        dailyTask.startDate = day;
+      });
+
+      context('last completed is set', () => {
+        beforeEach(() => {
+          day = moment('2017-05-03').toDate();
+          dailyTask.lastCompleted = day;
+        });
+
+        it('should compute daily nextDue values', () => {
+          options.timezoneOffset = 0;
+          options.nextDue = true;
+
+          nextDue = shouldDo(day, dailyTask, options);
+          expect(nextDue.length).to.eql(6);
+          expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-05-08').toDate());
+          expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-05-09').toDate());
+          expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-05-10').toDate());
+          expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-05-11').toDate());
+          expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-05-12').toDate());
+          expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-05-13').toDate());
+        });
+
+        it('returns false before X Days passes after completion', () => {
+          day = moment('2017-05-05').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(false);
+        });
+
+        it('returns true after X Days passes after completion', () => {
+          day = moment('2017-05-10').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+
+      context('last completed is not set', () => {
+        it('should compute daily nextDue values', () => {
+          options.timezoneOffset = 0;
+          options.nextDue = true;
+
+          nextDue = shouldDo(day, dailyTask, options);
+          expect(nextDue.length).to.eql(6);
+          expect(moment(nextDue[0]).toDate()).to.eql(moment.utc('2017-05-02').toDate());
+          expect(moment(nextDue[1]).toDate()).to.eql(moment.utc('2017-05-03').toDate());
+          expect(moment(nextDue[2]).toDate()).to.eql(moment.utc('2017-05-04').toDate());
+          expect(moment(nextDue[3]).toDate()).to.eql(moment.utc('2017-05-05').toDate());
+          expect(moment(nextDue[4]).toDate()).to.eql(moment.utc('2017-05-06').toDate());
+          expect(moment(nextDue[5]).toDate()).to.eql(moment.utc('2017-05-07').toDate());
+        });
+
+        it('returns true after start date', () => {
+          day = moment('2017-05-04').toDate();
+          expect(shouldDo(day, dailyTask, options)).to.equal(true);
+        });
+      });
+    });
+
+
     context('If number of X days is zero', () => {
       beforeEach(() => {
         dailyTask.everyX = 0;
