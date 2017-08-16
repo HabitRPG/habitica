@@ -53,6 +53,12 @@
                 :popoverPosition="'top'",
                 @click="selectedGearToBuy = item"
               )
+                template(slot="itemBadge", scope="ctx")
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -521,7 +527,10 @@ export default {
 
       featuredItems () {
         return featuredItems.market.map(i => {
-          return getItemInfo(this.user, i.type, _get(this.content, i.path));
+          let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
+          newItem.pinned = _isPinned(this.user, newItem);
+
+          return newItem;
         });
       },
     },
