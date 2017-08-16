@@ -21,8 +21,15 @@
   line-height: 1.14;
 }
 
-.popover-content-text {
+.popover-content-text:not(:last-child) {
   margin-bottom: 16px;
+}
+
+.popover-content-title:last-child {
+  margin-bottom: 0px;
+}
+.popover-content-text:last-child {
+  margin-bottom: 0px;
 }
 
 .popover-content-attr {
