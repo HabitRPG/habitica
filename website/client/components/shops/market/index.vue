@@ -202,7 +202,7 @@
         :item="selectedItemToSell",
         :itemType="selectedDrawerItemType",
         :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
-        :text="getItemName(selectedDrawerItemType, selectedItemToSell)",
+        :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
         template(slot="item", scope="ctx")
