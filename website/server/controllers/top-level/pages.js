@@ -1,14 +1,14 @@
 import locals from '../../middlewares/locals';
-import _ from 'lodash';
-import md from 'habitica-markdown';
-import nconf from 'nconf';
+// import _ from 'lodash';
+// import md from 'habitica-markdown';
+// import nconf from 'nconf';
 
 let api = {};
 
-const IS_PROD = nconf.get('IS_PROD');
-const TOTAL_USER_COUNT = '2,000,000';
+// const IS_PROD = nconf.get('IS_PROD');
+// const TOTAL_USER_COUNT = '2,000,000';
 const LOADING_SCREEN_TIPS = 33;
-const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
+// const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 
 api.getFrontPage = {
   method: 'GET',
@@ -28,10 +28,10 @@ api.getFrontPage = {
   },
 };
 
-let staticPages = ['front', 'privacy', 'terms', 'features', 'login',
-                   'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
-                   'old-news', 'press-kit', 'faq', 'overview', 'apps',
-                   'clear-browser-data', 'merch', 'maintenance-info'];
+// let staticPages = ['front', 'privacy', 'terms', 'features', 'login',
+//                    'videos', 'contact', 'plans', 'new-stuff', 'community-guidelines',
+//                    'old-news', 'press-kit', 'faq', 'overview', 'apps',
+//                    'clear-browser-data', 'merch', 'maintenance-info'];
 
 // _.each(staticPages, (name) => {
 //   api[`get${name}Page`] = {
@@ -58,7 +58,7 @@ let staticPages = ['front', 'privacy', 'terms', 'features', 'login',
 //   },
 // };
 
-let shareables = ['level-up', 'hatch-pet', 'raise-pet', 'unlock-quest', 'won-challenge', 'achievement'];
+// let shareables = ['level-up', 'hatch-pet', 'raise-pet', 'unlock-quest', 'won-challenge', 'achievement'];
 
 // _.each(shareables, (name) => {
 //   api[`get${name}ShareablePage`] = {
@@ -91,10 +91,9 @@ api.getNewClient = {
   method: 'GET',
   url: '/',
   async handler (req, res) {
-    // if (!(req.session && req.session.userId)) {
-    //   return res.redirect('/static/front');
-    // }
-    console.log("SD")
+    if (!(req.session && req.session.userId)) {
+      return res.redirect('/');
+    }
     return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
   },
 };
