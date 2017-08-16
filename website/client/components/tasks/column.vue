@@ -25,7 +25,8 @@
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
-          @click="openBuyDialog(reward)"
+          @click="openBuyDialog(reward)",
+          :popoverPosition="'left'"
         )
 
     .column-background(

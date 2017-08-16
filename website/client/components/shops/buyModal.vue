@@ -25,15 +25,28 @@
 
         slot(name="additionalInfo", :item="item")
 
-        div
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getSvgClass()]")
-          span.value(:class="getSvgClass()") {{ item.value }}
+        div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}")
+          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+          span.value(:class="getPriceClass()") {{ item.value }}
 
-        button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
+        button.btn.btn-primary(
+          @click="purchaseGems()",
+          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value)"
+        ) {{ $t('purchaseGems') }}
+
+        button.btn.btn-primary(
+          @click="buyItem()",
+          v-else,
+          :class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}"
+        ) {{ $t('buyNow') }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo(:withHourglass="getSvgClass() === 'hourglasses'").float-right
+      balanceInfo(
+        :withHourglass="getPriceClass() === 'hourglasses'",
+        :currencyNeeded="getPriceClass()",
+        :amountNeeded="item.value"
+      ).float-right
 
 
 </template>
@@ -136,7 +149,10 @@
       }
     }
 
-
+    .notEnough {
+      pointer-events: none;
+      opacity: 0.55;
+    }
   }
 </style>
 
@@ -150,8 +166,10 @@
   import svgPin from 'assets/svg/pin.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
+  import currencyMixin from './_currencyMixin';
 
   export default {
+    mixins: [currencyMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -191,13 +209,16 @@
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
+      purchaseGems () {
+        this.$root.$emit('show::modal', 'buy-gems');
+      },
       togglePinned () {
         this.$emit('togglePinned', this.item);
       },
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-modal');
       },
-      getSvgClass () {
+      getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {
           return this.priceType;
         } else {

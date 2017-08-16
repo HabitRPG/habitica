@@ -40,6 +40,7 @@
         :items="items[group.key]",
         :itemWidth=94,
         :itemMargin=24,
+        :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
         template(slot="item", scope="context")
@@ -67,6 +68,7 @@
         :items="items[group.key]",
         :itemWidth=94,
         :itemMargin=24,
+        :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
         template(slot="item", scope="context")
@@ -94,6 +96,7 @@
         :items="items[group.key]",
         :itemWidth=94,
         :itemMargin=24,
+        :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
         template(slot="item", scope="context")

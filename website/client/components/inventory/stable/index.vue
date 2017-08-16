@@ -84,6 +84,7 @@
           :items="pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="petGroup.key",
         )
           template(slot="item", scope="context")
             div(
@@ -99,14 +100,12 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="context.item.isOwned() || context.item.isHatchable()",
+                :showPopover="true",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
-                  div(v-if="context.item.isOwned()")
-                    h4.popover-content-title {{ context.item.name }}
-                  div.hatchablePopover(v-else-if="context.item.isHatchable()")
+                  div.hatchablePopover(v-if="context.item.isHatchable()")
                     h4.popover-content-title {{ context.item.name }}
                     div.popover-content-text(v-html="$t('haveHatchablePet', { potion: context.item.potionName, egg: context.item.eggName })")
                     div.potionEggGroup
@@ -114,6 +113,9 @@
                         div(:class="'Pet_HatchingPotion_'+context.item.potionKey")
                       div.potionEggBackground
                         div(:class="'Pet_Egg_'+context.item.eggKey")
+
+                  div(v-else)
+                    h4.popover-content-title {{ context.item.name }}
 
                 template(slot="itemBadge", scope="context")
                   starBadge(
@@ -138,6 +140,7 @@
           :items="mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="mountGroup.key",
         )
           template(slot="item", scope="context")
             mountItem(
@@ -146,7 +149,7 @@
               :key="context.item.key",
               :popoverPosition="'top'",
               :emptyItem="!context.item.isOwned()",
-              :showPopover="context.item.isOwned()",
+              :showPopover="true",
               @click="selectMount(context.item)"
             )
               span(slot="popoverContent")
@@ -273,9 +276,16 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet {
-    position: absolute;
+  .stable .item .item-content.Pet:not(.FlyingPig) {
     top: -28px;
+  }
+
+  .stable .item .item-content.FlyingPig {
+    top: 7px;
+  }
+
+  .stable .item .item-content.Pet-Dragon-Hydra {
+    top: -16px !important;
   }
 
   .hatchablePopover {
@@ -833,7 +843,7 @@
 
       getPetItemClass (pet) {
         if (pet.isOwned()) {
-          return `Pet Pet-${pet.key}`;
+          return `Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.mountOwned()) {

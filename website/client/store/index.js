@@ -75,6 +75,7 @@ export default function () {
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
       hideHeader: false,
       viewingMembers: [],
+      openedItemRows: [],
       castingSpell: false,
     },
   });

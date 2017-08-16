@@ -29,7 +29,17 @@
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
-        button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
+        button.btn.btn-primary(
+          @click="purchaseGems()",
+          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value)"
+        ) {{ $t('purchaseGems') }}
+
+
+        button.btn.btn-primary(
+          @click="buyItem()",
+          v-else,
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value)}"
+        ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
       h3(v-once) {{ $t('rewards') }}
@@ -46,7 +56,10 @@
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo.float-right
+      balanceInfo(
+        :currencyNeeded="priceType",
+        :amountNeeded="item.value"
+      ).float-right
 
 
 </template>
@@ -186,6 +199,12 @@
         color: $white;
       }
     }
+
+
+    .notEnough {
+      pointer-events: none;
+      opacity: 0.55;
+    }
   }
 </style>
 
@@ -202,8 +221,10 @@
   import svgExperience from 'assets/svg/experience.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
+  import currencyMixin from '../_currencyMixin';
 
   export default {
+    mixins: [currencyMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -283,6 +304,10 @@
           default:
             return `Unknown type: ${drop.type}`;
         }
+      },
+
+      purchaseGems () {
+        this.$root.$emit('show::modal', 'buy-gems');
       },
     },
     props: {

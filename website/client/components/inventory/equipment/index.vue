@@ -99,6 +99,7 @@
         :items="sortItems(items[group.key], selectedSortGearBy)",
         :itemWidth=94,
         :itemMargin=24,
+        :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
       )
         template(slot="item", scope="context")
