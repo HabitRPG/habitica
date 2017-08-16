@@ -166,7 +166,8 @@ export default {
 
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (!this.cachedProfileData[uuid]) {
+        if (uuid && !this.cachedProfileData[uuid]) {
+          if (uuid === 'system') return;
           promises.push(axios.get(`/api/v3/members/${uuid}`));
         }
       });
