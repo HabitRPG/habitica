@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  buy-gems-modal
   modify-inventory
   footer.container-fluid
     .row
@@ -59,14 +60,14 @@
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') Guidance for Blacksmiths
               li
                 a(href='http://devs.habitica.com/', target='_blank') The Forge - Developer Blog
-          .col-6
+          .col-6.social
             h3 Social
             .social-circle
               a(href='https://twitter.com/habitica', target='_blank')
                 .social-icon.svg-icon(v-html='icons.twitter')
             .social-circle
               a(href='https://www.instagram.com/habitica/', target='_blank')
-                .social-icon.svg-icon(v-html='icons.instagram')
+                .social-icon.svg-icon.instagram(v-html='icons.instagram')
             .social-circle
               a(href='https://www.facebook.com/Habitica', target='_blank')
                 .social-icon.facebook.svg-icon(v-html='icons.facebook')
@@ -74,7 +75,9 @@
           .col-10
             | We’re an open source project that depends on our users for support. The money you donate helps us keep the servers running, maintain a small staff, develop new features, and provide incentives for our volunteers.
           .col-2
-            button.btn.btn-primary Donate
+            button.btn.btn-donate(@click='donate()')
+              .svg-icon.heart(v-html='icons.heart')
+              .text Donate
     .row
       hr.col-12
     .row
@@ -99,10 +102,12 @@
             a.btn.btn-default(@click='makeAdmin()') Make Admin
             a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
       .col-4.text-center
-        .logo.svg-icon(v-html='icons.gryphon')
+        .logo
       .col-4.text-right
-        span Privacy Policy
-        span Terms of Use
+        span
+          router-link(to="/static/privacy") Privacy Policy
+        span.terms-link
+          router-link(to="/static/terms") Terms of Use
 </template>
 
 <style lang="scss" scoped>
@@ -114,6 +119,10 @@
     padding-top: 3em;
     margin: 0;
     color: #878190;
+
+    a {
+      color: #878190;
+    }
   }
 
   h3 {
@@ -129,13 +138,20 @@
     margin-bottom: .5em;
   }
 
+  .social {
+    h3 {
+      text-align: right;
+    }
+  }
+
   .social-circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-color: #c3c0c7;
     display: inline-block;
-    margin-right: 1em;
+    margin-left: 1em;
+    float: right;
 
     .social-icon {
       color: #e1e0e3;
@@ -144,15 +160,26 @@
       margin-top: 1em;
     }
 
-    .svg-icon.facebook svg {
-      height: 20px;
+    .facebook {
+      margin-top: .7em;
+    }
+
+    .instagram {
+      margin-top: .85em;
     }
   }
 
-  .logo.svg-icon {
+  .logo {
+    background-image: url('~assets/images/gryphon@3x.png');
     width: 24px;
+    height: 24px;
     margin: 0 auto;
     color: #c3c0c7;
+    background-size: cover;
+  }
+
+  .terms-link {
+    margin-left: 1em;
   }
 
   .debug-group {
@@ -161,6 +188,30 @@
     top: -300px;
     border-radius: 2px;
     padding: 2em;
+  }
+
+  .btn-donate {
+    background: #c3c0c7;
+    box-shadow: none;
+    border-radius: 4px;
+
+    .heart {
+      width: 18px;
+      margin-right: .5em;
+      margin-bottom: .2em;
+    }
+
+    .text, .heart {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+</style>
+
+<style>
+  .facebook svg {
+    width: 10px;
+    margin: 0 auto;
   }
 </style>
 
@@ -173,14 +224,17 @@ import gryphon from 'assets/svg/gryphon.svg';
 import twitter from 'assets/svg/twitter.svg';
 import facebook from 'assets/svg/facebook.svg';
 import instagram from 'assets/svg/instagram.svg';
+import heart from 'assets/svg/heart.svg';
 
 import modifyInventory from './modifyInventory';
+import buyGemsModal from './payments/buyGemsModal';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 export default {
   components: {
     modifyInventory,
+    buyGemsModal,
   },
   data () {
     return {
@@ -189,6 +243,7 @@ export default {
         twitter,
         facebook,
         instagram,
+        heart,
       }),
       debugMenuShown: false,
       IS_PRODUCTION,
@@ -274,6 +329,9 @@ export default {
     },
     openModifyInventoryModal  () {
       this.$root.$emit('show::modal', 'modify-inventory');
+    },
+    donate () {
+      this.$root.$emit('show::modal', 'buy-gems');
     },
   },
 };

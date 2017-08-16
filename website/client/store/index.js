@@ -74,6 +74,7 @@ export default function () {
       hideHeader: false,
       viewingMembers: [],
       openedItemRows: [],
+      castingSpell: false,
     },
   });
 

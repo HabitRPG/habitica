@@ -28,7 +28,6 @@
           @click="openBuyDialog(reward)"
         )
 
-    .bottom-gradient
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': tasks[`${type}s`].length === 0}",

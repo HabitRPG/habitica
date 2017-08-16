@@ -3,7 +3,7 @@
     "subscriptions": "寄付",
     "subDescription": "ゴールドでジェムを買いましょう。毎月ミステリー アイテムが入手でき、進行の履歴が残り、毎日のアイテムが落ちる確率が倍になり、開発者を支援できます。詳細はクリックで。",
     "buyGemsGold": "ゴールドでジェムを購入",
-    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
+    "buyGemsGoldText": "商人・アレクサンダーが、ジェム1個を20ゴールドで売ってくれます。アレクサンダーと1ヵ月の間に取り引きできるジェムの数は、最初は25個に限定されています。しかし、寄付の継続3カ月ごとにその数が5個ずつ増えていき、最大で月に50個を買うことができます！",
     "mustSubscribeToPurchaseGems": "ゴールドでジェムを買うには、寄付が必要です。",
     "reachedGoldToGemCap": "ゴールドで買えるジェムの上限が今月で <%= convCap %> に達しました。乱用や不正なジェムの増殖を止めるために上限を設けています。制限は毎月1日から3日のいずれかの時点で解除されます。",
     "retainHistory": "詳細な履歴の保存",

@@ -405,7 +405,7 @@ export default {
 
       let userReadNotifsPromise = false;
 
-      if (notificationsToRead.length >= 0) {
+      if (notificationsToRead.length > 0) {
         await axios.post('/api/v3/notifications/read', {
           notificationIds: notificationsToRead,
         });

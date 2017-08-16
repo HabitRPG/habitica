@@ -3,7 +3,7 @@
     "subscriptions": "Abonelikler",
     "subDescription": "Altın karşılığı Elmas satın al, aylık gizemli eşyalar elde et, gelişim tarihçesini koru, günlük eşya kazanma limitini yükselt, geliştiricileri destekle. Daha fazla bilgi için tıkla.",
     "buyGemsGold": "Altın karşılığı Elmas satın al",
-    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
+    "buyGemsGoldText": "Tüccar Alexander sana tanesi 20 altından Elmas satacak. Aylık sevkiyatlar başta ayda 25 Elmas kadardır ancak aralıksız her 3 ay abonelikte bu sınır 5 Elmas kadar, aylık toplam sınır 50 Elmas olana kadar artar!",
     "mustSubscribeToPurchaseGems": "Altın karşılığı elmas almak için abone olmalısın",
     "reachedGoldToGemCap": "Bu ay için Altın=>Elmas çevrim sınırına ulaştın. Suistimali / tarımcılığı engellemek için bunu yapmamız gerekmektedir. Üst limit her ayın ilk üç gününde sıfırlanmaktadır.",
     "retainHistory": "Ek tarihçe girdilerini koru",

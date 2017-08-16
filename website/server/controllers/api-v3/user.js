@@ -344,8 +344,8 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam {String} password The user's password if the account uses local authentication
- * @apiParam {String} feedback User's optional feedback explaining reasons for deletion
+ * @apiParam (Body) {String} password The user's password if the account uses local authentication
+ * @apiParam (Body) {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -515,7 +515,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
 
- * @apiParam {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ * @apiParam (Path) {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
  * Cast "Pickpocket" on a task:
@@ -834,7 +834,7 @@ api.allocateNow = {
  * @apiName UserBuy
  * @apiGroup User
  *
- * @apiParam {String} key The item to buy
+ * @apiParam (Path) {String} key The item to buy
  *
  * @apiSuccess data User's data profile
  * @apiSuccess message Item purchased
@@ -874,7 +874,7 @@ api.buy = {
  * @apiName UserBuyGear
  * @apiGroup User
  *
- * @apiParam {String} key The item to buy
+ * @apiParam (Path) {String} key The item to buy
  *
  * @apiSuccess {Object} data.items User's item inventory
  * @apiSuccess {Object} data.flags User's flags
@@ -999,7 +999,7 @@ api.buyHealthPotion = {
  * @apiName UserBuyMysterySet
  * @apiGroup User
  *
- * @apiParam {String} key The mystery set to buy
+ * @apiParam (Path) {String} key The mystery set to buy
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
@@ -1039,7 +1039,7 @@ api.buyMysterySet = {
  * @apiName UserBuyQuest
  * @apiGroup User
  *
- * @apiParam {String} key The quest scroll to buy
+ * @apiParam (Path) {String} key The quest scroll to buy
  *
  * @apiSuccess {Object} data.quests User's quest list
  * @apiSuccess {String} message Success message
@@ -1080,7 +1080,7 @@ api.buyQuest = {
  * @apiName UserBuySpecialSpell
  * @apiGroup User
  *
- * @apiParam {String} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
+ * @apiParam (Path) {String} key The special item to buy. Must be one of the keys from "content.special", such as birthday, snowball, salt.
  *
  * @apiSuccess {Object} data.stats User's current stats
  * @apiSuccess {Object} data.items User's current inventory
@@ -1118,8 +1118,8 @@ api.buySpecialSpell = {
  * @apiName UserHatch
  * @apiGroup User
  *
- * @apiParam {String} egg The egg to use
- * @apiParam {String} hatchingPotion The hatching potion to use
+ * @apiParam (Path) {String} egg The egg to use
+ * @apiParam (Path) {String} hatchingPotion The hatching potion to use
  * @apiParamExample {URL} Example-URL
  * https://habitica.com/api/v3/user/hatch/Dragon/CottonCandyPink
  *
@@ -1161,8 +1161,8 @@ api.hatch = {
  * @apiName UserEquip
  * @apiGroup User
  *
- * @apiParam {String="mount","pet","costume","equipped"} type The type of item to equip
- * @apiParam {String} key The item to equip
+ * @apiParam (Path) {String="mount","pet","costume","equipped"} type The type of item to equip
+ * @apiParam (Path) {String} key The item to equip
  *
  * @apiParamExample {URL} Example-URL
  * https://habitica.com/api/v3/user/equip/equipped/weapon_warrior_2
@@ -1202,8 +1202,8 @@ api.equip = {
  * @apiName UserFeed
  * @apiGroup User
  *
- * @apiParam {String} pet
- * @apiParam {String} food
+ * @apiParam (Path) {String} pet
+ * @apiParam (Path) {String} food
  *
  * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
@@ -1238,7 +1238,7 @@ api.feed = {
  * @apiName UserChangeClass
  * @apiGroup User
  *
- * @apiParam {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
+ * @apiParam (Query) {String} class Query parameter - ?class={warrior|rogue|wizard|healer}
  *
  * @apiSuccess {Object} data.flags user.flags
  * @apiSuccess {Object} data.stats user.stats
@@ -1289,8 +1289,8 @@ api.disableClasses = {
  * @apiName UserPurchase
  * @apiGroup User
  *
- * @apiParam {String="gems","eggs","hatchingPotions","premiumHatchingPotions",food","quests","gear"} type Type of item to purchase.
- * @apiParam {String} key Item's key (use "gem" for purchasing gems)
+ * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions",food","quests","gear"} type Type of item to purchase.
+ * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Number} data.balance user.balance
@@ -1332,8 +1332,8 @@ api.purchase = {
  * @apiName UserPurchaseHourglass
  * @apiGroup User
  *
- * @apiParam {String="pets","mounts"} type The type of item to purchase
- * @apiParam {String} key Ex: {Phoenix-Base}. The key for the mount/pet
+ * @apiParam (Path) {String="pets","mounts"} type The type of item to purchase
+ * @apiParam (Path) {String} key Ex: {Phoenix-Base}. The key for the mount/pet
  *
  * @apiSuccess {Object} data.items user.items
  * @apiSuccess {Object} data.purchasedPlanConsecutive user.purchased.plan.consecutive
@@ -1363,7 +1363,7 @@ api.userPurchaseHourglass = {
  * @apiName UserReadCard
  * @apiGroup User
  *
- * @apiParam {String} cardType Type of card to read (e.g. - birthday, greeting, nye, thankyou, valentine)
+ * @apiParam (Path) {String} cardType Type of card to read (e.g. - birthday, greeting, nye, thankyou, valentine)
  *
  * @apiSuccess {Object} data.specialItems user.items.special
  * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
@@ -1570,7 +1570,7 @@ api.userReleaseMounts = {
 };
 
 /**
- * @api {post} /api/v3/user/sell/:type/:key?amount=1 Sell a gold-sellable item owned by the user
+ * @api {post} /api/v3/user/sell/:type/:key Sell a gold-sellable item owned by the user
  * @apiName UserSell
  * @apiGroup User
  *
@@ -1604,7 +1604,7 @@ api.userSell = {
  * @apiName UserUnlock
  * @apiGroup User
  *
- * @apiParam {String} path Query parameter. Full path to unlock. See "content" API call for list of items.
+ * @apiParam (Query) {String} path Full path to unlock. See "content" API call for list of items.
  *
  * @apiParamExample {curl}
  * curl -x POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
@@ -1738,7 +1738,7 @@ api.userRebirth = {
  * @apiName BlockUser
  * @apiGroup User
  *
- * @apiParam {UUID} uuid The uuid of the user to block / unblock
+ * @apiParam (Path) {UUID} uuid The uuid of the user to block / unblock
  *
  * @apiSuccess {Array} data user.inbox.blocks
  *
@@ -1765,7 +1765,7 @@ api.blockUser = {
  * @apiName deleteMessage
  * @apiGroup User
  *
- * @apiParam {UUID} id The id of the message to delete
+ * @apiParam (Path) {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
  * @apiSuccessExample {json}
