@@ -3,7 +3,7 @@ import nconf from 'nconf';
 import path from 'path';
 
 const IS_PROD = nconf.get('IS_PROD');
-const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
+// const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 const MAX_AGE = IS_PROD ? 31536000000 : 0;
 const ASSETS_DIR = path.join(__dirname, '/../../assets');
 const PUBLIC_DIR = path.join(__dirname, '/../../client');

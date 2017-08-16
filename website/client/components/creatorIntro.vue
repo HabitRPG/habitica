@@ -620,7 +620,7 @@ export default {
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
 
-      return setOwnedByUser
+      return setOwnedByUser;
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
@@ -652,7 +652,7 @@ export default {
         }
       }
 
-      let response = await axios.post(`/api/v3/user/unlock?path=${path}`);
+      await axios.post(`/api/v3/user/unlock?path=${path}`);
       try {
         unlock(this.user, {
           query: {
