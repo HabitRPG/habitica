@@ -68,7 +68,7 @@ const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/g
 const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
-const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
+const GroupPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
 
 // Group Plans
@@ -124,7 +124,7 @@ const router = new VueRouter({
         { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
-    { name: 'party', path: '/party', component: GuildPage },
+    { name: 'party', path: '/party', component: GroupPage },
     { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
     {
       name: 'groupPlanDetail',
@@ -141,7 +141,7 @@ const router = new VueRouter({
         {
           name: 'groupPlanDetailInformation',
           path: '/group-plans/:groupId/information',
-          component: GuildPage,
+          component: GroupPage,
           props: true,
         },
       ],
@@ -164,7 +164,7 @@ const router = new VueRouter({
         {
           name: 'guild',
           path: 'guild/:groupId',
-          component: GuildPage,
+          component: GroupPage,
           props: true,
         },
       ],
