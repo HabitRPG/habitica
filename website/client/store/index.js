@@ -60,6 +60,8 @@ export default function () {
       },
       avatarEditorOptions: {
         editingUser: false,
+        startingPage: '',
+        subPage: '',
       },
       flagChatOptions: {
         message: {},
