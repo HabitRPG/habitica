@@ -135,7 +135,8 @@
     "webpack-merge": "^4.0.0",
     "winston": "^2.1.0",
     "winston-loggly-bulk": "^1.4.2",
-    "xml2js": "^0.4.4"
+    "xml2js": "^0.4.4",
+    "cross-env": "^4.0.0"
   },
   "private": true,
   "engines": {
@@ -162,7 +163,7 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "gulp bootstrap && node webpack/dev-server.js",
-    "client:build": "cross-env NODE_ENV=production && gulp bootstrap && node webpack/build.js",
+    "client:build": "gulp bootstrap && node webpack/build.js",
     "client:unit": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js --single-run",
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
     "client:e2e": "node test/client/e2e/runner.js",
