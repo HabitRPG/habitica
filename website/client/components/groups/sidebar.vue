@@ -83,19 +83,19 @@ export default {
         },
         {
           label: 'mental_health',
-          key: 'mental_health ',
+          key: 'mental_health',
         },
         {
           label: 'organization',
-          key: 'organization ',
+          key: 'organization',
         },
         {
-          label: 'Recovery + Support Groups',
-          key: 'recovery_support_groups ',
+          label: 'recovery_support_groups',
+          key: 'recovery_support_groups',
         },
         {
           label: 'spirituality',
-          key: 'spirituality ',
+          key: 'spirituality',
         },
         {
           label: 'time_management',
