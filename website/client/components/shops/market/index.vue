@@ -196,12 +196,13 @@
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
                 )
               span(slot="popoverContent")
-                h4.popover-content-title {{ ctx.item.text() }}
+                h4.popover-content-title {{ getItemName(selectedDrawerItemType, ctx.item) }}
 
       sellModal(
         :item="selectedItemToSell",
         :itemType="selectedDrawerItemType",
         :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
+        :text="getItemName(selectedDrawerItemType, selectedItemToSell)",
         @change="resetItemToSell($event)"
       )
         template(slot="item", scope="ctx")
@@ -570,6 +571,16 @@ export default {
             return `Pet_HatchingPotion_${itemKey}`;
           default:
             return '';
+        }
+      },
+      getItemName (type, item) {
+        switch (type) {
+          case 'eggs':
+            return this.$t('egg', {eggType: item.text()});
+          case 'hatchingPotions':
+            return this.$t('potion', {potionType: item.text()});
+          default:
+            return item.text();
         }
       },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
