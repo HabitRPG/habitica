@@ -184,7 +184,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('excercise') }}
+            span.custom-control-description(v-once) {{ $t('exercise') }}
         div
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")

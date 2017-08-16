@@ -133,6 +133,7 @@ import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
+import _reverse from 'lodash/reverse';
 
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -229,7 +230,7 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _sortBy(items, sortGearTypeMap[sortBy]);
+      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
     },
   },
   computed: {

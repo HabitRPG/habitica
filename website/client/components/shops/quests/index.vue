@@ -62,9 +62,6 @@
       h1.mb-0.page-header(v-once) {{ $t('quests') }}
 
       .clearfix
-        h2.float-left
-          | {{ $t('items') }}
-
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)

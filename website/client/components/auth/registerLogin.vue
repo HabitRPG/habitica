@@ -33,7 +33,7 @@
       small.form-text(v-once, v-html="$t('termsAndAgreement')")
     .text-center
       .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
-      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
+      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('alreadyHaveAccountLogin')}}
       .toggle-links
         router-link(:to="{name: 'login'}", v-if='registering', exact)
           a.toggle-link(v-once) {{ $t('login') }}
