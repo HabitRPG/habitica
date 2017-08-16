@@ -142,8 +142,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
           .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
 
-    .section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.sub-menu
+    #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.sub-menu.col-6.offset-3
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
             strong(v-once) 2017
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
@@ -154,19 +154,24 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
         .col-12.row(v-for='set in sets', v-if='activeSubPage === key')
-          h2.col-12 {{set.text}}
+          .col-6.offset-3.text-center.set-title
+            strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
-          .col-12(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            button.btn.btn-primary(@click='unlock(setKeys("background", set.items))') {{ $t('unlockSet', {cost: 15}) }}
-              span.Pet_Currency_Gem1x.inline-gems
-          .col-4.customize-option(v-for='bg in set.items',
+          .col-4.text-center.customize-option(v-for='bg in set.items',
             @click='unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
-            div(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
+            .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
-            div(v-if='!user.purchased.background[bg.key]') 7 Gems
+            .purchase-single(v-if='!user.purchased.background[bg.key]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 7
+          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
+            .gem-amount
+              .svg-icon.gem(v-html='icons.gem')
+              span 15
+            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -237,12 +242,14 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           button.btn.btn-primary.next(v-once) {{$t('done')}}
 </template>
 
-<style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
-
+<style>
   #avatar-modal_modal_body {
     padding: 0;
   }
+</style>
+
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
 
   #creator-background {
     background-color: $purple-200;
@@ -382,6 +389,59 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     margin-top: 7em;
   }
 
+  #backgrounds {
+    .set-title {
+      margin-top: 3em;
+      margin-bottom: 1em;
+    }
+
+    .background {
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 2px;
+    }
+
+    .purchase-single {
+      width: 141px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0.5em;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 0 0 2px 2px;
+
+      span {
+        font-weight: bold;
+        font-size: 12px;
+        color: #24cc8f;
+      }
+
+      .gem {
+        width: 16px;
+      }
+    }
+
+    .gem {
+      margin-right: .5em;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .gem-amount {
+      margin-top: 2em;
+      margin-bottom: 1em;
+
+      .gem {
+        width: 24px;
+      }
+
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: #24cc8f;
+      }
+    }
+  }
+
   .footer {
     position: absolute;
     padding-bottom: 1em;
@@ -448,6 +508,7 @@ import accessoriesIcon from 'assets/svg/accessories.svg';
 import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
+import gem from 'assets/svg/gem.svg';
 
 export default {
   mixins: [guide],
@@ -484,6 +545,7 @@ export default {
         skinIcon,
         hairIcon,
         backgroundsIcon,
+        gem,
       }),
       modalPage: 1,
       activeTopPage: 'body',
