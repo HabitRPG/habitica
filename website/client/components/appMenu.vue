@@ -66,7 +66,7 @@ div
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
-          router-link.dropdown-item(:to="{name: 'backgrounds'}") {{ $t('backgrounds') }}
+          a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
           router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
           router-link.dropdown-item(:to="{name: 'profile'}") {{ $t('profile') }}
@@ -258,8 +258,10 @@ export default {
     showInbox () {
       this.$root.$emit('show::modal', 'inbox-modal');
     },
-    showAvatar () {
+    showAvatar (startingPage, subpage) {
       this.$store.state.avatarEditorOptions.editingUser = true;
+      this.$store.state.avatarEditorOptions.startingPage = startingPage;
+      this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('show::modal', 'avatar-modal');
     },
     async getUserGroupPlans () {

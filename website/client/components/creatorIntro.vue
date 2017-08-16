@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='true')
+b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='true')
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
@@ -153,21 +153,20 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
             strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        div(v-for='set in sets', v-if='activeSubPage === key')
-          h2 {{set.text}}
-          div(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
-          div(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            //+gemCost(7)
+        .col-12.row(v-for='set in sets', v-if='activeSubPage === key')
+          h2.col-12 {{set.text}}
+          .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+          .col-12(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
             button.btn.btn-primary(@click='unlock(setKeys("background", set.items))') {{ $t('unlockSet', {cost: 15}) }}
-             span.Pet_Currency_Gem1x.inline-gems
-          button.customize-option(v-for='bg in set.items',
-            type='button',
-            :class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]',
+              span.Pet_Currency_Gem1x.inline-gems
+          .col-4.customize-option(v-for='bg in set.items',
             @click='unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
+            div(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
+            div(v-if='!user.purchased.background[bg.key]') 7 Gems
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -240,6 +239,10 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  #avatar-modal_modal_body {
+    padding: 0;
+  }
 
   #creator-background {
     background-color: $purple-200;
@@ -428,6 +431,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
 </style>
 
 <script>
+import axios from 'axios';
 import map from 'lodash/map';
 import get from 'lodash/get';
 import { mapState } from 'client/libs/store';
@@ -490,11 +494,21 @@ export default {
     editing () {
       if (this.editing) this.modalPage = 2;
     },
+    startingPage () {
+      if (!this.$store.state.avatarEditorOptions.startingPage) return;
+      this.activeTopPage = this.$store.state.avatarEditorOptions.startingPage;
+      this.activeSubPage = this.$store.state.avatarEditorOptions.subpage;
+      this.$store.state.avatarEditorOptions.startingPage = '';
+      this.$store.state.avatarEditorOptions.subpage = '';
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
+    },
+    startingPage () {
+      return this.$store.state.avatarEditorOptions.startingPage;
     },
   },
   methods: {
@@ -540,15 +554,11 @@ export default {
       for (let key in set) {
         let value = set[key];
         if (type === 'background') key = value.key;
+
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
-      // let setOwnedByUser = find(set, (value, key) => {
-      //   console.log(type)
-      //   if (type === 'background') key = value.key;
-      //   return this.user.purchased[type][key];
-      // });
 
-      return Boolean(setOwnedByUser);
+      return setOwnedByUser
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
@@ -557,7 +567,7 @@ export default {
      */
     async unlock (path) {
       let fullSet = path.indexOf(',') !== -1;
-      let isBackground = Boolean(path.indexOf('background.'));
+      let isBackground = path.indexOf('background.') !== -1;
 
       let cost;
 
@@ -579,13 +589,17 @@ export default {
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         }
       }
-      // @TODO: Add when we implment the user calls
-      // let response = await axios.post('/api/v3/user/unlock');
-      unlock(this.user, {
-        query: {
-          path,
-        },
-      });
+
+      let response = await axios.post(`/api/v3/user/unlock?path=${path}`);
+      try {
+        unlock(this.user, {
+          query: {
+            path,
+          },
+        });
+      } catch (e) {
+        alert(e.message);
+      }
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
