@@ -250,7 +250,7 @@
         @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
-          item.flat(
+          item.flat.bordered-item(
             :item="ctx.item",
             :itemContentClass="ctx.item.class",
             :showPopover="false"
@@ -306,6 +306,11 @@
     background-color: #f9f9f9;
     margin-bottom: 24px;
     padding: 24px 24px 10px;
+  }
+
+  .item-wrapper.bordered-item .item {
+    width: 112px;
+    height: 112px;
   }
 
   .market {
