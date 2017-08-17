@@ -59,7 +59,7 @@ export default {
         },
       });
       localStorage.clear();
-      this.$router.push('/home');
+      window.location.href = '/home';
       this.$root.$emit('hide::modal', 'reset');
     },
   },
