@@ -120,7 +120,6 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
-      logger.error(err, {isUserUpdateErroringDuringCron: true});
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       await User.update({
