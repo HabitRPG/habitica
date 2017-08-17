@@ -23,7 +23,7 @@
         h4.title {{ itemText }}
         div.text(v-html="itemNotes")
 
-        slot(name="additionalInfo", :item="item")
+        questInfo.questInfo(:quest="item")
 
         div
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
@@ -81,7 +81,19 @@
 
     .inner-content {
       margin: 33px auto auto;
-      width: 282px;
+      width: 400px;
+    }
+    .text {
+      max-height: 220px;
+      margin-bottom: 8px;
+      overflow-y: scroll;
+      text-overflow: ellipsis;
+    }
+
+    .questInfo {
+      width: 70%;
+      margin: 0 auto;
+      margin-bottom: 10px;
     }
 
     .content-text {
@@ -222,12 +234,14 @@
 
   import BalanceInfo  from '../balanceInfo.vue';
   import currencyMixin from '../_currencyMixin';
+  import QuestInfo from './questInfo.vue';
 
   export default {
     mixins: [currencyMixin],
     components: {
       bModal,
       BalanceInfo,
+      QuestInfo,
     },
     data () {
       return {

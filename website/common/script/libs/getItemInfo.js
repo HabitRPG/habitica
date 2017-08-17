@@ -3,6 +3,8 @@ import content from '../content/index';
 import { BadRequest } from './errors';
 import count from '../count';
 
+import _mapValues from 'lodash/mapValues';
+
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
   if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
@@ -125,13 +127,19 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,
-        collect: item.collect,
+        collect: item.collect ? _mapValues(item.collect, (o) => {
+          return {
+            count: o.count,
+            text: o.text(),
+          };
+        }) : undefined,
         lvl: item.lvl,
         class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'quest',
       };
+
       break;
     case 'timeTravelers':
       // TODO
