@@ -353,8 +353,18 @@ export default {
         };
       }
 
-      let newgroup;
+      let categoryKeys = this.workingGuild.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let name = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name,
+        });
+      });
+      this.workingGuild.categories = serverCategories;
 
+      let newgroup;
       if (this.workingGuild.id) {
         await this.$store.dispatch('guilds:update', {group: this.workingGuild});
         // @TODO: this doesn't work because of the async resource
