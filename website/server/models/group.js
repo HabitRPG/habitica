@@ -58,6 +58,7 @@ export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
 export let schema = new Schema({
   name: {type: String, required: true},
+  summary: {type: String, maxlength: 250},
   description: String,
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
@@ -319,7 +320,7 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
 };
 
 /**
- * Checks inivtation uuids and emails for possible errors.
+ * Checks invitation uuids and emails for possible errors.
  *
  * @param  uuids  An array of user ids
  * @param  emails  An array of emails

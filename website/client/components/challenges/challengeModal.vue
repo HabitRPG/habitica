@@ -11,18 +11,13 @@
         b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
-          strong(v-once) {{$t('description')}}*
+          strong(v-once) {{$t('challengeSummary')}}*
         div.description-count.float-right {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceHolder')", v-model="workingChallenge.description")
-      .form-group
-        label
-          strong(v-once) Challenge Information*
-        a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.information-textarea(type="text", textarea,
-          :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.description")
+        b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
+        b-form-input.information-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
-          strong(v-once) {{$t('where')}}
+          strong(v-once) {{$t('challengeGuild')}}*
         select.form-control(v-model='workingChallenge.group')
           option(v-for='group in groups', :value='group._id') {{group.name}}
       .form-group(v-if='workingChallenge.categories')
@@ -285,7 +280,9 @@ export default {
       };
     },
     async createChallenge () {
+      // @TODO: make these translatable. Suggestion: `<% fieldName %> is required`
       if (!this.workingChallenge.name) alert('Name is required');
+      if (!this.workingChallenge.summary) alert('Summary is required');
       if (!this.workingChallenge.description) alert('Description is required');
 
       this.workingChallenge.timestamp = new Date().getTime();

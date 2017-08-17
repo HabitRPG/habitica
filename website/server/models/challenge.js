@@ -21,6 +21,7 @@ const Schema = mongoose.Schema;
 let schema = new Schema({
   name: {type: String, required: true},
   shortName: {type: String, required: true, minlength: 3},
+  summary: {type: String, maxlength: 250},
   description: String,
   official: {type: Boolean, default: false},
   tasksOrder: {
@@ -41,6 +42,16 @@ let schema = new Schema({
 schema.plugin(baseModel, {
   noSet: ['_id', 'memberCount', 'tasksOrder'],
   timestamps: true,
+});
+
+schema.pre('init', function(next, chal) {
+  // The Vue website makes the summary be mandatory for all new challenges, but the
+  // Angular website did not, and the API does not yet for backwards-compatibilty.
+  // When any challenge without a summary is fetched from the database, this code
+  // supplies the name as the summary. This can be removed when all challenges have
+  // a summary and the API makes it mandatory (a breaking change!)
+  chal.summary = chal.summary || chal.name;
+  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
