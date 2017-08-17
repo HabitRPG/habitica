@@ -52,6 +52,9 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
+      .item-with-icon(v-if="userHourglasses != 0")
+        .svg-icon(v-html="icons.hourglasses")
+        span {{ userHourglasses }}
       .item-with-icon
         .svg-icon(v-html="icons.gem")
         span {{userGems | roundBigNumber}}
@@ -219,6 +222,7 @@ import { mapState, mapGetters } from 'client/libs/store';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import userIcon from 'assets/svg/user.svg';
+import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
@@ -236,6 +240,7 @@ export default {
         gem: gemIcon,
         gold: goldIcon,
         user: userIcon,
+        hourglasses: svgHourglasses,
         logo,
       }),
       groupPlans: [],
@@ -245,7 +250,10 @@ export default {
     ...mapGetters({
       userGems: 'user:gems',
     }),
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
+    }),
   },
   mounted () {
     this.getUserGroupPlans();
