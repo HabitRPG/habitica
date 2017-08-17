@@ -5,7 +5,6 @@ import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
 import { v4 as uuid } from 'uuid';
-import logger from '../libs/logger';
 
 async function checkForActiveCron (user, now) {
   let _cronSignature = uuid();
