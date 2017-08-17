@@ -297,6 +297,7 @@ export default {
       this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
       this.$emit('updatedChallenge', {
