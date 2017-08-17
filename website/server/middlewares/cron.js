@@ -127,10 +127,7 @@ async function cronAsync (req, res) {
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
-      }).exec()
-      .catch((newError) => {
-        logger.error(newError, {isUserUpdateErroringDuringCron: true});
-      });
+      }).exec();
 
       throw err; // re-throw the original error
     }
