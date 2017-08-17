@@ -5,7 +5,6 @@ import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
 import { v4 as uuid } from 'uuid';
-import logger from '../libs/logger';
 
 async function checkForActiveCron (user, now) {
   let _cronSignature = uuid();
@@ -120,17 +119,13 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
-      logger.error(err, {isUserUpdateErroringDuringCron: true});
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       await User.update({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
-      }).exec()
-      .catch((newError) => {
-        logger.error(newError, {isUserUpdateErroringDuringCron: true});
-      });
+      }).exec();
 
       throw err; // re-throw the original error
     }
