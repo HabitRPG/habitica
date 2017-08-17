@@ -571,6 +571,12 @@ let shield = {
     mystery: '201701',
     value: 0,
   },
+  201708: {
+    text: t('shieldMystery201708Text'),
+    notes: t('shieldMystery201708Notes'),
+    mystery: '201708',
+    value: 0,
+  },
   301405: {
     text: t('shieldMystery301405Text'),
     notes: t('shieldMystery301405Notes'),
@@ -608,6 +614,12 @@ let weapon = {
     text: t('weaponMystery201611Text'),
     notes: t('weaponMystery201611Notes'),
     mystery: '201611',
+    value: 0,
+  },
+  201708: {
+    text: t('weaponMystery201708Text'),
+    notes: t('weaponMystery201708Notes'),
+    mystery: '201708',
     value: 0,
   },
   301404: {

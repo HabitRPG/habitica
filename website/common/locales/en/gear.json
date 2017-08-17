@@ -249,6 +249,8 @@
   "weaponMystery201505Notes": "This green and silver lance has unseated many opponents from their mounts. Confers no benefit. May 2015 Subscriber Item.",
   "weaponMystery201611Text": "Copious Cornucopia",
   "weaponMystery201611Notes": "All manner of delicious and wholesome foods spill forth from this horn. Enjoy the feast! Confers no benefit. November 2016 Subscriber Item.",
+  "weaponMystery201708Text": "Lava Sword",
+  "weaponMystery201708Notes": "The fiery glow of this sword will make quick work of even dark red Tasks! Confers no benefit. August 2017 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -660,7 +662,7 @@
   "armorArmoireAntiProcrastinationArmorText": "Anti-Procrastination Armor",
   "armorArmoireAntiProcrastinationArmorNotes": "Infused with ancient productivity spells, this steel armor will give you extra strength to battle your tasks. Increases Strength by <%= str %>. Enchanted Armoire: Anti-Procrastination Set (Item 2 of 3).",
   "armorArmoireYellowPartyDressText": "Yellow Party Dress",
-  "armorArmoireYellowPartyDressNotes": "Yellow Party Dress: You're perceptive, strong, smart, and so fashionable! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Yellow Hairbow Set (Item 2 of 2).",
+  "armorArmoireYellowPartyDressNotes": "You're perceptive, strong, smart, and so fashionable! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Yellow Hairbow Set (Item 2 of 2).",
 
   "headgear": "headgear",
   "headgearCapitalized": "Headgear",
@@ -1193,6 +1195,8 @@
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
   "shieldMystery201701Notes": "Freeze time in its tracks and conquer your tasks! Confers no benefit. January 2017 Subscriber Item.",
+  "shieldMystery201708Text": "Lava Shield",
+  "shieldMystery201708Notes": "This rugged shield of molten rock protects you from bad Habits but won't singe your hands. August 2017 Subscriber Item.",
   "shieldMystery301405Text": "Clock Shield",
   "shieldMystery301405Notes": "Time is on your side with this towering clock shield! Confers no benefit. June 3015 Subscriber Item.",
   "shieldMystery301704Text": "Fluttery Fan",
