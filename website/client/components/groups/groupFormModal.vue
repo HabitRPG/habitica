@@ -100,6 +100,10 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  .svg-icon {
+    width: 16px;
+  }
+
   textarea {
     height: 150px;
   }
