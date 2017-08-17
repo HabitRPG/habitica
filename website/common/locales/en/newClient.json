@@ -120,7 +120,7 @@
   "loginWithSocial": "Login with <%= social %>",
   "confirmPassword": "Confirm Password",
   "usernamePlaceholder": "e.g., HabitRabbit",
-  "emailPlaceholder": "e.g., rabbit@habitica.com",
+  "emailPlaceholder": "e.g., rabbit@example.com",
   "passwordPlaceholder": "e.g., •••••••••••• ",
   "confirmPasswordPlaceholder": "Make sure it’s the same password!",
   "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",

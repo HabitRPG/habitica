@@ -18,9 +18,12 @@
         .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once)
           .svg-icon.social-icon(v-html="icons.googleIcon")
           span {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
-    .form-group
+    .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
+    .form-group(v-if='!registering')
+      label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
+      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
     .form-group(v-if='registering')
       label(for='emailInput', v-once) {{$t('email')}}
       input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
@@ -33,10 +36,10 @@
       small.form-text(v-once, v-html="$t('termsAndAgreement')")
     .text-center
       .btn.btn-info(@click='register()', v-if='registering', v-once) {{$t('joinHabitica')}}
-      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('alreadyHaveAccountLogin')}}
+      .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
       .toggle-links
         router-link(:to="{name: 'login'}", v-if='registering', exact)
-          a.toggle-link(v-once) {{ $t('login') }}
+          a.toggle-link(v-once) {{ $t('alreadyHaveAccountLogin') }}
         router-link(:to="{name: 'register'}",  v-if='!registering', exact)
           a.toggle-link(v-once) Don't have an account? Join Habitica!
 
