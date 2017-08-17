@@ -119,6 +119,16 @@ describe('GET challenges/user', () => {
       });
     });
 
+    it('should return not return challenges in user groups if we send member true param', async () => {
+      let challenges = await member.get(`/challenges/user?member=${true}`);
+
+      let foundChallenge1 = _.find(challenges, { _id: challenge._id });
+      expect(foundChallenge1).to.not.exist;
+
+      let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
+      expect(foundChallenge2).to.not.exist;
+    });
+
     it('should return newest challenges first', async () => {
       let challenges = await user.get('/challenges/user');
 

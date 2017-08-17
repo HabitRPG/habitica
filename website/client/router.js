@@ -186,7 +186,7 @@ const router = new VueRouter({
         },
         {
           name: 'challenge',
-          path: 'challenges/:challengeId',
+          path: ':challengeId',
           component: ChallengeDetail,
           props: true,
         },

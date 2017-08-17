@@ -1,7 +1,8 @@
 <template lang="pug">
 .card
-  router-link(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-    h3 {{challenge.name}}
+  .row
+    router-link.col-12(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
+      h3 {{challenge.name}}
   .row
     .col-6
       div.details
@@ -24,7 +25,6 @@
   .row.description
     .col-12
       | {{challenge.description}}
-  .container.well-wrapper
   .well.row
     .col-3
       .count-details
@@ -48,7 +48,7 @@
       div {{$t('reward')}}
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .card {
@@ -104,7 +104,6 @@
 
     .description {
       color: $gray-200;
-      margin-top: 2em;
       margin-bottom: 2em;
       overflow: hidden;
     }
@@ -142,8 +141,8 @@
         width: 26px;
       }
 
-      .count-details {
-        padding-left: 1em;
+      .count-details span {
+        margin-right: .5em;
       }
 
       .count {

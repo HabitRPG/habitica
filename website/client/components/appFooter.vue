@@ -65,7 +65,7 @@
             .social-circle
               a(href='https://twitter.com/habitica', target='_blank')
                 .social-icon.svg-icon(v-html='icons.twitter')
-            .social-circle
+            // @TODO: Not ready yet .social-circle
               a(href='https://www.instagram.com/habitica/', target='_blank')
                 .social-icon.svg-icon.instagram(v-html='icons.instagram')
             .social-circle
