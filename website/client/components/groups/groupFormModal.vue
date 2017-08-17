@@ -89,12 +89,12 @@
             button(@click.prevent='addMemberToInvite()') Add
 
       .form-group.text-center
-        div.item-with-icon(v-if='!creatingParty')
+        div.item-with-icon(v-if='!creatingParty && !workingGuild.id')
           .svg-icon(v-html="icons.gem")
           span.count 4
         button.btn.btn-primary.btn-md(v-if='!workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
         button.btn.btn-primary.btn-md(v-if='workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
-        .gem-description(v-once, v-if='!creatingParty') {{ $t('guildGemCostInfo') }}
+        .gem-description(v-once, v-if='!creatingParty && !workingGuild.id') {{ $t('guildGemCostInfo') }}
 </template>
 
 <style lang="scss" scoped>
