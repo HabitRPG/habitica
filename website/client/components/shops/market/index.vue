@@ -99,6 +99,7 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
+        :noItemsLabel="$t('noGearItemsOfClass')"
       )
         template(slot="item", scope="ctx")
           shopItem(
