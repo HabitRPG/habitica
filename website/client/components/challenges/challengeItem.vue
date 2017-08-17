@@ -104,7 +104,6 @@
 
     .description {
       color: $gray-200;
-      margin-top: 2em;
       margin-bottom: 2em;
       overflow: hidden;
     }
