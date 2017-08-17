@@ -11,7 +11,7 @@
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
+        button.btn.btn-secondary.create-challenge-button.float-right(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
 
@@ -153,7 +153,9 @@ export default {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     async loadchallanges () {
-      this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+      this.challenges = await this.$store.dispatch('challenges:getUserChallenges', {
+        member: true,
+      });
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
