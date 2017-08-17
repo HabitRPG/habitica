@@ -259,7 +259,7 @@ export default {
     async leaveChallenge () {
       let keepChallenge = confirm('Do you want to keep challenge tasks?');
       let keep = 'keep-all';
-      if (!keep) keep = 'remove-all';
+      if (!keepChallenge) keep = 'remove-all';
 
       let index = findIndex(this.user.challenges, (challengeId) => {
         return challengeId === this.challengeId;
