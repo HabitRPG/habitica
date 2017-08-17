@@ -20,7 +20,7 @@ div
       .col-12
         strong(v-once) {{$t('doYouWantedToDeleteChallenge')}}
       .col-12
-        button.btn.btn-danger(v-once) {{$t('deleteChallenge')}}
+        button.btn.btn-danger(v-once, @click='deleteChallenge()') {{$t('deleteChallenge')}}
     .footer-wrap(slot="modal-footer")
 </template>
 
