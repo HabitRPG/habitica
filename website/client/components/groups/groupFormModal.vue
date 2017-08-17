@@ -49,7 +49,7 @@
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
         textarea.form-control(:placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
 
-      .form-group(v-if='workingGuild.id && !creatingParty')
+      .form-group(v-if='!creatingParty')
         label
           strong(v-once) {{$t('guildInformation')}}*
         textarea.form-control(:placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
