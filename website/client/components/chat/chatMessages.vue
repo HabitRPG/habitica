@@ -27,7 +27,7 @@
           span.action( @click='copyAsTodo(msg)')
             .svg-icon(v-html="icons.copy")
             | {{$t('copyAsTodo')}}
-          span.action(v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+          span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
             .svg-icon(v-html="icons.report")
             | {{$t('report')}}
           span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
