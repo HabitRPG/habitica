@@ -33,7 +33,7 @@
           span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
             .svg-icon(v-html="icons.delete")
             | {{$t('delete')}}
-          span.action.float-right
+          span.action.float-right(v-if='likeCount(msg) > 0')
             .svg-icon(v-html="icons.liked")
             | + {{ likeCount(msg) }}
 </template>
