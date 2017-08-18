@@ -106,7 +106,19 @@
     .section-header
       .row
         .col-10
-          h3(v-once) {{ $t('description') }}
+          h3(v-once) {{ $t('guildSummary') }}
+        .col-2
+          .toggle-up(@click="sections.summary = !sections.summary", v-if="sections.summary")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
+            .svg-icon(v-html="icons.downIcon")
+      .section(v-if="sections.summary")
+        p(v-once) {{ group.summary }}
+
+    .section-header
+      .row
+        .col-10
+          h3(v-once) {{ $t('groupDescription') }}
         .col-2
           .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
             .svg-icon(v-html="icons.upIcon")
@@ -114,18 +126,6 @@
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p(v-once) {{ group.description }}
-
-    .section-header
-      .row
-        .col-10
-          h3(v-once) {{ $t('guildInformation') }}
-        .col-2
-          .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.information")
-        p(v-once) {{ group.information }}
 
     .section-header.challenge
       .row
@@ -439,8 +439,8 @@ export default {
       selectedQuest: {},
       sections: {
         quest: true,
+        summary: true,
         description: true,
-        information: true,
         challenges: true,
       },
       newMessage: '',

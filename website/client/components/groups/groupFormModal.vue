@@ -43,16 +43,18 @@
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('allowGuildInvationsFromNonMembers') }}
 
-      .form-group
-        label
-          strong(v-once) {{$t('description')}} *
-        div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
-
       .form-group(v-if='workingGuild.id && !creatingParty')
         label
-          strong(v-once) {{$t('guildInformation')}} *
-        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
+          strong(v-once) {{$t('guildSummary')}} *
+        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        b-form-input.summary-textarea(type="text", textarea, :placeholder="$t('guildSummaryPlaceholder')", v-model="workingGuild.summary")
+        // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
+
+      .form-group
+        label
+          strong(v-once) {{$t('groupDescription')}} *
+        a.float-right {{ $t('markdownFormattingHelp') }}
+        b-form-input.description-textarea(type="text", textarea, :placeholder="creatingParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGuild.description")
 
       .form-group(v-if='creatingParty && !workingGuild.id')
         span
@@ -74,11 +76,12 @@
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
+        // @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
       .form-group(v-if='inviteMembers && !workingGuild.id')
         label
           strong(v-once) Invite via Email or User ID
-          p Invite users via a valid email or 36-digit User ID. If an email isn’t registered yet, we’ll invite them to join.
+          p(v-once) {{$t('inviteMembersHowTo')}} *
 
         div
           div(v-for='(member, index) in membersToInvite')
@@ -104,19 +107,27 @@
     height: 150px;
   }
 
-  .description-count, .gem-description {
+  .summary-count, .gem-description {
     font-size: 12px;
     line-height: 1.33;
-    text-align: center;
+    margin-top: 1em;
     color: $gray-200;
   }
 
-  .description-count {
+  .summary-count {
     text-align: right;
   }
 
   .gem-description {
-    margin-top: 1em;
+    text-align: center;
+  }
+
+  .summary-textarea {
+    height: 90px;
+  }
+
+  .description-textarea {
+    height: 220px;
   }
 
   .item-with-icon {
@@ -133,10 +144,6 @@
       margin-right: 1em;
       color: $green-10;
     }
-  }
-
-  .description-count {
-    margin-top: 1em;
   }
 
   .icon {
@@ -156,6 +163,8 @@ import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
+
+import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 
 // @TODO: Not sure the best way to pass party creating status
 // Since we need the modal in the header, passing props doesn't work
@@ -180,8 +189,8 @@ export default {
         name: '',
         type: 'guild',
         privacy: 'private',
+        summary: '',
         description: '',
-        guildInformation: '',
         categories: [],
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
@@ -286,7 +295,8 @@ export default {
   },
   computed: {
     charactersRemaining () {
-      return 500 - this.workingGuild.description.length;
+      let currentLength = this.workingGuild.summary ? this.workingGuild.summary.length : 0;
+      return MAX_SUMMARY_SIZE_FOR_GUILDS - currentLength;
     },
     title () {
       if (this.creatingParty) return this.$t('createParty');
@@ -329,14 +339,20 @@ export default {
       }
 
       if (!this.workingGuild.name || !this.workingGuild.description) {
-        // @TODO: Add proper notifications
+        // @TODO: Add proper notifications - split this out into two, make errors translatable. Suggestion: `<% fieldName %> is required` for all errors where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
         alert('Enter a name and description');
         return;
       }
 
-      if (this.workingGuild.description.length > 500) {
-        // @TODO: Add proper notifications
-        alert('Description is too long');
+      if (!this.workingGuild.summary) {
+        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
+        alert('Enter a summary');
+        return;
+      }
+
+      if (this.workingGuild.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) {
+        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
+        alert('Summary is too long');
         return;
       }
 
