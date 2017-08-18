@@ -18,10 +18,13 @@ import { syncableAttrs } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 
+const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = shared.constants.MIN_SHORTNAME_SIZE_FOR_CHALLENGES;
+const MAX_SUMMARY_SIZE_FOR_CHALLENGES = shared.constants.MAX_SUMMARY_SIZE_FOR_CHALLENGES;
+
 let schema = new Schema({
   name: {type: String, required: true},
-  shortName: {type: String, required: true, minlength: 3},
-  summary: {type: String, maxlength: 250},
+  shortName: {type: String, required: true, minlength: MIN_SHORTNAME_SIZE_FOR_CHALLENGES},
+  summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_CHALLENGES},
   description: String,
   official: {type: Boolean, default: false},
   tasksOrder: {
@@ -50,7 +53,8 @@ schema.pre('init', function(next, chal) {
   // When any challenge without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all challenges have
   // a summary and the API makes it mandatory (a breaking change!)
-  chal.summary = chal.summary || chal.name;
+  var defaultSummary = (chal.name) ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
+  chal.summary = chal.summary || defaultSummary;
   next();
 });
 
@@ -102,6 +106,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   if (i !== -1) {
     if (userTags[i].name !== challenge.shortName) {
       // update the name - it's been changed since
+      // @TODO: We probably want to remove this. Owner is not allowed to change participant's copy of the tag.
       userTags[i].name = challenge.shortName;
     }
   } else {

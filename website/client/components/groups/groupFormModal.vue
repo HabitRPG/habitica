@@ -3,18 +3,18 @@
     form(@submit.stop.prevent="submit")
       .form-group
         label
-          strong(v-once) {{$t('name')}}*
+          strong(v-once) {{$t('name')}} *
         b-form-input(type="text", :placeholder="$t('newGuildPlaceHolder')", v-model="workingGuild.name")
 
       .form-group(v-if='workingGuild.id && members.length > 0')
         label
-          strong(v-once) {{$t('guildLeader')}}*
+          strong(v-once) {{$t('guildLeader')}} *
         select.form-control(v-model="workingGuild.newLeader")
           option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
       .form-group
         label
-          strong(v-once) {{$t('privacySettings')}}*
+          strong(v-once) {{$t('privacySettings')}} *
         br
         label.custom-control.custom-checkbox
           input.custom-control-input(type="checkbox", v-model="workingGuild.onlyLeaderCreatesChallenges")
@@ -45,13 +45,13 @@
 
       .form-group
         label
-          strong(v-once) {{$t('description')}}*
+          strong(v-once) {{$t('description')}} *
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
 
       .form-group(v-if='workingGuild.id && !creatingParty')
         label
-          strong(v-once) {{$t('guildInformation')}}*
+          strong(v-once) {{$t('guildInformation')}} *
         b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
 
       .form-group(v-if='creatingParty && !workingGuild.id')
@@ -60,7 +60,7 @@
 
       .form-group(style='position: relative;', v-if='!creatingParty')
         label
-          strong(v-once) {{$t('categories')}}*
+          strong(v-once) {{$t('categories')}} *
         div.category-wrap(@click.prevent="toggleCategorySelect")
           span.category-select(v-if='workingGuild.categories.length === 0') {{$t('none')}}
           .category-label(v-for='category in workingGuild.categories') {{$t(categoriesHashByKey[category])}}
