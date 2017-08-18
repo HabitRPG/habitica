@@ -12,7 +12,9 @@
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .col-2
-      avatar(v-if='cachedProfileData[msg.uuid]', :member="cachedProfileData[msg.uuid]", :avatarOnly="true")
+      avatar(v-if='cachedProfileData[msg.uuid]',
+        :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
+        :hideClassBadge='true')
 
     .card.col-10
       .card-block
