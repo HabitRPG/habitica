@@ -197,6 +197,7 @@
 
   .grassy-meadow-backdrop {
     background-image: url('~assets/images/tavern_backdrop_web.png');
+    background-size: cover;
     width: 100%;
     height: 246px;
   }
