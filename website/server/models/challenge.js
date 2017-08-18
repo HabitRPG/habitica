@@ -53,8 +53,9 @@ schema.pre('init', function(next, chal) {
   // When any challenge without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all challenges have
   // a summary and the API makes it mandatory (a breaking change!)
-  var defaultSummary = (chal.name) ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
-  chal.summary = chal.summary || defaultSummary;
+  if (!chal.summary) {
+    chal.summary = (chal.name) ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
+  }
   next();
 });
 

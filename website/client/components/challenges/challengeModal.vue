@@ -36,7 +36,7 @@
             :key="group.key",
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value='group.key' v-model="workingChallenge.categories")
+              input.custom-control-input(type="checkbox", :value="group.key" v-model="workingChallenge.categories")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
@@ -295,7 +295,7 @@ export default {
       };
     },
     async createChallenge () {
-      // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible
+      // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
       let errors = '';
       if (!this.workingChallenge.name) errors += 'Name is required\n';
       if (this.workingChallenge.shortName.length < MIN_SHORTNAME_SIZE_FOR_CHALLENGES) errors += 'Tag name is too short\n';
