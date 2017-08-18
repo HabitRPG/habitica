@@ -362,10 +362,10 @@ export default {
       let categoryKeys = this.workingGuild.categories;
       let serverCategories = [];
       categoryKeys.forEach(key => {
-        let name = this.categoriesHashByKey[key];
+        let catName = this.categoriesHashByKey[key];
         serverCategories.push({
           slug: key,
-          name,
+          name: catName,
         });
       });
       this.workingGuild.categories = serverCategories;
