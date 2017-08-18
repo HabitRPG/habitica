@@ -28,7 +28,7 @@ export default {
       let isLeader = true;
       let correctSize = true;
 
-      if (group._id === this.$store.state.constants.TAVERN_ID) return false;
+      if (group._id === this.$store.state.constants.TAVERN_ID || group._id === 'habitrpg') return false;
 
       if (search) {
         passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;

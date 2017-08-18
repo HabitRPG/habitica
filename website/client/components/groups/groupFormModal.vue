@@ -47,12 +47,12 @@
         label
           strong(v-once) {{$t('description')}}*
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input(type="text", textarea :placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
+        textarea.form-control(:placeholder="creatingParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
 
-      .form-group(v-if='workingGuild.id && !creatingParty')
+      .form-group(v-if='!creatingParty')
         label
           strong(v-once) {{$t('guildInformation')}}*
-        b-form-input(type="text", textarea, :placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
+        textarea.form-control(:placeholder="$t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
 
       .form-group(v-if='creatingParty && !workingGuild.id')
         span
@@ -89,16 +89,20 @@
             button(@click.prevent='addMemberToInvite()') Add
 
       .form-group.text-center
-        div.item-with-icon(v-if='!creatingParty')
+        div.item-with-icon(v-if='!creatingParty && !workingGuild.id')
           .svg-icon(v-html="icons.gem")
           span.count 4
         button.btn.btn-primary.btn-md(v-if='!workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
         button.btn.btn-primary.btn-md(v-if='workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
-        .gem-description(v-once, v-if='!creatingParty') {{ $t('guildGemCostInfo') }}
+        .gem-description(v-once, v-if='!creatingParty && !workingGuild.id') {{ $t('guildGemCostInfo') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .svg-icon {
+    width: 16px;
+  }
 
   textarea {
     height: 150px;
@@ -279,6 +283,8 @@ export default {
       this.workingGuild.type = editingGroup.type;
       this.workingGuild.privacy = editingGroup.privacy;
       if (editingGroup.description) this.workingGuild.description = editingGroup.description;
+      if (editingGroup.information) this.workingGuild.information = editingGroup.information;
+      if (editingGroup.summary) this.workingGuild.summary = editingGroup.summary;
       if (editingGroup._id) this.workingGuild.id = editingGroup._id;
       if (editingGroup.leader._id) this.workingGuild.newLeader = editingGroup.leader._id;
       if (editingGroup._id) this.getMembers();
@@ -353,10 +359,21 @@ export default {
         };
       }
 
-      let newgroup;
+      let categoryKeys = this.workingGuild.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let catName = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name: catName,
+        });
+      });
+      this.workingGuild.categories = serverCategories;
 
+      let newgroup;
       if (this.workingGuild.id) {
         await this.$store.dispatch('guilds:update', {group: this.workingGuild});
+        this.$root.$emit('updatedGroup', this.workingGuild);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
