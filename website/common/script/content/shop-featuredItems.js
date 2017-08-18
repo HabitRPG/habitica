@@ -15,19 +15,19 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'quest',
+      type: 'quests',
       path: 'quests.gryphon',
     },
     {
-      type: 'quest',
+      type: 'quests',
       path: 'quests.dilatoryDistress1',
     },
     {
-      type: 'quest',
+      type: 'quests',
       path: 'quests.nudibranch',
     },
     {
-      type: 'quest',
+      type: 'quests',
       path: 'quests.taskwoodsTerror1',
     },
   ],

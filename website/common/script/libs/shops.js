@@ -150,7 +150,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-        return getItemInfo(user, 'quest', quest, language);
+        return getItemInfo(user, 'quests', quest, language);
       });
 
     categories.push(category);

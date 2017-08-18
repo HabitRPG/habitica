@@ -113,7 +113,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         pinType: 'questBundle',
       };
       break;
-    case 'quest': // eslint-disable-line no-case-declarations
+    case 'quests': // eslint-disable-line no-case-declarations
       const locked = lockQuest(item, user);
 
       itemInfo = {
@@ -137,7 +137,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
-        pinType: 'quest',
+        pinType: 'quests',
       };
 
       break;
