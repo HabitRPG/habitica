@@ -1,6 +1,6 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
-  .character-sprites
+  .character-sprites(:style='{margin}')
     template(v-if="!avatarOnly")
       // Mount Body
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
@@ -40,8 +40,8 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  .class-badge.d-flex.justify-content-center(v-if="hasClass")
-    .align-self-center.svg-icon(v-html="icons[member.stats.class]")
+  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideAvatarClass")
+    .align-self-center.svg-icon(v-html='icons[member.stats.class]')
 </template>
 
 <style lang="scss" scoped>
@@ -56,7 +56,6 @@
   }
 
   .character-sprites {
-    margin: 0 auto 0 24px;
     width: 90px;
     height: 90px;
   }
@@ -119,6 +118,16 @@ export default {
       type: Number,
       default: 147,
     },
+    hideAvatarClass: {
+      type: Boolean,
+    },
+    margin: {
+      type: String,
+      default: '0 auto 0 24px',
+    },
+    overrideTopPadding: {
+      type: String,
+    },
   },
   data () {
     return {
@@ -138,6 +147,10 @@ export default {
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
+      if (this.overrideTopPadding) {
+        return this.overrideTopPadding;
+      }
+
       let val = '28px';
 
       if (!this.avatarOnly) {

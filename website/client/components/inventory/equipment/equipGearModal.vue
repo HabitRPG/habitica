@@ -65,6 +65,11 @@
       cursor: inherit;
     }
 
+    .character-sprites {
+      margin-top: 0px;
+      margin-left: -1px;
+    }
+
     .content-text {
       font-family: 'Roboto', sans-serif;
       font-size: 14px;
