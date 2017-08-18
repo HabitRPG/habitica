@@ -478,6 +478,10 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+
+      // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+      let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
+      this.group.chat = chat;
     },
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
