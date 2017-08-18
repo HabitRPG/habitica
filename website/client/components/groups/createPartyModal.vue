@@ -21,7 +21,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
       .share-userid-options(v-if="shareUserIdShown")
         .option-item(v-once)
           .svg-icon(v-html="icons.copy")
-          | {{$t('copy')}}
+          | Copy User ID
         .option-item(v-once)
           .svg-icon(v-html="icons.greyBadge")
           | {{$t('lookingForGroup')}}
@@ -30,10 +30,10 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
           | {{$t('qrCode')}}
         .option-item(v-once)
           .svg-icon.facebook(v-html="icons.facebook")
-          | {{$t('facebook')}}
+          | Facebook
         .option-item(v-once)
           .svg-icon(v-html="icons.twitter")
-          | {{$t('twitter')}}
+          | Twitter
 </template>
 
 <style>
@@ -105,7 +105,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
   .share-userid-options {
     background-color: $white;
     border-radius: 2px;
-    width: 180px;
+    width: 220px;
     position: absolute;
     top: -8em;
     left: 4.8em;
@@ -116,6 +116,9 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 
       .svg-icon {
         margin-right: .5em;
+        width: 20px;
+        display: inline-block;
+        vertical-align: bottom;
       }
 
       .facebook svg {
