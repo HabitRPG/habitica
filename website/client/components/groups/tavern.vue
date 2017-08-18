@@ -350,10 +350,10 @@ export default {
           name: 'beffymaroo',
           type: 'Staff',
         },
-        {
-          name: 'lefnire',
-          type: 'Staff',
-        },
+        // {
+        //   name: 'lefnire',
+        //   type: 'Staff',
+        // },
         {
           name: 'Lemoness',
           type: 'Staff',
@@ -398,10 +398,10 @@ export default {
           name: 'Cantras',
           type: 'Moderator',
         },
-        {
-          name: 'Daniel the Bard',
-          type: 'Moderator',
-        },
+        // {
+        //   name: 'Daniel the Bard',
+        //   type: 'Moderator',
+        // },
         {
           name: 'deilann 5.0.5b',
           type: 'Moderator',
