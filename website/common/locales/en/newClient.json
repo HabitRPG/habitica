@@ -285,5 +285,6 @@
   "sortByName": "Name",
   "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch.",
   "welcomeBack": "Welcome back!",
-  "checkOffYesterDailies": "Check off any Dailies you did yesterday:"
+  "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
+  "introTour": "Here we are! I’ve filled out some Tasks for you based on your interests, so you can get started right away. Click a Task to edit or add new Tasks to fit your routine!"
 }
