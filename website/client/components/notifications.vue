@@ -238,8 +238,8 @@ export default {
         // @TODO: This is a timeout to ensure dom is loaded
         window.setTimeout(() => {
           this.initTour();
-          // if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-          this.goto('intro', 0, true);
+          if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+          this.goto('intro', 0);
         }, 2000);
 
         this.runYesterDailies();
