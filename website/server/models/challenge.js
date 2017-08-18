@@ -47,14 +47,14 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.pre('init', function(next, chal) {
+schema.pre('init', function ensureSummaryIsFetched (next, chal) {
   // The Vue website makes the summary be mandatory for all new challenges, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any challenge without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all challenges have
   // a summary and the API makes it mandatory (a breaking change!)
   if (!chal.summary) {
-    chal.summary = (chal.name) ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
+    chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
   next();
 });
