@@ -48,7 +48,7 @@
             :item="context.item",
             :key="context.item.key",
             :itemContentClass="`${group.classPrefix}${context.item.key}`",
-            :highlightBorder="currentDraggingPotion != null",
+            :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
             v-drag.drop.hatch="context.item.key",
 
             @itemDragOver="onDragOver($event, context.item)",
@@ -143,12 +143,12 @@
     }
 
     .potion-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
     }
 
     .popover {
       position: inherit;
-      width: 100px;
+      width: 180px;
     }
   }
 </style>
@@ -264,7 +264,7 @@ export default {
     },
   },
   methods: {
-    petExists (potionKey, eggKey) {
+    userHasPet (potionKey, eggKey) {
       let animalKey = `${eggKey}-${potionKey}`;
 
       let result =  this.user.items.pets[animalKey] > 0;
@@ -290,10 +290,20 @@ export default {
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
 
-    onDragOver ($event, egg) {
-      let potionKey = this.currentDraggingPotion.key;
+    isHatchable (potion, eggKey) {
+      if (potion === null)
+        return false;
 
-      if (this.petExists(potionKey, egg.key)) {
+      let petKey = `${eggKey}-${potion.key}`;
+
+      if (!this.content.petInfo[petKey])
+        return false;
+
+      return !this.userHasPet(potion.key, eggKey);
+    },
+
+    onDragOver ($event, egg) {
+      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
         $event.dropable = false;
       }
     },
@@ -309,7 +319,7 @@ export default {
         return;
       }
 
-      if (!this.petExists(this.currentDraggingPotion.key, egg.key)) {
+      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
         this.hatchPet(this.currentDraggingPotion, egg);
       }
 
