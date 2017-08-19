@@ -8,17 +8,18 @@
       .form-group
         label
           strong(v-once) {{$t('shortName')}}*
-        b-form-input(type="text", :placeholder="$t('challengeNamePlaceHolder')", v-model="workingChallenge.shortName")
+        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
           strong(v-once) {{$t('description')}}*
         div.description-count.float-right {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceHolder')", v-model="workingChallenge.description")
-      // @TODO: Implemenet in V2 .form-group
+      .form-group
         label
-          strong(v-once) {{$t('guildInformation')}}*
+          strong(v-once) Challenge Information*
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.information-textarea(type="text", textarea, :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.information")
+        b-form-input.information-textarea(type="text", textarea,
+          :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
           strong(v-once) {{$t('where')}}
@@ -47,7 +48,7 @@
       .form-group
         label
           strong(v-once) {{$t('prize')}}
-        input(type='number', min='1', :max='maxPrize')
+        input(type='number', min='1', :max='maxPrize', v-model="workingChallenge.prize")
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
@@ -110,7 +111,8 @@
     }
 
     .category-box {
-      top: -40px !important;
+      top: -120px !important;
+      z-index: 10;
     }
   }
 </style>
@@ -135,48 +137,60 @@ export default {
   data () {
     let categoryOptions = [
       {
-        label: 'animals',
-        key: 'animals',
+        label: 'habitica_official',
+        key: 'habitica_official',
       },
       {
-        label: 'artDesign',
-        key: 'art_design',
+        label: 'academics',
+        key: 'academics',
       },
       {
-        label: 'booksWriting',
-        key: 'books_writing',
+        label: 'advocacy_causes',
+        key: 'advocacy_causes',
       },
       {
-        label: 'comicsHobbies',
-        key: 'comics_hobbies',
+        label: 'creativity',
+        key: 'creativity',
       },
       {
-        label: 'diyCrafts',
-        key: 'diy_crafts',
+        label: 'entertainment',
+        key: 'entertainment',
       },
       {
-        label: 'education',
-        key: 'education',
+        label: 'finance',
+        key: 'finance',
       },
       {
-        label: 'foodCooking',
-        key: 'food_cooking',
-      },
-      {
-        label: 'healthFitness',
+        label: 'health_fitness',
         key: 'health_fitness',
       },
       {
-        label: 'music',
-        key: 'music',
+        label: 'hobbies_occupations',
+        key: 'hobbies_occupations',
       },
       {
-        label: 'relationship',
-        key: 'relationship',
+        label: 'location_based',
+        key: 'location_based',
       },
       {
-        label: 'scienceTech',
-        key: 'science_tech ',
+        label: 'mental_health',
+        key: 'mental_health ',
+      },
+      {
+        label: 'getting_organized',
+        key: 'getting_organized ',
+      },
+      {
+        label: 'self_improvement',
+        key: 'self_improvement ',
+      },
+      {
+        label: 'spirituality',
+        key: 'spirituality ',
+      },
+      {
+        label: 'time_management',
+        key: 'time_management',
       },
     ];
     let hashedCategories = {};
@@ -205,11 +219,13 @@ export default {
     });
 
     this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-    let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
-    this.groups.push({
-      name: party.name,
-      _id: party._id,
-    });
+    if (this.user.party._id) {
+      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+      this.groups.push({
+        name: party.name,
+        _id: party._id,
+      });
+    }
 
     this.groups.push({
       name: 'Public',
@@ -275,9 +291,13 @@ export default {
       this.workingChallenge.timestamp = new Date().getTime();
 
       let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      // @TODO: When to remove from guild instead?
+      this.user.balance -= this.workingChallenge.prize / 4;
+
       this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
       this.$emit('updatedChallenge', {

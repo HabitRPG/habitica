@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  buy-gems-modal
   modify-inventory
   footer.container-fluid
     .row
@@ -59,50 +60,57 @@
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') Guidance for Blacksmiths
               li
                 a(href='http://devs.habitica.com/', target='_blank') The Forge - Developer Blog
-          .col-6
+          .col-6.social
             h3 Social
             .social-circle
-              a(href='https://twitter.com/habitica', target='_blank') Twitter
+              a(href='https://twitter.com/habitica', target='_blank')
+                .social-icon.svg-icon(v-html='icons.twitter')
+            // @TODO: Not ready yet .social-circle
+              a(href='https://www.instagram.com/habitica/', target='_blank')
+                .social-icon.svg-icon.instagram(v-html='icons.instagram')
             .social-circle
-              a(href='https://www.instagram.com/habitica/', target='_blank') Instagram
-            .social-circle
-              a(href='https://www.facebook.com/Habitica', target='_blank') Facebook
+              a(href='https://www.facebook.com/Habitica', target='_blank')
+                .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
           .col-10
             | We’re an open source project that depends on our users for support. The money you donate helps us keep the servers running, maintain a small staff, develop new features, and provide incentives for our volunteers.
           .col-2
-            button.btn.btn-primary Donate
+            button.btn.btn-donate(@click='donate()')
+              .svg-icon.heart(v-html='icons.heart')
+              .text Donate
     .row
       hr.col-12
     .row
       .col-4
         | © 2017 Habitica. All rights reserved.
+        .debug.float-left(v-if='!IS_PRODUCTION')
+          button.btn.btn-primary(@click='debugMenuShown = !debugMenuShown') Toggle Debug Menu
+          .debug-group(v-if='debugMenuShown')
+            a.btn.btn-default(@click='setHealthLow()') Health = 1
+            a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
+            a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
+            a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
+            a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
+            a.btn.btn-default(@click='addTenGems()') +10 Gems
+            a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
+            a.btn.btn-default(@click='addGold()') +500GP
+            a.btn.btn-default(@click='plusTenHealth()') + 10HP
+            a.btn.btn-default(@click='addMana()') +MP
+            a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
+            a.btn.btn-default(@click='addOneLevel()') +1 Level
+            a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(@click='makeAdmin()') Make Admin
+            a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
       .col-4.text-center
-        .logo.svg-icon(v-html='icons.gryphon')
+        .logo
       .col-4.text-right
-        span Privacy Policy
-        span Terms of Use
-    .row
-      h4 Debug
-      .btn-group-vertical
-        a.btn.btn-default(@click='setHealthLow()') Health = 1
-        a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
-        a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
-        a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
-        a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
-        a.btn.btn-default(@click='addTenGems()') +10 Gems
-        a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
-        a.btn.btn-default(@click='addGold()') +500GP
-        a.btn.btn-default(@click='plusTenHealth()') + 10HP
-        a.btn.btn-default(@click='addMana()') +MP
-        a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
-        a.btn.btn-default(@click='addOneLevel()') +1 Level
-        a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
-        a.btn.btn-default(@click='makeAdmin()') Make Admin
-        a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
+        span
+          router-link(to="/static/privacy") Privacy Policy
+        span.terms-link
+          router-link(to="/static/terms") Terms of Use
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
   footer {
     background-color: #e1e0e3;
     height: 376px;
@@ -111,6 +119,10 @@
     padding-top: 3em;
     margin: 0;
     color: #878190;
+
+    a {
+      color: #878190;
+    }
   }
 
   h3 {
@@ -126,19 +138,80 @@
     margin-bottom: .5em;
   }
 
+  .social {
+    h3 {
+      text-align: right;
+    }
+  }
+
   .social-circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-color: #c3c0c7;
     display: inline-block;
-    margin-right: 1em;
+    margin-left: 1em;
+    float: right;
+
+    .social-icon {
+      color: #e1e0e3;
+      width: 16px;
+      margin: 0 auto;
+      margin-top: 1em;
+    }
+
+    .facebook {
+      margin-top: .7em;
+    }
+
+    .instagram {
+      margin-top: .85em;
+    }
   }
 
-  .logo.svg-icon {
+  .logo {
+    background-image: url('~assets/images/gryphon@3x.png');
     width: 24px;
+    height: 24px;
     margin: 0 auto;
     color: #c3c0c7;
+    background-size: cover;
+  }
+
+  .terms-link {
+    margin-left: 1em;
+  }
+
+  .debug-group {
+    position: absolute;
+    background: #fff;
+    top: -300px;
+    border-radius: 2px;
+    padding: 2em;
+  }
+
+  .btn-donate {
+    background: #c3c0c7;
+    box-shadow: none;
+    border-radius: 4px;
+
+    .heart {
+      width: 18px;
+      margin-right: .5em;
+      margin-bottom: .2em;
+    }
+
+    .text, .heart {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+</style>
+
+<style>
+  .facebook svg {
+    width: 10px;
+    margin: 0 auto;
   }
 </style>
 
@@ -146,21 +219,34 @@
 import axios from 'axios';
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
+
 import gryphon from 'assets/svg/gryphon.svg';
+import twitter from 'assets/svg/twitter.svg';
+import facebook from 'assets/svg/facebook.svg';
+import instagram from 'assets/svg/instagram.svg';
+import heart from 'assets/svg/heart.svg';
 
 import modifyInventory from './modifyInventory';
+import buyGemsModal from './payments/buyGemsModal';
 
-// const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 export default {
   components: {
     modifyInventory,
+    buyGemsModal,
   },
   data () {
     return {
       icons: Object.freeze({
         gryphon,
+        twitter,
+        facebook,
+        instagram,
+        heart,
       }),
+      debugMenuShown: false,
+      IS_PRODUCTION,
     };
   },
   computed: {
@@ -190,7 +276,6 @@ export default {
       // @TODO: Sync user?
     },
     async addTenGems () {
-      // @TODO: User.addTenGems();
       await axios.post('/api/v3/debug/add-ten-gems');
       // @TODO: Notification.text('+10 Gems!');
       this.user.balance += 2.5;
@@ -244,6 +329,9 @@ export default {
     },
     openModifyInventoryModal  () {
       this.$root.$emit('show::modal', 'modify-inventory');
+    },
+    donate () {
+      this.$root.$emit('show::modal', 'buy-gems');
     },
   },
 };

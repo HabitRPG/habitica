@@ -28,6 +28,8 @@ export default {
       let isLeader = true;
       let correctSize = true;
 
+      if (group._id === this.$store.state.constants.TAVERN_ID || group._id === 'habitrpg') return false;
+
       if (search) {
         passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
       }
@@ -51,11 +53,11 @@ export default {
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('silver_tier') !== -1) {
-        correctSize = group.memberCount > 10 && group.memberCount < 1000;
+        correctSize = group.memberCount > 100 && group.memberCount < 999;
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('bronze_tier') !== -1) {
-        correctSize = group.memberCount < 10;
+        correctSize = group.memberCount < 99;
       }
 
       return passedSearch && hasCategories && isMember && isLeader && correctSize;

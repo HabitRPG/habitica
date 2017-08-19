@@ -13,27 +13,41 @@
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           .filter-panel(v-if="isFilterPanelOpen")
             .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
-              .tags-header(v-once)
-                strong {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags'", v-once) {{ $t('editTags2') }}
+              .tags-header
+                strong(v-once) {{ $t(tagsType.key) }}
+                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
               .tags-list.container
-                .row.no-gutters
-                  .col-6(v-for="tag in tagsType.tags",)
-                    label.custom-control.custom-checkbox
-                      input.custom-control-input(
-                        type="checkbox",
-                        :checked="isTagSelected(tag)",
-                        @change="toggleTag(tag)",
-                      )
-                      span.custom-control-indicator
-                      span.custom-control-description {{ tag.name }}
+                .row(:class="{'no-gutters': !editingTags}")
+                  template(v-if="editingTags && tagsType.key === 'tags'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap")
+                      .inline-edit-input-group.tag-edit-item.input-group
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        span.input-group-btn(@click="removeTag(tagIndex)")
+                          .svg-icon.destroy-icon(v-html="icons.destroy")
+                    .col-6
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
+                  template(v-else)
+                    .col-6(v-for="(tag, tagIndex) in tagsType.tags")
+                      label.custom-control.custom-checkbox
+                        input.custom-control-input(
+                          type="checkbox",
+                          :checked="isTagSelected(tag)",
+                          @change="toggleTag(tag)",
+                        )
+                        span.custom-control-indicator
+                        span.custom-control-description {{ tag.name }}
 
             .filter-panel-footer.clearfix
-              .float-left
-                a.reset-filters(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
-              .float-right
-                a.mr-3.apply-filters(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
-                a.cancel-filters(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
+              template(v-if="editingTags === true")
+                .text-center
+                  a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
+                  a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
+              template(v-else)
+                .float-left
+                  a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
+                .float-right
+                  a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
+                  a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
           span.input-group-btn
             button.btn.btn-secondary.filter-button(
               type="button",
@@ -43,13 +57,15 @@
               .d-flex.align-items-center
                 span(v-once) {{ $t('filter') }}
                 .svg-icon.filter-icon(v-html="icons.filter")
-      .col-1.offset-3
-        //button.btn.btn-success(v-once)
-          .svg-icon.positive(v-html="icons.positive")
-          | {{ $t('create') }}
-        b-dropdown(:text="$t('create')")
+      #create-dropdown.col-1.offset-3
+        b-dropdown(:right="true", :variant="'success'")
+          div(slot="button-content")
+            .svg-icon.positive(v-html="icons.positive")
+            | {{ $t('create') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-            | {{$t(type)}}
+            span.dropdown-icon-item(v-once)
+              span.svg-icon.inline(v-html="icons[type]")
+              span.text {{$t(type)}}
 
     .row.tasks-columns
       task-column.col-3(
@@ -58,8 +74,45 @@
         :isUser="true", :searchText="searchTextThrottled",
         :selectedTags="selectedTags",
         @editTask="editTask",
+        @openBuyDialog="openBuyDialog($event)"
       )
+
+  buyModal(
+    :item="selectedItemToBuy",
+    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+    @change="resetItemToBuy($event)",
+    @buyPressed="buyItem($event)",
+    @togglePinned="togglePinned($event)"
+  )
+      template(slot="item", scope="ctx")
+        div(v-if="ctx.item.purchaseType === 'gear'")
+          avatar.inline(
+            :member="user",
+            :avatarOnly="true",
+            :withBackground="true",
+            :overrideAvatarGear="memberOverrideAvatarGear(ctx.item)"
+          )
+
+        item.flat(
+          :item="ctx.item",
+          :itemContentClass="ctx.item.class",
+          :showPopover="false",
+          v-else
+        )
+
+      template(slot="additionalInfo", scope="ctx")
+        equipmentAttributesGrid.bordered(
+          :item="ctx.item",
+          v-if="ctx.item.purchaseType === 'gear'"
+        )
+  spells
 </template>
+
+<style lang="scss">
+#create-dropdown .dropdown-toggle::after {
+  display: none;
+}
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
@@ -78,6 +131,10 @@
     color: $green-500;
     margin-right: 8px;
     padding-top: 6px;
+  }
+
+  .dropdown-icon-item .svg-icon {
+    width: 16px;
   }
 
   button.btn.btn-secondary.filter-button {
@@ -144,6 +201,42 @@
       }
     }
 
+    .tag-edit-input {
+      border-bottom: 1px solid $gray-500 !important;
+
+      &:focus, &:focus ~ .input-group-btn {
+        border-color: $purple-500 !important;
+      }
+    }
+
+    .new-tag-item {
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center left 10px;
+      border-bottom: 1px solid $gray-500 !important;
+      background-size: 10px 10px;
+      padding-left: 40px;
+      background-image: url(~client/assets/svg/for-css/positive.svg);
+    }
+
+    .tag-edit-item {
+      .input-group-btn {
+        border-bottom: 1px solid $gray-500 !important;
+
+        &:focus {
+          border-color: $purple-500;
+        }
+      }
+
+      .destroy-icon {
+        display: none;
+      }
+
+      &:hover .destroy-icon {
+        display: inline;
+      }
+    }
+
     .custom-control-description {
       margin-left: 10px;
     }
@@ -158,15 +251,15 @@
         }
       }
 
-      .reset-filters {
+      .btn-filters-danger {
         color: $red-50;
       }
 
-      .apply-filters {
+      .btn-filters-primary {
         color: $blue-10;
       }
 
-      .cancel-filters {
+      .btn-filters-secondary {
         color: $gray-300;
       }
     }
@@ -176,17 +269,29 @@
 <script>
 import TaskColumn from './column';
 import TaskModal from './taskModal';
+import spells from './spells';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
+import deleteIcon from 'assets/svg/delete.svg';
+import habitIcon from 'assets/svg/habit.svg';
+import dailyIcon from 'assets/svg/daily.svg';
+import todoIcon from 'assets/svg/todo.svg';
+import rewardIcon from 'assets/svg/reward.svg';
 
+import uuid from 'uuid';
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
-import { mapState } from 'client/libs/store';
+import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
+
+import BuyModal from 'client/components/shops/buyModal.vue';
+import Item from 'client/components/inventory/item.vue';
+import Avatar from 'client/components/avatar';
+import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
 
 export default {
   components: {
@@ -194,6 +299,11 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
+    BuyModal,
+    Item,
+    Avatar,
+    EquipmentAttributesGrid,
+    spells,
   },
   data () {
     return {
@@ -204,11 +314,21 @@ export default {
       icons: Object.freeze({
         positive: positiveIcon,
         filter: filterIcon,
+        destroy: deleteIcon,
+        habit: habitIcon,
+        daily: dailyIcon,
+        todo: todoIcon,
+        reward: rewardIcon,
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
+      tagsSnap: null, // tags snapshot when being edited
+      editingTags: false,
+      newTag: null,
       editingTask: null,
       creatingTask: null,
+
+      selectedItemToBuy: null,
     };
   },
   computed: {
@@ -249,6 +369,28 @@ export default {
     }, 250),
   },
   methods: {
+    ...mapActions({setUser: 'user:set'}),
+    editTags () {
+      // clone the arrays being edited so that we can revert if needed
+      this.tagsSnap = this.tagsByType.user.tags.slice();
+      this.editingTags = true;
+    },
+    addTag () {
+      this.tagsSnap.push({id: uuid.v4(), name: this.newTag});
+      this.newTag = null;
+    },
+    removeTag (index) {
+      this.tagsSnap.splice(index, 1);
+    },
+    saveTags () {
+      this.setUser({tags: this.tagsSnap});
+      this.cancelTagsEditing();
+    },
+    cancelTagsEditing () {
+      this.editingTags = false;
+      this.tagsSnap = null;
+      this.newTag = null;
+    },
     editTask (task) {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
@@ -304,6 +446,26 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+    memberOverrideAvatarGear (gear) {
+      return {
+        [gear.type]: gear.key,
+      };
+    },
+    buyItem (item) {
+      if (item.currency === 'gold') {
+        this.$store.dispatch('shops:buyItem', {key: item.key});
+      } else {
+        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      }
+    },
+    openBuyDialog (rewardItem) {
+      this.selectedItemToBuy = rewardItem;
     },
   },
 };

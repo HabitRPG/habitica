@@ -47,30 +47,33 @@
               a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')
 </template>
 
-<style scope>
-  .modal-content {
-    min-width: 28em;
-  }
+<style lang="scss">
+  #level-up {
 
-  .modal-body {
-    padding-bottom: 0;
-  }
+    .modal-content {
+      min-width: 28em;
+    }
 
-  .modal-footer {
-    margin-top: 0;
-  }
+    .modal-body {
+      padding-bottom: 0;
+    }
 
-  .herobox {
-    margin:auto 8.3em;
-    width: 6em;
-    height: 9em;
-    padding-top: 0;
-    cursor:default;
-  }
+    .modal-footer {
+      margin-top: 0;
+    }
 
-  .character-sprites {
-    margin: 0;
-    width: 0;
+    .herobox {
+      margin: auto 8.3em;
+      width: 6em;
+      height: 9em;
+      padding-top: 0;
+      cursor: default;
+    }
+
+    .character-sprites {
+      margin: 0;
+      width: 0;
+    }
   }
 </style>
 

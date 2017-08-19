@@ -43,8 +43,8 @@ let api = {};
  * @apiName InviteToQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
- * @apiParam {String} questKey
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} questKey
  *
  * @apiSuccess {Object} data Quest object
  *
@@ -158,7 +158,7 @@ api.inviteToQuest = {
  * @apiName AcceptQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *
@@ -217,7 +217,7 @@ api.acceptQuest = {
  * @apiName RejectQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *
@@ -277,7 +277,7 @@ api.rejectQuest = {
  * @apiName ForceQuestStart
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *
@@ -335,7 +335,7 @@ api.forceStart = {
  * @apiName CancelQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *
@@ -389,7 +389,7 @@ api.cancelQuest = {
  * @apiName AbortQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *
@@ -451,7 +451,7 @@ api.abortQuest = {
  * @apiName LeaveQuest
  * @apiGroup Quest
  *
- * @apiParam {String} groupId The group _id (or 'party')
+ * @apiParam (Path) {String} groupId The group _id (or 'party')
  *
  * @apiSuccess {Object} data Quest Object
  *

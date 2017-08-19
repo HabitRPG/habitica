@@ -8,7 +8,7 @@
       h6 {{ $t('userId') }}
       pre.prettyprint {{user.id}}
       h6 {{ $t('APIToken') }}
-      pre.prettyprint {{user.apiToken}}
+      pre.prettyprint {{apiToken}}
       small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
 
     .section
@@ -70,6 +70,8 @@ import { mapState } from 'client/libs/store';
 import uuid from '../../../common/script/libs/uuid';
 // @TODO: env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
 
 export default {
   data () {
@@ -82,6 +84,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    apiToken () {
+      return AUTH_SETTINGS.auth.apiToken;
+    },
   },
   methods: {
     async addWebhook (url) {

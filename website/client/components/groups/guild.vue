@@ -1,6 +1,5 @@
 <template lang="pug">
 .row(v-if="group")
-  group-form-modal
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
@@ -13,22 +12,25 @@
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
-              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon")
+              .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
+              .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
+              .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{group.memberCount}}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
             .item-with-icon
               .svg-icon.gem(v-html="icons.gem")
-              span.number {{group.balance}}
+              span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
     .row.chat-row
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="$t('chatPlaceHolder')", v-model='newMessage')
+        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-
+      .col-12
         chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
@@ -40,7 +42,7 @@
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='!isMember') {{ $t('join') }}
+          button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
         .button-container
@@ -87,7 +89,7 @@
                 .col-6
                   h4.float-left(v-once) {{ questData.boss.name() }}
                 .col-6
-                  span.float-right(v-once) {{ $t('participants') }}
+                  span.float-right(v-once) {{ $t('participantsTitle') }}
               .row
                 .col-12
                   .grey-progress-bar
@@ -95,9 +97,9 @@
               .row.boss-details
                   .col-6
                     span.float-left
-                      | {{group.quest.progress.hp}} / {{questData.boss.hp}}
+                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                   .col-6
-                    span.float-right 30 pending damage
+                    span.float-right {{group.quest.progress.up || 0}} pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -110,19 +112,19 @@
           .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
-        p(v-once) {{ group.description }}
+        p {{ group.description }}
 
     .section-header
       .row
         .col-10
-          h3(v-once) {{ $t('guildInformation') }}
+          h3 {{ $t('guildInformation') }}
         .col-2
           .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
             .svg-icon(v-html="icons.upIcon")
           .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
-        p(v-once) {{ group.information }}
+        p {{ group.information }}
 
     .section-header.challenge
       .row
@@ -211,10 +213,22 @@
     background-color: $white;
     border: solid 1px $gray-400;
     font-size: 16px;
-    font-style: italic;
     line-height: 1.43;
     color: $gray-300;
     padding: .5em;
+  }
+
+  textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+  }
+  textarea::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+  }
+  textarea:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+  }
+  textarea:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
   }
 
   .title-details {
@@ -284,7 +298,8 @@
     }
 
     .tooltip-wrapper {
-      margin-left: 2.2em;
+      width: 15px;
+      margin-left: 1.2em;
     }
   }
 
@@ -349,6 +364,7 @@
 </style>
 
 <script>
+import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
@@ -359,6 +375,7 @@ import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
 import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
+import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -377,7 +394,9 @@ import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
+import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
+import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
+import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   mixins: [groupUtilities, styleHelper],
@@ -392,6 +411,7 @@ export default {
     chatMessage,
     inviteModal,
     groupChallenges,
+    autocomplete,
   },
   directives: {
     bToggle,
@@ -413,6 +433,8 @@ export default {
         upIcon,
         downIcon,
         goldGuildBadgeIcon,
+        silverGuildBadgeIcon,
+        bronzeGuildBadgeIcon,
       }),
       selectedQuest: {},
       sections: {
@@ -422,6 +444,10 @@ export default {
         challenges: true,
       },
       newMessage: '',
+      coords: {
+        TOP: 0,
+        LEFT: 0,
+      },
     };
   },
   computed: {
@@ -497,10 +523,13 @@ export default {
       // Check Desktop notifs
       // Mark Chat seen
       // Load invites
-      // Load group tasks for group plan
-      // Load approvals for group plan
     }
     this.fetchGuild();
+
+    this.$root.$on('updatedGroup', group => {
+      let updatedGroup = extend(this.group, group);
+      this.$set(this.group, updatedGroup);
+    });
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -515,6 +544,36 @@ export default {
     },
   },
   methods: {
+    // @TODO: abstract autocomplete
+    // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
+    getCoord (e, text) {
+      let carPos = text.selectionEnd;
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let copyStyle = getComputedStyle(text);
+
+      [].forEach.call(copyStyle, (prop) => {
+        div.style[prop] = copyStyle[prop];
+      });
+
+      div.style.position = 'absolute';
+      document.body.appendChild(div);
+      div.textContent = text.value.substr(0, carPos);
+      span.textContent = text.value.substr(carPos) || '.';
+      div.appendChild(span);
+      this.coords = {
+        TOP: span.offsetTop,
+        LEFT: span.offsetLeft,
+      };
+      document.body.removeChild(div);
+    },
+    updateCarretPosition (eventUpdate) {
+      let text = eventUpdate.target;
+      this.getCoord(eventUpdate, text);
+    },
+    selectedAutocomplete (newText) {
+      this.newMessage = newText;
+    },
     showMemberModal () {
       this.$store.state.groupId = this.group._id;
       this.$root.$emit('show::modal', 'members-modal');
@@ -575,22 +634,18 @@ export default {
         // Achievement.displayAchievement('partyOn');
       }
     },
-    // @TODO: This should be moved to notifications component
     async join () {
-      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      // @TODO: This needs to be in the notifications where users will now accept invites
+      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-
-      // @TODO: Implement
-      // User.sync();
-      // Analytics.updateUser({'partyID': party.id});
-      // $rootScope.hardRedirect('/#/options/groups/party');
+      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
+      this.user.guilds.push(this.group._id);
     },
     clickLeave () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
       // @TODO: Get challenges and ask to keep or remove
+      if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
       this.leave(keep);
     },

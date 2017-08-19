@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
@@ -43,6 +44,20 @@ export default {
     },
   },
   created () {
+    // Set up Error interceptors
+    axios.interceptors.response.use((response) => {
+      return response;
+    }, (error) => {
+      if (error.response.status >= 400) {
+        this.$notify({
+          title: 'Habitica',
+          text: error.response.data.message,
+        });
+      }
+
+      return Promise.reject(error);
+    });
+
     // Setup listener for title
     this.$store.watch(state => state.title, (title) => {
       document.title = title;

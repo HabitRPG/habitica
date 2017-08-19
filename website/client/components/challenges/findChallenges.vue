@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal
+  challenge-modal(v-on:createChallenge='challengeCreated')
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
 
   .col-10.standard-page
@@ -11,7 +11,7 @@
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
-        button.btn.btn-secondary.create-challenge-button(@click='createChallenge()')
+        button.btn.btn-secondary.create-challenge-button.float-right(@click='createChallenge()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
     .row
@@ -126,6 +126,9 @@ export default {
     },
     async loadchallanges () {
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+    },
+    challengeCreated (challenge) {
+      this.challenges.push(challenge);
     },
   },
 };

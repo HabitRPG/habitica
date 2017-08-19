@@ -57,24 +57,24 @@ let requiredGroupFields = '_id leader tasksOrder name';
  * @apiName CreateUserTasks
  * @apiGroup Task
  *
- * @apiParam (Body) {string} text The text to be displayed for the task
- * @apiParam (Body) {string="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
- * @apiParam (Body) {string[]} [tags] Array of UUIDs of tags
- * @apiParam (Body) {string} [alias] Alias to assign to task
- * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
- * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
- * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
- * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
- * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
- * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
- * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
- * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
- * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {String} text The text to be displayed for the task
+ * @apiParam (Body) {String="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {String[]} [tags] Array of UUIDs of tags
+ * @apiParam (Body) {String} [alias] Alias to assign to task
+ * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {String} [notes] Extra notes
+ * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
+ * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {Number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -180,25 +180,25 @@ api.createUserTasks = {
  * @apiName CreateChallengeTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} challengeId The id of the challenge the new task(s) will belong to
+ * @apiParam (Path) {UUID} challengeId The id of the challenge the new task(s) will belong to
  *
- * @apiParam (Body) {string} text The text to be displayed for the task
- * @apiParam (Body) {string="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
- * @apiParam (Body) {string} [alias] Alias to assign to task
- * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
- * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
- * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
- * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
- * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
- * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
- * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
- * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
- * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {String} text The text to be displayed for the task
+ * @apiParam (Body) {String="habit","daily","todo","reward"} type Task type, options are: "habit", "daily", "todo", "reward".
+ * @apiParam (Body) {String} [alias] Alias to assign to task
+ * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {String} [notes] Extra notes
+ * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time. For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3","startDate":"1/16/17","time":"1/16/17" }
+ * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {Number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
  *
  * @apiParamExample {json} Request-Example:
  * {"type":"todo","text":"Test API Params"}
@@ -249,7 +249,7 @@ api.createChallengeTasks = {
  * @apiName GetUserTasks
  * @apiGroup Task
  *
- * @apiParam (URL) {string="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
+ * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -284,8 +284,8 @@ api.getUserTasks = {
  * @apiName GetChallengeTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} challengeId The id of the challenge from which to retrieve the tasks
- * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
+ * @apiParam (Path) {UUID} challengeId The id of the challenge from which to retrieve the tasks
+ * @apiParam (Query) {String="habits","dailys","todos","rewards"} [type] Query parameter to return just a type of tasks
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/tasks/challenge/f23c12f2-5830-4f15-9c36-e17fd729a812
@@ -335,7 +335,7 @@ api.getChallengeTasks = {
  * @apiName GetTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
+ * @apiParam (Path) {String} taskId The task _id or alias
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/tasks/54a81d23-529c-4daa-a6f7-c5c6e7e84936
@@ -376,23 +376,23 @@ api.getTask = {
  * @apiName UpdateTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
+ * @apiParam (Path) {String} taskId The task _id or alias
  *
- * @apiParam (Body) {string} [text] The text to be displayed for the task
- * @apiParam (Body) {string="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
- * @apiParam (Body) {boolean} [collapseChecklist=false] Determines if a checklist will be displayed
- * @apiParam (Body) {string} [notes] Extra notes
- * @apiParam (Body) {string} [date] Due date to be shown in task list. Only valid for type "todo."
- * @apiParam (Body) {number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
- * @apiParam (Body) {string[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time.
- * @apiParam (Body) {string="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
- * @apiParam (Body) {string} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
- * @apiParam (Body) {number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
- * @apiParam (Body) {number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
- * @apiParam (Body) {date} [startDate] Date when the task will first become available. Only valid for type "daily"
- * @apiParam (Body) {boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
- * @apiParam (Body) {boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {String} [text] The text to be displayed for the task
+ * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use, options are: "str", "int", "per", "con"
+ * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
+ * @apiParam (Body) {String} [notes] Extra notes
+ * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1, 1.5, 2; eqivalent of Trivial, Easy, Medium, Hard.
+ * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include: a UUID, startDate and time.
+ * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days of the week", value "daily" enables "EveryX Days". Only valid for type "daily".
+ * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,  Days that are true will be repeated upon. Only valid for type "daily". Any days not specified will be marked as true. Days are: su, m, t, w, th, f, s. Value of frequency must be "weekly". For example, to skip repeats on Mon and Fri: "repeat":{"f":false,"m":false}
+ * @apiParam (Body) {Number} [everyX=1] Value of frequency must be "daily", the number of days until this daily task is available again.
+ * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Date} [startDate] Date when the task will first become available. Only valid for type "daily"
+ * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true, enables the "+" under "Directions/Action" for "Good habits"
+ * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables the "-" under "Directions/Action" for "Bad habits"
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
  *
  * @apiParamExample {json} Request-Example:
  * {"notes":"This will be replace the notes, anything not specified will remain the same"}
@@ -454,6 +454,7 @@ api.updateTask = {
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
+    task.group.approval.required = false;
     if (sanitizedObj.requiresApproval) {
       task.group.approval.required = true;
     }
@@ -494,9 +495,9 @@ api.updateTask = {
  * @apiName ScoreTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {String="up","down"} direction The direction for scoring the task
- * @apiParam {String} scoreNotes Notes explaining the scoring
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {String="up","down"} direction The direction for scoring the task
+ * @apiParam (Body) {String} scoreNotes Notes explaining the scoring
  *
  * @apiExample {json} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/test-api-params/score/up
@@ -655,8 +656,8 @@ api.scoreTask = {
  * @apiName MoveTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {Number} position Query parameter - Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
  *
@@ -698,9 +699,9 @@ api.moveTask = {
  * @apiName AddChecklistItem
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
+ * @apiParam (Path) {String} taskId The task _id or alias
  *
- * @apiParam (Body) {string} text The text of the checklist item
+ * @apiParam (Body) {String} text The text of the checklist item
  *
  * @apiParamExample {json} Example body data:
  * {"text":"Do this subtask"}
@@ -764,8 +765,8 @@ api.addChecklistItem = {
  * @apiName ScoreChecklistItem
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {UUID} itemId The checklist item _id
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
  *
@@ -806,10 +807,10 @@ api.scoreCheckListItem = {
  * @apiName UpdateChecklistItem
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {UUID} itemId The checklist item _id
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {UUID} itemId The checklist item _id
  *
- * @apiParam (body) {string} text The text that will replace the current checkitem text.
+ * @apiParam (body) {String} text The text that will replace the current checkitem text.
  *
  * @apiParamExample {json} Example body:
  * {"text":"Czech 1"}
@@ -873,8 +874,8 @@ api.updateChecklistItem = {
  * @apiName RemoveChecklistItem
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {UUID} itemId The checklist item _id
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {UUID} itemId The checklist item _id
  *
  * @apiSuccess {Object} data The updated task
  *
@@ -936,8 +937,8 @@ api.removeChecklistItem = {
  * @apiName AddTagToTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {UUID} tagId The tag id
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {UUID} tagId The tag id
  *
  * @apiSuccess {Object} data The updated task
  *
@@ -983,8 +984,8 @@ api.addTagToTask = {
  * @apiName RemoveTagFromTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {UUID} tagId The tag id
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Path) {UUID} tagId The tag id
  *
  * @apiExample {curl} Example use:
  * curl -X "DELETE" https://habitica.com/api/v3/tasks/test-api-params/tags/3d5d324d-a042-4d5f-872e-0553e228553e
@@ -1028,8 +1029,8 @@ api.removeTagFromTask = {
  * @apiName UnlinkAllTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {String} keep Query parameter - keep-all or remove-all
+ * @apiParam (Path) {UUID} challengeId The challenge _id
+ * @apiParam (Query) {String='keep-all','remove-all'} keep Specifies if tasks should be kept(keep-all) or removed(remove-all) after the unlink
  *
  * @apiExample {curl}
  * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all
@@ -1098,8 +1099,8 @@ api.unlinkAllTasks = {
  * @apiName UnlinkOneTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
- * @apiParam {String} keep Query parameter - keep or remove
+ * @apiParam (Path) {String} taskId The task _id or alias
+ * @apiParam (Query) {String='keep','remove'} keep  Specifies if the task should be kept(keep) or removed(remove)
  *
  * @apiExample {curl} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-one/ee882e1d-ebd1-4716-88f2-4f9e47d947a8?keep=keep
@@ -1197,7 +1198,7 @@ api.clearCompletedTodos = {
  * @apiName DeleteTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id or alias
+ * @apiParam (Path) {String} taskId The task _id or alias
  *
  * @apiExample {json} Example call:
  * curl -X "DELETE" https://habitica.com/api/v3/tasks/3d5d324d-a042-4d5f-872e-0553e228553e

@@ -4,7 +4,6 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
-import logger from '../libs/logger';
 
 // Wait this length of time in ms before attempting another cron
 const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
@@ -128,17 +127,13 @@ async function cronAsync (req, res) {
 
       await recoverCron(recoveryStatus, res.locals);
     } else {
-      logger.error(err, {isUserUpdateErroringDuringCron: true});
       // For any other error make sure to reset _cronSignature so that it doesn't prevent cron from running
       // at the next request
       await User.update({
         _id: user._id,
       }, {
         _cronSignature: 'NOT_RUNNING',
-      }).exec()
-      .catch((newError) => {
-        logger.error(newError, {isUserUpdateErroringDuringCron: true});
-      });
+      }).exec();
 
       throw err; // re-throw the original error
     }

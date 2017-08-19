@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='true')
+b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='true')
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
@@ -15,28 +15,28 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
       .col-12.text-center
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
     .section.row.text-center.customize-menu
-      .col-3
+      div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
         .menu-item(@click='changeTopPage("body", "size")')
           .svg-icon(v-html='icons.bodyIcon')
         strong(v-once) {{$t('body')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("skin", "color")')
           .svg-icon(v-html='icons.skinIcon')
         strong(v-once) {{$t('skin')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("hair", "color")')
           .svg-icon(v-html='icons.hairIcon')
         strong(v-once) {{$t('hair')}}
-      .col-3
+      div(:class='{"col-3": !editing, "col-2": editing}')
         .menu-item(@click='changeTopPage("extra", "glasses")')
           .svg-icon(v-html='icons.accessoriesIcon')
         strong(v-once) {{$t('extra')}}
-      .col-3
+      .col-2(v-if='editing')
         .menu-item(@click='changeTopPage("backgrounds", "2017")')
           .svg-icon(v-html='icons.backgroundsIcon')
         strong(v-once) {{$t('backgrounds')}}
     .section.customize-section(v-if='activeTopPage === "body"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
             strong(v-once) {{$t('size')}}
           .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
@@ -57,7 +57,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
             strong(v-once) {{$t('color')}}
       .row
@@ -72,7 +72,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})', :class='{active: user.preferences.skin === "6bd049"}')
 
     .section.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
             strong(v-once) {{$t('color')}}
           .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
@@ -100,7 +100,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="[{ active: user.preferences.hair.base === 3 }, 'hair_base_3_' + user.preferences.hair.color]")
 
     .section.container.customize-section(v-if='activeTopPage === "extra"')
-      .row.sub-menu
+      .row.sub-menu.col-6.offset-3.text-center
           .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
             strong(v-once) {{$t('glasses')}}
           .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
@@ -142,8 +142,8 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
           .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
 
-    .section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.sub-menu
+    #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.sub-menu.col-6.offset-3
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
             strong(v-once) 2017
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
@@ -153,21 +153,25 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
             strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        div(v-for='set in sets', v-if='activeSubPage === key')
-          h2 {{set.text}}
-          div(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
-          div(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            //+gemCost(7)
-            button.btn.btn-primary(@click='unlock(setKeys("background", set.items))') {{ $t('unlockSet', {cost: 15}) }}
-             span.Pet_Currency_Gem1x.inline-gems
-          button.customize-option(v-for='bg in set.items',
-            type='button',
-            :class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]',
+        .col-12.row(v-for='set in sets', v-if='activeSubPage === key')
+          .col-6.offset-3.text-center.set-title
+            strong {{set.text}}
+          .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+          .col-4.text-center.customize-option(v-for='bg in set.items',
             @click='unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
+            .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
+            .purchase-single(v-if='!user.purchased.background[bg.key]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 7
+          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
+            .gem-amount
+              .svg-icon.gem(v-html='icons.gem')
+              span 15
+            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -184,7 +188,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('excercise') }}
+            span.custom-control-description(v-once) {{ $t('exercise') }}
         div
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
@@ -237,6 +241,12 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
         div(v-if='modalPage === 3', @click='done()')
           button.btn.btn-primary.next(v-once) {{$t('done')}}
 </template>
+
+<style>
+  #avatar-modal_modal_body {
+    padding: 0;
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
@@ -379,6 +389,59 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
     margin-top: 7em;
   }
 
+  #backgrounds {
+    .set-title {
+      margin-top: 3em;
+      margin-bottom: 1em;
+    }
+
+    .background {
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 2px;
+    }
+
+    .purchase-single {
+      width: 141px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0.5em;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 0 0 2px 2px;
+
+      span {
+        font-weight: bold;
+        font-size: 12px;
+        color: #24cc8f;
+      }
+
+      .gem {
+        width: 16px;
+      }
+    }
+
+    .gem {
+      margin-right: .5em;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .gem-amount {
+      margin-top: 2em;
+      margin-bottom: 1em;
+
+      .gem {
+        width: 24px;
+      }
+
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: #24cc8f;
+      }
+    }
+  }
+
   .footer {
     position: absolute;
     padding-bottom: 1em;
@@ -428,12 +491,14 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
 </style>
 
 <script>
+import axios from 'axios';
 import map from 'lodash/map';
 import get from 'lodash/get';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
+import guide from 'client/mixins/guide';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -443,8 +508,10 @@ import accessoriesIcon from 'assets/svg/accessories.svg';
 import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
+import gem from 'assets/svg/gem.svg';
 
 export default {
+  mixins: [guide],
   components: {
     avatar,
     bModal,
@@ -478,6 +545,7 @@ export default {
         skinIcon,
         hairIcon,
         backgroundsIcon,
+        gem,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -488,11 +556,21 @@ export default {
     editing () {
       if (this.editing) this.modalPage = 2;
     },
+    startingPage () {
+      if (!this.$store.state.avatarEditorOptions.startingPage) return;
+      this.activeTopPage = this.$store.state.avatarEditorOptions.startingPage;
+      this.activeSubPage = this.$store.state.avatarEditorOptions.subpage;
+      this.$store.state.avatarEditorOptions.startingPage = '';
+      this.$store.state.avatarEditorOptions.subpage = '';
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
+    },
+    startingPage () {
+      return this.$store.state.avatarEditorOptions.startingPage;
     },
   },
   methods: {
@@ -513,11 +591,21 @@ export default {
       this.$store.dispatch('user:set', settings);
     },
     equip (key) {
-      this.$store.dispatch('common:equip', {key, type: 'costume'});
+      this.$store.dispatch('common:equip', {key, type: 'equipped'});
+      this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
     done () {
       this.$root.$emit('hide::modal', 'avatar-modal');
       this.$router.push('/');
+      this.$store.dispatch('user:set', {
+        'flags.welcomed': true,
+      });
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        this.goto('intro', 0);
+      }, 1000);
     },
     showPlainBackgroundBlurb (identifier, set) {
       return identifier === 'incentiveBackgrounds' && !this.ownsSet('background', set);
@@ -528,15 +616,11 @@ export default {
       for (let key in set) {
         let value = set[key];
         if (type === 'background') key = value.key;
+
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
-      // let setOwnedByUser = find(set, (value, key) => {
-      //   console.log(type)
-      //   if (type === 'background') key = value.key;
-      //   return this.user.purchased[type][key];
-      // });
 
-      return Boolean(setOwnedByUser);
+      return setOwnedByUser;
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
@@ -545,7 +629,7 @@ export default {
      */
     async unlock (path) {
       let fullSet = path.indexOf(',') !== -1;
-      let isBackground = Boolean(path.indexOf('background.'));
+      let isBackground = path.indexOf('background.') !== -1;
 
       let cost;
 
@@ -567,13 +651,17 @@ export default {
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         }
       }
-      // @TODO: Add when we implment the user calls
-      // let response = await axios.post('/api/v3/user/unlock');
-      unlock(this.user, {
-        query: {
-          path,
-        },
-      });
+
+      await axios.post(`/api/v3/user/unlock?path=${path}`);
+      try {
+        unlock(this.user, {
+          query: {
+            path,
+          },
+        });
+      } catch (e) {
+        alert(e.message);
+      }
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {

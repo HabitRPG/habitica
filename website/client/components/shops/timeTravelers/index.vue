@@ -78,8 +78,7 @@
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
-          :showAllLabel="$t('showAllGeneric', { type: category.text })",
-          :showLessLabel="$t('showLessGeneric', { type: category.text })"
+          :type="category.identifier",
         )
           template(slot="item", scope="ctx")
             shopItem(
@@ -94,11 +93,10 @@
               span(slot="popoverContent", scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text {{ ctx.item.notes }}
-                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
+                  v-if="ctx.item.pinType !== 'IGNORE'",
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
@@ -236,6 +234,7 @@
       .npc {
         position: absolute;
         left: 0;
+        top: 0;
         width: 100%;
         height: 216px;
         background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
@@ -278,6 +277,9 @@
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
+
+  import _isPinned from '../_isPinned';
 
 export default {
     components: {
@@ -346,8 +348,8 @@ export default {
                 ...c,
                 value: 1,
                 currency: 'hourglasses',
-                type: 'set_mystery',
                 key: c.identifier,
+                class: `shop_set_mystery_${c.identifier}`,
               };
             }),
           };
@@ -374,7 +376,14 @@ export default {
     },
     methods: {
       travelersItems (category, sortBy, searchBy, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: _isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hidePinned && i.pinned) {
             return false;
           }
@@ -406,9 +415,9 @@ export default {
         }
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});

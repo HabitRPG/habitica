@@ -1,26 +1,27 @@
 <template lang="pug">
-  b-modal#testing(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
+  b-modal#won-challenge(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
     .modal-content(style='min-width:28em')
       .modal-body.text-center
         h3(style='margin-bottom: 0') {{ $t('wonChallenge') }}
-        // @TODO: h4: markdown(text='user.achievements.challenges[user.achievements.challenges.length - 1]')
+        h4(v-markdown='user.achievements.challenges[user.achievements.challenges.length - 1]')
         .container-fluid
           .row(style='margin-bottom:1em')
-            .col-xs-4(style='padding:0')
+            .col-4(style='padding:0')
               .container-fluid
                 .row
-                  .col-xs-4(style='padding:0')
-                  .col-xs-4(style='padding:0')
+                  .col-4(style='padding:0')
+                  .col-4(style='padding:0')
                     .achievement-karaoke-2x(style='margin-top: 2em')
-            .col-xs-4(style='padding:0')
+            .col-4(style='padding:0')
               .herobox(style='padding:0; width:0; height:7em')
                 .character-sprites(style='width:0')
                   // @TODO: +generatedAvatar({sleep: false})
-            .col-xs-4(style='padding:0')
+                  avatar(:member='user')
+            .col-4(style='padding:0')
               .container-fluid
                 .row
-                  .col-xs-4(style='padding:0')
-                  .col-xs-4(style='padding:0')
+                  .col-4(style='padding:0')
+                  .col-4(style='padding:0')
                     .achievement-karaoke-2x(style='margin-top: 2em')
         p {{ $t('congratulations') }}
         br
@@ -28,11 +29,11 @@
       .modal-footer(style='margin-top:0', ng-init='loadWidgets()')
         .container-fluid
           .row
-            .col-xs-3
+            .col-3
               a.twitter-share-button(href='https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/won-challenge&count=none') {{ $t('tweet') }}
-            .col-xs-4(style='margin-left:.8em')
+            .col-4(style='margin-left:.8em')
               .fb-share-button(data-href='#{env.BASE_URL}/social/won-challenge', data-layout='button')
-            .col-xs-4(style='margin-left:.8em')
+            .col-4(style='margin-left:.8em')
               a.tumblr-share-button(data-href='#{env.BASE_URL}/social/won-challenge', data-notes='none')
 </template>
 
@@ -43,11 +44,21 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import markdownDirective from 'client/directives/markdown';
+import Avatar from '../avatar';
 
 export default {
   components: {
     bModal,
+    Avatar,
+  },
+  directives: {
+    markdown: markdownDirective,
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
   },
   data () {
     let tweet = this.$t('wonChallengeShare');
@@ -57,7 +68,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'testing');
+      this.$root.$emit('hide::modal', 'won-challenge');
     },
   },
 };

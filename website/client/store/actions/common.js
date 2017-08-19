@@ -23,12 +23,11 @@ export function hatch (store, params) {
     // .catch((err) => console.error('equip', err));
 }
 
-export function feed (store, params) {
+export async function feed (store, params) {
   const user = store.state.user.data;
   feedOp(user, {params});
-  axios
+  let response = await axios
     .post(`/api/v3/user/feed/${params.pet}/${params.food}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+
+  return response.data;
 }

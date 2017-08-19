@@ -6,8 +6,7 @@ div
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
       h4(v-once) {{ $t('haveNoChallenges') }}
       p(v-once) {{ $t('challengeDescription') }}
-      button.btn.btn-secondary(v-once, @click='createChallenge()') {{ $t('createChallenge') }}
-  router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges')
+  router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges',:key='challenge._id')
     .col-12.challenge-item
       .row
         .col-9
@@ -26,7 +25,7 @@ div
     button.btn.btn-secondary(@click='createChallenge()') {{ $t('createChallenge') }}
 </template>
 
-<style>
+<style scoped>
   .title {
     color: #4E4A57;
   }
@@ -98,7 +97,7 @@ export default {
   },
   async mounted () {
     this.groupIdForChallenges = this.groupId;
-    if (this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+    if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
     this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
   },
   data () {

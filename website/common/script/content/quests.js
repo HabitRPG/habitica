@@ -1054,6 +1054,7 @@ let quests = {
   basilist: {
     text: t('questBasilistText'),
     notes: t('questBasilistNotes'),
+    group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
     value: 4,
     category: 'unlockable',
@@ -2224,6 +2225,7 @@ let quests = {
   dustbunnies: {
     text: t('questDustBunniesText'),
     notes: t('questDustBunniesNotes'),
+    group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
     value: 4,
     category: 'unlockable',
@@ -2745,6 +2747,38 @@ let quests = {
       gp: 31,
       exp: 200,
       unlock: t('questNudibranchUnlockText'),
+    },
+  },
+  hippo: {
+    text: t('questHippoText'),
+    notes: t('questHippoNotes'),
+    completion: t('questHippoCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questHippoBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questHippoUnlockText'),
     },
   },
 };
