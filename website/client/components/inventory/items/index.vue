@@ -58,8 +58,8 @@
             @click="onEggClicked($event, context.item)",
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -86,8 +86,8 @@
             @click="onPotionClicked($event, context.item)"
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -107,8 +107,8 @@
             :showPopover="currentDraggingPotion == null"
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -121,13 +121,13 @@
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
-        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text() }) }}
+        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
 
   div.hatchingPotionInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
-        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text() }) }}
+        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
 </template>
 
 <style lang="scss" scoped>
@@ -243,6 +243,8 @@ export default {
             if (isSearched) {
               itemsArray.push({
                 ...item,
+                text: item.text(),
+                notes: item.notes(),
                 quantity: itemQuantity,
               });
 
@@ -255,7 +257,7 @@ export default {
           if (this.sortBy === 'quantity') {
             return b.quantity - a.quantity;
           } else { // AZ
-            return a.data.text().localeCompare(b.data.text());
+            return a.text.localeCompare(b.text);
           }
         });
       });
