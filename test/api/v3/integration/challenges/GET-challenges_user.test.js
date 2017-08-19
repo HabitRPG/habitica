@@ -12,7 +12,6 @@ describe('GET challenges/user', () => {
       let { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
-          summary: 'Summary for TestGuild',
           type: 'guild',
           privacy: 'public',
         },
@@ -46,7 +45,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
-        summary: publicGuild.summary,
+        summary: publicGuild.name,
         leader: publicGuild.leader._id,
       });
     });
@@ -67,7 +66,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
-        summary: publicGuild.summary,
+        summary: publicGuild.name,
         leader: publicGuild.leader._id,
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
@@ -83,7 +82,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
-        summary: publicGuild.summary,
+        summary: publicGuild.name,
         leader: publicGuild.leader._id,
       });
     });
@@ -104,7 +103,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
-        summary: publicGuild.summary,
+        summary: publicGuild.name,
         leader: publicGuild.leader._id,
       });
       let foundChallenge2 = _.find(challenges, { _id: challenge2._id });
@@ -120,7 +119,7 @@ describe('GET challenges/user', () => {
         type: publicGuild.type,
         privacy: publicGuild.privacy,
         name: publicGuild.name,
-        summary: publicGuild.summary,
+        summary: publicGuild.name,
         leader: publicGuild.leader._id,
       });
     });
