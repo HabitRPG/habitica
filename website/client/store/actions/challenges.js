@@ -26,9 +26,10 @@ export async function leaveChallenge (store, payload) {
   return response.data.data;
 }
 
-export async function getUserChallenges () {
-  let response = await axios.get('/api/v3/challenges/user');
-
+export async function getUserChallenges (store, payload) {
+  let url = '/api/v3/challenges/user';
+  if (payload && payload.member) url += '?member=true';
+  let response = await axios.get(url);
   return response.data.data;
 }
 

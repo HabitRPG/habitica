@@ -54,6 +54,12 @@
 
 .flat .item {
   box-shadow: none;
+  border: none;
+}
+
+.bordered-item .item {
+  background: $gray-700 !important;
+  margin: 0 auto;
 }
 
 .drawer-content .item:hover {

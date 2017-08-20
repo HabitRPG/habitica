@@ -371,13 +371,19 @@ api.getUserChallenges = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+    let orOptions = [
+      {_id: {$in: user.challenges}}, // Challenges where the user is participating
+      {leader: user._id}, // Challenges where I'm the leader
+    ];
+
+    if (!req.query.member) {
+      orOptions.push({
+        group: {$in: user.getGroups()},
+      }); // Challenges in groups where I'm a member
+    }
 
     let challenges = await Challenge.find({
-      $or: [
-        {_id: {$in: user.challenges}}, // Challenges where the user is participating
-        {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
-        {leader: user._id}, // Challenges where I'm the leader
-      ],
+      $or: orOptions,
     })
     .sort('-official -createdAt')
     // see below why we're not using populate

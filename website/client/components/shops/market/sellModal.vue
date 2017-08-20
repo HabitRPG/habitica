@@ -12,7 +12,7 @@
       div.inner-content
         slot(name="item", :item="item")
 
-        h4.title {{ item.text() }}
+        h4.title {{ text ? text : item.text() }}
         div.text {{ item.notes() }}
 
         div
@@ -174,6 +174,9 @@
         type: Object,
       },
       itemType: {
+        type: String,
+      },
+      text: {
         type: String,
       },
       itemCount: {

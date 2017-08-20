@@ -257,11 +257,18 @@ export default {
       await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
     },
     async leaveChallenge () {
+      let keepChallenge = confirm('Do you want to keep challenge tasks?');
+      let keep = 'keep-all';
+      if (!keepChallenge) keep = 'remove-all';
+
       let index = findIndex(this.user.challenges, (challengeId) => {
         return challengeId === this.challengeId;
       });
       this.user.challenges.splice(index, 1);
-      await this.$store.dispatch('challenges:leaveChallenge', {challengeId: this.challengeId});
+      await this.$store.dispatch('challenges:leaveChallenge', {
+        challengeId: this.challengeId,
+        keep,
+      });
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');

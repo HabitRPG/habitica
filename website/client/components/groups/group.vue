@@ -1,6 +1,5 @@
 <template lang="pug">
 .row(v-if="group")
-  group-form-modal
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
@@ -113,19 +112,19 @@
           .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
-        p(v-once) {{ group.description }}
+        p {{ group.description }}
 
     .section-header
       .row
         .col-10
-          h3(v-once) {{ $t('guildInformation') }}
+          h3 {{ $t('guildInformation') }}
         .col-2
           .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
             .svg-icon(v-html="icons.upIcon")
           .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.information")
-        p(v-once) {{ group.information }}
+        p {{ group.information }}
 
     .section-header.challenge
       .row
@@ -365,6 +364,7 @@
 </style>
 
 <script>
+import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
@@ -523,10 +523,13 @@ export default {
       // Check Desktop notifs
       // Mark Chat seen
       // Load invites
-      // Load group tasks for group plan
-      // Load approvals for group plan
     }
     this.fetchGuild();
+
+    this.$root.$on('updatedGroup', group => {
+      let updatedGroup = extend(this.group, group);
+      this.$set(this.group, updatedGroup);
+    });
   },
   watch: {
     // call again the method if the route changes (when this route is already active)

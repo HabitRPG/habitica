@@ -11,7 +11,7 @@
 
         .row
           textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId', :chat='group.chat')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
@@ -197,6 +197,7 @@
 
   .grassy-meadow-backdrop {
     background-image: url('~assets/images/tavern_backdrop_web.png');
+    background-size: cover;
     width: 100%;
     height: 246px;
   }
@@ -349,10 +350,10 @@ export default {
           name: 'beffymaroo',
           type: 'Staff',
         },
-        {
-          name: 'lefnire',
-          type: 'Staff',
-        },
+        // {
+        //   name: 'lefnire',
+        //   type: 'Staff',
+        // },
         {
           name: 'Lemoness',
           type: 'Staff',
@@ -397,10 +398,10 @@ export default {
           name: 'Cantras',
           type: 'Moderator',
         },
-        {
-          name: 'Daniel the Bard',
-          type: 'Moderator',
-        },
+        // {
+        //   name: 'Daniel the Bard',
+        //   type: 'Moderator',
+        // },
         {
           name: 'deilann 5.0.5b',
           type: 'Moderator',
@@ -478,6 +479,10 @@ export default {
       });
       this.group.chat.unshift(response.message);
       this.newMessage = '';
+
+      // @TODO: I would like to not reload everytime we send. Realtime/Firebase?
+      let chat = await this.$store.dispatch('chat:getChat', {groupId: this.group._id});
+      this.group.chat = chat;
     },
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});

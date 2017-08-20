@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  yesterdaily-model(:yesterDailies='yesterDailies')
+  yesterdaily-modal(:yesterDailies='yesterDailies')
   new-stuff
   death
   low-health
@@ -29,7 +29,7 @@ import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import guide from 'client/mixins/guide';
 
-import yesterdailyModel from './yesterdailyModel';
+import yesterdailyModal from './yesterdailyModal';
 import welcomeModal from './achievements/welcome';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
@@ -55,7 +55,7 @@ import wonChallenge from './achievements/wonChallenge';
 export default {
   mixins: [notifications, guide],
   components: {
-    yesterdailyModel,
+    yesterdailyModal,
     wonChallenge,
     ultimateGear,
     streak,

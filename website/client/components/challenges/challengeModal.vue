@@ -14,11 +14,12 @@
           strong(v-once) {{$t('description')}}*
         div.description-count.float-right {{charactersRemaining}} {{ $t('charactersRemaining') }}
         b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceHolder')", v-model="workingChallenge.description")
-      // @TODO: Implemenet in V2 .form-group
+      .form-group
         label
-          strong(v-once) {{$t('guildInformation')}}*
+          strong(v-once) Challenge Information*
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.information-textarea(type="text", textarea, :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.information")
+        b-form-input.information-textarea(type="text", textarea,
+          :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
           strong(v-once) {{$t('where')}}
@@ -296,6 +297,7 @@ export default {
       this.$emit('createChallenge', challenge);
       this.ressetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
       this.$emit('updatedChallenge', {

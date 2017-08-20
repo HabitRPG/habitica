@@ -53,6 +53,12 @@
                 :popoverPosition="'top'",
                 @click="selectedGearToBuy = item"
               )
+                template(slot="itemBadge", scope="ctx")
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -92,8 +98,7 @@
         :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment')  })",
-        :showLessLabel="$t('showLessGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment') })"
+        :type="'gear'",
       )
         template(slot="item", scope="ctx")
           shopItem(
@@ -146,7 +151,7 @@
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                :show="true",
+                :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
 
@@ -196,12 +201,13 @@
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
                 )
               span(slot="popoverContent")
-                h4.popover-content-title {{ ctx.item.text() }}
+                h4.popover-content-title {{ getItemName(selectedDrawerItemType, ctx.item) }}
 
       sellModal(
         :item="selectedItemToSell",
         :itemType="selectedDrawerItemType",
         :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
+        :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
         template(slot="item", scope="ctx")
@@ -244,7 +250,7 @@
         @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
-          item.flat(
+          item.flat.bordered-item(
             :item="ctx.item",
             :itemContentClass="ctx.item.class",
             :showPopover="false"
@@ -300,6 +306,11 @@
     background-color: #f9f9f9;
     margin-bottom: 24px;
     padding: 24px 24px 10px;
+  }
+
+  .item-wrapper.bordered-item .item {
+    width: 112px;
+    height: 112px;
   }
 
   .market {
@@ -398,6 +409,7 @@
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
+  import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
 
   import _isPinned from '../_isPinned';
@@ -520,7 +532,10 @@ export default {
 
       featuredItems () {
         return featuredItems.market.map(i => {
-          return getItemInfo(this.user, 'marketGear', this.content.gear.flat[i]);
+          let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
+          newItem.pinned = _isPinned(this.user, newItem);
+
+          return newItem;
         });
       },
     },
@@ -569,6 +584,16 @@ export default {
             return `Pet_HatchingPotion_${itemKey}`;
           default:
             return '';
+        }
+      },
+      getItemName (type, item) {
+        switch (type) {
+          case 'eggs':
+            return this.$t('egg', {eggType: item.text()});
+          case 'hatchingPotions':
+            return this.$t('potion', {potionType: item.text()});
+          default:
+            return item.text();
         }
       },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
