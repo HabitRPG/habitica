@@ -243,6 +243,23 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: 'armoire',
         pinType: 'armoire',
       };
+      break;
+    case 'card': {
+      let spellInfo = content.spells.special[item.key];
+
+      itemInfo = {
+        key: item.key,
+        purchaseType: 'card',
+        class: `inventory_special_${item.key}`,
+        text: spellInfo.text(),
+        notes: spellInfo.notes(),
+        value: spellInfo.value,
+        currency: 'gold',
+        path: `cardTypes.${item.key}`,
+        pinType: 'card',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {
