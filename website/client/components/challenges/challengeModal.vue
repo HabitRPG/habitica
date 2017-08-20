@@ -53,7 +53,7 @@
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
             You do not have enough gems to create a Tavern challenge
-          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallenge')}}
+          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeAddTasks')}}
           button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
         .col-12.text-center
           p(v-once) {{$t('challengeMinimum')}}
