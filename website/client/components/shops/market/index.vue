@@ -144,13 +144,14 @@
             :item="item",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
+            @click="itemSelected(item)"
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
+                v-if="item.purchaseType !== 'card'",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
@@ -161,6 +162,7 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+        div.fill-height
 
       drawer(
         :title="$t('quickInventory')"
@@ -255,10 +257,21 @@
             :itemContentClass="ctx.item.class",
             :showPopover="false"
           )
+
+      selectMembersModal(
+        :card="selectedCardToBuy",
+        :group="user.party",
+        @change="resetCardToBuy($event)",
+        @memberSelected="memberSelected($event)",
+      )
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+
+  .fill-height {
+    height: 38px; // button + margin + padding
+  }
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -391,6 +404,7 @@
   import SellModal from './sellModal.vue';
   import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import SelectMembersModal from './selectMembersModal.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -416,6 +430,8 @@
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
+  import notifications from 'client/mixins/notifications';
+
   const sortGearTypeMap = {
     sortByType: 'type',
     sortByPrice: 'value',
@@ -425,6 +441,7 @@
   };
 
 export default {
+    mixins: [notifications],
     components: {
       ShopItem,
       Item,
@@ -443,6 +460,8 @@ export default {
       BuyModal,
       EquipmentAttributesGrid,
       Avatar,
+
+      SelectMembersModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -480,6 +499,8 @@ export default {
         selectedGearToBuy: null,
         selectedItemToBuy: null,
 
+        selectedCardToBuy: null,
+
         hideLocked: false,
         hidePinned: false,
       };
@@ -494,13 +515,26 @@ export default {
       }),
       categories () {
         if (this.market) {
-          this.market.categories.map((category) => {
+          let categories = [
+            ...this.market.categories,
+          ];
+
+          categories.push({
+            identifier: 'cards',
+            text: this.$t('cards'),
+            items: _map(_filter(this.content.cardTypes, (value) => {
+              return value.yearRound;
+            }), (value) => {
+              return getItemInfo(this.user, 'card', value);
+            }),
+          });
+          categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.market.categories;
+          return categories;
         } else {
           return [];
         }
@@ -684,6 +718,11 @@ export default {
           this.selectedItemToBuy = null;
         }
       },
+      resetCardToBuy ($event) {
+        if (!$event) {
+          this.selectedCardToBuy = null;
+        }
+      },
       isGearLocked (gear) {
         if (gear.value > this.userStats.gp) {
           return true;
@@ -706,6 +745,21 @@ export default {
       },
       buyItem (item) {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      },
+      itemSelected (item) {
+        if (item.purchaseType === 'card') {
+          if (this.user.party._id) {
+            this.selectedCardToBuy = item;
+          } else {
+            this.error(this.$t('errorNotInParty'));
+          }
+        } else {
+          this.selectedItemToBuy = item;
+        }
+      },
+      memberSelected (member) {
+        this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
+        this.selectedCardToBuy = null;
       },
     },
     created () {

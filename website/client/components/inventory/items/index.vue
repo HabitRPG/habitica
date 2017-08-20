@@ -48,7 +48,7 @@
             :item="context.item",
             :key="context.item.key",
             :itemContentClass="`${group.classPrefix}${context.item.key}`",
-            :highlightBorder="currentDraggingPotion != null",
+            :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
             v-drag.drop.hatch="context.item.key",
 
             @itemDragOver="onDragOver($event, context.item)",
@@ -58,8 +58,8 @@
             @click="onEggClicked($event, context.item)",
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -86,8 +86,8 @@
             @click="onPotionClicked($event, context.item)"
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -107,8 +107,8 @@
             :showPopover="currentDraggingPotion == null"
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text() }}
-              .popover-content-text {{ context.item.notes() }}
+              h4.popover-content-title {{ context.item.text }}
+              .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
               span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
 
@@ -121,13 +121,13 @@
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
-        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text() }) }}
+        div.popover-content {{ $t('dragThisPotion', {potionName: currentDraggingPotion.text }) }}
 
   div.hatchingPotionInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
-        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text() }) }}
+        div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
 </template>
 
 <style lang="scss" scoped>
@@ -143,12 +143,12 @@
     }
 
     .potion-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
     }
 
     .popover {
       position: inherit;
-      width: 100px;
+      width: 180px;
     }
   }
 </style>
@@ -243,6 +243,8 @@ export default {
             if (isSearched) {
               itemsArray.push({
                 ...item,
+                text: item.text(),
+                notes: item.notes(),
                 quantity: itemQuantity,
               });
 
@@ -255,7 +257,7 @@ export default {
           if (this.sortBy === 'quantity') {
             return b.quantity - a.quantity;
           } else { // AZ
-            return a.data.text().localeCompare(b.data.text());
+            return a.text.localeCompare(b.text);
           }
         });
       });
@@ -264,7 +266,7 @@ export default {
     },
   },
   methods: {
-    petExists (potionKey, eggKey) {
+    userHasPet (potionKey, eggKey) {
       let animalKey = `${eggKey}-${potionKey}`;
 
       let result =  this.user.items.pets[animalKey] > 0;
@@ -290,10 +292,20 @@ export default {
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
 
-    onDragOver ($event, egg) {
-      let potionKey = this.currentDraggingPotion.key;
+    isHatchable (potion, eggKey) {
+      if (potion === null)
+        return false;
 
-      if (this.petExists(potionKey, egg.key)) {
+      let petKey = `${eggKey}-${potion.key}`;
+
+      if (!this.content.petInfo[petKey])
+        return false;
+
+      return !this.userHasPet(potion.key, eggKey);
+    },
+
+    onDragOver ($event, egg) {
+      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
         $event.dropable = false;
       }
     },
@@ -309,7 +321,7 @@ export default {
         return;
       }
 
-      if (!this.petExists(this.currentDraggingPotion.key, egg.key)) {
+      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
         this.hatchPet(this.currentDraggingPotion, egg);
       }
 

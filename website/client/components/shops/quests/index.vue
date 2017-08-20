@@ -55,9 +55,9 @@
                 @click="selectedItemToBuy = item"
               )
                 template(slot="popoverContent", scope="ctx")
-                  div
+                  div.questPopover
                     h4.popover-content-title {{ item.text }}
-                    .popover-content-text(v-html="item.notes")
+                    questInfo(:quest="item")
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -105,9 +105,9 @@
               @click="selectedItemToBuy = ctx.item"
             )
               span(slot="popoverContent", scope="ctx")
-                div
+                div.questPopover
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text(v-html="ctx.item.notes")
+                  questInfo(:quest="ctx.item")
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -135,9 +135,9 @@
                 @click="selectedItemToBuy = item"
               )
                 span(slot="popoverContent")
-                  div
+                  div.questPopover
                     h4.popover-content-title {{ item.text }}
-                    .popover-content-text(v-html="item.notes")
+                    questInfo(:quest="item")
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -162,9 +162,9 @@
             @click="selectedItemToBuy = item"
           )
             span(slot="popoverContent")
-              div
+              div.questPopover
                 h4.popover-content-title {{ item.text }}
-                .popover-content-text(v-html="item.notes")
+                questInfo(:quest="item")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -331,6 +331,7 @@
   import Avatar from 'client/components/avatar';
 
   import BuyModal from './buyQuestModal.vue';
+  import QuestInfo from './questInfo.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -363,6 +364,7 @@ export default {
 
       Avatar,
       BuyModal,
+      QuestInfo,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {

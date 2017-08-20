@@ -157,7 +157,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .col-6.offset-3.text-center.set-title
             strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
-          .col-4.text-center.customize-option(v-for='bg in set.items',
+          .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
             @click='unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
@@ -167,6 +167,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             .purchase-single(v-if='!user.purchased.background[bg.key]')
               .svg-icon.gem(v-html='icons.gem')
               span 7
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
+              @click.prevent.stop="togglePinned(bg)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
           .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
             .gem-amount
               .svg-icon.gem(v-html='icons.gem')
@@ -488,6 +493,39 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       vertical-align: bottom;
     }
   }
+
+
+  .badge-svg {
+    left: calc((100% - 18px) / 2);
+    cursor: pointer;
+    color: $gray-400;
+    background: $white;
+    padding: 4.5px 6px;
+
+    &.item-selected-badge {
+      background: $purple-300;
+      color: $white;
+    }
+  }
+
+  .icon-12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
+    color: #a5a1ac;
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg.hide {
+    display: none;
+  }
+
+  .background-button:hover {
+    span.badge.badge-pill.badge-item.badge-svg.hide {
+      display: block;
+    }
+  }
 </style>
 
 <script>
@@ -499,6 +537,7 @@ import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
 import guide from 'client/mixins/guide';
+import notifications from 'client/mixins/notifications';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -509,9 +548,12 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
+import pin from 'assets/svg/pin.svg';
+import _isPinned from './shops/_isPinned';
+
 
 export default {
-  mixins: [guide],
+  mixins: [guide, notifications],
   components: {
     avatar,
     bModal,
@@ -546,6 +588,7 @@ export default {
         hairIcon,
         backgroundsIcon,
         gem,
+        pin,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -673,6 +716,14 @@ export default {
       let backgroundClass = 'background-locked';
       if (this.user.purchased.background[bgKey]) backgroundClass = 'background-unlocked';
       return backgroundClass;
+    },
+    isBackgroundPinned (bg) {
+      return _isPinned(this.user, bg);
+    },
+    togglePinned (bg) {
+      if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {
+        this.text(this.$t('unpinnedItem', {item: bg.text}));
+      }
     },
   },
 };
