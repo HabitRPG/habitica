@@ -234,7 +234,7 @@ export default {
     }
 
     this.groups.push({
-      name: 'Public Challenges',
+      name: $t('publicChallengesTitle'),
       _id: TAVERN_ID,
     });
 
