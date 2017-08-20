@@ -759,6 +759,7 @@ export default {
       },
       memberSelected (member) {
         this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
+        this.selectedCardToBuy = null;
       },
     },
     created () {

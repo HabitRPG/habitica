@@ -12,6 +12,10 @@ const featuredItems = {
       type: 'food',
       path: 'food.Saddle',
     },
+    {
+      type: 'card',
+      path: 'cardTypes.greeting',
+    },
   ],
   quests: [
     {
