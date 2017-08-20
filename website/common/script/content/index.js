@@ -71,6 +71,7 @@ api.bundles = {
       return moment().isBetween('2017-05-16', '2017-05-31');
     },
     type: 'quests',
+    class: 'quest_bundle_featheredFriends',
     value: 7,
   },
   splashyPals: {
@@ -86,6 +87,7 @@ api.bundles = {
       return moment().isBetween('2017-07-11', '2017-08-02');
     },
     type: 'quests',
+    class: 'quest_bundle_splashyPals',
     value: 7,
   },
 };

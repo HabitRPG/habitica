@@ -44,7 +44,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
   let itemInfo;
 
   switch (type) {
-    case 'egg':
+    case 'eggs':
       itemInfo = {
         key: item.key,
         text: i18n.t('egg', {eggType: item.text(language)}, language),
@@ -55,10 +55,10 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         currency: 'gems',
         purchaseType: 'eggs',
         path: `eggs.${item.key}`,
-        pinType: 'egg',
+        pinType: 'eggs',
       };
       break;
-    case 'hatchingPotion':
+    case 'hatchingPotions':
       itemInfo = {
         key: item.key,
         text: i18n.t('potion', {potionType: item.text(language)}),
@@ -69,7 +69,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
         path: `hatchingPotions.${item.key}`,
-        pinType: 'hatchingPotion',
+        pinType: 'hatchingPotions',
       };
       break;
     case 'premiumHatchingPotion':
@@ -100,17 +100,17 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         pinType: 'food',
       };
       break;
-    case 'questBundle':
+    case 'bundles':
       itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
         value: item.value,
         currency: 'gems',
-        class: `quest_bundle_${item.key}`,
+        class: item.class,
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
-        pinType: 'questBundle',
+        pinType: 'bundles',
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations

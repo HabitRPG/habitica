@@ -5,7 +5,7 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'hatchingPotion',
+      type: 'hatchingPotions',
       path: 'hatchingPotions.Golden',
     },
     {

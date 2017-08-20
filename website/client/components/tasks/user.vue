@@ -476,12 +476,10 @@ export default {
     buyItem (item) {
       if (item.purchaseType === 'card') {
         this.selectedCardToBuy = item;
+      } else if (item.currency === 'gold') {
+        this.$store.dispatch('shops:buyItem', {key: item.key});
       } else {
-        if (item.currency === 'gold') {
-          this.$store.dispatch('shops:buyItem', {key: item.key});
-        } else {
-          this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-        }
+        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
       }
     },
     openBuyDialog (rewardItem) {
