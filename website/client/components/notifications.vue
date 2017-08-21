@@ -141,15 +141,15 @@ export default {
   },
   watch: {
     baileyShouldShow () {
-      this.$root.$emit('show:modal', 'new-stuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
-        this.$root.$emit('show:modal', 'death');
+        this.$root.$emit('show::modal', 'death');
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
-        this.$root.$emit('show:modal', 'low-health');
+        this.$root.$emit('show::modal', 'low-health');
         // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
       }
       if (after === before) return;
@@ -199,7 +199,7 @@ export default {
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${after}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show:modal', 'level-up');
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
     },
     userClassSelect (after) {
       if (!after) return;
@@ -234,7 +234,7 @@ export default {
         let createdDate = moment(created);
         let loggedinDate = moment(loggedin);
 
-        if (!this.user.flags.welcomed || !createdDate.isBefore(loggedinDate)) {
+        if (!this.user.flags.welcomed && !createdDate.isBefore(loggedinDate)) {
           this.$store.state.avatarEditorOptions.editingUser = false;
           this.$root.$emit('show::modal', 'avatar-modal');
         }
