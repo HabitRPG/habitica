@@ -34,6 +34,7 @@ const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH:ENABLED') === 'true';
 // const PUBLIC_DIR = path.join(__dirname, '/../../client');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
+const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 module.exports = function attachMiddlewares (app, server) {
   app.set('view engine', 'jade');
@@ -67,6 +68,7 @@ module.exports = function attachMiddlewares (app, server) {
     secret: SESSION_SECRET,
     httpOnly: true, // so cookies are not accessible with browser JS
     // TODO what about https only (secure) ?
+    maxAge: TEN_YEARS,
   }));
 
   // Initialize Passport! Also use passport.session() middleware, to support
