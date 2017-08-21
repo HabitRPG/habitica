@@ -10,10 +10,10 @@
     .modal-footer
       .container-fluid
         .row
-          .col-xs-6.text-center
-            button.btn-lg.btn-default(@click='close()') {{ $t('guildReminderDismiss') }}
-          .col-xs-6.text-center
-            button.btn-lg.btn-primary(ui-sref='options.social.guilds.public', href='/#/options/groups/guilds/public', ng-click='$close()') {{ $t('guildReminderCTA') }}
+          .col-6.text-center
+            button.btn.btn-secondary(@click='close()') {{ $t('guildReminderDismiss') }}
+          .col-6.text-center(@click='close()')
+            router-link.btn.btn-primary(:to="{ name: 'guildsDiscovery'}") {{ $t('guildReminderCTA') }}
 </template>
 
 <style scope>

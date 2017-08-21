@@ -53,7 +53,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
           .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
           .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
-        .col-12
+        .col-12.premium-shirts(v-if='editing')
           .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
@@ -198,7 +198,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('health') }}
+            span.custom-control-description(v-once) {{ $t('health_wellness') }}
         div
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
@@ -215,11 +215,6 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
-        div
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('budgeting') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}')
     .col-9
