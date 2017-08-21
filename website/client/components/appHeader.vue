@@ -2,7 +2,7 @@
 #app-header.row
   create-party-modal
   members-modal(:group='user.party', :hide-badge="true")
-  member-details(:member="user", @click="$router.push({name: 'avatar'})")
+  member-details(:member="user")
   .view-party(v-if="user.party && user.party._id")
     // TODO button should open the party members modal
     button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
