@@ -2,7 +2,8 @@
   b-modal#choose-class(
     size='lg',
     :hide-header='true',
-    :hide-footer='true'
+    :hide-footer='true',
+    :backdrop='static',
   )
     .modal-body.select-class
       h1.header-purple.text-center {{ $t('chooseClass') }}
@@ -32,14 +33,14 @@
         .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(v-if='selectedClass', @click='changeClass(selectedClass); selectedClass = undefined; close()') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          button.btn.btn-primary.d-inline-block(v-if='selectedClass', @click='changeClass(selectedClass); selectedClass = undefined;') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
           b-popover(
             :triggers="['hover']",
             :placement="'top'",
           ).d-inline-block
             span(slot="content")
               div.popover-content-text {{ $t('optOutOfClassesText') }}
-            .danger(@click='disableClasses({}); close()') {{ $t('optOutOfClasses') }}
+            .danger(@click='disableClasses();') {{ $t('optOutOfClasses') }}
 </template>
 
 <style lang="scss" scoped>
@@ -115,6 +116,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 
@@ -154,11 +156,13 @@ export default {
     close () {
       this.$root.$emit('hide::modal', 'choose-class');
     },
-    disableClasses () {
-      // @TODO:
+    async disableClasses () {
+      await axios.post('/api/v3/user/disable-classes');
+      close();
     },
-    changeClass () {
-      // @TODO:
+    async changeClass (heroClass) {
+      await axios.post(`/api/v3/user/change-class?class=${heroClass}`);
+      close();
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
