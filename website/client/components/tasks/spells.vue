@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(v-if='user.stats.lvl > 10')
   div.dragInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
     .spell.col-12.row
       .col-8.details
