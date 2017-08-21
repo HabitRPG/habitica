@@ -7,7 +7,7 @@
         b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGuild.name")
       .form-group(v-if='workingGuild.id && members.length > 0')
         label
-          strong(v-once) {{$t('leader')}} *
+          strong(v-once) {{$t('guildOrPartyLeader')}} *
         select.form-control(v-model="workingGuild.newLeader")
           option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
