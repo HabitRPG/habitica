@@ -58,7 +58,7 @@ export default {
   },
   data () {
     return {
-      dueDate: moment().subtract(1, "days"),
+      dueDate: moment().subtract(1, 'days'),
     };
   },
   computed: {
