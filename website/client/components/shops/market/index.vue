@@ -51,7 +51,7 @@
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedGearToBuy = item"
+                @click="gearSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -106,7 +106,7 @@
             :item="ctx.item",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
-            @click="selectedGearToBuy = ctx.item"
+            @click="gearSelected(ctx.item)"
           )
 
             template(slot="itemBadge", scope="ctx")
@@ -724,7 +724,7 @@ export default {
         }
       },
       isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
+        if (gear.klass !== this.userStats.class) {
           return true;
         }
 
@@ -755,6 +755,11 @@ export default {
           }
         } else {
           this.selectedItemToBuy = item;
+        }
+      },
+      gearSelected (item) {
+        if (!item.locked) {
+          this.selectedGearToBuy = item;
         }
       },
       memberSelected (member) {
