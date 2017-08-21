@@ -56,7 +56,7 @@ div
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon
-        .svg-icon(v-html="icons.gem")
+        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal()')
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
@@ -215,6 +215,10 @@ div
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
+  .gem:hover {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -274,6 +278,9 @@ export default {
     },
     async getUserGroupPlans () {
       this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    showBuyGemsModal () {
+      this.$root.$emit('show::modal', 'buy-gems');
     },
   },
 };
