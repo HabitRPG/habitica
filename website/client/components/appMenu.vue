@@ -31,15 +31,12 @@ div
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
         router-link.nav-item.dropdown(
-          v-if='groupPlans.length === 0',
           tag="li",
           :to="{name: 'groupPlan'}",
           :class="{'active': $route.path.startsWith('/group-plan')}")
             a.nav-link(v-once) {{ $t('group') }}
-        .nav-item.dropdown(v-if='groupPlans.length > 0', :class="{'active': $route.path.startsWith('/group-plans')}")
-          a.nav-link(v-once) {{ $t('group') }}
-          .dropdown-menu
-            router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
+            .dropdown-menu
+              router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
         router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
