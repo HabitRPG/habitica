@@ -61,8 +61,12 @@
     }
 
     .avatar {
-      display: inline-block;
-      cursor: inherit;
+      cursor: default;
+      margin: 0 auto;
+
+      .character-sprites span {
+        left: 25px;
+      }
     }
 
     .content-text {
