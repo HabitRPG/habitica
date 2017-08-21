@@ -71,3 +71,10 @@ export function togglePinnedItem (store, params) {
 
   return addedItem;
 }
+
+export function castSpell (store, params) {
+  let spellUrl = `/api/v3/user/class/cast/${params.key}`;
+  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+
+  return axios.post(spellUrl);
+}

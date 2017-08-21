@@ -3,7 +3,7 @@
   #top-background
     .seamless_stars_varied_opacity_repeat
 
-  #login-form
+  form#login-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit")
     .text-center
       div
         .svg-icon.gryphon(v-html="icons.gryphon")
@@ -13,7 +13,7 @@
       .col-6
         .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once)
           .svg-icon.social-icon(v-html="icons.facebookIcon")
-          span {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+          .text {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
       .col-6
         .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once)
           .svg-icon.social-icon(v-html="icons.googleIcon")
@@ -43,16 +43,33 @@
         router-link(:to="{name: 'register'}",  v-if='!registering', exact)
           a.toggle-link(v-once) Don't have an account? Join Habitica!
 
-  #bottom-background
-    .seamless_mountains_demo_repeat
-    .midground_foreground_extended2
+  #bottom-wrap
+    #bottom-background
+      .seamless_mountains_demo_repeat
+      .midground_foreground_extended2
 </template>
+
+<style>
+  html, body, #app {
+    min-height: 100%;
+  }
+
+  small a {
+    color: #fff;
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .form-wrapper {
     background-color: $purple-200;
+    background: $purple-200; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
+    min-height: 100%;
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -110,14 +127,20 @@
 
     .social-button {
       width: 100%;
-      text-align: left;
+      text-align: center;
+
+      .text {
+        display: inline-block;
+      }
     }
 
     .social-icon {
       margin-right: 1em;
-      width: 13px;
+      width: 18px;
+      height: 18px;
       display: inline-block;
-      height: 13px;
+      vertical-align: top;
+      margin-top: .2em;
     }
   }
 
@@ -127,8 +150,12 @@
       background-repeat: repeat-x;
       position: absolute;
       height: 500px;
-      width: 1517px;
+      width: 100%;
     }
+  }
+
+  #bottom-wrap {
+    margin-top: 6em;
   }
 
   #bottom-background {
@@ -137,7 +164,7 @@
     .seamless_mountains_demo_repeat {
       background-image: url('~assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
-      width: 1517px;
+      width: 100%;
       height: 500px;
       position: absolute;
       z-index: 0;
@@ -148,7 +175,9 @@
       background-image: url('~assets/images/auth/midground_foreground_extended2.png');
       position: relative;
       width: 1500px;
+      max-width: 100%;
       height: 150px;
+      margin: 0 auto;
     }
   }
 
@@ -166,7 +195,7 @@ import hello from 'hellojs';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import habiticaIcon from 'assets/svg/habitica-logo.svg';
-import facebookIcon from 'assets/svg/facebook.svg';
+import facebookSquareIcon from 'assets/svg/facebook-square.svg';
 import googleIcon from 'assets/svg/google.svg';
 
 export default {
@@ -181,7 +210,7 @@ export default {
     data.icons = Object.freeze({
       gryphon,
       habiticaIcon,
-      facebookIcon,
+      facebookIcon: facebookSquareIcon,
       googleIcon,
     });
 
@@ -246,6 +275,14 @@ export default {
       });
 
       window.location.href = '/';
+    },
+    handleSubmit () {
+      if (this.registering) {
+        this.register();
+        return;
+      }
+
+      this.login();
     },
   },
 };
