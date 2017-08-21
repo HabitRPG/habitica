@@ -22,7 +22,7 @@
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       // TODO link to party creation or party page if partying solo
-      router-link.btn.btn-primary(:active-class="''", :to="{name: 'party'}") {{ $t('startAParty') }}
+      a.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
 </template>
 
 <style lang="scss" scoped>
