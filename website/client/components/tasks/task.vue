@@ -377,7 +377,7 @@ export default {
 
       if (target.tagName === 'A') { // Link
         return;
-      } else if (!this.$store.state.castingSpell) {
+      } else if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
     },

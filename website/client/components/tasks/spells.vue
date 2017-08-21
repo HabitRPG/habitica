@@ -10,7 +10,9 @@ div(v-if='user.stats.lvl > 10')
 
   drawer(:title="$t('spells')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+    v-mousePosition="30", @mouseMoved="mouseMoved($event)",
+    :openStatus='openStatus',
+    v-on:toggled='drawerToggled')
     div(slot="drawer-slider")
       .container.spell-container
         .row
@@ -181,8 +183,14 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    openStatus () {
+      return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
+    },
   },
   methods: {
+    drawerToggled (openChanged) {
+      this.$store.state.spellOptions.spellDrawOpen = openChanged;
+    },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
         return true;
@@ -219,9 +227,8 @@ export default {
 
       this.potionClickMode = true;
       this.applyingAction = true;
-      this.$store.state.castingSpell = true;
+      this.$store.state.spellOptions.castingSpell = true;
       this.spell = spell;
-      document.querySelector('body').style.cursor = 'crosshair';
 
       if (spell.target === 'self') {
         this.castEnd(null, 'self');
@@ -250,7 +257,7 @@ export default {
       }
     },
     async castEnd (target, type) {
-      if (!this.$store.state.castingSpell) return;
+      if (!this.$store.state.spellOptions.castingSpell) return;
       let beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
@@ -258,8 +265,7 @@ export default {
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
 
       // @TODO: just call castCancel?
-      document.querySelector('body').style.cursor = 'initial';
-      this.$store.state.castingSpell = false;
+      this.$store.state.spellOptions.castingSpell = false;
       this.potionClickMode = false;
 
       // @TODO: We no longer wrap the users (or at least we should not), but some common code
@@ -327,7 +333,7 @@ export default {
       this.applyingAction = false;
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
-      this.$store.state.castingSpell = false;
+      this.$store.state.spellOptions.castingSpell = false;
     },
     questProgress () {
       let user = this.user;

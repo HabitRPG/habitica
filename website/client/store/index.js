@@ -76,7 +76,10 @@ export default function () {
       hideHeader: false,
       viewingMembers: [],
       openedItemRows: [],
-      castingSpell: false,
+      spellOptions: {
+        castingSpell: false,
+        spellDrawOpen: true,
+      },
     },
   });
 
