@@ -5,10 +5,9 @@
         label
           strong(v-once) {{$t('name')}} *
         b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGuild.name")
-
       .form-group(v-if='workingGuild.id && members.length > 0')
         label
-          strong(v-once) {{$t('guildLeader')}} *
+          strong(v-once) {{$t('leader')}} *
         select.form-control(v-model="workingGuild.newLeader")
           option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
@@ -30,7 +29,7 @@
           span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
 
         br
-        label.custom-control.custom-checkbox(v-if='!creatingParty')
+        label.custom-control.custom-checkbox(v-if='!isParty')
           input.custom-control-input(type="checkbox", v-model="workingGuild.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
@@ -60,7 +59,7 @@
         span
           toggleSwitch(:label="$t('inviteMembersNow')", v-model='inviteMembers')
 
-      .form-group(style='position: relative;', v-if='!creatingParty')
+      .form-group(style='position: relative;', v-if='!creatingParty && !isParty')
         label
           strong(v-once) {{$t('categories')}} *
         div.category-wrap(@click.prevent="toggleCategorySelect")
@@ -92,12 +91,12 @@
             button(@click.prevent='addMemberToInvite()') Add
 
       .form-group.text-center
-        div.item-with-icon(v-if='!creatingParty && !workingGuild.id')
+        div.item-with-icon(v-if='!this.workingGuild.id')
           .svg-icon(v-html="icons.gem")
           span.count 4
         button.btn.btn-primary.btn-md(v-if='!workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('createParty') : $t('createGuild') }}
-        button.btn.btn-primary.btn-md(v-if='workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ creatingParty ? $t('updateParty') : $t('updateGuild') }}
-        .gem-description(v-once, v-if='!creatingParty && !workingGuild.id') {{ $t('guildGemCostInfo') }}
+        button.btn.btn-primary.btn-md(v-if='workingGuild.id', :disabled='!workingGuild.name || !workingGuild.description') {{ isParty ? $t('updateParty') : $t('updateGuild') }}
+        .gem-description(v-once, v-if='!this.workingGuild.id') {{ $t('guildGemCostInfo') }}
 </template>
 
 <style lang="scss" scoped>
@@ -306,10 +305,14 @@ export default {
     title () {
       if (this.creatingParty) return this.$t('createParty');
       if (!this.workingGuild.id) return this.$t('createGuild');
+      if (this.isParty) return this.$t('updateParty');
       return this.$t('updateGuild');
     },
     creatingParty () {
       return this.$store.state.groupFormOptions.createParty;
+    },
+    isParty () {
+      return this.workingGuild.type === 'party';
     },
   },
   methods: {

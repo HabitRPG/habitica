@@ -131,7 +131,7 @@
         .col-10.information-header
           h3(v-once)
             | {{ $t('challenges') }}
-          b-tooltip.icon.tooltip-wrapper(:content="$t('privateDescription')")
+          b-tooltip.icon.tooltip-wrapper(:content="isParty ? $t('challengeDetails') : $t('privateDescription')")
             .svg-icon(v-html='icons.information')
         .col-2
           .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
@@ -167,9 +167,11 @@
     text-align: center;
 
     .svg-icon.shield, .svg-icon.gem {
-      width: 40px;
+      width: 28px;
       margin: 0 auto;
       display: inline-block;
+      vertical-align: bottom;
+      margin-right: 0.5em;
     }
 
     .number {
