@@ -3,10 +3,10 @@
   create-party-modal
   members-modal(:group='user.party', :hide-badge="true")
   member-details(:member="user")
-  .view-party(v-if="user.party && user.party._id")
+  .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
     // TODO button should open the party members modal
     button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
-  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+  .col-6.party-members.d-flex.flex-row(v-if="partyMembers && partyMembers.length > 1")
     member-details(
       v-for="(member, $index) in partyMembers",
       :key="member._id",
@@ -49,6 +49,8 @@
   }
 
   .party-members {
+    max-width: 100%;
+    overflow: scroll;
   }
 
   .view-party {
