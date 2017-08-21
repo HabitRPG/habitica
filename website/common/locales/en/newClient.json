@@ -287,5 +287,6 @@
   "welcomeBack": "Welcome back!",
   "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
   "selectPartyMember": "Select a Party Member",
-  "errorNotInParty": "You are not in a Party"
+  "errorNotInParty": "You are not in a Party",
+  "health_wellness": "Health & Wellness"
 }
