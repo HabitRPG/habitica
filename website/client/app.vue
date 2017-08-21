@@ -47,7 +47,7 @@ export default {
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user) {
-        this.$set(this.user, 'notifications', response.data.notifications)
+        this.$set(this.user, 'notifications', response.data.notifications);
       }
       return response;
     }, (error) => {
