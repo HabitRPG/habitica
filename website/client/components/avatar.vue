@@ -40,8 +40,8 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideAvatarClass")
-    .align-self-center.svg-icon(v-html='icons[member.stats.class]')
+  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideClassBadge")
+    .align-self-center.svg-icon(v-html="icons[member.stats.class]")
 </template>
 
 <style lang="scss" scoped>
@@ -104,6 +104,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideClassBadge: {
+      type: Boolean,
+      default: false,
+    },
     withBackground: {
       type: Boolean,
     },
@@ -117,9 +121,6 @@ export default {
     height: {
       type: Number,
       default: 147,
-    },
-    hideAvatarClass: {
-      type: Boolean,
     },
     margin: {
       type: String,

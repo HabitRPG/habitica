@@ -91,9 +91,6 @@ api.getNewClient = {
   method: 'GET',
   url: '/',
   async handler (req, res) {
-    if (!(req.session && req.session.userId)) {
-      return res.redirect('/');
-    }
     return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
   },
 };

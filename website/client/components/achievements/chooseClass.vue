@@ -17,7 +17,7 @@
                 :avatarOnly='true',
                 :withBackground='false',
                 :overrideAvatarGear='classGear(heroClass)',
-                :hideAvatarClass='true',
+                :hideClassBadge='true',
                 :margin='"1.8em 1.5em"',
                 :overrideTopPadding='"0px"',
                 :class='selectionBox(selectedClass, heroClass)',
