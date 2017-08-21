@@ -109,6 +109,7 @@ api.getSeasonalShopItems = {
       text: res.t('seasonalShop'),
       notes: res.t('seasonalShopClosedText'),
       imageName: 'seasonalshop_closed',
+      opened: false,
       categories: shops.getSeasonalShopCategories(user, req.language),
     };
 

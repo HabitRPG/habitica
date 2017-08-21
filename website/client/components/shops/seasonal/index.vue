@@ -30,7 +30,12 @@
               span.rectangle
               span.text Leslie
               span.rectangle
-          div.content(v-if="featuredSet")
+          div.content(v-if="!seasonal.opened")
+            div.featured-label.with-border.closed
+              span.rectangle
+              span.text(v-once, v-html="seasonal.notes")
+              span.rectangle
+          div.content(v-else-if="featuredSet")
             div.featured-label.with-border
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
@@ -53,7 +58,7 @@
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
-      .clearfix
+      .clearfix(v-if="seasonal.opened")
         h2.float-left
           | {{ $t('classArmor') }}
 
@@ -224,6 +229,13 @@
       color: #1f6ea2;
     }
 
+    .closed.featured-label {
+      max-width: 50%;
+      min-height: 32px;
+      height: auto;
+      padding: 3px;
+    }
+
     .featuredItems {
       height: 216px;
 
@@ -387,9 +399,11 @@
       },
 
       featuredSet () {
-        return _filter(this.categories, (c) => {
+        let result = _filter(this.categories, (c) => {
           return c.identifier === featuredItems.seasonal;
         })[0];
+
+        return result;
       },
     },
     methods: {
@@ -443,9 +457,12 @@
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
-        result.spells = [
-          spellCategory,
-        ];
+
+        if(spellCategory) {
+          result.spells = [
+            spellCategory,
+          ];
+        }
 
         return result;
       },
