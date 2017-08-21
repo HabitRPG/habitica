@@ -1,5 +1,5 @@
 <template lang="pug">
-.task
+.task(@click='castEnd($event, task)')
   approval-header(:task='task', v-if='this.task.group.id', :group='group')
   .d-flex(:class="{'task-not-scoreable': isUser !== true}")
     // Habits left side control
@@ -380,7 +380,8 @@ export default {
       } else if (!this.$store.state.castingSpell) {
         this.$emit('editTask', task);
       }
-
+    },
+    castEnd (e, task) {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
