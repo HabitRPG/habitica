@@ -207,7 +207,6 @@ export default {
       // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
     },
     userNotifications (after) {
-      if (!this.user._wrapped) return;
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
     },
