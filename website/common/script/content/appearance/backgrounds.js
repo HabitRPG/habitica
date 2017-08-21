@@ -535,6 +535,20 @@ let backgrounds = {
       notes: t('backgroundMidnightLakeNotes'),
     },
   },
+  backgrounds082017: {
+    back_of_giant_beast: {
+      text: t('backgroundBackOfGiantBeastText'),
+      notes: t('backgroundBackOfGiantBeastNotes'),
+    },
+    desert_dunes: {
+      text: t('backgroundDesertDunesText'),
+      notes: t('backgroundDesertDunesNotes'),
+    },
+    summer_fireworks: {
+      text: t('backgroundSummerFireworksText'),
+      notes: t('backgroundSummerFireworksNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -570,9 +584,11 @@ let backgrounds = {
 };
 /* eslint-enable quote-props */
 
-forOwn(backgrounds, function prefillBackgroundSet (value) {
-  forOwn(value, function prefillBackground (bgObject) {
-    bgObject.price = 7;
+forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
+  forOwn(backgroundsInSet, function prefillBackground (background, bgKey) {
+    background.key = bgKey;
+    background.set = set;
+    background.price = 7;
   });
 });
 

@@ -5,20 +5,27 @@ div(v-if="emptyItem")
       .item-content
     span.item-label(v-if="label") {{ label }}
 b-popover(
-  v-else,
-  :triggers="[showPopover?'hover':'']",
+  v-else-if="showPopover",
+  :triggers="['hover']",
   :placement="popoverPosition",
 )
   span(slot="content")
     slot(name="popoverContent", :item="item")
 
   .item-wrapper(@click="click")
-    .item
+    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }")
       slot(name="itemBadge", :item="item")
       span.item-content(
         :class="itemContentClass"
       )
     span.item-label(v-if="label") {{ label }}
+.item-wrapper(@click="click", v-else)
+  .item(:class="{'item-active': active, 'highlight-border':highlightBorder }")
+    slot(name="itemBadge", :item="item")
+    span.item-content(
+      :class="itemContentClass"
+    )
+  span.item-label(v-if="label") {{ label }}
 </template>
 
 <script>
@@ -49,6 +56,12 @@ export default {
     showPopover: {
       type: Boolean,
       default: true,
+    },
+    active: {
+      type: Boolean,
+    },
+    highlightBorder: {
+      type: Boolean,
     },
   },
   methods: {

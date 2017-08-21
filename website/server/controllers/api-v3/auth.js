@@ -81,10 +81,10 @@ function hasBackupAuth (user, networkToRemove) {
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam {String} username Body parameter - Username of the new user
- * @apiParam {String} email Body parameter - Email address of the new user
- * @apiParam {String} password Body parameter - Password for the new user
- * @apiParam {String} confirmPassword Body parameter - Password confirmation
+ * @apiParam (Body) {String} username Username of the new user
+ * @apiParam (Body) {String} email Email address of the new user
+ * @apiParam (Body) {String} password Password for the new user
+ * @apiParam (Body) {String} confirmPassword Password confirmation
  *
  * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
  */
@@ -206,8 +206,8 @@ function _loginRes (user, req, res) {
  * @apiName UserLoginLocal
  * @apiGroup User
  *
- * @apiParam {String} username Body parameter - Username or email of the user
- * @apiParam {String} password Body parameter - The user's password
+ * @apiParam (Body) {String} username Username or email of the user
+ * @apiParam (Body) {String} password The user's password
  *
  * @apiSuccess {String} data._id The user's unique identifier
  * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
@@ -368,8 +368,8 @@ api.loginSocial = {
  * @apiName UserAuthPusher
  * @apiGroup User
  *
- * @apiParam {String} socket_id Body parameter
- * @apiParam {String} channel_name Body parameter
+ * @apiParam (Body) {String} socket_id A unique identifier for the specific client connection to Pusher
+ * @apiParam (Body) {String} channel_name The name of the channel being subscribed to
  *
  * @apiSuccess {String} auth The authentication token
  */
@@ -436,8 +436,8 @@ api.pusherAuth = {
  * @apiName UpdateUsername
  * @apiGroup User
  *
- * @apiParam {String} password Body parameter - The current user password
- * @apiParam {String} username Body parameter - The new username
+ * @apiParam (Body) {String} password The current user password
+ * @apiParam (Body) {String} username The new username
 
  * @apiSuccess {String} data.username The new username
  **/
@@ -489,9 +489,9 @@ api.updateUsername = {
  * @apiName UpdatePassword
  * @apiGroup User
  *
- * @apiParam {String} password Body parameter - The old password
- * @apiParam {String} newPassword Body parameter - The new password
- * @apiParam {String} confirmPassword Body parameter - New password confirmation
+ * @apiParam (Body) {String} password The old password
+ * @apiParam (Body) {String} newPassword The new password
+ * @apiParam (Body) {String} confirmPassword New password confirmation
  *
  * @apiSuccess {Object} data An empty object
  **/
@@ -543,7 +543,7 @@ api.updatePassword = {
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiParam {String} email Body parameter - The email address of the user
+ * @apiParam (Body) {String} email The email address of the user
  *
  * @apiSuccess {String} message The localized success message
  **/
@@ -600,8 +600,8 @@ api.resetPassword = {
  * @apiName UpdateEmail
  * @apiGroup User
  *
- * @apiParam {String} Body parameter - newEmail The new email address.
- * @apiParam {String} Body parameter - password The user password.
+ * @apiParam (Body) {String} newEmail The new email address.
+ * @apiParam (Body) {String} password The user password.
  *
  * @apiSuccess {String} data.email The updated email address
  */

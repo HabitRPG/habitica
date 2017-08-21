@@ -54,8 +54,10 @@ import { mapState } from 'client/libs/store';
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   props: ['group'],
   data () {
     return {
@@ -72,8 +74,9 @@ export default {
       return this.user.profile.name;
     },
     sendInviteText () {
-      if (!this.group) return 'Send Invites';
-      return this.group.sendInviteText;
+      return 'Send Invites';
+      // if (!this.group) return 'Send Invites';
+      // return this.group.sendInviteText;
     },
   },
   methods: {
@@ -97,38 +100,41 @@ export default {
 
       this.inviteByMethod(inviteMethod);
     },
-    // inviteByMethod (inviteMethod) {
-      // let invitationDetails;
-      //
-      // if (inviteMethod === 'email') {
-      //   let emails = this.getEmails();
-      //   invitationDetails = { inviter: this.inviter, emails };
-      // } else if (inviteMethod === 'uuid') {
-      //   let uuids = this.getOnlyUuids();
-      //   invitationDetails = { uuids };
-      // } else {
-      //   return alert('Invalid invite method.');
-      // }
+    async inviteByMethod (inviteMethod) {
+      let invitationDetails;
 
-      // @TODO: Add dispatch
-      // Groups.Group.invite(this.group._id, invitationDetails)
-      //   .then(function () {
-      //      let invitesSent = invitationDetails.emails || invitationDetails.uuids;
-      //      let invitationString = invitesSent.length > 1 ? 'invitationsSent' : 'invitationSent';
-      //
-      //      Notification.text(window.env.t(invitationString));
-      //
-      //      _resetInvitees();
-      //
-      //     if (this.group.type === 'party') {
-      //       $rootScope.hardRedirect('/#/options/groups/party');
-      //     } else {
-      //       $rootScope.hardRedirect('/#/options/groups/guilds/' + this.group._id);
-      //     }
-      //   }, function(){
-      //     _resetInvitees();
-      //   });
-    // },
+      if (inviteMethod === 'email') {
+        let emails = this.getEmails();
+        invitationDetails = { inviter: this.inviter, emails };
+      } else if (inviteMethod === 'uuid') {
+        let uuids = this.getOnlyUuids();
+        invitationDetails = { uuids };
+      } else {
+        return alert('Invalid invite method.');
+      }
+
+      await this.$store.dispatch('guilds:invite', {
+        invitationDetails,
+        groupId: this.group._id,
+      });
+
+      let invitesSent = invitationDetails.emails || invitationDetails.uuids;
+      let invitationString = invitesSent.length > 1 ? 'invitationsSent' : 'invitationSent';
+
+      this.text(this.$t(invitationString));
+
+      // @TODO: This function didn't make it over this.resetInvitees();
+
+      // @TODO: Sync group invites?
+      // if (this.group.type === 'party') {
+      //   this.$router.push('//party');
+      // } else {
+      //   this.$router.push(`/groups/guilds/${this.group._id}`);
+      // }
+      this.$root.$emit('hide:modal', 'invite-modal');
+      // @TODO: error?
+      // _resetInvitees();
+    },
     getOnlyUuids () {
       let uuids = map(this.invitees, 'uuid');
       let filteredUuids = filter(uuids, (id) => {

@@ -146,27 +146,27 @@
           .form(v-if='user.auth.local', name='changeUsername', novalidate)
             //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
             .form-group
-              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', required)
+              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
             .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changeEmail') }}
           .form(v-if='user.auth.local', name='changeEmail', novalidate)
             .form-group
-              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail', required)
+              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
             .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changePass') }}
           .form(v-if='user.auth.local', name='changePassword', novalidate)
             .form-group
-              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
             .form-group
-              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword', required)
+              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
             .form-group
-              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword', required)
+              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
 
           div

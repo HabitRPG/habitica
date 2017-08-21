@@ -1,5 +1,5 @@
 <template lang="pug">
-.avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
+.avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
   .character-sprites
     template(v-if="!avatarOnly")
       // Mount Body
@@ -40,53 +40,53 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  .class-badge.d-flex.justify-content-center(v-if="hasClass")
+  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideClassBadge")
     .align-self-center.svg-icon(v-html="icons[member.stats.class]")
 </template>
 
 <style lang="scss" scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.avatar {
-  width: 140px;
-  height: 147px;
-  image-rendering: pixelated;
-  position: relative;
-  cursor: pointer;
-}
-
-.character-sprites {
-  margin: 0 auto;
-  width: 90px;
-  height: 90px;
-}
-
-.character-sprites span {
-  position: absolute;
-}
-
-.current-pet {
-  bottom: 0px;
-  left: 0px;
-}
-
-.class-badge {
-  $badge-size: 32px;
-  position: absolute;
-  left: calc(50% - (16px));
-  bottom: -($badge-size / 2);
-
-  width: $badge-size;
-  height: $badge-size;
-  background: $white;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  border-radius: 100px;
-
-  .svg-icon {
-    width: 19px;
-    height: 19px;
+  .avatar {
+    width: 140px;
+    height: 147px;
+    image-rendering: pixelated;
+    position: relative;
+    cursor: pointer;
   }
-}
+
+  .character-sprites {
+    margin: 0 auto 0 24px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .character-sprites span {
+    position: absolute;
+  }
+
+  .current-pet {
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .class-badge {
+    $badge-size: 32px;
+    position: absolute;
+    left: calc(50% - (16px));
+    bottom: -($badge-size / 2);
+
+    width: $badge-size;
+    height: $badge-size;
+    background: $white;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    border-radius: 100px;
+
+    .svg-icon {
+      width: 19px;
+      height: 19px;
+    }
+  }
 </style>
 
 <script>
@@ -102,6 +102,10 @@ export default {
       required: true,
     },
     avatarOnly: {
+      type: Boolean,
+      default: false,
+    },
+    hideClassBadge: {
       type: Boolean,
       default: false,
     },
@@ -184,6 +188,10 @@ export default {
       }
 
       return result;
+    },
+    castEnd (e) {
+      if (!this.$store.state.castingSpell) return;
+      this.$root.$emit('castEnd', this.member, 'user', e);
     },
   },
 };

@@ -3,8 +3,11 @@ import omit from 'lodash/omit';
 
 export async function createChallenge (store, payload) {
   let response = await axios.post('/api/v3/challenges', payload.challenge);
+  let newChallenge = response.data.data;
 
-  return response.data.data;
+  store.state.user.data.challenges.push(newChallenge._id);
+
+  return newChallenge;
 }
 
 export async function joinChallenge (store, payload) {
@@ -23,9 +26,10 @@ export async function leaveChallenge (store, payload) {
   return response.data.data;
 }
 
-export async function getUserChallenges () {
-  let response = await axios.get('/api/v3/challenges/user');
-
+export async function getUserChallenges (store, payload) {
+  let url = '/api/v3/challenges/user';
+  if (payload && payload.member) url += '?member=true';
+  let response = await axios.get(url);
   return response.data.data;
 }
 
@@ -42,7 +46,7 @@ export async function getChallenge (store, payload) {
 }
 
 export async function exportChallengeCsv (store, payload) {
-  let response = await axios.get(`/api/v3/challenges/challenges/${payload.challengeId}/export/csv`);
+  let response = await axios.get(`/api/v3/challenges/${payload.challengeId}/export/csv`);
 
   return response.data.data;
 }
@@ -59,13 +63,13 @@ export async function updateChallenge (store, payload) {
 }
 
 export async function deleteChallenge (store, payload) {
-  let response = await axios.delete(`/api/v3/challenges/challenges/${payload.challengeId}`);
+  let response = await axios.delete(`/api/v3/challenges/${payload.challengeId}`);
 
   return response.data.data;
 }
 
 export async function selectChallengeWinner (store, payload) {
-  let response = await axios.post(`/api/v3/challenges/challenges/${payload.challengeId}/selectWinner/${payload.winnerId}`);
+  let response = await axios.post(`/api/v3/challenges/${payload.challengeId}/selectWinner/${payload.winnerId}`);
 
   return response.data.data;
 }

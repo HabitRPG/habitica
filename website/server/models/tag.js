@@ -22,8 +22,14 @@ export let schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'id', 'challenge'],
+  noSet: ['_id', 'challenge', 'group'],
   _id: false, // use id instead of _id
 });
+
+// A list of additional fields that cannot be updated (but can be set on creation)
+const noUpdate = ['id'];
+schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
+  return this.sanitize(updateObj, noUpdate);
+};
 
 export let model = mongoose.model('Tag', schema);

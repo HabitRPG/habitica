@@ -14,7 +14,7 @@
 
 .modal-dialog {
   .title {
-    height: 24px;
+    min-height: 24px;
     margin-top: 24px;
     font-family: 'Roboto Condensed';
     font-size: 20px;
@@ -22,7 +22,6 @@
     line-height: 1.2;
     text-align: center;
     color: $gray-50;
-    display: inline-block;
   }
 
   .text {

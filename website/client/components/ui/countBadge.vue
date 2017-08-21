@@ -1,6 +1,6 @@
 <template lang="pug">
 span.badge.badge-pill.badge-item.badge-count(
-  v-if="show",
+  v-if="show && count != 0",
 ) {{ count }}
 </template>
 
@@ -10,7 +10,7 @@ span.badge.badge-pill.badge-item.badge-count(
 .badge-count {
   right: -9px;
   color: $white;
-  background: $orange-100;
+  background: $gray-200;
   padding: 4.5px 6px;
   min-width: 24px;
   height: 24px;

@@ -15,7 +15,7 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   item = cloneDeep(content.gear.flat[item]);
   user.items.gear.owned[item.key] = true;
 
-  user.markModified('purchased.plan.mysteryItems');
+  if (user.markModified) user.markModified('purchased.plan.mysteryItems');
 
   if (analytics) {
     analytics.track('open mystery item', {

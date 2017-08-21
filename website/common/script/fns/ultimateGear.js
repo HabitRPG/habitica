@@ -16,7 +16,7 @@ module.exports = function ultimateGear (user) {
       }, true);
 
       if (user.achievements.ultimateGearSets[klass] === true) {
-        user.addNotification('ULTIMATE_GEAR_ACHIEVEMENT');
+        if (user.addNotification) user.addNotification('ULTIMATE_GEAR_ACHIEVEMENT');
       }
     }
   });

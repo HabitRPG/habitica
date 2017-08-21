@@ -4,29 +4,31 @@
   // span.glyphicon(:class='iconClasses()')
   // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
-    h4.dropdown-item(v-if='!hasNoNotifications()') {{ $t('notifications') }}
+    h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
-    a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='$state.go("options.inventory.drops"); ')
+    a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='party in user.invitations.parties', ui-sref='options.social.party')
+    a.dropdown-item(v-for='party in user.invitations.parties', @click='go("/party")')
       span.glyphicon.glyphicon-user
       span {{ $t('invitedTo', {name: party.name}) }}
-    a.dropdown-item(v-if='user.flags.cardReceived', @click='$state.go("options.inventory.drops"); ')
+    a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
-      a.dropdown-item(@click='clearCards()', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
-    a.dropdown-item(v-for='guild in user.invitations.guilds', ui-sref='options.social.guilds.public')
+      a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
+        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
+    a.dropdown-item(v-for='guild in user.invitations.guilds', @click='go("/groups/discovery")')
       span.glyphicon.glyphicon-user
       span {{ $t('invitedTo', {name: guild.name}) }}
-    a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points', ui-sref='options.profile.stats')
+    a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
+      @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='(k === party._id || k === user.party._id) ? $state.go("options.social.party") : $state.go("options.social.guilds.detail",{gid:k}); ')
+    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='navigateToGroup(k)')
       span.glyphicon.glyphicon-comment
       span {{v.name}}
-    a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
-    a.dropdown-item(v-for='notification in user.groupNotifications', @click='viewGroupApprovalNotification(notification, $index, true)')
+      a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+    a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
       span
         | {{notification.data.message}}
@@ -56,6 +58,10 @@
 
   .dropdown + .dropdown {
     margin-left: 0px;
+  }
+
+  .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
   }
 
   .dropdown-menu:not(.user-dropdown) {
@@ -225,7 +231,7 @@ export default {
       // @TODO: USe notifications: User.readNotification(notification.id);
       this.user.groupNotifications.splice(index, 1);
       return navigate; // @TODO: remove
-      // @TODO: this.$route.go if (navigate) $state.go('options.social.guilds.detail', {gid: notification.data.groupId});
+      // @TODO: this.$route.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
     },
     groupApprovalNotificationIcon (notification) {
       if (notification.type === 'GROUP_TASK_APPROVAL') {
@@ -233,6 +239,16 @@ export default {
       } else if (notification.type === 'GROUP_TASK_APPROVED') {
         return 'glyphicon glyphicon-ok-sign';
       }
+    },
+    go (path) {
+      this.$route.push(path);
+    },
+    navigateToGroup (key) {
+      if (key === this.party._id || key === this.user.party._id) {
+        this.go('/party');
+        return;
+      }
+      this.go(`/groups/guild/${key}`);
     },
   },
 };

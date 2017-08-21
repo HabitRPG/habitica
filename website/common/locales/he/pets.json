@@ -66,7 +66,7 @@
     "itemDrop": "יש לך דבר חדש!",
     "firstDrop": "הרווחת את מערכת הביזה! מעתה, בכל פעם שתשלימ/י משימה, יהיה לך סיכוי קטן למצוא חפץ בעל ערך כולל ביצים, שיקויים ואוכל. הרגע מצאת <strong><%= eggText %> ביצה</strong>! <%= eggNotes %>",
     "useGems": "אם חיית מחמד מסוימת תפסה את עיניך, אבל אינך יכול לחכות יותר לבזוז אותה, השתמש/י ביהלומים ב<strong>מלאי ציוד > שוק </strong> כדי לקנות אותה!",
-    "hatchAPot": "להבקיע <%= egg %> <%= potion %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "הצג עכשיו",
     "displayLater": "הצג מאוחר יותר",

@@ -66,7 +66,7 @@
     "itemDrop": "Sebuah item telah terjatuh!",
     "firstDrop": "Kamu telah membuka Sistem Jatuhan! Sekarang ketika kamu menyelesaikan tugas, kamu memiliki kesempatan kecil untuk menemukan item, termasuk telur, ramuan, dan makanan! Kamu baru saja menemukan sebuah <strong><%= eggText %> Telur</strong>! <%= eggNotes %>",
     "useGems": "Kalau kamu ingin memelihara sesuatu, tapi tidak sabar menunggu kapan ia akan muncul, gunakan permata di <strong>Inventori > Pasar</strong> untuk membeli telurnya!",
-    "hatchAPot": "Tetaskan seekor <%= egg %> <%= potion %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
     "displayNow": "Tampilkan Sekarang",
     "displayLater": "Tampilkan Nanti",
@@ -97,6 +97,6 @@
     "mountsAndPetsReleased": "Tunggangan dan Peliharaan dilepaskan",
     "mountsReleased": "Tunggangan dilepaskan",
     "gemsEach": "permata setiap satuan",
-    "foodWikiText": "What does my pet like to eat?",
+    "foodWikiText": "Apa makanan kesukaan peliharaanku?",
     "foodWikiUrl": "http://habitica.wikia.com/wiki/Food_Preferences"
 }

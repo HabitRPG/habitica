@@ -1,19 +1,44 @@
 const featuredItems = {
-    market: [
-      'head_armoire_vikingHelm',
-      'weapon_special_1',
-      'shield_special_0',
-      'armor_warrior_5',
-    ],
-    quests: [
-      'dilatoryDistress1',
-      'dilatoryDistress2',
-      'dilatoryDistress3',
-    ],
-    seasonal: 'summerMage',
-    timeTravelers: [
+  market: [
+    {
+      type: 'armoire',
+      path: 'armoire',
+    },
+    {
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Golden',
+    },
+    {
+      type: 'food',
+      path: 'food.Saddle',
+    },
+    {
+      type: 'card',
+      path: 'cardTypes.greeting',
+    },
+  ],
+  quests: [
+    {
+      type: 'quests',
+      path: 'quests.gryphon',
+    },
+    {
+      type: 'quests',
+      path: 'quests.dilatoryDistress1',
+    },
+    {
+      type: 'quests',
+      path: 'quests.nudibranch',
+    },
+    {
+      type: 'quests',
+      path: 'quests.taskwoodsTerror1',
+    },
+  ],
+  seasonal: 'summerMage',
+  timeTravelers: [
       // TODO
-    ],
+  ],
 };
 
 export default featuredItems;

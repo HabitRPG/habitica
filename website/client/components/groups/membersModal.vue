@@ -6,7 +6,7 @@ div
         .col-6
           h1(v-once) {{$t('members')}}
         .col-6
-          button(type="button" aria-label="Close" class="close")
+          button(type="button" aria-label="Close" class="close", @click='close()')
             span(aria-hidden="true") ×
       .row
         .form-group.col-6
@@ -15,26 +15,31 @@ div
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
-    .row(v-for='member in members', :key='member', )
+    .row(v-for='member in sortedMembers')
       .col-8.offset-1
         member-details(:member='member')
       .col-3.actions
         b-dropdown(:text="$t('sort')", right=true)
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.removeIcon")
-            | {{$t('removeMember')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.removeIcon")
+              span.text {{$t('removeMember')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.messageIcon")
-            | {{$t('sendMessage')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.messageIcon")
+              span.text {{$t('sendMessage')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.starIcon")
-            | {{$t('promoteToLeader')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.starIcon")
+              span.text {{$t('promoteToLeader')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.starIcon")
-            | {{$t('addManager')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.starIcon")
+              span.text {{$t('addManager')}}
           b-dropdown-item(@click='sort(option.value)')
-            .svg-icon(v-html="icons.removeIcon")
-            | {{$t('removeManager2')}}
+            span.dropdown-icon-item
+              .svg-icon.inline(v-html="icons.removeIcon")
+              span.text {{$t('removeManager2')}}
     .row.gradient(v-if='members.length > 3')
 
   b-modal#remove-member(:title="$t('confirmRemoveMember')")
@@ -93,15 +98,14 @@ div
     }
   }
 
-  .dropdown-menu .svg-icon {
+  .dropdown-icon-item .svg-icon {
     width: 20px;
-    display: inline-block;
-    vertical-align: bottom;
-    margin-right: .5em;
   }
 </style>
 
 <script>
+// @TODO: Move this under members directory
+import sortBy from 'lodash/sortBy';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -110,7 +114,6 @@ import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
-import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge.svg';
 
 export default {
   props: ['group', 'hideBadge'],
@@ -127,11 +130,12 @@ export default {
   },
   data () {
     return {
+      sortOption: '',
       members: [],
       memberToRemove: '',
       sortOptions: [
         {
-          value: 'tier',
+          value: 'level',
           text: this.$t('tier'),
         },
         {
@@ -139,7 +143,7 @@ export default {
           text: this.$t('name'),
         },
         {
-          value: 'level',
+          value: 'lvl',
           text: this.$t('level'),
         },
         {
@@ -152,21 +156,44 @@ export default {
         removeIcon,
         messageIcon,
         starIcon,
-        goldGuildBadgeIcon,
       }),
     };
   },
+  computed: {
+    sortedMembers () {
+      let sortedMembers = this.members;
+      if (!this.sortOption) return sortedMembers;
+
+      sortedMembers = sortBy(this.members, [(member) => {
+        if (this.sortOption === 'tier') {
+          if (!member.contributor) return;
+          return member.contributor.level;
+        } else if (this.sortOption === 'name') {
+          return member.profile.name;
+        } else if (this.sortOption === 'lvl') {
+          return member.stats.lvl;
+        } else if (this.sortOption === 'class') {
+          return member.stats.class;
+        }
+      }]);
+
+      return this.members;
+    },
+  },
   methods: {
     async getMembers () {
-      if (this.group._id) {
+      let groupId = this.$store.state.groupId || this.group._id;
+      if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: this.group._id,
+          groupId,
           includeAllPublicFields: true,
         });
         this.members = members;
       }
 
-      if (this.$store.state.viewingMembers) this.members = this.$store.state.viewingMembers;
+      if (this.$store.state.viewingMembers.length > 0) {
+        this.members = this.$store.state.viewingMembers;
+      }
     },
     async clickMember (uid, forceShow) {
       let user = this.$store.state.user.data;
@@ -222,6 +249,12 @@ export default {
       await this.$store.dispatch('group:removeManager', {
         memberId,
       });
+    },
+    close () {
+      this.$root.$emit('hide::modal', 'members-modal');
+    },
+    sort (option) {
+      this.sortOption = option;
     },
   },
 };

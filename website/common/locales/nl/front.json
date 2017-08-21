@@ -246,7 +246,7 @@
     "missingNewPassword": "Ontbrekend nieuw wachtwoord.",
     "invalidEmailDomain": "Je kunt je niet registreren met e-mailadressen met de volgende domeinnamen: <%= domains %>",
     "wrongPassword": "Verkeerd wachtwoord.",
-    "incorrectDeletePhrase": "Please type DELETE in all caps to delete your account.",
+    "incorrectDeletePhrase": "Gelieve DELETE in hoofdletters te typen om je account te verwijderen.",
     "notAnEmail": "Ongeldig e-mailadres.",
     "emailTaken": "E-mailadres is al in gebruik door een account.",
     "newEmailRequired": "Ontbrekend nieuw e-mailadres.",

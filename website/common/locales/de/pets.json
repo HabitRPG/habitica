@@ -66,7 +66,7 @@
     "itemDrop": "Du hast einen Gegenstand gefunden!",
     "firstDrop": "Du hast das Beutesystem freigeschaltet! Ab jetzt hast Du jedes mal wenn Du eine Aufgabe abhakst eine kleine Chance einen Gegenstand zu finden, wie zum Beispiel Eier, Schlüpftränke und Futter! Du hast eben ein <strong><%= eggText %> Ei</strong> gefunden! <%= eggNotes %>",
     "useGems": "Du willst ein bestimmtes Haustier haben, möchtest aber nicht länger warten, bis Du die richtigen Gegenstände gefunden hast? Mit Edelsteinen kannst Du im <strong>Inventar > Marktplatz</strong> die entsprechenden Gegenstände kaufen!",
-    "hatchAPot": "Soll ein <%= potion %> <%= egg %> ausgebrütet werden?",
+    "hatchAPot": "Willst Du ein <%= potion %> <%= egg %> ausbrüten?",
     "hatchedPet": "Du hast einen neuen <%= potion %> <%= egg %> ausgebrütet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",

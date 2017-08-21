@@ -106,12 +106,13 @@
     "spring2017SneakyBunnySet": "Coniglio Furtivo (Assassino)",
     "summer2017SandcastleWarriorSet": "Guerriero Castello di Sabbia (Guerriero)",
     "summer2017WhirlpoolMageSet": "Mago Vortice (Mago)",
-    "summer2017SeashellSeahealerSet": "Seashell Seahealer (Healer)",
+    "summer2017SeashellSeahealerSet": "Marguaritore Conchiglia (Guaritore)",
     "summer2017SeaDragonSet": "Drago Marino (Assassino)",
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndApril": "19 aprile",
     "dateEndMay": "17 maggio",
     "dateEndJune": "14 giugno",
     "dateEndJuly": "29 luglio",
+    "dateEndAugust": "31 agosto",
     "discountBundle": "pacchetto"
 }

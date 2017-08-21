@@ -64,6 +64,9 @@ api.preenTodos = preenTodos;
 import updateStore from './libs/updateStore';
 api.updateStore = updateStore;
 
+import inAppRewards from './libs/inAppRewards';
+api.inAppRewards = inAppRewards;
+
 import uuid from './libs/uuid';
 api.uuid = uuid;
 
@@ -161,6 +164,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
+import pinnedGearUtils from './ops/pinnedGearUtils';
 
 api.ops = {
   scoreTask,
@@ -198,6 +202,7 @@ api.ops = {
   reroll,
   reset,
   markPmsRead,
+  pinnedGearUtils,
 };
 
 /*

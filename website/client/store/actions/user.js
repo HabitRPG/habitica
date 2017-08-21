@@ -2,6 +2,8 @@ import { loadAsyncResource } from 'client/libs/asyncResource';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
+import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
+
 export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
@@ -18,7 +20,16 @@ export function set (store, changes) {
   const user = store.state.user.data;
 
   for (let key in changes) {
-    setProps(user, key, changes[key]);
+    if (key === 'tags') {
+      // Keep challenge and group tags
+      const oldTags = user.tags.filter(t => {
+        return t.group || t.challenge;
+      });
+
+      user.tags = changes[key].concat(oldTags);
+    } else {
+      setProps(user, key, changes[key]);
+    }
   }
 
   axios.put('/api/v3/user', changes);
@@ -45,4 +56,25 @@ export async function updateWebhook (store, payload) {
 export async function deleteWebhook (store, payload) {
   let response = await axios.delete(`/api/v3/user/webhook/${payload.webhook.id}`);
   return response.data.data;
+}
+
+
+export function togglePinnedItem (store, params) {
+  const user = store.state.user.data;
+
+  let addedItem = togglePinnedItemOp(user, params);
+
+  axios.get(`/api/v3/user/toggle-pinned-item/${params.type}/${params.path}`);
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
+
+  return addedItem;
+}
+
+export function castSpell (store, params) {
+  let spellUrl = `/api/v3/user/class/cast/${params.key}`;
+  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+
+  return axios.post(spellUrl);
 }

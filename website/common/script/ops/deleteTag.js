@@ -27,7 +27,7 @@ module.exports = function deleteTag (user, req = {}) {
   });
 
   each(['habits', 'dailys', 'todos', 'rewards'], (type) => {
-    user.markModified(type);
+    if (user.markModified) user.markModified(type);
   });
 
   return user.tags;

@@ -112,11 +112,15 @@ export async function save (store, editedTask) {
 
   sanitizeChecklist(editedTask);
 
-  Object.assign(originalTask, editedTask);
+  if (originalTask) Object.assign(originalTask, editedTask);
 
-  const taskDataToSend = omit(originalTask, ['history']);
-  const response = await axios.put(`/api/v3/tasks/${originalTask._id}`, taskDataToSend);
-  Object.assign(originalTask, response.data.data);
+  const taskDataToSend = omit(editedTask, ['history']);
+  const response = await axios.put(`/api/v3/tasks/${taskId}`, taskDataToSend);
+  if (originalTask) Object.assign(originalTask, response.data.data);
+}
+
+export async function scoreChecklistItem (store, {taskId, itemId}) {
+  await axios.post(`/api/v3/tasks/${taskId}/checklist/${itemId}/score`);
 }
 
 export async function destroy (store, task) {
@@ -128,4 +132,44 @@ export async function destroy (store, task) {
   }
 
   await axios.delete(`/api/v3/tasks/${task._id}`);
+}
+
+export async function getChallengeTasks (store, payload) {
+  let response = await axios.get(`/api/v3/tasks/challenge/${payload.challengeId}`);
+  return response.data.data;
+}
+
+export async function createChallengeTasks (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/challenge/${payload.challengeId}`, payload.tasks);
+  return response.data.data;
+}
+
+export async function getGroupTasks (store, payload) {
+  let response = await axios.get(`/api/v3/tasks/group/${payload.groupId}`);
+  return response.data.data;
+}
+
+export async function createGroupTasks (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/group/${payload.groupId}`, payload.tasks);
+  return response.data.data;
+}
+
+export async function assignTask (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/assign/${payload.userId}`);
+  return response.data.data;
+}
+
+export async function unassignTask (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/unassign/${payload.userId}`);
+  return response.data.data;
+}
+
+export async function getGroupApprovals (store, payload) {
+  let response = await axios.get(`/api/v3/approvals/group/${payload.groupId}`);
+  return response.data.data;
+}
+
+export async function approve (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/approve/${payload.userId}`);
+  return response.data.data;
 }

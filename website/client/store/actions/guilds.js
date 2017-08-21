@@ -165,3 +165,8 @@ export async function removeManager  (store, payload) {
 
   return response;
 }
+
+export async function getGroupPlans () {
+  let response = await axios.get('/api/v3/group-plans');
+  return response.data.data;
+}

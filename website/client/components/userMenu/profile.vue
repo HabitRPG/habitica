@@ -3,8 +3,8 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
   .row
     .col-6.offset-3.text-center.nav
       .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
-      .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
       .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
+      .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
   .standard-page(v-show='selectedPage === "profile"')
     .row
       .col-8
@@ -94,19 +94,92 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
           span {{ content.quests[k].text() }}
           span {{ value }}
   .standard-page(v-show='selectedPage === "stats"')
-    h1 Stats
     .row
       .col-6
         h2.text-center Equipment
-        .well.row
-          .col-4
+        // user.items.gear.equipped
+        .well
+          .col-4.item-wrapper
+            .box
+            h3 Eyewear
+          .col-4.item-wrapper
+            .box
+            h3 Head Gear
+          .col-4.item-wrapper
+            .box
+            h3 Head Access.
+          .col-4.item-wrapper
+            .box
+            h3 Back Access.
+          .col-4.item-wrapper
+            .box
+            h3 Armor
+          .col-4.item-wrapper
+            .box
+            h3 Body Access.
+          .col-4.item-wrapper
+            .box
+            h3 Main-Hand
+          .col-4.item-wrapper
+          .col-4.item-wrapper
+            .box
+            h3 Off-Hand
       .col-6
         h2.text-center Costume
+        // user.items.gear.costume
+        .well
+          .col-4.item-wrapper
+            .box
+            h3 Eyewear
+          .col-4.item-wrapper
+            .box
+            h3 Head Gear
+          .col-4.item-wrapper
+            .box
+            h3 Head Access.
+          .col-4.item-wrapper
+            .box
+            h3 Back Access.
+          .col-4.item-wrapper
+            .box
+            h3 Armor
+          .col-4.item-wrapper
+            .box
+            h3 Body Access.
+          .col-4.item-wrapper
+            .box
+            h3 Main-Hand
+          .col-4.item-wrapper
+            .box
+            h3 Background {{ user.preferences.background }}
+          .col-4.item-wrapper
+            .box
+            h3 Off-Hand
     .row
       .col-6
-        h2.text-center Pet
+        h2.text-center(v-once) {{ $t('pets') }}
+        ul
+          li(ng-if='user.items.currentPet')
+            | {{ $t('activePet') }}:
+            | {{ formatAnimal(user.items.currentPet, 'pet') }}
+          li
+            | {{ $t('petsFound') }}:
+            | {{ totalCount(user.items.pets) }}
+          li
+            | {{ $t('beastMasterProgress') }}:
+            | {{ beastMasterProgress(user.items.pets) }}
       .col-6
-        h2.text-center Mount
+        h2.text-center(v-once) {{ $t('mounts') }}
+        ul
+          li(v-if='user.items.currentMount')
+            | {{ $t('activeMount') }}:
+            | {{ formatAnimal(user.items.currentMount, 'mount') }}
+          li
+            | {{ $t('mountsTamed') }}:
+            | {{ totalCount(user.items.mounts) }}
+          li
+            | {{ $t('mountMasterProgress') }}:
+            | {{ mountMasterProgress(user.items.mounts) }}
     .row#attributes
       hr.col-12
       h2.col-12 Attributes
@@ -133,64 +206,7 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
             li
               strong Buffs:
               | {{user.stats.buffs[stat]}}
-
-    .row
-      .col-4
-        div
-          h3 Basics
-          ul
-            li Health: {{user.stats.hp}}/{{user.stats.maxHealth}}
-            li Mana: {{user.stats.mp}}/{{user.stats.maxMP}}
-            li Gold: {{user.stats.gp}}
-            li Level: {{user.stats.lvl}}
-            li Experience: {{user.stats.exp}}
-
-        div(v-if='user.flags.itemsEnabled')
-          h3 Battle Gear
-          ul
-            li(v-for='(key, itemType) in user.items.gear.equipped', v-if='flatGear[key]')
-              strong {{ flatGear[key].text() }}
-              strong(v-if='flatGear[key].str || flatGear[key].con || flatGear[key].per || flatGear[key].int') :&nbsp;
-                span(v-for='stat in ["str","con","per","int"]', v-if='flatGear[key][stat]') {{flatGear[key][stat]}} {{ $t(stat) }}&nbsp;
-
-        div(v-if='user.preferences.costume')
-          h4(v-once) {{ $t('costume') }}
-          div
-            div(ng-repeat='(key, itemType) in user.items.gear.costume')
-              strong {{flatGear[key].text()}}
-
-        div
-          h3 Background
-          ul
-            li(v-if='!user.preferences.background') None
-            li(v-if='user.preferences.background') {{ user.preferences.background }}
-
-        div(ng-if='user.flags.dropsEnabled')
-          h3(v-once) {{ $t('pets') }}
-          ul
-            li(ng-if='user.items.currentPet')
-              | {{ $t('activePet') }}:
-              | {{ formatAnimal(user.items.currentPet, 'pet') }}
-            li
-              | {{ $t('petsFound') }}:
-              | {{ totalCount(user.items.pets) }}
-            li
-              | {{ $t('beastMasterProgress') }}:
-              | {{ beastMasterProgress(user.items.pets) }}
-
-          h3(v-once) {{ $t('mounts') }}
-          ul
-            li(v-if='user.items.currentMount')
-              | {{ $t('activeMount') }}:
-              | {{ formatAnimal(user.items.currentMount, 'mount') }}
-            li
-              | {{ $t('mountsTamed') }}:
-              | {{ totalCount(user.items.mounts) }}
-            li
-              | {{ $t('mountMasterProgress') }}:
-              | {{ mountMasterProgress(user.items.mounts) }}
-
-      .col-4(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+      // @TODO: Implement .col-4(v-if='user.flags.classSelected && !user.preferences.disableClasses')
           h3(v-once) {{ $t('characterBuild') }}
           h4(v-once) {{ $t('class') + ': ' }}
             span {{ classText }}&nbsp;
@@ -284,6 +300,26 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
       text-align: center;
     }
   }
+
+  .well {
+    background-color: #edecee;
+    border-radius: 2px;
+    padding: 0.4em;
+    padding-top: 1em;
+  }
+
+  .item-wrapper {
+    .box {
+      width: 94px;
+      height: 92px;
+      border-radius: 2px;
+      border: dotted 1px #c3c0c7;
+    }
+
+    h3 {
+      text-align: center;
+    }
+  }
 </style>
 
 <script>
@@ -353,7 +389,6 @@ export default {
     this.editingProfile.name = this.user.profile.name;
     this.editingProfile.imageUrl = this.user.profile.imageUrl;
     this.achievements = achievementsLib.getAchievementsForProfile(this.user);
-    this.$root.$emit('show::modal', 'profile');
   },
   computed: {
     ...mapState({

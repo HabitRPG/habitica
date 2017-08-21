@@ -10,18 +10,17 @@ div
       .col-12
         strong(v-once) {{$t('selectChallengeWinnersDescription')}}
       .col-12
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
-            | Member
+        select.form-control(v-model='winnerId')
+          option(v-for='member in members', :value='member._id') {{member.profile.name}}
       .col-12
-        button.btn.btn-primary(v-once) {{$t('awardWinners')}}
+        button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
       .col-12
         hr
         .or {{$t('or')}}
       .col-12
         strong(v-once) {{$t('doYouWantedToDeleteChallenge')}}
       .col-12
-        button.btn.btn-danger(v-once) {{$t('deleteChallenge')}}
+        button.btn.btn-danger(v-once, @click='deleteChallenge()') {{$t('deleteChallenge')}}
     .footer-wrap(slot="modal-footer")
 </template>
 
@@ -78,26 +77,29 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 export default {
-  props: ['challenge'],
+  props: ['challengeId', 'members'],
   components: {
     bModal,
     bDropdown,
     bDropdownItem,
   },
-
   data () {
     return {
+      winnerId: '',
     };
   },
   methods: {
-    closeChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:selectChallengeWinner', {
-      //   challengeId: this.challengeId,
-      //   winnerId: this.winnerId,
-      // });
+    async closeChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:selectChallengeWinner', {
+        challengeId: this.challengeId,
+        winnerId: this.winnerId,
+      });
+      this.$router.push('/challenges/myChallenges');
     },
-    deleteChallenge () {
-      // this.challenge = this.$store.dispatch('challenges:deleteChallenge', {challengeId: this.challengeId});
+    async deleteChallenge () {
+      if (!confirm('Are you sure you want to delete this challenge?')) return;
+      this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {challengeId: this.challengeId});
+      this.$router.push('/challenges/myChallenges');
     },
   },
 };

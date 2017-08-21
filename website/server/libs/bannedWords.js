@@ -52,6 +52,7 @@
 // Do not block the following words:
 // 'ale' because it's Polish for 'but'.
 // 'af' because it's Danish for 'of'.
+// 'tard' because it's French for 'late' and there's no common synonyms.
 // 'god' because it is allowed for use in ways that are not oaths.
 // Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
 // Legitimate given names: 'Jesus', 'Sherry'
@@ -61,7 +62,6 @@
 // Explanations for some blocked words:
 // 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
-// 'tard' means 'late' in French.
 // These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
 
 let bannedWords = [
@@ -94,8 +94,10 @@ let bannedWords = [
   'fucked',
   'fuckwit',
   'fucker',
+  'fuckers',
   'f\\*ck',
   'motherfucker',
+  'motherfuckers',
   'motherfucking',
   'muthafucka',
   'fu',
@@ -120,7 +122,6 @@ let bannedWords = [
 
   'fag',
   'slut',
-  'tard',
   'retard',
   'retards',
   'bastard',

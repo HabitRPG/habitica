@@ -66,7 +66,7 @@
     "itemDrop": "Vypadol predmet!",
     "firstDrop": "Odomkol si padanie predmetov! Odteraz, keď dokončíš úlohu, máš malú šancu nájsť predmet vrátane vajíčok, elixírov a jedla! Práve si našiel <strong><%= eggText %> Vajíčko</strong>! <%= eggNotes %>",
     "useGems": "Ak máš zálusk na nejaké zvieratko a nemáš chuť čakať, kým ti padne, v menu <strong>Inventár > Trh</strong> si ho môžeš kúpiť za drahokamy!",
-    "hatchAPot": "Chceš vyliahnuť takéto zvieratko: <%= potion %> <%= egg %>?",
+    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "displayNow": "Ukázať teraz",
     "displayLater": "Ukázať neskôr",

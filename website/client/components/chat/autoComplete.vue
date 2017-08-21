@@ -1,28 +1,40 @@
 <template lang="pug">
-div.autocomplete-selection
-  div(v-for='result in searchResults', @click='select(result)') {{ result }}
+div.autocomplete-selection(v-if='searchResults.length > 0', :style='autocompleteStyle')
+  .autocomplete-results(v-for='result in searchResults', @click='select(result)') {{ result }}
 </template>
 
 <style scoped>
-
+  .autocomplete-results {
+    padding: .5em;
+    box-shadow: 1px 1px 1px #efefef;
+  }
 </style>
 
 <script>
+import groupBy from 'lodash/groupBy';
+
 export default {
-  props: ['selections', 'text'],
+  props: ['selections', 'text', 'coords', 'groupId', 'chat'],
   data () {
     return {
       currentSearch: '',
       searchActive: false,
       currentSearchPosition: 0,
-      // @TODO: HAve this passed
-      tmpSelections: [
-        'TheHollidayInn',
-        'Paglias',
-      ],
+      tmpSelections: [],
     };
   },
   computed: {
+    autocompleteStyle () {
+      return {
+        top: `${this.coords.TOP + 30}px`,
+        left: `${this.coords.LEFT + 30}px`,
+        position: 'absolute',
+        minWidth: '100px',
+        minHeight: '100px',
+        zIndex: 100,
+        backgroundColor: 'white',
+      };
+    },
     searchResults () {
       if (!this.searchActive) return [];
       let currentSearch = this.text.substring(this.currentSearchPosition + 1, this.text.length);
@@ -37,23 +49,21 @@ export default {
       this.searchActive = true;
       this.currentSearchPosition = newText.length - 1;
     },
-    // @TODO: implement position
-    // caretChanged = function(newCaretPos) {
-    //   var relativeelement = $('.chat-form div:first');
-    //   var textarea = $('.chat-form textarea');
-    //   var userlist = $('.list-at-user');
-    //   var offset = {
-    //     x: textarea.offset().left - relativeelement.offset().left,
-    //     y: textarea.offset().top - relativeelement.offset().top,
-    //   };
-    //   if(relativeelement) {
-    //     var caretOffset = InputCaret.getPosition(textarea);
-    //     userlist.css({
-    //               left: caretOffset.left + offset.x,
-    //               top: caretOffset.top + offset.y + 16
-    //             });
-    //   }
-    // }
+    chat () {
+      let usersThatMessage = groupBy(this.chat, 'user');
+      for (let userName in usersThatMessage) {
+        if (this.tmpSelections.indexOf(userName) === -1) {
+          this.tmpSelections.push(userName);
+        }
+      }
+    },
+    async groupId () {
+      if (!this.groupId) return;
+      let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
+      this.tmpSelections = members.map((member) => {
+        return member.profile.name;
+      });
+    },
   },
   methods: {
     select (result) {

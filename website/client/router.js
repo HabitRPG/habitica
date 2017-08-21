@@ -29,11 +29,10 @@ const VideosPage = () => import(/* webpackChunkName: "static" */'./components/st
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
 // User Pages
-const CreatorIntro = () => import(/* webpackChunkName: "creator" */'./components/creatorIntro');
 const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profile');
+const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
 
 // Settings
 const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
@@ -69,8 +68,12 @@ const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/g
 const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
-const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
+const GroupPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
+
+// Group Plans
+const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
+const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -89,7 +92,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
+  base: process.env.NODE_ENV === 'production' ? '/' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
   // When navigating to another route always scroll to the top
   // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html
@@ -98,7 +101,6 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'avatar', path: '/avatar', component: CreatorIntro },
     { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
@@ -122,8 +124,28 @@ const router = new VueRouter({
         { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
-    { name: 'party', path: '/party', component: GuildPage },
+    { name: 'party', path: '/party', component: GroupPage },
     { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
+    {
+      name: 'groupPlanDetail',
+      path: '/group-plans/:groupId',
+      component: GroupPlanIndex,
+      props: true,
+      children: [
+        {
+          name: 'groupPlanDetailTaskInformation',
+          path: '/group-plans/:groupId/task-information',
+          component: GroupPlanTaskInformation,
+          props: true,
+        },
+        {
+          name: 'groupPlanDetailInformation',
+          path: '/group-plans/:groupId/information',
+          component: GroupPage,
+          props: true,
+        },
+      ],
+    },
     {
       path: '/groups',
       component: GuildIndex,
@@ -142,7 +164,7 @@ const router = new VueRouter({
         {
           name: 'guild',
           path: 'guild/:groupId',
-          component: GuildPage,
+          component: GroupPage,
           props: true,
         },
       ],
@@ -164,7 +186,7 @@ const router = new VueRouter({
         },
         {
           name: 'challenge',
-          path: 'challenges/:challengeId',
+          path: ':challengeId',
           component: ChallengeDetail,
           props: true,
         },
@@ -236,8 +258,8 @@ const router = new VueRouter({
         { name: 'overview', path: 'overview', component: OverviewPage },
         { name: 'plans', path: 'plans', component: GroupPlansPage },
         { name: 'pressKit', path: 'press-kit', component: PressKitPage },
-        { name: 'privacy', path: 'privacy', component: PrivacyPage },
-        { name: 'terms', path: 'terms', component: TermsPage },
+        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
+        { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
         { name: 'videos', path: 'videos', component: VideosPage },
       ],
     },
