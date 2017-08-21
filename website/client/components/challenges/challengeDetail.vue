@@ -56,9 +56,9 @@
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
     .description-section
-      h2(v-once) {{$t('challengeSummary')}}
+      h2 {{$t('challengeSummary')}}
       p {{challenge.summary}}
-      h2(v-once) {{$t('challengeDescription')}}
+      h2 {{$t('challengeDescription')}}
       p {{challenge.description}}
 </template>
 
