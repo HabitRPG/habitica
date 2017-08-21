@@ -97,7 +97,7 @@ export default {
   },
   async mounted () {
     this.groupIdForChallenges = this.groupId;
-    if (this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+    if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
     this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
   },
   data () {

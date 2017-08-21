@@ -3,6 +3,8 @@ import content from '../content/index';
 import { BadRequest } from './errors';
 import count from '../count';
 
+import _mapValues from 'lodash/mapValues';
+
 function lockQuest (quest, user) {
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
   if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
@@ -42,7 +44,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
   let itemInfo;
 
   switch (type) {
-    case 'egg':
+    case 'eggs':
       itemInfo = {
         key: item.key,
         text: i18n.t('egg', {eggType: item.text(language)}, language),
@@ -53,10 +55,10 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         currency: 'gems',
         purchaseType: 'eggs',
         path: `eggs.${item.key}`,
-        pinType: 'egg',
+        pinType: 'eggs',
       };
       break;
-    case 'hatchingPotion':
+    case 'hatchingPotions':
       itemInfo = {
         key: item.key,
         text: i18n.t('potion', {potionType: item.text(language)}),
@@ -67,7 +69,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         currency: 'gems',
         purchaseType: 'hatchingPotions',
         path: `hatchingPotions.${item.key}`,
-        pinType: 'hatchingPotion',
+        pinType: 'hatchingPotions',
       };
       break;
     case 'premiumHatchingPotion':
@@ -98,20 +100,20 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         pinType: 'food',
       };
       break;
-    case 'questBundle':
+    case 'bundles':
       itemInfo = {
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
         value: item.value,
         currency: 'gems',
-        class: `quest_bundle_${item.key}`,
+        class: item.class,
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
-        pinType: 'questBundle',
+        pinType: 'bundles',
       };
       break;
-    case 'quest': // eslint-disable-line no-case-declarations
+    case 'quests': // eslint-disable-line no-case-declarations
       const locked = lockQuest(item, user);
 
       itemInfo = {
@@ -125,13 +127,19 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,
-        collect: item.collect,
+        collect: item.collect ? _mapValues(item.collect, (o) => {
+          return {
+            count: o.count,
+            text: o.text(),
+          };
+        }) : undefined,
         lvl: item.lvl,
         class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
-        pinType: 'quest',
+        pinType: 'quests',
       };
+
       break;
     case 'timeTravelers':
       // TODO
@@ -235,6 +243,23 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         path: 'armoire',
         pinType: 'armoire',
       };
+      break;
+    case 'card': {
+      let spellInfo = content.spells.special[item.key];
+
+      itemInfo = {
+        key: item.key,
+        purchaseType: 'card',
+        class: `inventory_special_${item.key}`,
+        text: spellInfo.text(),
+        notes: spellInfo.notes(),
+        value: spellInfo.value,
+        currency: 'gold',
+        path: `cardTypes.${item.key}`,
+        pinType: 'card',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {

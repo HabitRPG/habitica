@@ -7,35 +7,64 @@
   .row
     .hr.col-12
 
-  .row(v-for="(msg, index) in chat", v-if='chat && Object.keys(cachedProfileData).length > 0')
+  div(v-for="(msg, index) in chat", v-if='chat && Object.keys(cachedProfileData).length > 0')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
-    .col-2
-      avatar(v-if='cachedProfileData[msg.uuid]', :member="cachedProfileData[msg.uuid]", :avatarOnly="true")
-
-    .card.col-10
-      .card-block
-          h3.leader {{msg.user}}
-          p {{msg.timestamp | timeAgo}}
-          .text(v-markdown='msg.text')
-          hr
-          .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
-            .svg-icon(v-html="icons.like")
-            span(v-if='!msg.likes[user._id]') {{ $t('like') }}
-            span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-          span.action( @click='copyAsTodo(msg)')
-            .svg-icon(v-html="icons.copy")
-            | {{$t('copyAsTodo')}}
-          span.action(v-if='user.contributor.admin || (!msg.sent && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
-            .svg-icon(v-html="icons.report")
-            | {{$t('report')}}
-          span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
-            .svg-icon(v-html="icons.delete")
-            | {{$t('delete')}}
-          span.action.float-right(v-if='likeCount(msg) > 0')
-            .svg-icon(v-html="icons.liked")
-            | + {{ likeCount(msg) }}
+    .row(v-if='user._id !== msg.uuid')
+      .col-2
+        avatar(v-if='cachedProfileData[msg.uuid]',
+          :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
+          :hideClassBadge='true')
+      .card.col-8
+        .card-block
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            p {{msg.timestamp | timeAgo}}
+            .text(v-markdown='msg.text')
+            hr
+            .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+              .svg-icon(v-html="icons.like")
+              span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+              span(v-if='msg.likes[user._id]') {{ $t('liked') }}
+            span.action( @click='copyAsTodo(msg)')
+              .svg-icon(v-html="icons.copy")
+              | {{$t('copyAsTodo')}}
+            span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+              .svg-icon(v-html="icons.report")
+              | {{$t('report')}}
+            span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
+              .svg-icon(v-html="icons.delete")
+              | {{$t('delete')}}
+            span.action.float-right
+              .svg-icon(v-html="icons.liked")
+              | + {{ likeCount(msg) }}
+    .row(v-if='user._id === msg.uuid')
+      .card.col-8.offset-2
+        .card-block
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            p {{msg.timestamp | timeAgo}}
+            .text(v-markdown='msg.text')
+            hr
+            .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+              .svg-icon(v-html="icons.like")
+              span(v-if='!msg.likes[user._id]') {{ $t('like') }}
+              span(v-if='msg.likes[user._id]') {{ $t('liked') }}
+            span.action( @click='copyAsTodo(msg)')
+              .svg-icon(v-html="icons.copy")
+              | {{$t('copyAsTodo')}}
+            span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+              .svg-icon(v-html="icons.report")
+              | {{$t('report')}}
+            span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
+              .svg-icon(v-html="icons.delete")
+              | {{$t('delete')}}
+            span.action.float-right
+              .svg-icon(v-html="icons.liked")
+              | + {{ likeCount(msg) }}
+      .col-2
+        avatar(v-if='cachedProfileData[msg.uuid]',
+          :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
+          :hideClassBadge='true')
 </template>
 
 <style lang="scss" scoped>
@@ -64,7 +93,7 @@
   }
 
   .card {
-    margin-bottom: 1em;
+    margin-bottom: .5em;
   }
 
   .text {
@@ -102,6 +131,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
+import styleHelper from 'client/mixins/styleHelper';
 
 import copyAsTodoModal from './copyAsTodoModal';
 import reportFlagModal from './reportFlagModal';
@@ -114,6 +144,7 @@ import reportIcon from 'assets/svg/report.svg';
 
 export default {
   props: ['chat', 'groupId', 'groupName'],
+  mixins: [styleHelper],
   components: {
     copyAsTodoModal,
     reportFlagModal,

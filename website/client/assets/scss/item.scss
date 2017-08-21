@@ -2,7 +2,7 @@
 
 .items > div {
   display: inline-block;
-  margin-right: 24px;
+  margin-right: 23px;
 }
 
 .items > div:last-of-type {
@@ -86,4 +86,8 @@
   text-align: center;
   color: $gray-400;
   margin-top: 4px;
+}
+
+.questPopover {
+  width: 200px;
 }

@@ -45,14 +45,14 @@
 
       .form-group
         label
-          strong(v-once) {{$t('description')}}*
+          strong(v-once) {{$t('description')}} *
         div.description-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input(type="text", textarea :placeholder="isParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
+        textarea.form-control(:placeholder="isParty ? $t('partyDescriptionPlaceHolder') : $t('guildDescriptionPlaceHolder')", v-model="workingGuild.description")
 
-      .form-group(v-if='workingGuild.id && !creatingParty')
+      .form-group(v-if='!creatingParty')
         label
-          strong(v-once) Information *
-        b-form-input(type="text", textarea, :placeholder="isParty ? $t('partyInformationPlaceHolder'): $t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
+          strong(v-once) {{$t('guildInformation')}} *
+        textarea.form-control(:placeholder="isParty ? $t('partyInformationPlaceHolder'): $t('guildInformationPlaceHolder')", v-model="workingGuild.guildInformation")
 
       .form-group(v-if='creatingParty && !workingGuild.id')
         span
@@ -99,6 +99,10 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .svg-icon {
+    width: 16px;
+  }
 
   textarea {
     height: 150px;
@@ -279,6 +283,8 @@ export default {
       this.workingGuild.type = editingGroup.type;
       this.workingGuild.privacy = editingGroup.privacy;
       if (editingGroup.description) this.workingGuild.description = editingGroup.description;
+      if (editingGroup.information) this.workingGuild.information = editingGroup.information;
+      if (editingGroup.summary) this.workingGuild.summary = editingGroup.summary;
       if (editingGroup._id) this.workingGuild.id = editingGroup._id;
       if (editingGroup.leader._id) this.workingGuild.newLeader = editingGroup.leader._id;
       if (editingGroup._id) this.getMembers();
@@ -357,10 +363,21 @@ export default {
         };
       }
 
-      let newgroup;
+      let categoryKeys = this.workingGuild.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let catName = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name: catName,
+        });
+      });
+      this.workingGuild.categories = serverCategories;
 
+      let newgroup;
       if (this.workingGuild.id) {
         await this.$store.dispatch('guilds:update', {group: this.workingGuild});
+        this.$root.$emit('updatedGroup', this.workingGuild);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {

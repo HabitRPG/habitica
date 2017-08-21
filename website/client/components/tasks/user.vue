@@ -105,6 +105,14 @@
           :item="ctx.item",
           v-if="ctx.item.purchaseType === 'gear'"
         )
+
+  selectMembersModal(
+    :card="selectedCardToBuy",
+    :group="user.party",
+    @change="resetCardToBuy($event)",
+    @memberSelected="memberSelectedToSendCard($event)",
+  )
+
   spells
 </template>
 
@@ -292,6 +300,7 @@ import BuyModal from 'client/components/shops/buyModal.vue';
 import Item from 'client/components/inventory/item.vue';
 import Avatar from 'client/components/avatar';
 import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
+import SelectMembersModal from 'client/components/shops/market/selectMembersModal.vue';
 
 export default {
   components: {
@@ -304,6 +313,7 @@ export default {
     Avatar,
     EquipmentAttributesGrid,
     spells,
+    SelectMembersModal,
   },
   data () {
     return {
@@ -329,6 +339,7 @@ export default {
       creatingTask: null,
 
       selectedItemToBuy: null,
+      selectedCardToBuy: null,
     };
   },
   computed: {
@@ -452,13 +463,20 @@ export default {
         this.selectedItemToBuy = null;
       }
     },
+    resetCardToBuy ($event) {
+      if (!$event) {
+        this.selectedCardToBuy = null;
+      }
+    },
     memberOverrideAvatarGear (gear) {
       return {
         [gear.type]: gear.key,
       };
     },
     buyItem (item) {
-      if (item.currency === 'gold') {
+      if (item.purchaseType === 'card') {
+        this.selectedCardToBuy = item;
+      } else if (item.currency === 'gold') {
         this.$store.dispatch('shops:buyItem', {key: item.key});
       } else {
         this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
@@ -466,6 +484,10 @@ export default {
     },
     openBuyDialog (rewardItem) {
       this.selectedItemToBuy = rewardItem;
+    },
+    memberSelectedToSendCard (member) {
+      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
+      this.selectedCardToBuy = null;
     },
   },
 };
