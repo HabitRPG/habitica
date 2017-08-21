@@ -248,6 +248,7 @@ export default {
         let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
+        this.$store.state.party.data = party;
         this.castEnd(party, 'party');
       } else if (spell.target === 'tasks') {
         let tasks = this.$store.state.tasks.habits.concat(this.user.dailys)
@@ -268,8 +269,8 @@ export default {
       if (!this.applyingAction) return 'No applying action';
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
-      if (target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
-      if (target.group && target.group.id) return this.text(this.$t('invalidTarget'));
+      if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
+      if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
       // @TODO: just call castCancel?
       this.$store.state.spellOptions.castingSpell = false;
