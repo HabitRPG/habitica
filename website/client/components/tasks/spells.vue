@@ -219,6 +219,11 @@ export default {
       return notes;
     },
     async castStart (spell) {
+      if (this.$store.state.spellOptions.castingSpell) {
+        this.castCancel();
+        return;
+      }
+
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
