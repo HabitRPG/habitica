@@ -1,3 +1,5 @@
+import habiticaMarkdown from 'habitica-markdown';
+
 export default {
   methods: {
     /**
@@ -74,9 +76,8 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      // @TODO: Implement markdown library
-      // let parsed_markdown = $filter("markdown")(val);
-      // this.notify(parsed_markdown, 'info');
+      let parsed_markdown = habiticaMarkdown.render(val);
+      this.notify(parsed_markdown, 'info');
     },
     mp (val) {
       this.notify(`${this.sign(val)} ${this.round(val)} ${this.$t('mana')}`, 'mp', 'glyphicon glyphicon-fire');
