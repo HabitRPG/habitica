@@ -172,6 +172,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               @click.prevent.stop="togglePinned(bg)"
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
           .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
             .gem-amount
               .svg-icon.gem(v-html='icons.gem')
@@ -406,6 +407,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       border-radius: 2px;
     }
 
+    .background:hover {
+      cursor: pointer;
+    }
+
     .purchase-single {
       width: 141px;
       margin: 0 auto;
@@ -494,7 +499,6 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     }
   }
 
-
   .badge-svg {
     left: calc((100% - 18px) / 2);
     cursor: pointer;
@@ -564,22 +568,9 @@ export default {
   data () {
     let backgroundShopSets = getBackgroundShopSets();
 
-    // @TODO: add dates to backgrounds
-    let backgroundShopSetsByYear = {
-      2014: [],
-      2015: [],
-      2016: [],
-      2017: [],
-    };
-    backgroundShopSets.forEach((set) => {
-      let year = set.identifier.substr(set.identifier.length - 4);
-      if (!backgroundShopSetsByYear[year]) return;
-      backgroundShopSetsByYear[year].push(set);
-    });
-
     return {
       backgroundShopSets,
-      backgroundShopSetsByYear,
+      backgroundUpdate: new Date(),
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -614,6 +605,32 @@ export default {
     },
     startingPage () {
       return this.$store.state.avatarEditorOptions.startingPage;
+    },
+    backgroundShopSetsByYear () {
+      // @TODO: add dates to backgrounds
+      let backgroundShopSetsByYear = {
+        2014: [],
+        2015: [],
+        2016: [],
+        2017: [],
+      };
+
+      // Hack to force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      this.backgroundShopSets.forEach((set) => {
+        let year = set.identifier.substr(set.identifier.length - 4);
+        if (!backgroundShopSetsByYear[year]) return;
+
+        let setOwnedByUser = false;
+        for (let key in set.items) {
+          if (this.user.purchased.background[key]) setOwnedByUser = true;
+        }
+        set.userOwns = setOwnedByUser;
+
+        backgroundShopSetsByYear[year].push(set);
+      });
+      return backgroundShopSetsByYear;
     },
   },
   methods: {
@@ -659,7 +676,6 @@ export default {
       for (let key in set) {
         let value = set[key];
         if (type === 'background') key = value.key;
-
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
 
@@ -702,6 +718,7 @@ export default {
             path,
           },
         });
+        this.backgroundUpdate = new Date();
       } catch (e) {
         alert(e.message);
       }
