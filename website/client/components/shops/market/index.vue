@@ -420,14 +420,13 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
+  import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
-
-  import _isPinned from '../_isPinned';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -568,7 +567,7 @@ export default {
       featuredItems () {
         return featuredItems.market.map(i => {
           let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.pinned = isPinned(this.user, newItem);
 
           return newItem;
         });
@@ -636,7 +635,7 @@ export default {
         result = _map(result, (e) => {
           let newItem = getItemInfo(this.user, 'marketGear', e);
 
-          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.pinned = isPinned(this.user, newItem);
           newItem.locked = this.isGearLocked(newItem);
 
           return newItem;
@@ -669,7 +668,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 

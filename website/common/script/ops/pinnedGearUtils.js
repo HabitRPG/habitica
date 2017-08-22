@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
 
+import isPinned from '../libs/isPinned';
+
 const officialPinnedItems = content.officialPinnedItems;
 
 import updateStore from '../libs/updateStore';
@@ -120,4 +122,5 @@ module.exports = {
   removePinnedGearAddPossibleNewOnes,
   togglePinnedItem,
   removeItemByPath,
+  isPinned,
 };

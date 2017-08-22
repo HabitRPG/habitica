@@ -279,7 +279,7 @@
   import _groupBy from 'lodash/groupBy';
   import _map from 'lodash/map';
 
-  import _isPinned from '../_isPinned';
+  import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
 export default {
     components: {
@@ -379,7 +379,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 

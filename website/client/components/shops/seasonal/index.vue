@@ -314,7 +314,7 @@
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
-  import _isPinned from '../_isPinned';
+  import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
   import i18n from 'common/script/i18n';
 
@@ -433,7 +433,7 @@
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 
