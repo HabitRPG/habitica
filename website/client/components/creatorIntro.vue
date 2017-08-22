@@ -225,6 +225,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
+        div
+          label.custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}')
     .col-9

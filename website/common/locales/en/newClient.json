@@ -293,5 +293,6 @@
   "partyInformationPlaceHolder": "Write a message to your Party members here!",
   "selectPartyMember": "Select a Party Member",
   "errorNotInParty": "You are not in a Party",
-  "health_wellness": "Health & Wellness"
+  "health_wellness": "Health & Wellness",
+  "self_care": "Self-Care"
 }
