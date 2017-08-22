@@ -314,8 +314,20 @@ export default {
       };
     },
     async createChallenge () {
-      if (!this.workingChallenge.name) alert('Name is required');
-      if (!this.workingChallenge.description) alert('Description is required');
+      if (!this.workingChallenge.name) {
+        alert('Name is required');
+        return;
+      }
+
+      if (!this.workingChallenge.description) {
+        alert('Description is required');
+        return;
+      }
+
+      if (!this.workingChallenge.information) {
+        alert('Information is required');
+        return;
+      }
 
       this.workingChallenge.timestamp = new Date().getTime();
 
