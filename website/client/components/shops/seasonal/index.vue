@@ -14,7 +14,7 @@
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
               span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(category.localeKey+'Capitalized') }}
+              span.custom-control-description(v-once) {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -308,11 +308,15 @@
 
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
+  import _mapKeys from 'lodash/mapKeys';
+  import _forEach from 'lodash/forEach';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
   import _isPinned from '../_isPinned';
+
+  import i18n from 'common/script/i18n';
 
   export default {
     components: {
@@ -349,6 +353,17 @@
           healer: svgHealer,
         }),
 
+        gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
+          weapon: i18n.t('weaponCapitalized'),
+          shield: i18n.t('offhandCapitalized'),
+          head: i18n.t('headgearCapitalized'),
+          armor: i18n.t('armorCapitalized'),
+          headAccessory: i18n.t('headAccessoryCapitalized'),
+          body: i18n.t('body'),
+          back: i18n.t('back'),
+          eyewear: i18n.t('eyewear'),
+        }),
+
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
@@ -379,15 +394,15 @@
       },
       filterCategories () {
         if (this.content) {
-          let equipmentList = _filter(_map(this.content.itemList, (i, key) => {
+          let equipmentList = _mapKeys(this.gearTypesToStrings, (value, key) => {
             return {
-              ...i,
               key,
+              value
             };
-          }), 'isEquipment');
+          };
 
-          equipmentList.map((category) => {
-            this.$set(this.viewOptions, category.key, {
+          _forEach(equipmentList, (value) => {
+            this.$set(this.viewOptions, value.key, {
               selected: true,
             });
           });
