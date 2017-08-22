@@ -261,7 +261,7 @@ export default {
   methods: {
     logout () {
       localStorage.removeItem('habit-mobile-settings');
-      this.$router.go('/');
+      window.location.href = '/logout';
     },
     showInbox () {
       this.$root.$emit('show::modal', 'inbox-modal');
