@@ -255,6 +255,7 @@ const router = new VueRouter({
         { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage },
         { name: 'merch', path: 'merch', component: MerchPage },
         // { name: 'newStuff', path: 'newStuff', component: NewStuffPage },
+        { name: 'oldNews', path: 'old-news', component: ParentPage },
         { name: 'overview', path: 'overview', component: OverviewPage },
         { name: 'plans', path: 'plans', component: GroupPlansPage },
         { name: 'pressKit', path: 'press-kit', component: PressKitPage },
