@@ -40,8 +40,11 @@ div
           a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", exact)
           a.nav-link(v-once) {{ $t('challenges') }}
+          .dropdown-menu
+            router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
+            router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
