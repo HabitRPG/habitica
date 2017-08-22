@@ -294,5 +294,7 @@
   "selectPartyMember": "Select a Party Member",
   "errorNotInParty": "You are not in a Party",
   "health_wellness": "Health & Wellness",
-  "self_care": "Self-Care"
+  "self_care": "Self-Care",
+  "sendLink": "Send Link",
+  "forgotPassword": "Forgot Password"
 }

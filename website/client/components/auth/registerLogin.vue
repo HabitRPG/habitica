@@ -3,7 +3,7 @@
   #top-background
     .seamless_stars_varied_opacity_repeat
 
-  form#login-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit")
+  form#login-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='!forgotPassword')
     .text-center
       div
         .svg-icon.gryphon(v-html="icons.gryphon")
@@ -29,6 +29,7 @@
       input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
     .form-group
       label(for='passwordInput', v-once) {{$t('password')}}
+      a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
       input#passwordInput.form-control(type='password', :placeholder='$t("passwordPlaceholder")', v-model='password')
     .form-group(v-if='registering')
       label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
@@ -42,6 +43,21 @@
           a.toggle-link(v-once) {{ $t('alreadyHaveAccountLogin') }}
         router-link(:to="{name: 'register'}",  v-if='!registering', exact)
           a.toggle-link(v-once) Don't have an account? Join Habitica!
+
+  form#forgot-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='forgotPassword')
+    .text-center
+      div
+        .svg-icon.gryphon(v-html="icons.gryphon")
+      div
+        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
+      .header
+        h2 Email a Password Reset Link
+        p Enter the email address you used to register your Habitica account.
+    .form-group.row.text-center
+      label(for='usernameInput', v-once) {{$t('email')}}
+      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
+    .text-center
+      .btn.btn-info(@click='forgotPasswordLink()', v-once) {{$t('sendLink')}}
 
   #bottom-wrap
     #bottom-background
@@ -86,13 +102,22 @@
     color: $purple-400;
   }
 
-  #login-form {
+  #login-form, #forgot-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
     padding-bottom: 4em;
     position: relative;
     z-index: 1;
+
+    .header {
+
+      h2 {
+        color: $white;
+      }
+
+      color: $white;
+    }
 
     .gryphon {
       width: 63.2px;
@@ -189,9 +214,14 @@
   .toggle-link {
     color: #fff !important;
   }
+
+  .forgot-password {
+    color: #bda8ff !important;
+  }
 </style>
 
 <script>
+import axios from 'axios';
 import hello from 'hellojs';
 
 import gryphon from 'assets/svg/gryphon.svg';
@@ -206,6 +236,7 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
+      forgotPassword: false,
     };
 
     data.icons = Object.freeze({
@@ -283,7 +314,24 @@ export default {
         return;
       }
 
+      if (this.forgotPassword) {
+        this.forgotPasswordLink();
+        return;
+      }
+
       this.login();
+    },
+    async forgotPasswordLink () {
+      if (!this.username) {
+        alert('Email is required');
+        return;
+      }
+
+      let response = await axios.post('/api/v3/user/reset-password', {
+        email: this.username
+      });
+
+      alert(this.$t('newPassSent'));
     },
   },
 };
