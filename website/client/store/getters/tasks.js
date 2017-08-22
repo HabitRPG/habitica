@@ -29,7 +29,8 @@ export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 
   // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
-  return (task, purpose) => {
+  return (task, purpose, dueDate) => {
+    if (!dueDate) dueDate = new Date();
     const type = task.type;
 
     switch (purpose) {
@@ -45,7 +46,7 @@ export function getTaskClasses (store) {
       case 'control':
         switch (type) {
           case 'daily':
-            if (task.completed || !shouldDo(new Date(), task, userPreferences)) return 'task-daily-todo-disabled';
+            if (task.completed || !shouldDo(dueDate, task, userPreferences)) return 'task-daily-todo-disabled';
             return getTaskColorByValue(task.value);
           case 'todo':
             if (task.completed) return 'task-daily-todo-disabled';

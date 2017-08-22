@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.110.0",
+  "version": "3.111.0",
   "dependencies": {
     "@gulp-sourcemaps/map-sources": {
       "version": "1.0.0",
@@ -2433,13 +2433,11 @@
       "version": "4.0.0",
       "from": "cross-env@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/cross-env/-/cross-env-4.0.0.tgz",
-      "dev": true,
       "dependencies": {
         "is-windows": {
           "version": "1.0.1",
           "from": "is-windows@>=1.0.0 <2.0.0",
-          "resolved": "https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz",
-          "dev": true
+          "resolved": "https://registry.npmjs.org/is-windows/-/is-windows-1.0.1.tgz"
         }
       }
     },
@@ -2447,19 +2445,16 @@
       "version": "5.1.0",
       "from": "cross-spawn@>=5.0.1 <6.0.0",
       "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz",
-      "dev": true,
       "dependencies": {
         "lru-cache": {
           "version": "4.1.1",
           "from": "lru-cache@>=4.0.1 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.1.tgz",
-          "dev": true
+          "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.1.tgz"
         },
         "which": {
           "version": "1.3.0",
           "from": "which@>=1.2.9 <2.0.0",
-          "resolved": "https://registry.npmjs.org/which/-/which-1.3.0.tgz",
-          "dev": true
+          "resolved": "https://registry.npmjs.org/which/-/which-1.3.0.tgz"
         }
       }
     },
@@ -7385,11 +7380,6 @@
       "resolved": "https://registry.npmjs.org/jpegtran-bin/-/jpegtran-bin-3.2.0.tgz",
       "optional": true
     },
-    "jquery": {
-      "version": "3.2.1",
-      "from": "jquery@>=3.1.1 <4.0.0",
-      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz"
-    },
     "js-base64": {
       "version": "2.1.9",
       "from": "js-base64@>=2.1.9 <3.0.0",
@@ -11687,14 +11677,12 @@
     "shebang-command": {
       "version": "1.2.0",
       "from": "shebang-command@>=1.2.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz"
     },
     "shebang-regex": {
       "version": "1.0.0",
       "from": "shebang-regex@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz"
     },
     "shell-quote": {
       "version": "1.4.3",

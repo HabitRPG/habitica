@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(v-if='user.stats.lvl > 10')
   div.dragInfo.mouse(ref="clickPotionInfo", v-if="potionClickMode")
     .spell.col-12.row
       .col-8.details
@@ -10,7 +10,9 @@ div
 
   drawer(:title="$t('spells')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+    v-mousePosition="30", @mouseMoved="mouseMoved($event)",
+    :openStatus='openStatus',
+    v-on:toggled='drawerToggled')
     div(slot="drawer-slider")
       .container.spell-container
         .row
@@ -181,8 +183,14 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    openStatus () {
+      return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
+    },
   },
   methods: {
+    drawerToggled (openChanged) {
+      this.$store.state.spellOptions.spellDrawOpen = openChanged;
+    },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
         return true;
@@ -211,6 +219,11 @@ export default {
       return notes;
     },
     async castStart (spell) {
+      if (this.$store.state.spellOptions.castingSpell) {
+        this.castCancel();
+        return;
+      }
+
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
@@ -219,9 +232,8 @@ export default {
 
       this.potionClickMode = true;
       this.applyingAction = true;
-      this.$store.state.castingSpell = true;
+      this.$store.state.spellOptions.castingSpell = true;
       this.spell = spell;
-      document.querySelector('body').style.cursor = 'crosshair';
 
       if (spell.target === 'self') {
         this.castEnd(null, 'self');
@@ -236,6 +248,7 @@ export default {
         let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
+        this.$store.state.party.data = party;
         this.castEnd(party, 'party');
       } else if (spell.target === 'tasks') {
         let tasks = this.$store.state.tasks.habits.concat(this.user.dailys)
@@ -250,16 +263,17 @@ export default {
       }
     },
     async castEnd (target, type) {
-      if (!this.$store.state.castingSpell) return;
+      if (!this.$store.state.spellOptions.castingSpell) return;
       let beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
+      if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
+      if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
       // @TODO: just call castCancel?
-      document.querySelector('body').style.cursor = 'initial';
-      this.$store.state.castingSpell = false;
+      this.$store.state.spellOptions.castingSpell = false;
       this.potionClickMode = false;
 
       // @TODO: We no longer wrap the users (or at least we should not), but some common code
@@ -327,7 +341,7 @@ export default {
       this.applyingAction = false;
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
-      this.$store.state.castingSpell = false;
+      this.$store.state.spellOptions.castingSpell = false;
     },
     questProgress () {
       let user = this.user;

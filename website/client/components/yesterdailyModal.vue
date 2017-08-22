@@ -6,8 +6,10 @@
       .tasks-list
         task(
           v-for='task in tasksByType["daily"]',
-          :key='task.id', :task='task',
+          :key='task.id',
+          :task='task',
           :isUser='true',
+          :dueDate='dueDate',
         )
       .start-day.text-center
         button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
@@ -43,6 +45,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import Task from './tasks/task';
@@ -52,6 +55,11 @@ export default {
   components: {
     bModal,
     Task,
+  },
+  data () {
+    return {
+      dueDate: moment().subtract(1, 'days'),
+    };
   },
   computed: {
     ...mapState({user: 'user.data'}),

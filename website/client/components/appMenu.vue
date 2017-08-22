@@ -33,7 +33,6 @@ div
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
         router-link.nav-item.dropdown(
-          v-if='groupPlans.length === 0',
           tag="li",
           :to="{name: 'groupPlan'}",
           :class="{'active': $route.path.startsWith('/group-plan')}")
@@ -61,7 +60,7 @@ div
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon
-        .svg-icon(v-html="icons.gem")
+        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal()')
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
@@ -220,6 +219,10 @@ div
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
+  .gem:hover {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -266,7 +269,7 @@ export default {
   methods: {
     logout () {
       localStorage.removeItem('habit-mobile-settings');
-      this.$router.go('/');
+      window.location.href = '/logout';
     },
     showInbox () {
       this.$root.$emit('show::modal', 'inbox-modal');

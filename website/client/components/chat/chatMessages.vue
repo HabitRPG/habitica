@@ -125,7 +125,6 @@
 
 <script>
 import axios from 'axios';
-import Bluebird from 'bluebird';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
@@ -203,7 +202,7 @@ export default {
         }
       });
 
-      let results = await Bluebird.all(promises);
+      let results = await Promise.all(promises);
       results.forEach(result => {
         let userData = result.data.data;
         this.$set(this.cachedProfileData, userData._id, userData);

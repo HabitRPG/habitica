@@ -163,7 +163,7 @@
 
       drawer(
         :title="$t('quickInventory')",
-        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? $t('noFoodAvailable') : null"
+        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null"
       )
         div(slot="drawer-header")
           .drawer-tab-container

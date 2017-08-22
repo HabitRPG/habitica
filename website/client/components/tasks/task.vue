@@ -1,5 +1,5 @@
 <template lang="pug">
-.task
+.task(@click='castEnd($event, task)')
   approval-header(:task='task', v-if='this.task.group.id', :group='group')
   .d-flex(:class="{'task-not-scoreable': isUser !== true}")
     // Habits left side control
@@ -309,7 +309,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -342,11 +342,13 @@ export default {
       return false;
     },
     controlClass () {
-      return this.getTaskClasses(this.task, 'control');
+      const dueDate = this.dueDate || new Date();
+      return this.getTaskClasses(this.task, 'control', dueDate);
     },
     contentClass () {
       const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'content'));
+      const dueDate = this.dueDate || new Date();
+      classes.push(this.getTaskClasses(this.task, 'content'), dueDate);
       if (this.task.type === 'reward' || this.task.type === 'habit') {
         classes.push('no-right-border');
       }
@@ -377,10 +379,11 @@ export default {
 
       if (target.tagName === 'A') { // Link
         return;
-      } else if (!this.$store.state.castingSpell) {
+      } else if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
-
+    },
+    castEnd (e, task) {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {

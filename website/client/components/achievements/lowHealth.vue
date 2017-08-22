@@ -22,7 +22,7 @@
         li.spaced {{ $t('lowHealthTips4') }}
       h4 {{ $t('goodLuck') }}
     .modal-footer
-      a.btn.btn-primary(@click='acknowledgeHealthWarning(); close()') {{ $t('ok') }}
+      a.btn.btn-primary(@click='acknowledgeHealthWarning()') {{ $t('ok') }}
 </template>
 
 <style scope>
@@ -81,7 +81,10 @@ export default {
       this.$root.$emit('hide::modal', 'low-health');
     },
     acknowledgeHealthWarning () {
-      // @TODO: {'flags.warnedLowHealth':true}
+      this.$store.dispatch('user:set', {
+        'flags.warnedLowHealth': true,
+      });
+      this.close();
     },
   },
 };

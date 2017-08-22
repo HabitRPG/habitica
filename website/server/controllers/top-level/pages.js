@@ -90,10 +90,8 @@ api.getFrontPage = {
 api.getNewClient = {
   method: 'GET',
   url: '/',
+  noLanguage: true,
   async handler (req, res) {
-    if (!(req.session && req.session.userId)) {
-      return res.redirect('/');
-    }
     return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
   },
 };
