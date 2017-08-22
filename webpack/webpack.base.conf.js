@@ -3,8 +3,8 @@
 const path = require('path');
 const config = require('./config');
 const utils = require('./utils');
-const projectRoot = path.resolve(__dirname, '../');
 const webpack = require('webpack');
+const projectRoot = path.resolve(__dirname, '../');
 const autoprefixer = require('autoprefixer');
 const postcssEasyImport = require('postcss-easy-import');
 const IS_PROD = process.env.NODE_ENV === 'production';
@@ -36,7 +36,6 @@ const baseConfig = {
       path.join(projectRoot, 'node_modules'),
     ],
     alias: {
-      jquery: 'jquery/src/jquery',
       website: path.resolve(projectRoot, 'website'),
       common: path.resolve(projectRoot, 'website/common'),
       client: path.resolve(projectRoot, 'website/client'),
@@ -45,10 +44,7 @@ const baseConfig = {
     },
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
   ],
   module: {
     rules: [

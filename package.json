@@ -75,7 +75,6 @@
     "in-app-purchase": "^1.1.6",
     "intro.js": "^2.6.0",
     "jade": "~1.11.0",
-    "jquery": "^3.1.1",
     "js2xmlparser": "~1.0.0",
     "lodash": "^4.17.4",
     "merge-stream": "^1.0.0",
