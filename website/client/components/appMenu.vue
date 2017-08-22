@@ -32,16 +32,11 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(
-          tag="li",
-          :to="{name: 'groupPlan'}",
-          :class="{'active': $route.path.startsWith('/group-plan')}")
-            a.nav-link(v-once) {{ $t('group') }}
-        .nav-item.dropdown(v-if='groupPlans.length > 0', :class="{'active': $route.path.startsWith('/group-plans')}")
+        .nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/group-plans')}")
           a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", exact)
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
           a.nav-link(v-once) {{ $t('challenges') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
@@ -94,7 +89,7 @@ div
   }
 
   .navbar-header {
-    margin-right: 6px;
+    margin-right: 48px;
 
     .logo {
       width: 128px;
@@ -180,11 +175,12 @@ div
     padding-left: 16px;
 
     .svg-icon {
-      vertical-align: middle;
-      width: 24px;
-      height: 24px;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
-      float: left;
+      margin-left: 8px;
     }
   }
 

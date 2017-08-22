@@ -1,6 +1,6 @@
 <template lang="pug">
-.item-with-icon.item-notifications.dropdown
-  .svg-icon(v-html="icons.notifications")
+div.item-with-icon.item-notifications.dropdown
+  .svg-icon.notifications(v-html="icons.notifications")
   // span.glyphicon(:class='iconClasses()')
   // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
@@ -50,12 +50,23 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
-  .svg-icon {
-    width: 25px;
+
+  .item-notifications {
+    width: 44px;
   }
 
   .item-notifications:hover {
     cursor: pointer;
+  }
+
+  .notifications {
+    vertical-align: bottom;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    margin-left: 8px;
+    margin-top: .2em;
   }
 
   /* @TODO: Move to shared css */
