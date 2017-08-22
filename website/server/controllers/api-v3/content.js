@@ -101,6 +101,7 @@ async function saveContentToDisk (language, content) {
 api.getContent = {
   method: 'GET',
   url: '/content',
+  noLanguage: true,
   async handler (req, res) {
     let language = 'en';
     let proposedLang = req.query.language && req.query.language.toString();

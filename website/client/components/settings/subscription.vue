@@ -112,12 +112,14 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
 import { mapState } from 'client/libs/store';
+import encodeParams from 'client/libs/encodeParams';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import amazonPaymentsModal from '../payments/amazonModal';
 import paymentsMixin from '../../mixins/payments';
 
+// TODO
 const STRIPE_PUB_KEY = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh';
 
 export default {
@@ -314,7 +316,7 @@ export default {
         queryParams.groupId = group._id;
       }
 
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${$.param(queryParams)}`;
+      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
       await axios.get(cancelUrl);
       //  Success
       alert(this.$t('paypalCanceled'));

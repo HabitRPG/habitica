@@ -1,5 +1,5 @@
 <template lang="pug">
-#app
+#app(:class='{"casting-spell": castingSpell}')
   notifications
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
@@ -14,6 +14,12 @@
           router-view
         app-footer
 </template>
+
+<style scoped>
+  .casting-spell {
+    cursor: crosshair;
+  }
+</style>
 
 <script>
 import axios from 'axios';
@@ -41,6 +47,9 @@ export default {
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
+    },
+    castingSpell () {
+      return this.$store.state.spellOptions.castingSpell;
     },
   },
   created () {

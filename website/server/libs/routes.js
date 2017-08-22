@@ -25,14 +25,16 @@ module.exports.readController = function readController (router, controller) {
 
     let middlewaresToAdd = [getUserLanguage];
 
-    if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage and cron after authentication
-      if (authMiddlewareIndex === middlewares.length - 1) {
-        middlewares.push(...middlewaresToAdd);
-      } else {
-        middlewares.splice(authMiddlewareIndex + 1, 0, ...middlewaresToAdd);
+    if (action.noLanguage !== true) {
+      if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage after authentication
+        if (authMiddlewareIndex === middlewares.length - 1) {
+          middlewares.push(...middlewaresToAdd);
+        } else {
+          middlewares.splice(authMiddlewareIndex + 1, 0, ...middlewaresToAdd);
+        }
+      } else { // no auth, getUserLanguage as the first middleware
+        middlewares.unshift(...middlewaresToAdd);
       }
-    } else { // no auth, getUserLanguage as the first middleware
-      middlewares.unshift(...middlewaresToAdd);
     }
 
     method = method.toLowerCase();

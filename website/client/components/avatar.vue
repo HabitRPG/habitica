@@ -190,7 +190,7 @@ export default {
       return result;
     },
     castEnd (e) {
-      if (!this.$store.state.castingSpell) return;
+      if (!this.$store.state.spellOptions.castingSpell) return;
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
   },
