@@ -26,7 +26,7 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+        textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
         autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}

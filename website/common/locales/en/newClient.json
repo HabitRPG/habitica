@@ -8,7 +8,7 @@
   "newGuildPlaceholder": "Enter your guild's name.",
   "guildMembers": "Guild Members",
   "guildBank": "Guild Bank",
-  "chatPlaceHolder": "Type your message to Guild members here",
+  "chatPlaceholder": "Type your message to Guild members here",
   "today": "Today",
   "theseAreYourTasks": "These are your <%= taskType %>",
   "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
@@ -292,7 +292,7 @@
   "welcomeBack": "Welcome back!",
   "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
   "introTour": "Here we are! I’ve filled out some Tasks for you based on your interests, so you can get started right away. Click a Task to edit or add new Tasks to fit your routine!",
-  "partyInformationPlaceHolder": "Write a message to your Party members here!",
+  "partyInformationPlaceholder": "Write a message to your Party members here!",
   "selectPartyMember": "Select a Party Member",
   "errorNotInParty": "You are not in a Party",
   "health_wellness": "Health & Wellness"
