@@ -142,7 +142,16 @@
   }
 
   .dropdown-icon-item .svg-icon {
-    width: 16px;
+    width: 22px;
+    color: #C3C0C7;
+  }
+
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+    color: $purple-500;
+  }
+
+  .dropdown-icon-item .text {
+    font-weight: bold;
   }
 
   button.btn.btn-secondary.filter-button {
