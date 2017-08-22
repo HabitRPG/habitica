@@ -6,7 +6,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { TAVERN_ID } from '../../../../../website/common/script/constants';
 
-describe.only('GET challenges/groups/:groupId', () => {
+describe('GET challenges/groups/:groupId', () => {
   context('Public Guild', () => {
     let publicGuild, user, nonMember, challenge, challenge2;
 
