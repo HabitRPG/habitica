@@ -11,7 +11,11 @@
         slot="modal-header",
         :class="[cssClass]",
       )
-        h1 {{ title }}
+        .row
+          h1.col-8 {{ title }}
+          .col-4
+            span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('title')}*` }}
           input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
@@ -141,7 +145,6 @@
             @change="updateRequiresApproval")
 
       .task-modal-footer(slot="modal-footer")
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
         span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
 </template>
@@ -311,6 +314,10 @@
       }
     }
 
+    .cancel-task-btn {
+      margin-right: .5em;
+    }
+
     .task-modal-footer {
       margin: 0 auto;
       padding-bottom: 24px;
@@ -319,7 +326,6 @@
       margin-top: 50px;
 
       .delete-task-btn, .cancel-task-btn {
-        margin-left: 16px;
         cursor: pointer;
 
         &:hover, &:focus, &:active {
