@@ -68,7 +68,7 @@ div
         span {{user.stats.gp | roundBigNumber}}
       notification-menu
       a.dropdown.item-with-icon.item-user
-        .svg-icon(v-html="icons.user")
+        .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
@@ -195,13 +195,13 @@ div
     color: $header-color;
     transition: none;
 
-    &:hover {
-      color: $white;
-    }
-
     .svg-icon {
       margin-right: 0px;
-      color: $white;
+      color: $header-color;
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 
