@@ -3,8 +3,8 @@ import setProps from 'lodash/set';
 import axios from 'axios';
 
 import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
-import { changeClass as changeClassOp } from 'common/script/ops/changeClass';
-import { disableClasses as disableClassesOp } from 'common/script/ops/disableClasses';
+import changeClassOp from 'common/script/ops/changeClass';
+import disableClassesOp from 'common/script/ops/disableClasses';
 
 
 export function fetch (store, forceLoad = false) { // eslint-disable-line no-shadow
@@ -61,18 +61,20 @@ export async function deleteWebhook (store, payload) {
   return response.data.data;
 }
 
-export function changeClass (store, params) {
+export async function changeClass (store, params) {
   const user = store.state.user.data;
 
-  changeClassOp(user, {params});
-  axios.post(`/api/v3/user/change-class?class=${params.class}`);
+  changeClassOp(user, params);
+  let response = await axios.post(`/api/v3/user/change-class?class=${params.query.class}`);
+  return response.data.data;
 }
 
-export function disableClasses (store) {
+export async function disableClasses (store) {
   const user = store.state.user.data;
 
   disableClassesOp(user);
-  axios.post('/api/v3/user/disable-classes');
+  let response = await axios.post('/api/v3/user/disable-classes');
+  return response.data.data;
 }
 
 export function togglePinnedItem (store, params) {

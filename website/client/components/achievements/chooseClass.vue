@@ -34,14 +34,14 @@
         .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass)') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
           b-popover(
             :triggers="['hover']",
             :placement="'top'",
           ).d-inline-block
             span(slot="content")
               div.popover-content-text {{ $t('optOutOfClassesText') }}
-            .danger(@click='clickDisableClasses();') {{ $t('optOutOfClasses') }}
+            .danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
 </template>
 
 <style lang="scss" scoped>
@@ -159,12 +159,10 @@ export default {
       this.$root.$emit('hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      this.$store.dispatch('user:changeClass', {class: heroClass});
-      close();
+      this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
     },
     clickDisableClasses () {
       this.$store.dispatch('user:disableClasses');
-      close();
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
