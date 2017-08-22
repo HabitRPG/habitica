@@ -56,6 +56,7 @@
 
   small a {
     color: #fff;
+    text-decoration: underline;
   }
 </style>
 
