@@ -364,6 +364,12 @@ export default {
         return;
       }
 
+      if (!this.workingGuild.categories || this.workingGuild.categories.length === 0) {
+        // @TODO: Add proper notifications
+        alert('One or more categories must be selected');
+        return;
+      }
+
       // @TODO: Add proper notifications
       if (!this.workingGuild.id && !confirm(this.$t('confirmGuild'))) return;
 
