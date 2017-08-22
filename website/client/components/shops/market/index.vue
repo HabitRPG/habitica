@@ -74,14 +74,14 @@
               span.text {{ getClassName(selectedGroupGearByClass) }}
 
             b-dropdown-item(
-              v-for="sort in content.classes",
-              @click="selectedGroupGearByClass = sort",
-              :active="selectedGroupGearByClass === sort",
-              :key="sort"
+              v-for="gearCategory in marketGearCategories",
+              @click="selectedGroupGearByClass = gearCategory.identifier",
+              :active="selectedGroupGearByClass === gearCategory.identifier",
+              :key="gearCategory.identifier"
             )
               span.dropdown-icon-item
-                span.svg-icon.inline.icon-16(v-html="icons[sort]")
-                span.text {{ getClassName(sort) }}
+                span.svg-icon.inline.icon-16(v-html="icons[gearCategory.identifier]")
+                span.text {{ gearCategory.text }}
 
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -420,7 +420,8 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
-  import { isPinned } from 'common/script/ops/pinnedGearUtils';
+  import isPinned from 'common/script/libs/isPinned';
+  import shops from 'common/script/libs/shops';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -513,6 +514,9 @@ export default {
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      marketGearCategories () {
+        return shops.getMarketGearCategories(this.user);
+      },
       categories () {
         if (this.market) {
           let categories = [
@@ -631,17 +635,9 @@ export default {
         }
       },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
-        let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
-        result = _map(result, (e) => {
-          let newItem = getItemInfo(this.user, 'marketGear', e);
+        let category = _filter(this.marketGearCategories, ['identifier', groupByClass]);
 
-          newItem.pinned = isPinned(this.user, newItem);
-          newItem.locked = this.isGearLocked(newItem);
-
-          return newItem;
-        });
-
-        result = _filter(result, (gear) => {
+        let result = _filter(category[0].items, (gear) => {
           if (hideLocked && gear.locked) {
             return false;
           }

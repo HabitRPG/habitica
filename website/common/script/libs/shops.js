@@ -80,16 +80,16 @@ function getClassName (classType, language) {
 }
 
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
-  let result = filter(items, ['pinTyp', 'marketGear']);
+  let result = filter(items, ['pinType', 'marketGear']);
 
-  let availableGear = map(updateStore(user), (item) => item.path);
+  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
 
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
     }
 
-    if (!availableGear.includes(gear.path)) {
+    if (!gear.locked  && !availableGear.includes(gear.path)) {
       gear.locked = true;
     }
   }
@@ -107,8 +107,6 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     let result = filter(content.gear.flat, ['klass', classType]);
     category.items = map(result, (e) => {
       let newItem = getItemInfo(user, 'marketGear', e);
-
-      newItem.locked = this.isGearLocked(newItem);
 
       return newItem;
     });
