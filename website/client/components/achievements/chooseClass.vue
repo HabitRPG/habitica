@@ -11,7 +11,7 @@
       .container-fluid
         br
         .row
-          .col-md-3(v-for='heroClass in heroClasses')
+          .col-md-3(v-for='heroClass in classes')
             div(@click='selectedClass = heroClass')
               avatar(
                 :member='user',
@@ -24,24 +24,24 @@
                 :class='selectionBox(selectedClass, heroClass)',
               )
         br
-        .d-flex.justify-content-center(v-for='heroClass in heroClasses')
+        .d-flex.justify-content-center(v-for='heroClass in classes')
           .d-inline-flex(v-if='selectedClass === heroClass')
             .class-badge.d-flex.justify-content-center
               .svg-icon.align-self-center(v-html='icons[heroClass]')
             .class-name(:class='`${heroClass}-color`') {{ $t(heroClass) }}
-        div(v-for='heroClass in heroClasses')
+        div(v-for='heroClass in classes')
           .class-explanation.text-center(v-if='selectedClass === heroClass') {{ $t(`${heroClass}Text`) }}
         .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(v-if='selectedClass', @click='changeClass(selectedClass); selectedClass = undefined; close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass)') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
           b-popover(
             :triggers="['hover']",
             :placement="'top'",
           ).d-inline-block
             span(slot="content")
               div.popover-content-text {{ $t('optOutOfClassesText') }}
-            .danger(@click='disableClasses(user); close();') {{ $t('optOutOfClasses') }}
+            .danger(@click='clickDisableClasses();') {{ $t('optOutOfClasses') }}
 </template>
 
 <style lang="scss" scoped>
@@ -117,11 +117,8 @@
 </style>
 
 <script>
-import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bPopover from 'bootstrap-vue/lib/components/popover';
-import changeClass from '../../../common/script/ops/changeClass';
-import disableClasses from '../../../common/script/ops/disableClasses';
 
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
@@ -138,11 +135,13 @@ export default {
     Avatar,
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      classes: 'content.classes',
+    }),
   },
   data () {
     return {
-      heroClasses: ['warrior', 'wizard', 'rogue', 'healer'],
       icons: Object.freeze({
         warrior: warriorIcon,
         rogue: rogueIcon,
@@ -159,13 +158,13 @@ export default {
     close () {
       this.$root.$emit('hide::modal', 'choose-class');
     },
-    async disableClasses (user) {
-      await axios.post('/api/v3/user/disable-classes');
-      disableClasses(user);
+    clickSelectClass (heroClass) {
+      this.$store.dispatch('user:changeClass', {class: heroClass});
+      close();
     },
-    async changeClass (heroClass) {
-      await axios.post(`/api/v3/user/change-class?class=${heroClass}`);
-      changeClass(this.user, {query: {class: heroClass}});
+    clickDisableClasses () {
+      this.$store.dispatch('user:disableClasses');
+      close();
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
