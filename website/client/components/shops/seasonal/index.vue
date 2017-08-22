@@ -397,9 +397,9 @@
           let equipmentList = _mapKeys(this.gearTypesToStrings, (value, key) => {
             return {
               key,
-              value
+              value,
             };
-          };
+          });
 
           _forEach(equipmentList, (value) => {
             this.$set(this.viewOptions, value.key, {
@@ -473,7 +473,7 @@
 
         let result = _groupBy(setCategories, 'specialClass');
 
-        if(spellCategory) {
+        if (spellCategory) {
           result.spells = [
             spellCategory,
           ];
