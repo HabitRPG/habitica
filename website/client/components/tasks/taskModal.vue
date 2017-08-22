@@ -26,6 +26,7 @@
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
+          .svg-icon.gold(v-html="icons.gold")
         .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
           label(v-once) {{ $t('checklist') }}
           br
@@ -349,6 +350,14 @@
   }
 </style>
 
+<style lang="scss" scoped>
+  .gold {
+    width: 24px;
+    margin-left: 5em;
+    margin-top: -2.4em;
+  }
+</style>
+
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
@@ -367,6 +376,7 @@ import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import deleteIcon from 'assets/svg/delete.svg';
+import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   components: {
@@ -391,6 +401,7 @@ export default {
         negative: negativeIcon,
         positive: positiveIcon,
         destroy: deleteIcon,
+        gold: goldIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],
