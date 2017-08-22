@@ -527,6 +527,7 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
+      if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.task);
       this.$root.$emit('hide::modal', 'task-modal');
     },
