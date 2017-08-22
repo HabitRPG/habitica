@@ -578,7 +578,8 @@ export default {
       this.newMessage = newText;
     },
     showMemberModal () {
-      this.$store.state.groupId = this.group._id;
+      this.$store.state.memberModalOptions.groupId = this.group._id;
+      this.$store.state.memberModalOptions.group = this.group;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {

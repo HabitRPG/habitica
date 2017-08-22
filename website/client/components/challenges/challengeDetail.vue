@@ -248,8 +248,9 @@ export default {
       this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
-      this.$store.state.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
+      this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {

@@ -327,8 +327,8 @@ export default {
         return;
       }
 
-      let response = await axios.post('/api/v3/user/reset-password', {
-        email: this.username
+      await axios.post('/api/v3/user/reset-password', {
+        email: this.username,
       });
 
       alert(this.$t('newPassSent'));

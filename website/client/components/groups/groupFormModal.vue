@@ -281,7 +281,12 @@ export default {
       if (!editingGroup._id) return;
       this.workingGuild.name = editingGroup.name;
       this.workingGuild.type = editingGroup.type;
-      this.workingGuild.privacy = editingGroup.privacy;
+
+      this.workingGuild.privateGuild = true;
+      if (editingGroup.privacy === 'public') {
+        this.workingGuild.privateGuild = false;
+      }
+
       if (editingGroup.description) this.workingGuild.description = editingGroup.description;
       if (editingGroup.information) this.workingGuild.information = editingGroup.information;
       if (editingGroup.summary) this.workingGuild.summary = editingGroup.summary;
