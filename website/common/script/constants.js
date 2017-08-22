@@ -6,6 +6,9 @@ export const MAX_INCENTIVES = 500;
 
 export const TAVERN_ID = '00000000-0000-4000-A000-000000000000';
 export const LARGE_GROUP_COUNT_MESSAGE_CUTOFF = 5000;
+export const MAX_SUMMARY_SIZE_FOR_GUILDS = 500;
+export const MAX_SUMMARY_SIZE_FOR_CHALLENGES = 250;
+export const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = 3;
 
 export const SUPPORTED_SOCIAL_NETWORKS = [
   {key: 'facebook', name: 'Facebook'},
