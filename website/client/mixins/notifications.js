@@ -76,8 +76,8 @@ export default {
     },
     markdown (val) {
       if (!val) return;
-      let parsed_markdown = habiticaMarkdown.render(val);
-      this.notify(parsed_markdown, 'info');
+      let parsedMarkdown = habiticaMarkdown.render(val);
+      this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
       this.notify(`${this.sign(val)} ${this.round(val)} ${this.$t('mana')}`, 'mp', 'glyphicon glyphicon-fire');
