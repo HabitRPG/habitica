@@ -53,8 +53,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
           .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
           .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
-        .col-12
-          .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
+        .col-12.customize-options
+          .option(v-for='option in ["convict", "cross", "fire", "horizon", "ocean", "purple", "rainbow", "redblue", "thunder", "tropical", "zombie"]',
+            :class='[`broad_shirt_${option}`, {active: user.preferences.shirt === option}]',
+            @click='set({"preferences.shirt": option})')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -141,6 +143,13 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .hair_flower_4.option(@click='set({"preferences.hair.flower":4})', :class='{active: user.preferences.hair.flower === 4}')
           .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
           .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
+      .row(v-if='activeSubPage === "flower"')
+        .col-12.customize-options
+          // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
+            ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
       .row.sub-menu.col-6.offset-3
