@@ -14,7 +14,7 @@
         h1 {{ title }}
         .form-group
           label(v-once) {{ `${$t('title')}*` }}
-          input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text")
+          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
