@@ -3,7 +3,8 @@
     size='lg',
     :hide-header='true',
     :hide-footer='true',
-    :backdrop='static',
+    :no-close-on-esc='true',
+    :no-close-on-backdrop='true',
   )
     .modal-body.select-class
       h1.header-purple.text-center {{ $t('chooseClass') }}
@@ -33,14 +34,14 @@
         .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
-          button.btn.btn-primary.d-inline-block(v-if='selectedClass', @click='changeClass(selectedClass); selectedClass = undefined;') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          button.btn.btn-primary.d-inline-block(v-if='selectedClass', @click='changeClass(selectedClass); selectedClass = undefined; close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
           b-popover(
             :triggers="['hover']",
             :placement="'top'",
           ).d-inline-block
             span(slot="content")
               div.popover-content-text {{ $t('optOutOfClassesText') }}
-            .danger(@click='disableClasses();') {{ $t('optOutOfClasses') }}
+            .danger(@click='disableClasses(user); close();') {{ $t('optOutOfClasses') }}
 </template>
 
 <style lang="scss" scoped>
@@ -119,6 +120,8 @@
 import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bPopover from 'bootstrap-vue/lib/components/popover';
+import changeClass from '../../../common/script/ops/changeClass';
+import disableClasses from '../../../common/script/ops/disableClasses';
 
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
@@ -156,13 +159,13 @@ export default {
     close () {
       this.$root.$emit('hide::modal', 'choose-class');
     },
-    async disableClasses () {
+    async disableClasses (user) {
       await axios.post('/api/v3/user/disable-classes');
-      close();
+      disableClasses(user);
     },
     async changeClass (heroClass) {
       await axios.post(`/api/v3/user/change-class?class=${heroClass}`);
-      close();
+      changeClass(this.user, {query: {class: heroClass}});
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
