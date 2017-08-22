@@ -32,11 +32,11 @@ div
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('promoteToLeader')}}
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('addManager')}}
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.removeIcon")
               span.text {{$t('removeManager2')}}
@@ -164,6 +164,9 @@ export default {
     ...mapState({user: 'user.data'}),
     isLeader () {
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
+    },
+    groupIsSubscribed () {
+      return this.group.purchased.active;
     },
     group () {
       return this.$store.state.memberModalOptions.group;
