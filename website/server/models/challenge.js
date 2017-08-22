@@ -33,6 +33,10 @@ let schema = new Schema({
   group: {type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   memberCount: {type: Number, default: 1},
   prize: {type: Number, default: 0, min: 0},
+  categories: [{
+    slug: {type: String},
+    name: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

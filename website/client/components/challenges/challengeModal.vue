@@ -35,9 +35,12 @@
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
+            v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value='group.key' v-model="workingChallenge.categories")
+              input.custom-control-input(type="checkbox",
+                :value='group.key',
+                 v-model="workingChallenge.categories")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
@@ -214,6 +217,13 @@ export default {
       if (this.challenge) {
         Object.assign(this.workingChallenge, this.challenge);
         this.workingChallenge.categories = [];
+
+        if (this.challenge.categories) {
+          this.challenge.categories.forEach(category => {
+            this.workingChallenge.categories.push(category.slug);
+          });
+        }
+
         this.creating = false;
       }
     });
@@ -300,6 +310,17 @@ export default {
       this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
+      let categoryKeys = this.workingChallenge.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let catName = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name: catName,
+        });
+      });
+      this.workingChallenge.categories = serverCategories;
+
       this.$emit('updatedChallenge', {
         challenge: this.workingChallenge,
       });
