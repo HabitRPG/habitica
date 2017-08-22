@@ -5,6 +5,7 @@ div(v-if='user.stats.lvl > 10')
       .col-8.details
         p.title {{spell.text()}}
         p.notes {{ `Click on a ${spell.target} to cast!`}}
+        // @TODO make that translatable. We'll need locales strings for the targets: `task` and `user` ("party member")
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
@@ -236,35 +237,39 @@ export default {
       this.spell = spell;
 
       if (spell.target === 'self') {
-        this.castEnd(null, 'self');
+        this.castEnd(null, spell.target);
       } else if (spell.target === 'party') {
         if (!this.user.party._id) {
           let party = [this.user];
-          this.castEnd(party, 'party');
+          this.castEnd(party, spell.target);
           return;
         }
-
-        // @TODO: do we need to fetcht the party everytime? We should probably just check store
+        // @TODO: do we need to fetch the party everytime? We should probably just check store. But what if a new member has arrived recently?
         let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
         this.$store.state.party.data = party;
-        this.castEnd(party, 'party');
-      } else if (spell.target === 'tasks') {
+        this.castEnd(party, spell.target);
+      } else if (spell.target === 'tasks' || spell.target === 'task') {
+        // cast on all 'tasks' or one 'task' (Rewards are not allowed)
+        if (spell.target === 'tasks') this.potionClickMode = false;
+        // @TODO make this refer to tasks correctly. Currently getting `Unhandled promise rejection TypeError: this.$store.state.tasks.habits is undefined`
         let tasks = this.$store.state.tasks.habits.concat(this.user.dailys)
-          .concat(this.$store.state.tasks.rewards)
           .concat(this.$store.state.tasks.todos);
         // exclude challenge tasks
         tasks = tasks.filter((task) => {
           if (!task.challenge) return true;
           return !task.challenge.id || task.challenge.broken;
         });
-        this.castEnd(tasks, 'tasks');
+        this.castEnd(tasks, spell.target);
+      // } else if (spell.target === 'user') {
+        // avatar transformation buffs and greeting cards (e.g., shinySeed, valentine)
+        // @TODO need to do anything here?
       }
     },
     async castEnd (target, type) {
       if (!this.$store.state.spellOptions.castingSpell) return;
-      let beforeQuestProgress = this.questProgress();
+      // let beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
 
@@ -324,16 +329,18 @@ export default {
       }
 
       this.markdown(msg); // @TODO: mardown directive?
+      // @TODO: wrap the quest code below in an `if` for only the two boss attack skills? Collection quests aren't directly affected by skills.
+      // I've commented it out to stop console errors (also `let beforeQuestProgress` above). -- Alys
       // @TODO:
-      let questProgress = this.questProgress() - beforeQuestProgress;
-      if (questProgress > 0) {
-        let userQuest = this.quests[this.user.party.quest.key];
-        if (userQuest.boss) {
-          this.quest('questDamage', questProgress.toFixed(1));
-        } else if (userQuest.collection && userQuest.collect) {
-          this.quest('questCollection', questProgress);
-        }
-      }
+      // let questProgress = this.questProgress() - beforeQuestProgress;
+      // if (questProgress > 0) {
+        // let userQuest = this.quests[this.user.party.quest.key];
+        // if (userQuest.boss) {
+          // this.quest('questDamage', questProgress.toFixed(1));
+        // } else if (userQuest.collection && userQuest.collect) {
+          // this.quest('questCollection', questProgress);
+        // }
+      // }
       // @TOOD: User.sync();
     },
     castCancel () {
