@@ -49,6 +49,10 @@ div(v-if='user.stats.lvl > 10')
     white-space: initial;
   }
 
+  .spell:hover {
+    cursor: pointer;
+  }
+
   .spell {
     background: #ffffff;
     margin-bottom: 1em;
