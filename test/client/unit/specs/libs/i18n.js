@@ -4,7 +4,13 @@ import Vue from 'vue';
 
 describe('i18n plugin', () => {
   before(() => {
-    Vue.use(i18n);
+    Vue.use(i18n, {
+      i18nData: {
+        strings: {
+          reportBug: 'Report a Bug',
+        },
+      },
+    });
   });
 
   it('adds $t to Vue.prototype', () => {

@@ -7,8 +7,8 @@
     .col-6
       .form-horizontal
         h5 {{ $t('language') }}
-        select.form-control(v-model='selectedLanguage',
-          @change='changeLanguage()')
+        select.form-control(:value='user.preferences.language',
+          @change='changeLanguage($event)')
           option(v-for='lang in availableLanguages', :value='lang.code') {{lang.name}}
 
         small
@@ -218,13 +218,7 @@ export default {
     return {
       SOCIAL_AUTH_NETWORKS: [],
       party: {},
-      // @TODO: import
-      availableLanguages: [
-        {
-          code: 'en',
-          name: 'English',
-        },
-      ],
+      // Made available by the server as a script
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
@@ -240,7 +234,10 @@ export default {
     this.newDayStart = this.user.preferences.dayStart;
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      availableLanguages: 'i18n.availableLanguages',
+    }),
     timezoneOffsetToUtc () {
       let offset = this.user.preferences.timezoneOffset;
       let sign = offset > 0 ? '-' : '+';
@@ -253,9 +250,6 @@ export default {
       let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
 
       return `UTC${sign}${hour}:${minutes}`;
-    },
-    selectedLanguage () {
-      return this.user.preferences.language;
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -327,9 +321,11 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage () {
-      this.user.preferences.language = this.selectedLanguage.code;
+    changeLanguage (e) {
+      const newLang = e.target.value;
+      this.user.preferences.language = newLang;
       this.set('language');
+      window.location.href = '/';
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);

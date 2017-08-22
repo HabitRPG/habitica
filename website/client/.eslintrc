@@ -6,9 +6,6 @@
   "plugins": [
     "html"
   ],
-  "globals": {
-    "$": true,
-  },
   "parser": "babel-eslint",
   "rules": {
     "strict": 0

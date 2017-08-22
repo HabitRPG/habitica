@@ -90,6 +90,7 @@ api.getFrontPage = {
 api.getNewClient = {
   method: 'GET',
   url: '/',
+  noLanguage: true,
   async handler (req, res) {
     return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
   },
