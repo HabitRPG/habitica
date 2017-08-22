@@ -49,7 +49,7 @@
 
     // Habits right side control
     .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
+      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="(isUser && controlClass.down !== 'task-habit-disabled') ? score('down') : null")
         .svg-icon.negative(v-html="icons.negative")
     // Rewards right side control
     .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
@@ -76,6 +76,10 @@
         border-color: $purple-500;
       }
     }
+  }
+
+  .task-habit-disabled-control-habit:hover {
+    cursor: initial;
   }
 
   .task-title {
