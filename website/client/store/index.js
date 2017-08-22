@@ -73,6 +73,10 @@ export default function () {
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
+      i18n: deepFreeze({
+        availableLanguages: window.i18n.availableLanguages,
+        language: window.i18n.language,
+      }),
       hideHeader: false,
       viewingMembers: [],
       openedItemRows: [],

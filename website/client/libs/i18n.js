@@ -4,14 +4,16 @@
 import i18n from 'common/script/i18n';
 import moment from 'moment';
 
+// window.i18n is injected by the server
 const i18nData = window.i18n;
 
 if (i18nData) {
-  // window.i18n is injected by the server
+  // Load i18n strings
   i18n.strings = i18nData.strings;
-  const language = i18nData.language;
 
   // Load Moment.js locale
+  const language = i18nData.language;
+
   if (language && i18nData.momentLang && language.momentLangCode) {
     // Make moment available under `window` so that the locale can be set
     window.moment = moment;
