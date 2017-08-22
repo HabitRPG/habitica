@@ -64,7 +64,7 @@ div
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
-        span {{user.stats.gp | roundBigNumber}}
+        span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
         .svg-icon.user(v-html="icons.user")
@@ -94,7 +94,7 @@ div
   }
 
   .navbar-header {
-    margin-right: 48px;
+    margin-right: 6px;
 
     .logo {
       width: 128px;
