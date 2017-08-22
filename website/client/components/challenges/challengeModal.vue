@@ -3,31 +3,30 @@
     .form
       .form-group
         label
-          strong(v-once) {{$t('name')}}*
-        b-form-input(type="text", :placeholder="$t('challengeNamePlaceHolder')", v-model="workingChallenge.name")
+          strong(v-once) {{$t('name')}} *
+        b-form-input(type="text", :placeholder="$t('challengeNamePlaceholder')", v-model="workingChallenge.name")
       .form-group
         label
-          strong(v-once) {{$t('shortName')}}*
+          strong(v-once) {{$t('shortName')}} *
         b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
-          strong(v-once) {{$t('description')}}*
-        div.description-count.float-right {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceHolder')", v-model="workingChallenge.description")
+          strong(v-once) {{$t('challengeSummary')}} *
+        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        b-form-input.summary-textarea(type="text", textarea, :placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
       .form-group
         label
-          strong(v-once) Challenge Information*
+          strong(v-once) {{$t('challengeDescription')}} *
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.information-textarea(type="text", textarea,
-          :placeholder="$t('challengeInformationPlaceHolder')", v-model="workingChallenge.description")
+        b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
-          strong(v-once) {{$t('where')}}
+          strong(v-once) {{$t('challengeGuild')}} *
         select.form-control(v-model='workingChallenge.group')
           option(v-for='group in groups', :value='group._id') {{group.name}}
       .form-group(v-if='workingChallenge.categories')
         label
-          strong(v-once) {{$t('categories')}}*
+          strong(v-once) {{$t('categories')}} *
         div.category-wrap(@click.prevent="toggleCategorySelect")
           span.category-select(v-if='workingChallenge.categories.length === 0') {{$t('none')}}
           .category-label(v-for='category in workingChallenge.categories') {{$t(categoriesHashByKey[category])}}
@@ -79,11 +78,19 @@
       display: none;
     }
 
-    .description-textarea {
+    .summary-count {
+      font-size: 12px;
+      line-height: 1.33;
+      margin-top: 1em;
+      color: $gray-200;
+      text-align: right;
+    }
+
+    .summary-textarea {
       height: 90px;
     }
 
-    .information-textarea {
+    .description-textarea {
       height: 220px;
     }
 
@@ -126,7 +133,7 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
-import { TAVERN_ID } from '../../../common/script/constants';
+import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '../../../common/script/constants';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -204,7 +211,6 @@ export default {
 
     return {
       creating: true,
-      charactersRemaining: 250,
       workingChallenge: {},
       showCategorySelect: false,
       categoryOptions,
@@ -239,11 +245,11 @@ export default {
     }
 
     this.groups.push({
-      name: 'Public',
+      name: this.$t('publicChallengesTitle'),
       _id: TAVERN_ID,
     });
 
-    this.ressetWorkingChallenge();
+    this.resetWorkingChallenge();
   },
   watch: {
     user () {
@@ -252,6 +258,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    charactersRemaining () {
+      let currentLength = this.workingChallenge.summary ? this.workingChallenge.summary.length : 0;
+      return MAX_SUMMARY_SIZE_FOR_CHALLENGES - currentLength;
+    },
     maxPrize () {
       let userBalance = this.user.balance || 0;
       userBalance = userBalance * 4;
@@ -295,11 +305,11 @@ export default {
     },
   },
   methods: {
-    ressetWorkingChallenge () {
+    resetWorkingChallenge () {
       this.workingChallenge = {
         name: '',
+        summary: '',
         description: '',
-        information: '',
         categories: [],
         group: '',
         dailys: [],
@@ -314,31 +324,29 @@ export default {
       };
     },
     async createChallenge () {
-      if (!this.workingChallenge.name) {
-        alert('Name is required');
-        return;
+      // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
+      let errors = '';
+      if (!this.workingChallenge.name) errors += 'Name is required\n';
+      if (this.workingChallenge.shortName.length < MIN_SHORTNAME_SIZE_FOR_CHALLENGES) errors += 'Tag name is too short\n';
+      if (!this.workingChallenge.summary) errors += 'Summary is required\n';
+      if (this.workingChallenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) errors += 'Summary is too long\n';
+      if (!this.workingChallenge.description) errors += 'Description is required\n';
+      if (!this.workingChallenge.group) errors += 'Location of challenge is required ("Add to")\n';
+      if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors += 'One or more categories must be selected\n';
+      if (errors) {
+        alert(errors);
+      } else {
+        this.workingChallenge.timestamp = new Date().getTime();
+
+        let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+        // @TODO: When to remove from guild instead?
+        this.user.balance -= this.workingChallenge.prize / 4;
+
+        this.$emit('createChallenge', challenge);
+        this.resetWorkingChallenge();
+        this.$root.$emit('hide::modal', 'challenge-modal');
+        this.$router.push(`/challenges/${challenge._id}`);
       }
-
-      if (!this.workingChallenge.description) {
-        alert('Description is required');
-        return;
-      }
-
-      if (!this.workingChallenge.information) {
-        alert('Information is required');
-        return;
-      }
-
-      this.workingChallenge.timestamp = new Date().getTime();
-
-      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
-      // @TODO: When to remove from guild instead?
-      this.user.balance -= this.workingChallenge.prize / 4;
-
-      this.$emit('createChallenge', challenge);
-      this.ressetWorkingChallenge();
-      this.$root.$emit('hide::modal', 'challenge-modal');
-      this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
       let categoryKeys = this.workingChallenge.categories;
@@ -356,7 +364,7 @@ export default {
         challenge: this.workingChallenge,
       });
       this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
-      this.ressetWorkingChallenge();
+      this.resetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {
