@@ -23,7 +23,7 @@
 
 <style>
   .modal-backdrop.show {
-    opacity: 1;
+    opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
   }
 </style>

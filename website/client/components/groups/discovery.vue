@@ -28,7 +28,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-  
+
   .sort-select {
     margin: 2em;
   }
@@ -120,6 +120,7 @@ export default {
       this.loading = false;
     },
     createGroup () {
+      this.$store.state.editingGroup = {};
       this.$root.$emit('show::modal', 'guild-form');
     },
   },
