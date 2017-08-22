@@ -22,7 +22,9 @@ div
             router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.nav-item(tag="li", :to="{name: 'party'}")
+        router-link.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
+          a.nav-link(v-once) {{ $t('party') }}
+        .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
           a.nav-link(v-once) {{ $t('party') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
           a.nav-link(v-once) {{ $t('guilds') }}
@@ -277,6 +279,9 @@ export default {
     },
     async getUserGroupPlans () {
       this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    openPartyModal () {
+      this.$root.$emit('show::modal', 'create-party-modal');
     },
   },
 };
