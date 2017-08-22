@@ -74,14 +74,16 @@
           label(v-once) {{ $t('startDate') }}
           datepicker(v-model="task.startDate")
         .option(v-if="task.type === 'daily'")
-          label(v-once) {{ $t('repeats') }}
-          b-dropdown(:text="$t(task.frequency)")
-            b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-              | {{ $t(frequency) }}
-          label(v-once) {{ $t('repeatEvery') }}
-          input.form-control(type="number", v-model="task.everyX", min="0", required)
-          | {{ repeatSuffix }}
-          br
+          .form-group
+            label(v-once) {{ $t('repeats') }}
+            b-dropdown(:text="$t(task.frequency)")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+                | {{ $t(frequency) }}
+          .form-group
+            label(v-once) {{ $t('repeatEvery') }}
+            input(type="number", v-model="task.everyX", min="0", required)
+            | {{ repeatSuffix }}
+            br
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
