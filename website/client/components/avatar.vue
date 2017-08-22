@@ -1,6 +1,6 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
-  .character-sprites(:style='{margin}')
+  .character-sprites(:style='{margin: spritesMargin}')
     template(v-if="!avatarOnly")
       // Mount Body
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
@@ -122,7 +122,7 @@ export default {
       type: Number,
       default: 147,
     },
-    margin: {
+    spritesMargin: {
       type: String,
       default: '0 auto 0 24px',
     },
