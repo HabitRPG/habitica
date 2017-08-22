@@ -15,7 +15,8 @@
           :member="user",
           :avatarOnly="true",
           :withBackground="true",
-          :overrideAvatarGear="memberOverrideAvatarGear(item)"
+          :overrideAvatarGear="memberOverrideAvatarGear(item)",
+          :spritesMargin='"0px auto auto -1px"',
         )
 
         h4.title {{ itemText }}
