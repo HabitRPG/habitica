@@ -509,7 +509,6 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        market: 'shops.market.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
@@ -517,10 +516,13 @@ export default {
       marketGearCategories () {
         return shops.getMarketGearCategories(this.user);
       },
+      marketCategories () {
+        return shops.getMarketCategories(this.user);
+      },
       categories () {
-        if (this.market) {
+        if (this.marketCategories) {
           let categories = [
-            ...this.market.categories,
+            ...this.marketCategories,
           ];
 
           categories.push({
@@ -764,7 +766,6 @@ export default {
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchMarket');
       this.selectedGroupGearByClass = this.userStats.class;
     },
   };
