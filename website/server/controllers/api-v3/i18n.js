@@ -12,7 +12,7 @@ function geti18nBrowserScript (language) {
 
   return `(function () {
     if (!window) return;
-    window.i18n = ${JSON.stringify({
+    window['habitica-i18n'] = ${JSON.stringify({
       availableLanguages,
       language,
       strings: translations[langCode],

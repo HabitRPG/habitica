@@ -24,7 +24,9 @@ Vue.config.performance = !IS_PRODUCTION;
 Vue.config.productionTip = IS_PRODUCTION;
 
 Vue.use(Notifications);
-Vue.use(i18n);
+
+// window['habitica-i18n] is injected by the server
+Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
 
 export default new Vue({

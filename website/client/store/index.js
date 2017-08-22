@@ -25,6 +25,16 @@ if (AUTH_SETTINGS) {
   isUserLoggedIn = true;
 }
 
+const i18nData = window && window['habitica-i18n'];
+
+let availableLanguages = [];
+let selectedLanguage = {};
+
+if (i18nData) {
+  availableLanguages = i18nData.availableLanguages;
+  selectedLanguage = i18nData.language;
+}
+
 // Export a function that generates the store and not the store directly
 // so that we can regenerate it multiple times for testing, when not testing
 // always export the same route
@@ -74,8 +84,8 @@ export default function () {
       content: deepFreeze(content),
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
       i18n: deepFreeze({
-        availableLanguages: window.i18n.availableLanguages,
-        language: window.i18n.language,
+        availableLanguages,
+        selectedLanguage,
       }),
       hideHeader: false,
       viewingMembers: [],
