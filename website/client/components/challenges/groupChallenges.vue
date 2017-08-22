@@ -5,7 +5,7 @@ div
     .col-12.text-center
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
       h4(v-once) {{ $t('haveNoChallenges') }}
-      p(v-once) {{ $t('challengeDescription') }}
+      p(v-once) {{ $t('challengeDetails') }}
   router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges',:key='challenge._id')
     .col-12.challenge-item
       .row
