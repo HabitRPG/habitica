@@ -24,7 +24,7 @@
       div Challenge Prize
   .row.description
     .col-12
-      | {{challenge.description}}
+      | {{challenge.summary}}
   .well.row
     .col-3
       .count-details
