@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#new-stuff(:title="$t('newStuff')", size='lg', :hide-footer="true")
+  b-modal#new-stuff(v-if='user.flags.newStuff', :title="$t('newStuff')", size='lg', :hide-footer="true")
     .modal-body.new-stuff-modal
       h3.text-center
         | {{ this.$t('newStuff') }} by&nbsp;
@@ -15,6 +15,7 @@
 <script>
 import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import { mapState } from 'client/libs/store';
 
 export default {
   components: {
@@ -33,6 +34,7 @@ export default {
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     async latestBaileyMessage () {
       let message = await axios.get('/new-stuff');
       return message;

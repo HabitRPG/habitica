@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#quest-completed(:title="quests[user.party.quest.completed].text() + '' + $t('completed')",
+  b-modal#quest-completed(v-if='user.party.quest.completed', :title="quests[user.party.quest.completed].text() + '' + $t('completed')",
     size='lg', :hide-footer="true")
     .modal-body.text-center
       div(:class='`quest_${user.party.quest.completed}`')
