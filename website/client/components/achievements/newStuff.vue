@@ -1,20 +1,19 @@
 <template lang="pug">
   b-modal#new-stuff(:title="$t('newStuff')", size='lg', :hide-footer="true")
-    .modal-header
-      | {{ this.$t('newStuff') }} by&nbsp;
-      a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
-    .modal-body.new-stuff-modal.modal-fixed-height
+    .modal-body.new-stuff-modal
+      h3.text-center
+        | {{ this.$t('newStuff') }} by&nbsp;
+        a(target='_blank', href='https://twitter.com/Mihakuu') Bailey
       div(:class="baileyClass")
-      br
-      br
-      div(ng-bind-html='latestBaileyMessage')
+      div(v-html='latestBaileyMessage')
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
       button.btn.btn-default(@click='close()') {{ this.$t('cool') }}
-      button.btn.btn-warning(@click='dismissAlert(); close()') {{ this.$t('dismissAlert') }}
+      button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
 </template>
 
 <script>
+import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 export default {
@@ -33,12 +32,19 @@ export default {
       },
     };
   },
-  mounted () {
-    // @TODO: $http.get('/new-stuff.html') ?
+  computed: {
+    async latestBaileyMessage () {
+      let message = await axios.get('/new-stuff');
+      return message;
+    },
   },
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'new-stuff');
+    },
+    dismissAlert () {
+      this.$store.dispatch('user:set', {'flags.newStuff': false});
+      this.close();
     },
   },
 };
