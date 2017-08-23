@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   yesterdaily-modal(:yesterDailies='yesterDailies')
+  armoire-empty
   new-stuff
   death
   low-health
