@@ -92,7 +92,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     userReachedGemCap () {
-      return this.user.purchased.plan.customerId && (this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap)
+      return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
     },
   },
   methods: {
