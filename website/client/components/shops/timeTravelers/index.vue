@@ -25,10 +25,15 @@
     .standard-page
       div.featuredItems
         .background
-          div.npc
+          div.npc(:class="{'closed': closed }")
             div.featured-label
               span.rectangle
               span.text(v-once) {{ $t('timeTravelers') }}
+              span.rectangle
+          div.content(v-if="closed")
+            div.featured-label.with-border.closed
+              span.rectangle
+              span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
           div.content(v-if="false")
             div.featured-label.with-border
@@ -226,8 +231,12 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
+        background: url('~assets/images/shops/time_travelers_open_banner.png');
         background-repeat: no-repeat;
+
+        &.closed {
+          background: url('~assets/images/shops/time_travelers_closed_banner.png');
+        }
 
         .featured-label {
           position: absolute;
@@ -322,6 +331,10 @@
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+
+      closed () {
+        return this.user.purchased.plan.consecutive.trinkets == 0;
+      },
 
       categories () {
         let apiCategories = shops.getTimeTravelersCategories(this.user);

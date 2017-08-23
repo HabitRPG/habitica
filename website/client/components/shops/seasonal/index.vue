@@ -229,13 +229,6 @@
       color: #1f6ea2;
     }
 
-    .closed.featured-label {
-      max-width: 50%;
-      min-height: 32px;
-      height: auto;
-      padding: 3px;
-    }
-
     .featuredItems {
       height: 216px;
 
