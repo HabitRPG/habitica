@@ -34,9 +34,12 @@
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
+            v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
             label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value="group.key" v-model="workingChallenge.categories")
+              input.custom-control-input(type="checkbox",
+                :value='group.key',
+                 v-model="workingChallenge.categories")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
@@ -47,7 +50,7 @@
       .form-group
         label
           strong(v-once) {{$t('prize')}}
-        input(type='number', min='1', :max='maxPrize', v-model="workingChallenge.prize")
+        input(type='number', :min='minPrize', :max='maxPrize', v-model="workingChallenge.prize")
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
@@ -220,6 +223,13 @@ export default {
       if (this.challenge) {
         Object.assign(this.workingChallenge, this.challenge);
         this.workingChallenge.categories = [];
+
+        if (this.challenge.categories) {
+          this.challenge.categories.forEach(category => {
+            this.workingChallenge.categories.push(category.slug);
+          });
+        }
+
         this.creating = false;
       }
     });
@@ -230,6 +240,7 @@ export default {
       this.groups.push({
         name: party.name,
         _id: party._id,
+        privacy: 'private',
       });
     }
 
@@ -256,13 +267,31 @@ export default {
       userBalance = userBalance * 4;
 
       let groupBalance = 0;
-      let group = find(this.groups, { _id: this.workingChallenge.group });
+      let group;
+      this.groups.forEach(item => {
+        if (item._id === this.workingChallenge.group) {
+          group = item;
+          return;
+        }
+      });
 
       if (group && group.balance && group.leader === this.user._id) {
         groupBalance = group.balance * 4;
       }
 
       return userBalance + groupBalance;
+    },
+    minPrize () {
+      let groupFound;
+      this.groups.forEach(group => {
+        if (group._id === this.workingChallenge.group) {
+          groupFound = group;
+          return;
+        }
+      });
+
+      if (groupFound && groupFound.privacy === 'private') return 0;
+      return 1;
     },
     insufficientGemsForTavernChallenge () {
       let balance = this.user.balance || 0;
@@ -320,6 +349,17 @@ export default {
       }
     },
     updateChallenge () {
+      let categoryKeys = this.workingChallenge.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let catName = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name: catName,
+        });
+      });
+      this.workingChallenge.categories = serverCategories;
+
       this.$emit('updatedChallenge', {
         challenge: this.workingChallenge,
       });

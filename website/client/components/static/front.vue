@@ -7,46 +7,25 @@
     nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
       button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
-      a.navbar-brand(href='#') Navbar
+      a.navbar-brand(href='#')
+        .logo.svg-icon(v-html="icons.logo")
       #navbarNav.collapse.navbar-collapse
-        ul.navbar-nav
-          li.nav-item.active
-            a.nav-link(href='#')
-              | Home
-              span.sr-only (current)
+        ul.navbar-nav.float-right
           li.nav-item
-            a.nav-link(href='#') Features
+            router-link.nav-link(to="/static/features") How it Works
           li.nav-item
-            a.nav-link(href='#') Pricing
+            router-link.nav-link(to="/static/plans") Group Plans
           li.nav-item
-            a.nav-link.disabled(href='#') Disabled
+            a.nav-link(href="https://habitica.wordpress.com/") Blog
+          li.nav-item
+            a.nav-link(href="http://blog.habitrpg.com/") Tumblr
+          li.nav-item
+            router-link.nav-link(to="/static/press-kit") Press Kit
+          li.nav-item
+            router-link.nav-link(to="/static/contact") Contact
+          li.nav-item
+            button#play-btn(class="btn btn-primary btn-lg gamifybutton") Enter Habitica
 
-    //-
-    //- nav.navbar.navbar-light.bg-faded
-    //-   .navbar-header
-    //-     button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
-    //-       span.sr-only Toggle navigation
-    //-       span.icon-bar
-    //-       span.icon-bar
-    //-       span.icon-bar
-    //-     a.navbar-brand(href='#')
-    //-       img.img-rendering-auto(src='https://d2afqr2xdmyzvu.cloudfront.net/assets/habitica_lockup2_desat.png', alt="$t('altAttrNavLogo')", width='156px')
-    //-     #bs-example-navbar-collapse-1.collapse.navbar-collapse
-    //-         ul.nav.navbar-nav.navbar-right
-    //-           li
-    //-             a(href='/static/features') {{ $t('companyAbout') }}
-    //-           li
-    //-             a(href='/static/plans') {{ $t('groupPlans') }}
-    //-           li
-    //-             a(href='https://habitica.wordpress.com/') {{ $t('companyBlog') }}
-    //-           li
-    //-             a(href='http://blog.habitrpg.com/') {{ $t('tumblr') }}
-    //-           li
-    //-             a(href='/static/press-kit') {{ $t('presskit') }}
-    //-           li
-    //-             a(href='/static/contact') {{ $t('contactUs') }}
-    //-           li
-    //-             button#header-play-button.btn.btn-primary.navbar-btn.navbar-right(@click='playButtonClick()') {{ $t('playButtonFull') }}
     #intro.container-fluid
       .row
         h1.col-12.text-center {{ $t('motivate1') }}
@@ -556,6 +535,12 @@
 </template>
 
 <style lang="scss" scoped>
+  .logo {
+    width: 128px;
+    height: 28px;
+    color: purple;
+  }
+
   #intro {
     background: #fff;
     padding-top: 1em;
@@ -634,9 +619,14 @@
 </style>
 
 <script>
+import logo from 'assets/svg/logo.svg';
+
 export default {
   data () {
     return {
+      icons: Object.freeze({
+        logo,
+      }),
       userCount: 1000000,
     };
   },

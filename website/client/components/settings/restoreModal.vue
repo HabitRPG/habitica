@@ -72,8 +72,8 @@ export default {
     };
   },
   mounted () {
-    this.restoreValues.stats = this.user.stats;
-    this.restoreValues.achievements.streak = this.user.achievements.streak;
+    Object.assign(this.restoreValues.stats, this.user.stats);
+    Object.assign(this.restoreValues.achievements.streak, this.user.achievements.streak);
   },
   computed: {
     ...mapState({user: 'user.data'}),

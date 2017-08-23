@@ -136,6 +136,7 @@ export default {
       this.loading = false;
     },
     createGroup () {
+      this.$store.state.editingGroup = {};
       this.$root.$emit('show::modal', 'guild-form');
     },
   },

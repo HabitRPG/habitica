@@ -49,7 +49,7 @@
 
     // Habits right side control
     .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
+      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="(isUser && controlClass.down !== 'task-habit-disabled') ? score('down') : null")
         .svg-icon.negative(v-html="icons.negative")
     // Rewards right side control
     .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
@@ -62,7 +62,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .task {
-    margin-bottom: 8px;
+    margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: transparent;
     border-radius: 2px;
@@ -76,6 +76,10 @@
         border-color: $purple-500;
       }
     }
+  }
+
+  .task-habit-disabled-control-habit:hover {
+    cursor: initial;
   }
 
   .task-title {
@@ -247,6 +251,7 @@
     .small-text {
       margin-top: 4px;
       color: $yellow-10;
+      font-style: initial;
     }
   }
 </style>
@@ -275,6 +280,11 @@
     padding: 4px 10px;
     color: $gray-300;
     white-space: nowrap;
+  }
+
+  .task-reward {
+    // @TODO: I'm unsure of where this is defined. Can't find it in search. So, I am using important for now
+    background-color: rgba(255, 217, 160, 0.28) !important;
   }
 </style>
 

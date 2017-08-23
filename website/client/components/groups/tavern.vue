@@ -26,6 +26,7 @@
   .col-md-4.sidebar
     .section
       .grassy-meadow-backdrop
+      .daniel_front
 
       .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
@@ -196,10 +197,19 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/tavern_backdrop_web.png');
-    background-size: cover;
+    background-image: url('~assets/images/tavern_backdrop_web_backgroundtile.png');
+    background-repeat: repeat-x;
     width: 100%;
     height: 246px;
+  }
+
+  .daniel_front {
+    background-image: url('~assets/images/tavern_backdrop_web_daniel_and_props.png');
+    width: 100%;
+    height: 246px;
+    position: absolute;
+    top: 0;
+    margin: 0 auto;
   }
 
   .sleep {

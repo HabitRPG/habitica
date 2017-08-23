@@ -256,6 +256,7 @@ const router = new VueRouter({
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
         // { name: 'newStuff', path: 'newStuff', component: NewStuffPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
+        { name: 'oldNews', path: 'old-news', component: ParentPage, meta: {requiresLogin: false}},
         { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},

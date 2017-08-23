@@ -35,7 +35,7 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right
+            span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     .row(v-if='user._id === msg.uuid')
@@ -58,7 +58,7 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right
+            span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
       .col-2
@@ -128,6 +128,7 @@ import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import throttle from 'lodash/throttle';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -155,6 +156,14 @@ export default {
   mounted () {
     this.loadProfileCache();
   },
+  created () {
+    window.addEventListener('scroll', throttle(() => {
+      this.loadProfileCache(window.scrollY / 1000);
+    }, 1000));
+  },
+  destroyed () {
+    // window.removeEventListener('scroll', this.handleScroll);
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -167,6 +176,8 @@ export default {
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),
       cachedProfileData: {},
+      currentProfileLoadedCount: 0,
+      currentProfileLoadedEnd: 10,
     };
   },
   filters: {
@@ -191,14 +202,22 @@ export default {
     },
   },
   methods: {
-    async loadProfileCache () {
+    async loadProfileCache (screenPosition) {
       let promises = [];
+
+      // @TODO: write an explination
+      if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
+        this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
+      } else {
+        return;
+      }
 
       this.messages.forEach(message => {
         let uuid = message.uuid;
         if (uuid && !this.cachedProfileData[uuid]) {
-          if (uuid === 'system') return;
+          if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           promises.push(axios.get(`/api/v3/members/${uuid}`));
+          this.currentProfileLoadedCount += 1;
         }
       });
 

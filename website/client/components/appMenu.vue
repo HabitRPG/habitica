@@ -22,7 +22,9 @@ div
             router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.nav-item(tag="li", :to="{name: 'party'}")
+        router-link.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
+          a.nav-link(v-once) {{ $t('party') }}
+        .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
           a.nav-link(v-once) {{ $t('party') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
           a.nav-link(v-once) {{ $t('guilds') }}
@@ -30,15 +32,15 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(
-          tag="li",
-          :to="{name: 'groupPlan'}",
-          :class="{'active': $route.path.startsWith('/group-plan')}")
-            a.nav-link(v-once) {{ $t('group') }}
-            .dropdown-menu
-              router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
+        .nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/group-plans')}")
+          a.nav-link(v-once) {{ $t('group') }}
+          .dropdown-menu
+            router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
           a.nav-link(v-once) {{ $t('challenges') }}
+          .dropdown-menu
+            router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
+            router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
@@ -57,10 +59,10 @@ div
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
-        span {{user.stats.gp | roundBigNumber}}
+        span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
-        .svg-icon(v-html="icons.user")
+        .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
@@ -173,11 +175,12 @@ div
     padding-left: 16px;
 
     .svg-icon {
-      vertical-align: middle;
-      width: 24px;
-      height: 24px;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
-      float: left;
+      margin-left: 8px;
     }
   }
 
@@ -187,13 +190,13 @@ div
     color: $header-color;
     transition: none;
 
-    &:hover {
-      color: $white;
-    }
-
     .svg-icon {
       margin-right: 0px;
-      color: $white;
+      color: $header-color;
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 
@@ -275,6 +278,9 @@ export default {
     },
     async getUserGroupPlans () {
       this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    openPartyModal () {
+      this.$root.$emit('show::modal', 'create-party-modal');
     },
     showBuyGemsModal () {
       this.$root.$emit('show::modal', 'buy-gems');

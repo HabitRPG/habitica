@@ -19,24 +19,24 @@ div
       .col-8.offset-1
         member-details(:member='member')
       .col-3.actions
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
+        b-dropdown(text="...", right=true)
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
             span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.removeIcon")
+              .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
               span.text {{$t('removeMember')}}
           b-dropdown-item(@click='sort(option.value)')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.messageIcon")
               span.text {{$t('sendMessage')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('promoteToLeader')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('addManager')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.removeIcon")
               span.text {{$t('removeManager2')}}
@@ -109,6 +109,7 @@ import sortBy from 'lodash/sortBy';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import { mapState } from 'client/libs/store';
 
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
@@ -116,7 +117,7 @@ import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
 
 export default {
-  props: ['group', 'hideBadge'],
+  props: ['hideBadge'],
   components: {
     bModal,
     bDropdown,
@@ -160,6 +161,16 @@ export default {
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
+    isLeader () {
+      return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
+    },
+    groupIsSubscribed () {
+      return this.group.purchased.active;
+    },
+    group () {
+      return this.$store.state.memberModalOptions.group;
+    },
     sortedMembers () {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
@@ -182,7 +193,7 @@ export default {
   },
   methods: {
     async getMembers () {
-      let groupId = this.$store.state.groupId || this.group._id;
+      let groupId = this.$store.state.memberModalOptions.groupId || this.group._id;
       if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
@@ -191,7 +202,7 @@ export default {
         this.members = members;
       }
 
-      if (this.$store.state.viewingMembers.length > 0) {
+      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.viewingMembers;
       }
     },

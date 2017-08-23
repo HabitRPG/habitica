@@ -578,7 +578,8 @@ export default {
       this.newMessage = newText;
     },
     showMemberModal () {
-      this.$store.state.groupId = this.group._id;
+      this.$store.state.memberModalOptions.groupId = this.group._id;
+      this.$store.state.memberModalOptions.group = this.group;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
@@ -638,8 +639,7 @@ export default {
       }
     },
     async join () {
-      // @TODO: This needs to be in the notifications where users will now accept invites
-      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
       await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
@@ -684,11 +684,6 @@ export default {
       });
 
       await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-    },
-    // @TODO: Move to notificatin component
-    async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.group._id});
-      // User.sync();
     },
     clickStartQuest () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
