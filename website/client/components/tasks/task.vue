@@ -284,7 +284,7 @@
 
   .task-reward {
     // @TODO: I'm unsure of where this is defined. Can't find it in search. So, I am using important for now
-    background-color: rgba(255, 217, 160, 0.28) !important;
+    background-color: #ffd9a0 !important;
   }
 </style>
 
