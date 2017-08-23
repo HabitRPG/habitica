@@ -6,7 +6,7 @@
   "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
 
   "weapon": "weapon",
-  "weaponCapitalized" : "Weapon",
+  "weaponCapitalized" : "Main-Hand Item",
 
   "weaponBase0Text": "No Weapon",
   "weaponBase0Notes": "No Weapon.",
@@ -665,9 +665,9 @@
   "armorArmoireYellowPartyDressNotes": "You're perceptive, strong, smart, and so fashionable! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Yellow Hairbow Set (Item 2 of 2).",
 
   "headgear": "helm",
-  "headgearCapitalized": "Helm",
+  "headgearCapitalized": "Headgear",
 
-  "headBase0Text": "No Helm",
+  "headBase0Text": "No Headgear",
   "headBase0Notes": "No headgear.",
 
   "headWarrior1Text": "Leather Helm",
@@ -1038,7 +1038,7 @@
   "headArmoireAntiProcrastinationHelmNotes": "This mighty steel helm will help you win the fight to be healthy, happy, and productive! Increases Perception by <%= per %>. Enchanted Armoire: Anti-Procrastination Set (Item 1 of 3).",
 
   "offhand": "shield-hand item",
-  "offhandCapitalized": "Shield-Hand Item",
+  "offhandCapitalized": "Off-Hand Item",
 
   "shieldBase0Text": "No Shield-Hand Equipment",
   "shieldBase0Notes": "No shield or shield-hand item.",
