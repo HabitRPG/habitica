@@ -1,50 +1,37 @@
 <template lang="pug">
   b-modal#level-up(:title="$t('levelUpShare')", size='sm', :hide-footer="true")
-    .modal-content
-      .modal-body.text-center
-        h3 {{ $t('gainedLevel') }}
-        .container-fluid
-          .row
-            .herobox
-              .character-sprites
-                // @TODO: ({sleep: false})
-                avatar(:member='user')
-          .row
-            .herobox
-              .avatar-level(:class='userLevelStyle(user)') {{ $t('level') + user.stats.lvl }}
-        h4 {{ $t('leveledUp', {level: user.stats.lvl}) }}
-        p {{ $t('fullyHealed') }}
-        br
-        div(v-if='user.flags.classSelected && !user.preferences.disableClasses && !user.preferences.automaticAllocation')
-          a.btn.btn-default(@click='statsAllocationBoxIsOpen = !statsAllocationBoxIsOpen',
-            data-toggle='collapse', data-target='#stat-allocation', aria-expanded='false', aria-controls='stat-allocation')
-            | {{statsAllocationBoxIsOpen  ? $t('hideQuickAllocation') : $t('showQuickAllocation')}}
-          p &nbsp;
-          .collapse#stat-allocation
-            table.table.text-left
-              tr
-                td
-                  p(v-if='user.stats.lvl >= 100') {{ $t('noMoreAllocate') }}
-                  p(v-if='user.stats.points || user.stats.lvl < 100')
-                    strong.inline
-                      | {{user.stats.points}}&nbsp;
-                    strong.hint(popover-trigger='mouseenter',
-                      popover-placement='right', :popover="$t('quickAllocationLevelPopover')") {{ $t('unallocated') }}
-                td
-              // @TODO: +statAllocation
-        button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
-        .checkbox
-          label(style='display:inline-block') {{ $t('dontShowAgain') }}
-            input(type='checkbox', v-model='user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
-      .modal-footer
-        .container-fluid
-          .row
-            .col-4
-              a.twitter-share-button(:href='twitterLink') {{ $t('tweet') }}
-            .col-4
-              .fb-share-button(:data-href='socialLevelLink', data-layout='button')
-            .col-4
-              a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')
+    .modal-body.text-center
+      h3 {{ $t('gainedLevel') }}
+      avatar.avatar(:member='user')
+      h4.avatar-level(:class='userLevelStyle(user)') {{ $t('level') + ' ' + user.stats.lvl }}
+      h4(v-html="$t('leveledUp', {level: user.stats.lvl})")
+      p {{ $t('fullyHealed') }}
+      br
+      div(v-if='showAllocation')
+        a.btn.btn-default(@click='statsAllocationBoxIsOpen = !statsAllocationBoxIsOpen')
+          | {{statsAllocationBoxIsOpen  ? $t('hideQuickAllocation') : $t('showQuickAllocation')}}
+        p &nbsp;
+        #stat-allocation(v-if='statsAllocationBoxIsOpen')
+          p(v-if='user.stats.lvl >= 100') {{ $t('noMoreAllocate') }}
+          p(v-if='user.stats.points || user.stats.lvl < 100')
+            strong.inline
+              | {{user.stats.points}}&nbsp;
+            strong.hint(popover-trigger='mouseenter',
+              popover-placement='right', :popover="$t('quickAllocationLevelPopover')") {{ $t('unallocated') }}
+          // @TODO: +statAllocation
+      button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
+      .checkbox
+        input(type='checkbox', v-model='user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
+        label(style='display:inline-block') {{ $t('dontShowAgain') }}
+    .modal-footer
+      .container-fluid
+        .row
+          .col-4
+            a.twitter-share-button(:href='twitterLink') {{ $t('tweet') }}
+          .col-4
+            .fb-share-button(:data-href='socialLevelLink', data-layout='button')
+          .col-4
+            a.tumblr-share-button(:data-href='socialLevelLink', data-notes='none')
 </template>
 
 <style lang="scss">
@@ -74,6 +61,12 @@
       margin: 0;
       width: 0;
     }
+  }
+</style>
+
+<style scoped>
+  .avatar {
+    margin-left: 6.8em;
   }
 </style>
 
@@ -108,6 +101,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    showAllocation () {
+      return this.user.flags.classSelected && !this.user.preferences.disableClasses && !this.user.preferences.automaticAllocation;
+    },
   },
   methods: {
     close () {
