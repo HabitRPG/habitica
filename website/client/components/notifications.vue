@@ -243,7 +243,7 @@ export default {
         if (this.user.flags.newStuff) {
           this.$root.$emit('show::modal', 'new-stuff');
         }
-        this.$root.$emit('show::modal', 'quest-invitation');
+
         if (!this.user.flags.welcomed && !createdDate.isBefore(loggedinDate)) {
           this.$store.state.avatarEditorOptions.editingUser = false;
           this.$root.$emit('show::modal', 'avatar-modal');
