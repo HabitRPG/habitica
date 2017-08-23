@@ -1,6 +1,18 @@
+.scene_coding {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -1147px -715px;
+  width: 150px;
+  height: 150px;
+}
+.scene_dailies {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: 0px -562px;
+  width: 327px;
+  height: 276px;
+}
 .scene_eco_friendly {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -518px -737px;
+  background-position: -1147px -392px;
   width: 222px;
   height: 171px;
 }
@@ -18,13 +30,13 @@
 }
 .scene_habits {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: 0px -562px;
+  background-position: -328px -562px;
   width: 306px;
   height: 174px;
 }
 .scene_meditation {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -926px -384px;
+  background-position: -1147px -564px;
   width: 150px;
   height: 150px;
 }
@@ -36,13 +48,13 @@
 }
 .scene_phone_peek {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -926px -233px;
+  background-position: -1147px -866px;
   width: 150px;
   height: 150px;
 }
 .scene_raking_leaves {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: 0px -737px;
+  background-position: 0px -839px;
   width: 246px;
   height: 198px;
 }
@@ -54,13 +66,13 @@
 }
 .scene_task_list {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: 0px -936px;
+  background-position: -1147px 0px;
   width: 240px;
   height: 195px;
 }
 .scene_todos {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -241px -936px;
+  background-position: -1147px -196px;
   width: 240px;
   height: 195px;
 }
@@ -72,19 +84,19 @@
 }
 .welcome_basic_avatars {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -307px -562px;
+  background-position: -635px -562px;
   width: 246px;
   height: 165px;
 }
 .welcome_promo_party {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -247px -737px;
+  background-position: -247px -839px;
   width: 270px;
   height: 180px;
 }
 .welcome_sample_tasks {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -554px -562px;
+  background-position: -518px -839px;
   width: 246px;
   height: 165px;
 }
