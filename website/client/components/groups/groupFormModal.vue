@@ -4,11 +4,11 @@
       .form-group
         label
           strong(v-once) {{$t('name')}} *
-        b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGuild.name")
-      .form-group(v-if='workingGuild.id && members.length > 0')
+        b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGroup.name")
+      .form-group(v-if='workingGroup.id && members.length > 0')
         label
           strong(v-once) {{$t('guildOrPartyLeader')}} *
-        select.form-control(v-model="workingGuild.newLeader")
+        select.form-control(v-model="workingGroup.newLeader")
           option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
       .form-group
@@ -46,14 +46,14 @@
         label
           strong(v-once) {{$t('guildSummary')}} *
         div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceHolder') : $t('guildSummaryPlaceholder')", v-model="workingGuild.summary")
+        textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceHolder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
         // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
       .form-group
         label
           strong(v-once) {{$t('groupDescription')}} *
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGuild.description")
+        b-form-input.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
 
       .form-group(v-if='creatingParty && !workingGroup.id')
         span
@@ -291,24 +291,24 @@ export default {
         return;
       }
 
-      this.workingGuild.name = editingGroup.name;
-      this.workingGuild.type = editingGroup.type;
+      this.workingGroup.name = editingGroup.name;
+      this.workingGroup.type = editingGroup.type;
 
       this.workingGroup.privateGuild = true;
       if (editingGroup.privacy === 'public') {
         this.workingGroup.privateGuild = false;
       }
-      
-      if (editingGroup.summary) this.workingGuild.summary = editingGroup.summary;
-      if (editingGroup.description) this.workingGuild.description = editingGroup.description;
-      if (editingGroup._id) this.workingGuild.id = editingGroup._id;
-      if (editingGroup.leader._id) this.workingGuild.newLeader = editingGroup.leader._id;
+
+      if (editingGroup.summary) this.workingGroup.summary = editingGroup.summary;
+      if (editingGroup.description) this.workingGroup.description = editingGroup.description;
+      if (editingGroup._id) this.workingGroup.id = editingGroup._id;
+      if (editingGroup.leader._id) this.workingGroup.newLeader = editingGroup.leader._id;
       if (editingGroup._id) this.getMembers();
     });
   },
   computed: {
     charactersRemaining () {
-      let currentLength = this.workingGuild.summary ? this.workingGuild.summary.length : 0;
+      let currentLength = this.workingGroup.summary ? this.workingGroup.summary.length : 0;
       return MAX_SUMMARY_SIZE_FOR_GUILDS - currentLength;
     },
     title () {
@@ -355,25 +355,25 @@ export default {
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Create Group"});
       }
 
-      if (!this.workingGuild.name || !this.workingGuild.description) {
+      if (!this.workingGroup.name || !this.workingGroup.description) {
         // @TODO: Add proper notifications - split this out into two, make errors translatable. Suggestion: `<% fieldName %> is required` for all errors where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
         alert('Enter a name and description');
         return;
       }
 
-      if (!this.workingGuild.summary) {
+      if (!this.workingGroup.summary) {
         // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
         alert('Enter a summary');
         return;
       }
 
-      if (this.workingGuild.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) {
+      if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) {
         // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
         alert('Summary is too long');
         return;
       }
 
-      if (!this.workingGuild.categories || this.workingGuild.categories.length === 0) {
+      if (!this.workingGroup.categories || this.workingGroup.categories.length === 0) {
         // @TODO: Add proper notifications
         alert('One or more categories must be selected');
         return;

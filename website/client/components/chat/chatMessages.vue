@@ -158,7 +158,7 @@ export default {
   },
   created () {
     window.addEventListener('scroll', throttle(() => {
-      this.loadProfileCache(window.scrollY / 1000)
+      this.loadProfileCache(window.scrollY / 1000);
     }, 1000));
   },
   destroyed () {
