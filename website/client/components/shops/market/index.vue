@@ -239,7 +239,8 @@
               :member="user",
               :avatarOnly="true",
               :withBackground="true",
-              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)"
+              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)",
+              :spritesMargin="'0px auto 0px'",
             )
 
         template(slot="additionalInfo", scope="ctx")
@@ -331,10 +332,6 @@
     .avatar {
       cursor: default;
       margin: 0 auto;
-
-      .character-sprites span {
-        left: 25px;
-      }
     }
 
     .standard-page {

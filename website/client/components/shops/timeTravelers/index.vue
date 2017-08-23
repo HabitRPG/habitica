@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar
+    .standard-sidebar(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -60,7 +60,7 @@
 
       h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
 
-      .clearfix
+      .clearfix(v-if="!closed")
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
@@ -74,7 +74,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected",
+        v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
         h2 {{ category.text }}
@@ -113,12 +113,16 @@
       @change="resetItemToBuy($event)",
       @buyPressed="buyItem($event)"
     )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
+      template(slot="item", scope="scope")
+        div
+          avatar(
+            :member="user",
+            :avatarOnly="true",
+            :withBackground="true",
+            :overrideAvatarGear="memberOverrideAvatarGear(scope.item)",
+            :spritesMargin="'0px auto 0px'",
+          )
+
 </template>
 
 <style lang="scss">
@@ -199,6 +203,11 @@
       position: relative;
     }
 
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
+    }
+
     .featuredItems {
       height: 216px;
 
@@ -236,6 +245,7 @@
 
         &.closed {
           background: url('~assets/images/shops/time_travelers_closed_banner.png');
+          background-repeat: no-repeat;
         }
 
         .featured-label {
@@ -444,6 +454,15 @@
         }
 
         this.backgroundUpdate = new Date();
+      },
+      memberOverrideAvatarGear (set) {
+        let gear = {};
+
+        set.items.map( (item) => {
+          gear[item.type] = item.key;
+        });
+
+        return gear;
       },
     },
     created () {
