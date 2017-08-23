@@ -1,9 +1,8 @@
 <template lang="pug">
   b-modal#joined-guild(:title="$t('modalAchievement')", size='lg', :hide-footer="true")
     .modal-body.text-center
-      h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('guild',0)
-      achievement-avatar
+      achievement-avatar.avatar
       p {{ $t('joinedGuildText') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
@@ -11,7 +10,9 @@
 </template>
 
 <style scope>
-  .dont-despair, .death-penalty {
+  .avatar {
+    margin-left: 10.2em;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
 </style>
