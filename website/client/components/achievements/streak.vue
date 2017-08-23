@@ -44,7 +44,7 @@ export default {
     suppressModals () {
       let surpress = this.user.preferences.suppressModals.streak ? true : false;
       this.$store.dispatch('user:set', {'preferences.suppressModals.streak': surpress});
-    }
+    },
   },
 };
 </script>
