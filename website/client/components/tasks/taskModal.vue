@@ -226,21 +226,25 @@
     .difficulty-trivial-icon {
       width: 16px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-normal-icon {
       width: 36px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-medium-icon {
       width: 36px;
       height: 32px;
+      color: #A5A1AC;
     }
 
     .difficulty-hard-icon {
       width: 36px;
       height: 36px;
+      color: #A5A1AC;
     }
 
     .option {
