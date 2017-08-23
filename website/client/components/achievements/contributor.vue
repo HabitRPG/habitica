@@ -12,10 +12,6 @@
 </template>
 
 <style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
-  }
-
   .avatar {
     margin-left: 4em;
     margin-bottom: 1.5em;
