@@ -6,7 +6,7 @@
   form#login-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='!forgotPassword')
     .text-center
       div
-        .svg-icon.gryphon(v-html="icons.gryphon")
+        .svg-icon.gryphon
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
@@ -47,7 +47,7 @@
   form#forgot-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='forgotPassword')
     .text-center
       div
-        .svg-icon.gryphon(v-html="icons.gryphon")
+        .svg-icon.gryphon
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
       .header
@@ -120,8 +120,10 @@
     }
 
     .gryphon {
+      background-image: url('~assets/images/melior@3x.png');
       width: 63.2px;
       height: 69.4px;
+      background-size: cover;
       color: $white;
       margin: 0 auto;
     }
