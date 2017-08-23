@@ -35,7 +35,8 @@ div.item-with-icon.item-notifications.dropdown
     a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value', @click='navigateToGroup(key)')
       span.glyphicon.glyphicon-comment
       span {{message.name}}
-      a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+      span.clear-button(@click='clearMessages(k)', :popover="$t('clear')",
+        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
       span
@@ -50,6 +51,10 @@ div.item-with-icon.item-notifications.dropdown
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .clear-button {
+    margin-left: .5em;
+  }
 
   .item-notifications {
     width: 44px;
