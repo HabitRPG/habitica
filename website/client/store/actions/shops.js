@@ -2,6 +2,8 @@ import axios from 'axios';
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
 import purchaseOp from 'common/script/ops/purchaseWithSpell';
+import buyMysterySetOp from 'common/script/ops/buyMysterySet';
+import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 
 export function fetchMarket (store, forceLoad = false) { // eslint-disable-line no-shadow
@@ -72,6 +74,27 @@ export function purchase (store, params) {
   // .then((res) => console.log('equip', res))
   // .catch((err) => console.error('equip', err));
 }
+
+export function purchaseMysterySet (store, params) {
+  const user = store.state.user.data;
+  buyMysterySetOp(user, {params});
+  axios
+    .post(`/api/v3/user/buy-mystery-set/${params.key}`);
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
+}
+
+export function purchaseHourglassItem (store, params) {
+  const user = store.state.user.data;
+  hourglassPurchaseOp(user, {params});
+  axios
+    .post(`/api/v3/user/purchase-hourglass/${params.type}/${params.key}`);
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
+}
+
 
 export function sellItems (store, params) {
   const user = store.state.user.data;
