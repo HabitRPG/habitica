@@ -20,6 +20,7 @@ div
   joined-challenge
   invited-friend
   login-incentives(:data='notificationData')
+  quest-completed
 </template>
 
 <script>
