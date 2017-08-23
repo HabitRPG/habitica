@@ -18,6 +18,7 @@ div
   joined-guild
   joined-challenge
   invited-friend
+  login-incentives(:data='notificationData')
 </template>
 
 <script>
@@ -51,6 +52,7 @@ import rebirth from './achievements/rebirth';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
+import loginIncentives from './achievements/login-incentives';
 
 export default {
   mixins: [notifications, guide],
@@ -77,6 +79,7 @@ export default {
     rebirthEnabled,
     dropsEnabled,
     contributor,
+    loginIncentives,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -92,6 +95,7 @@ export default {
 
     return {
       yesterDailies: [],
+      notificationData: {},
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
@@ -274,7 +278,7 @@ export default {
       if (this.yesterDailies.length === 0) {
         this.isRunningYesterdailies = false;
         await axios.post('/api/v3/cron');
-        this.handleUserNotifications(this.user);
+        this.handleUserNotifications(this.user.notifications);
         return;
       }
 
@@ -285,7 +289,7 @@ export default {
       this.user.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
-      if (!after || after.length === 0) return;
+      if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       let notificationsToRead = [];
       let scoreTaskNotification = [];
@@ -389,7 +393,8 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            //  @TODO: Notification.showLoginIncentive(this.user, notification.data, Social.loadWidgets);
+            this.notificationData = notification.data;
+            this.$root.$emit('show::modal', 'login-incentives');
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
