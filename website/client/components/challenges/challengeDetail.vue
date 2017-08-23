@@ -258,6 +258,9 @@ export default {
     async joinChallenge () {
       this.user.challenges.push(this.challengeId);
       await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      // @TODO: this doesn't work because of asyncresource
+      let tasks = await this.$store.dispatch('tasks:fetchUserTasks');
+      this.$store.state.tasks.data = tasks.data;
     },
     async leaveChallenge () {
       let keepChallenge = confirm('Do you want to keep challenge tasks?');
