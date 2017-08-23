@@ -1,10 +1,8 @@
 <template lang="pug">
-  b-modal#join-challenge(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content(style='min-width:28em')
+  b-modal#joined-challenge(:title="$t('modalAchievement')", size='lg', :hide-footer="true")
     .modal-body.text-center
-      h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('challenge',0)
-      achievement-avatar
+      achievement-avatar.avatar
       p {{ $t('joinedChallengeText') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
@@ -12,7 +10,9 @@
 </template>
 
 <style scope>
-  .dont-despair, .death-penalty {
+  .avatar {
+    margin-left: 10.2em;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
 </style>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'join-challenge');
+      this.$root.$emit('hide::modal', 'joined-challenge');
     },
   },
 };
