@@ -1,6 +1,6 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
-  .character-sprites
+  .character-sprites(:style='{margin: spritesMargin}')
     template(v-if="!avatarOnly")
       // Mount Body
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
@@ -56,7 +56,6 @@
   }
 
   .character-sprites {
-    margin: 0 auto 0 24px;
     width: 90px;
     height: 90px;
   }
@@ -123,6 +122,13 @@ export default {
       type: Number,
       default: 147,
     },
+    spritesMargin: {
+      type: String,
+      default: '0 auto 0 24px',
+    },
+    overrideTopPadding: {
+      type: String,
+    },
   },
   data () {
     return {
@@ -142,6 +148,10 @@ export default {
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
+      if (this.overrideTopPadding) {
+        return this.overrideTopPadding;
+      }
+
       let val = '28px';
 
       if (!this.avatarOnly) {

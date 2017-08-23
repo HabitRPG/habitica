@@ -21,6 +21,13 @@
   }
 </style>
 
+<style>
+  .modal-backdrop.show {
+    opacity: 1 !important;
+    background-color: rgba(67, 40, 116, 0.9) !important;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import AppMenu from './components/appMenu';

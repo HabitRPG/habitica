@@ -88,7 +88,11 @@ export default function () {
         selectedLanguage,
       }),
       hideHeader: false,
-      viewingMembers: [],
+      memberModalOptions: {
+        viewingMembers: [],
+        groupId: '',
+        group: {},
+      },
       openedItemRows: [],
       spellOptions: {
         castingSpell: false,

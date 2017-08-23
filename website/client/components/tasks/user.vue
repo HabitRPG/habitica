@@ -35,7 +35,7 @@
                           @change="toggleTag(tag)",
                         )
                         span.custom-control-indicator
-                        span.custom-control-description {{ tag.name }}
+                        span.custom-control-description(v-markdown='tag.name')
 
             .filter-panel-footer.clearfix
               template(v-if="editingTags === true")
@@ -117,9 +117,9 @@
 </template>
 
 <style lang="scss">
-#create-dropdown .dropdown-toggle::after {
-  display: none;
-}
+  #create-dropdown .dropdown-toggle::after {
+    display: none;
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -142,7 +142,16 @@
   }
 
   .dropdown-icon-item .svg-icon {
-    width: 16px;
+    width: 22px;
+    color: #C3C0C7;
+  }
+
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+    color: $purple-500;
+  }
+
+  .dropdown-icon-item .text {
+    font-weight: bold;
   }
 
   button.btn.btn-secondary.filter-button {
@@ -278,6 +287,7 @@
 import TaskColumn from './column';
 import TaskModal from './taskModal';
 import spells from './spells';
+import markdown from 'client/directives/markdown';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -314,6 +324,9 @@ export default {
     EquipmentAttributesGrid,
     spells,
     SelectMembersModal,
+  },
+  directives: {
+    markdown,
   },
   data () {
     return {

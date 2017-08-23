@@ -56,7 +56,9 @@
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
     .description-section
-      h2(v-once) {{$t('challengeDescription')}}
+      h2 {{$t('challengeSummary')}}
+      p {{challenge.summary}}
+      h2 {{$t('challengeDescription')}}
       p {{challenge.description}}
 </template>
 
@@ -248,13 +250,17 @@ export default {
       this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
-      this.$store.state.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
+      this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {
       this.user.challenges.push(this.challengeId);
       await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      // @TODO: this doesn't work because of asyncresource
+      let tasks = await this.$store.dispatch('tasks:fetchUserTasks');
+      this.$store.state.tasks.data = tasks.data;
     },
     async leaveChallenge () {
       let keepChallenge = confirm('Do you want to keep challenge tasks?');

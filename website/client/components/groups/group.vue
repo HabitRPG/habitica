@@ -27,7 +27,7 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+        textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
         autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
         button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
@@ -106,7 +106,19 @@
     .section-header
       .row
         .col-10
-          h3(v-once) {{ $t('description') }}
+          h3(v-once) {{ $t('guildSummary') }}
+        .col-2
+          .toggle-up(@click="sections.summary = !sections.summary", v-if="sections.summary")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
+            .svg-icon(v-html="icons.downIcon")
+      .section(v-if="sections.summary")
+        p {{ group.summary }}
+
+    .section-header
+      .row
+        .col-10
+          h3 {{ $t('groupDescription') }}
         .col-2
           .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
             .svg-icon(v-html="icons.upIcon")
@@ -114,18 +126,6 @@
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
         p {{ group.description }}
-
-    .section-header
-      .row
-        .col-10
-          h3 {{ $t('guildInformation') }}
-        .col-2
-          .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.information")
-        p {{ group.information }}
 
     .section-header.challenge
       .row
@@ -442,8 +442,8 @@ export default {
       selectedQuest: {},
       sections: {
         quest: true,
+        summary: true,
         description: true,
-        information: true,
         challenges: true,
       },
       newMessage: '',
@@ -578,7 +578,8 @@ export default {
       this.newMessage = newText;
     },
     showMemberModal () {
-      this.$store.state.groupId = this.group._id;
+      this.$store.state.memberModalOptions.groupId = this.group._id;
+      this.$store.state.memberModalOptions.group = this.group;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
@@ -638,8 +639,7 @@ export default {
       }
     },
     async join () {
-      // @TODO: This needs to be in the notifications where users will now accept invites
-      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
       await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
@@ -684,11 +684,6 @@ export default {
       });
 
       await this.$store.dispatch('guilds:join', {groupId: this.group._id});
-    },
-    // @TODO: Move to notificatin component
-    async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.group._id});
-      // User.sync();
     },
     clickStartQuest () {
       // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});

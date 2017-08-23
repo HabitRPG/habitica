@@ -1,7 +1,7 @@
 <template lang="pug">
 #app-header.row
   create-party-modal
-  members-modal(:group='user.party', :hide-badge="true")
+  members-modal(:hide-badge="true")
   member-details(:member="user")
   .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
     // TODO button should open the party members modal
@@ -22,7 +22,7 @@
       span.small-text(v-html="$t('inviteFriendsParty')")
       br
       // TODO link to party creation or party page if partying solo
-      a.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
+      button.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
 </template>
 
 <style lang="scss" scoped>
@@ -124,6 +124,8 @@ export default {
     openPartyModal () {
       if (this.user.party._id) {
         this.$store.state.groupId = this.user.party._id;
+        // @TODO: do we need to fetch party?
+        this.$store.state.memberModalOptions.group = this.$store.state.party;
         this.$root.$emit('show::modal', 'members-modal');
         return;
       }

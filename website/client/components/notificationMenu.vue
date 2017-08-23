@@ -1,6 +1,6 @@
 <template lang="pug">
-.item-with-icon.item-notifications.dropdown
-  .svg-icon(v-html="icons.notifications")
+div.item-with-icon.item-notifications.dropdown
+  .svg-icon.notifications(v-html="icons.notifications")
   // span.glyphicon(:class='iconClasses()')
   // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
@@ -9,24 +9,32 @@
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='party in user.invitations.parties', @click='go("/party")')
-      span.glyphicon.glyphicon-user
-      span {{ $t('invitedTo', {name: party.name}) }}
+    a.dropdown-item(v-for='party in user.invitations.parties')
+      div
+        span.glyphicon.glyphicon-user
+        span {{ $t('invitedTo', {name: party.name}) }}
+      div
+        span(@click='accept(party)') Accept
+        span(@click='reject(party)') Reject
     a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
       a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
-    a.dropdown-item(v-for='guild in user.invitations.guilds', @click='go("/groups/discovery")')
-      span.glyphicon.glyphicon-user
-      span {{ $t('invitedTo', {name: guild.name}) }}
+    a.dropdown-item(v-for='guild in user.invitations.guilds')
+      div
+        span.glyphicon.glyphicon-user
+        span {{ $t('invitedTo', {name: guild.name}) }}
+      div
+        span(@click='accept(guild)') Accept
+        span(@click='reject(guild)') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='navigateToGroup(k)')
+    a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value', @click='navigateToGroup(key)')
       span.glyphicon.glyphicon-comment
-      span {{v.name}}
+      span {{message.name}}
       a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
@@ -42,12 +50,23 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
-  .svg-icon {
-    width: 25px;
+
+  .item-notifications {
+    width: 44px;
   }
 
   .item-notifications:hover {
     cursor: pointer;
+  }
+
+  .notifications {
+    vertical-align: bottom;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    margin-left: 8px;
+    margin-top: .2em;
   }
 
   /* @TODO: Move to shared css */
@@ -231,7 +250,7 @@ export default {
       // @TODO: USe notifications: User.readNotification(notification.id);
       this.user.groupNotifications.splice(index, 1);
       return navigate; // @TODO: remove
-      // @TODO: this.$route.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
+      // @TODO: this.$router.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
     },
     groupApprovalNotificationIcon (notification) {
       if (notification.type === 'GROUP_TASK_APPROVAL') {
@@ -241,7 +260,7 @@ export default {
       }
     },
     go (path) {
-      this.$route.push(path);
+      this.$router.push(path);
     },
     navigateToGroup (key) {
       if (key === this.party._id || key === this.user.party._id) {
@@ -249,6 +268,18 @@ export default {
         return;
       }
       this.go(`/groups/guild/${key}`);
+    },
+    async reject (group) {
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
+      // @TODO: User.sync();
+    },
+    async accept (group) {
+      if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+        return;
+      }
+      // @TODO: check for party , type: 'myGuilds'
+      await this.$store.dispatch('guilds:join', {guildId: group.id});
+      // this.user.guilds.push(this.group._id);
     },
   },
 };

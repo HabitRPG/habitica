@@ -24,7 +24,7 @@
       div Challenge Prize
   .row.description
     .col-12
-      | {{challenge.description}}
+      | {{challenge.summary}}
   .well.row
     .col-3
       .count-details
@@ -104,7 +104,8 @@
 
     .description {
       color: $gray-200;
-      margin-bottom: 2em;
+      margin-top: 1em;
+      margin-bottom: 1em;
       overflow: hidden;
     }
 

@@ -27,7 +27,7 @@
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date}}
-            div {{conversation.lastMessageText}}
+            div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
         chat-message.container-fluid(:chat.sync='activeChat')
 

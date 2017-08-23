@@ -98,11 +98,12 @@ export async function create (store, createdTask) {
 
   sanitizeChecklist(createdTask);
 
-  list.unshift(createdTask);
-  store.state.user.data.tasksOrder[type].unshift(createdTask._id);
   const response = await axios.post('/api/v3/tasks/user', createdTask);
 
-  Object.assign(list[0], response.data.data);
+  let newTask = response.data.data;
+  list.unshift(newTask);
+  store.state.user.data.tasksOrder[type].unshift(newTask._id);
+  Object.assign(list[0], newTask);
 }
 
 export async function save (store, editedTask) {

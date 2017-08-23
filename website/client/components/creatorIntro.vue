@@ -53,8 +53,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
           .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
           .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
-        .col-12.premium-shirts(v-if='editing')
-          .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
+        .col-12.customize-options
+          .option(v-for='option in ["convict", "cross", "fire", "horizon", "ocean", "purple", "rainbow", "redblue", "thunder", "tropical", "zombie"]',
+            :class='[`broad_shirt_${option}`, {active: user.preferences.shirt === option}]',
+            @click='set({"preferences.shirt": option})')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -141,6 +143,13 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .hair_flower_4.option(@click='set({"preferences.hair.flower":4})', :class='{active: user.preferences.hair.flower === 4}')
           .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
           .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
+      .row(v-if='activeSubPage === "flower"')
+        .col-12.customize-options
+          // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
+            ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
       .row.sub-menu.col-6.offset-3
@@ -172,6 +181,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               @click.prevent.stop="togglePinned(bg)"
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
           .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
             .gem-amount
               .svg-icon.gem(v-html='icons.gem')
@@ -215,6 +225,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
+        div
+          label.custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox")
+            span.custom-control-indicator
+            span.custom-control-description(v-once) {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}')
     .col-9
@@ -401,6 +416,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       border-radius: 2px;
     }
 
+    .background:hover {
+      cursor: pointer;
+    }
+
     .purchase-single {
       width: 141px;
       margin: 0 auto;
@@ -489,7 +508,6 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     }
   }
 
-
   .badge-svg {
     left: calc((100% - 18px) / 2);
     cursor: pointer;
@@ -559,22 +577,9 @@ export default {
   data () {
     let backgroundShopSets = getBackgroundShopSets();
 
-    // @TODO: add dates to backgrounds
-    let backgroundShopSetsByYear = {
-      2014: [],
-      2015: [],
-      2016: [],
-      2017: [],
-    };
-    backgroundShopSets.forEach((set) => {
-      let year = set.identifier.substr(set.identifier.length - 4);
-      if (!backgroundShopSetsByYear[year]) return;
-      backgroundShopSetsByYear[year].push(set);
-    });
-
     return {
       backgroundShopSets,
-      backgroundShopSetsByYear,
+      backgroundUpdate: new Date(),
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -609,6 +614,32 @@ export default {
     },
     startingPage () {
       return this.$store.state.avatarEditorOptions.startingPage;
+    },
+    backgroundShopSetsByYear () {
+      // @TODO: add dates to backgrounds
+      let backgroundShopSetsByYear = {
+        2014: [],
+        2015: [],
+        2016: [],
+        2017: [],
+      };
+
+      // Hack to force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      this.backgroundShopSets.forEach((set) => {
+        let year = set.identifier.substr(set.identifier.length - 4);
+        if (!backgroundShopSetsByYear[year]) return;
+
+        let setOwnedByUser = false;
+        for (let key in set.items) {
+          if (this.user.purchased.background[key]) setOwnedByUser = true;
+        }
+        set.userOwns = setOwnedByUser;
+
+        backgroundShopSetsByYear[year].push(set);
+      });
+      return backgroundShopSetsByYear;
     },
   },
   methods: {
@@ -654,7 +685,6 @@ export default {
       for (let key in set) {
         let value = set[key];
         if (type === 'background') key = value.key;
-
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
 
@@ -697,6 +727,7 @@ export default {
             path,
           },
         });
+        this.backgroundUpdate = new Date();
       } catch (e) {
         alert(e.message);
       }

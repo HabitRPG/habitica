@@ -113,7 +113,8 @@
 <style lang="scss" scoped>
   footer {
     background-color: #e1e0e3;
-    height: 376px;
+    min-height: 408px;
+    width: 100%;
     padding-left: 6em;
     padding-right: 6em;
     padding-top: 3em;

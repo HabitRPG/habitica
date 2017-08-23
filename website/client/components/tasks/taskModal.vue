@@ -11,10 +11,14 @@
         slot="modal-header",
         :class="[cssClass]",
       )
-        h1 {{ title }}
+        .row
+          h1.col-8 {{ title }}
+          .col-4
+            span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('title')}*` }}
-          input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text")
+          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -22,6 +26,7 @@
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
+          .svg-icon.gold(v-html="icons.gold")
         .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
           label(v-once) {{ $t('checklist') }}
           br
@@ -69,14 +74,16 @@
           label(v-once) {{ $t('startDate') }}
           datepicker(v-model="task.startDate")
         .option(v-if="task.type === 'daily'")
-          label(v-once) {{ $t('repeats') }}
-          b-dropdown(:text="$t(task.frequency)")
-            b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-              | {{ $t(frequency) }}
-          label(v-once) {{ $t('repeatEvery') }}
-          input.form-control(type="number", v-model="task.everyX", min="0", required)
-          | {{ repeatSuffix }}
-          br
+          .form-group
+            label(v-once) {{ $t('repeats') }}
+            b-dropdown(:text="$t(task.frequency)")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+                | {{ $t(frequency) }}
+          .form-group
+            label(v-once) {{ $t('repeatEvery') }}
+            input(type="number", v-model="task.everyX", min="0", required)
+            | {{ repeatSuffix }}
+            br
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
@@ -141,7 +148,6 @@
             @change="updateRequiresApproval")
 
       .task-modal-footer(slot="modal-footer")
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
         span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
 </template>
@@ -311,6 +317,10 @@
       }
     }
 
+    .cancel-task-btn {
+      margin-right: .5em;
+    }
+
     .task-modal-footer {
       margin: 0 auto;
       padding-bottom: 24px;
@@ -319,7 +329,6 @@
       margin-top: 50px;
 
       .delete-task-btn, .cancel-task-btn {
-        margin-left: 16px;
         cursor: pointer;
 
         &:hover, &:focus, &:active {
@@ -343,6 +352,14 @@
   }
 </style>
 
+<style lang="scss" scoped>
+  .gold {
+    width: 24px;
+    margin-left: 5em;
+    margin-top: -2.4em;
+  }
+</style>
+
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
@@ -361,6 +378,7 @@ import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import deleteIcon from 'assets/svg/delete.svg';
+import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   components: {
@@ -385,6 +403,7 @@ export default {
         negative: negativeIcon,
         positive: positiveIcon,
         destroy: deleteIcon,
+        gold: goldIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],
@@ -527,6 +546,7 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
+      if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.task);
       this.$root.$emit('hide::modal', 'task-modal');
     },

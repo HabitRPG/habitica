@@ -172,9 +172,10 @@ export default {
       };
       group.name = this.$t('possessiveParty', {name: this.user.profile.name});
       let party = await this.$store.dispatch('guilds:create', {group});
-      this.$store.state.party = party;
+      this.$store.state.party.data = party;
       this.user.party._id = party._id;
       this.$root.$emit('hide::modal', 'create-party-modal');
+      this.$router.push('/party');
       //  @TODO: Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
     },
   },

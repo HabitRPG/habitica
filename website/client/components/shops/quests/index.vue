@@ -122,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
