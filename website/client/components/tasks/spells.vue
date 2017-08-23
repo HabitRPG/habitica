@@ -248,16 +248,16 @@ export default {
           return;
         }
 
-        // @TODO: do we need to fetcht the party everytime? We should probably just check store
-        let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+        let party = this.$store.state.party.members;
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
-        this.$store.state.party.data = party;
         this.castEnd(party, 'party');
       } else if (spell.target === 'tasks') {
-        let tasks = this.$store.state.tasks.habits.concat(this.user.dailys)
-          .concat(this.$store.state.tasks.rewards)
-          .concat(this.$store.state.tasks.todos);
+        let userTasks = this.$store.state.tasks.data;
+        let tasks = userTasks.habits
+          .concat(userTasks.dailys)
+          .concat(userTasks.rewards)
+          .concat(userTasks.todos);
         // exclude challenge tasks
         tasks = tasks.filter((task) => {
           if (!task.challenge) return true;
