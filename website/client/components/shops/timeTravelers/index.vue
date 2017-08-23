@@ -343,7 +343,7 @@
       }),
 
       closed () {
-        return this.user.purchased.plan.consecutive.trinkets == 0;
+        return this.user.purchased.plan.consecutive.trinkets === 0;
       },
 
       categories () {
@@ -458,7 +458,7 @@
       memberOverrideAvatarGear (set) {
         let gear = {};
 
-        set.items.map( (item) => {
+        set.items.map((item) => {
           gear[item.type] = item.key;
         });
 
