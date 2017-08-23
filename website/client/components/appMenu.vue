@@ -282,6 +282,9 @@ export default {
     openPartyModal () {
       this.$root.$emit('show::modal', 'create-party-modal');
     },
+    showBuyGemsModal () {
+      this.$root.$emit('show::modal', 'buy-gems');
+    },
   },
 };
 </script>
