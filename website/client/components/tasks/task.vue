@@ -21,7 +21,7 @@
         )
           input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
           span.custom-control-indicator
-          span.custom-control-description {{ item.text }}
+          span.custom-control-description(v-markdown='item.text')
       .icons.small-text.d-flex.align-items-center
         .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
           .svg-icon.calendar(v-html="icons.calendar")
