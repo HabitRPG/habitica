@@ -232,7 +232,7 @@ describe('GET challenges/groups/:groupId', () => {
     });
 
     it('should return group challenges for member using ID "party"', async () => {
-      let challenges = await user.get(`/challenges/groups/party`);
+      let challenges = await user.get('/challenges/groups/party');
 
       let foundChallenge1 = _.find(challenges, { _id: challenge._id });
       expect(foundChallenge1).to.exist;
@@ -283,7 +283,7 @@ describe('GET challenges/groups/:groupId', () => {
     });
 
     it('should return tavern challenges using ID "habitrpg', async () => {
-      let challenges = await user.get(`/challenges/groups/habitrpg`);
+      let challenges = await user.get('/challenges/groups/habitrpg');
 
       let foundChallenge1 = _.find(challenges, { _id: challenge._id });
       expect(foundChallenge1).to.exist;
