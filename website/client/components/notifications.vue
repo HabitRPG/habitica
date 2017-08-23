@@ -237,6 +237,10 @@ export default {
         let createdDate = moment(created);
         let loggedinDate = moment(loggedin);
 
+        if (this.user.flags.newStuff) {
+          this.$root.$emit('show::modal', 'new-stuff');
+        }
+
         if (!this.user.flags.welcomed && !createdDate.isBefore(loggedinDate)) {
           this.$store.state.avatarEditorOptions.editingUser = false;
           this.$root.$emit('show::modal', 'avatar-modal');
