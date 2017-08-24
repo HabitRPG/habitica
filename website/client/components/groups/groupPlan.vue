@@ -166,6 +166,7 @@ div
 <script>
 import paymentsMixin from '../../mixins/payments';
 import amazonPaymentsModal from '../payments/amazonModal';
+import { mapState } from 'client/libs/store';
 
 export default {
   mixins: [paymentsMixin],
@@ -213,6 +214,8 @@ export default {
     newGroupIsReady () {
       return Boolean(this.newGroup.name);
     },
+    // @TODO: can we move this to payment mixin?
+    ...mapState({user: 'user.data'}),
   },
   methods: {
     changePage (page) {

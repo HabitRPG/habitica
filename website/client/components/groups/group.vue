@@ -39,7 +39,8 @@
       .col-6
       .col-6
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
+          button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active')
+            | {{ $t('upgrade') }}
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
