@@ -2,6 +2,7 @@
 div
   inbox-modal
   creator-intro
+  profile
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
@@ -231,12 +232,14 @@ import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
 import creatorIntro from './creatorIntro';
+import profile from './userMenu/profile';
 
 export default {
   components: {
     InboxModal,
     notificationMenu,
     creatorIntro,
+    profile,
   },
   data () {
     return {

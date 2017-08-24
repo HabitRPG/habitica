@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  profile
   .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
     avatar(:member="member",
       @click.native="$emit('click')",
