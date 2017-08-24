@@ -5,7 +5,7 @@
   )
     b-modal#task-modal(
       size="sm",
-      @hidden="cancel()",
+      @hidden="$emit('cancel')",
     )
       .task-modal-header(
         slot="modal-header",
@@ -552,7 +552,7 @@ export default {
     },
     cancel () {
       this.showTagsSelect = false;
-      this.$emit('cancel');
+      this.$root.$emit('hide::modal', 'task-modal');
     },
     updateRequiresApproval (newValue) {
       let truthy = true;

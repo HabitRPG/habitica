@@ -430,6 +430,7 @@ export default {
       });
     },
     cancelTaskModal () {
+      console.log('cancelTagsEditing')
       this.editingTask = null;
       this.creatingTask = null;
     },
