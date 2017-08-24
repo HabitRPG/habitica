@@ -61,7 +61,10 @@
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
       itemRows(
         v-else-if="group.key === 'hatchingPotions'",
@@ -89,7 +92,10 @@
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
       itemRows(
         v-else,
@@ -110,7 +116,10 @@
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
   hatchedPetDialog(
     :pet="hatchedPet",
@@ -162,11 +171,11 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
+import CountBadge from 'client/components/ui/countBadge';
 
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
 import createAnimal from 'client/libs/createAnimal';
-
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -198,6 +207,7 @@ export default {
     bDropdown,
     bDropdownItem,
     HatchedPetDialog,
+    CountBadge,
   },
   directives: {
     drag: DragDropDirective,
