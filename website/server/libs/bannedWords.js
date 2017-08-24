@@ -56,7 +56,7 @@
 // 'god' because it is allowed for use in ways that are not oaths.
 // Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
 // Legitimate given names: 'Jesus', 'Sherry'
-// Legitimate surnames: 'Christ'
+// Legitimate surnames: 'Christ', 'Mead'
 // Legitimate place names: 'Dyke'
 //
 // Explanations for some blocked words:
@@ -153,7 +153,6 @@ let bannedWords = [
   'alcohol',
   'beer',
   'beers',
-  'mead',
   'champagne',
   'rum',
   'brandy',

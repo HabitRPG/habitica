@@ -598,7 +598,7 @@ import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
 import pin from 'assets/svg/pin.svg';
-import _isPinned from './shops/_isPinned';
+import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
 
 export default {
@@ -780,7 +780,7 @@ export default {
       return backgroundClass;
     },
     isBackgroundPinned (bg) {
-      return _isPinned(this.user, bg);
+      return isPinned(this.user, bg);
     },
     togglePinned (bg) {
       if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {

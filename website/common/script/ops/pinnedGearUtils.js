@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
 
+import isPinned from '../libs/isPinned';
+
 const officialPinnedItems = content.officialPinnedItems;
 
 import updateStore from '../libs/updateStore';
@@ -48,7 +50,7 @@ function removePinnedGearByClass (user) {
   }
 }
 
-function removePinnedGearAddPossibleNewOnes (user, itemPath) {
+function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
   let currentPinnedItems = updateStore(user);
   let removeAndAddAllItems = false;
 
@@ -67,7 +69,11 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath) {
     // an item of the users current "new" gear was bought
     // remove the old pinned gear items and add the new gear back
     removePinnedGearByClass(user);
+    user.items.gear.owned[newItemKey] = true;
     addPinnedGearByClass(user);
+  } else {
+    // just change the new gear to owned
+    user.items.gear.owned[newItemKey] = true;
   }
 }
 
@@ -116,4 +122,5 @@ module.exports = {
   removePinnedGearAddPossibleNewOnes,
   togglePinnedItem,
   removeItemByPath,
+  isPinned,
 };

@@ -98,93 +98,93 @@ div
             span {{ content.quests[k].text() }}
             span {{ value }}
     .standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
-    .row
-      .col-6
-        h2.text-center Equipment
-        // user.items.gear.equipped
-        .well
-          .col-4.item-wrapper
-            .box
-            h3 Eyewear
-          .col-4.item-wrapper
-            .box
-            h3 Head Gear
-          .col-4.item-wrapper
-            .box
-            h3 Head Access.
-          .col-4.item-wrapper
-            .box
-            h3 Back Access.
-          .col-4.item-wrapper
-            .box
-            h3 Armor
-          .col-4.item-wrapper
-            .box
-            h3 Body Access.
-          .col-4.item-wrapper
-            .box
-            h3 Main-Hand
-          .col-4.item-wrapper
-          .col-4.item-wrapper
-            .box
-            h3 Off-Hand
-      .col-6
-        h2.text-center Costume
-        // user.items.gear.costume
-        .well
-          .col-4.item-wrapper
-            .box
-            h3 Eyewear
-          .col-4.item-wrapper
-            .box
-            h3 Head Gear
-          .col-4.item-wrapper
-            .box
-            h3 Head Access.
-          .col-4.item-wrapper
-            .box
-            h3 Back Access.
-          .col-4.item-wrapper
-            .box
-            h3 Armor
-          .col-4.item-wrapper
-            .box
-            h3 Body Access.
-          .col-4.item-wrapper
-            .box
-            h3 Main-Hand
-          .col-4.item-wrapper
-            .box
-            h3 Background {{ user.preferences.background }}
-          .col-4.item-wrapper
-            .box
-            h3 Off-Hand
-    .row
-      .col-6
-        h2.text-center(v-once) {{ $t('pets') }}
-        ul
-          li(ng-if='user.items.currentPet')
-            | {{ $t('activePet') }}:
-            | {{ formatAnimal(user.items.currentPet, 'pet') }}
-          li
-            | {{ $t('petsFound') }}:
-            | {{ totalCount(user.items.pets) }}
-          li
-            | {{ $t('beastMasterProgress') }}:
-            | {{ beastMasterProgress(user.items.pets) }}
-      .col-6
-        h2.text-center(v-once) {{ $t('mounts') }}
-        ul
-          li(v-if='user.items.currentMount')
-            | {{ $t('activeMount') }}:
-            | {{ formatAnimal(user.items.currentMount, 'mount') }}
-          li
-            | {{ $t('mountsTamed') }}:
-            | {{ totalCount(user.items.mounts) }}
-          li
-            | {{ $t('mountMasterProgress') }}:
-            | {{ mountMasterProgress(user.items.mounts) }}
-    .row#attributes
+      .row
+        .col-6
+          h2.text-center Equipment
+          // user.items.gear.equipped
+          .well
+            .col-4.item-wrapper
+              .box
+              h3 Eyewear
+            .col-4.item-wrapper
+              .box
+              h3 Head Gear
+            .col-4.item-wrapper
+              .box
+              h3 Head Access.
+            .col-4.item-wrapper
+              .box
+              h3 Back Access.
+            .col-4.item-wrapper
+              .box
+              h3 Armor
+            .col-4.item-wrapper
+              .box
+              h3 Body Access.
+            .col-4.item-wrapper
+              .box
+              h3 Main-Hand
+            .col-4.item-wrapper
+            .col-4.item-wrapper
+              .box
+              h3 Off-Hand
+        .col-6
+          h2.text-center Costume
+          // user.items.gear.costume
+          .well
+            .col-4.item-wrapper
+              .box
+              h3 Eyewear
+            .col-4.item-wrapper
+              .box
+              h3 Head Gear
+            .col-4.item-wrapper
+              .box
+              h3 Head Access.
+            .col-4.item-wrapper
+              .box
+              h3 Back Access.
+            .col-4.item-wrapper
+              .box
+              h3 Armor
+            .col-4.item-wrapper
+              .box
+              h3 Body Access.
+            .col-4.item-wrapper
+              .box
+              h3 Main-Hand
+            .col-4.item-wrapper
+              .box
+              h3 Background {{ user.preferences.background }}
+            .col-4.item-wrapper
+              .box
+              h3 Off-Hand
+      .row
+        .col-6
+          h2.text-center(v-once) {{ $t('pets') }}
+          ul
+            li(ng-if='user.items.currentPet')
+              | {{ $t('activePet') }}:
+              | {{ formatAnimal(user.items.currentPet, 'pet') }}
+            li
+              | {{ $t('petsFound') }}:
+              | {{ totalCount(user.items.pets) }}
+            li
+              | {{ $t('beastMasterProgress') }}:
+              | {{ beastMasterProgress(user.items.pets) }}
+        .col-6
+          h2.text-center(v-once) {{ $t('mounts') }}
+          ul
+            li(v-if='user.items.currentMount')
+              | {{ $t('activeMount') }}:
+              | {{ formatAnimal(user.items.currentMount, 'mount') }}
+            li
+              | {{ $t('mountsTamed') }}:
+              | {{ totalCount(user.items.mounts) }}
+            li
+              | {{ $t('mountMasterProgress') }}:
+              | {{ mountMasterProgress(user.items.mounts) }}
+      .row#attributes
       hr.col-12
       h2.col-12 Attributes
       .row.col-6(v-for="(statInfo, stat) in stats")

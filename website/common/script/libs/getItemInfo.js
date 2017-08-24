@@ -3,6 +3,8 @@ import content from '../content/index';
 import { BadRequest } from './errors';
 import count from '../count';
 
+import isPinned from './isPinned';
+
 import _mapValues from 'lodash/mapValues';
 
 function lockQuest (quest, user) {
@@ -37,6 +39,7 @@ function getDefaultGearProps (item, language) {
     int: item.int,
     per: item.per,
     con: item.con,
+    klass: item.klass,
   };
 }
 
@@ -264,6 +267,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
 
   if (itemInfo) {
     itemInfo.isSuggested = isItemSuggested(itemInfo);
+    itemInfo.pinned = isPinned(user, itemInfo);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', {type}, language));
   }

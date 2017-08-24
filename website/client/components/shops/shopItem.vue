@@ -10,8 +10,8 @@ b-popover(
         :item="item"
       )
       div(v-else)
-        h4.popover-content-title {{ item.text }}
-        .popover-content-text(v-if="showNotes") {{ item.notes }}
+        h4.popover-content-title(v-once) {{ item.text }}
+        .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
   .item-wrapper(@click="click()")
     .item(
@@ -22,12 +22,12 @@ b-popover(
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
 
         div.image
-          div(:class="item.class")
+          div(:class="item.class", v-once)
 
         div.price
-          span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
+          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
 
-          span.price-label(:class="getSvgClass()") {{ getPrice() }}
+          span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
 
 </template>
 
@@ -156,17 +156,17 @@ b-popover(
       showNotes () {
         if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
       },
-    },
-    methods: {
-      click () {
-        this.$emit('click', {});
-      },
-      getSvgClass () {
+      currencyClass () {
         if (this.item.currency && this.icons[this.item.currency]) {
           return this.item.currency;
         } else {
           return 'gold';
         }
+      },
+    },
+    methods: {
+      click () {
+        this.$emit('click', {});
       },
       getPrice () {
         if (this.price === -1) {

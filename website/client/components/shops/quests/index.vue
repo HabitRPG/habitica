@@ -341,7 +341,7 @@
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
 
-  import _isPinned from '../_isPinned';
+  import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -416,7 +416,7 @@ export default {
       featuredItems () {
         return featuredItems.quests.map(i => {
           let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.pinned = isPinned(this.user, newItem);
 
           return newItem;
         });
@@ -427,7 +427,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 

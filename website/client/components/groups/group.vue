@@ -125,7 +125,7 @@
           .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
-        p {{ group.description }}
+        p(v-markdown='group.description')
 
     .section-header.challenge
       .row
@@ -380,6 +380,7 @@ import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
+import markdownDirective from 'client/directives/markdown';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -418,6 +419,7 @@ export default {
   },
   directives: {
     bToggle,
+    markdown: markdownDirective,
   },
   data () {
     return {
