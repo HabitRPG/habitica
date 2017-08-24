@@ -436,7 +436,7 @@ export default {
       this.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
-    async sendPrivateMessage (uuid, message) {
+    async sendPrivateMessage () {
       if (!this.privateMessage || !this.userIdToMessage) return;
 
       let response = await this.$store.dispatch('members:sendPrivateMessage', {
@@ -444,8 +444,6 @@ export default {
         toUserId: this.userIdToMessage,
       });
       alert(this.$t('messageSentAlert'));
-      console.log(response);
-
       // @TODO: Notification.text(window.env.t('messageSentAlert'));
     },
     getProgressDisplay () {

@@ -173,7 +173,7 @@ export default {
         this.members = members;
       }
 
-      if (this.$store.state.viewingMembers.length > 0) {
+      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.viewingMembers;
       }
     },

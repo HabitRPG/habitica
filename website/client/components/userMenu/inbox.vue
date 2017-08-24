@@ -130,7 +130,7 @@
 <script>
 import moment from 'moment';
 import filter from 'lodash/filter';
-import sortBy from 'lodash/sortBy';
+// import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
@@ -213,11 +213,11 @@ export default {
     selectConversation (key) {
       this.selectedConversation = key;
       let activeChat = this.conversations[this.selectedConversation].messages;
+      // @TODO: I think I did this wrong
       // activeChat = sortBy(this.activeChat, [(o) => {
       //   return o.timestamp;
       // }]);
       this.$set(this, 'activeChat', activeChat);
-      console.log(this.activeChat, activeChat)
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {
