@@ -67,7 +67,7 @@ div
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
+          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('messages') }}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
           router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
