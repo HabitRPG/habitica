@@ -64,17 +64,17 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
             :class='{active: user.preferences.skin === option}')
-            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
       .row(v-if='editing')
         .col-12.customize-options
           .option(v-for='option in ["eb052b", "f69922", "f5d70f", "0ff591", "2b43f6", "d7a9f7", "800ed0", "rainbow"]',
             :class='{active: user.preferences.skin === option}')
-            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
       .row(v-if='editing')
         .col-12.customize-options
           .option(v-for='option in ["bear", "cactus", "fox", "lion", "panda", "pig", "tiger", "wolf"]',
             :class='{active: user.preferences.skin === option}')
-            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
 
     .section.customize-section(v-if='activeTopPage === "hair"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -82,17 +82,17 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) {{$t('color')}}
           .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
             strong(v-once) {{$t('bangs')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
             strong(v-once) {{$t('ponytail')}}
       .row(v-if='activeSubPage === "color"')
         .col-12.customize-options
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
             :class='{active: user.preferences.hair.color === option}')
-            .sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+            .color-bangs.sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["rainbow", "yellow", "green", "purple", "blue", "TRUred"]',
             :class='{active: user.preferences.hair.color === option}')
-            .sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+            .color-bangs.sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
 
       .row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
@@ -100,33 +100,33 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
           .option(v-for='option in ["1", "2", "3", "4"]',
             :class='{active: user.preferences.hair.bangs === option}')
-            .sprite(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
+            .bangs.sprite(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       .row(v-if='activeSubPage === "ponytail"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in ["1", "3"]',
             :class='{active: user.preferences.hair.base === option}')
-            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["2", "4", "5", "6", "7", "8"]',
             :class='{active: user.preferences.hair.base === option}')
-            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["9", "10", "11", "12", "13", "14"]',
             :class='{active: user.preferences.hair.base === option}')
-            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["15", "16", "17", "18", "19", "20"]',
             :class='{active: user.preferences.hair.base === option}')
-            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["1", "2", "3"]',
             :class='{active: user.preferences.hair.beard === option}')
-            .sprite(:class="`hair_beard_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.beard": option})')
+            .base.sprite(:class="`hair_beard_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.beard": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["1", "2"]',
             :class='{active: user.preferences.hair.mustache === option}')
-            .sprite(:class="`hair_mustache_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.mustache": option})')
+            .base.sprite(:class="`hair_mustache_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.mustache": option})')
 
     .section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -156,7 +156,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             | None
           .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
             :class='{active: user.preferences.chair === option}')
-            .sprite(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
+            .chair.sprite(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
       .row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
@@ -396,6 +396,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     border-bottom: 2px solid $purple-200;
   }
 
+  .customize-section {
+    text-align: center;
+  }
+
   .customize-options .option {
     display: inline-block;
     vertical-align: bottom;
@@ -406,10 +410,35 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       margin-top: -2em;
       margin-left: -1em;
     }
-  }
 
-  .size-options {
-    padding-left: 9em;
+    .skin {
+      margin-top: -.5em;
+    }
+
+    .chair {
+      margin-top: 1em;
+      margin-left: 1em;
+    }
+
+    .hair {
+      margin-top: 0em;
+      margin-left: -2em;
+    }
+
+    .color-bangs {
+      margin-top: 0em;
+      margin-left: -1em;
+    }
+
+    .bangs {
+      margin-top: 0em;
+      margin-left: -1em;
+    }
+
+    .base {
+      margin-top: -1em;
+      margin-left: -2em;
+    }
   }
 
   .weelchairs .option {
