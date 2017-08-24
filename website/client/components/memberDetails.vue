@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
+  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
     avatar(:member="member",
       @click.native="$emit('click')",
       @mouseover.native="$emit('onHover')",
@@ -221,8 +221,8 @@ export default {
   },
   methods: {
     percent,
-    showMemberModal () {
-      // @TODO: set viewing users in $store?
+    showMemberModal (member) {
+      this.$store.state.profileUser = member;
       this.$root.$emit('show::modal', 'profile');
     },
   },

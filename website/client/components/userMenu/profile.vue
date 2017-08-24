@@ -1,99 +1,103 @@
 <template lang="pug">
-b-modal#profile(title="Profile", size='lg', :hide-footer="true")
-  .row
-    .col-6.offset-3.text-center.nav
-      .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
-      .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
-      .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
-  .standard-page(v-show='selectedPage === "profile"')
+div
+  b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     .row
-      .col-8
-        .header
-          h1 {{user.profile.name}}
-          h4
-            strong User Id:
-            | {{user._id}}
-      .col-4
-        button.btn.btn-secondary(@click='editing = !editing') Edit
-    .row(v-if='!editing')
-      .col-8
-        .about
-          h2 About
-          p {{user.profile.blurb}}
-        .photo
-          h2 Photo
-          img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
+      .col-6.offset-3
+        button.btn.btn-secondary(@click='sendMessage()') Message
+    .row
+      .col-6.offset-3.text-center.nav
+        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
+        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
+        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
+    .standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
+      .row
+        .col-8
+          .header
+            h1 {{user.profile.name}}
+            h4
+              strong User Id:
+              | {{user._id}}
+        .col-4
+          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') Edit
+      .row(v-if='!editing')
+        .col-8
+          .about
+            h2 About
+            p {{user.profile.blurb}}
+          .photo
+            h2 Photo
+            img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
 
-      .col-4
-        .info
-          h2 info
-          div
-            strong Joined:
-            | {{user.auth.timestamps.created}}
-          div
-            strong Total Log Ins:
-            span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
-          div
-            | {{getProgressDisplay()}}
-            .progress
-              .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-                span.sr-only {{ incentivesProgress }}% Complete
-        // @TODO: Implement in V2 .social
+        .col-4
+          .info
+            h2 info
+            div
+              strong Joined:
+              | {{user.auth.timestamps.created}}
+            div
+              strong Total Log Ins:
+              span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
+            div
+              | {{getProgressDisplay()}}
+              .progress
+                .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
+                  span.sr-only {{ incentivesProgress }}% Complete
+          // @TODO: Implement in V2 .social
 
-    .row(v-if='editing')
-      h1 Edit Profile
-      .col-12
-        .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
+      .row(v-if='editing')
+        h1 Edit Profile
+        .col-12
+          .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
 
-        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-        .form-group
-          label {{ $t('displayName') }}
-          input.form-control(type='text', :placeholder="$t('fullName')", v-model='editingProfile.name')
-        .form-group
-          label {{ $t('photoUrl') }}
-          input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
-        .form-group
-          label {{ $t('about') }}
-          textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
-          // include ../../shared/formatting-help
-        .form-group
-          label Facebook
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
-        .form-group
-          label Instagram
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
-        .form-group
-          label Twitter
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
+          // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+          .form-group
+            label {{ $t('displayName') }}
+            input.form-control(type='text', :placeholder="$t('fullName')", v-model='editingProfile.name')
+          .form-group
+            label {{ $t('photoUrl') }}
+            input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
+          .form-group
+            label {{ $t('about') }}
+            textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
+            // include ../../shared/formatting-help
+          .form-group
+            label Facebook
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
+          .form-group
+            label Instagram
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
+          .form-group
+            label Twitter
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
 
-      .col-3.offset-6.text.center
-        button.btn.btn-primary(@click='save()') {{ $t("save") }}
-        button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
-  .standard-page.container(v-show='selectedPage === "achievements"')
-    .row(v-for='(category, key) in achievements')
-      h2.col-12 {{ $t(key+'Achievs') }}
-      .col-3.text-center(v-for='achievment in category.achievements')
-        div.achievement-container(:data-popover-html='achievment.title + achievment.text',
-          popover-placement='achievPopoverPlacement',
-          popover-append-to-body='achievAppendToBody')
-          div(popover-trigger='mouseenter',
-            :data-popover-html='achievment.title + achievment.text',
+        .col-3.offset-6.text.center
+          button.btn.btn-primary(@click='save()') {{ $t("save") }}
+          button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
+    .standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
+      .row(v-for='(category, key) in achievements')
+        h2.col-12 {{ $t(key+'Achievs') }}
+        .col-3.text-center(v-for='achievment in category.achievements')
+          div.achievement-container(:data-popover-html='achievment.title + achievment.text',
             popover-placement='achievPopoverPlacement',
             popover-append-to-body='achievAppendToBody')
-              .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
-               .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-              .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
-    .row
-      .col-6
-        h2 Challeges Won
-        div(v-for='chal in user.achievements.challenges')
-          span {{chal}}
-      .col-6
-        h2 Quests Completed
-        div(v-for='(value, key) in user.achievements.quests')
-          span {{ content.quests[k].text() }}
-          span {{ value }}
-  .standard-page(v-show='selectedPage === "stats"')
+            div(popover-trigger='mouseenter',
+              :data-popover-html='achievment.title + achievment.text',
+              popover-placement='achievPopoverPlacement',
+              popover-append-to-body='achievAppendToBody')
+                .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
+                 .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
+                .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
+      .row
+        .col-6(v-if='user.achievements.challenges')
+          h2 Challeges Won
+          div(v-for='chal in user.achievements.challenges')
+            span {{chal}}
+        .col-6(v-if='user.achievements.quests')
+          h2 Quests Completed
+          div(v-for='(value, key) in user.achievements.quests')
+            span {{ content.quests[k].text() }}
+            span {{ value }}
+    .standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
     .row
       .col-6
         h2.text-center Equipment
@@ -249,6 +253,11 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
               .col-4(v-if='user.stats.points', @click='allocate(stat)')
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
                   :popover='$t(statInfo.allocatepop)') +
+
+    // @TODO: Make separate componenet
+    b-modal#private-message(title="Message", size='sm', :hide-footer="true")
+      textarea.form-control(v-model='privateMessage')
+      button.btn.btn-primary(@click='sendPrivateMessage()') Send
 </template>
 
 <style lang="scss" scoped>
@@ -339,6 +348,8 @@ export default {
   },
   data () {
     return {
+      userIdToMessage: '',
+      privateMessage: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -377,16 +388,29 @@ export default {
       },
     };
   },
-  mounted () {
-    this.editingProfile.name = this.user.profile.name;
-    this.editingProfile.imageUrl = this.user.profile.imageUrl;
-    this.achievements = achievementsLib.getAchievementsForProfile(this.user);
-  },
   computed: {
     ...mapState({
-      user: 'user.data',
+      userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
+    user () {
+      let user = this.userLoggedIn;
+
+      let profileUser = this.$store.state.profileUser;
+      if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
+        user = profileUser;
+      }
+
+      this.editingProfile.name = user.profile.name;
+      this.editingProfile.imageUrl = user.profile.imageUrl;
+
+      if (!user.achievements.quests) user.achievements.quests = {};
+      if (!user.achievements.challenges) user.achievements.challenges = {};
+      // @TODO: this common code should handle the above
+      this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+      return user;
+    },
     incentivesProgress () {
       return this.getIncentivesProgress();
     },
@@ -408,6 +432,22 @@ export default {
     },
   },
   methods: {
+    sendMessage () {
+      this.userIdToMessage = this.user._id;
+      this.$root.$emit('show::modal', 'private-message');
+    },
+    async sendPrivateMessage (uuid, message) {
+      if (!this.privateMessage || !this.userIdToMessage) return;
+
+      let response = await this.$store.dispatch('members:sendPrivateMessage', {
+        message: this.privateMessage,
+        toUserId: this.userIdToMessage,
+      });
+      alert(this.$t('messageSentAlert'));
+      console.log(response);
+
+      // @TODO: Notification.text(window.env.t('messageSentAlert'));
+    },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');

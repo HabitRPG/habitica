@@ -98,6 +98,7 @@ export default function () {
         castingSpell: false,
         spellDrawOpen: true,
       },
+      profileUser: {},
     },
   });
 
