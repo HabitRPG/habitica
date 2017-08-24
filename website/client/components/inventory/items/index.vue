@@ -279,7 +279,7 @@ export default {
 
       let specialArray = [];
 
-      if (this.user.purchased.plan.customerId || this.user.purchased.plan.mysteryItems.length) {
+      if (this.user.purchased.plan.mysteryItems.length) {
         specialArray.push({
           key: 'mysteryItem',
           class: `inventory_present inventory_present_${moment().format('MM')}`,
@@ -393,7 +393,7 @@ export default {
         } else if (item.key === 'mysteryItem') {
           let result = await this.$store.dispatch('user:openMysteryItem');
 
-          let openedItem = result.data[0];
+          let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
         }
