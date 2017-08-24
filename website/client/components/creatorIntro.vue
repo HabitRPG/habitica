@@ -5,36 +5,38 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       h3(v-once) {{$t('welcomeTo')}}
       .svg-icon.logo(v-html='icons.logoPurple')
 
-  .section.row
+  .section.avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg
       avatar(:member='user')
 
-  div(v-if='modalPage == 2')
+  .section(v-if='modalPage === 2')
     // @TODO Implement in V2 .section.row
       .col-12.text-center
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
-    .section.row.text-center.customize-menu
-      div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
-        .menu-item(@click='changeTopPage("body", "size")')
-          .svg-icon(v-html='icons.bodyIcon')
-        strong(v-once) {{$t('body')}}
-      div(:class='{"col-3": !editing, "col-2": editing}')
-        .menu-item(@click='changeTopPage("skin", "color")')
-          .svg-icon(v-html='icons.skinIcon')
-        strong(v-once) {{$t('skin')}}
-      div(:class='{"col-3": !editing, "col-2": editing}')
-        .menu-item(@click='changeTopPage("hair", "color")')
-          .svg-icon(v-html='icons.hairIcon')
-        strong(v-once) {{$t('hair')}}
-      div(:class='{"col-3": !editing, "col-2": editing}')
-        .menu-item(@click='changeTopPage("extra", "glasses")')
-          .svg-icon(v-html='icons.accessoriesIcon')
-        strong(v-once) {{$t('extra')}}
-      .col-2(v-if='editing')
-        .menu-item(@click='changeTopPage("backgrounds", "2017")')
-          .svg-icon(v-html='icons.backgroundsIcon')
-        strong(v-once) {{$t('backgrounds')}}
+    .container.section.text-center.customize-menu
+      .row
+        div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
+          .menu-item(@click='changeTopPage("body", "size")')
+            .svg-icon(v-html='icons.bodyIcon')
+          strong(v-once) {{$t('body')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("skin", "color")')
+            .svg-icon(v-html='icons.skinIcon')
+          strong(v-once) {{$t('skin')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("hair", "color")')
+            .svg-icon(v-html='icons.hairIcon')
+          strong(v-once) {{$t('hair')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("extra", "glasses")')
+            .svg-icon(v-html='icons.accessoriesIcon')
+          strong(v-once) {{$t('extra')}}
+        .col-2(v-if='editing')
+          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+            .svg-icon(v-html='icons.backgroundsIcon')
+          strong(v-once) {{$t('backgrounds')}}
+
     .section.customize-section(v-if='activeTopPage === "body"')
       .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
@@ -43,20 +45,16 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) {{$t('shirt')}}
       .row(v-if='activeSubPage === "size"')
         .col-12.customize-options.size-options
-          .slim_shirt_black.option(@click='set({"preferences.size":"slim"})', :class='{active: user.preferences.size === "slim"}')
-          .broad_shirt_black.option(@click='set({"preferences.size":"broad"})', :class='{active: user.preferences.size === "broad"}')
+          .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
+            .sprite(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
       .row(v-if='activeSubPage === "shirt"')
         .col-12.customize-options
-          .slim_shirt_black.option(@click='set({"preferences.shirt":"black"})', :class='{active: user.preferences.shirt === "black"}')
-          .slim_shirt_blue.option(@click='set({"preferences.shirt":"blue"})', :class='{active: user.preferences.shirt === "blue"}')
-          .slim_shirt_green.option(@click='set({"preferences.shirt":"green"})', :class='{active: user.preferences.shirt === "green"}')
-          .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
-          .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
-          .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
-        .col-12.customize-options
+          .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]', :class='{active: user.preferences.shirt === option}')
+            .sprite(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
+        .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["convict", "cross", "fire", "horizon", "ocean", "purple", "rainbow", "redblue", "thunder", "tropical", "zombie"]',
-            :class='[`broad_shirt_${option}`, {active: user.preferences.shirt === option}]',
-            @click='set({"preferences.shirt": option})')
+            :class='{active: user.preferences.shirt === option}')
+            .sprite(:class="`broad_shirt_${option}`", @click='set({"preferences.shirt": option})')
 
     .section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -64,14 +62,19 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) {{$t('color')}}
       .row
         .col-12.customize-options
-          .skin_ddc994.option(@click='set({"preferences.skin":"ddc994"})', :class='{active: user.preferences.skin === "ddc994"}')
-          .skin_f5a76e.option(@click='set({"preferences.skin":"f5a76e"})', :class='{active: user.preferences.skin === "f5a76e"}')
-          .skin_ea8349.option(@click='set({"preferences.skin":"ea8349"})', :class='{active: user.preferences.skin === "ea8349"}')
-          .skin_c06534.option(@click='set({"preferences.skin":"c06534"})', :class='{active: user.preferences.skin === "c06534"}')
-          .skin_98461a.option(@click='set({"preferences.skin":"98461a"})', :class='{active: user.preferences.skin === "98461a"}')
-          .skin_915533.option(@click='set({"preferences.skin":"915533"})', :class='{active: user.preferences.skin === "915533"}')
-          .skin_c3e1dc.option(@click='set({"preferences.skin":"c3e1dc"})', :class='{active: user.preferences.skin === "c3e1dc"}')
-          .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})', :class='{active: user.preferences.skin === "6bd049"}')
+          .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
+            :class='{active: user.preferences.skin === option}')
+            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+      .row(v-if='editing')
+        .col-12.customize-options
+          .option(v-for='option in ["eb052b", "f69922", "f5d70f", "0ff591", "2b43f6", "d7a9f7", "800ed0", "rainbow"]',
+            :class='{active: user.preferences.skin === option}')
+            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+      .row(v-if='editing')
+        .col-12.customize-options
+          .option(v-for='option in ["bear", "cactus", "fox", "lion", "panda", "pig", "tiger", "wolf"]',
+            :class='{active: user.preferences.skin === option}')
+            .sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
 
     .section.customize-section(v-if='activeTopPage === "hair"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -83,23 +86,47 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) {{$t('ponytail')}}
       .row(v-if='activeSubPage === "color"')
         .col-12.customize-options
-          .hair_bangs_1_white.option(@click='set({"preferences.hair.color": "white"})', :class='{active: user.preferences.hair.color === "white"}')
-          .hair_bangs_1_brown.option(@click='set({"preferences.hair.color": "brown"})', :class='{active: user.preferences.hair.color === "brown"}')
-          .hair_bangs_1_blond.option(@click='set({"preferences.hair.color": "blond"})', :class='{active: user.preferences.hair.color === "blond"}')
-          .hair_bangs_1_red.option(@click='set({"preferences.hair.color": "red"})', :class='{active: user.preferences.hair.color === "red"}')
-          .hair_bangs_1_black.option(@click='set({"preferences.hair.color": "black"})', :class='{active: user.preferences.hair.color === "black"}')
+          .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
+            :class='{active: user.preferences.hair.color === option}')
+            .sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["rainbow", "yellow", "green", "purple", "blue", "TRUred"]',
+            :class='{active: user.preferences.hair.color === option}')
+            .sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+
       .row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.bangs": 0})', :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 1})', :class="[{ active: user.preferences.hair.bangs === 1 }, 'hair_bangs_1_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 2})',:class="[{ active: user.preferences.hair.bangs === 2 }, 'hair_bangs_2_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 3})', :class="[{ active: user.preferences.hair.bangs === 3 }, 'hair_bangs_3_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 4})', :class="[{ active: user.preferences.hair.bangs === 4 }, 'hair_bangs_4_' + user.preferences.hair.color]")
+          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
+            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+          .option(v-for='option in ["1", "2", "3", "4"]',
+            :class='{active: user.preferences.hair.bangs === option}')
+            .sprite(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       .row(v-if='activeSubPage === "ponytail"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})', :class="[{ active: user.preferences.hair.base === 1 }, 'hair_base_1_' + user.preferences.hair.color]")
-          .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="[{ active: user.preferences.hair.base === 3 }, 'hair_base_3_' + user.preferences.hair.color]")
+          .option(v-for='option in ["1", "3"]',
+            :class='{active: user.preferences.hair.base === option}')
+            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["2", "4", "5", "6", "7", "8"]',
+            :class='{active: user.preferences.hair.base === option}')
+            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["9", "10", "11", "12", "13", "14"]',
+            :class='{active: user.preferences.hair.base === option}')
+            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["15", "16", "17", "18", "19", "20"]',
+            :class='{active: user.preferences.hair.base === option}')
+            .sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["1", "2", "3"]',
+            :class='{active: user.preferences.hair.beard === option}')
+            .sprite(:class="`hair_beard_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.beard": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["1", "2"]',
+            :class='{active: user.preferences.hair.mustache === option}')
+            .sprite(:class="`hair_mustache_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.mustache": option})')
 
     .section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -118,31 +145,24 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
           .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
           .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in ["bearEars", "cactusEars", "foxEars", "lionEars", "pandaEars", "pigEars", "tigerEars", "wolfEars"]',
+            :class='{active: user.preferences.costume ? user.items.gear.costume.headAccessory === `eyewear_special_${option}` : user.items.gear.equipped.headAccessory === `eyewear_special_${option}`}')
+            .sprite(:class="`.eyewear_special_${option}`", @click='equip(`eyewear_special_${option}`)')
+
       .row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options.weelchairs
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
-          .option(@click='set({"preferences.chair": "black"})', :class='{active: user.preferences.chair === "black"}')
-            .button_chair_black
-          .option(@click='set({"preferences.chair": "blue"})', :class='{active: user.preferences.chair === "blue"}')
-            .button_chair_blue
-          .option(@click='set({"preferences.chair": "green"})', :class='{active: user.preferences.chair === "green"}')
-            .button_chair_green
-          .option(@click='set({"preferences.chair": "pink"})', :class='{active: user.preferences.chair === "pink"}')
-            .button_chair_pink
-          .option(@click='set({"preferences.chair": "red"})', :class='{active: user.preferences.chair === "red"}')
-            .button_chair_red
-          .option(@click='set({"preferences.chair": "yellow"})', :class='{active: user.preferences.chair === "yellow"}')
-            .button_chair_yellow
+          .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
+            :class='{active: user.preferences.chair === option}')
+            .sprite(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
       .row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .hair_flower_1.option(@click='set({"preferences.hair.flower":1})', :class='{active: user.preferences.hair.flower === 1}')
-          .hair_flower_2.option(@click='set({"preferences.hair.flower":2})', :class='{active: user.preferences.hair.flower === 2}')
-          .hair_flower_3.option(@click='set({"preferences.hair.flower":3})', :class='{active: user.preferences.hair.flower === 3}')
-          .hair_flower_4.option(@click='set({"preferences.hair.flower":4})', :class='{active: user.preferences.hair.flower === 4}')
-          .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
-          .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
+          .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
+            :class='{active: user.preferences.hair.flower === option}')
+            .sprite(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
@@ -194,45 +214,45 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         h2 I want to work on:
     .section.row
       .col-4.offset-2
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('work') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('exercise') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('health_wellness') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('school') }}
       .col-4
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('chores') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox")
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}')
-    .col-9
+    .col-12
       .justin-message(v-if='modalPage == 1')
         p(v-once) {{$t('justinIntroMessage1')}}
         p(v-once) {{$t('justinIntroMessage2')}}
@@ -258,7 +278,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 </template>
 
 <style>
-  #avatar-modal_modal_body {
+  #avatar-modal_modal_body, #avatar-modal__BV_body_ {
     padding: 0;
   }
 </style>
@@ -285,6 +305,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     margin-top: 2em;
   }
 
+  .avatar-section.page-2 {
+    min-height: 150px;
+  }
+
   .welcome-section {
     margin-top: 5em;
     margin-bottom: 5em;
@@ -292,18 +316,20 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .logo {
     width: 190px;
+    margin: 0 auto;
   }
 
   .user-creation-bg {
     background-image: url('~client/assets/creator/creator-hills-bg.png');
     height: 105px;
     width: 219px;
+    margin: 0 auto;
   }
 
   .avatar {
     position: absolute;
     top: -23px;
-    left: 48px;
+    left: 9.2em;
   }
 
   .justin-message {
@@ -311,7 +337,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     height: 144px;
     width: 400px;
     padding: 2em;
-    margin-left: 1.5em;
+    margin: 0 auto;
   }
 
   .justin-message-section {
@@ -346,6 +372,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       width: 32px;
       height: 32px;
       margin: 0 auto;
+      color: #6133B4;
     }
 
     .menu-item:hover {
@@ -371,8 +398,14 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .customize-options .option {
     display: inline-block;
-    padding: 2em;
     vertical-align: bottom;
+    width: 90px;
+    height: 90px;
+
+    .sprite {
+      margin-top: -2em;
+      margin-left: -1em;
+    }
   }
 
   .size-options {
@@ -402,6 +435,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .interests-section {
     margin-top: 7em;
+
+    .task-option {
+      margin: 0 auto;
+      width: 70%;
+    }
   }
 
   #backgrounds {
@@ -462,7 +500,6 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
   }
 
   .footer {
-    position: absolute;
     padding-bottom: 1em;
     bottom: 0;
     width: 100%;
@@ -488,7 +525,6 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     }
 
     .next {
-      color: #6133b4;
       font-weight: bold;
       display: inline-block;
       padding: 0.4em;
