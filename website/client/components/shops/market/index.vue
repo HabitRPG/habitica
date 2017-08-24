@@ -230,7 +230,6 @@
         priceType="gold",
         :withPin="true",
         @change="resetGearToBuy($event)",
-        @buyPressed="buyGear($event)",
         @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
@@ -250,7 +249,6 @@
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
         @change="resetItemToBuy($event)",
-        @buyPressed="buyItem($event)",
         @togglePinned="togglePinned($event)"
       )
         template(slot="item", scope="ctx")
@@ -734,12 +732,6 @@ export default {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
-      },
-      buyGear (item) {
-        this.$store.dispatch('shops:buyItem', {key: item.key});
-      },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
       },
       itemSelected (item) {
         if (item.purchaseType === 'card') {
