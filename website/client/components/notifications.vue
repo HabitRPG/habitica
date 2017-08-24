@@ -183,7 +183,7 @@ export default {
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        this.text(`+ ${Notification.coins(bonus)} ${this.$t('streakCoins')}`);
+        this.text(`+ ${this.coins(bonus)} ${this.$t('streakCoins')}`);
         delete this.user._tmp.streakBonus;
       }
     },
