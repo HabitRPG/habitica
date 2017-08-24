@@ -208,7 +208,7 @@ export default {
       // @TODO: write an explination
       if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
         this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else {
+      } else if (screenPosition) {
         return;
       }
 
