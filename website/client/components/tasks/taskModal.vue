@@ -5,7 +5,7 @@
   )
     b-modal#task-modal(
       size="sm",
-      @hidden="$emit('cancel')",
+      @hidden="onClose()",
     )
       .task-modal-header(
         slot="modal-header",
@@ -31,7 +31,7 @@
           label(v-once) {{ $t('checklist') }}
           br
           .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in task.checklist")
-            input.inline-edit-input.checklist-item.form-control(type="text", :value="item.text")
+            input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
             span.input-group-btn(@click="removeChecklistItem($index)")
               .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
@@ -551,8 +551,12 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {
-      this.showTagsSelect = false;
       this.$root.$emit('hide::modal', 'task-modal');
+    },
+    onClose () {
+      this.showTagsSelect = false;
+      this.newChecklistItem = '';
+      this.$emit('cancel');
     },
     updateRequiresApproval (newValue) {
       let truthy = true;
