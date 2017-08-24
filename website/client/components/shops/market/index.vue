@@ -687,7 +687,9 @@ export default {
           return !this.userItems.gear.owned[gear.key];
         });
 
-        result = _sortBy(result, [sortGearTypeMap[sortBy]]);
+        // first all unlocked
+        // then the selected sort
+        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[sortBy]]);
 
         return result;
       },
