@@ -206,14 +206,7 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
             li
               strong Buffs:
               | {{user.stats.buffs[stat]}}
-      // @TODO: Implement .col-4(v-if='user.flags.classSelected && !user.preferences.disableClasses')
-          h3(v-once) {{ $t('characterBuild') }}
-          h4(v-once) {{ $t('class') + ': ' }}
-            span {{ classText }}&nbsp;
-            button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-            small.cost 3
-              span.Pet_Currency_Gem1x.inline-gems
-
+      // @TODO: Implement
           div
             div
               p(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
@@ -331,7 +324,6 @@ import keys from 'lodash/keys';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
-import changeClass from  '../../../common/script/ops/changeClass';
 import allocate from  '../../../common/script/ops/allocate';
 
 import achievementsLib from '../../../common/script/libs/achievements';
@@ -492,9 +484,6 @@ export default {
     formatOutOfTotalDisplay (stat, totalStat) {
       let display = `${stat}/${totalStat}`;
       return display;
-    },
-    changeClass () {
-      changeClass(this.user);
     },
     allocate (stat) {
       allocate(this.user, stat);
