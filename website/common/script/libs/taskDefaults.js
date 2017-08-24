@@ -25,6 +25,7 @@ module.exports = function taskDefaults (task = {}) {
     challenge: {
       shortName: 'None',
     },
+    group: {},
     yesterDaily: true,
     reminders: [],
     attribute: 'str',
