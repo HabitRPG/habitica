@@ -91,7 +91,7 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
       .col-6
         h2 Quests Completed
         div(v-for='(value, key) in user.achievements.quests')
-          span {{ content.quests[k].text() }}
+          span {{ content.quests[key].text() }}
           span {{ value }}
   .standard-page(v-show='selectedPage === "stats"')
     .row
