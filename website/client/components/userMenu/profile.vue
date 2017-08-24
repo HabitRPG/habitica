@@ -503,7 +503,8 @@ export default {
       if (bg.hasOwnProperty(background)) {
         return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
       }
-      return window.env.t('noBackground');
+
+      return this.$t('noBackground');
     },
     totalCount (objectToCount) {
       let total = size(objectToCount);
