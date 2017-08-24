@@ -216,38 +216,38 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       .col-4.offset-2
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('work') }}
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='exercise', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('exercise') }}
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='health_wellness', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('health_wellness') }}
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('school') }}
       .col-4
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('chores') }}
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='creativity', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
         .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='self_care', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('self_care') }}
 
@@ -600,6 +600,134 @@ import gem from 'assets/svg/gem.svg';
 import pin from 'assets/svg/pin.svg';
 import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
+let tasksByCategory = {
+  work: [
+    {
+      type: 'habit',
+      text: 'Process email',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Most important task >> Worked on today’s most important task',
+      notes: '(ADD) Notes: Tap to specify your most important task',
+    },
+    {
+      type: 'todo',
+      text: 'Work project >> Complete work project',
+      notes: '(ADD) Notes: Tap to specify the name of your current project + set a due date!',
+    },
+  ],
+  exercise: [
+    {
+      type: 'habit',
+      text: '10 min cardio >> + 10 minutes cardio',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Stretching >> Daily workout routine',
+      notes: '(ADD) Notes: Tap to choose your schedule and specify exercises!',
+    },
+    {
+      type: 'todo',
+      text: 'Set up workout schedule',
+      notes: '(ADD) Notes: Tap to add a checklist!',
+    },
+  ],
+  health_wellness: [
+    {
+      type: 'habit',
+      text: 'Eat Health/Junk Food',
+      up: true,
+      down: true,
+    },
+    {
+      type: 'daily',
+      text: 'Floss',
+      notes: '(ADD) Notes: Tap to make any changes!',
+    },
+    {
+      type: 'todo',
+      text: 'Schedule check-up >> Brainstorm a healthy change',
+      notes: '(ADD) Notes: Tap to add checklists!',
+    },
+  ],
+  school: [
+    {
+      type: 'habit',
+      text: 'Study/Procrastinate',
+      up: true,
+      down: true,
+    },
+    {
+      type: 'daily',
+      text: 'Finish homework',
+      notes: '(ADD) Notes: Tap to choose your homework schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Finish assignment for class',
+      notes: '(ADD) [Notes: Tap to name the assignment and choose a due date!]',
+    },
+  ],
+  self_care: [
+    {
+      type: 'habit',
+      text: 'Take a short break',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: '5 minutes of quiet breathing',
+      notes: '(ADD) Notes: Tap to choose your schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Engage in a fun activity',
+      notes: '(ADD) Notes: Tap to specify what you plan to do!',
+    },
+  ],
+  chores: [
+    {
+      type: 'habit',
+      text: '10 minutes cleaning',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Wash dishes',
+      notes: '(ADD) Notes: Tap to choose your schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Organize closet >> Organize clutter',
+      notes: '(ADD) Notes: Tap to specify the cluttered area!',
+    },
+  ],
+  creativity: [
+    {
+      type: 'habit',
+      text: 'Study a master of the craft >> + Practiced a new creative technique',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Work on creative project',
+      notes: '(ADD) Notes: Tap to specify the name of your current project + set the schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Finish creative project',
+      notes: '(ADD) Notes: Tap to specify the name of your project',
+    },
+  ],
+};
 
 export default {
   mixins: [guide, notifications],
@@ -629,6 +757,7 @@ export default {
       modalPage: 1,
       activeTopPage: 'body',
       activeSubPage: 'size',
+      taskCategories: [],
     };
   },
   watch: {
@@ -699,7 +828,20 @@ export default {
       this.$store.dispatch('common:equip', {key, type: 'equipped'});
       this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
-    done () {
+    async done () {
+      let tasksToCreate = [];
+      this.taskCategories.forEach(category => {
+        tasksToCreate = tasksToCreate.concat(tasksByCategory[category]);
+      });
+
+      // @TODO: Move to the action
+      let response = await axios.post('/api/v3/tasks/user', tasksToCreate);
+      let tasks = response.data.data;
+      tasks.forEach(task => {
+        this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
+        Object.assign(this.$store.state.tasks.data[`${task.type}s`][0], task);
+      });
+
       this.$root.$emit('hide::modal', 'avatar-modal');
       this.$router.push('/');
       this.$store.dispatch('user:set', {

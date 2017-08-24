@@ -42,13 +42,15 @@ export default {
       let assignedUsersLength = assignedUsers.length;
 
       // @TODO: Eh, I think we only ever display one user name
-      assignedUsers.forEach(userId => {
-        let index = findIndex(this.group.members, function(member) {
-          return member._id === userId;
+      if (this.group && this.group.members) {
+        assignedUsers.forEach(userId => {
+          let index = findIndex(this.group.members, (member) => {
+            return member._id === userId;
+          });
+          let assignedMember = this.group.members[index];
+          assignedUsersNames.push(assignedMember.profile.name);
         });
-        let assignedMember = this.group.members[index];
-        assignedUsersNames.push(assignedMember.profile.name);
-      });
+      }
 
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
         return `Assigned to ${assignedUsersNames[0]}`;
