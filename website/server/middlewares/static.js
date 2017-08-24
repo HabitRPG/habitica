@@ -6,7 +6,7 @@ const IS_PROD = nconf.get('IS_PROD');
 // const IS_NEW_CLIENT_ENABLED = nconf.get('NEW_CLIENT_ENABLED') === 'true';
 const MAX_AGE = IS_PROD ? 31536000000 : 0;
 const ASSETS_DIR = path.join(__dirname, '/../../assets');
-const PUBLIC_DIR = path.join(__dirname, '/../../client');
+const PUBLIC_DIR = path.join(__dirname, '/../../client-old'); // TODO static files are still there
 const BUILD_DIR = path.join(__dirname, '/../../build');
 
 module.exports = function staticMiddleware (expressApp) {
