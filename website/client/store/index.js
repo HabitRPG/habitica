@@ -99,6 +99,7 @@ export default function () {
         spellDrawOpen: true,
       },
       profileUser: {},
+      upgradingGroup: {},
     },
   });
 
