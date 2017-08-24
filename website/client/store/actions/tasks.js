@@ -113,8 +113,6 @@ export async function save (store, editedTask) {
 
   sanitizeChecklist(editedTask);
 
-  console.log(JSON.parse(JSON.stringify(editedTask), null, 4))
-  console.log(JSON.parse(JSON.stringify(originalTask), null, 4))
   if (originalTask) Object.assign(originalTask, editedTask);
 
   const taskDataToSend = omit(editedTask, ['history']);
