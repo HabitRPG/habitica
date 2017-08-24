@@ -150,9 +150,12 @@
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
+            template(slot="itemImage", scope="scope")
+              span.svg-icon.inline.icon-48(v-if="scope.item.key == 'gem'", v-html="icons.gem")
+
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                v-if="item.purchaseType !== 'card'",
+                v-if="item.purchaseType !== 'card' && item.purchaseType !== 'gems'",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
@@ -255,7 +258,8 @@
           item.flat.bordered-item(
             :item="ctx.item",
             :itemContentClass="ctx.item.class",
-            :showPopover="false"
+            :showPopover="false",
+            v-if="ctx.item.key != 'gem'"
           )
 
       selectMembersModal(
@@ -303,6 +307,10 @@
   .icon-12 {
     width: 12px;
     height: 12px;
+  }
+  .icon-48 {
+    width: 48px;
+    height: 48px;
   }
 
   .hand-cursor {
@@ -407,6 +415,7 @@
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
   import svgWizard from 'assets/svg/wizard.svg';
@@ -473,6 +482,7 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          gem: svgGem,
           information: svgInformation,
           warrior: svgWarrior,
           wizard: svgWizard,
@@ -529,6 +539,30 @@ export default {
               return getItemInfo(this.user, 'card', value);
             }),
           });
+
+          let specialItems = [];
+
+          if (this.user.purchased.plan.customerId) {
+            specialItems.push({
+              key: 'gem',
+              class: 'gem',
+              pinKey: 'gems',
+              purchaseType: 'gems',
+              text: this.$t('subGemName'),
+              notes: this.$t('subGemPop'),
+              currency: 'gold',
+              value: 20,
+            });
+          }
+
+          if (specialItems.length > 0) {
+            categories.push({
+              identifier: 'special',
+              text: this.$t('special'),
+              items: specialItems,
+            });
+          }
+
           categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
