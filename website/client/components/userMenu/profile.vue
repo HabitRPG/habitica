@@ -439,7 +439,7 @@ export default {
     async sendPrivateMessage () {
       if (!this.privateMessage || !this.userIdToMessage) return;
 
-      let response = await this.$store.dispatch('members:sendPrivateMessage', {
+      await this.$store.dispatch('members:sendPrivateMessage', {
         message: this.privateMessage,
         toUserId: this.userIdToMessage,
       });

@@ -2,6 +2,7 @@
 .row
   challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
+  challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
 
   .col-8.standard-page
     .row
@@ -25,6 +26,14 @@
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
+    .row(v-if='isLeader')
+      .col-6.offset-6
+        span
+          strong View Progress Of
+        b-dropdown.create-dropdown(text="Select a Participant")
+          b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
+            | {{ member.profile.name }}
+
     .row
       task-column.col-6(
         v-for="column in columns",
@@ -160,6 +169,7 @@ import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import challengeModal from './challengeModal';
+import challengeMemberProgressModal from './challengeMemberProgressModal';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -172,6 +182,7 @@ export default {
   components: {
     closeChallengeModal,
     challengeModal,
+    challengeMemberProgressModal,
     TaskColumn: Column,
     TaskModal,
     bDropdown,
@@ -197,6 +208,7 @@ export default {
       creatingTask: {},
       workingTask: {},
       taskFormPurpose: 'create',
+      progressMemberId: '',
     };
   },
   computed: {
@@ -286,6 +298,10 @@ export default {
     // @TODO: view members
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
+    },
+    openMemberProgressModal (memberId) {
+      this.progressMemberId = memberId;
+      this.$root.$emit('show::modal', 'challenge-member-modal');
     },
   },
 };
