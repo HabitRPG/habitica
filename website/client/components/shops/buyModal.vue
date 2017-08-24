@@ -207,12 +207,15 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        this.$store.dispatch('shops:genericPurchase', {
-          pinType: this.item.pinType,
-          type: this.item.purchaseType,
-          key: this.item.key,
-        });
-        this.purchased(this.item.text);
+        if (this.genericPurchase) {
+          this.$store.dispatch('shops:genericPurchase', {
+            pinType: this.item.pinType,
+            type: this.item.purchaseType,
+            key: this.item.key,
+          });
+          this.purchased(this.item.text);
+        }
+
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
@@ -242,6 +245,10 @@
       },
       withPin: {
         type: Boolean,
+      },
+      genericPurchase: {
+        type: Boolean,
+        default: true,
       },
     },
   };

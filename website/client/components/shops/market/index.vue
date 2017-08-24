@@ -155,7 +155,7 @@
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                v-if="item.purchaseType !== 'card' && item.purchaseType !== 'gems'",
+                v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
@@ -233,7 +233,7 @@
         priceType="gold",
         :withPin="true",
         @change="resetGearToBuy($event)",
-        @togglePinned="togglePinned($event)"
+        @togglePinned="togglePinned($event)",
       )
         template(slot="item", scope="ctx")
           div
@@ -252,7 +252,9 @@
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
         @change="resetItemToBuy($event)",
-        @togglePinned="togglePinned($event)"
+        @togglePinned="togglePinned($event)",
+        @buyPressed="purchaseCallback($event)",
+        :genericPurchase="selectedItemToBuy != null && selectedItemToBuy.key != 'rebirth_orb'"
       )
         template(slot="item", scope="ctx")
           item.flat.bordered-item(
@@ -536,7 +538,10 @@ export default {
             items: _map(_filter(this.content.cardTypes, (value) => {
               return value.yearRound;
             }), (value) => {
-              return getItemInfo(this.user, 'card', value);
+              return {
+                ...getItemInfo(this.user, 'card', value),
+                showCount: false,
+              };
             }),
           });
 
@@ -544,6 +549,7 @@ export default {
 
           if (this.user.purchased.plan.customerId) {
             specialItems.push({
+              showCount: false,
               key: 'gem',
               class: 'gem',
               pinKey: 'gems',
@@ -552,6 +558,19 @@ export default {
               notes: this.$t('subGemPop'),
               currency: 'gold',
               value: 20,
+            });
+          }
+
+          if (this.user.flags.rebirthEnabled) {
+            specialItems.push({
+              showCount: false,
+              key: 'rebirth_orb',
+              class: 'rebirth_orb',
+              purchaseType: 'rebirth_orb',
+              text: this.$t('rebirthName'),
+              notes: this.$t('rebirthPop'),
+              currency: 'gems',
+              value: this.user.stats.lvl < 100 ? 6 : '',
             });
           }
 
@@ -788,6 +807,12 @@ export default {
       memberSelected (member) {
         this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
         this.selectedCardToBuy = null;
+      },
+      async purchaseCallback (item) {
+        if (item.key === 'rebirth_orb') {
+          await this.$store.dispatch('user:rebirth');
+          window.location.reload(true);
+        }
       },
     },
     created () {

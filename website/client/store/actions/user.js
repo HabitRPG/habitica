@@ -100,3 +100,7 @@ export function castSpell (store, params) {
 export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
 }
+
+export function rebirth () {
+  return axios.post('/api/v3/user/rebirth');
+}
