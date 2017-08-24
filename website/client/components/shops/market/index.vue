@@ -51,7 +51,7 @@
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedGearToBuy = item"
+                @click="gearSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -74,14 +74,14 @@
               span.text {{ getClassName(selectedGroupGearByClass) }}
 
             b-dropdown-item(
-              v-for="sort in content.classes",
-              @click="selectedGroupGearByClass = sort",
-              :active="selectedGroupGearByClass === sort",
-              :key="sort"
+              v-for="gearCategory in marketGearCategories",
+              @click="selectedGroupGearByClass = gearCategory.identifier",
+              :active="selectedGroupGearByClass === gearCategory.identifier",
+              :key="gearCategory.identifier"
             )
               span.dropdown-icon-item
-                span.svg-icon.inline.icon-16(v-html="icons[sort]")
-                span.text {{ getClassName(sort) }}
+                span.svg-icon.inline.icon-16(v-html="icons[gearCategory.identifier]")
+                span.text {{ gearCategory.text }}
 
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -107,7 +107,7 @@
             :item="ctx.item",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
-            @click="selectedGearToBuy = ctx.item"
+            @click="gearSelected(ctx.item)"
           )
 
             template(slot="itemBadge", scope="ctx")
@@ -239,7 +239,8 @@
               :member="user",
               :avatarOnly="true",
               :withBackground="true",
-              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)"
+              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)",
+              :spritesMargin="'0px auto 0px'",
             )
 
         template(slot="additionalInfo", scope="ctx")
@@ -331,10 +332,6 @@
     .avatar {
       cursor: default;
       margin: 0 auto;
-
-      .character-sprites span {
-        left: 25px;
-      }
     }
 
     .standard-page {
@@ -420,14 +417,14 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
+  import isPinned from 'common/script/libs/isPinned';
+  import shops from 'common/script/libs/shops';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
   import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
-
-  import _isPinned from '../_isPinned';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -509,15 +506,20 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        market: 'shops.market.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      marketGearCategories () {
+        return shops.getMarketGearCategories(this.user);
+      },
+      marketCategories () {
+        return shops.getMarketCategories(this.user);
+      },
       categories () {
-        if (this.market) {
+        if (this.marketCategories) {
           let categories = [
-            ...this.market.categories,
+            ...this.marketCategories,
           ];
 
           categories.push({
@@ -568,7 +570,7 @@ export default {
       featuredItems () {
         return featuredItems.market.map(i => {
           let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.pinned = isPinned(this.user, newItem);
 
           return newItem;
         });
@@ -632,17 +634,9 @@ export default {
         }
       },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
-        let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
-        result = _map(result, (e) => {
-          let newItem = getItemInfo(this.user, 'marketGear', e);
+        let category = _filter(this.marketGearCategories, ['identifier', groupByClass]);
 
-          newItem.pinned = _isPinned(this.user, newItem);
-          newItem.locked = this.isGearLocked(newItem);
-
-          return newItem;
-        });
-
-        result = _filter(result, (gear) => {
+        let result = _filter(category[0].items, (gear) => {
           if (hideLocked && gear.locked) {
             return false;
           }
@@ -669,7 +663,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 
@@ -725,7 +719,7 @@ export default {
         }
       },
       isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
+        if (gear.klass !== this.userStats.class) {
           return true;
         }
 
@@ -758,13 +752,17 @@ export default {
           this.selectedItemToBuy = item;
         }
       },
+      gearSelected (item) {
+        if (!item.locked) {
+          this.selectedGearToBuy = item;
+        }
+      },
       memberSelected (member) {
         this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
         this.selectedCardToBuy = null;
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchMarket');
       this.selectedGroupGearByClass = this.userStats.class;
     },
   };

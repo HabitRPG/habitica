@@ -40,8 +40,8 @@ module.exports = function buyGear (user, req = {}, analytics) {
     message = handleTwoHanded(user, item, undefined, req);
   }
 
-  removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`);
-  user.items.gear.owned[item.key] = true;
+
+  removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
 
   if (item.last) ultimateGear(user);
 

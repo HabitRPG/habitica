@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar
+    .standard-sidebar(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -25,10 +25,15 @@
     .standard-page
       div.featuredItems
         .background
-          div.npc
+          div.npc(:class="{'closed': closed }")
             div.featured-label
               span.rectangle
-              span.text(v-once) {{ timeTravelers.text }}
+              span.text(v-once) {{ $t('timeTravelers') }}
+              span.rectangle
+          div.content(v-if="closed")
+            div.featured-label.with-border.closed
+              span.rectangle
+              span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
           div.content(v-if="false")
             div.featured-label.with-border
@@ -53,9 +58,9 @@
                     h4.popover-content-title {{ item.text() }}
                     .popover-content-text {{ item.notes() }}
 
-      h1.mb-0.page-header(v-once) {{ timeTravelers.text }}
+      h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
 
-      .clearfix
+      .clearfix(v-if="!closed")
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
@@ -69,7 +74,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected",
+        v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
         h2 {{ category.text }}
@@ -86,7 +91,6 @@
               :item="ctx.item",
               :price="ctx.item.value",
               :priceType="ctx.item.currency",
-              :itemContentClass="getItemClass(ctx.item)",
               :emptyItem="false",
               @click="selectedItemToBuy = ctx.item"
             )
@@ -109,12 +113,16 @@
       @change="resetItemToBuy($event)",
       @buyPressed="buyItem($event)"
     )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
+      template(slot="item", scope="scope")
+        div
+          avatar(
+            :member="user",
+            :avatarOnly="true",
+            :withBackground="true",
+            :overrideAvatarGear="memberOverrideAvatarGear(scope.item)",
+            :spritesMargin="'0px auto 0px'",
+          )
+
 </template>
 
 <style lang="scss">
@@ -195,14 +203,9 @@
       position: relative;
     }
 
-    .mounts {
-      .shop-content .image div {
-        position: absolute;
-        top: 0;
-        left: 7px;
-        right: 0;
-        z-index: 0;
-      }
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
     }
 
     .featuredItems {
@@ -237,8 +240,13 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
+        background: url('~assets/images/shops/time_travelers_open_banner.png');
         background-repeat: no-repeat;
+
+        &.closed {
+          background: url('~assets/images/shops/time_travelers_closed_banner.png');
+          background-repeat: no-repeat;
+        }
 
         .featured-label {
           position: absolute;
@@ -279,9 +287,11 @@
   import _groupBy from 'lodash/groupBy';
   import _map from 'lodash/map';
 
-  import _isPinned from '../_isPinned';
+  import isPinned from 'common/script/libs/isPinned';
+  import shops from 'common/script/libs/shops';
 
-export default {
+
+  export default {
     components: {
       ShopItem,
       Item,
@@ -319,53 +329,70 @@ export default {
         selectedItemToBuy: null,
 
         hidePinned: false,
+
+        backgroundUpdate: new Date(),
       };
     },
     computed: {
       ...mapState({
         content: 'content',
         quests: 'shops.quests.data',
-        timeTravelers: 'shops.time-travelers.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+
+      closed () {
+        return this.user.purchased.plan.consecutive.trinkets === 0;
+      },
+
       categories () {
-        if (this.timeTravelers) {
-          let normalGroups = _filter(this.timeTravelers.categories, (c) => {
-            return c.identifier === 'mounts' || c.identifier === 'pets';
+        let apiCategories = shops.getTimeTravelersCategories(this.user);
+
+        // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+        let normalGroups = _filter(apiCategories, (c) => {
+          return c.identifier === 'mounts' || c.identifier === 'pets';
+        });
+
+        normalGroups.map((group) => {
+          group.items = group.items.map((item) => {
+            return {
+              ...item,
+              class: `shop_${group.identifier}_${item.key}`,
+            };
           });
+        });
 
-          let setGroups = _filter(this.timeTravelers.categories, (c) => {
-            return c.identifier !== 'mounts' && c.identifier !== 'pets';
+        let setGroups = _filter(apiCategories, (c) => {
+          return c.identifier !== 'mounts' && c.identifier !== 'pets';
+        });
+
+        let setCategory = {
+          identifier: 'sets',
+          text: this.$t('mysterySets'),
+          items: setGroups.map((c) => {
+            return {
+              ...c,
+              value: 1,
+              currency: 'hourglasses',
+              key: c.identifier,
+              class: `shop_set_mystery_${c.identifier}`,
+              purchaseType: 'set_mystery',
+            };
+          }),
+        };
+
+        normalGroups.push(setCategory);
+
+        normalGroups.map((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
           });
+        });
 
-          let setCategory = {
-            identifier: 'sets',
-            text: this.$t('mysterySets'),
-            items: setGroups.map((c) => {
-              return {
-                ...c,
-                value: 1,
-                currency: 'hourglasses',
-                key: c.identifier,
-                class: `shop_set_mystery_${c.identifier}`,
-              };
-            }),
-          };
-
-          normalGroups.push(setCategory);
-
-          normalGroups.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
-          return normalGroups;
-        } else {
-          return [];
-        }
+        return normalGroups;
       },
 
       featuredItems () {
@@ -379,7 +406,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 
@@ -420,10 +447,22 @@ export default {
         }
       },
       buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+        if (item.purchaseType === 'set_mystery') {
+          this.$store.dispatch('shops:purchaseMysterySet', {key: item.key});
+        } else {
+          this.$store.dispatch('shops:purchaseHourglassItem', {type: item.purchaseType, key: item.key});
+        }
+
+        this.backgroundUpdate = new Date();
       },
-      getItemClass (item) {
-        return `shop_${item.type}_${item.key}`;
+      memberOverrideAvatarGear (set) {
+        let gear = {};
+
+        set.items.map((item) => {
+          gear[item.type] = item.key;
+        });
+
+        return gear;
       },
     },
     created () {
