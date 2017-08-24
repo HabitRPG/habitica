@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   amazon-payments-modal(:amazon-payments='amazonPayments')
-  div(v-if='activePage === PAGES.BENEFITS')
+  div
     .header
       h1.text-center Need more for your Group?
       .row
@@ -23,7 +23,7 @@ div
             h2 In-Game Benefits
             p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
 
-    .container.payment-options
+    .container.payment-options(v-if='upgradingGroup._id')
       h1.text-center.purple-header Are you ready to upgrade?
       .row
         .col-6.offset-3.text-center
@@ -36,7 +36,7 @@ div
             .number 3
             .name Each Individual Group Member
 
-          .box
+          .box.payment-providers
             h3 Choose your payment method
             .box.payment-button(@click='createGroup(PAYMENTS.STRIPE)')
               p Credit Card
@@ -44,9 +44,30 @@ div
             .box.payment-button(@click='createGroup(PAYMENTS.AMAZON)')
               | Amazon Pay
 
-  .standard-page(v-if='activePage === PAGES.CREATE_GROUP')
-    h1.text-center {{ $t('createAGroup') }}
-    .col-6.offset-3
+    .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
+      .row
+        h1.col-12.text-center.purple-header Create your Group today!
+      .row
+        .col-12.text-center
+          button.btn.btn-primary.create-group(@click='launchModal("create")') Create Your New Group
+      .row.pricing
+        .col-5
+          .dollar $
+          .number 9
+          .name
+            div Group Owner
+            div Subscription
+        .col-1
+          .plus +
+        .col-6
+          .dollar $
+          .number 3
+          .name
+            div Each Additional
+            div Member
+
+  b-modal#group-plan-modal(title="Empty", size='md', hide-footer=true)
+    .col-12(v-if='activePage === PAGES.CREATE_GROUP')
       .form-group
         label.control-label(for='new-group-name') Name
         input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Name", v-model='newGroup.name')
@@ -76,9 +97,17 @@ div
             input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
             | {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
-        button.btn.btn-default.form-control(@click='pay()', :value="$t('create')")
+        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('create')")
       .form-group
-        button.btn.btn-primary.btn-lg.btn-block(@click="pay()", :disabled="!newGroupIsReady") {{ $t('create') }}
+        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('create') }}
+    .col-12(v-if='activePage === PAGES.PAY')
+      .payment-providers
+        h3 Choose your payment method
+        .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
+          p Credit Card
+          p Powered by Stripe
+        .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
+          | Amazon Pay
 </template>
 
 <style lang="scss" scoped>
@@ -108,10 +137,48 @@ div
     text-align: center;
   }
 
+  button.create-group {
+    width: 330px;
+    height: 96px;
+  }
+
   .purple-header {
     color: #6133b4;
     font-size: 48px;
     margin-top: 1em;
+  }
+
+  .pricing {
+    margin-top: 2em;
+    margin-bottom: 4em;
+
+    .dollar, .number, .name {
+      display: inline-block;
+      vertical-align: bottom;
+      color: #a5a1ac;
+    }
+
+    .plus {
+      font-size: 34px;
+      color: #a5a1ac;
+    }
+
+    .dollar {
+      margin-bottom: 1.5em;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .name {
+      font-size: 24px;
+      margin-bottom: .8em;
+      margin-left: .5em;
+    }
+
+    .number {
+      font-size: 72px;
+      font-weight: bolder;
+    }
   }
 
   .payment-options {
@@ -152,14 +219,14 @@ div
       display: inline-block;
       vertical-align: bottom;
     }
+  }
 
-    .payment-button {
-      width: 200px;
-      height: 80px;
-      margin-bottom: .5em;
-      padding: .5em;
-      display: block;
-    }
+  .payment-button {
+    width: 200px;
+    height: 80px;
+    margin-bottom: .5em;
+    padding: .5em;
+    display: block;
   }
 </style>
 
@@ -167,11 +234,13 @@ div
 import paymentsMixin from '../../mixins/payments';
 import amazonPaymentsModal from '../payments/amazonModal';
 import { mapState } from 'client/libs/store';
+import bModal from 'bootstrap-vue/lib/components/modal';
 
 export default {
   mixins: [paymentsMixin],
   components: {
     amazonPaymentsModal,
+    bModal,
   },
   data () {
     return {
@@ -180,6 +249,7 @@ export default {
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
+        PAY: 'pay',
       },
       // @TODO: Import from payment library?
       PAYMENTS: {
@@ -214,19 +284,26 @@ export default {
     newGroupIsReady () {
       return Boolean(this.newGroup.name);
     },
+    upgradingGroup () {
+      return this.$store.state.upgradingGroup;
+    },
     // @TODO: can we move this to payment mixin?
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    launchModal () {
+      this.changePage(this.PAGES.CREATE_GROUP);
+      this.$root.$emit('show::modal', 'group-plan-modal');
+    },
     changePage (page) {
       this.activePage = page;
       window.scrollTo(0, 0);
     },
-    createGroup (paymentType) {
-      this.paymentMethod = paymentType;
-      this.changePage(this.PAGES.CREATE_GROUP);
+    createGroup () {
+      this.changePage(this.PAGES.PAY);
     },
-    pay () {
+    pay (paymentMethod) {
+      this.paymentMethod = paymentMethod;
       let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
         this.showStripe({
