@@ -22,6 +22,7 @@ div
 </style>
 
 <script>
+import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 import approvalModal from './approvalModal';
 
@@ -37,10 +38,20 @@ export default {
     },
     message () {
       let assignedUsers = this.task.group.assignedUsers;
+      let assignedUsersNames = [];
       let assignedUsersLength = assignedUsers.length;
 
+      // @TODO: Eh, I think we only ever display one user name
+      assignedUsers.forEach(userId => {
+        let index = findIndex(this.group.members, function(member) {
+          return member._id === userId;
+        });
+        let assignedMember = this.group.members[index];
+        assignedUsersNames.push(assignedMember.profile.name);
+      });
+
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsers}`;
+        return `Assigned to ${assignedUsersNames[0]}`;
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
         return `Assigned to ${assignedUsersLength} members`;
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {
