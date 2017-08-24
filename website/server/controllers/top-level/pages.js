@@ -1,4 +1,5 @@
 import locals from '../../middlewares/locals';
+import { serveClient } from '../../libs/client';
 // import _ from 'lodash';
 // import md from 'habitica-markdown';
 // import nconf from 'nconf';
@@ -92,7 +93,7 @@ api.getNewClient = {
   url: '/',
   noLanguage: true,
   async handler (req, res) {
-    return res.sendFile('./dist-client/index.html', {root: `${__dirname}/../../../../`});
+    return serveClient(res);
   },
 };
 // }
