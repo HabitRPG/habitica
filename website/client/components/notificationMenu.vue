@@ -292,7 +292,7 @@ export default {
 
       if (type === 'party') {
         this.user.party._id = group.id;
-        this.$router.push(`/groups/party`);
+        this.$router.push('/groups/party');
       } else {
         this.user.guilds.push(group.id);
         this.$router.push(`/groups/guild/${group.id}`);

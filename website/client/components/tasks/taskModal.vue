@@ -417,7 +417,7 @@ export default {
   },
   watch: {
     async task () {
-      if (this.groupId && this.task.group && this.task.group.approval.required) {
+      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
         this.requiresApproval = true;
       }
 
@@ -430,7 +430,8 @@ export default {
         this.members.forEach(member => {
           this.memberNamesById[member._id] = member.profile.name;
         });
-        this.assignedMembers = this.task.group.assignedUsers;
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
       }
     },
   },
