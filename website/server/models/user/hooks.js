@@ -1,7 +1,6 @@
 import shared from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
-import * as Tasks from '../task';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 
@@ -23,12 +22,12 @@ schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
 
-function findTag (user, tagName) {
-  let tagID = _.find(user.tags, (userTag) => {
-    return userTag.name === tagName(user.preferences.language);
-  });
-  return tagID.id;
-}
+// function findTag (user, tagName) {
+//   let tagID = _.find(user.tags, (userTag) => {
+//     return userTag.name === tagName(user.preferences.language);
+//   });
+//   return tagID.id;
+// }
 
 function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
