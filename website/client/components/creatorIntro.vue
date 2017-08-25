@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='true')
+b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='true', :class='{"page-2": modalPage > 1 && !editing}')
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
@@ -251,13 +251,21 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('self_care') }}
 
-  .section.row.justin-message-section(:class='{top: modalPage > 1}')
+  .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
     .col-12
-      .justin-message(v-if='modalPage == 1')
-        p(v-once) {{$t('justinIntroMessage1')}}
-        p(v-once) {{$t('justinIntroMessage2')}}
-      .justin-message(v-if='modalPage > 1')
-        p(v-once) {{$t('justinIntroMessage3')}}
+      .justin-message
+        .featured-label
+          span.rectangle
+          span.text Justin
+          span.rectangle
+        .npc_justin_textbox
+        div(v-if='modalPage === 1')
+          p(v-once) {{$t('justinIntroMessage1')}}
+          p(v-once) {{$t('justinIntroMessage2')}}
+        div(v-if='modalPage === 2')
+          p So how would you like to look? Don’t worry, you can change this later.
+        div(v-if='modalPage === 3')
+          p(v-once) {{$t('justinIntroMessage3')}}
 
   .section.container.footer(v-if='!editing')
     .row
@@ -278,6 +286,14 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 </template>
 
 <style>
+  .page-2 #avatar-modal__BV_body_ {
+    margin-top: 8em;
+  }
+
+  .page-2 .modal-content {
+    margin-top: 7em;
+  }
+
   #avatar-modal_modal_body, #avatar-modal__BV_body_ {
     padding: 0;
   }
@@ -338,6 +354,26 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     width: 400px;
     padding: 2em;
     margin: 0 auto;
+    position: relative;
+
+    .featured-label {
+      position: absolute;
+      top: -1em;
+
+      .text {
+        min-height: auto;
+        color: $white;
+      }
+    }
+
+    .npc_justin_textbox {
+      position: absolute;
+      right: 1em;
+      top: -3.6em;
+      width: 48px;
+      height: 52px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
   }
 
   .justin-message-section {
@@ -347,7 +383,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .justin-message-section.top {
     position: absolute;
-    top: -15em;
+    top: -16em;
+    left: 13em;
   }
 
   .circles {
@@ -626,6 +663,7 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
+import goldDiamond from 'assets/svg/gold-diamond.svg';
 import pin from 'assets/svg/pin.svg';
 import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
@@ -782,6 +820,7 @@ export default {
         backgroundsIcon,
         gem,
         pin,
+        goldDiamond,
       }),
       modalPage: 1,
       activeTopPage: 'body',
