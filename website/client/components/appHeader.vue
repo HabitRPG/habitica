@@ -6,7 +6,7 @@
   .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
     // TODO button should open the party members modal
     button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
-  .col-6.party-members.d-flex.flex-row(v-if="partyMembers && partyMembers.length > 1")
+  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
     member-details(
       v-for="(member, $index) in partyMembers",
       :key="member._id",
@@ -48,16 +48,12 @@
     flex-grow: 1;
   }
 
-  .party-members {
-    max-width: 100%;
-    overflow: scroll;
-  }
-
   .view-party {
     position: absolute;
     z-index: 10;
     right: 0;
     padding-right: 40px;
+    padding-left: 10px;
     height: 100%;
     background-image: linear-gradient(to right, rgba($purple-50, 0), $purple-50);
 

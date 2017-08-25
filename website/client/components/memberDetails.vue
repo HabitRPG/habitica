@@ -44,13 +44,12 @@ div
     padding-left: 16px;
     padding-right: 24px;
     opacity: 1;
-    transition: opacity 0.15s ease-out;
+    transition: width 0.15s ease-out;
   }
 
   .member-details.condensed:not(.expanded) .member-stats {
     opacity: 0;
-    position: absolute;
-    z-index: -1;
+    display: none;
   }
 
   // Condensed version
