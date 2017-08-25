@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
+import buyQuestOp from 'common/script/ops/buyQuest';
 import purchaseOp from 'common/script/ops/purchaseWithSpell';
 import buyMysterySetOp from 'common/script/ops/buyMysterySet';
 import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
@@ -66,6 +67,16 @@ export function buyItem (store, params) {
   };
 }
 
+export function buyQuestItem (store, params) {
+  const user = store.state.user.data;
+  let opResult = buyQuestOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/buy-quest/${params.key}`),
+  };
+}
+
 export function purchase (store, params) {
   const user = store.state.user.data;
   let opResult = purchaseOp(user, {params});
@@ -121,7 +132,11 @@ export function genericPurchase (store, params) {
         },
       });
     default:
-      return purchase(store, params);
+      if (params.pinType === 'quests' && params.currency === 'gold') {
+        return buyQuestItem(store, params);
+      } else {
+        return purchase(store, params);
+      }
   }
 }
 

@@ -212,6 +212,7 @@
             pinType: this.item.pinType,
             type: this.item.purchaseType,
             key: this.item.key,
+            currency: this.item.currency,
           });
           this.purchased(this.item.text);
         }
