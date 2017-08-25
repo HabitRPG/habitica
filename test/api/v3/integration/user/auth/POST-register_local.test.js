@@ -692,13 +692,6 @@ describe('POST /user/auth/local/register', () => {
       let habits = await requests.get('/tasks/user?type=habits');
       let todos = await requests.get('/tasks/user?type=todos');
 
-      function findTag (tagName) {
-        let tag = user.tags.find((userTag) => {
-          return userTag.name === t(tagName);
-        });
-        return tag.id;
-      }
-
       expect(habits).to.have.a.lengthOf(0);
       expect(todos).to.have.a.lengthOf(0);
     });
