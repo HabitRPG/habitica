@@ -3,6 +3,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
+import * as Tasks from '../task';
 
 import schema from './schema';
 
@@ -22,12 +23,12 @@ schema.post('init', function postInitUser (doc) {
   shared.wrap(doc);
 });
 
-// function findTag (user, tagName) {
-//   let tagID = _.find(user.tags, (userTag) => {
-//     return userTag.name === tagName(user.preferences.language);
-//   });
-//   return tagID.id;
-// }
+function findTag (user, tagName) {
+  let tagID = _.find(user.tags, (userTag) => {
+    return userTag.name === tagName(user.preferences.language);
+  });
+  return tagID.id;
+}
 
 function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
@@ -54,43 +55,43 @@ function _populateDefaultTasks (user, taskTypes) {
   // @TODO: default tasks are handled differently now, and not during registration. We should move this code
 
   let tasksToCreate = [];
-  return Bluebird.all(tasksToCreate);
+  if (user.registeredThrough === 'habitica-web') return Bluebird.all(tasksToCreate);
 
-  // if (tagsI !== -1) {
-  //   taskTypes = _.clone(taskTypes);
-  //   taskTypes.splice(tagsI, 1);
-  // }
+  if (tagsI !== -1) {
+    taskTypes = _.clone(taskTypes);
+    taskTypes.splice(tagsI, 1);
+  }
 
-  // _.each(taskTypes, (taskType) => {
-  //   let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
-  //     let newTask = new Tasks[taskType](taskDefaults);
-  //
-  //     newTask.userId = user._id;
-  //     newTask.text = taskDefaults.text(user.preferences.language);
-  //     if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
-  //     if (taskDefaults.checklist) {
-  //       newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
-  //         checklistItem.text = checklistItem.text(user.preferences.language);
-  //         return checklistItem;
-  //       });
-  //     }
-  //
-  //     if (taskDefaults.tags) {
-  //       newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user)));
-  //     }
-  //
-  //     return newTask.save();
-  //   });
-  //
-  //   tasksToCreate.push(...tasksOfType);
-  // });
-  //
-  // return Bluebird.all(tasksToCreate)
-  //   .then((tasksCreated) => {
-  //     _.each(tasksCreated, (task) => {
-  //       user.tasksOrder[`${task.type}s`].push(task._id);
-  //     });
-  //   });
+  _.each(taskTypes, (taskType) => {
+    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
+      let newTask = new Tasks[taskType](taskDefaults);
+
+      newTask.userId = user._id;
+      newTask.text = taskDefaults.text(user.preferences.language);
+      if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
+      if (taskDefaults.checklist) {
+        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
+          checklistItem.text = checklistItem.text(user.preferences.language);
+          return checklistItem;
+        });
+      }
+
+      if (taskDefaults.tags) {
+        newTask.tags = _.compact(_.map(taskDefaults.tags, _.partial(findTag, user)));
+      }
+
+      return newTask.save();
+    });
+
+    tasksToCreate.push(...tasksOfType);
+  });
+
+  return Bluebird.all(tasksToCreate)
+    .then((tasksCreated) => {
+      _.each(tasksCreated, (task) => {
+        user.tasksOrder[`${task.type}s`].push(task._id);
+      });
+    });
 }
 
 function pinBaseItems (user) {
