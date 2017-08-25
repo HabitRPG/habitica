@@ -4,7 +4,7 @@ let last = require('lodash/last');
 let AWS = require('aws-sdk');
 
 let config = require('../config');
-const S3_DIRECTORY = ''; //config.S3.SPRITES_DIRECTORY;
+const S3_DIRECTORY = 'mobileApp/images'; //config.S3.SPRITES_DIRECTORY;
 
 AWS.config.update({
   accessKeyId: config.S3.accessKeyId,
@@ -26,7 +26,7 @@ function uploadFile (buffer, fileName) {
       if (error) {
         reject(error);
       } else {
-        console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
+        // console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
         resolve(fileName);
       }
     });
@@ -51,19 +51,48 @@ function getFileFromUrl (url) {
   });
 }
 
-// Example of url format
-let filesUrls = ['https://storage.googleapis.com/gweb-uniblog-publish-prod/static/blog/images/google-200x200.7714256da16f.png'];
-let promises = filesUrls.map(fullUrl => {
-  return getFileFromUrl(fullUrl)
-  .then((buffer) => {
-    return uploadFile(buffer, getFileName(fullUrl));
-  });
-});
+let commit = '78f94e365c72cc58f66857d5941105638db7d35c';
+commit = 'df0dbaba636c9ce424cc7040f7bd7fc1aa311015';
+let gihuburl = `https://api.github.com/repos/HabitRPG/habitica/commits/${commit}`
 
-Bluebird.all(promises)
-  .then(() => {
+
+let currentIndex = 0;
+
+function uploadToS3(start, end, filesUrls) {
+  let urls = filesUrls.slice(start, end);
+
+  if (urls.length === 0) {
     console.log("done");
-  })
-  .catch(e => {
-    console.log(e);
+    return;
+  }
+
+  let promises = urls.map(fullUrl => {
+    return getFileFromUrl(fullUrl)
+    .then((buffer) => {
+      return uploadFile(buffer, getFileName(fullUrl));
+    });
+  });
+  console.log(promises.length)
+
+  return Bluebird.all(promises)
+    .then(() => {
+      currentIndex += 50;
+      uploadToS3(currentIndex, currentIndex + 50, filesUrls);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+}
+
+request.get(gihuburl)
+  .end((err, res) => {
+    console.log(err);
+    let files = res.body.files;
+
+    let filesUrls = [''];
+    filesUrls = files.map(file => {
+      return file.raw_url;
+    })
+
+    uploadToS3(currentIndex, currentIndex + 50, filesUrls);
   });
