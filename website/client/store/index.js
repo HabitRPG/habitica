@@ -100,6 +100,7 @@ export default function () {
       },
       profileUser: {},
       upgradingGroup: {},
+      notificationStore: [],
     },
   });
 

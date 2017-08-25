@@ -1,6 +1,10 @@
 import habiticaMarkdown from 'habitica-markdown';
+import { mapState } from 'client/libs/store';
 
 export default {
+  computed: {
+    ...mapState({notifications: 'notificationStore'}),
+  },
   methods: {
     /**
      Show '+ 5 {gold_coin} 3 {silver_coin}'
@@ -58,18 +62,18 @@ export default {
     },
     exp (val) {
       if (val < -50) return; // don't show when they level up (resetting their exp)
-      let message = `${this.sign(val)} ${this.round(val)} + ${this.$t('experience')}`;
-      this.notify(message, 'xp', 'glyphicon glyphicon-star');
+      let message = `${this.sign(val)} ${this.round(val)}`;
+      this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
     error (error, canHide) {
       this.notify(error, 'danger', 'glyphicon glyphicon-exclamation-sign', canHide);
     },
     gp (val, bonus) {
-      this.notify(`${this.sign(val)} ${this.coins(val - bonus)}`, 'gp');
+      this.notify(`${this.sign(val)} ${this.coins(val - bonus)}`, 'gp', '', this.sign(val));
     },
     hp (val) {
       // don't show notifications if user dead
-      this.notify(`${this.sign(val)} ${this.round(val)} ${this.$t('health')}`, 'hp', 'glyphicon glyphicon-heart');
+      this.notify(`${this.sign(val)} ${this.round(val)}`, 'hp', 'glyphicon glyphicon-heart', this.sign(val));
     },
     lvl () {
       this.notify(this.$t('levelUp'), 'lvl', 'glyphicon glyphicon-chevron-up');
@@ -80,7 +84,7 @@ export default {
       this.notify(parsedMarkdown, 'info');
     },
     mp (val) {
-      this.notify(`${this.sign(val)} ${this.round(val)} ${this.$t('mana')}`, 'mp', 'glyphicon glyphicon-fire');
+      this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     streak (val) {
       this.notify(`${this.$t('streaks')}: ${val}`, 'streak', 'glyphicon glyphicon-repeat');
@@ -99,31 +103,15 @@ export default {
     round (number) {
       return Math.abs(number.toFixed(1));
     },
-    notify (html) {
-      // @TODO: try these params type, icon, canHide, onClick
-      this.$notify({
-        title: 'Habitica',
+    notify (html, type, icon, sign) {
+      this.notifications.push({
+        title: '',
         text: html,
+        type,
+        icon,
+        sign,
+        timeout: true,
       });
-      // let stack_topright = {"dir1": "down", "dir2": "left", "spacing1": 15, "spacing2": 15, "firstpos1": 60};
-      // let notice = $.pnotify({
-      //   type: type || 'warning', //('info', 'text', 'warning', 'success', 'gp', 'xp', 'hp', 'lvl', 'death', 'mp', 'crit')
-      //   text: html,
-      //   opacity: 1,
-      //   addclass: 'alert-' + type,
-      //   delay: 7000,
-      //   hide: ((type == 'error' || type == 'danger') && !canHide) ? false : true,
-      //   mouse_reset: false,
-      //   width: "250px",
-      //   stack: stack_topright,
-      //   icon: icon || false
-      // }).click(function() {
-      //   notice.pnotify_remove();
-      //
-      //   if (onClick) {
-      //     onClick();
-      //   }
-      // });
     },
   },
 };

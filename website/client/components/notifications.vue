@@ -240,10 +240,10 @@ export default {
           this.$root.$emit('show::modal', 'new-stuff');
         }
 
-        // if (!this.user.flags.welcomed) {
+        if (!this.user.flags.welcomed) {
           this.$store.state.avatarEditorOptions.editingUser = false;
           this.$root.$emit('show::modal', 'avatar-modal');
-        // }
+        }
 
         // @TODO: This is a timeout to ensure dom is loaded
         window.setTimeout(() => {

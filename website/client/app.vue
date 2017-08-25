@@ -1,6 +1,6 @@
 <template lang="pug">
 #app(:class='{"casting-spell": castingSpell}')
-  notifications
+  snackbars
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
     #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
@@ -19,6 +19,16 @@
   .casting-spell {
     cursor: crosshair;
   }
+
+  .notification {
+    border-radius: 1000px;
+    background-color: #24cc8f;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    padding: .5em 1em;
+    color: #fff;
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
 </style>
 
 <style>
@@ -34,6 +44,7 @@ import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
+import snackbars from './components/snackbars/notifications';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -43,6 +54,7 @@ export default {
     AppHeader,
     AppFooter,
     notificationsDisplay,
+    snackbars,
   },
   data () {
     return {

@@ -663,7 +663,6 @@ import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
-import goldDiamond from 'assets/svg/gold-diamond.svg';
 import pin from 'assets/svg/pin.svg';
 import { isPinned } from 'common/script/ops/pinnedGearUtils';
 
@@ -704,7 +703,7 @@ let tasksByCategory = {
       notes: '(ADD) Notes: Tap to add a checklist!',
     },
   ],
-  health_wellness: [
+  health_wellness: [ // eslint-disable-line
     {
       type: 'habit',
       text: 'Eat Health/Junk Food',
@@ -740,7 +739,7 @@ let tasksByCategory = {
       notes: '(ADD) [Notes: Tap to name the assignment and choose a due date!]',
     },
   ],
-  self_care: [
+  self_care: [ // eslint-disable-line
     {
       type: 'habit',
       text: 'Take a short break',
@@ -820,7 +819,6 @@ export default {
         backgroundsIcon,
         gem,
         pin,
-        goldDiamond,
       }),
       modalPage: 1,
       activeTopPage: 'body',
