@@ -76,33 +76,14 @@
           p.span
             span {{ $t('marketing4Lead3-3') }}
             a.btn.btn-primary(href='/static/videos') {{ $t('watchVideos') }}
-      // hr
-        p {{ $t('landingp1') }}
-        h2 {{ $t('landingp2header') }}
-        p {{ $t('landingp2') }}
-        h2 {{ $t('landingp3header') }}
-        p  {{ $t('landingp3') }}
-        h2 {{ $t('landingp4header') }}
-        p {{ $t('landingp4') }}
-        h2 {{ $t('landingend') }}
-        p(v-markdown='$t("landingend2")')
-
+    app-footer
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/static.scss';
 
   .btn {
     margin-left: 1em;
-  }
-
-  .container-fluid {
-    margin-top: 56px;
-  }
-
-  h1, h2 {
-    margin-top: 0.5em;
-    color: $purple-200;
   }
 
   img {
@@ -110,19 +91,16 @@
     margin: 0.5em;
     max-width: 500px;
   }
-
-  p {
-    font-size: 16px;
-  }
-
 </style>
 
 <script>
+  import AppFooter from 'client/components/appFooter';
   import markdownDirective from 'client/directives/markdown';
   import StaticHeader from './header.vue';
 
   export default {
     components: {
+      AppFooter,
       StaticHeader,
     },
     directives: {
