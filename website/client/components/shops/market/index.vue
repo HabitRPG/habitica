@@ -150,9 +150,12 @@
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
+            template(slot="itemImage", scope="scope")
+              span.svg-icon.inline.icon-48(v-if="scope.item.key == 'gem'", v-html="icons.gem")
+
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                v-if="item.purchaseType !== 'card'",
+                v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
@@ -230,8 +233,7 @@
         priceType="gold",
         :withPin="true",
         @change="resetGearToBuy($event)",
-        @buyPressed="buyGear($event)",
-        @togglePinned="togglePinned($event)"
+        @togglePinned="togglePinned($event)",
       )
         template(slot="item", scope="ctx")
           div
@@ -250,14 +252,16 @@
         :item="selectedItemToBuy",
         :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
         @change="resetItemToBuy($event)",
-        @buyPressed="buyItem($event)",
-        @togglePinned="togglePinned($event)"
+        @togglePinned="togglePinned($event)",
+        @buyPressed="purchaseCallback($event)",
+        :genericPurchase="selectedItemToBuy != null && selectedItemToBuy.key != 'rebirth_orb'"
       )
         template(slot="item", scope="ctx")
           item.flat.bordered-item(
             :item="ctx.item",
             :itemContentClass="ctx.item.class",
-            :showPopover="false"
+            :showPopover="false",
+            v-if="ctx.item.key != 'gem'"
           )
 
       selectMembersModal(
@@ -305,6 +309,10 @@
   .icon-12 {
     width: 12px;
     height: 12px;
+  }
+  .icon-48 {
+    width: 48px;
+    height: 48px;
   }
 
   .hand-cursor {
@@ -409,6 +417,7 @@
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
   import svgWizard from 'assets/svg/wizard.svg';
@@ -475,6 +484,7 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          gem: svgGem,
           information: svgInformation,
           warrior: svgWarrior,
           wizard: svgWizard,
@@ -528,9 +538,50 @@ export default {
             items: _map(_filter(this.content.cardTypes, (value) => {
               return value.yearRound;
             }), (value) => {
-              return getItemInfo(this.user, 'card', value);
+              return {
+                ...getItemInfo(this.user, 'card', value),
+                showCount: false,
+              };
             }),
           });
+
+          let specialItems = [];
+
+          if (this.user.purchased.plan.customerId) {
+            specialItems.push({
+              showCount: false,
+              key: 'gem',
+              class: 'gem',
+              pinKey: 'gems',
+              purchaseType: 'gems',
+              text: this.$t('subGemName'),
+              notes: this.$t('subGemPop'),
+              currency: 'gold',
+              value: 20,
+            });
+          }
+
+          if (this.user.flags.rebirthEnabled) {
+            specialItems.push({
+              showCount: false,
+              key: 'rebirth_orb',
+              class: 'rebirth_orb',
+              purchaseType: 'rebirth_orb',
+              text: this.$t('rebirthName'),
+              notes: this.$t('rebirthPop'),
+              currency: 'gems',
+              value: this.user.stats.lvl < 100 ? 6 : '',
+            });
+          }
+
+          if (specialItems.length > 0) {
+            categories.push({
+              identifier: 'special',
+              text: this.$t('special'),
+              items: specialItems,
+            });
+          }
+
           categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
@@ -655,7 +706,9 @@ export default {
           return !this.userItems.gear.owned[gear.key];
         });
 
-        result = _sortBy(result, [sortGearTypeMap[sortBy]]);
+        // first all unlocked
+        // then the selected sort
+        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[sortBy]]);
 
         return result;
       },
@@ -735,12 +788,6 @@ export default {
           this.$parent.showUnpinNotification(item);
         }
       },
-      buyGear (item) {
-        this.$store.dispatch('shops:buyItem', {key: item.key});
-      },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      },
       itemSelected (item) {
         if (item.purchaseType === 'card') {
           if (this.user.party._id) {
@@ -760,6 +807,12 @@ export default {
       memberSelected (member) {
         this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
         this.selectedCardToBuy = null;
+      },
+      async purchaseCallback (item) {
+        if (item.key === 'rebirth_orb') {
+          await this.$store.dispatch('user:rebirth');
+          window.location.reload(true);
+        }
       },
     },
     created () {

@@ -86,6 +86,11 @@ export default {
     mp (val) {
       this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
+    purchased (itemName) {
+      this.notify(this.$t('purchasedItem', {
+        itemName,
+      }));
+    },
     streak (val) {
       this.notify(`${this.$t('streaks')}: ${val}`, 'streak', 'glyphicon glyphicon-repeat');
     },

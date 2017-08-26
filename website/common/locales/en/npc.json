@@ -70,6 +70,7 @@
   "wrongItemType": "The item type \"<%= type %>\" is not valid.",
   "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
   "cannotUnpinArmoirPotion": "The Health Potion and Enchanted Armoire cannot be unpinned.",
+  "purchasedItem": "You bought <%= itemName %>",
 
   "ian": "Ian",
   "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
