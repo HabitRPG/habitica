@@ -26,7 +26,7 @@
     "commGuidePara011b": "GitHub/Wikiaで",
     "commGuidePara011c": "Wikiaで",
     "commGuidePara011d": "GitHubで",
-    "commGuidePara012": "特定のモデレーターに問題があったり、検討を要する場合は、レモネス (<%= hrefCommunityManagerEmail %>) あてのメールでお知らせください。",
+    "commGuidePara012": "特定のモデレーターに問題があったり、検討を要する場合は、Lemoness (<%= hrefCommunityManagerEmail %>) あてのメールでお知らせください。",
     "commGuidePara013": "Habitica ほどの大きいコミュニティでは、ユーザーの出入りがあり、モデレーターにも聖なる外とうを脱いで心を解き放つことが必要なときがあります。以下は退任した名誉モデレーターたちです。彼らにはもうモデレーターとしての力はもっていませんが、残した業績に敬意を表します。",
     "commGuidePara014": "名誉モデレーター : ",
     "commGuideHeadingPublicSpaces": "Habitica 上でのオープンな場所",
