@@ -7,10 +7,10 @@
     "losingHealthWarning": "Vigyázz - életerőt vesztesz!",
     "losingHealthWarning2": "Ne hagyd, hogy az életerőd elérje a nullát! Ha mégis eléri, elvesztesz egy szintet, az aranyad és egy darab felszerelési tárgyat.",
     "toRegainHealth": "Hogy visszanyerd az életerőd:",
-    "lowHealthTips1": "Lépj szintet a teljes gyógyúláshoz!",
+    "lowHealthTips1": "Lépj szintet a teljes gyógyuláshoz!",
     "lowHealthTips2": "Vásárolj gyógyitalt a jutalmak közül, hogy visszatölts 15 életerő pontot.",
     "losingHealthQuickly": "Gyorsan fogy az életerőd?",
-    "lowHealthTips3": "A kihagyott napi feladatok az éjszaka folyamán megsebeznek téged, vigyázz, hogy ne adj túl sok feladatot hozzá az elején!",
+    "lowHealthTips3": "A kihagyott napi feladatok az éjszaka folyamán sebzést okoznak, tehát vigyázz, hogy először ne hozz létre túl sok feladatot!",
     "lowHealthTips4": "Ha egy napi feladatot nem kell bizonyos napokon elvégezned, kikapcsolhatod őket, a ceruza ikonra kattintva.",
     "goodLuck": "Sok szerencsét!",
     "cannotRevive": "Nem támasztható fel, ha nem halott"
