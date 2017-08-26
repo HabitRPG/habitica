@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   yesterdaily-modal(:yesterDailies='yesterDailies')
+  armoire-empty
   new-stuff
   death
   low-health
@@ -18,6 +19,9 @@ div
   joined-guild
   joined-challenge
   invited-friend
+  login-incentives(:data='notificationData')
+  quest-completed
+  quest-invitation
 </template>
 
 <script>
@@ -51,6 +55,7 @@ import rebirth from './achievements/rebirth';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
+import loginIncentives from './achievements/login-incentives';
 
 export default {
   mixins: [notifications, guide],
@@ -77,6 +82,7 @@ export default {
     rebirthEnabled,
     dropsEnabled,
     contributor,
+    loginIncentives,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -92,6 +98,7 @@ export default {
 
     return {
       yesterDailies: [],
+      notificationData: {},
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
@@ -229,11 +236,11 @@ export default {
   async mounted () {
     Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
       .then(() => {
-        let { created, loggedin } = this.user.auth.timestamps;
-        let createdDate = moment(created);
-        let loggedinDate = moment(loggedin);
+        if (this.user.flags.newStuff) {
+          this.$root.$emit('show::modal', 'new-stuff');
+        }
 
-        if (!this.user.flags.welcomed && !createdDate.isBefore(loggedinDate)) {
+        if (!this.user.flags.welcomed) {
           this.$store.state.avatarEditorOptions.editingUser = false;
           this.$root.$emit('show::modal', 'avatar-modal');
         }
@@ -274,7 +281,7 @@ export default {
       if (this.yesterDailies.length === 0) {
         this.isRunningYesterdailies = false;
         await axios.post('/api/v3/cron');
-        this.handleUserNotifications(this.user);
+        this.handleUserNotifications(this.user.notifications);
         return;
       }
 
@@ -285,7 +292,7 @@ export default {
       this.user.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
-      if (!after || after.length === 0) return;
+      if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       let notificationsToRead = [];
       let scoreTaskNotification = [];
@@ -389,7 +396,8 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            //  @TODO: Notification.showLoginIncentive(this.user, notification.data, Social.loadWidgets);
+            this.notificationData = notification.data;
+            this.$root.$emit('show::modal', 'login-incentives');
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {

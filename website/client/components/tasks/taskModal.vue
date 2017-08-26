@@ -226,21 +226,25 @@
     .difficulty-trivial-icon {
       width: 16px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-normal-icon {
       width: 36px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-medium-icon {
       width: 36px;
       height: 32px;
+      color: #A5A1AC;
     }
 
     .difficulty-hard-icon {
       width: 36px;
       height: 36px;
+      color: #A5A1AC;
     }
 
     .option {
@@ -413,7 +417,7 @@ export default {
   },
   watch: {
     async task () {
-      if (this.groupId && this.task.group && this.task.group.approval.required) {
+      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
         this.requiresApproval = true;
       }
 
@@ -426,7 +430,8 @@ export default {
         this.members.forEach(member => {
           this.memberNamesById[member._id] = member.profile.name;
         });
-        this.assignedMembers = this.task.group.assignedUsers;
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
       }
     },
   },

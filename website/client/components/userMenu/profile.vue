@@ -1,186 +1,190 @@
 <template lang="pug">
-b-modal#profile(title="Profile", size='lg', :hide-footer="true")
-  .row
-    .col-6.offset-3.text-center.nav
-      .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
-      .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
-      .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
-  .standard-page(v-show='selectedPage === "profile"')
+div
+  b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     .row
-      .col-8
-        .header
-          h1 {{user.profile.name}}
-          h4
-            strong User Id:
-            | {{user._id}}
-      .col-4
-        button.btn.btn-secondary(@click='editing = !editing') Edit
-    .row(v-if='!editing')
-      .col-8
-        .about
-          h2 About
-          p {{user.profile.blurb}}
-        .photo
-          h2 Photo
-          img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
+      .col-6.offset-3
+        button.btn.btn-secondary(@click='sendMessage()') Message
+    .row
+      .col-6.offset-3.text-center.nav
+        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
+        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
+        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
+    .standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
+      .row
+        .col-8
+          .header
+            h1 {{user.profile.name}}
+            h4
+              strong User Id:
+              | {{user._id}}
+        .col-4
+          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') Edit
+      .row(v-if='!editing')
+        .col-8
+          .about
+            h2 About
+            p {{user.profile.blurb}}
+          .photo
+            h2 Photo
+            img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
 
-      .col-4
-        .info
-          h2 info
-          div
-            strong Joined:
-            | {{user.auth.timestamps.created}}
-          div
-            strong Total Log Ins:
-            span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
-          div
-            | {{getProgressDisplay()}}
-            .progress
-              .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-                span.sr-only {{ incentivesProgress }}% Complete
-        // @TODO: Implement in V2 .social
+        .col-4
+          .info
+            h2 info
+            div
+              strong Joined:
+              | {{user.auth.timestamps.created}}
+            div
+              strong Total Log Ins:
+              span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
+            div
+              | {{getProgressDisplay()}}
+              .progress
+                .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
+                  span.sr-only {{ incentivesProgress }}% Complete
+          // @TODO: Implement in V2 .social
 
-    .row(v-if='editing')
-      h1 Edit Profile
-      .col-12
-        .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
+      .row(v-if='editing')
+        h1 Edit Profile
+        .col-12
+          .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
 
-        // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
-        .form-group
-          label {{ $t('displayName') }}
-          input.form-control(type='text', :placeholder="$t('fullName')", v-model='editingProfile.name')
-        .form-group
-          label {{ $t('photoUrl') }}
-          input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
-        .form-group
-          label {{ $t('about') }}
-          textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
-          // include ../../shared/formatting-help
-        .form-group
-          label Facebook
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
-        .form-group
-          label Instagram
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
-        .form-group
-          label Twitter
-          input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
+          // TODO use photo-upload instead: https://groups.google.com/forum/?fromgroups=#!topic/derbyjs/xMmADvxBOak
+          .form-group
+            label {{ $t('displayName') }}
+            input.form-control(type='text', :placeholder="$t('fullName')", v-model='editingProfile.name')
+          .form-group
+            label {{ $t('photoUrl') }}
+            input.form-control(type='url', v-model='editingProfile.imageUrl', :placeholder="$t('imageUrl')")
+          .form-group
+            label {{ $t('about') }}
+            textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
+            // include ../../shared/formatting-help
+          .form-group
+            label Facebook
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
+          .form-group
+            label Instagram
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
+          .form-group
+            label Twitter
+            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
 
-      .col-3.offset-6.text.center
-        button.btn.btn-primary(@click='save()') {{ $t("save") }}
-        button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
-  .standard-page.container(v-show='selectedPage === "achievements"')
-    .row(v-for='(category, key) in achievements')
-      h2.col-12 {{ $t(key+'Achievs') }}
-      .col-3.text-center(v-for='achievment in category.achievements')
-        div.achievement-container(:data-popover-html='achievment.title + achievment.text',
-          popover-placement='achievPopoverPlacement',
-          popover-append-to-body='achievAppendToBody')
-          div(popover-trigger='mouseenter',
-            :data-popover-html='achievment.title + achievment.text',
+        .col-3.offset-6.text.center
+          button.btn.btn-primary(@click='save()') {{ $t("save") }}
+          button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
+    .standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
+      .row(v-for='(category, key) in achievements')
+        h2.col-12 {{ $t(key+'Achievs') }}
+        .col-3.text-center(v-for='achievment in category.achievements')
+          div.achievement-container(:data-popover-html='achievment.title + achievment.text',
             popover-placement='achievPopoverPlacement',
             popover-append-to-body='achievAppendToBody')
-              .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
-               .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-              .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
-    .row
-      .col-6
-        h2 Challeges Won
-        div(v-for='chal in user.achievements.challenges')
-          span {{chal}}
-      .col-6
-        h2 Quests Completed
-        div(v-for='(value, key) in user.achievements.quests')
-          span {{ content.quests[key].text() }}
-          span {{ value }}
-  .standard-page(v-show='selectedPage === "stats"')
-    .row
-      .col-6
-        h2.text-center Equipment
-        // user.items.gear.equipped
-        .well
-          .col-4.item-wrapper
-            .box
-            h3 Eyewear
-          .col-4.item-wrapper
-            .box
-            h3 Head Gear
-          .col-4.item-wrapper
-            .box
-            h3 Head Access.
-          .col-4.item-wrapper
-            .box
-            h3 Back Access.
-          .col-4.item-wrapper
-            .box
-            h3 Armor
-          .col-4.item-wrapper
-            .box
-            h3 Body Access.
-          .col-4.item-wrapper
-            .box
-            h3 Main-Hand
-          .col-4.item-wrapper
-          .col-4.item-wrapper
-            .box
-            h3 Off-Hand
-      .col-6
-        h2.text-center Costume
-        // user.items.gear.costume
-        .well
-          .col-4.item-wrapper
-            .box
-            h3 Eyewear
-          .col-4.item-wrapper
-            .box
-            h3 Head Gear
-          .col-4.item-wrapper
-            .box
-            h3 Head Access.
-          .col-4.item-wrapper
-            .box
-            h3 Back Access.
-          .col-4.item-wrapper
-            .box
-            h3 Armor
-          .col-4.item-wrapper
-            .box
-            h3 Body Access.
-          .col-4.item-wrapper
-            .box
-            h3 Main-Hand
-          .col-4.item-wrapper
-            .box
-            h3 Background {{ user.preferences.background }}
-          .col-4.item-wrapper
-            .box
-            h3 Off-Hand
-    .row
-      .col-6
-        h2.text-center(v-once) {{ $t('pets') }}
-        ul
-          li(ng-if='user.items.currentPet')
-            | {{ $t('activePet') }}:
-            | {{ formatAnimal(user.items.currentPet, 'pet') }}
-          li
-            | {{ $t('petsFound') }}:
-            | {{ totalCount(user.items.pets) }}
-          li
-            | {{ $t('beastMasterProgress') }}:
-            | {{ beastMasterProgress(user.items.pets) }}
-      .col-6
-        h2.text-center(v-once) {{ $t('mounts') }}
-        ul
-          li(v-if='user.items.currentMount')
-            | {{ $t('activeMount') }}:
-            | {{ formatAnimal(user.items.currentMount, 'mount') }}
-          li
-            | {{ $t('mountsTamed') }}:
-            | {{ totalCount(user.items.mounts) }}
-          li
-            | {{ $t('mountMasterProgress') }}:
-            | {{ mountMasterProgress(user.items.mounts) }}
-    .row#attributes
+            div(popover-trigger='mouseenter',
+              :data-popover-html='achievment.title + achievment.text',
+              popover-placement='achievPopoverPlacement',
+              popover-append-to-body='achievAppendToBody')
+                .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
+                 .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
+                .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
+      .row
+        .col-6(v-if='user.achievements.challenges')
+          h2 Challeges Won
+          div(v-for='chal in user.achievements.challenges')
+            span {{chal}}
+        .col-6(v-if='user.achievements.quests')
+          h2 Quests Completed
+          div(v-for='(value, key) in user.achievements.quests')
+            span {{ content.quests[k].text() }}
+            span {{ value }}
+    .standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
+      .row
+        .col-6
+          h2.text-center Equipment
+          // user.items.gear.equipped
+          .well
+            .col-4.item-wrapper
+              .box
+              h3 Eyewear
+            .col-4.item-wrapper
+              .box
+              h3 Head Gear
+            .col-4.item-wrapper
+              .box
+              h3 Head Access.
+            .col-4.item-wrapper
+              .box
+              h3 Back Access.
+            .col-4.item-wrapper
+              .box
+              h3 Armor
+            .col-4.item-wrapper
+              .box
+              h3 Body Access.
+            .col-4.item-wrapper
+              .box
+              h3 Main-Hand
+            .col-4.item-wrapper
+            .col-4.item-wrapper
+              .box
+              h3 Off-Hand
+        .col-6
+          h2.text-center Costume
+          // user.items.gear.costume
+          .well
+            .col-4.item-wrapper
+              .box
+              h3 Eyewear
+            .col-4.item-wrapper
+              .box
+              h3 Head Gear
+            .col-4.item-wrapper
+              .box
+              h3 Head Access.
+            .col-4.item-wrapper
+              .box
+              h3 Back Access.
+            .col-4.item-wrapper
+              .box
+              h3 Armor
+            .col-4.item-wrapper
+              .box
+              h3 Body Access.
+            .col-4.item-wrapper
+              .box
+              h3 Main-Hand
+            .col-4.item-wrapper
+              .box
+              h3 Background {{ user.preferences.background }}
+            .col-4.item-wrapper
+              .box
+              h3 Off-Hand
+      .row
+        .col-6
+          h2.text-center(v-once) {{ $t('pets') }}
+          ul
+            li(ng-if='user.items.currentPet')
+              | {{ $t('activePet') }}:
+              | {{ formatAnimal(user.items.currentPet, 'pet') }}
+            li
+              | {{ $t('petsFound') }}:
+              | {{ totalCount(user.items.pets) }}
+            li
+              | {{ $t('beastMasterProgress') }}:
+              | {{ beastMasterProgress(user.items.pets) }}
+        .col-6
+          h2.text-center(v-once) {{ $t('mounts') }}
+          ul
+            li(v-if='user.items.currentMount')
+              | {{ $t('activeMount') }}:
+              | {{ formatAnimal(user.items.currentMount, 'mount') }}
+            li
+              | {{ $t('mountsTamed') }}:
+              | {{ totalCount(user.items.mounts) }}
+            li
+              | {{ $t('mountMasterProgress') }}:
+              | {{ mountMasterProgress(user.items.mounts) }}
+      .row#attributes
       hr.col-12
       h2.col-12 Attributes
       .row.col-6(v-for="(statInfo, stat) in stats")
@@ -206,14 +210,7 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
             li
               strong Buffs:
               | {{user.stats.buffs[stat]}}
-      // @TODO: Implement .col-4(v-if='user.flags.classSelected && !user.preferences.disableClasses')
-          h3(v-once) {{ $t('characterBuild') }}
-          h4(v-once) {{ $t('class') + ': ' }}
-            span {{ classText }}&nbsp;
-            button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-            small.cost 3
-              span.Pet_Currency_Gem1x.inline-gems
-
+      // @TODO: Implement
           div
             div
               p(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
@@ -256,6 +253,11 @@ b-modal#profile(title="Profile", size='lg', :hide-footer="true")
               .col-4(v-if='user.stats.points', @click='allocate(stat)')
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
                   :popover='$t(statInfo.allocatepop)') +
+
+    // @TODO: Make separate componenet
+    b-modal#private-message(title="Message", size='sm', :hide-footer="true")
+      textarea.form-control(v-model='privateMessage')
+      button.btn.btn-primary(@click='sendPrivateMessage()') Send
 </template>
 
 <style lang="scss" scoped>
@@ -331,7 +333,6 @@ import keys from 'lodash/keys';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
-import changeClass from  '../../../common/script/ops/changeClass';
 import allocate from  '../../../common/script/ops/allocate';
 
 import achievementsLib from '../../../common/script/libs/achievements';
@@ -347,6 +348,8 @@ export default {
   },
   data () {
     return {
+      userIdToMessage: '',
+      privateMessage: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -385,16 +388,29 @@ export default {
       },
     };
   },
-  mounted () {
-    this.editingProfile.name = this.user.profile.name;
-    this.editingProfile.imageUrl = this.user.profile.imageUrl;
-    this.achievements = achievementsLib.getAchievementsForProfile(this.user);
-  },
   computed: {
     ...mapState({
-      user: 'user.data',
+      userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
+    user () {
+      let user = this.userLoggedIn;
+
+      let profileUser = this.$store.state.profileUser;
+      if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
+        user = profileUser;
+      }
+
+      this.editingProfile.name = user.profile.name;
+      this.editingProfile.imageUrl = user.profile.imageUrl;
+
+      if (!user.achievements.quests) user.achievements.quests = {};
+      if (!user.achievements.challenges) user.achievements.challenges = {};
+      // @TODO: this common code should handle the above
+      this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+      return user;
+    },
     incentivesProgress () {
       return this.getIncentivesProgress();
     },
@@ -416,6 +432,20 @@ export default {
     },
   },
   methods: {
+    sendMessage () {
+      this.userIdToMessage = this.user._id;
+      this.$root.$emit('show::modal', 'private-message');
+    },
+    async sendPrivateMessage () {
+      if (!this.privateMessage || !this.userIdToMessage) return;
+
+      await this.$store.dispatch('members:sendPrivateMessage', {
+        message: this.privateMessage,
+        toUserId: this.userIdToMessage,
+      });
+      alert(this.$t('messageSentAlert'));
+      // @TODO: Notification.text(window.env.t('messageSentAlert'));
+    },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');
@@ -471,7 +501,8 @@ export default {
       if (bg.hasOwnProperty(background)) {
         return `${bg[background].text()} (${this.$t(bg[background].set.text)})`;
       }
-      return window.env.t('noBackground');
+
+      return this.$t('noBackground');
     },
     totalCount (objectToCount) {
       let total = size(objectToCount);
@@ -492,9 +523,6 @@ export default {
     formatOutOfTotalDisplay (stat, totalStat) {
       let display = `${stat}/${totalStat}`;
       return display;
-    },
-    changeClass () {
-      changeClass(this.user);
     },
     allocate (stat) {
       allocate(this.user, stat);

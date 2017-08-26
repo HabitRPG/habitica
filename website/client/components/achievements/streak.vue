@@ -1,19 +1,17 @@
 <template lang="pug">
-  b-modal#streak(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content(style='min-width:28em')
+  b-modal#streak(:title="$t('streakAchievement')", size='md', :hide-footer="true")
     .modal-body.text-center
-      h3(style='margin-bottom: 0') {{ $t('streakAchievement') }}
       // @TODO: +achievementAvatar('thermometer',2.5)
       achievement-avatar
-      h4(ng-if='user.achievements.streak === 1') {{ $t('firstStreakAchievement') }}
-      h4(ng-if='user.achievements.streak > 1') {{ $t('streakAchievementCount', {streaks: user.achievements.streak}) }}
+      h3(v-if='user.achievements.streak === 1') {{ $t('firstStreakAchievement') }}
+      h3(v-if='user.achievements.streak > 1') {{ $t('streakAchievementCount', {streaks: user.achievements.streak}) }}
       p {{ $t('twentyOneDays') }}
       p {{ $t('dontBreakStreak') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('dontStop') }}
       .checkbox
-        label(style='display:inline-block') {{ $t('dontShowAgain') }}
-          input(type='checkbox', ng-model='user.preferences.suppressModals.streak', ng-change='set({"preferences.suppressModals.streak": user.preferences.suppressModals.streak?true: false})')
+        input(type='checkbox', v-model='user.preferences.suppressModals.streak', @change='suppressModals')
+        label {{ $t('dontShowAgain') }}
     achievement-footer
 </template>
 
@@ -42,6 +40,10 @@ export default {
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'streak');
+    },
+    suppressModals () {
+      let surpress = this.user.preferences.suppressModals.streak ? true : false;
+      this.$store.dispatch('user:set', {'preferences.suppressModals.streak': surpress});
     },
   },
 };

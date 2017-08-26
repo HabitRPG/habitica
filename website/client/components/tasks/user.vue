@@ -64,7 +64,7 @@
             | {{ $t('create') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
             span.dropdown-icon-item(v-once)
-              span.svg-icon.inline(v-html="icons[type]")
+              span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')
               span.text {{$t(type)}}
 
     .row.tasks-columns
@@ -142,16 +142,33 @@
   }
 
   .dropdown-icon-item .svg-icon {
-    width: 22px;
     color: #C3C0C7;
   }
 
-  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
-    color: $purple-500;
+  .dropdown-icon-item {
+      .icon_habit {
+        width: 30px;
+        height: 20px;
+      }
+
+      .icon_daily {
+        width: 24px;
+        height: 20px;
+      }
+
+      .icon_todo {
+        width: 20px;
+        height: 20px;
+      }
+
+      .icon_reward {
+        width: 26px;
+        height: 20px;
+      }
   }
 
-  .dropdown-icon-item .text {
-    font-weight: bold;
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+    color: #4f2a93;
   }
 
   button.btn.btn-secondary.filter-button {

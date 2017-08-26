@@ -1,13 +1,11 @@
 <template lang="pug">
-  b-modal#rebirth(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content(style='min-width:28em')
+  b-modal#rebirth(:title="$t('modalAchievement')", size='md', :hide-footer="true")
     .modal-body.text-center
-      h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('sun',0)
       achievement-avatar
-      div(ng-if='user.achievements.rebirthLevel < 100')
+      div(v-if='user.achievements.rebirthLevel < 100')
         | {{ $t('rebirthAchievement', {number: user.achievements.rebirths, level: user.achievements.rebirthLevel}) }}
-      div(ng-if='user.achievements.rebirthLevel >= 100')
+      div(v-if='user.achievements.rebirthLevel >= 100')
         | {{ $t('rebirthAchievement100', {number: user.achievements.rebirths}) }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}

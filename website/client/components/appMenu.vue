@@ -2,6 +2,7 @@
 div
   inbox-modal
   creator-intro
+  profile
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
@@ -32,7 +33,7 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        .nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/group-plans')}")
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
           a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
@@ -67,7 +68,7 @@ div
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
+          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('messages') }}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
           router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
@@ -231,12 +232,14 @@ import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
 import creatorIntro from './creatorIntro';
+import profile from './userMenu/profile';
 
 export default {
   components: {
     InboxModal,
     notificationMenu,
     creatorIntro,
+    profile,
   },
   data () {
     return {

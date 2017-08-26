@@ -1,10 +1,8 @@
 <template lang="pug">
   b-modal#testing(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content
     .modal-body.text-center
-      h3 {{ $t('guildReminderTitle') }}
       br
-      .scene_guilds.center-block
+      .scene_guilds
       br
       h4 {{ $t('guildReminderText1') }}
     .modal-footer
@@ -13,12 +11,12 @@
           .col-6.text-center
             button.btn.btn-secondary(@click='close()') {{ $t('guildReminderDismiss') }}
           .col-6.text-center(@click='close()')
-            router-link.btn.btn-primary(:to="{ name: 'guildsDiscovery'}") {{ $t('guildReminderCTA') }}
+            .btn.btn-primary(@click='takeMethere()') {{ $t('guildReminderCTA') }}
 </template>
 
 <style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
+  .scene_guilds {
+    margin: 0 auto;
   }
 </style>
 
@@ -32,6 +30,10 @@ export default {
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'testing');
+    },
+    takeMethere () {
+      this.$router.push('/groups/discovery');
+      this.close();
     },
   },
 };

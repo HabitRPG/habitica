@@ -289,6 +289,9 @@ export default {
       groupId: this.groupId,
     });
 
+    let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
+    this.group.members = members;
+
     let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
       groupId: this.groupId,
     });

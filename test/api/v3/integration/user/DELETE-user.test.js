@@ -86,6 +86,12 @@ describe('DELETE /user', () => {
     });
 
     it('deletes the user\'s tasks', async () => {
+      await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+      await user.sync();
+
       // gets the user's tasks ids
       let ids = [];
       each(user.tasksOrder, (idsForOrder) => {

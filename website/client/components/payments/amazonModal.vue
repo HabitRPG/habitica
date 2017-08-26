@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'client/libs/store';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -37,6 +38,9 @@ export default {
       amazonPaymentspaymentSelected: false,
       amazonPaymentsrecurringConsent: 'false',
     };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
   },
   mounted () {
     // @TODO:
@@ -202,6 +206,7 @@ export default {
         if (newGroup && newGroup._id) {
           // @TODO: Just append? or $emit?
           this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+          this.user.guilds.push(newGroup._id);
           return;
         }
 

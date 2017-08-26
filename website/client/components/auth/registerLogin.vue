@@ -70,7 +70,7 @@
     min-height: 100%;
   }
 
-  small a {
+  small a, small a:hover {
     color: #fff;
     text-decoration: underline;
   }

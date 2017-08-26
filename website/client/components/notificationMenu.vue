@@ -9,25 +9,25 @@ div.item-with-icon.item-notifications.dropdown
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='party in user.invitations.parties')
+    a.dropdown-item(v-for='(party, index) in user.invitations.parties')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: party.name}) }}
       div
-        span(@click='accept(party)') Accept
-        span(@click='reject(party)') Reject
+        button.btn.btn-primary(@click='accept(party, index, "party")') Accept
+        button.btn.btn-primary(@click='reject(party, index, "party")') Reject
     a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
       a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
-    a.dropdown-item(v-for='guild in user.invitations.guilds')
+    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: guild.name}) }}
       div
-        span(@click='accept(guild)') Accept
-        span(@click='reject(guild)') Reject
+        button.btn.btn-primary(@click='accept(guild, index, "guild")') Accept
+        button.btn.btn-primary(@click='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
@@ -35,7 +35,8 @@ div.item-with-icon.item-notifications.dropdown
     a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value', @click='navigateToGroup(key)')
       span.glyphicon.glyphicon-comment
       span {{message.name}}
-      a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+      span.clear-button(@click='clearMessages(k)', :popover="$t('clear')",
+        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
       span
@@ -50,6 +51,10 @@ div.item-with-icon.item-notifications.dropdown
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .clear-button {
+    margin-left: .5em;
+  }
 
   .item-notifications {
     width: 44px;
@@ -273,13 +278,28 @@ export default {
       await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
       // @TODO: User.sync();
     },
-    async accept (group) {
+    async accept (group, index, type) {
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
+
+      if (type === 'party') {
+        // @TODO: pretty sure mutability is wrong. Need to check React docs
+        this.user.invitations.party.splice(index, 1);
+      } else {
+        this.user.invitations.guilds.splice(index, 1);
+      }
+
+      if (type === 'party') {
+        this.user.party._id = group.id;
+        this.$router.push('/groups/party');
+      } else {
+        this.user.guilds.push(group.id);
+        this.$router.push(`/groups/guild/${group.id}`);
+      }
+
       // @TODO: check for party , type: 'myGuilds'
       await this.$store.dispatch('guilds:join', {guildId: group.id});
-      // this.user.guilds.push(this.group._id);
     },
   },
 };

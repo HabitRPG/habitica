@@ -41,12 +41,6 @@ div
               .svg-icon.inline(v-html="icons.removeIcon")
               span.text {{$t('removeManager2')}}
     .row.gradient(v-if='members.length > 3')
-
-  b-modal#remove-member(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
-
-  b-modal#private-message(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 </template>
 
 <style lang='scss' scoped>

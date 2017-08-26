@@ -22,7 +22,6 @@ export default {
         intro: [
           [
             {
-              element: '.tasks-columns',
               intro: this.$t('introTour'),
               scrollTo: 'tooltip',
             },

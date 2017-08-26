@@ -26,10 +26,10 @@
           .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
-             span.timeago {{conversation.date}}
+             span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
-        chat-message.container-fluid(:chat.sync='activeChat')
+        chat-message.container-fluid(:chat.sync='activeChat', :inbox='true')
 
         // @TODO: Implement new message header here when we fix the above
 
@@ -130,7 +130,7 @@
 <script>
 import moment from 'moment';
 import filter from 'lodash/filter';
-import sortBy from 'lodash/sortBy';
+// import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
@@ -159,6 +159,11 @@ export default {
       activeChat: [],
     };
   },
+  filters: {
+    timeAgo (value) {
+      return moment(new Date(value)).fromNow();
+    },
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     conversations () {
@@ -185,7 +190,7 @@ export default {
           timestamp: message.timestamp,
         });
         conversations[userId].lastMessageText = message.text;
-        conversations[userId].date = moment(new Date(message.timestamp)).fromNow();
+        conversations[userId].date = message.timestamp;
       }
 
       return conversations;
@@ -207,10 +212,12 @@ export default {
     },
     selectConversation (key) {
       this.selectedConversation = key;
-      this.activeChat = this.conversations[this.selectedConversation].messages;
-      this.activeChat = sortBy(this.activeChat, [(o) => {
-        return o.timestamp;
-      }]);
+      let activeChat = this.conversations[this.selectedConversation].messages;
+      // @TODO: I think I did this wrong
+      // activeChat = sortBy(this.activeChat, [(o) => {
+      //   return o.timestamp;
+      // }]);
+      this.$set(this, 'activeChat', activeChat);
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {

@@ -57,6 +57,7 @@ export default {
           if (newGroup && newGroup._id) {
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            this.user.guilds.push(newGroup._id);
             return;
           }
 

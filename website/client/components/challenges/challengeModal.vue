@@ -337,6 +337,16 @@ export default {
         alert(errors);
       } else {
         this.workingChallenge.timestamp = new Date().getTime();
+        let categoryKeys = this.workingChallenge.categories;
+        let serverCategories = [];
+        categoryKeys.forEach(key => {
+          let catName = this.categoriesHashByKey[key];
+          serverCategories.push({
+            slug: key,
+            name: catName,
+          });
+        });
+        this.workingChallenge.categories = serverCategories;
 
         let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
         // @TODO: When to remove from guild instead?

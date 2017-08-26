@@ -1,9 +1,9 @@
 import shared from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
-import * as Tasks from '../task';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
+import * as Tasks from '../task';
 
 import schema from './schema';
 
@@ -34,6 +34,7 @@ function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
     defaultsData = shared.content.userDefaultsMobile;
+    user.flags.welcomed = true;
   } else {
     defaultsData = shared.content.userDefaults;
   }
@@ -51,7 +52,10 @@ function _populateDefaultTasks (user, taskTypes) {
     });
   }
 
+  // @TODO: default tasks are handled differently now, and not during registration. We should move this code
+
   let tasksToCreate = [];
+  if (user.registeredThrough === 'habitica-web') return Bluebird.all(tasksToCreate);
 
   if (tagsI !== -1) {
     taskTypes = _.clone(taskTypes);

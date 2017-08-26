@@ -133,21 +133,25 @@
   .icon-habit {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-daily {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-todo {
     width: 20px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-reward {
     width: 26px;
     height: 20px;
+    color: #A5A1AC;
   }
 </style>
 

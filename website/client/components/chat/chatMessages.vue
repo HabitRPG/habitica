@@ -7,7 +7,7 @@
   .row
     .hr.col-12
 
-  div(v-for="(msg, index) in chat", v-if='chat && Object.keys(cachedProfileData).length > 0')
+  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
@@ -143,7 +143,7 @@ import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 
 export default {
-  props: ['chat', 'groupId', 'groupName'],
+  props: ['chat', 'groupId', 'groupName', 'inbox'],
   mixins: [styleHelper],
   components: {
     copyAsTodoModal,
@@ -208,7 +208,7 @@ export default {
       // @TODO: write an explination
       if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
         this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else {
+      } else if (screenPosition) {
         return;
       }
 

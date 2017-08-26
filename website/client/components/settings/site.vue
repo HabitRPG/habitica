@@ -24,6 +24,15 @@
           option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
       hr
 
+      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+        h5 {{ $t('characterBuild') }}
+        h6(v-once) {{ $t('class') + ': ' }}
+          span {{ classText }}&nbsp;
+          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
+          small.cost 3
+            span.Pet_Currency_Gem1x.inline-gems
+      hr
+
       div
         .checkbox
           label
@@ -194,6 +203,7 @@ import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
+import changeClass from  '../../../common/script/ops/changeClass';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -361,6 +371,15 @@ export default {
       });
 
       this.$router.go('/tasks');
+    },
+    async changeClass () {
+      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+      try {
+        changeClass(this.user);
+        await axios.post('/api/v3/user/change-class');
+      } catch (e) {
+        alert(e.message);
+      }
     },
   },
 };

@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-header.row
+#app-header.row(:class="{'hide-header': $route.path.startsWith('/group-plans')}")
   create-party-modal
   members-modal(:hide-badge="true")
   member-details(:member="user")
@@ -36,6 +36,10 @@
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
+  }
+
+  .hide-header {
+    display: none;
   }
 
   .sticky {

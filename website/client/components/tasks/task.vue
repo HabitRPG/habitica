@@ -4,7 +4,7 @@
   .d-flex(:class="{'task-not-scoreable': isUser !== true}")
     // Habits left side control
     .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-      .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="isUser ? score('up') : null")
+      .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="(isUser && controlClass.up !== 'task-habit-disabled') ? score('up') : null")
         .svg-icon.positive(v-html="icons.positive")
     // Dailies and todos left side control
     .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
@@ -284,7 +284,7 @@
 
   .task-reward {
     // @TODO: I'm unsure of where this is defined. Can't find it in search. So, I am using important for now
-    background-color: rgba(255, 217, 160, 0.28) !important;
+    background-color: #ffd9a0 !important;
   }
 </style>
 

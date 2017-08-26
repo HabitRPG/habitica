@@ -1,10 +1,8 @@
 <template lang="pug">
-  b-modal#invite-friend(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content(style='min-width:28em')
+  b-modal#invited-friend(:title="$t('modalAchievement')", size='lg', :hide-footer="true")
     .modal-body.text-center
-      h3(style='margin-bottom:0') {{ $t('modalAchievement') }}
       // @TODO: +achievementAvatar('friends',0)
-      achievement-avatar
+      achievement-avatar.avatar
       p {{ $t('invitedFriendText') }}
       br
       button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
@@ -12,7 +10,9 @@
 </template>
 
 <style scope>
-  .dont-despair, .death-penalty {
+  .avatar {
+    margin-left: 10.2em;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
 </style>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'invite-friend');
+      this.$root.$emit('hide::modal', 'invited-friend');
     },
   },
 };

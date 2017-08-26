@@ -39,7 +39,8 @@
       .col-6
       .col-6
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
+          button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
+            | {{ $t('upgrade') }}
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
@@ -672,6 +673,10 @@ export default {
       // User.sync().then(function () {
       //  $rootScope.hardRedirect('/#/options/groups/party');
       // });
+    },
+    upgradeGroup () {
+      this.$store.state.upgradingGroup = this.group;
+      this.$router.push('/group-plans');
     },
     // @TODO: Move to notificatin component
     async leaveOldPartyAndJoinNewParty () {

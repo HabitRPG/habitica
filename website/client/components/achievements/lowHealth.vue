@@ -1,28 +1,29 @@
 <template lang="pug">
-  b-modal#low-health(:title="$t('losingHealthWarning')", size='lg', :hide-footer="true")
+  b-modal#low-health(:title="$t('losingHealthWarning')", size='md', :hide-footer="true")
     .modal-body
-      .hero-stats
+      .col-12.text-center
         .meter-label(:tooltip="$t('health')")
           span.glyphicon.glyphicon-heart
         .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
           .bar(:style='barStyle')
           span.meter-text.value
             | {{healthLeft}}
-      .herobox.inline-block
-        .character-sprites
-          avatar(:member='user')
-      p {{ $t('losingHealthWarning2') }}
-      h4 {{ $t('toRegainHealth') }}
-      ul
-        li.spaced {{ $t('lowHealthTips1') }}
-        li.spaced {{ $t('lowHealthTips2') }}
-      h4 {{ $t('losingHealthQuickly') }}
-      ul
-        li.spaced {{ $t('lowHealthTips3') }}
-        li.spaced {{ $t('lowHealthTips4') }}
-      h4 {{ $t('goodLuck') }}
+      .col-12
+        avatar(:member='user')
+      .col-12
+        p {{ $t('losingHealthWarning2') }}
+        h4 {{ $t('toRegainHealth') }}
+        ul
+          li.spaced {{ $t('lowHealthTips1') }}
+          li.spaced {{ $t('lowHealthTips2') }}
+        h4 {{ $t('losingHealthQuickly') }}
+        ul
+          li.spaced {{ $t('lowHealthTips3') }}
+          li.spaced {{ $t('lowHealthTips4') }}
+        h4 {{ $t('goodLuck') }}
     .modal-footer
-      a.btn.btn-primary(@click='acknowledgeHealthWarning()') {{ $t('ok') }}
+      .col-12.text-center
+        button.btn.btn-primary(@click='acknowledgeHealthWarning()') {{ $t('ok') }}
 </template>
 
 <style scope>
