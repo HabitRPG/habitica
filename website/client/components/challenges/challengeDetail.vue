@@ -9,11 +9,13 @@
       .col-8
         h1 {{challenge.name}}
         div
-          strong(v-once) {{$t('createdBy')}}
+          strong(v-once) {{$t('createdBy')}}:
           span {{challenge.author}}
+          // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
+            // "endDate": "End Date: <% endDate %>",
           span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}

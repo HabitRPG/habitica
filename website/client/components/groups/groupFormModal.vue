@@ -27,6 +27,8 @@
           input.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+          // "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
+          // @TODO discuss the impact of this with moderators before implementing
 
         br
         label.custom-control.custom-checkbox(v-if='!isParty')
@@ -38,9 +40,10 @@
 
         // br
         // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
-          input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvationsFromNonMembers")
+          input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
           span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('allowGuildInvationsFromNonMembers') }}
+          span.custom-control-description(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
+          // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
 
       .form-group(v-if='!creatingParty')
         label
@@ -198,7 +201,7 @@ export default {
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
-        allowGuildInvationsFromNonMembers: true,
+        allowGuildInvitationsFromNonMembers: true,
         newLeader: '',
       },
       categoryOptions: [
@@ -425,7 +428,7 @@ export default {
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
-        allowGuildInvationsFromNonMembers: true,
+        allowGuildInvitationsFromNonMembers: true,
       };
 
       if (newgroup && newgroup._id) {
@@ -443,7 +446,7 @@ export default {
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
-        allowGuildInvationsFromNonMembers: true,
+        allowGuildInvitationsFromNonMembers: true,
       };
     },
   },

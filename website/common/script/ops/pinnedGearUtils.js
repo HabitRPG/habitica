@@ -90,7 +90,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
   if (!item) item = get(content, path);
 
   if (path === 'armoire' || path === 'potion') {
-    throw new BadRequest(i18n.t('cannotUpinArmoirPotion', req.language));
+    throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {

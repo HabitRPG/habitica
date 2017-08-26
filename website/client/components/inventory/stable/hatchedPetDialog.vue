@@ -15,12 +15,12 @@
 
         h4.title {{ pet.name }}
         div.text(v-if="!hideText")
-          | {{ $t('hatchedPetNotesPart1') }}
+          | Visit the
           |
           router-link(:to="{name: 'stable'}") {{ $t('stable') }}
           |
-          | {{ $t('hatchedPetNotesPart2') }}
-
+          | to feed and equip your newest pet!
+          // @TODO make translatable with the entire sentence in one string (translators can't do sentences in multiple parts)
 
         button.btn.btn-primary(@click="close()") {{ $t('onward') }}
 
