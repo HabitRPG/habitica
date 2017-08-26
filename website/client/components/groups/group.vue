@@ -65,7 +65,7 @@
         .row.no-quest-section(v-if='isParty && !onPendingQuest && !onActiveQuest')
           .col-12.text-center
             .svg-icon(v-html="icons.questIcon")
-            h4(v-once) {{ $t('yourNotOnQuest') }}
+            h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')

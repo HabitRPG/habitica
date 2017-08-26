@@ -4,6 +4,20 @@
   "klass": "Class",
   "groupBy": "Group By <%= type %>",
   "classBonus": "(This item matches your class, so it gets an additional 1.5 stat multiplier.)",
+  "classEquipment": "Class Equipment",
+  "classArmor": "Class Armor",
+  "featuredset": "Featured Set <%= name %>",
+  "mysterySets": "Mystery Sets",
+  "gearNotOwned": "You do not own this item.",
+  "noGearItemsOfType": "You don't own any of these.",
+  "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
+
+  "sortByType": "Type",
+  "sortByPrice": "Price",
+  "sortByCon": "Con",
+  "sortByPer": "Per",
+  "sortByStr": "Str",
+  "sortByInt": "Int",
 
   "weapon": "weapon",
   "weaponCapitalized" : "Main-Hand Item",
@@ -1236,6 +1250,7 @@
   "shieldArmoireAntiProcrastinationShieldNotes": "This strong steel shield will help you block distractions when they approach! Increases Constitution by <%= con %>. Enchanted Armoire: Anti-Procrastination Set (Item 3 of 3).",
 
   "back": "Back Accessory",
+  "backCapitalized": "Back Accessory",
   "backBase0Text": "No Back Accessory",
   "backBase0Notes": "No Back Accessory.",
 
@@ -1272,6 +1287,7 @@
   "backSpecialSnowdriftVeilNotes": "This translucent veil makes it appear you are surrounded by an elegant flurry of snow! Confers no benefit.",
 
   "body": "Body Accessory",
+  "bodyCapitalized": "Body Accessory",
   "bodyBase0Text": "No Body Accessory",
   "bodyBase0Notes": "No Body Accessory.",
 
@@ -1381,6 +1397,7 @@
   "headAccessoryArmoireComicalArrowNotes": "This whimsical item doesn't provide a stat boost, but it sure is good for a laugh! Confers no benefit. Enchanted Armoire: Independent Item.",
 
   "eyewear": "Eyewear",
+  "eyewearCapitalized": "Eyewear",
   "eyewearBase0Text": "No Eyewear",
   "eyewearBase0Notes": "No Eyewear.",
 
