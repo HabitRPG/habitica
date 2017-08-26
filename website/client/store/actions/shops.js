@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { loadAsyncResource } from 'client/libs/asyncResource';
 import buyOp from 'common/script/ops/buy';
+import buyQuestOp from 'common/script/ops/buyQuest';
 import purchaseOp from 'common/script/ops/purchaseWithSpell';
 import buyMysterySetOp from 'common/script/ops/buyMysterySet';
 import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
+import unlockOp from 'common/script/ops/unlock';
 
 export function fetchMarket (store, forceLoad = false) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -57,44 +59,86 @@ export function fetchTimeTravelers (store, forceLoad = false) { // eslint-disabl
 
 export function buyItem (store, params) {
   const user = store.state.user.data;
-  buyOp(user, {params});
-  axios
-    .post(`/api/v3/user/buy/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+  let opResult = buyOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`),
+  };
+}
+
+export function buyQuestItem (store, params) {
+  const user = store.state.user.data;
+  let opResult = buyQuestOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/buy-quest/${params.key}`),
+  };
 }
 
 export function purchase (store, params) {
   const user = store.state.user.data;
-  purchaseOp(user, {params});
-  axios
-    .post(`/api/v3/user/purchase/${params.type}/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+  let opResult = purchaseOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/purchase/${params.type}/${params.key}`),
+  };
 }
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  buyMysterySetOp(user, {params});
-  axios
-    .post(`/api/v3/user/buy-mystery-set/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+  let opResult = buyMysterySetOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/buy-mystery-set/${params.key}`),
+  };
 }
 
 export function purchaseHourglassItem (store, params) {
   const user = store.state.user.data;
-  hourglassPurchaseOp(user, {params});
-  axios
-    .post(`/api/v3/user/purchase-hourglass/${params.type}/${params.key}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+  let opResult = hourglassPurchaseOp(user, {params});
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/purchase-hourglass/${params.type}/${params.key}`),
+  };
 }
 
+export function unlock (store, params) {
+  const user = store.state.user.data;
+  let opResult = unlockOp(user, params);
+
+  return {
+    result: opResult,
+    httpCall: axios.post(`/api/v3/user/unlock?path=${params.query.path}`),
+  };
+}
+
+export function genericPurchase (store, params) {
+  switch (params.pinType) {
+    case 'mystery_set':
+      return purchaseMysterySet(store, params);
+    case 'potion':
+    case 'armoire':
+    case 'marketGear':
+      return buyItem(store, params);
+    case 'background':
+      return unlock(store, {
+        query: {
+          path: `background.${params.key}`,
+        },
+      });
+    default:
+      if (params.pinType === 'quests' && params.currency === 'gold') {
+        return buyQuestItem(store, params);
+      } else {
+        return purchase(store, params);
+      }
+  }
+}
 
 export function sellItems (store, params) {
   const user = store.state.user.data;

@@ -235,9 +235,10 @@
   import BalanceInfo  from '../balanceInfo.vue';
   import currencyMixin from '../_currencyMixin';
   import QuestInfo from './questInfo.vue';
+  import notifications from 'client/mixins/notifications';
 
   export default {
-    mixins: [currencyMixin],
+    mixins: [currencyMixin, notifications],
     components: {
       bModal,
       BalanceInfo,
@@ -278,6 +279,13 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        this.$store.dispatch('shops:genericPurchase', {
+          pinType: this.item.pinType,
+          type: this.item.purchaseType,
+          key: this.item.key,
+          currency: this.item.currency,
+        });
+        this.purchased(this.item.text);
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },

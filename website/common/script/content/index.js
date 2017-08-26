@@ -24,7 +24,7 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds.js';
+import backgrounds from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
@@ -523,7 +523,8 @@ each(api.food, (food, key) => {
 
 api.appearances = appearances;
 
-api.backgrounds = backgrounds;
+api.backgrounds = backgrounds.tree;
+api.backgroundsFlat = backgrounds.flat;
 
 api.userDefaults = {
   habits: [

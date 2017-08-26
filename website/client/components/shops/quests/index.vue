@@ -183,7 +183,6 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)",
       @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
@@ -476,9 +475,6 @@ export default {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
-      },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
       },
     },
     created () {

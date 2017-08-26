@@ -96,3 +96,11 @@ export function castSpell (store, params) {
 
   return axios.post(spellUrl);
 }
+
+export function openMysteryItem () {
+  return axios.post('/api/v3/user/open-mystery-item');
+}
+
+export function rebirth () {
+  return axios.post('/api/v3/user/rebirth');
+}

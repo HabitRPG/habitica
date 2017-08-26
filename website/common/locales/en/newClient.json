@@ -303,5 +303,6 @@
   "health_wellness": "Health & Wellness",
   "self_care": "Self-Care",
   "sendLink": "Send Link",
-  "forgotPassword": "Forgot Password"
+  "forgotPassword": "Forgot Password",
+  "purchasedItem": "You bought <%= itemName %>"
 }

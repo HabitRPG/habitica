@@ -32,7 +32,7 @@
       h2
        | {{ $t(group.key) }}
        |
-       span.badge.badge-pill.badge-default {{group.quantity}}
+       span.badge.badge-pill.badge-default(v-if="group.key != 'special'") {{group.quantity}}
 
 
       itemRows(
@@ -47,7 +47,7 @@
           item(
             :item="context.item",
             :key="context.item.key",
-            :itemContentClass="`${group.classPrefix}${context.item.key}`",
+            :itemContentClass="context.item.class",
             :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
             v-drag.drop.hatch="context.item.key",
 
@@ -61,7 +61,10 @@
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
       itemRows(
         v-else-if="group.key === 'hatchingPotions'",
@@ -75,7 +78,7 @@
           item(
             :item="context.item",
             :key="context.item.key",
-            :itemContentClass="`${group.classPrefix}${context.item.key}`",
+            :itemContentClass="context.item.class",
             :showPopover="currentDraggingPotion == null",
             :active="currentDraggingPotion == context.item",
             v-drag.hatch="context.item.key",
@@ -89,7 +92,10 @@
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
       itemRows(
         v-else,
@@ -103,14 +109,18 @@
           item(
             :item="context.item",
             :key="context.item.key",
-            :itemContentClass="`${group.classPrefix}${context.item.key}`",
-            :showPopover="currentDraggingPotion == null"
+            :itemContentClass="context.item.class",
+            :showPopover="currentDraggingPotion == null",
+            @click="itemClicked(group.key, context.item)",
           )
             template(slot="popoverContent", scope="context")
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text {{ context.item.notes }}
             template(slot="itemBadge", scope="context")
-              span.badge.badge-pill.badge-item.badge-quantity {{ context.item.quantity }}
+              countBadge(
+                :show="true",
+                :count="context.item.quantity"
+              )
 
   hatchedPetDialog(
     :pet="hatchedPet",
@@ -162,14 +172,16 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
+import CountBadge from 'client/components/ui/countBadge';
 
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
 import createAnimal from 'client/libs/createAnimal';
 
+import moment from 'moment';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
+import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
@@ -191,6 +203,7 @@ const groups = [
 let lastMouseMoveEvent = {};
 
 export default {
+  mixins: [notifications],
   name: 'Items',
   components: {
     Item,
@@ -198,6 +211,7 @@ export default {
     bDropdown,
     bDropdownItem,
     HatchedPetDialog,
+    CountBadge,
   },
   directives: {
     drag: DragDropDirective,
@@ -243,6 +257,7 @@ export default {
             if (isSearched) {
               itemsArray.push({
                 ...item,
+                class: `${group.classPrefix}${item.key}`,
                 text: item.text(),
                 notes: item.notes(),
                 quantity: itemQuantity,
@@ -261,6 +276,30 @@ export default {
           }
         });
       });
+
+      let specialArray = [];
+
+      if (this.user.purchased.plan.mysteryItems.length) {
+        specialArray.push({
+          key: 'mysteryItem',
+          class: `inventory_present inventory_present_${moment().format('MM')}`,
+          text: this.$t('subscriberItemText'),
+          quantity: this.user.purchased.plan.mysteryItems.length,
+        });
+      }
+
+      if (this.user.purchased.plan.consecutive.trinkets) {
+        specialArray.push({
+          key: 'timeTravelers',
+          class: 'inventory_special_trinket',
+          text: this.$t('mysticHourglassPopover'),
+          quantity: this.user.purchased.plan.consecutive.trinkets,
+        });
+      }
+
+      if (specialArray.length > 0) {
+        itemsByType.special = specialArray;
+      }
 
       return itemsByType;
     },
@@ -347,6 +386,19 @@ export default {
       this.hatchedPet = null;
     },
 
+    async itemClicked (groupKey, item) {
+      if (groupKey === 'special') {
+        if (item.key === 'timeTravelers') {
+          this.$router.push({name: 'time'});
+        } else if (item.key === 'mysteryItem') {
+          let result = await this.$store.dispatch('user:openMysteryItem');
+
+          let openedItem = result.data.data;
+          let text = this.content.gear.flat[openedItem.key].text();
+          this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
+        }
+      }
+    },
 
     mouseMoved ($event) {
       if (this.potionClickMode) {

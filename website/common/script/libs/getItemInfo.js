@@ -137,7 +137,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
           };
         }) : undefined,
         lvl: item.lvl,
-        class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${item.key}`,
+        class: locked ? `inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'quests',

@@ -23,6 +23,7 @@ b-popover(
 
         div.image
           div(:class="item.class", v-once)
+          slot(name="itemImage", :item="item")
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
