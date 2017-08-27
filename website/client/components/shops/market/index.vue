@@ -51,7 +51,7 @@
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="gearSelected(item)"
+                @click="featuredItemSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -797,6 +797,13 @@ export default {
           }
         } else {
           this.selectedItemToBuy = item;
+        }
+      },
+      featuredItemSelected (item) {
+        if (item.purchaseType === 'gear' && !item.locked) {
+          this.selectedGearToBuy = item;
+        } else {
+          this.itemSelected (item);
         }
       },
       gearSelected (item) {
