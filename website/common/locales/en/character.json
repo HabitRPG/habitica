@@ -161,7 +161,7 @@
   "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 gems.",
   "purchaseFor": "Purchase for <%= cost %> Gems?",
   "notEnoughMana": "Not enough mana.",
-  "invalidTarget": "Invalid target",
+  "invalidTarget": "You can't cast a skill on that.",
   "youCast": "You cast <%= spell %>.",
   "youCastTarget": "You cast <%= spell %> on <%= target %>.",
   "youCastParty": "You cast <%= spell %> for the party.",
