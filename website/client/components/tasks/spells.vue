@@ -5,6 +5,7 @@ div(v-if='user.stats.lvl > 10')
       .col-8.details
         p.title {{spell.text()}}
         p.notes {{ `Click on a ${spell.target} to cast!`}}
+        // @TODO make that translatable
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
@@ -240,30 +241,31 @@ export default {
       this.spell = spell;
 
       if (spell.target === 'self') {
-        this.castEnd(null, 'self');
+        this.castEnd(null, spell.target);
       } else if (spell.target === 'party') {
         if (!this.user.party._id) {
           let party = [this.user];
-          this.castEnd(party, 'party');
+          this.castEnd(party, spell.target);
           return;
         }
 
         let party = this.$store.state.party.members;
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
-        this.castEnd(party, 'party');
+        this.castEnd(party, spell.target);
       } else if (spell.target === 'tasks') {
         let userTasks = this.$store.state.tasks.data;
+        // exclude rewards
         let tasks = userTasks.habits
           .concat(userTasks.dailys)
-          .concat(userTasks.rewards)
           .concat(userTasks.todos);
-        // exclude challenge tasks
+        // exclude challenge and group plan tasks
         tasks = tasks.filter((task) => {
-          if (!task.challenge) return true;
-          return !task.challenge.id || task.challenge.broken;
+          if (task.challenge && task.challenge.id && !task.challenge.broken) return false;
+          if (task.group && task.group.id && !task.group.broken) return false;
+          return true;
         });
-        this.castEnd(tasks, 'tasks');
+        this.castEnd(tasks, spell.target);
       }
     },
     async castEnd (target, type) {
@@ -273,6 +275,7 @@ export default {
       if (!this.applyingAction) return 'No applying action';
 
       if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
+      if (target && target.type && target.type === 'reward') return this.text(this.$t('invalidTarget'));
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
