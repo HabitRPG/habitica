@@ -6,11 +6,15 @@
   .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
     // TODO button should open the party members modal
     button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
-  .party-members.d-flex(v-if="partyMembers && partyMembers.length > 1")
+  .party-members.d-flex(
+    v-if="partyMembers && partyMembers.length > 1",
+    v-resize="1500",
+    @resized="setPartyMembersWidth($event)"
+  )
     member-details(
       v-for="(member, $index) in partyMembers",
       :key="member._id",
-      v-if="member._id !== user._id && $index < 10",
+      v-if="member._id !== user._id && $index < membersToShow",
       :member="member",
       condensed=true,
       @onHover="expandMember(member._id)",
@@ -88,8 +92,12 @@ import { mapGetters, mapActions } from 'client/libs/store';
 import MemberDetails from './memberDetails';
 import createPartyModal from './groups/createPartyModal';
 import membersModal from './groups/membersModal';
+import ResizeDirective from 'client/directives/resize.directive';
 
 export default {
+  directives: {
+    resize: ResizeDirective,
+  },
   components: {
     MemberDetails,
     createPartyModal,
@@ -98,6 +106,8 @@ export default {
   data () {
     return {
       expandedMember: null,
+
+      currentWidth: 0,
     };
   },
   computed: {
@@ -108,6 +118,9 @@ export default {
     showHeader () {
       if (this.$store.state.hideHeader) return false;
       return true;
+    },
+    membersToShow () {
+      return Math.floor(this.currentWidth / 140) + 1;
     },
   },
   methods: {
@@ -130,6 +143,11 @@ export default {
         return;
       }
       this.$root.$emit('show::modal', 'create-party-modal');
+    },
+    setPartyMembersWidth ($event) {
+      if (this.currentWidth !== $event.width) {
+        this.currentWidth = $event.width;
+      }
     },
   },
   created () {
