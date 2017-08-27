@@ -11,7 +11,7 @@ b-modal#buy-gems(title="Buy Gems", :hide-footer="true", size='lg')
           p {{ $t('subGemPop') }}
 
         .col-4
-          button.btn.btn-primary(@click='purchase({ params: {type: "gems", key: "gem"} })')
+          button.btn.btn-primary(@click='purchase({type: "gems", key: "gem"})')
             | Buy Gems for 20 Gold each
             span.Pet_Currency_Gem.inline-gems
              .badge.badge-success.stack-count {{planGemLimits.convCap + user.purchased.plan.consecutive.gemCapExtra - user.purchased.plan.gemsBought}}
@@ -78,7 +78,6 @@ b-modal#buy-gems(title="Buy Gems", :hide-footer="true", size='lg')
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
-import purchase from '../../../common/script/ops/purchase';
 
 export default {
   components: {
@@ -101,7 +100,7 @@ export default {
     },
     purchase (params) {
       try {
-        purchase(this.user, params);
+        this.$store.dispatch('shops:purchase', params);
       } catch (e) {
         alert(e.message);
       }
