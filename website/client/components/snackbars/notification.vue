@@ -1,7 +1,10 @@
 <template lang="pug">
 transition(name="fade")
   .notification.callout.animated(:class="classes", v-if='show')
-    .row(v-if='notification.type !== "info" && notification.type !== "drop"')
+    .row(v-if='notification.type === "error"')
+      .text.col-12
+        div(v-html='notification.text')
+    .row(v-if='notification.type !== "info" && notification.type !== "error" && notification.type !== "drop"')
       .text.col-7.offset-1
         div
           | {{message}}
@@ -14,7 +17,7 @@ transition(name="fade")
     .row(v-if='notification.type === "info"')
       .text.col-12
         div(v-html='notification.text')
-    .row(v-if='notification.type !== "info" && notification.type === "drop"')
+    .row(v-if='notification.type !== "info" && notification.type !== "error" && notification.type === "drop"')
       .col-2
         .icon-item
           div(:class='notification.icon')
@@ -37,6 +40,11 @@ transition(name="fade")
     max-height: 56px;
     background-color: #46a7d9;
     padding-top: .5em;
+  }
+
+  .error {
+    background-color: #f74e52;
+    color: #fff;
   }
 
   .negative {
