@@ -3,7 +3,7 @@
     "subscriptions": "捐助",
     "subDescription": "可以使用金币购买宝石，获得每月神秘装备，保留已完成项目的历史，双倍日常掉落率，支持开发者。点击获取更多信息。",
     "buyGemsGold": "用金币购买宝石",
-    "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
+    "buyGemsGoldText": "商人亚历山大将以每个20金币的价格卖给你宝石。他的每月发货量最初为每月25个宝石，但你每订阅3个月，这个上限将增加5个，最多每月50宝石！",
     "mustSubscribeToPurchaseGems": "必须捐赠来用GP购买宝石",
     "reachedGoldToGemCap": "来自财富女神的提醒，你本月的兑换额度已达到你当前信仰级别的上限 <%= convCap %> ，刚刚的兑换交易已经撤销。该上限用于防止土豪破环游戏平衡，该上限每月的前三个自然日会重置。财富女神与你同在，阿门！",
     "retainHistory": "保留额外的历史条目",

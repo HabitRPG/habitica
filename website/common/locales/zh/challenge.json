@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "仅有破碎的挑战任务能被拆开。",
     "shortNameTooShort": "标签名至少需要3个字符。",
     "joinedChallenge": "加入一个挑战",
-    "joinedChallengeText": "该用户加入一个挑战来测试他们自己！"
+    "joinedChallengeText": "该用户加入一个挑战来测试他们自己！",
+    "loadMore": "Load More"
 }

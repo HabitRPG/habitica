@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Yalnızca bozuk mücadelelerin linkini silebilirsin.",
     "shortNameTooShort": "Etiket İsmi en az 3 karakterden oluşmalıdır.",
     "joinedChallenge": "Mücadeleye Katıldı",
-    "joinedChallengeText": "Bu kullanıcı bir Mücadeleye katılarak kendini sınadı!"
+    "joinedChallengeText": "Bu kullanıcı bir Mücadeleye katılarak kendini sınadı!",
+    "loadMore": "Load More"
 }

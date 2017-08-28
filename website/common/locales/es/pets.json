@@ -66,7 +66,7 @@
     "itemDrop": "¡Un objeto ha caído!",
     "firstDrop": "¡Has desbloqueado el sistema de botines! Ahora, al completar tareas, es posible que encuentres algún articulo, como huevos, pociones y alimentos. ¡Acabas de encontrar un <strong><%= eggText %>huevo</strong>! <%= eggNotes %>",
     "useGems": "Si tienes el ojo puesto en una mascota, pero no quieres seguir esperando a que te toque, usa tus gemas en <strong>Inventario > Mercado</strong> para comprarla.",
-    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
+    "hatchAPot": "¿Eclosionar un nuevo <%= potion %> <%= egg %>?",
     "hatchedPet": "¡Echaste un nuevo <%= potion %> <%= egg %>!",
     "displayNow": "Mostrar ahora",
     "displayLater": "Mostrar más tarde",
