@@ -260,7 +260,7 @@ export default {
         const contentItems = this.content[groupKey];
 
         each(this.user.items[groupKey], (itemQuantity, itemKey) => {
-          let isAllowed = (!group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1);
+          let isAllowed = !group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1;
 
           if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];

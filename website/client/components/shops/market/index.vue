@@ -803,7 +803,7 @@ export default {
         if (item.purchaseType === 'gear' && !item.locked) {
           this.selectedGearToBuy = item;
         } else {
-          this.itemSelected (item);
+          this.itemSelected(item);
         }
       },
       gearSelected (item) {
