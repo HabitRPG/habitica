@@ -36,7 +36,7 @@ angular.module('habitrpg')
     }
 
     function getChallengeMembers (challengeId, lastId) {
-      let url = apiV3Prefix + '/challenges/' + challengeId + '/members';
+      var url = apiV3Prefix + '/challenges/' + challengeId + '/members';
 
       if (lastId) {
         url += '?lastId=' + lastId;
