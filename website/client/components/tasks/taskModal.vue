@@ -262,7 +262,7 @@
       }
 
       &-selected {
-        .option-item-label {
+        .svg-icon, .option-item-label {
           color: inherit !important;
         }
       }
