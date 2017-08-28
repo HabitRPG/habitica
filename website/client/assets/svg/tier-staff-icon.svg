@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="8" viewBox="0 0 10 8">
-    <defs>
-        <path id="a" d="M275 1873v8h10v-8l-3 3-2.036-2.965L278 1876z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd" transform="translate(-275 -1873)">
-        <use fill="#9A62FF" xlink:href="#a"/>
-        <path stroke="#000" stroke-opacity=".1" d="M275.5 1874.207v6.293h9v-6.293l-2.572 2.572-1.956-2.85-1.893 2.857-2.579-2.579z"/>
-    </g>
-</svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 8"><defs><style>.cls-1{fill:#9a62ff;}.cls-2{fill:none;stroke:#34313a;stroke-opacity:0.12;}</style></defs><title>Staff</title><g id="Tavern"><g id="Tavern_New-User---Desktop-HD" data-name="Tavern/New-User---Desktop-HD"><g id="Group-2"><g id="Staff"><polygon id="path-1" class="cls-1" points="0 0 3 3 5 0 7 3 10 0 10 8 0 8 0 0"/><path class="cls-2" d="M0.5,1.21V7.5h9V1.21L6.92,3.78,5,0.9,3.08,3.78Z" transform="translate(0 0)"/></g></g></g></g></svg>

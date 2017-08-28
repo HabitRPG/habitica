@@ -52,7 +52,7 @@
           .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             .title {{user.name}}
             .type {{user.type}}
-            .svg-icon(v-html="icons.tierChampionIcon")
+            .svg-icon(v-html="icons.tierStaffIcon")
 
       .section-header
         .row
