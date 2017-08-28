@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Hanya tugas tantangan rusak yang dapat diputuskan.",
     "shortNameTooShort": "Nama Label harus setidaknya memiliki 3 karakter.",
     "joinedChallenge": "Bergabung dengan sebuah Tantangan",
-    "joinedChallengeText": "User ini telah mengetes dirinya dengan bergabung pada sebuah Tantangan!"
+    "joinedChallengeText": "User ini telah mengetes dirinya dengan bergabung pada sebuah Tantangan!",
+    "loadMore": "Load More"
 }

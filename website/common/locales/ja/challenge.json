@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "チャレンジとの連関が切れたタスクのみ、リンクを解除できます。",
     "shortNameTooShort": "タグ名は 3 文字以上にしてください。",
     "joinedChallenge": "チャレンジに参加済み",
-    "joinedChallengeText": "このユーザーはチャレンジに参加することで自らに試練を課しました！"
+    "joinedChallengeText": "このユーザーはチャレンジに参加することで自らに試練を課しました！",
+    "loadMore": "Load More"
 }

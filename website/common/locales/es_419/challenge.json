@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Sólo las tareas de los retos dañados pueden ser desvinculados.",
     "shortNameTooShort": "El nombre de la etiqueta debe contener al menos 3 caracteres.",
     "joinedChallenge": "Se unió a un desafío.",
-    "joinedChallengeText": "¡Este usuario se puso a prueba al unirse a un desafío!"
+    "joinedChallengeText": "¡Este usuario se puso a prueba al unirse a un desafío!",
+    "loadMore": "Load More"
 }

@@ -1,10 +1,10 @@
 <template lang="pug">
-  .row
-    .col-md-12
-      .page-header
-        h1 Privacy Policy
+  div
+    static-header
+    .container-fluid
+      h1 Privacy Policy
       p.pagemeta
-        | Last updated July 27&comma; 2015
+        | Last updated July 27, 2015
         br
         small (Corrected grammar errors and updated company name)
         br
@@ -298,4 +298,21 @@
         br
         | Email&colon;&nbsp;
         a(href='mailto:admin@habitica.com') admin@habitica.com
+    app-footer
 </template>
+
+<style lang='scss' scoped>
+  @import '~client/assets/scss/static.scss';
+</style>
+
+<script>
+  import AppFooter from 'client/components/appFooter';
+  import StaticHeader from './header.vue';
+
+  export default {
+    components: {
+      AppFooter,
+      StaticHeader,
+    },
+  };
+</script>
