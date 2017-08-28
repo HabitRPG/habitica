@@ -138,6 +138,13 @@
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
       div.popover
         div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
+
+  selectMembersModal(
+    :item="selectedSpell",
+    :group="user.party",
+    @change="resetSpell($event)",
+    @memberSelected="memberSelected($event)",
+  )
 </template>
 
 <style lang="scss" scoped>
@@ -174,6 +181,7 @@ import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
 
+import SelectMembersModal from 'client/components/selectMembersModal';
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
 import createAnimal from 'client/libs/createAnimal';
@@ -212,6 +220,7 @@ export default {
     bDropdownItem,
     HatchedPetDialog,
     CountBadge,
+    SelectMembersModal,
   },
   directives: {
     drag: DragDropDirective,
@@ -227,6 +236,7 @@ export default {
       currentDraggingPotion: null,
       potionClickMode: false,
       hatchedPet: null,
+      selectedSpell: null,
     };
   },
   watch: {
@@ -250,7 +260,9 @@ export default {
         const contentItems = this.content[groupKey];
 
         each(this.user.items[groupKey], (itemQuantity, itemKey) => {
-          if (itemQuantity > 0 && (!group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1)) {
+          let isAllowed = (!group.allowedItems || group.allowedItems.indexOf(itemKey) !== -1);
+
+          if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];
 
             const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
@@ -277,7 +289,7 @@ export default {
         });
       });
 
-      let specialArray = [];
+      let specialArray = itemsByType.special;
 
       if (this.user.purchased.plan.mysteryItems.length) {
         specialArray.push({
@@ -295,10 +307,6 @@ export default {
           text: this.$t('mysticHourglassPopover'),
           quantity: this.user.purchased.plan.consecutive.trinkets,
         });
-      }
-
-      if (specialArray.length > 0) {
-        itemsByType.special = specialArray;
       }
 
       return itemsByType;
@@ -396,6 +404,8 @@ export default {
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
+        } else {
+          this.selectedSpell = item;
         }
       }
     },
@@ -407,6 +417,17 @@ export default {
       } else {
         lastMouseMoveEvent = $event;
       }
+    },
+
+    resetSpell ($event) {
+      if (!$event) {
+        this.selectedSpell = null;
+      }
+    },
+
+    memberSelected (member) {
+      this.$store.dispatch('user:castSpell', {key: this.selectedSpell.key, targetId: member.id});
+      this.selectedSpell = null;
     },
   },
 };

@@ -3,7 +3,7 @@ div
   b-modal#select-member-modal(
     size='lg',
     :visible="true",
-    v-if="card != null",
+    v-if="item != null",
     :hideFooter="true",
     @change="onChange($event)"
   )
@@ -92,13 +92,13 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
-import MemberDetails from '../../memberDetails';
+import MemberDetails from './memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
 
 export default {
-  props: ['group', 'hideBadge', 'card'],
+  props: ['group', 'hideBadge', 'item'],
   components: {
     bModal,
     bDropdown,
