@@ -1,6 +1,7 @@
 <template lang="pug">
 .notifications
-  notification(v-for='notification in notifications', :notification='notification')
+  div(v-for='notification in notifications')
+    notification(:notification='notification')
 </template>
 
 <style lang="scss" scoped>
