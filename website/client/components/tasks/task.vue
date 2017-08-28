@@ -281,11 +281,6 @@
     color: $gray-300;
     white-space: nowrap;
   }
-
-  .task-reward {
-    // @TODO: I'm unsure of where this is defined. Can't find it in search. So, I am using important for now
-    background-color: #ffd9a0 !important;
-  }
 </style>
 
 <script>
