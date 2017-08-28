@@ -46,11 +46,14 @@
     height: 556px;
   }
 
+  .task + .reward-items {
+    margin-top: 16px;
+  }
+
   .reward-items {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 16px;
   }
 
   .tasks-list {
