@@ -113,5 +113,6 @@
   "shortName": "Short Name",
   "shortNamePlaceholder": "What short tag should be used to identify your Challenge?",
   "updateChallenge": "Update Challenge",
-  "haveNoChallenges": "You don't have any Challenges"
+  "haveNoChallenges": "You don't have any Challenges",
+  "loadMore": "Load More"
 }

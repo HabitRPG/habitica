@@ -73,7 +73,7 @@
     "weaponSpecial3Text": "Lucero del Alba Maja-Mojón de Mustaine",
     "weaponSpecial3Notes": "Multitudes, monstruos, malestar: ¡manejados! ¡Machácalos! Incrementa la Fuerza, la Inteligencia y la Constitución por <%= attrs %> cada una.",
     "weaponSpecialCriticalText": "Martillo Crítico Aplasta-Errores",
-    "weaponSpecialCriticalNotes": "This champion slew a critical GitHub foe where many warriors fell. Fashioned from the bones of Bug, this hammer deals a mighty critical hit. Increases Strength and Perception by <%= attrs %> each.",
+    "weaponSpecialCriticalNotes": "Este campeón derrotó a un poderoso enemigo de GitHub donde muchos guerreros habían perecido. Hecho con los huesos del Error, este martillo inflige un poderoso golpe crítico. Aumenta la Fuerza y Percepción en <%= attrs %> cada uno.",
     "weaponSpecialTakeThisText": "Toma esta espada",
     "weaponSpecialTakeThisNotes": "Esta espada fue obtenida por participar en un desafío patrocinado por Take This.\n¡Felicitaciones! Incrementa todos los atributos por <%= attrs %>.",
     "weaponSpecialTridentOfCrashingTidesText": "Tridente de Mareas Tempestuosas",

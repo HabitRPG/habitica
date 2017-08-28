@@ -272,6 +272,19 @@ window.habitrpg = angular.module('habitrpg',
                 .then(function (response) {
                   $scope.challenge.members = response.data.data;
                 });
+
+              $scope.loadMoreMembers = function () {
+                var members = $scope.challenge.members;
+                var lastMember = members[members.length - 1];
+
+                if (!lastMember) return;
+
+                Members.getChallengeMembers($scope.challenge._id, lastMember._id)
+                  .then(function (response) {
+                    var members = response.data.data;
+                    $scope.challenge.members = $scope.challenge.members.concat(members);
+                  });
+              }
             }]
         })
         .state('options.social.challenges.edit', {

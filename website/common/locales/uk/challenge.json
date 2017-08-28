@@ -38,7 +38,7 @@
     "publicChallenges": "Щонайменше 1 самоцвіт для <strong> громадських випробувань </strong> (допомагає запобігти спаму, справді).",
     "officialChallenge": "Офіційне випробування Habitica",
     "by": "від",
-    "participants": "<%= membercount %> Учаснки",
+    "participants": "<%= membercount %> учасникiв",
     "join": "Приєднатися",
     "exportChallengeCSV": "Експортувати до CSV",
     "selectGroup": "Будь ласка, оберіть групу",
@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Від’єднати можна тільки хибні завдання випробувань.",
     "shortNameTooShort": "В імені мітки має бути мінімум три символи.",
     "joinedChallenge": "Реєстрація на випробування",
-    "joinedChallengeText": "Користувач ставить себе на випробування, приєднавшись до виклику!"
+    "joinedChallengeText": "Користувач ставить себе на випробування, приєднавшись до виклику!",
+    "loadMore": "Load More"
 }
