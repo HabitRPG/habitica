@@ -11,7 +11,7 @@
     achievement-footer
 </template>
 
-<style scope>
+<style scoped>
   .avatar {
     margin-left: 4em;
     margin-bottom: 1.5em;
