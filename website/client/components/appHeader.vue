@@ -1,5 +1,5 @@
 <template lang="pug">
-#app-header.row(:class="{'hide-header': $route.path.startsWith('/group-plans')}")
+#app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
   create-party-modal
   members-modal(:hide-badge="true")
   member-details(:member="user")

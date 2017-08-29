@@ -84,9 +84,11 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
-        this.$notify({
+        this.$store.state.notificationStore.push({
           title: 'Habitica',
           text: error.response.data.message,
+          type: 'error',
+          timeout: true,
         });
       }
 

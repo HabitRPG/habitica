@@ -271,14 +271,16 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
-    this.$store.state.hideHeader = true;
+    // @TODO: have to handle this better because sub pages have hidden header
+    // @TODO: I think we can remove this
+    // this.$store.state.hideHeader = true;
 
     // @TODO: can this be in a mixin?
     this.StripeCheckout = window.StripeCheckout;
   },
   destroyed () {
     // @TODO: going from the page back to party modal does not show
-    this.$store.state.hideHeader = false;
+    // this.$store.state.hideHeader = false;
   },
   computed: {
     newGroupIsReady () {
