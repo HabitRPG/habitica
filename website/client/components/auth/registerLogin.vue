@@ -82,9 +82,6 @@
   .form-wrapper {
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
     min-height: 100%;
   }
@@ -99,6 +96,9 @@
     color: $purple-400;
   }
   :-moz-placeholder { /* Firefox 18- */
+    color: $purple-400;
+  }
+  ::placeholder { //  Standard browsers
     color: $purple-400;
   }
 
