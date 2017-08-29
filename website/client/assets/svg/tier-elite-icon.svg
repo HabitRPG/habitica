@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="11" viewBox="0 0 11 11">
-    <defs>
-        <path id="a" d="M275.5 1545.083L270 1535h11z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd" transform="rotate(-180 140.5 772.542)">
-        <use fill="#FF6165" xlink:href="#a"/>
-        <path stroke="#000" stroke-opacity=".1" d="M275.5 1544.04l4.658-8.54h-9.316l4.658 8.54z"/>
-    </g>
-</svg>
