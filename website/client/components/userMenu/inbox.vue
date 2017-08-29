@@ -239,7 +239,7 @@ export default {
 
       this.conversations[this.selectedConversation].lastMessageText = this.newMessage;
       this.conversations[this.selectedConversation].date = new Date();
-      console.log("SD")
+
       this.newMessage = '';
     },
   },
