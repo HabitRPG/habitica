@@ -267,7 +267,7 @@ export default {
   },
   methods: {
     logout () {
-      localStorage.removeItem('habit-mobile-settings');
+      localStorage.clear();
       window.location.href = '/logout';
     },
     showInbox () {
