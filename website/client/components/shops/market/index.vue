@@ -51,7 +51,7 @@
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="gearSelected(item)"
+                @click="featuredItemSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -265,7 +265,7 @@
           )
 
       selectMembersModal(
-        :card="selectedCardToBuy",
+        :item="selectedCardToBuy",
         :group="user.party",
         @change="resetCardToBuy($event)",
         @memberSelected="memberSelected($event)",
@@ -410,7 +410,7 @@
   import SellModal from './sellModal.vue';
   import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
-  import SelectMembersModal from './selectMembersModal.vue';
+  import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -797,6 +797,13 @@ export default {
           }
         } else {
           this.selectedItemToBuy = item;
+        }
+      },
+      featuredItemSelected (item) {
+        if (item.purchaseType === 'gear' && !item.locked) {
+          this.selectedGearToBuy = item;
+        } else {
+          this.itemSelected(item);
         }
       },
       gearSelected (item) {

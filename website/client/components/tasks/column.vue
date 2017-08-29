@@ -322,7 +322,9 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
-      this.$emit('openBuyDialog', rewardItem);
+      if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
+        this.$emit('openBuyDialog', rewardItem);
+      }
     },
   },
 };

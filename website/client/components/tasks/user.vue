@@ -107,7 +107,7 @@
         )
 
   selectMembersModal(
-    :card="selectedCardToBuy",
+    :item="selectedCardToBuy",
     :group="user.party",
     @change="resetCardToBuy($event)",
     @memberSelected="memberSelectedToSendCard($event)",
@@ -327,7 +327,7 @@ import BuyModal from 'client/components/shops/buyModal.vue';
 import Item from 'client/components/inventory/item.vue';
 import Avatar from 'client/components/avatar';
 import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
-import SelectMembersModal from 'client/components/shops/market/selectMembersModal.vue';
+import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
 export default {
   components: {
