@@ -9,7 +9,7 @@
       button.btn.btn-primary(@click='setQuestCompleted()') {{ $t('ok') }}
 </template>
 
-<style scope>
+<style scoped>
   .dont-despair, .death-penalty {
     margin-top: 1.5em;
   }

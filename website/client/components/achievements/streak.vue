@@ -15,7 +15,7 @@
     achievement-footer
 </template>
 
-<style scope>
+<style scoped>
   .dont-despair, .death-penalty {
     margin-top: 1.5em;
   }

@@ -59,7 +59,7 @@
                 button.btn.btn-sm.btn-primary(type='submit', @click='addWebhook(newWebhook.url)') {{ $t('add') }}
 </template>
 
-<style scope>
+<style scoped>
   .section {
     margin-top: 2em;
   }

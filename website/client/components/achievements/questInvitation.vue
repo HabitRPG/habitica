@@ -44,7 +44,7 @@
       button.btn.btn-primary(ng-click='questAccept(); $close()') {{ $t('accept') }}
 </template>
 
-<style scope>
+<style scoped>
   .dont-despair, .death-penalty {
     margin-top: 1.5em;
   }
