@@ -76,32 +76,32 @@
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
             h3(v-once) {{ questData.text() }}
-            .quest-box.svg-icon(v-html="icons.questBackground")
-            .collect-info(v-if='questData.collect')
-              .row(v-for='(value, key) in questData.collect')
-                .col-2
-                  div(:class="'quest_' + questData.key + '_' + key")
-                .col-10
-                  strong {{value.text()}}
-                  .grey-progress-bar
-                    .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
-                  strong {{group.quest.progress.collect[key]}} / {{value.count}}
-            .boss-info(v-if='questData.boss')
-              .row
-                .col-6
-                  h4.float-left(v-once) {{ questData.boss.name() }}
-                .col-6
-                  span.float-right(v-once) {{ $t('participantsTitle') }}
-              .row
-                .col-12
-                  .grey-progress-bar
-                    .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-              .row.boss-details
+            .quest-box
+              .collect-info(v-if='questData.collect')
+                .row(v-for='(value, key) in questData.collect')
+                  .col-2
+                    div(:class="'quest_' + questData.key + '_' + key")
+                  .col-10
+                    strong {{value.text()}}
+                    .grey-progress-bar
+                      .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
+                    strong {{group.quest.progress.collect[key]}} / {{value.count}}
+              .boss-info(v-if='questData.boss')
+                .row
                   .col-6
-                    span.float-left
-                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
+                    h4.float-left(v-once) {{ questData.boss.name() }}
                   .col-6
-                    span.float-right {{group.quest.progress.up || 0}} pending damage
+                    span.float-right(v-once) {{ $t('participantsTitle') }}
+                .row
+                  .col-12
+                    .grey-progress-bar
+                      .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
+                .row.boss-details
+                    .col-6
+                      span.float-left
+                        | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
+                    .col-6
+                      span.float-right {{group.quest.progress.up || 0}} pending damage
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -309,8 +309,11 @@
 
   .quest-active-section {
     .quest-box {
-      height: 100px;
+      background-image: url('~client/assets/svg/for-css/quest-border.svg');
+      background-size: 100% 100%;
       width: 100%;
+      padding: .5em;
+      margin-bottom: 1em;
 
       svg: {
         width: 100%;
@@ -319,10 +322,8 @@
     }
 
     .boss-info, .collect-info {
-      position: relative;
-      top: -89px;
-      left: 15px;
-      width: 32em;
+      width: 90%;
+      margin: 0 auto;
       text-align: left;
     }
   }

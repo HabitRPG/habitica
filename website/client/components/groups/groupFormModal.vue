@@ -302,6 +302,12 @@ export default {
         this.workingGroup.privateGuild = false;
       }
 
+      if (editingGroup.categories) {
+        editingGroup.categories.forEach(category => {
+          this.workingGroup.categories.push(category.slug);
+        });
+      }
+
       if (editingGroup.summary) this.workingGroup.summary = editingGroup.summary;
       if (editingGroup.description) this.workingGroup.description = editingGroup.description;
       if (editingGroup._id) this.workingGroup.id = editingGroup._id;

@@ -10,16 +10,22 @@ div
       .row
         .col-4
           .box
+            img.box1(src='~client/assets/images/group-plans/group-14@3x.png')
+            hr
             h2 {{ $t('teamBasedTasks') }}
             p Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!
 
         .col-4
           .box
+            img.box2(src='~client/assets/images/group-plans/group-12@3x.png')
+            hr
             h2 Group Management Controls
             p Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.
 
         .col-4
           .box
+            img.box3(src='~client/assets/images/group-plans/group-13@3x.png')
+            hr
             h2 In-Game Benefits
             p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
 
@@ -127,6 +133,14 @@ div
 
   .benefits {
     margin-top: -12em;
+
+    .box {
+      height: 416px;
+    }
+
+    h2 {
+      color: #6133b4;
+    }
   }
 
   .box {
@@ -135,6 +149,27 @@ div
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 2em;
     text-align: center;
+
+    img {
+      margin: 0 auto;
+      margin-top: 2em;
+      margin-bottom: 1em;
+    }
+  }
+
+  img.box1 {
+    width: 266px;
+  }
+
+  img.box2 {
+    margin-top: 3.5em;
+    width: 262px;
+    margin-bottom: 3.7em;
+  }
+
+  img.box3 {
+    width: 225px;
+    margin-bottom: 3.0em;
   }
 
   button.create-group {

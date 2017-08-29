@@ -18,7 +18,9 @@
           :hideClassBadge='true')
       .card.col-8
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+              | {{msg.user}}
+              .svg-icon(v-html="`icons.tier${cachedProfileData[msg.uuid].contributor.level}`", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -41,7 +43,9 @@
     .row(v-if='user._id === msg.uuid')
       .card.col-8.offset-2
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+              | {{msg.user}}
+              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -69,6 +73,56 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  // @TODO: Move this to an scss?
+  .tier1 {
+    color: #c42870;
+  }
+
+  .tier2 {
+    color: #b01515;
+  }
+
+  .tier3 {
+    color: #d70e14;
+  }
+
+  .tier4 {
+    color: #c24d00;
+  }
+
+  .tier5 {
+    color: #9e650f;
+  }
+
+  .tier6 {
+    color: #2b8363;
+  }
+
+  .tier7 {
+    color: #167e87;
+  }
+
+  .moderator {
+    color: #277eab;
+  }
+
+  .staff {
+    color: #6133b4;
+  }
+
+  .npc {
+    color: $black;
+  }
+  // End of tier colors
+
+  h3 {
+    .svg-icon {
+      width: 10px;
+      display: inline-block;
+      margin-left: .5em;
+    }
+  }
 
   .hr {
     width: 100%;
@@ -141,6 +195,16 @@ import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
+import tier1 from 'assets/svg/tier-1.svg';
+import tier2 from 'assets/svg/tier-2.svg';
+import tier3 from 'assets/svg/tier-3.svg';
+import tier4 from 'assets/svg/tier-4.svg';
+import tier5 from 'assets/svg/tier-5.svg';
+import tier6 from 'assets/svg/tier-6.svg';
+import tier7 from 'assets/svg/tier-7.svg';
+import tierMod from 'assets/svg/tier-mod.svg';
+import tierNPC from 'assets/svg/tier-npc.svg';
+import tierStaff from 'assets/svg/tier-staff.svg';
 
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
@@ -172,6 +236,16 @@ export default {
         report: reportIcon,
         delete: deleteIcon,
         liked: likedIcon,
+        tier1,
+        tier2,
+        tier3,
+        tier4,
+        tier5,
+        tier6,
+        tier7,
+        tierMod,
+        tierNPC,
+        tierStaff,
       }),
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),

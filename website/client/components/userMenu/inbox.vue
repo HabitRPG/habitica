@@ -29,12 +29,12 @@
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
-        chat-message.container-fluid(:chat.sync='activeChat', :inbox='true')
+        chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true')
 
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation')
-          b-form-input(v-model='newMessage')
+          input(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
@@ -65,6 +65,11 @@
     position: relative;
     padding-left: 0;
     padding-bottom: 6em;
+  }
+
+  .message-scroll {
+    max-height: 500px;
+    overflow: scroll;
   }
 
   .to-form input {
