@@ -310,11 +310,11 @@
       color: #167e87;
     }
 
-    .moderator {
+    .tier8, .moderator {
       color: #277eab;
     }
 
-    .staff {
+    .tier9, .staff {
       color: #6133b4;
     }
 
