@@ -48,7 +48,7 @@
     },
     methods: {
       clearLocalStorage () {
-        localStorage.removeItem('habit-mobile-settings');
+        this.$store.dispatch('auth:logout');
       },
     },
   };

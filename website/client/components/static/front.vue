@@ -7,7 +7,7 @@
     nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
       button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
-      a.navbar-brand(href='#')
+      router-link.nav-link(to="/home")
         .logo.svg-icon(v-html="icons.logo")
       #navbarNav.collapse.navbar-collapse
         ul.navbar-nav.float-right
@@ -631,7 +631,7 @@ export default {
     };
   },
   mounted () {
-    // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/static/front"});
+    // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
   },
   methods: {
     playButtonClick () {
