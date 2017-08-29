@@ -302,7 +302,13 @@ export default {
       window.location.href = '/';
     },
     async socialAuth (network) {
-      let auth = await hello(network).login({scope: 'email'});
+      const url = window.location.href;
+
+      let auth = await hello(network).login({
+        scope: 'email',
+        // explicitly pass the redirect url or it might redirect to /home
+        redirect_uri: url, // eslint-disable-line camelcase
+      });
 
       await this.$store.dispatch('auth:socialAuth', {
         auth,

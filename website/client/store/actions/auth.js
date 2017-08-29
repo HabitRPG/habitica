@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
+const LOCALSTORAGE_SOCIAL_AUTH_KEY = 'hello'; // Used by hello.js for social auth
+
 export async function register (store, params) {
   let url = '/api/v3/user/auth/local/register';
   let result = await axios.post(url, {
@@ -17,7 +20,7 @@ export async function register (store, params) {
       apiToken: user.apiToken,
     },
   });
-  localStorage.setItem('habit-mobile-settings', userLocalData);
+  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 
   // @TODO: I think we just need analytics here
   // Auth.runAuth(res.data._id, res.data.apiToken);
@@ -47,7 +50,7 @@ export async function login (store, params) {
     },
   });
 
-  localStorage.setItem('habit-mobile-settings', userLocalData);
+  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 
   // @TODO: I think we just need analytics here
   // Auth.runAuth(res.data._id, res.data.apiToken);
@@ -79,5 +82,11 @@ export async function socialAuth (store, params) {
     },
   });
 
-  localStorage.setItem('habit-mobile-settings', userLocalData);
+  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+}
+
+export function logout () {
+  localStorage.removeItem(LOCALSTORAGE_AUTH_KEY);
+  localStorage.removeItem(LOCALSTORAGE_SOCIAL_AUTH_KEY);
+  window.location.href = '/logout';
 }

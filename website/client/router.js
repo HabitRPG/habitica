@@ -249,7 +249,6 @@ const router = new VueRouter({
         { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
         { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
         { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
-        { name: 'front', path: 'front', component: FrontPage, meta: {requiresLogin: false}},
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'maintenance', path: 'maintenance', component: MaintenancePage, meta: {requiresLogin: false}},
         { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage, meta: {requiresLogin: false}},
