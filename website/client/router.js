@@ -19,7 +19,6 @@ const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./component
 const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
 const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
-// const NewStuffPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
@@ -245,7 +244,7 @@ const router = new VueRouter({
       children: [
         { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
         { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
-        { name: 'communitGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
+        { name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
         { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
         { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
         { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
@@ -253,9 +252,7 @@ const router = new VueRouter({
         { name: 'maintenance', path: 'maintenance', component: MaintenancePage, meta: {requiresLogin: false}},
         { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage, meta: {requiresLogin: false}},
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
-        // { name: 'newStuff', path: 'newStuff', component: NewStuffPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
-        { name: 'oldNews', path: 'old-news', component: ParentPage, meta: {requiresLogin: false}},
         { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
