@@ -13,12 +13,12 @@
         label
           strong(v-once) {{$t('challengeSummary')}} *
         div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        b-form-input.summary-textarea(type="text", textarea, :placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
+        textarea.summary-textarea.form-control(:placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
       .form-group
         label
           strong(v-once) {{$t('challengeDescription')}} *
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.description-textarea(type="text", textarea, :placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
+        textarea.description-textarea.form-control(:placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
           strong(v-once) {{$t('challengeGuild')}} *
@@ -211,7 +211,22 @@ export default {
 
     return {
       creating: true,
-      workingChallenge: {},
+      workingChallenge: {
+        name: '',
+        summary: '',
+        description: '',
+        categories: [],
+        group: '',
+        dailys: [],
+        habits: [],
+        leader: '',
+        members: [],
+        official: false,
+        prize: 1,
+        rewards: [],
+        shortName: '',
+        todos: [],
+      },
       showCategorySelect: false,
       categoryOptions,
       categoriesHashByKey,
@@ -221,7 +236,7 @@ export default {
   async mounted () {
     this.$root.$on('shown::modal', () => {
       if (this.challenge) {
-        Object.assign(this.workingChallenge, this.challenge);
+        this.workingChallenge = Object.assign(this.workingChallenge, this.challenge);
         this.workingChallenge.categories = [];
 
         if (this.challenge.categories) {
