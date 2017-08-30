@@ -431,6 +431,14 @@ export default {
 
       return classTexts[this.user.stats.class];
     },
+    startingPageOption () {
+      return this.$store.state.profileOptions.startingPage;
+    },
+  },
+  watch: {
+    startingPageOption () {
+      this.selectedPage = this.$store.state.profileOptions.startingPage;
+    },
   },
   methods: {
     sendMessage () {

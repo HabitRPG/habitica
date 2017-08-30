@@ -222,6 +222,7 @@ export default {
     percent,
     showMemberModal (member) {
       this.$store.state.profileUser = member;
+      this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
   },
