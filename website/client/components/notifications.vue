@@ -163,12 +163,6 @@ export default {
       if (this.user.stats.lvl === 0) return;
       this.hp(after - before, 'hp');
 
-      // @TODO: I am pretty sure we no long need this with $store
-      // this.$broadcast('syncPartyRequest', {
-      //   type: 'user_update',
-      //   user: this.user,
-      // });
-
       if (after < 0) this.playSound('Minus_Habit');
     },
     userExp (after, before) {

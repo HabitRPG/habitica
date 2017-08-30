@@ -60,19 +60,20 @@ div
             label {{ $t('about') }}
             textarea.form-control(rows=5, :placeholder="$t('displayBlurbPlaceholder')", v-model='editingProfile.blurb')
             // include ../../shared/formatting-help
-          .form-group
-            label Facebook
-            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
-          .form-group
-            label Instagram
-            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
-          .form-group
-            label Twitter
-            input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
+          //- .form-group
+          //-   label Facebook
+          //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.facebook')
+          //- .form-group
+          //-   label Instagram
+          //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.instagram')
+          //- .form-group
+          //-   label Twitter
+          //-   input.form-control(type='text', placeholder="Paste your link here", v-model='editingProfile.twitter')
 
-        .col-3.offset-6.text.center
+        .col-12.text-center
           button.btn.btn-primary(@click='save()') {{ $t("save") }}
           button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
+
     .standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12 {{ $t(key+'Achievs') }}
@@ -334,6 +335,7 @@ import { beastMasterProgress, mountMasterProgress } from '../../../common/script
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
+import notifications from 'client/mixins/notifications';
 
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -346,6 +348,7 @@ export default {
   components: {
     bModal,
   },
+  mixins: [notifications],
   data () {
     return {
       userIdToMessage: '',
@@ -430,6 +433,14 @@ export default {
 
       return classTexts[this.user.stats.class];
     },
+    startingPageOption () {
+      return this.$store.state.profileOptions.startingPage;
+    },
+  },
+  watch: {
+    startingPageOption () {
+      this.selectedPage = this.$store.state.profileOptions.startingPage;
+    },
   },
   methods: {
     sendMessage () {
@@ -443,8 +454,7 @@ export default {
         message: this.privateMessage,
         toUserId: this.userIdToMessage,
       });
-      alert(this.$t('messageSentAlert'));
-      // @TODO: Notification.text(window.env.t('messageSentAlert'));
+      this.text(this.$t('messageSentAlert'));
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
@@ -472,11 +482,14 @@ export default {
       each(this.editingProfile, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         let curVal = this.user.profile[key];
-        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) values[`profile.${key}`] = value;
+        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
+          values[`profile.${key}`] = value;
+          this.$set(this.userLoggedIn.profile, key, value);
+          this.$set(this.user.profile, key, value);
+        }
       });
 
-      // @TODO: dispatch
-      // User.set(values);
+      this.$store.dispatch('user:set', values);
 
       this.editing = false;
     },

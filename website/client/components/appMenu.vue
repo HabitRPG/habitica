@@ -70,9 +70,9 @@ div
             span.small-text {{ $t('editAvatar') }}
           a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('messages') }}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
-          router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
-          router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
-          router-link.dropdown-item(:to="{name: 'profile'}") {{ $t('profile') }}
+          a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
+          a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
+          a.dropdown-item(@click='showProfile("profile")') {{ $t('profile') }}
           router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
           a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
 </template>
@@ -277,6 +277,10 @@ export default {
       this.$store.state.avatarEditorOptions.startingPage = startingPage;
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('show::modal', 'avatar-modal');
+    },
+    showProfile (startingPage) {
+      this.$store.state.profileOptions.startingPage = startingPage;
+      this.$root.$emit('show::modal', 'profile');
     },
     async getUserGroupPlans () {
       this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');

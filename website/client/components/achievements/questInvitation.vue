@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#quest-invitation(v-if='user.party.quest.key', :title="$t('questInvitation')", size='lg', :hide-footer="true")
+  b-modal#quest-invitation(v-if='user.party.quest.key && quests[user.party.quest.key]', :title="$t('questInvitation')", size='lg', :hide-footer="true")
     .modal-header
       h4 {{ $t('questInvitation') }}
         |&nbsp;{{quests[user.party.quest.key].text()}}

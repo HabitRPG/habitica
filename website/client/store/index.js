@@ -98,6 +98,9 @@ export default function () {
         castingSpell: false,
         spellDrawOpen: true,
       },
+      profileOptions: {
+        startingPage: '',
+      },
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
