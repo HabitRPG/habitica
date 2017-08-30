@@ -8,7 +8,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
   .section.avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg
-      avatar(:member='user')
+      avatar(:member='user', :avatarOnly='!editing')
 
   .section(v-if='modalPage === 2')
     // @TODO Implement in V2 .section.row
