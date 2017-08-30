@@ -105,11 +105,6 @@ export default {
     bDropdownItem,
     MemberDetails,
   },
-  mounted () {
-    this.$root.$on('shown::modal', () => {
-      this.getMembers();
-    });
-  },
   data () {
     return {
       sortOption: '',
@@ -161,10 +156,18 @@ export default {
 
       return this.members;
     },
+    groupId () {
+      return this.$store.state.groupId || this.group._id;
+    },
+  },
+  watch: {
+    groupId () {
+      this.getMembers();
+    },
   },
   methods: {
     async getMembers () {
-      let groupId = this.$store.state.groupId || this.group._id;
+      let groupId = this.groupId;
       if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
