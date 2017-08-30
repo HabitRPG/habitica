@@ -17,10 +17,16 @@ function addPinnedGearByClass (user) {
     for (let item of newPinnedItems) {
       let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      user.pinnedItems.push({
-        type: 'marketGear',
-        path: itemInfo.path,
+      const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
+        return pinnedItem.path === itemInfo.path;
       });
+
+      if (foundIndex === -1) {
+        user.pinnedItems.push({
+          type: 'marketGear',
+          path: itemInfo.path,
+        });
+      }
     }
   }
 }
