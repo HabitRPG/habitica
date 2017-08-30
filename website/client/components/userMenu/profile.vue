@@ -335,6 +335,7 @@ import { beastMasterProgress, mountMasterProgress } from '../../../common/script
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
+import notifications from 'client/mixins/notifications';
 
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -347,6 +348,7 @@ export default {
   components: {
     bModal,
   },
+  mixins: [notifications],
   data () {
     return {
       userIdToMessage: '',
@@ -452,8 +454,7 @@ export default {
         message: this.privateMessage,
         toUserId: this.userIdToMessage,
       });
-      alert(this.$t('messageSentAlert'));
-      // @TODO: Notification.text(window.env.t('messageSentAlert'));
+      this.text(this.$t('messageSentAlert'));
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
