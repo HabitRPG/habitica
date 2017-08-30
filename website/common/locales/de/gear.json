@@ -250,7 +250,7 @@
     "weaponArmoireCrystalCrescentStaffNotes": "Beschwöre die Macht des Sichelmondes herbei mit diesem glänzenden Stab! Erhöht Intelligenz und Stärke jeweils um <%= attrs %>. Verzauberter Schrank: Kristallines Mondsichelset (Gegenstand 3 von 3).",
     "weaponArmoireBlueLongbowText": "Blauer Langbogen",
     "weaponArmoireBlueLongbowNotes": "Fertig ... Zielen ... Feuer! Dieser Bogen hat eine große Reichweite. Erhöht Wahrnehmung um <%= per %>, Ausdauer um <%= con %> und Stärke um <%= str %>. Verzauberter Schrank: Eisenschützen-Set (Gegenstand 3 von 3).",
-    "weaponArmoireGlowingSpearText": "Lechtender Speer",
+    "weaponArmoireGlowingSpearText": "Leuchtender Speer",
     "weaponArmoireGlowingSpearNotes": "Dieser Speer hypnotisiert freilebende Aufgaben, sodass Du diese angreifen kannst. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Unabhängiger Gegenstand.",
     "weaponArmoireBarristerGavelText": "Richterhammer",
     "weaponArmoireBarristerGavelNotes": "Beschlossen! Erhöht Stärke und Ausdauer jeweils um <%= attrs %>. Verzauberter Schrank: Richterset (Gegenstand 3 von 3).",

@@ -81,6 +81,7 @@ let bannedSlurs = [
   'tranny',
   'trannies',
   'tards',
+  'https://gemsvaluesfix.typeform.com/to/QNXiU4',
 ];
 
 module.exports = bannedSlurs;
