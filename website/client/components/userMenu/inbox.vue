@@ -23,13 +23,14 @@
           h4(v-once) {{$t('emptyMessagesLine1')}}
           p(v-once) {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
+          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)',
+            :class="{active: selectedConversation === conversation.key}")
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
-        chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true')
+        chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
 
@@ -113,6 +114,11 @@
     }
   }
 
+  .conversations {
+    max-height: 400px;
+    overflow: scroll;
+  }
+
   .conversation {
     padding: 1.5em;
     background: $white;
@@ -133,6 +139,7 @@
 </style>
 
 <script>
+import Vue from 'vue';
 import moment from 'moment';
 import filter from 'lodash/filter';
 // import sortBy from 'lodash/sortBy';
@@ -223,6 +230,10 @@ export default {
       //   return o.timestamp;
       // }]);
       this.$set(this, 'activeChat', activeChat);
+      Vue.nextTick(() => {
+        let chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {
@@ -241,6 +252,11 @@ export default {
       this.conversations[this.selectedConversation].date = new Date();
 
       this.newMessage = '';
+
+      Vue.nextTick(() => {
+        let chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
   },
 };
