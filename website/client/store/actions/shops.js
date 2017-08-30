@@ -89,7 +89,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyMysterySetOp(user, {params});
+  let opResult = buyMysterySetOp(user, {params, noConfirm: true});
 
   return {
     result: opResult,
@@ -134,6 +134,10 @@ export function genericPurchase (store, params) {
     default:
       if (params.pinType === 'quests' && params.currency === 'gold') {
         return buyQuestItem(store, params);
+      } else if (params.key === 'rebirth_orb') {
+        return store.dispatch('user:rebirth');
+      } else if (params.currency === 'hourglasses') {
+        return purchaseHourglassItem(store, params);
       } else {
         return purchase(store, params);
       }

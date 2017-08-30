@@ -10,6 +10,21 @@
       app-menu
       .container-fluid
         app-header
+        buyModal(
+          :item="selectedItemToBuy",
+          :withPin="false",
+          @change="resetItemToBuy($event)",
+          @buyPressed="customPurchase($event)",
+          :genericPurchase="genericPurchase(selectedItemToBuy)",
+
+        )
+        selectMembersModal(
+          :item="selectedCardToBuy",
+          :group="user.party",
+          @change="resetCardToBuy($event)",
+          @memberSelected="memberSelected($event)",
+        )
+
         div(:class='{sticky: user.preferences.stickyHeader}')
           router-view
         app-footer
@@ -50,8 +65,12 @@ import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
 import { mapState } from 'client/libs/store';
+import BuyModal from './components/shops/buyModal.vue';
+import SelectMembersModal from 'client/components/selectMembersModal.vue';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   name: 'app',
   components: {
     AppMenu,
@@ -59,10 +78,14 @@ export default {
     AppFooter,
     notificationsDisplay,
     snackbars,
+    BuyModal,
+    SelectMembersModal,
   },
   data () {
     return {
       isUserLoaded: false,
+      selectedItemToBuy: null,
+      selectedCardToBuy: null,
     };
   },
   computed: {
@@ -76,6 +99,10 @@ export default {
     },
   },
   created () {
+    this.$root.$on('buyModal::showItem', (item) => {
+      this.selectedItemToBuy = item;
+    });
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user) {
@@ -111,6 +138,44 @@ export default {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
     }
+  },
+  methods: {
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
+      }
+    },
+    resetCardToBuy ($event) {
+      if (!$event) {
+        this.selectedCardToBuy = null;
+      }
+    },
+    itemSelected (item) {
+      this.selectedItemToBuy = item;
+    },
+    genericPurchase (item) {
+      if (!item)
+        return false;
+
+      if (item.purchaseType === 'card')
+        return false;
+
+      return true;
+    },
+    customPurchase (item) {
+      if (item.purchaseType === 'card') {
+        if (this.user.party._id) {
+          this.selectedCardToBuy = item;
+        } else {
+          this.error(this.$t('errorNotInParty'));
+        }
+      }
+    },
+    memberSelected (member) {
+      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
+      this.selectedCardToBuy = null;
+    },
+
   },
 };
 </script>

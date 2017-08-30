@@ -101,6 +101,10 @@ export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
 }
 
-export function rebirth () {
-  return axios.post('/api/v3/user/rebirth');
+export async function rebirth () {
+  let result = await axios.post('/api/v3/user/rebirth');
+
+  window.location.reload(true);
+
+  return result;
 }
