@@ -20,7 +20,7 @@
         .card-block
             h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
               | {{msg.user}}
-              .svg-icon(v-html="`icons.tier${cachedProfileData[msg.uuid].contributor.level}`", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
+              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -103,16 +103,18 @@
     color: #167e87;
   }
 
-  .moderator {
+  .tier8 {
     color: #277eab;
   }
 
-  .staff {
+  .tier10 {
     color: #6133b4;
   }
 
-  .npc {
-    color: $black;
+  .tier9 {
+    color: #77f4c7;
+    fill: #77f4c7;
+    stroke: #005737;
   }
   // End of tier colors
 
@@ -202,9 +204,9 @@ import tier4 from 'assets/svg/tier-4.svg';
 import tier5 from 'assets/svg/tier-5.svg';
 import tier6 from 'assets/svg/tier-6.svg';
 import tier7 from 'assets/svg/tier-7.svg';
-import tierMod from 'assets/svg/tier-mod.svg';
-import tierNPC from 'assets/svg/tier-npc.svg';
-import tierStaff from 'assets/svg/tier-staff.svg';
+import tier8 from 'assets/svg/tier-mod.svg';
+import tier9 from 'assets/svg/tier-npc.svg';
+import tier10 from 'assets/svg/tier-staff.svg';
 
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
@@ -243,9 +245,9 @@ export default {
         tier5,
         tier6,
         tier7,
-        tierMod,
-        tierNPC,
-        tierStaff,
+        tier8,
+        tier9,
+        tier10,
       }),
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),
