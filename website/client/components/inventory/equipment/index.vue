@@ -82,7 +82,7 @@
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
-              @click="equip(context.item)",
+              @click="equipItem(context.item)",
             )
     div(
       v-for="group in itemsGroups",
