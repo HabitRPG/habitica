@@ -270,7 +270,7 @@
         li(v-html="$t('commGuideList13D')")
 
       h2#final {{ $t('commGuideHeadingFinal') }}
-      p(v-html="$t('commGuidePara067', { hrefCommunityManagerEmail : `<a href='mailto: ${COMMUNITY_MANAGER_EMAIL}'>${COMMUNITY_MANAGER_EMAIL}</a>`})")
+      p(v-html="$t('commGuidePara067', { hrefCommunityManagerEmail })")
       p {{ $t('commGuidePara068') }}
 
       h2#links {{ $t('commGuideHeadingLinks') }}
@@ -339,7 +339,7 @@
     },
     data () {
       return {
-        COMMUNITY_MANAGER_EMAIL,
+        hrefCommunityManagerEmail: `<a href='mailto: ${COMMUNITY_MANAGER_EMAIL}'>${COMMUNITY_MANAGER_EMAIL}</a>`,
       };
     },
   };
