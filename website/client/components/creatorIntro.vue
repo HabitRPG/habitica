@@ -677,12 +677,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Most important task >> Worked on today’s most important task',
-      notes: '(ADD) Notes: Tap to specify your most important task',
+      notes: 'Tap to specify your most important task',
     },
     {
       type: 'todo',
       text: 'Work project >> Complete work project',
-      notes: '(ADD) Notes: Tap to specify the name of your current project + set a due date!',
+      notes: 'Tap to specify the name of your current project + set a due date!',
     },
   ],
   exercise: [
@@ -695,12 +695,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Stretching >> Daily workout routine',
-      notes: '(ADD) Notes: Tap to choose your schedule and specify exercises!',
+      notes: 'Tap to choose your schedule and specify exercises!',
     },
     {
       type: 'todo',
       text: 'Set up workout schedule',
-      notes: '(ADD) Notes: Tap to add a checklist!',
+      notes: 'Tap to add a checklist!',
     },
   ],
   health_wellness: [ // eslint-disable-line
@@ -713,12 +713,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Floss',
-      notes: '(ADD) Notes: Tap to make any changes!',
+      notes: 'Tap to make any changes!',
     },
     {
       type: 'todo',
       text: 'Schedule check-up >> Brainstorm a healthy change',
-      notes: '(ADD) Notes: Tap to add checklists!',
+      notes: 'Tap to add checklists!',
     },
   ],
   school: [
@@ -731,12 +731,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Finish homework',
-      notes: '(ADD) Notes: Tap to choose your homework schedule!',
+      notes: 'Tap to choose your homework schedule!',
     },
     {
       type: 'todo',
       text: 'Finish assignment for class',
-      notes: '(ADD) [Notes: Tap to name the assignment and choose a due date!]',
+      notes: 'Tap to name the assignment and choose a due date!]',
     },
   ],
   self_care: [ // eslint-disable-line
@@ -749,12 +749,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: '5 minutes of quiet breathing',
-      notes: '(ADD) Notes: Tap to choose your schedule!',
+      notes: 'Tap to choose your schedule!',
     },
     {
       type: 'todo',
       text: 'Engage in a fun activity',
-      notes: '(ADD) Notes: Tap to specify what you plan to do!',
+      notes: 'Tap to specify what you plan to do!',
     },
   ],
   chores: [
@@ -767,12 +767,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Wash dishes',
-      notes: '(ADD) Notes: Tap to choose your schedule!',
+      notes: 'Tap to choose your schedule!',
     },
     {
       type: 'todo',
       text: 'Organize closet >> Organize clutter',
-      notes: '(ADD) Notes: Tap to specify the cluttered area!',
+      notes: 'Tap to specify the cluttered area!',
     },
   ],
   creativity: [
@@ -785,12 +785,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Work on creative project',
-      notes: '(ADD) Notes: Tap to specify the name of your current project + set the schedule!',
+      notes: 'Tap to specify the name of your current project + set the schedule!',
     },
     {
       type: 'todo',
       text: 'Finish creative project',
-      notes: '(ADD) Notes: Tap to specify the name of your project',
+      notes: 'Tap to specify the name of your project',
     },
   ],
 };
