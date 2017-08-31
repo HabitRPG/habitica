@@ -23,7 +23,7 @@ div
         .col-8
           .about
             h2 About
-            p {{user.profile.blurb}}
+            p(v-markdown='user.profile.blurb')
           .photo
             h2 Photo
             img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
@@ -333,6 +333,7 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import privateMessageModal from 'client/components/private-message-modal';
+import markdown from 'client/directives/markdown';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
@@ -341,6 +342,9 @@ const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
 export default {
+  directives: {
+    markdown,
+  },
   components: {
     bModal,
     privateMessageModal,

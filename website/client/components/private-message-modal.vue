@@ -13,7 +13,7 @@ export default {
   props: ['userIdToMessage'],
   components: {
     bModal,
-  }
+  },
   data () {
     return {
       privateMessage: '',
