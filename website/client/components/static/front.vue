@@ -4,27 +4,7 @@
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
-      button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-      router-link.nav-link(to="/home")
-        .logo.svg-icon(v-html="icons.logo")
-      #navbarNav.collapse.navbar-collapse
-        ul.navbar-nav.float-right
-          li.nav-item
-            router-link.nav-link(to="/static/features") How it Works
-          li.nav-item
-            router-link.nav-link(to="/static/plans") Group Plans
-          li.nav-item
-            a.nav-link(href="https://habitica.wordpress.com/") Blog
-          li.nav-item
-            a.nav-link(href="http://blog.habitrpg.com/") Tumblr
-          li.nav-item
-            router-link.nav-link(to="/static/press-kit") Press Kit
-          li.nav-item
-            router-link.nav-link(to="/static/contact") Contact
-          li.nav-item
-            button#play-btn(class="btn btn-primary btn-lg gamifybutton") Enter Habitica
+    static-header
 
     #intro.container-fluid
       .row
@@ -530,11 +510,12 @@
             a(href='https://slack.com/')
               img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/landing_slack_hash_wordmark_logo.png', alt="$t(altAttrSlack)")
 
-      .row.footer-content
-        // @TODO: Add footer include ../shared/footer
+      app-footer
 </template>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/static.scss';
+
   .logo {
     width: 128px;
     height: 28px;
@@ -619,24 +600,26 @@
 </style>
 
 <script>
-import logo from 'assets/svg/logo.svg';
+  import AppFooter from 'client/components/appFooter';
+  import StaticHeader from './header.vue';
 
-export default {
-  data () {
-    return {
-      icons: Object.freeze({
-        logo,
-      }),
-      userCount: 1000000,
-    };
-  },
-  mounted () {
-    // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
-  },
-  methods: {
-    playButtonClick () {
-      this.$router.push('/register');
+  export default {
+    components: {
+      AppFooter,
+      StaticHeader,
     },
-  },
-};
+    data () {
+      return {
+        userCount: 1000000,
+      };
+    },
+    mounted () {
+      // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
+    },
+    methods: {
+      playButtonClick () {
+        this.$router.push('/register');
+      },
+    },
+  };
 </script>
