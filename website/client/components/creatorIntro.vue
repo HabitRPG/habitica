@@ -172,6 +172,16 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.col-12.text-center.set-title
+        strong {{backgroundShopSets[0].text}}
+      .row.incentive-background-row
+        .col-2(v-for='bg in backgroundShopSets[0].items',
+            @click='unlock("background." + bg.key)',
+            :popover-title='bg.text',
+            :popover='bg.notes',
+            popover-trigger='mouseenter')
+            .incentive-background(:class='[`background_${bg.key}`]')
+              .small-rectangle
       .row.sub-menu.col-6.offset-3
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
             strong(v-once) 2017
@@ -518,6 +528,61 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       margin: 0 auto;
       box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       border-radius: 2px;
+    }
+
+    strong {
+      margin: 0 auto;
+    }
+
+    .incentive-background-row {
+      margin-bottom: 2em;
+    }
+
+    .incentive-background {
+      background-image: none;
+      width: 68px;
+      height: 68px;
+      border-radius: 8px;
+      background-color: #92b6bd;
+      margin: 0 auto;
+      padding-top: .3em;
+
+      .small-rectangle {
+        width: 60px;
+        height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        opacity: .6;
+        background: white;
+      }
+    }
+
+    .background_violet {
+      background-color: #a993ed;
+    }
+
+    .background_blue {
+      background-color: #92b6bd;
+    }
+
+    .background_green {
+      background-color: #92bd94;
+    }
+
+    .background_purple {
+      background-color: #9397bd;
+    }
+
+    .background_red {
+      background-color: #b77e80;
+    }
+
+    .background_yellow {
+      background-color: #bcbb91;
+    }
+
+    .incentive-background:hover {
+      cursor: pointer;
     }
 
     .background:hover {
