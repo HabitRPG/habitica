@@ -13,6 +13,10 @@
         div(:class='{sticky: user.preferences.stickyHeader}')
           router-view
         app-footer
+
+        audio#sound(autoplay, ref="sound")
+          source#oggSource(type="audio/ogg", :src="sound.oggSource")
+          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style scoped>
@@ -63,6 +67,11 @@ export default {
   data () {
     return {
       isUserLoaded: false,
+
+      sound: {
+        oggSource: '',
+        mp3Source: '',
+      },
     };
   },
   computed: {
@@ -76,6 +85,21 @@ export default {
     },
   },
   created () {
+    this.$root.$on('playSound', (sound) => {
+      let theme = this.user.preferences.sound;
+
+      if (!theme || theme === 'off')
+        return;
+
+      let file =  `static/audio/${theme}/${sound}`;
+      this.sound = {
+        oggSource: `${file}.ogg`,
+        mp3Source: `${file}.mp3`,
+      };
+
+      this.$refs.sound.load();
+    });
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user) {

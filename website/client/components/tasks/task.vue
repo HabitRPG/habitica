@@ -404,6 +404,19 @@ export default {
         return;
       }
 
+      switch (this.task.type) {
+        case 'habit':
+          this.$root.$emit('playSound', direction === 'up' ? 'Plus_Habit' : 'Minus_Habit');
+          break;
+        case 'todo':
+          this.$root.$emit('playSound', 'Todo');
+          break;
+        case 'daily':
+          this.$root.$emit('playSound', 'Daily');
+          break;
+      }
+
+
       if (task.group.approval.required) task.group.approval.requested = true;
 
       const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
