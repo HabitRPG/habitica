@@ -14,7 +14,7 @@ div.autocomplete-selection(v-if='searchResults.length > 0', :style='autocomplete
 import groupBy from 'lodash/groupBy';
 
 export default {
-  props: ['selections', 'text', 'coords', 'groupId', 'chat'],
+  props: ['selections', 'text', 'coords', 'chat'],
   data () {
     return {
       currentSearch: '',
@@ -56,13 +56,6 @@ export default {
           this.tmpSelections.push(userName);
         }
       }
-    },
-    async groupId () {
-      if (!this.groupId) return;
-      let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
-      this.tmpSelections = members.map((member) => {
-        return member.profile.name;
-      });
     },
   },
   methods: {
