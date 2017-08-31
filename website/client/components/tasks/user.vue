@@ -77,42 +77,6 @@
         @openBuyDialog="openBuyDialog($event)"
       )
 
-  buyModal(
-    :item="selectedItemToBuy",
-    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-    @change="resetItemToBuy($event)",
-    @buyPressed="buyItem($event)",
-    @togglePinned="togglePinned($event)"
-  )
-      template(slot="item", scope="ctx")
-        div(v-if="ctx.item.purchaseType === 'gear'")
-          avatar.inline(
-            :member="user",
-            :avatarOnly="true",
-            :withBackground="true",
-            :overrideAvatarGear="memberOverrideAvatarGear(ctx.item)"
-          )
-
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false",
-          v-else
-        )
-
-      template(slot="additionalInfo", scope="ctx")
-        equipmentAttributesGrid.bordered(
-          :item="ctx.item",
-          v-if="ctx.item.purchaseType === 'gear'"
-        )
-
-  selectMembersModal(
-    :item="selectedCardToBuy",
-    :group="user.party",
-    @change="resetCardToBuy($event)",
-    @memberSelected="memberSelectedToSendCard($event)",
-  )
-
   spells
 </template>
 
@@ -323,11 +287,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
-import BuyModal from 'client/components/shops/buyModal.vue';
 import Item from 'client/components/inventory/item.vue';
-import Avatar from 'client/components/avatar';
-import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
-import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
 export default {
   components: {
@@ -335,12 +295,8 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
-    BuyModal,
     Item,
-    Avatar,
-    EquipmentAttributesGrid,
     spells,
-    SelectMembersModal,
   },
   directives: {
     markdown,
@@ -367,9 +323,6 @@ export default {
       newTag: null,
       editingTask: null,
       creatingTask: null,
-
-      selectedItemToBuy: null,
-      selectedCardToBuy: null,
     };
   },
   computed: {
@@ -488,36 +441,8 @@ export default {
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
     },
-    resetItemToBuy ($event) {
-      if (!$event) {
-        this.selectedItemToBuy = null;
-      }
-    },
-    resetCardToBuy ($event) {
-      if (!$event) {
-        this.selectedCardToBuy = null;
-      }
-    },
-    memberOverrideAvatarGear (gear) {
-      return {
-        [gear.type]: gear.key,
-      };
-    },
-    buyItem (item) {
-      if (item.purchaseType === 'card') {
-        this.selectedCardToBuy = item;
-      } else if (item.currency === 'gold') {
-        this.$store.dispatch('shops:buyItem', {key: item.key});
-      } else {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      }
-    },
-    openBuyDialog (rewardItem) {
-      this.selectedItemToBuy = rewardItem;
-    },
-    memberSelectedToSendCard (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-      this.selectedCardToBuy = null;
+    openBuyDialog (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

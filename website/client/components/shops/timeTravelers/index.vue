@@ -92,7 +92,7 @@
               :price="ctx.item.value",
               :priceType="ctx.item.currency",
               :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
+              @click="selectItemToBuy(ctx.item)"
             )
               span(slot="popoverContent", scope="ctx")
                 div
@@ -105,23 +105,6 @@
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-    buyModal(
-      :item="selectedItemToBuy",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
-    )
-      template(slot="item", scope="scope")
-        div
-          avatar(
-            :member="user",
-            :avatarOnly="true",
-            :withBackground="true",
-            :overrideAvatarGear="memberOverrideAvatarGear(scope.item)",
-            :spritesMargin="'0px auto 0px'",
-          )
 
 </template>
 
@@ -326,8 +309,6 @@
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
-        selectedItemToBuy: null,
-
         hidePinned: false,
 
         backgroundUpdate: new Date(),
@@ -436,37 +417,19 @@
       getGrouped (entries) {
         return _groupBy(entries, 'group');
       },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
       togglePinned (item) {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
       },
-      buyItem (item) {
-        if (item.purchaseType === 'set_mystery') {
-          this.$store.dispatch('shops:purchaseMysterySet', {key: item.key});
-        } else {
-          this.$store.dispatch('shops:purchaseHourglassItem', {type: item.purchaseType, key: item.key});
-        }
-
-        this.backgroundUpdate = new Date();
-      },
-      memberOverrideAvatarGear (set) {
-        let gear = {};
-
-        set.items.map((item) => {
-          gear[item.type] = item.key;
-        });
-
-        return gear;
+      selectItemToBuy (item) {
+        this.$root.$emit('buyModal::showItem', item);
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchTimeTravelers');
+      this.$root.$on('buyModal::boughtItem', () => {
+        this.backgroundUpdate = new Date();
+      });
     },
   };
 </script>

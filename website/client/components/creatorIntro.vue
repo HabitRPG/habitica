@@ -187,7 +187,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
-            @click='unlock("background." + bg.key)',
+            @click='backgroundSelected(bg)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
@@ -664,7 +664,7 @@ import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
 import pin from 'assets/svg/pin.svg';
-import { isPinned } from 'common/script/ops/pinnedGearUtils';
+import isPinned from 'common/script/libs/isPinned';
 
 let tasksByCategory = {
   work: [
@@ -997,6 +997,9 @@ export default {
       if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {
         this.text(this.$t('unpinnedItem', {item: bg.text}));
       }
+    },
+    backgroundSelected (bg) {
+      this.$root.$emit('buyModal::showItem', bg);
     },
   },
 };
