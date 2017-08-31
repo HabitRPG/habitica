@@ -174,3 +174,24 @@ export async function approve (store, payload) {
   let response = await axios.post(`/api/v3/tasks/${payload.taskId}/approve/${payload.userId}`);
   return response.data.data;
 }
+
+export async function unlinkOneTask (store, payload) {
+  if (!payload.keep) payload.keep = 'keep';
+
+  let task = payload.task;
+  const list = store.state.tasks.data[`${task.type}s`];
+  const taskIndex = list.findIndex(t => t._id === task._id);
+
+  if (taskIndex > -1) {
+    list.splice(taskIndex, 1);
+  }
+
+  let response = await axios.post(`/api/v3/tasks/unlink-one/${payload.task._id}?keep=${payload.keep}`);
+  return response.data.data;
+}
+
+export async function unlinkAllTasks (store, payload) {
+  if (!payload.keep) payload.keep = 'keep-all';
+  let response = await axios.post(`/api/v3/tasks/unlink-all/${payload.challengeId}?keep=${payload.keep}`);
+  return response.data.data;
+}
