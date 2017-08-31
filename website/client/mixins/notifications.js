@@ -87,7 +87,7 @@ export default {
       this.notify(`${this.sign(val)} ${this.round(val)}`, 'mp', 'glyphicon glyphicon-fire', this.sign(val));
     },
     purchased (itemName) {
-      this.notify(this.$t('purchasedItem', {
+      this.text(this.$t('purchasedItem', {
         itemName,
       }));
     },
