@@ -254,11 +254,7 @@ div
               .col-4(v-if='user.stats.points', @click='allocate(stat)')
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
                   :popover='$t(statInfo.allocatepop)') +
-
-    // @TODO: Make separate componenet
-    b-modal#private-message(title="Message", size='sm', :hide-footer="true")
-      textarea.form-control(v-model='privateMessage')
-      button.btn.btn-primary(@click='sendPrivateMessage()') Send
+  private-message-modal(:userIdToMessage='userIdToMessage')
 </template>
 
 <style lang="scss" scoped>
@@ -335,8 +331,8 @@ import { beastMasterProgress, mountMasterProgress } from '../../../common/script
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
-import notifications from 'client/mixins/notifications';
 
+import privateMessageModal from 'client/components/private-message-modal';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
@@ -347,12 +343,11 @@ const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 export default {
   components: {
     bModal,
+    privateMessageModal,
   },
-  mixins: [notifications],
   data () {
     return {
       userIdToMessage: '',
-      privateMessage: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -446,15 +441,6 @@ export default {
     sendMessage () {
       this.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
-    },
-    async sendPrivateMessage () {
-      if (!this.privateMessage || !this.userIdToMessage) return;
-
-      await this.$store.dispatch('members:sendPrivateMessage', {
-        message: this.privateMessage,
-        toUserId: this.userIdToMessage,
-      });
-      this.text(this.$t('messageSentAlert'));
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
