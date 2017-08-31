@@ -13,7 +13,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
             .col-md-8
                 router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                   h3 {{ guild.name }}
-                p {{ guild.description }}
+                p {{ guild.summary }}
             .col-md-2.cta-container
               button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
               button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}

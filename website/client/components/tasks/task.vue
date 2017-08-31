@@ -429,7 +429,6 @@ export default {
 
       if (drop) {
         let text;
-        let notes;
         let type;
         // TODO $rootScope.playSound('Item_Drop');
 
@@ -453,16 +452,13 @@ export default {
 
         if (drop.type === 'HatchingPotion') {
           text = Content.hatchingPotions[drop.key].text();
-          notes = Content.hatchingPotions[drop.key].notes();
-          this.drop(this.$t('messageDropPotion', {dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropPotion', {dropText: text}), drop);
         } else if (drop.type === 'Egg') {
           text = Content.eggs[drop.key].text();
-          notes = Content.eggs[drop.key].notes();
-          this.drop(this.$t('messageDropEgg', {dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropEgg', {dropText: text}), drop);
         } else if (drop.type === 'Food') {
           text = Content.food[drop.key].text();
-          notes = Content.food[drop.key].notes();
-          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text}), drop);
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});

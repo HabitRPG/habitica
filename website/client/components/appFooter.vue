@@ -6,62 +6,62 @@
     .row
       .col-2
         h3
-          a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') iOS App
+          a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
         h3
-          a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') Android App
+          a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
       .col-2
         h3 Company
         ul
           li
-            a(href='/static/features') How it Works
+            a(href='/static/features') {{ $t('companyAbout') }}
           li
-            a(href='https://habitica.wordpress.com/') Blog
+            a(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
           li
-            a(href='http://blog.habitrpg.com/') Tumblr
+            a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('Tumblr') }}
           li
-            a(href='/static/faq') FAQ
+            a(href='/static/faq') {{ $t('FAQ') }}
           li
-            a(href='/static/old-news') News
+            a(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
           li
-            a(href='/static/merch') Merchandise
+            a(href='/static/merch') {{ $t('merch') }}
           li
-            a(href='/static/press-kit') Press Kit
+            a(href='/static/press-kit') {{ $t('presskit') }}
           li
-            a(href='/static/contact') Contact Us
+            a(href='/static/contact') {{ $t('contactUs') }}
       .col-2
         h3 Community
         ul
           li
-            a(href='/static/community-guidelines') Community Guidelines
+            a(href='/static/community-guidelines') {{ $t('communityGuidelines') }}
           li
-            router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') Submit a Bug
+            a(href='/hall') {{ $t('hall') }}
           li
-            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') Request a Feature
+            router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
-            a(href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations', target='_blank') Add-Ons & Extensions
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
           li
-            a(href='http://habitica.wikia.com/wiki/Special:Forum', target='_blank') Forum
+            a(v-html='$t("communityExtensions")')
           li
-            a(href='https://www.kickstarter.com/projects/lefnire/habitrpg-mobile', target='_blank') Kickstarter
+            a(v-html='$t("communityForum")')
           li
-            a(href='https://www.facebook.com/Habitica', target='_blank') Facebook
+            a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
-            a(href='https://www.reddit.com/r/habitrpg/', target='_blank') Reddit
+            a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
       .col-6
         .row
           .col-6
             h3 Developers
             ul
               li
-                a(href='/apidoc', target='_blank') APIv3
+                a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='http://data.habitrpg.com/?uuid=', target='_blank') Data Display Tool
+                a(href='http://data.habitrpg.com/?uuid=', target='_blank') {{ $t('dataDisplayTool') }}
               li
-                a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') Guidance for Blacksmiths
+                a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
-                a(href='http://devs.habitica.com/', target='_blank') The Forge - Developer Blog
+                a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
           .col-6.social
-            h3 Social
+            h3 {{ $t('footerSocial') }}
             .social-circle
               a(href='https://twitter.com/habitica', target='_blank')
                 .social-icon.svg-icon(v-html='icons.twitter')
@@ -72,12 +72,11 @@
               a(href='https://www.facebook.com/Habitica', target='_blank')
                 .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-10
-            | We’re an open source project that depends on our users for support. The money you donate helps us keep the servers running, maintain a small staff, develop new features, and provide incentives for our volunteers.
+          .col-10 {{ $t('donateText3') }}
           .col-2
             button.btn.btn-donate(@click='donate()')
               .svg-icon.heart(v-html='icons.heart')
-              .text Donate
+              .text {{ $t('companyDonate') }}
     .row
       hr.col-12
     .row
@@ -105,9 +104,9 @@
         .logo
       .col-4.text-right
         span
-          router-link(to="/static/privacy") Privacy Policy
+          router-link(to="/static/privacy") {{ $t('privacy') }}
         span.terms-link
-          router-link(to="/static/terms") Terms of Use
+          router-link(to="/static/terms") {{ $t('terms') }}
 </template>
 
 <style lang="scss" scoped>

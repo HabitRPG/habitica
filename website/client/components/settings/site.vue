@@ -187,7 +187,7 @@
                 popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
-<style scope>
+<style scoped>
   .usersettings h5 {
     margin-top: 1em;
   }

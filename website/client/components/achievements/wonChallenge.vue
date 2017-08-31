@@ -22,7 +22,7 @@
         a.tumblr-share-button(data-href='#{env.BASE_URL}/social/won-challenge', data-notes='none')
 </template>
 
-<style scope>
+<style scoped>
   .achievement-karaoke-2x {
     margin: 0 auto;
     margin-top: 6em;

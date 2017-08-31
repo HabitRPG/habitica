@@ -13,7 +13,7 @@
         button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
-<style scope>
+<style scoped>
   .item-drop-icon {
     margin: 0 auto;
   }

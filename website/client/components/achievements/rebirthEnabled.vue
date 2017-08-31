@@ -10,7 +10,7 @@
         button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
-<style scope>
+<style scoped>
   .rebirth_orb {
     margin: 0 auto;
   }

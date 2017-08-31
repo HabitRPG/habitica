@@ -30,7 +30,7 @@
     achievement-footer
 </template>
 
-<style scope>
+<style scoped>
   .shop_armoire {
     margin: 0 auto;
   }

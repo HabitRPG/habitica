@@ -9,7 +9,7 @@ div
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') Approve Task
-      .col-6.text-center
+      // @TODO: Implement in v2 .col-6.text-center
         a Needs work
     .text-center.task-multi-approval(v-if='multipleApprovalsRequested')
       a(@click='showRequests()') View Requests

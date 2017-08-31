@@ -285,14 +285,14 @@ export default {
 
       if (type === 'party') {
         // @TODO: pretty sure mutability is wrong. Need to check React docs
-        this.user.invitations.party.splice(index, 1);
+        this.user.invitations.parties.splice(index, 1);
       } else {
         this.user.invitations.guilds.splice(index, 1);
       }
 
       if (type === 'party') {
         this.user.party._id = group.id;
-        this.$router.push('/groups/party');
+        this.$router.push('/party');
       } else {
         this.user.guilds.push(group.id);
         this.$router.push(`/groups/guild/${group.id}`);

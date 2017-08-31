@@ -118,11 +118,6 @@ export default {
     bDropdownItem,
     MemberDetails,
   },
-  mounted () {
-    this.$root.$on('shown::modal', () => {
-      this.getMembers();
-    });
-  },
   data () {
     return {
       sortOption: '',
@@ -157,6 +152,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     isLeader () {
+      if (!this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     groupIsSubscribed () {
@@ -164,6 +160,9 @@ export default {
     },
     group () {
       return this.$store.state.memberModalOptions.group;
+    },
+    groupId () {
+      return this.$store.state.memberModalOptions.groupId || this.group._id;
     },
     sortedMembers () {
       let sortedMembers = this.members;
@@ -185,9 +184,18 @@ export default {
       return this.members;
     },
   },
+  watch: {
+    groupId () {
+      // @TOOD: We might not need this since groupId is computed now
+      this.getMembers();
+    },
+    group () {
+      this.getMembers();
+    },
+  },
   methods: {
     async getMembers () {
-      let groupId = this.$store.state.memberModalOptions.groupId || this.group._id;
+      let groupId = this.groupId;
       if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,

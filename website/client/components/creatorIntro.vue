@@ -8,7 +8,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
   .section.avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg
-      avatar(:member='user')
+      avatar(:member='user', :avatarOnly='!editing')
 
   .section(v-if='modalPage === 2')
     // @TODO Implement in V2 .section.row
@@ -282,7 +282,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .next(v-once) {{$t('next')}}
           .next-arrow
         div(v-if='modalPage === 3', @click='done()')
-          button.btn.btn-primary.next(v-once) {{$t('done')}}
+          button.btn.btn-primary.next(v-once, v-if='!loading') {{$t('done')}}
 </template>
 
 <style>
@@ -808,6 +808,7 @@ export default {
     let backgroundShopSets = getBackgroundShopSets();
 
     return {
+      loading: false,
       backgroundShopSets,
       backgroundUpdate: new Date(),
       icons: Object.freeze({
@@ -895,6 +896,8 @@ export default {
       this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
     async done () {
+      this.loading = true;
+
       let tasksToCreate = [];
       this.taskCategories.forEach(category => {
         tasksToCreate = tasksToCreate.concat(tasksByCategory[category]);
@@ -905,7 +908,7 @@ export default {
       let tasks = response.data.data;
       tasks.forEach(task => {
         this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
-        Object.assign(this.$store.state.tasks.data[`${task.type}s`][0], task);
+        this.$store.state.tasks.data[`${task.type}s`].unshift(task);
       });
 
       this.$root.$emit('hide::modal', 'avatar-modal');

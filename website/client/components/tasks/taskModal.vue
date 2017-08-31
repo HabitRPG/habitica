@@ -69,10 +69,24 @@
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(v-model="task.date")
+          datepicker(
+            v-model="task.date",
+            :clearButton='true',
+            clearButtonIcon='category-select',
+            :clearButtonText='$t("clear")',
+            :todayButton='true',
+            todayButtonIcon='category-select',
+            :todayButtonText='$t("today")',
+          )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(v-model="task.startDate")
+          datepicker(
+            v-model="task.startDate",
+            :clearButton='false',
+            :todayButton='true',
+            todayButtonIcon='category-select',
+            :todayButtonText='$t("today")',
+          )
         .option(v-if="task.type === 'daily'")
           .form-group
             label(v-once) {{ $t('repeats') }}
