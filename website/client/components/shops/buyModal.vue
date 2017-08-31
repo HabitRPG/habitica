@@ -19,15 +19,15 @@
 
       div.inner-content
         slot(name="item", :item="item")
-          avatar(
-            v-if="showAvatar",
-            :member="user",
-            :avatarOnly="true",
-            :hideClassBadge="true",
-            :withBackground="true",
-            :overrideAvatarGear="getAvatarOverrides(item)",
-            :spritesMargin="'0px auto 0px'",
-          )
+          div(v-if="showAvatar")
+            avatar(
+              :member="user",
+              :avatarOnly="true",
+              :hideClassBadge="true",
+              :withBackground="true",
+              :overrideAvatarGear="getAvatarOverrides(item)",
+              :spritesMargin="'0px auto 0px -24px'",
+            )
           item.flat.bordered-item(
             :item="item",
             :itemContentClass="item.class",
@@ -291,7 +291,7 @@
             return {
               [item.type]: item.key,
             };
-          case 'background':
+          case 'backgrounds':
             return {
               background: item.key,
             };
