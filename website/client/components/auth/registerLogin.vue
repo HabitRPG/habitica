@@ -11,26 +11,26 @@
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("facebook")', v-once)
+        .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
           .svg-icon.social-icon(v-html="icons.facebookIcon")
-          .text {{this.registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+          .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
       .col-6
-        .btn.btn-secondary.social-button(@click='socialAuth("google")', v-once)
+        .btn.btn-secondary.social-button(@click='socialAuth("google")')
           .svg-icon.social-icon(v-html="icons.googleIcon")
-          span {{this.registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+          span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
     .form-group(v-if='!registering')
       label(for='usernameInput', v-once) {{$t('emailOrUsername')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
+      input#usernameInput.form-control(type='text', :placeholder='$t("emailOrUsername")', v-model='username')
     .form-group(v-if='registering')
       label(for='emailInput', v-once) {{$t('email')}}
       input#emailInput.form-control(type='email', :placeholder='$t("emailPlaceholder")', v-model='email')
     .form-group
       label(for='passwordInput', v-once) {{$t('password')}}
       a.float-right.forgot-password(v-once, v-if='!registering', @click='forgotPassword = true') {{$t('forgotPassword')}}
-      input#passwordInput.form-control(type='password', :placeholder='$t("passwordPlaceholder")', v-model='password')
+      input#passwordInput.form-control(type='password', :placeholder='$t(registering ? "passwordPlaceholder" : "password")', v-model='password')
     .form-group(v-if='registering')
       label(for='confirmPasswordInput', v-once) {{$t('confirmPassword')}}
       input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
@@ -40,9 +40,9 @@
       .btn.btn-info(@click='login()', v-if='!registering', v-once) {{$t('login')}}
       .toggle-links
         router-link(:to="{name: 'login'}", v-if='registering', exact)
-          a.toggle-link(v-once) {{ $t('alreadyHaveAccountLogin') }}
+          a.toggle-link(v-once, v-html="$t('alreadyHaveAccountLogin')")
         router-link(:to="{name: 'register'}",  v-if='!registering', exact)
-          a.toggle-link(v-once) Don't have an account? Join Habitica!
+          a.toggle-link(v-once, v-html="$t('dontHaveAccountSignup')")
 
   form#forgot-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='forgotPassword')
     .text-center
@@ -82,9 +82,6 @@
   .form-wrapper {
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(to bottom, #4f2a93, #6133b4); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
     min-height: 100%;
   }
@@ -99,6 +96,9 @@
     color: $purple-400;
   }
   :-moz-placeholder { /* Firefox 18- */
+    color: $purple-400;
+  }
+  ::placeholder { //  Standard browsers
     color: $purple-400;
   }
 

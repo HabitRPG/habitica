@@ -22,7 +22,7 @@
         h4.text-center(v-html="$t('dyingOftenTips')")
 </template>
 
-<style scope>
+<style scoped>
   .info {
     height: 220px;
   }

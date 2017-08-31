@@ -14,7 +14,7 @@
             .btn.btn-primary(@click='takeMethere()') {{ $t('guildReminderCTA') }}
 </template>
 
-<style scope>
+<style scoped>
   .scene_guilds {
     margin: 0 auto;
   }

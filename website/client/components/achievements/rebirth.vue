@@ -12,12 +12,6 @@
     achievement-footer
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
-  }
-</style>
-
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';

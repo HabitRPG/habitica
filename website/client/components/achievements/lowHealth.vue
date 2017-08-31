@@ -26,7 +26,7 @@
         button.btn.btn-primary(@click='acknowledgeHealthWarning()') {{ $t('ok') }}
 </template>
 
-<style scope>
+<style scoped>
   .hero-stats {
     position: absolute;
     margin-left: 9em;

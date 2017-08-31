@@ -9,12 +9,6 @@
       button.btn.btn-primary(@click='setQuestCompleted()') {{ $t('ok') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
-  }
-</style>
-
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import quests from 'common/script/content/quests';
