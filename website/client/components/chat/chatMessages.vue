@@ -107,11 +107,11 @@
     color: #277eab;
   }
 
-  .tier10 {
+  .tier9 {
     color: #6133b4;
   }
 
-  .tier9 {
+  .tier10 {
     color: #77f4c7;
     fill: #77f4c7;
     stroke: #005737;
