@@ -44,12 +44,6 @@
       button.btn.btn-primary(ng-click='questAccept(); $close()') {{ $t('accept') }}
 </template>
 
-<style scoped>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
-  }
-</style>
-
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 
