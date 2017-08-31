@@ -43,6 +43,9 @@ export default {
       });
     },
   },
+  mounted () {
+    this.grabUserNames();
+  },
   watch: {
     text (newText) {
       if (newText[newText.length - 1] !== '@') return;
@@ -50,15 +53,19 @@ export default {
       this.currentSearchPosition = newText.length - 1;
     },
     chat () {
+      this.grabUserNames();
+    },
+  },
+  methods: {
+    grabUserNames () {
       let usersThatMessage = groupBy(this.chat, 'user');
       for (let userName in usersThatMessage) {
-        if (this.tmpSelections.indexOf(userName) === -1) {
+        let systemMessage = userName === 'undefined';
+        if (!systemMessage && this.tmpSelections.indexOf(userName) === -1) {
           this.tmpSelections.push(userName);
         }
       }
     },
-  },
-  methods: {
     select (result) {
       let newText = this.text.slice(0, this.currentSearchPosition + 1) + result;
       this.searchActive = false;
