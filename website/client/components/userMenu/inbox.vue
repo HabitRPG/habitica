@@ -30,6 +30,10 @@
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
+        .empty-messages.text-center(v-if='activeChat.length === 0')
+          .svg-icon.envelope(v-html="icons.messageIcon")
+          h4(v-once) Nothing Here Yet
+          p(v-once) Select a conversation on the left
         chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
@@ -142,7 +146,7 @@
 import Vue from 'vue';
 import moment from 'moment';
 import filter from 'lodash/filter';
-// import sortBy from 'lodash/sortBy';
+import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
@@ -183,11 +187,6 @@ export default {
       for (let messageId in this.user.inbox.messages) {
         let message = this.user.inbox.messages[messageId];
         let userId = message.uuid;
-
-        if (!this.selectedConversation) {
-          this.selectedConversation = userId;
-          this.selectConversation(userId);
-        }
 
         if (!conversations[userId]) {
           conversations[userId] = {
@@ -234,11 +233,13 @@ export default {
     selectConversation (key) {
       this.selectedConversation = key;
       let activeChat = this.conversations[this.selectedConversation].messages;
-      // @TODO: I think I did this wrong
-      // activeChat = sortBy(this.activeChat, [(o) => {
-      //   return o.timestamp;
-      // }]);
+
+      activeChat = sortBy(activeChat, [(o) => {
+        return moment(o.timestamp).toDate();
+      }]);
+
       this.$set(this, 'activeChat', activeChat);
+
       Vue.nextTick(() => {
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;

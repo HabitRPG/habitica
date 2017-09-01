@@ -4,8 +4,6 @@
     .col-12
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
-  .row
-    .hr.col-12
 
   div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
