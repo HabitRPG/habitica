@@ -133,8 +133,12 @@
         .col-10.information-header
           h3(v-once)
             | {{ $t('challenges') }}
-          b-tooltip.icon.tooltip-wrapper(:content="isParty ? $t('challengeDetails') : $t('privateDescription')")
+          #groupPrivateDescOrChallengeInfo.icon.tooltip-wrapper(:title="isParty ? $t('challengeDetails') : $t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="isParty ? $t('challengeDetails') : $t('privateDescription')",
+            target="groupPrivateDescOrChallengeInfo",
+          )
         .col-2
           .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
             .svg-icon(v-html="icons.upIcon")
