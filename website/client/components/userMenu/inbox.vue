@@ -197,10 +197,19 @@ export default {
           };
         }
 
-        conversations[userId].messages.push({
+        let newMessage = {
           text: message.text,
           timestamp: message.timestamp,
-        });
+          user: message.user,
+          uuid: message.uuid,
+        };
+
+        if (message.sent) {
+          newMessage.user = this.user.profile.name;
+          newMessage.uuid = this.user._id;
+        }
+
+        conversations[userId].messages.push(newMessage);
         conversations[userId].lastMessageText = message.text;
         conversations[userId].date = message.timestamp;
       }
@@ -244,6 +253,8 @@ export default {
       this.conversations[this.selectedConversation].messages.push({
         text: this.newMessage,
         timestamp: new Date(),
+        user: this.user.profile.name,
+        uuid: this.user._id,
       });
 
       this.activeChat = this.conversations[this.selectedConversation].messages;

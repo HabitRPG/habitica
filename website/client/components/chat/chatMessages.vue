@@ -12,7 +12,7 @@
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
@@ -41,7 +41,7 @@
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     .row(v-if='user._id === msg.uuid')
-      .card.col-8.offset-2
+      .card.col-8
         .card-block
             h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
               | {{msg.user}}
@@ -65,7 +65,7 @@
             span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
@@ -288,10 +288,13 @@ export default {
         return;
       }
 
+      // @TODO: Not sure we need this hash
+      let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (uuid && !this.cachedProfileData[uuid]) {
+        if (uuid && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
+          aboutToCache[uuid] = {};
           promises.push(axios.get(`/api/v3/members/${uuid}`));
           this.currentProfileLoadedCount += 1;
         }
