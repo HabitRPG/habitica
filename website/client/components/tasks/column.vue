@@ -18,7 +18,7 @@
       @editTask="editTask",
       :group='group',
     )
-    template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
+    template(v-if="hasRewardsList")
       .reward-items
         shopItem(
           v-for="reward in inAppRewards",
@@ -31,7 +31,7 @@
 
     .column-background(
       v-if="isUser === true",
-      :class="{'initial-description': tasks[`${type}s`].length === 0}",
+      :class="{'initial-description': initialColumnDescription}",
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -242,6 +242,17 @@ export default {
     },
     inAppRewards () {
       return inAppRewards(this.user);
+    },
+    hasRewardsList () {
+      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
+    },
+    initialColumnDescription () {
+      // Show the column description in the middle only if there are no elements (tasks or in app items)
+      if (this.hasRewardsList) {
+        if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
+      }
+
+      return this.tasks[`${this.type}s`].length === 0;
     },
   },
   watch: {
