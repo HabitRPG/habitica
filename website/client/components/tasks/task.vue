@@ -414,6 +414,9 @@ export default {
         case 'daily':
           this.$root.$emit('playSound', 'Daily');
           break;
+        case 'reward':
+          this.$root.$emit('playSound', 'Reward');
+          break;
       }
 
 
@@ -443,7 +446,8 @@ export default {
       if (drop) {
         let text;
         let type;
-        // TODO $rootScope.playSound('Item_Drop');
+
+        this.$root.$emit('playSound', 'Item_Drop');
 
         // Note: For Mystery Item gear, drop.type will be 'head', 'armor', etc
         // so we use drop.notificationType below.

@@ -215,6 +215,7 @@
             currency: this.item.currency,
           });
           this.purchased(this.item.text);
+          this.$root.$emit('playSound', 'Reward');
         }
 
         this.$emit('buyPressed', this.item);
