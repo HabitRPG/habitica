@@ -91,7 +91,7 @@ export default {
       if (!theme || theme === 'off')
         return;
 
-      let file =  `static/audio/${theme}/${sound}`;
+      let file =  `/static/audio/${theme}/${sound}`;
       this.sound = {
         oggSource: `${file}.ogg`,
         mp3Source: `${file}.mp3`,

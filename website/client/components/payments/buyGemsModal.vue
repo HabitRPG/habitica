@@ -103,6 +103,8 @@ export default {
         this.$store.dispatch('shops:purchase', params);
       } catch (e) {
         alert(e.message);
+      } finally {
+        this.$root.$emit('playSound', 'Reward');
       }
     },
   },
