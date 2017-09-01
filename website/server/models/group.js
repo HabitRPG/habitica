@@ -164,7 +164,7 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
 };
 
 // Basic fields to fetch for populating a group info
-export let basicFields = 'name type privacy leader';
+export let basicFields = 'name type privacy leader summary';
 
 schema.pre('remove', true, async function preRemoveGroup (next, done) {
   next();

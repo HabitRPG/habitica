@@ -11,7 +11,7 @@
         select.form-control(v-model="workingGroup.newLeader")
           option(v-for='member in members', :value="member._id") {{ member.profile.name }}
 
-      .form-group
+      .form-group(v-if='!this.workingGroup.id')
         label
           strong(v-once) {{$t('privacySettings')}} *
         br
@@ -19,8 +19,12 @@
           input.custom-control-input(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
-          b-tooltip.icon(:content="$t('privateDescription')")
+          #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="$t('privateDescription')",
+            target="groupPrivateDescription1",
+          )
 
         // br
         // @TODO Implement in V2 label.custom-control.custom-checkbox
@@ -35,8 +39,12 @@
           input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
-          b-tooltip.icon(:content="$t('privateDescription')")
+          #groupPrivateDescription2.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="$t('privateDescription')",
+            target="groupPrivateDescription2",
+          )
 
         // br
         // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
@@ -45,7 +53,7 @@
           span.custom-control-description(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
           // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
 
-      .form-group(v-if='!creatingParty')
+      .form-group(v-if='!isParty')
         label
           strong(v-once) {{$t('guildSummary')}} *
         div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
@@ -56,7 +64,7 @@
         label
           strong(v-once) {{$t('groupDescription')}} *
         a.float-right {{ $t('markdownFormattingHelp') }}
-        b-form-input.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
+        textarea.form-control.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
 
       .form-group(v-if='creatingParty && !workingGroup.id')
         span
@@ -285,10 +293,31 @@ export default {
 
     return data;
   },
-  mounted () {
-    // @TODO: do we need this? Maybe us computed. If we need, then make it on show a specific modal
-    this.$root.$on('shown::modal', () => {
-      let editingGroup = this.$store.state.editingGroup;
+  computed: {
+    editingGroup () {
+      return this.$store.state.editingGroup;
+    },
+    charactersRemaining () {
+      let currentLength = this.workingGroup.summary ? this.workingGroup.summary.length : 0;
+      return MAX_SUMMARY_SIZE_FOR_GUILDS - currentLength;
+    },
+    title () {
+      if (this.creatingParty) return this.$t('createParty');
+      if (!this.workingGroup._id && !this.workingGroup.id) return this.$t('createGuild');
+      if (this.isParty) return this.$t('updateParty');
+      return this.$t('updateGuild');
+    },
+    creatingParty () {
+      return this.$store.state.groupFormOptions.createParty;
+    },
+    isParty () {
+      return this.workingGroup.type === 'party';
+    },
+  },
+  watch: {
+    editingGroup () {
+      let editingGroup = this.editingGroup;
+
       if (!editingGroup._id) {
         this.resetWorkingGroup();
         return;
@@ -313,24 +342,6 @@ export default {
       if (editingGroup._id) this.workingGroup.id = editingGroup._id;
       if (editingGroup.leader._id) this.workingGroup.newLeader = editingGroup.leader._id;
       if (editingGroup._id) this.getMembers();
-    });
-  },
-  computed: {
-    charactersRemaining () {
-      let currentLength = this.workingGroup.summary ? this.workingGroup.summary.length : 0;
-      return MAX_SUMMARY_SIZE_FOR_GUILDS - currentLength;
-    },
-    title () {
-      if (this.creatingParty) return this.$t('createParty');
-      if (!this.workingGroup.id) return this.$t('createGuild');
-      if (this.isParty) return this.$t('updateParty');
-      return this.$t('updateGuild');
-    },
-    creatingParty () {
-      return this.$store.state.groupFormOptions.createParty;
-    },
-    isParty () {
-      return this.workingGroup.type === 'party';
     },
   },
   methods: {
@@ -444,15 +455,18 @@ export default {
     },
     resetWorkingGroup () {
       this.workingGroup = {
+        id: '',
         name: '',
         type: 'guild',
         privacy: 'private',
+        summary: '',
         description: '',
         categories: [],
         onlyLeaderCreatesChallenges: true,
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        newLeader: '',
       };
     },
   },

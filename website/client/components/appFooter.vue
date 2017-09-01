@@ -17,7 +17,7 @@
           li
             a(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
           li
-            a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('Tumblr') }}
+            a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
           li
             a(href='/static/faq') {{ $t('FAQ') }}
           li

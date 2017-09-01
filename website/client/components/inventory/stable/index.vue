@@ -2,15 +2,14 @@
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
     .standard-sidebar
       div
+        #npmMattStable.npc_matt
         b-popover(
-          :triggers="['hover']",
-          :placement="'right'"
+          triggers="hover",
+          placement="right",
+          target="npmMattStable"
         )
-          span(slot="content")
-            h4.popover-content-title(v-once) {{ $t('mattBoch') }}
-            .popover-content-text(v-once) {{ $t('mattBochText1') }}
-
-          div.npc_matt
+          h4.popover-content-title(v-once) {{ $t('mattBoch') }}
+          .popover-content-text(v-once) {{ $t('mattBochText1') }}
 
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -179,18 +178,14 @@
                   :class="{ 'drawer-tab-text-active': selectedDrawerTab === 1 }",
                 )  {{ drawerTabs[1].label }}
 
+              #petLikeToEatStable.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
-                :placement="'top'"
+                target="petLikeToEatStable"
+                placement="top"
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.float-right(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
-
-
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
         drawer-slider(
           :items="drawerTabs[selectedDrawerTab].items",
           :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",

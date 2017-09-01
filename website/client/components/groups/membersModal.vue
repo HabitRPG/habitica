@@ -24,7 +24,7 @@ div
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
               span.text {{$t('removeMember')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sendMessage(member._id)')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.messageIcon")
               span.text {{$t('sendMessage')}}
@@ -105,6 +105,7 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
+import privateMessageModal from 'client/components/private-message-modal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
@@ -117,6 +118,7 @@ export default {
     bDropdown,
     bDropdownItem,
     MemberDetails,
+    privateMessageModal,
   },
   data () {
     return {
@@ -147,6 +149,7 @@ export default {
         messageIcon,
         starIcon,
       }),
+      userIdToMessage: '',
     };
   },
   computed: {
@@ -194,6 +197,10 @@ export default {
     },
   },
   methods: {
+    sendMessage () {
+      this.userIdToMessage = this.user._id;
+      this.$root.$emit('show::modal', 'private-message');
+    },
     async getMembers () {
       let groupId = this.groupId;
       if (groupId && groupId !== 'challenge') {

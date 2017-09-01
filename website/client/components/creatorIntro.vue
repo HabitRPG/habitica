@@ -172,6 +172,16 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
 
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.col-12.text-center.set-title
+        strong {{backgroundShopSets[0].text}}
+      .row.incentive-background-row
+        .col-2(v-for='bg in backgroundShopSets[0].items',
+            @click='unlock("background." + bg.key)',
+            :popover-title='bg.text',
+            :popover='bg.notes',
+            popover-trigger='mouseenter')
+            .incentive-background(:class='[`background_${bg.key}`]')
+              .small-rectangle
       .row.sub-menu.col-6.offset-3
           .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
             strong(v-once) 2017
@@ -187,7 +197,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
-            @click='unlock("background." + bg.key)',
+            @click='backgroundSelected(bg)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
@@ -520,6 +530,61 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       border-radius: 2px;
     }
 
+    strong {
+      margin: 0 auto;
+    }
+
+    .incentive-background-row {
+      margin-bottom: 2em;
+    }
+
+    .incentive-background {
+      background-image: none;
+      width: 68px;
+      height: 68px;
+      border-radius: 8px;
+      background-color: #92b6bd;
+      margin: 0 auto;
+      padding-top: .3em;
+
+      .small-rectangle {
+        width: 60px;
+        height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        opacity: .6;
+        background: white;
+      }
+    }
+
+    .background_violet {
+      background-color: #a993ed;
+    }
+
+    .background_blue {
+      background-color: #92b6bd;
+    }
+
+    .background_green {
+      background-color: #92bd94;
+    }
+
+    .background_purple {
+      background-color: #9397bd;
+    }
+
+    .background_red {
+      background-color: #b77e80;
+    }
+
+    .background_yellow {
+      background-color: #bcbb91;
+    }
+
+    .incentive-background:hover {
+      cursor: pointer;
+    }
+
     .background:hover {
       cursor: pointer;
     }
@@ -664,7 +729,7 @@ import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
 import pin from 'assets/svg/pin.svg';
-import { isPinned } from 'common/script/ops/pinnedGearUtils';
+import isPinned from 'common/script/libs/isPinned';
 
 let tasksByCategory = {
   work: [
@@ -677,12 +742,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Most important task >> Worked on today’s most important task',
-      notes: '(ADD) Notes: Tap to specify your most important task',
+      notes: 'Tap to specify your most important task',
     },
     {
       type: 'todo',
       text: 'Work project >> Complete work project',
-      notes: '(ADD) Notes: Tap to specify the name of your current project + set a due date!',
+      notes: 'Tap to specify the name of your current project + set a due date!',
     },
   ],
   exercise: [
@@ -695,12 +760,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Stretching >> Daily workout routine',
-      notes: '(ADD) Notes: Tap to choose your schedule and specify exercises!',
+      notes: 'Tap to choose your schedule and specify exercises!',
     },
     {
       type: 'todo',
       text: 'Set up workout schedule',
-      notes: '(ADD) Notes: Tap to add a checklist!',
+      notes: 'Tap to add a checklist!',
     },
   ],
   health_wellness: [ // eslint-disable-line
@@ -713,12 +778,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Floss',
-      notes: '(ADD) Notes: Tap to make any changes!',
+      notes: 'Tap to make any changes!',
     },
     {
       type: 'todo',
       text: 'Schedule check-up >> Brainstorm a healthy change',
-      notes: '(ADD) Notes: Tap to add checklists!',
+      notes: 'Tap to add checklists!',
     },
   ],
   school: [
@@ -731,12 +796,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Finish homework',
-      notes: '(ADD) Notes: Tap to choose your homework schedule!',
+      notes: 'Tap to choose your homework schedule!',
     },
     {
       type: 'todo',
       text: 'Finish assignment for class',
-      notes: '(ADD) [Notes: Tap to name the assignment and choose a due date!]',
+      notes: 'Tap to name the assignment and choose a due date!]',
     },
   ],
   self_care: [ // eslint-disable-line
@@ -749,12 +814,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: '5 minutes of quiet breathing',
-      notes: '(ADD) Notes: Tap to choose your schedule!',
+      notes: 'Tap to choose your schedule!',
     },
     {
       type: 'todo',
       text: 'Engage in a fun activity',
-      notes: '(ADD) Notes: Tap to specify what you plan to do!',
+      notes: 'Tap to specify what you plan to do!',
     },
   ],
   chores: [
@@ -767,12 +832,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Wash dishes',
-      notes: '(ADD) Notes: Tap to choose your schedule!',
+      notes: 'Tap to choose your schedule!',
     },
     {
       type: 'todo',
       text: 'Organize closet >> Organize clutter',
-      notes: '(ADD) Notes: Tap to specify the cluttered area!',
+      notes: 'Tap to specify the cluttered area!',
     },
   ],
   creativity: [
@@ -785,12 +850,12 @@ let tasksByCategory = {
     {
       type: 'daily',
       text: 'Work on creative project',
-      notes: '(ADD) Notes: Tap to specify the name of your current project + set the schedule!',
+      notes: 'Tap to specify the name of your current project + set the schedule!',
     },
     {
       type: 'todo',
       text: 'Finish creative project',
-      notes: '(ADD) Notes: Tap to specify the name of your project',
+      notes: 'Tap to specify the name of your project',
     },
   ],
 };
@@ -997,6 +1062,9 @@ export default {
       if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {
         this.text(this.$t('unpinnedItem', {item: bg.text}));
       }
+    },
+    backgroundSelected (bg) {
+      this.$root.$emit('buyModal::showItem', bg);
     },
   },
 };

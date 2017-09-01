@@ -177,16 +177,14 @@
             @changedPosition="tabSelected($event)"
           )
             div(slot="right-item")
+              #petLikeToEatMarket.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
+                target="petLikeToEatMarket",
                 :placement="'top'",
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.hand-cursor(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
           :items="ownedItems(selectedDrawerItemType) || []",
@@ -227,49 +225,6 @@
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
               )
-
-      buyModal(
-        :item="selectedGearToBuy",
-        priceType="gold",
-        :withPin="true",
-        @change="resetGearToBuy($event)",
-        @togglePinned="togglePinned($event)",
-      )
-        template(slot="item", scope="ctx")
-          div
-            avatar(
-              :member="user",
-              :avatarOnly="true",
-              :withBackground="true",
-              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)",
-              :spritesMargin="'0px auto 0px'",
-            )
-
-        template(slot="additionalInfo", scope="ctx")
-          equipmentAttributesGrid.bordered(:item="ctx.item")
-
-      buyModal(
-        :item="selectedItemToBuy",
-        :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-        @change="resetItemToBuy($event)",
-        @togglePinned="togglePinned($event)",
-        @buyPressed="purchaseCallback($event)",
-        :genericPurchase="selectedItemToBuy != null && selectedItemToBuy.key != 'rebirth_orb'"
-      )
-        template(slot="item", scope="ctx")
-          item.flat.bordered-item(
-            :item="ctx.item",
-            :itemContentClass="ctx.item.class",
-            :showPopover="false",
-            v-if="ctx.item.key != 'gem'"
-          )
-
-      selectMembersModal(
-        :item="selectedCardToBuy",
-        :group="user.party",
-        @change="resetCardToBuy($event)",
-        @memberSelected="memberSelected($event)",
-      )
 </template>
 
 <style lang="scss">
@@ -314,11 +269,6 @@
     width: 48px;
     height: 48px;
   }
-
-  .hand-cursor {
-    cursor: pointer;
-  }
-
 
   .featured-label {
     margin: 24px auto;
@@ -504,10 +454,6 @@ export default {
         selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
-        selectedGearToBuy: null,
-        selectedItemToBuy: null,
-
-        selectedCardToBuy: null,
 
         hideLocked: false,
         hidePinned: false,
@@ -756,21 +702,6 @@ export default {
           this.selectedItemToSell = null;
         }
       },
-      resetGearToBuy ($event) {
-        if (!$event) {
-          this.selectedGearToBuy = null;
-        }
-      },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
-      resetCardToBuy ($event) {
-        if (!$event) {
-          this.selectedCardToBuy = null;
-        }
-      },
       isGearLocked (gear) {
         if (gear.klass !== this.userStats.class) {
           return true;
@@ -778,47 +709,24 @@ export default {
 
         return false;
       },
-      memberOverrideAvatarGear (gear) {
-        return {
-          [gear.type]: gear.key,
-        };
-      },
       togglePinned (item) {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
       },
       itemSelected (item) {
-        if (item.purchaseType === 'card') {
-          if (this.user.party._id) {
-            this.selectedCardToBuy = item;
-          } else {
-            this.error(this.$t('errorNotInParty'));
-          }
-        } else {
-          this.selectedItemToBuy = item;
-        }
+        this.$root.$emit('buyModal::showItem', item);
       },
       featuredItemSelected (item) {
-        if (item.purchaseType === 'gear' && !item.locked) {
-          this.selectedGearToBuy = item;
+        if (item.purchaseType === 'gear') {
+          this.gearSelected(item);
         } else {
           this.itemSelected(item);
         }
       },
       gearSelected (item) {
         if (!item.locked) {
-          this.selectedGearToBuy = item;
-        }
-      },
-      memberSelected (member) {
-        this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-        this.selectedCardToBuy = null;
-      },
-      async purchaseCallback (item) {
-        if (item.key === 'rebirth_orb') {
-          await this.$store.dispatch('user:rebirth');
-          window.location.reload(true);
+          this.$root.$emit('buyModal::showItem', item);
         }
       },
     },

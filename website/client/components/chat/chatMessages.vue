@@ -4,15 +4,13 @@
     .col-12
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
-  .row
-    .hr.col-12
 
   div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
@@ -41,7 +39,7 @@
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     .row(v-if='user._id === msg.uuid')
-      .card.col-8.offset-2
+      .card.col-8
         .card-block
             h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
               | {{msg.user}}
@@ -65,7 +63,7 @@
             span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
@@ -107,11 +105,11 @@
     color: #277eab;
   }
 
-  .tier10 {
+  .tier9 {
     color: #6133b4;
   }
 
-  .tier9 {
+  .tier10 {
     color: #77f4c7;
     fill: #77f4c7;
     stroke: #005737;
@@ -288,10 +286,13 @@ export default {
         return;
       }
 
+      // @TODO: Not sure we need this hash
+      let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (uuid && !this.cachedProfileData[uuid]) {
+        if (uuid && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
+          aboutToCache[uuid] = {};
           promises.push(axios.get(`/api/v3/members/${uuid}`));
           this.currentProfileLoadedCount += 1;
         }

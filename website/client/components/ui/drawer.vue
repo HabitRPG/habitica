@@ -91,6 +91,15 @@
     }
   }
 
+  .drawer-help-text {
+    cursor: pointer;
+    float: right;
+
+    .svg-icon {
+      margin-left: 8px;
+    }
+  }
+
   .drawer-slider {
     padding: 12px 0 0 8px;
     overflow-x: auto;

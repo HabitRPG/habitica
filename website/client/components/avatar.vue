@@ -166,6 +166,10 @@ export default {
 
       let allowToShowBackground = !this.avatarOnly || this.withBackground;
 
+      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
+        return `background_${this.overrideAvatarGear.background}`;
+      }
+
       if (background && allowToShowBackground) {
         return `background_${this.member.preferences.background}`;
       }

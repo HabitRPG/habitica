@@ -300,15 +300,6 @@ export default {
         });
       }
 
-      if (this.user.purchased.plan.consecutive.trinkets) {
-        specialArray.push({
-          key: 'timeTravelers',
-          class: 'inventory_special_trinket',
-          text: this.$t('mysticHourglassPopover'),
-          quantity: this.user.purchased.plan.consecutive.trinkets,
-        });
-      }
-
       return itemsByType;
     },
   },

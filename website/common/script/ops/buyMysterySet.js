@@ -23,7 +23,7 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
     throw new NotFound(i18n.t('mysterySetNotFound', req.language));
   }
 
-  if (typeof window !== 'undefined' && window.confirm) { // TODO move to client
+  if (typeof window !== 'undefined' && !req.noConfirm && window.confirm) { // TODO move to client
     if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
   }
 

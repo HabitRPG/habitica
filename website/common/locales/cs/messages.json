@@ -30,7 +30,7 @@
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
     "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
     "messageHealthAlreadyMax": "Už teď máš plné zdraví.",
-    "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
+    "messageHealthAlreadyMin": "Ach ne! Už nemáš žádné životy, takže je pozdě si kupovat lektvar života, ale neboj se - můžeš se oživit!",
     "armoireEquipment": "<%= image %> V almaře jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",
     "armoireFood": "<%= image %> Prohledáváš almaru a nacházíš <%= dropText %>. Co to tu dělá?",
     "armoireExp": "Zápasíš s Almarou a získáváš zkušenost. To jsi jí to nandal!",
@@ -52,9 +52,9 @@
     "messageGroupChatFlagAlreadyReported": "Již jsi tento příspěvek nahlásil",
     "messageGroupChatNotFound": "Zpráva nenalezena!",
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
-    "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
+    "messageGroupChatSpam": "Ups, vypadá to, že posíláš moc zpráv! Počkej prosím minutku a zkus to znovu. Chat v Krčmě může mít jenom 200 zpráv v jeden čas, takže Habitica podporuje posílání delších, více promyšlených zpráv a odpovědí. Nemůžeme se dočkat, až se s námi podělíš o tom, co máš na srdci. :)",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
     "messageNotificationNotFound": "Oznámení nenalezeno.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "Id upozornění je potřeba."
 }

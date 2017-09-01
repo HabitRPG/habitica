@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'August';
+const CURRENT_SEASON = 'None';
 
 let drops = {
   Base: {
