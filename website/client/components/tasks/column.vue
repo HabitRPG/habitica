@@ -46,7 +46,7 @@
     height: 556px;
   }
 
-  .task + .reward-items {
+  .task-wrapper + .reward-items {
     margin-top: 16px;
   }
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.task-wrapper
   broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
   .task(@click='castEnd($event, task)')
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
