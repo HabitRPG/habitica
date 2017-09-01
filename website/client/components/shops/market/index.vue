@@ -177,16 +177,14 @@
             @changedPosition="tabSelected($event)"
           )
             div(slot="right-item")
+              #petLikeToEatMarket.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
+                target="petLikeToEatMarket",
                 :placement="'top'",
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.hand-cursor(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
           :items="ownedItems(selectedDrawerItemType) || []",
@@ -271,11 +269,6 @@
     width: 48px;
     height: 48px;
   }
-
-  .hand-cursor {
-    cursor: pointer;
-  }
-
 
   .featured-label {
     margin: 24px auto;

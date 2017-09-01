@@ -35,13 +35,13 @@
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
           button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
-          b-popover(
-            :triggers="['hover']",
-            :placement="'top'",
-          ).d-inline-block
-            span(slot="content")
-              div.popover-content-text {{ $t('optOutOfClassesText') }}
-            .danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+          #classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+          b-popover.d-inline-block(
+            target="classOptOutBtn",
+            triggers="hover",
+            placement="top",
+          )
+            .popover-content-text {{ $t('optOutOfClassesText') }}
 </template>
 
 <style lang="scss" scoped>

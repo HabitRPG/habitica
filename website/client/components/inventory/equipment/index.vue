@@ -53,19 +53,18 @@
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
 
-            b-popover(
-              :triggers="['hover']",
-              :placement="'top'"
+            toggle-switch#costumePrefToggleSwitch.float-right(
+              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+              :checked="user.preferences[drawerPreference]",
+              @change="changeDrawerPreference",
             )
-              span(slot="content")
-                .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
 
-              toggle-switch.float-right(
-                :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
-                :checked="user.preferences[drawerPreference]",
-                @change="changeDrawerPreference",
-              )
-
+            b-popover(
+              target="costumePrefToggleSwitch"
+              triggers="hover",
+              placement="top"
+            )
+              .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
         item(
           v-for="(label, group) in gearTypesToStrings",

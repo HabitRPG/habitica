@@ -19,8 +19,12 @@
           input.custom-control-input(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
-          b-tooltip.icon(:content="$t('privateDescription')")
+          #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="$t('privateDescription')",
+            target="groupPrivateDescription1",
+          )
 
         // br
         // @TODO Implement in V2 label.custom-control.custom-checkbox
@@ -35,8 +39,12 @@
           input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
-          b-tooltip.icon(:content="$t('privateDescription')")
+          #groupPrivateDescription2.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="$t('privateDescription')",
+            target="groupPrivateDescription2",
+          )
 
         // br
         // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
