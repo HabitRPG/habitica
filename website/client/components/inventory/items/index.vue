@@ -291,7 +291,7 @@ export default {
 
       let specialArray = itemsByType.special;
 
-      if (this.user.purchased.plan.mysteryItems.length) {
+      if (this.user.purchased.plan.customerId) {
         specialArray.push({
           key: 'mysteryItem',
           class: `inventory_present inventory_present_${moment().format('MM')}`,
@@ -390,11 +390,16 @@ export default {
         if (item.key === 'timeTravelers') {
           this.$router.push({name: 'time'});
         } else if (item.key === 'mysteryItem') {
+          if (item.quantity === 0)
+            return;
+
           let result = await this.$store.dispatch('user:openMysteryItem');
 
           let openedItem = result.data.data;
           let text = this.content.gear.flat[openedItem.key].text();
           this.drop(this.$t('messageDropMysteryItem', {dropText: text}), openedItem);
+          item.quantity--;
+          this.$forceUpdate();
         } else {
           this.selectedSpell = item;
         }
