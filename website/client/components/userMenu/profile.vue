@@ -412,9 +412,7 @@ export default {
       this.achievements = achievementsLib.getAchievementsForProfile(user);
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      if (user.profile.blurb) {
-        user.profile.blurb = `${user.profile.blurb}`;
-      }
+      user.profile.blurb = `${user.profile.blurb}`;
 
       return user;
     },
