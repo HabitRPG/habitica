@@ -411,6 +411,9 @@ export default {
       // @TODO: this common code should handle the above
       this.achievements = achievementsLib.getAchievementsForProfile(user);
 
+      // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
+      user.profile.blurb = `${user.profile.blurb}`;
+
       return user;
     },
     incentivesProgress () {

@@ -326,6 +326,19 @@ api.getGroups = {
       filters.memberCount.$lte = parseInt(req.query.maxMemberCount, 10);
     }
 
+    // @TODO: Tests for below?
+    if (req.query.leader) {
+      filters.leader = user._id;
+    }
+
+    if (req.query.member) {
+      filters._id = { $in: user.guilds };
+    }
+
+    if (req.query.search) {
+      filters.$text = { $search: req.query.search };
+    }
+
     let results = await Group.getGroups({
       user, types, groupFields, sort,
       paginate, page: req.query.page, filters,

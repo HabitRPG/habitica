@@ -21,6 +21,7 @@
             button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
         .row
+          .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar

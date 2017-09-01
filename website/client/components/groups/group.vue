@@ -27,12 +27,15 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
-        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-        button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-      .col-12
-        chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+        .row.new-message-row
+          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
+          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+
+        .row
+          .col-12.hr
+          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
     .row(:class='{"guild-background": !isParty}')
@@ -256,11 +259,15 @@
   .chat-row {
     margin-top: 2em;
 
-    .send-chat {
-      margin-top: -3.5em;
-      z-index: 10;
+    .new-message-row {
       position: relative;
-      margin-right: 1em;
+    }
+
+    .send-chat {
+      z-index: 10;
+      position: absolute;
+      right: 1em;
+      bottom: 3em;
     }
   }
 
@@ -369,6 +376,14 @@
     background-color: #24cc8f;
     height: 15px;
 
+  }
+
+  .hr {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid $gray-500;
+    text-align: center;
+    margin: 2em 0;
   }
 </style>
 
