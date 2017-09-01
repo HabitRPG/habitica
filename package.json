@@ -163,13 +163,13 @@
     "coverage": "COVERAGE=true mocha --require register-handlers.js --reporter html-cov > coverage.html; open coverage.html",
     "sprites": "gulp sprites:compile",
     "client:dev": "gulp bootstrap && node webpack/dev-server.js",
-    "client:build": "gulp bootstrap && node webpack/build.js",
+    "client:build": "gulp build:client",
     "client:unit": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js --single-run",
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
     "client:e2e": "node test/client/e2e/runner.js",
     "client:test": "npm run client:unit && npm run client:e2e",
     "start": "gulp run:dev",
-    "postinstall": "gulp build && npm run client:build",
+    "postinstall": "gulp build",
     "apidoc": "gulp apidoc"
   },
   "devDependencies": {
