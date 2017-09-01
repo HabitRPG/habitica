@@ -481,14 +481,6 @@
       }
     }
   }
-
-  #petLikeToEatStable { 
-    cursor: pointer;
-
-    .svg-icon {
-      margin-left: 8px;
-    }
-  }
 </style>
 
 <script>
