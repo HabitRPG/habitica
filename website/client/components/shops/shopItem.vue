@@ -1,19 +1,6 @@
 <template lang="pug">
-b-popover(
-  :triggers="[showPopover?'hover':'']",
-  :placement="popoverPosition",
-)
-  span(slot="content")
-    slot(name="popoverContent", :item="item")
-      equipmentAttributesPopover(
-        v-if="item.purchaseType==='gear'",
-        :item="item"
-      )
-      div(v-else)
-        h4.popover-content-title(v-once) {{ item.text }}
-        .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
-
-  .item-wrapper(@click="click()")
+div
+  .item-wrapper(@click="click()", :id="itemId")
     .item(
       :class="{'item-empty': emptyItem, 'highlight-border': highlightBorder}",
     )
@@ -29,6 +16,20 @@ b-popover(
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
 
           span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
+  b-popover(
+    :target="itemId",
+    v-if="showPopover",
+    triggers="hover",
+    :placement="popoverPosition",
+  )
+    slot(name="popoverContent", :item="item")
+      equipmentAttributesPopover(
+        v-if="item.purchaseType==='gear'",
+        :item="item"
+      )
+      div(v-else)
+        h4.popover-content-title(v-once) {{ item.text }}
+        .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
 </template>
 
@@ -105,6 +106,7 @@ b-popover(
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import uuid from 'uuid';
 
   import svgGem from 'assets/svg/gem.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -119,14 +121,15 @@ b-popover(
       EquipmentAttributesPopover,
     },
     data () {
-      return {
-        icons: Object.freeze({
+      return Object.freeze({
+        itemId: uuid.v4(),
+        icons: {
           gems: svgGem,
           gold: svgGold,
           lock: svgLock,
           hourglasses: svgHourglasses,
-        }),
-      };
+        },
+      });
     },
     props: {
       item: {

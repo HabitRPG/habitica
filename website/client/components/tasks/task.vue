@@ -39,16 +39,17 @@ div
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
               .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken')
               .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
+            .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
+              .svg-icon.tags(v-html="icons.tags")
             b-popover.tags-popover.no-span-margin(
-              :triggers="['hover']",
-              :placement="'bottom'",
-              :popover-style="{'max-width': '1000px'}",
+              v-if="hasTags",
+              :target="`tags-icon-${task._id}`",
+              triggers="hover",
+              placement="bottom",
             )
-              .d-flex.align-items-center(slot="content")
+              .d-flex.align-items-center
                 .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
                 .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
-              .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
-                .svg-icon.tags(v-html="icons.tags")
 
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
@@ -380,6 +381,9 @@ export default {
     dueIn () {
       const dueIn = moment().to(this.task.date);
       return this.$t('dueIn', {dueIn});
+    },
+    hasTags () {
+      return this.task.tags && this.task.tags.length > 0;
     },
   },
   methods: {
