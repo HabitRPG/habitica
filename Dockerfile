@@ -1,5 +1,7 @@
 FROM node:boron
 
+# Upgrade NPM to v5
+RUN npm install -g npm@5
 # Install global packages
 RUN npm install -g gulp grunt-cli bower mocha
 

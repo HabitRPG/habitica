@@ -141,7 +141,7 @@
   "private": true,
   "engines": {
     "node": "^6.9.1",
-    "npm": "^4.0.2"
+    "npm": "^5.0.0"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
