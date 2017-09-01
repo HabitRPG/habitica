@@ -6,6 +6,11 @@ div.item-with-icon.item-notifications.dropdown
   .dropdown-menu.dropdown-menu-right.user-dropdown
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
+    a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+      div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
+      div
+        button.btn.btn-primary(@click='questAccept(user.party._id)') Accept
+        button.btn.btn-primary(@click='questReject(user.party._id)') Reject
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
@@ -135,6 +140,7 @@ export default {
       icons: Object.freeze({
         notifications: notificationsIcon,
       }),
+      quests,
     };
   },
   computed: {
@@ -300,6 +306,14 @@ export default {
 
       // @TODO: check for party , type: 'myGuilds'
       await this.$store.dispatch('guilds:join', {guildId: group.id});
+    },
+    async questAccept (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
+      this.user.party.quest = quest;
+    },
+    async questReject (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
+      this.user.party.quest = quest;
     },
   },
 };
