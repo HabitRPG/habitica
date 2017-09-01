@@ -306,9 +306,11 @@
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
-  import { isPinned } from 'common/script/ops/pinnedGearUtils';
+  import isPinned from 'common/script/libs/isPinned';
 
   import i18n from 'common/script/i18n';
+
+  import shops from 'common/script/libs/shops';
 
   export default {
     components: {
@@ -367,19 +369,28 @@
     computed: {
       ...mapState({
         content: 'content',
-        seasonal: 'shops.seasonal.data',
         user: 'user.data',
         userStats: 'user.data.stats',
       }),
+      seasonal () {
+        return {
+          text: this.$t('seasonalShop'),
+          notes: this.$t('seasonalShopClosedText'),
+          opened: false, // TODO
+        };
+      },
+      seasonalCategories () {
+        return shops.getSeasonalShopCategories(this.user);
+      },
       categories () {
-        if (this.seasonal) {
-          this.seasonal.categories.map((category) => {
+        if (this.seasonalCategories) {
+          this.seasonalCategories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.seasonal.categories;
+          return this.seasonalCategories;
         } else {
           return [];
         }
@@ -490,9 +501,6 @@
           this.$parent.showUnpinNotification(item);
         }
       },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchSeasonal');
     },
   };
 </script>

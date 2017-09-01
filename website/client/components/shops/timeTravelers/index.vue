@@ -465,8 +465,5 @@
         return gear;
       },
     },
-    created () {
-      this.$store.dispatch('shops:fetchTimeTravelers');
-    },
   };
 </script>
