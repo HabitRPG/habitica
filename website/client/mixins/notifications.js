@@ -6,23 +6,8 @@ export default {
     ...mapState({notifications: 'notificationStore'}),
   },
   methods: {
-    /**
-     Show '+ 5 {gold_coin} 3 {silver_coin}'
-     */
     coins (money) {
-      let absolute;
-      let gold;
-      let silver;
-      absolute = Math.abs(money);
-      gold = Math.floor(absolute);
-      silver = Math.floor((absolute - gold) * 100);
-      if (gold && silver > 0) {
-        return `${gold} <span class='notification-icon shop_gold'></span> ${silver} <span class='notification-icon shop_silver'></span>`;
-      } else if (gold > 0) {
-        return `${gold} <span class='notification-icon shop_gold'></span>`;
-      } else if (silver > 0) {
-        return `${silver} <span class='notification-icon shop_silver'></span>`;
-      }
+      return this.round(money, 2);
     },
     crit (val) {
       let message = `${this.$t('critBonus')} ${Math.round(val)} %`;
@@ -105,8 +90,8 @@ export default {
       }
       return sign;
     },
-    round (number) {
-      return Math.abs(number.toFixed(1));
+    round (number, nDigits) {
+      return Math.abs(number.toFixed(nDigits || 1));
     },
     notify (html, type, icon, sign) {
       this.notifications.push({

@@ -25,8 +25,13 @@ module.exports = function taskDefaults (task = {}) {
     challenge: {
       shortName: 'None',
     },
-    group: {},
-    yesterDaily: true,
+    group: {
+      approval: {
+        required: false,
+        approved: false,
+        requested: false,
+      },
+    },
     reminders: [],
     attribute: 'str',
     createdAt: new Date(), // TODO these are going to be overwritten by the server...
@@ -74,6 +79,9 @@ module.exports = function taskDefaults (task = {}) {
       startDate: moment().startOf('day').toDate(),
       everyX: 1,
       frequency: 'weekly',
+      daysOfMonth: [],
+      weeksOfMonth: [],
+      yesterDaily: true,
     });
   }
 

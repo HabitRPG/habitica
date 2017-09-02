@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.task-wrapper
   broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
   .task(@click='castEnd($event, task)')
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
@@ -260,6 +260,7 @@ div
       margin-top: 4px;
       color: $yellow-10;
       font-style: initial;
+      font-weight: bold;
     }
   }
 </style>
@@ -358,13 +359,11 @@ export default {
       return false;
     },
     controlClass () {
-      const dueDate = this.dueDate || new Date();
-      return this.getTaskClasses(this.task, 'control', dueDate);
+      return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
       const classes = [];
-      const dueDate = this.dueDate || new Date();
-      classes.push(this.getTaskClasses(this.task, 'content'), dueDate);
+      classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
       if (this.task.type === 'reward' || this.task.type === 'habit') {
         classes.push('no-right-border');
       }

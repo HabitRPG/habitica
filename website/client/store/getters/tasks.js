@@ -61,7 +61,7 @@ export function getTaskClasses (store) {
         }
         break;
       case 'content':
-        if (type === 'daily' && (task.completed || !task.isDue) || type === 'todo' && task.completed) {
+        if (type === 'daily' && (task.completed || !shouldDo(dueDate, task, userPreferences)) || type === 'todo' && task.completed) {
           return 'task-daily-todo-content-disabled';
         }
         break;

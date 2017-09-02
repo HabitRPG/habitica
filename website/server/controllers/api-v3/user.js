@@ -285,6 +285,8 @@ api.updateUser = {
   async handler (req, res) {
     let user = res.locals.user;
 
+    let promisesForTagsRemoval = [];
+
     _.each(req.body, (val, key) => {
       let purchasable = requiresPurchase[key];
 
@@ -321,20 +323,26 @@ api.updateUser = {
           user.tags.push(Tag.sanitize(t));
         });
 
-        // Remove from all the tasks TODO test
-        Tasks.Task.update({
-          userId: user._id,
-        }, {
-          $pull: {
-            tags: {$in: [removedTagsIds]},
-          },
-        }, {multi: true}).exec();
+        // Remove from all the tasks
+        // NOTE each tag to remove requires a query
+
+        promisesForTagsRemoval = removedTagsIds.map(tagId => {
+          return Tasks.Task.update({
+            userId: user._id,
+          }, {
+            $pull: {
+              tags: tagId,
+            },
+          }, {multi: true}).exec();
+        });
       } else {
         throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
       }
     });
 
-    await user.save();
+
+    await Promise.all([user.save()].concat(promisesForTagsRemoval));
+
     return res.respond(200, user);
   },
 };

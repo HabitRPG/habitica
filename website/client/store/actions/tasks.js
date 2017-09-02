@@ -3,7 +3,7 @@ import axios from 'axios';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 
-export function fetchUserTasks (store, forceLoad = false) {
+export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
     store,
     path: 'tasks',
@@ -15,7 +15,7 @@ export function fetchUserTasks (store, forceLoad = false) {
         return store.dispatch('tasks:order', [response.data.data, userResource.data.tasksOrder]);
       });
     },
-    forceLoad,
+    forceLoad: options.forceLoad,
   });
 }
 

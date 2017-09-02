@@ -12,7 +12,11 @@
         .input-group
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           .filter-panel(v-if="isFilterPanelOpen")
-            .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
+            .tags-category.d-flex(
+              v-for="tagsType in tagsByType", 
+              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+              :key="tagsType.key"
+            )
               .tags-header
                 strong(v-once) {{ $t(tagsType.key) }}
                 a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
@@ -21,7 +25,7 @@
                   template(v-if="editingTags && tagsType.key === 'tags'")
                     .col-6(v-for="(tag, tagIndex) in tagsSnap")
                       .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
                         span.input-group-btn(@click="removeTag(tagIndex)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
                     .col-6
@@ -377,6 +381,7 @@ export default {
       this.tagsSnap.splice(index, 1);
     },
     saveTags () {
+      if (this.newTag) this.addTag();
       this.setUser({tags: this.tagsSnap});
       this.cancelTagsEditing();
     },

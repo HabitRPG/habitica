@@ -11,10 +11,10 @@
         slot="modal-header",
         :class="[cssClass]",
       )
-        .row
-          h1.col-8 {{ title }}
-          .col-4
-            span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+        .clearfix
+          h1.float-left {{ title }}
+          .float-right.d-flex.align-items-center
+            span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('title')}*` }}
@@ -335,8 +335,12 @@
       }
     }
 
-    .cancel-task-btn {
-      margin-right: .5em;
+    .delete-task-btn, .cancel-task-btn {
+      cursor: pointer;
+
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+      }
     }
 
     .task-modal-footer {
@@ -346,13 +350,7 @@
       border-top-right-radius: 8px;
       margin-top: 50px;
 
-      .delete-task-btn, .cancel-task-btn {
-        cursor: pointer;
 
-        &:hover, &:focus, &:active {
-          text-decoration: underline;
-        }
-      }
 
       .delete-task-btn {
         color: $red-50;
@@ -528,7 +526,7 @@ export default {
         completed: false,
       });
       this.newChecklistItem = null;
-      e.preventDefault();
+      if (e) e.preventDefault();
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);
@@ -537,6 +535,8 @@ export default {
       return moment.weekdaysMin(dayNumber);
     },
     submit () {
+      if (this.newChecklistItem) this.addChecklistItem();
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
           this.$store.dispatch('tasks:createChallengeTasks', {
