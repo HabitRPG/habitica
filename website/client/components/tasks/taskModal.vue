@@ -526,7 +526,7 @@ export default {
         completed: false,
       });
       this.newChecklistItem = null;
-      e.preventDefault();
+      if (e) e.preventDefault();
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);
@@ -535,6 +535,8 @@ export default {
       return moment.weekdaysMin(dayNumber);
     },
     submit () {
+      if (this.newChecklistItem) this.addChecklistItem();
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
           this.$store.dispatch('tasks:createChallengeTasks', {
