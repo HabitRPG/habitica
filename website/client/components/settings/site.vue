@@ -24,6 +24,13 @@
           option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
       hr
 
+      .form-horizontal
+        h5 {{ $t('audioTheme') }}
+        select.form-control(v-model='user.preferences.sound',
+          @change='set("sound")')
+          option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
+      hr
+
       .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
@@ -247,7 +254,11 @@ export default {
     ...mapState({
       user: 'user.data',
       availableLanguages: 'i18n.availableLanguages',
+      content: 'content',
     }),
+    availableAudioThemes () {
+      return ['off', ...this.content.audioThemes];
+    },
     timezoneOffsetToUtc () {
       let offset = this.user.preferences.timezoneOffset;
       let sign = offset > 0 ? '-' : '+';

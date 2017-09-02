@@ -339,8 +339,9 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
+  import shops from 'common/script/libs/shops';
 
-  import { isPinned } from 'common/script/ops/pinnedGearUtils';
+  import isPinned from 'common/script/libs/isPinned';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -393,20 +394,22 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        quests: 'shops.quests.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      questCategories () {
+        return shops.getQuestShopCategories(this.user);
+      },
       categories () {
-        if (this.quests) {
-          this.quests.categories.map((category) => {
+        if (this.questCategories) {
+          this.questCategories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.quests.categories;
+          return this.questCategories;
         } else {
           return [];
         }
@@ -476,9 +479,6 @@ export default {
           this.$parent.showUnpinNotification(item);
         }
       },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchQuests');
     },
   };
 </script>

@@ -260,6 +260,7 @@
 
           this.purchased(this.item.text);
           this.$root.$emit('buyModal::boughtItem', this.item);
+          this.$root.$emit('playSound', 'Reward');
         }
 
         this.$emit('buyPressed', this.item);

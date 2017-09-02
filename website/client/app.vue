@@ -28,6 +28,10 @@
         div(:class='{sticky: user.preferences.stickyHeader}')
           router-view
         app-footer
+
+        audio#sound(autoplay, ref="sound")
+          source#oggSource(type="audio/ogg", :src="sound.oggSource")
+          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style scoped>
@@ -86,6 +90,11 @@ export default {
       isUserLoaded: false,
       selectedItemToBuy: null,
       selectedCardToBuy: null,
+
+      sound: {
+        oggSource: '',
+        mp3Source: '',
+      },
     };
   },
   computed: {
@@ -99,6 +108,21 @@ export default {
     },
   },
   created () {
+    this.$root.$on('playSound', (sound) => {
+      let theme = this.user.preferences.sound;
+
+      if (!theme || theme === 'off')
+        return;
+
+      let file =  `/static/audio/${theme}/${sound}`;
+      this.sound = {
+        oggSource: `${file}.ogg`,
+        mp3Source: `${file}.mp3`,
+      };
+
+      this.$refs.sound.load();
+    });
+
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
     });

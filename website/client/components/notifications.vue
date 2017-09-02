@@ -250,8 +250,8 @@ export default {
       });
   },
   methods: {
-    playSound () {
-      // @TODO:
+    playSound (sound) {
+      this.$root.$emit('playSound', sound);
     },
     async runYesterDailies () {
       // @TODO: Hopefully we don't need this even we load correctly
