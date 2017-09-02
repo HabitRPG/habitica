@@ -310,11 +310,11 @@ export default {
       const selectedTags = this.selectedTags;
 
       if (selectedTags && selectedTags.length > 0) {
-        const hasSelectedTag = task.tags.find(tagId => {
-          return selectedTags.indexOf(tagId) !== -1;
+        const hasAllSelectedTag = selectedTags.every(tagId => {
+          return task.tags.indexOf(tagId) !== -1;
         });
 
-        if (!hasSelectedTag) return false;
+        if (!hasAllSelectedTag) return false;
       }
 
       // Text
