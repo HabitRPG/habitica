@@ -54,7 +54,7 @@ export default {
           challengeId: this.brokenChallengeTask.challenge.id,
           keep: keepOption,
         });
-        await this.$store.dispatch('tasks:fetchUserTasks', true);
+        await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
         this.close();
         return;
       }

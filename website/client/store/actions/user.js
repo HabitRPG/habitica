@@ -19,7 +19,7 @@ export function fetch (store, forceLoad = false) { // eslint-disable-line no-sha
   });
 }
 
-export function set (store, changes) {
+export async function set (store, changes) {
   const user = store.state.user.data;
 
   for (let key in changes) {
@@ -30,6 +30,22 @@ export function set (store, changes) {
       });
 
       user.tags = changes[key].concat(oldTags);
+
+      // Remove deleted tags from tasks
+      const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data; // eslint-disable-line no-await-in-loop
+
+      Object.keys(userTasksByType).forEach(taskType => {
+        userTasksByType[taskType].forEach(task => {
+          const tagsIndexesToRemove = [];
+
+          task.tags.forEach((tagId, tagIndex) => {
+            if (user.tags.find(tag => tag.id === tagId)) return; // eslint-disable-line max-nested-callbacks
+            tagsIndexesToRemove.push(tagIndex);
+          });
+
+          tagsIndexesToRemove.forEach(i => task.tags.splice(i, 1));
+        });
+      });
     } else {
       setProps(user, key, changes[key]);
     }
