@@ -127,14 +127,7 @@ api.getSeasonalShopItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let resObject = {
-      identifier: 'seasonalShop',
-      text: res.t('seasonalShop'),
-      notes: res.t('seasonalShopClosedText'),
-      imageName: 'seasonalshop_closed',
-      opened: false,
-      categories: shops.getSeasonalShopCategories(user, req.language),
-    };
+    let resObject = shops.getSeasonalShop(user, req.language);
 
     res.respond(200, resObject);
   },

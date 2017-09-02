@@ -373,14 +373,10 @@
         userStats: 'user.data.stats',
       }),
       seasonal () {
-        return {
-          text: this.$t('seasonalShop'),
-          notes: this.$t('seasonalShopClosedText'),
-          opened: false, // TODO
-        };
+        return shops.getSeasonalShop(this.user);
       },
       seasonalCategories () {
-        return shops.getSeasonalShopCategories(this.user);
+        return this.seasonal.categories;
       },
       categories () {
         if (this.seasonalCategories) {

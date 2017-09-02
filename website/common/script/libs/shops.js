@@ -7,10 +7,12 @@ import eachRight from 'lodash/eachRight';
 import toArray from 'lodash/toArray';
 import pickBy from 'lodash/pickBy';
 import sortBy from 'lodash/sortBy';
+import mapValues from 'lodash/mapValues';
 import content from '../content/index';
 import i18n from '../i18n';
 import getItemInfo from './getItemInfo';
 import updateStore from './updateStore';
+import seasonalShopConfig from './shops-seasonal.config';
 
 let shops = {};
 
@@ -281,18 +283,32 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
+shops.getSeasonalShop = function getSeasonalShop (user, language) {
+  let resObject = {
+    identifier: 'seasonalShop',
+    text: i18n.t('seasonalShop'),
+    notes: i18n.t(`seasonalShop${seasonalShopConfig.currentSeason}Text`),
+    imageName: seasonalShopConfig.opened ? 'seasonalshop_open' : 'seasonalshop_closed',
+    opened: seasonalShopConfig.opened,
+    categories: this.getSeasonalShopCategories(user, language),
+  };
+
+  return resObject;
+};
+
 // To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
 // let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  const AVAILABLE_SETS = {
-  };
+  const AVAILABLE_SETS = mapValues(seasonalShopConfig.availableSets, (setKey) => i18n.t(setKey));
 
   const AVAILABLE_SPELLS = [
+    ...seasonalShopConfig.availableSpells,
   ];
 
   const AVAILABLE_QUESTS = [
+    ...seasonalShopConfig.availableQuests,
   ];
 
   let categories = [];
