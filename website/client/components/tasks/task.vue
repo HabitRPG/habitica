@@ -359,13 +359,11 @@ export default {
       return false;
     },
     controlClass () {
-      const dueDate = this.dueDate || new Date();
-      return this.getTaskClasses(this.task, 'control', dueDate);
+      return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
       const classes = [];
-      const dueDate = this.dueDate || new Date();
-      classes.push(this.getTaskClasses(this.task, 'content'), dueDate);
+      classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
       if (this.task.type === 'reward' || this.task.type === 'habit') {
         classes.push('no-right-border');
       }
