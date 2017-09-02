@@ -25,7 +25,7 @@
                   template(v-if="editingTags && tagsType.key === 'tags'")
                     .col-6(v-for="(tag, tagIndex) in tagsSnap")
                       .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
                         span.input-group-btn(@click="removeTag(tagIndex)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
                     .col-6
