@@ -1,6 +1,6 @@
 <template lang="pug">
-b-modal#send-gems(v-if='userReceivingGems', :title="$t('sendGiftHeading', {name: userReceivingGems.profile.name})", :hide-footer="true", size='lg')
-  .modal-body
+b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
+  .modal-body(v-if='userReceivingGems', )
     .panel.panel-default(:class="gift.type === 'gems' ? 'panel-primary' : 'transparent'", @click='gift.type = "gems"')
       .panel-heading
         .pull-right
@@ -90,7 +90,11 @@ export default {
     },
     fromBal () {
       return this.gift.type === 'gems' && this.gift.gems.fromBalance;
-    }
+    },
+    title () {
+      if (!this.userReceivingGems) return '';
+      return this.$t('sendGiftHeading', {name: this.userReceivingGems.profile.name});
+    },
   },
   methods: {
     close () {

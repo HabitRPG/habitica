@@ -560,6 +560,7 @@ export default {
       axios.post(`/api/v3/user/block/${this.user._id}`);
     },
     openSendGemsModal () {
+      console.log("SD")
       this.userReceivingGems = this.user;
       this.$root.$emit('show::modal', 'send-gems');
     },
