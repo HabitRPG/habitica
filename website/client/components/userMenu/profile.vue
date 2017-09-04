@@ -4,6 +4,14 @@ div
     .row
       .col-6.offset-3
         button.btn.btn-secondary(@click='sendMessage()') Message
+        button.btn.btn-secondary(v-if='userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
+          @click="blockUser()", tooltip-placement='right')
+          span.glyphicon.glyphicon-plus
+          | {{$t('block')}}
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
+          span.glyphicon.glyphicon-ban-circle
+          | {{$t('unblock')}}
     .row
       .col-6.offset-3.text-center.nav
         .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
@@ -322,6 +330,7 @@ div
 </style>
 
 <script>
+import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
@@ -535,6 +544,15 @@ export default {
     },
     allocateNow () {
       autoAllocate(this.user);
+    },
+    blockUser () {
+      this.userLoggedIn.inbox.blocks.push(this.user._id);
+      axios.post(`/api/v3/user/block/${this.user._id}`);
+    },
+    unblockUser () {
+      let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
+      this.userLoggedIn.inbox.blocks.splice(index, 1);
+      axios.post(`/api/v3/user/block/${this.user._id}`);
     },
   },
 };
