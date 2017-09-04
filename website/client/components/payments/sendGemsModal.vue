@@ -81,7 +81,7 @@ export default {
     ...mapState({userLoggedIn: 'user.data'}),
     subscriptionBlocks () {
       let subscriptionBlocks = toArray(subscriptionBlocksContent);
-      subscriptionBlocks = omitBy(subscriptionBlocks, (block)=> {
+      subscriptionBlocks = omitBy(subscriptionBlocks, (block) => {
         return block.discount === true;
       });
       subscriptionBlocks = orderBy(subscriptionBlocks, ['months']);
