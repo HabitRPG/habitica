@@ -66,6 +66,8 @@
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
+      div(v-if='isLeader')
+        button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
     .description-section
       h2 {{$t('challengeSummary')}}
       p {{challenge.summary}}
@@ -304,6 +306,12 @@ export default {
     openMemberProgressModal (memberId) {
       this.progressMemberId = memberId;
       this.$root.$emit('show::modal', 'challenge-member-modal');
+    },
+    async exportChallengeCsv () {
+      // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
+      //   challengeId: this.challengeId,
+      // });
+      window.location = `/api/v3/challenges/${this.challengeId}/export/csv`;
     },
   },
 };
