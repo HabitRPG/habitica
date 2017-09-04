@@ -6,7 +6,7 @@ import i18n from '../i18n';
 
 import isPinned from '../libs/isPinned';
 
-const officialPinnedItems = content.officialPinnedItems;
+import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
 import updateStore from '../libs/updateStore';
 
@@ -98,6 +98,8 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
   if (path === 'armoire' || path === 'potion') {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
+
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
     return officialPinnedItem.path === path;

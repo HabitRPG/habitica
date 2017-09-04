@@ -4,19 +4,18 @@ module.exports = {
   // currentSeason: 'Closed',
   currentSeason: 'Summer',
 
-  availableSets: {
-    summerHealer: 'reefSeahealerSet',
-    summer2015Healer: 'strappingSailorSet',
-    summer2016Healer: 'summer2016SeahorseHealerSet',
-    summerMage: 'emeraldMermageSet',
-    summer2015Mage: 'shipSoothsayerSet',
-    summer2016Mage: 'summer2016DolphinMageSet',
-    summerRogue: 'roguishPirateSet',
-    summer2015Rogue: 'reefRenegadeSet',
-    summer2016Rogue: 'summer2016EelSet',
-    summerWarrior: 'daringSwashbucklerSet',
-    summer2015Warrior: 'sunfishWarriorSet',
-    summer2016Warrior: 'summer2016SharkWarriorSet',
+  availableSets: [
+    'summer2016SeahorseHealerSet',
+    'summer2016DolphinMageSet',
+    'summer2016EelSet',
+    'summer2016SharkWarriorSet',
+  ],
+
+  pinnedSets: {
+    warrior: 'summer2016SharkWarriorSet',
+    wizard: 'summer2016DolphinMageSet',
+    rogue: 'summer2016EelSet',
+    healer: 'summer2016SeahorseHealerSet',
   },
 
   availableSpells: [
@@ -26,5 +25,5 @@ module.exports = {
   availableQuests: [
   ],
 
-  featuredSet: 'summerMage',
+  featuredSet: 'summer2016EelSet',
 };
