@@ -1,9 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
-      :class="{'item-empty': emptyItem, 'highlight-border': highlightBorder}",
-    )
+    .item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
@@ -178,6 +176,13 @@ div
         } else {
           return this.price;
         }
+      },
+      getItemClasses () {
+        return {
+          'item-empty': this.emptyItem,
+          'highlight-border': this.highlightBorder,
+          suggested: this.item.isSuggested,
+        };
       },
     },
   };
