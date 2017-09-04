@@ -12,6 +12,7 @@ div
           :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
           span.glyphicon.glyphicon-ban-circle
           | {{$t('unblock')}}
+        button.btn.btn-secondary(@click='openSendGemsModal()') {{ $t('sendGems') }}
     .row
       .col-6.offset-3.text-center.nav
         .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
@@ -263,6 +264,7 @@ div
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
                   :popover='$t(statInfo.allocatepop)') +
   private-message-modal(:userIdToMessage='userIdToMessage')
+  send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
 <style lang="scss" scoped>
@@ -342,6 +344,7 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import privateMessageModal from 'client/components/private-message-modal';
+import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -357,10 +360,12 @@ export default {
   components: {
     bModal,
     privateMessageModal,
+    sendGemsModal,
   },
   data () {
     return {
       userIdToMessage: '',
+      userReceivingGems: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -553,6 +558,10 @@ export default {
       let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
       this.userLoggedIn.inbox.blocks.splice(index, 1);
       axios.post(`/api/v3/user/block/${this.user._id}`);
+    },
+    openSendGemsModal () {
+      this.userReceivingGems = this.user;
+      this.$root.$emit('show::modal', 'send-gems');
     },
   },
 };
