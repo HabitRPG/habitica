@@ -4,7 +4,7 @@ transition(name="fade")
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
-    .row(v-if='notification.type !== "info" && notification.type !== "error" && notification.type !== "drop"')
+    .row(v-if='["hp", "gp", "xp", "mp"].indexOf(notification.type) !== -1')
       .text.col-7.offset-1
         div
           | {{message}}
@@ -14,10 +14,10 @@ transition(name="fade")
         div.svg-icon(v-html="icons.star", v-if='notification.type === "xp"')
         div.svg-icon(v-html="icons.mana", v-if='notification.type === "mp"')
         div(v-html='notification.text')
-    .row(v-if='notification.type === "info"')
+    .row(v-if='["info", "success", "crit", "lvl"].indexOf(notification.type) !== -1')
       .text.col-12
         div(v-html='notification.text')
-    .row(v-if='notification.type !== "info" && notification.type !== "error" && notification.type === "drop"')
+    .row(v-if='notification.type === "drop"')
       .col-2
         .icon-item
           div(:class='notification.icon')
