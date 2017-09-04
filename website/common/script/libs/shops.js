@@ -7,12 +7,13 @@ import eachRight from 'lodash/eachRight';
 import toArray from 'lodash/toArray';
 import pickBy from 'lodash/pickBy';
 import sortBy from 'lodash/sortBy';
-import mapValues from 'lodash/mapValues';
 import content from '../content/index';
 import i18n from '../i18n';
 import getItemInfo from './getItemInfo';
 import updateStore from './updateStore';
 import seasonalShopConfig from './shops-seasonal.config';
+
+import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 let shops = {};
 
@@ -283,7 +284,22 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
+let flatGearArray = toArray(content.gear.flat);
+
+shops.getSeasonalGear = function getSeasonalGear (user, set, officialPinnedItems, language, ignoreAlreadyOwned = false) {
+  return flatGearArray.filter((gear) => {
+    if (!ignoreAlreadyOwned && user.items.gear.owned[gear.key] !== undefined)
+      return false;
+
+    return gear.set === set;
+  }).map(gear => {
+    return getItemInfo(null, 'gear', gear, officialPinnedItems, language);
+  });
+};
+
 shops.getSeasonalShop = function getSeasonalShop (user, language) {
+  let officialPinnedItems = getOfficialPinnedItems(user);
+
   let resObject = {
     identifier: 'seasonalShop',
     text: i18n.t('seasonalShop'),
@@ -291,6 +307,10 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
     imageName: seasonalShopConfig.opened ? 'seasonalshop_open' : 'seasonalshop_closed',
     opened: seasonalShopConfig.opened,
     categories: this.getSeasonalShopCategories(user, language),
+    featured: {
+      text: i18n.t(seasonalShopConfig.featuredSet),
+      items: shops.getSeasonalGear(user, seasonalShopConfig.featuredSet, officialPinnedItems, language, true),
+    },
   };
 
   return resObject;
@@ -301,7 +321,7 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  const AVAILABLE_SETS = mapValues(seasonalShopConfig.availableSets, (setKey) => i18n.t(setKey));
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   const AVAILABLE_SPELLS = [
     ...seasonalShopConfig.availableSpells,
@@ -312,8 +332,6 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
   ];
 
   let categories = [];
-
-  let flatGearArray = toArray(content.gear.flat);
 
   let spells = pickBy(content.spells.special, (spell, key) => {
     return AVAILABLE_SPELLS.indexOf(key) !== -1;
@@ -326,7 +344,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(spells, (spell) => {
-      return getItemInfo(user, 'seasonalSpell', spell, language);
+      return getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language);
     });
 
     categories.push(category);
@@ -349,23 +367,17 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
-  for (let key in AVAILABLE_SETS) {
-    if (AVAILABLE_SETS.hasOwnProperty(key)) {
-      let category = {
-        identifier: key,
-        text: AVAILABLE_SETS[key],
-      };
+  for (let set of seasonalShopConfig.availableSets) {
+    let category = {
+      identifier: set,
+      text: i18n.t(set),
+    };
 
-      category.items = flatGearArray.filter((gear) => {
-        return user.items.gear.owned[gear.key] === undefined && gear.index === key;
-      }).map(gear => {
-        return getItemInfo(null, 'gear', gear, language);
-      });
+    category.items = shops.getSeasonalGear(user, set, officialPinnedItems, language, false);
 
-      if (category.items.length > 0) {
-        category.specialClass = category.items[0].specialClass;
-        categories.push(category);
-      }
+    if (category.items.length > 0) {
+      category.specialClass = category.items[0].specialClass;
+      categories.push(category);
     }
   }
 

@@ -470,6 +470,7 @@ let armor = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('armorSpecialSummer2016RogueText'),
     notes: t('armorSpecialSummer2016RogueNotes', { per: 15 }),
     value: 90,
@@ -481,6 +482,7 @@ let armor = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('armorSpecialSummer2016WarriorText'),
     notes: t('armorSpecialSummer2016WarriorNotes', { con: 9 }),
     value: 90,
@@ -492,6 +494,7 @@ let armor = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     text: t('armorSpecialSummer2016MageText'),
     notes: t('armorSpecialSummer2016MageNotes', { int: 9 }),
     value: 90,
@@ -503,6 +506,7 @@ let armor = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('armorSpecialSummer2016HealerText'),
     notes: t('armorSpecialSummer2016HealerNotes', { con: 15 }),
     value: 90,
@@ -1261,6 +1265,7 @@ let head = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('headSpecialSummer2016RogueText'),
     notes: t('headSpecialSummer2016RogueNotes', { per: 9 }),
     value: 60,
@@ -1272,6 +1277,7 @@ let head = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('headSpecialSummer2016WarriorText'),
     notes: t('headSpecialSummer2016WarriorNotes', { str: 9 }),
     value: 60,
@@ -1283,6 +1289,7 @@ let head = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     text: t('headSpecialSummer2016MageText'),
     notes: t('headSpecialSummer2016MageNotes', { per: 7 }),
     value: 60,
@@ -1294,6 +1301,7 @@ let head = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('headSpecialSummer2016HealerText'),
     notes: t('headSpecialSummer2016HealerNotes', { int: 7 }),
     value: 60,
@@ -1961,6 +1969,7 @@ let shield = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('shieldSpecialSummer2016RogueText'),
     notes: t('shieldSpecialSummer2016RogueNotes', { str: 8 }),
     value: 80,
@@ -1972,6 +1981,7 @@ let shield = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('shieldSpecialSummer2016WarriorText'),
     notes: t('shieldSpecialSummer2016WarriorNotes', { con: 7 }),
     value: 70,
@@ -1983,6 +1993,7 @@ let shield = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('shieldSpecialSummer2016HealerText'),
     notes: t('shieldSpecialSummer2016HealerNotes', { con: 9 }),
     value: 70,
@@ -2546,6 +2557,7 @@ let weapon = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('weaponSpecialSummer2016RogueText'),
     notes: t('weaponSpecialSummer2016RogueNotes', { str: 8 }),
     value: 80,
@@ -2557,6 +2569,7 @@ let weapon = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('weaponSpecialSummer2016WarriorText'),
     notes: t('weaponSpecialSummer2016WarriorNotes', { str: 15 }),
     value: 90,
@@ -2568,6 +2581,7 @@ let weapon = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     twoHanded: true,
     text: t('weaponSpecialSummer2016MageText'),
     notes: t('weaponSpecialSummer2016MageNotes', { int: 15, per: 7 }),
@@ -2581,6 +2595,7 @@ let weapon = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('weaponSpecialSummer2016HealerText'),
     notes: t('weaponSpecialSummer2016HealerNotes', { int: 9 }),
     value: 90,

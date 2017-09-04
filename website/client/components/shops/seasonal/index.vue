@@ -35,15 +35,15 @@
               span.rectangle
               span.text(v-once, v-html="seasonal.notes")
               span.rectangle
-          div.content(v-else-if="featuredSet")
+          div.content(v-else-if="seasonal.featured.items.length !== 0")
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
+              span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredSet.items",
+                v-for="item in seasonal.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -296,8 +296,6 @@
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
   import _mapKeys from 'lodash/mapKeys';
@@ -410,14 +408,6 @@
         } else {
           return [];
         }
-      },
-
-      featuredSet () {
-        let result = _filter(this.categories, (c) => {
-          return c.identifier === featuredItems.seasonal;
-        })[0];
-
-        return result;
       },
     },
     methods: {
