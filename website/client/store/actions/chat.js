@@ -52,7 +52,7 @@ export async function clearFlagCount (store, payload) {
 }
 
 export async function markChatSeen (store, payload) {
-  if (store.user.newMessages) delete store.user.newMessages[payload.groupId];
+  if (store.state.user.newMessages) delete store.state.user.newMessages[payload.groupId];
   let url = `/api/v3/groups/${payload.groupId}/chat/seen`;
   let response = await axios.post(url);
   return response.data.data;

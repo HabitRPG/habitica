@@ -542,7 +542,13 @@ export default {
     },
   },
   mounted () {
+    if (!this.searchId) this.searchId = this.groupId;
+
     this.load();
+
+    if (this.user.newMessages[this.searchId]) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
+    }
   },
   beforeRouteUpdate (to, from, next) {
     this.searchId = to.params.groupId;
@@ -562,7 +568,6 @@ export default {
   },
   methods: {
     load () {
-      if (!this.searchId) this.searchId = this.groupId;
       if (this.isParty) {
         this.searchId = 'party';
         // @TODO: Set up from old client. Decide what we need and what we don't
