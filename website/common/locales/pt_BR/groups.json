@@ -49,7 +49,7 @@
     "partyLoading4": "Sua grupo está se materializando. Por favor, espere...",
     "systemMessage": "Mensagem do Sistema",
     "newMsg": "Nova mensagem em \"<%= name %>\"",
-    "chat": "Conversas",
+    "chat": "Chat",
     "sendChat": "Enviar Mensagem",
     "toolTipMsg": "Atualizar Mensagens",
     "sendChatToolTip": "Você pode enviar uma mensagem pelo teclado dando tab até o botão \"Enviar Mensagem\" e pressionar Enter ou pressionar Control (Command no Mac) + Enter.",
