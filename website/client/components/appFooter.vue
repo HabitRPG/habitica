@@ -34,7 +34,7 @@
           li
             a(href='/static/community-guidelines') {{ $t('communityGuidelines') }}
           li
-            a(href='/hall') {{ $t('hall') }}
+            router-link(to='/hall/contributors') {{ $t('hall') }}
           li
             router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
