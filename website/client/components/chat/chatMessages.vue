@@ -5,7 +5,7 @@
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
 
-  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0)')
+  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0) && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
@@ -15,6 +15,7 @@
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
       .card.col-8
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
             h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
               | {{msg.user}}
@@ -40,6 +41,7 @@
               | + {{ likeCount(msg) }}
     .row(v-if='user._id === msg.uuid')
       .card.col-8
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
               | {{msg.user}}
@@ -175,6 +177,12 @@
   .action.active, .active .svg-icon {
     color: #46a7d9
   }
+
+  .message-hidden {
+    margin-left: 1.5em;
+    margin-top: 1em;
+    color: red;
+  }
 </style>
 
 <script>
@@ -276,6 +284,11 @@ export default {
     },
   },
   methods: {
+    canViewFlag (message) {
+      if (message.uuid === this.user._id) return true;
+      if (message.flagCount === 0) return true;
+      return this.user.contributor.admin;
+    },
     async loadProfileCache (screenPosition) {
       let promises = [];
 

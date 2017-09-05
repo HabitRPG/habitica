@@ -60,17 +60,19 @@ export default {
       this.$root.$emit('hide::modal', 'report-flag');
     },
     async reportAbuse () {
+      this.notify('Thank you for reporting this violation. The moderators have been notified.');
       await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
       });
-      this.notify('Thank you for reporting this violation. The moderators have been notified.');
+      this.close();
     },
     async clearFlagCount () {
       await this.$store.dispatch('chat:clearFlagCount', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
       });
+      this.close();
     },
   },
 };
