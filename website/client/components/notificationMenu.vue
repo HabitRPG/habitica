@@ -278,7 +278,8 @@ export default {
         this.go('/party');
         return;
       }
-      this.go(`/groups/guild/${key}`);
+
+      this.$router.push({ name: 'guild', params: { groupId: key }});
     },
     async reject (group) {
       await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
