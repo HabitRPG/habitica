@@ -66,9 +66,8 @@
         :currencyNeeded="getPriceClass()",
         :amountNeeded="item.value"
       ).float-right
-
-
 </template>
+
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';

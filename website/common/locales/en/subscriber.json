@@ -2,6 +2,7 @@
     "subscription": "Subscription",
     "subscriptions": "Subscriptions",
     "subDescription": "Buy Gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
+    "sendGems": "Send Gems",
     "buyGemsGold": "Buy Gems with Gold",
     "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",

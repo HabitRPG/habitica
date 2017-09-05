@@ -542,20 +542,17 @@ export default {
     },
   },
   mounted () {
-    this.searchId = this.groupId;
-    if (this.isParty) {
-      this.searchId = 'party';
-      // @TODO: Set up from old client. Decide what we need and what we don't
-      // Check Desktop notifs
-      // Mark Chat seen
-      // Load invites
-    }
-    this.fetchGuild();
+    if (!this.searchId) this.searchId = this.groupId;
 
-    this.$root.$on('updatedGroup', group => {
-      let updatedGroup = extend(this.group, group);
-      this.$set(this.group, updatedGroup);
-    });
+    this.load();
+
+    if (this.user.newMessages[this.searchId]) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.searchId = to.params.groupId;
+    next();
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -570,6 +567,21 @@ export default {
     },
   },
   methods: {
+    load () {
+      if (this.isParty) {
+        this.searchId = 'party';
+        // @TODO: Set up from old client. Decide what we need and what we don't
+        // Check Desktop notifs
+        // Mark Chat seen
+        // Load invites
+      }
+      this.fetchGuild();
+
+      this.$root.$on('updatedGroup', group => {
+        let updatedGroup = extend(this.group, group);
+        this.$set(this.group, updatedGroup);
+      });
+    },
     // @TODO: abstract autocomplete
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {

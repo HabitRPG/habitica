@@ -19,7 +19,7 @@ export default {
       return false;
     },
     isLeaderOfGroup (user, group) {
-      return user._id === group.leader._id;
+      return user._id === group.leader || user._id === group.leader._id;
     },
     filterGuild (group, filters, search, user) {
       let passedSearch = true;

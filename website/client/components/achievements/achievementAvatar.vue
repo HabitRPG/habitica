@@ -1,7 +1,7 @@
 <template lang="pug">
   div(:class='achievementClass')
     //- +generatedAvatar({sleep: false})
-    avatar(:member='user')
+    avatar(:member='user', :avatarOnly='true', :withBackground='true')
 </template>
 
 <script>

@@ -4,6 +4,15 @@ div
     .row
       .col-6.offset-3
         button.btn.btn-secondary(@click='sendMessage()') Message
+        button.btn.btn-secondary(v-if='userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
+          @click="blockUser()", tooltip-placement='right')
+          span.glyphicon.glyphicon-plus
+          | {{$t('block')}}
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
+          span.glyphicon.glyphicon-ban-circle
+          | {{$t('unblock')}}
+        button.btn.btn-secondary(@click='openSendGemsModal()') {{ $t('sendGems') }}
     .row
       .col-6.offset-3.text-center.nav
         .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
@@ -255,6 +264,7 @@ div
                  button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
                   :popover='$t(statInfo.allocatepop)') +
   private-message-modal(:userIdToMessage='userIdToMessage')
+  send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
 <style lang="scss" scoped>
@@ -322,6 +332,7 @@ div
 </style>
 
 <script>
+import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
@@ -333,6 +344,7 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import privateMessageModal from 'client/components/private-message-modal';
+import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
@@ -348,10 +360,12 @@ export default {
   components: {
     bModal,
     privateMessageModal,
+    sendGemsModal,
   },
   data () {
     return {
       userIdToMessage: '',
+      userReceivingGems: '',
       editing: false,
       editingProfile: {
         name: '',
@@ -535,6 +549,19 @@ export default {
     },
     allocateNow () {
       autoAllocate(this.user);
+    },
+    blockUser () {
+      this.userLoggedIn.inbox.blocks.push(this.user._id);
+      axios.post(`/api/v3/user/block/${this.user._id}`);
+    },
+    unblockUser () {
+      let index = this.userLoggedIn.inbox.blocks.indexOf(this.user._id);
+      this.userLoggedIn.inbox.blocks.splice(index, 1);
+      axios.post(`/api/v3/user/block/${this.user._id}`);
+    },
+    openSendGemsModal () {
+      this.userReceivingGems = this.user;
+      this.$root.$emit('show::modal', 'send-gems');
     },
   },
 };
