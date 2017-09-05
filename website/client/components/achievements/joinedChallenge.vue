@@ -1,17 +1,20 @@
 <template lang="pug">
-  b-modal#joined-challenge(:title="$t('modalAchievement')", size='lg', :hide-footer="true")
-    .modal-body.text-center
-      // @TODO: +achievementAvatar('challenge',0)
-      achievement-avatar.avatar
-      p {{ $t('joinedChallengeText') }}
-      br
-      button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
+  b-modal#joined-challenge(:title="$t('modalAchievement')", size='md', :hide-footer="true")
+    .modal-body
+      .col-12
+        // @TODO: +achievementAvatar('challenge',0)
+        achievement-avatar.avatar
+      .col-6.offset-3.text-center
+        p {{ $t('joinedChallengeText') }}
+        br
+        button.btn.btn-primary(@click='close()') {{ $t('huzzah') }}
     achievement-footer
 </template>
 
 <style scoped>
   .avatar {
-    margin-left: 10.2em;
+    width: 140px;
+    margin: 0 auto;
     margin-bottom: 1.5em;
     margin-top: 1.5em;
   }

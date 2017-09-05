@@ -1,21 +1,20 @@
 <template lang="pug">
-  b-modal#death(:title="$t('lostAllHealth')", size='lg', :hide-footer="true")
-    .info
-      .row
-        .col-6
-          .hero-stats
-            .meter-label(:tooltip="$t('health')")
-              span.glyphicon.glyphicon-heart
-            .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
-              .bar(:style='barStyle')
-            // span.meter-text.value
-              | {{Math.ceil(user.stats.hp)}} / {{maxHealth}}
-            avatar(:member='user', :sleep='true')
-            // @TOOD: Sleep +generatedAvatar({sleep:true})
-            span(class='knockout')
-        .col-6
-          h4.dont-despair {{ $t('dontDespair') }}
-          p.death-penalty {{ $t('deathPenaltyDetails') }}
+  b-modal#death(:title="$t('lostAllHealth')", size='md', :hide-footer="true")
+    .row
+      .col-12
+        .hero-stats
+          .meter-label(:tooltip="$t('health')")
+            span.glyphicon.glyphicon-heart
+          .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
+            .bar(:style='barStyle')
+          // span.meter-text.value
+            | {{Math.ceil(user.stats.hp)}} / {{maxHealth}}
+          avatar(:member='user', :sleep='true', :avatarOnly='true', :withBackground='true')
+          // @TOOD: Sleep +generatedAvatar({sleep:true})
+          span(class='knockout')
+      .col-6.offset-3
+        h4.dont-despair {{ $t('dontDespair') }}
+        p.death-penalty {{ $t('deathPenaltyDetails') }}
     .modal-footer
       .col-12.text-center
         button.btn.btn-danger(@click='revive()') {{ $t('refillHealthTryAgain') }}
@@ -23,8 +22,11 @@
 </template>
 
 <style scoped>
-  .info {
-    height: 220px;
+  .avatar {
+    width: 140px;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
   }
 </style>
 

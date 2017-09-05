@@ -1,8 +1,9 @@
 <template lang="pug">
-  b-modal#contributor(:title="$t('modalContribAchievement')", size='lg', :hide-footer="true")
+  b-modal#contributor(:title="$t('modalContribAchievement')", size='md', :hide-footer="true")
     .modal-body
-      .col-6.offset-3.text-center
+      .col-12
         achievement-avatar.avatar
+      .col-6.offset-3.text-center
         | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
         a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
         br
@@ -13,7 +14,8 @@
 
 <style scoped>
   .avatar {
-    margin-left: 4em;
+    width: 140px;
+    margin: 0 auto;
     margin-bottom: 1.5em;
     margin-top: 1.5em;
   }

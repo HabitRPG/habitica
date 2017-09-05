@@ -9,7 +9,7 @@
           span.meter-text.value
             | {{healthLeft}}
       .col-12
-        avatar(:member='user')
+        avatar(:member='user', :avatarOnly='true', :withBackground='true')
       .col-12
         p {{ $t('losingHealthWarning2') }}
         h4 {{ $t('toRegainHealth') }}
@@ -45,6 +45,13 @@
 
   .modal-footer {
     margin-top: 0em;
+  }
+
+  .avatar {
+    width: 140px;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
   }
 </style>
 

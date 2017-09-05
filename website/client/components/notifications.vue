@@ -228,7 +228,6 @@ export default {
     },
   },
   async mounted () {
-    this.$root.$emit('show::modal', 'level-up');
     Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
       .then(() => {
         if (this.user.flags.newStuff) {

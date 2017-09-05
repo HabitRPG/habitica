@@ -7,7 +7,7 @@
           .achievement-karaoke-2x
         .col-4
           // @TODO: +generatedAvatar({sleep: false})
-          avatar(:member='user', :avatar-only='true')
+          avatar.avatar(:member='user', :avatar-only='true')
         .col-4
           .achievement-karaoke-2x
       p {{ $t('congratulations') }}
@@ -29,7 +29,10 @@
   }
 
   .avatar {
-    margin-left: 0em;
+    width: 140px;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
   }
 </style>
 
