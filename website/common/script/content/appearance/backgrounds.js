@@ -549,6 +549,20 @@ let backgrounds = {
       notes: t('backgroundSummerFireworksNotes'),
     },
   },
+  backgrounds092017: {
+    beside_well: {
+      text: t('backgroundBesideWellText'),
+      notes: t('backgroundBesideWellNotes'),
+    },
+    garden_shed: {
+      text: t('backgroundGardenShedText'),
+      notes: t('backgroundGardenShedNotes'),
+    },
+    pixelists_workshop: {
+      text: t('backgroundPixelistsWorkshopText'),
+      notes: t('backgroundPixelistsWorkshopNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
