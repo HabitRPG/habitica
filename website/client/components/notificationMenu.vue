@@ -80,6 +80,11 @@ div.item-with-icon.item-notifications.dropdown
     margin-top: .2em;
   }
 
+  .user-dropdown {
+    max-height: 350px;
+    overflow: scroll;
+  }
+
   /* @TODO: Move to shared css */
   .dropdown:hover .dropdown-menu {
     display: block;
