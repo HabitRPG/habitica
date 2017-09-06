@@ -26,7 +26,7 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
   }
 
   .reward-wrap {
-    width: 205px;
+    width: max-content;
   }
 
   .avatar, .reward-wrap {
