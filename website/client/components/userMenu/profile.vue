@@ -1,9 +1,10 @@
 <template lang="pug">
 div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
-    .row
-      .col-6.offset-3
-        button.btn.btn-secondary(@click='sendMessage()') Message
+    div(slot='modal-header')
+      .profile-actions
+        button.btn.btn-secondary(@click='sendMessage()')
+          .svg-icon.message-icon(v-html="icons.message")
         button.btn.btn-secondary(v-if='userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
           @click="blockUser()", tooltip-placement='right')
           span.glyphicon.glyphicon-plus
@@ -12,7 +13,11 @@ div
           :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
           span.glyphicon.glyphicon-ban-circle
           | {{$t('unblock')}}
-        button.btn.btn-secondary(@click='openSendGemsModal()') {{ $t('sendGems') }}
+        button.btn.btn-secondary(@click='openSendGemsModal()')
+          .svg-icon.gift-icon(v-html="icons.gift")
+      .row
+        .col-12
+          member-details(:member="user")
     .row
       .col-6.offset-3.text-center.nav
         .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
@@ -83,11 +88,11 @@ div
           button.btn.btn-primary(@click='save()') {{ $t("save") }}
           button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
 
-    .standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
+    #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
-        h2.col-12 {{ $t(key+'Achievs') }}
+        h2.col-12.text-center {{ $t(key+'Achievs') }}
         .col-3.text-center(v-for='achievment in category.achievements')
-          div.achievement-container(:data-popover-html='achievment.title + achievment.text',
+          .box.achievement-container(:class='{"achievement-unearned": !achievment.earned}', :data-popover-html='achievment.title + achievment.text',
             popover-placement='achievPopoverPlacement',
             popover-append-to-body='achievAppendToBody')
             div(popover-trigger='mouseenter',
@@ -96,179 +101,225 @@ div
               popover-append-to-body='achievAppendToBody')
                 .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
                  .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-                .achievement(class='achievement-unearned2x', v-if='!achievment.earned')
+                .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievment.earned')
+      hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
-          h2 Challeges Won
+          .achievement-icon.achievement-alien
+          h2.text-center Challeges Won
           div(v-for='chal in user.achievements.challenges')
             span {{chal}}
+            hr
         .col-6(v-if='user.achievements.quests')
-          h2 Quests Completed
+          .achievement-icon.achievement-karaoke
+          h2.text-center Quests Completed
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }}
             span {{ value }}
-    .standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
+
+    #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
         .col-6
           h2.text-center Equipment
-          // user.items.gear.equipped
           .well
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.eyewear}')
+                div(:class="`shop_${equippedItems.eyewear}`")
               h3 Eyewear
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.head}')
+                div(:class="`shop_${equippedItems.head}`")
               h3 Head Gear
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.headAccessory}')
+                div(:class="`shop_${equippedItems.headAccessory}`")
               h3 Head Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.backAccessory}')
+                div(:class="`shop_${equippedItems.backAccessory}`")
               h3 Back Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.armor}')
+                div(:class="`shop_${equippedItems.armor}`")
               h3 Armor
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.bodyAccessory}')
+                div(:class="`shop_${equippedItems.bodyAccessory}`")
               h3 Body Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.weapon}')
+                div(:class="`shop_${equippedItems.weapon}`")
               h3 Main-Hand
             .col-4.item-wrapper
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: equippedItems.shield}')
+                div(:class="`shop_${equippedItems.shield}`")
               h3 Off-Hand
         .col-6
           h2.text-center Costume
-          // user.items.gear.costume
           .well
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.eyewear}')
+                div(:class="`shop_${costumeItems.eyewear}`")
               h3 Eyewear
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.head}')
+                div(:class="`shop_${costumeItems.head}`")
               h3 Head Gear
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.headAccessory}')
+                div(:class="`shop_${costumeItems.headAccessory}`")
               h3 Head Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.backAccessory}')
+                div(:class="`shop_${costumeItems.backAccessory}`")
               h3 Back Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.armor}')
+                div(:class="`shop_${costumeItems.armor}`")
               h3 Armor
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.bodyAccessory}')
+                div(:class="`shop_${costumeItems.bodyAccessory}`")
               h3 Body Access.
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.weapon}')
+                div(:class="`shop_${costumeItems.weapon}`")
               h3 Main-Hand
             .col-4.item-wrapper
-              .box
-              h3 Background {{ user.preferences.background }}
+              .box(:class='{white: user.preferences.background}')
+                div(:class="user.preferences.background")
+              h3 Background
             .col-4.item-wrapper
-              .box
+              .box(:class='{white: costumeItems.shield}')
+                div(:class="`shop_${costumeItems.shield}`")
               h3 Off-Hand
-      .row
+      .row.pet-mount-row
         .col-6
           h2.text-center(v-once) {{ $t('pets') }}
-          ul
-            li(ng-if='user.items.currentPet')
-              | {{ $t('activePet') }}:
-              | {{ formatAnimal(user.items.currentPet, 'pet') }}
-            li
-              | {{ $t('petsFound') }}:
-              | {{ totalCount(user.items.pets) }}
-            li
-              | {{ $t('beastMasterProgress') }}:
-              | {{ beastMasterProgress(user.items.pets) }}
+          .well.pet-mount-well
+            .row.col-12
+              .col-4
+                .box(:class='{white: user.items.currentPet}')
+                  div(:class="user.items.currentPet")
+              .col-8
+                div
+                  | {{ formatAnimal(user.items.currentPet, 'pet') }}
+                div
+                  strong {{ $t('petsFound') }}:
+                  | {{ totalCount(user.items.pets) }}
+                div
+                  strong {{ $t('beastMasterProgress') }}:
+                  | {{ beastMasterProgress(user.items.pets) }}
         .col-6
           h2.text-center(v-once) {{ $t('mounts') }}
-          ul
-            li(v-if='user.items.currentMount')
-              | {{ $t('activeMount') }}:
-              | {{ formatAnimal(user.items.currentMount, 'mount') }}
-            li
-              | {{ $t('mountsTamed') }}:
-              | {{ totalCount(user.items.mounts) }}
-            li
-              | {{ $t('mountMasterProgress') }}:
-              | {{ mountMasterProgress(user.items.mounts) }}
-      .row#attributes
-      hr.col-12
-      h2.col-12 Attributes
-      .row.col-6(v-for="(statInfo, stat) in stats")
-        .col-4.attribute-label
-          span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
-            :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
-          div {{ $t(statInfo.title) }}
-          strong.number {{ statsComputed[stat] }}
-        .col-6
-          ul.bonus-stats
-            li
-              strong Level:
-              | {{statsComputed.levelBonus[stat]}}
-            li
-              strong Equipment:
-              | {{statsComputed.gearBonus[stat]}}
-            li
-              strong Class:
-              | {{statsComputed.classBonus[stat]}}
-            li
-              strong Allocated:
-              | {{user.stats[stat]}}
-            li
-              strong Buffs:
-              | {{user.stats.buffs[stat]}}
-      // @TODO: Implement
-          div
-            div
-              p(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
-              p(v-if='user.stats.points || userLevel100Plus')
-                strong.inline
-                  | {{user.stats.points}}&nbsp;
-                strong.hint(popover-trigger='mouseenter',
-                  popover-placement='right', :popover="$t('levelPopover')") {{ $t('unallocated') }}
-            div
-              fieldset.auto-allocate
-                  .checkbox
-                    label
-                      input(type='checkbox', v-model='user.preferences.automaticAllocation',
-                        @change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation, "preferences.allocationMode": "taskbased"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('autoAllocationPop')") {{ $t('autoAllocation') }}
-                  form(v-if='user.preferences.automaticAllocation', style='margin-left:1em')
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='flat', v-model='user.preferences.allocationMode',
-                          @change='set({"preferences.allocationMode": "flat"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('evenAllocationPop')") {{ $t('evenAllocation') }}
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='classbased',
-                          v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "classbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('classAllocationPop')") {{ $t('classAllocation') }}
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='taskbased', v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "taskbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('taskAllocationPop')") {{ $t('taskAllocation') }}
-                  div(v-if='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                    button.btn.btn-primary.btn-xs(@click='allocateNow({})', popover-trigger='mouseenter', popover-placement='right', :popover="$t('distributePointsPop')")
-                      span.glyphicon.glyphicon-download
-                      |&nbsp;
-                      | {{ $t('distributePoints') }}
-            .row(v-for='(statInfo, stat) in allocateStatsList')
+          .well.pet-mount-well
+            .row.col-12
+              .col-4
+                .box(:class='{white: user.items.currentMount}')
+                  div(:class="user.items.currentMount")
               .col-8
-                span.hint(popover-trigger='mouseenter', popover-placement='right', :popover='$t(statInfo.popover)')
-                | {{ $t(statInfo.title) + user.stats[stat] }}
-              .col-4(v-if='user.stats.points', @click='allocate(stat)')
-                 button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
-                  :popover='$t(statInfo.allocatepop)') +
+                div
+                  | {{ formatAnimal(user.items.currentMount, 'mount') }}
+                div
+                  strong {{ $t('mountsTamed') }}:
+                  span {{ totalCount(user.items.mounts) }}
+                div
+                  strong {{ $t('mountMasterProgress') }}:
+                  span {{ mountMasterProgress(user.items.mounts) }}
+      #attributes.row
+        hr.col-12
+        h2.col-12 Attributes
+        .col-6(v-for="(statInfo, stat) in stats")
+          .row.col-12.stats-column
+            .col-4.attribute-label
+              span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
+                :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
+              .stat-title(:class='stat') {{ $t(statInfo.title) }}
+              strong.number {{ statsComputed[stat] }}
+            .col-6
+              ul.bonus-stats
+                li
+                  strong Level:
+                  | {{statsComputed.levelBonus[stat]}}
+                li
+                  strong Equipment:
+                  | {{statsComputed.gearBonus[stat]}}
+                li
+                  strong Class:
+                  | {{statsComputed.classBonus[stat]}}
+                li
+                  strong Allocated:
+                  | {{user.stats[stat]}}
+                li
+                  strong Buffs:
+                  | {{user.stats.buffs[stat]}}
+      #allocation(v-if='user._id === userLoggedIn._id')
+        .row.title-row
+          .col-6
+            h3(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
+            h3(v-if='user.stats.points || userLevel100Plus')
+              | Points Available
+            .counter.badge(v-if='user.stats.points || userLevel100Plus')
+              | {{user.stats.points}}&nbsp;
+          .col-6
+            .float-right
+              toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
+
+        .row
+          .col-3(v-for='(statInfo, stat) in allocateStatsList')
+            .box.white.row.col-12
+              .col-8
+                div(:class='stat') {{ $t(stats[stat].title) }}
+                .number {{ user.stats[stat] }}
+                .points pts
+              .col-4
+                .up(v-if='user.stats.points', @click='allocate(stat)')
   private-message-modal(:userIdToMessage='userIdToMessage')
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
+<style lang="scss" >
+  #profile {
+    .member-details {
+      .character-name, small, .small-text {
+        color: #878190
+      }
+    }
+
+    .modal-content {
+      background: #f9f9f9;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .profile-actions {
+    float: right;
+    margin-right: 1em;
+
+    button {
+      width: 40px;
+      height: 40px;
+      padding: .8em;
+      margin-right: .5em;
+    }
+  }
+
+  .message-icon {
+    width: 16px;
+  }
+
+  .gift-icon {
+    width: 14px;
+  }
+
+  .pet-mount-row {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
 
   .header {
     h1 {
@@ -287,8 +338,7 @@ div
 
   .nav-item {
     display: inline-block;
-    margin-right: 2em;
-    margin-left: 1em;
+    margin: 0 auto;
     padding: 1em;
   }
 
@@ -317,16 +367,170 @@ div
     padding-top: 1em;
   }
 
-  .item-wrapper {
+  .well.pet-mount-well {
+    padding-bottom: 1em;
+
+    strong {
+      margin-right: .2em;
+    }
+  }
+
+  #achievements {
     .box {
-      width: 94px;
-      height: 92px;
-      border-radius: 2px;
-      border: dotted 1px #c3c0c7;
+      margin: 0 auto;
+      margin-top: 1em;
+      padding-top: 1.2em;
+      background: #fff;
     }
 
+    .box.achievement-unearned {
+      background-color: #edecee;
+    }
+
+    h2 {
+      margin-top: 1em;
+    }
+
+    .counter.badge {
+      position: absolute;
+      top: .5em;
+      right: 3em;
+      color: #fff;
+      background-color: #ff944c;
+      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .achievement-icon {
+      margin: 0 auto;
+    }
+  }
+
+  .achievement {
+    margin: 0 auto;
+  }
+
+  .box {
+    width: 94px;
+    height: 92px;
+    border-radius: 2px;
+    border: dotted 1px #c3c0c7;
+  }
+
+  .white {
+    border-radius: 2px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
+    border: 1px solid transparent;
+  }
+
+  .item-wrapper {
     h3 {
       text-align: center;
+    }
+  }
+
+  #stats {
+    .box div {
+      margin: 0 auto;
+      margin-top: 1em;
+    }
+  }
+
+  .stats-column {
+    border-radius: 2px;
+    background-color: #ffffff;
+    padding: .5em;
+    margin-bottom: 1em;
+
+    ul {
+      list-style-type: none;
+
+      li strong {
+        margin-right: .3em;
+      }
+    }
+  }
+
+  .stat-title {
+    text-transform: uppercase;
+  }
+
+  .str {
+    color: #f74e52;
+  }
+
+  .int {
+    color: #2995cd;
+  }
+
+  .con {
+    color: #ffa623;
+  }
+
+  .per {
+    color: #4f2a93;
+  }
+
+  #allocation {
+    .title-row {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .counter.badge {
+      position: absolute;
+      top: -0.5em;
+      left: 10em;
+      color: #fff;
+      background-color: #ff944c;
+      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .box {
+      width: 141px;
+      height: 84px;
+      padding: .5em;
+      margin: 0 auto;
+
+      div {
+        margin-top: 0;
+      }
+
+      .number {
+        font-size: 40px;
+        text-align: left;
+        color: #686274;
+        display: inline-block;
+      }
+
+      .points {
+        display: inline-block;
+        font-weight: bold;
+        line-height: 1.67;
+        text-align: left;
+        color: #878190;
+        margin-left: .5em;
+      }
+
+      .up {
+        border: solid #a5a1ac;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        margin-top: 1em;
+      }
+
+      .up:hover {
+        cursor: pointer;
+      }
     }
   }
 </style>
@@ -343,15 +547,21 @@ import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
+import MemberDetails from '../memberDetails';
 import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 import Content from '../../../common/script/content';
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
+
+import message from 'assets/svg/message.svg';
+import gift from 'assets/svg/gift.svg';
+import dots from 'assets/svg/dots.svg';
 
 export default {
   directives: {
@@ -361,9 +571,16 @@ export default {
     bModal,
     privateMessageModal,
     sendGemsModal,
+    MemberDetails,
+    toggleSwitch,
   },
   data () {
     return {
+      icons: Object.freeze({
+        message,
+        gift,
+        dots,
+      }),
       userIdToMessage: '',
       userReceivingGems: '',
       editing: false,
@@ -408,6 +625,8 @@ export default {
     ...mapState({
       userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
+      equippedItems: 'user.data.items.gear.equipped',
+      costumeItems: 'user.data.items.gear.costume',
     }),
     user () {
       let user = this.userLoggedIn;
@@ -546,9 +765,13 @@ export default {
     },
     allocate (stat) {
       allocate(this.user, stat);
+      axios.post(`/api/v3/user/allocate?stat=${stat}`);
     },
     allocateNow () {
       autoAllocate(this.user);
+    },
+    userset (settings) {
+      this.$store.dispatch('user:set', settings);
     },
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);

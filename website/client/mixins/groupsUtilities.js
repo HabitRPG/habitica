@@ -35,7 +35,7 @@ export default {
       }
 
       if (filters.categories && filters.categories.length > 0) {
-        let intersectingCats = intersection(filters.categories, group.categories);
+        let intersectingCats = intersection(filters.categories, group.categorySlugs);
         hasCategories = intersectingCats.length > 0;
       }
 

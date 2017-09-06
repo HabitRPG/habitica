@@ -105,6 +105,14 @@
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
                       span.float-right {{group.quest.progress.up || 0}} pending damage
+                .row.rage-bar-row(v-if='questData.boss.rage')
+                  .col-12
+                    .grey-progress-bar
+                      .boss-health-bar.rage-bar(:style="{width: (50 / questData.boss.rage) * 100 + '%'}")
+                .row.boss-details.rage-details(v-if='questData.boss.rage')
+                    .col-6
+                      span.float-left
+                        | Rage {{questData.boss.rage.value}}
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -364,6 +372,15 @@
     background-color: red;
     height: 15px;
     margin-bottom: .5em;
+  }
+
+  .rage-details {
+    margin-bottom: 1em;
+  }
+
+  .boss-health-bar.rage-bar {
+    margin-top: 1em;
+    background-color: orange;
   }
 
   .grey-progress-bar {
