@@ -254,49 +254,27 @@ div
                 li
                   strong Buffs:
                   | {{user.stats.buffs[stat]}}
-      // @TODO: Implement
-          div
-            div
-              p(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
-              p(v-if='user.stats.points || userLevel100Plus')
-                strong.inline
-                  | {{user.stats.points}}&nbsp;
-                strong.hint(popover-trigger='mouseenter',
-                  popover-placement='right', :popover="$t('levelPopover')") {{ $t('unallocated') }}
-            div
-              fieldset.auto-allocate
-                  .checkbox
-                    label
-                      input(type='checkbox', v-model='user.preferences.automaticAllocation',
-                        @change='set({"preferences.automaticAllocation": user.preferences.automaticAllocation, "preferences.allocationMode": "taskbased"})')
-                      span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('autoAllocationPop')") {{ $t('autoAllocation') }}
-                  form(v-if='user.preferences.automaticAllocation', style='margin-left:1em')
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='flat', v-model='user.preferences.allocationMode',
-                          @change='set({"preferences.allocationMode": "flat"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('evenAllocationPop')") {{ $t('evenAllocation') }}
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='classbased',
-                          v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "classbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('classAllocationPop')") {{ $t('classAllocation') }}
-                    .radio
-                      label
-                        input(type='radio', name='allocationMode', value='taskbased', v-model='user.preferences.allocationMode', @change='set({"preferences.allocationMode": "taskbased"})')
-                        span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('taskAllocationPop')") {{ $t('taskAllocation') }}
-                  div(v-if='user.preferences.automaticAllocation && !(user.preferences.allocationMode === "taskbased") && (user.stats.points > 0)')
-                    button.btn.btn-primary.btn-xs(@click='allocateNow({})', popover-trigger='mouseenter', popover-placement='right', :popover="$t('distributePointsPop')")
-                      span.glyphicon.glyphicon-download
-                      |&nbsp;
-                      | {{ $t('distributePoints') }}
-            .row(v-for='(statInfo, stat) in allocateStatsList')
+      #allocation(v-if='user._id === userLoggedIn._id')
+        .row.title-row
+          .col-6
+            h3(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
+            h3(v-if='user.stats.points || userLevel100Plus')
+              | Points Available
+            .counter.badge(v-if='user.stats.points || userLevel100Plus')
+              | {{user.stats.points}}&nbsp;
+          .col-6
+            .float-right
+              toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
+
+        .row
+          .col-3(v-for='(statInfo, stat) in allocateStatsList')
+            .box.white.row.col-12
               .col-8
-                span.hint(popover-trigger='mouseenter', popover-placement='right', :popover='$t(statInfo.popover)')
-                | {{ $t(statInfo.title) + user.stats[stat] }}
-              .col-4(v-if='user.stats.points', @click='allocate(stat)')
-                 button.btn.btn-primary(popover-trigger='mouseenter', popover-placement='right',
-                  :popover='$t(statInfo.allocatepop)') +
+                div(:class='stat') {{ $t(stats[stat].title) }}
+                .number {{ user.stats[stat] }}
+                .points pts
+              .col-4
+                .up(v-if='user.stats.points', @click='allocate(stat)')
   private-message-modal(:userIdToMessage='userIdToMessage')
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
@@ -495,6 +473,66 @@ div
   .per {
     color: #4f2a93;
   }
+
+  #allocation {
+    .title-row {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .counter.badge {
+      position: absolute;
+      top: -0.5em;
+      left: 10em;
+      color: #fff;
+      background-color: #ff944c;
+      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .box {
+      width: 141px;
+      height: 84px;
+      padding: .5em;
+      margin: 0 auto;
+
+      div {
+        margin-top: 0;
+      }
+
+      .number {
+        font-size: 40px;
+        text-align: left;
+        color: #686274;
+        display: inline-block;
+      }
+
+      .points {
+        display: inline-block;
+        font-weight: bold;
+        line-height: 1.67;
+        text-align: left;
+        color: #878190;
+        margin-left: .5em;
+      }
+
+      .up {
+        border: solid #a5a1ac;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        margin-top: 1em;
+      }
+
+      .up:hover {
+        cursor: pointer;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -513,6 +551,7 @@ import MemberDetails from '../memberDetails';
 import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
@@ -533,6 +572,7 @@ export default {
     privateMessageModal,
     sendGemsModal,
     MemberDetails,
+    toggleSwitch,
   },
   data () {
     return {
@@ -725,9 +765,13 @@ export default {
     },
     allocate (stat) {
       allocate(this.user, stat);
+      axios.post(`/api/v3/user/allocate?stat=${stat}`);
     },
     allocateNow () {
       autoAllocate(this.user);
+    },
+    userset (settings) {
+      this.$store.dispatch('user:set', settings);
     },
     blockUser () {
       this.userLoggedIn.inbox.blocks.push(this.user._id);
