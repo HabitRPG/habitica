@@ -117,6 +117,11 @@ export default {
       this.queryFilters.search = eventData.searchTerm;
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
       this.guilds = guilds;
     },
     async updateFilters (eventData) {
@@ -147,7 +152,6 @@ export default {
         this.queryFilters.leader = true;
       }
 
-
       // Size filters
       if (eventData.guildSize && eventData.guildSize.indexOf('gold_tier') !== -1) {
         this.queryFilters.minMemberCount = 1000;
@@ -165,6 +169,11 @@ export default {
       }
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
       this.guilds = guilds;
     },
     async fetchGuilds () {
@@ -177,6 +186,11 @@ export default {
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
       this.guilds.push(...guilds);
 
       this.lastPageLoaded++;
