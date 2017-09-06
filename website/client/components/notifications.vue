@@ -310,7 +310,6 @@ export default {
       await axios.post('/api/v3/cron');
 
       // Notifications
-      // this.handleUserNotifications(this.user.notifications);
 
       // Sync
       await Promise.all([
@@ -318,6 +317,7 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
+      this.handleUserNotifications(this.user.notifications);
       this.isRunningYesterdailies = false;
       this.scheduleNextCron();
     },
