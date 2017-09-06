@@ -151,7 +151,7 @@ describe('GET /challenges/:challengeId', () => {
 
       expect(chal.leader).to.eql({
         _id: groupLeader._id,
-        id: groupLeader.id
+        id: groupLeader.id,
         categories: [],
         profile: {name: groupLeader.profile.name},
       });
