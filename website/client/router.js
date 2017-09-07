@@ -283,6 +283,10 @@ router.beforeEach(function routerGuard (to, from, next) {
     return next({name: to.path === '/' ? 'home' : 'login'});
   }
 
+  if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
+    return next({name: 'tasks'});
+  }
+
   next();
 });
 
