@@ -708,7 +708,7 @@ let armor = {
   fall2017Rogue: {
     event: EVENTS.fall2017,
     specialClass: 'rogue',
-    set: 'fall2017TrickOrTreatRogueSet',
+    set: 'fall2017TrickOrTreatSet',
     text: t('armorSpecialFall2017RogueText'),
     notes: t('armorSpecialFall2017RogueNotes', { per: 15 }),
     value: 90,

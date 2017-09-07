@@ -1,3 +1,5 @@
+import { SEASONAL_SETS } from "../content/constants";
+
 module.exports = {
   // opened: false,
   opened: true,
@@ -5,25 +7,22 @@ module.exports = {
   currentSeason: 'Summer',
 
   availableSets: [
-    'summer2016SeahorseHealerSet',
-    'summer2016DolphinMageSet',
-    'summer2016EelSet',
-    'summer2016SharkWarriorSet',
+    ...SEASONAL_SETS.fall,
   ],
 
   pinnedSets: {
-    warrior: 'summer2016SharkWarriorSet',
-    wizard: 'summer2016DolphinMageSet',
-    rogue: 'summer2016EelSet',
-    healer: 'summer2016SeahorseHealerSet',
+    warrior: 'fall2017WarriorSet',
+    wizard: 'fall2017MasqueradeSet',
+    rogue: 'fall2017TrickOrTreatSet',
+    healer: 'fall2017HauntedHouseSet',
   },
 
   availableSpells: [
-    'seafoam',
+    'spookySparkles',
   ],
 
   availableQuests: [
   ],
 
-  featuredSet: 'summer2016EelSet',
+  featuredSet: 'battleRogueSet',
 };

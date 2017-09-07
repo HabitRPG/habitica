@@ -32,6 +32,34 @@ export const EVENTS = {
   fall2017: { start: '2017-09-21', end: '2017-11-02' },
 };
 
+export const SEASONAL_SETS = {
+  fall: [
+    // fall 2014
+    'vampireSmiterSet',
+    'monsterOfScienceSet',
+    'witchyWizardSet',
+    'mummyMedicSet',
+
+    // fall 2015
+    'battleRogueSet',
+    'scarecrowWarriorSet',
+    'stitchWitchSet',
+    'potionerSet',
+
+    // fall 2016
+    'fall2016BlackWidowSet',
+    'fall2016SwampThingSet',
+    'fall2016WickedSorcererSet',
+    'fall2016GorgonHealerSet',
+
+    // fall 2017
+    'fall2017TrickOrTreatSet',
+    'fall2017WarriorSet',
+    'fall2017MasqueradeSet',
+    'fall2017HauntedHouseSet',
+  ]
+}
+
 export const GEAR_TYPES = [
   'weapon',
   'armor',
