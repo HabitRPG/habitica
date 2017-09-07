@@ -23,7 +23,7 @@ div
         .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
         .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
         .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
-    .standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
+    #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-8
           .header
@@ -91,17 +91,12 @@ div
     #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
-        .col-3.text-center(v-for='achievment in category.achievements')
-          .box.achievement-container(:class='{"achievement-unearned": !achievment.earned}', :data-popover-html='achievment.title + achievment.text',
-            popover-placement='achievPopoverPlacement',
-            popover-append-to-body='achievAppendToBody')
-            div(popover-trigger='mouseenter',
-              :data-popover-html='achievment.title + achievment.text',
-              popover-placement='achievPopoverPlacement',
-              popover-append-to-body='achievAppendToBody')
-                .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
-                 .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-                .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievment.earned')
+        .col-3.text-center(v-for='(achievment, key) in category.achievements')
+          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievment.earned}')
+            b-popover(:target="'#' + key", triggers="hover", placement="top", :content="achievment.title + achievment.text")
+            .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
+             .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
+            .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievment.earned')
       hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
@@ -548,6 +543,7 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import MemberDetails from '../memberDetails';
+import bPopover from 'bootstrap-vue/lib/components/popover';
 import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
@@ -573,6 +569,7 @@ export default {
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
+    bPopover,
   },
   data () {
     return {
