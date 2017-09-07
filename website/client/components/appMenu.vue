@@ -68,13 +68,20 @@ div
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('messages') }}
+          a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()') {{ $t('messages') }}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
-          a.dropdown-item(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
-          a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
+          a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
+          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal()')
+            .dropdown-item.text-center
+              h3.purple {{ $t('needMoreGems') }}
+              span.small-text {{ $t('needMoreGemsInfo') }}
+            img.float-left.align-self-end(src='~assets/images/gem-rain.png')
+            button.btn.btn-primary.btn-lg.learn-button Learn More
+            img.float-right.align-self-end(src='~assets/images/gold-rain.png')
 </template>
 
 <style lang="scss" scoped>
@@ -134,6 +141,25 @@ div
 
   .dropdown-separated {
     border-bottom: 1px solid $gray-500;
+  }
+
+  .user-dropdown {
+    width: 14.75em;
+  }
+
+  .learn-button {
+    margin: 0.75em 0.75em 0.75em 1em;
+  }
+
+  .purple {
+    color: $purple-200;
+  }
+
+  .small-text {
+    color: $gray-200;
+    font-style: normal;
+    display: block;
+    white-space: normal;
   }
 
   .dropdown-menu:not(.user-dropdown) {
@@ -205,12 +231,6 @@ div
     h3 {
       color: $gray-10;
       margin-bottom: 0px;
-    }
-
-    .small-text {
-      color: $gray-200;
-      font-style: normal;
-      display: block;
     }
 
     padding-top: 16px;
