@@ -57,8 +57,8 @@ export const SEASONAL_SETS = {
     'fall2017WarriorSet',
     'fall2017MasqueradeSet',
     'fall2017HauntedHouseSet',
-  ]
-}
+  ],
+};
 
 export const GEAR_TYPES = [
   'weapon',

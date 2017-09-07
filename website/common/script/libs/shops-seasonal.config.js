@@ -1,4 +1,4 @@
-import { SEASONAL_SETS } from "../content/constants";
+import { SEASONAL_SETS } from '../content/constants';
 
 module.exports = {
   // opened: false,
