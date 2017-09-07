@@ -51,10 +51,6 @@
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
               )
-                template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
@@ -95,11 +91,6 @@
                 :popoverPosition="'top'",
                 @click="selectedItemToBuy = item"
               )
-                span(slot="popoverContent")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
-
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",

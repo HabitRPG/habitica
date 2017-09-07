@@ -59,6 +59,10 @@
           :class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}"
         ) {{ $t('buyNow') }}
 
+    div.limitedTime(v-if="item.event")
+      span.svg-icon.inline.icon-16(v-html="icons.clock")
+      span.limitedString {{ limitedString }}
+
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
       balanceInfo(
@@ -177,6 +181,27 @@
       pointer-events: none;
       opacity: 0.55;
     }
+
+    .limitedTime {
+      height: 32px;
+      background-color: #6133b4;
+      width: calc(100% + 30px);
+      margin: 0 -15px; // the modal content has its own padding
+
+      font-size: 12px;
+      line-height: 1.33;
+      text-align: center;
+      color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .limitedString {
+        height: 16px;
+        margin-left: 8px;
+      }
+    }
   }
 </style>
 
@@ -188,6 +213,7 @@
   import svgGem from 'assets/svg/gem.svg';
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgPin from 'assets/svg/pin.svg';
+  import svgClock from 'assets/svg/clock.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
@@ -199,6 +225,8 @@
 
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';
+
+  import moment from 'moment';
 
   export default {
     mixins: [currencyMixin, notifications],
@@ -217,6 +245,7 @@
           gems: svgGem,
           hourglasses: svgHourglasses,
           pin: svgPin,
+          clock: svgClock,
         }),
       };
     },
@@ -243,6 +272,9 @@
         } else {
           return this.item.notes;
         }
+      },
+      limitedString () {
+        return this.$t('limitedOffer', {date: moment(this.item.event.end).format('LL')});
       },
     },
     methods: {

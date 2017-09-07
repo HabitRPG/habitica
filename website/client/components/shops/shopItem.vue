@@ -3,6 +3,13 @@ div
   .item-wrapper(@click="click()", :id="itemId")
     .item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
+
+
+      span.badge.badge-pill.badge-item.badge-clock(
+        v-if="item.event",
+      )
+        span.svg-icon.inline.clock(v-html="icons.clock")
+
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
 
@@ -28,6 +35,8 @@ div
       div(v-else)
         h4.popover-content-title(v-once) {{ item.text }}
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
+
+      div(v-if="item.event") {{ limitedString }}
 
 </template>
 
@@ -100,6 +109,23 @@ div
     top: 8px;
     margin-top: 0;
   }
+
+  span.badge.badge-pill.badge-item.badge-clock {
+    height: 24px;
+    width: 24px;
+    background-color: $purple-300;
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    margin-top: 0;
+    padding: 4px;
+  }
+
+  span.svg-icon.inline.clock {
+    height: 16px;
+    width: 16px;
+
+  }
 </style>
 
 <script>
@@ -110,8 +136,11 @@ div
   import svgGold from 'assets/svg/gold.svg';
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgLock from 'assets/svg/lock.svg';
+  import svgClock from 'assets/svg/clock.svg';
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+
+  import moment from 'moment';
 
   export default {
     components: {
@@ -126,6 +155,7 @@ div
           gold: svgGold,
           lock: svgLock,
           hourglasses: svgHourglasses,
+          clock: svgClock,
         },
       });
     },
@@ -164,6 +194,9 @@ div
         } else {
           return 'gold';
         }
+      },
+      limitedString () {
+        return this.$t('limitedOffer', {date: moment(this.item.event.end).format('LL')});
       },
     },
     methods: {

@@ -173,5 +173,7 @@
   "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
   "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
   "welcome5": "Now you'll customize your avatar and set up your tasks...",
-  "imReady": "Enter Habitica"
+  "imReady": "Enter Habitica",
+
+  "limitedOffer": "Available until <%= date %>"
 }
