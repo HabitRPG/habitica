@@ -622,9 +622,13 @@ export default {
     ...mapState({
       userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
-      equippedItems: 'user.data.items.gear.equipped',
-      costumeItems: 'user.data.items.gear.costume',
     }),
+    equippedItems () {
+      return this.user.items.gear.equipped;
+    },
+    costumeItems () {
+      return this.user.items.gear.costume;
+    },
     user () {
       let user = this.userLoggedIn;
 
