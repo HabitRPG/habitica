@@ -75,7 +75,7 @@ export function track (properties) {
 }
 
 export function updateUser (user, properties) {
-  // properties = properties || {};
+  properties = properties || {};
 
   _gatherUserStats(user, properties);
 
