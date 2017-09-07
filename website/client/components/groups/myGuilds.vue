@@ -119,9 +119,11 @@ export default {
       let user = this.$store.state.user.data;
       let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
+        if (guild.categories) {
+          guild.categorySlugs = guild.categories.map(cat => {
+            return cat.slug;
+          });
+        }
         return filterGuild(guild, filters, search, user);
       });
     },
