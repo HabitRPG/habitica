@@ -69,6 +69,7 @@ import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
@@ -158,6 +159,8 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
         this.isUserLoaded = true;
+        Analytics.setUser(this.user);
+        Analytics.updateUser(this.user);
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });

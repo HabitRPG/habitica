@@ -48,6 +48,7 @@ function _gatherUserStats (user, properties) {
   properties.balanceGemAmount = properties.balance * 4;
 
   properties.tutorialComplete = user.flags && user.flags.tour && user.flags.tour.intro === -2;
+  // @TODO correct tasks
   if (user.habits && user.dailys && user.todos && user.rewards) {
     properties['Number Of Tasks'] = {
       habits: user.habits.length,
@@ -60,29 +61,24 @@ function _gatherUserStats (user, properties) {
   if (user.purchased && user.purchased.plan.planId) properties.subscription = user.purchased.plan.planId;
 }
 
-export function register (user) {
-  window.amplitude.setUserId(user._id);
-  window.ga('set', {userId: user._id});
-}
-
-export function login (user) {
-  window.amplitude.setUserId(user._id);
-  window.ga('set', {userId: user._id});
+export function setUser (user) {
+  // window.amplitude.setUserId(user._id);
+  // window.ga('set', {userId: user._id});
 }
 
 export function track (properties) {
   if (_doesNotHaveRequiredFields(properties)) return false;
   if (_doesNotHaveAllowedHitType(properties)) return false;
 
-  window.amplitude.logEvent(properties.eventAction, properties);
-  window.ga('send', properties);
+  // window.amplitude.logEvent(properties.eventAction, properties);
+  // window.ga('send', properties);
 }
 
-export function updateUser (properties, user) {
-  properties = properties || {};
+export function updateUser (user, properties) {
+  // properties = properties || {};
 
   _gatherUserStats(user, properties);
 
-  window.amplitude.setUserProperties(properties);
-  window.ga('set', properties);
+  // window.amplitude.setUserProperties(properties);
+  // window.ga('set', properties);
 }

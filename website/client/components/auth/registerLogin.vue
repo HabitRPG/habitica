@@ -290,6 +290,9 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
       window.location.href = '/';
     },
     async login () {
@@ -299,6 +302,9 @@ export default {
         password: this.password,
       });
 
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
       window.location.href = '/';
     },
     async socialAuth (network) {
@@ -314,6 +320,9 @@ export default {
         auth,
       });
 
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
       window.location.href = '/';
     },
     handleSubmit () {
