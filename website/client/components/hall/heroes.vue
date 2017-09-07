@@ -66,7 +66,7 @@
           // h4 Backer Status
           // Add backer stuff like tier, disable adds, etcs
           .form-group
-            button.form-control.btn.btn-primary
+            button.form-control.btn.btn-primary(@click='saveHero()')
               | {{ $t('save') }}
 
       .table-responsive
@@ -104,8 +104,10 @@ import quests from 'common/script/content/quests';
 import { mountInfo, petInfo } from 'common/script/content/stable';
 import { food, hatchingPotions, special } from 'common/script/content';
 import gear from 'common/script/content/gear';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   data () {
     return {
       heroes: [],
@@ -162,13 +164,17 @@ export default {
     async loadHero (uuid, heroIndex) {
       this.currentHeroIndex = heroIndex;
       let hero = await this.$store.dispatch('hall:getHero', { uuid });
-      this.hero = hero;
+      this.hero = Object.assign({}, this.hero, hero);
+      if (!this.hero.flags) {
+        this.hero.flags = {
+          chatRevoked: false,
+        };
+      }
     },
-    async saveHero (hero) {
+    async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7 ? true : false;
-      let heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: hero });
-      // @TODO: Import
-      // Notification.text("User updated");
+      let heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+      this.text('User updated');
       this.hero = {};
       this.heroID = -1;
       this.heroes[this.currentHeroIndex] = heroUpdated;
