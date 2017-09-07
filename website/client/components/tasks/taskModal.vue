@@ -313,6 +313,7 @@
       bottom: 0px;
       left: 40px;
       top: auto;
+      z-index: 11;
     }
 
     .checklist-group {
