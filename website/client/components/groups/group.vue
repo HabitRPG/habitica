@@ -1,5 +1,5 @@
 <template lang="pug">
-.row(v-if="group")
+.row(v-if="group._id")
   group-form-modal(v-if='isParty')
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
@@ -8,7 +8,7 @@
       .col-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
-        span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
+        span.float-left(v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -461,8 +461,8 @@ export default {
   },
   data () {
     return {
-      searchId: null,
-      group: null,
+      searchId: '',
+      group: {},
       icons: Object.freeze({
         like: likeIcon,
         copy: copyIcon,
@@ -568,7 +568,7 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.searchId = to.params.groupId;
+    this.$set(this, 'searchId', to.params.groupId);
     next();
   },
   watch: {
@@ -665,7 +665,8 @@ export default {
         this.checkForAchievements();
         return;
       }
-      this.group = group;
+
+      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
