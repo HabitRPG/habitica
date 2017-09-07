@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#challenge-modal(:title="$t('createChallenge')", size='lg')
+  b-modal#challenge-modal(:title="title", size='lg')
     .form
       .form-group
         label
@@ -137,7 +137,7 @@ import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHAL
 import { mapState } from 'client/libs/store';
 
 export default {
-  props: ['challenge', 'groupId'],
+  props: ['challenge', 'groupId', 'cloning'],
   components: {
     bModal,
     bDropdown,
@@ -210,7 +210,6 @@ export default {
     let categoriesHashByKey = hashedCategories;
 
     return {
-      creating: true,
       workingChallenge: {
         name: '',
         summary: '',
@@ -234,21 +233,6 @@ export default {
     };
   },
   async mounted () {
-    this.$root.$on('shown::modal', () => {
-      if (this.challenge) {
-        this.workingChallenge = Object.assign(this.workingChallenge, this.challenge);
-        this.workingChallenge.categories = [];
-
-        if (this.challenge.categories) {
-          this.challenge.categories.forEach(category => {
-            this.workingChallenge.categories.push(category.slug);
-          });
-        }
-
-        this.creating = false;
-      }
-    });
-
     this.groups = await this.$store.dispatch('guilds:getMyGuilds');
     if (this.user.party._id) {
       let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
@@ -265,14 +249,31 @@ export default {
     });
 
     this.resetWorkingChallenge();
+    this.setUpWorkingChallenge();
   },
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;
     },
+    challenge () {
+      this.setUpWorkingChallenge();
+    },
+    cloning () {
+      this.setUpWorkingChallenge();
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    creating () {
+      return !this.workingChallenge.id;
+    },
+    title () {
+      if (this.creating) {
+        return this.$t('createChallenge');
+      }
+
+      return this.$t('editingChallenge');
+    },
     charactersRemaining () {
       let currentLength = this.workingChallenge.summary ? this.workingChallenge.summary.length : 0;
       return MAX_SUMMARY_SIZE_FOR_CHALLENGES - currentLength;
@@ -320,6 +321,23 @@ export default {
     },
   },
   methods: {
+    setUpWorkingChallenge () {
+      if (!this.challenge) return;
+
+      this.workingChallenge = Object.assign({}, this.workingChallenge, this.challenge);
+      this.workingChallenge.categories = [];
+
+      if (this.challenge.categories) {
+        this.challenge.categories.forEach(category => {
+          this.workingChallenge.categories.push(category.slug);
+        });
+      }
+
+      if (this.cloning) {
+        this.$delete(this.workingChallenge, '_id');
+        this.$delete(this.workingChallenge, 'id');
+      }
+    },
     resetWorkingChallenge () {
       this.workingChallenge = {
         name: '',
@@ -369,6 +387,9 @@ export default {
 
         this.$emit('createChallenge', challenge);
         this.resetWorkingChallenge();
+
+        if (this.cloning) this.$store.state.challengeOptions.cloning = true;
+
         this.$root.$emit('hide::modal', 'challenge-modal');
         this.$router.push(`/challenges/${challenge._id}`);
       }

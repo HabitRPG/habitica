@@ -115,5 +115,6 @@
   "updateChallenge": "Update Challenge",
   "haveNoChallenges": "You don't have any Challenges",
   "loadMore": "Load More",
-  "exportChallengeCsv": "Export Challenge"
+  "exportChallengeCsv": "Export Challenge",
+  "editingChallenge": "Editing Challenge"
 }
