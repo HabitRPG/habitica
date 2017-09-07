@@ -255,6 +255,15 @@
   "weaponSpecialSummer2017HealerText": "Pearl Wand",
   "weaponSpecialSummer2017HealerNotes": "A single touch from this pearl-tipped wand soothes away all wounds. Increases Intelligence by <%= int %>. Limited Edition 2017 Summer Gear.",
 
+  "weaponSpecialFall2017RogueText": "Bat-tle Ax",
+  "weaponSpecialFall2017RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "weaponSpecialFall2017WarriorText": "Wooden Plank",
+  "weaponSpecialFall2017WarriorNotes": "Great for elevating things in cornfields and/or smacking tasks. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "weaponSpecialFall2017MageText": "Enchanted Thread",
+  "weaponSpecialFall2017MageNotes": "A powerful Stitch Witch can control this enchanted thread without even touching it! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
+  "weaponSpecialFall2017HealerText": "Swamp-Slime Potion",
+  "weaponSpecialFall2017HealerNotes": "Brewed to perfection! Now you just have to convince yourself to drink it. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -549,6 +558,15 @@
   "armorSpecialSummer2017MageNotes": "Careful not to get splashed by these robes woven of enchanted water! Increases Intelligence by <%= int %>. Limited Edition 2017 Summer Gear.",
   "armorSpecialSummer2017HealerText": "Silversea Tail",
   "armorSpecialSummer2017HealerNotes": "This garment of silvery scales transforms its wearer into a real Seahealer! Increases Constitution by <%= con %>. Limited Edition 2017 Summer Gear.",
+
+  "armorSpecialFall2017RogueText": "Bat-tle Armor",
+  "armorSpecialFall2017RogueNotes": "Fly into bat-tle! Increases Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
+  "armorSpecialFall2017WarriorText": "Scarecrow Armor",
+  "armorSpecialFall2017WarriorNotes": "Despite being stuffed with straw, this armor is extremely hefty! Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
+  "armorSpecialFall2017MageText": "Stitched Robes",
+  "armorSpecialFall2017MageNotes": "Every stitch in this armor shimmers with enchantment. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
+  "armorSpecialFall2017HealerText": "Potioner Robes",
+  "armorSpecialFall2017HealerNotes": "What? Of course that was a potion of constitution. No, you are definitely not turning into a frog! Don't be ribbiticulous. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -906,6 +924,15 @@
   "headSpecialSummer2017HealerText": "Crown of Sea Creatures",
   "headSpecialSummer2017HealerNotes": "This helm is made up of friendly sea creatures who are temporarily resting on your head, giving you sage advice. Increases Intelligence by <%= int %>. Limited Edition 2017 Summer Gear.",
 
+  "headSpecialFall2017RogueText": "Bat-tle Wings",
+  "headSpecialFall2017RogueNotes": "Echolocate your enemies with this powerful helm! Increases Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
+  "headSpecialFall2017WarriorText": "Scarecrow Hat",
+  "headSpecialFall2017WarriorNotes": "Everyone would want this hat--if they only had a brain. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "headSpecialFall2017MageText": "Stitched Hat",
+  "headSpecialFall2017MageNotes": "Every stitch in this hat augments its power. Increases Perception by <%= per %>. Limited Edition 2015 Autumn Gear.",
+  "headSpecialFall2017HealerText": "Hat of Frog",
+  "headSpecialFall2017HealerNotes": "This is an extremely serious hat that is worthy of only the most advanced potioners. Increases Intelligence by <%= int %>. Limited Edition 2015 Autumn Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1205,6 +1232,13 @@
   "shieldSpecialSummer2017HealerText": "Oyster Shield",
   "shieldSpecialSummer2017HealerNotes": "This magical oyster constantly generates pearls as well as protection. Increases Constitution by <%= con %>. Limited Edition 2017 Summer Gear.",
 
+  "shieldSpecialFall2017RogueText": "Bat-tle Ax",
+  "shieldSpecialFall2017RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "shieldSpecialFall2017WarriorText": "Birdseed Bag",
+  "shieldSpecialFall2017WarriorNotes": "It's true that you're supposed to be SCARING the crows, but there's nothing wrong with making friends! Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
+  "shieldSpecialFall2017HealerText": "Stirring Stick",
+  "shieldSpecialFall2017HealerNotes": "This stick can stir anything without melting, dissolving, or bursting into flame! It can also be used to fiercely poke enemy tasks. Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -1444,4 +1478,3 @@
   "eyewearArmoirePlagueDoctorMaskText": "Plague Doctor Mask",
   "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3)."
 }
-
