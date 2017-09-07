@@ -154,7 +154,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       break;
     case 'seasonalSpell':
       itemInfo = {
-        key: item.keyspellKey,
+        key: item.key,
         text: item.text(language),
         notes: item.notes(language),
         value: item.value,

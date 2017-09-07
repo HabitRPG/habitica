@@ -49,7 +49,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="itemSelected(item)"
               )
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
@@ -89,7 +89,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="itemSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -97,20 +97,6 @@
                     @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-    buyModal(
-      :item="selectedItemToBuy",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-      @togglePinned="togglePinned($event)"
-    )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
 </template>
 
 <style lang="scss">
@@ -276,7 +262,6 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from '../buyModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -314,7 +299,6 @@
       bDropdownItem,
 
       Avatar,
-      BuyModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -349,8 +333,6 @@
 
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
-
-        selectedItemToBuy: null,
 
         hidePinned: false,
       };
@@ -461,11 +443,6 @@
 
         return result;
       },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
       isGearLocked (gear) {
         if (gear.value > this.userStats.gp) {
           return true;
@@ -477,6 +454,9 @@
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
+      },
+      itemSelected (item) {
+        this.$root.$emit('buyModal::showItem', item);
       },
     },
   };

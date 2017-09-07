@@ -12,6 +12,7 @@ div
 
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
+        span.suggestedDot(v-if="item.event")
 
         div.image
           div(:class="item.class", v-once)
@@ -124,7 +125,18 @@ div
   span.svg-icon.inline.clock {
     height: 16px;
     width: 16px;
+  }
 
+  .suggestedDot {
+    width: 6px;
+    height: 6px;
+    background-color: $suggested-item-color;
+    border-radius: 4px;
+
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    margin-top: 0;
   }
 </style>
 
