@@ -280,10 +280,10 @@ export default {
         this.runYesterDailies();
       }, nextCronIn);
     },
-    async runYesterDailies (forceRun = false) {
+    async runYesterDailies () {
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
-      if (!this.user.needsCron && !forceRun) {
+      if (!this.user.needsCron) {
         this.handleUserNotifications(this.user.notifications);
         this.scheduleNextCron();
         return;
