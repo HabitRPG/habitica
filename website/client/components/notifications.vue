@@ -270,8 +270,13 @@ export default {
 
       // Setup a listener that executes 10 seconds after the next cron time
       const nextCronIn = Number(nextCron.format('x')) - Date.now() + 10 * 1000;
-      setInterval(() => {
-        this.user.needsCron = true; // @TODO move to action? not sent to the server
+      setInterval(async () => {
+        // Sync the user before showing the modal
+        await Promise.all([
+          this.$store.dispatch('user:fetch', {forceLoad: true}),
+          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        ]);
+
         this.runYesterDailies();
       }, nextCronIn);
     },
