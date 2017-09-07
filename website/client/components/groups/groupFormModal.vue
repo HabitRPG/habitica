@@ -80,6 +80,7 @@
           .form-check(
             v-for="group in categoryOptions",
             :key="group.key",
+            v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", :value="group.key", v-model="workingGroup.categories")
@@ -174,6 +175,7 @@ import bFormCheckbox from 'bootstrap-vue/lib/components/form-checkbox';
 import bFormSelect from 'bootstrap-vue/lib/components/form-select';
 import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
+import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
@@ -294,6 +296,7 @@ export default {
     return data;
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     editingGroup () {
       return this.$store.state.editingGroup;
     },
