@@ -321,6 +321,11 @@
       left: 40px;
       top: auto;
       z-index: 11;
+
+      .container {
+        max-height: 90vh;
+        overflow: auto;
+      }
     }
 
     .checklist-group {
