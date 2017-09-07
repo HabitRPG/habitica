@@ -124,6 +124,7 @@ export default {
     },
     hoyo (user) {
       // @TODO: What is was the timeout for?
+      // @TODO move to analytics
       window.amplitude.setUserId(user._id);
       window.ga('set', {userId: user._id});
     },

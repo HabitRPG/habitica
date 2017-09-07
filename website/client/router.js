@@ -14,7 +14,7 @@ const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./
 const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const FrontPage = () => import(/* webpackChunkName: "static" */'./components/static/front');
+const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
 const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
 const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
@@ -99,7 +99,7 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
+    { name: 'home', path: '/home', component: HomePage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
