@@ -467,7 +467,7 @@ api.sendPrivateMessage = {
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
         {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
-        {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
+        {name: 'PMS_INBOX_URL', content: 'TODO INBOX'},
       ]);
     }
     if (receiver.preferences.pushNotifications.newPM !== false) {
