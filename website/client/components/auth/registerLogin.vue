@@ -290,6 +290,11 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
+
       window.location.href = '/';
     },
     async login () {
@@ -298,6 +303,11 @@ export default {
         // email: this.email,
         password: this.password,
       });
+
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
 
       window.location.href = '/';
     },
