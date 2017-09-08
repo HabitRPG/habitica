@@ -2,7 +2,7 @@
   "habiticaBackSoon": "Não se preocupe, o Habitica estará de volta em breve!",
   "importantMaintenance": "Nós estamos fazendo uma manutenção importante que deverá acabar por volta das 2h da manhã (horário de Brasilia).",
   "maintenance": "Manutenção",
-  "maintenanceMoreInfo": "Deseja mais informação acerca das operações de manutenção? <%= linkStart %>Veja a nossa página de informação<%= linkEnd %>.",
+  "maintenanceMoreInfo": "Deseja mais informação sobre as operações de manutenção? <%= linkStart %>Veja a nossa página de informação<%= linkEnd %>.",
   "noDamageKeepStreaks": "Você NÃO receberá dano nem perderá seus combos!",
   "thanksForPatience": "Obrigado pela sua paciência!",
   "twitterMaintenanceUpdates": "Para as mais recentes atualizações, siga-nos no <a href='https://twitter.com/habitica'>Twitter</a>, onde colocamos informações sobre o estado atual do Habitica.",

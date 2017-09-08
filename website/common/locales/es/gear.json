@@ -276,7 +276,7 @@
     "weaponArmoireWandOfHeartsNotes": "Esta varita brilla con una cálida luz roja. También otorgará sabiduría a tu corazón. Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Reina de Corazones (Artículo 3 de 3)",
     "weaponArmoireForestFungusStaffText": "Bastón de Hongo De Bosque",
     "weaponArmoireForestFungusStaffNotes": "¡Usa este bastón retorcido para hacer mágica mycológica! Aumenta Inteligencia por <%= int %> y Percepción por <%= per %>. Armario Encantado: Artículo Independiente.",
-    "weaponArmoireFestivalFirecrackerText": "Festival de Petardos",
+    "weaponArmoireFestivalFirecrackerText": "Petardos de Festival",
     "weaponArmoireFestivalFirecrackerNotes": "Disfruta esta maravillosa bengala responsablemente. Aumenta la Percepción en <%= per %>.  Armario Encantado: Conjunto Atuendo Festivo (Objeto 3 de 3)",
     "weaponArmoireMerchantsDisplayTrayText": "Bandeja de visualización del Mercader",
     "weaponArmoireMerchantsDisplayTrayNotes": "Usa esta bandeja lacada para mostrar los bienes que quieres vender. Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto Mercante (Objeto 3 de 3)",
