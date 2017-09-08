@@ -624,6 +624,12 @@
     },
     methods: {
       playButtonClick () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Play',
+        });
         this.$router.push('/register');
       },
     },
