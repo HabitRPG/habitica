@@ -174,7 +174,7 @@
     "resets": "Reseta",
     "summaryStart": "Repete uma vez a cada <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Próximas Datas",
-    "yesterDailiesTitle": "Você deixou essas tarefas diárias desmarcadas ontem! Você quer registrar alguma delas agora?",
+    "yesterDailiesTitle": "Você deixou essas Diárias desmarcadas ontem! Você quer marcar alguma delas agora?",
     "yesterDailiesCallToAction": "Comece meu novo dia!",
     "yesterDailiesOptionTitle": "Confirme que essa tarefa diária não foi completa antes de aplicar dano",
     "yesterDailiesDescription": "Se essa opção for selecionada, Habitica vai te perguntar se você realmente quer deixar a tarefa diária desmarcada antes de calcular e aplicar dano ao seu personagem. Isso pode te proteger de receber dano não intencional.",

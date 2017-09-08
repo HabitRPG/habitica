@@ -23,8 +23,8 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
               div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
           .row
             .col-md-12
-              .category-label(v-for="category in guild.categories")
-                | {{category}}
+              .category-label(v-for="category in guild.categorySlugs")
+                | {{$t(category)}}
               span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
 

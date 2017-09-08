@@ -7,7 +7,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .section.avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
-      .user-creation-bg
+      .user-creation-bg(v-if='!editing')
       avatar(:member='user', :avatarOnly='!editing')
 
   .section(v-if='modalPage === 2')
@@ -176,7 +176,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         strong {{backgroundShopSets[0].text}}
       .row.incentive-background-row
         .col-2(v-for='bg in backgroundShopSets[0].items',
-            @click='unlock("background." + bg.key)',
+            @click='buy("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
@@ -197,7 +197,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
-            @click='backgroundSelected(bg)',
+            @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
@@ -868,6 +868,9 @@ export default {
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
+
+    // Buy modal is global, so we listen at root. I'd like to not
+    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
@@ -1065,6 +1068,9 @@ export default {
     },
     backgroundSelected (bg) {
       this.$root.$emit('buyModal::showItem', bg);
+    },
+    backgroundPurchased () {
+      this.backgroundUpdate = new Date();
     },
   },
 };

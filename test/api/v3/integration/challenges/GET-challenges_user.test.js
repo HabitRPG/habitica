@@ -41,6 +41,7 @@ describe('GET challenges/user', () => {
       });
       expect(foundChallenge.group).to.eql({
         _id: publicGuild._id,
+        categories: [],
         id: publicGuild._id,
         type: publicGuild.type,
         privacy: publicGuild.privacy,
@@ -62,6 +63,7 @@ describe('GET challenges/user', () => {
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
+        categories: [],
         id: publicGuild._id,
         type: publicGuild.type,
         privacy: publicGuild.privacy,
@@ -78,6 +80,7 @@ describe('GET challenges/user', () => {
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,
+        categories: [],
         id: publicGuild._id,
         type: publicGuild.type,
         privacy: publicGuild.privacy,
@@ -99,6 +102,7 @@ describe('GET challenges/user', () => {
       });
       expect(foundChallenge1.group).to.eql({
         _id: publicGuild._id,
+        categories: [],
         id: publicGuild._id,
         type: publicGuild.type,
         privacy: publicGuild.privacy,
@@ -115,6 +119,7 @@ describe('GET challenges/user', () => {
       });
       expect(foundChallenge2.group).to.eql({
         _id: publicGuild._id,
+        categories: [],
         id: publicGuild._id,
         type: publicGuild.type,
         privacy: publicGuild.privacy,

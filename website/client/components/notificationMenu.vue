@@ -37,10 +37,11 @@ div.item-with-icon.item-notifications.dropdown
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value', @click='navigateToGroup(key)')
-      span.glyphicon.glyphicon-comment
-      span {{message.name}}
-      span.clear-button(@click='clearMessages(k)', :popover="$t('clear')",
+    a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value')
+      span(@click='navigateToGroup(key)')
+        span.glyphicon.glyphicon-comment
+        span {{message.name}}
+      span.clear-button(@click='clearMessages(key)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
@@ -77,6 +78,11 @@ div.item-with-icon.item-notifications.dropdown
     margin-right: 8px;
     margin-left: 8px;
     margin-top: .2em;
+  }
+
+  .user-dropdown {
+    max-height: 350px;
+    overflow: scroll;
   }
 
   /* @TODO: Move to shared css */
@@ -211,8 +217,9 @@ export default {
       }
       return questInfo;
     },
-    clearMessages () {
-      this.$store.dispatch('chat:markChatSeen');
+    clearMessages (key) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: key});
+      this.$delete(this.user.newMessages, key);
     },
     clearCards () {
       this.$store.dispatch('chat:clearCards');
@@ -278,7 +285,8 @@ export default {
         this.go('/party');
         return;
       }
-      this.go(`/groups/guild/${key}`);
+
+      this.$router.push({ name: 'guild', params: { groupId: key }});
     },
     async reject (group) {
       await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});

@@ -162,6 +162,42 @@ export default {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
     }
+
+    // Manage modals
+    this.$root.$on('show::modal', (modalId, data) => {
+      if (data && data.fromRoot) return;
+
+      // Get last modal on stack and hide
+      let modalStackLength = this.$store.state.modalStack.length;
+      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+
+      // Add new modal to the stack
+      this.$store.state.modalStack.push(modalId);
+
+      // Hide the previous top modal
+      if (modalOnTop) this.$root.$emit('hide::modal', modalOnTop, {fromRoot: true});
+    });
+
+    // @TODO: This part is hacky and could be solved with two options:
+    // 1 - Find a way to pass fromRoot to hidden
+    // 2 - Enforce that all modals use the hide::modal event
+    this.$root.$on('hidden::modal', (modalId) => {
+      let modalStackLength = this.$store.state.modalStack.length;
+      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
+      // Don't remove modal if hid was called from main app
+      // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
+      // if (data && data.fromRoot) return;
+      if (modalId === modalSecondToTop) return;
+
+      // Remove modal from stack
+      this.$store.state.modalStack.pop();
+
+      // Recalculate and show the last modal if there is one
+      modalStackLength = this.$store.state.modalStack.length;
+      modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      if (modalOnTop) this.$root.$emit('show::modal', modalOnTop, {fromRoot: true});
+    });
   },
   methods: {
     resetItemToBuy ($event) {

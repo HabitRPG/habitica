@@ -45,7 +45,7 @@ describe('user actions', () => {
       const user = {_id: 2};
       sandbox.stub(axios, 'get').withArgs('/api/v3/user').returns(Promise.resolve({data: {data: user}}));
 
-      await store.dispatch('user:fetch', true);
+      await store.dispatch('user:fetch', {forceLoad: true});
 
       expect(store.state.user.data).to.equal(user);
       expect(store.state.user.loadingStatus).to.equal('LOADED');

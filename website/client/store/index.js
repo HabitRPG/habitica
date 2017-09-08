@@ -5,6 +5,7 @@ import * as commonConstants from 'common/script/constants';
 import { DAY_MAPPING } from 'common/script/cron';
 import { asyncResourceFactory } from 'client/libs/asyncResource';
 import axios from 'axios';
+import moment from 'moment';
 
 import actions from './actions';
 import getters from './getters';
@@ -22,6 +23,10 @@ if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
   axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
   axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
+
+  const timezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
+  axios.defaults.headers.common['x-user-timezoneOffset'] = timezoneOffset;
+
   isUserLoggedIn = true;
 }
 
@@ -77,6 +82,10 @@ export default function () {
         message: {},
         groupId: '',
       },
+      challengeOptions: {
+        cloning: false,
+        tasksToClone: {},
+      },
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
       // TODO apply freezing to the entire codebase (the server) and not only to the client side?
@@ -104,6 +113,7 @@ export default function () {
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
+      modalStack: [],
     },
   });
 

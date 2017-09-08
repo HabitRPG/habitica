@@ -23,7 +23,7 @@
     "contribName": "Contribuente",
     "contribText": "Ha contribuito a migliorare Habitica (codice, design, pixel art, consigli legali, documentazione, ecc). Desideri questa onoreficenza? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Maggiori informazioni.</a>",
     "readMore": "Maggiori informazioni",
-    "kickstartName": "Sostenitore Kickstarter - Grado <%= tier %>$",
+    "kickstartName": "Sostenitore Kickstarter - Grado <%= key %>$",
     "kickstartText": "Ha sostenuto il progetto Kickstarter",
     "helped": "Aiutante di Habitica",
     "helpedText1": "Ha aiutato Habitica a crescere, compilando",

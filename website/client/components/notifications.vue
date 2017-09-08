@@ -1,6 +1,9 @@
 <template lang="pug">
 div
-  yesterdaily-modal(:yesterDailies='yesterDailies')
+  yesterdaily-modal(
+    :yesterDailies='yesterDailies',
+    @hide="runYesterDailiesAction()",
+  )
   armoire-empty
   new-stuff
   death
@@ -227,44 +230,72 @@ export default {
       this.$root.$emit('show::modal', 'quest-invitation');
     },
   },
-  async mounted () {
-    Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
-      .then(() => {
-        if (this.user.flags.newStuff) {
-          this.$root.$emit('show::modal', 'new-stuff');
-        }
+  mounted () {
+    Promise.all([
+      this.$store.dispatch('user:fetch'),
+      this.$store.dispatch('tasks:fetchUserTasks'),
+    ]).then(() => {
+      if (this.user.flags.newStuff) {
+        this.$root.$emit('show::modal', 'new-stuff');
+      }
 
-        if (!this.user.flags.welcomed) {
-          this.$store.state.avatarEditorOptions.editingUser = false;
-          this.$root.$emit('show::modal', 'avatar-modal');
-        }
+      if (!this.user.flags.welcomed) {
+        this.$store.state.avatarEditorOptions.editingUser = false;
+        this.$root.$emit('show::modal', 'avatar-modal');
+      }
 
-        // @TODO: This is a timeout to ensure dom is loaded
-        window.setTimeout(() => {
-          this.initTour();
-          if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-          this.goto('intro', 0);
-        }, 2000);
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+        this.goto('intro', 0);
+      }, 2000);
 
-        this.runYesterDailies();
-      });
+      this.runYesterDailies();
+    });
   },
   methods: {
     playSound (sound) {
       this.$root.$emit('playSound', sound);
+    },
+    scheduleNextCron () {
+      // Open yesterdailies modal the next time cron runs
+      const dayStart = this.user.preferences.dayStart;
+      let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      const currentHour = moment().format('H');
+      if (currentHour >= dayStart) {
+        nextCron = nextCron.add(1, 'day');
+      }
+
+      // Setup a listener that executes 10 seconds after the next cron time
+      const nextCronIn = Number(nextCron.format('x')) - Date.now() + 10 * 1000;
+      setInterval(async () => {
+        // Sync the user before showing the modal
+        await Promise.all([
+          this.$store.dispatch('user:fetch', {forceLoad: true}),
+          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        ]);
+
+        this.runYesterDailies();
+      }, nextCronIn);
     },
     async runYesterDailies () {
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
       if (!this.user.needsCron) {
         this.handleUserNotifications(this.user.notifications);
+        this.scheduleNextCron();
         return;
       }
 
       let dailys = this.$store.state.tasks.data.dailys;
       this.isRunningYesterdailies = true;
 
-      let yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: this.user.preferences.dayStart });
+      let yesterDay = moment().subtract('1', 'day').startOf('day').add({
+        hours: this.user.preferences.dayStart,
+      });
+
       dailys.forEach((task) => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
@@ -273,13 +304,28 @@ export default {
       });
 
       if (this.yesterDailies.length === 0) {
-        this.isRunningYesterdailies = false;
-        await axios.post('/api/v3/cron');
-        this.handleUserNotifications(this.user.notifications);
+        this.runYesterDailiesAction();
         return;
       }
 
       this.$root.$emit('show::modal', 'yesterdaily');
+    },
+    async runYesterDailiesAction () {
+      // Run Cron
+      await axios.post('/api/v3/cron');
+
+      // Notifications
+
+      // Sync
+      // @TODO add a loading spinner somewhere
+      await Promise.all([
+        this.$store.dispatch('user:fetch', {forceLoad: true}),
+        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
+
+      this.handleUserNotifications(this.user.notifications);
+      this.isRunningYesterdailies = false;
+      this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
@@ -442,16 +488,6 @@ export default {
 
       this.user.notifications = []; // reset the notifications
     },
-    // @TODO: I think I have these handled in the http interceptor
-    // this.$on('responseError500', function(ev, error){
-    //   Notification.error(error);
-    // });
-    // this.$on('responseError', function(ev, error){
-    //   Notification.error(error, true);
-    // });
-    // this.$on('responseText', function(ev, error){
-    //   Notification.text(error);
-    // });
   },
 };
 </script>

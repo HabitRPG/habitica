@@ -1,5 +1,5 @@
 <template lang="pug">
-.row(v-if="group")
+.row(v-if="group._id")
   group-form-modal(v-if='isParty')
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
@@ -8,7 +8,7 @@
       .col-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
-        span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
+        span.float-left(v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -105,6 +105,14 @@
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
                       span.float-right {{group.quest.progress.up || 0}} pending damage
+                .row.rage-bar-row(v-if='questData.boss.rage')
+                  .col-12
+                    .grey-progress-bar
+                      .boss-health-bar.rage-bar(:style="{width: (50 / questData.boss.rage) * 100 + '%'}")
+                .row.boss-details.rage-details(v-if='questData.boss.rage')
+                    .col-6
+                      span.float-left
+                        | Rage {{questData.boss.rage.value}}
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
@@ -366,6 +374,15 @@
     margin-bottom: .5em;
   }
 
+  .rage-details {
+    margin-bottom: 1em;
+  }
+
+  .boss-health-bar.rage-bar {
+    margin-top: 1em;
+    background-color: orange;
+  }
+
   .grey-progress-bar {
     width: 100%;
     height: 15px;
@@ -444,8 +461,8 @@ export default {
   },
   data () {
     return {
-      searchId: null,
-      group: null,
+      searchId: '',
+      group: {},
       icons: Object.freeze({
         like: likeIcon,
         copy: copyIcon,
@@ -542,20 +559,17 @@ export default {
     },
   },
   mounted () {
-    this.searchId = this.groupId;
-    if (this.isParty) {
-      this.searchId = 'party';
-      // @TODO: Set up from old client. Decide what we need and what we don't
-      // Check Desktop notifs
-      // Mark Chat seen
-      // Load invites
-    }
-    this.fetchGuild();
+    if (!this.searchId) this.searchId = this.groupId;
 
-    this.$root.$on('updatedGroup', group => {
-      let updatedGroup = extend(this.group, group);
-      this.$set(this.group, updatedGroup);
-    });
+    this.load();
+
+    if (this.user.newMessages[this.searchId]) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -570,6 +584,21 @@ export default {
     },
   },
   methods: {
+    load () {
+      if (this.isParty) {
+        this.searchId = 'party';
+        // @TODO: Set up from old client. Decide what we need and what we don't
+        // Check Desktop notifs
+        // Mark Chat seen
+        // Load invites
+      }
+      this.fetchGuild();
+
+      this.$root.$on('updatedGroup', group => {
+        let updatedGroup = extend(this.group, group);
+        this.$set(this.group, updatedGroup);
+      });
+    },
     // @TODO: abstract autocomplete
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
@@ -636,7 +665,8 @@ export default {
         this.checkForAchievements();
         return;
       }
-      this.group = group;
+
+      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {

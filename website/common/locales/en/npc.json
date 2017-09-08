@@ -27,7 +27,7 @@
   "pauseDailies": "Pause Damage",
   "unpauseDailies": "Unpause Damage",
   "staffAndModerators": "Staff and Moderators",
-  "communityGuidelinesIntro": "Habitica tries to create a welcoming environment for users of all ages and backgrounds, especially in public spaces like the Tavern. If you have any questions, please consult our Community Guidelines.",
+  "communityGuidelinesIntro": "Habitica tries to create a welcoming environment for users of all ages and backgrounds, especially in public spaces like the Tavern. If you have any questions, please consult our <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>.",
   "acceptCommunityGuidelines": "I agree to follow the Community Guidelines",
   "daniel": "Daniel",
   "danielText": "Welcome to the Tavern! Stay a while and meet the locals. If you need to rest (vacation? illness?), I'll set you up at the Inn. While checked-in, your Dailies won't hurt you at the day's end, but you can still check them off.",

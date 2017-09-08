@@ -123,15 +123,18 @@
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
             span.category-select(v-else) {{getTagsFor(task)[0]}}
           .category-box(v-if="showTagsSelect")
-            .form-check(
-              v-for="tag in user.tags",
-              :key="tag.id",
-            )
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
-                span.custom-control-indicator
-                span.custom-control-description(v-once) {{ tag.name }}
-            button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+            .container
+              .row
+                .form-check.col-6(
+                  v-for="tag in user.tags",
+                  :key="tag.id",
+                )
+                  label.custom-control.custom-checkbox
+                    input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
+                    span.custom-control-indicator
+                    span.custom-control-description(v-once) {{ tag.name }}
+              .row
+                button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
           b-dropdown(:text="$t(task.frequency)")
@@ -145,15 +148,19 @@
             span.category-select(v-else)
               span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
           .category-box(v-if="showAssignedSelect")
-            .form-check(
-              v-for="member in members",
-              :key="member._id",
-            )
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
-                span.custom-control-indicator
-                span.custom-control-description(v-once) {{ member.profile.name }}
-            button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+            .container
+              .row
+                .form-check.col-6(
+                  v-for="member in members",
+                  :key="member._id",
+                )
+                  label.custom-control.custom-checkbox
+                    input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
+                    span.custom-control-indicator
+                    span.custom-control-description(v-once) {{ member.profile.name }}
+            
+              .row
+                button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
           label(v-once) Needs Approval
@@ -313,6 +320,12 @@
       bottom: 0px;
       left: 40px;
       top: auto;
+      z-index: 11;
+
+      .container {
+        max-height: 90vh;
+        overflow: auto;
+      }
     }
 
     .checklist-group {

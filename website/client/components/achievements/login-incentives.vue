@@ -2,13 +2,14 @@
 b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
   .modal-body
     .row.reward-row
-      div.text-center.col-6.text-center
-        avatar(:member='user')
-      div.text-center.col-6.text-center
-        div(v-if="nextReward.rewardKey.length === 1", :class="nextReward.rewardKey[0]")
-        div(v-for="reward in nextReward.rewardKey", v-if="nextReward.rewardKey.length > 1", :class='reward')
-        div(v-if="data.nextRewardAt")
-          h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
+      .col-12
+        avatar.avatar(:member='user', :avatarOnly='true', :withBackground='true')
+      .text-center.col-12
+        .reward-wrap
+          div(v-if="nextReward.rewardKey.length === 1", :class="nextReward.rewardKey[0]")
+          .reward(v-for="reward in nextReward.rewardKey", v-if="nextReward.rewardKey.length > 1", :class='reward')
+      .col-12.text-center(v-if="data.nextRewardAt")
+        h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
     .row
       .col-8.offset-2.text-center
         p {{ $t('incentivesDescription') }}
@@ -20,9 +21,25 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
 </template>
 
 <style scoped>
+  .avatar {
+    width: 140px;
+  }
+
+  .reward-wrap {
+    width: max-content;
+  }
+
+  .avatar, .reward-wrap {
+    margin: 0 auto;
+  }
+
   .reward-row {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+
+  .reward {
+    float: left;
   }
 </style>
 

@@ -129,8 +129,9 @@
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-          hr
-          div(v-if='!user.auth.local.username')
+          // hr
+          // TODO
+          // div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
             form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}

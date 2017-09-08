@@ -16,7 +16,7 @@
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
+          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
           div.col-4
             button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
