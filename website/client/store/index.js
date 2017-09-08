@@ -82,6 +82,10 @@ export default function () {
         message: {},
         groupId: '',
       },
+      challengeOptions: {
+        cloning: false,
+        tasksToClone: {},
+      },
       editingGroup: {}, // TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
       // TODO apply freezing to the entire codebase (the server) and not only to the client side?

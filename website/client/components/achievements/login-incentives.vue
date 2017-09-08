@@ -8,8 +8,8 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
         .reward-wrap
           div(v-if="nextReward.rewardKey.length === 1", :class="nextReward.rewardKey[0]")
           .reward(v-for="reward in nextReward.rewardKey", v-if="nextReward.rewardKey.length > 1", :class='reward')
-        div(v-if="data.nextRewardAt")
-          h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
+      .col-12.text-center(v-if="data.nextRewardAt")
+        h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
     .row
       .col-8.offset-2.text-center
         p {{ $t('incentivesDescription') }}
