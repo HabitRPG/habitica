@@ -93,7 +93,12 @@ export function updateUser (properties) {
   });
 }
 
+
 export function setup () {
+  const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+  const AMPLITUDE_KEY = process.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
+  const GA_ID = process.env.GA_ID; // eslint-disable-line no-process-env
+
   // Setup queues until the real scripts are loaded
 
   /* eslint-disable */
@@ -105,30 +110,34 @@ export function setup () {
   var i = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties"];
   for (var o = 0; o < i.length; o++) {a(i[o])}
   window.amplitude = r;
-  amplitude.init(window.env.AMPLITUDE_KEY, user ? user._id : undefined);
+  amplitude.init(AMPLITUDE_KEY);
 
   // Google Analytics (aka Universal Analytics)
   window['GoogleAnalyticsObject'] = 'ga';
   window['ga'] = window['ga'] || function() {
       (window['ga'].q = window['ga'].q || []).push(arguments)
     }, window['ga'].l = 1 * new Date();
-  ga('create', window.env.GA_ID, user ? {'userId': user._id} : undefined);
+  ga('create', GA_ID);
   /* eslint-enable */
 
   // Load real scripts
 
-  // Amplitude
-  const amplitudeScript = document.createElement('script');
-  let firstScript = document.getElementsByTagName('script')[0];
-  amplitudeScript.type = 'text/javascript';
-  amplitudeScript.async = true;
-  amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
-  firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
+  if (!IS_PRODUCTION) return;
 
-  // Google Analytics
-  const gaScript = document.createElement('script');
-  firstScript = document.getElementsByTagName('script')[0];
-  gaScript.async = 1;
-  gaScript.src = '//www.google-analytics.com/analytics.js';
-  firstScript.parentNode.insertBefore(gaScript, firstScript);
+  Vue.nextTick(() => {
+    // Amplitude
+    const amplitudeScript = document.createElement('script');
+    let firstScript = document.getElementsByTagName('script')[0];
+    amplitudeScript.type = 'text/javascript';
+    amplitudeScript.async = true;
+    amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
+    firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
+
+    // Google Analytics
+    const gaScript = document.createElement('script');
+    firstScript = document.getElementsByTagName('script')[0];
+    gaScript.async = 1;
+    gaScript.src = '//www.google-analytics.com/analytics.js';
+    firstScript.parentNode.insertBefore(gaScript, firstScript);
+  });
 }
