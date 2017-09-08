@@ -3,7 +3,7 @@ import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import includes from 'lodash/includes';
 import getStore from 'client/store';
-import Vue from 'Vue';
+import Vue from 'vue';
 
 let REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 let ALLOWED_HIT_TYPES = [
