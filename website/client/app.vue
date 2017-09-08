@@ -167,8 +167,19 @@ export default {
     }
 
     // Manage modals
-    this.$root.$on('show::modal', (modalId, data) => {
-      if (data && data.fromRoot) return;
+    this.$root.$on('show::modal', (modalId, data = {}) => {
+      if (data.fromRoot) return;
+
+      // Track opening of gems modal unless it's been already tracked
+      // For example the gems button in the menu already tracks the event by itself
+      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Wallet',
+        });
+      }
 
       // Get last modal on stack and hide
       let modalStackLength = this.$store.state.modalStack.length;
