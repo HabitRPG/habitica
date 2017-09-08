@@ -336,9 +336,7 @@ export default {
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
       await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.searchId});
-      // @TODO: this doesn't work because of asyncresource
-      let tasks = await this.$store.dispatch('tasks:fetchUserTasks');
-      this.$store.state.tasks.data = tasks.data;
+      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     async leaveChallenge () {
       let keepChallenge = confirm('Do you want to keep challenge tasks?');
@@ -353,6 +351,7 @@ export default {
         challengeId: this.searchId,
         keep,
       });
+      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
