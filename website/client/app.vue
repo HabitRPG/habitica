@@ -69,6 +69,7 @@ import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
@@ -158,14 +159,27 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
         this.isUserLoaded = true;
+        Analytics.setUser();
+        Analytics.updateUser();
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
     }
 
     // Manage modals
-    this.$root.$on('show::modal', (modalId, data) => {
-      if (data && data.fromRoot) return;
+    this.$root.$on('show::modal', (modalId, data = {}) => {
+      if (data.fromRoot) return;
+
+      // Track opening of gems modal unless it's been already tracked
+      // For example the gems button in the menu already tracks the event by itself
+      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Wallet',
+        });
+      }
 
       // Get last modal on stack and hide
       let modalStackLength = this.$store.state.modalStack.length;

@@ -91,20 +91,29 @@
 </style>
 
 <script>
-  import logo from 'assets/svg/logo.svg';
+import logo from 'assets/svg/logo.svg';
+import * as Analytics from 'client/libs/analytics';
 
-  export default {
-    data () {
-      return {
-        icons: Object.freeze({
-          logo,
-        }),
-      };
+export default {
+  data () {
+    return {
+      icons: Object.freeze({
+        logo,
+      }),
+    };
+  },
+  methods: {
+    playButtonClick () {
+      // @TODO duplicate of code in home.vue
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Play',
+      });
+
+      this.$router.push('/register');
     },
-    methods: {
-      playButtonClick () {
-        this.$router.push('/register');
-      },
-    },
-  };
+  },
+};
 </script>

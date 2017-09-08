@@ -602,6 +602,7 @@
 <script>
   import AppFooter from 'client/components/appFooter';
   import StaticHeader from './header.vue';
+  import * as Analytics from 'client/libs/analytics';
 
   export default {
     components: {
@@ -614,10 +615,21 @@
       };
     },
     mounted () {
-      // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
+      Analytics.track({
+        hitType: 'pageview',
+        eventCategory: 'page',
+        eventAction: 'landing page',
+        page: '/home',
+      });
     },
     methods: {
       playButtonClick () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Play',
+        });
         this.$router.push('/register');
       },
     },
