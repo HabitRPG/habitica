@@ -1,5 +1,6 @@
 import times from 'lodash/times';
 import Intro from 'intro.js/';
+import * as Analytics from 'client/libs/analytics';
 
 export default {
   data () {
@@ -144,6 +145,15 @@ export default {
         opts.steps  = opts.steps.concat(this.chapters[chapter][p]);
       });
 
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'behavior',
+        eventAction: 'tutorial',
+        eventLabel: `${chapter}-web`,
+        eventValue: page + 1,
+        complete: true,
+      });
+
       // @TODO: Do we always need to initialize here?
       let intro = Intro.introJs();
       intro.setOptions({steps: opts.steps});
@@ -174,9 +184,17 @@ export default {
       //     // @TODO: Notification.showLoginIncentive(this.user, rewardData, Social.loadWidgets);
       //   }
 
-        // Mark tour complete
+      // Mark tour complete
       ups[`flags.tour.${chapter}`] = -2; // @TODO: Move magic numbers to enum
-        // @TODO: Analytics.track({'hitType':'event','eventCategory':'behavior','eventAction':'tutorial','eventLabel':k+'-web','eventValue':i+1,'complete':true})
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'behavior',
+        eventAction: 'tutorial',
+        eventLabel: `${chapter}-web`,
+        eventValue: lastKnownStep,
+        complete: true,
+      });
       // }
 
       this.$store.dispatch('user:set', ups);

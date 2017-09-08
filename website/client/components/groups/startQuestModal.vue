@@ -159,6 +159,7 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
@@ -208,10 +209,15 @@ export default {
       this.selectedQuest = quest;
     },
     async questInit () {
-      let key = this.selectedQuest;
-      // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
-      let response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
-      let quest = response.data.data;
+      Analytics.updateUser({
+        partyID: this.group._id,
+        partySize: this.group.memberCount,
+      });
+
+      const key = this.selectedQuest;
+      const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
+      const quest = response.data.data;
+
       this.$store.party.quest = quest;
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },

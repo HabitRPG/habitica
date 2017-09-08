@@ -137,6 +137,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 
 <script>
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -174,9 +175,14 @@ export default {
       let party = await this.$store.dispatch('guilds:create', {group});
       this.$store.state.party.data = party;
       this.user.party._id = party._id;
+
+      Analytics.updateUser({
+        partyID: party._id,
+        partySize: 1,
+      });
+
       this.$root.$emit('hide::modal', 'create-party-modal');
       this.$router.push('/party');
-      //  @TODO: Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
     },
   },
 };

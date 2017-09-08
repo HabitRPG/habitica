@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
+import * as Analytics from 'client/libs/analytics';
 
 // import EmptyView from './components/emptyView';
 
@@ -286,6 +287,13 @@ router.beforeEach(function routerGuard (to, from, next) {
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
     return next({name: 'tasks'});
   }
+
+  Analytics.track({
+    hitType: 'pageview',
+    eventCategory: 'navigation',
+    eventAction: 'navigate',
+    page: to.name || to.path,
+  });
 
   next();
 });
