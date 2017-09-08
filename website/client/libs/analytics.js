@@ -3,6 +3,7 @@ import keys from 'lodash/keys';
 import pick from 'lodash/pick';
 import includes from 'lodash/includes';
 import getStore from 'client/store';
+import Vue from 'Vue';
 
 let REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 let ALLOWED_HIT_TYPES = [
@@ -70,18 +71,64 @@ export function setUser () {
 }
 
 export function track (properties) {
-  if (_doesNotHaveRequiredFields(properties)) return false;
-  if (_doesNotHaveAllowedHitType(properties)) return false;
+  // Use nextTick to avoid blocking the UI
+  Vue.nextTick(() => {
+    if (_doesNotHaveRequiredFields(properties)) return false;
+    if (_doesNotHaveAllowedHitType(properties)) return false;
 
-  window.amplitude.logEvent(properties.eventAction, properties);
-  window.ga('send', properties);
+    window.amplitude.logEvent(properties.eventAction, properties);
+    window.ga('send', properties);
+  });
 }
 
 export function updateUser (properties) {
-  properties = properties || {};
+  // Use nextTick to avoid blocking the UI
+  Vue.nextTick(() => {
+    properties = properties || {};
 
-  _gatherUserStats(properties);
+    _gatherUserStats(properties);
 
-  window.amplitude.setUserProperties(properties);
-  window.ga('set', properties);
+    window.amplitude.setUserProperties(properties);
+    window.ga('set', properties);
+  });
+}
+
+export function setup () {
+  // Setup queues until the real scripts are loaded
+
+  /* eslint-disable */
+
+  // Amplitude
+  var r = window.amplitude || {};
+  r._q = [];
+  function a(window) {r[window] = function() {r._q.push([window].concat(Array.prototype.slice.call(arguments, 0)));}}
+  var i = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties"];
+  for (var o = 0; o < i.length; o++) {a(i[o])}
+  window.amplitude = r;
+  amplitude.init(window.env.AMPLITUDE_KEY, user ? user._id : undefined);
+
+  // Google Analytics (aka Universal Analytics)
+  window['GoogleAnalyticsObject'] = 'ga';
+  window['ga'] = window['ga'] || function() {
+      (window['ga'].q = window['ga'].q || []).push(arguments)
+    }, window['ga'].l = 1 * new Date();
+  ga('create', window.env.GA_ID, user ? {'userId': user._id} : undefined);
+  /* eslint-enable */
+
+  // Load real scripts
+
+  // Amplitude
+  const amplitudeScript = document.createElement('script');
+  let firstScript = document.getElementsByTagName('script')[0];
+  amplitudeScript.type = 'text/javascript';
+  amplitudeScript.async = true;
+  amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
+  firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
+
+  // Google Analytics
+  const gaScript = document.createElement('script');
+  firstScript = document.getElementsByTagName('script')[0];
+  gaScript.async = 1;
+  gaScript.src = '//www.google-analytics.com/analytics.js';
+  firstScript.parentNode.insertBefore(gaScript, firstScript);
 }
