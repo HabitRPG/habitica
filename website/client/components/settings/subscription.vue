@@ -119,9 +119,6 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import amazonPaymentsModal from '../payments/amazonModal';
 import paymentsMixin from '../../mixins/payments';
 
-// TODO
-const STRIPE_PUB_KEY = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh';
-
 export default {
   mixins: [paymentsMixin],
   components: {
@@ -137,7 +134,6 @@ export default {
         key: 'basic_earned',
       },
       amazonPayments: {},
-      StripeCheckout: {},
       paymentMethods: {
         AMAZON_PAYMENTS: 'Amazon Payments',
         STRIPE: 'Stripe',
@@ -147,9 +143,6 @@ export default {
         GIFT: 'Gift',
       },
     };
-  },
-  mounted () {
-    this.StripeCheckout = window.StripeCheckout;
   },
   filters: {
     date (value) {
@@ -253,30 +246,6 @@ export default {
       let subs = subscriptionBlocks;
       subs.basic_6mo.discount = true;
       subs.google_6mo.discount = false;
-    },
-    showStripeEdit (config) {
-      let groupId;
-      if (config && config.groupId) {
-        groupId = config.groupId;
-      }
-
-      this.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        name: this.$t('subUpdateTitle'),
-        description: this.$t('subUpdateDescription'),
-        panelLabel: this.$t('subUpdateCard'),
-        token: async (data) => {
-          data.groupId = groupId;
-          let url = '/stripe/subscribe/edit';
-          let response = await axios.post(url, data);
-
-          // Succss
-          window.location.reload(true);
-          // error
-          alert(response.message);
-        },
-      });
     },
     canCancelSubscription () {
       return (
