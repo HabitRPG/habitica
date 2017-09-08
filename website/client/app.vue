@@ -159,8 +159,8 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
         this.isUserLoaded = true;
-        Analytics.setUser(this.user);
-        Analytics.updateUser(this.user);
+        Analytics.setUser();
+        Analytics.updateUser();
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
