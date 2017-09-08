@@ -201,6 +201,10 @@
         margin-left: 8px;
       }
     }
+
+    .bordered {
+      margin-top: 8px;
+    }
   }
 </style>
 

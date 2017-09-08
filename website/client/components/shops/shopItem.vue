@@ -116,7 +116,7 @@ div
     width: 24px;
     background-color: $purple-300;
     position: absolute;
-    left: -12px;
+    left: -8px;
     top: -12px;
     margin-top: 0;
     padding: 4px;

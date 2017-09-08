@@ -281,6 +281,7 @@
   import _groupBy from 'lodash/groupBy';
 
   import isPinned from 'common/script/libs/isPinned';
+  import getOfficialPinnedItems from 'common/script/libs/getOfficialPinnedItems';
 
   import i18n from 'common/script/i18n';
 
@@ -343,6 +344,11 @@
         user: 'user.data',
         userStats: 'user.data.stats',
       }),
+
+      usersOfficalPinnedItems () {
+        return getOfficialPinnedItems(this.user);
+      },
+
       seasonal () {
         return shops.getSeasonalShop(this.user);
       },
@@ -395,7 +401,7 @@
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: isPinned(this.user, e),
+            pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
           };
         });
 
