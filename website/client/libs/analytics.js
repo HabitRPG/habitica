@@ -17,8 +17,6 @@ let ALLOWED_HIT_TYPES = [
   'timing',
 ];
 
-const store = getStore();
-
 function _doesNotHaveRequiredFields (properties) {
   if (!isEqual(keys(pick(properties, REQUIRED_FIELDS)), REQUIRED_FIELDS)) {
     // @TODO: Log with Winston?
@@ -36,6 +34,7 @@ function _doesNotHaveAllowedHitType (properties) {
 }
 
 function _gatherUserStats (properties) {
+  const store = getStore();
   const user = store.state.user.data;
   const tasks = store.state.tasks.data;
 
@@ -65,6 +64,7 @@ function _gatherUserStats (properties) {
 }
 
 export function setUser () {
+  const store = getStore();
   const user = store.state.user.data;
   window.amplitude.setUserId(user._id);
   window.ga('set', {userId: user._id});

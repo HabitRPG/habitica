@@ -50,8 +50,6 @@ export async function socialAuth (store, params) {
     authResponse: params.auth.authResponse,
   });
 
-  // @TODO: Analytics
-
   let user = result.data.data;
 
   let userLocalData = JSON.stringify({
