@@ -18,6 +18,8 @@ import getOfficialPinnedItems from './getOfficialPinnedItems';
 let shops = {};
 
 shops.getMarketCategories = function getMarket (user, language) {
+  let officialPinnedItems = getOfficialPinnedItems(user);
+
   let categories = [];
   let eggsCategory = {
     identifier: 'eggs',
@@ -29,7 +31,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .filter(egg => egg.canBuy(user))
     .concat(values(content.dropEggs))
     .map(egg => {
-      return getItemInfo(user, 'eggs', egg, language);
+      return getItemInfo(user, 'eggs', egg, officialPinnedItems, language);
     }), 'key');
   categories.push(eggsCategory);
 
@@ -41,7 +43,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
-      return getItemInfo(user, 'hatchingPotions', hatchingPotion, language);
+      return getItemInfo(user, 'hatchingPotions', hatchingPotion, officialPinnedItems, language);
     }), 'key');
   categories.push(hatchingPotionsCategory);
 
@@ -53,7 +55,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
-      return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, language);
+      return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
     }), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
@@ -67,7 +69,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
-      return getItemInfo(user, 'food', foodItem, language);
+      return getItemInfo(user, 'food', foodItem, officialPinnedItems, language);
     }), 'key');
   categories.push(foodCategory);
 
@@ -100,6 +102,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 
 shops.getMarketGearCategories = function getMarketGear (user, language) {
   let categories = [];
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   for (let classType of content.classes) {
     let category = {
@@ -109,7 +112,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
     let result = filter(content.gear.flat, ['klass', classType]);
     category.items = map(result, (e) => {
-      let newItem = getItemInfo(user, 'marketGear', e);
+      let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
 
       return newItem;
     });
@@ -125,6 +128,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   /*
    * ---------------------------------------------------------------
@@ -188,7 +192,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
     .map(bundle => {
-      return getItemInfo(user, 'bundles', bundle, language);
+      return getItemInfo(user, 'bundles', bundle, officialPinnedItems, language);
     }));
 
   if (bundleCategory.items.length > 0) {
@@ -204,7 +208,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-        return getItemInfo(user, 'quests', quest, language);
+        return getItemInfo(user, 'quests', quest, officialPinnedItems, language);
       });
 
     categories.push(category);
@@ -386,6 +390,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
 shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   let sets = [];
+  let officialPinnedItems = getOfficialPinnedItems();
 
   eachRight(content.backgrounds, (group, key) => {
     let set = {
@@ -394,7 +399,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
     };
 
     set.items = map(group, (background) => {
-      return getItemInfo(null, 'background', background, language);
+      return getItemInfo(null, 'background', background, officialPinnedItems, language);
     });
 
     sets.push(set);

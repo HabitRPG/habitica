@@ -9,7 +9,7 @@ let flatGearArray = toArray(content.gear.flat);
 module.exports = function getOfficialPinnedItems (user) {
   let officialItemsArray = [...officialPinnedItems];
 
-  if (SeasonalShopConfig.pinnedSets && user !== null && user.stats.class) {
+  if (SeasonalShopConfig.pinnedSets && Boolean(user) && user.stats.class) {
     let setToAdd = SeasonalShopConfig.pinnedSets[user.stats.class];
 
     flatGearArray.filter((gear) => {
