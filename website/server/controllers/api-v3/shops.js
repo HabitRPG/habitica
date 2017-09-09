@@ -19,13 +19,7 @@ api.getMarketItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let resObject = {
-      identifier: 'market',
-      text: res.t('market'),
-      notes: res.t('welcomeMarketMobile'),
-      imageName: 'npc_alex',
-      categories: shops.getMarketCategories(user, req.language),
-    };
+    let resObject = shops.getMarketShop(user, req.language);
 
     res.respond(200, resObject);
   },

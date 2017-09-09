@@ -1,6 +1,7 @@
 import values from 'lodash/values';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
+import get from 'lodash/get';
 import each from 'lodash/each';
 import filter from 'lodash/filter';
 import eachRight from 'lodash/eachRight';
@@ -12,10 +13,29 @@ import i18n from '../i18n';
 import getItemInfo from './getItemInfo';
 import updateStore from './updateStore';
 import seasonalShopConfig from './shops-seasonal.config';
+import featuredItems from '../content/shop-featuredItems';
 
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 let shops = {};
+
+/* Market */
+
+shops.getMarketShop = function getMarketShop (user, language) {
+  return {
+    identifier: 'market',
+    text: i18n.t('market'),
+    notes: i18n.t('welcomeMarketMobile'),
+    imageName: 'npc_alex',
+    categories: shops.getMarketCategories(user, language),
+    featured: {
+      text: i18n.t('featuredItems'),
+      items: featuredItems.market.map(i => {
+        return getItemInfo(user, i.type, get(content, i.path));
+      }),
+    },
+  };
+};
 
 shops.getMarketCategories = function getMarket (user, language) {
   let officialPinnedItems = getOfficialPinnedItems(user);
