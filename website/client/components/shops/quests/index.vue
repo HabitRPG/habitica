@@ -39,12 +39,12 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredQuests') }}
+              span.text {{ shop.featured.text }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in shop.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.goldValue ? item.goldValue : item.value",
@@ -337,8 +337,6 @@
 
   import svgPin from 'assets/svg/pin.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-  import getItemInfo from 'common/script/libs/getItemInfo';
   import shops from 'common/script/libs/shops';
 
   import isPinned from 'common/script/libs/isPinned';
@@ -348,7 +346,6 @@
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
   import _map from 'lodash/map';
-  import _get from 'lodash/get';
 
 export default {
     components: {
@@ -398,30 +395,21 @@ export default {
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
-      questCategories () {
-        return shops.getQuestShopCategories(this.user);
+      shop () {
+        return shops.getQuestShop(this.user);
       },
       categories () {
-        if (this.questCategories) {
-          this.questCategories.map((category) => {
+        if (this.shop.categories) {
+          this.shop.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.questCategories;
+          return this.shop.categories;
         } else {
           return [];
         }
-      },
-
-      featuredItems () {
-        return featuredItems.quests.map(i => {
-          let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = isPinned(this.user, newItem);
-
-          return newItem;
-        });
       },
     },
     methods: {

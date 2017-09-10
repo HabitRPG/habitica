@@ -145,6 +145,24 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   return categories;
 };
 
+/* Quests */
+
+shops.getQuestShop = function getQuestShop (user, language) {
+  return {
+    identifier: 'questShop',
+    text: i18n.t('quests'),
+    notes: i18n.t('ianTextMobile'),
+    imageName: 'npc_ian',
+    categories: shops.getQuestShopCategories(user, language),
+    featured: {
+      text: i18n.t('featuredQuests'),
+      items: featuredItems.quests.map(i => {
+        return getItemInfo(user, i.type, get(content, i.path));
+      }),
+    },
+  };
+};
+
 
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];

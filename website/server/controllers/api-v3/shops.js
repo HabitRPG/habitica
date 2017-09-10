@@ -64,13 +64,7 @@ api.getQuestShopItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let resObject = {
-      identifier: 'questShop',
-      text: res.t('quests'),
-      notes: res.t('ianTextMobile'),
-      imageName: 'npc_ian',
-      categories: shops.getQuestShopCategories(user, req.language),
-    };
+    let resObject = shops.getQuestShop(user, req.language);
 
     res.respond(200, resObject);
   },
