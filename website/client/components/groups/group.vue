@@ -637,7 +637,7 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        group: this.group._id,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);
