@@ -163,7 +163,6 @@ shops.getQuestShop = function getQuestShop (user, language) {
   };
 };
 
-
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
   let officialPinnedItems = getOfficialPinnedItems(user);
@@ -255,6 +254,21 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   return categories;
 };
 
+/* Time Travelers */
+
+shops.getTimeTravelersShop = function getTimeTravelersShop (user, language) {
+  let hasTrinkets = user.purchased.plan.consecutive.trinkets > 0;
+
+  return {
+    identifier: 'timeTravelersShop',
+    text: i18n.t('timeTravelers'),
+    opened: hasTrinkets,
+    notes: hasTrinkets ? i18n.t('timeTravelersPopover') : i18n.t('timeTravelersPopoverNoSubMobile'),
+    imageName: hasTrinkets ? 'npc_timetravelers_active' : 'npc_timetravelers',
+    categories: shops.getTimeTravelersCategories(user, language),
+  };
+};
+
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
   let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
@@ -325,6 +339,9 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 
   return categories;
 };
+
+
+/* Seasonal */
 
 let flatGearArray = toArray(content.gear.flat);
 

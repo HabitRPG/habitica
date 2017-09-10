@@ -85,15 +85,8 @@ api.getTimeTravelerShopItems = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    let hasTrinkets = user.purchased.plan.consecutive.trinkets > 0;
 
-    let resObject = {
-      identifier: 'timeTravelersShop',
-      text: res.t('timeTravelers'),
-      notes: hasTrinkets ? res.t('timeTravelersPopover') : res.t('timeTravelersPopoverNoSubMobile'),
-      imageName: hasTrinkets ? 'npc_timetravelers_active' : 'npc_timetravelers',
-      categories: shops.getTimeTravelersCategories(user, req.language),
-    };
+    let resObject = shops.getTimeTravelersShop(user, req.language);
 
     res.respond(200, resObject);
   },
