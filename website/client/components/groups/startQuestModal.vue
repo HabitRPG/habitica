@@ -197,6 +197,10 @@ export default {
   mounted () {
     let questKeys = Object.keys(this.user.items.quests);
     this.selectedQuest = questKeys[0];
+
+    this.$root.$on('selectQuest', (quest) => {
+      this.selectedQuest = quest.key;
+    });
   },
   computed: {
     ...mapState({user: 'user.data'}),
