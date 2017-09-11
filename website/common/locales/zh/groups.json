@@ -154,7 +154,7 @@
     "invitedFriend": "邀请朋友",
     "invitedFriendText": "这名用户成功邀请朋友加入了冒险",
     "inviteAlertInfo2": "或者分享这个链接(复制/粘贴)",
-    "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
+    "inviteLimitReached": "您发送的电子邮件邀请已经达到上限。我们有一个防止群发垃圾邮件的限制，但是，如果您想了解更多，请在<%= techAssistanceEmail %>联系我们，我们很乐意讨论这个！",
     "sendGiftHeading": "给 <%= name %>赠送礼物",
     "sendGiftGemsBalance": "来自 <%= number %> 宝石",
     "sendGiftCost": "总计： $<%= cost %> USD",
