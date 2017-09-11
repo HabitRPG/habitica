@@ -3,10 +3,10 @@ div
   inbox-modal
   creator-intro
   profile
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
+  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-lg
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
-    .collapse.navbar-collapse
+    b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
           a.nav-link(v-once) {{ $t('tasks') }}
@@ -75,11 +75,26 @@ div
           a.dropdown-item(@click='showProfile("profile")') {{ $t('profile') }}
           router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
           a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
+    b-nav-toggle(target='nav_collapse')
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
+
+  /* Less than Desktops and laptops ----------- */
+  @media only screen  and (max-width : 1224px) {
+    #nav_collapse {
+      background: $purple-100;
+      margin-top: 1em;
+      margin-left: 70%;
+      padding-bottom: 1em;
+
+      a {
+        padding: .5em !important;
+      }
+    }
+  }
 
   nav.navbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
@@ -223,6 +238,9 @@ div
 </style>
 
 <script>
+import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
+import bCollapse from 'bootstrap-vue/lib/components/collapse';
+
 import { mapState, mapGetters } from 'client/libs/store';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
@@ -240,6 +258,8 @@ export default {
     notificationMenu,
     creatorIntro,
     profile,
+    bNavToggle,
+    bCollapse,
   },
   data () {
     return {
