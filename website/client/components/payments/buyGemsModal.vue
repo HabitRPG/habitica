@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(v-if='user')
   amazon-payments-modal(:amazon-payments='amazonPayments')
   b-modal#buy-gems(title="Buy Gems", :hide-footer="true", size='lg')
     .modal-body
