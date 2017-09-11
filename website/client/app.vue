@@ -3,9 +3,7 @@
   snackbars
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
-    #loading-screen.h-100.w-100.d-flex.justify-content-center.align-items-center(v-if="!isUserLoaded")
-      p Loading...
-    template(v-else)
+    template(v-if="isUserLoaded")
       notifications-display
       app-menu
       .container-fluid
@@ -51,6 +49,10 @@
 
   .container-fluid {
     overflow-x: hidden;
+  }
+
+  #app {
+    height: calc(100% - 56px); /* 56px is the menu */
   }
 </style>
 
@@ -161,6 +163,9 @@ export default {
         this.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
+
+        const loadingScreen = document.getElementById('loading-screen');
+        document.body.removeChild(loadingScreen);
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
