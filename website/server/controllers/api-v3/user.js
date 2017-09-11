@@ -2009,6 +2009,24 @@ api.setCustomDayStart = {
   },
 };
 
+api.setManualTimezone = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/manual-timezone',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let timezone = req.body.timezone;
+
+    user.preferences.manualTimezone = timezone;
+
+    await user.save();
+
+    res.respond(200, {
+      timezone
+    });
+  },
+};
+
 /**
  * @api {get} /user/toggle-pinned-item/:key Toggle an item to be pinned
  * @apiName togglePinnedItem

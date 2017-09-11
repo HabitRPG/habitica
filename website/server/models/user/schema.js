@@ -426,6 +426,7 @@ let schema = new Schema({
   },
   preferences: {
     dayStart: {type: Number, default: 0, min: 0, max: 23},
+    manualTimezone: {type: String, default: 'automatic'},
     size: {type: String, enum: ['broad', 'slim'], default: 'slim'},
     hair: {
       color: {type: String, default: 'red'},

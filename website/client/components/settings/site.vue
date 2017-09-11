@@ -120,6 +120,15 @@
               p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
               p(v-html="$t('timezoneInfo')")
 
+            .col-7
+              select.form-control(v-model='newManualTimezone')
+                option(v-for='timezone in availableTimezones' :value='timezone.value') {{ timezone.name }}
+
+            .col-5
+              button.btn.btn-block.btn-primary(@click='saveManualTimezone',
+                :disabled='newManualTimezone == user.preferences.manualTimezone')
+                | {{ $t('timezoneSaveManual') }}
+
     .col-6
       h2 {{ $t('registration') }}
       .panel-body
@@ -210,8 +219,9 @@ import { mapState } from 'client/libs/store';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
-import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
-import changeClass from  '../../../common/script/ops/changeClass';
+import { SUPPORTED_SOCIAL_NETWORKS, AVAILABLE_TIMEZONES } from 'common/script/constants';
+import changeClass from  'common/script/ops/changeClass';
+import i18n from 'common/script/i18n';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -240,6 +250,7 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
+      newManualTimezone: '',
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
@@ -250,6 +261,11 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    // @FIXME: Currently there are mutliple timezones with the same offset
+    // value, causing the chosen manual timezone to select the first for
+    // these duplicate values, meaning if A, B and C are duplicate, and the user
+    // chooses C, this value will always show A.
+    this.newManualTimezone = this.user.preferences.manualTimezone;
   },
   computed: {
     ...mapState({
@@ -272,6 +288,11 @@ export default {
       let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
 
       return `UTC${sign}${hour}:${minutes}`;
+    },
+    availableTimezones () {
+      let automaticTimezone = ['automatic', i18n.t('timezoneAutomatic')];
+
+      return [automaticTimezone, ...AVAILABLE_TIMEZONES].map(([value, name]) => ({ value, name }));
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -342,6 +363,13 @@ export default {
       });
       // @TODO
       // Notification.text(response.data.data.message);
+    },
+    async saveManualTimezone () {
+      await axios.post('/api/v3/user/manual-timezone', {
+        timezone: this.newManualTimezone
+      }).then(({ data: { data } }) => {
+        this.user.preferences.manualTimezone = data.timezone;
+      });
     },
     changeLanguage (e) {
       const newLang = e.target.value;
