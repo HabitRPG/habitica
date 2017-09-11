@@ -117,5 +117,6 @@
   "loginReward": "<%= count %> Check-ins",
   "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
   "questBundles": "Discounted Quest Bundles",
-  "buyQuestBundle": "Buy Quest Bundle"
+  "buyQuestBundle": "Buy Quest Bundle",
+  "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

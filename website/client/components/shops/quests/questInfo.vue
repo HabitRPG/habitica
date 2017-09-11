@@ -3,7 +3,7 @@
     span.col-4(v-if="quest.collect") {{ $t('collect') }}
     span.col-8(v-if="quest.collect")
       div(v-for="(collect, key) of quest.collect")
-        span {{ collect.count }} {{ collect.text }}
+        span {{ collect.count }} {{ getCollectText(collect) }}
 
     span.col-4 {{ $t('difficulty') }}
     span.col-8
@@ -77,6 +77,13 @@
         }
 
         return result;
+      },
+      getCollectText (collect) {
+        if (collect.text instanceof Function) {
+          return collect.text();
+        } else {
+          return collect.text;
+        }
       },
     },
     props: {
