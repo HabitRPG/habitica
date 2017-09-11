@@ -274,7 +274,7 @@
 
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
-  import _mapKeys from 'lodash/mapKeys';
+  import _mapValues from 'lodash/mapValues';
   import _forEach from 'lodash/forEach';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
@@ -370,7 +370,7 @@
       },
       filterCategories () {
         if (this.content) {
-          let equipmentList = _mapKeys(this.gearTypesToStrings, (value, key) => {
+          let equipmentList = _mapValues(this.gearTypesToStrings, (value, key) => {
             return {
               key,
               value,
