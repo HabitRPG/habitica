@@ -92,6 +92,12 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     if (!gear.locked  && !availableGear.includes(gear.path)) {
       gear.locked = true;
     }
+
+    // @TODO: I'm not sure what the logic for locking is supposed to be
+    // But, I am pretty sure if we pin an armoire item, it needs to be unlocked
+    if (gear.klass === 'armoire') {
+      gear.locked = false;
+    }
   }
 };
 
