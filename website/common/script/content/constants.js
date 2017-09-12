@@ -29,7 +29,7 @@ export const EVENTS = {
   winter2017: { start: '2016-12-16', end: '2017-02-02' },
   spring2017: { start: '2017-03-21', end: '2017-05-02' },
   summer2017: { start: '2017-06-20', end: '2017-08-02' },
-  fall2017: { start: '2017-08-21', end: '2017-11-02' },
+  fall2017:   { start: '2017-08-21', end: '2017-11-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -54,7 +54,7 @@ export const SEASONAL_SETS = {
 
     // fall 2017
     'fall2017TrickOrTreatSet',
-    'fall2017WarriorSet',
+    'fall2017HabitoweenSet',
     'fall2017MasqueradeSet',
     'fall2017HauntedHouseSet',
   ],

@@ -11,7 +11,7 @@ module.exports = {
   ],
 
   pinnedSets: {
-    warrior: 'fall2017WarriorSet',
+    warrior: 'fall2017HabitoweenSet',
     wizard: 'fall2017MasqueradeSet',
     rogue: 'fall2017TrickOrTreatSet',
     healer: 'fall2017HauntedHouseSet',
