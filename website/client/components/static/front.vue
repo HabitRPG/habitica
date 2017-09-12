@@ -16,21 +16,27 @@
           .col-6
             h3.text-center Sign  Up For Free
             div.text-center
-              button.social-button Facebook
-              button.social-button Google
+              button.social-button(@click='socialAuth("facebook")')
+                .svg-icon.social-icon(v-html="icons.facebookIcon")
+                span {{$t('signUpWithSocial', {social: 'Facebook'})}}
+              button.social-button(@click='socialAuth("facebook")')
+                .svg-icon.social-icon(v-html="icons.googleIcon")
+                span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
               span OR
-            form
-              input.form-control(type='text', placeholder='Username')
-              input.form-control(type='email', placeholder='Email')
-              input.form-control(type='password', placeholder='Password')
-              input.form-control(type='password', placeholder='Confirm Password')
+            .form
+              input.form-control(type='text', placeholder='Username', v-model='username')
+              input.form-control(type='email', placeholder='Email', v-model='email')
+              input.form-control(type='password', placeholder='Password', v-model='password')
+              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm')
               p By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
-              button.sign-up Sign Up
+              button.sign-up(@click='register()') Sign Up
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
 
     #gamify-life.purple-2
+      .container-fluid
+        .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
       .container
         .row
           .col-6.offset-3.text-center
@@ -72,6 +78,8 @@
             p Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
+      .container-fluid
+        .pixel-horizontal-2.svg-icon(v-html='icons.pixelHorizontal2')
 
     #level-up-anywhere.purple-3
       .container
@@ -81,8 +89,10 @@
           .col-6.text-column
             h2 Level Up Anywhere
             p Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.
-            .app.svg-icon(v-html='icons.googlePlay')
-            .app.svg-icon(v-html='icons.iosAppStore')
+            a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
+            a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
+      .container-fluid
+        .pixel-horizontal-3.svg-icon(v-html='icons.pixelHorizontal3')
 
     #call-to-action.purple-4
       .container.featured
@@ -90,10 +100,12 @@
           h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
         .row
           .col-12.text-center
-            button.btn.btn-primary Join Habitica Today
+            button.btn.btn-primary(@click='playButtonClick()') Join Habitica Today
         .row.featured
           .col-12.text-center
             strong Featured in
+      .container-fluid
+        .seamless_stars_varied_opacity_repeat
       .container-fluid.featured
         .row
           .col-12
@@ -122,6 +134,19 @@
     footer, footer a {
       background: transparent;
       color: #d5c8ff;
+    }
+
+    .logo {
+      color: #bda8ff;
+    }
+
+    .social-circle, .btn-donate {
+      background: #36205d;
+      color: #bda8ff;
+
+      .svg-icon {
+        color: #bda8ff;
+      }
     }
   }
 </style>
@@ -181,6 +206,18 @@
       margin: 0 auto;
       margin-top: 2em;
     }
+
+    .pixel-horizontal {
+      color: #6133b4;
+    }
+
+    .pixel-horizontal-2 {
+      color: #432874;
+    }
+
+    .pixel-horizontal-3 {
+      color: #271b3d;
+    }
   }
 
   #intro-signup {
@@ -208,6 +245,15 @@
       background: transparent;
       margin-right: .5em;
       color: #fff;
+    }
+
+    .social-icon {
+      margin-right: 1em;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      vertical-align: top;
+      margin-top: .2em;
     }
 
     .strike {
@@ -356,6 +402,14 @@
         -webkit-filter: brightness(0) invert(1);
       }
     }
+
+    .seamless_stars_varied_opacity_repeat {
+      background-image: url('~assets/images/auth/seamless_stars_varied_opacity.png');
+      background-repeat: repeat-x;
+      position: absolute;
+      height: 500px;
+      width: 100%;
+    }
   }
 
   #bottom-wrap {
@@ -387,12 +441,18 @@
 </style>
 
 <script>
+  import hello from 'hellojs';
   import AppFooter from 'client/components/appFooter';
   import StaticHeader from './header.vue';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
   import spacer from 'assets/images/home/spacer.svg';
+  import pixelHorizontal from 'assets/images/home/pixel-horizontal.svg';
+  import pixelHorizontal2 from 'assets/images/home/pixel-horizontal-2.svg';
+  import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
+  import facebookSquareIcon from 'assets/svg/facebook-square.svg';
+  import googleIcon from 'assets/svg/google.svg';
 
   export default {
     components: {
@@ -406,16 +466,65 @@
           iosAppStore,
           iphones,
           spacer,
+          pixelHorizontal,
+          pixelHorizontal2,
+          pixelHorizontal3,
+          facebookIcon: facebookSquareIcon,
+          googleIcon,
         }),
         userCount: 1000000,
+        username: '',
+        password: '',
+        passwordConfirm: '',
+        email: '',
       };
     },
     mounted () {
       // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
+      hello.init({
+        facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+        // windows: WINDOWS_CLIENT_ID,
+        google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      });
     },
     methods: {
+      async register () {
+        if (this.password !== this.passwordConfirm) {
+          alert('Passwords must match');
+          return;
+        }
+
+        await this.$store.dispatch('auth:register', {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+        });
+
+        if (this.$store.state.afterLoginRedirect) {
+          window.location.href = this.$store.state.afterLoginRedirect;
+          return;
+        }
+
+        window.location.href = '/';
+      },
       playButtonClick () {
         this.$router.push('/register');
+      },
+      async socialAuth (network) {
+        const url = window.location.href;
+
+        let auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: url, // eslint-disable-line camelcase
+        });
+
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        window.location.href = '/';
       },
     },
   };
