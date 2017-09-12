@@ -164,11 +164,12 @@ export default {
         Analytics.setUser();
         Analytics.updateUser();
 
-        const loadingScreen = document.getElementById('loading-screen');
-        document.body.removeChild(loadingScreen);
+        this.hideLoadingScreen();
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
+    } else {
+      this.hideLoadingScreen();
     }
 
     // Manage modals
@@ -254,7 +255,10 @@ export default {
       this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
       this.selectedCardToBuy = null;
     },
-
+    hideLoadingScreen () {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) document.body.removeChild(loadingScreen);
+    },
   },
 };
 </script>
