@@ -290,6 +290,11 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
+
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
@@ -301,6 +306,11 @@ export default {
         // email: this.email,
         password: this.password,
       });
+
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
 
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again

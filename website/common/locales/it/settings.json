@@ -157,7 +157,7 @@
     "webhooks": "Webhooks",
     "enabled": "Abilitato",
     "webhookURL": "URL Webhook",
-    "invalidUrl": "url non valido",
+    "invalidUrl": "URL non valido",
     "invalidEnabled": "il parametro \"enabled\" dovrebbe essere un boolean.",
     "invalidWebhookId": "il parametro \"id\" dovrebbe essere un UUID valido.",
     "missingWebhookId": "È necessario l'id del webhook.",

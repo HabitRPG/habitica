@@ -502,5 +502,7 @@
     "questHippoCompletion": "The hippo bows in surrender. “I underestimated you. It seems you weren’t being lazy. My apologies. Truth be told, I may have been projecting a bit. Perhaps I should get some work done myself. Here, take these eggs as a sign of my gratitude.” Grabbing them, you settle down by the water, ready to relax at last.",
     "questHippoBoss": "The Hippo-Crite",
     "questHippoDropHippoEgg": "Su aygırı (Yumurta)",
-    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market"
+    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

@@ -502,5 +502,7 @@
     "questHippoCompletion": "Бегемот кланяется, отступая. «Я вас недооценил. Кажется, вы не ленились. Мои извинения. По правде говоря, я, возможно, немного проецировал. Возможно, я должен сам проделать определенную работу. Вот, возьмите эти яйца в знак моей благодарности.» Схватив их, вы располагаетесь у воды, готовые наконец передохнуть.",
     "questHippoBoss": "Гиппопотам",
     "questHippoDropHippoEgg": "Бегемот (Яйцо)",
-    "questHippoUnlockText": "Разблокирует покупку яиц Бегемота на Рынке"
+    "questHippoUnlockText": "Разблокирует покупку яиц Бегемота на Рынке",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

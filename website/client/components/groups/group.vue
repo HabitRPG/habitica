@@ -33,6 +33,11 @@
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
+        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
+          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
+          div.col-4
+            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -104,7 +109,8 @@
                       span.float-left
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
-                      span.float-right {{group.quest.progress.up || 0}} pending damage
+                      // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
+                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
@@ -266,6 +272,19 @@
 
   .chat-row {
     margin-top: 2em;
+
+    .community-guidelines {
+      background-color: rgba(135, 129, 144, 0.84);
+      padding: 1em;
+      color: $white;
+      position: absolute;
+      top: 0;
+      height: 150px;
+      padding-top: 3em;
+      margin-top: 2.3em;
+      width: 100%;
+      border-radius: 4px;
+    }
 
     .new-message-row {
       position: relative;
@@ -496,6 +515,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    communityGuidelinesAccepted () {
+      return this.user.flags.communityGuidelinesAccepted;
+    },
     partyStore () {
       return this.$store.state.party;
     },
@@ -585,12 +607,14 @@ export default {
     },
   },
   methods: {
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
     load () {
       if (this.isParty) {
         this.searchId = 'party';
         // @TODO: Set up from old client. Decide what we need and what we don't
         // Check Desktop notifs
-        // Mark Chat seen
         // Load invites
       }
       this.fetchGuild();
@@ -661,8 +685,8 @@ export default {
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
-        this.$store.party = group;
-        this.group = this.$store.party;
+        this.$store.state.party.data = group;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
         return;
       }

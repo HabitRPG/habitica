@@ -1,12 +1,13 @@
 <template lang="pug">
 div
-  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
-    avatar(:member="member",
-      @click.native="$emit('click')",
-      @mouseover.native="$emit('onHover')",
-      @mouseout.native="$emit('onHover')",
-    )
-    .member-stats
+  .row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
+    .col-4
+      avatar(:member="member",
+        @click.native="$emit('click')",
+        @mouseover.native="$emit('onHover')",
+        @mouseout.native="$emit('onHover')",
+      )
+    .member-stats(:class="{'col-8': !expanded}")
       h3.character-name
         | {{member.profile.name}}
         .is-buffed(v-if="isBuffed")
