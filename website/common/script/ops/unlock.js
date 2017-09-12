@@ -94,9 +94,12 @@ module.exports = function unlock (user, req = {}, analytics) {
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);
 
-      let backgroundContent = content.backgroundsFlat[value];
-      let itemInfo = getItemInfo(user, 'background', backgroundContent);
-      removeItemByPath(user, itemInfo.path);
+      // @TODO: Test and check test coverage
+      if (isBackground) {
+        let backgroundContent = content.backgroundsFlat[value];
+        let itemInfo = getItemInfo(user, 'background', backgroundContent);
+        removeItemByPath(user, itemInfo.path);
+      }
     }
   }
 
