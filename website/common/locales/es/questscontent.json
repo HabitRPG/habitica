@@ -502,5 +502,7 @@
     "questHippoCompletion": "El hipo se inclina para rendirse. \"Te subestimé. Parece que no estabas siendo perezoso. Mis disculpas. La verdad sea dicha, quizá me proyecté un poco. Tal vez deba yo mismo dejar algo de trabajo hecho. Aquí, toma estos huevos como señal de gratitud.\" Los agarras, te instalas al borde del agua, listo para al fin relajarte.",
     "questHippoBoss": "El Hipo-Crita",
     "questHippoDropHippoEgg": "Hipo (Huevo)",
-    "questHippoUnlockText": "Desbloquear la compra de huevos de hipo en el Mercado"
+    "questHippoUnlockText": "Desbloquear la compra de huevos de hipo en el Mercado",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

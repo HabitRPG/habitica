@@ -502,5 +502,7 @@
     "questHippoCompletion": "Das Hippo verbeugt sich kapitulierend. “Ich habe Dich unterschätzt. Es sieht so aus, als ob Du gar nicht faul gewesen bist. Ich entschuldige mich. Um die Wahrheit zu sagen, ich habe vielleicht einiges auf Dich projiziert. Vielleicht sollte ich selbst auch einige meiner Aufgaben erledigen. Hier, nimm diese Eier als ein Zeichen meiner Dankbarkeit.” Nachdem Du sie genommen hast, lässt Du Dich beim Wasser nieder, um endlich zu entspannen.",
     "questHippoBoss": "Das Heuchlerische Hippo",
     "questHippoDropHippoEgg": "Nilpferd (Ei)",
-    "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz"
+    "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }
