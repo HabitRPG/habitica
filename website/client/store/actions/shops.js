@@ -73,7 +73,7 @@ export function genericPurchase (store, params) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
     case 'potion':
-    case 'armoire':
+    case 'armoire': // eslint-disable-line
       let buyResult = buyArmoire(store.state.user.data);
 
       // @TODO: We might need to abstract notifications to library rather than mixin
@@ -85,6 +85,8 @@ export function genericPurchase (store, params) {
           timeout: true,
         });
       }
+
+      return;
     case 'marketGear':
       return buyItem(store, params);
     case 'background':
