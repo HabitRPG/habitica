@@ -684,8 +684,8 @@ export default {
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
-        this.$store.party = group;
-        this.group = this.$store.party;
+        this.$store.state.party.data = group;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
         return;
       }
