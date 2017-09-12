@@ -101,7 +101,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset']),
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
@@ -165,6 +165,13 @@ export default {
         Analytics.updateUser();
 
         this.hideLoadingScreen();
+
+        // Adjust the timezone offset
+        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+          this.$store.dispatch('user:set', {
+            'preferences.timezoneOffset': this.browserTimezoneOffset,
+          });
+        }
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
