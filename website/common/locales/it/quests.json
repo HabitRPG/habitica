@@ -87,7 +87,7 @@
     "whichQuestStart": "Che missione vuoi cominciare?",
     "getMoreQuests": "Ottieni altre missioni",
     "unlockedAQuest": "Hai sbloccato una missione!",
-    "leveledUpReceivedQuest": "Sei salito al livello <strong>Livello <%= level %></strong> e hai ricevuto una Pergamena!",
+    "leveledUpReceivedQuest": "Sei salito al <strong>Livello <%= level %></strong> e hai ricevuto una Pergamena!",
     "questInvitationDoesNotExist": "Non è stato ancora mandato alcun invito ad una missione.",
     "questInviteNotFound": "Nessun invito ad una missione trovato.",
     "guildQuestsNotSupported": "Le Gilde non possono essere invitate a partecipare ad una missione.",

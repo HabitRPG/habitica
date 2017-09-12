@@ -1,12 +1,10 @@
 <template lang="pug">
-  div
-    // @TODO: Replace with Zeplin  +groupPlansBenefits
-
-    br
-    br
+div
+  static-header
+  .container-fluid.main
     .row
       .col-6.offset-3
-        button.btn.btn-primary.btn-lg.btn-block(ng-click="goToNewGroupPage()") {{ $t('getAGroupPlanToday') }}
+        button.btn.btn-primary.btn-lg.btn-block(@click="goToNewGroupPage()") {{ $t('getAGroupPlanToday') }}
 
     .row
       .col-6.offset-3
@@ -19,6 +17,7 @@
       .row.row-margin(style="font-size: 2rem;")
         span {{ $t('enterprisePlansDescription') }}
       .row.row-margin
+        // TODO
         a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + $t('enterprisePlansEmailSubject')") {{ $t('enterprisePlansButton') }}
 
       br
@@ -28,3 +27,41 @@
       .row.row-margin
         a.btn.btn-primary.btn-lg.btn-block(href="https://docs.google.com/forms/d/e/1FAIpQLSerMKkaCg3UcgpcMvBJtlNgnF9DNY8sxCebpAT-GHeDAQASPQ/viewform?usp=sf_link") {{ $t('familyPlansButton') }}
 </template>
+
+<style lang='scss' scoped>
+  .main {
+    margin-top: 6em;
+  }
+</style>
+
+<script>
+  import StaticHeader from './header.vue';
+  import * as Analytics from 'client/libs/analytics';
+
+  export default {
+    components: {
+      StaticHeader,
+    },
+    methods: {
+      goToNewGroupPage () {
+        if (!this.$store.state.isUserLoggedIn) {
+          this.$store.state.afterLoginRedirect = '/group-plans';
+          this.$router.push('/register');
+          return;
+        }
+
+        this.$router.push('/group-plans');
+      },
+      contactUs () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Contact Us (Plans)',
+        });
+
+        window.location.href = `mailto:vicky@habitica.com?subject=${this.$t('enterprisePlansEmailSubject')}`;
+      },
+    },
+  };
+</script>

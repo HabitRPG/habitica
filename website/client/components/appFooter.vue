@@ -219,6 +219,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 
 import gryphon from 'assets/svg/gryphon.svg';
 import twitter from 'assets/svg/twitter.svg';
@@ -331,6 +332,12 @@ export default {
       this.$root.$emit('show::modal', 'modify-inventory');
     },
     donate () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Gems > Donate',
+      });
       this.$root.$emit('show::modal', 'buy-gems');
     },
   },

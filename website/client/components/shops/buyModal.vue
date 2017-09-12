@@ -210,6 +210,7 @@
 
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
+  import * as Analytics from 'client/libs/analytics';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -302,6 +303,14 @@
         this.hideDialog();
       },
       purchaseGems () {
+        if (this.item.key === 'rebirth_orb') {
+          Analytics.track({
+            hitType: 'event',
+            eventCategory: 'button',
+            eventAction: 'click',
+            eventLabel: 'Gems > Rebirth',
+          });
+        }
         this.$root.$emit('show::modal', 'buy-gems');
       },
       togglePinned () {
