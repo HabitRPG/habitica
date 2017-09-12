@@ -101,7 +101,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset']),
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
@@ -164,11 +164,19 @@ export default {
         Analytics.setUser();
         Analytics.updateUser();
 
-        const loadingScreen = document.getElementById('loading-screen');
-        document.body.removeChild(loadingScreen);
+        this.hideLoadingScreen();
+
+        // Adjust the timezone offset
+        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+          this.$store.dispatch('user:set', {
+            'preferences.timezoneOffset': this.browserTimezoneOffset,
+          });
+        }
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
+    } else {
+      this.hideLoadingScreen();
     }
 
     // Manage modals
@@ -254,7 +262,10 @@ export default {
       this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
       this.selectedCardToBuy = null;
     },
-
+    hideLoadingScreen () {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) document.body.removeChild(loadingScreen);
+    },
   },
 };
 </script>

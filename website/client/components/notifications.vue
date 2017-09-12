@@ -284,7 +284,7 @@ export default {
 
       console.log('next cron in', nextCronIn);
 
-      setInterval(async () => {
+      setTimeout(async () => {
         console.log('next cron timer fired, current time:', new Date(), 'syncing...');
         // Sync the user before showing the modal
         await Promise.all([

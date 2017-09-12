@@ -2,6 +2,8 @@ import t from './translation';
 import each from 'lodash/each';
 import { NotAuthorized } from '../libs/errors';
 import statsComputed from '../libs/statsComputed';
+import crit from '../fns/crit';
+import updateStats from '../fns/updateStats';
 
 /*
   ---------------------------------------------------------------
@@ -43,12 +45,12 @@ spells.wizard = {
     target: 'task',
     notes: t('spellWizardFireballNotes'),
     cast (user, target, req) {
-      let bonus = statsComputed(user).int * user.fns.crit('per');
+      let bonus = statsComputed(user).int * crit(user, 'per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += Math.ceil(statsComputed(user).int * 0.1);
-      user.fns.updateStats(user.stats, req);
+      updateStats(user, user.stats, req);
     },
   },
   mpheal: { // Ethereal Surge
@@ -100,7 +102,7 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      let bonus = statsComputed(user).str * user.fns.crit('con');
+      let bonus = statsComputed(user).str * crit(user, 'con');
       target.value += diminishingReturns(bonus, 2.5, 35);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
@@ -167,11 +169,11 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
-      let _crit = user.fns.crit('str', 0.3);
+      let _crit = crit(user, 'str', 0.3);
       let bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
-      user.fns.updateStats(user.stats, req);
+      updateStats(user, user.stats, req);
     },
   },
   toolsOfTrade: { // Tools of the Trade

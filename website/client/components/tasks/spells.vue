@@ -283,17 +283,6 @@ export default {
       this.$store.state.spellOptions.castingSpell = false;
       this.potionClickMode = false;
 
-      // @TODO: We no longer wrap the users (or at least we should not), but some common code
-      // expects the user to be wrapped. For now, just manually set. But we need to fix the common code
-      this.user.fns = {
-        crit: (...args) => {
-          return crit(this.user, ...args);
-        },
-        updateStats: (...args) => {
-          return updateStats(this.user, ...args);
-        },
-      };
-
       this.spell.cast(this.user, target);
       // User.save(); // @TODO:
 
