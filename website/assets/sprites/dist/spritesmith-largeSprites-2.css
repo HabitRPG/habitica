@@ -1,24 +1,36 @@
+.promo_startingover {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -301px -1035px;
+  width: 150px;
+  height: 150px;
+}
+.promo_valentines {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -482px -839px;
+  width: 309px;
+  height: 147px;
+}
 .promo_working_out {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -518px -839px;
+  background-position: 0px -1035px;
   width: 300px;
   height: 150px;
 }
 .scene_arts_crafts {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -328px -562px;
+  background-position: -626px -562px;
   width: 256px;
   height: 256px;
 }
 .scene_buying_rewards {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1147px -564px;
+  background-position: -1233px -504px;
   width: 207px;
   height: 180px;
 }
 .scene_coding {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -926px -384px;
+  background-position: -1233px -987px;
   width: 150px;
   height: 150px;
 }
@@ -30,7 +42,7 @@
 }
 .scene_eco_friendly {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1147px -392px;
+  background-position: -1233px -332px;
   width: 222px;
   height: 171px;
 }
@@ -48,13 +60,19 @@
 }
 .scene_habits {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -585px -562px;
+  background-position: -926px 0px;
   width: 306px;
   height: 174px;
 }
+.scene_languages {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -328px -562px;
+  width: 297px;
+  height: 261px;
+}
 .scene_meditation {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -926px -233px;
+  background-position: -1233px -836px;
   width: 150px;
   height: 150px;
 }
@@ -66,31 +84,31 @@
 }
 .scene_phone_peek {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1147px -745px;
+  background-position: -1233px -685px;
   width: 150px;
   height: 150px;
 }
 .scene_raking_leaves {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: 0px -839px;
+  background-position: -926px -408px;
   width: 246px;
   height: 198px;
 }
 .scene_studying {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -926px 0px;
+  background-position: -926px -175px;
   width: 220px;
   height: 232px;
 }
 .scene_task_list {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1147px 0px;
+  background-position: -241px -839px;
   width: 240px;
   height: 195px;
 }
 .scene_todos {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1147px -196px;
+  background-position: 0px -839px;
   width: 240px;
   height: 195px;
 }
@@ -102,19 +120,19 @@
 }
 .welcome_basic_avatars {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: 0px -1038px;
+  background-position: -1233px 0px;
   width: 246px;
   height: 165px;
 }
 .welcome_promo_party {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -247px -839px;
+  background-position: -926px -607px;
   width: 270px;
   height: 180px;
 }
 .welcome_sample_tasks {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -247px -1038px;
+  background-position: -1233px -166px;
   width: 246px;
   height: 165px;
 }
