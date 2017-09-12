@@ -185,10 +185,13 @@ export default {
       userIdToMessage: '',
     };
   },
+  mounted () {
+    this.getMembers();
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     isLeader () {
-      if (!this.group.leader) return false;
+      if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     groupIsSubscribed () {
@@ -245,7 +248,7 @@ export default {
       }
 
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
-        this.members = this.$store.state.viewingMembers;
+        this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
     },
     async clickMember (uid, forceShow) {

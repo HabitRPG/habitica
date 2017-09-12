@@ -286,7 +286,7 @@ export default {
   methods: {
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
-      if (message.flagCount === 0) return true;
+      if (!message.flagCount || message.flagCount === 0) return true;
       return this.user.contributor.admin;
     },
     async loadProfileCache (screenPosition) {

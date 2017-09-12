@@ -109,7 +109,8 @@
                       span.float-left
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
-                      span.float-right {{group.quest.progress.up || 0}} pending damage
+                      // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
+                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
@@ -684,8 +685,8 @@ export default {
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
-        this.$store.party = group;
-        this.group = this.$store.party;
+        this.$store.state.party.data = group;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
         return;
       }
