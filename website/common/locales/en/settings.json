@@ -186,8 +186,10 @@
     "timezone": "Time Zone",
     "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "timezoneAutomatic": "Automatic",
-    "timezoneSaveManual": "Save Manual Time Zone",
+    "timezoneSystem": "Automatic (<%= utc %>)",
+    "timezoneMismatch": "Warning: the selected timezone (<%= selected %>) does not match the system timezone (<%= system %>).",
+    "timezoneSave": "Save Time Zone",
+    "timezoneSaved": "Timezone saved",
     "push": "Push",
     "about": "About"
 }

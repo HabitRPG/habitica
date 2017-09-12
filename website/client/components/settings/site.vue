@@ -116,18 +116,21 @@
         h5 {{ $t('timezone') }}
         .form-horizontal
           .form-group
-            .col-12
-              p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
+            .col-12(v-if='selectedTimezoneMatchesSystem')
+              p(v-html="$t('timezoneUTC', {utc: systemTimezoneUtc})")
               p(v-html="$t('timezoneInfo')")
+            .col-12(v-else)
+              p
+                strong(v-html="$t('timezoneMismatch', { selected: selectedTimezoneUtc, system: systemTimezoneUtc})")
 
             .col-7
-              select.form-control(v-model='newManualTimezone')
-                option(v-for='timezone in availableTimezones' :value='timezone.value') {{ timezone.name }}
+              select.form-control(v-model='selectedTimezone')
+                option(v-for='timezone in availableTimezones' :value='timezone') {{ timezone.id }}
 
             .col-5
               button.btn.btn-block.btn-primary(@click='saveManualTimezone',
-                :disabled='newManualTimezone == user.preferences.manualTimezone')
-                | {{ $t('timezoneSaveManual') }}
+                :disabled='selectedTimezone.id === user.preferences.manualTimezone.id')
+                | {{ $t('timezoneSave') }}
 
     .col-6
       h2 {{ $t('registration') }}
@@ -224,8 +227,10 @@ import changeClass from  'common/script/ops/changeClass';
 import i18n from 'common/script/i18n';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   components: {
     restoreModal,
     resetModal,
@@ -250,7 +255,7 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
-      newManualTimezone: '',
+      selectedTimezone: {},
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
@@ -261,11 +266,7 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
-    // @FIXME: Currently there are mutliple timezones with the same offset
-    // value, causing the chosen manual timezone to select the first for
-    // these duplicate values, meaning if A, B and C are duplicate, and the user
-    // chooses C, this value will always show A.
-    this.newManualTimezone = this.user.preferences.manualTimezone;
+    this.selectedTimezone = this.user.preferences.manualTimezone;
   },
   computed: {
     ...mapState({
@@ -276,23 +277,22 @@ export default {
     availableAudioThemes () {
       return ['off', ...this.content.audioThemes];
     },
-    timezoneOffsetToUtc () {
-      let offset = this.user.preferences.timezoneOffset;
-      let sign = offset > 0 ? '-' : '+';
-
-      offset = Math.abs(offset) / 60;
-
-      let hour = Math.floor(offset);
-
-      let minutesInt = (offset - hour) * 60;
-      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
-
-      return `UTC${sign}${hour}:${minutes}`;
-    },
     availableTimezones () {
-      let automaticTimezone = ['automatic', i18n.t('timezoneAutomatic')];
+      let systemTimezone = {
+        id: i18n.t('timezoneSystem', { utc: this.systemTimezoneUtc }),
+        offset: this.user.preferences.timezoneOffset,
+      };
 
-      return [automaticTimezone, ...AVAILABLE_TIMEZONES].map(([value, name]) => ({ value, name }));
+      return [systemTimezone, ...AVAILABLE_TIMEZONES];
+    },
+    selectedTimezoneMatchesSystem () {
+      return this.selectedTimezone.offset === this.user.preferences.timezoneOffset;
+    },
+    systemTimezoneUtc () {
+      return this.timezoneOffsetToUtc(this.user.preferences.timezoneOffset);
+    },
+    selectedTimezoneUtc () {
+      return this.timezoneOffsetToUtc(this.selectedTimezone.offset);
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -366,10 +366,26 @@ export default {
     },
     async saveManualTimezone () {
       await axios.post('/api/v3/user/manual-timezone', {
-        timezone: this.newManualTimezone
-      }).then(({ data: { data } }) => {
-        this.user.preferences.manualTimezone = data.timezone;
+        timezone: this.selectedTimezone,
+      }).then(() => {
+        this.notification(i18n.t('timezoneSaved'));
+        this.user.preferences.manualTimezone = this.selectedTimezone;
       });
+    },
+    notification (text) {
+      this.text(text);
+    },
+    timezoneOffsetToUtc (offset) {
+      let sign = offset > 0 ? '-' : '+';
+
+      offset = Math.abs(offset) / 60;
+
+      let hour = Math.floor(offset);
+
+      let minutesInt = (offset - hour) * 60;
+      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
+
+      return `UTC${sign}${hour}:${minutes}`;
     },
     changeLanguage (e) {
       const newLang = e.target.value;

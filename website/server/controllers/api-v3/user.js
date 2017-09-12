@@ -2021,9 +2021,7 @@ api.setManualTimezone = {
 
     await user.save();
 
-    res.respond(200, {
-      timezone
-    });
+    res.respond(200, {});
   },
 };
 

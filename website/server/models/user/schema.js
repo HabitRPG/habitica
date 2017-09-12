@@ -426,7 +426,6 @@ let schema = new Schema({
   },
   preferences: {
     dayStart: {type: Number, default: 0, min: 0, max: 23},
-    manualTimezone: {type: String, default: 'automatic'},
     size: {type: String, enum: ['broad', 'slim'], default: 'slim'},
     hair: {
       color: {type: String, default: 'red'},
@@ -440,6 +439,9 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
+    manualTimezone: {type: Schema.Types.Mixed, default: () => {
+      return {};
+    }},
     sound: {type: String, default: 'rosstavoTheme', enum: ['off', ...shared.content.audioThemes]},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
