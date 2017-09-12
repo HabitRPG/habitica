@@ -144,8 +144,6 @@ import axios from 'axios';
 import isArray from 'lodash/isArray';
 
 import spells from '../../../common/script/content/spells';
-import { crit } from '../../../common/script/fns/crit';
-import updateStats from '../../../common/script/fns/updateStats';
 
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';

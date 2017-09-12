@@ -31,8 +31,8 @@ function diminishingReturns (bonus, max, halfway) {
   return max * (bonus / (bonus + halfway));
 }
 
-function calculateBonus (value, stat, crit = 1, statScale = 0.5) {
-  return (value < 0 ? 1 : value + 1) + stat * statScale * crit;
+function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
+  return (value < 0 ? 1 : value + 1) + stat * statScale * critVal;
 }
 
 let spells = {};
@@ -45,7 +45,7 @@ spells.wizard = {
     target: 'task',
     notes: t('spellWizardFireballNotes'),
     cast (user, target, req) {
-      let bonus = statsComputed(user).int * crit(user, 'per');
+      let bonus = statsComputed(user).int * crit.crit(user, 'per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
@@ -102,7 +102,7 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      let bonus = statsComputed(user).str * crit(user, 'con');
+      let bonus = statsComputed(user).str * crit.crit(user, 'con');
       target.value += diminishingReturns(bonus, 2.5, 35);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
@@ -169,7 +169,7 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
-      let _crit = crit(user, 'str', 0.3);
+      let _crit = crit.crit(user, 'str', 0.3);
       let bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
