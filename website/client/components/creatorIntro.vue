@@ -46,15 +46,21 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       .row(v-if='activeSubPage === "size"')
         .col-12.customize-options.size-options
           .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
-            .sprite(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
+            .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
       .row(v-if='activeSubPage === "shirt"')
         .col-12.customize-options
-          .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]', :class='{active: user.preferences.shirt === option}')
-            .sprite(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
-        .col-12.customize-options(v-if='editing')
-          .option(v-for='option in ["convict", "cross", "fire", "horizon", "ocean", "purple", "rainbow", "redblue", "thunder", "tropical", "zombie"]',
+          .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]',
             :class='{active: user.preferences.shirt === option}')
-            .sprite(:class="`broad_shirt_${option}`", @click='set({"preferences.shirt": option})')
+            .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in specialShirts',
+            :class='{active: user.preferences.shirt === option, locked: !user.purchased.shirt[option]}')
+            .sprite.customize-option(:class="`broad_shirt_${option}`", @click='user.purchased.shirt[option] ? set({"preferences.shirt": option}) : unlock(`shirt.${option}`)')
+            .gem-lock(v-if='!user.purchased.shirt[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+        .col-12.text-center
+          button.btn.btn-secondary(@click='unlock(`shirt.${specialShirts.join(",shirt.")}`)') Purchase All
 
     .section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -64,19 +70,25 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
             :class='{active: user.preferences.skin === option}')
-            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
       .row(v-if='editing')
         .col-12.customize-options
           .option(v-for='option in ["eb052b", "f69922", "f5d70f", "0ff591", "2b43f6", "d7a9f7", "800ed0", "rainbow"]',
-            :class='{active: user.preferences.skin === option}')
-            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            :class='{active: user.preferences.skin === option, locked: !user.purchased.skin[option]}')
+            .skin.sprite.customize-option(:class="`skin_${option}`", @click='user.purchased.skin[option] ? set({"preferences.skin": option}) : unlock(`skin.${option}`)')
+            .gem-lock(v-if='!user.purchased.skin[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
       .row(v-if='editing')
         .col-12.customize-options
           .option(v-for='option in ["bear", "cactus", "fox", "lion", "panda", "pig", "tiger", "wolf"]',
-            :class='{active: user.preferences.skin === option}')
-            .skin.sprite(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+            :class='{active: user.preferences.skin === option, locked: !user.purchased.skin[option]}')
+            .skin.sprite.customize-option(:class="`skin_${option}`", @click='user.purchased.skin[option] ? set({"preferences.skin": option}) : unlock(`skin.${option}`)')
+            .gem-lock(v-if='!user.purchased.skin[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
 
-    .section.customize-section(v-if='activeTopPage === "hair"')
+    #hair.section.customize-section(v-if='activeTopPage === "hair"')
       .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
             strong(v-once) {{$t('color')}}
@@ -88,45 +100,62 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         .col-12.customize-options
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
             :class='{active: user.preferences.hair.color === option}')
-            .color-bangs.sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["rainbow", "yellow", "green", "purple", "blue", "TRUred"]',
-            :class='{active: user.preferences.hair.color === option}')
-            .color-bangs.sprite(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-
-      .row(v-if='activeSubPage === "bangs"')
+            :class='{active: user.preferences.hair.color === option, locked: !user.purchased.hair.color || !user.purchased.hair.color[option]}')
+            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='user.purchased.hair.color && user.purchased.hair.color[option] ? set({"preferences.hair.color": option}) : unlock(`skin.${option}`)')
+            .gem-lock(v-if='!user.purchased.hair.color || !user.purchased.hair.color[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+      #bangs.row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
           .option(v-for='option in ["1", "2", "3", "4"]',
             :class='{active: user.preferences.hair.bangs === option}')
-            .bangs.sprite(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
-      .row(v-if='activeSubPage === "ponytail"')
+            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
+      #base-hair.row(v-if='activeSubPage === "ponytail"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in ["1", "3"]',
             :class='{active: user.preferences.hair.base === option}')
-            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["2", "4", "5", "6", "7", "8"]',
-            :class='{active: user.preferences.hair.base === option}')
-            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            :class='{active: user.preferences.hair.base === option, locked: !user.purchased.hair.base || !user.purchased.hair.base[option]}')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .gem-lock(v-if='!user.purchased.hair.base || !user.purchased.hair.base[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["9", "10", "11", "12", "13", "14"]',
-            :class='{active: user.preferences.hair.base === option}')
-            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            :class='{active: user.preferences.hair.base === option, locked: !user.purchased.hair.base || !user.purchased.hair.base[option]}')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .gem-lock(v-if='!user.purchased.hair.base || !user.purchased.hair.base[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["15", "16", "17", "18", "19", "20"]',
-            :class='{active: user.preferences.hair.base === option}')
-            .base.sprite(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            :class='{active: user.preferences.hair.base === option, locked: !user.purchased.hair.base || !user.purchased.hair.base[option]}')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+            .gem-lock(v-if='!user.purchased.hair.base || !user.purchased.hair.base[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["1", "2", "3"]',
-            :class='{active: user.preferences.hair.beard === option}')
-            .base.sprite(:class="`hair_beard_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.beard": option})')
+            :class='{active: user.preferences.hair.beard === option, locked: !user.purchased.hair.base || !user.purchased.hair.base[option]}')
+            .base.sprite.customize-option(:class="`hair_beard_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.beard": option})')
+            .gem-lock(v-if='!user.purchased.hair.base || !user.purchased.hair.base[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in ["1", "2"]',
-            :class='{active: user.preferences.hair.mustache === option}')
-            .base.sprite(:class="`hair_mustache_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.mustache": option})')
+            :class='{active: user.preferences.hair.mustache === option, locked: !user.purchased.hair.base || !user.purchased.hair.base[option]}')
+            .base.sprite.customize-option(:class="`hair_mustache_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.mustache": option})')
+            .gem-lock(v-if='!user.purchased.hair.base || !user.purchased.hair.base[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
 
     .section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu.col-6.offset-3.text-center
@@ -145,24 +174,27 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
           .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
           .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
-        .col-12.customize-options(v-if='editing')
+        #animal-ears.col-12.customize-options(v-if='editing')
           .option(v-for='option in ["bearEars", "cactusEars", "foxEars", "lionEars", "pandaEars", "pigEars", "tigerEars", "wolfEars"]',
-            :class='{active: user.preferences.costume ? user.items.gear.costume.headAccessory === `eyewear_special_${option}` : user.items.gear.equipped.headAccessory === `eyewear_special_${option}`}')
-            .sprite(:class="`.eyewear_special_${option}`", @click='equip(`eyewear_special_${option}`)')
+            :class='[{active: user.preferences.costume ? user.items.gear.costume.headAccessory === `headAccessory_special_${option}` : user.items.gear.equipped.headAccessory === `headAccessory_special_${option}`}, {locked: !user.purchased.headAccessory || !user.purchased.headAccessory[option]}]')
+            .sprite.customize-option(:class="`headAccessory_special_${option}`", @click='equip(`headAccessory_special_${option}`)')
+            .gem-lock(v-if='!user.purchased.headAccessory || !user.purchased.headAccessory[option]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
 
-      .row(v-if='activeSubPage === "wheelchair"')
+      #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options.weelchairs
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
           .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
             :class='{active: user.preferences.chair === option}')
-            .chair.sprite(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
-      .row(v-if='activeSubPage === "flower"')
+            .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
+      #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
           .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
             :class='{active: user.preferences.hair.flower === option}')
-            .sprite(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
+            .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
@@ -445,52 +477,44 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .customize-section {
     text-align: center;
+    padding-bottom: 2em;
+  }
+
+  .option.locked {
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
   }
 
   .customize-options .option {
     display: inline-block;
     vertical-align: bottom;
-    width: 90px;
-    height: 90px;
+    padding: .5em;
+    height: 100px;
+    width: 100px;
+    margin-bottom: .5em;
+    margin-right: .5em;
 
-    .sprite {
-      margin-top: -2em;
-      margin-left: -1em;
+    .gem-lock {
+      .svg-icon {
+        width: 16px;
+      }
+
+      span {
+        color: #24cc8f;
+        font-weight: bold;
+        margin-left: .5em;
+      }
+
+      .svg-icon, span {
+        display: inline-block;
+        vertical-align: bottom;
+      }
     }
 
-    .skin {
-      margin-top: -.5em;
+    .sprite.customize-option {
+      margin: 0 auto;
     }
-
-    .chair {
-      margin-top: 1em;
-      margin-left: 1em;
-    }
-
-    .hair {
-      margin-top: 0em;
-      margin-left: -2em;
-    }
-
-    .color-bangs {
-      margin-top: 0em;
-      margin-left: -1em;
-    }
-
-    .bangs {
-      margin-top: 0em;
-      margin-left: -1em;
-    }
-
-    .base {
-      margin-top: -1em;
-      margin-left: -2em;
-    }
-  }
-
-  .weelchairs .option {
-    width: 90px;
-    height: 90px;
   }
 
   .option.active {
@@ -879,6 +903,7 @@ export default {
       loading: false,
       backgroundShopSets,
       backgroundUpdate: new Date(),
+      specialShirts: ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'],
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
