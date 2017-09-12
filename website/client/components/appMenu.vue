@@ -242,6 +242,7 @@ import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 
 import { mapState, mapGetters } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import userIcon from 'assets/svg/user.svg';
@@ -309,6 +310,12 @@ export default {
       this.$root.$emit('show::modal', 'create-party-modal');
     },
     showBuyGemsModal () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Gems > Toolbar',
+      });
       this.$root.$emit('show::modal', 'buy-gems');
     },
   },

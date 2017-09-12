@@ -21,16 +21,6 @@ export async function register (store, params) {
     },
   });
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
-
-  // @TODO: I think we just need analytics here
-  // Auth.runAuth(res.data._id, res.data.apiToken);
-  // Analytics.register();
-  // $scope.registrationInProgress = false;
-  // Alert.authErrorAlert(data, status, headers, config)
-  // Analytics.login();
-  // Analytics.updateUser();
-
-  store.state.user.data = user;
 }
 
 export async function login (store, params) {
@@ -51,17 +41,6 @@ export async function login (store, params) {
   });
 
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
-
-  // @TODO: I think we just need analytics here
-  // Auth.runAuth(res.data._id, res.data.apiToken);
-  // Analytics.register();
-  // $scope.registrationInProgress = false;
-  // Alert.authErrorAlert(data, status, headers, config)
-  // Analytics.login();
-  // Analytics.updateUser();
-
-  // @TODO: Update the api to return the user?
-  // store.state.user.data = user;
 }
 
 export async function socialAuth (store, params) {
@@ -70,8 +49,6 @@ export async function socialAuth (store, params) {
     network: params.auth.network,
     authResponse: params.auth.authResponse,
   });
-
-  // @TODO: Analytics
 
   let user = result.data.data;
 

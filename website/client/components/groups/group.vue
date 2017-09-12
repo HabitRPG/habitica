@@ -427,6 +427,7 @@ import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import quests from 'common/script/content/quests';
@@ -659,7 +660,7 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: this.group._id,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);
@@ -722,7 +723,13 @@ export default {
       this.user.guilds.push(this.group._id);
     },
     clickLeave () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Leave Party',
+      });
+
       // @TODO: Get challenges and ask to keep or remove
       if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
@@ -737,12 +744,14 @@ export default {
         keepChallenges,
       };
 
-      if (this.isParty) data.type = 'party';
+      if (this.isParty) {
+        data.type = 'party';
+        Analytics.updateUser({partySize: null, partyID: null});
+      }
 
       await this.$store.dispatch('guilds:leave', data);
 
       // @TODO: Implement
-      // Analytics.updateUser({'partySize':null,'partyID':null});
       // User.sync().then(function () {
       //  $rootScope.hardRedirect('/#/options/groups/party');
       // });
@@ -766,7 +775,13 @@ export default {
       await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
     clickStartQuest () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Start a Quest',
+      });
+
       let hasQuests = find(this.user.items.quests, (quest) => {
         return quest > 0;
       });

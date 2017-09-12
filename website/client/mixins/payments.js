@@ -107,7 +107,7 @@ export default {
       let isGem = data && data.gift && data.gift.type === 'gems';
       let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
       if (notEnoughGem) {
-        Notification.error(this.$t('badAmountOfGemsToPurchase'), true);
+        this.error(this.$t('badAmountOfGemsToPurchase'), true);
         return false;
       }
       return true;

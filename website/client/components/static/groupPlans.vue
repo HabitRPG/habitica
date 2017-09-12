@@ -17,6 +17,7 @@ div
       .row.row-margin(style="font-size: 2rem;")
         span {{ $t('enterprisePlansDescription') }}
       .row.row-margin
+        // TODO
         a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + $t('enterprisePlansEmailSubject')") {{ $t('enterprisePlansButton') }}
 
       br
@@ -35,6 +36,7 @@ div
 
 <script>
   import StaticHeader from './header.vue';
+  import * as Analytics from 'client/libs/analytics';
 
   export default {
     components: {
@@ -49,6 +51,16 @@ div
         }
 
         this.$router.push('/group-plans');
+      },
+      contactUs () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Contact Us (Plans)',
+        });
+
+        window.location.href = `mailto:vicky@habitica.com?subject=${this.$t('enterprisePlansEmailSubject')}`;
       },
     },
   };

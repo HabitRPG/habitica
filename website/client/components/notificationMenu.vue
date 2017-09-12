@@ -137,6 +137,7 @@ import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 
@@ -299,7 +300,10 @@ export default {
 
       if (type === 'party') {
         // @TODO: pretty sure mutability is wrong. Need to check React docs
+        // @TODO mutation to store data should only happen through actions
         this.user.invitations.parties.splice(index, 1);
+
+        Analytics.updateUser({partyID: group.id});
       } else {
         this.user.invitations.guilds.splice(index, 1);
       }

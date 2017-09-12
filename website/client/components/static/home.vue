@@ -453,6 +453,7 @@
   import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
   import facebookSquareIcon from 'assets/svg/facebook-square.svg';
   import googleIcon from 'assets/svg/google.svg';
+  import * as Analytics from 'client/libs/analytics';
 
   export default {
     components: {
@@ -480,7 +481,13 @@
       };
     },
     mounted () {
-      // Analytics.track({"hitType":"pageview","eventCategory":"page","eventAction":"landing page","page":"/home"});
+      Analytics.track({
+        hitType: 'pageview',
+        eventCategory: 'page',
+        eventAction: 'landing page',
+        page: '/home',
+      });
+
       hello.init({
         facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
         // windows: WINDOWS_CLIENT_ID,
@@ -509,6 +516,12 @@
         window.location.href = '/';
       },
       playButtonClick () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Play',
+        });
         this.$router.push('/register');
       },
       async socialAuth (network) {
