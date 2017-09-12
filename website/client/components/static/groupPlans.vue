@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  .container-fluid
     // @TODO: Replace with Zeplin  +groupPlansBenefits
 
     br
@@ -19,7 +19,7 @@
       .row.row-margin(style="font-size: 2rem;")
         span {{ $t('enterprisePlansDescription') }}
       .row.row-margin
-        // TODO 
+        // TODO
         a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + $t('enterprisePlansEmailSubject')") {{ $t('enterprisePlansButton') }}
 
       br

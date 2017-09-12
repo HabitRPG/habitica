@@ -4,8 +4,6 @@
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    static-header
-
     #intro.container-fluid
       .row
         h1.col-12.text-center {{ $t('motivate1') }}
@@ -509,13 +507,9 @@
           .col-lg-2.col-lg-offset-0.col-2.col-offset-0.offset-1.col-xs-6.col-xs-offset-1
             a(href='https://slack.com/')
               img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/landing_slack_hash_wordmark_logo.png', alt="$t(altAttrSlack)")
-
-      app-footer
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/static.scss';
-
   .logo {
     width: 128px;
     height: 28px;
@@ -600,15 +594,9 @@
 </style>
 
 <script>
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
-    components: {
-      AppFooter,
-      StaticHeader,
-    },
     data () {
       return {
         userCount: 1000000,
