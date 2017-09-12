@@ -642,7 +642,7 @@ export default {
           }
 
           if (searchBy) {
-            let foundPosition = gear.text().toLowerCase().indexOf(searchBy);
+            let foundPosition = gear.text.toLowerCase().indexOf(searchBy);
             if (foundPosition === -1) {
               return false;
             }
@@ -672,7 +672,7 @@ export default {
           }
 
           if (searchBy) {
-            let foundPosition = item.text().toLowerCase().indexOf(searchBy);
+            let foundPosition = item.text.toLowerCase().indexOf(searchBy);
             if (foundPosition === -1) {
               return false;
             }
