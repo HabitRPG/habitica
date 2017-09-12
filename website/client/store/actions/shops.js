@@ -6,6 +6,7 @@ import buyMysterySetOp from 'common/script/ops/buyMysterySet';
 import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
+import buyArmoire from 'common/script/ops/buyArmoire';
 
 export function buyItem (store, params) {
   const user = store.state.user.data;
@@ -73,6 +74,17 @@ export function genericPurchase (store, params) {
       return purchaseMysterySet(store, params);
     case 'potion':
     case 'armoire':
+      let buyResult = buyArmoire(store.state.user.data);
+
+      // @TODO: We might need to abstract notifications to library rather than mixin
+      if (buyResult[1]) {
+        store.state.notificationStore.push({
+          title: '',
+          text: buyResult[1],
+          type: 'drop',
+          timeout: true,
+        });
+      }
     case 'marketGear':
       return buyItem(store, params);
     case 'background':
