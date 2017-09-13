@@ -124,12 +124,12 @@
                 strong(v-html="$t('timezoneMismatch', { selected: selectedTimezoneUtc, system: systemTimezoneUtc})")
 
             .col-7
-              select.form-control(v-model='selectedTimezone')
-                option(v-for='timezone in availableTimezones' :value='timezone') {{ timezone.id }}
+              select.form-control(v-model='selectedTimezoneId')
+                option(v-for='timezone in availableTimezones' :value='timezone.id') {{ timezone.title }}
 
             .col-5
               button.btn.btn-block.btn-primary(@click='saveManualTimezone',
-                :disabled='selectedTimezone.id === user.preferences.manualTimezone.id')
+                :disabled='selectedTimezoneId === user.preferences.manualTimezoneId')
                 | {{ $t('timezoneSave') }}
 
     .col-6
@@ -255,10 +255,10 @@ export default {
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
-      selectedTimezone: {},
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
+      selectedTimezoneId: 0,
     };
   },
   mounted () {
@@ -266,7 +266,7 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
-    this.selectedTimezone = this.user.preferences.manualTimezone;
+    this.selectedTimezoneId = this.user.preferences.manualTimezoneId;
   },
   computed: {
     ...mapState({
@@ -277,13 +277,20 @@ export default {
     availableAudioThemes () {
       return ['off', ...this.content.audioThemes];
     },
+    dayStart () {
+      return this.user.preferences.dayStart;
+    },
     availableTimezones () {
       let systemTimezone = {
-        id: i18n.t('timezoneSystem', { utc: this.systemTimezoneUtc }),
+        id: -1,
+        title: i18n.t('timezoneSystem', { utc: this.systemTimezoneUtc }),
         offset: this.user.preferences.timezoneOffset,
       };
 
       return [systemTimezone, ...AVAILABLE_TIMEZONES];
+    },
+    selectedTimezone () {
+      return this.findTimezoneById(this.selectedTimezoneId);
     },
     selectedTimezoneMatchesSystem () {
       return this.selectedTimezone.offset === this.user.preferences.timezoneOffset;
@@ -293,9 +300,6 @@ export default {
     },
     selectedTimezoneUtc () {
       return this.timezoneOffsetToUtc(this.selectedTimezone.offset);
-    },
-    dayStart () {
-      return this.user.preferences.dayStart;
     },
   },
   methods: {
@@ -364,29 +368,6 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    async saveManualTimezone () {
-      await axios.post('/api/v3/user/manual-timezone', {
-        timezone: this.selectedTimezone,
-      }).then(() => {
-        this.notification(i18n.t('timezoneSaved'));
-        this.user.preferences.manualTimezone = this.selectedTimezone;
-      });
-    },
-    notification (text) {
-      this.text(text);
-    },
-    timezoneOffsetToUtc (offset) {
-      let sign = offset > 0 ? '-' : '+';
-
-      offset = Math.abs(offset) / 60;
-
-      let hour = Math.floor(offset);
-
-      let minutesInt = (offset - hour) * 60;
-      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
-
-      return `UTC${sign}${hour}:${minutes}`;
-    },
     changeLanguage (e) {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
@@ -436,6 +417,32 @@ export default {
       } catch (e) {
         alert(e.message);
       }
+    },
+    async saveManualTimezone () {
+      await axios.post('/api/v3/user/manual-timezone', {
+        id: this.selectedTimezoneId,
+      }).then(() => {
+        this.notification(i18n.t('timezoneSaved'));
+        this.user.preferences.manualTimezoneId = this.selectedTimezoneId;
+      });
+    },
+    findTimezoneById (id) {
+      return this.availableTimezones.find((timezone) => id === timezone.id);
+    },
+    timezoneOffsetToUtc (offset) {
+      let sign = offset > 0 ? '-' : '+';
+
+      offset = Math.abs(offset) / 60;
+
+      let hour = Math.floor(offset);
+
+      let minutesInt = (offset - hour) * 60;
+      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
+
+      return `UTC${sign}${hour}:${minutes}`;
+    },
+    notification (text) {
+      this.text(text);
     },
   },
 };
