@@ -27,6 +27,62 @@ div
   quest-invitation
 </template>
 
+<style lang='scss'>
+  .introjs-helperNumberLayer, .introjs-bullets {
+    display: none;
+  }
+
+  .introjs-tooltip {
+    background-image: url('~client/assets/svg/for-css/tutorial-border.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 131px;
+    min-height: 131px !important;
+    width: 400px;
+    max-width: 400px;
+
+    .featured-label {
+      position: absolute;
+      top: -1.5em;
+    }
+
+    .npc_justin_textbox {
+      position: absolute;
+      right: 1em;
+      top: -3.6em;
+      width: 48px;
+      height: 52px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
+  }
+
+  .introjs-button:hover, .introjs-button:active {
+    background-image: none;
+    background-color: #4f2a93 !important;
+    color: #fff;
+  }
+
+  .introjs-tooltipbuttons {
+    margin-top: 1em;
+  }
+
+  .introjs-button {
+    text-shadow: none;
+    text-align: center;
+    display: block;
+    max-width: 90px;
+    font-family: Roboto;
+    font-size: 14px;
+    background-image: none;
+    color: #fff;
+    margin: 0 auto;
+    padding: .8em;
+    border-radius: 2px;
+    background-color: #4f2a93 !important;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import moment from 'moment';
