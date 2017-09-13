@@ -221,6 +221,7 @@
   }
 
   #intro-signup {
+    background-image: url('~client/assets/svg/for-css/confetti.svg');
     margin-top: 4em;
 
     img {
