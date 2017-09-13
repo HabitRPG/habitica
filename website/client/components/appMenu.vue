@@ -96,6 +96,32 @@ div
     }
   }
 
+  @media only screen and (max-width : 1224px) and (min-width: 1200px) {
+    #nav_collapse {
+      margin-top: 37em !important;
+
+      a {
+        width: 100%;
+      }
+    }
+
+    .navbar-collapse.collapse {
+      display: none !important;
+    }
+
+    .navbar-collapse.collapse.show {
+      display: block !important;
+    }
+
+    .navbar-toggler, .navbar-nav {
+      display: block;
+    }
+
+    .navbar-toggleable-lg .navbar-collapse {
+      display: block;
+    }
+  }
+
   nav.navbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 25px;
