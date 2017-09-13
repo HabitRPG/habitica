@@ -98,6 +98,10 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     if (gear.klass === 'armoire') {
       gear.locked = false;
     }
+
+    if (gear.canOwn) {
+      gear.locked = !gear.canOwn(user);
+    }
   }
 };
 

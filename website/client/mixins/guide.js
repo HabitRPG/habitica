@@ -105,6 +105,19 @@ export default {
         ]],
       };
 
+      for (let key in this.chapters) {
+        let chapter = this.chapters[key][0][0];
+        chapter.intro = `
+          <div class='featured-label'>
+            <span class='rectangle'></span>
+            <span class='text'> Justin </span>
+            <span class='rectangle'></span>
+          </div>
+          <div class='npc_justin_textbox'>
+          </div>
+          ${chapter.intro}`;
+      }
+
       this.loaded = true;
     },
     routeChange () {
@@ -156,7 +169,10 @@ export default {
 
       // @TODO: Do we always need to initialize here?
       let intro = Intro.introJs();
-      intro.setOptions({steps: opts.steps});
+      intro.setOptions({
+        steps: opts.steps,
+        doneLabel: this.$t('letsgo'),
+      });
       intro.start();
       intro.oncomplete(() => {
         this.markTourComplete(chapter);

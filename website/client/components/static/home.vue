@@ -221,6 +221,7 @@
   }
 
   #intro-signup {
+    background-image: url('~client/assets/svg/for-css/confetti.svg');
     margin-top: 4em;
 
     img {
@@ -295,6 +296,7 @@
       border-radius: 2px;
       background-color: #432874;
       border-color: #432874;
+      color: $purple-400;
     }
 
     button.sign-up {
@@ -305,6 +307,22 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $purple-400;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: $purple-400;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: $purple-400;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: $purple-400;
+    }
+    ::placeholder { //  Standard browsers
+      color: $purple-400;
     }
   }
 
