@@ -24,7 +24,7 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{opened: seasonal.opened}")
           div.npc
             div.featured-label
               span.rectangle
@@ -209,7 +209,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
+        background: url('~assets/images/shops/seasonal_shop_closed_background.png');
 
         background-repeat: repeat-x;
 
@@ -225,6 +225,11 @@
         justify-content: center;
         align-items: center;
       }
+      .background.opened {
+        background: url('~assets/images/shops/seasonal_shop_opened_background.png');
+
+        background-repeat: repeat-x;
+      }
 
       .content {
         display: flex;
@@ -237,7 +242,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
+        background: url('~assets/images/shops/seasonal_shop_closed_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -246,6 +251,11 @@
           margin: 0;
           left: 60px;
         }
+      }
+
+      .opened .npc{
+        background: url('~assets/images/shops/seasonal_shop_opened_npc.png');
+        background-repeat: no-repeat;
       }
     }
   }
