@@ -40,6 +40,7 @@ function getDefaultGearProps (item, language) {
     con: item.con,
     klass: item.klass,
     event: item.event,
+    set: item.set,
   };
 }
 

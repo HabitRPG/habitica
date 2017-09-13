@@ -123,6 +123,12 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     if (gear.klass === 'armoire') {
       gear.locked = false;
     }
+
+    if (Boolean(gear.specialClass) && Boolean(gear.set)) {
+      let currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+
+      gear.locked = currentSet && user.stats.class !== gear.specialClass;
+    }
   }
 };
 
@@ -351,14 +357,22 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 
 let flatGearArray = toArray(content.gear.flat);
 
-shops.getSeasonalGear = function getSeasonalGear (user, set, officialPinnedItems, language, ignoreAlreadyOwned = false) {
+shops.getSeasonalGearBySet = function getSeasonalGearBySet (user, set, officialPinnedItems, language, ignoreAlreadyOwned = false) {
   return flatGearArray.filter((gear) => {
     if (!ignoreAlreadyOwned && user.items.gear.owned[gear.key] !== undefined)
       return false;
 
     return gear.set === set;
   }).map(gear => {
-    return getItemInfo(null, 'gear', gear, officialPinnedItems, language);
+    let currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+
+    // only the current season set for the user's class can be purchased by gold
+    let goldPurchase = currentSet && user.stats.class === gear.specialClass;
+
+    let itemInfo = getItemInfo(null, goldPurchase ? 'marketGear' : 'gear', gear, officialPinnedItems, language);
+    itemInfo.locked = currentSet && user.stats.class !== gear.specialClass;
+
+    return itemInfo;
   });
 };
 
@@ -374,7 +388,7 @@ shops.getSeasonalShop = function getSeasonalShop (user, language) {
     categories: this.getSeasonalShopCategories(user, language),
     featured: {
       text: i18n.t(seasonalShopConfig.featuredSet),
-      items: shops.getSeasonalGear(user, seasonalShopConfig.featuredSet, officialPinnedItems, language, true),
+      items: shops.getSeasonalGearBySet(user, seasonalShopConfig.featuredSet, officialPinnedItems, language, true),
     },
   };
 
@@ -438,7 +452,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
       text: i18n.t(set),
     };
 
-    category.items = shops.getSeasonalGear(user, set, officialPinnedItems, language, false);
+    category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, false);
 
     if (category.items.length > 0) {
       category.specialClass = category.items[0].specialClass;
