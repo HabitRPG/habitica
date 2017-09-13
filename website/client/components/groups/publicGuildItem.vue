@@ -13,7 +13,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
             .col-md-8
                 router-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                   h3 {{ guild.name }}
-                p(v-if='guild.summary') {{ guild.summary }}
+                p(v-if='guild.summary', v-markdown='guild.summary')
                 p(v-else) {{ guild.name }}
             .col-md-2.cta-container
               button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
@@ -111,6 +111,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
+import markdown from 'client/directives/markdown';
 import findIndex from 'lodash/findIndex';
 import gemIcon from 'assets/svg/gem.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-large.svg';
@@ -119,6 +120,9 @@ import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-large.svg';
 
 export default {
   mixins: [groupUtilities],
+  directives: {
+    markdown,
+  },
   props: ['guild', 'displayLeave', 'displayGemBank'],
   computed: {
     ...mapState({user: 'user.data'}),
