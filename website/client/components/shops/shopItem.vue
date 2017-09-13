@@ -6,13 +6,13 @@ div
 
 
       span.badge.badge-pill.badge-item.badge-clock(
-        v-if="item.event",
+        v-if="item.event && showEventBadge",
       )
         span.svg-icon.inline.clock(v-html="icons.clock")
 
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
-        span.suggestedDot(v-if="item.event")
+        span.suggestedDot(v-if="item.isSuggested")
 
         div.image
           div(:class="item.class", v-once)
@@ -46,6 +46,7 @@ div
 
   .item-wrapper {
     z-index: 10;
+    cursor: pointer;
   }
 
   .item {
@@ -192,6 +193,10 @@ div
         default: 'bottom',
       },
       showPopover: {
+        type: Boolean,
+        default: true,
+      },
+      showEventBadge: {
         type: Boolean,
         default: true,
       },

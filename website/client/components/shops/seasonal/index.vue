@@ -49,6 +49,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
+                :showEventBadge="false",
                 @click="itemSelected(item)"
               )
 
@@ -89,6 +90,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
+                :showEventBadge="false",
                 @click="itemSelected(item)"
               )
                 template(slot="itemBadge", scope="ctx")
