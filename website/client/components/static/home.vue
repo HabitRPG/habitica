@@ -19,7 +19,7 @@
               button.social-button(@click='socialAuth("facebook")')
                 .svg-icon.social-icon(v-html="icons.facebookIcon")
                 span {{$t('signUpWithSocial', {social: 'Facebook'})}}
-              button.social-button(@click='socialAuth("facebook")')
+              button.social-button(@click='socialAuth("google")')
                 .svg-icon.social-icon(v-html="icons.googleIcon")
                 span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
