@@ -56,7 +56,7 @@ div
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon
-        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal()')
+        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
@@ -75,7 +75,7 @@ div
           a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
           router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
           a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
-          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal()')
+          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
             .dropdown-item.text-center
               h3.purple {{ $t('needMoreGems') }}
               span.small-text {{ $t('needMoreGemsInfo') }}
@@ -308,7 +308,8 @@ export default {
     openPartyModal () {
       this.$root.$emit('show::modal', 'create-party-modal');
     },
-    showBuyGemsModal () {
+    showBuyGemsModal (startingPage) {
+      this.$store.state.gemModalOptions.startingPage = startingPage;
       this.$root.$emit('show::modal', 'buy-gems');
     },
   },

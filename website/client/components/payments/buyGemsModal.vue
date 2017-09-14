@@ -16,59 +16,59 @@
     .container-fluid.purple-gradient
       .gemfall
         .row
-          h2.text-invert.mx-auto SUPPORT
+          h2.text-invert.mx-auto {{ $t('support') }}
         .row
           .logo.svg-icon.mx-auto(v-html="icons.logo")
     .container-fluid
       .row
         .col-6.offset-3.nav
-          .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") Subscribe
-          .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") Buy Gems
+          .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
+          .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
       div(v-show='selectedPage === "gems"')
         .row.text-center
-          h2.mx-auto.text-leadin Gems allow you to buy fun extras for your account, including:
+          h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
         .row
           .col
-            +featureBullet('Unique and fashionable costumes for your avatar.')
-            +featureBullet('Backgrounds to immerse your avatar in the world of Habitica!')
+            +featureBullet("{{ $t('gemBenefit1') }}")
+            +featureBullet("{{ $t('gemBenefit1') }}")
           .col
-            +featureBullet('Exciting Quest chains that drop pet eggs.')
-            +featureBullet('Reset your avatar\'s attribute points and change its Class.')
+            +featureBullet("{{ $t('gemBenefit1') }}")
+            +featureBullet("{{ $t('gemBenefit1') }}")
         .card-deck
           .card.text-center
             .card-img-top
               .mx-auto(v-html='icons.fourGems', style='"height: 53px; width: 49.5px; margin-top: 2em;"')
             .card-body
               .gem-count 4
-              .gem-text Gems
-            .card-footer
+              .gem-text {{ $t('gems') }}
+              .divider
               button.btn.btn-primary $.99
           .card.text-center
             .card-img-top
               .mx-auto(v-html='icons.twentyOneGems', style='"height: 55px; width: 47.5px; margin-top: 1.85em;"')
             .card-body
               .gem-count 21
-              .gem-text Gems
-            .card-footer
+              .gem-text {{ $t('gems') }}
+              .divider
               button.btn.btn-primary $4.99
           .card.text-center
             .card-img-top
               .mx-auto(v-html='icons.fortyTwoGems', style='"height: 49.5px; width: 51px; margin-top: 1.9em;"')
             .card-body
               .gem-count 42
-              .gem-text Gems
-            .card-footer
+              .gem-text {{ $t('gems') }}
+              .divider
               button.btn.btn-primary $9.99
           .card.text-center
             .card-img-top
               .mx-auto(v-html='icons.eightyFourGems', style='"height: 65px; width: 67px; margin-top: 1em;"')
             .card-body
               .gem-count 84
-              .gem-text Gems
-            .card-footer
+              .gem-text {{ $t('gems') }}
+              .divider
               button.btn.btn-primary $19.99
         .row.text-center
-          h2.mx-auto.text-payment Choose your payment method
+          h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
         .card-deck
           .card.text-center.payment-method
             .card-body
@@ -82,7 +82,83 @@
         .row.text-center
           .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
         .row.text-center.text-outtro
-          .col-6.offset-3 Purchasing Gems supports the developers and helps keep Habitica running
+          .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
+
+      div(v-show='selectedPage === "subscribe"')
+        .row.text-center
+          h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
+        .row
+          .col
+            +featureBullet("{{ $t('subscriptionBenefit1') }}")
+            +featureBullet("{{ $t('subscriptionBenefit2') }}")
+            +featureBullet("{{ $t('subscriptionBenefit3') }}")
+          .col
+            +featureBullet("{{ $t('subscriptionBenefit4') }}")
+            +featureBullet("{{ $t('subscriptionBenefit5') }}")
+            +featureBullet("{{ $t('subscriptionBenefit6') }}")
+        .card-deck
+          .card.text-center
+            .card-body
+              .subscription-price
+                span.superscript $
+                span 4
+                span.superscript.muted .99
+              .small {{ $t('everyMonth') }}
+              .divider
+              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
+              .spacer
+              button.btn.btn-primary {{ $t('select') }}
+          .card.text-center
+            .card-body
+              .subscription-price
+                span.superscript $
+                span 14
+                span.superscript.muted .99
+              .small {{ $t('everyXMonths', {interval: 3}) }}
+              .divider
+              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
+              p.benefits(v-markdown='$t("receiveMysticHourglass")')
+              button.btn.btn-primary {{ $t('select') }}
+          .card.text-center
+            .card-body
+              .subscription-price
+                span.superscript $
+                span 29
+                span.superscript.muted .99
+              .small {{ $t('everyXMonths', {interval: 6}) }}
+              .divider
+              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
+              p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
+              button.btn.btn-primary {{ $t('select') }}
+          .card.text-center
+            .card-body
+              .subscription-price
+                span.superscript $
+                span 47
+                span.superscript.muted .99
+              .small {{ $t('everyYear') }}
+              .divider
+              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
+              p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
+              button.btn.btn-primary {{ $t('select') }}
+        .row.text-center
+          h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+        .row.text-center
+          a.mx-auto {{ $t('haveCouponCode') }}
+        .card-deck
+          .card.text-center.payment-method
+            .card-body
+              .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
+          .card.text-center.payment-method
+            .card-body.paypal
+              img(src='~assets/images/paypal.png')
+          .card.text-center.payment-method
+            .card-body.amazon
+              img(src='~assets/images/amazon-payments.png')
+        .row.text-center
+          .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
+        .row.text-center.text-outtro
+          .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
 
 </template>
 
@@ -93,6 +169,13 @@
 </style>
 
 <style lang="scss" scoped>
+  a.mx-auto {
+    color: #2995cd;
+  }
+
+  button {
+    margin-bottom: 1em;
+  }
 
   p {
     font-size: 16px;
@@ -100,6 +183,10 @@
 
   .amazon {
     padding-top: 1.8em;
+  }
+
+  .benefits {
+    font-size: 14px;
   }
 
   .bubble {
@@ -113,6 +200,13 @@
     margin: 1em;
     border-radius: 2px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  }
+
+  .divider {
+    width: 80%;
+    height: 1px;
+    background-color: #e1e0e3;
+    margin: 1em auto;
   }
 
   .gem-count {
@@ -137,6 +231,10 @@
   .logo {
     width: 256px;
     height: 56px;
+  }
+
+  .muted {
+    color: #c3c0c7;
   }
 
   .nav {
@@ -168,6 +266,22 @@
   .purple-gradient {
     background-image: linear-gradient(74deg, #4f2a93, #6133b4);
     height: 14em;
+  }
+
+  .spacer {
+    height: 4em;
+  }
+
+  .subscription-price {
+		font-family: Roboto Condensed;
+		font-size: 48px;
+		font-weight: bold;
+		color: #1ca372;
+  }
+
+  .superscript {
+    font-size: 24px;
+    vertical-align: super;
   }
 
   .svg-icon.check {
@@ -204,6 +318,7 @@
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
+  import markdown from 'client/directives/markdown';
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
@@ -219,6 +334,12 @@
     components: {
       bModal,
     },
+    computed: {
+      ...mapState({user: 'user.data'}),
+      startingPageOption () {
+        return this.$store.state.gemModalOptions.startingPage;
+      },
+    },
     data () {
       return {
         icons: Object.freeze({
@@ -231,15 +352,20 @@
           fortyTwoGems,
           eightyFourGems,
         }),
-        selectedPage: 'gems',
+        selectedPage: 'subscribe',
       };
     },
-    computed: {
-      ...mapState({user: 'user.data'}),
+    directives: {
+      markdown,
     },
     methods: {
       close () {
         this.$root.$emit('hide::modal', 'buy-gems');
+      },
+    },
+    watch: {
+      startingPageOption () {
+        this.selectedPage = this.$store.state.gemModalOptions.startingPage;
       },
     },
   };
