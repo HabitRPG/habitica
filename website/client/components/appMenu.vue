@@ -68,7 +68,9 @@ div
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('messages') }}
+          a.nav-link.dropdown-item(@click.prevent='showInbox()')
+            | {{ $t('messages') }}
+            span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
@@ -261,9 +263,22 @@ div
   .gem:hover {
     cursor: pointer;
   }
+
+  .message-count {
+    background-color: #46a7d9;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
 </style>
 
 <script>
+import axios from 'axios';
 import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 
@@ -278,6 +293,7 @@ import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
 import creatorIntro from './creatorIntro';
 import profile from './userMenu/profile';
+import markPMSRead from 'common/script/ops/markPMSRead';
 
 export default {
   components: {
@@ -317,6 +333,8 @@ export default {
       this.$store.dispatch('auth:logout');
     },
     showInbox () {
+      markPMSRead(this.user);
+      axios.post('/api/v3/user/mark-pms-read');
       this.$root.$emit('show::modal', 'inbox-modal');
     },
     showAvatar (startingPage, subpage) {
