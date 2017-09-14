@@ -13,6 +13,7 @@ export function fetch (store, options = {}) { // eslint-disable-line no-shadow
     path: 'user',
     url: '/api/v3/user',
     deserialize (response) {
+      console.log(response);
       return response.data.data;
     },
     forceLoad: options.forceLoad,

@@ -154,28 +154,32 @@ export default {
       // Verify that the user was not updated from another browser/app/client
       // If it was, sync
       const url = response.config.url;
-      const isApiCall = url.indexOf('api/v3') !== -1;
-      const isUserAvailable = this.isUserLoaded === true;
-      const userV = response.data && response.data.userV;
-      const isNotSync = url.indexOf('/api/v3/user') !== 0 || response.config.method !== 'GET';
-      const isNotMarkChatSeen = url.indexOf('/chat/seen') === -1; // exclude chat seen requests because with real time chat they would be too many
+      const method = response.config.method;
 
-      if (isApiCall && isUserAvailable && userV) {
+      const isApiCall = url.indexOf('api/v3') !== -1;
+      const userV = response.data && response.data.userV;
+
+      if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
         this.user._v = userV;
 
+        // Do not sync again if already syncing
+        const isUserSync = url.indexOf('/api/v3/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v3/tasks/user') === 0 && method === 'get';
+        // exclude chat seen requests because with real time chat they would be too many
+        const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
+        // exclude POST /api/v3/cron because the user is synced automatically after cron runs
+        const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
+
         // Something has changed on the user object that was not tracked here, sync the user
-        if (isNotMarkChatSeen && isNotSync && userV - oldUserV > 1) {
+        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
           Promise.all([
-            this.$store.dispatch('user:fetch'),
-            this.$store.dispatch('tasks:fetchUserTasks'),
+            this.$store.dispatch('user:fetch', {forceLoad: true}),
+            this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
           ]);
         }
       }
 
-      if (this.user) {
-        this.$set(this.user, 'notifications', response.data.notifications);
-      }
       return response;
     });
 
