@@ -326,7 +326,6 @@ export default {
       this.$root.$emit('playSound', sound);
     },
     checkNextCron: throttle(function checkNextCron () {
-      console.log('checking for next cron');
       if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
         Promise.all([
           this.$store.dispatch('user:fetch', {forceLoad: true}),
