@@ -258,6 +258,7 @@ export default {
       console.log('before first yesterDailies run, current time:', (new Date()).toString());
       this.runYesterDailies();
 
+      // Do not remove the event listener as it's live for the entire app lifetime
       document.addEventListener('mousemove', () => this.checkNextCron());
       document.addEventListener('touchstart', () => this.checkNextCron());
       document.addEventListener('mousedown', () => this.checkNextCron());
