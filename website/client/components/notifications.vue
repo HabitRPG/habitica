@@ -86,6 +86,7 @@ div
 <script>
 import axios from 'axios';
 import moment from 'moment';
+import throttle from 'lodash/throttle';
 
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
@@ -162,6 +163,7 @@ export default {
       lastShownNotifications,
       alreadyReadNotification,
       isRunningYesterdailies: false,
+      nextCron: null,
     };
   },
   computed: {
@@ -311,12 +313,27 @@ export default {
 
       console.log('before first yesterDailies run, current time:', (new Date()).toString());
       this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
     });
   },
   methods: {
     playSound (sound) {
       this.$root.$emit('playSound', sound);
     },
+    checkNextCron: throttle(function checkNextCron () {
+      console.log('checking for next cron');
+      if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+        Promise.all([
+          this.$store.dispatch('user:fetch', {forceLoad: true}),
+          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        ]).then(() => this.runYesterDailies());
+      }
+    }, 1000),
     scheduleNextCron () {
       console.log('scheduling next cron (scheduleNextCron fn), current time:', (new Date()).toString());
       // Open yesterdailies modal the next time cron runs
@@ -336,28 +353,18 @@ export default {
       console.log('next cron after edit', nextCron.toDate());
 
       // Setup a listener that executes 10 seconds after the next cron time
-      const nextCronIn = Number(nextCron.format('x')) - Date.now() + 10 * 1000;
+      this.nextCron = Number(nextCron.format('x'));
+      this.isRunningYesterdailies = false;
 
-      console.log('next cron in', nextCronIn);
-
-      setTimeout(async () => {
-        console.log('next cron timer fired, current time:', new Date(), 'syncing...');
-        // Sync the user before showing the modal
-        await Promise.all([
-          this.$store.dispatch('user:fetch', {forceLoad: true}),
-          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-        ]);
-
-        console.log('next timer after syncing, running yesterDailies, current time:', (new Date()).toString());
-
-        this.runYesterDailies();
-      }, nextCronIn);
+      console.log('finished running yesterDailies');
     },
     async runYesterDailies () {
-      console.log('running yesterdailies at, current time:', new Date(), 'needsCron:', this.user.needsCron);
       console.log('isRunningYesterdailies:', this.isRunningYesterdailies, (new Date()).toString());
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
+      console.log('running yesterdailies at, current time:', new Date(), 'needsCron:', this.user.needsCron);
+      this.isRunningYesterdailies = true;
+
       if (!this.user.needsCron) {
         console.log('cron not needed, scheduling, current time:', (new Date()).toString());
         this.handleUserNotifications(this.user.notifications);
@@ -366,7 +373,6 @@ export default {
       }
 
       let dailys = this.$store.state.tasks.data.dailys;
-      this.isRunningYesterdailies = true;
       console.log('running yesterdailies (real part), current time:', (new Date()).toString());
 
       let yesterDay = moment().subtract('1', 'day').startOf('day').add({
@@ -411,7 +417,6 @@ export default {
 
       this.handleUserNotifications(this.user.notifications);
       console.log('scheduling next cron after runYesterDailiesAction, current time:', (new Date()).toString());
-      this.isRunningYesterdailies = false;
       this.scheduleNextCron();
     },
     /* eslint-enable no-console */
