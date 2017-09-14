@@ -24,7 +24,7 @@ module.exports = function updateStore (user) {
   });
 
   changes = changes.concat(filter(content.gear.flat, (val) => {
-    if (['special', 'mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
+    if (['mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
       return true;
     } else {
       return false;
