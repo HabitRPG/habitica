@@ -255,6 +255,7 @@ export default {
   },
   data () {
     return {
+      searchId: '',
       columns: ['habit', 'daily', 'todo', 'reward'],
       tasksByType: {
         habit: [],
@@ -284,27 +285,17 @@ export default {
       group: {},
     };
   },
-  async mounted () {
-    this.group = await this.$store.dispatch('guilds:getGroup', {
-      groupId: this.groupId,
-    });
-
-    let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.groupId});
-    this.group.members = members;
-
-    let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
-      groupId: this.groupId,
-    });
-
-    let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
-      groupId: this.groupId,
-    });
-    let groupedApprovals = groupBy(approvalRequests, 'group.taskId');
-
-    tasks.forEach((task) => {
-      task.approvals = groupedApprovals[task._id];
-      this.tasksByType[task.type].push(task);
-    });
+  watch: {
+    // call again the method if the route changes (when this route is already active)
+    $route: 'load',
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
+  },
+  mounted () {
+    if (!this.searchId) this.searchId = this.groupId;
+    this.load();
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -339,6 +330,35 @@ export default {
     },
   },
   methods: {
+    async load () {
+      this.tasksByType = {
+        habit: [],
+        daily: [],
+        todo: [],
+        reward: [],
+      };
+
+      this.group = await this.$store.dispatch('guilds:getGroup', {
+        groupId: this.searchId,
+      });
+
+      let members = await this.$store.dispatch('members:getGroupMembers', {groupId: this.searchId});
+      this.group.members = members;
+
+      let tasks = await this.$store.dispatch('tasks:getGroupTasks', {
+        groupId: this.searchId,
+      });
+
+      let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
+        groupId: this.searchId,
+      });
+      let groupedApprovals = groupBy(approvalRequests, 'group.taskId');
+
+      tasks.forEach((task) => {
+        task.approvals = groupedApprovals[task._id];
+        this.tasksByType[task.type].push(task);
+      });
+    },
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
