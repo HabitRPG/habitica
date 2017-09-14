@@ -3,7 +3,7 @@
     .left-panel.content
       h3.text-center Quests
       .row
-        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}")
+        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}", v-if='value > 0')
           .quest-wrapper
             .quest(:class="'inventory_quest_scroll_' + key")
       .row
@@ -80,6 +80,7 @@
     left: -22em;
     z-index: -1;
     padding: 2em;
+    overflow: scroll;
 
     h3 {
       color: $white;

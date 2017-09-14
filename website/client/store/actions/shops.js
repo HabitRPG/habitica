@@ -86,6 +86,7 @@ export function genericPurchase (store, params) {
         });
       }
 
+      axios.post('/api/v3/user/buy-armoire');
       return;
     case 'marketGear':
       return buyItem(store, params);
