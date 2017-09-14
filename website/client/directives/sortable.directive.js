@@ -1,24 +1,23 @@
 import Sortable from 'sortablejs';
 
-var emit = (vnode, name, data) => {
-  var handlers = (vnode.data && vnode.data.on) ||
-    (vnode.componentOptions && vnode.componentOptions.listeners);
+let emit = (vnode, eventName, data) => {
+  let handlers = vnode.data && vnode.data.on ||
+    vnode.componentOptions && vnode.componentOptions.listeners;
 
-  if (handlers && handlers[name]) {
-    handlers[name].fns(data);
+  if (handlers && handlers[eventName]) {
+    handlers[eventName].fns(data);
   }
-}
+};
 
 export default {
   bind (el, binding, vnode) {
-
     Sortable.create(el, {
       onSort: (evt) => {
-        emit(vnode, 'onsort' , {
+        emit(vnode, 'onsort', {
           oldIndex: evt.oldIndex,
           newIndex: evt.newIndex,
         });
-    	},
+      },
     });
   },
 };

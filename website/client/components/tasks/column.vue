@@ -273,7 +273,6 @@ export default {
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
     sorted (data) {
-
       const sorting = this.taskList;
       const taskIdToMove = this.taskList[data.oldIndex]._id;
 
