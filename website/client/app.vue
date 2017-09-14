@@ -130,6 +130,7 @@ export default {
       this.selectedItemToBuy = item;
     });
 
+    // @TODO split up this file, it's too big
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user) {
@@ -147,6 +148,35 @@ export default {
       }
 
       return Promise.reject(error);
+    });
+
+    axios.interceptors.response.use((response) => {
+      // Verify that the user was not updated from another browser/app/client
+      // If it was, sync
+      const url = response.config.url;
+      const isApiCall = url.indexOf('api/v3') !== -1;
+      const isUserAvailable = this.isUserLoaded === true;
+      const userV = response.data && response.data.userV;
+      const isNotSync = url.indexOf('/api/v3/user') !== 0 || response.config.method !== 'GET';
+      const isNotMarkChatSeen = url.indexOf('/chat/seen') === -1; // exclude chat seen requests because with real time chat they would be too many
+
+      if (isApiCall && isUserAvailable && userV) {
+        const oldUserV = this.user._v;
+        this.user._v = userV;
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (isNotMarkChatSeen && isNotSync && userV - oldUserV > 1) {
+          Promise.all([
+            this.$store.dispatch('user:fetch'),
+            this.$store.dispatch('tasks:fetchUserTasks'),
+          ]);
+        }
+      }
+
+      if (this.user) {
+        this.$set(this.user, 'notifications', response.data.notifications);
+      }
+      return response;
     });
 
     // Setup listener for title
