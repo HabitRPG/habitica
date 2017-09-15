@@ -474,7 +474,9 @@
         }
       },
       itemSelected (item) {
-        this.$root.$emit('buyModal::showItem', item);
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
+        }
       },
     },
   };

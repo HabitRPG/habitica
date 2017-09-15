@@ -366,10 +366,8 @@ shops.getSeasonalGearBySet = function getSeasonalGearBySet (user, set, officialP
   }).map(gear => {
     let currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
 
-    // only the current season set for the user's class can be purchased by gold
-    let goldPurchase = currentSet && user.stats.class === gear.specialClass;
-
-    let itemInfo = getItemInfo(null, goldPurchase ? 'marketGear' : 'gear', gear, officialPinnedItems, language);
+    // only the current season set can be purchased by gold
+    let itemInfo = getItemInfo(null, currentSet ? 'marketGear' : 'gear', gear, officialPinnedItems, language);
     itemInfo.locked = currentSet && user.stats.class !== gear.specialClass;
 
     return itemInfo;

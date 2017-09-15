@@ -46,11 +46,14 @@ div
 
   .item-wrapper {
     z-index: 10;
-    cursor: pointer;
   }
 
   .item {
     min-height: 106px;
+  }
+
+  .item:not(.locked) {
+    cursor: pointer;
   }
 
   .item.item-empty {
@@ -232,6 +235,7 @@ div
           'item-empty': this.emptyItem,
           'highlight-border': this.highlightBorder,
           suggested: this.item.isSuggested,
+          locked: this.item.locked,
         };
       },
     },
