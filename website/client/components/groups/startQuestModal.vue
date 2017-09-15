@@ -3,7 +3,7 @@
     .left-panel.content
       h3.text-center Quests
       .row
-        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}", v-if='value > 0')
+        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest({key})', :class="{selected: key === selectedQuest}", v-if='value > 0')
           .quest-wrapper
             .quest(:class="'inventory_quest_scroll_' + key")
       .row
@@ -144,9 +144,10 @@ export default {
     let questKeys = Object.keys(this.user.items.quests);
     this.selectedQuest = questKeys[0];
 
-    this.$root.$on('selectQuest', (quest) => {
-      this.selectedQuest = quest.key;
-    });
+    this.$root.$on('selectQuest', this.selectQuest);
+  },
+  destroyed () {
+    this.$root.$off('selectQuest', this.selectQuest);
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -156,8 +157,9 @@ export default {
   },
   methods: {
     selectQuest (quest) {
-      this.selectedQuest = quest;
+      this.selectedQuest = quest.key;
     },
+
     async questInit () {
       Analytics.updateUser({
         partyID: this.group._id,
