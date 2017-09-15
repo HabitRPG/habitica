@@ -291,6 +291,7 @@
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _reverse from 'lodash/reverse';
 
   import isPinned from 'common/script/libs/isPinned';
   import getOfficialPinnedItems from 'common/script/libs/getOfficialPinnedItems';
@@ -321,7 +322,6 @@
     data () {
       return {
         viewOptions: {},
-
         searchText: null,
         searchTextThrottled: null,
 
@@ -344,7 +344,7 @@
           eyewear: i18n.t('eyewear'),
         }),
 
-        sortItemsBy: ['AZ', 'sortByNumber'],
+        sortItemsBy: ['AZ'],
         selectedSortItemsBy: 'AZ',
 
         hidePinned: false,
@@ -369,13 +369,13 @@
       },
       categories () {
         if (this.seasonalCategories) {
-          this.seasonalCategories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
-          return this.seasonalCategories;
+          return _reverse(_sortBy(this.seasonalCategories, (c) => {
+            if (c.event) {
+              return c.event.start;
+            } else {
+              return -1;
+            }
+          }));
         } else {
           return [];
         }
@@ -432,11 +432,6 @@
         switch (sortBy) {
           case 'AZ': {
             result = _sortBy(result, ['text']);
-
-            break;
-          }
-          case 'sortByNumber': {
-            result = _sortBy(result, ['value']);
 
             break;
           }

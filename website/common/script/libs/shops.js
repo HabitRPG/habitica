@@ -453,7 +453,10 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, false);
 
     if (category.items.length > 0) {
-      category.specialClass = category.items[0].specialClass;
+      let item = category.items[0];
+
+      category.specialClass = item.specialClass;
+      category.event = item.event;
       categories.push(category);
     }
   }
