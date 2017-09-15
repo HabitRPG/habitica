@@ -25,11 +25,11 @@
             .strike
               span OR
             .form
-              input.form-control(type='text', placeholder='Username', v-model='username')
-              input.form-control(type='email', placeholder='Email', v-model='email')
-              input.form-control(type='password', placeholder='Password', v-model='password')
-              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm')
-              p By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
+              input.form-control(type='text', placeholder='Username', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
+              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
+              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
+              p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click='register()') Sign Up
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
@@ -100,7 +100,7 @@
           h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
         .row
           .col-12.text-center
-            button.btn.btn-primary(@click='playButtonClick()') Join Habitica Today
+            button.btn.btn-primary.join-button(@click='playButtonClick()') Join Habitica Today
         .row.featured
           .col-12.text-center
             strong Featured in
@@ -128,6 +128,10 @@
 </template>
 
 <style lang="scss">
+  .form-text a {
+    color: #fff !important;
+  }
+
   #purple-footer {
     background-color: #271b3d;
 
@@ -299,6 +303,11 @@
       color: $purple-400;
     }
 
+    input:focus {
+      border: solid 2px #9a62ff;
+      color: #fff;
+    }
+
     button.sign-up {
       width: 100%;
       height: 48px;
@@ -307,6 +316,12 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+    }
+
+    .sign-up:hover {
+      background-color: #50b5e9;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      cursor: pointer;
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -365,6 +380,10 @@
       margin-right: .5em;
     }
 
+    .app {
+      cursor: pointer;
+    }
+
     .iphones {
       width: 436px
     }
@@ -399,6 +418,12 @@
 
     .container-fluid.featured {
       padding-bottom: 5em;
+    }
+
+    .join-button:hover {
+      cursor: pointer;
+      background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
     }
 
     .featured .row {
@@ -536,7 +561,29 @@
         google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
       });
     },
+    computed: {
+      emailValid () {
+        if (this.email.length === 0) return false;
+        return this.validateEmail(this.email);
+      },
+      emailInvalid () {
+        if (this.email.length === 0) return false;
+        return !this.validateEmail(this.email);
+      },
+      passwordConfirmValid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm === this.password;
+      },
+      passwordConfirmInvalid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm !== this.password;
+      },
+    },
     methods: {
+      validateEmail (email) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      },
       async register () {
         if (this.password !== this.passwordConfirm) {
           alert('Passwords must match');
