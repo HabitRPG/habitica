@@ -33,6 +33,7 @@ describe('response middleware', () => {
       success: true,
       data: {field: 1},
       notifications: [],
+      userV: 0,
     });
   });
 
@@ -49,6 +50,7 @@ describe('response middleware', () => {
       data: {field: 1},
       message: 'hello',
       notifications: [],
+      userV: 0,
     });
   });
 
@@ -62,20 +64,6 @@ describe('response middleware', () => {
     expect(res.status).to.be.calledWith(403);
     expect(res.json).to.be.calledWith({
       success: false,
-      data: {field: 1},
-      notifications: [],
-    });
-  });
-
-  it('returns userV if a user is authenticated req.query.userV is passed', () => {
-    responseMiddleware(req, res, next);
-    req.query.userV = 3;
-    res.respond(200, {field: 1});
-
-    expect(res.json).to.be.calledOnce;
-
-    expect(res.json).to.be.calledWith({
-      success: true,
       data: {field: 1},
       notifications: [],
       userV: 0,
@@ -101,6 +89,7 @@ describe('response middleware', () => {
           data: {},
         },
       ],
+      userV: 0,
     });
   });
 });
