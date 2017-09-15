@@ -120,8 +120,8 @@
         .option
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
-            span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.category-select(v-else) {{getTagsFor(task)[0]}}
+            span.tag.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
+            span.tag.category-select(v-else v-for='tag in getTagsFor(task)') {{ tag }}
           .category-box(v-if="showTagsSelect")
             .container
               .row
@@ -314,6 +314,11 @@
     .category-wrap {
       cursor: pointer;
       margin-top: 0px;
+
+      .tag.category-select {
+        display: inline-block;
+        margin: 0 1em 1em 0;
+      }
     }
 
     .category-box {
