@@ -19,7 +19,7 @@
     data () {
       return  {
         localStorageTryFirst: {
-          linkStart: '<a href="/#/options/settings/settings" target="_blank">',
+          linkStart: '<a href="/user/settings/site" target="_blank">',
           linkEnd: '</a>',
         },
         localStorageTryNext: {

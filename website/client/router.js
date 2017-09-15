@@ -10,6 +10,19 @@ import ParentPage from './components/parentPage';
 
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "static" */'./components/static/staticWrapper');
+const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
+const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
+const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
+const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
+const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
+const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
+const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
+const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
+const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
+const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
+const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
+const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
+const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
 
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
@@ -85,7 +98,6 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: StaticWrapper, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
@@ -224,24 +236,22 @@ const router = new VueRouter({
     },
     {
       path: '/static',
-      component: ParentPage,
+      component: StaticWrapper,
       children: [
-        { name: 'app', path: 'app', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'clearBrowserData', path: 'clear-browser-data', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'communityGuidelines', path: 'community-guidelines', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'contact', path: 'contact', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'faq', path: 'faq', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'features', path: 'features', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'groupPlans', path: 'group-plans', component: StaticWrapper, meta: {requiresLogin: false}},
-        // { name: 'maintenance', path: 'maintenance', component: StaticWrapper, meta: {requiresLogin: false}},
-        // { name: 'maintenance-info', path: 'maintenance-info', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'merch', path: 'merch', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'overview', path: 'overview', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'plans', path: 'plans', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'pressKit', path: 'press-kit', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'privacy', path: 'privacy', component: StaticWrapper, meta: {requiresLogin: false}},
-        { name: 'terms', path: 'terms', component: StaticWrapper, meta: {requiresLogin: false}},
-        // { name: 'videos', path: 'videos', component: StaticWrapper, meta: {requiresLogin: false}},
+        { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
+        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
+        { name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
+        { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
+        { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
+        { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
+        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
+        { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
+        { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
+        { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
+        { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
+        { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
+        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
+        { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
       ],
     },
     {

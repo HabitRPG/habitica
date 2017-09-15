@@ -607,7 +607,7 @@
         hitType: 'pageview',
         eventCategory: 'page',
         eventAction: 'landing page',
-        page: '/home',
+        page: '/static/home',
       });
     },
     methods: {
