@@ -68,15 +68,15 @@ div
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()')
+          a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
             | {{ $t('messages') }}
             span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
-          a.dropdown-item(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
-          a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
+          a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
           li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
             .dropdown-item.text-center
               h3.purple {{ $t('needMoreGems') }}
@@ -383,7 +383,7 @@ export default {
         eventLabel: 'Gems > Toolbar',
       });
 
-      this.$root.$emit('show::modal', 'buy-gems');
+      this.$root.$emit('show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };
