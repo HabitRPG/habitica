@@ -502,5 +502,7 @@
     "questHippoCompletion": "カバはうなだれて降伏してきます。「あなたを見くびっていました。あなたは怠け者ではなかったようですね。謝罪します。本当のことを言うと、私はあなたに少し自己投影していたのかもしれません。恐らく、自分自身の仕事のほうこそ終わらせるべきなのでしょう。さあ、感謝のしるしとして、たまごをお持ちください」　それを受け取ると、あなたは水際に座って、ようやく一息つくのでした。",
     "questHippoBoss": "偽善者カバ",
     "questHippoDropHippoEgg": "カバ(たまご)",
-    "questHippoUnlockText": "市場でのカバのたまご購入をアンロック"
+    "questHippoUnlockText": "市場でのカバのたまご購入をアンロック",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

@@ -5,9 +5,9 @@ export default function createAnimal (egg, potion, type, content, userItems) {
     key: animalKey,
     class: type === 'pet' ? `Pet Pet-${animalKey}` : `Mount_Icon_${animalKey}`,
     eggKey: egg.key,
-    eggName: egg.text(),
+    eggName: egg.text,
     potionKey: potion.key,
-    potionName: potion.text(),
+    potionName: potion.text,
     name: content[`${type}Info`][animalKey].text(),
     isOwned () {
       return userItems[`${type}s`][animalKey] > 0;

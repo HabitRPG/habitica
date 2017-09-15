@@ -5,11 +5,34 @@
     .static-wrapper
       router-view
 
-    app-footer
+    #purple-footer
+      app-footer
 </template>
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
+
+  #purple-footer {
+    background-color: #271b3d;
+
+    footer, footer a {
+      background: transparent;
+      color: #d5c8ff;
+    }
+
+    .logo {
+      color: #bda8ff;
+    }
+
+    .social-circle, .btn-donate {
+      background: #36205d;
+      color: #bda8ff;
+
+      .svg-icon {
+        color: #bda8ff;
+      }
+    }
+  }
 
   .static-wrapper {
     .container-fluid {

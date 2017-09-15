@@ -15,6 +15,7 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // Load user auth parameters and determine if it's logged in
 // before trying to load data
 let isUserLoggedIn = false;
+let browserTimezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
@@ -24,8 +25,7 @@ if (AUTH_SETTINGS) {
   axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
   axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
 
-  const timezoneOffset = moment().zone(); // eg, 240 - this will be converted on server as -(offset/60)
-  axios.defaults.headers.common['x-user-timezoneOffset'] = timezoneOffset;
+  axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
 
   isUserLoggedIn = true;
 }
@@ -55,6 +55,10 @@ export default function () {
       title: 'Habitica',
       isUserLoggedIn,
       user: asyncResourceFactory(),
+      // store the timezone offset in case it's different than the one in
+      // user.preferences.timezoneOffset and change it after the user is synced
+      // in app.vue
+      browserTimezoneOffset,
       tasks: asyncResourceFactory(), // user tasks
       completedTodosStatus: 'NOT_LOADED',
       party: {
@@ -114,6 +118,7 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
+      afterLoginRedirect: '',
     },
   });
 

@@ -252,11 +252,11 @@ div
       #allocation(v-if='user._id === userLoggedIn._id')
         .row.title-row
           .col-6
-            h3(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
+            h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
             h3(v-if='user.stats.points || userLevel100Plus')
               | Points Available
-            .counter.badge(v-if='user.stats.points || userLevel100Plus')
-              | {{user.stats.points}}&nbsp;
+              .counter.badge(v-if='user.stats.points || userLevel100Plus')
+                | {{user.stats.points}}&nbsp;
           .col-6
             .float-right
               toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
@@ -264,7 +264,7 @@ div
         .row
           .col-3(v-for='(statInfo, stat) in allocateStatsList')
             .box.white.row.col-12
-              .col-8
+              .col-12
                 div(:class='stat') {{ $t(stats[stat].title) }}
                 .number {{ user.stats[stat] }}
                 .points pts
@@ -476,9 +476,9 @@ div
     }
 
     .counter.badge {
-      position: absolute;
-      top: -0.5em;
-      left: 10em;
+      position: relative;
+      top: -0.25em;
+      left: 0.5em;
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);

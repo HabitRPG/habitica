@@ -29,26 +29,31 @@ div
             h2 In-Game Benefits
             p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
 
-    .container.payment-options(v-if='upgradingGroup._id')
+    #upgrading-group.container.payment-options(v-if='upgradingGroup._id')
       h1.text-center.purple-header Are you ready to upgrade?
       .row
-        .col-6.offset-3.text-center
+        .col-12.text-center
           .purple-box
-            .dollar $
-            .number 9
-            .name Group Owner Subscription
-            .plus +
-            .dollar $
-            .number 3
-            .name Each Individual Group Member
+            .amount-section
+              .dollar $
+              .number 9
+              .name Group Owner Subscription
+            .plus
+              .svg-icon(v-html="icons.positiveIcon")
+            .amount-section
+              .dollar $
+              .number 3
+              .name Each Individual Group Member
 
           .box.payment-providers
             h3 Choose your payment method
-            .box.payment-button(@click='createGroup(PAYMENTS.STRIPE)')
-              p Credit Card
+            .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
+              div
+                .svg-icon.credit-card-icon(v-html="icons.group")
+                p.credit-card Credit Card
               p Powered by Stripe
-            .box.payment-button(@click='createGroup(PAYMENTS.AMAZON)')
-              | Amazon Pay
+            .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
+              .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
 
     .container.col-6.offset-3.create-option(v-if='!upgradingGroup._id')
       .row
@@ -117,6 +122,62 @@ div
 </template>
 
 <style lang="scss" scoped>
+  #upgrading-group {
+    .amount-section {
+      position: relative;
+    }
+
+    .dollar {
+      position: absolute;
+      left: -1em;
+      top: 1em;
+    }
+
+    .purple-box {
+      color: #bda8ff;
+      margin-bottom: 2em;
+    }
+
+    .number {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .payment-button {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 1em;
+    }
+
+    .plus .svg-icon{
+      width: 24px;
+    }
+
+    .payment-providers {
+      width: 350px;
+    }
+
+    .credit-card {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 0;
+      margin-top: .5em;
+      display: inline-block;
+    }
+
+    .credit-card-icon {
+      width: 25px;
+      display: inline-block;
+      margin-right: .5em;
+    }
+
+    .amazon-pay-icon {
+      width: 150px;
+      margin: 0 auto;
+      margin-top: .5em;
+    }
+  }
+
   .header {
     margin-bottom: 3em;
     margin-top: 4em;
@@ -225,10 +286,9 @@ div
       padding: .5em;
       border-radius: 8px;
       width: 200px;
-      height: 200px;
+      height: 215px;
 
       .dollar {
-        margin-left: 1.2em;
       }
 
       .number {
@@ -236,7 +296,7 @@ div
       }
 
       .name {
-        width: 120px;
+        width: 100px;
         margin-left: .3em;
       }
 
@@ -263,6 +323,10 @@ div
     padding: .5em;
     display: block;
   }
+
+  .payment-button:hover {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -270,6 +334,9 @@ import paymentsMixin from '../../mixins/payments';
 import amazonPaymentsModal from '../payments/amazonModal';
 import { mapState } from 'client/libs/store';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import group from 'assets/svg/group.svg';
+import amazonpay from 'assets/svg/amazonpay.svg';
+import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   mixins: [paymentsMixin],
@@ -279,8 +346,12 @@ export default {
   },
   data () {
     return {
-      StripeCheckout: {},
       amazonPayments: {},
+      icons: Object.freeze({
+        group,
+        amazonpay,
+        positiveIcon,
+      }),
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
@@ -306,16 +377,6 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
-    // @TODO: have to handle this better because sub pages have hidden header
-    // @TODO: I think we can remove this
-    // this.$store.state.hideHeader = true;
-
-    // @TODO: can this be in a mixin?
-    this.StripeCheckout = window.StripeCheckout;
-  },
-  destroyed () {
-    // @TODO: going from the page back to party modal does not show
-    // this.$store.state.hideHeader = false;
   },
   computed: {
     newGroupIsReady () {

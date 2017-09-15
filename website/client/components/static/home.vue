@@ -1,605 +1,466 @@
 <template lang="pug">
-  div
+  #front
     noscript.banner {{ $t('jsDisabledHeadingFull') }}
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    #intro.container-fluid
-      .row
-        h1.col-12.text-center {{ $t('motivate1') }}
-      .row
-        .col-6.offset-3
-          img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/intro.png', alt='')
-          // The empty alt attribute isn't a mistake, it's part of the spec for purely decorative images that add no information
-          // insert intro images
-      .row
-        .introcall.bg-success.col-12.text-center.cta
-          h2 {{ $t('joinOthers', {userCount}) }}
-            small
-              button#play-btn.btn.btn-primary.btn-lg.gamifybutton(@click='playButtonClick()') {{ $t('free') }}
-      .row
-        .col-12.presslogos.text-center.img-rendering-auto
-          h2 {{ $t('featuredIn') }}
-          br
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/lifehacker.png', alt="$t(altAttrLifehacker)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Cnetlogo.png', alt="$t(altAttrCnet)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Fast-Company-logo.png', alt="$t(altAttrFastCompany)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
-          img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
-    #intro-text.container-fluid
-      .row
-        .col-8.offset-2
-          p.lead.text-center
-            | {{ $t('leadText') }}
-    section#testimonial-carousel.bg-info.container-fluid
-      .row
-        .col-3.offset-1
-          h2 {{ $t('testimonialHeading') }}
-          img.img-say.img-responsive.visible-lg-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/publicSpaces.png', alt='')
-        .col-8
-          #quote-carousel.container-fluid(data-interval='10000', data-ride='carousel')
-            .row.text-center
-              .item.col-12.active
-                blockquote
-                  p
-                  | {{ $t('dragonsilverQuote') }}
-                  small Drag0nsilver
-              .item.col-12
-                blockquote
-                  p
-                  | {{ $t('frabjabulousQuote') }}
-                  small frabjabulous
-              .item.col-12
-                blockquote
-                  p
-                  | {{ $t('andeeliaoQuote') }}
-                  small AndeeLiao
-              .item.col-12
-                blockquote
-                  p
-                  | {{ $t('alexandraQuote') }}
-                  small _AlexandraSo_
-            .row
-              .col-6.offset-3.text-center.user-selector
-                .user-icon.active(data-target='#quote-carousel', data-slide-to='0')
-                  img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Drag0nsilver.png', alt='')
-                .user-icon(data-target='#quote-carousel', data-slide-to='1')
-                  img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/frabjabulous.png', alt='')
-                .user-icon(data-target='#quote-carousel', data-slide-to='2')
-                  img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/AndeeLiao.png', alt='')
-                .user-icon(data-target='#quote-carousel', data-slide-to='3')
-                  img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/AlexandraSo.png', alt='')
-        .col-12.text-center
-          button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#uses.container-fluid
-      .row
-        h2.col-12.text-center {{ $t('examplesHeading') }}
-      .row
-        #myCarousel.col-12.carousel.slide(data-interval='10000', data-ride='carousel')
-          ul.nav.nav-pills.nav-fill
-            li.nav-item.active(data-target='#myCarousel', data-slide-to='0')
-              a(href='#') {{ $t('work') }}
-            li.nav-item(data-target='#myCarousel', data-slide-to='1')
-              a(href='#') {{ $t('wellness') }}
-            li.nav-item(data-target='#myCarousel', data-slide-to='2')
-              a(href='#') {{ $t('teams') }}
-            li.nav-item(data-target='#myCarousel', data-slide-to='3')
-              a(href='#') {{ $t('school') }}
-            li.nav-item(data-target='#myCarousel', data-slide-to='4')
-              a(href='#') {{ $t('goals') }}
-            li.nav-item(data-target='#myCarousel', data-slide-to='5')
-              a(href='#') {{ $t('chores') }}
-          .carousel-inner(style='z-index:0;display:none')
-            .item.active.work-use
-              h3
-                | {{ $t('work') }}
-                br
-                small
-                  a(href='/static/plans') {{ $t('businessText') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleHabits') }}
-                  div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('businessSample1') }}
-                  br
-                  div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('businessSample2') }}
-                  br
-                  div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('businessSample3') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('businessSample4') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('businessSample5') }}
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/coding.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='frabjabulous', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/frabjabulous.png', alt="$t(altAttrFrabjabulous)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('frabjabulousQuote') }}
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='_AlexandraSo_', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/AlexandraSo.png', alt="$t(altAttrAlexandraSo)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('alexandraQuote') }}
-            .item.health-use
-              h3 {{ $t('health') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleHabits') }}
-                  div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('healthSample1') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('healthSample2') }}
-                  br
-                  div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(113, 176, 91); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('healthSample3') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(255, 207, 66); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('healthSample4') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('healthSample5') }}
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/clipart-rosemonkeyct-meditation.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='EvaGantz', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/EvaGantz.png', alt="$t(altAttrEvaGantz)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('evagantzQuote') }}
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='supermouse35', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/supermouse35.png', :alt="$t('altAttrSupermouse35')")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                      |  {{ $t('supermouse35Quote') }}
-            .item.team-use
-              h3 {{ $t('teams') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleToDo') }}
-                  div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('teamSample1') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('teamSample2') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('teamSample3') }}
-                  br
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/publicSpaces.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='Althaire', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Althaire.png', alt="$t(altAttrAlthaire)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('althaireQuote') }}
-            .item.school-use
-              h3 {{ $t('school') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleHabits') }}
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('schoolSample1') }}
-                  br
-                  div(style='width:100%; background-color: #d9ead3; color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(113, 176, 91); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('schoolSample2') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('schoolSample3') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(220, 93, 93); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('schoolSample4') }}
-                  br
-                  div(style='width:100%; background-color: rgb(201, 218, 248); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(90, 98, 223); border-right: 1px solid rgba(0, 0, 0, 0.25);') +
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; background-color: rgb(90, 98, 223); border-right: 0px none;') -
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('schoolSample5') }}
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/reading.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='InfH', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/InfH.png', alt="$t(altAttrInfH)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content {{ $t('infhQuote') }}
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='Drei-M', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Drei-M.png', alt="$t(altAttrDreiM)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('dreimQuote') }}
-            .item.improvement-use
-              h3 {{ $t('goals') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleDailies') }}
-                  div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('goalSample1') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('goalSample2') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('goalSample3') }}
-                  br
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/gaining_an_achievement_by_cosmic_caterpillar-d7uyv5z.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='Kazui', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Kazui.png', alt="$t(altAttrKazui)")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('kazuiQuote') }}
-            .item.housework-use
-              h3 {{ $t('chores') }}
-              .carousel-content.row
-                .sampletasks.col-lg-4.col-6.col-xs-12
-                  h4 {{ $t('sampleDailies') }}
-                  div(style='width:100%; background-color: rgb(252, 229, 205); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(219, 120, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('choreSample1') }}
-                  br
-                  div(style='width:100%; background-color: rgb(255, 242, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(255, 207, 66); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('choreSample2') }}
-                  br
-                  div(style='width:100%; background-color: rgb(244, 204, 204); color: rgb(51, 51, 51); text-align:center; padding: 0px; line-height: 1.62765; list-style: none outside none; padding: 0px; height: 2.3em; min-height: 1.62765em; margin-bottom:0.75em; margin:0px; box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5) inset;')
-                    .task-btn(style='display: inline-block; width: 1.62765em; height: 1.62765em; padding: 0px; margin:0px; line-height: 1.62765; text-align: center; color: rgb(34, 34, 34); float:left; cursor: pointer; vertical-align: top; left:0px; position:relative; background-color: rgb(220, 93, 93); border-right: 1px solid rgba(0, 0, 0, 0.25);')
-                      span(style='padding: 0.5em 0px 0em 0em; color: #666;') &#x2610;
-                    | &nbsp;
-                    .task-desc(style='display: inline-block; font-family: Lato,sans-serif; padding: 0.6em 0px 0em 1em; letter-spacing: normal; float:left; word-wrap: break-word;') {{ $t('choreSample3') }}
-                  br
-                img.sample-img.visible-lg-inline-block(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/uses/dusting_by_leephon.png', alt='')
-                .usetweet-groups.col-lg-5.col-6.visible-lg-inline-block.visible-inline-block
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='autumnesquirrel', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/autumnesquirrel.png', :alt="$t('altAttrAutumnesquirrel')")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content {{ $t('autumnesquirrelQuote') }}
-                  .usetweet-group
-                    img(data-toggle='tooltip', data-placement='top', title='irishfeet123', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/irishfeet123.png', :alt="$t('altAttrIrishfeet123')")
-                    .usetweet.tweet.popover.right
-                      .arrow
-                      .popover-content
-                        | {{ $t('irishfeet123Quote') }}
-      .row
-        .col-6.offset-3.text-center
-          button.btn.btn-primary.btn-lg.gamifybutton.fixedcta(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#rewards.bg-warning.container-fluid
-      .row
-        .col-6
-          h2.headline {{ $t('rewardHeading') }}
-          p.sectioninfo
-            | {{ $t('rewardByline1') }}
-            br
-            br
-            | {{ $t('rewardByline2') }}
-          .scrolltweet.hidden-xs.hidden-sm
-            img.img-rendering-auto.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Elmi', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Elmi.png', alt="$t(altAttrElmi)")
-            .tweet.popover.right.pull-right
-              .arrow
-              .popover-content {{ $t('elmiQuote') }}
-        .col-6
-          .avatarscroll
-            h2
-              span.glyphicon.glyphicon-check
-            h2
-              span.glyphicon.glyphicon-arrow-down
-            img.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/misc/shop_gold.png', alt='')
-            img.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/misc/shop_gold.png', alt='')
-            img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/misc/shop_gold.png', alt='')
-            h2
-              span.glyphicon.glyphicon-arrow-down
-            img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/TVreward.png', alt='')
-        .col-12
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#levels.container-fluid
-      .row
-        .col-6.text-center
-          h2.headline {{ $t('unlockHeadline') }}
-          p.sectioninfo
-            | {{ $t('unlockByline1') }}
-            br
-            br
-            | {{ $t('unlockByline2') }}
-          .scrolltweet.hidden-xs.hidden-sm
-            img.img-rendering-auto.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='16bitFil', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/16bitFil.png', :alt="$t('altAttr16bitFil')")
-            .tweet.popover.right.pull-right
-              .arrow
-              .popover-content
-                | {{ $t('sixteenBitFilQuote') }}
-        .col-6
-          .avatarscroll
-            img.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/avatar/avatarstatic.png', alt='')
-            h2
-              span.glyphicon.glyphicon-arrow-down
-            img.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/SAMPLEadventurers.png', alt='')
-        .col-12
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#health.bg-danger.container-fluid
-      .row
-        .col-6
-          h2.headline {{ $t('punishHeading1') }}
-          h2 {{ $t('punishHeading2') }}
-          p.sectioninfo {{ $t('punishByline') }}
-          .scrolltweet.hidden-xs.hidden-sm
-            img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='Zelah Meyer', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/Zelah_Meyer.png', alt="$t(altAttrZelahMeyer)")
-            .tweet.popover.right.pull-right
-              .arrow
-              .popover-content
-                | {{ $t('zelahQuote') }}
-        .col-6
-          h2
-            span.glyphicon.glyphicon-unchecked
-          .health-progress
-            .meter-label(tooltip='Health')
-              span.glyphicon.glyphicon-heart
-            .meter.health
-              .bar
-                div(style='width:100%;') &nbsp;
-          h2
-            span.glyphicon.glyphicon-arrow-down
-          .health-progress
-            .meter-label(tooltip='Health')
-              span.glyphicon.glyphicon-heart
-            .meter.health
-              .bar
-                div(style='width:50%;') &nbsp;
-        button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#quest.container-fluid
-      .row
-        .col-6
-          h2.headline {{ $t('questHeading1') }}
-          h2 {{ $t('questHeading2') }}
-          p.sectioninfo
-            | {{ $t('questByline1') }}
-            br
-            | {{ $t('questByline2') }}
-          .scrolltweet.hidden-xs.hidden-sm
-            img.scrolltweet-image(data-toggle='tooltip', data-placement='top', title='skysailor', src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/testimonials/skysailor.png', alt="$t(altAttrSkysailor)")
-            .tweet.popover.right.pull-right
-              .arrow
-              .popover-content
-                | {{ $t('skysailorQuote') }}
-        .col-6
-          img.clearfix.img-responsive.center-block(style='padding-bottom:30px;', src="https://d2afqr2xdmyzvu.cloudfront.net/front/images/Quest_dilatory_dragonSmall.png", alt='')
-          .row
-            .col-lg-5.col-5.offset-0.col-xs-5.col-xs-offset-0
-              .health-progress
-                .meter-label(tooltip='Health')
-                  span.glyphicon.glyphicon-heart
-                .meter.health
-                  .bar
-                    div(style='width:20%;') &nbsp;
-              .quest-friend-img
-                img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/party/AnnaCosplay.png', alt='')
-            .col-1.col-xs-1
-              h2
-                span.glyphicon.glyphicon-arrow-right
-            .col-lg-5.col-offset-1.col-5.offset-0.col-xs-5.col-xs-offset-0
-              .health-progress
-                .meter-label(tooltip='Health')
-                  span.glyphicon.glyphicon-heart
-                .meter.health
-                  .bar
-                    div(style='width:0%;') &nbsp;
-              .quest-friend-img
-                img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/party/GrimReaper.png', alt='')
-        .col-12
-          button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    section#features.bg-info.container-fluid
-      .row
-        h2.col-12.text-center {{ $t('featuresHeading') }}
-      .row
-        .col-6
-          .feature-img
-            img.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/Mount.png', alt='')
-          .featuretext
-            h4 {{ $t('featurePetHeading') }}
-            p
-              | {{ $t('featurePetByline') }}
-        .col-6
-          .feature-img.center-block
-            img.img-rendering-auto(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/achievement-triadbingo.png', alt='')
-            img.img-rendering-auto(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/achievement-perfect.png', alt='')
-          .featuretext
-            h4 {{ $t('featureAchievementHeading') }}
-            p {{ $t('featureAchievementByline') }}
-      .row
-        .col-6
-          .feature-img
-            img.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/Promo_springclasses2015.png', alt='')
-          .featuretext
-            h4 {{ $t('featureEquipHeading') }}
-            p
-              | {{ $t('featureEquipByline') }}
-        .col-6
-          .feature-img
-            img.img-rendering-auto.center-block.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/Party-Header.png', alt='')
-          .featuretext
-            h4 {{ $t('featureSocialHeading') }}
-            p
-              | {{ $t('featureSocialByline') }}
-        button.btn.btn-primary.btn-lg.fixedcta.gamifybutton(@click='playButtonClick()') {{ $t('gamifyButton') }}
-    #footercall.container-fluid
-      .row
-        h3.col-12.text-center {{ $t('joinOthers', {userCount}) }}
-      .row
-        .col-6.offset-3
-          button.btn.btn-primary.btn-lg.btn-block(@click='playButtonClick()') {{ $t('free') }}
-    footer.footer.container-fluid
-      .shoutout
-        h4 {{ $t('contribUse') }}
+    #intro-signup.purple-1
+      .container
         .row
-          .col-lg-2.col-2.col-offset-1.offset-1.col-xs-6.col-xs-offset-1
-            a(href='http://ionicframework.com/')
-              img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/ionic-logo-horizontal-transparent.png', alt="$t(altAttrIonic)")
-          .col-lg-2.col-lg-offset-0.col-2.col-offset-0.offset-1.col-xs-6.col-xs-offset-1
-            a(href='https://www.jetbrains.com/webstorm/')
-              img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/logo_webstorm.png', alt="$t(altAttrWebstorm)")
-          .col-lg-2.col-lg-offset-0.col-2.col-offset-0.offset-1.col-xs-6.col-xs-offset-1
-            a(href='http://github.com/')
-              img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/GitHub_Logo.png', alt="$t(altAttrGithub)")
-          .col-lg-2.col-lg-offset-0.col-2.col-offset-0.offset-1.col-xs-6.col-xs-offset-1
-            a(href='https://trello.com/')
-              img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/trello-logo-blue.png', alt="$t(altAttrTrello)")
-          .col-lg-2.col-lg-offset-0.col-2.col-offset-0.offset-1.col-xs-6.col-xs-offset-1
-            a(href='https://slack.com/')
-              img.img-rendering-auto.img-responsive(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/landing_slack_hash_wordmark_logo.png', alt="$t(altAttrSlack)")
+          .col-6
+            img(src='~assets/images/home/home-main@3x.png', width='357px')
+            h1 Motivate yourself to achieve your goals.
+            p.section-main It's time to have fun when you get things done! Join over 2 million Habiticans and improve your life one task at a time.
+          .col-6
+            h3.text-center Sign  Up For Free
+            div.text-center
+              button.social-button(@click='socialAuth("facebook")')
+                .svg-icon.social-icon(v-html="icons.facebookIcon")
+                span {{$t('signUpWithSocial', {social: 'Facebook'})}}
+              button.social-button(@click='socialAuth("google")')
+                .svg-icon.social-icon(v-html="icons.googleIcon")
+                span {{$t('signUpWithSocial', {social: 'Google'})}}
+            .strike
+              span OR
+            .form
+              input.form-control(type='text', placeholder='Username', v-model='username')
+              input.form-control(type='email', placeholder='Email', v-model='email')
+              input.form-control(type='password', placeholder='Password', v-model='password')
+              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm')
+              p By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
+              button.sign-up(@click='register()') Sign Up
+          .col-12
+            .spacer.svg-icon(v-html='icons.spacer')
+
+    #gamify-life.purple-2
+      .container-fluid
+        .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
+      .container
+        .row
+          .col-6.offset-3.text-center
+            h2 Gamify Your Life
+            p.section-main Habitica is a free habit-building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.
+        .row
+          .col-4
+            img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
+            strong Track Your Habits and Goals
+            p Stay accountable by tracking and managing your Habits, Daily goals, and To-Do list with Habitica’s easy-to-use mobile apps and web interface.
+          .col-4
+            img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
+            strong Earn Rewards for Your Goals
+            p Check off tasks to level up your Avatar and unlock in-game features such as battle armor, mysterious pets, magic skills, and even quests!
+          .col-4
+            img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
+            strong Battle Monsters with Friends
+            p Fight monsters with other Habiticans! Use the Gold that you earn to buy in-game or custom rewards, like watching an episode of your favorite TV show.
+      .col-12
+        .spacer.svg-icon(v-html='icons.spacer')
+
+    #use-cases.purple-2
+      .container.text-center
+        .row
+          .col-12
+            h2 Players Use Habitica to Improve
+        .row
+          .col-4
+            img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
+            strong Health and Fitness
+            p Never motivated to floss? Can't seem to get to the gym? Habitica finally makes it fun to get healthy.
+          .col-4
+            img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
+            strong School and Work
+            p Whether you're preparing a report for your teacher or your boss, it's easy to keep track of your progress as you tackle your toughest tasks.
+          .col-4
+            img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
+            strong And much, much more!
+            p Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.
+      .col-12
+        .spacer.svg-icon(v-html='icons.spacer')
+      .container-fluid
+        .pixel-horizontal-2.svg-icon(v-html='icons.pixelHorizontal2')
+
+    #level-up-anywhere.purple-3
+      .container
+        .row
+          .col-6
+            .iphones.svg-icon(v-html='icons.iphones')
+          .col-6.text-column
+            h2 Level Up Anywhere
+            p Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.
+            a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
+            a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
+      .container-fluid
+        .pixel-horizontal-3.svg-icon(v-html='icons.pixelHorizontal3')
+
+    #call-to-action.purple-4
+      .container.featured
+        .row.text-center
+          h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
+        .row
+          .col-12.text-center
+            button.btn.btn-primary(@click='playButtonClick()') Join Habitica Today
+        .row.featured
+          .col-12.text-center
+            strong Featured in
+      .container-fluid
+        .seamless_stars_varied_opacity_repeat
+      .container-fluid.featured
+        .row
+          .col-12
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/lifehacker.png', alt="$t(altAttrLifehacker)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Cnetlogo.png', alt="$t(altAttrCnet)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Fast-Company-logo.png', alt="$t(altAttrFastCompany)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
+            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
+
+    #bottom-wrap.purple-4
+      #bottom-background
+        .seamless_mountains_demo_repeat
+        .midground_foreground_extended2
 </template>
 
 <style lang="scss" scoped>
-  .logo {
-    width: 128px;
-    height: 28px;
-    color: purple;
-  }
+  @import '~client/assets/scss/static.scss';
 
-  #intro {
-    background: #fff;
-    padding-top: 1em;
-    padding-bottom: 1em;
-
-    .cta {
-      color: #fff;
-      padding: 2em;
+  #front {
+    .container-fluid {
+      margin: 0;
     }
 
-    .presslogos {
-      padding: 2em;
+    .container {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .logo {
+      width: 128px;
+      height: 28px;
+      color: purple;
+    }
+
+    .purple-1, .purple-2, .purple-3, .purple-4, h1, h2, h3, h4, h5 {
+      color: #fff;
+    }
+
+    .purple-1 {
+      background-color: #6133b4;
+    }
+
+    .purple-2 {
+      background-color: #432874;
+    }
+
+    .purple-3 {
+      background-color: #36205d;
+    }
+
+    .purple-4 {
+      background-color: #271b3d;
+    }
+
+    p.section-main {
+      font-size: 18px;
+      line-height: 1.33;
+    }
+
+    h2 {
+      font-size: 48px;
+      line-height: 1.33;
+    }
+
+    .spacer {
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+      margin-top: 2em;
+    }
+
+    .pixel-horizontal {
+      color: #6133b4;
+    }
+
+    .pixel-horizontal-2 {
+      color: #432874;
+    }
+
+    .pixel-horizontal-3 {
+      color: #271b3d;
+    }
+  }
+
+  #intro-signup {
+    background-image: url('~client/assets/svg/for-css/confetti.svg');
+    margin-top: 4em;
+
+    img {
+      margin: 0 auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 56px;
+      line-height: 1.14;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    .social-button {
+      border-radius: 2px;
+      border: solid 2px #bda8ff;
+      width: 206px;
+      height: 40px;
+      background: transparent;
+      margin-right: .5em;
+      color: #fff;
+    }
+
+    .social-icon {
+      margin-right: 1em;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      vertical-align: top;
+      margin-top: .2em;
+    }
+
+    .strike {
+      display: block;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    .strike > span {
+      position: relative;
+      display: inline-block;
+    }
+
+    .strike > span:before,
+    .strike > span:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 9999px;
+      height: 1px;
+      background: #fff;
+    }
+
+    .strike > span:before {
+      right: 100%;
+      margin-right: 15px;
+    }
+
+    .strike > span:after {
+      left: 100%;
+      margin-left: 15px;
+    }
+
+    input {
+      margin-bottom: 1em;
+      border-radius: 2px;
+      background-color: #432874;
+      border-color: #432874;
+      color: $purple-400;
+    }
+
+    button.sign-up {
+      width: 100%;
+      height: 48px;
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      background-color: #2995cd;
+      font-size: 16px;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $purple-400;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: $purple-400;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: $purple-400;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: $purple-400;
+    }
+    ::placeholder { //  Standard browsers
+      color: $purple-400;
+    }
+  }
+
+  #gamify-life {
+    text-align: center;
+
+    img {
+      margin-top: 1em;
+      margin-bottom: 1.5em;
+    }
+
+    .track-habits {
+      margin-bottom: 2.5em;
+    }
+
+    strong {
+      font-size: 20px;
+    }
+  }
+
+  #use-cases {
+    strong {
+      font-size: 20px;
+    }
+
+    img {
+      display: block;
+      height: 200px;
+      width: 200px;
+      margin: 0 auto;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+  }
+
+  #level-up-anywhere {
+    .app {
+      display: inline-block;
+      width: 135px;
+      margin-right: .5em;
+    }
+
+    .iphones {
+      width: 436px
+    }
+
+    .text-column {
+      padding-top: 9em;
+    }
+  }
+
+  #call-to-action {
+    .row {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    h3 {
+      font-size: 32px;
+    }
+
+    .btn-primary {
+      width: 411px;
+      height: 48px;
+      border-radius: 2px;
+      background-color: #9a62ff;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.24), 0 1px 4px 0 rgba(26, 24, 29, 0.16);
+      margin-bottom: 5em;
+    }
+
+    .container.featured {
+      padding-bottom: 0;
+    }
+
+    .container-fluid.featured {
+      padding-bottom: 5em;
+    }
+
+    .featured .row {
+      margin-top: 0;
+    }
+
+    .featured {
+      text-align: center;
 
       img {
         max-height: 30px;
         max-width: 120px;
-        filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        -o-filter: grayscale(100%);
-        filter: gray;
-        -webkit-filter: grayscale(100%);
-        margin-right: 2em;
+        vertical-align: middle;
+        margin: 20px;
+        -moz-filter: brightness(0) invert(1);
+        -ms-filter: brightness(0) invert(1);
+        -o-filter: brightness(0) invert(1);
+        filter: brightness(0) invert(1);
+        -webkit-filter: brightness(0) invert(1);
       }
     }
 
-    .bg-success {
-      background-color: #dff0d8 !important;
+    .seamless_stars_varied_opacity_repeat {
+      background-image: url('~assets/images/auth/seamless_stars_varied_opacity.png');
+      background-repeat: repeat-x;
+      position: absolute;
+      height: 500px;
+      width: 100%;
     }
   }
 
-  #intro-text {
-    .lead {
-      padding: 2em;
-    }
+  #bottom-wrap {
+    padding-top: 10em;
   }
 
-  #testimonial-carousel {
-    padding: 2em;
-    background-color: #d9edf7 !important;
+  #bottom-background {
+    position: relative;
 
-    h2 {
-      margin-top: 2em;
-      margin-bottom: 3em;
+    .seamless_mountains_demo_repeat {
+      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
+      background-repeat: repeat-x;
+      width: 100%;
+      height: 500px;
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
     }
 
-    .item {
-      display: none;
+    .midground_foreground_extended2 {
+      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
+      position: relative;
+      width: 1500px;
+      max-width: 100%;
+      height: 150px;
+      margin: 0 auto;
     }
-
-    .item.active {
-      display: block;
-    }
-
-    #quote-carousel {
-      margin-top: 7em;
-
-      .user-selector {
-        margin-top: 2em;
-      }
-
-      .user-icon {
-        display: inline-block;
-        vertical-align: bottom;
-
-        img {
-          width: 80px;
-        }
-      }
-    }
-  }
-
-  #uses {
-    padding: 2em;
   }
 </style>
 
 <script>
+  import hello from 'hellojs';
+  import googlePlay from 'assets/images/home/google-play-badge.svg';
+  import iosAppStore from 'assets/images/home/ios-app-store.svg';
+  import iphones from 'assets/images/home/iphones.svg';
+  import spacer from 'assets/images/home/spacer.svg';
+  import pixelHorizontal from 'assets/images/home/pixel-horizontal.svg';
+  import pixelHorizontal2 from 'assets/images/home/pixel-horizontal-2.svg';
+  import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
+  import facebookSquareIcon from 'assets/svg/facebook-square.svg';
+  import googleIcon from 'assets/svg/google.svg';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
     data () {
       return {
+        icons: Object.freeze({
+          googlePlay,
+          iosAppStore,
+          iphones,
+          spacer,
+          pixelHorizontal,
+          pixelHorizontal2,
+          pixelHorizontal3,
+          facebookIcon: facebookSquareIcon,
+          googleIcon,
+        }),
         userCount: 1000000,
+        username: '',
+        password: '',
+        passwordConfirm: '',
+        email: '',
       };
     },
     mounted () {
@@ -609,8 +470,34 @@
         eventAction: 'landing page',
         page: '/static/home',
       });
+
+      hello.init({
+        facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+        // windows: WINDOWS_CLIENT_ID,
+        google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      });
     },
     methods: {
+      async register () {
+        if (this.password !== this.passwordConfirm) {
+          alert('Passwords must match');
+          return;
+        }
+
+        await this.$store.dispatch('auth:register', {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+        });
+
+        if (this.$store.state.afterLoginRedirect) {
+          window.location.href = this.$store.state.afterLoginRedirect;
+          return;
+        }
+
+        window.location.href = '/';
+      },
       playButtonClick () {
         Analytics.track({
           hitType: 'event',
@@ -619,6 +506,21 @@
           eventLabel: 'Play',
         });
         this.$router.push('/register');
+      },
+      async socialAuth (network) {
+        const url = window.location.href;
+
+        let auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: url, // eslint-disable-line camelcase
+        });
+
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        window.location.href = '/';
       },
     },
   };
