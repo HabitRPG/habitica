@@ -1506,9 +1506,9 @@
 }
 .Pet_HatchingPotion_Aquatic {
   background-image: url(/static/sprites/spritesmith-main-19.png);
-  background-position: -1476px 0px;
-  width: 48px;
-  height: 51px;
+  background-position: 0px -1400px;
+  width: 68px;
+  height: 68px;
 }
 .Pet_HatchingPotion_Base {
   background-image: url(/static/sprites/spritesmith-main-19.png);
@@ -1542,9 +1542,9 @@
 }
 .Pet_HatchingPotion_Ember {
   background-image: url(/static/sprites/spritesmith-main-19.png);
-  background-position: -1380px -1400px;
-  width: 48px;
-  height: 51px;
+  background-position: -345px -1400px;
+  width: 68px;
+  height: 68px;
 }
 .Pet_HatchingPotion_Fairy {
   background-image: url(/static/sprites/spritesmith-main-19.png);
@@ -1632,13 +1632,13 @@
 }
 .Pet_HatchingPotion_White {
   background-image: url(/static/sprites/spritesmith-main-19.png);
-  background-position: -345px -1400px;
+  background-position: -1380px -1400px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Zombie {
   background-image: url(/static/sprites/spritesmith-main-19.png);
-  background-position: 0px -1400px;
+  background-position: -1476px 0px;
   width: 68px;
   height: 68px;
 }
