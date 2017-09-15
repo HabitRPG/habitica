@@ -13,7 +13,7 @@
     "weaponWarrior1Text": "剑",
     "weaponWarrior1Notes": "普通士兵的刀。增加<%= str %>点力量。",
     "weaponWarrior2Text": "斧子",
-    "weaponWarrior2Notes": "Double-bitted chopping weapon. Increases Strength by <%= str %>",
+    "weaponWarrior2Notes": "双刃战斧，增加<%= str %>点力量。",
     "weaponWarrior3Text": "流星锤",
     "weaponWarrior3Notes": "带有野蛮尖刺的沉重棍棒，增加<%= str %>点力量。",
     "weaponWarrior4Text": "蓝宝石利刃",
