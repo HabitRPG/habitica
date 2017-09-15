@@ -187,6 +187,7 @@
                 .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
+          v-if="ownedItems(selectedDrawerItemType).length > 0"
           :items="ownedItems(selectedDrawerItemType) || []",
           slot="drawer-slider",
           :itemWidth=94,
@@ -642,7 +643,7 @@ export default {
           }
 
           if (searchBy) {
-            let foundPosition = gear.text().toLowerCase().indexOf(searchBy);
+            let foundPosition = gear.text.toLowerCase().indexOf(searchBy);
             if (foundPosition === -1) {
               return false;
             }
@@ -672,7 +673,7 @@ export default {
           }
 
           if (searchBy) {
-            let foundPosition = item.text().toLowerCase().indexOf(searchBy);
+            let foundPosition = item.text.toLowerCase().indexOf(searchBy);
             if (foundPosition === -1) {
               return false;
             }
