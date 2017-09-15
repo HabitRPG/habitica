@@ -195,3 +195,8 @@ export async function unlinkAllTasks (store, payload) {
   let response = await axios.post(`/api/v3/tasks/unlink-all/${payload.challengeId}?keep=${payload.keep}`);
   return response.data.data;
 }
+
+export async function move (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/move/to/${payload.position}`);
+  return response.data.data;
+}

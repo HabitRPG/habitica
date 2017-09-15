@@ -92,6 +92,21 @@ api.bundles = {
     class: 'quest_bundle_splashyPals',
     value: 7,
   },
+  farmFriends: {
+    key: 'farmFriends',
+    text: t('farmFriendsText'),
+    notes: t('farmFriendsNotes'),
+    bundleKeys: [
+      'cow',
+      'horse',
+      'sheep',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-09-12', '2017-10-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

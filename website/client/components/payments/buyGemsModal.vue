@@ -6,160 +6,155 @@
           .svg-icon.check(v-html='icons.check')
       .col-md-8.align-self-center
         p=text
+  div(v-if='user')
+    amazon-payments-modal(:amazon-payments='amazonPayments')
+    b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
+      .container-fluid.purple-gradient
+        .gemfall
+          .row
+            h2.text-invert.mx-auto {{ $t('support') }}
+          .row
+            .logo.svg-icon.mx-auto(v-html="icons.logo")
+      .container-fluid
+        .row
+          .col-6.offset-3.nav
+            .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
+            .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
+        div(v-show='selectedPage === "gems"')
+          .row.text-center
+            h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
+          .row
+            .col
+              +featureBullet("{{ $t('gemBenefit1') }}")
+              +featureBullet("{{ $t('gemBenefit1') }}")
+            .col
+              +featureBullet("{{ $t('gemBenefit1') }}")
+              +featureBullet("{{ $t('gemBenefit1') }}")
+          .card-deck
+            .card.text-center
+              .card-img-top
+                .mx-auto(v-html='icons.fourGems', style='"height: 53px; width: 49.5px; margin-top: 2em;"')
+              .card-body
+                .gem-count 4
+                .gem-text {{ $t('gems') }}
+                .divider
+                button.btn.btn-primary $.99
+            .card.text-center
+              .card-img-top
+                .mx-auto(v-html='icons.twentyOneGems', style='"height: 55px; width: 47.5px; margin-top: 1.85em;"')
+              .card-body
+                .gem-count 21
+                .gem-text {{ $t('gems') }}
+                .divider
+                button.btn.btn-primary $4.99
+            .card.text-center
+              .card-img-top
+                .mx-auto(v-html='icons.fortyTwoGems', style='"height: 49.5px; width: 51px; margin-top: 1.9em;"')
+              .card-body
+                .gem-count 42
+                .gem-text {{ $t('gems') }}
+                .divider
+                button.btn.btn-primary $9.99
+            .card.text-center
+              .card-img-top
+                .mx-auto(v-html='icons.eightyFourGems', style='"height: 65px; width: 67px; margin-top: 1em;"')
+              .card-body
+                .gem-count 84
+                .gem-text {{ $t('gems') }}
+                .divider
+                button.btn.btn-primary $19.99
+          .row.text-center
+            h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+          .card-deck
+            .card.text-center.payment-method(@click='showStripe({})')
+              .card-body
+                .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
+            .card.text-center.payment-method
+              a.card-body.paypal(:href='paypalCheckoutLink', target='_blank')
+                img(src='~assets/images/paypal.png')
+            .card.text-center.payment-method(@click="amazonPaymentsInit({type: 'single'})")
+              .card-body.amazon
+                img(src='~assets/images/amazon-payments.png')
+          .row.text-center
+            .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
+          .row.text-center.text-outtro
+            .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
 
-  b-modal(
-    :hide-footer='true',
-    :hide-header='true',
-    :id='"buy-gems"',
-    size='lg',
-  )
-    .container-fluid.purple-gradient
-      .gemfall
-        .row
-          h2.text-invert.mx-auto {{ $t('support') }}
-        .row
-          .logo.svg-icon.mx-auto(v-html="icons.logo")
-    .container-fluid
-      .row
-        .col-6.offset-3.nav
-          .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
-          .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
-      div(v-show='selectedPage === "gems"')
-        .row.text-center
-          h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
-        .row
-          .col
-            +featureBullet("{{ $t('gemBenefit1') }}")
-            +featureBullet("{{ $t('gemBenefit1') }}")
-          .col
-            +featureBullet("{{ $t('gemBenefit1') }}")
-            +featureBullet("{{ $t('gemBenefit1') }}")
-        .card-deck
-          .card.text-center
-            .card-img-top
-              .mx-auto(v-html='icons.fourGems', style='"height: 53px; width: 49.5px; margin-top: 2em;"')
-            .card-body
-              .gem-count 4
-              .gem-text {{ $t('gems') }}
-              .divider
-              button.btn.btn-primary $.99
-          .card.text-center
-            .card-img-top
-              .mx-auto(v-html='icons.twentyOneGems', style='"height: 55px; width: 47.5px; margin-top: 1.85em;"')
-            .card-body
-              .gem-count 21
-              .gem-text {{ $t('gems') }}
-              .divider
-              button.btn.btn-primary $4.99
-          .card.text-center
-            .card-img-top
-              .mx-auto(v-html='icons.fortyTwoGems', style='"height: 49.5px; width: 51px; margin-top: 1.9em;"')
-            .card-body
-              .gem-count 42
-              .gem-text {{ $t('gems') }}
-              .divider
-              button.btn.btn-primary $9.99
-          .card.text-center
-            .card-img-top
-              .mx-auto(v-html='icons.eightyFourGems', style='"height: 65px; width: 67px; margin-top: 1em;"')
-            .card-body
-              .gem-count 84
-              .gem-text {{ $t('gems') }}
-              .divider
-              button.btn.btn-primary $19.99
-        .row.text-center
-          h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
-        .card-deck
-          .card.text-center.payment-method
-            .card-body
-              .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
-          .card.text-center.payment-method
-            .card-body.paypal
-              img(src='~assets/images/paypal.png')
-          .card.text-center.payment-method
-            .card-body.amazon
-              img(src='~assets/images/amazon-payments.png')
-        .row.text-center
-          .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
-        .row.text-center.text-outtro
-          .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
-
-      div(v-show='selectedPage === "subscribe"')
-        .row.text-center
-          h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
-        .row
-          .col
-            +featureBullet("{{ $t('subscriptionBenefit1') }}")
-            +featureBullet("{{ $t('subscriptionBenefit2') }}")
-            +featureBullet("{{ $t('subscriptionBenefit3') }}")
-          .col
-            +featureBullet("{{ $t('subscriptionBenefit4') }}")
-            +featureBullet("{{ $t('subscriptionBenefit5') }}")
-            +featureBullet("{{ $t('subscriptionBenefit6') }}")
-        .card-deck
-          .card.text-center
-            .card-body
-              .subscription-price
-                span.superscript $
-                span 4
-                span.superscript.muted .99
-              .small {{ $t('everyMonth') }}
-              .divider
-              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
-              .spacer
-              button.btn.btn-primary {{ $t('select') }}
-          .card.text-center
-            .card-body
-              .subscription-price
-                span.superscript $
-                span 14
-                span.superscript.muted .99
-              .small {{ $t('everyXMonths', {interval: 3}) }}
-              .divider
-              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
-              p.benefits(v-markdown='$t("receiveMysticHourglass")')
-              button.btn.btn-primary {{ $t('select') }}
-          .card.text-center
-            .card-body
-              .subscription-price
-                span.superscript $
-                span 29
-                span.superscript.muted .99
-              .small {{ $t('everyXMonths', {interval: 6}) }}
-              .divider
-              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
-              p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
-              button.btn.btn-primary {{ $t('select') }}
-          .card.text-center
-            .card-body
-              .subscription-price
-                span.superscript $
-                span 47
-                span.superscript.muted .99
-              .small {{ $t('everyYear') }}
-              .divider
-              p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
-              p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
-              button.btn.btn-primary {{ $t('select') }}
-        .row.text-center
-          h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
-        .row.text-center
-          a.mx-auto {{ $t('haveCouponCode') }}
-        .card-deck
-          .card.text-center.payment-method
-            .card-body
-              .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
-          .card.text-center.payment-method
-            .card-body.paypal
-              img(src='~assets/images/paypal.png')
-          .card.text-center.payment-method
-            .card-body.amazon
-              img(src='~assets/images/amazon-payments.png')
-        .row.text-center
-          .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
-        .row.text-center.text-outtro
-          .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
-
+        div(v-show='selectedPage === "subscribe"')
+          .row.text-center
+            h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
+          .row
+            .col
+              +featureBullet("{{ $t('subscriptionBenefit1') }}")
+              +featureBullet("{{ $t('subscriptionBenefit2') }}")
+              +featureBullet("{{ $t('subscriptionBenefit3') }}")
+            .col
+              +featureBullet("{{ $t('subscriptionBenefit4') }}")
+              +featureBullet("{{ $t('subscriptionBenefit5') }}")
+              +featureBullet("{{ $t('subscriptionBenefit6') }}")
+          .card-deck
+            .card.text-center
+              .card-body
+                .subscription-price
+                  span.superscript $
+                  span 4
+                  span.superscript.muted .99
+                .small {{ $t('everyMonth') }}
+                .divider
+                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
+                .spacer
+                button.btn.btn-primary {{ $t('select') }}
+            .card.text-center
+              .card-body
+                .subscription-price
+                  span.superscript $
+                  span 14
+                  span.superscript.muted .99
+                .small {{ $t('everyXMonths', {interval: 3}) }}
+                .divider
+                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
+                p.benefits(v-markdown='$t("receiveMysticHourglass")')
+                button.btn.btn-primary {{ $t('select') }}
+            .card.text-center
+              .card-body
+                .subscription-price
+                  span.superscript $
+                  span 29
+                  span.superscript.muted .99
+                .small {{ $t('everyXMonths', {interval: 6}) }}
+                .divider
+                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
+                p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
+                button.btn.btn-primary {{ $t('select') }}
+            .card.text-center
+              .card-body
+                .subscription-price
+                  span.superscript $
+                  span 47
+                  span.superscript.muted .99
+                .small {{ $t('everyYear') }}
+                .divider
+                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
+                p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
+                button.btn.btn-primary {{ $t('select') }}
+          .row.text-center
+            h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+          .row.text-center
+            a.mx-auto {{ $t('haveCouponCode') }}
+          .card-deck
+            .card.text-center.payment-method
+              .card-body(@click='showStripe({})')
+                .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
+            .card.text-center.payment-method
+              a.card-body.paypal(:href='paypalCheckoutLink', target='_blank')
+                img(src='~assets/images/paypal.png')
+            .card.text-center.payment-method
+              .card-body.amazon(@click="amazonPaymentsInit({type: 'single'})")
+                img(src='~assets/images/amazon-payments.png')
+          .row.text-center
+            .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
+          .row.text-center.text-outtro
+            .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
 </template>
 
 <style lang="scss">
@@ -319,6 +314,9 @@
   import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
+  import planGemLimits from 'common/script/libs/planGemLimits';
+  import paymentsMixin from 'client/mixins/payments';
+  import amazonPaymentsModal from './amazonModal';
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
@@ -331,14 +329,23 @@
   import eightyFourGems from 'assets/svg/84-gems.svg';
 
   export default {
+    mixins: [paymentsMixin],
     components: {
       bModal,
+      planGemLimits,
+      amazonPaymentsModal,
     },
     computed: {
       ...mapState({user: 'user.data'}),
       startingPageOption () {
         return this.$store.state.gemModalOptions.startingPage;
       },
+      userReachedGemCap () {
+        return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
+      },
+    },
+    directives: {
+      markdown,
     },
     data () {
       return {
@@ -353,10 +360,9 @@
           eightyFourGems,
         }),
         selectedPage: 'subscribe',
+        amazonPayments: {},
+        planGemLimits,
       };
-    },
-    directives: {
-      markdown,
     },
     methods: {
       close () {

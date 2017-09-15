@@ -3,7 +3,7 @@
     .left-panel.content
       h3.text-center Quests
       .row
-        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}")
+        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest(key)', :class="{selected: key === selectedQuest}", v-if='value > 0')
           .quest-wrapper
             .quest(:class="'inventory_quest_scroll_' + key")
       .row
@@ -80,6 +80,7 @@
     left: -22em;
     z-index: -1;
     padding: 2em;
+    overflow: scroll;
 
     h3 {
       color: $white;
@@ -159,6 +160,7 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
@@ -208,11 +210,16 @@ export default {
       this.selectedQuest = quest;
     },
     async questInit () {
-      let key = this.selectedQuest;
-      // Analytics.updateUser({'partyID': party._id, 'partySize': party.memberCount});
-      let response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
-      let quest = response.data.data;
-      this.$store.party.quest = quest;
+      Analytics.updateUser({
+        partyID: this.group._id,
+        partySize: this.group.memberCount,
+      });
+
+      const key = this.selectedQuest;
+      const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
+      const quest = response.data.data;
+
+      this.$store.party.data.quest = quest;
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },
   },

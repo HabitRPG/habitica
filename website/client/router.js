@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
+import * as Analytics from 'client/libs/analytics';
 
 // import EmptyView from './components/emptyView';
 
@@ -14,7 +15,7 @@ const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./
 const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const FrontPage = () => import(/* webpackChunkName: "static" */'./components/static/front');
+const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
 const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
 const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
@@ -99,7 +100,7 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
+    { name: 'home', path: '/home', component: HomePage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
@@ -286,6 +287,13 @@ router.beforeEach(function routerGuard (to, from, next) {
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
     return next({name: 'tasks'});
   }
+
+  Analytics.track({
+    hitType: 'pageview',
+    eventCategory: 'navigation',
+    eventAction: 'navigate',
+    page: to.name || to.path,
+  });
 
   next();
 });

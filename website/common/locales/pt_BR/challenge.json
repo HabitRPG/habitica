@@ -81,6 +81,6 @@
     "cantOnlyUnlinkChalTask": "Apenas links de desafios quebrados podem ser desfeitos.",
     "shortNameTooShort": "O nome da etiqueta deve ter pelo menos 3 caracteres.",
     "joinedChallenge": "Entrou em um Desafio",
-    "joinedChallengeText": "Esse usuário está testando a si mesmo ao entrar em um Desafio!",
+    "joinedChallengeText": "Este usuário testou seus limites ao entrar em um Desafio!",
     "loadMore": "Carregar Mais"
 }

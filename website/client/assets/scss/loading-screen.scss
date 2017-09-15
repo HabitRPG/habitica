@@ -1,0 +1,35 @@
+#loading-screen {
+  z-index: 1050;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $purple-100;
+  color: $white;
+
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@keyframes fadeColor {
+  0% {
+    opacity: 0.48;
+  }
+  50% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.48;
+  }
+}
+
+#melior {
+  animation: fadeColor 2.4s infinite;
+  height: 4rem;
+  margin-left: -1rem;
+}

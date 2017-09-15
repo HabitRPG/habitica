@@ -1,6 +1,6 @@
 {
-    "npc": "NPC",
-    "npcAchievementName": "<%= key %> NPC",
+    "npc": "Personagem",
+    "npcAchievementName": "<%= key %> Personagem",
     "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "mattBoch": "Matt Boch",
     "mattShall": "Devo trazer seu corcel, <%= name %>? Uma vez que você alimentou o seu mascote o suficiente para torná-lo uma montaria, ele aparecerá aqui. Clique em uma montaria para montá-la.",
@@ -69,7 +69,7 @@
     "moreClass": "Para mais informações sobre o sistema de classes, veja a <a href='http://pt-br.habitica.wikia.com/wiki/Class_System' target='_blank'>Wikia</a>.",
     "tourWelcome": "Bem-vindo(a) ao Habitica! Essa é a sua lista de Afazeres. Complete uma tarefa para prosseguir!",
     "tourExp": "Bom trabalho! Completar uma tarefa lhe dá Experiência e Ouro!",
-    "tourDailies": "Essa coluna é para Diárias. Para continuar, crie uma tarefa que você deve fazer todos os dias! <strong>Exemplos de Tarefas Diárias</strong>:<strong>Arrumar a Cama</strong>, <strong>Usar Fio Dental</strong>, <strong>Checar E-mails de Trabalho</strong>",
+    "tourDailies": "Essa coluna é para Diárias. Para continuar, crie uma tarefa que você deve fazer todos os dias! <strong>Exemplos de Diárias</strong>:<strong>Arrumar a Cama</strong>, <strong>Usar Fio Dental</strong>, <strong>Checar E-mails de Trabalho</strong>",
     "tourCron": "Esplêndido! Suas Diárias vão resetar todo dia.",
     "tourHP": "Cuidado! Se você não completar uma tarefa diária até a meia noite, ela vai te machucar!",
     "tourHabits": "Essa coluna é para bons e maus Hábitos que você faz várias vezes por dia! Para proceder, clique no lápis para editar os nomes, depois clique no positivo (checkmark) para salvar.",

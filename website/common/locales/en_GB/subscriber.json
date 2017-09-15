@@ -171,5 +171,5 @@
     "missingCustomerId": "Missing req.query.customerId",
     "missingPaypalBlock": "Missing req.session.paypalBlock",
     "missingSubKey": "Missing req.query.sub",
-    "paypalCanceled": "Your subscription has been canceled"
+    "paypalCanceled": "Your subscription has been cancelled"
 }

@@ -27,9 +27,66 @@ div
   quest-invitation
 </template>
 
+<style lang='scss'>
+  .introjs-helperNumberLayer, .introjs-bullets {
+    display: none;
+  }
+
+  .introjs-tooltip {
+    background-image: url('~client/assets/svg/for-css/tutorial-border.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 131px;
+    min-height: 131px !important;
+    width: 400px;
+    max-width: 400px;
+
+    .featured-label {
+      position: absolute;
+      top: -1.5em;
+    }
+
+    .npc_justin_textbox {
+      position: absolute;
+      right: 1em;
+      top: -3.6em;
+      width: 48px;
+      height: 52px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
+  }
+
+  .introjs-button:hover, .introjs-button:active {
+    background-image: none;
+    background-color: #4f2a93 !important;
+    color: #fff;
+  }
+
+  .introjs-tooltipbuttons {
+    margin-top: 1em;
+  }
+
+  .introjs-button {
+    text-shadow: none;
+    text-align: center;
+    display: block;
+    max-width: 90px;
+    font-family: Roboto;
+    font-size: 14px;
+    background-image: none;
+    color: #fff;
+    margin: 0 auto;
+    padding: .8em;
+    border-radius: 2px;
+    background-color: #4f2a93 !important;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import moment from 'moment';
+import throttle from 'lodash/throttle';
 
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
@@ -106,6 +163,7 @@ export default {
       lastShownNotifications,
       alreadyReadNotification,
       isRunningYesterdailies: false,
+      nextCron: null,
     };
   },
   computed: {
@@ -230,6 +288,8 @@ export default {
       this.$root.$emit('show::modal', 'quest-invitation');
     },
   },
+
+  /* eslint-disable no-console */
   mounted () {
     Promise.all([
       this.$store.dispatch('user:fetch'),
@@ -251,46 +311,68 @@ export default {
         this.goto('intro', 0);
       }, 2000);
 
+      console.log('before first yesterDailies run, current time:', (new Date()).toString());
       this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
     });
   },
   methods: {
     playSound (sound) {
       this.$root.$emit('playSound', sound);
     },
+    checkNextCron: throttle(function checkNextCron () {
+      if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+        Promise.all([
+          this.$store.dispatch('user:fetch', {forceLoad: true}),
+          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        ]).then(() => this.runYesterDailies());
+      }
+    }, 1000),
     scheduleNextCron () {
+      console.log('scheduling next cron (scheduleNextCron fn), current time:', (new Date()).toString());
       // Open yesterdailies modal the next time cron runs
       const dayStart = this.user.preferences.dayStart;
       let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      console.log(
+        'scheduling next cron, current time:', (new Date()).toString(),
+        'dayStart', dayStart,
+        'nextCron (base)', (new Date(nextCron.toDate())).toString());
 
       const currentHour = moment().format('H');
       if (currentHour >= dayStart) {
         nextCron = nextCron.add(1, 'day');
       }
 
-      // Setup a listener that executes 10 seconds after the next cron time
-      const nextCronIn = Number(nextCron.format('x')) - Date.now() + 10 * 1000;
-      setInterval(async () => {
-        // Sync the user before showing the modal
-        await Promise.all([
-          this.$store.dispatch('user:fetch', {forceLoad: true}),
-          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
-        ]);
+      console.log('next cron after edit', nextCron.toDate());
 
-        this.runYesterDailies();
-      }, nextCronIn);
+      // Setup a listener that executes 10 seconds after the next cron time
+      this.nextCron = Number(nextCron.format('x'));
+      this.isRunningYesterdailies = false;
+
+      console.log('finished running yesterDailies');
     },
     async runYesterDailies () {
+      console.log('isRunningYesterdailies:', this.isRunningYesterdailies, (new Date()).toString());
       // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
+      console.log('running yesterdailies at, current time:', new Date(), 'needsCron:', this.user.needsCron);
+      this.isRunningYesterdailies = true;
+
       if (!this.user.needsCron) {
+        console.log('cron not needed, scheduling, current time:', (new Date()).toString());
         this.handleUserNotifications(this.user.notifications);
         this.scheduleNextCron();
         return;
       }
 
       let dailys = this.$store.state.tasks.data.dailys;
-      this.isRunningYesterdailies = true;
+      console.log('running yesterdailies (real part), current time:', (new Date()).toString());
 
       let yesterDay = moment().subtract('1', 'day').startOf('day').add({
         hours: this.user.preferences.dayStart,
@@ -303,30 +385,41 @@ export default {
         if (task.yesterDaily && due) this.yesterDailies.push(task);
       });
 
+      console.log('yesterDailies to do', this.yesterDailies.length);
+
       if (this.yesterDailies.length === 0) {
+        console.log('no yesterDailies, scheduling cron, current time:', (new Date()).toString());
         this.runYesterDailiesAction();
         return;
       }
 
+      console.log('showing yesterDailies modal, current time:', (new Date()).toString());
+
       this.$root.$emit('show::modal', 'yesterdaily');
     },
     async runYesterDailiesAction () {
+      console.log('yesterDailies action, current time:', (new Date()).toString());
       // Run Cron
       await axios.post('/api/v3/cron');
+      console.log('after /cron call, current time:', (new Date()).toString());
 
       // Notifications
 
       // Sync
       // @TODO add a loading spinner somewhere
+      console.log('syncing user after cron, current time:', (new Date()).toString());
       await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
+      console.log('synced user after cron, current time:', (new Date()).toString());
 
       this.handleUserNotifications(this.user.notifications);
-      this.isRunningYesterdailies = false;
+      console.log('scheduling next cron after runYesterDailiesAction, current time:', (new Date()).toString());
       this.scheduleNextCron();
     },
+    /* eslint-enable no-console */
+
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
       this.user.groupNotifications.push(notification);
