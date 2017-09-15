@@ -104,8 +104,6 @@
         .row.featured
           .col-12.text-center
             strong Featured in
-      .container-fluid
-        .seamless_stars_varied_opacity_repeat
       .container-fluid.featured
         .row
           .col-12
@@ -113,10 +111,12 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Cnetlogo.png', alt="$t(altAttrCnet)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Fast-Company-logo.png', alt="$t(altAttrFastCompany)")
+            .cnet.svg-icon(v-html='icons.cnet')
+            .fast-company.svg-icon(v-html='icons.fastCompany')
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
+      .container-fluid
+        .seamless_stars_varied_opacity_repeat
 
     #purple-footer
       app-footer
@@ -408,6 +408,26 @@
     .featured {
       text-align: center;
 
+      .svg-icon {
+        max-height: 30px;
+        max-width: 120px;
+        color: #fff;
+        display: inline-block;
+      }
+
+      .cnet {
+        width: 40px;
+        height: 40px;
+        padding-top: .5em;
+        margin-right: 1em;
+      }
+
+      .fast-company {
+        width: 161.3px;
+        height: 24px;
+        padding-top: .8em;
+      }
+
       img {
         max-height: 30px;
         max-width: 120px;
@@ -471,6 +491,8 @@
   import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
   import facebookSquareIcon from 'assets/svg/facebook-square.svg';
   import googleIcon from 'assets/svg/google.svg';
+  import cnet from 'assets/svg/cnet.svg';
+  import fastCompany from 'assets/svg/fast-company.svg';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
@@ -490,6 +512,8 @@
           pixelHorizontal3,
           facebookIcon: facebookSquareIcon,
           googleIcon,
+          cnet,
+          fastCompany,
         }),
         userCount: 1000000,
         username: '',
