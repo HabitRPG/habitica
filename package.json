@@ -113,6 +113,7 @@
     "sass-loader": "^6.0.2",
     "serve-favicon": "^2.3.0",
     "shelljs": "^0.7.6",
+    "sortablejs": "^1.6.1",
     "stripe": "^4.2.0",
     "superagent": "^3.4.3",
     "svg-inline-loader": "^0.7.1",
