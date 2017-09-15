@@ -4,8 +4,6 @@
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    static-header
-
     #intro-signup.purple-1
       .container
         .row
@@ -118,38 +116,11 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
 
-    #purple-footer
-      app-footer
-
     #bottom-wrap.purple-4
       #bottom-background
         .seamless_mountains_demo_repeat
         .midground_foreground_extended2
 </template>
-
-<style lang="scss">
-  #purple-footer {
-    background-color: #271b3d;
-
-    footer, footer a {
-      background: transparent;
-      color: #d5c8ff;
-    }
-
-    .logo {
-      color: #bda8ff;
-    }
-
-    .social-circle, .btn-donate {
-      background: #36205d;
-      color: #bda8ff;
-
-      .svg-icon {
-        color: #bda8ff;
-      }
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/static.scss';
@@ -460,8 +431,6 @@
 
 <script>
   import hello from 'hellojs';
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -474,10 +443,6 @@
   import * as Analytics from 'client/libs/analytics';
 
   export default {
-    components: {
-      AppFooter,
-      StaticHeader,
-    },
     data () {
       return {
         icons: Object.freeze({
@@ -503,7 +468,7 @@
         hitType: 'pageview',
         eventCategory: 'page',
         eventAction: 'landing page',
-        page: '/home',
+        page: '/static/home',
       });
 
       hello.init({
