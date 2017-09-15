@@ -158,6 +158,8 @@ div
 
   import moment from 'moment';
 
+  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+
   export default {
     components: {
       bPopover,
@@ -216,7 +218,7 @@ div
         }
       },
       limitedString () {
-        return this.$t('limitedOffer', {date: moment(this.item.event.end).format('LL')});
+        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
       },
     },
     methods: {

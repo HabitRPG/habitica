@@ -1,10 +1,14 @@
-import { SEASONAL_SETS } from '../content/constants';
+import {EVENTS, SEASONAL_SETS} from '../content/constants';
 
 module.exports = {
   // opened: false,
   opened: true,
+
+  // used for the seasonalShop.notes
   // currentSeason: 'Closed',
-  currentSeason: 'Summer',
+  currentSeason: 'Fall',
+
+  dateRange: EVENTS.fall2017,
 
   availableSets: [
     ...SEASONAL_SETS.fall,

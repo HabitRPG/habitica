@@ -230,6 +230,8 @@
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';
 
+  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+
   import moment from 'moment';
 
   export default {
@@ -278,7 +280,7 @@
         }
       },
       limitedString () {
-        return this.$t('limitedOffer', {date: moment(this.item.event.end).format('LL')});
+        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
       },
     },
     methods: {
