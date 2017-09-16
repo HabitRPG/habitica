@@ -93,7 +93,13 @@ div
         h2.col-12.text-center {{ $t(key+'Achievs') }}
         .col-3.text-center(v-for='(achievement, key) in category.achievements')
           .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievement.earned}')
-            b-popover(:target="'#' + key", triggers="hover", placement="top", :content="achievement.title + achievement.text")
+            b-popover(
+              :target="'#' + key",
+              triggers="hover",
+              placement="top",
+            )
+              h4.popover-content-title {{ achievement.title }}
+              div.popover-content-text(v-html="achievement.text")
             .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
              .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
             .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
