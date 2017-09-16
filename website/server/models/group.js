@@ -615,7 +615,7 @@ schema.methods.startQuest = async function startQuest (user) {
         member._id !== user._id;
     });
     sendTxnEmail(membersToEmail, 'quest-started', [
-      { name: 'PARTY_URL', content: '/#/options/groups/party' },
+      { name: 'PARTY_URL', content: '/party' },
     ]);
     let membersToPush = _.filter(membersToNotify, (member) => {
       // send push notifications and filter users that disabled emails

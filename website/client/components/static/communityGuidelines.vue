@@ -274,10 +274,10 @@
     h2#links {{ $t('commGuideHeadingLinks') }}
     ul
       li
-        a(href='https://habitica.com/#/options/groups/guilds/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank') {{ $t('commGuideLink01') }}
+        a(href='https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a' target='_blank') {{ $t('commGuideLink01') }}
         | :&nbsp;{{ $t('commGuideLink01description') }}
       li
-        a(href='https://habitica.com/#/options/groups/guilds/426c2c1a-eed0-4997-9b73-d30fc1397688' target='_blank') {{ $t('commGuideLink02') }}
+        a(href='https://habitica.com/groups/guild/426c2c1a-eed0-4997-9b73-d30fc1397688' target='_blank') {{ $t('commGuideLink02') }}
         | :&nbsp;{{ $t('commGuideLink02description') }}
       li
         span(v-html="$t('commGuideLink03')")
