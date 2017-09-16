@@ -1055,11 +1055,11 @@
   "headArmoireAntiProcrastinationHelmText": "Anti-Procrastination Helm",
   "headArmoireAntiProcrastinationHelmNotes": "This mighty steel helm will help you win the fight to be healthy, happy, and productive! Increases Perception by <%= per %>. Enchanted Armoire: Anti-Procrastination Set (Item 1 of 3).",
 
-  "offhand": "shield-hand item",
+  "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
 
-  "shieldBase0Text": "No Shield-Hand Equipment",
-  "shieldBase0Notes": "No shield or shield-hand item.",
+  "shieldBase0Text": "No Off-Hand Equipment",
+  "shieldBase0Notes": "No shield or other off-hand item.",
 
   "shieldWarrior1Text": "Wooden Shield",
   "shieldWarrior1Notes": "Round shield of thick wood. Increases Constitution by <%= con %>.",

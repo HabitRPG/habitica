@@ -464,6 +464,10 @@ export default {
           type: 'Moderator',
         },
         {
+          name: 'Fox_town',
+          type: 'Moderator',
+        },
+        {
           name: 'Megan',
           type: 'Moderator',
         },

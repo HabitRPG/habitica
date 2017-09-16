@@ -57,7 +57,7 @@
         label
           strong(v-once) {{$t('guildSummary')}} *
         div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
-        textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceHolder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
+        textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
         // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
       .form-group

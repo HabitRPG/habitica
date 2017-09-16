@@ -170,8 +170,8 @@ api.getMemberAchievements = {
 };
 
 // Return a request handler for getMembersForGroup / getInvitesForGroup / getMembersForChallenge
-// type is `invites` or `members`
 function _getMembersForItem (type) {
+  // check for allowed `type`
   if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
     throw new Error('Type must be one of "group-members", "group-invites", "challenge-members"');
   }
@@ -245,6 +245,7 @@ function _getMembersForItem (type) {
         query['invitations.guilds.id'] = group._id;
       } else {
         query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+        // @TODO invitations are now stored like this: `'invitations.parties': []`  Probably need a database index for it.
       }
     }
 
@@ -467,7 +468,6 @@ api.sendPrivateMessage = {
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
         {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
-        {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
     }
     if (receiver.preferences.pushNotifications.newPM !== false) {

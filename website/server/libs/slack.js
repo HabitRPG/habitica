@@ -34,9 +34,9 @@ function sendFlagNotification ({
   let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
 
   if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/#/options/groups/tavern`;
+    titleLink = `${BASE_URL}/groups/tavern`;
   } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/#/options/groups/guilds/${group.id}`;
+    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
   } else {
     title += ` - (${group.privacy} ${group.type})`;
   }
@@ -109,9 +109,9 @@ function sendSlurNotification ({
   let text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/#/options/groups/tavern`;
+    titleLink = `${BASE_URL}/groups/tavern`;
   } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/#/options/groups/guilds/${group.id}`;
+    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
   } else {
     title += ` - (${group.privacy} ${group.type})`;
   }

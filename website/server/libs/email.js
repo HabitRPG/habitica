@@ -73,9 +73,9 @@ export function getUserInfo (user, fields = []) {
 export function getGroupUrl (group) {
   let groupUrl;
   if (group._id === TAVERN_ID) {
-    groupUrl = '/#/options/groups/tavern';
+    groupUrl = '/groups/tavern';
   } else if (group.type === 'guild') {
-    groupUrl = `/#/options/groups/guilds/${group._id}`;
+    groupUrl = `/groups/guild/${group._id}`;
   } else if (group.type === 'party') {
     groupUrl = 'party';
   }

@@ -754,7 +754,7 @@ export default {
 
       // @TODO: Implement
       // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/#/options/groups/party');
+      //  $rootScope.hardRedirect('/party');
       // });
     },
     upgradeGroup () {

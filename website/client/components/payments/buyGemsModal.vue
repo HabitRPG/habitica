@@ -26,10 +26,10 @@
           .row
             .col
               +featureBullet("{{ $t('gemBenefit1') }}")
-              +featureBullet("{{ $t('gemBenefit1') }}")
+              +featureBullet("{{ $t('gemBenefit2') }}")
             .col
-              +featureBullet("{{ $t('gemBenefit1') }}")
-              +featureBullet("{{ $t('gemBenefit1') }}")
+              +featureBullet("{{ $t('gemBenefit3') }}")
+              +featureBullet("{{ $t('gemBenefit4') }}")
           .card-deck
             .card.text-center
               .card-img-top
