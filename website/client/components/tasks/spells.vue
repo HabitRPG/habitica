@@ -9,7 +9,7 @@ div(v-if='user.stats.lvl > 10')
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
-  drawer(:title="$t('spells')",
+  drawer(:title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
     v-mousePosition="30", @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
