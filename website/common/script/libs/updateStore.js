@@ -6,6 +6,7 @@ import reduce from 'lodash/reduce';
 import content from '../content/index';
 
 // Return the list of gear items available for purchase
+// TODO: Remove updateStore once the new client is live
 
 let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   accumulator[val] = key;
@@ -24,7 +25,7 @@ module.exports = function updateStore (user) {
   });
 
   changes = changes.concat(filter(content.gear.flat, (val) => {
-    if (['mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
+    if (['special', 'mystery', 'armoire'].indexOf(val.klass) !== -1 && !user.items.gear.owned[val.key] && (val.canOwn ? val.canOwn(user) : false)) {
       return true;
     } else {
       return false;

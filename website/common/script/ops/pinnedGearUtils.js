@@ -1,18 +1,39 @@
 import content from '../content/index';
 import getItemInfo from '../libs/getItemInfo';
-import get from 'lodash/get';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
-
 import isPinned from '../libs/isPinned';
-
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-import updateStore from '../libs/updateStore';
+import get from 'lodash/get';
+import each from 'lodash/each';
+import sortBy from 'lodash/sortBy';
+import lodashFind from 'lodash/find';
+import reduce from 'lodash/reduce';
+
+let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
+  accumulator[val] = key;
+  return accumulator;
+}, {});
+
+function selectGearToPin (user) {
+  let changes = [];
+
+  each(content.gearTypes, (type) => {
+    let found = lodashFind(content.gear.tree[type][user.stats.class], (item) => {
+      return !user.items.gear.owned[item.key];
+    });
+
+    if (found) changes.push(found);
+  });
+
+  return sortBy(changes, (change) => sortOrder[change.type]);
+}
+
 
 function addPinnedGearByClass (user) {
   if (user.flags.classSelected) {
-    let newPinnedItems = updateStore(user);
+    let newPinnedItems = selectGearToPin(user);
 
     for (let item of newPinnedItems) {
       let itemInfo = getItemInfo(user, 'marketGear', item);
@@ -46,7 +67,7 @@ function removeItemByPath (user, path) {
 
 function removePinnedGearByClass (user) {
   if (user.flags.classSelected) {
-    let currentPinnedItems = updateStore(user);
+    let currentPinnedItems = selectGearToPin(user);
 
     for (let item of currentPinnedItems) {
       let itemInfo = getItemInfo(user, 'marketGear', item);
@@ -57,7 +78,7 @@ function removePinnedGearByClass (user) {
 }
 
 function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
-  let currentPinnedItems = updateStore(user);
+  let currentPinnedItems = selectGearToPin(user);
   let removeAndAddAllItems = false;
 
   for (let item of currentPinnedItems) {
