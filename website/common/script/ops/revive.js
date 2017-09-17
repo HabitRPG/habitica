@@ -9,7 +9,8 @@ import {
 import randomVal from '../libs/randomVal';
 import predictableRandom from '../fns/predictableRandom';
 
-import { removePinnedGearByClass, addPinnedGearByClass } from './pinnedGearUtils';
+import { removePinnedGearByClass, addPinnedGearByClass, addPinnedGear } from './pinnedGearUtils';
+import getItemInfo from '../libs/getItemInfo';
 
 module.exports = function revive (user, req = {}, analytics) {
   if (user.stats.hp > 0) {
@@ -88,6 +89,9 @@ module.exports = function revive (user, req = {}, analytics) {
     user.items.gear.owned[lostItem] = false;
 
     addPinnedGearByClass(user);
+
+    let itemInfo = getItemInfo(user, 'marketGear', item);
+    addPinnedGear(user, itemInfo.pinType, itemInfo.path);
 
     if (user.items.gear.equipped[item.type] === lostItem) {
       user.items.gear.equipped[item.type] =  `${item.type}_base_0`;
