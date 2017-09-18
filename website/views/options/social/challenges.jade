@@ -60,6 +60,7 @@ script(type='text/ng-template', id='partials/options.social.challenges.detail.ht
     h3=env.t('hows')
     menu
       button.customize-option(ng-repeat='member in challenge.members track by member._id', ng-click='toggleMember(challenge._id, member._id)') {{member.profile.name}}
+    button.btn.btn-primary(ng-click='loadMoreMembers()', ng-if='challenge.memberCount > challenge.members.length')=env.t('loadMore')
   div(ui-view)
 
   // Accordion version if we choose that instead

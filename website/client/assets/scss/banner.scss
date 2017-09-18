@@ -15,6 +15,13 @@
     height: 32px;
   }
 
+  &.closed {
+    max-width: 50%;
+    min-height: 32px;
+    height: auto;
+    padding: 3px;
+  }
+
   .rectangle {
     margin: 9px;
     display: inline-block;

@@ -1,9 +1,23 @@
 import axios from 'axios';
 
+let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+let API_TOKEN = '';
+if (AUTH_SETTINGS) {
+  AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
+  API_TOKEN = AUTH_SETTINGS.auth.apiToken;
+}
+
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 
+let StripeCheckout = window.StripeCheckout;
+
 export default {
+  computed: {
+    paypalCheckoutLink () {
+      return `/paypal/checkout?_id=${this.user._id}&apiToken=${API_TOKEN}`;
+    },
+  },
   methods: {
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
@@ -23,7 +37,7 @@ export default {
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
-      this.StripeCheckout.open({
+      StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         amount,
@@ -57,6 +71,7 @@ export default {
           if (newGroup && newGroup._id) {
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            this.user.guilds.push(newGroup._id);
             return;
           }
 
@@ -64,11 +79,35 @@ export default {
         },
       });
     },
+    showStripeEdit (config) {
+      let groupId;
+      if (config && config.groupId) {
+        groupId = config.groupId;
+      }
+
+      StripeCheckout.open({
+        key: STRIPE_PUB_KEY,
+        address: false,
+        name: this.$t('subUpdateTitle'),
+        description: this.$t('subUpdateDescription'),
+        panelLabel: this.$t('subUpdateCard'),
+        token: async (data) => {
+          data.groupId = groupId;
+          let url = '/stripe/subscribe/edit';
+          let response = await axios.post(url, data);
+
+          // Succss
+          window.location.reload(true);
+          // error
+          alert(response.message);
+        },
+      });
+    },
     checkGemAmount (data) {
       let isGem = data && data.gift && data.gift.type === 'gems';
       let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
       if (notEnoughGem) {
-        Notification.error(this.$t('badAmountOfGemsToPurchase'), true);
+        this.error(this.$t('badAmountOfGemsToPurchase'), true);
         return false;
       }
       return true;

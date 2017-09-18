@@ -1,5 +1,6 @@
 <template lang="pug">
-.row(v-if="group")
+.row(v-if="group._id")
+  group-form-modal(v-if='isParty')
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   .col-8.standard-page
@@ -7,7 +8,7 @@
       .col-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
-        span.float-left(v-once, v-if='group.leader.profile') : {{group.leader.profile.name}}
+        span.float-left(v-if='group.leader.profile') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -26,19 +27,28 @@
       .col-12
         h3(v-once) {{ $t('chat') }}
 
-        textarea(:placeholder="!isParty ? $t('chatPlaceHolder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
-        autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId')
-        button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-      .col-12
-        chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+        .row.new-message-row
+          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
+          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+
+        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
+          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
+          div.col-4
+            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+
+        .row
+          .col-12.hr
+          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-6
       .col-6
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader') {{ $t('upgrade') }}
+          button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
+            | {{ $t('upgrade') }}
         .button-container
           button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
         .button-container
@@ -63,7 +73,7 @@
         .row.no-quest-section(v-if='isParty && !onPendingQuest && !onActiveQuest')
           .col-12.text-center
             .svg-icon(v-html="icons.questIcon")
-            h4(v-once) {{ $t('yourNotOnQuest') }}
+            h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
@@ -74,65 +84,78 @@
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
             h3(v-once) {{ questData.text() }}
-            .quest-box.svg-icon(v-html="icons.questBackground")
-            .collect-info(v-if='questData.collect')
-              .row(v-for='(value, key) in questData.collect')
-                .col-2
-                  div(:class="'quest_' + questData.key + '_' + key")
-                .col-10
-                  strong {{value.text()}}
-                  .grey-progress-bar
-                    .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
-                  strong {{group.quest.progress.collect[key]}} / {{value.count}}
-            .boss-info(v-if='questData.boss')
-              .row
-                .col-6
-                  h4.float-left(v-once) {{ questData.boss.name() }}
-                .col-6
-                  span.float-right(v-once) {{ $t('participantsTitle') }}
-              .row
-                .col-12
-                  .grey-progress-bar
-                    .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-              .row.boss-details
+            .quest-box
+              .collect-info(v-if='questData.collect')
+                .row(v-for='(value, key) in questData.collect')
+                  .col-2
+                    div(:class="'quest_' + questData.key + '_' + key")
+                  .col-10
+                    strong {{value.text()}}
+                    .grey-progress-bar
+                      .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
+                    strong {{group.quest.progress.collect[key]}} / {{value.count}}
+              .boss-info(v-if='questData.boss')
+                .row
                   .col-6
-                    span.float-left
-                      | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
+                    h4.float-left(v-once) {{ questData.boss.name() }}
                   .col-6
-                    span.float-right {{group.quest.progress.up || 0}} pending damage
+                    span.float-right(v-once) {{ $t('participantsTitle') }}
+                .row
+                  .col-12
+                    .grey-progress-bar
+                      .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
+                .row.boss-details
+                    .col-6
+                      span.float-left
+                        | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
+                    .col-6
+                      // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
+                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
+                .row.rage-bar-row(v-if='questData.boss.rage')
+                  .col-12
+                    .grey-progress-bar
+                      .boss-health-bar.rage-bar(:style="{width: (50 / questData.boss.rage) * 100 + '%'}")
+                .row.boss-details.rage-details(v-if='questData.boss.rage')
+                    .col-6
+                      span.float-left
+                        | Rage {{questData.boss.rage.value}}
             button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
 
     .section-header
       .row
         .col-10
-          h3(v-once) {{ $t('description') }}
+          h3(v-once) {{ $t('guildSummary') }}
+        .col-2
+          .toggle-up(@click="sections.summary = !sections.summary", v-if="sections.summary")
+            .svg-icon(v-html="icons.upIcon")
+          .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
+            .svg-icon(v-html="icons.downIcon")
+      .section(v-if="sections.summary")
+        p(v-markdown='group.summary')
+
+    .section-header
+      .row
+        .col-10
+          h3 {{ $t('groupDescription') }}
         .col-2
           .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
             .svg-icon(v-html="icons.upIcon")
           .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.description")
-        p {{ group.description }}
-
-    .section-header
-      .row
-        .col-10
-          h3 {{ $t('guildInformation') }}
-        .col-2
-          .toggle-up(@click="sections.information = !sections.information", v-if="sections.information")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.information = !sections.information", v-if="!sections.information")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.information")
-        p {{ group.information }}
+        p(v-markdown='group.description')
 
     .section-header.challenge
       .row
         .col-10.information-header
           h3(v-once)
             | {{ $t('challenges') }}
-          b-tooltip.icon.tooltip-wrapper(:content="isParty ? $t('challengeDetails') : $t('privateDescription')")
+          #groupPrivateDescOrChallengeInfo.icon.tooltip-wrapper(:title="isParty ? $t('challengeDetails') : $t('privateDescription')")
             .svg-icon(v-html='icons.information')
+          b-tooltip(
+            :title="isParty ? $t('challengeDetails') : $t('privateDescription')",
+            target="groupPrivateDescOrChallengeInfo",
+          )
         .col-2
           .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
             .svg-icon(v-html="icons.upIcon")
@@ -250,11 +273,28 @@
   .chat-row {
     margin-top: 2em;
 
-    .send-chat {
-      margin-top: -3.5em;
-      z-index: 10;
+    .community-guidelines {
+      background-color: rgba(135, 129, 144, 0.84);
+      padding: 1em;
+      color: $white;
+      position: absolute;
+      top: 0;
+      height: 150px;
+      padding-top: 3em;
+      margin-top: 2.3em;
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    .new-message-row {
       position: relative;
-      margin-right: 1em;
+    }
+
+    .send-chat {
+      z-index: 10;
+      position: absolute;
+      right: 1em;
+      bottom: 3em;
     }
   }
 
@@ -307,8 +347,11 @@
 
   .quest-active-section {
     .quest-box {
-      height: 100px;
+      background-image: url('~client/assets/svg/for-css/quest-border.svg');
+      background-size: 100% 100%;
       width: 100%;
+      padding: .5em;
+      margin-bottom: 1em;
 
       svg: {
         width: 100%;
@@ -317,10 +360,8 @@
     }
 
     .boss-info, .collect-info {
-      position: relative;
-      top: -89px;
-      left: 15px;
-      width: 32em;
+      width: 90%;
+      margin: 0 auto;
       text-align: left;
     }
   }
@@ -352,6 +393,15 @@
     margin-bottom: .5em;
   }
 
+  .rage-details {
+    margin-bottom: 1em;
+  }
+
+  .boss-health-bar.rage-bar {
+    margin-top: 1em;
+    background-color: orange;
+  }
+
   .grey-progress-bar {
     width: 100%;
     height: 15px;
@@ -363,6 +413,14 @@
     height: 15px;
 
   }
+
+  .hr {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid $gray-500;
+    text-align: center;
+    margin: 2em 0;
+  }
 </style>
 
 <script>
@@ -370,6 +428,7 @@ import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import quests from 'common/script/content/quests';
@@ -379,6 +438,7 @@ import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
+import markdownDirective from 'client/directives/markdown';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 import bCard from 'bootstrap-vue/lib/components/card';
@@ -417,11 +477,12 @@ export default {
   },
   directives: {
     bToggle,
+    markdown: markdownDirective,
   },
   data () {
     return {
-      searchId: null,
-      group: null,
+      searchId: '',
+      group: {},
       icons: Object.freeze({
         like: likeIcon,
         copy: copyIcon,
@@ -441,8 +502,8 @@ export default {
       selectedQuest: {},
       sections: {
         quest: true,
+        summary: true,
         description: true,
-        information: true,
         challenges: true,
       },
       newMessage: '',
@@ -454,6 +515,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    communityGuidelinesAccepted () {
+      return this.user.flags.communityGuidelinesAccepted;
+    },
     partyStore () {
       return this.$store.state.party;
     },
@@ -518,20 +582,17 @@ export default {
     },
   },
   mounted () {
-    this.searchId = this.groupId;
-    if (this.isParty) {
-      this.searchId = 'party';
-      // @TODO: Set up from old client. Decide what we need and what we don't
-      // Check Desktop notifs
-      // Mark Chat seen
-      // Load invites
-    }
-    this.fetchGuild();
+    if (!this.searchId) this.searchId = this.groupId;
 
-    this.$root.$on('updatedGroup', group => {
-      let updatedGroup = extend(this.group, group);
-      this.$set(this.group, updatedGroup);
-    });
+    this.load();
+
+    if (this.user.newMessages[this.searchId]) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$set(this, 'searchId', to.params.groupId);
+    next();
   },
   watch: {
     // call again the method if the route changes (when this route is already active)
@@ -546,6 +607,23 @@ export default {
     },
   },
   methods: {
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
+    load () {
+      if (this.isParty) {
+        this.searchId = 'party';
+        // @TODO: Set up from old client. Decide what we need and what we don't
+        // Check Desktop notifs
+        // Load invites
+      }
+      this.fetchGuild();
+
+      this.$root.$on('updatedGroup', group => {
+        let updatedGroup = extend(this.group, group);
+        this.$set(this.group, updatedGroup);
+      });
+    },
     // @TODO: abstract autocomplete
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
@@ -577,12 +655,13 @@ export default {
       this.newMessage = newText;
     },
     showMemberModal () {
-      this.$store.state.groupId = this.group._id;
+      this.$store.state.memberModalOptions.groupId = this.group._id;
+      this.$store.state.memberModalOptions.group = this.group;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: this.group._id,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);
@@ -606,12 +685,13 @@ export default {
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
-        this.$store.party = group;
-        this.group = this.$store.party;
+        this.$store.state.party.data = group;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
         return;
       }
-      this.group = group;
+
+      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -637,15 +717,20 @@ export default {
       }
     },
     async join () {
-      // @TODO: This needs to be in the notifications where users will now accept invites
-      if (this.group.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
       await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
       this.user.guilds.push(this.group._id);
     },
     clickLeave () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Leave Party',
+      });
+
       // @TODO: Get challenges and ask to keep or remove
       if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
@@ -660,15 +745,21 @@ export default {
         keepChallenges,
       };
 
-      if (this.isParty) data.type = 'party';
+      if (this.isParty) {
+        data.type = 'party';
+        Analytics.updateUser({partySize: null, partyID: null});
+      }
 
       await this.$store.dispatch('guilds:leave', data);
 
       // @TODO: Implement
-      // Analytics.updateUser({'partySize':null,'partyID':null});
       // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/#/options/groups/party');
+      //  $rootScope.hardRedirect('/party');
       // });
+    },
+    upgradeGroup () {
+      this.$store.state.upgradingGroup = this.group;
+      this.$router.push('/group-plans');
     },
     // @TODO: Move to notificatin component
     async leaveOldPartyAndJoinNewParty () {
@@ -684,13 +775,14 @@ export default {
 
       await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
-    // @TODO: Move to notificatin component
-    async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.group._id});
-      // User.sync();
-    },
     clickStartQuest () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Start a Quest',
+      });
+
       let hasQuests = find(this.user.items.quests, (quest) => {
         return quest > 0;
       });

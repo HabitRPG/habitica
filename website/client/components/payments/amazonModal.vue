@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'client/libs/store';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -38,69 +39,71 @@ export default {
       amazonPaymentsrecurringConsent: 'false',
     };
   },
+  computed: {
+    ...mapState({user: 'user.data'}),
+  },
   mounted () {
-    // @TODO:
-    // window.onAmazonLoginReady = function() {
-    //   amazon.Login.setClientId('CLIENT-ID');
-    // };
-    // window.onAmazonPaymentsReady = function() {
-    //             showButton();
-    // };
+    window.onAmazonLoginReady = () => {
+      window.amazon.Login.setClientId(AMAZON_PAYMENTS.CLIENT_ID);
+    };
+
     this.OffAmazonPayments = window.OffAmazonPayments;
     this.isAmazonReady = true;
-    window.amazon.Login.setClientId(AMAZON_PAYMENTS.CLIENT_ID);
-
-
-    // @TODO: prevent modal close form clicking outside
-    let amazonButton = this.OffAmazonPayments.Button( // eslint-disable-line
-      'AmazonPayButton',
-      AMAZON_PAYMENTS.SELLER_ID,
-      {
-        type: 'PwA',
-        color: 'Gold',
-        size: 'small',
-        agreementType: 'BillingAgreement',
-
-        onSignIn: async (contract) => {
-          this.amazonPaymentsbillingAgreementId = contract.getAmazonBillingAgreementId();
-
-          if (this.amazonPayments.type === 'subscription') {
-            this.amazonPayments.loggedIn = true;
-            this.amazonPaymentsinitWidgets();
-          } else {
-            let url = '/amazon/createOrderReferenceId';
-            let response = await axios.post(url, {
-              billingAgreementId: this.amazonPaymentsbillingAgreementId,
-            });
-
-            // @TODO: Success
-            this.amazonPayments.loggedIn = true;
-            this.amazonPaymentsorderReferenceId = response.data.orderReferenceId;
-            this.OffAmazonPayments.amazonPaymentsinitWidgets();
-            // @TODO: error
-            alert(response.message);
-          }
-        },
-
-        authorization: () => {
-          window.amazon.Login.authorize({
-            scope: 'payments:widget',
-            popup: true,
-          }, function amazonSuccess (response) {
-            if (response.error) return alert(response.error);
-
-            let url = '/amazon/verifyAccessToken';
-            axios.post(url, response)
-              .catch((e) => {
-                alert(e.message);
-              });
-          });
-        },
-
-        onError: this.amazonOnError,
-      });
+    this.showButton();
+    // window.onAmazonPaymentsReady = () => {
+    // };
   },
   methods: {
+    showButton () {
+      // @TODO: prevent modal close form clicking outside
+      let amazonButton = this.OffAmazonPayments.Button( // eslint-disable-line
+        'AmazonPayButton',
+        AMAZON_PAYMENTS.SELLER_ID,
+        {
+          type: 'PwA',
+          color: 'Gold',
+          size: 'small',
+          agreementType: 'BillingAgreement',
+
+          onSignIn: async (contract) => {
+            this.amazonPaymentsbillingAgreementId = contract.getAmazonBillingAgreementId();
+
+            if (this.amazonPayments.type === 'subscription') {
+              this.amazonPayments.loggedIn = true;
+              this.amazonPaymentsinitWidgets();
+            } else {
+              let url = '/amazon/createOrderReferenceId';
+              let response = await axios.post(url, {
+                billingAgreementId: this.amazonPaymentsbillingAgreementId,
+              });
+
+              // @TODO: Success
+              this.amazonPayments.loggedIn = true;
+              this.amazonPaymentsorderReferenceId = response.data.orderReferenceId;
+              this.amazonPaymentsinitWidgets();
+              // @TODO: error
+              alert(response.message);
+            }
+          },
+
+          authorization: () => {
+            window.amazon.Login.authorize({
+              scope: 'payments:widget',
+              popup: true,
+            }, function amazonSuccess (response) {
+              if (response.error) return alert(response.error);
+
+              let url = '/amazon/verifyAccessToken';
+              axios.post(url, response)
+                .catch((e) => {
+                  alert(e.message);
+                });
+            });
+          },
+
+          onError: this.amazonOnError,
+        });
+    },
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
         return this.amazonPaymentspaymentSelected === true;
@@ -202,6 +205,7 @@ export default {
         if (newGroup && newGroup._id) {
           // @TODO: Just append? or $emit?
           this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+          this.user.guilds.push(newGroup._id);
           return;
         }
 

@@ -2,6 +2,7 @@ import values from 'lodash/values';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
 import each from 'lodash/each';
+import filter from 'lodash/filter';
 import eachRight from 'lodash/eachRight';
 import toArray from 'lodash/toArray';
 import pickBy from 'lodash/pickBy';
@@ -9,6 +10,7 @@ import sortBy from 'lodash/sortBy';
 import content from '../content/index';
 import i18n from '../i18n';
 import getItemInfo from './getItemInfo';
+import updateStore from './updateStore';
 
 let shops = {};
 
@@ -68,6 +70,65 @@ shops.getMarketCategories = function getMarket (user, language) {
 
   return categories;
 };
+
+function getClassName (classType, language) {
+  if (classType === 'wizard') {
+    return i18n.t('mage', language);
+  } else {
+    return i18n.t(classType, language);
+  }
+}
+
+shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
+  let result = filter(items, ['pinType', 'marketGear']);
+
+  let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
+
+  for (let gear of result) {
+    if (gear.klass !== user.stats.class) {
+      gear.locked = true;
+    }
+
+    if (!gear.locked  && !availableGear.includes(gear.path)) {
+      gear.locked = true;
+    }
+
+    // @TODO: I'm not sure what the logic for locking is supposed to be
+    // But, I am pretty sure if we pin an armoire item, it needs to be unlocked
+    if (gear.klass === 'armoire') {
+      gear.locked = false;
+    }
+
+    if (gear.canOwn) {
+      gear.locked = !gear.canOwn(user);
+    }
+  }
+};
+
+shops.getMarketGearCategories = function getMarketGear (user, language) {
+  let categories = [];
+
+  for (let classType of content.classes) {
+    let category = {
+      identifier: classType,
+      text: getClassName(classType, language),
+    };
+
+    let result = filter(content.gear.flat, ['klass', classType]);
+    category.items = map(result, (e) => {
+      let newItem = getItemInfo(user, 'marketGear', e);
+
+      return newItem;
+    });
+
+    shops.checkMarketGearLocked(user, category.items);
+
+    categories.push(category);
+  }
+
+  return categories;
+};
+
 
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];

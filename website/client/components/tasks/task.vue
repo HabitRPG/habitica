@@ -1,68 +1,72 @@
 <template lang="pug">
-.task
-  approval-header(:task='task', v-if='this.task.group.id', :group='group')
-  .d-flex(:class="{'task-not-scoreable': isUser !== true}")
-    // Habits left side control
-    .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-      .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="isUser ? score('up') : null")
-        .svg-icon.positive(v-html="icons.positive")
-    // Dailies and todos left side control
-    .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
-      .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-        .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
-    // Task title, description and icons
-    .task-content(:class="contentClass")
-      .task-clickable-area(@click="edit($event, task)")
-        h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-        .task-notes.small-text(v-markdown="task.notes")
-      .checklist(v-if="task.checklist && task.checklist.length > 0")
-        label.custom-control.custom-checkbox.checklist-item(
-          v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
-        )
-          input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
-          span.custom-control-indicator
-          span.custom-control-description {{ item.text }}
-      .icons.small-text.d-flex.align-items-center
-        .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
-          .svg-icon.calendar(v-html="icons.calendar")
-          span {{dueIn}}
-        .icons-right.d-flex.justify-content-end
-          .d-flex.align-items-center(v-if="showStreak")
-            .svg-icon.streak(v-html="icons.streak")
-            span(v-if="task.type === 'daily'") {{task.streak}}
-            span(v-if="task.type === 'habit'")
-              span.m-0(v-if="task.up") +{{task.counterUp}}
-              span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
-              span.m-0(v-if="task.down") -{{task.counterDown}}
-          .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-            .svg-icon.challenge(v-html="icons.challenge")
-          b-popover.tags-popover.no-span-margin(
-            :triggers="['hover']",
-            :placement="'bottom'",
-            :popover-style="{'max-width': '1000px'}",
+.task-wrapper
+  broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
+  .task(@click='castEnd($event, task)')
+    approval-header(:task='task', v-if='this.task.group.id', :group='group')
+    .d-flex(:class="{'task-not-scoreable': isUser !== true}")
+      // Habits left side control
+      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
+        .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="(isUser && controlClass.up !== 'task-habit-disabled') ? score('up') : null")
+          .svg-icon.positive(v-html="icons.positive")
+      // Dailies and todos left side control
+      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
+        .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
+          .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
+      // Task title, description and icons
+      .task-content(:class="contentClass")
+        .task-clickable-area(@click="edit($event, task)")
+          h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+          .task-notes.small-text(v-markdown="task.notes")
+        .checklist(v-if="task.checklist && task.checklist.length > 0")
+          label.custom-control.custom-checkbox.checklist-item(
+            v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
-            .d-flex.align-items-center(slot="content")
-              .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
-              .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
-            .d-flex.align-items-center(v-if="task.tags && task.tags.length > 0")
+            input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+            span.custom-control-indicator
+            span.custom-control-description(v-markdown='item.text')
+        .icons.small-text.d-flex.align-items-center
+          .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
+            .svg-icon.calendar(v-html="icons.calendar")
+            span {{dueIn}}
+          .icons-right.d-flex.justify-content-end
+            .d-flex.align-items-center(v-if="showStreak")
+              .svg-icon.streak(v-html="icons.streak")
+              span(v-if="task.type === 'daily'") {{task.streak}}
+              span(v-if="task.type === 'habit'")
+                span.m-0(v-if="task.up") +{{task.counterUp}}
+                span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
+                span.m-0(v-if="task.down") -{{task.counterDown}}
+            .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
+              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken')
+              .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
+            .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
+            b-popover.tags-popover.no-span-margin(
+              v-if="hasTags",
+              :target="`tags-icon-${task._id}`",
+              triggers="hover",
+              placement="bottom",
+            )
+              .d-flex.align-items-center
+                .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
+                .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
-    // Habits right side control
-    .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-      .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="isUser ? score('down') : null")
-        .svg-icon.negative(v-html="icons.negative")
-    // Rewards right side control
-    .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
-      .svg-icon(v-html="icons.gold")
-      .small-text {{task.value}}
-  approval-footer(:task='task', v-if='this.task.group.id', :group='group')
+      // Habits right side control
+      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
+        .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="(isUser && controlClass.down !== 'task-habit-disabled') ? score('down') : null")
+          .svg-icon.negative(v-html="icons.negative")
+      // Rewards right side control
+      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
+        .svg-icon(v-html="icons.gold")
+        .small-text {{task.value}}
+    approval-footer(:task='task', v-if='this.task.group.id', :group='group')
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
 
   .task {
-    margin-bottom: 8px;
+    margin-bottom: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: transparent;
     border-radius: 2px;
@@ -76,6 +80,10 @@
         border-color: $purple-500;
       }
     }
+  }
+
+  .task-habit-disabled-control-habit:hover {
+    cursor: initial;
   }
 
   .task-title {
@@ -190,6 +198,10 @@
     margin: 9px 8px;
   }
 
+  .challenge.broken {
+    color: $red-50;
+  }
+
   .left-control, .right-control {
     width: 40px;
     flex-shrink: 0;
@@ -247,6 +259,8 @@
     .small-text {
       margin-top: 4px;
       color: $yellow-10;
+      font-style: initial;
+      font-weight: bold;
     }
   }
 </style>
@@ -284,6 +298,7 @@ import moment from 'moment';
 import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
+import * as Analytics from 'client/libs/analytics';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -296,6 +311,7 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
+import brokenTaskModal from './brokenTaskModal';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 
@@ -305,11 +321,12 @@ export default {
     bPopover,
     approvalFooter,
     approvalHeader,
+    brokenTaskModal,
   },
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -322,6 +339,7 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
       }),
+      brokenChallengeTask: {},
     };
   },
   computed: {
@@ -342,11 +360,11 @@ export default {
       return false;
     },
     controlClass () {
-      return this.getTaskClasses(this.task, 'control');
+      return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
       const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'content'));
+      classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
       if (this.task.type === 'reward' || this.task.type === 'habit') {
         classes.push('no-right-border');
       }
@@ -364,6 +382,9 @@ export default {
       const dueIn = moment().to(this.task.date);
       return this.$t('dueIn', {dueIn});
     },
+    hasTags () {
+      return this.task.tags && this.task.tags.length > 0;
+    },
   },
   methods: {
     ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
@@ -377,10 +398,11 @@ export default {
 
       if (target.tagName === 'A') { // Link
         return;
-      } else if (!this.$store.state.castingSpell) {
+      } else if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
-
+    },
+    castEnd (e, task) {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
@@ -396,8 +418,25 @@ export default {
         return;
       }
 
+      switch (this.task.type) {
+        case 'habit':
+          this.$root.$emit('playSound', direction === 'up' ? 'Plus_Habit' : 'Minus_Habit');
+          break;
+        case 'todo':
+          this.$root.$emit('playSound', 'Todo');
+          break;
+        case 'daily':
+          this.$root.$emit('playSound', 'Daily');
+          break;
+        case 'reward':
+          this.$root.$emit('playSound', 'Reward');
+          break;
+      }
+
+
       if (task.group.approval.required) task.group.approval.requested = true;
 
+      Analytics.updateUser();
       const response = await axios.post(`/api/v3/tasks/${task._id}/score/${direction}`);
       const tmp = response.data.data._tmp || {}; // used to notify drops, critical hits and other bonuses
       const crit = tmp.crit;
@@ -421,9 +460,9 @@ export default {
 
       if (drop) {
         let text;
-        let notes;
         let type;
-        // TODO $rootScope.playSound('Item_Drop');
+
+        this.$root.$emit('playSound', 'Item_Drop');
 
         // Note: For Mystery Item gear, drop.type will be 'head', 'armor', etc
         // so we use drop.notificationType below.
@@ -445,16 +484,13 @@ export default {
 
         if (drop.type === 'HatchingPotion') {
           text = Content.hatchingPotions[drop.key].text();
-          notes = Content.hatchingPotions[drop.key].notes();
-          this.drop(this.$t('messageDropPotion', {dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropPotion', {dropText: text}), drop);
         } else if (drop.type === 'Egg') {
           text = Content.eggs[drop.key].text();
-          notes = Content.eggs[drop.key].notes();
-          this.drop(this.$t('messageDropEgg', {dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropEgg', {dropText: text}), drop);
         } else if (drop.type === 'Food') {
           text = Content.food[drop.key].text();
-          notes = Content.food[drop.key].notes();
-          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text, dropNotes: notes}), drop);
+          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text}), drop);
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
@@ -463,6 +499,10 @@ export default {
           this.drop(drop.dialog);
         }
       }
+    },
+    handleBrokenTask (task) {
+      this.brokenChallengeTask = task;
+      this.$root.$emit('show::modal', 'broken-task-modal');
     },
   },
 };

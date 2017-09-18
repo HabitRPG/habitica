@@ -35,10 +35,16 @@ angular.module('habitrpg')
       });
     }
 
-    function getChallengeMembers (challengeId) {
+    function getChallengeMembers (challengeId, lastId) {
+      var url = apiV3Prefix + '/challenges/' + challengeId + '/members';
+
+      if (lastId) {
+        url += '?lastId=' + lastId;
+      }
+
       return $http({
         method: 'GET',
-        url: apiV3Prefix + '/challenges/' + challengeId + '/members?includeAllMembers=true',
+        url: url,
       });
     }
 

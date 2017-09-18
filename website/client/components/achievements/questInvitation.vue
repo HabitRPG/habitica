@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#quest-invitation(:title="$t('questInvitation')", size='lg', :hide-footer="true")
+  b-modal#quest-invitation(v-if='user.party.quest.key && quests[user.party.quest.key]', :title="$t('questInvitation')", size='lg', :hide-footer="true")
     .modal-header
       h4 {{ $t('questInvitation') }}
         |&nbsp;{{quests[user.party.quest.key].text()}}
@@ -44,17 +44,10 @@
       button.btn.btn-primary(ng-click='questAccept(); $close()') {{ $t('accept') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
-  }
-</style>
-
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
-import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import revive from '../../../common/script/ops/revive';
 import percent from '../../../common/script/libs/percent';
@@ -63,7 +56,6 @@ import {maxHealth} from '../../../common/script/index';
 export default {
   components: {
     bModal,
-    Avatar,
   },
   data () {
     return {

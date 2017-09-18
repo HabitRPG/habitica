@@ -9,7 +9,7 @@ div
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') Approve Task
-      .col-6.text-center
+      // @TODO: Implement in v2 .col-6.text-center
         a Needs work
     .text-center.task-multi-approval(v-if='multipleApprovalsRequested')
       a(@click='showRequests()') View Requests
@@ -22,6 +22,7 @@ div
 </style>
 
 <script>
+import findIndex from 'lodash/findIndex';
 import { mapState } from 'client/libs/store';
 import approvalModal from './approvalModal';
 
@@ -37,10 +38,22 @@ export default {
     },
     message () {
       let assignedUsers = this.task.group.assignedUsers;
+      let assignedUsersNames = [];
       let assignedUsersLength = assignedUsers.length;
 
+      // @TODO: Eh, I think we only ever display one user name
+      if (this.group && this.group.members) {
+        assignedUsers.forEach(userId => {
+          let index = findIndex(this.group.members, (member) => {
+            return member._id === userId;
+          });
+          let assignedMember = this.group.members[index];
+          assignedUsersNames.push(assignedMember.profile.name);
+        });
+      }
+
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsers}`;
+        return `Assigned to ${assignedUsersNames[0]}`;
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
         return `Assigned to ${assignedUsersLength} members`;
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {

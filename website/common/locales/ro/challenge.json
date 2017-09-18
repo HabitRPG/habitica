@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Numai sarcinile nefuncționale din provocări își pot pierde legătura.",
     "shortNameTooShort": "Numele etichetei trebuie să aibă cel puțin 3 caractere.",
     "joinedChallenge": "S-a alaturat unei provocări",
-    "joinedChallengeText": "Acest utilizator si-a testat limitele alaturandu-se unei Provocari"
+    "joinedChallengeText": "Acest utilizator si-a testat limitele alaturandu-se unei Provocari",
+    "loadMore": "Load More"
 }

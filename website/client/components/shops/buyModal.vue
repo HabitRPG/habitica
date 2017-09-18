@@ -19,11 +19,30 @@
 
       div.inner-content
         slot(name="item", :item="item")
+          div(v-if="showAvatar")
+            avatar(
+              :member="user",
+              :avatarOnly="true",
+              :hideClassBadge="true",
+              :withBackground="true",
+              :overrideAvatarGear="getAvatarOverrides(item)",
+              :spritesMargin="'0px auto 0px -24px'",
+            )
+          item.flat.bordered-item(
+            :item="item",
+            :itemContentClass="item.class",
+            :showPopover="false",
+            v-else-if="item.key != 'gem'"
+          )
 
         h4.title {{ itemText }}
         div.text(v-html="itemNotes")
 
         slot(name="additionalInfo", :item="item")
+          equipmentAttributesGrid.bordered(
+            v-if="showAttributesGrid",
+            :item="item"
+          )
 
         div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}")
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
@@ -47,9 +66,8 @@
         :currencyNeeded="getPriceClass()",
         :amountNeeded="item.value"
       ).float-right
-
-
 </template>
+
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
@@ -57,6 +75,11 @@
 
   #buy-modal {
     @include centeredModal();
+
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
+    }
 
     .content {
       text-align: center;
@@ -158,6 +181,7 @@
 
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
+  import * as Analytics from 'client/libs/analytics';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -167,12 +191,23 @@
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
+  import notifications from 'client/mixins/notifications';
+
+  import { mapState } from 'client/libs/store';
+
+  import EquipmentAttributesGrid from './market/equipmentAttributesGrid.vue';
+
+  import Item from 'client/components/inventory/item';
+  import Avatar from 'client/components/avatar';
 
   export default {
-    mixins: [currencyMixin],
+    mixins: [currencyMixin, notifications],
     components: {
       bModal,
       BalanceInfo,
+      EquipmentAttributesGrid,
+      Item,
+      Avatar,
     },
     data () {
       return {
@@ -186,6 +221,15 @@
       };
     },
     computed: {
+      ...mapState({user: 'user.data'}),
+      showAvatar () {
+        return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      },
+
+      showAttributesGrid () {
+        return this.item.purchaseType === 'gear';
+      },
+
       itemText () {
         if (this.item.text instanceof Function) {
           return this.item.text();
@@ -206,14 +250,37 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        if (this.genericPurchase) {
+          this.$store.dispatch('shops:genericPurchase', {
+            pinType: this.item.pinType,
+            type: this.item.purchaseType,
+            key: this.item.key,
+            currency: this.item.currency,
+          });
+
+          this.purchased(this.item.text);
+          this.$root.$emit('buyModal::boughtItem', this.item);
+          this.$root.$emit('playSound', 'Reward');
+        }
+
         this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
       purchaseGems () {
+        if (this.item.key === 'rebirth_orb') {
+          Analytics.track({
+            hitType: 'event',
+            eventCategory: 'button',
+            eventAction: 'click',
+            eventLabel: 'Gems > Rebirth',
+          });
+        }
         this.$root.$emit('show::modal', 'buy-gems');
       },
       togglePinned () {
-        this.$emit('togglePinned', this.item);
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path})) {
+          this.text(this.$t('unpinnedItem', {item: this.item.text}));
+        }
       },
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-modal');
@@ -221,9 +288,34 @@
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {
           return this.priceType;
+        } else if (this.item.currency && this.icons[this.item.currency]) {
+          return this.item.currency;
         } else {
           return 'gold';
         }
+      },
+      getAvatarOverrides (item) {
+        switch (item.purchaseType) {
+          case 'gear':
+            return {
+              [item.type]: item.key,
+            };
+          case 'backgrounds':
+            return {
+              background: item.key,
+            };
+          case 'mystery_set': {
+            let gear = {};
+
+            item.items.map((setItem) => {
+              gear[setItem.type] = setItem.key;
+            });
+
+            return gear;
+          }
+        }
+
+        return {};
       },
     },
     props: {
@@ -235,6 +327,10 @@
       },
       withPin: {
         type: Boolean,
+      },
+      genericPurchase: {
+        type: Boolean,
+        default: true,
       },
     },
   };

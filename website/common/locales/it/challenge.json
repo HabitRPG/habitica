@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Solo le attività appartenenti a sfide mancanti possono essere scollegate.",
     "shortNameTooShort": "Il nome dell'etichetta deve avere almeno 3 caratteri.",
     "joinedChallenge": "Partecipato ad una Sfida",
-    "joinedChallengeText": "Questo utente si è messo alla prova unendosi ad una Sfida!"
+    "joinedChallengeText": "Questo utente si è messo alla prova unendosi ad una Sfida!",
+    "loadMore": "Mostra altre"
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 
-export function fetchUserTasks (store, forceLoad = false) {
+export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
     store,
     path: 'tasks',
@@ -15,7 +15,7 @@ export function fetchUserTasks (store, forceLoad = false) {
         return store.dispatch('tasks:order', [response.data.data, userResource.data.tasksOrder]);
       });
     },
-    forceLoad,
+    forceLoad: options.forceLoad,
   });
 }
 
@@ -100,6 +100,7 @@ export async function create (store, createdTask) {
 
   list.unshift(createdTask);
   store.state.user.data.tasksOrder[type].unshift(createdTask._id);
+
   const response = await axios.post('/api/v3/tasks/user', createdTask);
 
   Object.assign(list[0], response.data.data);
@@ -171,5 +172,31 @@ export async function getGroupApprovals (store, payload) {
 
 export async function approve (store, payload) {
   let response = await axios.post(`/api/v3/tasks/${payload.taskId}/approve/${payload.userId}`);
+  return response.data.data;
+}
+
+export async function unlinkOneTask (store, payload) {
+  if (!payload.keep) payload.keep = 'keep';
+
+  let task = payload.task;
+  const list = store.state.tasks.data[`${task.type}s`];
+  const taskIndex = list.findIndex(t => t._id === task._id);
+
+  if (taskIndex > -1) {
+    list.splice(taskIndex, 1);
+  }
+
+  let response = await axios.post(`/api/v3/tasks/unlink-one/${payload.task._id}?keep=${payload.keep}`);
+  return response.data.data;
+}
+
+export async function unlinkAllTasks (store, payload) {
+  if (!payload.keep) payload.keep = 'keep-all';
+  let response = await axios.post(`/api/v3/tasks/unlink-all/${payload.challengeId}?keep=${payload.keep}`);
+  return response.data.data;
+}
+
+export async function move (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/move/to/${payload.position}`);
   return response.data.data;
 }

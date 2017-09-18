@@ -4,21 +4,22 @@
     .col-12
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
-  .row
-    .hr.col-12
 
-  div(v-for="(msg, index) in chat", v-if='chat && Object.keys(cachedProfileData).length > 0')
+  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0) && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
       .card.col-8
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+              | {{msg.user}}
+              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -35,13 +36,16 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right
+            span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     .row(v-if='user._id === msg.uuid')
-      .card.col-8.offset-2
+      .card.col-8
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])') {{msg.user}}
+            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+              | {{msg.user}}
+              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -58,10 +62,10 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right
+            span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-2
+      .col-4
         avatar(v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
           :hideClassBadge='true')
@@ -69,6 +73,58 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  // @TODO: Move this to an scss?
+  .tier1 {
+    color: #c42870;
+  }
+
+  .tier2 {
+    color: #b01515;
+  }
+
+  .tier3 {
+    color: #d70e14;
+  }
+
+  .tier4 {
+    color: #c24d00;
+  }
+
+  .tier5 {
+    color: #9e650f;
+  }
+
+  .tier6 {
+    color: #2b8363;
+  }
+
+  .tier7 {
+    color: #167e87;
+  }
+
+  .tier8 {
+    color: #277eab;
+  }
+
+  .tier9 {
+    color: #6133b4;
+  }
+
+  .tier10 {
+    color: #77f4c7;
+    fill: #77f4c7;
+    stroke: #005737;
+  }
+  // End of tier colors
+
+  h3 {
+    .svg-icon {
+      width: 10px;
+      display: inline-block;
+      margin-left: .5em;
+    }
+  }
 
   .hr {
     width: 100%;
@@ -121,14 +177,20 @@
   .action.active, .active .svg-icon {
     color: #46a7d9
   }
+
+  .message-hidden {
+    margin-left: 1.5em;
+    margin-top: 1em;
+    color: red;
+  }
 </style>
 
 <script>
 import axios from 'axios';
-import Bluebird from 'bluebird';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
+import throttle from 'lodash/throttle';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -141,9 +203,19 @@ import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
 import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
+import tier1 from 'assets/svg/tier-1.svg';
+import tier2 from 'assets/svg/tier-2.svg';
+import tier3 from 'assets/svg/tier-3.svg';
+import tier4 from 'assets/svg/tier-4.svg';
+import tier5 from 'assets/svg/tier-5.svg';
+import tier6 from 'assets/svg/tier-6.svg';
+import tier7 from 'assets/svg/tier-7.svg';
+import tier8 from 'assets/svg/tier-mod.svg';
+import tier9 from 'assets/svg/tier-staff.svg';
+import tier10 from 'assets/svg/tier-npc.svg';
 
 export default {
-  props: ['chat', 'groupId', 'groupName'],
+  props: ['chat', 'groupId', 'groupName', 'inbox'],
   mixins: [styleHelper],
   components: {
     copyAsTodoModal,
@@ -156,6 +228,14 @@ export default {
   mounted () {
     this.loadProfileCache();
   },
+  created () {
+    window.addEventListener('scroll', throttle(() => {
+      this.loadProfileCache(window.scrollY / 1000);
+    }, 1000));
+  },
+  destroyed () {
+    // window.removeEventListener('scroll', this.handleScroll);
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -164,10 +244,22 @@ export default {
         report: reportIcon,
         delete: deleteIcon,
         liked: likedIcon,
+        tier1,
+        tier2,
+        tier3,
+        tier4,
+        tier5,
+        tier6,
+        tier7,
+        tier8,
+        tier9,
+        tier10,
       }),
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),
       cachedProfileData: {},
+      currentProfileLoadedCount: 0,
+      currentProfileLoadedEnd: 10,
     };
   },
   filters: {
@@ -192,18 +284,34 @@ export default {
     },
   },
   methods: {
-    async loadProfileCache () {
+    canViewFlag (message) {
+      if (message.uuid === this.user._id) return true;
+      if (!message.flagCount || message.flagCount === 0) return true;
+      return this.user.contributor.admin;
+    },
+    async loadProfileCache (screenPosition) {
       let promises = [];
 
+      // @TODO: write an explination
+      if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
+        this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
+      } else if (screenPosition) {
+        return;
+      }
+
+      // @TODO: Not sure we need this hash
+      let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (uuid && !this.cachedProfileData[uuid]) {
-          if (uuid === 'system') return;
+        if (uuid && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
+          if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
+          aboutToCache[uuid] = {};
           promises.push(axios.get(`/api/v3/members/${uuid}`));
+          this.currentProfileLoadedCount += 1;
         }
       });
 
-      let results = await Bluebird.all(promises);
+      let results = await Promise.all(promises);
       results.forEach(result => {
         let userData = result.data.data;
         this.$set(this.cachedProfileData, userData._id, userData);

@@ -24,7 +24,7 @@
       div Challenge Prize
   .row.description
     .col-12
-      | {{challenge.description}}
+      | {{challenge.summary}}
   .well.row
     .col-3
       .count-details
@@ -55,7 +55,7 @@
     background-color: $white;
     box-shadow: 0 2px 2px 0 $gray-600, 0 1px 4px 0 $gray-600;
     padding: 2em;
-    height: 325px;
+    height: 350px;
     margin-bottom: 1em;
 
     .gem {
@@ -104,8 +104,10 @@
 
     .description {
       color: $gray-200;
-      margin-bottom: 2em;
+      margin-top: 1em;
+      margin-bottom: 1em;
       overflow: hidden;
+      height: 80px;
     }
 
     .well-wrapper {

@@ -1,24 +1,21 @@
 <template lang="pug">
   b-modal#drops-enabled(:title="$t('dropsEnabled')", size='lg', :hide-footer="true")
-    .modal-header
-      h4 {{ $t('dropsEnabled') }}
     .modal-body
-      p
-        figure
+      .col-6.offset-3.text-center
+        p
           .item-drop-icon(class='Pet_Egg_Wolf')
-        span {{ firstDropText }}
-      br
-      p
-        figure
+          span(v-html='firstDropText')
+        p
           .item-drop-icon(class='Pet_Currency_Gem')
-        span {{ $t('useGems') }}
+          span(v-html="$t('useGems')")
     .modal-footer
-      button.btn.btn-default(@click='close()') {{ $t('close') }}
+      .col-12.text-center
+        button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
+<style scoped>
+  .item-drop-icon {
+    margin: 0 auto;
   }
 </style>
 

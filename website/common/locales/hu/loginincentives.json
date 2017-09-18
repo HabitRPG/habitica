@@ -1,18 +1,18 @@
 {
   "unlockedReward": "Kaptál egy <%= reward %>-t",
   "earnedRewardForDevotion": "Életed megváltoztatásáért kaptál egy <%= reward %>-t.",
-  "nextRewardUnlocksIn": "Következő jutalomig ennyi pipa szükséges: <%= numberOfCheckinsLeft %>",
+  "nextRewardUnlocksIn": "Következő jutalomig ennyi bejelentkezés szükséges: <%= numberOfCheckinsLeft %>",
   "awesome": "Fantasztikus!",
   "totalCount": "<%= count %> összesen",
-  "countLeft": "Szükséges pipák a következő jutalomig: <%= count %>",
-  "incentivesDescription": "Ha szokásokról kiépítéséről van szó, a következetesség a kulcsszó. Minden nap, amikor bejelentekezel, közelebb kerülsz a jutalomhoz.",
+  "countLeft": "Szükséges bejelentkezés a következő jutalomig: <%= count %>",
+  "incentivesDescription": "Ha szokások kiépítéséről van szó, a következetesség a kulcsszó. Minden nap, amikor bejelentkezel, közelebb kerülsz a jutalomhoz.",
   "totalCheckins": "<%= count %> bejelentkezés",
   "checkinEarned": "A bejelentkezéseid száma növekedett!",
   "unlockedCheckInReward": "Bejelentkezési jutalmat kaptál!",
   "totalCheckinsTitle": "Összes bejelentkezés",
   "checkinProgressTitle": "Haladás a következőig",
   "incentiveBackgroundsUnlockedWithCheckins": "A nem feloldott Egyszerű Hátterek Napi Bejelentkezésekkel lesznek feloldva.",
-  "checkinReceivedAllRewardsMessage": "Megszerezted az összes Bejelentkezési Jutalmat! Grtaulálunk!",
+  "checkinReceivedAllRewardsMessage": "Megszerezted az összes bejelentkezési jutalmat! Grtaulálunk!",
   "oneOfAllPetEggs": "egy tojás a sok közül",
   "twoOfAllPetEggs": "két tojás a sok közül",
   "threeOfAllPetEggs": "három tojás a sok közül",
@@ -23,7 +23,7 @@
   "threeSaddles": "három nyereg",
   "incentiveAchievement": "a Fenséges hűség kitüntetés",
   "royallyLoyal": "Fenséges hűség",
-  "royallyLoyalText": "Ez a felhasználó több mint 500 alkalommal jelentkezett be és megszerezte az összes Bejelentkezési Jutalmat!",
+  "royallyLoyalText": "Ez a felhasználó több mint 500 alkalommal jelentkezett be és megszerezte az összes bejelentkezési jutalmat!",
   "checkInRewards": "Bejelentkezési jutalom",
-  "backloggedCheckInRewards": "Egy új Bejelentkezési Jutalmat szereztél! Nézd meg a Tárgylistád és a Felszereléseket, mi az."
+  "backloggedCheckInRewards": "Egy új bejelentkezési jutalmat szereztél! Nézd meg a tárgylistád és a felszereléseidet hogy mi az."
 }

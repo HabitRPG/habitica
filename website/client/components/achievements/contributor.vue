@@ -1,19 +1,22 @@
 <template lang="pug">
-  b-modal#contributor(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
-    .modal-content(style='min-width:28em')
-    .modal-body.text-center
-      h3(style='margin-bottom:0') {{ $t('modalContribAchievement') }}
-      // @TODO: +achievementAvatar('boot',0)
-      achievement-avatar
-      | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
-      a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
-      br
-      button.btn.btn-primary(style='margin-top:1em' @click='close()') {{ $t('huzzah') }}
+  b-modal#contributor(:title="$t('modalContribAchievement')", size='md', :hide-footer="true")
+    .modal-body
+      .col-12
+        achievement-avatar.avatar
+      .col-6.offset-3.text-center
+        | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
+        a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
+        br
+        button.btn.btn-primary(style='margin-top:1em' @click='close()') {{ $t('huzzah') }}
+        br
     achievement-footer
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
+<style scoped>
+  .avatar {
+    width: 140px;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
 </style>

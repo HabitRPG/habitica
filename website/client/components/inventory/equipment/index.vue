@@ -53,19 +53,18 @@
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
 
-            b-popover(
-              :triggers="['hover']",
-              :placement="'top'"
+            toggle-switch#costumePrefToggleSwitch.float-right(
+              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+              :checked="user.preferences[drawerPreference]",
+              @change="changeDrawerPreference",
             )
-              span(slot="content")
-                .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
 
-              toggle-switch.float-right(
-                :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
-                :checked="user.preferences[drawerPreference]",
-                @change="changeDrawerPreference",
-              )
-
+            b-popover(
+              target="costumePrefToggleSwitch"
+              triggers="hover",
+              placement="top"
+            )
+              .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
         item(
           v-for="(label, group) in gearTypesToStrings",
@@ -82,7 +81,7 @@
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
-              @click="equip(context.item)",
+              @click="equipItem(context.item)",
             )
     div(
       v-for="group in itemsGroups",
@@ -183,12 +182,12 @@ export default {
       costume: false,
       groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
-        headAccessory: i18n.t('headAccessoryCapitalized'),
-        head: i18n.t('headgearCapitalized'),
-        eyewear: i18n.t('eyewear'),
         weapon: i18n.t('weaponCapitalized'),
         shield: i18n.t('offhandCapitalized'),
+        head: i18n.t('headgearCapitalized'),
         armor: i18n.t('armorCapitalized'),
+        headAccessory: i18n.t('headAccessoryCapitalized'),
+        eyewear: i18n.t('eyewear'),
         body: i18n.t('body'),
         back: i18n.t('back'),
       }),

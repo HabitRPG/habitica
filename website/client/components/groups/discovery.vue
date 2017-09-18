@@ -28,7 +28,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-  
+
   .sort-select {
     margin: 2em;
   }
@@ -82,6 +82,13 @@ export default {
         },
       ],
       guilds: [],
+      queryFilters: {
+        minMemberCount: 0,
+        maxMemberCount: 0,
+        leader: false,
+        member: false,
+        categories: '',
+      },
     };
   },
   created () {
@@ -100,26 +107,97 @@ export default {
     },
   },
   methods: {
-    updateSearch (eventData) {
-      this.search = eventData.searchTerm;
+    async updateSearch (eventData) {
+      // this.search = eventData.searchTerm; @TODO: Probably don't need this anymore
+
+      // Reset the page when filters are updated but not the other queries
+      this.lastPageLoaded = 0;
+      this.queryFilters.page = this.lastPageLoaded;
+
+      this.queryFilters.search = eventData.searchTerm;
+
+      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
+      this.guilds = guilds;
     },
-    updateFilters (eventData) {
-      this.filters = eventData;
+    async updateFilters (eventData) {
+      // this.filters = eventData; @TODO: Probably don't need this anymore
+
+      //  Reset all filters
+      this.queryFilters = {
+        minMemberCount: 0,
+        maxMemberCount: 0,
+        leader: false,
+        member: false,
+        categories: '',
+      };
+
+      // Reset the page when filters are updated
+      this.lastPageLoaded = 0;
+      this.queryFilters.page = this.lastPageLoaded;
+
+      this.queryFilters.categories = eventData.categories.join(',');
+
+      // Role filters
+      let filteringRole = eventData.roles && eventData.roles.length > 0;
+      if (filteringRole && eventData.roles.indexOf('member') !== -1) {
+        this.queryFilters.member = true;
+      }
+
+      if (filteringRole && eventData.roles.indexOf('guild_leader') !== -1) {
+        this.queryFilters.leader = true;
+      }
+
+      // Size filters
+      if (eventData.guildSize && eventData.guildSize.indexOf('gold_tier') !== -1) {
+        this.queryFilters.minMemberCount = 1000;
+        this.queryFilters.maxMemberCount = 0; // No max
+      }
+
+      if (eventData.guildSize && eventData.guildSize.indexOf('silver_tier') !== -1) {
+        this.queryFilters.minMemberCount = 100;
+        this.queryFilters.maxMemberCount = 999;
+      }
+
+      if (eventData.guildSize && eventData.guildSize.indexOf('bronze_tier') !== -1) {
+        this.queryFilters.minMemberCount = 0; // No Min
+        this.queryFilters.maxMemberCount = 99;
+      }
+
+      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
+      this.guilds = guilds;
     },
     async fetchGuilds () {
       // We have the data cached
       if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
 
       this.loading = true;
-      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', {page: this.lastPageLoaded});
+
+      this.queryFilters.page = this.lastPageLoaded;
+      let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
+      guilds.forEach((guild) => {
+        guild.categorySlugs = guild.categories.map(cat => {
+          return cat.slug;
+        });
+      });
       this.guilds.push(...guilds);
 
       this.lastPageLoaded++;
       this.loading = false;
     },
     createGroup () {
+      this.$store.state.editingGroup = {};
       this.$root.$emit('show::modal', 'guild-form');
     },
   },

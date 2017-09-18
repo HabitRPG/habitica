@@ -9,6 +9,10 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+import { removeItemByPath } from './pinnedGearUtils';
+import getItemInfo from '../libs/getItemInfo';
+import content from '../content/index';
+
 // If item is already purchased -> equip it
 // Otherwise unlock it
 module.exports = function unlock (user, req = {}, analytics) {
@@ -75,10 +79,11 @@ module.exports = function unlock (user, req = {}, analytics) {
       setWith(user, `purchased.${pathPart}`, true, Object);
     });
   } else {
+    let split = path.split('.');
+    let value = split.pop();
+    let key = split.join('.');
+
     if (alreadyOwns) { // eslint-disable-line no-lonely-if
-      let split = path.split('.');
-      let value = split.pop();
-      let key = split.join('.');
       if (key === 'background' && value === user.preferences.background) {
         value = '';
       }
@@ -88,6 +93,13 @@ module.exports = function unlock (user, req = {}, analytics) {
     } else {
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);
+
+      // @TODO: Test and check test coverage
+      if (isBackground) {
+        let backgroundContent = content.backgroundsFlat[value];
+        let itemInfo = getItemInfo(user, 'background', backgroundContent);
+        removeItemByPath(user, itemInfo.path);
+      }
     }
   }
 

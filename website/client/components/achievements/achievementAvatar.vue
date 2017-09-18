@@ -1,15 +1,7 @@
 <template lang="pug">
-.container-fluid
-    .row
-      .col-4(style='padding:0')
-        div(:class='achievementClass')
-      .col-4(style='padding:0')
-        .herobox(:style="`${margin}em`")
-          .character-sprites
-            //- +generatedAvatar({sleep: false})
-            avatar(:member='user')
-      .col-4
-        div(:class='achievementClass' style='margin: 2em auto')
+  div(:class='achievementClass')
+    //- +generatedAvatar({sleep: false})
+    avatar(:member='user', :avatarOnly='true', :withBackground='true')
 </template>
 
 <script>
@@ -20,7 +12,6 @@ export default {
   components: {
     Avatar,
   },
-  props: ['badge', 'margin'],
   data () {
     return {
       achievementClass: `achievement-${this.badge}2x`,

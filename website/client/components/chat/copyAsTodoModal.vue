@@ -46,7 +46,7 @@ export default {
     copyingMessage () {
       this.text = this.copyingMessage.text;
       let baseUrl = 'https://habitica.com';
-      this.notes = `[${this.copyingMessage.user}](${baseUrl}/static/front/#?memberId=${this.copyingMessage.uuid}) wrote in [${this.groupName}](${baseUrl}/#/options/groups/${this.groupId})`;
+      this.notes = `[${this.copyingMessage.user}](${baseUrl}/static/home/#?memberId=${this.copyingMessage.uuid}) wrote in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
     },
   },
   methods: {

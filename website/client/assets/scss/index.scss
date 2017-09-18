@@ -10,6 +10,7 @@
 
 // Generic components
 @import './page';
+@import './loading-screen';
 
 // Global styles
 @import './typography';
@@ -19,6 +20,7 @@
 @import './badge';
 @import './dropdown';
 @import './popover';
+@import './tooltip';
 @import './item';
 @import './stats';
 @import './icon';

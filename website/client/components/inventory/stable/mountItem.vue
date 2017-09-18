@@ -1,21 +1,23 @@
 <template lang="pug">
-b-popover(
-  :triggers="[showPopover?'hover':'']",
-  :placement="popoverPosition",
-)
-  span(slot="content")
-    slot(name="popoverContent", :item="item")
-
-  .item-wrapper
+div
+  .item-wrapper(:id="itemId")
     .item(
       :class="{'item-empty': emptyItem}",
     )
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
+  b-popover(
+    :target="itemId",
+    v-if="showPopover",
+    triggers="hover",
+    :placement="popoverPosition",
+  )
+    slot(name="popoverContent", :item="item")
 </template>
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import uuid from 'uuid';
 
   export default {
     components: {
@@ -40,6 +42,11 @@ b-popover(
         type: Boolean,
         default: true,
       },
+    },
+    data () {
+      return Object.freeze({
+        itemId: uuid.v4(),
+      });
     },
   };
 </script>

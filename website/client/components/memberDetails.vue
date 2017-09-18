@@ -1,13 +1,13 @@
 <template lang="pug">
 div
-  profile
-  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
-    avatar(:member="member",
-      @click.native="$emit('click')",
-      @mouseover.native="$emit('onHover')",
-      @mouseout.native="$emit('onHover')",
-    )
-    .member-stats
+  .row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
+    .col-4
+      avatar(:member="member",
+        @click.native="$emit('click')",
+        @mouseover.native="$emit('onHover')",
+        @mouseout.native="$emit('onHover')",
+      )
+    .member-stats(:class="{'col-8': !expanded}")
       h3.character-name
         | {{member.profile.name}}
         .is-buffed(v-if="isBuffed")
@@ -44,13 +44,12 @@ div
     padding-left: 16px;
     padding-right: 24px;
     opacity: 1;
-    transition: opacity 0.15s ease-out;
+    transition: width 0.15s ease-out;
   }
 
   .member-details.condensed:not(.expanded) .member-stats {
     opacity: 0;
-    position: absolute;
-    z-index: -1;
+    display: none;
   }
 
   // Condensed version
@@ -222,8 +221,9 @@ export default {
   },
   methods: {
     percent,
-    showMemberModal () {
-      // @TODO: set viewing users in $store?
+    showMemberModal (member) {
+      this.$store.state.profileUser = member;
+      this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
   },

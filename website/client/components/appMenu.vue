@@ -2,10 +2,11 @@
 div
   inbox-modal
   creator-intro
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
+  profile
+  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-lg
     .navbar-header
       .logo.svg-icon(v-html="icons.logo")
-    .collapse.navbar-collapse
+    b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
           a.nav-link(v-once) {{ $t('tasks') }}
@@ -22,7 +23,9 @@ div
             router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.nav-item(tag="li", :to="{name: 'party'}")
+        router-link.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
+          a.nav-link(v-once) {{ $t('party') }}
+        .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
           a.nav-link(v-once) {{ $t('party') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
           a.nav-link(v-once) {{ $t('guilds') }}
@@ -30,18 +33,15 @@ div
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(
-          v-if='groupPlans.length === 0',
-          tag="li",
-          :to="{name: 'groupPlan'}",
-          :class="{'active': $route.path.startsWith('/group-plan')}")
-            a.nav-link(v-once) {{ $t('group') }}
-        .nav-item.dropdown(v-if='groupPlans.length > 0', :class="{'active': $route.path.startsWith('/group-plans')}")
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
           a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item(tag="li", :to="{name: 'myChallenges'}", exact)
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
           a.nav-link(v-once) {{ $t('challenges') }}
+          .dropdown-menu
+            router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
+            router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
@@ -56,30 +56,80 @@ div
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon
-        .svg-icon(v-html="icons.gem")
+        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
         span {{userGems | roundBigNumber}}
       .item-with-icon
         .svg-icon(v-html="icons.gold")
-        span {{user.stats.gp | roundBigNumber}}
+        span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
-        .svg-icon(v-html="icons.user")
+        .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
             h3 {{ user.profile.name }}
             span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item(@click.prevent='showInbox()') {{ $t('inbox') }}
+          a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
+            | {{ $t('messages') }}
+            span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
           a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
-          router-link.dropdown-item(:to="{name: 'stats'}") {{ $t('stats') }}
-          router-link.dropdown-item(:to="{name: 'achievements'}") {{ $t('achievements') }}
-          router-link.dropdown-item(:to="{name: 'profile'}") {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
-          a.nav-link.dropdown-item(to="/", @click.prevent='logout()') {{ $t('logout') }}
+          a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
+          a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
+          a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
+          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
+            .dropdown-item.text-center
+              h3.purple {{ $t('needMoreGems') }}
+              span.small-text {{ $t('needMoreGemsInfo') }}
+            img.float-left.align-self-end(src='~assets/images/gem-rain.png')
+            button.btn.btn-primary.btn-lg.learn-button Learn More
+            img.float-right.align-self-end(src='~assets/images/gold-rain.png')
+    b-nav-toggle(target='nav_collapse')
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
+
+  /* Less than Desktops and laptops ----------- */
+  @media only screen  and (max-width : 1224px) {
+    #nav_collapse {
+      background: $purple-100;
+      margin-top: 1em;
+      margin-left: 70%;
+      padding-bottom: 1em;
+
+      a {
+        padding: .5em !important;
+      }
+    }
+  }
+
+  @media only screen and (max-width : 1224px) and (min-width: 1200px) {
+    #nav_collapse {
+      margin-top: 37em !important;
+
+      a {
+        width: 100%;
+      }
+    }
+
+    .navbar-collapse.collapse {
+      display: none !important;
+    }
+
+    .navbar-collapse.collapse.show {
+      display: block !important;
+    }
+
+    .navbar-toggler, .navbar-nav {
+      display: block;
+    }
+
+    .navbar-toggleable-lg .navbar-collapse {
+      display: block;
+    }
+  }
 
   nav.navbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
@@ -136,6 +186,25 @@ div
     border-bottom: 1px solid $gray-500;
   }
 
+  .user-dropdown {
+    width: 14.75em;
+  }
+
+  .learn-button {
+    margin: 0.75em 0.75em 0.75em 1em;
+  }
+
+  .purple {
+    color: $purple-200;
+  }
+
+  .small-text {
+    color: $gray-200;
+    font-style: normal;
+    display: block;
+    white-space: normal;
+  }
+
   .dropdown-menu:not(.user-dropdown) {
     background: $purple-200;
     border-radius: 0px;
@@ -176,11 +245,12 @@ div
     padding-left: 16px;
 
     .svg-icon {
-      vertical-align: middle;
-      width: 24px;
-      height: 24px;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
-      float: left;
+      margin-left: 8px;
     }
   }
 
@@ -190,13 +260,13 @@ div
     color: $header-color;
     transition: none;
 
-    &:hover {
-      color: $white;
-    }
-
     .svg-icon {
       margin-right: 0px;
-      color: $white;
+      color: $header-color;
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 
@@ -206,19 +276,34 @@ div
       margin-bottom: 0px;
     }
 
-    .small-text {
-      color: $gray-200;
-      font-style: normal;
-      display: block;
-    }
-
     padding-top: 16px;
     padding-bottom: 16px;
+  }
+
+  .gem:hover {
+    cursor: pointer;
+  }
+
+  .message-count {
+    background-color: #46a7d9;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
   }
 </style>
 
 <script>
+import axios from 'axios';
+import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
+import bCollapse from 'bootstrap-vue/lib/components/collapse';
+
 import { mapState, mapGetters } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import userIcon from 'assets/svg/user.svg';
@@ -227,12 +312,17 @@ import logo from 'assets/svg/logo.svg';
 import InboxModal from './userMenu/inbox.vue';
 import notificationMenu from './notificationMenu';
 import creatorIntro from './creatorIntro';
+import profile from './userMenu/profile';
+import markPMSRead from 'common/script/ops/markPMSRead';
 
 export default {
   components: {
     InboxModal,
     notificationMenu,
     creatorIntro,
+    profile,
+    bNavToggle,
+    bCollapse,
   },
   data () {
     return {
@@ -260,10 +350,11 @@ export default {
   },
   methods: {
     logout () {
-      localStorage.removeItem('habit-mobile-settings');
-      this.$router.go('/');
+      this.$store.dispatch('auth:logout');
     },
     showInbox () {
+      markPMSRead(this.user);
+      axios.post('/api/v3/user/mark-pms-read');
       this.$root.$emit('show::modal', 'inbox-modal');
     },
     showAvatar (startingPage, subpage) {
@@ -272,8 +363,27 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('show::modal', 'avatar-modal');
     },
+    showProfile (startingPage) {
+      this.$store.state.profileOptions.startingPage = startingPage;
+      this.$root.$emit('show::modal', 'profile');
+    },
     async getUserGroupPlans () {
       this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+    },
+    openPartyModal () {
+      this.$root.$emit('show::modal', 'create-party-modal');
+    },
+    showBuyGemsModal (startingPage) {
+      this.$store.state.gemModalOptions.startingPage = startingPage;
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Gems > Toolbar',
+      });
+
+      this.$root.$emit('show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };

@@ -14,9 +14,7 @@ export async function getHero  (store, payload) {
 
 export async function updateHero  (store, payload) {
   let url = `/api/v3/hall/heroes/${payload.heroDetails._id}`;
-  let response = await axios.put(url, {
-    heroDetails: payload.heroDetails,
-  });
+  let response = await axios.put(url, payload.heroDetails);
   return response.data.data;
 }
 

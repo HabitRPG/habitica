@@ -122,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
@@ -183,7 +183,6 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)",
       @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
@@ -340,8 +339,9 @@
 
   import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
+  import shops from 'common/script/libs/shops';
 
-  import _isPinned from '../_isPinned';
+  import isPinned from 'common/script/libs/isPinned';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -394,20 +394,22 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        quests: 'shops.quests.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      questCategories () {
+        return shops.getQuestShopCategories(this.user);
+      },
       categories () {
-        if (this.quests) {
-          this.quests.categories.map((category) => {
+        if (this.questCategories) {
+          this.questCategories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.quests.categories;
+          return this.questCategories;
         } else {
           return [];
         }
@@ -416,7 +418,7 @@ export default {
       featuredItems () {
         return featuredItems.quests.map(i => {
           let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = _isPinned(this.user, newItem);
+          newItem.pinned = isPinned(this.user, newItem);
 
           return newItem;
         });
@@ -427,7 +429,7 @@ export default {
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 
@@ -477,12 +479,6 @@ export default {
           this.$parent.showUnpinNotification(item);
         }
       },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchQuests');
     },
   };
 </script>

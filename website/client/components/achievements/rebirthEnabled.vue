@@ -1,19 +1,18 @@
 <template lang="pug">
-  b-modal#rebirth-enabled(:title="$t('rebirthNew')", size='lg', :hide-footer="true")
-    .modal-header
-      h4 {{ $t('rebirthNew') }}
+  b-modal#rebirth-enabled(:title="$t('rebirthNew')", size='md', :hide-footer="true")
     .modal-body
-      figure
+      .col-12
         .rebirth_orb
-      p
-        span {{ $t('rebirthUnlock') }}
+        p
+          span {{ $t('rebirthUnlock') }}
     .modal-footer
-      button.btn.btn-default(@click='close()') {{ $t('close') }}
+      .col-12.text-center
+        button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
+<style scoped>
+  .rebirth_orb {
+    margin: 0 auto;
   }
 </style>
 

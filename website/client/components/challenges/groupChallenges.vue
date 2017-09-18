@@ -95,11 +95,6 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
   },
-  async mounted () {
-    this.groupIdForChallenges = this.groupId;
-    if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
-    this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
-  },
   data () {
     return {
       challenges: [],
@@ -111,7 +106,20 @@ export default {
       groupIdForChallenges: '',
     };
   },
+  mounted () {
+    this.loadChallenges();
+  },
+  watch: {
+    async groupId () {
+      this.loadChallenges();
+    },
+  },
   methods: {
+    async loadChallenges () {
+      this.groupIdForChallenges = this.groupId;
+      if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+      this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
+    },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
     },

@@ -147,7 +147,7 @@
     "taskApprovalHasBeenRequested": "Er is goedkeuring gevraagd",
     "approvals": "Goedkeuringen",
     "approvalRequired": "Goedkeuring vereist",
-    "repeatZero": "Dagelijkse taak verloopt nooit",
+    "repeatZero": "Dagelijkse taken hebben geen einddatum",
     "repeatType": "Herhaal type",
     "repeatTypeHelpTitle": "Wat voor soort herhaling is dit?",
     "repeatTypeHelp": "Selecteer \"Dagelijks\" als je wil dat deze taak elke dag of elke derde dag, enzovoort, wordt herhaald. Selecteer \"Wekelijks\" als je wil dat het alleen op bepaalde dagen van de week wordt herhaald. Als je \"Maandelijks\" of \"Jaarlijks\" selecteert, pas dan de startdatum aan om te beheersen op welke dag van de maand of het jaar de taak verloopt.",

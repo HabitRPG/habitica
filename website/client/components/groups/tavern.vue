@@ -11,21 +11,23 @@
 
         .row
           textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
-          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :groupId='groupId', :chat='group.chat')
+          autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col-8(v-once) {{ $t('communityGuidelinesIntro') }}
+          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
           div.col-4
             button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
 
         .row
+          .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
   .col-md-4.sidebar
     .section
       .grassy-meadow-backdrop
+        .daniel_front
 
       .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
@@ -48,10 +50,13 @@
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.staff")
-          .col-3.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
-            .title {{user.name}}
+          .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
+            div
+              .title {{user.name}}
+              .svg-icon.staff-icon(v-html="icons.tierStaff", v-if='user.type === "Staff"')
+              .svg-icon.mod-icon(v-html="icons.tierMod", v-if='user.type === "Moderator" && user.name !== "It\'s Bailey"')
+              .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
             .type {{user.type}}
-            .svg-icon(v-html="icons.tierChampionIcon")
 
       .section-header
         .row
@@ -98,16 +103,36 @@
           .col-12
             p(v-once) {{ $t('playerTiersDesc') }}
             ul.tier-list
-              li.tier1(v-once) {{ $t('tier1') }}
-              li.tier2(v-once) {{ $t('tier2') }}
-              li.tier3(v-once) {{ $t('tier3') }}
-              li.tier4(v-once) {{ $t('tier4') }}
-              li.tier5(v-once) {{ $t('tier5') }}
-              li.tier6(v-once) {{ $t('tier6') }}
-              li.tier7(v-once) {{ $t('tier7') }}
-              li.moderator(v-once) {{ $t('tierModerator') }}
-              li.staff(v-once) {{ $t('tierStaff') }}
-              li.npc(v-once) {{ $t('tierNPC') }}
+              li.tier1(v-once)
+               | {{ $t('tier1') }}
+               .svg-icon(v-html="icons.tier1")
+              li.tier2(v-once)
+                | {{ $t('tier2') }}
+                .svg-icon(v-html="icons.tier2")
+              li.tier3(v-once)
+                | {{ $t('tier3') }}
+                .svg-icon(v-html="icons.tier3")
+              li.tier4(v-once)
+                | {{ $t('tier4') }}
+                .svg-icon(v-html="icons.tier4")
+              li.tier5(v-once)
+                | {{ $t('tier5') }}
+                .svg-icon(v-html="icons.tier5")
+              li.tier6(v-once)
+                | {{ $t('tier6') }}
+                .svg-icon(v-html="icons.tier6")
+              li.tier7(v-once)
+                | {{ $t('tier7') }}
+                .svg-icon(v-html="icons.tier7")
+              li.moderator(v-once)
+                | {{ $t('tierModerator') }}
+                .svg-icon(v-html="icons.tierMod")
+              li.staff(v-once)
+                | {{ $t('tierStaff') }}
+                .svg-icon(v-html="icons.tierStaff")
+              li.npc(v-once)
+                | {{ $t('tierNPC') }}
+                .svg-icon.npc-icon(v-html="icons.tierNPC")
 </template>
 
 <style lang='scss' scoped>
@@ -196,23 +221,51 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/tavern_backdrop_web.png');
-    background-size: cover;
+    background-image: url('~assets/images/tavern_backdrop_web_backgroundtile.png');
+    background-repeat: repeat-x;
     width: 100%;
     height: 246px;
+  }
+
+  .daniel_front {
+    background-image: url('~assets/images/tavern_backdrop_web_daniel_and_props.png');
+    height: 246px;
+    width: 471px;
+    background-repeat: no-repeat;
+    margin: 0 auto;
   }
 
   .sleep {
     margin-top: 1em;
   }
 
+  .npc-icon {
+    fill: #77f4c7;
+    stroke: #005737;
+  }
+
   .staff {
     margin-bottom: 1em;
+
+    .staff-icon  {
+      fill: #9a62ff;
+    }
+
+    .mod-icon {
+      fill: #277eab;
+    }
 
     .title {
       color: #6133b4;
       font-weight: bold;
+      display: inline-block;
     }
+  }
+
+  .svg-icon {
+    width: 10px;
+    display: inline-block;
+    margin-left: .5em;
   }
 
   .tier-list {
@@ -257,11 +310,11 @@
       color: #167e87;
     }
 
-    .moderator {
+    .tier8, .moderator {
       color: #277eab;
     }
 
-    .staff {
+    .tier9, .staff {
       color: #6133b4;
     }
 
@@ -299,16 +352,16 @@ import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
 
-import tierChampionIcon from 'assets/svg/tier-champion-icon.svg';
-import tierChampion2Icon from 'assets/svg/tier-champion-2-icon.svg';
-import tierEliteIcon from 'assets/svg/tier-elite-icon.svg';
-import tierElite2Icon from 'assets/svg/tier-elite-2-icon.svg';
-import tierFriendIcon from 'assets/svg/tier-friend-icon.svg';
-import tierFriend2Icon from 'assets/svg/tier-friend-2-icon.svg';
-import tierLegendaryIcon from 'assets/svg/tier-legendary-icon.svg';
-import tierModIcon from 'assets/svg/tier-mod-icon.svg';
-import tierNPCIcon from 'assets/svg/tier-npc-icon.svg';
-import tierStaffIcon from 'assets/svg/tier-staff-icon.svg';
+import tier1 from 'assets/svg/tier-1.svg';
+import tier2 from 'assets/svg/tier-2.svg';
+import tier3 from 'assets/svg/tier-3.svg';
+import tier4 from 'assets/svg/tier-4.svg';
+import tier5 from 'assets/svg/tier-5.svg';
+import tier6 from 'assets/svg/tier-6.svg';
+import tier7 from 'assets/svg/tier-7.svg';
+import tierMod from 'assets/svg/tier-mod.svg';
+import tierNPC from 'assets/svg/tier-npc.svg';
+import tierStaff from 'assets/svg/tier-staff.svg';
 
 export default {
   components: {
@@ -319,16 +372,16 @@ export default {
     return {
       groupId: TAVERN_ID,
       icons: Object.freeze({
-        tierStaffIcon,
-        tierNPCIcon,
-        tierModIcon,
-        tierLegendaryIcon,
-        tierFriend2Icon,
-        tierFriendIcon,
-        tierElite2Icon,
-        tierEliteIcon,
-        tierChampion2Icon,
-        tierChampionIcon,
+        tier1,
+        tier2,
+        tier3,
+        tier4,
+        tier5,
+        tier6,
+        tier7,
+        tierMod,
+        tierNPC,
+        tierStaff,
         gem: gemIcon,
         questIcon,
         challengeIcon,
@@ -411,6 +464,10 @@ export default {
           type: 'Moderator',
         },
         {
+          name: 'Fox_town',
+          type: 'Moderator',
+        },
+        {
           name: 'Megan',
           type: 'Moderator',
         },
@@ -474,7 +531,7 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: TAVERN_ID,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);

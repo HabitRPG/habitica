@@ -12,8 +12,8 @@
             label(for='feedbackTextArea') {{ $t('feedback') }}
             textarea#feedbackTextArea.form-control(v-model='feedback')
       .modal-footer
-        button.btn.btn-danger(@click='close()') {{ $t('neverMind') }}
-        button.btn.btn-primary(@click='deleteAccount()', :disabled='!password') {{ $t('deleteDo') }}
+        button.btn.btn-primary(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-danger(@click='deleteAccount()', :disabled='!password') {{ $t('deleteDo') }}
         .modal-header
     .social-delete(v-if='!user.auth.local.email')
       h4 {{ $t('deleteAccount') }}
@@ -59,7 +59,7 @@ export default {
         },
       });
       localStorage.clear();
-      window.location.href = '/home';
+      window.location.href = '/static/home';
       this.$root.$emit('hide::modal', 'reset');
     },
   },

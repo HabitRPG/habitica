@@ -14,7 +14,7 @@
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
               span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(category.localeKey+'Capitalized') }}
+              span.custom-control-description(v-once) {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -30,7 +30,12 @@
               span.rectangle
               span.text Leslie
               span.rectangle
-          div.content(v-if="featuredSet")
+          div.content(v-if="!seasonal.opened")
+            div.featured-label.with-border.closed
+              span.rectangle
+              span.text(v-once, v-html="seasonal.notes")
+              span.rectangle
+          div.content(v-else-if="featuredSet")
             div.featured-label.with-border
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
@@ -53,7 +58,7 @@
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
-      .clearfix
+      .clearfix(v-if="seasonal.opened")
         h2.float-left
           | {{ $t('classArmor') }}
 
@@ -107,7 +112,6 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)",
       @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
@@ -296,11 +300,17 @@
 
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
+  import _mapKeys from 'lodash/mapKeys';
+  import _forEach from 'lodash/forEach';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
 
-  import _isPinned from '../_isPinned';
+  import isPinned from 'common/script/libs/isPinned';
+
+  import i18n from 'common/script/i18n';
+
+  import shops from 'common/script/libs/shops';
 
   export default {
     components: {
@@ -337,6 +347,17 @@
           healer: svgHealer,
         }),
 
+        gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
+          weapon: i18n.t('weaponCapitalized'),
+          shield: i18n.t('offhandCapitalized'),
+          head: i18n.t('headgearCapitalized'),
+          armor: i18n.t('armorCapitalized'),
+          headAccessory: i18n.t('headAccessoryCapitalized'),
+          body: i18n.t('body'),
+          back: i18n.t('back'),
+          eyewear: i18n.t('eyewear'),
+        }),
+
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
@@ -348,34 +369,43 @@
     computed: {
       ...mapState({
         content: 'content',
-        seasonal: 'shops.seasonal.data',
         user: 'user.data',
         userStats: 'user.data.stats',
       }),
+      seasonal () {
+        return {
+          text: this.$t('seasonalShop'),
+          notes: this.$t('seasonalShopClosedText'),
+          opened: false, // TODO
+        };
+      },
+      seasonalCategories () {
+        return shops.getSeasonalShopCategories(this.user);
+      },
       categories () {
-        if (this.seasonal) {
-          this.seasonal.categories.map((category) => {
+        if (this.seasonalCategories) {
+          this.seasonalCategories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.seasonal.categories;
+          return this.seasonalCategories;
         } else {
           return [];
         }
       },
       filterCategories () {
         if (this.content) {
-          let equipmentList = _filter(_map(this.content.itemList, (i, key) => {
+          let equipmentList = _mapKeys(this.gearTypesToStrings, (value, key) => {
             return {
-              ...i,
               key,
+              value,
             };
-          }), 'isEquipment');
+          });
 
-          equipmentList.map((category) => {
-            this.$set(this.viewOptions, category.key, {
+          _forEach(equipmentList, (value) => {
+            this.$set(this.viewOptions, value.key, {
               selected: true,
             });
           });
@@ -387,9 +417,11 @@
       },
 
       featuredSet () {
-        return _filter(this.categories, (c) => {
+        let result = _filter(this.categories, (c) => {
           return c.identifier === featuredItems.seasonal;
         })[0];
+
+        return result;
       },
     },
     methods: {
@@ -404,7 +436,7 @@
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: _isPinned(this.user, e),
+            pinned: isPinned(this.user, e),
           };
         });
 
@@ -443,9 +475,12 @@
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
-        result.spells = [
-          spellCategory,
-        ];
+
+        if (spellCategory) {
+          result.spells = [
+            spellCategory,
+          ];
+        }
 
         return result;
       },
@@ -466,12 +501,6 @@
           this.$parent.showUnpinNotification(item);
         }
       },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchSeasonal');
     },
   };
 </script>

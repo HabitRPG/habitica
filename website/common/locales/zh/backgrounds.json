@@ -283,11 +283,18 @@
     "backgroundKelpForestNotes": "勇闯海带森林",
     "backgroundMidnightLakeText": "午夜之湖",
     "backgroundMidnightLakeNotes": "在午夜之湖旁边小憩",
-    "backgrounds082017": "SET 39: Released August 2017",
-    "backgroundBackOfGiantBeastText": "Back of a Giant Beast",
-    "backgroundBackOfGiantBeastNotes": "Ride on the Back of a Giant Beast.",
-    "backgroundDesertDunesText": "Desert Dunes",
+    "backgrounds082017": "第39组：2017年8月推出",
+    "backgroundBackOfGiantBeastText": "巨兽后背",
+    "backgroundBackOfGiantBeastNotes": "骑在巨兽的后背上",
+    "backgroundDesertDunesText": "沙漠之丘",
     "backgroundDesertDunesNotes": "Boldly explore the Desert Dunes.",
     "backgroundSummerFireworksText": "Summer Fireworks",
-    "backgroundSummerFireworksNotes": "Celebrate Habitica's Naming Day with Summer Fireworks!"
+    "backgroundSummerFireworksNotes": "Celebrate Habitica's Naming Day with Summer Fireworks!",
+    "backgrounds092017": "SET 40: Released September 2017",
+    "backgroundBesideWellText": "Beside a Well",
+    "backgroundBesideWellNotes": "Stroll Beside a Well.",
+    "backgroundGardenShedText": "Garden Shed",
+    "backgroundGardenShedNotes": "Work in a Garden Shed.",
+    "backgroundPixelistsWorkshopText": "Pixelist's Workshop",
+    "backgroundPixelistsWorkshopNotes": "Create masterpieces in the Pixelist's Workshop."
 }

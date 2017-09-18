@@ -12,7 +12,11 @@
         .input-group
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           .filter-panel(v-if="isFilterPanelOpen")
-            .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
+            .tags-category.d-flex(
+              v-for="tagsType in tagsByType", 
+              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+              :key="tagsType.key"
+            )
               .tags-header
                 strong(v-once) {{ $t(tagsType.key) }}
                 a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
@@ -21,7 +25,7 @@
                   template(v-if="editingTags && tagsType.key === 'tags'")
                     .col-6(v-for="(tag, tagIndex) in tagsSnap")
                       .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
                         span.input-group-btn(@click="removeTag(tagIndex)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
                     .col-6
@@ -35,7 +39,7 @@
                           @change="toggleTag(tag)",
                         )
                         span.custom-control-indicator
-                        span.custom-control-description {{ tag.name }}
+                        span.custom-control-description(v-markdown='tag.name')
 
             .filter-panel-footer.clearfix
               template(v-if="editingTags === true")
@@ -64,7 +68,7 @@
             | {{ $t('create') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
             span.dropdown-icon-item(v-once)
-              span.svg-icon.inline(v-html="icons[type]")
+              span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')
               span.text {{$t(type)}}
 
     .row.tasks-columns
@@ -77,49 +81,13 @@
         @openBuyDialog="openBuyDialog($event)"
       )
 
-  buyModal(
-    :item="selectedItemToBuy",
-    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-    @change="resetItemToBuy($event)",
-    @buyPressed="buyItem($event)",
-    @togglePinned="togglePinned($event)"
-  )
-      template(slot="item", scope="ctx")
-        div(v-if="ctx.item.purchaseType === 'gear'")
-          avatar.inline(
-            :member="user",
-            :avatarOnly="true",
-            :withBackground="true",
-            :overrideAvatarGear="memberOverrideAvatarGear(ctx.item)"
-          )
-
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false",
-          v-else
-        )
-
-      template(slot="additionalInfo", scope="ctx")
-        equipmentAttributesGrid.bordered(
-          :item="ctx.item",
-          v-if="ctx.item.purchaseType === 'gear'"
-        )
-
-  selectMembersModal(
-    :card="selectedCardToBuy",
-    :group="user.party",
-    @change="resetCardToBuy($event)",
-    @memberSelected="memberSelectedToSendCard($event)",
-  )
-
   spells
 </template>
 
 <style lang="scss">
-#create-dropdown .dropdown-toggle::after {
-  display: none;
-}
+  #create-dropdown .dropdown-toggle::after {
+    display: none;
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -142,7 +110,33 @@
   }
 
   .dropdown-icon-item .svg-icon {
-    width: 16px;
+    color: #C3C0C7;
+  }
+
+  .dropdown-icon-item {
+      .icon_habit {
+        width: 30px;
+        height: 20px;
+      }
+
+      .icon_daily {
+        width: 24px;
+        height: 20px;
+      }
+
+      .icon_todo {
+        width: 20px;
+        height: 20px;
+      }
+
+      .icon_reward {
+        width: 26px;
+        height: 20px;
+      }
+  }
+
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+    color: #4f2a93;
   }
 
   button.btn.btn-secondary.filter-button {
@@ -278,6 +272,7 @@
 import TaskColumn from './column';
 import TaskModal from './taskModal';
 import spells from './spells';
+import markdown from 'client/directives/markdown';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -296,11 +291,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
-import BuyModal from 'client/components/shops/buyModal.vue';
 import Item from 'client/components/inventory/item.vue';
-import Avatar from 'client/components/avatar';
-import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
-import SelectMembersModal from 'client/components/shops/market/selectMembersModal.vue';
 
 export default {
   components: {
@@ -308,12 +299,11 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
-    BuyModal,
     Item,
-    Avatar,
-    EquipmentAttributesGrid,
     spells,
-    SelectMembersModal,
+  },
+  directives: {
+    markdown,
   },
   data () {
     return {
@@ -337,9 +327,6 @@ export default {
       newTag: null,
       editingTask: null,
       creatingTask: null,
-
-      selectedItemToBuy: null,
-      selectedCardToBuy: null,
     };
   },
   computed: {
@@ -394,6 +381,7 @@ export default {
       this.tagsSnap.splice(index, 1);
     },
     saveTags () {
+      if (this.newTag) this.addTag();
       this.setUser({tags: this.tagsSnap});
       this.cancelTagsEditing();
     },
@@ -458,36 +446,8 @@ export default {
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
     },
-    resetItemToBuy ($event) {
-      if (!$event) {
-        this.selectedItemToBuy = null;
-      }
-    },
-    resetCardToBuy ($event) {
-      if (!$event) {
-        this.selectedCardToBuy = null;
-      }
-    },
-    memberOverrideAvatarGear (gear) {
-      return {
-        [gear.type]: gear.key,
-      };
-    },
-    buyItem (item) {
-      if (item.purchaseType === 'card') {
-        this.selectedCardToBuy = item;
-      } else if (item.currency === 'gold') {
-        this.$store.dispatch('shops:buyItem', {key: item.key});
-      } else {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      }
-    },
-    openBuyDialog (rewardItem) {
-      this.selectedItemToBuy = rewardItem;
-    },
-    memberSelectedToSendCard (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-      this.selectedCardToBuy = null;
+    openBuyDialog (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

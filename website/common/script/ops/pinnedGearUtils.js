@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
 
+import isPinned from '../libs/isPinned';
+
 const officialPinnedItems = content.officialPinnedItems;
 
 import updateStore from '../libs/updateStore';
@@ -15,10 +17,16 @@ function addPinnedGearByClass (user) {
     for (let item of newPinnedItems) {
       let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      user.pinnedItems.push({
-        type: 'marketGear',
-        path: itemInfo.path,
+      const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
+        return pinnedItem.path === itemInfo.path;
       });
+
+      if (foundIndex === -1) {
+        user.pinnedItems.push({
+          type: 'marketGear',
+          path: itemInfo.path,
+        });
+      }
     }
   }
 }
@@ -48,7 +56,7 @@ function removePinnedGearByClass (user) {
   }
 }
 
-function removePinnedGearAddPossibleNewOnes (user, itemPath) {
+function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
   let currentPinnedItems = updateStore(user);
   let removeAndAddAllItems = false;
 
@@ -67,7 +75,11 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath) {
     // an item of the users current "new" gear was bought
     // remove the old pinned gear items and add the new gear back
     removePinnedGearByClass(user);
+    user.items.gear.owned[newItemKey] = true;
     addPinnedGearByClass(user);
+  } else {
+    // just change the new gear to owned
+    user.items.gear.owned[newItemKey] = true;
   }
 }
 
@@ -84,7 +96,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
   if (!item) item = get(content, path);
 
   if (path === 'armoire' || path === 'potion') {
-    throw new BadRequest(i18n.t('cannotUpinArmoirPotion', req.language));
+    throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
@@ -116,4 +128,5 @@ module.exports = {
   removePinnedGearAddPossibleNewOnes,
   togglePinnedItem,
   removeItemByPath,
+  isPinned,
 };

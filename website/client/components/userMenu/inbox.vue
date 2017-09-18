@@ -23,18 +23,23 @@
           h4(v-once) {{$t('emptyMessagesLine1')}}
           p(v-once) {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)', :class="{active: selectedConversation === conversation.key}")
+          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)',
+            :class="{active: selectedConversation === conversation.key}")
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
-             span.timeago {{conversation.date}}
-            div {{conversation.lastMessageText}}
+             span.timeago {{conversation.date | timeAgo}}
+            div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
-        chat-message.container-fluid(:chat.sync='activeChat')
+        .empty-messages.text-center(v-if='activeChat.length === 0')
+          .svg-icon.envelope(v-html="icons.messageIcon")
+          h4(v-once) Nothing Here Yet
+          p(v-once) Select a conversation on the left
+        chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation')
-          b-form-input(v-model='newMessage')
+          input(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
@@ -65,6 +70,11 @@
     position: relative;
     padding-left: 0;
     padding-bottom: 6em;
+  }
+
+  .message-scroll {
+    max-height: 500px;
+    overflow: scroll;
   }
 
   .to-form input {
@@ -108,6 +118,11 @@
     }
   }
 
+  .conversations {
+    max-height: 400px;
+    overflow: scroll;
+  }
+
   .conversation {
     padding: 1.5em;
     background: $white;
@@ -128,6 +143,7 @@
 </style>
 
 <script>
+import Vue from 'vue';
 import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
@@ -159,6 +175,11 @@ export default {
       activeChat: [],
     };
   },
+  filters: {
+    timeAgo (value) {
+      return moment(new Date(value)).fromNow();
+    },
+  },
   computed: {
     ...mapState({user: 'user.data'}),
     conversations () {
@@ -166,11 +187,6 @@ export default {
       for (let messageId in this.user.inbox.messages) {
         let message = this.user.inbox.messages[messageId];
         let userId = message.uuid;
-
-        if (!this.selectedConversation) {
-          this.selectedConversation = userId;
-          this.selectConversation(userId);
-        }
 
         if (!conversations[userId]) {
           conversations[userId] = {
@@ -180,12 +196,21 @@ export default {
           };
         }
 
-        conversations[userId].messages.push({
+        let newMessage = {
           text: message.text,
           timestamp: message.timestamp,
-        });
+          user: message.user,
+          uuid: message.uuid,
+        };
+
+        if (message.sent) {
+          newMessage.user = this.user.profile.name;
+          newMessage.uuid = this.user._id;
+        }
+
+        conversations[userId].messages.push(newMessage);
         conversations[userId].lastMessageText = message.text;
-        conversations[userId].date = moment(new Date(message.timestamp)).fromNow();
+        conversations[userId].date = message.timestamp;
       }
 
       return conversations;
@@ -207,10 +232,18 @@ export default {
     },
     selectConversation (key) {
       this.selectedConversation = key;
-      this.activeChat = this.conversations[this.selectedConversation].messages;
-      this.activeChat = sortBy(this.activeChat, [(o) => {
-        return o.timestamp;
+      let activeChat = this.conversations[this.selectedConversation].messages;
+
+      activeChat = sortBy(activeChat, [(o) => {
+        return moment(o.timestamp).toDate();
       }]);
+
+      this.$set(this, 'activeChat', activeChat);
+
+      Vue.nextTick(() => {
+        let chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
     sendPrivateMessage () {
       this.$store.dispatch('members:sendPrivateMessage', {
@@ -221,6 +254,8 @@ export default {
       this.conversations[this.selectedConversation].messages.push({
         text: this.newMessage,
         timestamp: new Date(),
+        user: this.user.profile.name,
+        uuid: this.user._id,
       });
 
       this.activeChat = this.conversations[this.selectedConversation].messages;
@@ -229,6 +264,11 @@ export default {
       this.conversations[this.selectedConversation].date = new Date();
 
       this.newMessage = '';
+
+      Vue.nextTick(() => {
+        let chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
   },
 };

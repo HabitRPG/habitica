@@ -81,5 +81,6 @@
     "cantOnlyUnlinkChalTask": "Nur ungültige Wettbewerbsaufgaben können entfernt werden.",
     "shortNameTooShort": "Tag-Namen müssen mindestens 3 Zeichen lang sein.",
     "joinedChallenge": "Einem Wettbewerb beigetreten",
-    "joinedChallengeText": "Dieser Benutzer hat sich selbst erprobt, indem er einem Wettbewerb beigetreten ist!"
+    "joinedChallengeText": "Dieser Benutzer hat sich selbst erprobt, indem er einem Wettbewerb beigetreten ist!",
+    "loadMore": "Mehr laden"
 }

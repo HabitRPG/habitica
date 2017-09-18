@@ -3,7 +3,7 @@
     "background": "Фон",
     "backgroundShop": "Магазин фонів",
     "backgroundShopText": "Магазин фонів",
-    "noBackground": "Тло не обрано",
+    "noBackground": "Фон не вибраний",
     "backgrounds062014": "Набір 1: Випущений у червні 2014",
     "backgroundBeachText": "Пляж",
     "backgroundBeachNotes": "Побайдикуйте на теплому пляжі",
@@ -289,5 +289,12 @@
     "backgroundDesertDunesText": "Desert Dunes",
     "backgroundDesertDunesNotes": "Boldly explore the Desert Dunes.",
     "backgroundSummerFireworksText": "Summer Fireworks",
-    "backgroundSummerFireworksNotes": "Celebrate Habitica's Naming Day with Summer Fireworks!"
+    "backgroundSummerFireworksNotes": "Celebrate Habitica's Naming Day with Summer Fireworks!",
+    "backgrounds092017": "SET 40: Released September 2017",
+    "backgroundBesideWellText": "Beside a Well",
+    "backgroundBesideWellNotes": "Stroll Beside a Well.",
+    "backgroundGardenShedText": "Garden Shed",
+    "backgroundGardenShedNotes": "Work in a Garden Shed.",
+    "backgroundPixelistsWorkshopText": "Pixelist's Workshop",
+    "backgroundPixelistsWorkshopNotes": "Create masterpieces in the Pixelist's Workshop."
 }

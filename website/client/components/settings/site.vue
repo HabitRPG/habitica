@@ -7,8 +7,8 @@
     .col-6
       .form-horizontal
         h5 {{ $t('language') }}
-        select.form-control(v-model='selectedLanguage',
-          @change='changeLanguage()')
+        select.form-control(:value='user.preferences.language',
+          @change='changeLanguage($event)')
           option(v-for='lang in availableLanguages', :value='lang.code') {{lang.name}}
 
         small
@@ -22,6 +22,22 @@
         select.form-control(v-model='user.preferences.dateFormat',
           @change='set("dateFormat")')
           option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
+      hr
+
+      .form-horizontal
+        h5 {{ $t('audioTheme') }}
+        select.form-control(v-model='user.preferences.sound',
+          @change='set("sound")')
+          option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
+      hr
+
+      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+        h5 {{ $t('characterBuild') }}
+        h6(v-once) {{ $t('class') + ': ' }}
+          span {{ classText }}&nbsp;
+          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
+          small.cost 3
+            span.Pet_Currency_Gem1x.inline-gems
       hr
 
       div
@@ -113,8 +129,9 @@
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-          hr
-          div(v-if='!user.auth.local.username')
+          // hr
+          // TODO
+          // div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
             form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
@@ -133,11 +150,7 @@
             |: {{user.auth.local.username}}
           p
             small.muted
-                | {{ $t('loginNameDescription1') }}
-                |&nbsp;
-                a(href='/#/options/profile/profile') {{ $t('loginNameDescription2') }}
-                |&nbsp;
-                | {{ $t('loginNameDescription3') }}
+                | {{ $t('loginNameDescription') }}
           p {{ $t('email') }}
             |: {{user.auth.local.email}}
           hr
@@ -178,7 +191,7 @@
                 popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
-<style scope>
+<style scoped>
   .usersettings h5 {
     margin-top: 1em;
   }
@@ -194,6 +207,7 @@ import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
+import changeClass from  '../../../common/script/ops/changeClass';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -218,13 +232,7 @@ export default {
     return {
       SOCIAL_AUTH_NETWORKS: [],
       party: {},
-      // @TODO: import
-      availableLanguages: [
-        {
-          code: 'en',
-          name: 'English',
-        },
-      ],
+      // Made available by the server as a script
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
@@ -240,7 +248,14 @@ export default {
     this.newDayStart = this.user.preferences.dayStart;
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      availableLanguages: 'i18n.availableLanguages',
+      content: 'content',
+    }),
+    availableAudioThemes () {
+      return ['off', ...this.content.audioThemes];
+    },
     timezoneOffsetToUtc () {
       let offset = this.user.preferences.timezoneOffset;
       let sign = offset > 0 ? '-' : '+';
@@ -253,9 +268,6 @@ export default {
       let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
 
       return `UTC${sign}${hour}:${minutes}`;
-    },
-    selectedLanguage () {
-      return this.user.preferences.language;
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -327,9 +339,11 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage () {
-      this.user.preferences.language = this.selectedLanguage.code;
+    changeLanguage (e) {
+      const newLang = e.target.value;
+      this.user.preferences.language = newLang;
       this.set('language');
+      window.location.href = '/';
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
@@ -365,6 +379,15 @@ export default {
       });
 
       this.$router.go('/tasks');
+    },
+    async changeClass () {
+      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+      try {
+        changeClass(this.user);
+        await axios.post('/api/v3/user/change-class');
+      } catch (e) {
+        alert(e.message);
+      }
     },
   },
 };

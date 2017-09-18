@@ -270,7 +270,7 @@
     "questFrogText": "A zűrzavar béka lápja",
     "questFrogNotes": "As you and your friends are slogging through the Swamps of Stagnation, @starsystemic points at a large sign. \"Stay on the path -- if you can.\"<br><br>\"Surely that isn't hard!\" @RosemonkeyCT says. \"It's broad and clear.\"<br><br>But as you continue, you notice that path is gradually overtaken by the muck of the swamp, laced with bits of strange blue debris and clutter, until it's impossible to proceed.<br><br>As you look around, wondering how it got this messy, @Jon Arjinborn shouts, \"Look out!\" An angry frog leaps from the sludge, clad in dirty laundry and lit by blue fire. You will have to overcome this poisonous Clutter Frog to progress!",
     "questFrogCompletion": "The frog cowers back into the muck, defeated. As it slinks away, the blue slime fades, leaving the way ahead clear.<br><br>Sitting in the middle of the path are three pristine eggs. \"You can even see the tiny tadpoles through the clear casing!\" @Breadstrings says. \"Here, you should take them.\"",
-    "questFrogBoss": "Zűrzavar Béka",
+    "questFrogBoss": "Zűrzavar béka",
     "questFrogDropFrogEgg": "Béka (tojás)",
     "questFrogUnlockText": "Elérhetővé teszi a békatojások vásárlását a piacon",
     "questSnakeText": "The Serpent of Distraction",
@@ -502,5 +502,7 @@
     "questHippoCompletion": "The hippo bows in surrender. “I underestimated you. It seems you weren’t being lazy. My apologies. Truth be told, I may have been projecting a bit. Perhaps I should get some work done myself. Here, take these eggs as a sign of my gratitude.” Grabbing them, you settle down by the water, ready to relax at last.",
     "questHippoBoss": "The Hippo-Crite",
     "questHippoDropHippoEgg": "Hippo (Egg)",
-    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market"
+    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

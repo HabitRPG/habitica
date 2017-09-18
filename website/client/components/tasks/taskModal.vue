@@ -5,16 +5,20 @@
   )
     b-modal#task-modal(
       size="sm",
-      @hidden="cancel()",
+      @hidden="onClose()",
     )
       .task-modal-header(
         slot="modal-header",
         :class="[cssClass]",
       )
-        h1 {{ title }}
+        .clearfix
+          h1.float-left {{ title }}
+          .float-right.d-flex.align-items-center
+            span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
+            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('title')}*` }}
-          input.form-control(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text")
+          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -22,11 +26,12 @@
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
+          .svg-icon.gold(v-html="icons.gold")
         .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
           label(v-once) {{ $t('checklist') }}
           br
           .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in task.checklist")
-            input.inline-edit-input.checklist-item.form-control(type="text", :value="item.text")
+            input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
             span.input-group-btn(@click="removeChecklistItem($index)")
               .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
@@ -64,19 +69,35 @@
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(v-model="task.date")
+          datepicker(
+            v-model="task.date",
+            :clearButton='true',
+            clearButtonIcon='category-select',
+            :clearButtonText='$t("clear")',
+            :todayButton='true',
+            todayButtonIcon='category-select',
+            :todayButtonText='$t("today")',
+          )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(v-model="task.startDate")
+          datepicker(
+            v-model="task.startDate",
+            :clearButton='false',
+            :todayButton='true',
+            todayButtonIcon='category-select',
+            :todayButtonText='$t("today")',
+          )
         .option(v-if="task.type === 'daily'")
-          label(v-once) {{ $t('repeats') }}
-          b-dropdown(:text="$t(task.frequency)")
-            b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-              | {{ $t(frequency) }}
-          label(v-once) {{ $t('repeatEvery') }}
-          input.form-control(type="number", v-model="task.everyX", min="0", required)
-          | {{ repeatSuffix }}
-          br
+          .form-group
+            label(v-once) {{ $t('repeats') }}
+            b-dropdown(:text="$t(task.frequency)")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+                | {{ $t(frequency) }}
+          .form-group
+            label(v-once) {{ $t('repeatEvery') }}
+            input(type="number", v-model="task.everyX", min="0", required)
+            | {{ repeatSuffix }}
+            br
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
@@ -102,15 +123,18 @@
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
             span.category-select(v-else) {{getTagsFor(task)[0]}}
           .category-box(v-if="showTagsSelect")
-            .form-check(
-              v-for="tag in user.tags",
-              :key="tag.id",
-            )
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
-                span.custom-control-indicator
-                span.custom-control-description(v-once) {{ tag.name }}
-            button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+            .container
+              .row
+                .form-check.col-6(
+                  v-for="tag in user.tags",
+                  :key="tag.id",
+                )
+                  label.custom-control.custom-checkbox
+                    input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
+                    span.custom-control-indicator
+                    span.custom-control-description(v-once) {{ tag.name }}
+              .row
+                button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
           b-dropdown(:text="$t(task.frequency)")
@@ -124,15 +148,19 @@
             span.category-select(v-else)
               span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
           .category-box(v-if="showAssignedSelect")
-            .form-check(
-              v-for="member in members",
-              :key="member._id",
-            )
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
-                span.custom-control-indicator
-                span.custom-control-description(v-once) {{ member.profile.name }}
-            button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+            .container
+              .row
+                .form-check.col-6(
+                  v-for="member in members",
+                  :key="member._id",
+                )
+                  label.custom-control.custom-checkbox
+                    input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
+                    span.custom-control-indicator
+                    span.custom-control-description(v-once) {{ member.profile.name }}
+            
+              .row
+                button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
           label(v-once) Needs Approval
@@ -141,7 +169,6 @@
             @change="updateRequiresApproval")
 
       .task-modal-footer(slot="modal-footer")
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
         span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
 </template>
@@ -220,21 +247,25 @@
     .difficulty-trivial-icon {
       width: 16px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-normal-icon {
       width: 36px;
       height: 16px;
+      color: #A5A1AC;
     }
 
     .difficulty-medium-icon {
       width: 36px;
       height: 32px;
+      color: #A5A1AC;
     }
 
     .difficulty-hard-icon {
       width: 36px;
       height: 36px;
+      color: #A5A1AC;
     }
 
     .option {
@@ -252,7 +283,7 @@
       }
 
       &-selected {
-        .option-item-label {
+        .svg-icon, .option-item-label {
           color: inherit !important;
         }
       }
@@ -289,6 +320,12 @@
       bottom: 0px;
       left: 40px;
       top: auto;
+      z-index: 11;
+
+      .container {
+        max-height: 90vh;
+        overflow: auto;
+      }
     }
 
     .checklist-group {
@@ -311,6 +348,14 @@
       }
     }
 
+    .delete-task-btn, .cancel-task-btn {
+      cursor: pointer;
+
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+      }
+    }
+
     .task-modal-footer {
       margin: 0 auto;
       padding-bottom: 24px;
@@ -318,14 +363,7 @@
       border-top-right-radius: 8px;
       margin-top: 50px;
 
-      .delete-task-btn, .cancel-task-btn {
-        margin-left: 16px;
-        cursor: pointer;
 
-        &:hover, &:focus, &:active {
-          text-decoration: underline;
-        }
-      }
 
       .delete-task-btn {
         color: $red-50;
@@ -340,6 +378,14 @@
       margin-left: 0px;
       width: 57px;
     }
+  }
+</style>
+
+<style lang="scss" scoped>
+  .gold {
+    width: 24px;
+    margin-left: 5em;
+    margin-top: -2.4em;
   }
 </style>
 
@@ -361,6 +407,7 @@ import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import deleteIcon from 'assets/svg/delete.svg';
+import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   components: {
@@ -385,6 +432,7 @@ export default {
         negative: negativeIcon,
         positive: positiveIcon,
         destroy: deleteIcon,
+        gold: goldIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],
@@ -394,7 +442,7 @@ export default {
   },
   watch: {
     async task () {
-      if (this.groupId && this.task.group && this.task.group.approval.required) {
+      if (this.groupId && this.task.group && this.task.group.approval && this.task.group.approval.required) {
         this.requiresApproval = true;
       }
 
@@ -407,7 +455,8 @@ export default {
         this.members.forEach(member => {
           this.memberNamesById[member._id] = member.profile.name;
         });
-        this.assignedMembers = this.task.group.assignedUsers;
+        this.assignedMembers = [];
+        if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
       }
     },
   },
@@ -490,7 +539,7 @@ export default {
         completed: false,
       });
       this.newChecklistItem = null;
-      e.preventDefault();
+      if (e) e.preventDefault();
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);
@@ -499,6 +548,8 @@ export default {
       return moment.weekdaysMin(dayNumber);
     },
     submit () {
+      if (this.newChecklistItem) this.addChecklistItem();
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
           this.$store.dispatch('tasks:createChallengeTasks', {
@@ -527,11 +578,16 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
+      if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.task);
       this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {
+      this.$root.$emit('hide::modal', 'task-modal');
+    },
+    onClose () {
       this.showTagsSelect = false;
+      this.newChecklistItem = '';
       this.$emit('cancel');
     },
     updateRequiresApproval (newValue) {

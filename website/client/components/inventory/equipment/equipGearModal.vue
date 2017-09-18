@@ -15,7 +15,8 @@
           :member="user",
           :avatarOnly="true",
           :withBackground="true",
-          :overrideAvatarGear="memberOverrideAvatarGear(item)"
+          :overrideAvatarGear="memberOverrideAvatarGear(item)",
+          :spritesMargin='"0px auto auto -1px"',
         )
 
         h4.title {{ itemText }}
@@ -61,8 +62,12 @@
     }
 
     .avatar {
-      display: inline-block;
-      cursor: inherit;
+      cursor: default;
+      margin: 0 auto;
+
+      .character-sprites span {
+        left: 25px;
+      }
     }
 
     .content-text {

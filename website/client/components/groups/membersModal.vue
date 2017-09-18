@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  b-modal#members-modal(:title="$t('createGuild')", size='lg')
+  b-modal#members-modal(:title="$t('createGuild')", size='md')
     .header-wrap(slot="modal-header")
       .row
         .col-6
@@ -11,43 +11,58 @@ div
       .row
         .form-group.col-6
           input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col-4.offset-2
+        .col-5.offset-1
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
     .row(v-for='member in sortedMembers')
-      .col-8.offset-1
+      .col-11.no-padding-left
         member-details(:member='member')
-      .col-3.actions
-        b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(@click='sort(option.value)')
+      .col-1.actions
+        b-dropdown(right=true)
+          .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
             span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.removeIcon")
+              .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
               span.text {{$t('removeMember')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sendMessage(member._id)')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.messageIcon")
               span.text {{$t('sendMessage')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('promoteToLeader')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.starIcon")
               span.text {{$t('addManager')}}
-          b-dropdown-item(@click='sort(option.value)')
+          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.removeIcon")
               span.text {{$t('removeManager2')}}
     .row.gradient(v-if='members.length > 3')
-
-  b-modal#remove-member(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
-
-  b-modal#private-message(:title="$t('confirmRemoveMember')")
-    button(@click='confirmRemoveMember(member)', v-once) {{$t('remove')}}
 </template>
+
+<style lang='scss'>
+  #members-modal {
+    .small-text, .character-name {
+      color: #878190;
+    }
+
+    .no-padding-left, .modal-body {
+      padding-left: 0;
+    }
+
+    .member-details {
+      margin: 0;
+    }
+
+    .actions .dropdown-toggle::after {
+      content: none !important;
+    }
+  }
+</style>
 
 <style lang='scss' scoped>
   header {
@@ -65,6 +80,16 @@ div
 
   .actions {
     padding-top: 5em;
+
+    .dots {
+      height: 16px;
+      width: 4px;
+    }
+
+    .btn-group {
+      margin-left: -2em;
+      margin-top: -2em;
+    }
 
     .action-icon {
       margin-right: 1em;
@@ -109,24 +134,23 @@ import sortBy from 'lodash/sortBy';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import { mapState } from 'client/libs/store';
 
+import privateMessageModal from 'client/components/private-message-modal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
+import dots from 'assets/svg/dots.svg';
 
 export default {
-  props: ['group', 'hideBadge'],
+  props: ['hideBadge'],
   components: {
     bModal,
     bDropdown,
     bDropdownItem,
     MemberDetails,
-  },
-  mounted () {
-    this.$root.$on('shown::modal', () => {
-      this.getMembers();
-    });
+    privateMessageModal,
   },
   data () {
     return {
@@ -156,10 +180,29 @@ export default {
         removeIcon,
         messageIcon,
         starIcon,
+        dots,
       }),
+      userIdToMessage: '',
     };
   },
+  mounted () {
+    this.getMembers();
+  },
   computed: {
+    ...mapState({user: 'user.data'}),
+    isLeader () {
+      if (!this.group || !this.group.leader) return false;
+      return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
+    },
+    groupIsSubscribed () {
+      return this.group.purchased.active;
+    },
+    group () {
+      return this.$store.state.memberModalOptions.group;
+    },
+    groupId () {
+      return this.$store.state.memberModalOptions.groupId || this.group._id;
+    },
     sortedMembers () {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
@@ -180,9 +223,22 @@ export default {
       return this.members;
     },
   },
+  watch: {
+    groupId () {
+      // @TOOD: We might not need this since groupId is computed now
+      this.getMembers();
+    },
+    group () {
+      this.getMembers();
+    },
+  },
   methods: {
+    sendMessage () {
+      this.userIdToMessage = this.user._id;
+      this.$root.$emit('show::modal', 'private-message');
+    },
     async getMembers () {
-      let groupId = this.$store.state.groupId || this.group._id;
+      let groupId = this.groupId;
       if (groupId && groupId !== 'challenge') {
         let members = await this.$store.dispatch('members:getGroupMembers', {
           groupId,
@@ -191,8 +247,8 @@ export default {
         this.members = members;
       }
 
-      if (this.$store.state.viewingMembers.length > 0) {
-        this.members = this.$store.state.viewingMembers;
+      if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
+        this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
     },
     async clickMember (uid, forceShow) {

@@ -3,6 +3,8 @@ import content from '../content/index';
 import { BadRequest } from './errors';
 import count from '../count';
 
+import isPinned from './isPinned';
+
 import _mapValues from 'lodash/mapValues';
 
 function lockQuest (quest, user) {
@@ -37,6 +39,7 @@ function getDefaultGearProps (item, language) {
     int: item.int,
     per: item.per,
     con: item.con,
+    klass: item.klass,
   };
 }
 
@@ -134,7 +137,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
           };
         }) : undefined,
         lvl: item.lvl,
-        class: locked ? `inventory_quest_scroll_locked inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll inventory_quest_scroll_${item.key}`,
+        class: locked ? `inventory_quest_scroll_${item.key}_locked` : `inventory_quest_scroll_${item.key}`,
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'quests',
@@ -191,6 +194,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         value: item.value,
         currency: 'gold',
         pinType: 'marketGear',
+        canOwn: item.canOwn,
       });
       break;
     case 'background':
@@ -264,6 +268,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
 
   if (itemInfo) {
     itemInfo.isSuggested = isItemSuggested(itemInfo);
+    itemInfo.pinned = isPinned(user, itemInfo);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', {type}, language));
   }

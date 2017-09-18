@@ -24,7 +24,7 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds.js';
+import backgrounds from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
@@ -45,6 +45,8 @@ api.itemList = ITEM_LIST;
 api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
+
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme'];
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -88,6 +90,21 @@ api.bundles = {
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',
+    value: 7,
+  },
+  farmFriends: {
+    key: 'farmFriends',
+    text: t('farmFriendsText'),
+    notes: t('farmFriendsNotes'),
+    bundleKeys: [
+      'cow',
+      'horse',
+      'sheep',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-09-12', '2017-10-02');
+    },
+    type: 'quests',
     value: 7,
   },
 };
@@ -523,7 +540,8 @@ each(api.food, (food, key) => {
 
 api.appearances = appearances;
 
-api.backgrounds = backgrounds;
+api.backgrounds = backgrounds.tree;
+api.backgroundsFlat = backgrounds.flat;
 
 api.userDefaults = {
   habits: [

@@ -17,7 +17,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
         .join-party
         h3(v-once) {{$t('wantToJoinPartyTitle')}}
         p(v-once) {{$t('wantToJoinPartyDescription')}}
-        button.btn.btn-primary(v-once, @click='shareUserIdShown = !shareUserIdShown') {{$t('shartUserId')}}
+        button.btn.btn-primary(v-once, @click='shareUserId()') {{$t('shartUserId')}}
       .share-userid-options(v-if="shareUserIdShown")
         .option-item(v-once)
           .svg-icon(v-html="icons.copy")
@@ -137,6 +137,7 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 
 <script>
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -166,16 +167,31 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    shareUserId () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Health Warning',
+      });
+      this.shareUserIdShown = !this.shareUserIdShown;
+    },
     async createParty () {
       let group = {
         type: 'party',
       };
       group.name = this.$t('possessiveParty', {name: this.user.profile.name});
       let party = await this.$store.dispatch('guilds:create', {group});
-      this.$store.state.party = party;
+      this.$store.state.party.data = party;
       this.user.party._id = party._id;
+
+      Analytics.updateUser({
+        partyID: party._id,
+        partySize: 1,
+      });
+
       this.$root.$emit('hide::modal', 'create-party-modal');
-      //  @TODO: Analytics.updateUser({'partyID': $scope.group ._id, 'partySize': 1});
+      this.$router.push('/party');
     },
   },
 };

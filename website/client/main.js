@@ -4,12 +4,12 @@ require('babel-polyfill');
 
 import Vue from 'vue';
 import AppComponent from './app';
+import { setup as setupAnalytics } from 'client/libs/analytics';
 import router from './router';
 import getStore from './store';
 import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
-import Notifications from 'vue-notification';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -23,9 +23,11 @@ Vue.config.performance = !IS_PRODUCTION;
 // Disable annoying reminder abour production build in dev mode
 Vue.config.productionTip = IS_PRODUCTION;
 
-Vue.use(Notifications);
-Vue.use(i18n);
+// window['habitica-i18n] is injected by the server
+Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
+
+setupAnalytics();
 
 export default new Vue({
   el: '#app',

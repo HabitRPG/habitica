@@ -9,7 +9,7 @@
         :class="{active: activeFilter.label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list(ref="taskList")
+  .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
     task(
       v-for="task in taskList",
       :key="task.id", :task="task",
@@ -18,7 +18,7 @@
       @editTask="editTask",
       :group='group',
     )
-    template(v-if="isUser === true && type === 'reward' && activeFilter.label !== 'custom'")
+    template(v-if="hasRewardsList")
       .reward-items
         shopItem(
           v-for="reward in inAppRewards",
@@ -31,7 +31,7 @@
 
     .column-background(
       v-if="isUser === true",
-      :class="{'initial-description': tasks[`${type}s`].length === 0}",
+      :class="{'initial-description': initialColumnDescription}",
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -44,6 +44,10 @@
 
   .tasks-column {
     height: 556px;
+  }
+
+  .task-wrapper + .reward-items {
+    margin-top: 16px;
   }
 
   .reward-items {
@@ -133,21 +137,25 @@
   .icon-habit {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-daily {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-todo {
     width: 20px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-reward {
     width: 26px;
     height: 20px;
+    color: #A5A1AC;
   }
 </style>
 
@@ -163,12 +171,16 @@ import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import shopItem from '../shops/shopItem';
 import throttle from 'lodash/throttle';
+import sortable from 'client/directives/sortable.directive';
 
 export default {
   components: {
     Task,
     bModal,
     shopItem,
+  },
+  directives: {
+    sortable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
@@ -235,6 +247,17 @@ export default {
     inAppRewards () {
       return inAppRewards(this.user);
     },
+    hasRewardsList () {
+      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
+    },
+    initialColumnDescription () {
+      // Show the column description in the middle only if there are no elements (tasks or in app items)
+      if (this.hasRewardsList) {
+        if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
+      }
+
+      return this.tasks[`${this.type}s`].length === 0;
+    },
   },
   watch: {
     taskList: {
@@ -249,6 +272,20 @@ export default {
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    sorted (data) {
+      const sorting = this.taskList;
+      const taskIdToMove = this.taskList[data.oldIndex]._id;
+
+      if (sorting) {
+        const deleted = sorting.splice(data.oldIndex, 1);
+        sorting.splice(data.newIndex, 0, deleted[0]);
+      }
+
+      this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: data.newIndex,
+      });
+    },
     editTask (task) {
       this.$emit('editTask', task);
     },
@@ -291,11 +328,11 @@ export default {
       const selectedTags = this.selectedTags;
 
       if (selectedTags && selectedTags.length > 0) {
-        const hasSelectedTag = task.tags.find(tagId => {
-          return selectedTags.indexOf(tagId) !== -1;
+        const hasAllSelectedTag = selectedTags.every(tagId => {
+          return task.tags.indexOf(tagId) !== -1;
         });
 
-        if (!hasSelectedTag) return false;
+        if (!hasAllSelectedTag) return false;
       }
 
       // Text
@@ -314,7 +351,9 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
-      this.$emit('openBuyDialog', rewardItem);
+      if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
+        this.$emit('openBuyDialog', rewardItem);
+      }
     },
   },
 };

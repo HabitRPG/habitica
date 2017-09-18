@@ -1,18 +1,21 @@
 <template lang="pug">
 .row
-  challenge-modal(:challenge='challenge', v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(:challenge='challenge', :cloning='cloning' v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
+  challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
 
   .col-8.standard-page
     .row
       .col-8
         h1 {{challenge.name}}
         div
-          strong(v-once) {{$t('createdBy')}}
+          strong(v-once) {{$t('createdBy')}}:
           span {{challenge.author}}
+          // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
+            // "endDate": "End Date: <% endDate %>",
           span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
@@ -25,6 +28,14 @@
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
+    .row(v-if='isLeader')
+      .col-6.offset-6
+        span
+          strong View Progress Of
+        b-dropdown.create-dropdown(text="Select a Participant")
+          b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
+            | {{ member.profile.name }}
+
     .row
       task-column.col-6(
         v-for="column in columns",
@@ -55,8 +66,14 @@
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
+      div(v-if='isLeader')
+        button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
+      div(v-if='isLeader')
+        button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
     .description-section
-      h2(v-once) {{$t('challengeDescription')}}
+      h2 {{$t('challengeSummary')}}
+      p {{challenge.summary}}
+      h2 {{$t('challengeDescription')}}
       p {{challenge.description}}
 </template>
 
@@ -147,17 +164,22 @@
 </style>
 
 <script>
+const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
+
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
+import omit from 'lodash/omit';
+import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import challengeModal from './challengeModal';
+import challengeMemberProgressModal from './challengeMemberProgressModal';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -170,6 +192,7 @@ export default {
   components: {
     closeChallengeModal,
     challengeModal,
+    challengeMemberProgressModal,
     TaskColumn: Column,
     TaskModal,
     bDropdown,
@@ -177,12 +200,14 @@ export default {
   },
   data () {
     return {
+      searchId: '',
       columns: ['habit', 'daily', 'todo', 'reward'],
       icons: Object.freeze({
         gemIcon,
         memberIcon,
         calendarIcon,
       }),
+      cloning: false,
       challenge: {},
       members: [],
       tasksByType: {
@@ -195,6 +220,7 @@ export default {
       creatingTask: {},
       workingTask: {},
       taskFormPurpose: 'create',
+      progressMemberId: '',
     };
   },
   computed: {
@@ -207,15 +233,69 @@ export default {
       return this.user._id === this.challenge.leader._id;
     },
   },
-  async mounted () {
-    this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.challengeId});
-    this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.challengeId});
-    let tasks = await this.$store.dispatch('tasks:getChallengeTasks', {challengeId: this.challengeId});
-    tasks.forEach((task) => {
-      this.tasksByType[task.type].push(task);
-    });
+  mounted () {
+    if (!this.searchId) this.searchId = this.challengeId;
+    if (!this.challenge._id) this.loadChallenge();
+  },
+  async beforeRouteUpdate (to, from, next) {
+    this.searchId = to.params.challengeId;
+    await this.loadChallenge();
+
+    if (this.$store.state.challengeOptions.cloning) {
+      this.cloneTasks(this.$store.state.challengeOptions.tasksToClone);
+    }
+    next();
   },
   methods: {
+    cleanUpTask (task) {
+      let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
+
+      // Copy checklists but reset to uncomplete and assign new id
+      if (!cleansedTask.checklist) cleansedTask.checklist = [];
+      cleansedTask.checklist.forEach((item) => {
+        item.completed = false;
+        item.id = uuid();
+      });
+
+      if (cleansedTask.type !== 'reward') {
+        delete cleansedTask.value;
+      }
+
+      return cleansedTask;
+    },
+    cloneTasks (tasksToClone) {
+      let clonedTasks = [];
+
+      for (let key in tasksToClone) {
+        let tasksSection = tasksToClone[key];
+        tasksSection.forEach(task => {
+          let clonedTask = cloneDeep(task);
+          clonedTask = this.cleanUpTask(clonedTask);
+          clonedTask = taskDefaults(clonedTask);
+          this.tasksByType[task.type].push(clonedTask);
+          clonedTasks.push(clonedTask);
+        });
+      }
+
+      this.$store.dispatch('tasks:createChallengeTasks', {
+        challengeId: this.searchId,
+        tasks: clonedTasks,
+      });
+    },
+    async loadChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
+      this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.searchId});
+      let tasks = await this.$store.dispatch('tasks:getChallengeTasks', {challengeId: this.searchId});
+      this.tasksByType = {
+        habit: [],
+        daily: [],
+        todo: [],
+        reward: [],
+      };
+      tasks.forEach((task) => {
+        this.tasksByType[task.type].push(task);
+      });
+    },
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
@@ -248,13 +328,15 @@ export default {
       this.tasksByType[task.type].splice(index, 1, task);
     },
     showMemberModal () {
-      this.$store.state.groupId = 'challenge'; // @TODO: change these terrible settings
-      this.$store.state.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
+      this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
       this.$root.$emit('show::modal', 'members-modal');
     },
     async joinChallenge () {
-      this.user.challenges.push(this.challengeId);
-      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.challengeId});
+      this.user.challenges.push(this.searchId);
+      await this.$store.dispatch('challenges:joinChallenge', {challengeId: this.searchId});
+      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     async leaveChallenge () {
       let keepChallenge = confirm('Do you want to keep challenge tasks?');
@@ -262,24 +344,41 @@ export default {
       if (!keepChallenge) keep = 'remove-all';
 
       let index = findIndex(this.user.challenges, (challengeId) => {
-        return challengeId === this.challengeId;
+        return challengeId === this.searchId;
       });
       this.user.challenges.splice(index, 1);
       await this.$store.dispatch('challenges:leaveChallenge', {
-        challengeId: this.challengeId,
+        challengeId: this.searchId,
         keep,
       });
+      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
     },
     edit () {
       // @TODO: set working challenge
+      this.cloning = false;
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
+    },
+    openMemberProgressModal (memberId) {
+      this.progressMemberId = memberId;
+      this.$root.$emit('show::modal', 'challenge-member-modal');
+    },
+    async exportChallengeCsv () {
+      // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
+      //   challengeId: this.searchId,
+      // });
+      window.location = `/api/v3/challenges/${this.searchId}/export/csv`;
+    },
+    cloneChallenge () {
+      this.cloning = true;
+      this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
+      this.$root.$emit('show::modal', 'challenge-modal');
     },
   },
 };

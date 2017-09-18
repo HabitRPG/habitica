@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.jumbotron
+  .container-fluid
     h1 {{ $t('presskit') }}
       p {{ $t('presskitText', { pressEnquiryEmail : PRESS_ENQUIRY_EMAIL }) }}
       p
@@ -18,60 +18,60 @@
 </template>
 
 <script>
-// @TODO: How to use images?
-// @TODO: EMAILS.PRESS_ENQUIRY_EMAIL
-const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
+  // @TODO: How to use images?
+  // @TODO: EMAILS.PRESS_ENQUIRY_EMAIL
+  const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
 
-export default {
-  data () {
-    return {
-      PRESS_ENQUIRY_EMAIL,
-      imgs: {
-        Promo: [
-          'Promo',
-          'Promo - Thin',
-        ],
-        Logo: [
-          'Icon with Text',
-          'Habitica Gryphon',
-          'iOS',
-          'Android',
-        ],
-        Boss: [
-          'Basi-List',
-          'Stagnant Dishes',
-          'SnackLess Monster',
-          'Laundromancer',
-          'Necro-Vice',
-          'Battling the Ghost Stag',
-          'Dread Drag\'on of Dilatory',
-        ],
-        Samples: {
-          Website: [
-            'Tasks Page',
-            'Equipment',
-            'Market',
-            'Guilds',
-            'Challenges',
+  export default {
+    data () {
+      return {
+        PRESS_ENQUIRY_EMAIL,
+        imgs: {
+          Promo: [
+            'Promo',
+            'Promo - Thin',
           ],
-          iOS: [
-            'Tasks Page',
-            'Level Up',
-            'Pets',
-            'Party',
-            'Boss',
+          Logo: [
+            'Icon with Text',
+            'Habitica Gryphon',
+            'iOS',
+            'Android',
           ],
-          Android: [
-            'User',
-            'Tasks Page',
-            'Reward',
-            'Level Up',
-            'Tavern',
-            'Party',
+          Boss: [
+            'Basi-List',
+            'Stagnant Dishes',
+            'SnackLess Monster',
+            'Laundromancer',
+            'Necro-Vice',
+            'Battling the Ghost Stag',
+            'Dread Drag\'on of Dilatory',
           ],
+          Samples: {
+            Website: [
+              'Tasks Page',
+              'Equipment',
+              'Market',
+              'Guilds',
+              'Challenges',
+            ],
+            iOS: [
+              'Tasks Page',
+              'Level Up',
+              'Pets',
+              'Party',
+              'Boss',
+            ],
+            Android: [
+              'User',
+              'Tasks Page',
+              'Reward',
+              'Level Up',
+              'Tavern',
+              'Party',
+            ],
+          },
         },
-      },
-    };
-  },
-};
+      };
+    },
+  };
 </script>
