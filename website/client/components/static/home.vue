@@ -9,10 +9,10 @@
         .row
           .col-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
-            h1 Motivate yourself to achieve your goals.
-            p.section-main It's time to have fun when you get things done! Join over 2 million Habiticans and improve your life one task at a time.
+            h1 {{$t('motivateYourself')}}
+            p.section-main {{$t('timeToGetThingsDone')}}
           .col-6
-            h3.text-center Sign  Up For Free
+            h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
                 .svg-icon.social-icon(v-html="icons.facebookIcon")
@@ -21,14 +21,14 @@
                 .svg-icon.social-icon(v-html="icons.googleIcon")
                 span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
-              span OR
+              span {{$t('or')}}
             .form
               input.form-control(type='text', placeholder='Username', v-model='username', :class='{"input-valid": username.length > 0}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
-              button.sign-up(@click='register()') Sign Up
+              button.sign-up(@click='register()') {{$t('signup')}}
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
 
@@ -38,21 +38,21 @@
       .container
         .row
           .col-6.offset-3.text-center
-            h2 Gamify Your Life
-            p.section-main Habitica is a free habit-building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.
+            h2 {{$t('gamifyYourLife')}}
+            p.section-main {{$t('aboutHabitica')}}
         .row
           .col-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
-            strong Track Your Habits and Goals
-            p Stay accountable by tracking and managing your Habits, Daily goals, and To-Do list with Habitica’s easy-to-use mobile apps and web interface.
+            strong {{$t('trackYourGoals')}}
+            p {{$t('trackYourGoalsDesc')}}
           .col-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
-            strong Earn Rewards for Your Goals
-            p Check off tasks to level up your Avatar and unlock in-game features such as battle armor, mysterious pets, magic skills, and even quests!
+            strong {{$t('earnRewards')}}
+            p {{$t('earnRewardsDesc')}}
           .col-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
-            strong Battle Monsters with Friends
-            p Fight monsters with other Habiticans! Use the Gold that you earn to buy in-game or custom rewards, like watching an episode of your favorite TV show.
+            strong {{$t('battleMonsters')}}
+            p {{$t('battleMonstersDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
 
@@ -60,20 +60,20 @@
       .container.text-center
         .row
           .col-12
-            h2 Players Use Habitica to Improve
+            h2 {{$('playersUseToImprove')}}
         .row
           .col-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
-            strong Health and Fitness
-            p Never motivated to floss? Can't seem to get to the gym? Habitica finally makes it fun to get healthy.
+            strong {{$('healthAndFitness')}}
+            p {{$('healthAndFitnessDesc')}}
           .col-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
-            strong School and Work
-            p Whether you're preparing a report for your teacher or your boss, it's easy to keep track of your progress as you tackle your toughest tasks.
+            strong {{$('schoolAndWork')}}
+            p {{$('schoolAndWorkDesc')}}
           .col-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
-            strong And much, much more!
-            p Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.
+            strong {{$('muchmuchMore')}}
+            p {{$('muchmuchMoreDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
       .container-fluid
@@ -85,8 +85,8 @@
           .col-6
             .iphones.svg-icon(v-html='icons.iphones')
           .col-6.text-column
-            h2 Level Up Anywhere
-            p Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.
+            h2 {{ $t('levelUpAnywhere') }}
+            p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
             a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
       .container-fluid
@@ -95,13 +95,13 @@
     #call-to-action.purple-4
       .container.featured
         .row.text-center
-          h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
+          h3.col-12 {{ $t('joinMany') }}
         .row
           .col-12.text-center
-            button.btn.btn-primary.join-button(@click='playButtonClick()') Join Habitica Today
+            button.btn.btn-primary.join-button(@click='playButtonClick()') {{ $t('joinToday') }}
         .row.featured
           .col-12.text-center
-            strong Featured in
+            strong {{ $t('featuredIn') }}
       .container-fluid.featured
         .row
           .col-12
