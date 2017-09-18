@@ -276,7 +276,7 @@ div
                 .points {{$t('pts')}}
               .col-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
-  private-message-modal(:userIdToMessage='userIdToMessage')
+  private-message-modal
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
@@ -686,7 +686,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     getProgressDisplay () {
