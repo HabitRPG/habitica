@@ -115,11 +115,6 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
       .container-fluid
         .seamless_stars_varied_opacity_repeat
-
-    #bottom-wrap.purple-4
-      #bottom-background
-        .seamless_mountains_demo_repeat
-        .midground_foreground_extended2
 </template>
 
 <style lang="scss">
@@ -240,11 +235,17 @@
     .social-button {
       border-radius: 2px;
       border: solid 2px #bda8ff;
-      width: 206px;
-      height: 40px;
+      width: 48%;
+      min-height: 40px;
+      padding: .5em;
       background: transparent;
       margin-right: .5em;
       color: #fff;
+    }
+
+    .social-button:hover {
+      cursor: pointer;
+      border-color: #fff;
     }
 
     .social-icon {
@@ -290,17 +291,28 @@
       margin-left: 15px;
     }
 
+    .form {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
     input {
       margin-bottom: 1em;
       border-radius: 2px;
       background-color: #432874;
       border-color: #432874;
       color: $purple-400;
+      border: solid 2px transparent;
     }
 
     input:focus {
       border: solid 2px #9a62ff;
       color: #fff;
+      background-color: #36205d;
+    }
+
+    input:hover {
+      background-color: #36205d;
     }
 
     button.sign-up {
@@ -467,33 +479,6 @@
       position: absolute;
       height: 500px;
       width: 100%;
-    }
-  }
-
-  #bottom-wrap {
-    padding-top: 10em;
-  }
-
-  #bottom-background {
-    position: relative;
-
-    .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
-      width: 100%;
-      height: 500px;
-      position: absolute;
-      z-index: 0;
-      bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
     }
   }
 </style>
