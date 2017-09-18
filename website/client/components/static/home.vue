@@ -60,20 +60,20 @@
       .container.text-center
         .row
           .col-12
-            h2 {{$('playersUseToImprove')}}
+            h2 {{$t('playersUseToImprove')}}
         .row
           .col-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
-            strong {{$('healthAndFitness')}}
-            p {{$('healthAndFitnessDesc')}}
+            strong {{$t('healthAndFitness')}}
+            p {{$t('healthAndFitnessDesc')}}
           .col-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
-            strong {{$('schoolAndWork')}}
-            p {{$('schoolAndWorkDesc')}}
+            strong {{$t('schoolAndWork')}}
+            p {{$t('schoolAndWorkDesc')}}
           .col-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
-            strong {{$('muchmuchMore')}}
-            p {{$('muchmuchMoreDesc')}}
+            strong {{$t('muchmuchMore')}}
+            p {{$t('muchmuchMoreDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
       .container-fluid
