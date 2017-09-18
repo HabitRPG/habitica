@@ -171,6 +171,10 @@
       position: inherit;
       width: 180px;
     }
+
+    .popover-content {
+      color: white;
+    }
   }
 </style>
 

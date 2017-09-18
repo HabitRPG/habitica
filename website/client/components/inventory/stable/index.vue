@@ -453,6 +453,10 @@
       position: inherit;
       width: 100px;
     }
+
+    .popover-content {
+      color: white;
+    }
   }
 
   .hatchablePopover {
