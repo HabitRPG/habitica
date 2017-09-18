@@ -118,6 +118,7 @@ export default {
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       guilds.forEach((guild) => {
+        if (!guild.categories) return;
         guild.categorySlugs = guild.categories.map(cat => {
           return cat.slug;
         });

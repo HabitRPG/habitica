@@ -23,11 +23,11 @@
             .strike
               span OR
             .form
-              input.form-control(type='text', placeholder='Username', v-model='username')
-              input.form-control(type='email', placeholder='Email', v-model='email')
-              input.form-control(type='password', placeholder='Password', v-model='password')
-              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm')
-              p By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
+              input.form-control(type='text', placeholder='Username', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
+              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
+              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
+              p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click='register()') Sign Up
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
@@ -98,12 +98,10 @@
           h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
         .row
           .col-12.text-center
-            button.btn.btn-primary(@click='playButtonClick()') Join Habitica Today
+            button.btn.btn-primary.join-button(@click='playButtonClick()') Join Habitica Today
         .row.featured
           .col-12.text-center
             strong Featured in
-      .container-fluid
-        .seamless_stars_varied_opacity_repeat
       .container-fluid.featured
         .row
           .col-12
@@ -111,16 +109,46 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Cnetlogo.png', alt="$t(altAttrCnet)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Fast-Company-logo.png', alt="$t(altAttrFastCompany)")
+            .cnet.svg-icon(v-html='icons.cnet')
+            .fast-company.svg-icon(v-html='icons.fastCompany')
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
+      .container-fluid
+        .seamless_stars_varied_opacity_repeat
 
     #bottom-wrap.purple-4
       #bottom-background
         .seamless_mountains_demo_repeat
         .midground_foreground_extended2
 </template>
+
+<style lang="scss">
+  .form-text a {
+    color: #fff !important;
+  }
+
+  #purple-footer {
+    background-color: #271b3d;
+
+    footer, footer a {
+      background: transparent;
+      color: #d5c8ff;
+    }
+
+    .logo {
+      color: #bda8ff;
+    }
+
+    .social-circle, .btn-donate {
+      background: #36205d;
+      color: #bda8ff;
+
+      .svg-icon {
+        color: #bda8ff;
+      }
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/static.scss';
@@ -270,6 +298,11 @@
       color: $purple-400;
     }
 
+    input:focus {
+      border: solid 2px #9a62ff;
+      color: #fff;
+    }
+
     button.sign-up {
       width: 100%;
       height: 48px;
@@ -278,6 +311,12 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+    }
+
+    .sign-up:hover {
+      background-color: #50b5e9;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      cursor: pointer;
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -336,6 +375,10 @@
       margin-right: .5em;
     }
 
+    .app {
+      cursor: pointer;
+    }
+
     .iphones {
       width: 436px
     }
@@ -372,12 +415,38 @@
       padding-bottom: 5em;
     }
 
+    .join-button:hover {
+      cursor: pointer;
+      background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+    }
+
     .featured .row {
       margin-top: 0;
     }
 
     .featured {
       text-align: center;
+
+      .svg-icon {
+        max-height: 30px;
+        max-width: 120px;
+        color: #fff;
+        display: inline-block;
+      }
+
+      .cnet {
+        width: 40px;
+        height: 40px;
+        padding-top: .5em;
+        margin-right: 1em;
+      }
+
+      .fast-company {
+        width: 161.3px;
+        height: 24px;
+        padding-top: .8em;
+      }
 
       img {
         max-height: 30px;
@@ -440,6 +509,8 @@
   import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
   import facebookSquareIcon from 'assets/svg/facebook-square.svg';
   import googleIcon from 'assets/svg/google.svg';
+  import cnet from 'assets/svg/cnet.svg';
+  import fastCompany from 'assets/svg/fast-company.svg';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
@@ -455,6 +526,8 @@
           pixelHorizontal3,
           facebookIcon: facebookSquareIcon,
           googleIcon,
+          cnet,
+          fastCompany,
         }),
         userCount: 1000000,
         username: '',
@@ -477,7 +550,29 @@
         google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
       });
     },
+    computed: {
+      emailValid () {
+        if (this.email.length === 0) return false;
+        return this.validateEmail(this.email);
+      },
+      emailInvalid () {
+        if (this.email.length === 0) return false;
+        return !this.validateEmail(this.email);
+      },
+      passwordConfirmValid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm === this.password;
+      },
+      passwordConfirmInvalid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm !== this.password;
+      },
+    },
     methods: {
+      validateEmail (email) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      },
       async register () {
         if (this.password !== this.passwordConfirm) {
           alert('Passwords must match');

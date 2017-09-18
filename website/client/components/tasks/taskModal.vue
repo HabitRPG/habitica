@@ -158,7 +158,7 @@
                     input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
                     span.custom-control-indicator
                     span.custom-control-description(v-once) {{ member.profile.name }}
-            
+
               .row
                 button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
@@ -547,7 +547,7 @@ export default {
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
     },
-    submit () {
+    async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
 
       if (this.purpose === 'create') {
@@ -558,10 +558,21 @@ export default {
           });
           this.$emit('taskCreated', this.task);
         } else if (this.groupId) {
-          this.$store.dispatch('tasks:createGroupTasks', {
+          await this.$store.dispatch('tasks:createGroupTasks', {
             groupId: this.groupId,
             tasks: [this.task],
           });
+
+          let promises = this.assignedMembers.map(memberId => {
+            return this.$store.dispatch('tasks:assignTask', {
+              taskId: this.task._id,
+              userId: memberId,
+            });
+          });
+          Promise.all(promises);
+
+          this.task.group.assignedUsers = this.assignedMembers;
+
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);
@@ -596,13 +607,24 @@ export default {
       this.requiresApproval = truthy;
     },
     async toggleAssignment (memberId) {
-      if (this.assignedMembers.indexOf(memberId) === -1) {
+      let assignedIndex = this.assignedMembers.indexOf(memberId);
+
+      if (assignedIndex  === -1) {
+        if (this.purpose === 'create') {
+          return;
+        }
+
         await this.$store.dispatch('tasks:unassignTask', {
           taskId: this.task._id,
           userId: this.user._id,
         });
         return;
       }
+
+      if (this.purpose === 'create') {
+        return;
+      }
+
       await this.$store.dispatch('tasks:assignTask', {
         taskId: this.task._id,
         userId: this.user._id,

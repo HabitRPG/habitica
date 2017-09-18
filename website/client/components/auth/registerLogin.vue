@@ -184,6 +184,9 @@
 
   #bottom-wrap {
     margin-top: 6em;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   }
 
   #bottom-background {
