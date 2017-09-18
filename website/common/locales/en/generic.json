@@ -279,5 +279,6 @@
   "messages": "Messages",
   "emptyMessagesLine1": "You don't have any messages",
   "emptyMessagesLine2": "Send a message to start a conversation!",
-  "letsgo": "Let's Go!"
+  "letsgo": "Let's Go!",
+  "selected": "Selected"
 }
