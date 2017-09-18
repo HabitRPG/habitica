@@ -137,7 +137,7 @@ api.inviteToQuest = {
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
       {name: 'QUEST_NAME', content: quest.text()},
       {name: 'INVITER', content: inviterVars.name},
-      {name: 'PARTY_URL', content: '/#/options/groups/party'},
+      {name: 'PARTY_URL', content: '/party'},
     ]);
 
     // track that the inviting user has accepted the quest

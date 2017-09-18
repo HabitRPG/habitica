@@ -90,6 +90,8 @@
   "gemsPopoverTitle": "Gems",
   "gems": "Gems",
   "gemButton": "You have <%= number %> Gems.",
+  "needMoreGems": "Need More Gems?",
+  "needMoreGemsInfo": "Purchase Gems now, or become a subscriber to buy Gems with Gold, get monthly mystery items, enjoy increased drop caps and more!",
   "moreInfo": "More Info",
   "moreInfoChallengesURL": "http://habitica.wikia.com/wiki/Challenges",
   "moreInfoTagsURL": "http://habitica.wikia.com/wiki/Tags",

@@ -773,8 +773,8 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
     sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
-      {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
-      {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
+      {name: 'GUILDS_LINK', content: '/groups/discovery'},
+      {name: 'PARTY_WANTED_GUILD', content: '/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
     ]);
   }
 }
@@ -954,12 +954,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.type === 'guild') {
       emailVars.push(
         {name: 'GUILD_NAME', content: group.name},
-        {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
+        {name: 'GUILD_URL', content: '/groups/discovery'}
       );
     } else {
       emailVars.push(
         {name: 'PARTY_NAME', content: group.name},
-        {name: 'PARTY_URL', content: '/#/options/groups/party'}
+        {name: 'PARTY_URL', content: '/party'}
       );
     }
 

@@ -150,11 +150,7 @@
             |: {{user.auth.local.username}}
           p
             small.muted
-                | {{ $t('loginNameDescription1') }}
-                |&nbsp;
-                a(href='/#/options/profile/profile') {{ $t('loginNameDescription2') }}
-                |&nbsp;
-                | {{ $t('loginNameDescription3') }}
+                | {{ $t('loginNameDescription') }}
           p {{ $t('email') }}
             |: {{user.auth.local.email}}
           hr

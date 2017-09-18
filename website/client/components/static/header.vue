@@ -2,7 +2,7 @@
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
       router-link.nav-item(
-        to='/home',
+        to='/static/home',
       )
         .logo.svg-icon(v-html='icons.logo')
     .collapse.navbar-collapse

@@ -9,6 +9,7 @@ import * as Analytics from 'client/libs/analytics';
 import ParentPage from './components/parentPage';
 
 // Static Pages
+const StaticWrapper = () => import(/* webpackChunkName: "static" */'./components/static/staticWrapper');
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
@@ -17,14 +18,11 @@ const FAQPage = () => import(/* webpackChunkName: "static" */'./components/stati
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
 const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
-const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
-const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
-const VideosPage = () => import(/* webpackChunkName: "static" */'./components/static/videos');
 
 const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
 
@@ -100,7 +98,6 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: HomePage, meta: {requiresLogin: false} },
     { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
@@ -239,7 +236,7 @@ const router = new VueRouter({
     },
     {
       path: '/static',
-      component: ParentPage,
+      component: StaticWrapper,
       children: [
         { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
         { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
@@ -248,15 +245,13 @@ const router = new VueRouter({
         { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
         { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
-        { name: 'maintenance', path: 'maintenance', component: MaintenancePage, meta: {requiresLogin: false}},
-        { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage, meta: {requiresLogin: false}},
+        { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
         { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
         { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
-        { name: 'videos', path: 'videos', component: VideosPage, meta: {requiresLogin: false}},
       ],
     },
     {

@@ -4,8 +4,6 @@
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    static-header
-
     #intro-signup.purple-1
       .container
         .row
@@ -117,9 +115,6 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
       .container-fluid
         .seamless_stars_varied_opacity_repeat
-
-    #purple-footer
-      app-footer
 
     #bottom-wrap.purple-4
       #bottom-background
@@ -505,8 +500,6 @@
 
 <script>
   import hello from 'hellojs';
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -521,10 +514,6 @@
   import * as Analytics from 'client/libs/analytics';
 
   export default {
-    components: {
-      AppFooter,
-      StaticHeader,
-    },
     data () {
       return {
         icons: Object.freeze({
@@ -552,7 +541,7 @@
         hitType: 'pageview',
         eventCategory: 'page',
         eventAction: 'landing page',
-        page: '/home',
+        page: '/static/home',
       });
 
       hello.init({

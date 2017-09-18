@@ -91,12 +91,18 @@ div
     #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
-        .col-3.text-center(v-for='(achievment, key) in category.achievements')
-          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievment.earned}')
-            b-popover(:target="'#' + key", triggers="hover", placement="top", :content="achievment.title + achievment.text")
-            .achievement(:class='achievment.icon + "2x"', v-if='achievment.earned')
-             .counter.badge.badge-info.stack-count(v-if='achievment.optionalCount') {{achievment.optionalCount}}
-            .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievment.earned')
+        .col-3.text-center(v-for='(achievement, key) in category.achievements')
+          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievement.earned}')
+            b-popover(
+              :target="'#' + key",
+              triggers="hover",
+              placement="top",
+            )
+              h4.popover-content-title {{ achievement.title }}
+              div.popover-content-text(v-html="achievement.text")
+            .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
+             .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
+            .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
       hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
@@ -252,11 +258,11 @@ div
       #allocation(v-if='user._id === userLoggedIn._id')
         .row.title-row
           .col-6
-            h3(v-if='userLevel100Plus', v-once) {{ $t('noMoreAllocate') }}
+            h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
             h3(v-if='user.stats.points || userLevel100Plus')
               | Points Available
-            .counter.badge(v-if='user.stats.points || userLevel100Plus')
-              | {{user.stats.points}}&nbsp;
+              .counter.badge(v-if='user.stats.points || userLevel100Plus')
+                | {{user.stats.points}}&nbsp;
           .col-6
             .float-right
               toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
@@ -264,7 +270,7 @@ div
         .row
           .col-3(v-for='(statInfo, stat) in allocateStatsList')
             .box.white.row.col-12
-              .col-8
+              .col-12
                 div(:class='stat') {{ $t(stats[stat].title) }}
                 .number {{ user.stats[stat] }}
                 .points pts
@@ -476,9 +482,9 @@ div
     }
 
     .counter.badge {
-      position: absolute;
-      top: -0.5em;
-      left: 10em;
+      position: relative;
+      top: -0.25em;
+      left: 0.5em;
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
