@@ -254,6 +254,10 @@
     background-color: #e1e0e3;
   }
 
+  .payment-method:hover {
+    cursor: pointer;
+  }
+
   .paypal {
     padding-top: 1.3em;
   }
