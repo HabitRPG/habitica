@@ -1,3 +1,9 @@
+.promo_winteryhair {
+  background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
+  background-position: -1495px -1274px;
+  width: 152px;
+  height: 75px;
+}
 .avatar_variety {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
   background-position: 0px -1039px;
@@ -6,7 +12,7 @@
 }
 .npc_viirus {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1495px -1274px;
+  background-position: -1254px -392px;
   width: 108px;
   height: 90px;
 }
@@ -30,7 +36,7 @@
 }
 .promo_startingover {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1495px -821px;
+  background-position: -1495px -972px;
   width: 150px;
   height: 150px;
 }
@@ -60,7 +66,7 @@
 }
 .scene_coding {
   background-image: url(/static/sprites/spritesmith-largeSprites-2.png);
-  background-position: -1495px -972px;
+  background-position: -1495px -821px;
   width: 150px;
   height: 150px;
 }
