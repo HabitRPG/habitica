@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (d.h. keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen hast, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Bitte denke daran, dass Dein angezeigter Name, Dein Profilbild und Dein Profiltext die <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community-Richtlinien</a> einhalten müssen (d.h. keine Schimpfwörter, keine sexuellen Themen, keine Beleidigungen, usw.). Wenn Du Fragen willst, ob etwas angebracht ist oder nicht, schreibe einfach eine E-Mail an <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Avatar anpassen",
     "other": "Anderes",
