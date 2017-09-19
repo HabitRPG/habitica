@@ -296,18 +296,6 @@ export default {
     getCancelSubInfo () {
       return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
     },
-    payPalPayment (data) {
-      if (!this.checkGemAmount(data)) return;
-
-      let gift = this.encodeGift(data.giftedTo, data.gift);
-      let url = `/paypal/checkout?_id=${this.user._id}&apiToken=${this.user.apiToken}&gift=${gift}`;
-      axios.get(url);
-    },
-    encodeGift (uuid, gift) {
-      gift.uuid = uuid;
-      let encodedString = JSON.stringify(gift);
-      return encodeURIComponent(encodedString);
-    },
   },
 };
 </script>

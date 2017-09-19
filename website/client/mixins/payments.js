@@ -19,6 +19,11 @@ export default {
     },
   },
   methods: {
+    encodeGift (uuid, gift) {
+      gift.uuid = uuid;
+      let encodedString = JSON.stringify(gift);
+      return encodeURIComponent(encodedString);
+    },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
 
