@@ -21,7 +21,6 @@ import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  props: ['userIdToMessage'],
   components: {
     bModal,
   },
@@ -29,7 +28,18 @@ export default {
     return {
       privateMessage: '',
       loading: false,
+      userIdToMessage: '',
     };
+  },
+  computed: {
+    userIdToMessageStore () {
+      return this.$store.state.userIdToMessage;
+    },
+  },
+  watch: {
+    userIdToMessageStore () {
+      this.userIdToMessage = this.userIdToMessageStore;
+    },
   },
   methods: {
     async sendPrivateMessage () {
@@ -45,6 +55,8 @@ export default {
       this.loading = false;
 
       this.text(this.$t('messageSentAlert'));
+
+      this.privateMessage = '';
     },
   },
 };

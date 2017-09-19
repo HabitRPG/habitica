@@ -20,46 +20,46 @@ div
           member-details(:member="user")
     .row
       .col-6.offset-3.text-center.nav
-        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
-        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
-        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
+        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
+        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
+        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-8
           .header
             h1 {{user.profile.name}}
             h4
-              strong User Id:
+              strong {{ $t('userId') }}:
               | {{user._id}}
         .col-4
-          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') Edit
+          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')
         .col-8
           .about
-            h2 About
+            h2 {{ $t('about') }}
             p(v-markdown='user.profile.blurb')
           .photo
-            h2 Photo
+            h2 {{ $t('photo') }}
             img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
 
         .col-4
           .info
-            h2 info
+            h2 {{ $t('info') }}
             div
-              strong Joined:
+              strong {{ $t('joined') }}:
               | {{user.auth.timestamps.created}}
             div
-              strong Total Log Ins:
+              strong {{ $t('totalLogins') }}:
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
             div
               | {{getProgressDisplay()}}
               .progress
                 .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-                  span.sr-only {{ incentivesProgress }}% Complete
+                  span.sr-only {{ incentivesProgress }}% {{$t('complete')}}
           // @TODO: Implement in V2 .social
 
       .row(v-if='editing')
-        h1 Edit Profile
+        h1 {{$t('editProfile')}}
         .col-12
           .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
 
@@ -87,7 +87,6 @@ div
         .col-12.text-center
           button.btn.btn-primary(@click='save()') {{ $t("save") }}
           button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
-
     #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
@@ -107,94 +106,93 @@ div
       .row
         .col-6(v-if='user.achievements.challenges')
           .achievement-icon.achievement-alien
-          h2.text-center Challeges Won
+          h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
             span {{chal}}
             hr
         .col-6(v-if='user.achievements.quests')
           .achievement-icon.achievement-karaoke
-          h2.text-center Quests Completed
+          h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }}
             span {{ value }}
-
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
-        .col-6
-          h2.text-center Equipment
+        .col-6 {{$t('equipment')}}
+          h2.text-center
           .well
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.eyewear}')
                 div(:class="`shop_${equippedItems.eyewear}`")
-              h3 Eyewear
+              h3 {{$t('eyewear')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.head}')
                 div(:class="`shop_${equippedItems.head}`")
-              h3 Head Gear
+              h3 {{$t('headGear')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.headAccessory}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
-              h3 Head Access.
+              h3 {{$t('headAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.backAccessory}')
                 div(:class="`shop_${equippedItems.backAccessory}`")
-              h3 Back Access.
+              h3 {{$t('backAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.armor}')
                 div(:class="`shop_${equippedItems.armor}`")
-              h3 Armor
+              h3 {{$t('armor')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.bodyAccessory}')
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
-              h3 Body Access.
+              h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.weapon}')
                 div(:class="`shop_${equippedItems.weapon}`")
-              h3 Main-Hand
+              h3 {{$t('mainHand')}}
             .col-4.item-wrapper
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.shield}')
                 div(:class="`shop_${equippedItems.shield}`")
-              h3 Off-Hand
+              h3 {{$t('offHand')}}
         .col-6
-          h2.text-center Costume
+          h2.text-center {{$t('costume')}}
           .well
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.eyewear}')
                 div(:class="`shop_${costumeItems.eyewear}`")
-              h3 Eyewear
+              h3 {{$t('eyewear')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.head}')
                 div(:class="`shop_${costumeItems.head}`")
-              h3 Head Gear
+              h3 {{$t('headGear')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.headAccessory}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
-              h3 Head Access.
+              h3 {{$t('headAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.backAccessory}')
                 div(:class="`shop_${costumeItems.backAccessory}`")
-              h3 Back Access.
+              h3 {{$t('backAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.armor}')
                 div(:class="`shop_${costumeItems.armor}`")
-              h3 Armor
+              h3 {{$t('armor')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.bodyAccessory}')
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
-              h3 Body Access.
+              h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.weapon}')
                 div(:class="`shop_${costumeItems.weapon}`")
-              h3 Main-Hand
+              h3 {{$t('mainHand')}}
             .col-4.item-wrapper
               .box(:class='{white: user.preferences.background}')
                 div(:class="user.preferences.background")
-              h3 Background
+              h3 {{$t('background')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.shield}')
                 div(:class="`shop_${costumeItems.shield}`")
-              h3 Off-Hand
+              h3 {{$t('offHand')}}
       .row.pet-mount-row
         .col-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -230,7 +228,7 @@ div
                   span {{ mountMasterProgress(user.items.mounts) }}
       #attributes.row
         hr.col-12
-        h2.col-12 Attributes
+        h2.col-12 {{$t('attributes')}}
         .col-6(v-for="(statInfo, stat) in stats")
           .row.col-12.stats-column
             .col-4.attribute-label
@@ -241,31 +239,33 @@ div
             .col-6
               ul.bonus-stats
                 li
-                  strong Level:
+                  strong {{$t('level')}}:
                   | {{statsComputed.levelBonus[stat]}}
                 li
-                  strong Equipment:
+                  strong {{$t('equipment')}}:
                   | {{statsComputed.gearBonus[stat]}}
                 li
-                  strong Class:
+                  strong {{$t('class')}}:
                   | {{statsComputed.classBonus[stat]}}
                 li
-                  strong Allocated:
+                  strong {{$t('allocated')}}:
                   | {{user.stats[stat]}}
                 li
-                  strong Buffs:
+                  strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
       #allocation(v-if='user._id === userLoggedIn._id')
         .row.title-row
           .col-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
             h3(v-if='user.stats.points || userLevel100Plus')
-              | Points Available
+              | {{$t('pointsAvailable')}}
               .counter.badge(v-if='user.stats.points || userLevel100Plus')
                 | {{user.stats.points}}&nbsp;
           .col-6
             .float-right
-              toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
+              toggle-switch(:label="$t('autoAllocation')",
+                v-model='user.preferences.automaticAllocation',
+                @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
 
         .row
           .col-3(v-for='(statInfo, stat) in allocateStatsList')
@@ -273,10 +273,10 @@ div
               .col-12
                 div(:class='stat') {{ $t(stats[stat].title) }}
                 .number {{ user.stats[stat] }}
-                .points pts
+                .points {{$t('pts')}}
               .col-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
-  private-message-modal(:userIdToMessage='userIdToMessage')
+  private-message-modal
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
@@ -686,7 +686,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     getProgressDisplay () {

@@ -122,6 +122,7 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       afterLoginRedirect: '',
+      userIdToMessage: '',
     },
   });
 
