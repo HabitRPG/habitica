@@ -11,9 +11,8 @@ div
     span.item-label(v-if="label") {{ label }}
 
   b-popover(
-    v-if="showPopover",
     :target="itemId",
-    triggers="hover",
+    :triggers="showPopover ? 'hover' : ''",
     :placement="popoverPosition",
   )
     slot(name="popoverContent", :item="item")
