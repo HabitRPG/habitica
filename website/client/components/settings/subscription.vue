@@ -46,7 +46,7 @@
             | &nbsp; {{ $t('consecutiveSubscription') }}
             ul.list-unstyled
               li {{ $t('consecutiveMonths') }} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li {{ $t('gemCapExtra') }}} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li {{ $t('gemCapExtra') }} {{user.purchased.plan.consecutive.gemCapExtra}}
               li {{ $t('mysticHourglasses') }} {{user.purchased.plan.consecutive.trinkets}}
 
         div(v-if='!hasSubscription || hasCanceledSubscription')
