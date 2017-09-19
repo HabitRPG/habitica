@@ -1,7 +1,10 @@
 <template lang="pug">
 b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
-  .modal-body(v-if='userReceivingGems', )
-    .panel.panel-default(:class="gift.type === 'gems' ? 'panel-primary' : 'transparent'", @click='gift.type = "gems"')
+  .modal-body(v-if='userReceivingGems')
+    .panel.panel-default(
+      :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'", 
+      @click='gift.type = "gems"'
+    )
       .panel-heading
         .pull-right
           span(v-if='gift.gems.fromBalance') {{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}
@@ -12,8 +15,8 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
           .col-md-6
             .form-group
               input.form-control(type='number', placeholder='Number of Gems',
-                min='0', :max='gift.gems.fromBalance ? userLoggedIn.balance * 4 : 0',
-                v-model='amount')
+                min='0', :max='gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999',
+                v-model='gift.gems.amount')
           .col-md-6
             .btn-group
               a.btn.btn-default(:class="{active: gift.gems.fromBalance}", @click="gift.gems.fromBalance = true") {{ $t('sendGiftFromBalance') }}
@@ -22,7 +25,10 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
           .col-md-12
             p.small.muted {{ $t('gemGiftsAreOptional', assistanceEmailObject) }}
 
-    .panel.panel-default(:class="gift.type=='subscription' ? 'panel-primary' : 'transparent'", @click='gift.type = "subscription"')
+    .panel.panel-default(
+      :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'", 
+      @click='gift.type = "subscription"'
+    )
       .panel-heading {{ $t('subscription') }}
       .panel-body
         .form-group
@@ -36,9 +42,10 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
 
   .modal-footer
     button.btn.btn-primary(v-if='fromBal', ng-click='sendGift(profile._id)') {{ $t("send") }}
-    button.btn.btn-primary(v-if='!fromBal', ng-click='Payments.showStripe({gift:gift, uuid:profile._id})') {{ $t('card') }}
-    button.btn.btn-warning(v-if='!fromBal', ng-click='Payments.payPalPayment({gift: gift, giftedTo: profile._id})') PayPal
-    button.btn.btn-success(v-if='!fromBal', ng-click="Payments.amazonPayments.init({type: 'single', gift: gift, giftedTo: profile._id})") Amazon Payments
+    template(v-else)
+      button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
+      button.btn.btn-warning(@click='payPalPayment({gift: gift, giftedTo: userReceivingGems._id})') PayPal
+      button.btn.btn-success(@click="amazonPayments.init({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
     button.btn.btn-default(@click='close()') {{$t('cancel')}}
 </template>
 
@@ -49,20 +56,20 @@ import orderBy from 'lodash/orderBy';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
-import subscriptionBlocksContent from 'common/script/content/subscriptionBlocks';
+import paymentsMixin from 'client/mixins/payments';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL
-let TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   props: ['userReceivingGems'],
   components: {
     bModal,
   },
+  mixins: [paymentsMixin],
   data () {
     return {
       planGemLimits,
-      amount: 0,
       gift: {
         type: 'gems',
         gems: {
@@ -78,9 +85,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({userLoggedIn: 'user.data'}),
+    ...mapState({
+      userLoggedIn: 'user.data',
+      originalSubscriptionBlocks: 'content.subscriptionBlocks',
+    }),
     subscriptionBlocks () {
-      let subscriptionBlocks = toArray(subscriptionBlocksContent);
+      let subscriptionBlocks = toArray(this.originalSubscriptionBlocks);
       subscriptionBlocks = omitBy(subscriptionBlocks, (block) => {
         return block.discount === true;
       });

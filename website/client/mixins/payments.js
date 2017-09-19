@@ -45,7 +45,7 @@ export default {
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
         image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        token: async (res) => {
+        async token (res) {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
           if (data.groupToCreate) {
@@ -61,6 +61,7 @@ export default {
 
           let response = await axios.post(url, res);
 
+          // @TODO handle with normal notifications?
           let responseStatus = response.status;
           if (responseStatus >= 400) {
             alert(`Error: ${response.message}`);
@@ -71,6 +72,7 @@ export default {
           if (newGroup && newGroup._id) {
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            // @TODO action
             this.user.guilds.push(newGroup._id);
             return;
           }
