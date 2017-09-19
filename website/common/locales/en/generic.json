@@ -68,7 +68,6 @@
   "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
   "all": "All",
   "none": "None",
-  "or": "Or",
   "and": "and",
   "loginSuccess": "Login successful!",
   "youSure": "Are you sure?",
@@ -90,6 +89,8 @@
   "gemsPopoverTitle": "Gems",
   "gems": "Gems",
   "gemButton": "You have <%= number %> Gems.",
+  "needMoreGems": "Need More Gems?",
+  "needMoreGemsInfo": "Purchase Gems now, or become a subscriber to buy Gems with Gold, get monthly mystery items, enjoy increased drop caps and more!",
   "moreInfo": "More Info",
   "moreInfoChallengesURL": "http://habitica.wikia.com/wiki/Challenges",
   "moreInfoTagsURL": "http://habitica.wikia.com/wiki/Tags",
@@ -276,5 +277,7 @@
 
   "messages": "Messages",
   "emptyMessagesLine1": "You don't have any messages",
-  "emptyMessagesLine2": "Send a message to start a conversation!"
+  "emptyMessagesLine2": "Send a message to start a conversation!",
+  "letsgo": "Let's Go!",
+  "selected": "Selected"
 }

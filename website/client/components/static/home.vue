@@ -4,33 +4,31 @@
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
 
-    static-header
-
     #intro-signup.purple-1
       .container
         .row
           .col-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
-            h1 Motivate yourself to achieve your goals.
-            p.section-main It's time to have fun when you get things done! Join over 2 million Habiticans and improve your life one task at a time.
+            h1 {{$t('motivateYourself')}}
+            p.section-main {{$t('timeToGetThingsDone')}}
           .col-6
-            h3.text-center Sign  Up For Free
+            h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
                 .svg-icon.social-icon(v-html="icons.facebookIcon")
                 span {{$t('signUpWithSocial', {social: 'Facebook'})}}
-              button.social-button(@click='socialAuth("facebook")')
+              button.social-button(@click='socialAuth("google")')
                 .svg-icon.social-icon(v-html="icons.googleIcon")
                 span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
-              span OR
+              span {{$t('or')}}
             .form
-              input.form-control(type='text', placeholder='Username', v-model='username')
-              input.form-control(type='email', placeholder='Email', v-model='email')
-              input.form-control(type='password', placeholder='Password', v-model='password')
-              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm')
-              p By clicking the button below, you are indicating that you have read and agree to the Terms of Service and Privacy Policy.
-              button.sign-up(@click='register()') Sign Up
+              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
+              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
+              input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
+              p.form-text(v-once, v-html="$t('termsAndAgreement')")
+              button.sign-up(@click='register()') {{$t('signup')}}
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
 
@@ -40,21 +38,21 @@
       .container
         .row
           .col-6.offset-3.text-center
-            h2 Gamify Your Life
-            p.section-main Habitica is a free habit-building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.
+            h2 {{$t('gamifyYourLife')}}
+            p.section-main {{$t('aboutHabitica')}}
         .row
           .col-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
-            strong Track Your Habits and Goals
-            p Stay accountable by tracking and managing your Habits, Daily goals, and To-Do list with Habitica’s easy-to-use mobile apps and web interface.
+            strong {{$t('trackYourGoals')}}
+            p {{$t('trackYourGoalsDesc')}}
           .col-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
-            strong Earn Rewards for Your Goals
-            p Check off tasks to level up your Avatar and unlock in-game features such as battle armor, mysterious pets, magic skills, and even quests!
+            strong {{$t('earnRewards')}}
+            p {{$t('earnRewardsDesc')}}
           .col-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
-            strong Battle Monsters with Friends
-            p Fight monsters with other Habiticans! Use the Gold that you earn to buy in-game or custom rewards, like watching an episode of your favorite TV show.
+            strong {{$t('battleMonsters')}}
+            p {{$t('battleMonstersDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
 
@@ -62,20 +60,20 @@
       .container.text-center
         .row
           .col-12
-            h2 Players Use Habitica to Improve
+            h2 {{$t('playersUseToImprove')}}
         .row
           .col-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
-            strong Health and Fitness
-            p Never motivated to floss? Can't seem to get to the gym? Habitica finally makes it fun to get healthy.
+            strong {{$t('healthAndFitness')}}
+            p {{$t('healthAndFitnessDesc')}}
           .col-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
-            strong School and Work
-            p Whether you're preparing a report for your teacher or your boss, it's easy to keep track of your progress as you tackle your toughest tasks.
+            strong {{$t('schoolAndWork')}}
+            p {{$t('schoolAndWorkDesc')}}
           .col-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
-            strong And much, much more!
-            p Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.
+            strong {{$t('muchmuchMore')}}
+            p {{$t('muchmuchMoreDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
       .container-fluid
@@ -87,8 +85,8 @@
           .col-6
             .iphones.svg-icon(v-html='icons.iphones')
           .col-6.text-column
-            h2 Level Up Anywhere
-            p Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.
+            h2 {{ $t('levelUpAnywhere') }}
+            p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
             a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
       .container-fluid
@@ -97,15 +95,13 @@
     #call-to-action.purple-4
       .container.featured
         .row.text-center
-          h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
+          h3.col-12 {{ $t('joinMany') }}
         .row
           .col-12.text-center
-            button.btn.btn-primary(@click='playButtonClick()') Join Habitica Today
+            button.btn.btn-primary.join-button(@click='playButtonClick()') {{ $t('joinToday') }}
         .row.featured
           .col-12.text-center
-            strong Featured in
-      .container-fluid
-        .seamless_stars_varied_opacity_repeat
+            strong {{ $t('featuredIn') }}
       .container-fluid.featured
         .row
           .col-12
@@ -113,21 +109,19 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Cnetlogo.png', alt="$t(altAttrCnet)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Fast-Company-logo.png', alt="$t(altAttrFastCompany)")
+            .cnet.svg-icon(v-html='icons.cnet')
+            .fast-company.svg-icon(v-html='icons.fastCompany')
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
-
-    #purple-footer
-      app-footer
-
-    #bottom-wrap.purple-4
-      #bottom-background
-        .seamless_mountains_demo_repeat
-        .midground_foreground_extended2
+      .container-fluid
+        .seamless_stars_varied_opacity_repeat
 </template>
 
 <style lang="scss">
+  .form-text a {
+    color: #fff !important;
+  }
+
   #purple-footer {
     background-color: #271b3d;
 
@@ -221,6 +215,7 @@
   }
 
   #intro-signup {
+    background-image: url('~client/assets/svg/for-css/confetti.svg');
     margin-top: 4em;
 
     img {
@@ -240,11 +235,17 @@
     .social-button {
       border-radius: 2px;
       border: solid 2px #bda8ff;
-      width: 206px;
-      height: 40px;
+      width: 48%;
+      min-height: 40px;
+      padding: .5em;
       background: transparent;
       margin-right: .5em;
       color: #fff;
+    }
+
+    .social-button:hover {
+      cursor: pointer;
+      border-color: #fff;
     }
 
     .social-icon {
@@ -290,11 +291,28 @@
       margin-left: 15px;
     }
 
+    .form {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
     input {
       margin-bottom: 1em;
       border-radius: 2px;
       background-color: #432874;
       border-color: #432874;
+      color: $purple-400;
+      border: solid 2px transparent;
+    }
+
+    input:focus {
+      border: solid 2px #9a62ff;
+      color: #fff;
+      background-color: #36205d;
+    }
+
+    input:hover {
+      background-color: #36205d;
     }
 
     button.sign-up {
@@ -305,6 +323,28 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+    }
+
+    .sign-up:hover {
+      background-color: #50b5e9;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      cursor: pointer;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $purple-400;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: $purple-400;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: $purple-400;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: $purple-400;
+    }
+    ::placeholder { //  Standard browsers
+      color: $purple-400;
     }
   }
 
@@ -347,6 +387,10 @@
       margin-right: .5em;
     }
 
+    .app {
+      cursor: pointer;
+    }
+
     .iphones {
       width: 436px
     }
@@ -383,12 +427,38 @@
       padding-bottom: 5em;
     }
 
+    .join-button:hover {
+      cursor: pointer;
+      background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+    }
+
     .featured .row {
       margin-top: 0;
     }
 
     .featured {
       text-align: center;
+
+      .svg-icon {
+        max-height: 30px;
+        max-width: 120px;
+        color: #fff;
+        display: inline-block;
+      }
+
+      .cnet {
+        width: 40px;
+        height: 40px;
+        padding-top: .5em;
+        margin-right: 1em;
+      }
+
+      .fast-company {
+        width: 161.3px;
+        height: 24px;
+        padding-top: .8em;
+      }
 
       img {
         max-height: 30px;
@@ -411,39 +481,10 @@
       width: 100%;
     }
   }
-
-  #bottom-wrap {
-    padding-top: 10em;
-  }
-
-  #bottom-background {
-    position: relative;
-
-    .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
-      width: 100%;
-      height: 500px;
-      position: absolute;
-      z-index: 0;
-      bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
-    }
-  }
 </style>
 
 <script>
   import hello from 'hellojs';
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
   import googlePlay from 'assets/images/home/google-play-badge.svg';
   import iosAppStore from 'assets/images/home/ios-app-store.svg';
   import iphones from 'assets/images/home/iphones.svg';
@@ -453,13 +494,11 @@
   import pixelHorizontal3 from 'assets/images/home/pixel-horizontal-3.svg';
   import facebookSquareIcon from 'assets/svg/facebook-square.svg';
   import googleIcon from 'assets/svg/google.svg';
+  import cnet from 'assets/svg/cnet.svg';
+  import fastCompany from 'assets/svg/fast-company.svg';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
-    components: {
-      AppFooter,
-      StaticHeader,
-    },
     data () {
       return {
         icons: Object.freeze({
@@ -472,6 +511,8 @@
           pixelHorizontal3,
           facebookIcon: facebookSquareIcon,
           googleIcon,
+          cnet,
+          fastCompany,
         }),
         userCount: 1000000,
         username: '',
@@ -485,7 +526,7 @@
         hitType: 'pageview',
         eventCategory: 'page',
         eventAction: 'landing page',
-        page: '/home',
+        page: '/static/home',
       });
 
       hello.init({
@@ -494,7 +535,29 @@
         google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
       });
     },
+    computed: {
+      emailValid () {
+        if (this.email.length === 0) return false;
+        return this.validateEmail(this.email);
+      },
+      emailInvalid () {
+        if (this.email.length === 0) return false;
+        return !this.validateEmail(this.email);
+      },
+      passwordConfirmValid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm === this.password;
+      },
+      passwordConfirmInvalid () {
+        if (this.passwordConfirm.length === 0) return false;
+        return this.passwordConfirm !== this.password;
+      },
+    },
     methods: {
+      validateEmail (email) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      },
       async register () {
         if (this.password !== this.passwordConfirm) {
           alert('Passwords must match');

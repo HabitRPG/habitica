@@ -18,12 +18,7 @@
     div.content(v-if="item != null")
 
       div.inner-content
-        slot(name="item", :item="item")
-
-        h4.title {{ itemText }}
-        div.text(v-html="itemNotes")
-
-        questInfo.questInfo(:quest="item")
+        questDialogContent(:item="item")
 
         div
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
@@ -42,17 +37,7 @@
         ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
-      h3(v-once) {{ $t('rewards') }}
-      div.reward-item
-        span.svg-icon.inline.icon(v-html="icons.experience")
-        span.reward-text {{ $t('amountExperience', { amount: item.drop.exp }) }}
-      div.reward-item(v-if="item.drop.gp != 0")
-        span.svg-icon.inline.icon(v-html="icons.gold")
-        span.reward-text {{ $t('amountGold', { amount: item.drop.gp }) }}
-      div.reward-item(v-for="drop in item.drop.items")
-        span.icon
-          div(:class="getDropIcon(drop)")
-        span.reward-text {{ getDropName(drop) }}
+      questDialogDrops(:item="item")
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -73,6 +58,8 @@
 
     .content {
       text-align: center;
+      max-height: 80vh;
+      overflow-y: scroll;
     }
 
     .item-wrapper {
@@ -83,12 +70,7 @@
       margin: 33px auto auto;
       width: 400px;
     }
-    .text {
-      max-height: 220px;
-      margin-bottom: 8px;
-      overflow-y: scroll;
-      text-overflow: ellipsis;
-    }
+
 
     .questInfo {
       width: 70%;
@@ -117,34 +99,6 @@
       width: 364px;
       z-index: -1;
       height: 100%;
-
-
-      h3 {
-        margin-top: 24px;
-        margin-bottom: 16px;
-      }
-
-      .reward-item {
-        width: 306px;
-        height: 84px;
-        border-radius: 2px;
-        background-color: $white;
-        margin-bottom: 8px;
-
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .icon {
-          margin: 18px;
-          height: 48px;
-          width: 48px;
-        }
-
-        .reward-text {
-          font-weight: bold;
-        }
-      }
     }
 
     span.svg-icon.inline.icon-32 {
@@ -237,12 +191,17 @@
   import QuestInfo from './questInfo.vue';
   import notifications from 'client/mixins/notifications';
 
+  import questDialogDrops from './questDialogDrops';
+  import questDialogContent from './questDialogContent';
+
   export default {
     mixins: [currencyMixin, notifications],
     components: {
       bModal,
       BalanceInfo,
       QuestInfo,
+      questDialogDrops,
+      questDialogContent,
     },
     data () {
       return {

@@ -464,6 +464,10 @@ export default {
           type: 'Moderator',
         },
         {
+          name: 'Fox_town',
+          type: 'Moderator',
+        },
+        {
           name: 'Megan',
           type: 'Moderator',
         },
@@ -527,7 +531,7 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: TAVERN_ID,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);

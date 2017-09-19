@@ -131,7 +131,7 @@
           .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.summary")
-        p {{ group.summary }}
+        p(v-markdown='group.summary')
 
     .section-header
       .row
@@ -754,7 +754,7 @@ export default {
 
       // @TODO: Implement
       // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/#/options/groups/party');
+      //  $rootScope.hardRedirect('/party');
       // });
     },
     upgradeGroup () {

@@ -31,6 +31,19 @@ function selectGearToPin (user) {
 }
 
 
+function addPinnedGear (user, type, path) {
+  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
+    return pinnedItem.path === path;
+  });
+
+  if (foundIndex === -1) {
+    user.pinnedItems.push({
+      type,
+      path,
+    });
+  }
+}
+
 function addPinnedGearByClass (user) {
   if (user.flags.classSelected) {
     let newPinnedItems = selectGearToPin(user);
@@ -38,16 +51,7 @@ function addPinnedGearByClass (user) {
     for (let item of newPinnedItems) {
       let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-        return pinnedItem.path === itemInfo.path;
-      });
-
-      if (foundIndex === -1) {
-        user.pinnedItems.push({
-          type: 'marketGear',
-          path: itemInfo.path,
-        });
-      }
+      addPinnedGear(user, itemInfo.pinType, itemInfo.path);
     }
   }
 }
@@ -147,6 +151,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
 
 module.exports = {
   addPinnedGearByClass,
+  addPinnedGear,
   removePinnedGearByClass,
   removePinnedGearAddPossibleNewOnes,
   togglePinnedItem,

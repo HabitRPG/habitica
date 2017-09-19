@@ -23,7 +23,7 @@
           h4(v-once) {{$t('emptyMessagesLine1')}}
           p(v-once) {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
-          .conversation(v-for='conversation in conversations', @click='selectConversation(conversation.key)',
+          .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
             :class="{active: selectedConversation === conversation.key}")
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
@@ -213,6 +213,11 @@ export default {
         conversations[userId].date = message.timestamp;
       }
 
+      conversations = sortBy(conversations, [(o) => {
+        return moment(o.date).toDate();
+      }]);
+      conversations = conversations.reverse();
+
       return conversations;
     },
     currentMessages () {
@@ -220,7 +225,7 @@ export default {
       return this.conversations[this.selectedConversation].messages;
     },
     filtersConversations () {
-      if (!this.search) return Object.values(this.conversations);
+      if (!this.search) return this.conversations;
       return filter(this.conversations, (conversation) => {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });

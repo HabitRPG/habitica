@@ -9,7 +9,7 @@
         :class="{active: activeFilter.label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list(ref="taskList")
+  .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
     task(
       v-for="task in taskList",
       :key="task.id", :task="task",
@@ -171,12 +171,16 @@ import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import shopItem from '../shops/shopItem';
 import throttle from 'lodash/throttle';
+import sortable from 'client/directives/sortable.directive';
 
 export default {
   components: {
     Task,
     bModal,
     shopItem,
+  },
+  directives: {
+    sortable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
@@ -276,6 +280,20 @@ export default {
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    sorted (data) {
+      const sorting = this.taskList;
+      const taskIdToMove = this.taskList[data.oldIndex]._id;
+
+      if (sorting) {
+        const deleted = sorting.splice(data.oldIndex, 1);
+        sorting.splice(data.newIndex, 0, deleted[0]);
+      }
+
+      this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: data.newIndex,
+      });
+    },
     editTask (task) {
       this.$emit('editTask', task);
     },

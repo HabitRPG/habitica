@@ -234,7 +234,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     async getMembers () {

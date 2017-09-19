@@ -17,7 +17,7 @@ import updateStats from '../fns/updateStats';
 
   * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` skills,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
     spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
     available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,

@@ -224,7 +224,7 @@ describe('POST /chat', () => {
           color: 'danger',
           author_name: `${user.profile.name} - ${user.auth.local.email} - ${user._id}`,
           title: 'Slur in Test Guild',
-          title_link: `${BASE_URL}/#/options/groups/guilds/${groupWithChat.id}`,
+          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
           text: testSlurMessage,
           // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
           mrkdwn_in: [

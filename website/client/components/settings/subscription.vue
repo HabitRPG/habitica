@@ -32,7 +32,7 @@
           tr(v-if='hasCanceledSubscription'): td.alert.alert-warning
             span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
             i.glyphicon.glyphicon-time
-            |  {{ $t('subCanceled') }}
+            |  {{ $t('subCanceled') }} &nbsp;
             strong {{user.purchased.plan.dateTerminated | date}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
@@ -46,7 +46,7 @@
             | &nbsp; {{ $t('consecutiveSubscription') }}
             ul.list-unstyled
               li {{ $t('consecutiveMonths') }} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li {{ $t('gemCapExtra') }}} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li {{ $t('gemCapExtra') }} {{user.purchased.plan.consecutive.gemCapExtra}}
               li {{ $t('mysticHourglasses') }} {{user.purchased.plan.consecutive.trinkets}}
 
         div(v-if='!hasSubscription || hasCanceledSubscription')
@@ -82,7 +82,7 @@
               a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
-              a.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
+              a.btn.btn-secondary.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
 
     .row
@@ -147,16 +147,12 @@ export default {
   filters: {
     date (value) {
       if (!value) return '';
-      return moment(value).formate(this.user.preferences.dateFormat);
+      return moment(value);
+      // return moment(value).format(this.user.preferences.dateFormat); // @TODO make that work (`TypeError: this is undefined`)
     },
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    paypalPurchaseLink () {
-      let couponString = '';
-      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
-      return `/paypal/subscribe?_id=${this.user._id}&apiToken=${this.user.apiToken}&sub=${this.subscription.key}${couponString}`;
-    },
     subscriptionBlocksOrdered () {
       let subscriptions = filter(subscriptionBlocks, (o) => {
         return o.discount !== true;

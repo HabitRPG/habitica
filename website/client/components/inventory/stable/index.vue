@@ -99,7 +99,7 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="true",
+                :showPopover="currentDraggingFood == null",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
@@ -452,6 +452,10 @@
     .popover {
       position: inherit;
       width: 100px;
+    }
+
+    .popover-content {
+      color: white;
     }
   }
 
@@ -909,11 +913,13 @@
       },
 
       petClicked (pet) {
-        if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
-          // food process
-          this.feedAction(pet.key, this.currentDraggingFood.key);
-          this.currentDraggingFood = null;
-          this.foodClickMode = false;
+        if (this.currentDraggingFood !== null) {
+          if (pet.isAllowedToFeed()) {
+            // food process
+            this.feedAction(pet.key, this.currentDraggingFood.key);
+            this.currentDraggingFood = null;
+            this.foodClickMode = false;
+          }
         } else {
           if (pet.isOwned()) {
             this.selectPet(pet);

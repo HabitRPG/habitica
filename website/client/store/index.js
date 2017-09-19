@@ -114,11 +114,15 @@ export default function () {
       profileOptions: {
         startingPage: '',
       },
+      gemModalOptions: {
+        startingPage: '',
+      },
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
       afterLoginRedirect: '',
+      userIdToMessage: '',
     },
   });
 

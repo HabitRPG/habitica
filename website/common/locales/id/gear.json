@@ -13,7 +13,7 @@
     "weaponWarrior1Text": "Pedang",
     "weaponWarrior1Notes": "Pedang prajurit biasa. Meningkatkan Kekuatan sebesar <%= str %>.",
     "weaponWarrior2Text": "Kapak",
-    "weaponWarrior2Notes": "Double-bitted chopping weapon. Increases Strength by <%= str %>",
+    "weaponWarrior2Notes": "Senjata pemotong bermata dua. Meningkatkan Kekuatan sebesar <%= str %>",
     "weaponWarrior3Text": "Bintang Kejora",
     "weaponWarrior3Notes": "Pemukul yang berat dengan duri yang mengerikan. Meningkatkan Kekuatan sebesar <%= str %>.",
     "weaponWarrior4Text": "Pedang Safir",

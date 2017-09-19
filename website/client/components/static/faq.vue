@@ -1,25 +1,16 @@
 <template lang="pug">
-  div
-    static-header
-    .container-fluid
-      .row
-        .col-md-6.offset-3
-          h1 {{ $t('frequentlyAskedQuestions') }}
-          .faq-question(v-for='(heading, index) in headings')
-            h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
-            div(v-if='pageState[heading]', v-markdown="$t('webFaqAnswer' + index, replacements)")
-          hr
-          p(v-markdown="$t('webFaqStillNeedHelp')")
-    app-footer
+  .container-fluid
+    .row
+      .col-md-6.offset-3
+        h1 {{ $t('frequentlyAskedQuestions') }}
+        .faq-question(v-for='(heading, index) in headings')
+          h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
+          div(v-if='pageState[heading]', v-markdown="$t('webFaqAnswer' + index, replacements)")
+        hr
+        p(v-markdown="$t('webFaqStillNeedHelp')")
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/static.scss';
-
-  .container-fluid {
-    margin-top: 56px;
-  }
-
   .faq-question {
     margin-bottom: 1em;
   }
@@ -28,15 +19,9 @@
 <script>
   // @TODO:  env.EMAILS.TECH_ASSISTANCE_EMAIL
   const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
   import markdownDirective from 'client/directives/markdown';
 
   export default {
-    components: {
-      AppFooter,
-      StaticHeader,
-    },
     directives: {
       markdown: markdownDirective,
     },
