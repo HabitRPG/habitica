@@ -141,12 +141,13 @@ export default {
   },
   computed: {
     message () {
-      let direction = this.negative === 'negative' ? 'lost' : 'gained';
-
-      if (this.notification.type === 'hp') return `You ${direction} some ${this.$t('health')}`;
-      if (this.notification.type === 'mp') return `You ${direction} some ${this.$t('mana')}`;
-      if (this.notification.type === 'xp') return `You ${direction} some exp`;
-      if (this.notification.type === 'gp') return `You ${direction} some ${this.$t('gold')}`;
+      let localeKey = this.negative === 'negative' ? 'lost' : 'gained';
+      if (this.notification.type === 'hp') localeKey += 'Health';
+      if (this.notification.type === 'mp') localeKey += 'Mana';
+      if (this.notification.type === 'xp') localeKey += 'Experience';
+      if (this.notification.type === 'gp') localeKey += 'Gold';
+      return this.$t(localeKey);
+      // This requires eight translatable strings, but that gives the translators the most flexibility for matching gender/number and for using idioms for lost/spent/used/gained.
     },
     negative () {
       return this.notification.sign === '-' ? 'negative' : 'positive';

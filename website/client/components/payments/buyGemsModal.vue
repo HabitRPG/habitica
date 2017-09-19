@@ -81,80 +81,171 @@
             .col-6.offset-3 {{ $t('buyGemsSupportsDevs') }}
 
         div(v-show='selectedPage === "subscribe"')
-          .row.text-center
-            h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
-          .row
-            .col
-              +featureBullet("{{ $t('subscriptionBenefit1') }}")
-              +featureBullet("{{ $t('subscriptionBenefit2') }}")
-              +featureBullet("{{ $t('subscriptionBenefit3') }}")
-            .col
-              +featureBullet("{{ $t('subscriptionBenefit4') }}")
-              +featureBullet("{{ $t('subscriptionBenefit5') }}")
-              +featureBullet("{{ $t('subscriptionBenefit6') }}")
-          .card-deck
-            .card.text-center(:class='{active: subscriptionPlan === "basic_earned"}')
-              .card-body
-                .subscription-price
-                  span.superscript $
-                  span 5
-                  span.superscript.muted .00
-                .small {{ $t('everyMonth') }}
-                .divider
-                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
-                .spacer
-                button.btn.btn-primary(@click='subscriptionPlan = "basic_earned"') {{ subscriptionPlan === "basic_earned" ? $t('select') : $t('selected') }}
-            .card.text-center(:class='{active: subscriptionPlan === "basic_3mo"}')
-              .card-body
-                .subscription-price
-                  span.superscript $
-                  span 15
-                  span.superscript.muted .00
-                .small {{ $t('everyXMonths', {interval: 3}) }}
-                .divider
-                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
-                p.benefits(v-markdown='$t("receiveMysticHourglass")')
-                button.btn.btn-primary(@click='subscriptionPlan = "basic_3mo"') {{ subscriptionPlan === "basic_3mo" ? $t('select') : $t('selected') }}
-            .card.text-center(:class='{active: subscriptionPlan === "basic_6mo"}')
-              .card-body
-                .subscription-price
-                  span.superscript $
-                  span 30
-                  span.superscript.muted .00
-                .small {{ $t('everyXMonths', {interval: 6}) }}
-                .divider
-                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
-                p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
-                button.btn.btn-primary(@click='subscriptionPlan = "basic_6mo"') {{ subscriptionPlan === "basic_6mo" ? $t('select') : $t('selected') }}
-            .card.text-center(:class='{active: subscriptionPlan === "basic_12mo"}')
-              .card-body
-                .subscription-price
-                  span.superscript $
-                  span 48
-                  span.superscript.muted .00
-                .small {{ $t('everyYear') }}
-                .divider
-                p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
-                p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
-                button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('select') : $t('selected') }}
-          .row.text-center
-            h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
-          .row.text-center
-            a.mx-auto {{ $t('haveCouponCode') }}
-          .card-deck
-            .card.text-center.payment-method
-              .card-body(@click='showStripe({subscription: subscriptionPlan})')
-                .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
-            .card.text-center.payment-method
-              a.card-body.paypal(:href='paypalSubscriptionLink', target='_blank')
-                img(src='~assets/images/paypal.png')
-            .card.text-center.payment-method
-              .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")
-                img(src='~assets/images/amazon-payments.png')
-          .row.text-center
-            .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
-          .row.text-center.text-outtro
-            .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
+<<<<<<< HEAD
+          div(v-if='hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
+            .row.text-center
+              .col
+                p(v-html='$t("subscriptionAlreadySubscribed1")')
+          div(v-if='!hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
+            .row
+              .col
+                +featureBullet("{{ $t('subscriptionBenefit1') }}")
+                +featureBullet("{{ $t('subscriptionBenefit2') }}")
+                +featureBullet("{{ $t('subscriptionBenefit3') }}")
+              .col
+                +featureBullet("{{ $t('subscriptionBenefit4') }}")
+                +featureBullet("{{ $t('subscriptionBenefit5') }}")
+                +featureBullet("{{ $t('subscriptionBenefit6') }}")
+            .card-deck
+              .card.text-center(:class='{active: subscriptionPlan === "basic_earned"}')
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 5
+                    span.superscript.muted .00
+                  .small {{ $t('everyMonth') }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
+                  .spacer
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_earned"') {{ subscriptionPlan === "basic_earned" ? $t('select') : $t('selected') }}
+              .card.text-center(:class='{active: subscriptionPlan === "basic_3mo"}')
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 15
+                    span.superscript.muted .00
+                  .small {{ $t('everyXMonths', {interval: 3}) }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglass")')
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_3mo"') {{ subscriptionPlan === "basic_3mo" ? $t('select') : $t('selected') }}
+              .card.text-center(:class='{active: subscriptionPlan === "basic_6mo"}')
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 30
+                    span.superscript.muted .00
+                  .small {{ $t('everyXMonths', {interval: 6}) }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_6mo"') {{ subscriptionPlan === "basic_6mo" ? $t('select') : $t('selected') }}
+              .card.text-center(:class='{active: subscriptionPlan === "basic_12mo"}')
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 48
+                    span.superscript.muted .00
+                  .small {{ $t('everyYear') }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('select') : $t('selected') }}
+            .row.text-center
+              h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+            .row.text-center
+              a.mx-auto {{ $t('haveCouponCode') }}
+            .card-deck
+              .card.text-center.payment-method
+                .card-body(@click='showStripe({subscription: subscriptionPlan})')
+                  .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
+              .card.text-center.payment-method
+                a.card-body.paypal(:href='paypalSubscriptionLink', target='_blank')
+                  img(src='~assets/images/paypal.png')
+              .card.text-center.payment-method
+                .card-body.amazon(@click="amazonPaymentsInit({type: 'subscription', subscription: subscriptionPlan})")
+                  img(src='~assets/images/amazon-payments.png')
+            .row.text-center
+              .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
+            .row.text-center.text-outtro
+              .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
+=======
+          div(v-if='hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
+            .row.text-center
+              .col
+                p(v-html='$t("subscriptionAlreadySubscribed1")')
+          div(v-if='!hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionBenefitLeadin') }}
+            .row
+              .col
+                +featureBullet("{{ $t('subscriptionBenefit1') }}")
+                +featureBullet("{{ $t('subscriptionBenefit2') }}")
+                +featureBullet("{{ $t('subscriptionBenefit3') }}")
+              .col
+                +featureBullet("{{ $t('subscriptionBenefit4') }}")
+                +featureBullet("{{ $t('subscriptionBenefit5') }}")
+                +featureBullet("{{ $t('subscriptionBenefit6') }}")
+            .card-deck
+              .card.text-center
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 4
+                    span.superscript.muted .99
+                  .small {{ $t('everyMonth') }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
+                  .spacer
+                  button.btn.btn-primary {{ $t('select') }}
+              .card.text-center
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 14
+                    span.superscript.muted .99
+                  .small {{ $t('everyXMonths', {interval: 3}) }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglass")')
+                  button.btn.btn-primary {{ $t('select') }}
+              .card.text-center
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 29
+                    span.superscript.muted .99
+                  .small {{ $t('everyXMonths', {interval: 6}) }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
+                  button.btn.btn-primary {{ $t('select') }}
+              .card.text-center
+                .card-body
+                  .subscription-price
+                    span.superscript $
+                    span 47
+                    span.superscript.muted .99
+                  .small {{ $t('everyYear') }}
+                  .divider
+                  p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
+                  p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
+                  button.btn.btn-primary {{ $t('select') }}
+            .row.text-center
+              h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
+            .row.text-center
+              a.mx-auto {{ $t('haveCouponCode') }}
+            .card-deck
+              .card.text-center.payment-method
+                .card-body(@click='showStripe({})')
+                  .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
+              .card.text-center.payment-method
+                a.card-body.paypal(:href='paypalCheckoutLink', target='_blank')
+                  img(src='~assets/images/paypal.png')
+              .card.text-center.payment-method
+                .card-body.amazon(@click="amazonPaymentsInit({type: 'single'})")
+                  img(src='~assets/images/amazon-payments.png')
+            .row.text-center
+              .svg-icon.mx-auto(v-html='icons.heart', style='"height: 24px; width: 24px;"')
+            .row.text-center.text-outtro
+              .col-6.offset-3 {{ $t('subscribeSupportsDevs') }}
+>>>>>>> upstream/develop
 </template>
 
 <style lang="scss">
@@ -355,6 +446,9 @@
       ...mapState({user: 'user.data'}),
       startingPageOption () {
         return this.$store.state.gemModalOptions.startingPage;
+      },
+      hasSubscription () {
+        return Boolean(this.user.purchased.plan.customerId);
       },
       userReachedGemCap () {
         return this.user.purchased.plan.customerId && this.user.purchased.plan.gemsBought >= this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap;
