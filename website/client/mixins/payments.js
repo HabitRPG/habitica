@@ -2,8 +2,10 @@ import axios from 'axios';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
 let API_TOKEN = '';
+let API_ID = '';
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
+  API_ID = AUTH_SETTINGS.auth.apiId;
   API_TOKEN = AUTH_SETTINGS.auth.apiToken;
 }
 
@@ -15,7 +17,16 @@ let StripeCheckout = window.StripeCheckout;
 export default {
   computed: {
     paypalCheckoutLink () {
-      return `/paypal/checkout?_id=${this.user._id}&apiToken=${API_TOKEN}`;
+      return `/paypal/checkout?_id=${API_ID}&apiToken=${API_TOKEN}`;
+    },
+    paypalSubscriptionLink () {
+      return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscriptionPlan}`;
+    },
+    paypalPurchaseLink () {
+      if (!this.subscription) return '';
+      let couponString = '';
+      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
+      return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscription.key}${couponString}`;
     },
   },
   methods: {

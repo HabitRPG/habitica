@@ -9,10 +9,10 @@
         .row
           .col-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
-            h1 Motivate yourself to achieve your goals.
-            p.section-main It's time to have fun when you get things done! Join over 2 million Habiticans and improve your life one task at a time.
+            h1 {{$t('motivateYourself')}}
+            p.section-main {{$t('timeToGetThingsDone')}}
           .col-6
-            h3.text-center Sign  Up For Free
+            h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
                 .svg-icon.social-icon(v-html="icons.facebookIcon")
@@ -21,14 +21,14 @@
                 .svg-icon.social-icon(v-html="icons.googleIcon")
                 span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
-              span OR
+              span {{$t('or')}}
             .form
               input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 0}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
-              button.sign-up(@click='register()') Sign Up
+              button.sign-up(@click='register()') {{$t('signup')}}
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
 
@@ -38,21 +38,21 @@
       .container
         .row
           .col-6.offset-3.text-center
-            h2 Gamify Your Life
-            p.section-main Habitica is a free habit-building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.
+            h2 {{$t('gamifyYourLife')}}
+            p.section-main {{$t('aboutHabitica')}}
         .row
           .col-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
-            strong Track Your Habits and Goals
-            p Stay accountable by tracking and managing your Habits, Daily goals, and To-Do list with Habitica’s easy-to-use mobile apps and web interface.
+            strong {{$t('trackYourGoals')}}
+            p {{$t('trackYourGoalsDesc')}}
           .col-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
-            strong Earn Rewards for Your Goals
-            p Check off tasks to level up your Avatar and unlock in-game features such as battle armor, mysterious pets, magic skills, and even quests!
+            strong {{$t('earnRewards')}}
+            p {{$t('earnRewardsDesc')}}
           .col-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
-            strong Battle Monsters with Friends
-            p Fight monsters with other Habiticans! Use the Gold that you earn to buy in-game or custom rewards, like watching an episode of your favorite TV show.
+            strong {{$t('battleMonsters')}}
+            p {{$t('battleMonstersDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
 
@@ -60,20 +60,20 @@
       .container.text-center
         .row
           .col-12
-            h2 Players Use Habitica to Improve
+            h2 {{$t('playersUseToImprove')}}
         .row
           .col-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
-            strong Health and Fitness
-            p Never motivated to floss? Can't seem to get to the gym? Habitica finally makes it fun to get healthy.
+            strong {{$t('healthAndFitness')}}
+            p {{$t('healthAndFitnessDesc')}}
           .col-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
-            strong School and Work
-            p Whether you're preparing a report for your teacher or your boss, it's easy to keep track of your progress as you tackle your toughest tasks.
+            strong {{$t('schoolAndWork')}}
+            p {{$t('schoolAndWorkDesc')}}
           .col-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
-            strong And much, much more!
-            p Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.
+            strong {{$t('muchmuchMore')}}
+            p {{$t('muchmuchMoreDesc')}}
       .col-12
         .spacer.svg-icon(v-html='icons.spacer')
       .container-fluid
@@ -85,8 +85,8 @@
           .col-6
             .iphones.svg-icon(v-html='icons.iphones')
           .col-6.text-column
-            h2 Level Up Anywhere
-            p Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.
+            h2 {{ $t('levelUpAnywhere') }}
+            p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
             a.app.svg-icon(v-html='icons.iosAppStore', href='https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8', target='_blank')
       .container-fluid
@@ -95,13 +95,13 @@
     #call-to-action.purple-4
       .container.featured
         .row.text-center
-          h3.col-12 Join over 2,000,000 people having fun while accomplishing their goals!
+          h3.col-12 {{ $t('joinMany') }}
         .row
           .col-12.text-center
-            button.btn.btn-primary.join-button(@click='playButtonClick()') Join Habitica Today
+            button.btn.btn-primary.join-button(@click='playButtonClick()') {{ $t('joinToday') }}
         .row.featured
           .col-12.text-center
-            strong Featured in
+            strong {{ $t('featuredIn') }}
       .container-fluid.featured
         .row
           .col-12
@@ -115,11 +115,6 @@
             img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
       .container-fluid
         .seamless_stars_varied_opacity_repeat
-
-    #bottom-wrap.purple-4
-      #bottom-background
-        .seamless_mountains_demo_repeat
-        .midground_foreground_extended2
 </template>
 
 <style lang="scss">
@@ -240,11 +235,17 @@
     .social-button {
       border-radius: 2px;
       border: solid 2px #bda8ff;
-      width: 206px;
-      height: 40px;
+      width: 48%;
+      min-height: 40px;
+      padding: .5em;
       background: transparent;
       margin-right: .5em;
       color: #fff;
+    }
+
+    .social-button:hover {
+      cursor: pointer;
+      border-color: #fff;
     }
 
     .social-icon {
@@ -290,17 +291,28 @@
       margin-left: 15px;
     }
 
+    .form {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
     input {
       margin-bottom: 1em;
       border-radius: 2px;
       background-color: #432874;
       border-color: #432874;
       color: $purple-400;
+      border: solid 2px transparent;
     }
 
     input:focus {
       border: solid 2px #9a62ff;
       color: #fff;
+      background-color: #36205d;
+    }
+
+    input:hover {
+      background-color: #36205d;
     }
 
     button.sign-up {
@@ -467,33 +479,6 @@
       position: absolute;
       height: 500px;
       width: 100%;
-    }
-  }
-
-  #bottom-wrap {
-    padding-top: 10em;
-  }
-
-  #bottom-background {
-    position: relative;
-
-    .seamless_mountains_demo_repeat {
-      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
-      width: 100%;
-      height: 500px;
-      position: absolute;
-      z-index: 0;
-      bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
     }
   }
 </style>

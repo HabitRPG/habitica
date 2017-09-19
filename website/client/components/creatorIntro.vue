@@ -59,7 +59,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("shirt", specialShirtKeys)', @click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("shirt", specialShirtKeys)', @click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
           .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
@@ -69,26 +69,17 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
             :class='{active: user.preferences.skin === option}')
             .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
-      .row(v-if='editing')
+      .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
         .col-12.customize-options
-          .option(v-for='option in rainbowSkins',
-            :class='{active: option.active, locked: option.locked}')
+          //h3(v-if='!hideSet(set)') {{$t(set.key)}}
+          .option(v-for='option in set.options',
+            :class='{active: option.active, locked: option.locked, hide: option.hide}')
             .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
         .col-12.text-center
-          button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("skin", rainbowSkinKeys)', @click='unlock(`skin.${rainbowSkinKeys.join(",skin.")}`)') $t('purchaseAll')
-      .row(v-if='editing')
-        .col-12.customize-options
-          .option(v-for='option in animalSkins',
-            :class='{active: option.active, locked: option.locked}')
-            .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-        .col-12.text-center
-          button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("skin", animalSkinKeys)', @click='unlock(`skin.${animalSkinKeys.join(",skin.")}`)') $t('purchaseAll')
+          button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)', @click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
       .row.sub-menu.col-6.offset-3.text-center
           .col-2.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
@@ -101,20 +92,33 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             strong(v-once) {{$t('ponytail')}}
           .col-2.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
             strong(v-once) {{$t('facialhair')}}
-      #hair-color.row(v-if='activeSubPage === "color"')
-        .col-12.customize-options
-          .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
-            :class='{active: user.preferences.hair.color === option}')
-            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-        .col-12.customize-options(v-if='editing')
-          .option(v-for='option in premiumHairColors',
-            :class='{active: option.active === option, locked: option.locked}')
-            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-            .gem-lock(v-if='option.locked')
-              .svg-icon.gem(v-html='icons.gem')
-              span 2
-        .col-12.text-center
-          button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') $t('purchaseAll')
+      #hair-color.section.customize-section(v-if='activeSubPage === "color"')
+        .row
+          .col-12.customize-options
+            .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
+              :class='{active: user.preferences.hair.color === option}')
+              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+        //.row(v-if='editing')
+          .col-12.customize-options(v-if='editing')
+            .option(v-for='option in premiumHairColors',
+              :class='{active: option.active === option, locked: option.locked}')
+              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+              .gem-lock(v-if='option.locked')
+                .svg-icon.gem(v-html='icons.gem')
+                span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+        .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+          .col-12.customize-options
+            //h3(v-if='!hideSet(set)') {{set.text}}
+            .option(v-for='option in set.options',
+              :class='{active: option.active, locked: option.locked, hide: option.hide}')
+              .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+              .gem-lock(v-if='option.locked')
+                .svg-icon.gem(v-html='icons.gem')
+                span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair3',
@@ -124,7 +128,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair3Keys, "base")', @click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair3Keys, "base")', @click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair4',
             :class='{active: option.active, locked: option.locked}')
@@ -133,7 +137,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair4Keys, "base")', @click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair4Keys, "base")', @click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #bangs.row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
@@ -155,7 +159,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair5',
@@ -165,7 +169,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")', @click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")', @click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair6',
             :class='{active: option.active, locked: option.locked}')
@@ -174,7 +178,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu.col-6.offset-3.text-center
           .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
@@ -200,7 +204,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               .svg-icon.gem(v-html='icons.gem')
               span 2
           .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') $t('purchaseAll')
+            button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options.weelchairs
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
@@ -508,6 +512,10 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
   }
 
+  .option.hide {
+    display: none !important;
+  }
+
   .customize-options .option {
     display: inline-block;
     vertical-align: bottom;
@@ -756,14 +764,18 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 import map from 'lodash/map';
 import get from 'lodash/get';
+import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
 import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
+import appearance from 'common/script/content/appearance';
+import appearanceSets from 'common/script/content/appearance/sets';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -776,6 +788,9 @@ import backgroundsIcon from 'assets/svg/backgrounds.svg';
 import gem from 'assets/svg/gem.svg';
 import pin from 'assets/svg/pin.svg';
 import isPinned from 'common/script/libs/isPinned';
+
+const skinsBySet = groupBy(appearance.skin, 'set.key');
+const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
 
 let tasksByCategory = {
   work: [
@@ -1029,6 +1044,70 @@ export default {
       });
       return options;
     },
+    seasonalSkins () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let seasonalSkins = [];
+      for (let key in skinsBySet) {
+        let set = skinsBySet[key];
+
+        let keys = set.map(item => {
+          return item.key;
+        });
+
+        let options = keys.map(optionKey => {
+          return this.mapKeysToOption(optionKey, 'skin', '', key);
+        });
+
+        let text = this.$t(key);
+        if (appearanceSets[key] && appearanceSets[key].text) {
+          text = appearanceSets[key].text();
+        }
+
+        let compiledSet = {
+          key,
+          options,
+          keys,
+          text,
+        };
+        seasonalSkins.push(compiledSet);
+      }
+
+      return seasonalSkins;
+    },
+    seasonalHairColors () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let seasonalHairColors = [];
+      for (let key in hairColorBySet) {
+        let set = hairColorBySet[key];
+
+        let keys = set.map(item => {
+          return item.key;
+        });
+
+        let options = keys.map(optionKey => {
+          return this.mapKeysToOption(optionKey, 'hair', 'color', key);
+        });
+
+        let text = this.$t(key);
+        if (appearanceSets[key] && appearanceSets[key].text) {
+          text = appearanceSets[key].text();
+        }
+
+        let compiledSet = {
+          key,
+          options,
+          keys,
+          text,
+        };
+        seasonalHairColors.push(compiledSet);
+      }
+
+      return seasonalHairColors;
+    },
     premiumHairColors () {
       // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
@@ -1117,6 +1196,9 @@ export default {
     },
   },
   methods: {
+    hideSet (set) {
+      return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
+    },
     purchase (type, key) {
       this.$store.dispatch('shops:purchase', {
         type,
@@ -1124,16 +1206,22 @@ export default {
       });
       this.backgroundUpdate = new Date();
     },
-    mapKeysToOption (key, type, subType) {
+    mapKeysToOption (key, type, subType, set) {
       let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
       let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
       let locked = !userPurchased || !userPurchased[key];
       let pathKey = subType ? `${type}.${subType}` : `${type}`;
+      let hide = false;
+
+      if (set && appearanceSets[set]) {
+        if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
+      }
 
       let option = {};
       option.key = key;
       option.active = userPreference === key;
       option.locked = locked;
+      option.hide = hide;
       option.click = () => {
         return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
       };

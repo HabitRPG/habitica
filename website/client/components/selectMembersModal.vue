@@ -161,7 +161,7 @@ export default {
     },
   },
   watch: {
-    groupId () {
+    item () {
       this.getMembers();
     },
   },
