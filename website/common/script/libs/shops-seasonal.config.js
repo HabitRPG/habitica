@@ -8,7 +8,7 @@ module.exports = {
   // currentSeason: 'Closed',
   currentSeason: 'Fall',
 
-  dateRange: EVENTS.fall2017,
+  dateRange: { start: '2017-09-21', end: '2017-10-31' },
 
   availableSets: [
     ...SEASONAL_SETS.fall,
