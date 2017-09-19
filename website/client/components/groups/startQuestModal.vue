@@ -170,7 +170,7 @@ export default {
       const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
       const quest = response.data.data;
 
-      this.$store.party.data.quest = quest;
+      this.$store.state.party.data.quest = quest;
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },
   },
