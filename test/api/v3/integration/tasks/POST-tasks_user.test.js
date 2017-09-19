@@ -122,7 +122,6 @@ describe('POST /tasks/user', () => {
         challenge: 'no',
         completed: true,
         dateCompleted: 'never',
-        streak: 'none',
         value: 324, // ignored because not a reward
       });
 
@@ -133,7 +132,6 @@ describe('POST /tasks/user', () => {
       expect(task.challenge).not.to.equal('no');
       expect(task.completed).to.equal(false);
       expect(task.dateCompleted).not.to.equal('never');
-      expect(task.streak).not.to.equal('none');
       expect(task.value).not.to.equal(324);
       expect(task.yesterDaily).to.equal(true);
     });
