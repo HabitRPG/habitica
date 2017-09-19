@@ -12,7 +12,7 @@
     div(v-if='questData')
       questDialogContent(:item="questData")
     div.text-center
-      button.btn.btn-primary(@click='questInit()') {{$t('inviteToPartyOrQuest')}}
+      button.btn.btn-primary(@click='questInit()', :disabled="Boolean(group.quest)") {{$t('inviteToPartyOrQuest')}}
     div.text-center
       p {{$t('inviteInformation')}}
     .side-panel(v-if='questData')
@@ -165,12 +165,14 @@ export default {
         partyID: this.group._id,
         partySize: this.group.memberCount,
       });
-
       const key = this.selectedQuest;
       const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
       const quest = response.data.data;
 
-      this.$store.state.party.data.quest = quest;
+      if (this.$store.state.party) {
+        this.$store.state.party.data.quest = quest;
+      }
+
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },
   },
