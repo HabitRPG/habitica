@@ -20,7 +20,7 @@
     "rebirthText": "Började <%= rebirths %> Nytt/Nya Äventyr",
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
-    "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
+    "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om",
     "rebirthPop": "Restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max nivå <%= reLevel %>",
