@@ -117,7 +117,7 @@
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfWeek') }}
 
-        .option
+        .option(v-if="task.userId")
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
