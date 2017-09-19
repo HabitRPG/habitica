@@ -17,6 +17,10 @@
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';
 
+  .purple-4 {
+    background-color: #271b3d;
+  }
+
   #purple-footer {
     background-color: #271b3d;
 
@@ -41,7 +45,6 @@
 
   #bottom-wrap {
     padding-top: 10em;
-    background-color: #271b3d;
   }
 
   #bottom-background {
