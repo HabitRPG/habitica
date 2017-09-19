@@ -1,6 +1,6 @@
 {
   "name": "habitica",
-  "version": "3.113.2",
+  "version": "3.114.0",
   "dependencies": {
     "@gulp-sourcemaps/map-sources": {
       "version": "1.0.0",
