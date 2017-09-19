@@ -23,7 +23,7 @@
             .strike
               span OR
             .form
-              input.form-control(type='text', placeholder='Username', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 0}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')

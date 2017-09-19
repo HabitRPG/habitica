@@ -117,7 +117,7 @@
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfWeek') }}
 
-        .option
+        .option(v-if="task.userId")
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
@@ -135,11 +135,17 @@
                     span.custom-control-description(v-once) {{ tag.name }}
               .row
                 button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
           b-dropdown(:text="$t(task.frequency)")
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
+
+        .option(v-if="task.type === 'daily' && task.userId")
+          .form-group
+            label(v-once) {{ $t('restoreStreak') }}
+            input(type="number", v-model="task.streak", min="0", required)
 
         .option.group-options(v-if='groupId')
           label(v-once) Assigned To

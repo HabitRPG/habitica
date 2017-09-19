@@ -32,7 +32,7 @@
           tr(v-if='hasCanceledSubscription'): td.alert.alert-warning
             span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
             i.glyphicon.glyphicon-time
-            |  {{ $t('subCanceled') }}
+            |  {{ $t('subCanceled') }} &nbsp;
             strong {{user.purchased.plan.dateTerminated | date}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
@@ -46,7 +46,7 @@
             | &nbsp; {{ $t('consecutiveSubscription') }}
             ul.list-unstyled
               li {{ $t('consecutiveMonths') }} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li {{ $t('gemCapExtra') }}} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li {{ $t('gemCapExtra') }} {{user.purchased.plan.consecutive.gemCapExtra}}
               li {{ $t('mysticHourglasses') }} {{user.purchased.plan.consecutive.trinkets}}
 
         div(v-if='!hasSubscription || hasCanceledSubscription')
@@ -147,7 +147,8 @@ export default {
   filters: {
     date (value) {
       if (!value) return '';
-      return moment(value).formate(this.user.preferences.dateFormat);
+      return moment(value);
+      // return moment(value).format(this.user.preferences.dateFormat); // @TODO make that work (`TypeError: this is undefined`)
     },
   },
   computed: {
@@ -156,6 +157,7 @@ export default {
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
       return `/paypal/subscribe?_id=${this.user._id}&apiToken=${this.user.apiToken}&sub=${this.subscription.key}${couponString}`;
+      // @TODO don't put API Token in URL parameters
     },
     subscriptionBlocksOrdered () {
       let subscriptions = filter(subscriptionBlocks, (o) => {

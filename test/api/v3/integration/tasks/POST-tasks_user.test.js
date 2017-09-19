@@ -131,7 +131,7 @@ describe('POST /tasks/user', () => {
       expect(task.updatedAt).not.to.equal('tomorrow');
       expect(task.challenge).not.to.equal('no');
       expect(task.completed).to.equal(false);
-      expect(task.streak).not.to.equal('never');
+      expect(task.dateCompleted).not.to.equal('never');
       expect(task.value).not.to.equal(324);
       expect(task.yesterDaily).to.equal(true);
     });
