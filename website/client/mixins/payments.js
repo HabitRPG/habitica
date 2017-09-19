@@ -22,6 +22,12 @@ export default {
     paypalSubscriptionLink () {
       return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscriptionPlan}`;
     },
+    paypalPurchaseLink () {
+      if (!this.subscription) return '';
+      let couponString = '';
+      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
+      return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscription.key}${couponString}`;
+    },
   },
   methods: {
     showStripe (data) {

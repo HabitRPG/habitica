@@ -82,7 +82,7 @@
               a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
-              a.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
+              a.btn.btn-secondary.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
 
     .row
@@ -153,12 +153,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    paypalPurchaseLink () {
-      let couponString = '';
-      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
-      return `/paypal/subscribe?_id=${this.user._id}&apiToken=${this.user.apiToken}&sub=${this.subscription.key}${couponString}`;
-      // @TODO don't put API Token in URL parameters
-    },
     subscriptionBlocksOrdered () {
       let subscriptions = filter(subscriptionBlocks, (o) => {
         return o.discount !== true;
