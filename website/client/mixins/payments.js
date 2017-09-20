@@ -54,7 +54,7 @@ export default {
         amount,
         name: 'Habitica',
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
-        image: '/apple-touch-icon-144-precomposed.png',
+        // image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
         token: async (res) => {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
