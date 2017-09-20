@@ -107,7 +107,7 @@
     "dailyHelp1": "A napi feladatok <%= emphasisStart %>minden nap<%= emphasisEnd %> ismétlődnek, amikor aktívak. Kattints a <%= pencilIcon %>-ra, hogy megváltoztasd, mely napokon esedékes a feladat.",
     "dailyHelp2": "Ha nem teljesíted az aktív napi feladataid, akkor életerőt vesztesz, amikor új nap kezdődik.",
     "dailyHelp3": "A napi feladatok<%= emphasisStart %>pirosabbá<%= emphasisEnd %> válnak, ha nem teljesíted őket, és <%= emphasisStart %>kékebbé<%= emphasisEnd %>, ha elvégzed őket. Minél pirosabb egy napi feladat, annál inkább megjutalmaz... vagy sebez.",
-    "dailyHelp4": "Ha meg szeretnéd változtatni, hogy mikor kezdődjön az új nap, menj a <%= linkStart %>Beállítások > Honlap<%= linkEnd %> > Egyedi nap kezdethez.",
+    "dailyHelp4": "Ha meg szeretnéd változtatni, hogy mikor kezdődjön az új nap, menj a <%= linkStart %>Beállítások > Honlap<%= linkEnd %> > Egyéni napkezdés.",
     "dailyHelp5": "Ha egy kis inspirációra vágyszt, nézd meg ezeket <a href='http://habitica.wikia.com/wiki/Sample_Dailies' target='_blank'>a minta napi feladatokat</a>!",
     "toDoHelp1": "A tennivalók sárgán indulnak, és az idő előrehaladtával egyre pirosabbak (és értékesebbek) lesznek, így a hosszú, nehéz feladatok nagy jutalmakat ígérnek!",
     "toDoHelp2": "A tennivalók sosem sebeznek meg! Csak aranyat és tapasztalatot adnak.",

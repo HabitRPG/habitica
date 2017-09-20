@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <a href='https://habitica.com/static/community-guidelines' target='_blank'>gemenskapens riktlinjer</a> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= hrefBlankCommunityManagerEmail %>!level\n",
+    "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <a href='https://habitica.com/static/community-guidelines' target='_blank'>gemenskapens riktlinjer</a> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "other": "Annat",
@@ -164,7 +164,7 @@
     "chooseClassLearn": "<a href='http://habitica.wikia.com/wiki/Class_System' target='_blank'>Lär dig mer om klasser</a>",
     "str": "STY",
     "con": "FYS",
-    "per": "KAR",
+    "per": "UPM",
     "int": "INT",
     "showQuickAllocation": "Visa poängfördelning",
     "hideQuickAllocation": "Göm poängfördelning",
