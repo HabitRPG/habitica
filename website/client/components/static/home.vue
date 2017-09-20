@@ -240,12 +240,13 @@
       padding: .5em;
       background: transparent;
       margin-right: .5em;
-      color: #fff;
+      color: #bda8ff;
     }
 
     .social-button:hover {
       cursor: pointer;
       border-color: #fff;
+      color: #fff;
     }
 
     .social-icon {
@@ -303,6 +304,12 @@
       border-color: #432874;
       color: $purple-400;
       border: solid 2px transparent;
+      transition-timing-function: ease;
+      transition: .5s;
+    }
+
+    .input-valid {
+      color: #fff;
     }
 
     input:focus {
