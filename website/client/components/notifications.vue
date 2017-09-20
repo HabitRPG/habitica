@@ -394,7 +394,6 @@ export default {
       this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
     },
-
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
       this.user.groupNotifications.push(notification);

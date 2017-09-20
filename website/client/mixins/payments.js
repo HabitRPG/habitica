@@ -3,10 +3,12 @@ import axios from 'axios';
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
+import notificationsMixin from 'client/mixins/notifications';
 
 let StripeCheckout = window.StripeCheckout;
 
 export default {
+  mixins: [notificationsMixin],
   computed: {
     ...mapState(['credentials']),
     paypalCheckoutLink () {
