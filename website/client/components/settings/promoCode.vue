@@ -35,10 +35,10 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     getCodesUrl () {
       if (!this.user) return '';
-      return `/api/v3/coupons?_id=${this.user._id}&apiToken=${this.user.apiToken}`;
+      return `/api/v3/coupons?_id=${this.user._id}&apiToken=${this.credentials.API_TOKEN}`;
     },
   },
   methods: {

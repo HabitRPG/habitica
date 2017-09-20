@@ -55,6 +55,7 @@ export async function transferGems (store, payload) {
     gemAmount: payload.gemAmount,
   };
   let response = await axios.post(url, data);
+  store.state.user.data.balance -= payload.gemAmount / 4;
   return response;
 }
 
