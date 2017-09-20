@@ -117,7 +117,7 @@
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfWeek') }}
 
-        .option(v-if="task.userId")
+        .option(v-if="isUserTask")
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
@@ -142,7 +142,7 @@
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
 
-        .option(v-if="task.type === 'daily' && task.userId")
+        .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
           .form-group
             label(v-once) {{ $t('restoreStreak') }}
             input(type="number", v-model="task.streak", min="0", required)
@@ -484,6 +484,9 @@ export default {
     },
     controlClass () {
       return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'control' : 'controlCreate');
+    },
+    isUserTask () {
+      return !this.challengeId && !this.groupId;
     },
     repeatSuffix () {
       const task = this.task;
