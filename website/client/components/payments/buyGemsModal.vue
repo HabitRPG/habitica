@@ -110,7 +110,7 @@
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:25})')
                   .spacer
-                  button.btn.btn-primary(@click='subscriptionPlan = "basic_earned"') {{ subscriptionPlan === "basic_earned" ? $t('select') : $t('selected') }}
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_earned"') {{ subscriptionPlan === "basic_earned" ? $t('selected') : $t('select') }}
               .card.text-center(:class='{active: subscriptionPlan === "basic_3mo"}')
                 .card-body
                   .subscription-price
@@ -121,7 +121,7 @@
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:30})')
                   p.benefits(v-markdown='$t("receiveMysticHourglass")')
-                  button.btn.btn-primary(@click='subscriptionPlan = "basic_3mo"') {{ subscriptionPlan === "basic_3mo" ? $t('select') : $t('selected') }}
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_3mo"') {{ subscriptionPlan === "basic_3mo" ? $t('selected') : $t('select') }}
               .card.text-center(:class='{active: subscriptionPlan === "basic_6mo"}')
                 .card-body
                   .subscription-price
@@ -132,7 +132,7 @@
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:35})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:2})')
-                  button.btn.btn-primary(@click='subscriptionPlan = "basic_6mo"') {{ subscriptionPlan === "basic_6mo" ? $t('select') : $t('selected') }}
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_6mo"') {{ subscriptionPlan === "basic_6mo" ? $t('selected') : $t('select') }}
               .card.text-center(:class='{active: subscriptionPlan === "basic_12mo"}')
                 .card-body
                   .subscription-price
@@ -143,7 +143,7 @@
                   .divider
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
-                  button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('select') : $t('selected') }}
+                  button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('selected') : $t('select') }}
             .row.text-center
               h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
             .row.text-center
