@@ -286,8 +286,8 @@
       },
     },
     watch: {
-      item: function throttleSearch () {
-        this.isPinned = this.item.pinned;
+      item: function itemChanged () {
+        this.isPinned = this.item && this.item.pinned;
       },
     },
     methods: {
