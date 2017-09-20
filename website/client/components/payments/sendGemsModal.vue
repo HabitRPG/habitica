@@ -44,7 +44,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
     button.btn.btn-primary(v-if='fromBal', ng-click='sendGift(profile._id)') {{ $t("send") }}
     template(v-else)
       button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
-      button.btn.btn-warning(@click='payPalPayment({gift: gift, giftedTo: userReceivingGems._id})') PayPal
+      button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
       button.btn.btn-success(@click="amazonPayments.init({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
     button.btn.btn-default(@click='close()') {{$t('cancel')}}
 </template>

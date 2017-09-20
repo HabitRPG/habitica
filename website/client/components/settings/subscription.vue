@@ -152,7 +152,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     subscriptionBlocksOrdered () {
       let subscriptions = filter(subscriptionBlocks, (o) => {
         return o.discount !== true;
@@ -273,7 +273,7 @@ export default {
 
       let queryParams = {
         _id: this.user._id,
-        apiToken: this.user.apiToken,
+        apiToken: this.credentials.API_TOKEN,
         noRedirect: true,
       };
 

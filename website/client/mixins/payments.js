@@ -1,32 +1,25 @@
 import axios from 'axios';
 
-let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-let API_TOKEN = '';
-let API_ID = '';
-if (AUTH_SETTINGS) {
-  AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
-  API_ID = AUTH_SETTINGS.auth.apiId;
-  API_TOKEN = AUTH_SETTINGS.auth.apiToken;
-}
-
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
+import { mapState } from 'client/libs/store';
 
 let StripeCheckout = window.StripeCheckout;
 
 export default {
   computed: {
+    ...mapState(['credentials']),
     paypalCheckoutLink () {
-      return `/paypal/checkout?_id=${API_ID}&apiToken=${API_TOKEN}`;
+      return `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}`;
     },
     paypalSubscriptionLink () {
-      return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscriptionPlan}`;
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscriptionPlan}`;
     },
     paypalPurchaseLink () {
       if (!this.subscription) return '';
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
-      return `/paypal/subscribe?_id=${API_ID}&apiToken=${API_TOKEN}&sub=${this.subscription.key}${couponString}`;
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscription.key}${couponString}`;
     },
   },
   methods: {
@@ -34,6 +27,14 @@ export default {
       gift.uuid = uuid;
       let encodedString = JSON.stringify(gift);
       return encodeURIComponent(encodedString);
+    },
+    openPaypalGift (data) {
+      if (!this.checkGemAmount(data)) return;
+
+      let gift = this.encodeGift(data.giftedTo, data.gift);
+      const url = `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&gift=${gift}`;
+
+      window.open(url, '_blank');
     },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
