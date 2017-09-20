@@ -5,8 +5,9 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'", 
       @click='gift.type = "gems"'
     )
-      .panel-heading
-        .pull-right
+      // @TODO the panel does not exists in Bootstrap 4
+      h3.panel-heading.clearfix
+        .float-right
           span(v-if='gift.gems.fromBalance') {{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}
           span(v-if='!gift.gems.fromBalance') {{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}
         | {{ $t('gemsPopoverTitle') }}
@@ -19,17 +20,17 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
                 v-model='gift.gems.amount')
           .col-md-6
             .btn-group
-              a.btn.btn-default(:class="{active: gift.gems.fromBalance}", @click="gift.gems.fromBalance = true") {{ $t('sendGiftFromBalance') }}
-              a.btn.btn-default(:class="{active: !gift.gems.fromBalance}", @click="gift.gems.fromBalance = false") {{ $t('sendGiftPurchase') }}
+              button.btn.btn-secondary(:class="{active: gift.gems.fromBalance}", @click="gift.gems.fromBalance = true") {{ $t('sendGiftFromBalance') }}
+              button.btn.btn-secondary(:class="{active: !gift.gems.fromBalance}", @click="gift.gems.fromBalance = false") {{ $t('sendGiftPurchase') }}
         .row
           .col-md-12
-            p.small.muted {{ $t('gemGiftsAreOptional', assistanceEmailObject) }}
+            p.small(v-html="$t('gemGiftsAreOptional', assistanceEmailObject)")
 
     .panel.panel-default(
       :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'", 
       @click='gift.type = "subscription"'
     )
-      .panel-heading {{ $t('subscription') }}
+      h3.panel-heading {{ $t('subscription') }}
       .panel-body
         .form-group
           .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
@@ -41,13 +42,36 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
     //include ../formatting-help
 
   .modal-footer
-    button.btn.btn-primary(v-if='fromBal', ng-click='sendGift(profile._id)') {{ $t("send") }}
+    button.btn.btn-primary(v-if='fromBal', @click='sendGift()') {{ $t("send") }}
     template(v-else)
       button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
       button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
-      button.btn.btn-success(@click="amazonPayments.init({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
+      button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
     button.btn.btn-default(@click='close()') {{$t('cancel')}}
 </template>
+
+<style lang="scss">
+.panel {
+  margin-bottom: 4px;
+
+  &.transparent {
+    .panel-body {
+      opacity: 0.7;
+    }
+  }
+
+  .panel-heading {
+    margin-top: 8px;
+    margin-bottom: 5px;
+  }
+
+  .panel-body {
+    padding: 8px;
+    border-radius: 2px;
+    border: 1px solid #C3C0C7;
+  }
+}
+</style>
 
 <script>
 import toArray from 'lodash/toArray';
@@ -57,6 +81,7 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
+import notificationsMixin from 'client/mixins/notifications';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
@@ -66,7 +91,7 @@ export default {
   components: {
     bModal,
   },
-  mixins: [paymentsMixin],
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       planGemLimits,
@@ -107,6 +132,15 @@ export default {
     },
   },
   methods: {
+    // @TODO move to payments mixin or action (problem is that we need notifications)
+    async sendGift () {
+      await this.$store.dispatch('members:transferGems', {
+        message: this.gift.message,
+        toUserId: this.userReceivingGems._id,
+        gemAmount: this.gift.gems.amount,
+      });
+      this.text(this.$t('sentGems'));
+    },
     close () {
       this.$root.$emit('hide::modal', 'send-gems');
     },
