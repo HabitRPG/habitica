@@ -83,7 +83,7 @@
       .container
         .row
           .col-6
-            .iphones.svg-icon(v-html='icons.iphones')
+            .iphones
           .col-6.text-column
             h2 {{ $t('levelUpAnywhere') }}
             p {{ $t('levelUpAnywhereDesc') }}
@@ -398,7 +398,10 @@
     }
 
     .iphones {
-      width: 436px
+      width: 436px;
+      height: 520px;
+      background-size: 100%;
+      background-image: url('~assets/images/home/mobile-preview@3x.png');
     }
 
     .text-column {
