@@ -6,7 +6,7 @@
     @change="onChange($event)"
   )
     span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': item.pinned}",
+      :class="{'item-selected-badge': isPinned}",
       v-if="withPin",
       @click.prevent.stop="togglePinned()"
     )
@@ -253,6 +253,8 @@
           pin: svgPin,
           clock: svgClock,
         }),
+
+        isPinned: false,
       };
     },
     computed: {
@@ -281,6 +283,11 @@
       },
       limitedString () {
         return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+      },
+    },
+    watch: {
+      item: function throttleSearch () {
+        this.isPinned = this.item.pinned;
       },
     },
     methods: {
@@ -316,7 +323,9 @@
         this.$root.$emit('show::modal', 'buy-gems');
       },
       togglePinned () {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path})) {
+        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
+
+        if (!this.isPinned) {
           this.text(this.$t('unpinnedItem', {item: this.item.text}));
         }
       },

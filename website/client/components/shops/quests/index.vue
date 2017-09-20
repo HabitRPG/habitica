@@ -183,7 +183,6 @@
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @togglePinned="togglePinned($event)"
     )
       template(slot="item", scope="ctx")
         item.flat(
