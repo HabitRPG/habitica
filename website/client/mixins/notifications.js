@@ -50,8 +50,8 @@ export default {
       let message = `${this.sign(val)} ${this.round(val)}`;
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
-    error (error, canHide) {
-      this.notify(error, 'danger', 'glyphicon glyphicon-exclamation-sign', canHide);
+    error (error) {
+      this.notify(error, 'error', 'glyphicon glyphicon-exclamation-sign');
     },
     gp (val, bonus) {
       this.notify(`${this.sign(val)} ${this.coins(val - bonus)}`, 'gp', '', this.sign(val));

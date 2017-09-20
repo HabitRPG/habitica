@@ -45,13 +45,10 @@ export default {
   mounted () {
     window.onAmazonLoginReady = () => {
       window.amazon.Login.setClientId(AMAZON_PAYMENTS.CLIENT_ID);
+      this.OffAmazonPayments = window.OffAmazonPayments;
+      this.isAmazonReady = true;
+      this.showButton();
     };
-
-    this.OffAmazonPayments = window.OffAmazonPayments;
-    this.isAmazonReady = true;
-    this.showButton();
-    // window.onAmazonPaymentsReady = () => {
-    // };
   },
   methods: {
     showButton () {

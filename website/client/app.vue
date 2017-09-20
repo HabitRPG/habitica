@@ -90,7 +90,6 @@ export default {
   },
   data () {
     return {
-      isUserLoaded: false,
       selectedItemToBuy: null,
       selectedCardToBuy: null,
 
@@ -101,7 +100,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
@@ -194,7 +193,7 @@ export default {
         this.$store.dispatch('user:fetch'),
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
-        this.isUserLoaded = true;
+        this.$store.state.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
 

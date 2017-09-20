@@ -237,7 +237,12 @@ export default {
     },
     selectConversation (key) {
       this.selectedConversation = key;
-      let activeChat = this.conversations[this.selectedConversation].messages;
+
+      let convoFound = this.conversations.find((conversation) => {
+        return conversation.key === key;
+      });
+
+      let activeChat = convoFound.messages;
 
       activeChat = sortBy(activeChat, [(o) => {
         return moment(o.timestamp).toDate();
@@ -251,22 +256,26 @@ export default {
       });
     },
     sendPrivateMessage () {
+      let convoFound = this.conversations.find((conversation) => {
+        return conversation.key === this.selectedConversation;
+      });
+
       this.$store.dispatch('members:sendPrivateMessage', {
         toUserId: this.selectedConversation,
         message: this.newMessage,
       });
 
-      this.conversations[this.selectedConversation].messages.push({
+      convoFound.messages.push({
         text: this.newMessage,
         timestamp: new Date(),
         user: this.user.profile.name,
         uuid: this.user._id,
       });
 
-      this.activeChat = this.conversations[this.selectedConversation].messages;
+      this.activeChat = convoFound.messages;
 
-      this.conversations[this.selectedConversation].lastMessageText = this.newMessage;
-      this.conversations[this.selectedConversation].date = new Date();
+      convoFound.lastMessageText = this.newMessage;
+      convoFound.date = new Date();
 
       this.newMessage = '';
 

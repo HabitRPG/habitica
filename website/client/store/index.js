@@ -54,7 +54,12 @@ export default function () {
     state: {
       title: 'Habitica',
       isUserLoggedIn,
+      isUserLoaded: false, // Means the user and the user's tasks are ready
       user: asyncResourceFactory(),
+      credentials: AUTH_SETTINGS ? {
+        API_ID: AUTH_SETTINGS.auth.apiId,
+        API_TOKEN: AUTH_SETTINGS.auth.apiToken,
+      } : {},
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue
