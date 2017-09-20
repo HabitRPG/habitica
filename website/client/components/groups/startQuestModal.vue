@@ -31,8 +31,6 @@
     }
   }
 
-
-
   .quest-details {
     margin: 0 auto;
     text-align: left;
@@ -112,8 +110,6 @@ import twitterIcon from 'assets/svg/twitter.svg';
 import starIcon from 'assets/svg/star.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import difficultyStarIcon from 'assets/svg/difficulty-star.svg';
-
-
 import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
 
@@ -166,11 +162,14 @@ export default {
         partySize: this.group.memberCount,
       });
 
+      let groupId = this.group._id || this.user.party._id;
+
       const key = this.selectedQuest;
-      const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId: this.group._id, key});
+      const response = await this.$store.dispatch('guilds:inviteToQuest', {groupId, key});
       const quest = response.data.data;
 
-      this.$store.state.party.data.quest = quest;
+      if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;
+
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },
   },
