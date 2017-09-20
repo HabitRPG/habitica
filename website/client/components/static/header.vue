@@ -6,39 +6,31 @@
       )
         .logo.svg-icon(v-html='icons.logo')
     .collapse.navbar-collapse
-      ul.navbar-nav.mr-auto
-        router-link.nav-item(
-          tag='li',
-          to='/static/features',
-        )
+      ul.navbar-nav.mr-auto(v-if='$route.name !== "home"')
+        router-link.nav-item(tag='li', to='/static/features')
           a.nav-link(v-once) {{ $t('companyAbout') }}
-        router-link.nav-item(
-          tag='li',
-          to='/static/plans',
-        )
+        router-link.nav-item(tag='li', to='/static/plans')
           a.nav-link(v-once) {{ $t('groupPlans') }}
         li.nav-item
-          a.nav-link(
-          href='https://habitica.wordpress.com/',
-          target='_blank',
-        ) {{ $t('companyBlog') }}
+          a.nav-link(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
         li.nav-item
-          a.nav-link(
-          href='http://blog.habitrpg.com/',
-          target='_blank',
-        ) {{ $t('tumblr') }}
-        router-link.nav-item(
-          tag='li',
-          to='/static/press-kit',
-        )
+          a.nav-link(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
+        router-link.nav-item(tag='li', to='/static/press-kit')
           a.nav-link(v-once) {{ $t('presskit') }}
-        router-link.nav-item(
-          tag='li',
-          to='/static/contact',
-        )
+        router-link.nav-item(tag='li', to='/static/contact')
           a.nav-link(v-once) {{ $t('contactUs') }}
+      ul.navbar-nav.mr-auto(v-else)
+        router-link.nav-item(tag='li', to='/register')
+          a.nav-link(v-once) {{ $t('getStarted') }}
+        li.nav-item
+          a.nav-link(@click='scrollToMobileApp') {{ $t('mobileApps') }}
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle(v-once) {{ $t('learnMore') }}
+          .dropdown-menu
+            router-link.dropdown-item(to='/static/faq') {{ $t('faq') }}
+            router-link.dropdown-item(to='/static/plans') {{ $t('groupPlans') }}
       button.btn.btn-primary.pull-right(@click='playButtonClick()', v-if='$route.name !== "home"') {{ $t('playButtonFull') }}
-      a.btn.btn-primary.login-button.pull-right(href='/login', v-else) {{ $t('login') }}
+      router-link.btn.btn-primary.login-button.pull-right(to='/login', v-else) {{ $t('login') }}
 </template>
 
 <style lang='scss' scoped>
@@ -89,6 +81,68 @@
       }
     }
   }
+
+  // Make the dropdown menu open on hover
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+  }
+
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
+  .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
+  }
+
+  .dropdown-menu:not(.user-dropdown) {
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 0px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    .dropdown-item {
+      font-size: 12px;
+      padding-top: .5em !important;
+      box-shadow: none;
+      border: none;
+      text-align: center;
+      color: #4f2a93 !important;
+
+      &.active {
+        background: $purple-300;
+      }
+
+      &:hover {
+        background-color: #9a62ff !important;
+        color: $white !important;
+
+        &:last-child {
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+    }
+  }
+
+  .home-header {
+    .nav-item:hover .nav-link {
+      background: transparent;
+    }
+
+    .dropdown-menu {
+      border-radius: 4px;
+      padding-top: .5em;
+      padding-bottom: .5em;
+
+      .dropdown-item {
+        border-radius: 0px !important;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -114,6 +168,11 @@ export default {
       });
 
       this.$router.push('/register');
+    },
+    scrollToMobileApp () {
+      document.querySelector('#level-up-anywhere').scrollIntoView({
+        behavior: 'smooth',
+      });
     },
   },
 };
