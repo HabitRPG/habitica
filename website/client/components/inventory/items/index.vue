@@ -115,7 +115,7 @@
           )
             template(slot="popoverContent", scope="context")
               h4.popover-content-title {{ context.item.text }}
-              .popover-content-text {{ context.item.notes }}
+              .popover-content-text(v-html="context.item.notes")
             template(slot="itemBadge", scope="context")
               countBadge(
                 :show="true",
@@ -145,6 +145,10 @@
     @change="resetSpell($event)",
     @memberSelected="memberSelected($event)",
   )
+
+  startQuestModal(
+    group="user.party"
+  )
 </template>
 
 <style lang="scss" scoped>
@@ -167,6 +171,10 @@
       position: inherit;
       width: 180px;
     }
+
+    .popover-content {
+      color: white;
+    }
   }
 </style>
 
@@ -184,6 +192,8 @@ import CountBadge from 'client/components/ui/countBadge';
 import SelectMembersModal from 'client/components/selectMembersModal';
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
+import startQuestModal from '../../groups/startQuestModal';
+
 import createAnimal from 'client/libs/createAnimal';
 
 import moment from 'moment';
@@ -198,6 +208,7 @@ const groups = [
   ['hatchingPotions', 'Pet_HatchingPotion_'],
   ['food', 'Pet_Food_'],
   ['special', 'inventory_special_', allowedSpecialItems],
+  ['quests', 'inventory_quest_scroll_'],
 ].map(([group, classPrefix, allowedItems]) => {
   return {
     key: group,
@@ -221,6 +232,7 @@ export default {
     HatchedPetDialog,
     CountBadge,
     SelectMembersModal,
+    startQuestModal,
   },
   directives: {
     drag: DragDropDirective,
@@ -403,6 +415,10 @@ export default {
         } else {
           this.selectedSpell = item;
         }
+      } else if (groupKey === 'quests') {
+        this.$root.$emit('show::modal', 'start-quest-modal');
+
+        this.$root.$emit('selectQuest', item);
       }
     },
 

@@ -9,7 +9,7 @@ div(v-if='user.stats.lvl > 10')
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
-  drawer(:title="$t('spells')",
+  drawer(:title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
     v-mousePosition="30", @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
@@ -144,8 +144,6 @@ import axios from 'axios';
 import isArray from 'lodash/isArray';
 
 import spells from '../../../common/script/content/spells';
-import { crit } from '../../../common/script/fns/crit';
-import updateStats from '../../../common/script/fns/updateStats';
 
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
@@ -282,17 +280,6 @@ export default {
       // @TODO: just call castCancel?
       this.$store.state.spellOptions.castingSpell = false;
       this.potionClickMode = false;
-
-      // @TODO: We no longer wrap the users (or at least we should not), but some common code
-      // expects the user to be wrapped. For now, just manually set. But we need to fix the common code
-      this.user.fns = {
-        crit: (...args) => {
-          return crit(this.user, ...args);
-        },
-        updateStats: (...args) => {
-          return updateStats(this.user, ...args);
-        },
-      };
 
       this.spell.cast(this.user, target);
       // User.save(); // @TODO:

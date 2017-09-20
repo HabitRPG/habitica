@@ -66,7 +66,7 @@
     "itemDrop": "你获得一件物品！",
     "firstDrop": "你解锁了物品掉落功能！从今以后，只要你完成每个任务都会有一定的几率能找到一件物品，包括蛋，药水和食物。刚刚你找到了一颗<strong><%= eggText %>蛋</strong>！<%= eggNotes %>",
     "useGems": "如果你很想拥有某只宠物，但又不想慢慢等蛋掉落的话，你可以在<strong> 物品柜>市场</strong>用宝石购买！",
-    "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
+    "hatchAPot": "孵化一个新的<%= potion %><%= egg %>？",
     "hatchedPet": "你孵化了一个新的<%= potion %> <%= egg %>！",
     "displayNow": "现在显示",
     "displayLater": "稍后显示",

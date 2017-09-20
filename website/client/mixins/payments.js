@@ -2,9 +2,42 @@ import axios from 'axios';
 
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
+import { mapState } from 'client/libs/store';
+import notificationsMixin from 'client/mixins/notifications';
+
+let StripeCheckout = window.StripeCheckout;
 
 export default {
+  mixins: [notificationsMixin],
+  computed: {
+    ...mapState(['credentials']),
+    paypalCheckoutLink () {
+      return `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}`;
+    },
+    paypalSubscriptionLink () {
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscriptionPlan}`;
+    },
+    paypalPurchaseLink () {
+      if (!this.subscription) return '';
+      let couponString = '';
+      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscription.key}${couponString}`;
+    },
+  },
   methods: {
+    encodeGift (uuid, gift) {
+      gift.uuid = uuid;
+      let encodedString = JSON.stringify(gift);
+      return encodeURIComponent(encodedString);
+    },
+    openPaypalGift (data) {
+      if (!this.checkGemAmount(data)) return;
+
+      let gift = this.encodeGift(data.giftedTo, data.gift);
+      const url = `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&gift=${gift}`;
+
+      window.open(url, '_blank');
+    },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
 
@@ -23,7 +56,7 @@ export default {
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
-      this.StripeCheckout.open({
+      StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         amount,
@@ -31,7 +64,7 @@ export default {
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
         image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        token: async (res) => {
+        async token (res) {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
           if (data.groupToCreate) {
@@ -47,6 +80,7 @@ export default {
 
           let response = await axios.post(url, res);
 
+          // @TODO handle with normal notifications?
           let responseStatus = response.status;
           if (responseStatus >= 400) {
             alert(`Error: ${response.message}`);
@@ -57,6 +91,7 @@ export default {
           if (newGroup && newGroup._id) {
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            // @TODO action
             this.user.guilds.push(newGroup._id);
             return;
           }
@@ -65,11 +100,35 @@ export default {
         },
       });
     },
+    showStripeEdit (config) {
+      let groupId;
+      if (config && config.groupId) {
+        groupId = config.groupId;
+      }
+
+      StripeCheckout.open({
+        key: STRIPE_PUB_KEY,
+        address: false,
+        name: this.$t('subUpdateTitle'),
+        description: this.$t('subUpdateDescription'),
+        panelLabel: this.$t('subUpdateCard'),
+        token: async (data) => {
+          data.groupId = groupId;
+          let url = '/stripe/subscribe/edit';
+          let response = await axios.post(url, data);
+
+          // Succss
+          window.location.reload(true);
+          // error
+          alert(response.message);
+        },
+      });
+    },
     checkGemAmount (data) {
       let isGem = data && data.gift && data.gift.type === 'gems';
       let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
       if (notEnoughGem) {
-        Notification.error(this.$t('badAmountOfGemsToPurchase'), true);
+        this.error(this.$t('badAmountOfGemsToPurchase'), true);
         return false;
       }
       return true;

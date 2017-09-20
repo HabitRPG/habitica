@@ -184,6 +184,9 @@
 
   #bottom-wrap {
     margin-top: 6em;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
   }
 
   #bottom-background {
@@ -290,6 +293,15 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
+
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
+      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
       window.location.href = '/';
     },
     async login () {
@@ -299,6 +311,15 @@ export default {
         password: this.password,
       });
 
+      if (this.$store.state.afterLoginRedirect) {
+        window.location.href = this.$store.state.afterLoginRedirect;
+        return;
+      }
+
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
+      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
       window.location.href = '/';
     },
     async socialAuth (network) {
@@ -314,6 +335,9 @@ export default {
         auth,
       });
 
+      // @TODO do not reload entire page
+      // problem is that app.vue created hook should be called again
+      // after user is logged in / just signed up
       window.location.href = '/';
     },
     handleSubmit () {

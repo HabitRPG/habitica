@@ -33,6 +33,11 @@
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
 
+        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
+          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
+          div.col-4
+            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -104,7 +109,8 @@
                       span.float-left
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
-                      span.float-right {{group.quest.progress.up || 0}} pending damage
+                      // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
+                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
@@ -125,7 +131,7 @@
           .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
             .svg-icon(v-html="icons.downIcon")
       .section(v-if="sections.summary")
-        p {{ group.summary }}
+        p(v-markdown='group.summary')
 
     .section-header
       .row
@@ -266,6 +272,19 @@
 
   .chat-row {
     margin-top: 2em;
+
+    .community-guidelines {
+      background-color: rgba(135, 129, 144, 0.84);
+      padding: 1em;
+      color: $white;
+      position: absolute;
+      top: 0;
+      height: 150px;
+      padding-top: 3em;
+      margin-top: 2.3em;
+      width: 100%;
+      border-radius: 4px;
+    }
 
     .new-message-row {
       position: relative;
@@ -409,6 +428,7 @@ import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
 import quests from 'common/script/content/quests';
@@ -495,6 +515,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    communityGuidelinesAccepted () {
+      return this.user.flags.communityGuidelinesAccepted;
+    },
     partyStore () {
       return this.$store.state.party;
     },
@@ -584,12 +607,14 @@ export default {
     },
   },
   methods: {
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
     load () {
       if (this.isParty) {
         this.searchId = 'party';
         // @TODO: Set up from old client. Decide what we need and what we don't
         // Check Desktop notifs
-        // Mark Chat seen
         // Load invites
       }
       this.fetchGuild();
@@ -636,7 +661,7 @@ export default {
     },
     async sendMessage () {
       let response = await this.$store.dispatch('chat:postChat', {
-        groupId: this.group._id,
+        group: this.group,
         message: this.newMessage,
       });
       this.group.chat.unshift(response.message);
@@ -660,8 +685,8 @@ export default {
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
       if (this.isParty) {
-        this.$store.party = group;
-        this.group = this.$store.party;
+        this.$store.state.party.data = group;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
         return;
       }
@@ -699,7 +724,13 @@ export default {
       this.user.guilds.push(this.group._id);
     },
     clickLeave () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Leave Party'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Leave Party',
+      });
+
       // @TODO: Get challenges and ask to keep or remove
       if (!confirm('Are you sure you want to leave?')) return;
       let keep = true;
@@ -714,14 +745,16 @@ export default {
         keepChallenges,
       };
 
-      if (this.isParty) data.type = 'party';
+      if (this.isParty) {
+        data.type = 'party';
+        Analytics.updateUser({partySize: null, partyID: null});
+      }
 
       await this.$store.dispatch('guilds:leave', data);
 
       // @TODO: Implement
-      // Analytics.updateUser({'partySize':null,'partyID':null});
       // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/#/options/groups/party');
+      //  $rootScope.hardRedirect('/party');
       // });
     },
     upgradeGroup () {
@@ -743,7 +776,13 @@ export default {
       await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
     clickStartQuest () {
-      // Analytics.track({'hitType':'event','eventCategory':'button','eventAction':'click','eventLabel':'Start a Quest'});
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Start a Quest',
+      });
+
       let hasQuests = find(this.user.items.quests, (quest) => {
         return quest > 0;
       });

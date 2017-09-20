@@ -127,9 +127,9 @@
     "questDilatoryCompletion": "'Der Sieg über den Schreckensdrachen von Dilatory'\n\nWir haben es geschafft! Der Schreckensdrachen bricht mit einem allerletzten Gebrüll zusammen und schwimmt weit, weit fort. Gruppen jubelnder Habiticaner stehen an den Küsten! Wir haben Matt, Daniel und Alex geholfen, ihre Gebäude wieder aufzubauen. Aber was ist das? \n\n'Die Bürger kehren zurück!'\n\nJetzt wo der Drache geflohen ist, steigen im Meer tausende glitzernde Farben auf. Es ist ein Regenbogenschwarm von Fangschreckenkrebsen ... und zwischen ihnen, hunderte von Wassermenschen! \n\n\"Wir sind die verlorenen Bürger von Dilatory!\" erklärt ihr Anführer, Manta. \"Als Dilatory sank, verwandelten uns die Fangschreckenkrebse mit einem Zauberspruch in Wassermenschen, sodass wir überleben konnten. Aber in seinem Zorn fing uns der Schreckensdrache alle in der dunklen Meeresspalte. Wir waren dort hunderte Jahre gefangen - aber jetzt sind wir endlich frei und können unsere Stadt wieder aufbauen! \n\n\"Als Dankeschön,\" sagt @Ottl, \"Bitte nimm dieses Fangschreckenkrebs-Haustier, dieses Fangschreckenkrebs-Reittier sowie Erfahrung, Gold und unsere ewige Dankbarkeit an!\"\n\n'Belohnungen'\n* Fangschreckenkrebs-Haustier\n* Fangschreckenkrebs-Reittier\n* Schokolade, blaue Zuckerwatte, pinke Zuckerwatte, Fisch, Honig, Fleisch, Milch, Kartoffel, verdorbenes Fleisch, Erdbeere",
     "questSeahorseText": "Das Dilatory-Rennen",
     "questSeahorseNotes": "Es ist der Tag des Derbys, und Habiticaner von überall auf dem Kontinent sind nach Dilatory gereist, um ihre Seepferdchen-Haustiere gegeneinander antreten zu lassen! Plötzlich bricht auf der Rennstrecke ein großes Spritzen und Fauchen aus und Du hörst Seepferdchenpfleger @Kiwibot über das Tosen der Wellen hinwegbrüllen. \"Das Treffen der Seepferdchen hat einen kämpferischen Seehengst angelockt!\" schreit sie. \"Er trampelt durch die Ställe und zerstört die uralte Rennstrecke! Kann ihn irgendwer beruhigen?\"",
-    "questSeahorseCompletion": "Der jetzt zahme Seehengst schwimmt gefügig zu Dir. \"Oh, sieh doch!\" sagt Kiwibot. \"Er will, dass wir uns um seine Kinder kümmern.\" Sie gibt Dir drei Eier. \"Zieh sie gut auf,\" sagt sie. \"Du bist beim Dilatory Derby jederzeit willkommen!\"",
-    "questSeahorseBoss": "Seehengst",
-    "questSeahorseDropSeahorseEgg": "Seehengst (Ei)",
+    "questSeahorseCompletion": "Das jetzt zahme Seepferdchen schwimmt gefügig zu Dir. \"Oh, sieh doch!\" sagt Kiwibot. \"Er will, dass wir uns um seine Kinder kümmern.\" Sie gibt Dir drei Eier. \"Zieh sie gut auf,\" sagt sie. \"Du bist beim Dilatory Derby jederzeit willkommen!\"",
+    "questSeahorseBoss": "Seepferdchen",
+    "questSeahorseDropSeahorseEgg": "Seepferdchen (Ei)",
     "questSeahorseUnlockText": "Ermöglicht den Kauf von Seehengsteiern auf dem Marktplatz",
     "questGroupAtom": "Angriff des Banalen",
     "questAtom1Text": "Angriff des Banalen, Teil 1: Abwasch-Katastrophe!",
@@ -298,7 +298,7 @@
     "questMonkeyDropMonkeyEgg": "Affe (Ei)",
     "questMonkeyUnlockText": "Ermöglicht den Kauf von Affeneiern auf dem Marktplatz",
     "questSnailText": "Die Schnecke der Schlamm-Schinderei",
-    "questSnailNotes": "Du freust Dich, Deinen Quest in den verlassenen Schindereiverliesen zu beginnen, aber kaum, dass Du die Verliese betrittst, fühlst Du wie der Grund unter Dir an Deinen Stiefeln zu saugen beginnt. Du betrachtest den Pfad vor Dir und siehst in Schleim versunkene Habiticaner. @Overomega brüllt, \"Sie haben zu viele unwichtige Aufgaben, und sie bleiben an Dingen hängen, die unbedeutend sind! Zieh sie raus! <br><br>\"Du musst die Quelle des Schlamms finden,\" stimmt @Pfeffernusse zu, \"oder die nicht erfüllbaren Aufgaben ziehen sie ewig hinunter!\"<br><br>Deine Waffe ziehend watest Du durch den zählen Schlamm ... und triffst auf die fürchterliche Schnecke der Schlamm-Schinderei.",
+    "questSnailNotes": "Du freust Dich, Deine Quest in den verlassenen Schindereiverliesen zu beginnen, aber kaum, dass Du die Verliese betrittst, fühlst Du wie der Grund unter Dir an Deinen Stiefeln zu saugen beginnt. Du betrachtest den Pfad vor Dir und siehst in Schleim versunkene Habiticaner. @Overomega brüllt, \"Sie haben zu viele unwichtige Aufgaben, und sie bleiben an Dingen hängen, die unbedeutend sind! Zieh sie raus! <br><br>\"Du musst die Quelle des Schlamms finden,\" stimmt @Pfeffernusse zu, \"oder die nicht erfüllbaren Aufgaben ziehen sie ewig hinunter!\"<br><br>Deine Waffe ziehend watest Du durch den zählen Schlamm ... und triffst auf die fürchterliche Schnecke der Schlamm-Schinderei.",
     "questSnailCompletion": "Du lässt Deine Waffe auf den Schneckenpanzer niederfahren, wobei dieser in zwei Teile zerbricht und eine Flutwelle Wasser freigibt. Der Schleim wird weggespült und die Habiticaner um Dich herum jubeln. \"Sieh!\" sagt @Misceo. \"Dort liegen einige Schneckeneier in den Überresten des Unrats.\"",
     "questSnailBoss": "Schnecke der Schlamm-Schinderei",
     "questSnailDropSnailEgg": "Schnecke (Ei)",
@@ -502,5 +502,7 @@
     "questHippoCompletion": "Das Hippo verbeugt sich kapitulierend. “Ich habe Dich unterschätzt. Es sieht so aus, als ob Du gar nicht faul gewesen bist. Ich entschuldige mich. Um die Wahrheit zu sagen, ich habe vielleicht einiges auf Dich projiziert. Vielleicht sollte ich selbst auch einige meiner Aufgaben erledigen. Hier, nimm diese Eier als ein Zeichen meiner Dankbarkeit.” Nachdem Du sie genommen hast, lässt Du Dich beim Wasser nieder, um endlich zu entspannen.",
     "questHippoBoss": "Das Heuchlerische Hippo",
     "questHippoDropHippoEgg": "Nilpferd (Ei)",
-    "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz"
+    "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz",
+    "farmFriendsText": "\"Farmfreunde\" Quest-Paket",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

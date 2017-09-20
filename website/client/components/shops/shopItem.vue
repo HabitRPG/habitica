@@ -71,7 +71,7 @@ div
       margin-right: 4px;
     }
 
-    margin-bottom: 8px;
+    margin-top: 1.25em;
   }
 
   .price-label {

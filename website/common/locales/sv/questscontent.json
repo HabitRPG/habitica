@@ -89,7 +89,7 @@
     "questMoonstone3Boss": "Nekro-Last",
     "questMoonstone3DropRottenMeat": "Ruttet kött (Mat)",
     "questMoonstone3DropZombiePotion": "Zombie Kläckningsdryck",
-    "questGroupGoldenknight": "The Golden Knight",
+    "questGroupGoldenknight": "Den Gyllene Riddaren",
     "questGoldenknight1Text": "Den Gyllene Riddaren, Del 1: En allvarlig pratstund",
     "questGoldenknight1Notes": "Den gyllene riddaren har varit på de stackars Habiticanerna. Inte gjort alla dina dagliga sysslor? Prickat av en ovana? Hon använder detta som ursäkt för att trakassera dig om hur du borde vara som henne. Hon är ett skinande exempel på en perfekt Habitican, och du är inget annat än ett misslyckande. Det är inte snällt alls! Alla gör misstag. De borde inte behöv bli mötta med sådan negativitet för det. Det kanske är dags att samla ihop vittnesmål från sårade Habiticaner och ha en allvarlig pratstund med den gyllene riddaren?",
     "questGoldenknight1CollectTestimony": "Vittnesmål",
@@ -215,7 +215,7 @@
     "questKrakenUnlockText": "Låser upp köpbara bläckfiskägg på Marknaden",
     "questWhaleText": "Wail of the Whale",
     "questWhaleNotes": "You arrive at the Diligent Docks, hoping to take a submarine to watch the Dilatory Derby. Suddenly, a deafening bellow forces you to stop and cover your ears. \"Thar she blows!\" cries Captain @krazjega, pointing to a huge, wailing whale. \"It's not safe to send out the submarines while she's thrashing around!\"<br><br>\"Quick,\" calls @UncommonCriminal. \"Help me calm the poor creature so we can figure out why she's making all this noise!\"",
-    "questWhaleBoss": "Wailing Whale",
+    "questWhaleBoss": "Gråtande Valen",
     "questWhaleCompletion": "After much hard work, the whale finally ceases her thunderous cry. \"Looks like she was drowning in waves of negative habits,\" @zoebeagle explains. \"Thanks to your consistent effort, we were able to turn the tides!\" As you step into the submarine, several whale eggs bob towards you, and you scoop them up.",
     "questWhaleDropWhaleEgg": "Val (ägg)",
     "questWhaleUnlockText": "Låser upp köpbara valägg på Marknaden",
@@ -502,5 +502,7 @@
     "questHippoCompletion": "The hippo bows in surrender. “I underestimated you. It seems you weren’t being lazy. My apologies. Truth be told, I may have been projecting a bit. Perhaps I should get some work done myself. Here, take these eggs as a sign of my gratitude.” Grabbing them, you settle down by the water, ready to relax at last.",
     "questHippoBoss": "The Hippo-Crite",
     "questHippoDropHippoEgg": "Hippo (Egg)",
-    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market"
+    "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market",
+    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

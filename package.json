@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "3.112.0",
+  "version": "3.113.2",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -113,6 +113,7 @@
     "sass-loader": "^6.0.2",
     "serve-favicon": "^2.3.0",
     "shelljs": "^0.7.6",
+    "sortablejs": "^1.6.1",
     "stripe": "^4.2.0",
     "superagent": "^3.4.3",
     "svg-inline-loader": "^0.7.1",

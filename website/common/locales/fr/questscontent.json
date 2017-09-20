@@ -502,5 +502,7 @@
     "questHippoCompletion": "L'hippopotame s'incline en signe de capitulation. \"J'ai sous-estimé vos personnes. On dirait que vous ne fainéantiez pas, au final. Je suis désolé. Pour être honnête, j'ai peut-être jugé trop rapidement. Moi-même je devrais sans doute aller travailler. Tenez, prenez ces œufs en guise de remerciement.\" Vous les attrapez et vous installez au bord de l'eau, pour un repos bien mérité.",
     "questHippoBoss": "L'Hippo-crite",
     "questHippoDropHippoEgg": "Hippopotame (Œuf)",
-    "questHippoUnlockText": "Déverrouille l'achat d’œufs d'hippopotame au marché"
+    "questHippoUnlockText": "Déverrouille l'achat d’œufs d'hippopotame au marché",
+    "farmFriendsText": "Lots de quêtes des amis agricoles",
+    "farmFriendsNotes": "Contient \"La vache meuhtante\", \"La chevauchée cauchemardesque\" et \"Le bélier du tonnerre\". Disponible jusqu'au 30 septembre."
 }

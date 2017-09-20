@@ -194,6 +194,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         value: item.value,
         currency: 'gold',
         pinType: 'marketGear',
+        canOwn: item.canOwn,
       });
       break;
     case 'background':

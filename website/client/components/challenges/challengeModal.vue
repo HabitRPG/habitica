@@ -55,6 +55,8 @@
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
             You do not have enough gems to create a Tavern challenge
+            // @TODO if buy gems button is added, add analytics tracking to it
+            // see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134
           button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeAddTasks')}}
           button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
         .col-12.text-center

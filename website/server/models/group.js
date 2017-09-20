@@ -396,6 +396,7 @@ schema.statics.validateInvitations = async function getInvitationError (uuids, e
     // Count how many invitations currently exist in the party
     let query = {};
     query['invitations.party.id'] = group._id;
+    // @TODO invitations are now stored like this: `'invitations.parties': []`
     let groupInvites = await User.count(query).exec();
     memberCount += groupInvites;
 

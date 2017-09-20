@@ -122,7 +122,7 @@
   "questGoldenknight3Boss": "The Iron Knight",
   "questGoldenknight3DropHoney": "Honey (Food)",
   "questGoldenknight3DropGoldenPotion": "Golden Hatching Potion",
-  "questGoldenknight3DropWeapon": "Mustaine's Milestone Mashing Morning Star (Shield-hand Weapon)",
+  "questGoldenknight3DropWeapon": "Mustaine's Milestone Mashing Morning Star (Off-hand Weapon)",
 
   "questGroupEarnable": "Earnable Quests",
   "questBasilistText": "The Basi-List",
@@ -283,7 +283,7 @@
   "questDilatoryDistress3Boss": "Adva, the Usurping Mermaid",
   "questDilatoryDistress3DropFish": "Fish (Food)",
   "questDilatoryDistress3DropWeapon": "Trident of Crashing Tides (Weapon)",
-  "questDilatoryDistress3DropShield": "Moonpearl Shield (Shield-Hand Item)",
+  "questDilatoryDistress3DropShield": "Moonpearl Shield (Off-Hand Item)",
 
   "questCheetahText": "Such a Cheetah",
   "questCheetahNotes": "As you hike across the Sloensteadi Savannah with your friends @PainterProphet, @tivaquinn, @Unruly Hyena, and @Crawford, you're startled to see a Cheetah screeching past with a new Habitican clamped in its jaws. Under the Cheetah's scorching paws, tasks burn away as though complete -- before anyone has the chance to actually finish them! The Habitican sees you and yells, \"Please help me! This Cheetah is making me level too quickly, but I'm not getting anything done. I want to slow down and enjoy the game. Make it stop!\" You fondly remember your own fledgling days, and know that you have to help the newbie by stopping the Cheetah!",
@@ -513,7 +513,7 @@
   "questStoikalmCalamity3Completion": "You subdue the Icicle Drake Queen, giving Lady Glaciate time to shatter the glowing bracelets. The Queen stiffens in apparent mortification, then quickly covers it with a haughty pose. \"Feel free to remove these extraneous items,\" she says. \"I'm afraid they simply don't fit our decor.\"<br><br>\"Also, you stole them,\" @Beffymaroo says. \"By summoning monsters from the earth.\"<br><br>The Icicle Drake Queen looks miffed. \"Take it up with that wretched bracelet saleswoman,\" she says. \"It's Tzina you want. I was essentially unaffiliated.\"<br><br>Lady Glaciate claps you on the arm. \"You did well today,\" she says, handing you a spear and a horn from the pile. \"Be proud.\"",
   "questStoikalmCalamity3Boss": "Icicle Drake Queen",
   "questStoikalmCalamity3DropBlueCottonCandy": "Blue Cotton Candy (Food)",
-  "questStoikalmCalamity3DropShield": "Mammoth Rider's Horn (Shield-Hand Item)",
+  "questStoikalmCalamity3DropShield": "Mammoth Rider's Horn (Off-Hand Item)",
   "questStoikalmCalamity3DropWeapon": "Mammoth Rider Spear (Weapon)",
 
   "questGuineaPigText": "The Guinea Pig Gang",
@@ -562,8 +562,8 @@
   "questMayhemMistiflying3Completion": "Just as you think you can’t withstand the wind any longer, you manage to snatch the mask from the Wind-Worker’s face. Instantly, the tornado is sucked away, leaving only balmy breezes and sunshine. The Wind-Worker looks around in bemusement. “Where did she go?”<br><br>“Who?” your friend @khdarkwolf asks.<br><br>“That sweet woman who offered to deliver a package for me. Tzina.” As he takes in the wind-swept city below him, his expression darkens. “Then again, maybe she wasn’t so sweet…”<br><br>The April Fool pats him on the back, then hands you two shimmering envelopes. “Here. Why don’t you let this distressed fellow rest, and take charge of the mail for a bit? I hear the magic in those envelopes will make them worth your while.”",
   "questMayhemMistiflying3Boss": "The Wind-Worker",
   "questMayhemMistiflying3DropPinkCottonCandy": "Pink Cotton Candy (Food)",
-  "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Shield-Hand Weapon)",
-  "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Weapon)",
+  "questMayhemMistiflying3DropShield": "Roguish Rainbow Message (Off-Hand Item)",
+  "questMayhemMistiflying3DropWeapon": "Roguish Rainbow Message (Main-Hand Item)",
 
   "featheredFriendsText": "Feathered Friends Quest Bundle",
   "featheredFriendsNotes": "Contains 'Help! Harpy!,' 'The Night-Owl,' and 'The Birds of Preycrastination.' Available until May 31.",
@@ -583,5 +583,8 @@
   "questHippoCompletion": "The hippo bows in surrender. “I underestimated you. It seems you weren’t being lazy. My apologies. Truth be told, I may have been projecting a bit. Perhaps I should get some work done myself. Here, take these eggs as a sign of my gratitude.” Grabbing them, you settle down by the water, ready to relax at last.",
   "questHippoBoss": "The Hippo-Crite",
   "questHippoDropHippoEgg": "Hippo (Egg)",
-  "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market"
+  "questHippoUnlockText": "Unlocks purchasable Hippo eggs in the Market",
+
+  "farmFriendsText": "Farm Friends Quest Bundle",
+  "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

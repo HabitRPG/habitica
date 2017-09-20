@@ -142,12 +142,12 @@ describe('emails', () => {
   describe('getGroupUrl', () => {
     it('returns correct url if group is the tavern', () => {
       let getGroupUrl = require(pathToEmailLib).getGroupUrl;
-      expect(getGroupUrl({_id: TAVERN_ID, type: 'guild'})).to.eql('/#/options/groups/tavern');
+      expect(getGroupUrl({_id: TAVERN_ID, type: 'guild'})).to.eql('/groups/tavern');
     });
 
     it('returns correct url if group is a guild', () => {
       let getGroupUrl = require(pathToEmailLib).getGroupUrl;
-      expect(getGroupUrl({_id: 'random _id', type: 'guild'})).to.eql('/#/options/groups/guilds/random _id');
+      expect(getGroupUrl({_id: 'random _id', type: 'guild'})).to.eql('/groups/guild/random _id');
     });
 
     it('returns correct url if group is a party', () => {

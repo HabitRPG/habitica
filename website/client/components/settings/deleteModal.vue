@@ -59,7 +59,7 @@ export default {
         },
       });
       localStorage.clear();
-      window.location.href = '/home';
+      window.location.href = '/static/home';
       this.$root.$emit('hide::modal', 'reset');
     },
   },
