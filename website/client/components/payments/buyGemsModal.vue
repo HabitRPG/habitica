@@ -43,7 +43,7 @@
               .card-img-top
                 .mx-auto(v-html='icons.twentyOneGems', style='"height: 55px; width: 47.5px; margin-top: 1.85em;"')
               .card-body
-                .gem-count 21
+                .gem-count 20
                 .gem-text {{ $t('gems') }}
                 .divider
                 button.btn.btn-primary(@click='gemAmount = 21') {{gemAmount === 21 ? $t('selected') : '$5.00'}}

@@ -1,6 +1,6 @@
 <template lang='pug'>
   div
-    static-header
+    static-header(:class='{"home-header": $route.name === "home"}')
 
     .static-wrapper
       router-view
@@ -13,6 +13,44 @@
         .seamless_mountains_demo_repeat
         .midground_foreground_extended2
 </template>
+
+<style lang='scss'>
+  .home-header {
+    background: #6133b4 !important;
+    position: static;
+    box-shadow: none !important;
+    height: 100px !important;
+    padding-left: 5em !important;
+    padding-right: 5em !important;
+
+    .logo.svg-icon {
+      width: 200px !important;
+    }
+
+    .nav-item a {
+      font-size: 14px !important;
+      color: #d5c8ff !important;
+      padding-top: 2.8em !important;
+    }
+
+    .nav-item a:hover {
+      background: transparent !important;
+      color: #fff !important;
+    }
+
+    .login-button {
+      padding-right: 1em;
+      margin-top: 1.7em !important;
+      border-radius: 2px;
+      background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
+    }
+
+    .login-button:hover {
+      background-color: #b288ff;
+    }
+  }
+</style>
 
 <style lang='scss'>
   @import '~client/assets/scss/colors.scss';

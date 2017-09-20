@@ -37,7 +37,8 @@
           to='/static/contact',
         )
           a.nav-link(v-once) {{ $t('contactUs') }}
-      button.btn.btn-primary.pull-right(@click='playButtonClick()') {{ $t('playButtonFull') }}
+      button.btn.btn-primary.pull-right(@click='playButtonClick()', v-if='$route.name !== "home"') {{ $t('playButtonFull') }}
+      a.btn.btn-primary.login-button.pull-right(href='/login', v-else) {{ $t('login') }}
 </template>
 
 <style lang='scss' scoped>
