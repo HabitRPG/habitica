@@ -5,10 +5,13 @@ import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import notificationsMixin from 'client/mixins/notifications';
 
-let StripeCheckout = window.StripeCheckout;
+let StripeCheckout;
 
 export default {
   mixins: [notificationsMixin],
+  created () {
+    StripeCheckout = window.StripeCheckout;
+  },
   computed: {
     ...mapState(['credentials']),
     paypalCheckoutLink () {
