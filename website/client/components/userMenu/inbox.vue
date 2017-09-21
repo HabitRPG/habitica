@@ -11,6 +11,8 @@
             // @TODO: Implement this after we fix username bug
             // .col-2.offset-1
             //  button.btn.btn-secondary(@click='toggleClick()') +
+        .col-4.offset-4
+          .svg-icon.close(v-html="icons.svgClose", @click='close()')
         // .col-8.to-form(v-if='displayCreate')
         //   strong To:
         // b-form-input
@@ -49,6 +51,11 @@
   .envelope {
     color: $gray-400 !important;
     margin-top: 1em;
+  }
+
+  .close {
+    margin-top: .5em;
+    width: 15px;
   }
 
   h2 {
@@ -155,6 +162,7 @@ import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
+import svgClose from 'assets/svg/close.svg';
 
 export default {
   mixins: [styleHelper],
@@ -167,6 +175,7 @@ export default {
     return {
       icons: Object.freeze({
         messageIcon,
+        svgClose,
       }),
       displayCreate: true,
       selectedConversation: '',
@@ -283,6 +292,9 @@ export default {
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
+    },
+    close () {
+      this.$root.$emit('hide::modal', 'inbox-modal');
     },
   },
 };
