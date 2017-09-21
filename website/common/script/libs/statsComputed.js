@@ -15,7 +15,11 @@ function equipmentStatBonusComputed (stat, user) {
   let equipped = user.items.gear.equipped;
   let equippedKeys = values(!equipped.toObject ? equipped : equipped.toObject());
 
+  /* eslint-disable no-console */
+  console.log(equippedKeys);
   each(equippedKeys, (equippedItem) => {
+    console.log(equippedItem, gear[equippedItem]);
+    /* eslint-enable no-console */
     let equipmentStat = gear[equippedItem][stat];
     let classBonusMultiplier = gear[equippedItem].klass === user.stats.class ||
       gear[equippedItem].specialClass === user.stats.class ? 0.5 : 0;
