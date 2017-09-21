@@ -17,7 +17,7 @@
 
         )
         selectMembersModal(
-          :item="selectedCardToBuy || {}",
+          :item="selectedSpellToBuy || {}",
           :group="user.party",
           @memberSelected="memberSelected($event)",
         )
@@ -90,7 +90,7 @@ export default {
   data () {
     return {
       selectedItemToBuy: null,
-      selectedCardToBuy: null,
+      selectedSpellToBuy: null,
 
       sound: {
         oggSource: '',
@@ -127,6 +127,11 @@ export default {
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
       this.$root.$emit('show::modal', 'buy-modal');
+    });
+
+    this.$root.$on('selectMembersModal::showItem', (item) => {
+      this.selectedSpellToBuy = item;
+      this.$root.$emit('show::modal', 'select-member-modal');
     });
 
     // @TODO split up this file, it's too big
@@ -280,7 +285,7 @@ export default {
     customPurchase (item) {
       if (item.purchaseType === 'card') {
         if (this.user.party._id) {
-          this.selectedCardToBuy = item;
+          this.selectedSpellToBuy = item;
 
           this.$root.$emit('hide::modal', 'buy-modal');
           this.$root.$emit('show::modal', 'select-member-modal');
@@ -290,8 +295,8 @@ export default {
       }
     },
     memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-      this.selectedCardToBuy = null;
+      this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+      this.selectedSpellToBuy = null;
 
       this.$root.$emit('hide::modal', 'select-member-modal');
     },

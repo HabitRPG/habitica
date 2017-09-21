@@ -160,7 +160,9 @@ export default {
   },
   watch: {
     item () {
-      this.getMembers();
+      if (this.item.key) {
+        this.getMembers();
+      }
     },
   },
   methods: {

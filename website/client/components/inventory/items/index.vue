@@ -139,13 +139,6 @@
       div.popover
         div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
 
-  selectMembersModal(
-    :item="selectedSpell",
-    :group="user.party",
-    @change="resetSpell($event)",
-    @memberSelected="memberSelected($event)",
-  )
-
   startQuestModal(
     :group="user.party"
   )
@@ -192,7 +185,6 @@ import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
 
 import cardsModal from './cards-modal';
-import SelectMembersModal from 'client/components/selectMembersModal';
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
 import startQuestModal from '../../groups/startQuestModal';
@@ -234,7 +226,6 @@ export default {
     bDropdownItem,
     HatchedPetDialog,
     CountBadge,
-    SelectMembersModal,
     startQuestModal,
     cardsModal,
   },
@@ -252,7 +243,6 @@ export default {
       currentDraggingPotion: null,
       potionClickMode: false,
       hatchedPet: null,
-      selectedSpell: null,
       cardOptions: {
         cardType: '',
         messageOptions: 0,
@@ -275,7 +265,7 @@ export default {
 
       this.groups.forEach(group => {
         const groupKey = group.key;
-        group.quantity = 0; // reset the count
+        group.quantity = 0; // resetf the count
         let itemsArray = itemsByType[groupKey] = [];
         const contentItems = this.content[groupKey];
 
@@ -435,7 +425,7 @@ export default {
           item.quantity--;
           this.$forceUpdate();
         } else {
-          this.selectedSpell = item;
+          this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
         this.$root.$emit('show::modal', 'start-quest-modal');
@@ -451,17 +441,6 @@ export default {
       } else {
         lastMouseMoveEvent = $event;
       }
-    },
-
-    resetSpell ($event) {
-      if (!$event) {
-        this.selectedSpell = null;
-      }
-    },
-
-    memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedSpell.key, targetId: member.id});
-      this.selectedSpell = null;
     },
   },
 };
