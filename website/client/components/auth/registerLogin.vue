@@ -51,6 +51,21 @@
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
       .header
+        h2(v-once) {{ $t('emailNewPass') }}
+        p(v-once) {{ $t('forgotPasswordSteps') }}
+    .form-group.row.text-center
+      label(for='usernameInput', v-once) {{$t('email')}}
+      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
+    .text-center
+      .btn.btn-info(@click='forgotPasswordLink()', v-once) {{$t('sendLink')}}
+
+  form#reset-password-set-new-one-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='resetPasswordSetNewOne')
+    .text-center
+      div
+        .svg-icon.gryphon
+      div
+        .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
+      .header
         h2 Email a Password Reset Link
         p Enter the email address you used to register your Habitica account.
     .form-group.row.text-center
@@ -348,6 +363,11 @@ export default {
 
       if (this.forgotPassword) {
         this.forgotPasswordLink();
+        return;
+      }
+
+      if (this.resetPasswordSetNewOne) {
+        this.resetPasswordSetNewOneLink();
         return;
       }
 
