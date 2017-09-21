@@ -83,7 +83,7 @@
       .container
         .row
           .col-6
-            .iphones.svg-icon(v-html='icons.iphones')
+            .iphones
           .col-6.text-column
             h2 {{ $t('levelUpAnywhere') }}
             p {{ $t('levelUpAnywhereDesc') }}
@@ -104,15 +104,15 @@
             strong {{ $t('featuredIn') }}
       .container-fluid.featured
         .row
-          .col-12
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/lifehacker.png', alt="$t(altAttrLifehacker)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/nyt-logo.png', alt="$t(altAttrNewYorkTimes)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/makeuseof.png', alt="$t(altAttrMakeUseOf)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/Forbes_logo.png', alt="$t(altAttrForbes)")
+          .col-12.text-center
+            .lifehacker.svg-icon(v-html='icons.lifehacker')
+            .thenewyorktimes.svg-icon(v-html='icons.thenewyorktimes')
+            .makeuseof.svg-icon(v-html='icons.makeuseof')
+            .forbes.svg-icon(v-html='icons.forbes')
             .cnet.svg-icon(v-html='icons.cnet')
+            .kickstarter.svg-icon(v-html='icons.kickstarter')
             .fast-company.svg-icon(v-html='icons.fastCompany')
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/kickstarter-logo.png', alt="$t(altAttrKickstarter)")
-            img(src='https://d2afqr2xdmyzvu.cloudfront.net/front/images/presslogos/discover-logo.png', alt="$t(altAttrDiscover)")
+            .discover.svg-icon(v-html='icons.discover')
       .container-fluid
         .seamless_stars_varied_opacity_repeat
 </template>
@@ -398,7 +398,10 @@
     }
 
     .iphones {
-      width: 436px
+      width: 436px;
+      height: 520px;
+      background-size: 100%;
+      background-image: url('~assets/images/home/mobile-preview@3x.png');
     }
 
     .text-column {
@@ -447,10 +450,40 @@
       text-align: center;
 
       .svg-icon {
-        max-height: 30px;
-        max-width: 120px;
+        vertical-align: bottom;
         color: #fff;
         display: inline-block;
+        margin-right: 1em;
+      }
+
+      .lifehacker {
+        width: 116.7px;
+        height: 32px;
+      }
+
+      .thenewyorktimes {
+        width: 170.4px;
+        height: 24px;
+      }
+
+      .makeuseof {
+        width: 59.7px;
+        height: 32px;
+      }
+
+      .forbes {
+        width: 91.7px;
+        height: 24px;
+      }
+
+      .kickstarter {
+        width: 205px;
+        height: 24px;
+      }
+
+      .discover {
+        width: 119.6px;
+        height: 24px;
       }
 
       .cnet {
@@ -463,7 +496,6 @@
       .fast-company {
         width: 161.3px;
         height: 24px;
-        padding-top: .8em;
       }
 
       img {
@@ -502,6 +534,12 @@
   import googleIcon from 'assets/svg/google.svg';
   import cnet from 'assets/svg/cnet.svg';
   import fastCompany from 'assets/svg/fast-company.svg';
+  import discover from 'assets/images/home/discover.svg';
+  import forbes from 'assets/images/home/forbes.svg';
+  import kickstarter from 'assets/images/home/kickstarter.svg';
+  import lifehacker from 'assets/images/home/lifehacker.svg';
+  import makeuseof from 'assets/images/home/make-use-of.svg';
+  import thenewyorktimes from 'assets/images/home/the-new-york-times.svg';
   import * as Analytics from 'client/libs/analytics';
 
   export default {
@@ -519,6 +557,12 @@
           googleIcon,
           cnet,
           fastCompany,
+          discover,
+          forbes,
+          kickstarter,
+          lifehacker,
+          makeuseof,
+          thenewyorktimes,
         }),
         userCount: 1000000,
         username: '',

@@ -40,14 +40,14 @@
 
     .login-button {
       padding-right: 1em;
-      margin-top: 1.7em !important;
+      margin-top: 1.8em !important;
       border-radius: 2px;
       background-color: #b288ff;
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
     }
 
     .login-button:hover {
       background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
     }
   }
 </style>
