@@ -20,6 +20,7 @@ import { decrypt, encrypt } from '../../libs/encryption';
 import { send as sendEmail } from '../../libs/email';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
+import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -638,6 +639,48 @@ api.updateEmail = {
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
+ * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
+ * @apiName ResetPasswordSetNewOne
+ * @apiGroup User
+ *
+ * @apiParam (Body) {String} newPassword The new password.
+ * @apiParam (Body) {String} confirmPassword Password confirmation.
+ *
+ * @apiSuccess {String} data An empty object
+ * @apiSuccess {String} data Success message
+ */
+api.resetPasswordSetNewOne = {
+  method: 'POST',
+  url: '/user/auth/reset-password-set-new-one',
+  async handler (req, res) {
+    let user = await validatePasswordResetCodeAndFindUser(req.query.code);
+    let isValidCode = Boolean(user);
+
+    if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
+
+    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty().isEmail();
+    req.checkBody('confirmPassword', res.t('missingNewPassword')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let newPassword = req.body.newPassword;
+    let confirmPassword = req.body.confirmPassword;
+
+    if (newPassword !== confirmPassword) {
+      throw new BadRequest(res.t('passwordConfirmationMatch'));
+    }
+
+    // set new password and make sure it's using bcrypt for hashing
+    await convertToBcrypt(user, String(newPassword));
+    user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
+    await user.save();
+
+    return res.respond(200, {}, res.t('passwordChangeSuccess'));
   },
 };
 
