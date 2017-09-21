@@ -11,13 +11,20 @@
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
       .col-4
-        avatar(v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
-          :hideClassBadge='true')
+        avatar(
+          v-if='cachedProfileData[msg.uuid]',
+          :member="cachedProfileData[msg.uuid]", 
+          :avatarOnly="true",
+          :hideClassBadge='true',
+          @click.native="showMemberModal(msg.uuid)",
+        )
       .card.col-8
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+            h3.leader(
+              :class='userLevelStyle(cachedProfileData[msg.uuid])'
+              @click="showMemberModal(msg.uuid)",
+            )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
@@ -39,11 +46,16 @@
             span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
+    // @TODO can we avoid duplicating all this code? Cannot we just push everything
+    // to the right if the user is the author?
     .row(v-if='user._id === msg.uuid')
       .card.col-8
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
-            h3.leader(:class='userLevelStyle(cachedProfileData[msg.uuid])')
+            h3.leader(
+              :class='userLevelStyle(cachedProfileData[msg.uuid])',
+              @click="showMemberModal(msg.uuid)",
+            )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
             p {{msg.timestamp | timeAgo}}
@@ -66,15 +78,19 @@
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
       .col-4
-        avatar(v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", :avatarOnly="true",
-          :hideClassBadge='true')
+        avatar(
+          v-if='cachedProfileData[msg.uuid]',
+          :member="cachedProfileData[msg.uuid]", 
+          :avatarOnly="true",
+          :hideClassBadge='true',
+          @click.native="showMemberModal(msg.uuid)",
+        )
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-  // @TODO: Move this to an scss?
+  // @TODO: Move this to an scss
   .tier1 {
     color: #c42870;
   }
@@ -118,7 +134,9 @@
   }
   // End of tier colors
 
-  h3 {
+  h3 { // this is the user name
+    cursor: pointer;
+
     .svg-icon {
       width: 10px;
       display: inline-block;
@@ -361,6 +379,12 @@ export default {
         groupId: this.groupId,
         chatId: message.id,
       });
+    },
+    showMemberModal (memberId) {
+      // @TODO move to action or anyway move from here because it's super duplicate
+      this.$store.state.profileUser = this.cachedProfileData[memberId];
+      this.$store.state.profileOptions.startingPage = 'profile';
+      this.$root.$emit('show::modal', 'profile');
     },
   },
 };

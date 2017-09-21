@@ -64,7 +64,7 @@ export default {
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
         // image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        async token (res) {
+        token: async (res) => {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
           if (data.groupToCreate) {
@@ -89,6 +89,7 @@ export default {
 
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
+            // @TODO this does not do anything as we reload just below
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             // @TODO action
