@@ -265,6 +265,8 @@ export default {
       });
     },
     sendPrivateMessage () {
+      if (!this.newMessage) return;
+
       let convoFound = this.conversations.find((conversation) => {
         return conversation.key === this.selectedConversation;
       });
