@@ -976,7 +976,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     eyewear () {
-      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];;
+      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
       let options = keys.map(key => {
         let newKey = `eyewear_special_${key}`;
         let option = {};
