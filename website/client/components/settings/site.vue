@@ -186,9 +186,9 @@
             h5 {{ $t('dangerZone') }}
             div
               button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', :popover="$t('resetAccPop')") {{ $t('resetAccount') }}
+                popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
               button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+                popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
 <style scoped>
@@ -203,6 +203,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -216,6 +217,9 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
+  },
+  directives: {
+    bPopover,
   },
   data () {
     let dayStartOptions = [];
