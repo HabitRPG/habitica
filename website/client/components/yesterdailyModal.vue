@@ -1,7 +1,7 @@
 <template lang="pug">
   b-modal#yesterdaily(
-    size="m", 
-    :hide-header="true", 
+    size="m",
+    :hide-header="true",
     :hide-footer="true",
     :no-close-on-backdrop="true",
     :no-close-on-esc="true",
@@ -70,6 +70,8 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     tasksByType () {
+      this.dueDate = moment().subtract(1, 'days');
+
       return {
         daily: this.yesterDailies,
       };
