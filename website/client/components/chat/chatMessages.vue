@@ -16,14 +16,14 @@
           :member="cachedProfileData[msg.uuid]", 
           :avatarOnly="true",
           :hideClassBadge='true',
-          @click.native="showMemberModal(cachedProfileData[msg.uuid])",
+          @click.native="showMemberModal(msg.uuid)",
         )
       .card.col-8
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
-              @click="showMemberModal(cachedProfileData[msg.uuid])",
+              @click="showMemberModal(msg.uuid)",
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
@@ -54,7 +54,7 @@
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
-              @click="showMemberModal(cachedProfileData[msg.uuid])",
+              @click="showMemberModal(msg.uuid)",
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
@@ -83,7 +83,7 @@
           :member="cachedProfileData[msg.uuid]", 
           :avatarOnly="true",
           :hideClassBadge='true',
-          @click.native="showMemberModal(cachedProfileData[msg.uuid])",
+          @click.native="showMemberModal(msg.uuid)",
         )
 </template>
 
@@ -380,9 +380,9 @@ export default {
         chatId: message.id,
       });
     },
-    showMemberModal (member) {
+    showMemberModal (memberId) {
       // @TODO move to action or anyway move from here because it's super duplicate
-      this.$store.state.profileUser = member;
+      this.$store.state.profileUser = this.cachedProfileData[memberId];
       this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
