@@ -1,7 +1,5 @@
 <template lang="pug">
   b-modal#buy-modal(
-    :visible="true",
-    v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )

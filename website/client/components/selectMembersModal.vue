@@ -2,8 +2,6 @@
 div
   b-modal#select-member-modal(
     size='lg',
-    :visible="true",
-    v-if="item != null",
     :hideFooter="true",
     @change="onChange($event)"
   )

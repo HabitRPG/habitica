@@ -9,7 +9,7 @@
       .container-fluid
         app-header
         buyModal(
-          :item="selectedItemToBuy",
+          :item="selectedItemToBuy || {}",
           :withPin="true",
           @change="resetItemToBuy($event)",
           @buyPressed="customPurchase($event)",
@@ -17,9 +17,8 @@
 
         )
         selectMembersModal(
-          :item="selectedCardToBuy",
+          :item="selectedCardToBuy || {}",
           :group="user.party",
-          @change="resetCardToBuy($event)",
           @memberSelected="memberSelected($event)",
         )
 
@@ -127,6 +126,7 @@ export default {
 
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
+      this.$root.$emit('show::modal', 'buy-modal');
     });
 
     // @TODO split up this file, it's too big
@@ -265,11 +265,6 @@ export default {
         this.selectedItemToBuy = null;
       }
     },
-    resetCardToBuy ($event) {
-      if (!$event) {
-        this.selectedCardToBuy = null;
-      }
-    },
     itemSelected (item) {
       this.selectedItemToBuy = item;
     },
@@ -286,6 +281,9 @@ export default {
       if (item.purchaseType === 'card') {
         if (this.user.party._id) {
           this.selectedCardToBuy = item;
+
+          this.$root.$emit('hide::modal', 'buy-modal');
+          this.$root.$emit('show::modal', 'select-member-modal');
         } else {
           this.error(this.$t('errorNotInParty'));
         }
@@ -294,6 +292,8 @@ export default {
     memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
       this.selectedCardToBuy = null;
+
+      this.$root.$emit('hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
       const loadingScreen = document.getElementById('loading-screen');
