@@ -6,6 +6,7 @@ import reduce from 'lodash/reduce';
 import content from '../content/index';
 
 // Return the list of gear items available for purchase
+// TODO: Remove updateStore once the new client is live
 
 let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   accumulator[val] = key;

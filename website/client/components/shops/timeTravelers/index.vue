@@ -35,28 +35,6 @@
               span.rectangle
               span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
-          div.content(v-if="false")
-            div.featured-label.with-border
-              span.rectangle
-              span.text(v-once) {{ $t('featuredQuests') }}
-              span.rectangle
-
-            div.items.margin-center
-              shopItem(
-                v-for="item in featuredItems",
-                :key="item.key",
-                :item="item",
-                :price="item.goldValue ? item.goldValue : item.value",
-                :priceType="item.goldValue ? 'gold' : 'gem'",
-                :itemContentClass="'inventory_quest_scroll_'+item.key",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
-              )
-                template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text {{ item.notes() }}
 
       h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
 
@@ -262,8 +240,6 @@
   import svgPin from 'assets/svg/pin.svg';
   import svgHourglass from 'assets/svg/hourglass.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
@@ -327,8 +303,12 @@
         return this.user.purchased.plan.consecutive.trinkets === 0;
       },
 
+      shop () {
+        return shops.getTimeTravelersShop(this.user);
+      },
+
       categories () {
-        let apiCategories = shops.getTimeTravelersCategories(this.user);
+        let apiCategories = this.shop.categories;
 
         // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
@@ -374,12 +354,6 @@
         });
 
         return normalGroups;
-      },
-
-      featuredItems () {
-        return featuredItems.quests.map(i => {
-          return this.content.quests[i];
-        });
       },
     },
     methods: {

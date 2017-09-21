@@ -12,7 +12,7 @@
     div(v-if='questData')
       questDialogContent(:item="questData")
     div.text-center
-      button.btn.btn-primary(@click='questInit()') {{$t('inviteToPartyOrQuest')}}
+      button.btn.btn-primary(@click='questInit()', :disabled="Boolean(group.quest)") {{$t('inviteToPartyOrQuest')}}
     div.text-center
       p {{$t('inviteInformation')}}
     .side-panel(v-if='questData')

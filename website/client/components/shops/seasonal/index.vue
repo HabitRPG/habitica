@@ -24,7 +24,7 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{opened: seasonal.opened}")
           div.npc
             div.featured-label
               span.rectangle
@@ -35,26 +35,23 @@
               span.rectangle
               span.text(v-once, v-html="seasonal.notes")
               span.rectangle
-          div.content(v-else-if="featuredSet")
+          div.content(v-else-if="seasonal.featured.items.length !== 0")
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
+              span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredSet.items",
+                v-for="item in seasonal.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                :showEventBadge="false",
+                @click="itemSelected(item)"
               )
-                template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
@@ -93,33 +90,15 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                :showEventBadge="false",
+                @click="itemSelected(item)"
               )
-                span(slot="popoverContent")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
-
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-    buyModal(
-      :item="selectedItemToBuy",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-      @togglePinned="togglePinned($event)"
-    )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
 </template>
 
 <style lang="scss">
@@ -232,7 +211,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
+        background: url('~assets/images/shops/seasonal_shop_closed_background.png');
 
         background-repeat: repeat-x;
 
@@ -248,6 +227,11 @@
         justify-content: center;
         align-items: center;
       }
+      .background.opened {
+        background: url('~assets/images/shops/seasonal_shop_opened_background.png');
+
+        background-repeat: repeat-x;
+      }
 
       .content {
         display: flex;
@@ -260,7 +244,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
+        background: url('~assets/images/shops/seasonal_shop_closed_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -269,6 +253,11 @@
           margin: 0;
           left: 60px;
         }
+      }
+
+      .opened .npc{
+        background: url('~assets/images/shops/seasonal_shop_opened_npc.png');
+        background-repeat: no-repeat;
       }
     }
   }
@@ -285,7 +274,6 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from '../buyModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -296,17 +284,17 @@
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
-  import _mapKeys from 'lodash/mapKeys';
+  import _mapValues from 'lodash/mapValues';
   import _forEach from 'lodash/forEach';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _reverse from 'lodash/reverse';
 
   import isPinned from 'common/script/libs/isPinned';
+  import getOfficialPinnedItems from 'common/script/libs/getOfficialPinnedItems';
 
   import i18n from 'common/script/i18n';
 
@@ -325,7 +313,6 @@
       bDropdownItem,
 
       Avatar,
-      BuyModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -335,7 +322,6 @@
     data () {
       return {
         viewOptions: {},
-
         searchText: null,
         searchTextThrottled: null,
 
@@ -358,10 +344,8 @@
           eyewear: i18n.t('eyewear'),
         }),
 
-        sortItemsBy: ['AZ', 'sortByNumber'],
+        sortItemsBy: ['AZ'],
         selectedSortItemsBy: 'AZ',
-
-        selectedItemToBuy: null,
 
         hidePinned: false,
       };
@@ -372,32 +356,33 @@
         user: 'user.data',
         userStats: 'user.data.stats',
       }),
+
+      usersOfficalPinnedItems () {
+        return getOfficialPinnedItems(this.user);
+      },
+
       seasonal () {
-        return {
-          text: this.$t('seasonalShop'),
-          notes: this.$t('seasonalShopClosedText'),
-          opened: false, // TODO
-        };
+        return shops.getSeasonalShop(this.user);
       },
       seasonalCategories () {
-        return shops.getSeasonalShopCategories(this.user);
+        return this.seasonal.categories;
       },
       categories () {
         if (this.seasonalCategories) {
-          this.seasonalCategories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
-          return this.seasonalCategories;
+          return _reverse(_sortBy(this.seasonalCategories, (c) => {
+            if (c.event) {
+              return c.event.start;
+            } else {
+              return -1;
+            }
+          }));
         } else {
           return [];
         }
       },
       filterCategories () {
         if (this.content) {
-          let equipmentList = _mapKeys(this.gearTypesToStrings, (value, key) => {
+          let equipmentList = _mapValues(this.gearTypesToStrings, (value, key) => {
             return {
               key,
               value,
@@ -415,14 +400,6 @@
           return [];
         }
       },
-
-      featuredSet () {
-        let result = _filter(this.categories, (c) => {
-          return c.identifier === featuredItems.seasonal;
-        })[0];
-
-        return result;
-      },
     },
     methods: {
       getClassName (classType) {
@@ -436,7 +413,7 @@
         let result = _map(category.items, (e) => {
           return {
             ...e,
-            pinned: isPinned(this.user, e),
+            pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
           };
         });
 
@@ -455,11 +432,6 @@
         switch (sortBy) {
           case 'AZ': {
             result = _sortBy(result, ['text']);
-
-            break;
-          }
-          case 'sortByNumber': {
-            result = _sortBy(result, ['value']);
 
             break;
           }
@@ -484,11 +456,6 @@
 
         return result;
       },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
       isGearLocked (gear) {
         if (gear.value > this.userStats.gp) {
           return true;
@@ -499,6 +466,11 @@
       togglePinned (item) {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
+        }
+      },
+      itemSelected (item) {
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
         }
       },
     },

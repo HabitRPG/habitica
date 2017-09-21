@@ -1,6 +1,7 @@
 import values from 'lodash/values';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
+import get from 'lodash/get';
 import each from 'lodash/each';
 import filter from 'lodash/filter';
 import eachRight from 'lodash/eachRight';
@@ -11,10 +12,34 @@ import content from '../content/index';
 import i18n from '../i18n';
 import getItemInfo from './getItemInfo';
 import updateStore from './updateStore';
+import seasonalShopConfig from './shops-seasonal.config';
+import featuredItems from '../content/shop-featuredItems';
+
+import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 let shops = {};
 
+/* Market */
+
+shops.getMarketShop = function getMarketShop (user, language) {
+  return {
+    identifier: 'market',
+    text: i18n.t('market'),
+    notes: i18n.t('welcomeMarketMobile'),
+    imageName: 'npc_alex',
+    categories: shops.getMarketCategories(user, language),
+    featured: {
+      text: i18n.t('featuredItems'),
+      items: featuredItems.market.map(i => {
+        return getItemInfo(user, i.type, get(content, i.path));
+      }),
+    },
+  };
+};
+
 shops.getMarketCategories = function getMarket (user, language) {
+  let officialPinnedItems = getOfficialPinnedItems(user);
+
   let categories = [];
   let eggsCategory = {
     identifier: 'eggs',
@@ -26,7 +51,7 @@ shops.getMarketCategories = function getMarket (user, language) {
     .filter(egg => egg.canBuy(user))
     .concat(values(content.dropEggs))
     .map(egg => {
-      return getItemInfo(user, 'eggs', egg, language);
+      return getItemInfo(user, 'eggs', egg, officialPinnedItems, language);
     }), 'key');
   categories.push(eggsCategory);
 
@@ -38,7 +63,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   hatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => !hp.limited)
     .map(hatchingPotion => {
-      return getItemInfo(user, 'hatchingPotions', hatchingPotion, language);
+      return getItemInfo(user, 'hatchingPotions', hatchingPotion, officialPinnedItems, language);
     }), 'key');
   categories.push(hatchingPotionsCategory);
 
@@ -50,7 +75,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   premiumHatchingPotionsCategory.items = sortBy(values(content.hatchingPotions)
     .filter(hp => hp.limited && hp.canBuy())
     .map(premiumHatchingPotion => {
-      return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, language);
+      return getItemInfo(user, 'premiumHatchingPotion', premiumHatchingPotion, officialPinnedItems, language);
     }), 'key');
   if (premiumHatchingPotionsCategory.items.length > 0) {
     categories.push(premiumHatchingPotionsCategory);
@@ -64,7 +89,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   foodCategory.items = sortBy(values(content.food)
     .filter(food => food.canDrop || food.key === 'Saddle')
     .map(foodItem => {
-      return getItemInfo(user, 'food', foodItem, language);
+      return getItemInfo(user, 'food', foodItem, officialPinnedItems, language);
     }), 'key');
   categories.push(foodCategory);
 
@@ -99,6 +124,12 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
       gear.locked = false;
     }
 
+    if (Boolean(gear.specialClass) && Boolean(gear.set)) {
+      let currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+
+      gear.locked = currentSet && user.stats.class !== gear.specialClass;
+    }
+
     if (gear.canOwn) {
       gear.locked = !gear.canOwn(user);
     }
@@ -114,6 +145,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 
 shops.getMarketGearCategories = function getMarketGear (user, language) {
   let categories = [];
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   for (let classType of content.classes) {
     let category = {
@@ -123,7 +155,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
     let result = filter(content.gear.flat, ['klass', classType]);
     category.items = map(result, (e) => {
-      let newItem = getItemInfo(user, 'marketGear', e);
+      let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
 
       return newItem;
     });
@@ -136,9 +168,27 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   return categories;
 };
 
+/* Quests */
+
+shops.getQuestShop = function getQuestShop (user, language) {
+  return {
+    identifier: 'questShop',
+    text: i18n.t('quests'),
+    notes: i18n.t('ianTextMobile'),
+    imageName: 'npc_ian',
+    categories: shops.getQuestShopCategories(user, language),
+    featured: {
+      text: i18n.t('featuredQuests'),
+      items: featuredItems.quests.map(i => {
+        return getItemInfo(user, i.type, get(content, i.path));
+      }),
+    },
+  };
+};
 
 shops.getQuestShopCategories = function getQuestShopCategories (user, language) {
   let categories = [];
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   /*
    * ---------------------------------------------------------------
@@ -202,7 +252,7 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
   bundleCategory.items = sortBy(values(content.bundles)
     .filter(bundle => bundle.type === 'quests' && bundle.canBuy())
     .map(bundle => {
-      return getItemInfo(user, 'bundles', bundle, language);
+      return getItemInfo(user, 'bundles', bundle, officialPinnedItems, language);
     }));
 
   if (bundleCategory.items.length > 0) {
@@ -218,13 +268,28 @@ shops.getQuestShopCategories = function getQuestShopCategories (user, language) 
     category.items = content.questsByLevel
       .filter(quest => quest.canBuy(user) && quest.category === type)
       .map(quest => {
-        return getItemInfo(user, 'quests', quest, language);
+        return getItemInfo(user, 'quests', quest, officialPinnedItems, language);
       });
 
     categories.push(category);
   });
 
   return categories;
+};
+
+/* Time Travelers */
+
+shops.getTimeTravelersShop = function getTimeTravelersShop (user, language) {
+  let hasTrinkets = user.purchased.plan.consecutive.trinkets > 0;
+
+  return {
+    identifier: 'timeTravelersShop',
+    text: i18n.t('timeTravelers'),
+    opened: hasTrinkets,
+    notes: hasTrinkets ? i18n.t('timeTravelersPopover') : i18n.t('timeTravelersPopoverNoSubMobile'),
+    imageName: hasTrinkets ? 'npc_timetravelers_active' : 'npc_timetravelers',
+    categories: shops.getTimeTravelersCategories(user, language),
+  };
 };
 
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
@@ -298,23 +363,63 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
+
+/* Seasonal */
+
+let flatGearArray = toArray(content.gear.flat);
+
+shops.getSeasonalGearBySet = function getSeasonalGearBySet (user, set, officialPinnedItems, language, ignoreAlreadyOwned = false) {
+  return flatGearArray.filter((gear) => {
+    if (!ignoreAlreadyOwned && user.items.gear.owned[gear.key] !== undefined)
+      return false;
+
+    return gear.set === set;
+  }).map(gear => {
+    let currentSet = gear.set === seasonalShopConfig.pinnedSets[gear.specialClass];
+
+    // only the current season set can be purchased by gold
+    let itemInfo = getItemInfo(null, currentSet ? 'marketGear' : 'gear', gear, officialPinnedItems, language);
+    itemInfo.locked = currentSet && user.stats.class !== gear.specialClass;
+
+    return itemInfo;
+  });
+};
+
+shops.getSeasonalShop = function getSeasonalShop (user, language) {
+  let officialPinnedItems = getOfficialPinnedItems(user);
+
+  let resObject = {
+    identifier: 'seasonalShop',
+    text: i18n.t('seasonalShop'),
+    notes: i18n.t(`seasonalShop${seasonalShopConfig.currentSeason}Text`),
+    imageName: seasonalShopConfig.opened ? 'seasonalshop_open' : 'seasonalshop_closed',
+    opened: seasonalShopConfig.opened,
+    categories: this.getSeasonalShopCategories(user, language),
+    featured: {
+      text: i18n.t(seasonalShopConfig.featuredSet),
+      items: shops.getSeasonalGearBySet(user, seasonalShopConfig.featuredSet, officialPinnedItems, language, true),
+    },
+  };
+
+  return resObject;
+};
+
 // To switch seasons/available inventory, edit the AVAILABLE_SETS object to whatever should be sold.
 // let AVAILABLE_SETS = {
 //   setKey: i18n.t('setTranslationString', language),
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
-  const AVAILABLE_SETS = {
-  };
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   const AVAILABLE_SPELLS = [
+    ...seasonalShopConfig.availableSpells,
   ];
 
   const AVAILABLE_QUESTS = [
+    ...seasonalShopConfig.availableQuests,
   ];
 
   let categories = [];
-
-  let flatGearArray = toArray(content.gear.flat);
 
   let spells = pickBy(content.spells.special, (spell, key) => {
     return AVAILABLE_SPELLS.indexOf(key) !== -1;
@@ -327,7 +432,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(spells, (spell) => {
-      return getItemInfo(user, 'seasonalSpell', spell, language);
+      return getItemInfo(user, 'seasonalSpell', spell, officialPinnedItems, language);
     });
 
     categories.push(category);
@@ -350,23 +455,20 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     categories.push(category);
   }
 
-  for (let key in AVAILABLE_SETS) {
-    if (AVAILABLE_SETS.hasOwnProperty(key)) {
-      let category = {
-        identifier: key,
-        text: AVAILABLE_SETS[key],
-      };
+  for (let set of seasonalShopConfig.availableSets) {
+    let category = {
+      identifier: set,
+      text: i18n.t(set),
+    };
 
-      category.items = flatGearArray.filter((gear) => {
-        return user.items.gear.owned[gear.key] === undefined && gear.index === key;
-      }).map(gear => {
-        return getItemInfo(null, 'gear', gear, language);
-      });
+    category.items = shops.getSeasonalGearBySet(user, set, officialPinnedItems, language, false);
 
-      if (category.items.length > 0) {
-        category.specialClass = category.items[0].specialClass;
-        categories.push(category);
-      }
+    if (category.items.length > 0) {
+      let item = category.items[0];
+
+      category.specialClass = item.specialClass;
+      category.event = item.event;
+      categories.push(category);
     }
   }
 
@@ -375,6 +477,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
 
 shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
   let sets = [];
+  let officialPinnedItems = getOfficialPinnedItems();
 
   eachRight(content.backgrounds, (group, key) => {
     let set = {
@@ -383,7 +486,7 @@ shops.getBackgroundShopSets = function getBackgroundShopSets (language) {
     };
 
     set.items = map(group, (background) => {
-      return getItemInfo(null, 'background', background, language);
+      return getItemInfo(null, 'background', background, officialPinnedItems, language);
     });
 
     sets.push(set);

@@ -147,7 +147,7 @@
   )
 
   startQuestModal(
-    group="user.party"
+    :group="user.party"
   )
 </template>
 

@@ -10,7 +10,7 @@
         app-header
         buyModal(
           :item="selectedItemToBuy",
-          :withPin="false",
+          :withPin="true",
           @change="resetItemToBuy($event)",
           @buyPressed="customPurchase($event)",
           :genericPurchase="genericPurchase(selectedItemToBuy)",
