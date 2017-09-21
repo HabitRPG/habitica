@@ -321,8 +321,8 @@ export default {
       }
 
       for (let type in this.content.cardTypes) {
-        if (this.user.items.special[type] > 0) {
-          let card = this.user.items.special[`${this.cardType}Received`];
+        let card = this.user.items.special[`${type}Received`] || [];
+        if (this.user.items.special[type] > 0 || card.length > 0) {
           specialArray.push({
             type: 'card',
             key: type,
