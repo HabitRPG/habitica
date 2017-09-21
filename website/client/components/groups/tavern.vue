@@ -10,7 +10,7 @@
         h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
@@ -165,6 +165,11 @@
       line-height: 1.43;
       color: $gray-300;
       padding: .5em;
+    }
+
+    .user-entry {
+      font-style: normal;
+      color: $black;
     }
 
     .hr {
