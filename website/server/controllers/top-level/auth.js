@@ -27,11 +27,10 @@ api.resetPasswordSetNewOne  = {
     let user = await validatePasswordResetCodeAndFindUser(req.query.code);
     let isValidCode = Boolean(user);
 
-    return renderPasswordResetPage({
-      res,
-      hasError: !isValidCode,
-      message: !isValidCode ? res.t('invalidPasswordResetCode') : null,
-    });
+    const hasError = !isValidCode;
+    const message = !isValidCode ? res.t('invalidPasswordResetCode') : null;
+
+    return res.redirect(`/reset-password?hasError=${hasError}&message=${message}`);
   },
 };
 
