@@ -1,0 +1,12 @@
+.Pet_HatchingPotion_White {
+  background-image: url(/static/sprites/spritesmith-main-19.png);
+  background-position: 0px 0px;
+  width: 48px;
+  height: 51px;
+}
+.Pet_HatchingPotion_Zombie {
+  background-image: url(/static/sprites/spritesmith-main-19.png);
+  background-position: -49px 0px;
+  width: 48px;
+  height: 51px;
+}

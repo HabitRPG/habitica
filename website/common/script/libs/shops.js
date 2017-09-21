@@ -300,6 +300,18 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
 // };
 shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, language) {
   const AVAILABLE_SETS = {
+    fallHealer: i18n.t('mummyMedicSet', language),
+    fall2015Healer: i18n.t('potionerSet', language),
+    fall2016Healer: i18n.t('fall2016GorgonHealerSet', language),
+    fallMage: i18n.t('witchyWizardSet', language),
+    fall2015Mage: i18n.t('stitchWitchSet', language),
+    fall2016Mage: i18n.t('fall2016WickedSorcererSet', language),
+    fallRogue: i18n.t('vampireSmiterSet', language),
+    fall2015Rogue: i18n.t('battleRogueSet', language),
+    fall2016Rogue: i18n.t('fall2016BlackWidowSet', language),
+    fallWarrior: i18n.t('monsterOfScienceSet', language),
+    fall2015Warrior: i18n.t('scarecrowWarriorSet', language),
+    fall2016Warrior: i18n.t('fall2016SwampThingSet', language),
   };
 
   const AVAILABLE_SPELLS = [
