@@ -49,6 +49,9 @@ div
               strong {{ $t('joined') }}:
               | {{userJoinedDate}}
             div
+              strong {{ $t('lastLoggedIn') }}:
+              | {{userLastLoggedIn}}
+            div
               strong {{ $t('totalLogins') }}:
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
             div
@@ -637,6 +640,9 @@ export default {
     }),
     userJoinedDate () {
       return moment(this.user.auth.timestamps.created).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
+    userLastLoggedIn () {
+      return moment(this.user.auth.timestamps.loggedin).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
     },
     equippedItems () {
       return this.user.items.gear.equipped;
