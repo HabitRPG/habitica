@@ -157,8 +157,18 @@ export default {
       }),
     };
   },
+  computed: {
+    isUserLoggedIn () {
+      return this.$store.state.isUserLoggedIn;
+    },
+  },
   methods: {
     playButtonClick () {
+      if (this.isUserLoggedIn) {
+        this.$router.push('/');
+        return;
+      }
+
       // @TODO duplicate of code in home.vue
       Analytics.track({
         hitType: 'event',
