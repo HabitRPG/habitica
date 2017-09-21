@@ -10,7 +10,7 @@
         h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
+          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
           button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
           button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
@@ -50,6 +50,7 @@
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.staff")
+          // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
               .title {{user.name}}
