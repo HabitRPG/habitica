@@ -5,10 +5,20 @@ import * as Analytics from 'client/libs/analytics';
 // }
 
 export async function sendAction (store, payload) {
-  Analytics.updateUser({
-    partyID: store.state.party.data._id,
-    partySize: store.state.party.data.memberCount,
-  });
+  // @TODO: Maybe move this to server
+  let partyData = {
+    partyID: store.state.user.data.party._id,
+    partySize: store.state.party.members.data.length,
+  };
+
+  if (store.state.party) {
+    partyData = {
+      partyID: store.state.party.data._id,
+      partySize: store.state.party.data.memberCount,
+    };
+  }
+
+  Analytics.updateUser(partyData);
 
   let response = await axios.post(`/api/v3/groups/${payload.groupId}/${payload.action}`);
 
