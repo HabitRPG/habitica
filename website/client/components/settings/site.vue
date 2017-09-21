@@ -290,8 +290,7 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.user.flags.newStuff = true;
-      this.set('flags', 'newStuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
