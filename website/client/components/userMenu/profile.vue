@@ -200,7 +200,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentPet}')
-                  div(:class="user.items.currentPet")
+                  .pet(:class="`Pet-${user.items.currentPet}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -216,7 +216,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentMount}')
-                  div(:class="user.items.currentMount")
+                  .mount(:class="`Mount-${user.items.currentMount}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentMount, 'mount') }}
@@ -320,6 +320,10 @@ div
   .pet-mount-row {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+
+  .pet, .mount {
+    margin-top: -1.6em;
   }
 
   .header {
