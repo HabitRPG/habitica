@@ -214,6 +214,7 @@ export default {
           timestamp: message.timestamp,
           user: message.user,
           uuid: message.uuid,
+          id: message.id,
         };
 
         if (message.sent) {

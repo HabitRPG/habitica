@@ -357,6 +357,12 @@ export default {
     },
     async remove (message, index) {
       this.chat.splice(index, 1);
+
+      if (this.inbox) {
+        axios.delete(`/api/v3/user/messages/${message.id}`);
+        return;
+      }
+
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,
         chatId: message.id,
