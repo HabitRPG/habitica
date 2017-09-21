@@ -47,7 +47,7 @@ div
             h2 {{ $t('info') }}
             div
               strong {{ $t('joined') }}:
-              | {{user.auth.timestamps.created}}
+              | {{userJoinedDate}}
             div
               strong {{ $t('totalLogins') }}:
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
@@ -537,6 +537,7 @@ div
 </style>
 
 <script>
+import moment from 'moment';
 import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
@@ -629,6 +630,9 @@ export default {
       userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
+    userJoinedDate () {
+      return moment(this.user.auth.timestamps.created).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
     equippedItems () {
       return this.user.items.gear.equipped;
     },
