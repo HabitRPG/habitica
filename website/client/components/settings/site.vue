@@ -43,18 +43,6 @@
       div
         .checkbox
           label
-            input(type='checkbox', @click='hideHeader() ', v-model='user.preferences.hideHeader')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('showHeaderPop')") {{ $t('showHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', @click='toggleStickyHeader()', v-model='user.preferences.stickyHeader', :disabled="user.preferences.hideHeader")
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('stickyHeaderPop')") {{ $t('stickyHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.newTaskEdit', @click='set("newTaskEdit")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('newTaskEditPop')") {{ $t('newTaskEdit') }}
-        .checkbox
-          label
             input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
             span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
         .checkbox
