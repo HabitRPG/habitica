@@ -26,7 +26,7 @@
         span {{ $t('email') }}
       th
         span {{ $t('push') }}
-    tr(v-for='notification in notifications')
+    tr(v-for='notification in notificationsIds')
       td
         span {{ $t(notification) }}
       td
@@ -40,11 +40,13 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import notificationsMixin from 'client/mixins/notifications';
 
 export default {
+  mixins: [notificationsMixin],
   data () {
     return {
-      notifications: [
+      notificationsIds: [
         'newPM',
         'wonChallenge',
         'giftedGems',
@@ -62,6 +64,28 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+  },
+  async mounted () {
+    // If ?unsubFrom param is passed with valid email type,
+    // automatically unsubscribe users from that email and
+    // show an alert
+
+    // A simple object to map the key stored in the db (user.preferences.emailNotification[key])
+    // to its string id but ONLY when the preferences' key and the string key don't match
+    const MAP_PREF_TO_EMAIL_STRING = {
+      importantAnnouncements: 'inactivityEmails',
+    };
+
+    const unsubFrom = this.$route.query.unsubFrom;
+
+    if (unsubFrom) {
+      await this.$store.dispatch('user:set', {
+        [`preferences.emailNotifications.${unsubFrom}`]: false,
+      });
+
+      const emailTypeString = this.$t(MAP_PREF_TO_EMAIL_STRING[unsubFrom] || unsubFrom);
+      this.text(this.$t('correctlyUnsubscribedEmailType', {emailType: emailTypeString}));
+    }
   },
   methods: {
     set (preferenceType, notification) {
