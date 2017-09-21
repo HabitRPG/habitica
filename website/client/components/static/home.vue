@@ -125,7 +125,7 @@
   #purple-footer {
     background-color: #271b3d;
 
-    footer, footer a {
+    footer, footer a, footer h3 {
       background: transparent;
       color: #d5c8ff;
     }
@@ -451,7 +451,7 @@
 
       .svg-icon {
         vertical-align: bottom;
-        color: #fff;
+        color: #d5c8ff;
         display: inline-block;
         margin-right: 1em;
       }
@@ -517,6 +517,7 @@
       position: absolute;
       height: 500px;
       width: 100%;
+      opacity: .5;
     }
   }
 </style>
