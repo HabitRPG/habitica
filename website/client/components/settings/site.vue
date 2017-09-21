@@ -326,7 +326,7 @@ export default {
         nextCron = nextCron.add(1, 'day');
       }
 
-      return nextCron.format('x');
+      return nextCron.format(this.user.preferences.dateFormat.toUpperCase());
     },
     openDayStartModal () {
       let nextCron = this.calculateNextCron();
