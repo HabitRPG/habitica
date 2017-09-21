@@ -262,7 +262,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               span 7
             span.badge.badge-pill.badge-item.badge-svg(
               :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
-              @click.prevent.stop="togglePinned(bg)"
+              @click.prevent.stop="togglePinned(bg)",
+              v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
