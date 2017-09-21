@@ -41,7 +41,7 @@
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation')
-          input(v-model='newMessage')
+          textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
@@ -114,12 +114,16 @@
     width: 100%;
     padding: 1em;
 
-    input {
+    textarea {
+      height: 80%;
       display: inline-block;
+      vertical-align: bottom;
       width: 80%;
     }
 
     button {
+      vertical-align: bottom;
+      display: inline-block;
       box-shadow: none;
       margin-left: 1em;
     }
