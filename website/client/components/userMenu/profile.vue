@@ -100,7 +100,7 @@ div
               h4.popover-content-title {{ achievement.title }}
               div.popover-content-text(v-html="achievement.text")
             .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
-             .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
+              .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
             .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
       hr.col-12
       .row
@@ -399,9 +399,10 @@ div
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      min-width: 24px;
+      min-height: 24px;
+      border-radius: 2em;
+      padding: .5em;
     }
 
     .achievement-icon {
