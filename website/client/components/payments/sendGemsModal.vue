@@ -83,7 +83,7 @@ import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
 import notificationsMixin from 'client/mixins/notifications';
 
-// @TODO: EMAILS.TECH_ASSISTANCE_EMAIL
+// @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
@@ -104,6 +104,7 @@ export default {
         subscription: {key: ''},
         message: '',
       },
+      amazonPayments: {},
       assistanceEmailObject: {
         hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
       },
