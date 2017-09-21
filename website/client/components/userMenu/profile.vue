@@ -126,7 +126,7 @@ div
                 div(:class="`shop_${equippedItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.head}')
+              .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
@@ -138,7 +138,7 @@ div
                 div(:class="`shop_${equippedItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.armor}')
+              .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
@@ -146,12 +146,12 @@ div
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.weapon}')
+              .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.shield}')
+              .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.shield}`")
               h3 {{$t('offHand')}}
         .col-6
@@ -162,7 +162,7 @@ div
                 div(:class="`shop_${costumeItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.head}')
+              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
@@ -174,7 +174,7 @@ div
                 div(:class="`shop_${costumeItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.armor}')
+              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
@@ -182,7 +182,7 @@ div
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon}')
+              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
@@ -190,7 +190,7 @@ div
                 div(:class="user.preferences.background")
               h3 {{$t('background')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.shield}')
+              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.shield}`")
               h3 {{$t('offHand')}}
       .row.pet-mount-row
