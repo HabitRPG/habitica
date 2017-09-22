@@ -75,6 +75,7 @@ import * as Analytics from 'client/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
+import { setup as setupPayments } from 'client/libs/payments';
 
 export default {
   mixins: [notifications],
@@ -205,6 +206,12 @@ export default {
             'preferences.timezoneOffset': this.browserTimezoneOffset,
           });
         }
+
+        this.$nextTick(() => {
+          // Load external scripts after the app has been rendered
+          setupPayments();
+          Analytics.load();
+        });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
