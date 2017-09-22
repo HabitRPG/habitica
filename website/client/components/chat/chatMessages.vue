@@ -10,7 +10,7 @@
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-4
+      .col-2
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
@@ -18,7 +18,7 @@
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
         )
-      .card.col-8
+      .card.col-10
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
             h3.leader(
@@ -49,7 +49,7 @@
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
     // to the right if the user is the author?
     .row(v-if='user._id === msg.uuid')
-      .card.col-8
+      .card.col-10
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -77,7 +77,7 @@
             span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-4
+      .col-2
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
