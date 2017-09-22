@@ -30,7 +30,6 @@
         .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
           label(v-once) {{ $t('checklist') }}
           br
-          | {{checklist}}
           div(v-sortable='', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
