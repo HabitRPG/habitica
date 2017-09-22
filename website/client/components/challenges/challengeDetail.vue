@@ -343,7 +343,7 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
-      this.$store.state.memberModalOptions.challengeId = this.challenge._id; 
+      this.$store.state.memberModalOptions.challengeId = this.challenge._id;
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
       this.$store.state.memberModalOptions.viewingMembers = this.members;
