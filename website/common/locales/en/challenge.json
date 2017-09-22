@@ -116,5 +116,12 @@
   "haveNoChallenges": "You don't have any Challenges",
   "loadMore": "Load More",
   "exportChallengeCsv": "Export Challenge",
-  "editingChallenge": "Editing Challenge"
+  "editingChallenge": "Editing Challenge",
+  "nameRequired": "Name is required",
+  "tagTooShort": "Tag name is too short",
+  "summaryRequired": "Summary is required",
+  "summaryTooLong": "Summary is too long",
+  "descriptionRequired": "Description is required",
+  "locationRequired": "Location of challenge is required ('Add to')",
+  "categoiresRequired": "One or more categories must be selected"
 }
