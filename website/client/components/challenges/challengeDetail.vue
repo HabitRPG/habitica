@@ -46,7 +46,7 @@
         v-if='tasksByType[column].length > 0')
   .col-4.sidebar.standard-page
     .acitons
-      div(v-if='!isMember && !isLeader')
+      div(v-if='canJoin')
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
@@ -237,6 +237,9 @@ export default {
     isLeader () {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
+    },
+    canJoin () {
+      return !this.isMember;
     },
   },
   mounted () {
