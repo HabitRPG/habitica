@@ -177,7 +177,7 @@
 
       .task-modal-footer(slot="modal-footer")
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
-        span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
+        span.delete-task-btn(v-once, v-if='canDelete', @click="destroy()") {{ $t('delete') }}
 </template>
 
 <style lang="scss">
@@ -489,6 +489,10 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    canDelete () {
+      let activeChallenge = !this.task.challenge.broken && !this.task.challenge.broken;
+      return this.purpose !== 'create' && !activeChallenge;
+    },
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
