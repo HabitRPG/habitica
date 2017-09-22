@@ -6,9 +6,7 @@ import Vue from 'vue';
 import AppComponent from './app';
 import {
   setup as setupAnalytics,
-  load as loadAnalytics,
 } from 'client/libs/analytics';
-import { setup as setupPayments } from 'client/libs/payments';
 import router from './router';
 import getStore from './store';
 import StoreModule from './libs/store';
@@ -39,9 +37,4 @@ export default new Vue({
   router,
   store,
   render: h => h(AppComponent),
-  mounted () {
-    // Load external scripts
-    setupPayments();
-    loadAnalytics();
-  },
 });
