@@ -76,7 +76,7 @@
       h2 {{$t('challengeSummary')}}
       p {{challenge.summary}}
       h2 {{$t('challengeDescription')}}
-      p {{challenge.description}}
+      p(v-markdown='challenge.description')
 </template>
 
 <style lang='scss' scoped>
@@ -180,6 +180,7 @@ import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
+import markdownDirective from 'client/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 
@@ -191,6 +192,9 @@ import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],
+  directives: {
+    markdown: markdownDirective,
+  },
   components: {
     closeChallengeModal,
     challengeModal,
