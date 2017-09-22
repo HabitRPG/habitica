@@ -490,7 +490,8 @@ export default {
       dayMapping: 'constants.DAY_MAPPING',
     }),
     canDelete () {
-      let activeChallenge = !this.task.challenge.broken && !this.task.challenge.broken;
+      let isUserChallenge = Boolean(this.task.userId);
+      let activeChallenge = isUserChallenge && this.task.challenge && !this.task.challenge.broken;
       return this.purpose !== 'create' && !activeChallenge;
     },
     title () {

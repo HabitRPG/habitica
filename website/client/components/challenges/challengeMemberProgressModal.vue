@@ -33,6 +33,13 @@ export default {
   watch: {
     async memberId (id) {
       if (!id) return;
+      this.tasksByType = {
+        habit: [],
+        daily: [],
+        todo: [],
+        reward: [],
+      };
+
       let response = await axios.get(`/api/v3/challenges/${this.challengeId}/members/${this.memberId}`);
       let tasks = response.data.data.tasks;
       tasks.forEach((task) => {
