@@ -42,7 +42,8 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        v-on:editTask="editTask")
+        v-on:editTask="editTask",
+        v-if='tasksByType[column].length > 0')
   .col-4.sidebar.standard-page
     .acitons
       div(v-if='!isMember && !isLeader')
