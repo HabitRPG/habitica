@@ -489,7 +489,7 @@ export default {
     },
     canDelete () {
       let isUserChallenge = Boolean(this.task.userId);
-      let activeChallenge = isUserChallenge && this.task.challenge && !this.task.challenge.broken;
+      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
       return this.purpose !== 'create' && !activeChallenge;
     },
     title () {
