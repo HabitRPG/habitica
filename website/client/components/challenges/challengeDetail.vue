@@ -61,6 +61,7 @@
           :challengeId="challengeId",
           v-on:taskCreated='taskCreated',
           v-on:taskEdited='taskEdited',
+          @taskDestroyed='taskDestroyed'
         )
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
@@ -326,6 +327,12 @@ export default {
         return taskItem._id === task._id;
       });
       this.tasksByType[task.type].splice(index, 1, task);
+    },
+    taskDestroyed (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
