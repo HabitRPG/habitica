@@ -45,14 +45,12 @@ function addPinnedGear (user, type, path) {
 }
 
 function addPinnedGearByClass (user) {
-  if (user.flags.classSelected) {
-    let newPinnedItems = selectGearToPin(user);
+  let newPinnedItems = selectGearToPin(user);
 
-    for (let item of newPinnedItems) {
-      let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (let item of newPinnedItems) {
+    let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      addPinnedGear(user, itemInfo.pinType, itemInfo.path);
-    }
+    addPinnedGear(user, itemInfo.pinType, itemInfo.path);
   }
 }
 
@@ -70,14 +68,12 @@ function removeItemByPath (user, path) {
 }
 
 function removePinnedGearByClass (user) {
-  if (user.flags.classSelected) {
-    let currentPinnedItems = selectGearToPin(user);
+  let currentPinnedItems = selectGearToPin(user);
 
-    for (let item of currentPinnedItems) {
-      let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (let item of currentPinnedItems) {
+    let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      removeItemByPath(user, itemInfo.path);
-    }
+    removeItemByPath(user, itemInfo.path);
   }
 }
 

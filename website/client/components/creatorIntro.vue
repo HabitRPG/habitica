@@ -192,13 +192,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           strong(v-once) {{$t('animalEars')}}
       .row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
-          .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blackTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blackTopFrame"}')
-          .eyewear_special_blueTopFrame.option(@click='equip("eyewear_special_blueTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blueTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blueTopFrame"}')
-          .eyewear_special_greenTopFrame.option(@click='equip("eyewear_special_greenTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_greenTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_greenTopFrame"}')
-          .eyewear_special_pinkTopFrame.option(@click='equip("eyewear_special_pinkTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_pinkTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_pinkTopFrame"}')
-          .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
-          .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
-          .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
+          .option(v-for='option in eyewear', :class='{active: option.active}')
+            .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
       #animal-ears.row(v-if='activeSubPage === "ears"')
         .section.col-12.customize-options
           .option(v-for='option in animalEars',
@@ -266,7 +261,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 7
             span.badge.badge-pill.badge-item.badge-svg(
               :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
-              @click.prevent.stop="togglePinned(bg)"
+              @click.prevent.stop="togglePinned(bg)",
+              v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -1000,6 +996,20 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    eyewear () {
+      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
+      let options = keys.map(key => {
+        let newKey = `eyewear_special_${key}`;
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
+        option.click = () => {
+          return this.equip(newKey);
+        };
+        return option;
+      });
+      return options;
+    },
     animalEarsUnlockString () {
       let animalItemKeys = this.animalEarsKeys.map(key => {
         return `items.gear.owned.headAccessory_special_${key}`;

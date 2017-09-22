@@ -358,7 +358,6 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
@@ -412,7 +411,6 @@ export default {
       bDropdownItem,
 
       SellModal,
-      BuyModal,
       EquipmentAttributesGrid,
       Avatar,
 

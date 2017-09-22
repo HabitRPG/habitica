@@ -47,7 +47,10 @@ div
             h2 {{ $t('info') }}
             div
               strong {{ $t('joined') }}:
-              | {{user.auth.timestamps.created}}
+              | {{userJoinedDate}}
+            div
+              strong {{ $t('lastLoggedIn') }}:
+              | {{userLastLoggedIn}}
             div
               strong {{ $t('totalLogins') }}:
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
@@ -100,7 +103,7 @@ div
               h4.popover-content-title {{ achievement.title }}
               div.popover-content-text(v-html="achievement.text")
             .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
-             .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
+              .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
             .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
       hr.col-12
       .row
@@ -126,7 +129,7 @@ div
                 div(:class="`shop_${equippedItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.head}')
+              .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
@@ -138,7 +141,7 @@ div
                 div(:class="`shop_${equippedItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.armor}')
+              .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
@@ -146,12 +149,12 @@ div
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.weapon}')
+              .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.shield}')
+              .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.shield}`")
               h3 {{$t('offHand')}}
         .col-6
@@ -162,7 +165,7 @@ div
                 div(:class="`shop_${costumeItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.head}')
+              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
@@ -174,7 +177,7 @@ div
                 div(:class="`shop_${costumeItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.armor}')
+              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
@@ -182,7 +185,7 @@ div
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon}')
+              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
@@ -190,7 +193,7 @@ div
                 div(:class="user.preferences.background")
               h3 {{$t('background')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.shield}')
+              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.shield}`")
               h3 {{$t('offHand')}}
       .row.pet-mount-row
@@ -200,7 +203,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentPet}')
-                  div(:class="user.items.currentPet")
+                  .pet(:class="`Pet-${user.items.currentPet}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -216,7 +219,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentMount}')
-                  div(:class="user.items.currentMount")
+                  .mount(:class="`Mount-${user.items.currentMount}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentMount, 'mount') }}
@@ -322,6 +325,10 @@ div
     margin-bottom: 2em;
   }
 
+  .pet, .mount {
+    margin-top: -1.6em;
+  }
+
   .header {
     h1 {
       color: #4f2a93;
@@ -399,9 +406,10 @@ div
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      min-width: 24px;
+      min-height: 24px;
+      border-radius: 2em;
+      padding: .5em;
     }
 
     .achievement-icon {
@@ -537,6 +545,7 @@ div
 </style>
 
 <script>
+import moment from 'moment';
 import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
@@ -629,6 +638,12 @@ export default {
       userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
+    userJoinedDate () {
+      return moment(this.user.auth.timestamps.created).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
+    userLastLoggedIn () {
+      return moment(this.user.auth.timestamps.loggedin).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
     equippedItems () {
       return this.user.items.gear.equipped;
     },

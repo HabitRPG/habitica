@@ -30,10 +30,12 @@
         .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
           label(v-once) {{ $t('checklist') }}
           br
-          .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in task.checklist")
-            input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
-            span.input-group-btn(@click="removeChecklistItem($index)")
-              .svg-icon.destroy-icon(v-html="icons.destroy")
+          | {{checklist}}
+          div(v-sortable='', @onsort='sortedChecklist')
+            .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
+              input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
+              span.input-group-btn(@click="removeChecklistItem($index)")
+                .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
           .option-item(:class="optionClass(task.up === true)", @click="task.up = !task.up")
@@ -401,6 +403,8 @@ import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import sortable from 'client/directives/sortable.directive';
+import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import uuid from 'uuid';
@@ -423,6 +427,9 @@ export default {
     Datepicker,
     toggleSwitch,
   },
+  directives: {
+    sortable,
+  },
   props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
@@ -444,6 +451,7 @@ export default {
       members: [],
       memberNamesById: {},
       assignedMembers: [],
+      checklist: [],
     };
   },
   watch: {
@@ -464,6 +472,9 @@ export default {
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
       }
+
+      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      if (this.task) this.checklist = clone(this.task.checklist);
     },
   },
   computed: {
@@ -534,6 +545,13 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    sortedChecklist (data) {
+      let sorting = clone(this.checklist);
+      let movingItem = sorting[data.oldIndex];
+      sorting.splice(data.oldIndex, 1);
+      sorting.splice(data.newIndex, 0, movingItem);
+      this.task.checklist = sorting;
+    },
     optionClass (activeCondition) {
       if (activeCondition) {
         return [`${this.cssClass}-color`, 'option-item-selected'];
@@ -547,11 +565,13 @@ export default {
         text: this.newChecklistItem,
         completed: false,
       });
+      this.checklist = clone(this.task.checklist);
       this.newChecklistItem = null;
       if (e) e.preventDefault();
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);
+      this.checklist = clone(this.task.checklist);
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);

@@ -1,7 +1,5 @@
 <template lang="pug">
   b-modal#buy-modal(
-    :visible="true",
-    v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )
@@ -56,7 +54,7 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}"
+          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
         ) {{ $t('buyNow') }}
 
     div.limitedTime(v-if="item.event")
@@ -261,6 +259,14 @@
       ...mapState({user: 'user.data'}),
       showAvatar () {
         return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      },
+
+      preventHealthPotion () {
+        if (this.item.key === 'potion' && this.user.stats.hp >= 50) {
+          return false;
+        }
+
+        return true;
       },
 
       showAttributesGrid () {

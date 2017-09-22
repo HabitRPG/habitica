@@ -52,7 +52,7 @@
                 :itemContentClass="'inventory_quest_scroll_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 template(slot="popoverContent", scope="ctx")
                   div.questPopover
@@ -102,7 +102,7 @@
               :priceType="ctx.item.currency",
               :itemContentClass="ctx.item.class",
               :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
+              @click="selectItem(ctx.item)"
             )
               span(slot="popoverContent", scope="ctx")
                 div.questPopover
@@ -132,7 +132,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 span(slot="popoverContent")
                   div.questPopover
@@ -159,7 +159,7 @@
             :price="item.value",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
+            @click="selectItem(item)"
           )
             span(slot="popoverContent")
               div.questPopover
@@ -179,7 +179,7 @@
               )
 
     buyModal(
-      :item="selectedItemToBuy",
+      :item="selectedItemToBuy || {}",
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
@@ -465,6 +465,11 @@ export default {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
+      },
+      selectItem (item) {
+        this.selectedItemToBuy = item;
+
+        this.$root.$emit('show::modal', 'buy-quest-modal');
       },
     },
   };
