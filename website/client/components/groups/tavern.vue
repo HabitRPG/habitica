@@ -138,6 +138,7 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .chat-row {
     position: relative;
@@ -222,14 +223,14 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/tavern_backdrop_web_backgroundtile.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
   }
 
   .daniel_front {
-    background-image: url('~assets/images/tavern_backdrop_web_daniel_and_props.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;

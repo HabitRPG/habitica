@@ -103,6 +103,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -211,7 +212,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/seasonal_shop_closed_background.png');
+        background: url('~assets/images/npc/normal/seasonal_shop_closed_background.png');
 
         background-repeat: repeat-x;
 
@@ -228,7 +229,7 @@
         align-items: center;
       }
       .background.opened {
-        background: url('~assets/images/shops/seasonal_shop_opened_background.png');
+        background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_background.png');
 
         background-repeat: repeat-x;
       }
@@ -244,7 +245,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/seasonal_shop_closed_npc.png');
+        background: url('~assets/images/npc/normal/seasonal_shop_closed_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -256,7 +257,7 @@
       }
 
       .opened .npc{
-        background: url('~assets/images/shops/seasonal_shop_opened_npc.png');
+        background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_npc.png');
         background-repeat: no-repeat;
       }
     }
