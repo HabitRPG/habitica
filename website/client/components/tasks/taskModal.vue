@@ -353,6 +353,10 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+
+      &:hover {
+        cursor: move;
+      }
     }
 
     .delete-task-btn, .cancel-task-btn {
