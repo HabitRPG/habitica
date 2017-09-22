@@ -11,7 +11,7 @@ export async function sendAction (store, payload) {
     partySize: store.state.party.members.data.length,
   };
 
-  if (store.state.party) {
+  if (store.state.party && store.state.party.data) {
     partyData = {
       partyID: store.state.party.data._id,
       partySize: store.state.party.data.memberCount,

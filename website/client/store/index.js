@@ -110,6 +110,7 @@ export default function () {
       memberModalOptions: {
         viewingMembers: [],
         groupId: '',
+        challengeId: '',
         group: {},
       },
       openedItemRows: [],

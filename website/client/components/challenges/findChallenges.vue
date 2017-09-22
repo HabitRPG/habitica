@@ -7,6 +7,7 @@
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('findChallenges')}}
+        h2(v-if='loading') {{ $t('loading') }}
       .col-md-4
         // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -63,6 +64,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       icons: Object.freeze({
         positiveIcon,
       }),
@@ -125,7 +127,9 @@ export default {
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     async loadchallanges () {
+      this.loading = true;
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+      this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);

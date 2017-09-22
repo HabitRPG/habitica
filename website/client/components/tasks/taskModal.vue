@@ -1,16 +1,7 @@
 <template lang="pug">
-  form(
-    v-if="task",
-    @submit.stop.prevent="submit()",
-  )
-    b-modal#task-modal(
-      size="sm",
-      @hidden="onClose()",
-    )
-      .task-modal-header(
-        slot="modal-header",
-        :class="[cssClass]",
-      )
+  form(v-if="task", @submit.stop.prevent="submit()")
+    b-modal#task-modal(size="sm", @hidden="onClose()")
+      .task-modal-header(slot="modal-header", :class="[cssClass]")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -27,10 +18,9 @@
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
           .svg-icon.gold(v-html="icons.gold")
-        .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
+        .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          | {{checklist}}
           div(v-sortable='', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -178,7 +168,7 @@
 
       .task-modal-footer(slot="modal-footer")
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
-        span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
+        span.delete-task-btn(v-once, v-if='canDelete', @click="destroy()") {{ $t('delete') }}
 </template>
 
 <style lang="scss">
@@ -354,6 +344,10 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+
+      &:hover {
+        cursor: move;
+      }
     }
 
     .delete-task-btn, .cancel-task-btn {
@@ -486,6 +480,18 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    checklistEnabled () {
+      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+    },
+    isOriginalChallengeTask () {
+      let isUserChallenge = Boolean(this.task.userId);
+      return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
+    },
+    canDelete () {
+      let isUserChallenge = Boolean(this.task.userId);
+      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
+      return this.purpose !== 'create' && !activeChallenge;
+    },
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
@@ -620,6 +626,7 @@ export default {
     destroy () {
       if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.task);
+      this.$emit('taskDestroyed', this.task);
       this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {

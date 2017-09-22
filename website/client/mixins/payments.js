@@ -21,7 +21,11 @@ export default {
       return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscriptionPlan}`;
     },
     paypalPurchaseLink () {
-      if (!this.subscription) return '';
+      if (!this.subscription) {
+        this.subscription = {
+          key: 'basic_earned',
+        };
+      }
       let couponString = '';
       if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
       return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscription.key}${couponString}`;
