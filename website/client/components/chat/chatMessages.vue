@@ -5,7 +5,7 @@
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
 
-  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0) && canViewFlag(msg)')
+  div(v-for="(msg, index) in chat", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
@@ -13,7 +13,7 @@
       .col-4
         avatar(
           v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", 
+          :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
@@ -80,7 +80,7 @@
       .col-4
         avatar(
           v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", 
+          :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
