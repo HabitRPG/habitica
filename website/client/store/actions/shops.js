@@ -72,7 +72,6 @@ export function genericPurchase (store, params) {
   switch (params.pinType) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
-    case 'potion':
     case 'armoire': // eslint-disable-line
       let buyResult = buyArmoire(store.state.user.data);
 
@@ -88,6 +87,7 @@ export function genericPurchase (store, params) {
 
       axios.post('/api/v3/user/buy-armoire');
       return;
+    case 'potion':
     case 'marketGear':
       return buyItem(store, params);
     case 'background':
