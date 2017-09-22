@@ -81,51 +81,112 @@ b-modal#avatar-modal(title="", :hide-header='true', :hide-footer='true', :class=
         .col-12.text-center
           button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)', @click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu.text-center
-        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
-          strong(v-once) {{$t('color')}}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
-          strong(v-once) {{$t('bangs')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
-          strong(v-once) {{$t('ponytail')}}
-      #hair-color(v-if='activeSubPage === "color"')
+      .row.sub-menu.col-6.offset-3.text-center
+          .col-2.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
+            strong(v-once) {{$t('color')}}
+          .col-2.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
+            strong(v-once) {{$t('style')}}
+          .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
+            strong(v-once) {{$t('bangs')}}
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
+            strong(v-once) {{$t('ponytail')}}
+          .col-2.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
+            strong(v-once) {{$t('facialhair')}}
+      #hair-color.customize-section(v-if='activeSubPage === "color"')
         .row
           .col-12.customize-options
             .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
               :class='{active: user.preferences.hair.color === option}')
               .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-      #bangs(v-if='activeSubPage === "bangs"')
-        .row
-          .col-12.customize-options
-            .head_0.option(@click='set({"preferences.hair.bangs": 0})',
-              :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-            .option(v-for='option in ["1", "2", "3", "4"]',
-              :class='{active: user.preferences.hair.bangs === option}')
-              .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
-      #base-hair(v-if='activeSubPage === "ponytail"')
-        .row
-          .col-12.customize-options
-            .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-            .option(v-for='option in baseHair1',
-              :class='{active: user.preferences.hair.base === option}')
-              .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        //.row(v-if='editing')
           .col-12.customize-options(v-if='editing')
-            .option(v-for='option in baseHair2',
-              :class='{active: option.active, locked: option.locked}')
-              .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .option(v-for='option in premiumHairColors',
+              :class='{active: option.active === option, locked: option.locked}')
+              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
               .gem-lock(v-if='option.locked')
                 .svg-icon.gem(v-html='icons.gem')
                 span 2
-            .col-12.text-center
-              button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+        .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+          .col-12.customize-options
+            //h3(v-if='!hideSet(set)') {{set.text}}
+            .option(v-for='option in set.options',
+              :class='{active: option.active, locked: option.locked, hide: option.hide}')
+              .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+              .gem-lock(v-if='option.locked')
+                .svg-icon.gem(v-html='icons.gem')
+                span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+      #style.row(v-if='activeSubPage === "style"')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair3',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair3Keys, "base")', @click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair4',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair4Keys, "base")', @click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+      #bangs.row(v-if='activeSubPage === "bangs"')
+        .col-12.customize-options
+          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
+            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+          .option(v-for='option in ["1", "2", "3", "4"]',
+            :class='{active: user.preferences.hair.bangs === option}')
+            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
+      #base-hair.row(v-if='activeSubPage === "ponytail"')
+        .col-12.customize-options
+          .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
+          .option(v-for='option in baseHair1',
+            :class='{active: user.preferences.hair.base === option}')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair2',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+      #facialhair.row(v-if='activeSubPage === "facialhair"')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair5',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")', @click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair6',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
     #extra.container.customize-section(v-if='activeTopPage === "extra"')
-      .row.sub-menu.col-8.offset-2.text-center
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-          strong(v-once) {{$t('glasses')}}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-          strong(v-once) {{$t('wheelchair')}}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-          strong(v-once) {{$t('flower')}}
+      .row.sub-menu.col-6.offset-3.text-center
+          .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
+            strong(v-once) {{$t('glasses')}}
+          .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
+            strong(v-once) {{$t('wheelchair')}}
+          .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
+            strong(v-once) {{$t('flower')}}
       .row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
           .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blackTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blackTopFrame"}')
@@ -135,6 +196,15 @@ b-modal#avatar-modal(title="", :hide-header='true', :hide-footer='true', :class=
           .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
           .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
           .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
+        #animal-ears.col-12.customize-options(v-if='editing')
+          .option(v-for='option in animalEars',
+            :class='{active: option.active, locked: option.locked}')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options.weelchairs
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
@@ -155,6 +225,52 @@ b-modal#avatar-modal(title="", :hide-header='true', :hide-footer='true', :class=
             popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
+    #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.col-12.text-center.set-title
+        strong {{backgroundShopSets[0].text}}
+      .row.incentive-background-row
+        .col-2(v-for='bg in backgroundShopSets[0].items',
+            @click='buy("background." + bg.key)',
+            :popover-title='bg.text',
+            :popover='bg.notes',
+            popover-trigger='mouseenter')
+            .incentive-background(:class='[`background_${bg.key}`]')
+              .small-rectangle
+      .row.sub-menu.col-6.offset-3
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
+            strong(v-once) 2017
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+            strong(v-once) 2016
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+            strong(v-once) 2015
+          .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+            strong(v-once) 2014
+      .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
+        .col-12.row(v-for='set in sets', v-if='activeSubPage === key')
+          .col-6.offset-3.text-center.set-title
+            strong {{set.text}}
+          .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+          .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
+            @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
+            :popover-title='bg.text',
+            :popover='bg.notes',
+            popover-trigger='mouseenter')
+            .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
+            i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
+            .purchase-single(v-if='!user.purchased.background[bg.key]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 7
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
+              @click.prevent.stop="togglePinned(bg)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
+          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
+            .gem-amount
+              .svg-icon.gem(v-html='icons.gem')
+              span 15
+            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
