@@ -4,7 +4,11 @@ require('babel-polyfill');
 
 import Vue from 'vue';
 import AppComponent from './app';
-import { setup as setupAnalytics } from 'client/libs/analytics';
+import {
+  setup as setupAnalytics,
+  load as loadAnalytics,
+} from 'client/libs/analytics';
+import { setup as setupPayments } from 'client/libs/payments';
 import router from './router';
 import getStore from './store';
 import StoreModule from './libs/store';
@@ -27,11 +31,17 @@ Vue.config.productionTip = IS_PRODUCTION;
 Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
 
-setupAnalytics();
+setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
+const store = getStore();
 
 export default new Vue({
   el: '#app',
   router,
-  store: getStore(),
+  store,
   render: h => h(AppComponent),
+  mounted () {
+    // Load external scripts
+    setupPayments();
+    loadAnalytics();
+  },
 });
