@@ -1,16 +1,7 @@
 <template lang="pug">
-  form(
-    v-if="task",
-    @submit.stop.prevent="submit()",
-  )
-    b-modal#task-modal(
-      size="sm",
-      @hidden="onClose()",
-    )
-      .task-modal-header(
-        slot="modal-header",
-        :class="[cssClass]",
-      )
+  form(v-if="task", @submit.stop.prevent="submit()")
+    b-modal#task-modal(size="sm", @hidden="onClose()")
+      .task-modal-header(slot="modal-header", :class="[cssClass]")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -27,7 +18,7 @@
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
           .svg-icon.gold(v-html="icons.gold")
-        .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
+        .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
           div(v-sortable='', @onsort='sortedChecklist')
@@ -489,6 +480,13 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    checklistEnabled () {
+      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+    },
+    isOriginalChallengeTask () {
+      let isUserChallenge = Boolean(this.task.userId);
+      return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
+    },
     canDelete () {
       let isUserChallenge = Boolean(this.task.userId);
       let activeChallenge = isUserChallenge && this.task.challenge && !this.task.challenge.broken;
