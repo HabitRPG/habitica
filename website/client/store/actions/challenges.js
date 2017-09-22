@@ -17,10 +17,14 @@ export async function joinChallenge (store, payload) {
 }
 
 export async function leaveChallenge (store, payload) {
-  let response = await axios.post(`/api/v3/challenges/${payload.challengeId}/leave`, {
-    data: {
-      keep: payload.keep,
-    },
+  let url = `/api/v3/challenges/${payload.challengeId}/leave`;
+
+  if (payload.keep) {
+    url += `?keep=${payload.keep}`;
+  }
+
+  let response = await axios.post(url, {
+    keep: payload.keep,
   });
 
   return response.data.data;
