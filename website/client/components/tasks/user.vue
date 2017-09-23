@@ -135,7 +135,7 @@
       }
   }
 
-  .dropdown-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
     color: #4f2a93;
   }
 
