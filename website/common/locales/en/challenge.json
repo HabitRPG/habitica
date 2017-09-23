@@ -123,5 +123,6 @@
   "summaryTooLong": "Summary is too long",
   "descriptionRequired": "Description is required",
   "locationRequired": "Location of challenge is required ('Add to')",
-  "categoiresRequired": "One or more categories must be selected"
+  "categoiresRequired": "One or more categories must be selected",
+  "viewProgressOf": "View Progress Of"
 }

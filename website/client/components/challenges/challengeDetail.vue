@@ -28,13 +28,27 @@
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
-    .row(v-if='isLeader')
-      .col-6.offset-6
-        span
-          strong View Progress Of
+    .row.leader-actions(v-if='isLeader')
+      .col-7.offset-5
+        span.view-progress
+          strong {{ $t('viewProgressOf') }}
         b-dropdown.create-dropdown(text="Select a Participant")
           b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
+        span(v-if='isLeader')
+          b-dropdown.create-dropdown(:text="$t('create')", :variant="'success'")
+            b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
+              | {{$t(type)}}
+          task-modal(
+            :task="workingTask",
+            :purpose="taskFormPurpose",
+            @cancel="cancelTaskModal()",
+            ref="taskModal",
+            :challengeId="challengeId",
+            v-on:taskCreated='taskCreated',
+            v-on:taskEdited='taskEdited',
+            @taskDestroyed='taskDestroyed'
+          )
 
     .row
       task-column.col-6(
@@ -50,20 +64,6 @@
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
-      div(v-if='isLeader')
-        b-dropdown.create-dropdown(:text="$t('create')")
-          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-            | {{$t(type)}}
-        task-modal(
-          :task="workingTask",
-          :purpose="taskFormPurpose",
-          @cancel="cancelTaskModal()",
-          ref="taskModal",
-          :challengeId="challengeId",
-          v-on:taskCreated='taskCreated',
-          v-on:taskEdited='taskEdited',
-          @taskDestroyed='taskDestroyed'
-        )
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
@@ -154,6 +154,14 @@
 
   .description-section {
     margin-top: 2em;
+  }
+
+  .leader-actions {
+    margin-top: 1em;
+
+    .view-progress {
+      margin-right: .5em;
+    }
   }
 </style>
 
