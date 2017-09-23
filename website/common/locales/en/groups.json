@@ -382,5 +382,6 @@
   "questOwnerRewards": "Quest Owner Rewards",
   "updateParty": "Update Party",
   "upgrade": "Upgrade",
-  "selectPartyMember": "Select a Party Member"
+  "selectPartyMember": "Select a Party Member",
+  "areYouSureDeleteMessage": "Are you sure you want to delete this message?"
 }

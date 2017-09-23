@@ -19,7 +19,7 @@
           @click.native="showMemberModal(msg.uuid)",
         )
       .card.col-10
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
@@ -374,6 +374,8 @@ export default {
       this.$root.$emit('show::modal', 'report-flag');
     },
     async remove (message, index) {
+      if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
+
       this.chat.splice(index, 1);
 
       if (this.inbox) {
