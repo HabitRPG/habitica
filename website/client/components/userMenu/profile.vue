@@ -660,6 +660,7 @@ export default {
 
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
+      this.editingProfile.blurb = user.profile.blurb;
 
       if (!user.achievements.quests) user.achievements.quests = {};
       if (!user.achievements.challenges) user.achievements.challenges = {};
