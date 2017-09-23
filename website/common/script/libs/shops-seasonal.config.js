@@ -22,7 +22,7 @@ module.exports = {
   },
 
   availableSpells: [
-    'spookySparkles',
+    // 'spookySparkles',
   ],
 
   availableQuests: [
