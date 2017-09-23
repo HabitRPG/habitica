@@ -132,6 +132,9 @@ export default {
 
       this.text(this.$t(invitationString));
 
+      this.invitees = [];
+      this.emails = [];
+
       // @TODO: This function didn't make it over this.resetInvitees();
 
       // @TODO: Sync group invites?
@@ -140,7 +143,7 @@ export default {
       // } else {
       //   this.$router.push(`/groups/guilds/${this.group._id}`);
       // }
-      this.$root.$emit('hide:modal', 'invite-modal');
+      this.$root.$emit('hide::modal', 'invite-modal');
       // @TODO: error?
       // _resetInvitees();
     },
