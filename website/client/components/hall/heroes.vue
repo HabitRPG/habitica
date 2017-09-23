@@ -185,8 +185,9 @@ export default {
       window.scrollTo(0, 200);
       this.loadHero(id, index);
     },
-    clickMember (hero) {
-      this.$store.state.profileUser = hero;
+    async clickMember (hero) {
+      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: hero._id });
+      this.$store.state.profileUser = heroDetails.data.data;
       this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
