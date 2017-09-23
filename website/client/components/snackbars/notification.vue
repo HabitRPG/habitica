@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show')
+  .notification.callout.animated(:class="classes", v-if='show', @click='show = false')
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
