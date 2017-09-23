@@ -54,7 +54,13 @@ export default function () {
     state: {
       title: 'Habitica',
       isUserLoggedIn,
+      isUserLoaded: false, // Means the user and the user's tasks are ready
+      isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      credentials: AUTH_SETTINGS ? {
+        API_ID: AUTH_SETTINGS.auth.apiId,
+        API_TOKEN: AUTH_SETTINGS.auth.apiToken,
+      } : {},
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue
@@ -90,9 +96,9 @@ export default function () {
         cloning: false,
         tasksToClone: {},
       },
-      editingGroup: {}, // TODO move to local state
+      editingGroup: {}, // @TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
-      // TODO apply freezing to the entire codebase (the server) and not only to the client side?
+      // @TODO apply freezing to the entire codebase (the server) and not only to the client side?
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
@@ -104,6 +110,7 @@ export default function () {
       memberModalOptions: {
         viewingMembers: [],
         groupId: '',
+        challengeId: '',
         group: {},
       },
       openedItemRows: [],
@@ -122,6 +129,7 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       afterLoginRedirect: '',
+      userIdToMessage: '',
     },
   });
 

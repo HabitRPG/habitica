@@ -70,8 +70,6 @@ import { mapState } from 'client/libs/store';
 import uuid from '../../../common/script/libs/uuid';
 // @TODO: env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
-let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
 
 export default {
   data () {
@@ -83,9 +81,9 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     apiToken () {
-      return AUTH_SETTINGS.auth.apiToken;
+      return this.credentials.API_TOKEN;
     },
   },
   methods: {

@@ -74,7 +74,7 @@
 
   "ian": "Ian",
   "ianText": "Welcome to the Quest Shop! Here you can use Quest Scrolls to battle monsters with your friends. Be sure to check out our fine array of Quest Scrolls for purchase on the right!",
-  "ianTextMobile": "Welcome to the Quest Shop! Be sure to check out our fine array of Quest Scrolls for purchase!",
+  "ianTextMobile": "Can I interest you in some quest scrolls? Activate them to battle monsters with your Party!",
   "ianBrokenText": "Welcome to the Quest Shop... Here you can use Quest Scrolls to battle monsters with your friends... Be sure to check out our fine array of Quest Scrolls for purchase on the right...",
   "featuredQuests": "Featured Quests!",
 
@@ -174,5 +174,7 @@
   "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
   "welcome4": "Avoid bad habits that drain Health (HP), or your avatar will die!",
   "welcome5": "Now you'll customize your avatar and set up your tasks...",
-  "imReady": "Enter Habitica"
+  "imReady": "Enter Habitica",
+
+  "limitedOffer": "Available until <%= date %>"
 }

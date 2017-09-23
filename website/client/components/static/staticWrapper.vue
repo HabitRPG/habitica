@@ -1,16 +1,63 @@
 <template lang='pug'>
   div
-    static-header
+    static-header(:class='{"home-header": $route.name === "home"}')
 
     .static-wrapper
       router-view
 
     #purple-footer
       app-footer
+
+    #bottom-wrap.purple-4
+      #bottom-background
+        .seamless_mountains_demo_repeat
+        .midground_foreground_extended2
 </template>
 
 <style lang='scss'>
+  .home-header {
+    background: #6133b4 !important;
+    position: static;
+    box-shadow: none !important;
+    height: 100px !important;
+    padding-left: 5em !important;
+    padding-right: 5em !important;
+
+    .logo.svg-icon {
+      width: 200px !important;
+    }
+
+    .nav-item a {
+      font-size: 14px !important;
+      color: #d5c8ff !important;
+      padding-top: 2.8em !important;
+    }
+
+    .nav-item a:hover {
+      background: transparent !important;
+      color: #fff !important;
+    }
+
+    .login-button {
+      padding-right: 1em;
+      margin-top: 1.8em !important;
+      border-radius: 2px;
+      background-color: #b288ff;
+    }
+
+    .login-button:hover {
+      background-color: #b288ff;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
+    }
+  }
+</style>
+
+<style lang='scss'>
   @import '~client/assets/scss/colors.scss';
+
+  .purple-4 {
+    background-color: #271b3d;
+  }
 
   #purple-footer {
     background-color: #271b3d;
@@ -31,6 +78,33 @@
       .svg-icon {
         color: #bda8ff;
       }
+    }
+  }
+
+  #bottom-wrap {
+    padding-top: 10em;
+  }
+
+  #bottom-background {
+    position: relative;
+
+    .seamless_mountains_demo_repeat {
+      background-image: url('~assets/images/auth/seamless_mountains_demo.png');
+      background-repeat: repeat-x;
+      width: 100%;
+      height: 500px;
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+    }
+
+    .midground_foreground_extended2 {
+      background-image: url('~assets/images/auth/midground_foreground_extended2.png');
+      position: relative;
+      width: 1500px;
+      max-width: 100%;
+      height: 150px;
+      margin: 0 auto;
     }
   }
 

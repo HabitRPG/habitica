@@ -332,6 +332,9 @@ export default {
       }
     }, 1000),
     scheduleNextCron () {
+      // Reset the yesterDailies array
+      this.yesterDailies = [];
+
       // Open yesterdailies modal the next time cron runs
       const dayStart = this.user.preferences.dayStart;
       let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
@@ -391,7 +394,6 @@ export default {
       this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
     },
-
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
       this.user.groupNotifications.push(notification);

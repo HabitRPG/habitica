@@ -1,33 +1,56 @@
 import content from '../content/index';
 import getItemInfo from '../libs/getItemInfo';
-import get from 'lodash/get';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
-
 import isPinned from '../libs/isPinned';
+import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-const officialPinnedItems = content.officialPinnedItems;
+import get from 'lodash/get';
+import each from 'lodash/each';
+import sortBy from 'lodash/sortBy';
+import lodashFind from 'lodash/find';
+import reduce from 'lodash/reduce';
 
-import updateStore from '../libs/updateStore';
+let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
+  accumulator[val] = key;
+  return accumulator;
+}, {});
+
+function selectGearToPin (user) {
+  let changes = [];
+
+  each(content.gearTypes, (type) => {
+    let found = lodashFind(content.gear.tree[type][user.stats.class], (item) => {
+      return !user.items.gear.owned[item.key];
+    });
+
+    if (found) changes.push(found);
+  });
+
+  return sortBy(changes, (change) => sortOrder[change.type]);
+}
+
+
+function addPinnedGear (user, type, path) {
+  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
+    return pinnedItem.path === path;
+  });
+
+  if (foundIndex === -1) {
+    user.pinnedItems.push({
+      type,
+      path,
+    });
+  }
+}
 
 function addPinnedGearByClass (user) {
-  if (user.flags.classSelected) {
-    let newPinnedItems = updateStore(user);
+  let newPinnedItems = selectGearToPin(user);
 
-    for (let item of newPinnedItems) {
-      let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (let item of newPinnedItems) {
+    let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-        return pinnedItem.path === itemInfo.path;
-      });
-
-      if (foundIndex === -1) {
-        user.pinnedItems.push({
-          type: 'marketGear',
-          path: itemInfo.path,
-        });
-      }
-    }
+    addPinnedGear(user, itemInfo.pinType, itemInfo.path);
   }
 }
 
@@ -45,19 +68,17 @@ function removeItemByPath (user, path) {
 }
 
 function removePinnedGearByClass (user) {
-  if (user.flags.classSelected) {
-    let currentPinnedItems = updateStore(user);
+  let currentPinnedItems = selectGearToPin(user);
 
-    for (let item of currentPinnedItems) {
-      let itemInfo = getItemInfo(user, 'marketGear', item);
+  for (let item of currentPinnedItems) {
+    let itemInfo = getItemInfo(user, 'marketGear', item);
 
-      removeItemByPath(user, itemInfo.path);
-    }
+    removeItemByPath(user, itemInfo.path);
   }
 }
 
 function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
-  let currentPinnedItems = updateStore(user);
+  let currentPinnedItems = selectGearToPin(user);
   let removeAndAddAllItems = false;
 
   for (let item of currentPinnedItems) {
@@ -99,6 +120,8 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 
+  let officialPinnedItems = getOfficialPinnedItems(user);
+
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
     return officialPinnedItem.path === path;
   }) !== undefined;
@@ -124,6 +147,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
 
 module.exports = {
   addPinnedGearByClass,
+  addPinnedGear,
   removePinnedGearByClass,
   removePinnedGearAddPossibleNewOnes,
   togglePinnedItem,

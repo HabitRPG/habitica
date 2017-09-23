@@ -1,4 +1,5 @@
 <template lang="pug">
+// @TODO: Move this to a member directory
 div
   b-modal#members-modal(:title="$t('createGuild')", size='md')
     .header-wrap(slot="modal-header")
@@ -41,6 +42,9 @@ div
             span.dropdown-icon-item
               .svg-icon.inline(v-html="icons.removeIcon")
               span.text {{$t('removeManager2')}}
+    .row(v-if='groupId === "challenge"')
+      .col-12.text-center
+        button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
     .row.gradient(v-if='members.length > 3')
 </template>
 
@@ -203,6 +207,9 @@ export default {
     groupId () {
       return this.$store.state.memberModalOptions.groupId || this.group._id;
     },
+    challengeId () {
+      return this.$store.state.memberModalOptions.challengeId;
+    },
     sortedMembers () {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
@@ -234,7 +241,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     async getMembers () {
@@ -311,6 +318,17 @@ export default {
     },
     sort (option) {
       this.sortOption = option;
+    },
+    async loadMoreMembers () {
+      const lastMember = this.members[this.members.length - 1];
+      if (!lastMember) return;
+
+      let newMembers = await this.$store.dispatch('members:getChallengeMembers', {
+        challengeId: this.challengeId,
+        lastMemberId: lastMember._id,
+      });
+
+      this.members = this.members.concat(newMembers);
     },
   },
 };

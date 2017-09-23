@@ -588,6 +588,7 @@ export default {
 
     if (this.user.newMessages[this.searchId]) {
       this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
+      this.$delete(this.user.newMessages, this.searchId);
     }
   },
   beforeRouteUpdate (to, from, next) {

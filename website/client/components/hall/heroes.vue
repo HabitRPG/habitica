@@ -14,7 +14,7 @@
 
       .row
         .form.col-6(v-if='hero && hero.profile', submit='saveHero(hero)')
-          a(@click='clickMember(hero._id, true)')
+          a(@click='clickMember(hero, true)')
             h3 {{hero.profile.name}}
           .form-group
             input.form-control(type='text', v-model='hero.contributor.text', :placeholder="$t('contribTitle')")
@@ -82,11 +82,11 @@
             tr(v-for='(hero, index) in heroes')
               td
                 span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                  a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero._id, true)')
+                  a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero, true)')
                     | {{hero.profile.name}}&nbsp;
                     //- span(v-class='userAdminGlyphiconStyle(hero)')
                 span(v-if='!hero.contributor || !hero.contributor.admin')
-                  a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero._id, true)') {{hero.profile.name}}
+                  a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero, true)') {{hero.profile.name}}
               td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
               td {{hero.contributor.level}}
               td {{hero.contributor.text}}
@@ -185,8 +185,10 @@ export default {
       window.scrollTo(0, 200);
       this.loadHero(id, index);
     },
-    clickMember () {
-      // @TODO: implement
+    clickMember (hero) {
+      this.$store.state.profileUser = hero;
+      this.$store.state.profileOptions.startingPage = 'profile';
+      this.$root.$emit('show::modal', 'profile');
     },
     userLevelStyle () {
       // @TODO: implement

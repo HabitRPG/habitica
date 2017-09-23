@@ -9,17 +9,16 @@
       .container-fluid
         app-header
         buyModal(
-          :item="selectedItemToBuy",
-          :withPin="false",
+          :item="selectedItemToBuy || {}",
+          :withPin="true",
           @change="resetItemToBuy($event)",
           @buyPressed="customPurchase($event)",
           :genericPurchase="genericPurchase(selectedItemToBuy)",
 
         )
         selectMembersModal(
-          :item="selectedCardToBuy",
+          :item="selectedSpellToBuy || {}",
           :group="user.party",
-          @change="resetCardToBuy($event)",
           @memberSelected="memberSelected($event)",
         )
 
@@ -75,6 +74,7 @@ import * as Analytics from 'client/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
+import { setup as setupPayments } from 'client/libs/payments';
 
 export default {
   mixins: [notifications],
@@ -90,9 +90,8 @@ export default {
   },
   data () {
     return {
-      isUserLoaded: false,
       selectedItemToBuy: null,
-      selectedCardToBuy: null,
+      selectedSpellToBuy: null,
 
       sound: {
         oggSource: '',
@@ -101,7 +100,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
@@ -128,6 +127,12 @@ export default {
 
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
+      this.$root.$emit('show::modal', 'buy-modal');
+    });
+
+    this.$root.$on('selectMembersModal::showItem', (item) => {
+      this.selectedSpellToBuy = item;
+      this.$root.$emit('show::modal', 'select-member-modal');
     });
 
     // @TODO split up this file, it's too big
@@ -194,7 +199,7 @@ export default {
         this.$store.dispatch('user:fetch'),
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
-        this.isUserLoaded = true;
+        this.$store.state.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
 
@@ -206,6 +211,12 @@ export default {
             'preferences.timezoneOffset': this.browserTimezoneOffset,
           });
         }
+
+        this.$nextTick(() => {
+          // Load external scripts after the app has been rendered
+          setupPayments();
+          Analytics.load();
+        });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
@@ -266,11 +277,6 @@ export default {
         this.selectedItemToBuy = null;
       }
     },
-    resetCardToBuy ($event) {
-      if (!$event) {
-        this.selectedCardToBuy = null;
-      }
-    },
     itemSelected (item) {
       this.selectedItemToBuy = item;
     },
@@ -286,15 +292,20 @@ export default {
     customPurchase (item) {
       if (item.purchaseType === 'card') {
         if (this.user.party._id) {
-          this.selectedCardToBuy = item;
+          this.selectedSpellToBuy = item;
+
+          this.$root.$emit('hide::modal', 'buy-modal');
+          this.$root.$emit('show::modal', 'select-member-modal');
         } else {
           this.error(this.$t('errorNotInParty'));
         }
       }
     },
     memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-      this.selectedCardToBuy = null;
+      this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+      this.selectedSpellToBuy = null;
+
+      this.$root.$emit('hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
       const loadingScreen = document.getElementById('loading-screen');

@@ -364,6 +364,7 @@ export default {
       this.$root.$emit('show::modal', 'avatar-modal');
     },
     showProfile (startingPage) {
+      this.$store.state.profileUser = this.user;
       this.$store.state.profileOptions.startingPage = startingPage;
       this.$root.$emit('show::modal', 'profile');
     },

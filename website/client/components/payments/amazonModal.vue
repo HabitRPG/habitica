@@ -19,7 +19,6 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
-
 import bModal from 'bootstrap-vue/lib/components/modal';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
@@ -32,7 +31,7 @@ export default {
   data () {
     return {
       OffAmazonPayments: {},
-      isAmazonReady: false,
+      isAmazonSetup: false,
       amazonButtonEnabled: false,
       amazonPaymentsbillingAgreementId: '',
       amazonPaymentspaymentSelected: false,
@@ -41,19 +40,22 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    ...mapState(['isAmazonReady']),
   },
   mounted () {
-    window.onAmazonLoginReady = () => {
-      window.amazon.Login.setClientId(AMAZON_PAYMENTS.CLIENT_ID);
-    };
+    if (this.isAmazonReady) return this.setupAmazon();
 
-    this.OffAmazonPayments = window.OffAmazonPayments;
-    this.isAmazonReady = true;
-    this.showButton();
-    // window.onAmazonPaymentsReady = () => {
-    // };
+    this.$store.watch(state => state.isAmazonReady, (isAmazonReady) => {
+      if (isAmazonReady) return this.setupAmazon();
+    });
   },
   methods: {
+    setupAmazon () {
+      if (this.isAmazonSetup) return false;
+      this.isAmazonSetup = true;
+      this.OffAmazonPayments = window.OffAmazonPayments;
+      this.showButton();
+    },
     showButton () {
       // @TODO: prevent modal close form clicking outside
       let amazonButton = this.OffAmazonPayments.Button( // eslint-disable-line

@@ -298,7 +298,7 @@
     "questMonkeyDropMonkeyEgg": "Affe (Ei)",
     "questMonkeyUnlockText": "Ermöglicht den Kauf von Affeneiern auf dem Marktplatz",
     "questSnailText": "Die Schnecke der Schlamm-Schinderei",
-    "questSnailNotes": "Du freust Dich, Deinen Quest in den verlassenen Schindereiverliesen zu beginnen, aber kaum, dass Du die Verliese betrittst, fühlst Du wie der Grund unter Dir an Deinen Stiefeln zu saugen beginnt. Du betrachtest den Pfad vor Dir und siehst in Schleim versunkene Habiticaner. @Overomega brüllt, \"Sie haben zu viele unwichtige Aufgaben, und sie bleiben an Dingen hängen, die unbedeutend sind! Zieh sie raus! <br><br>\"Du musst die Quelle des Schlamms finden,\" stimmt @Pfeffernusse zu, \"oder die nicht erfüllbaren Aufgaben ziehen sie ewig hinunter!\"<br><br>Deine Waffe ziehend watest Du durch den zählen Schlamm ... und triffst auf die fürchterliche Schnecke der Schlamm-Schinderei.",
+    "questSnailNotes": "Du freust Dich, Deine Quest in den verlassenen Schindereiverliesen zu beginnen, aber kaum, dass Du die Verliese betrittst, fühlst Du wie der Grund unter Dir an Deinen Stiefeln zu saugen beginnt. Du betrachtest den Pfad vor Dir und siehst in Schleim versunkene Habiticaner. @Overomega brüllt, \"Sie haben zu viele unwichtige Aufgaben, und sie bleiben an Dingen hängen, die unbedeutend sind! Zieh sie raus! <br><br>\"Du musst die Quelle des Schlamms finden,\" stimmt @Pfeffernusse zu, \"oder die nicht erfüllbaren Aufgaben ziehen sie ewig hinunter!\"<br><br>Deine Waffe ziehend watest Du durch den zählen Schlamm ... und triffst auf die fürchterliche Schnecke der Schlamm-Schinderei.",
     "questSnailCompletion": "Du lässt Deine Waffe auf den Schneckenpanzer niederfahren, wobei dieser in zwei Teile zerbricht und eine Flutwelle Wasser freigibt. Der Schleim wird weggespült und die Habiticaner um Dich herum jubeln. \"Sieh!\" sagt @Misceo. \"Dort liegen einige Schneckeneier in den Überresten des Unrats.\"",
     "questSnailBoss": "Schnecke der Schlamm-Schinderei",
     "questSnailDropSnailEgg": "Schnecke (Ei)",
@@ -503,6 +503,6 @@
     "questHippoBoss": "Das Heuchlerische Hippo",
     "questHippoDropHippoEgg": "Nilpferd (Ei)",
     "questHippoUnlockText": "Ermöglicht den Kauf von Nilpferdeiern auf dem Marktplatz",
-    "farmFriendsText": "Farm Friends Quest Bundle",
+    "farmFriendsText": "\"Farmfreunde\" Quest-Paket",
     "farmFriendsNotes": "Contains 'The Mootant Cow', 'Ride the Night-Mare', and 'The Thunder Ram'. Available until September 30."
 }

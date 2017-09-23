@@ -10,7 +10,7 @@
         h1 {{challenge.name}}
         div
           strong(v-once) {{$t('createdBy')}}:
-          span {{challenge.author}}
+          span {{challenge.leader.profile.name}}
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
@@ -42,10 +42,11 @@
         :type="column",
         :key="column",
         :taskListOverride='tasksByType[column]',
-        v-on:editTask="editTask")
+        v-on:editTask="editTask",
+        v-if='tasksByType[column].length > 0')
   .col-4.sidebar.standard-page
     .acitons
-      div(v-if='!isMember && !isLeader')
+      div(v-if='canJoin')
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
@@ -61,6 +62,7 @@
           :challengeId="challengeId",
           v-on:taskCreated='taskCreated',
           v-on:taskEdited='taskEdited',
+          @taskDestroyed='taskDestroyed'
         )
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
@@ -74,7 +76,7 @@
       h2 {{$t('challengeSummary')}}
       p {{challenge.summary}}
       h2 {{$t('challengeDescription')}}
-      p {{challenge.description}}
+      p(v-markdown='challenge.description')
 </template>
 
 <style lang='scss' scoped>
@@ -178,6 +180,7 @@ import { mapState } from 'client/libs/store';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
+import markdownDirective from 'client/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 
@@ -189,6 +192,9 @@ import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],
+  directives: {
+    markdown: markdownDirective,
+  },
   components: {
     closeChallengeModal,
     challengeModal,
@@ -231,6 +237,9 @@ export default {
     isLeader () {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
+    },
+    canJoin () {
+      return !this.isMember;
     },
   },
   mounted () {
@@ -327,7 +336,14 @@ export default {
       });
       this.tasksByType[task.type].splice(index, 1, task);
     },
+    taskDestroyed (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1);
+    },
     showMemberModal () {
+      this.$store.state.memberModalOptions.challengeId = this.challenge._id;
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
       this.$store.state.memberModalOptions.viewingMembers = this.members;

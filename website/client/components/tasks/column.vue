@@ -231,6 +231,8 @@ export default {
       activeFilter: types[this.type].filters.find(f => f.default === true),
       icons,
       openedCompletedTodos: false,
+
+      forceRefresh: new Date(),
     };
   },
   computed: {
@@ -245,6 +247,8 @@ export default {
       return this.tasks[`${this.type}s`];
     },
     inAppRewards () {
+      let watchRefresh = this.forceRefresh; // eslint-disable-line
+
       return inAppRewards(this.user);
     },
     hasRewardsList () {
@@ -269,6 +273,10 @@ export default {
   },
   mounted () {
     this.setColumnBackgroundVisibility();
+
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.forceRefresh = new Date();
+    });
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),

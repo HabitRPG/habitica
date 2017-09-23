@@ -39,7 +39,7 @@
     "manageSub": "Click to manage subscription",
     "cancelSub": "Cancel Subscription",
     "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
-    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple’s official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "canceledSubscription": "Canceled Subscription",
     "cancelingSubscription": "Canceling the subscription",
     "adminSub": "Administrator Subscriptions",
@@ -83,8 +83,8 @@
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> and <%= linkStartVicky %>Vicky<%= linkEnd %>",
     "timeTravelersTitle": "Mysterious Time Travelers",
     "timeTravelersPopoverNoSub": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! <%= linkStart %>Subscribers<%= linkEnd %> earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a rare pet, mount, or Subscriber Item Set from the past... or maybe even the future.",
-    "timeTravelersPopoverNoSubMobile": "You'll need a Mystic Hourglass to summon the mysterious Time Travelers! Subscribers earn one Mystic Hourglass for every three months of consecutive subscribing. Come back when you have a Mystic Hourglass, and the Time Travelers will fetch you a rare pet, mount, or Subscriber Item Set from the past... or maybe even the future.",
-    "timeTravelersPopover": "We see you have a Mystic Hourglass, so we will happily travel back in time for you! Please choose the pet, mount, or Mystery Item Set you would like. You can see a list of the past item sets <a href='http://habitica.wikia.com/wiki/Mystery_Item' target='_blank'>here</a>! If those don't satisfy you, perhaps you'd be interested in one of our fashionably futuristic Steampunk Item Sets?",
+    "timeTravelersPopoverNoSubMobile": "Looks like you’ll need a Mystic Hourglass to open the time portal and summon the Mysterious Time Travelers.",
+    "timeTravelersPopover": "Your Mystic Hourglass has opened our time portal! Choose what you’d like us to fetch from the past or future.",
     "timeTravelersAlreadyOwned": "Congratulations! You already own everything the Time Travelers currently offer. Thanks for supporting the site!",
     "mysticHourglassPopover": "A Mystic Hourglass allows you to purchase certain limited-time items, such as monthly Mystery Item Sets and awards from world bosses, from the past!",
     "mysterySetNotFound": "Mystery set not found, or set already owned.",
@@ -134,6 +134,7 @@
     "mysterySet201706": "Pirate Pioneer Set",
     "mysterySet201707": "Jellymancer Set",
     "mysterySet201708": "Lava Warrior Set",
+    "mysterySet201709": "Sorcery Student Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Accessories Set",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -198,5 +199,8 @@
     "subscriptionBenefit4": "Unique cosmetic items for your avatar each month.",
     "subscriptionBenefit5": "Receive the exclusive Royal Purple Jackalope pet!",
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
-    "haveCouponCode": "Do you have a coupon code?"
+    "haveCouponCode": "Do you have a coupon code?",
+    "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
+    "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
+    "purchaseAll": "Purchase All"
 }

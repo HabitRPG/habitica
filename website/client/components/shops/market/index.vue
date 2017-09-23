@@ -39,12 +39,12 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredItems') }}
+              span.text {{ market.featured.text }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in market.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -359,7 +359,6 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
@@ -375,7 +374,6 @@
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
@@ -383,7 +381,6 @@
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
-  import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
@@ -415,7 +412,6 @@ export default {
       bDropdownItem,
 
       SellModal,
-      BuyModal,
       EquipmentAttributesGrid,
       Avatar,
 
@@ -470,13 +466,13 @@ export default {
       marketGearCategories () {
         return shops.getMarketGearCategories(this.user);
       },
-      marketCategories () {
-        return shops.getMarketCategories(this.user);
+      market () {
+        return shops.getMarketShop(this.user);
       },
       categories () {
-        if (this.marketCategories) {
+        if (this.market) {
           let categories = [
-            ...this.marketCategories,
+            ...this.market.categories,
           ];
 
           categories.push({
@@ -563,15 +559,6 @@ export default {
             label: this.$t('special'),
           },
         ];
-      },
-
-      featuredItems () {
-        return featuredItems.market.map(i => {
-          let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = isPinned(this.user, newItem);
-
-          return newItem;
-        });
       },
     },
     methods: {

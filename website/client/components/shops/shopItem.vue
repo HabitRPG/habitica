@@ -1,12 +1,18 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
-      :class="{'item-empty': emptyItem, 'highlight-border': highlightBorder}",
-    )
+    .item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
+
+
+      span.badge.badge-pill.badge-item.badge-clock(
+        v-if="item.event && showEventBadge",
+      )
+        span.svg-icon.inline.clock(v-html="icons.clock")
+
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
+        span.suggestedDot(v-if="item.isSuggested")
 
         div.image
           div(:class="item.class", v-once)
@@ -31,6 +37,8 @@ div
         h4.popover-content-title(v-once) {{ item.text }}
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
+      div(v-if="item.event") {{ limitedString }}
+
 </template>
 
 <style lang="scss" scoped>
@@ -42,6 +50,10 @@ div
 
   .item {
     min-height: 106px;
+  }
+
+  .item:not(.locked) {
+    cursor: pointer;
   }
 
   .item.item-empty {
@@ -102,6 +114,34 @@ div
     top: 8px;
     margin-top: 0;
   }
+
+  span.badge.badge-pill.badge-item.badge-clock {
+    height: 24px;
+    width: 24px;
+    background-color: $purple-300;
+    position: absolute;
+    left: -8px;
+    top: -12px;
+    margin-top: 0;
+    padding: 4px;
+  }
+
+  span.svg-icon.inline.clock {
+    height: 16px;
+    width: 16px;
+  }
+
+  .suggestedDot {
+    width: 6px;
+    height: 6px;
+    background-color: $suggested-item-color;
+    border-radius: 4px;
+
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    margin-top: 0;
+  }
 </style>
 
 <script>
@@ -112,8 +152,13 @@ div
   import svgGold from 'assets/svg/gold.svg';
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgLock from 'assets/svg/lock.svg';
+  import svgClock from 'assets/svg/clock.svg';
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+
+  import moment from 'moment';
+
+  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
 
   export default {
     components: {
@@ -128,6 +173,7 @@ div
           gold: svgGold,
           lock: svgLock,
           hourglasses: svgHourglasses,
+          clock: svgClock,
         },
       });
     },
@@ -155,6 +201,10 @@ div
         type: Boolean,
         default: true,
       },
+      showEventBadge: {
+        type: Boolean,
+        default: true,
+      },
     },
     computed: {
       showNotes () {
@@ -167,6 +217,9 @@ div
           return 'gold';
         }
       },
+      limitedString () {
+        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+      },
     },
     methods: {
       click () {
@@ -178,6 +231,14 @@ div
         } else {
           return this.price;
         }
+      },
+      getItemClasses () {
+        return {
+          'item-empty': this.emptyItem,
+          'highlight-border': this.highlightBorder,
+          suggested: this.item.isSuggested,
+          locked: this.item.locked,
+        };
       },
     },
   };

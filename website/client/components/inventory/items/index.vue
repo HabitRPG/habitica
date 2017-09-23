@@ -139,16 +139,11 @@
       div.popover
         div.popover-content {{ $t('clickOnEggToHatch', {potionName: currentDraggingPotion.text }) }}
 
-  selectMembersModal(
-    :item="selectedSpell",
-    :group="user.party",
-    @change="resetSpell($event)",
-    @memberSelected="memberSelected($event)",
+  startQuestModal(
+    :group="user.party"
   )
 
-  startQuestModal(
-    group="user.party"
-  )
+  cards-modal(:card-options='cardOptions')
 </template>
 
 <style lang="scss" scoped>
@@ -171,6 +166,10 @@
       position: inherit;
       width: 180px;
     }
+
+    .popover-content {
+      color: white;
+    }
   }
 </style>
 
@@ -185,7 +184,7 @@ import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
 
-import SelectMembersModal from 'client/components/selectMembersModal';
+import cardsModal from './cards-modal';
 import HatchedPetDialog from '../stable/hatchedPetDialog';
 
 import startQuestModal from '../../groups/startQuestModal';
@@ -227,8 +226,8 @@ export default {
     bDropdownItem,
     HatchedPetDialog,
     CountBadge,
-    SelectMembersModal,
     startQuestModal,
+    cardsModal,
   },
   directives: {
     drag: DragDropDirective,
@@ -244,7 +243,10 @@ export default {
       currentDraggingPotion: null,
       potionClickMode: false,
       hatchedPet: null,
-      selectedSpell: null,
+      cardOptions: {
+        cardType: '',
+        messageOptions: 0,
+      },
     };
   },
   watch: {
@@ -263,7 +265,7 @@ export default {
 
       this.groups.forEach(group => {
         const groupKey = group.key;
-        group.quantity = 0; // reset the count
+        group.quantity = 0; // resetf the count
         let itemsArray = itemsByType[groupKey] = [];
         const contentItems = this.content[groupKey];
 
@@ -308,6 +310,19 @@ export default {
         });
       }
 
+      for (let type in this.content.cardTypes) {
+        let card = this.user.items.special[`${type}Received`] || [];
+        if (this.user.items.special[type] > 0 || card.length > 0) {
+          specialArray.push({
+            type: 'card',
+            key: type,
+            class: `inventory_special_${type}`,
+            text: this.$t('toAndFromCard', { toName: this.user.profile.name, fromName: card[0]}),
+            quantity: this.user.items.special[type],
+          });
+        }
+      }
+
       return itemsByType;
     },
   },
@@ -319,12 +334,10 @@ export default {
 
       return result;
     },
-
     hatchPet (potion, egg) {
       this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
       this.hatchedPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
     },
-
     onDragEnd () {
       this.currentDraggingPotion = null;
     },
@@ -337,7 +350,6 @@ export default {
 
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
-
     isHatchable (potion, eggKey) {
       if (potion === null)
         return false;
@@ -349,7 +361,6 @@ export default {
 
       return !this.userHasPet(potion.key, eggKey);
     },
-
     onDragOver ($event, egg) {
       if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
         $event.dropable = false;
@@ -359,9 +370,7 @@ export default {
       this.hatchPet(this.currentDraggingPotion, egg);
     },
     onDragLeave () {
-
     },
-
     onEggClicked ($event, egg) {
       if (this.currentDraggingPotion === null) {
         return;
@@ -374,7 +383,6 @@ export default {
       this.currentDraggingPotion = null;
       this.potionClickMode = false;
     },
-
     onPotionClicked ($event, potion) {
       if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
         this.currentDraggingPotion = potion;
@@ -388,12 +396,20 @@ export default {
         this.potionClickMode = false;
       }
     },
-
     closeHatchedPetDialog () {
       this.hatchedPet = null;
     },
 
     async itemClicked (groupKey, item) {
+      if (item.type && item.type === 'card') {
+        this.cardOptions = {
+          cardType: item.key,
+          messageOptions: this.content.cardTypes[item.key].messageOptions,
+        };
+        this.$root.$emit('show::modal', 'card');
+        return;
+      }
+
       if (groupKey === 'special') {
         if (item.key === 'timeTravelers') {
           this.$router.push({name: 'time'});
@@ -409,7 +425,7 @@ export default {
           item.quantity--;
           this.$forceUpdate();
         } else {
-          this.selectedSpell = item;
+          this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
         this.$root.$emit('show::modal', 'start-quest-modal');
@@ -425,17 +441,6 @@ export default {
       } else {
         lastMouseMoveEvent = $event;
       }
-    },
-
-    resetSpell ($event) {
-      if (!$event) {
-        this.selectedSpell = null;
-      }
-    },
-
-    memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedSpell.key, targetId: member.id});
-      this.selectedSpell = null;
     },
   },
 };
