@@ -403,7 +403,7 @@ export default {
         return;
       }
 
-      if (!this.workingGroup.categories || this.workingGroup.categories.length === 0) {
+      if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) {
         // @TODO: Add proper notifications
         alert('One or more categories must be selected');
         return;
