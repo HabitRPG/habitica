@@ -512,7 +512,7 @@ export default {
               text: this.$t('rebirthName'),
               notes: this.$t('rebirthPop'),
               currency: 'gems',
-              value: this.user.stats.lvl < 100 ? 6 : '',
+              value: this.user.stats.lvl < 100 ? 6 : 0,
             });
           }
 
