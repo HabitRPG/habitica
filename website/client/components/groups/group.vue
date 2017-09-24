@@ -124,7 +124,7 @@
                         | Rage {{questData.boss.rage.value}}
             button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
 
-    .section-header
+    .section-header(v-if='!isParty')
       .row
         .col-10
           h3(v-once) {{ $t('guildSummary') }}
