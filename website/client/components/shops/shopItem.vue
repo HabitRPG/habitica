@@ -35,6 +35,9 @@ div
         v-if="item.purchaseType==='gear'",
         :item="item"
       )
+      div.questPopover(v-else-if="item.purchaseType === 'quests'")
+        h4.popover-content-title {{ item.text }}
+        questInfo(:quest="item")
       div(v-else)
         h4.popover-content-title(v-once) {{ item.text }}
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
@@ -163,6 +166,8 @@ div
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
+  import QuestInfo from './quests/questInfo.vue';
+
   import moment from 'moment';
 
   import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
@@ -171,6 +176,7 @@ div
     components: {
       bPopover,
       EquipmentAttributesPopover,
+      QuestInfo,
     },
     data () {
       return Object.freeze({
