@@ -113,7 +113,7 @@
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
                       // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
-                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
+                      span.float-right {{parseFloat(user.party.quest.progress.up).toFixed(1) || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
