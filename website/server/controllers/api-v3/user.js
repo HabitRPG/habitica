@@ -2050,4 +2050,35 @@ api.togglePinnedItem = {
   },
 };
 
+/**
+ * @api {post} /api/v3/user/manual-timezone Set preferences.manualTimezoneId for user
+ * @apiName setCustomDayStart
+ * @apiGroup User
+ *
+ *
+ * @apiParam (Body) {number} id The ID for the timezone
+ *
+ * @apiParamExample {json} Request-Example:
+ * {"id":-1}
+ *
+ * @apiSuccess {Object} data An empty Object
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{},"notifications":[]}
+ */
+api.setManualTimezone = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/manual-timezone',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    user.preferences.manualTimezoneId = req.body.id;
+
+    await user.save();
+
+    res.respond(200, {});
+  },
+};
+
 module.exports = api;

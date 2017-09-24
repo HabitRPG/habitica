@@ -104,9 +104,21 @@
         h5 {{ $t('timezone') }}
         .form-horizontal
           .form-group
-            .col-12
-              p(v-html="$t('timezoneUTC', {utc: timezoneOffsetToUtc})")
+            .col-12(v-if='selectedTimezoneMatchesSystem')
+              p(v-html="$t('timezoneUTC', {utc: systemTimezoneUtc})")
               p(v-html="$t('timezoneInfo')")
+            .col-12(v-else)
+              p
+                strong(v-html="$t('timezoneMismatch', { selected: selectedTimezoneUtc, system: systemTimezoneUtc})")
+
+            .col-7
+              select.form-control(v-model='selectedTimezoneId')
+                option(v-for='timezone in availableTimezones' :value='timezone.id') {{ timezone.title }}
+
+            .col-5
+              button.btn.btn-block.btn-primary(@click='saveManualTimezone',
+                :disabled='selectedTimezoneId === user.preferences.manualTimezoneId')
+                | {{ $t('timezoneSave') }}
 
     .col-6
       h2 {{ $t('registration') }}
@@ -195,12 +207,15 @@ import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
-import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
-import changeClass from  '../../../common/script/ops/changeClass';
+import { SUPPORTED_SOCIAL_NETWORKS, AVAILABLE_TIMEZONES } from 'common/script/constants';
+import changeClass from  'common/script/ops/changeClass';
+import i18n from 'common/script/i18n';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   components: {
     restoreModal,
     resetModal,
@@ -231,6 +246,7 @@ export default {
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
+      selectedTimezoneId: 0,
     };
   },
   mounted () {
@@ -238,6 +254,7 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    this.selectedTimezoneId = this.user.preferences.manualTimezoneId;
   },
   computed: {
     ...mapState({
@@ -248,21 +265,29 @@ export default {
     availableAudioThemes () {
       return ['off', ...this.content.audioThemes];
     },
-    timezoneOffsetToUtc () {
-      let offset = this.user.preferences.timezoneOffset;
-      let sign = offset > 0 ? '-' : '+';
-
-      offset = Math.abs(offset) / 60;
-
-      let hour = Math.floor(offset);
-
-      let minutesInt = (offset - hour) * 60;
-      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
-
-      return `UTC${sign}${hour}:${minutes}`;
-    },
     dayStart () {
       return this.user.preferences.dayStart;
+    },
+    availableTimezones () {
+      let systemTimezone = {
+        id: -1,
+        title: i18n.t('timezoneSystem', { utc: this.systemTimezoneUtc }),
+        offset: this.user.preferences.timezoneOffset,
+      };
+
+      return [systemTimezone, ...AVAILABLE_TIMEZONES];
+    },
+    selectedTimezone () {
+      return this.findTimezoneById(this.selectedTimezoneId);
+    },
+    selectedTimezoneMatchesSystem () {
+      return this.selectedTimezone.offset === this.user.preferences.timezoneOffset;
+    },
+    systemTimezoneUtc () {
+      return this.timezoneOffsetToUtc(this.user.preferences.timezoneOffset);
+    },
+    selectedTimezoneUtc () {
+      return this.timezoneOffsetToUtc(this.selectedTimezone.offset);
     },
   },
   methods: {
@@ -379,6 +404,32 @@ export default {
       } catch (e) {
         alert(e.message);
       }
+    },
+    async saveManualTimezone () {
+      await axios.post('/api/v3/user/manual-timezone', {
+        id: this.selectedTimezoneId,
+      }).then(() => {
+        this.notification(i18n.t('timezoneSaved'));
+        this.user.preferences.manualTimezoneId = this.selectedTimezoneId;
+      });
+    },
+    findTimezoneById (id) {
+      return this.availableTimezones.find((timezone) => id === timezone.id);
+    },
+    timezoneOffsetToUtc (offset) {
+      let sign = offset > 0 ? '-' : '+';
+
+      offset = Math.abs(offset) / 60;
+
+      let hour = Math.floor(offset);
+
+      let minutesInt = (offset - hour) * 60;
+      let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
+
+      return `UTC${sign}${hour}:${minutes}`;
+    },
+    notification (text) {
+      this.text(text);
     },
   },
 };
