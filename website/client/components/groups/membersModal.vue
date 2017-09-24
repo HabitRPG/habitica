@@ -227,7 +227,7 @@ export default {
         }
       }]);
 
-      return this.members;
+      return sortedMembers;
     },
   },
   watch: {
