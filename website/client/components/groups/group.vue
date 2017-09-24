@@ -78,7 +78,7 @@
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
-            button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
+            button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           h2 Pending quest
           button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
@@ -122,7 +122,7 @@
                     .col-6
                       span.float-left
                         | Rage {{questData.boss.rage.value}}
-            button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
+            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
 
     .section-header
       .row
