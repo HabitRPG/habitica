@@ -10,7 +10,7 @@
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-2
+      div(:class='inbox ? "col-4" : "col-2"')
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
@@ -18,7 +18,7 @@
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
         )
-      .card.col-10
+      .card(:class='inbox ? "col-8" : "col-10"')
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -49,7 +49,7 @@
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
     // to the right if the user is the author?
     .row(v-if='user._id === msg.uuid')
-      .card.col-10
+      .card(:class='inbox ? "col-8" : "col-10"')
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -77,7 +77,7 @@
             span.action.float-right.liked(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-2
+      div(:class='inbox ? "col-4" : "col-2"')
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
@@ -182,6 +182,7 @@
   .text {
     font-size: 14px;
     color: #4e4a57;
+    text-align: left !important;
   }
 
   .action {
@@ -399,6 +400,7 @@ export default {
 
       if (this.inbox) {
         axios.delete(`/api/v3/user/messages/${message.id}`);
+        this.$delete(this.user.inbox.messages, message.id);
         return;
       }
 
