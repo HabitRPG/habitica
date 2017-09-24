@@ -27,7 +27,7 @@ div
         span.small-text(v-html="$t('inviteFriendsParty')")
         br
         // TODO link to party creation or party page if partying solo
-        button.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
+        button.btn.btn-primary(@click='openPartyModal()') {{ partyMembers && partyMembers.length > 1 ? $t('startAParty') : $t('inviteFriends') }}
 </template>
 
 <style lang="scss" scoped>
