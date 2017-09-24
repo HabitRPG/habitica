@@ -75,7 +75,8 @@ div
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
           a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'subscription'}") {{ $t('subscription') }}
           a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
           li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
             .dropdown-item.text-center
