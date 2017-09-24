@@ -229,6 +229,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -300,7 +301,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
 
@@ -328,7 +329,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
