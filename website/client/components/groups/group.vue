@@ -752,6 +752,7 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
+        this.$store.state.party.members = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
