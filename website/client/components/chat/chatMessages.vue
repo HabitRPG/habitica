@@ -43,7 +43,7 @@
             span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right(v-if='likeCount(msg) > 0')
+            span.action.float-right.liked(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
@@ -74,7 +74,7 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right(v-if='likeCount(msg) > 0')
+            span.action.float-right.liked(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
       .col-2
@@ -192,6 +192,10 @@
 
   .action:hover {
     cursor: pointer;
+  }
+
+  .liked:hover {
+    cursor: default;
   }
 
   .action .svg-icon {
