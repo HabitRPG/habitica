@@ -151,6 +151,10 @@
   .conversation:hover {
     cursor: pointer;
   }
+
+  .modal-dialog .text  {
+    text-align: left;
+  }
 </style>
 
 <script>
