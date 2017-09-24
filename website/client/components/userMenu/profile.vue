@@ -326,7 +326,7 @@ div
   }
 
   .pet, .mount {
-    margin-top: -1.6em;
+    margin-top: -1.8em !important;
   }
 
   .header {
