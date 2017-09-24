@@ -383,5 +383,6 @@
   "updateParty": "Update Party",
   "upgrade": "Upgrade",
   "selectPartyMember": "Select a Party Member",
-  "areYouSureDeleteMessage": "Are you sure you want to delete this message?"
+  "areYouSureDeleteMessage": "Are you sure you want to delete this message?",
+  "reverseChat": "Reverse Chat"
 }

@@ -12,8 +12,13 @@
         .row
           textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+
+        .row
+          .col-6
+            button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+          .col-6
+            button.btn.btn-secondary.float-right.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-right(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -549,6 +554,9 @@ export default {
     },
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
+    },
+    reverseChat () {
+      this.group.chat.reverse();
     },
   },
 };

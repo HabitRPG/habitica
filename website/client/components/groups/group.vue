@@ -30,8 +30,11 @@
         .row.new-message-row
           textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+          button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+        .row
+          .col-6
+            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -294,7 +297,7 @@
       z-index: 10;
       position: absolute;
       right: 1em;
-      bottom: 3em;
+      bottom: 1em;
     }
   }
 
