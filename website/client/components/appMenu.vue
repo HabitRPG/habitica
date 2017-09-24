@@ -63,6 +63,7 @@ div
         span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
+        span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
         .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
@@ -295,6 +296,13 @@ div
     text-align: center;
     font-weight: bold;
     font-size: 12px;
+  }
+
+  .message-count.top-count {
+    position: absolute;
+    right: 0;
+    top: .5em;
+    padding: .2em;
   }
 </style>
 
