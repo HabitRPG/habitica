@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Custom Day Start",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Change Custom Day Start?",
     "sureChangeCustomDayStart": "Are you sure you want to change your custom day start?",
     "customDayStartHasChanged": "Your custom day start has changed.",

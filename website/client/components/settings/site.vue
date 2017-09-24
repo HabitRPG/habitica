@@ -313,12 +313,12 @@ export default {
         nextCron = nextCron.add(1, 'day');
       }
 
-      return nextCron.format(this.user.preferences.dateFormat.toUpperCase());
+      return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
     },
     openDayStartModal () {
       let nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(`Are you sure you want to change cron? Next cron will be ${nextCron}`)) return;
+      if (!confirm(this.$t('sureChangeCustomDayStartTime', {time: nextCron}))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },

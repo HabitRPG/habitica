@@ -46,13 +46,13 @@ div
           .info
             h2 {{ $t('info') }}
             div
-              strong {{ $t('joined') }}:
+              strong {{ $t('joined') }}:&nbsp;
               | {{userJoinedDate}}
             div
-              strong {{ $t('lastLoggedIn') }}:
+              strong {{ $t('latestCheckin') }}:&nbsp;
               | {{userLastLoggedIn}}
             div
-              strong {{ $t('totalLogins') }}:
+              strong {{ $t('totalLogins') }}:&nbsp;
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
             div
               | {{getProgressDisplay()}}
