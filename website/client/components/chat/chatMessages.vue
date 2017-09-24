@@ -27,7 +27,7 @@
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
-            p {{msg.timestamp | timeAgo}}
+            p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
             .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
@@ -58,7 +58,7 @@
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
-            p {{msg.timestamp | timeAgo}}
+            p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
             .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
@@ -133,6 +133,15 @@
     stroke: #005737;
   }
   // End of tier colors
+
+  .leader {
+    margin-bottom: 0;
+  }
+
+  .time {
+    font-size: 12px;
+    color: #878190;
+  }
 
   h3 { // this is the user name
     cursor: pointer;
