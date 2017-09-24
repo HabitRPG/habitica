@@ -1,7 +1,7 @@
 <template lang="pug">
 // @TODO: Move this to a member directory
 div
-  b-modal#members-modal(:title="$t('createGuild')", size='md')
+  b-modal#members-modal(:title="$t('createGuild')", size='md', :hide-footer='true')
     .header-wrap(slot="modal-header")
       .row
         .col-6
@@ -46,6 +46,8 @@ div
       .col-12.text-center
         button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
     .row.gradient(v-if='members.length > 3')
+    .modal-footer
+      button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
 <style lang='scss'>
