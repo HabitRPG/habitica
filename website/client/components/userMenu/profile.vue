@@ -20,9 +20,9 @@ div
           member-details(:member="user")
     .row
       .col-6.offset-3.text-center.nav
-        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
-        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
-        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
+        .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
+        .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
+        .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-8
@@ -701,6 +701,11 @@ export default {
     },
   },
   methods: {
+    selectPage (page) {
+      this.selectedPage = page;
+      // @TODO: rename this property?
+      this.$store.state.profileOptions.startingPage = page;
+    },
     sendMessage () {
       this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
