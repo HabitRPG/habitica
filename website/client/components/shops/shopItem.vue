@@ -17,6 +17,8 @@ div
         div.image
           div(:class="item.class", v-once)
           slot(name="itemImage", :item="item")
+          span.svg-icon.inline.icon-48(v-if="item.key == 'gem'", v-html="icons.gems")
+
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
@@ -141,6 +143,11 @@ div
     right: 8px;
     top: 8px;
     margin-top: 0;
+  }
+
+  .icon-48 {
+    width: 48px;
+    height: 48px;
   }
 </style>
 
