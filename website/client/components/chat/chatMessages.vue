@@ -19,7 +19,8 @@
           @click.native="showMemberModal(msg.uuid)",
         )
       .card.col-10
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
+        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
@@ -50,7 +51,8 @@
     // to the right if the user is the author?
     .row(v-if='user._id === msg.uuid')
       .card.col-10
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
+        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
@@ -304,7 +306,7 @@ export default {
   methods: {
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
-      if (!message.flagCount || message.flagCount === 0) return true;
+      if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
     },
     async loadProfileCache (screenPosition) {
