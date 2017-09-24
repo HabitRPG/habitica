@@ -13,7 +13,7 @@ b-modal#invite-modal(:title="$t('inviteFriends')", size='lg')
               input.form-control(type='text', v-model='user.uuid')
             tr
               td
-                button.btn.btn-xs.pull-right(@click='addUuid()')
+                button.btn.btn-primary.pull-right(@click='addUuid()')
                   i.glyphicon.glyphicon-plus
                   | +
           tr
@@ -36,7 +36,7 @@ b-modal#invite-modal(:title="$t('inviteFriends')", size='lg')
               input.form-control(type='email', v-model='email.email')
           tr
             td(colspan=2)
-              a.btn.btn-xs.pull-right(@click='addEmail()')
+              button.btn.btn-primary.pull-right(@click='addEmail()')
                 i.glyphicon.glyphicon-plus
                 | +
           tr
