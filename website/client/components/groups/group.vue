@@ -414,7 +414,7 @@
   .collect-progress-bar {
     background-color: #24cc8f;
     height: 15px;
-
+    max-width: 100%;
   }
 
   .hr {
