@@ -156,6 +156,7 @@ const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sor
 const sortGearTypeMap = {
   sortByName: (i) => i.text(),
   sortByCon: 'con',
+  sortByPer: 'per',
   sortByStr: 'str',
   sortByInt: 'int',
 };
