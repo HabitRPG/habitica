@@ -358,7 +358,13 @@ export default {
     },
     likeCount (message) {
       if (!message.likes) return 0;
-      return Object.keys(message.likes).length;
+
+      let likeCount = 0;
+      for (let key in message.likes) {
+        let like = message.likes[key];
+        if (like) likeCount += 1;
+      }
+      return likeCount;
     },
     async like (messageToLike, index) {
       let message = cloneDeep(messageToLike);
