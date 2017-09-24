@@ -212,6 +212,13 @@ export default {
     },
     sortedMembers () {
       let sortedMembers = this.members;
+
+      if (this.searchTerm) {
+        sortedMembers = sortedMembers.filter(member => {
+          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase) !== -1;
+        });
+      }
+
       if (!this.sortOption) return sortedMembers;
 
       sortedMembers = sortBy(this.members, [(member) => {
