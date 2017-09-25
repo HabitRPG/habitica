@@ -94,9 +94,9 @@ div
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
         .col-3.text-center(v-for='(achievement, key) in category.achievements')
-          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievement.earned}')
+          .box.achievement-container(:id='key + "-achievement"', :class='{"achievement-unearned": !achievement.earned}')
             b-popover(
-              :target="'#' + key",
+              :target="'#' + key + '-achievement'",
               triggers="hover",
               placement="top",
             )
