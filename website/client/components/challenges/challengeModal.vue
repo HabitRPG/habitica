@@ -130,6 +130,7 @@
 </style>
 
 <script>
+import clone from 'lodash/clone';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -385,9 +386,11 @@ export default {
           name: catName,
         });
       });
-      this.workingChallenge.categories = serverCategories;
 
-      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      let challengeDetails = clone(this.workingChallenge);
+      challengeDetails.categories = serverCategories;
+
+      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
       // @TODO: When to remove from guild instead?
       this.user.balance -= this.workingChallenge.prize / 4;
 
@@ -409,10 +412,12 @@ export default {
           name: catName,
         });
       });
-      this.workingChallenge.categories = serverCategories;
+
+      let challengeDetails = clone(this.workingChallenge);
+      challengeDetails.categories = serverCategories;
 
       this.$emit('updatedChallenge', {
-        challenge: this.workingChallenge,
+        challenge: challengeDetails,
       });
       this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
       this.resetWorkingChallenge();
