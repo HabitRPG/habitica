@@ -688,6 +688,7 @@ export default {
       }
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+
       if (this.isParty) {
         this.$store.state.party.data = group;
         this.group = this.$store.state.party.data;
@@ -756,11 +757,6 @@ export default {
       }
 
       await this.$store.dispatch('guilds:leave', data);
-
-      // @TODO: Implement
-      // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/party');
-      // });
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
