@@ -23,9 +23,6 @@ nconf.set('IS_TEST', nconf.get('NODE_ENV') === 'test');
 //                      'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
 //                      'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
 
-console.log(nconf.get('AMAZON_PAYMENTS_SELLER_ID'))
-console.log(nconf.get('AMAZON_PAYMENTS_CLIENT_ID'))
-
 const AMAZON_SELLER_ID = nconf.get('AMAZON_PAYMENTS:SELLER_ID') || nconf.get('AMAZON_PAYMENTS_SELLER_ID');
 const AMAZON_CLIENT_ID = nconf.get('AMAZON_PAYMENTS:CLIENT_ID') || nconf.get('AMAZON_PAYMENTS_CLIENT_ID');
 

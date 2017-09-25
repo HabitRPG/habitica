@@ -79,6 +79,15 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  @media only screen  and (min-width : 1900px) {
+    #bottom-wrap {
+      margin-top: 6em;
+      position: fixed !important;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
   .form-wrapper {
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
@@ -184,7 +193,7 @@
 
   #bottom-wrap {
     margin-top: 6em;
-    position: fixed;
+    position: static;
     width: 100%;
     bottom: 0;
   }
