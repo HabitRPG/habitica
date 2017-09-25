@@ -12,13 +12,14 @@ api.resetPasswordSetNewOne  = {
   middlewares: [locals],
   runCron: false,
   async handler (req, res) {
-    let user = await validatePasswordResetCodeAndFindUser(req.query.code);
-    let isValidCode = Boolean(user);
+    const code = req.query.code;
+    const user = await validatePasswordResetCodeAndFindUser(code);
+    const isValidCode = Boolean(user);
 
     const hasError = !isValidCode;
     const message = !isValidCode ? res.t('invalidPasswordResetCode') : null;
 
-    return res.redirect(`/reset-password?hasError=${hasError}&message=${message}`);
+    return res.redirect(`/reset-password?hasError=${hasError}&message=${message}&code=${code}`);
   },
 };
 

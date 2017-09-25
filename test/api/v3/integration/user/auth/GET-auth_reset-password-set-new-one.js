@@ -106,6 +106,7 @@ describe('GET /user/auth/local/reset-password-set-new-one', () => {
 
     let res = await superagent.get(`${endpoint}?code=${code}`);
     expect(res.req.path.indexOf('hasError=false') !== -1).to.equal(true);
+    expect(res.req.path.indexOf('code=') !== -1).to.equal(true);
   });
 });
 

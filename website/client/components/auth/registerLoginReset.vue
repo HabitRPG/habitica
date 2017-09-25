@@ -3,7 +3,11 @@
   #top-background
     .seamless_stars_varied_opacity_repeat
 
-  form#login-form(v-on:submit.prevent='handleSubmit', @keyup.enter="handleSubmit", v-if='!forgotPassword')
+  form#login-form(
+    v-on:submit.prevent='handleSubmit', 
+    @keyup.enter="handleSubmit", 
+    v-if="!forgotPassword && !resetPasswordSetNewOne",
+  )
     .text-center
       div
         .svg-icon.gryphon
@@ -66,13 +70,18 @@
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
       .header
-        h2 Email a Password Reset Link
-        p Enter the email address you used to register your Habitica account.
-    .form-group.row.text-center
-      label(for='usernameInput', v-once) {{$t('email')}}
-      input#usernameInput.form-control(type='text', :placeholder='$t("emailPlaceholder")', v-model='username')
+        h2 {{ $t('passwordResetPage') }}
+    .form-group
+      label(for='passwordInput', v-once) {{$t('newPass')}}
+      input#passwordInput.form-control(type='password', :placeholder="$t('password')", v-model='password')
+    .form-group
+      label(for='confirmPasswordInput', v-once) {{$t('confirmPass')}}
+      input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
     .text-center
-      .btn.btn-info(@click='forgotPasswordLink()', v-once) {{$t('sendLink')}}
+      .btn.btn-info(
+        @click='resetPasswordSetNewOneLink()', 
+        :enabled="!resetPasswordSetNewOneData.hasError"
+      )  {{$t('setNewPass')}}
 
   #bottom-wrap
     #bottom-background
@@ -117,7 +126,7 @@
     color: $purple-400;
   }
 
-  #login-form, #forgot-form {
+  #login-form, #forgot-form, #reset-password-set-new-one-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
@@ -126,7 +135,6 @@
     z-index: 1;
 
     .header {
-
       h2 {
         color: $white;
       }
@@ -257,6 +265,10 @@ export default {
       password: '',
       passwordConfirm: '',
       forgotPassword: false,
+      resetPasswordSetNewOneData: {
+        hasError: null,
+        code: null,
+      },
     };
 
     data.icons = Object.freeze({
@@ -275,6 +287,12 @@ export default {
       }
       return true;
     },
+    resetPasswordSetNewOne () {
+      if (this.$route.path.startsWith('/reset-password')) {
+        return true;
+      }
+      return false;
+    },
   },
   mounted () {
     hello.init({
@@ -283,10 +301,37 @@ export default {
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
+  watch: {
+    '$route': {
+      handler () {
+        if (this.resetPasswordSetNewOne) {
+          const query = this.$route.query;
+          const code = query.code;
+          const hasError =  query.hasError === 'true' ? true : false;
+          if (hasError) {
+            alert(query.message);
+            this.$router.push({name: 'login'});
+            return;
+          }
+
+          if (!code) {
+            alert(this.$t('invalidPasswordResetCode'));
+            this.$router.push({name: 'login'});
+            return;
+          }
+
+          this.resetPasswordSetNewOneData.code = query.code;
+          this.resetPasswordSetNewOneData.hasError = hasError;
+        }
+      },
+      immediate: true,
+    },
+  },
   methods: {
     async register () {
+      // @TODO do not use alert
       if (this.password !== this.passwordConfirm) {
-        alert('Passwords must match');
+        alert(this.$t('passwordConfirmationMatch'));
         return;
       }
 
@@ -375,7 +420,7 @@ export default {
     },
     async forgotPasswordLink () {
       if (!this.username) {
-        alert('Email is required');
+        alert(this.$t('missingEmail'));
         return;
       }
 
@@ -384,6 +429,34 @@ export default {
       });
 
       alert(this.$t('newPassSent'));
+    },
+    async resetPasswordSetNewOneLink () {
+      if (!this.password) {
+        alert(this.$t('missingNewPassword'));
+        return;
+      }
+
+      if (this.password !== this.passwordConfirm) {
+        // @TODO i18n and don't use alerts
+        alert(this.$t('passwordConfirmationMatch'));
+        return;
+      }
+
+      const res = await axios.post('/api/v3/user/reset-password', {
+        newPassword: this.password,
+        confirmPassword: this.passwordConfirm,
+        code: this.resetPasswordSetNewOneData.code,
+      });
+
+      if (res.message) {
+        alert(res.message);
+      }
+
+      this.password = '';
+      this.passwordConfirm = '';
+      this.resetPasswordSetNewOneData.code = '';
+      this.resetPasswordSetNewOneData.hasError = false;
+      this.$router.push({name: 'login'});
     },
   },
 };

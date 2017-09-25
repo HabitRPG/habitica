@@ -658,7 +658,7 @@ api.resetPasswordSetNewOne = {
   method: 'POST',
   url: '/user/auth/reset-password-set-new-one',
   async handler (req, res) {
-    let user = await validatePasswordResetCodeAndFindUser(req.query.code);
+    let user = await validatePasswordResetCodeAndFindUser(req.body.code);
     let isValidCode = Boolean(user);
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));

@@ -43,7 +43,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       expiresAt: new Date(),
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('invalidPasswordResetCode'),
@@ -61,7 +63,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('invalidPasswordResetCode'),
@@ -74,7 +78,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       expiresAt: moment().add({days: 1}),
     }));
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('invalidPasswordResetCode'),
@@ -92,7 +98,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       auth: 'not an object with valid fields',
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('invalidPasswordResetCode'),
@@ -110,7 +118,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': 'invalid',
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: t('invalidPasswordResetCode'),
@@ -130,7 +140,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`)).to.eventually.be.rejected.and.eql({
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('invalidReqParams'),
@@ -148,8 +160,9 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`, {
+    await expect(api.post(`${endpoint}`, {
       newPassword: 'my new password',
+      code,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -168,9 +181,10 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    await expect(api.post(`${endpoint}?code=${code}`, {
+    await expect(api.post(`${endpoint}`, {
       newPassword: 'my new password',
       confirmPassword: 'not matching',
+      code,
     })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -189,9 +203,10 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    let res = await api.post(`${endpoint}?code=${code}`, {
+    let res = await api.post(`${endpoint}`, {
       newPassword: 'my new password',
       confirmPassword: 'my new password',
+      code,
     });
 
     expect(res.message).to.equal(t('passwordChangeSuccess'));
@@ -230,9 +245,10 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    let res = await api.post(`${endpoint}?code=${code}`, {
+    let res = await api.post(`${endpoint}`, {
       newPassword: 'my new password',
       confirmPassword: 'my new password',
+      code,
     });
 
     expect(res.message).to.equal(t('passwordChangeSuccess'));
