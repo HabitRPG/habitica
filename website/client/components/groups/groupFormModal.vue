@@ -373,7 +373,7 @@ export default {
     async submit () {
       if (this.$store.state.user.data.balance < 1 && !this.workingGroup.id) {
         // @TODO: Add proper notifications
-        alert('Not enough gems');
+        alert(this.$t('notEnoughGems'));
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
         // @TODO when modal is implemented, enable analytics
@@ -385,27 +385,16 @@ export default {
         }); */
       }
 
-      if (!this.workingGroup.name || !this.workingGroup.description) {
-        // @TODO: Add proper notifications - split this out into two, make errors translatable. Suggestion: `<% fieldName %> is required` for all errors where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
-        alert('Enter a name and description');
-        return;
-      }
+      let errors = [];
 
-      if (!this.workingGroup.summary) {
-        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
-        alert('Enter a summary');
-        return;
-      }
+      if (!this.workingGroup.name) errors.push(this.$t('nameRequired'));
+      if (!this.workingGroup.summary) errors.push(this.$t('summaryRequired'));
+      if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) errors.push(this.$t('summaryTooLong'));
+      if (!this.workingGroup.description) errors.push(this.$t('descriptionRequired'));
+      if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) errors.push(this.$t('categoiresRequired'));
 
-      if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) {
-        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
-        alert('Summary is too long');
-        return;
-      }
-
-      if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) {
-        // @TODO: Add proper notifications
-        alert('One or more categories must be selected');
+      if (errors.length > 0) {
+        alert(errors.join('\n'));
         return;
       }
 

@@ -385,5 +385,6 @@
   "selectPartyMember": "Select a Party Member",
   "areYouSureDeleteMessage": "Are you sure you want to delete this message?",
   "reverseChat": "Reverse Chat",
-  "invites": "Invites"
+  "invites": "Invites",
+  "notEnoughGems": "Not Enough Gems"
 }
