@@ -121,11 +121,11 @@ div
             span {{ value }}
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
-        .col-6 {{$t('equipment')}}
-          h2.text-center
+        .col-6
+          h2.text-center {{$t('equipment')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.eyewear}')
+              .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
@@ -133,11 +133,11 @@ div
                 div(:class="`shop_${equippedItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.headAccessory}')
+              .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.backAccessory}')
+              .box(:class='{white: equippedItems.backAccessory && equippedItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
@@ -145,7 +145,7 @@ div
                 div(:class="`shop_${equippedItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.bodyAccessory}')
+              .box(:class='{white: equippedItems.bodyAccessory && equippedItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
@@ -161,7 +161,7 @@ div
           h2.text-center {{$t('costume')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear}')
+              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
@@ -169,11 +169,11 @@ div
                 div(:class="`shop_${costumeItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory}')
+              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.backAccessory}')
+              .box(:class='{white: costumeItems.backAccessory && costumeItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
@@ -181,7 +181,7 @@ div
                 div(:class="`shop_${costumeItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.bodyAccessory}')
+              .box(:class='{white: costumeItems.bodyAccessory && costumeItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
@@ -189,8 +189,8 @@ div
                 div(:class="`shop_${costumeItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
-              .box(:class='{white: user.preferences.background}')
-                div(:class="user.preferences.background")
+              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+                div(:class="'background_' + user.preferences.background")
               h3 {{$t('background')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
