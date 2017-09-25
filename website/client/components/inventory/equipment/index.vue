@@ -68,12 +68,13 @@
       .items.items-one-line(slot="drawer-slider")
         item.pointer(
           v-for="(label, group) in gearTypesToStrings",
-          :key="group",
+          :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group",
           :item="flatGear[activeItems[group]]",
           :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
           :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
           :label="label",
           :popoverPosition="'top'",
+          :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
           @click="equipItem(flatGear[activeItems[group]])",
         )
           template(slot="popoverContent", scope="context")
