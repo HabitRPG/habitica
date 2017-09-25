@@ -1,16 +1,7 @@
 <template lang="pug">
-  form(
-    v-if="task",
-    @submit.stop.prevent="submit()",
-  )
-    b-modal#task-modal(
-      size="sm",
-      @hidden="onClose()",
-    )
-      .task-modal-header(
-        slot="modal-header",
-        :class="[cssClass]",
-      )
+  form(v-if="task", @submit.stop.prevent="submit()")
+    b-modal#task-modal(size="sm", @hidden="onClose()")
+      .task-modal-header(slot="modal-header", :class="[cssClass]")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -27,13 +18,15 @@
           label(v-once) {{ $t('cost') }}
           input(type="number", v-model="task.value", required, min="0")
           .svg-icon.gold(v-html="icons.gold")
-        .option(v-if="['daily', 'todo'].indexOf(task.type) > -1")
+        .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in task.checklist")
-            input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
-            span.input-group-btn(@click="removeChecklistItem($index)")
-              .svg-icon.destroy-icon(v-html="icons.destroy")
+          div(v-sortable='', @onsort='sortedChecklist')
+            .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
+              span.grippy
+              input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
+              span.input-group-btn(@click="removeChecklistItem($index)")
+                .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
           .option-item(:class="optionClass(task.up === true)", @click="task.up = !task.up")
@@ -176,7 +169,7 @@
 
       .task-modal-footer(slot="modal-footer")
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
-        span.delete-task-btn(v-once, v-else, @click="destroy()") {{ $t('delete') }}
+        span.delete-task-btn(v-once, v-if='canDelete', @click="destroy()") {{ $t('delete') }}
 </template>
 
 <style lang="scss">
@@ -338,6 +331,30 @@
       border-top: 1px solid $gray-500;
     }
 
+    // From: https://codepen.io/zachariab/pen/wkrbc
+    span.grippy {
+      content: '....';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      overflow: hidden;
+      line-height: 5px;
+      padding: 3px 4px;
+      cursor: move;
+      vertical-align: middle;
+      margin-top: .5em;
+      margin-right: .3em;
+      font-size: 12px;
+      font-family: sans-serif;
+      letter-spacing: 2px;
+      color: #cccccc;
+      text-shadow: 1px 0 1px black;
+    }
+
+    span.grippy::after {
+      content: '.. .. .. ..';
+    }
+
     .checklist-item {
       margin-bottom: 0px;
       border-radius: 0px;
@@ -351,6 +368,10 @@
         border-bottom: 1px solid $gray-500 !important;
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
+      }
+
+      &:hover {
+        cursor: move;
       }
     }
 
@@ -401,6 +422,8 @@ import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import sortable from 'client/directives/sortable.directive';
+import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import uuid from 'uuid';
@@ -423,6 +446,9 @@ export default {
     Datepicker,
     toggleSwitch,
   },
+  directives: {
+    sortable,
+  },
   props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
@@ -444,6 +470,7 @@ export default {
       members: [],
       memberNamesById: {},
       assignedMembers: [],
+      checklist: [],
     };
   },
   watch: {
@@ -464,6 +491,9 @@ export default {
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) this.assignedMembers = this.task.group.assignedUsers;
       }
+
+      // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
+      if (this.task) this.checklist = clone(this.task.checklist);
     },
   },
   computed: {
@@ -475,6 +505,18 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    checklistEnabled () {
+      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+    },
+    isOriginalChallengeTask () {
+      let isUserChallenge = Boolean(this.task.userId);
+      return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
+    },
+    canDelete () {
+      let isUserChallenge = Boolean(this.task.userId);
+      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
+      return this.purpose !== 'create' && !activeChallenge;
+    },
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
@@ -534,6 +576,13 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    sortedChecklist (data) {
+      let sorting = clone(this.checklist);
+      let movingItem = sorting[data.oldIndex];
+      sorting.splice(data.oldIndex, 1);
+      sorting.splice(data.newIndex, 0, movingItem);
+      this.task.checklist = sorting;
+    },
     optionClass (activeCondition) {
       if (activeCondition) {
         return [`${this.cssClass}-color`, 'option-item-selected'];
@@ -547,11 +596,13 @@ export default {
         text: this.newChecklistItem,
         completed: false,
       });
+      this.checklist = clone(this.task.checklist);
       this.newChecklistItem = null;
       if (e) e.preventDefault();
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);
+      this.checklist = clone(this.task.checklist);
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
@@ -600,6 +651,7 @@ export default {
     destroy () {
       if (!confirm('Are you sure you want to delete this task?')) return;
       this.destroyTask(this.task);
+      this.$emit('taskDestroyed', this.task);
       this.$root.$emit('hide::modal', 'task-modal');
     },
     cancel () {

@@ -43,18 +43,6 @@
       div
         .checkbox
           label
-            input(type='checkbox', @click='hideHeader() ', v-model='user.preferences.hideHeader')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('showHeaderPop')") {{ $t('showHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', @click='toggleStickyHeader()', v-model='user.preferences.stickyHeader', :disabled="user.preferences.hideHeader")
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('stickyHeaderPop')") {{ $t('stickyHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.newTaskEdit', @click='set("newTaskEdit")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('newTaskEditPop')") {{ $t('newTaskEdit') }}
-        .checkbox
-          label
             input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
             span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
         .checkbox
@@ -186,9 +174,9 @@
             h5 {{ $t('dangerZone') }}
             div
               button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', :popover="$t('resetAccPop')") {{ $t('resetAccount') }}
+                popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
               button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+                popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
 <style scoped>
@@ -203,6 +191,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -216,6 +205,9 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
+  },
+  directives: {
+    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -298,8 +290,7 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.user.flags.newStuff = true;
-      this.set('flags', 'newStuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -322,12 +313,12 @@ export default {
         nextCron = nextCron.add(1, 'day');
       }
 
-      return nextCron.format('x');
+      return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
     },
     openDayStartModal () {
       let nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(`Are you sure you want to change cron? Next cron will be ${nextCron}`)) return;
+      if (!confirm(this.$t('sureChangeCustomDayStartTime', {time: nextCron}))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },

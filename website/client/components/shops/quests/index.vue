@@ -52,7 +52,7 @@
                 :itemContentClass="'inventory_quest_scroll_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 template(slot="popoverContent", scope="ctx")
                   div.questPopover
@@ -102,7 +102,7 @@
               :priceType="ctx.item.currency",
               :itemContentClass="ctx.item.class",
               :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
+              @click="selectItem(ctx.item)"
             )
               span(slot="popoverContent", scope="ctx")
                 div.questPopover
@@ -132,7 +132,7 @@
                 :price="item.value",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 span(slot="popoverContent")
                   div.questPopover
@@ -159,7 +159,7 @@
             :price="item.value",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
+            @click="selectItem(item)"
           )
             span(slot="popoverContent")
               div.questPopover
@@ -179,7 +179,7 @@
               )
 
     buyModal(
-      :item="selectedItemToBuy",
+      :item="selectedItemToBuy || {}",
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
@@ -194,6 +194,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -274,7 +275,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop_banner_background.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
 
         background-repeat: repeat-x;
 
@@ -302,7 +303,7 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
 
@@ -465,6 +466,11 @@ export default {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.$parent.showUnpinNotification(item);
         }
+      },
+      selectItem (item) {
+        this.selectedItemToBuy = item;
+
+        this.$root.$emit('show::modal', 'buy-quest-modal');
       },
     },
   };

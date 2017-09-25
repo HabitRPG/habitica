@@ -360,41 +360,44 @@ export default {
     },
     async createChallenge () {
       // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
-      let errors = '';
-      if (!this.workingChallenge.name) errors += 'Name is required\n';
-      if (this.workingChallenge.shortName.length < MIN_SHORTNAME_SIZE_FOR_CHALLENGES) errors += 'Tag name is too short\n';
-      if (!this.workingChallenge.summary) errors += 'Summary is required\n';
-      if (this.workingChallenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) errors += 'Summary is too long\n';
-      if (!this.workingChallenge.description) errors += 'Description is required\n';
-      if (!this.workingChallenge.group) errors += 'Location of challenge is required ("Add to")\n';
-      if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors += 'One or more categories must be selected\n';
-      if (errors) {
-        alert(errors);
-      } else {
-        this.workingChallenge.timestamp = new Date().getTime();
-        let categoryKeys = this.workingChallenge.categories;
-        let serverCategories = [];
-        categoryKeys.forEach(key => {
-          let catName = this.categoriesHashByKey[key];
-          serverCategories.push({
-            slug: key,
-            name: catName,
-          });
-        });
-        this.workingChallenge.categories = serverCategories;
+      let errors = [];
 
-        let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
-        // @TODO: When to remove from guild instead?
-        this.user.balance -= this.workingChallenge.prize / 4;
+      if (!this.workingChallenge.name) errors.push(this.$t('nameRequired'));
+      if (this.workingChallenge.shortName.length < MIN_SHORTNAME_SIZE_FOR_CHALLENGES) errors.push(this.$t('tagTooShort'));
+      if (!this.workingChallenge.summary) errors.push(this.$t('summaryRequired'));
+      if (this.workingChallenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) errors.push(this.$t('summaryTooLong'));
+      if (!this.workingChallenge.description) errors.push(this.$t('descriptionRequired'));
+      if (!this.workingChallenge.group) errors.push(this.$t('locationRequired'));
+      if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors.push(this.$t('categoiresRequired'));
 
-        this.$emit('createChallenge', challenge);
-        this.resetWorkingChallenge();
-
-        if (this.cloning) this.$store.state.challengeOptions.cloning = true;
-
-        this.$root.$emit('hide::modal', 'challenge-modal');
-        this.$router.push(`/challenges/${challenge._id}`);
+      if (errors.length > 0) {
+        alert(errors.join('\n'));
+        return;
       }
+
+      this.workingChallenge.timestamp = new Date().getTime();
+      let categoryKeys = this.workingChallenge.categories;
+      let serverCategories = [];
+      categoryKeys.forEach(key => {
+        let catName = this.categoriesHashByKey[key];
+        serverCategories.push({
+          slug: key,
+          name: catName,
+        });
+      });
+      this.workingChallenge.categories = serverCategories;
+
+      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      // @TODO: When to remove from guild instead?
+      this.user.balance -= this.workingChallenge.prize / 4;
+
+      this.$emit('createChallenge', challenge);
+      this.resetWorkingChallenge();
+
+      if (this.cloning) this.$store.state.challengeOptions.cloning = true;
+
+      this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
       let categoryKeys = this.workingChallenge.categories;

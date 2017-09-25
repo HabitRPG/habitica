@@ -5,6 +5,10 @@ import includes from 'lodash/includes';
 import getStore from 'client/store';
 import Vue from 'vue';
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+const AMPLITUDE_KEY = process.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
+const GA_ID = process.env.GA_ID; // eslint-disable-line no-process-env
+
 let REQUIRED_FIELDS = ['hitType', 'eventCategory', 'eventAction'];
 let ALLOWED_HIT_TYPES = [
   'pageview',
@@ -93,12 +97,7 @@ export function updateUser (properties) {
   });
 }
 
-
 export function setup () {
-  const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
-  const AMPLITUDE_KEY = process.env.AMPLITUDE_KEY; // eslint-disable-line no-process-env
-  const GA_ID = process.env.GA_ID; // eslint-disable-line no-process-env
-
   // Setup queues until the real scripts are loaded
 
   /* eslint-disable */
@@ -119,25 +118,24 @@ export function setup () {
     }, window['ga'].l = 1 * new Date();
   ga('create', GA_ID);
   /* eslint-enable */
+}
 
+export function load () {
   // Load real scripts
-
   if (!IS_PRODUCTION) return;
 
-  Vue.nextTick(() => {
-    // Amplitude
-    const amplitudeScript = document.createElement('script');
-    let firstScript = document.getElementsByTagName('script')[0];
-    amplitudeScript.type = 'text/javascript';
-    amplitudeScript.async = true;
-    amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
-    firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
+  // Amplitude
+  const amplitudeScript = document.createElement('script');
+  let firstScript = document.getElementsByTagName('script')[0];
+  amplitudeScript.type = 'text/javascript';
+  amplitudeScript.async = true;
+  amplitudeScript.src = 'https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.2.0-min.gz.js';
+  firstScript.parentNode.insertBefore(amplitudeScript, firstScript);
 
-    // Google Analytics
-    const gaScript = document.createElement('script');
-    firstScript = document.getElementsByTagName('script')[0];
-    gaScript.async = 1;
-    gaScript.src = '//www.google-analytics.com/analytics.js';
-    firstScript.parentNode.insertBefore(gaScript, firstScript);
-  });
+  // Google Analytics
+  const gaScript = document.createElement('script');
+  firstScript = document.getElementsByTagName('script')[0];
+  gaScript.async = 1;
+  gaScript.src = '//www.google-analytics.com/analytics.js';
+  firstScript.parentNode.insertBefore(gaScript, firstScript);
 }

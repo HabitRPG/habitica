@@ -11,6 +11,8 @@
             // @TODO: Implement this after we fix username bug
             // .col-2.offset-1
             //  button.btn.btn-secondary(@click='toggleClick()') +
+        .col-4.offset-4
+          .svg-icon.close(v-html="icons.svgClose", @click='close()')
         // .col-8.to-form(v-if='displayCreate')
         //   strong To:
         // b-form-input
@@ -39,7 +41,7 @@
         // @TODO: Implement new message header here when we fix the above
 
         .new-message-row(v-if='selectedConversation')
-          input(v-model='newMessage')
+          textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
 
@@ -49,6 +51,11 @@
   .envelope {
     color: $gray-400 !important;
     margin-top: 1em;
+  }
+
+  .close {
+    margin-top: .5em;
+    width: 15px;
   }
 
   h2 {
@@ -107,12 +114,16 @@
     width: 100%;
     padding: 1em;
 
-    input {
+    textarea {
+      height: 80%;
       display: inline-block;
+      vertical-align: bottom;
       width: 80%;
     }
 
     button {
+      vertical-align: bottom;
+      display: inline-block;
       box-shadow: none;
       margin-left: 1em;
     }
@@ -155,6 +166,7 @@ import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
+import svgClose from 'assets/svg/close.svg';
 
 export default {
   mixins: [styleHelper],
@@ -167,6 +179,7 @@ export default {
     return {
       icons: Object.freeze({
         messageIcon,
+        svgClose,
       }),
       displayCreate: true,
       selectedConversation: '',
@@ -201,6 +214,7 @@ export default {
           timestamp: message.timestamp,
           user: message.user,
           uuid: message.uuid,
+          id: message.id,
         };
 
         if (message.sent) {
@@ -256,6 +270,8 @@ export default {
       });
     },
     sendPrivateMessage () {
+      if (!this.newMessage) return;
+
       let convoFound = this.conversations.find((conversation) => {
         return conversation.key === this.selectedConversation;
       });
@@ -283,6 +299,9 @@ export default {
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
+    },
+    close () {
+      this.$root.$emit('hide::modal', 'inbox-modal');
     },
   },
 };

@@ -12,7 +12,7 @@ div
         .col-9
           router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
             strong {{challenge.name}}
-          p {{challenge.description}}
+          p {{challenge.summary || challenge.name}}
           div
             .svg-icon.member-icon(v-html="icons.memberIcon")
             .member-count {{challenge.memberCount}}

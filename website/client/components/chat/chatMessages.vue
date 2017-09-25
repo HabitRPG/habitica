@@ -5,20 +5,20 @@
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
 
-  div(v-for="(msg, index) in chat", v-if='chat && (inbox || Object.keys(cachedProfileData).length > 0) && canViewFlag(msg)')
+  div(v-for="(msg, index) in chat", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-4
+      .col-2
         avatar(
           v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", 
+          :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
         )
-      .card.col-8
+      .card.col-10
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
         .card-block
             h3.leader(
@@ -40,7 +40,7 @@
             span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
-            span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
+            span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
             span.action.float-right(v-if='likeCount(msg) > 0')
@@ -49,7 +49,7 @@
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
     // to the right if the user is the author?
     .row(v-if='user._id === msg.uuid')
-      .card.col-8
+      .card.col-10
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -77,10 +77,10 @@
             span.action.float-right(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-4
+      .col-2
         avatar(
           v-if='cachedProfileData[msg.uuid]',
-          :member="cachedProfileData[msg.uuid]", 
+          :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
@@ -375,6 +375,12 @@ export default {
     },
     async remove (message, index) {
       this.chat.splice(index, 1);
+
+      if (this.inbox) {
+        axios.delete(`/api/v3/user/messages/${message.id}`);
+        return;
+      }
+
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,
         chatId: message.id,

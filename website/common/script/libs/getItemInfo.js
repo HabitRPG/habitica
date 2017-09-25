@@ -115,7 +115,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         notes: item.notes(language),
         value: item.value,
         currency: 'gems',
-        class: item.class,
+        class: `quest_bundle_${item.key}`,
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',

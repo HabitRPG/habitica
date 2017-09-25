@@ -1,16 +1,16 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='true', :class='{"page-2": modalPage > 1 && !editing}')
+b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true', :hide-footer='true', :class='{"page-2": modalPage > 1 && !editing}')
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
       .svg-icon.logo(v-html='icons.logoPurple')
 
-  .section.avatar-section.row(:class='{"page-2": modalPage === 2}')
+  .avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
       .user-creation-bg(v-if='!editing')
-      avatar(:member='user', :avatarOnly='!editing')
+      avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
 
-  .section(v-if='modalPage === 2')
+  .section(v-if='modalPage === 2', :class='{"edit-modal": editing}')
     // @TODO Implement in V2 .section.row
       .col-12.text-center
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
@@ -19,7 +19,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
           .menu-item(@click='changeTopPage("body", "size")')
             .svg-icon(v-html='icons.bodyIcon')
-          strong(v-once) {{$t('body')}}
+          strong(v-once) {{$t('bodyBody')}}
         div(:class='{"col-3": !editing, "col-2": editing}')
           .menu-item(@click='changeTopPage("skin", "color")')
             .svg-icon(v-html='icons.skinIcon')
@@ -37,11 +37,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
-      .row.sub-menu.col-6.offset-3.text-center
-          .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
-            strong(v-once) {{$t('size')}}
-          .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
-            strong(v-once) {{$t('shirt')}}
+      .row.sub-menu.text-center
+        .col-3.offset-3.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
+          strong(v-once) {{$t('size')}}
+        .col-3.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
+          strong(v-once) {{$t('shirt')}}
       .row(v-if='activeSubPage === "size"')
         .col-12.customize-options.size-options
           .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
@@ -62,8 +62,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("shirt", specialShirtKeys)', @click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
-          .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
-            strong(v-once) {{$t('color')}}
+        .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
+          strong(v-once) {{$t('color')}}
       .row
         .col-12.customize-options
           .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
@@ -81,23 +81,23 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
         .col-12.text-center
           button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)', @click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu.col-6.offset-3.text-center
-          .col-2.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
-            strong(v-once) {{$t('color')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
-            strong(v-once) {{$t('style')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
-            strong(v-once) {{$t('bangs')}}
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
-            strong(v-once) {{$t('ponytail')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
+      .row.sub-menu.text-center
+        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
+          strong(v-once) {{$t('color')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
+          strong(v-once) {{$t('bangs')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
+          strong(v-once) {{$t('ponytail')}}
+      .row.sub-menu.text-center
+        .col-3.offset-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
+          strong(v-once) {{$t('style')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
             strong(v-once) {{$t('facialhair')}}
-      #hair-color.section.customize-section(v-if='activeSubPage === "color"')
-        .row
-          .col-12.customize-options
-            .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
-              :class='{active: user.preferences.hair.color === option}')
-              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+      #hair-color.row(v-if='activeSubPage === "color"')
+        .col-12.customize-options
+          .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
+            :class='{active: user.preferences.hair.color === option}')
+            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
         //.row(v-if='editing')
           .col-12.customize-options(v-if='editing')
             .option(v-for='option in premiumHairColors',
@@ -180,23 +180,22 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .col-12.text-center
             button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
-      .row.sub-menu.col-6.offset-3.text-center
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-            strong(v-once) {{$t('glasses')}}
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-            strong(v-once) {{$t('wheelchair')}}
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-            strong(v-once) {{$t('flower')}}
+      .row.sub-menu
+        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
+          strong(v-once) {{$t('glasses')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
+          strong(v-once) {{$t('wheelchair')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
+          strong(v-once) {{$t('flower')}}
+      .row.sub-menu(v-if='editing')
+        .col-4.offset-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
+          strong(v-once) {{$t('animalEars')}}
       .row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
-          .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blackTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blackTopFrame"}')
-          .eyewear_special_blueTopFrame.option(@click='equip("eyewear_special_blueTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blueTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blueTopFrame"}')
-          .eyewear_special_greenTopFrame.option(@click='equip("eyewear_special_greenTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_greenTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_greenTopFrame"}')
-          .eyewear_special_pinkTopFrame.option(@click='equip("eyewear_special_pinkTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_pinkTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_pinkTopFrame"}')
-          .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
-          .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
-          .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
-        #animal-ears.col-12.customize-options(v-if='editing')
+          .option(v-for='option in eyewear', :class='{active: option.active}')
+            .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
+      #animal-ears.row(v-if='activeSubPage === "ears"')
+        .section.col-12.customize-options
           .option(v-for='option in animalEars',
             :class='{active: option.active, locked: option.locked}')
             .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
@@ -206,7 +205,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
           .col-12.text-center
             button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
-        .col-12.customize-options.weelchairs
+        .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
           .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
@@ -226,28 +225,28 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.col-12.text-center.set-title
+      .row.text-center.set-title
         strong {{backgroundShopSets[0].text}}
       .row.incentive-background-row
         .col-2(v-for='bg in backgroundShopSets[0].items',
-            @click='buy("background." + bg.key)',
-            :popover-title='bg.text',
-            :popover='bg.notes',
-            popover-trigger='mouseenter')
-            .incentive-background(:class='[`background_${bg.key}`]')
-              .small-rectangle
-      .row.sub-menu.col-6.offset-3
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
-            strong(v-once) 2017
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
-            strong(v-once) 2016
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
-            strong(v-once) 2015
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
-            strong(v-once) 2014
+          @click='buy("background." + bg.key)',
+          :popover-title='bg.text',
+          :popover='bg.notes',
+          popover-trigger='mouseenter')
+          .incentive-background(:class='[`background_${bg.key}`]')
+            .small-rectangle
+      .row.sub-menu.col-10.offset-1
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
+          strong(v-once) 2017
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+          strong(v-once) 2016
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+          strong(v-once) 2015
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+          strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        .col-12.row(v-for='set in sets', v-if='activeSubPage === key')
-          .col-6.offset-3.text-center.set-title
+        .row(v-for='set in sets', v-if='activeSubPage === key')
+          .col-8.offset-2.text-center.set-title
             strong {{set.text}}
           .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
@@ -262,7 +261,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
               span 7
             span.badge.badge-pill.badge-item.badge-svg(
               :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
-              @click.prevent.stop="togglePinned(bg)"
+              @click.prevent.stop="togglePinned(bg)",
+              v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
@@ -277,7 +277,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       .col-12.text-center
         h2 I want to work on:
     .section.row
-      .col-4.offset-2
+      .col-6
         .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
@@ -298,7 +298,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
             input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('school') }}
-      .col-4
+      .col-6
         .task-option
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
@@ -317,7 +317,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
     .col-12
-      .justin-message
+      .justin-message.d-flex.flex-column.justify-content-center
         .featured-label
           span.rectangle
           span.text Justin
@@ -351,7 +351,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
 <style>
   .page-2 #avatar-modal__BV_body_ {
-    margin-top: 8em;
+    margin-top: 9em;
   }
 
   .page-2 .modal-content {
@@ -389,13 +389,17 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     margin-top: 2em;
   }
 
-  .avatar-section.page-2 {
-    min-height: 150px;
+  .edit-modal {
+    margin-top: 10em;
+  }
+
+  .row.sub-menu + .row.sub-menu {
+    margin-top: 0.5em;
   }
 
   .welcome-section {
-    margin-top: 5em;
-    margin-bottom: 5em;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
   }
 
   .logo {
@@ -412,7 +416,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .avatar {
     position: absolute;
-    top: -23px;
+    top: -22px;
+    left: 4em;
+  }
+
+  .edit-avatar {
     left: 9.2em;
   }
 
@@ -442,17 +450,25 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
       height: 52px;
       background-image: url('~client/assets/images/justin_textbox.png');
     }
+
+    p {
+      margin: auto;
+    }
+
+    p + p {
+      margin-top: 1em;
+    }
   }
 
   .justin-message-section {
-    margin-top: 6em;
-    margin-bottom: 6em;
+    margin-top: 4em;
+    margin-bottom: 2em;
   }
 
   .justin-message-section.top {
     position: absolute;
     top: -16em;
-    left: 13em;
+    left: 3.5em;
   }
 
   .circles {
@@ -494,6 +510,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   .sub-menu-item {
     text-align: center;
+    border-bottom: 2px solid #f9f9f9;
   }
 
   .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
@@ -520,8 +537,8 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     display: inline-block;
     vertical-align: bottom;
     padding: .5em;
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     margin-bottom: .5em;
     margin-right: .5em;
 
@@ -560,11 +577,11 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
   .customize-section {
     background-color: #f9f9f9;
     padding-top: 1em;
-    min-height: 250px;
+    min-height: 280px;
   }
 
   .interests-section {
-    margin-top: 7em;
+    margin-top: 3em;
 
     .task-option {
       margin: 0 auto;
@@ -574,7 +591,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
 
   #backgrounds {
     .set-title {
-      margin-top: 3em;
+      margin-top: 1em;
       margin-bottom: 1em;
     }
 
@@ -669,7 +686,7 @@ b-modal#avatar-modal(title="", size='lg', :hide-header='true', :hide-footer='tru
     }
 
     .gem-amount {
-      margin-top: 2em;
+      margin-top: 1em;
       margin-bottom: 1em;
 
       .gem {
@@ -979,6 +996,20 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    eyewear () {
+      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
+      let options = keys.map(key => {
+        let newKey = `eyewear_special_${key}`;
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
+        option.click = () => {
+          return this.equip(newKey);
+        };
+        return option;
+      });
+      return options;
+    },
     animalEarsUnlockString () {
       let animalItemKeys = this.animalEarsKeys.map(key => {
         return `items.gear.owned.headAccessory_special_${key}`;

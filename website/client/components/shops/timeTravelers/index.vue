@@ -88,6 +88,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -173,7 +174,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
 
         background-repeat: repeat-x;
 
@@ -201,11 +202,11 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/time_travelers_open_banner.png');
+        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
         background-repeat: no-repeat;
 
         &.closed {
-          background: url('~assets/images/shops/time_travelers_closed_banner.png');
+          background: url('~assets/images/npc/normal/time_travelers_closed_banner.png');
           background-repeat: no-repeat;
         }
 
