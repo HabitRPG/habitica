@@ -527,6 +527,11 @@ export default {
       document.body.removeChild(div);
     },
     updateCarretPosition (eventUpdate) {
+      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
+        this.sendMessage();
+        return;
+      }
+
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
