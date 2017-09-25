@@ -23,12 +23,18 @@ nconf.set('IS_TEST', nconf.get('NODE_ENV') === 'test');
 //                      'AMAZON_PAYMENTS', 'STRIPE_PUB_KEY', 'AMPLITUDE_KEY',
 //                      'worldDmg', 'mods', 'IS_MOBILE', 'PUSHER:KEY', 'PUSHER:ENABLED'];
 
+console.log(nconf.get('AMAZON_PAYMENTS_SELLER_ID'))
+console.log(nconf.get('AMAZON_PAYMENTS_CLIENT_ID'))
+
+const AMAZON_SELLER_ID = nconf.get('AMAZON_PAYMENTS:SELLER_ID') || nconf.get('AMAZON_PAYMENTS_SELLER_ID');
+const AMAZON_CLIENT_ID = nconf.get('AMAZON_PAYMENTS:CLIENT_ID') || nconf.get('AMAZON_PAYMENTS_CLIENT_ID');
+
 let env = {
   NODE_ENV: '"production"',
   // clientVars: CLIENT_VARS,
   AMAZON_PAYMENTS: {
-    SELLER_ID: `"${nconf.get('AMAZON_PAYMENTS:SELLER_ID')}"`,
-    CLIENT_ID: `"${nconf.get('AMAZON_PAYMENTS:CLIENT_ID')}"`,
+    SELLER_ID: `"${AMAZON_SELLER_ID}"`,
+    CLIENT_ID: `"${AMAZON_CLIENT_ID}"`,
   },
   EMAILS: {
     COMMUNITY_MANAGER_EMAIL: `"${nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL')}"`,
