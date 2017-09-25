@@ -201,6 +201,7 @@ import QuestInfo from '../../shops/quests/questInfo.vue';
 import moment from 'moment';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
@@ -444,8 +445,9 @@ export default {
 
     mouseMoved ($event) {
       if (this.potionClickMode) {
-        this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
-        this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
+        // dragging potioninfo is 180px wide (90 would be centered)
+        this.$refs.clickPotionInfo.style.left = `${$event.x - 70}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y}px`;
       } else {
         lastMouseMoveEvent = $event;
       }
