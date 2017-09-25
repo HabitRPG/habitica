@@ -95,6 +95,7 @@ export default function () {
       challengeOptions: {
         cloning: false,
         tasksToClone: {},
+        workingChallenge: {},
       },
       editingGroup: {}, // @TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes

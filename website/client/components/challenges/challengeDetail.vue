@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(:challenge='challenge', :cloning='cloning' v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(:cloning='cloning' v-on:updatedChallenge='updatedChallenge')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
 
@@ -383,6 +383,7 @@ export default {
     edit () {
       // @TODO: set working challenge
       this.cloning = false;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('show::modal', 'challenge-modal');
     },
     // @TODO: view members
