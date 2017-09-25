@@ -16,7 +16,7 @@ div
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
-    .row
+    .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
         .nav-item(@click='viewInvites()', :class="{active: selectedPage === 'invites'}") {{ $t('invites') }}

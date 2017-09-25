@@ -652,6 +652,11 @@ export default {
       document.body.removeChild(div);
     },
     updateCarretPosition (eventUpdate) {
+      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
+        this.sendMessage();
+        return;
+      }
+
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
@@ -664,6 +669,8 @@ export default {
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
+      if (!this.newMessage) return;
+
       let response = await this.$store.dispatch('chat:postChat', {
         group: this.group,
         message: this.newMessage,
