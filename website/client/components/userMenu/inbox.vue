@@ -36,7 +36,7 @@
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4(v-once) Nothing Here Yet
           p(v-once) Select a conversation on the left
-        chat-message.container-fluid.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        chat-message.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
 

@@ -89,7 +89,7 @@
   "joinedChallenge": "Joined a Challenge",
   "joinedChallengeText": "This user put themselves to the test by joining a Challenge!",
   "myChallenges": "My Challenges",
-  "findChallenges": "Find Challenges",
+  "findChallenges": "Discover Challenges",
   "noChallengeTitle": "You don't have any Challenges.",
   "challengeDescription1": "Challenges are community events in which players compete and earn prizes by completing a group of related tasks.",
   "challengeDescription2": "Find recommended Challenges based on your interests, browse Habitica's public Challenges, or create your own Challenges.",
@@ -123,5 +123,6 @@
   "summaryTooLong": "Summary is too long",
   "descriptionRequired": "Description is required",
   "locationRequired": "Location of challenge is required ('Add to')",
-  "categoiresRequired": "One or more categories must be selected"
+  "categoiresRequired": "One or more categories must be selected",
+  "viewProgressOf": "View Progress Of"
 }

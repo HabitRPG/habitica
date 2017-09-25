@@ -8,7 +8,7 @@
       .col-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
-        span.float-left(v-if='group.leader.profile') : {{group.leader.profile.name}}
+        span.leader.float-left(v-if='group.leader.profile', @click='showMemberProfile(group.leader)') : {{group.leader.profile.name}}
       .col-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -16,7 +16,7 @@
               .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
-              span.number {{group.memberCount}}
+              span.number {{ group.memberCount | abbrNum }}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
             .item-with-icon
@@ -30,8 +30,11 @@
         .row.new-message-row
           textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+          button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+        .row
+          .col-6
+            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -75,7 +78,7 @@
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
-            button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
+            button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           h2 Pending quest
           button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
@@ -110,7 +113,7 @@
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
                     .col-6
                       // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
-                      span.float-right {{user.party.quest.progress.up || 0}} pending damage
+                      span.float-right {{parseFloat(user.party.quest.progress.up).toFixed(1) || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
@@ -119,9 +122,9 @@
                     .col-6
                       span.float-left
                         | Rage {{questData.boss.rage.value}}
-            button.btn.btn-secondary(v-once, @click="questAbort()") {{ $t('abort') }}
+            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
 
-    .section-header
+    .section-header(v-if='!isParty')
       .row
         .col-10
           h3(v-once) {{ $t('guildSummary') }}
@@ -164,7 +167,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-primary(class='btn-danger', v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
+      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
 </template>
 
 <style lang="scss" scoped>
@@ -172,6 +175,10 @@
 
   h1 {
     color: $purple-200;
+  }
+
+  .leader:hover {
+    cursor: pointer;
   }
 
   .button-container {
@@ -294,7 +301,7 @@
       z-index: 10;
       position: absolute;
       right: 1em;
-      bottom: 3em;
+      bottom: 1em;
     }
   }
 
@@ -411,7 +418,7 @@
   .collect-progress-bar {
     background-color: #24cc8f;
     height: 15px;
-
+    max-width: 100%;
   }
 
   .hr {
@@ -649,6 +656,11 @@ export default {
       document.body.removeChild(div);
     },
     updateCarretPosition (eventUpdate) {
+      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
+        this.sendMessage();
+        return;
+      }
+
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
@@ -661,6 +673,8 @@ export default {
       this.$root.$emit('show::modal', 'members-modal');
     },
     async sendMessage () {
+      if (!this.newMessage) return;
+
       let response = await this.$store.dispatch('chat:postChat', {
         group: this.group,
         message: this.newMessage,
@@ -685,6 +699,7 @@ export default {
       }
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+
       if (this.isParty) {
         this.$store.state.party.data = group;
         this.group = this.$store.state.party.data;
@@ -749,14 +764,10 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
+        this.$store.state.party.members = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
-
-      // @TODO: Implement
-      // User.sync().then(function () {
-      //  $rootScope.hardRedirect('/party');
-      // });
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
@@ -793,6 +804,12 @@ export default {
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');
+    },
+    async showMemberProfile (leader) {
+      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
+      this.$store.state.profileUser = heroDetails.data.data;
+      this.$store.state.profileOptions.startingPage = 'profile';
+      this.$root.$emit('show::modal', 'profile');
     },
     async questCancel () {
       if (!confirm(this.$t('sureCancel'))) return;

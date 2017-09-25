@@ -1,9 +1,7 @@
 <template lang="pug">
   nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
     .navbar-header
-      router-link.nav-item(
-        to='/static/home',
-      )
+      router-link.nav-item(:to='!isUserLoggedIn ? "/static/home" : "/"')
         .logo.svg-icon(v-html='icons.logo')
     .collapse.navbar-collapse
       ul.navbar-nav.mr-auto(v-if='$route.name !== "home"')

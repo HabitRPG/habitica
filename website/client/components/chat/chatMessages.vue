@@ -10,7 +10,7 @@
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
-      .col-2
+      div(:class='inbox ? "col-4" : "col-2"')
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
@@ -18,8 +18,9 @@
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
         )
-      .card.col-10
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden
+      .card(:class='inbox ? "col-8" : "col-10"')
+        .mentioned-icon(v-if='isUserMentioned(msg)')
+        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
@@ -27,7 +28,7 @@
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
-            p {{msg.timestamp | timeAgo}}
+            p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
             .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
@@ -43,13 +44,15 @@
             span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right(v-if='likeCount(msg) > 0')
+            span.action.float-right.liked(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
     // to the right if the user is the author?
+    // Maybe we just create two sub components instead
     .row(v-if='user._id === msg.uuid')
-      .card.col-10
+      .card(:class='inbox ? "col-8" : "col-10"')
+        .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -58,7 +61,7 @@
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
-            p {{msg.timestamp | timeAgo}}
+            p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
             .action(@click='like(msg, index)', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
@@ -74,10 +77,10 @@
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
-            span.action.float-right(v-if='likeCount(msg) > 0')
+            span.action.float-right.liked(v-if='likeCount(msg) > 0')
               .svg-icon(v-html="icons.liked")
               | + {{ likeCount(msg) }}
-      .col-2
+      div(:class='inbox ? "col-4" : "col-2"')
         avatar(
           v-if='cachedProfileData[msg.uuid]',
           :member="cachedProfileData[msg.uuid]",
@@ -134,6 +137,26 @@
   }
   // End of tier colors
 
+  .leader {
+    margin-bottom: 0;
+  }
+
+  .time {
+    font-size: 12px;
+    color: #878190;
+  }
+
+  .mentioned-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #bda8ff;
+    box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+    position: absolute;
+    right: -.5em;
+    top: -.5em;
+  }
+
   h3 { // this is the user name
     cursor: pointer;
 
@@ -173,6 +196,7 @@
   .text {
     font-size: 14px;
     color: #4e4a57;
+    text-align: left !important;
   }
 
   .action {
@@ -183,6 +207,10 @@
 
   .action:hover {
     cursor: pointer;
+  }
+
+  .liked:hover {
+    cursor: default;
   }
 
   .action .svg-icon {
@@ -302,6 +330,27 @@ export default {
     },
   },
   methods: {
+    isUserMentioned (message) {
+      let user = this.user;
+
+      if (message.hasOwnProperty('highlight')) return message.highlight;
+
+      message.highlight = false;
+      let messagetext = message.text.toLowerCase();
+      let username = user.profile.name;
+      let mentioned = messagetext.indexOf(username.toLowerCase());
+      let pattern = `${username}([^\w]|$){1}`;
+
+      if (mentioned === -1) return message.highlight;
+
+      let preceedingchar = messagetext.substring(mentioned - 1, mentioned);
+      if (mentioned === 0 || preceedingchar.trim() === '' || preceedingchar === '@') {
+        let regex = new RegExp(pattern, 'i');
+        message.highlight = regex.test(messagetext);
+      }
+
+      return message.highlight;
+    },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount === 0) return true;
@@ -345,7 +394,13 @@ export default {
     },
     likeCount (message) {
       if (!message.likes) return 0;
-      return Object.keys(message.likes).length;
+
+      let likeCount = 0;
+      for (let key in message.likes) {
+        let like = message.likes[key];
+        if (like) likeCount += 1;
+      }
+      return likeCount;
     },
     async like (messageToLike, index) {
       let message = cloneDeep(messageToLike);
@@ -374,10 +429,13 @@ export default {
       this.$root.$emit('show::modal', 'report-flag');
     },
     async remove (message, index) {
+      if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
+
       this.chat.splice(index, 1);
 
       if (this.inbox) {
         axios.delete(`/api/v3/user/messages/${message.id}`);
+        this.$delete(this.user.inbox.messages, message.id);
         return;
       }
 
