@@ -1,6 +1,7 @@
 <template lang="pug">
 // @TODO: Move this to a member directory
 div
+  remove-member-modal(:member-to-remove='memberToRemove', :group-id='this.groupId' @member-removed='memberRemoved')
   b-modal#members-modal(:title="$t('createGuild')", size='md', :hide-footer='true')
     .header-wrap(slot="modal-header")
       .row
@@ -21,13 +22,13 @@ div
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
         .nav-item(@click='viewInvites()', :class="{active: selectedPage === 'invites'}") {{ $t('invites') }}
     div(v-if='selectedPage === "members"')
-      .row(v-for='member in sortedMembers')
+      .row(v-for='(member, index) in sortedMembers')
         .col-11.no-padding-left
           member-details(:member='member')
         .col-1.actions
           b-dropdown(right=true)
             .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
-            b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
+            b-dropdown-item(@click='removeMember(member, index)', v-if='isLeader')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
                 span.text {{$t('removeMember')}}
@@ -171,6 +172,7 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
 import privateMessageModal from 'client/components/private-message-modal';
+import removeMemberModal from 'client/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
@@ -185,6 +187,7 @@ export default {
     bDropdownItem,
     MemberDetails,
     privateMessageModal,
+    removeMemberModal,
   },
   data () {
     return {
@@ -192,7 +195,7 @@ export default {
       selectedPage: 'members',
       members: [],
       invites: [],
-      memberToRemove: '',
+      memberToRemove: {},
       sortOptions: [
         {
           value: 'level',
@@ -322,24 +325,15 @@ export default {
 
       this.$root.$emit('show::modal', 'members-modal');
     },
-    async removeMember (member) {
+    async removeMember (member, index) {
       this.memberToRemove = member;
+      this.memberToRemove.index = index;
       this.$root.$emit('show::modal', 'remove-member');
     },
-    async confirmRemoveMember (confirmation) {
-      if (!confirmation) {
-        this.memberToRemove = '';
-        return;
-      }
-
-      await this.$store.dispatch('members:removeMember', {
-        memberId: this.memberToRemove._id,
-        groupId: this.group._id,
-        message: this.removeMessage,
-      });
-
-      this.memberToRemove = '';
-      this.removeMessage = '';
+    memberRemoved () {
+      this.members.splice(this.memberToRemove.index, 1);
+      this.group.memberCount -= 1;
+      this.memberToRemove =  {};
     },
     async quickReply (uid) {
       this.memberToReply = uid;
