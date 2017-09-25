@@ -52,15 +52,10 @@
     // to the right if the user is the author?
     // Maybe we just create two sub components instead
     .row(v-if='user._id === msg.uuid')
-<<<<<<< HEAD
-      .card.col-10
-        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-=======
       .card(:class='inbox ? "col-8" : "col-10"')
         .mentioned-icon(v-if='isUserMentioned(msg)')
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
->>>>>>> upstream/develop
+        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
