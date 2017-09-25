@@ -194,6 +194,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -274,7 +275,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop_banner_background.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
 
         background-repeat: repeat-x;
 
@@ -302,7 +303,7 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
 

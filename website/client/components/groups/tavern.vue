@@ -12,8 +12,13 @@
         .row
           textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+
+        .row
+          .col-6
+            button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+          .col-6
+            button.btn.btn-secondary.float-right.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-right(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -138,6 +143,7 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .chat-row {
     position: relative;
@@ -227,14 +233,14 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/tavern_backdrop_web_backgroundtile.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
   }
 
   .daniel_front {
-    background-image: url('~assets/images/tavern_backdrop_web_daniel_and_props.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
@@ -522,6 +528,11 @@ export default {
       document.body.removeChild(div);
     },
     updateCarretPosition (eventUpdate) {
+      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
+        this.sendMessage();
+        return;
+      }
+
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
@@ -549,6 +560,9 @@ export default {
     },
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
+    },
+    reverseChat () {
+      this.group.chat.reverse();
     },
   },
 };

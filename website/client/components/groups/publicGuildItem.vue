@@ -4,11 +4,11 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
     .card-block
       .row
         .col-md-2.badge-column
-          .shield-wrap
+          .shield-wrap(:class="{gold: guild.memberCount > 1000, silver: guild.memberCount > 100 && guild.memberCount < 999}")
             .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='guild.memberCount > 1000')
             .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='guild.memberCount > 100 && guild.memberCount < 999')
             .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='guild.memberCount < 100')
-            .member-count {{guild.memberCount}}
+            .member-count {{ guild.memberCount | abbrNum }}
         .col-md-10
           .row
             .col-md-8
@@ -74,6 +74,14 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
 
     .shield {
       width: 70px;
+    }
+
+    .gold {
+      color: #fdbb5a;
+    }
+
+    .silver {
+      color: #c2c2c2;
     }
 
     .badge-column {

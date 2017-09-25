@@ -48,6 +48,10 @@ export default {
   },
   watch: {
     text (newText) {
+      if (!newText[newText.length - 1] || newText[newText.length - 1] === ' ') {
+        this.searchActive = false;
+      }
+
       if (newText[newText.length - 1] !== '@') return;
       this.searchActive = true;
       this.currentSearchPosition = newText.length - 1;

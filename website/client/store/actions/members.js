@@ -21,8 +21,11 @@ export async function fetchMember (store, payload) {
 
 export async function getGroupInvites (store, payload) {
   let url = `${apiV3Prefix}/groups/${payload.groupId}/invites`;
+  if (payload.includeAllPublicFields) {
+    url += '?includeAllPublicFields=true';
+  }
   let response = await axios.get(url);
-  return response;
+  return response.data.data;
 }
 
 export async function getChallengeMembers (store, payload) {

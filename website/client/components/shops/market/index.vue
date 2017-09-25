@@ -150,9 +150,6 @@
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemImage", scope="scope")
-              span.svg-icon.inline.icon-48(v-if="scope.item.key == 'gem'", v-html="icons.gem")
-
             template(slot="itemBadge", scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -229,6 +226,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -300,7 +298,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
 
@@ -328,7 +326,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -490,29 +488,20 @@ export default {
           let specialItems = [];
 
           if (this.user.purchased.plan.customerId) {
+            let gemItem = getItemInfo(this.user, 'gem');
+
             specialItems.push({
+              ...gemItem,
               showCount: false,
-              key: 'gem',
-              class: 'gem',
-              pinKey: 'gems',
-              purchaseType: 'gems',
-              text: this.$t('subGemName'),
-              notes: this.$t('subGemPop'),
-              currency: 'gold',
-              value: 20,
             });
           }
 
           if (this.user.flags.rebirthEnabled) {
+            let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
+
             specialItems.push({
               showCount: false,
-              key: 'rebirth_orb',
-              class: 'rebirth_orb',
-              purchaseType: 'rebirth_orb',
-              text: this.$t('rebirthName'),
-              notes: this.$t('rebirthPop'),
-              currency: 'gems',
-              value: this.user.stats.lvl < 100 ? 6 : 0,
+              ...rebirthItem,
             });
           }
 
