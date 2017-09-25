@@ -300,16 +300,8 @@ export default {
       return userBalance + groupBalance;
     },
     minPrize () {
-      let groupFound;
-      this.groups.forEach(group => {
-        if (group._id === this.workingChallenge.group) {
-          groupFound = group;
-          return;
-        }
-      });
-
-      if (groupFound && groupFound.privacy === 'private') return 0;
-      return 1;
+      if (this.workingChallenge.group === TAVERN_ID) return 1;
+      return 0;
     },
     insufficientGemsForTavernChallenge () {
       let balance = this.user.balance || 0;

@@ -72,7 +72,7 @@
   "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account.",
   "challengeMemberNotFound": "User not found among challenge's members",
   "onlyGroupLeaderChal": "Only the group leader can create challenges",
-  "tavChalsMinPrize": "Prize must be at least 1 Gem for Tavern challenges.",
+  "tavChalsMinPrize": "Prize must be at least 1 Gem for Public Challenges.",
   "cantAfford": "You can't afford this prize. Purchase more gems or lower the prize amount.",
   "challengeIdRequired": "\"challengeId\" must be a valid UUID.",
   "winnerIdRequired": "\"winnerId\" must be a valid UUID.",

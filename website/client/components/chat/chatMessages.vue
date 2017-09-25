@@ -20,7 +20,8 @@
         )
       .card(:class='inbox ? "col-8" : "col-10"')
         .mentioned-icon(v-if='isUserMentioned(msg)')
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
+        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
@@ -53,7 +54,8 @@
     .row(v-if='user._id === msg.uuid')
       .card(:class='inbox ? "col-8" : "col-10"')
         .mentioned-icon(v-if='isUserMentioned(msg)')
-        .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
+        .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
+        .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-block
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
@@ -71,7 +73,7 @@
             span.action( @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
-            span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+            span.action(v-if='user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
@@ -353,7 +355,7 @@ export default {
     },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
-      if (!message.flagCount || message.flagCount === 0) return true;
+      if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
     },
     async loadProfileCache (screenPosition) {
