@@ -577,7 +577,7 @@ export default {
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
     sortedChecklist (data) {
-      let sorting = clone(this.checklist);
+      let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
       sorting.splice(data.oldIndex, 1);
       sorting.splice(data.newIndex, 0, movingItem);
@@ -591,12 +591,14 @@ export default {
       }
     },
     addChecklistItem (e) {
-      this.task.checklist.push({
+      let checkListItem = {
         id: uuid.v4(),
         text: this.newChecklistItem,
         completed: false,
-      });
-      this.checklist = clone(this.task.checklist);
+      };
+      this.task.checklist.push(checkListItem);
+      // @TODO: managing checklist separately to help with sorting on the UI
+      this.checklist.push(checkListItem);
       this.newChecklistItem = null;
       if (e) e.preventDefault();
     },

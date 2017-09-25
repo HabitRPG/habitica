@@ -79,7 +79,7 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-  @media only screen  and (min-width : 1900px) {
+  @media only screen  and (min-height: 1080px) {
     #bottom-wrap {
       margin-top: 6em;
       position: fixed !important;
