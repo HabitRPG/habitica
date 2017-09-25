@@ -663,7 +663,7 @@ api.resetPasswordSetNewOne = {
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
 
-    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty().isEmail();
+    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty();
     req.checkBody('confirmPassword', res.t('missingNewPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
