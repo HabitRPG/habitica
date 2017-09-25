@@ -8,7 +8,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
             .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='guild.memberCount > 1000')
             .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='guild.memberCount > 100 && guild.memberCount < 999')
             .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='guild.memberCount < 100')
-            .member-count {{guild.memberCount}}
+            .member-count {{ guild.memberCount | abbrNum }}
         .col-md-10
           .row
             .col-md-8

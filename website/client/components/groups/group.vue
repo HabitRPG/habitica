@@ -16,7 +16,7 @@
               .svg-icon.shield(v-html="icons.goldGuildBadgeIcon", v-if='group.memberCount > 1000')
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
-              span.number {{group.memberCount}}
+              span.number {{ group.memberCount | abbrNum }}
               div(v-once) {{ $t('members') }}
           .col-4(v-if='!isParty')
             .item-with-icon

@@ -16,7 +16,7 @@
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
             | {{$t('endDate')}}
             // "endDate": "End Date: <% endDate %>",
-          span {{challenge.endDate}}
+          // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
       .col-4
