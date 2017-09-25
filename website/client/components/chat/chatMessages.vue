@@ -19,6 +19,7 @@
           @click.native="showMemberModal(msg.uuid)",
         )
       .card(:class='inbox ? "col-8" : "col-10"')
+        .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -48,8 +49,10 @@
               | + {{ likeCount(msg) }}
     // @TODO can we avoid duplicating all this code? Cannot we just push everything
     // to the right if the user is the author?
+    // Maybe we just create two sub components instead
     .row(v-if='user._id === msg.uuid')
       .card(:class='inbox ? "col-8" : "col-10"')
+        .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount > 0 && user.contributor.admin') Message Hidden - {{ msg.flagCount }} Flags
         .card-block
             h3.leader(
@@ -141,6 +144,17 @@
   .time {
     font-size: 12px;
     color: #878190;
+  }
+
+  .mentioned-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #bda8ff;
+    box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
+    position: absolute;
+    right: -.5em;
+    top: -.5em;
   }
 
   h3 { // this is the user name
@@ -316,6 +330,27 @@ export default {
     },
   },
   methods: {
+    isUserMentioned (message) {
+      let user = this.user;
+
+      if (message.hasOwnProperty('highlight')) return message.highlight;
+
+      message.highlight = false;
+      let messagetext = message.text.toLowerCase();
+      let username = user.profile.name;
+      let mentioned = messagetext.indexOf(username.toLowerCase());
+      let pattern = `${username}([^\w]|$){1}`;
+
+      if (mentioned === -1) return message.highlight;
+
+      let preceedingchar = messagetext.substring(mentioned - 1, mentioned);
+      if (mentioned === 0 || preceedingchar.trim() === '' || preceedingchar === '@') {
+        let regex = new RegExp(pattern, 'i');
+        message.highlight = regex.test(messagetext);
+      }
+
+      return message.highlight;
+    },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount === 0) return true;
