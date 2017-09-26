@@ -334,6 +334,7 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+      transition: all .5s ease;
     }
 
     .sign-up:hover {
