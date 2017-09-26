@@ -95,13 +95,6 @@ div
             input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
             | {{ $t('inviteOnly') }}
 
-      // @TODO Does it cost gems for a group plan?
-        .form-group
-        input.btn.btn-default(type='submit', :disabled='!newGroup.privacy && !newGroup.name', :value="$t('create')")
-        span.gem-cost {{ '4 ' + $t('gems') }}
-        p
-          small {{ $t('gemCost') }}
-
       .form-group
         .checkbox
           label
