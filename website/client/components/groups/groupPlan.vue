@@ -101,9 +101,9 @@ div
             input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
             | {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
-        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('create')")
+        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
       .form-group
-        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('create') }}
+        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
     .col-12(v-if='activePage === PAGES.PAY')
       .payment-providers
         h3 Choose your payment method
