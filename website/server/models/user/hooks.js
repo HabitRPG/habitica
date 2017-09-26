@@ -33,7 +33,7 @@ function findTag (user, tagName) {
 function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
-    defaultsData = shared.content.userDefaultsMobile;
+    return;
   } else {
     defaultsData = shared.content.userDefaults;
   }
