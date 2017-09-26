@@ -9,6 +9,7 @@ export default {
   mixins: [notificationsMixin],
   computed: {
     ...mapState(['credentials']),
+    // @TODO refactor into one single computed property
     paypalCheckoutLink () {
       return `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}`;
     },
