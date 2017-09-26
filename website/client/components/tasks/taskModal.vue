@@ -114,7 +114,8 @@
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.category-select(v-else) {{getTagsFor(task)[0]}}
+            span.category-select(v-else)
+              .category-label(v-for='tagName in getTagsFor(task)') {{tagName}}
           .category-box(v-if="showTagsSelect")
             .container
               .row
