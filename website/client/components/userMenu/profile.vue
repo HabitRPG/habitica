@@ -653,6 +653,9 @@ export default {
     user () {
       let user = this.userLoggedIn;
 
+      // Reset editing when user is changed. Move to watch or is this good?
+      this.editing = false
+
       let profileUser = this.$store.state.profileUser;
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
