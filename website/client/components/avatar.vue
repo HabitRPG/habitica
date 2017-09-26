@@ -18,9 +18,9 @@
       span(:class="'chair_' + member.preferences.chair")
       span(:class="getGearClass('back')")
       span(:class="skinClass")
-      span.head_0
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
+      span.head_0
       span(:class="getGearClass('back_collar')")
       span(:class="getGearClass('body')")
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
