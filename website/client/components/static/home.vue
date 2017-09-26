@@ -23,9 +23,9 @@
             .strike
               span {{$t('or')}}
             .form
-              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 3}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
+              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click='register()') {{$t('signup')}}
@@ -304,7 +304,7 @@
       color: $purple-400;
       border: solid 2px transparent;
       transition-timing-function: ease;
-      transition: .5s;
+      transition: border .5s, color .5s;
     }
 
     .input-valid {
@@ -588,19 +588,19 @@
     },
     computed: {
       emailValid () {
-        if (this.email.length === 0) return false;
+        if (this.email.length <= 3) return false;
         return this.validateEmail(this.email);
       },
       emailInvalid () {
-        if (this.email.length === 0) return false;
+        if (this.email.length <= 3) return false;
         return !this.validateEmail(this.email);
       },
       passwordConfirmValid () {
-        if (this.passwordConfirm.length === 0) return false;
+        if (this.passwordConfirm.length <= 3) return false;
         return this.passwordConfirm === this.password;
       },
       passwordConfirmInvalid () {
-        if (this.passwordConfirm.length === 0) return false;
+        if (this.passwordConfirm.length <= 3) return false;
         return this.passwordConfirm !== this.password;
       },
     },
