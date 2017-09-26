@@ -1,6 +1,5 @@
 <template lang="pug">
-div
-  .row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
+.row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
     .col-4
       avatar(:member="member",
         @click.native="$emit('click')",
@@ -13,17 +12,17 @@ div
         .is-buffed(v-if="isBuffed")
           .svg-icon(v-html="icons.buff")
       span.small-text.character-level {{ characterLevel }}
-      .progress-container.d-flex
+      .progress-container
         .svg-icon(v-html="icons.health")
         .progress
           .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
         span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
-      .progress-container.d-flex
+      .progress-container
         .svg-icon(v-html="icons.experience")
         .progress
           .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
         span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
-      .progress-container.d-flex(v-if="hasClass")
+      .progress-container(v-if="hasClass")
         .svg-icon(v-html="icons.mana")
         .progress
           .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
@@ -111,7 +110,7 @@ div
   .character-level {
     display: block;
     font-style: normal;
-    margin-bottom: 16px;
+    margin-bottom: .5em;
   }
 
   .is-buffed {
@@ -136,7 +135,7 @@ div
   }
 
   .progress-container {
-    margin-bottom: 12px;
+    margin-bottom: .5em;
   }
 
   .progress-container > span {
@@ -149,11 +148,12 @@ div
     width: 24px;
     height: 24px;
     margin-right: 8px;
-    margin-top: -4px;
+    padding-top: .3em;
   }
 
   .progress-container > .progress {
-    width: 303px;
+    width: 80%;
+    min-width: 200px;
     margin: 0px;
     border-radius: 2px;
     height: 16px;
@@ -164,6 +164,11 @@ div
     border-radius: 2px;
     height: 16px;
     min-width: 0px;
+  }
+
+  .progress-container .svg-icon, .progress-container .progress {
+    display: inline-block;
+    vertical-align: bottom;
   }
 </style>
 
