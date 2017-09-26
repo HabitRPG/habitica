@@ -133,6 +133,12 @@ div
     }
   }
 
+  @media only screen and (max-width: 1280px) {
+    .nav-link {
+      padding: .8em 1em !important;
+    }
+  }
+
   nav.navbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
     padding-left: 25px;
