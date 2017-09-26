@@ -28,11 +28,18 @@
             router-link.dropdown-item(to='/static/faq') {{ $t('faq') }}
             router-link.dropdown-item(to='/static/plans') {{ $t('groupPlans') }}
       button.btn.btn-primary.pull-right(@click='playButtonClick()', v-if='$route.name !== "home"') {{ $t('playButtonFull') }}
-      router-link.btn.btn-primary.login-button.pull-right(to='/login', v-else) {{ $t('login') }}
+    router-link.btn.btn-primary.login-button.pull-right(to='/login', v-if='$route.name === "home"') {{ $t('login') }}
 </template>
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  @media only screen and (max-width : 750px) {
+    .login-button {
+      margin: 0 auto !important;
+      margin-top: 1.8em !important;
+    }
+  }
 
   .btn-primary.pull-right {
     height: 2.5em;

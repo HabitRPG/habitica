@@ -7,11 +7,11 @@
     #intro-signup.purple-1
       .container
         .row
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
             h1 {{$t('motivateYourself')}}
             p.section-main {{$t('timeToGetThingsDone')}}
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
@@ -23,9 +23,9 @@
             .strike
               span {{$t('or')}}
             .form
-              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 0}')
+              input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 3}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
-              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 0}')
+              input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
               button.sign-up(@click='register()') {{$t('signup')}}
@@ -37,19 +37,19 @@
         .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
       .container
         .row
-          .col-6.offset-3.text-center
+          .col-12.col-sm-6.col-md-6.col-lg-6.offset-3.text-center
             h2 {{$t('gamifyYourLife')}}
             p.section-main {{$t('aboutHabitica')}}
         .row
-          .col-4
+          .col-12.col-sm-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
             strong {{$t('trackYourGoals')}}
             p {{$t('trackYourGoalsDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
             strong {{$t('earnRewards')}}
             p {{$t('earnRewardsDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
             strong {{$t('battleMonsters')}}
             p {{$t('battleMonstersDesc')}}
@@ -62,15 +62,15 @@
           .col-12
             h2 {{$t('playersUseToImprove')}}
         .row
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
             strong {{$t('healthAndFitness')}}
             p {{$t('healthAndFitnessDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
             strong {{$t('schoolAndWork')}}
             p {{$t('schoolAndWorkDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
             strong {{$t('muchmuchMore')}}
             p {{$t('muchmuchMoreDesc')}}
@@ -82,9 +82,9 @@
     #level-up-anywhere.purple-3
       .container
         .row
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             .iphones
-          .col-6.text-column
+          .col-12.col-sm-6.col-md-6.col-lg-6.text-column
             h2 {{ $t('levelUpAnywhere') }}
             p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
@@ -118,6 +118,11 @@
 </template>
 
 <style lang="scss">
+  #app  {
+    overflow: hidden;
+    height: auto !important;
+  }
+
   .form-text a {
     color: #fff !important;
   }
@@ -240,6 +245,11 @@
       background: transparent;
       margin-right: .5em;
       color: #bda8ff;
+      transition: .5s;
+
+      span {
+        transition: none;
+      }
     }
 
     .social-button:hover {
@@ -304,7 +314,7 @@
       color: $purple-400;
       border: solid 2px transparent;
       transition-timing-function: ease;
-      transition: .5s;
+      transition: border .5s, color .5s;
     }
 
     .input-valid {
@@ -329,6 +339,7 @@
       border-radius: 2px;
       background-color: #2995cd;
       font-size: 16px;
+      transition: all .5s ease;
     }
 
     .sign-up:hover {
@@ -588,19 +599,19 @@
     },
     computed: {
       emailValid () {
-        if (this.email.length === 0) return false;
+        if (this.email.length <= 3) return false;
         return this.validateEmail(this.email);
       },
       emailInvalid () {
-        if (this.email.length === 0) return false;
+        if (this.email.length <= 3) return false;
         return !this.validateEmail(this.email);
       },
       passwordConfirmValid () {
-        if (this.passwordConfirm.length === 0) return false;
+        if (this.passwordConfirm.length <= 3) return false;
         return this.passwordConfirm === this.password;
       },
       passwordConfirmInvalid () {
-        if (this.passwordConfirm.length === 0) return false;
+        if (this.passwordConfirm.length <= 3) return false;
         return this.passwordConfirm !== this.password;
       },
     },

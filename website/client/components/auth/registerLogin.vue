@@ -279,6 +279,11 @@ export default {
   },
   methods: {
     async register () {
+      if (!this.email) {
+        alert('Email is required');
+        return;
+      }
+
       if (this.password !== this.passwordConfirm) {
         alert('Passwords must match');
         return;
@@ -314,6 +319,11 @@ export default {
       window.location.href = '/';
     },
     async login () {
+      if (!this.username) {
+        alert('Email is required');
+        return;
+      }
+
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,

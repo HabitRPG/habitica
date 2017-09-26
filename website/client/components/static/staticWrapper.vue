@@ -38,11 +38,15 @@
       color: #fff !important;
     }
 
+    .nav-item .nav-link {
+      transition: color .5s ease;
+    }
+
     .login-button {
       padding-right: 1em;
       margin-top: 1.8em !important;
       border-radius: 2px;
-      background-color: #b288ff;
+      background-color: #9a62ff;
     }
 
     .login-button:hover {

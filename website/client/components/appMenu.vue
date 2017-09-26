@@ -105,6 +105,12 @@ div
         padding: .5em !important;
       }
     }
+
+    .dropdown-menu {
+      position: absolute !important;
+      left: -10em;
+      top: -.5em;
+    }
   }
 
   @media only screen and (max-width : 1224px) and (min-width: 1200px) {
@@ -130,6 +136,12 @@ div
 
     .navbar-toggleable-lg .navbar-collapse {
       display: block;
+    }
+  }
+
+  @media only screen and (max-width: 1280px) {
+    .nav-link {
+      padding: .8em 1em !important;
     }
   }
 
