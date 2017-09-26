@@ -105,6 +105,12 @@ div
         padding: .5em !important;
       }
     }
+
+    .dropdown-menu {
+      position: absolute !important;
+      left: -10em;
+      top: -.5em;
+    }
   }
 
   @media only screen and (max-width : 1224px) and (min-width: 1200px) {
