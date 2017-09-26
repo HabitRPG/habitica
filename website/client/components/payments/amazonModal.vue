@@ -1,6 +1,6 @@
 <template lang="pug">
   b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='lg')
-    button#AmazonPayButton
+    #AmazonPayButton
     #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
     #AmazonPayRecurring(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'",
                         style="width: 400px; height: 140px;")
