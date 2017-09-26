@@ -118,6 +118,11 @@
 </template>
 
 <style lang="scss">
+  #app  {
+    overflow: hidden;
+    height: auto !important;
+  }
+
   .form-text a {
     color: #fff !important;
   }
