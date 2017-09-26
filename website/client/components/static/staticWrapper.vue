@@ -42,7 +42,7 @@
       padding-right: 1em;
       margin-top: 1.8em !important;
       border-radius: 2px;
-      background-color: #b288ff;
+      background-color: #9a62ff;
     }
 
     .login-button:hover {

@@ -240,6 +240,11 @@
       background: transparent;
       margin-right: .5em;
       color: #bda8ff;
+      transition: .5s;
+
+      span {
+        transition: none;
+      }
     }
 
     .social-button:hover {
