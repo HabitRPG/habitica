@@ -7,11 +7,11 @@
     #intro-signup.purple-1
       .container
         .row
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             img(src='~assets/images/home/home-main@3x.png', width='357px')
             h1 {{$t('motivateYourself')}}
             p.section-main {{$t('timeToGetThingsDone')}}
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             h3.text-center {{$t('singUpForFree')}}
             div.text-center
               button.social-button(@click='socialAuth("facebook")')
@@ -37,19 +37,19 @@
         .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
       .container
         .row
-          .col-6.offset-3.text-center
+          .col-12.col-sm-6.col-md-6.col-lg-6.offset-3.text-center
             h2 {{$t('gamifyYourLife')}}
             p.section-main {{$t('aboutHabitica')}}
         .row
-          .col-4
+          .col-12.col-sm-4
             img.track-habits(src='~assets/images/home/track-habits@3x.png', width='354px', height='228px')
             strong {{$t('trackYourGoals')}}
             p {{$t('trackYourGoalsDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/earn-rewards@3x.png', width='316px', height='244px')
             strong {{$t('earnRewards')}}
             p {{$t('earnRewardsDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/battle-monsters@3x.png', width='303px', height='244px')
             strong {{$t('battleMonsters')}}
             p {{$t('battleMonstersDesc')}}
@@ -62,15 +62,15 @@
           .col-12
             h2 {{$t('playersUseToImprove')}}
         .row
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/health-fitness@3x.png', width='300px', height='300px')
             strong {{$t('healthAndFitness')}}
             p {{$t('healthAndFitnessDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/school-work@3x.png', width='300px', height='300px')
             strong {{$t('schoolAndWork')}}
             p {{$t('schoolAndWorkDesc')}}
-          .col-4
+          .col-12.col-sm-4
             img(src='~assets/images/home/much-more@3x.png', width='300px', height='300px')
             strong {{$t('muchmuchMore')}}
             p {{$t('muchmuchMoreDesc')}}
@@ -82,9 +82,9 @@
     #level-up-anywhere.purple-3
       .container
         .row
-          .col-6
+          .col-12.col-sm-6.col-md-6.col-lg-6
             .iphones
-          .col-6.text-column
+          .col-12.col-sm-6.col-md-6.col-lg-6.text-column
             h2 {{ $t('levelUpAnywhere') }}
             p {{ $t('levelUpAnywhereDesc') }}
             a.app.svg-icon(v-html='icons.googlePlay', href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank')
