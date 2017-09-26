@@ -28,7 +28,7 @@
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
-    .row.leader-actions(v-if='isLeader')
+    .row.challenge-actions
       .col-7.offset-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
@@ -36,7 +36,7 @@
           b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
         span(v-if='isLeader')
-          b-dropdown.create-dropdown(:text="$t('create')", :variant="'success'")
+          b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
               | {{$t(type)}}
           task-modal(
@@ -156,7 +156,7 @@
     margin-top: 2em;
   }
 
-  .leader-actions {
+  .challenge-actions {
     margin-top: 1em;
 
     .view-progress {
