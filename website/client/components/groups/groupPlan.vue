@@ -88,10 +88,6 @@ div
       .form-group(v-if='type === "guild"')
         .radio
           label
-            input(type='radio', name='new-group-privacy', value='public', v-model='newGroup.privacy')
-            | {{ $t('public') }}
-        .radio
-          label
             input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
             | {{ $t('inviteOnly') }}
 
