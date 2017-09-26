@@ -283,7 +283,7 @@ export default {
         alert('Email is required');
         return;
       }
-      
+
       if (this.password !== this.passwordConfirm) {
         alert('Passwords must match');
         return;
@@ -319,7 +319,7 @@ export default {
       window.location.href = '/';
     },
     async login () {
-      if (!this.email) {
+      if (!this.username) {
         alert('Email is required');
         return;
       }
