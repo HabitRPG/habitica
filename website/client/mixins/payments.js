@@ -5,13 +5,8 @@ import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import notificationsMixin from 'client/mixins/notifications';
 
-let StripeCheckout;
-
 export default {
   mixins: [notificationsMixin],
-  created () {
-    StripeCheckout = window.StripeCheckout;
-  },
   computed: {
     ...mapState(['credentials']),
     paypalCheckoutLink () {
@@ -63,7 +58,7 @@ export default {
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
-      StripeCheckout.open({
+      window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         amount,
@@ -114,7 +109,7 @@ export default {
         groupId = config.groupId;
       }
 
-      StripeCheckout.open({
+      window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         name: this.$t('subUpdateTitle'),
