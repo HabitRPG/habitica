@@ -36,7 +36,7 @@
           b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
         span(v-if='isLeader')
-          b-dropdown.create-dropdown(:text="$t('create')", :variant="'success'")
+          b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
               | {{$t(type)}}
           task-modal(
