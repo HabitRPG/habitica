@@ -7,7 +7,7 @@
   .col-8.standard-page
     .row
       .col-8
-        h1 {{challenge.name}}
+        h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
           span {{challenge.leader.profile.name}}
