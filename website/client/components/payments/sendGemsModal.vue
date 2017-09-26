@@ -2,7 +2,7 @@
 b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
   .modal-body(v-if='userReceivingGems')
     .panel.panel-default(
-      :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'", 
+      :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "gems"'
     )
       // @TODO the panel does not exists in Bootstrap 4
@@ -27,7 +27,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
             p.small(v-html="$t('gemGiftsAreOptional', assistanceEmailObject)")
 
     .panel.panel-default(
-      :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'", 
+      :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "subscription"'
     )
       h3.panel-heading {{ $t('subscription') }}
