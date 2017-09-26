@@ -28,7 +28,7 @@
           .svg-icon.gem-icon(v-html="icons.gemIcon")
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
-    .row.leader-actions(v-if='isLeader')
+    .row.challenge-actions
       .col-7.offset-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
@@ -156,7 +156,7 @@
     margin-top: 2em;
   }
 
-  .leader-actions {
+  .challenge-actions {
     margin-top: 1em;
 
     .view-progress {
