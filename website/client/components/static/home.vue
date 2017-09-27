@@ -620,6 +620,7 @@
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       },
+      // @TODO this is totally duplicate from the registerLogin component
       async register () {
         if (this.password !== this.passwordConfirm) {
           alert('Passwords must match');
@@ -633,12 +634,15 @@
           passwordConfirm: this.passwordConfirm,
         });
 
-        if (this.$store.state.afterLoginRedirect) {
-          window.location.href = this.$store.state.afterLoginRedirect;
-          return;
+        let redirectTo;
+
+        if (this.$route.query.redirectTo) {
+          redirectTo = this.$route.query.redirectTo;
+        } else {
+          redirectTo = '/';
         }
 
-        window.location.href = '/';
+        window.location.href = redirectTo;
       },
       playButtonClick () {
         Analytics.track({

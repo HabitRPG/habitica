@@ -129,7 +129,6 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      afterLoginRedirect: '',
       userIdToMessage: '',
     },
   });
