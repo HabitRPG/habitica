@@ -83,7 +83,7 @@
         :enabled="!resetPasswordSetNewOneData.hasError"
       )  {{$t('setNewPass')}}
 
-  #bottom-wrap
+  #bottom-wrap(:class="`bottom-wrap-${!registering ? 'login' : 'register'}`")
     #bottom-background
       .seamless_mountains_demo_repeat
       .midground_foreground_extended2
@@ -104,7 +104,16 @@
   @import '~client/assets/scss/colors.scss';
 
   @media only screen  and (min-height: 1080px) {
-    #bottom-wrap {
+    .bottom-wrap-register {
+      margin-top: 6em;
+      position: fixed !important;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
+  @media only screen  and (min-height: 862px) {
+    .bottom-wrap-login {
       margin-top: 6em;
       position: fixed !important;
       width: 100%;
