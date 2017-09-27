@@ -311,7 +311,7 @@ export default {
     });
   },
   watch: {
-    '$route': {
+    $route: {
       handler () {
         if (this.resetPasswordSetNewOne) {
           const query = this.$route.query;
