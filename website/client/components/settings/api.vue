@@ -23,7 +23,7 @@
           br
           | {{ $t('chromeChatExtensionDesc') }}
         li
-          a(target='_blank' :href='`http://data.habitrpg.com?uuid= + user._id`') {{ $t('dataTool') }}
+          a(target='_blank' :href='`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id') {{ $t('dataTool') }}
           br
           | {{ $t('dataToolDesc') }}
         li(v-html="$t('otherExtensions')")
