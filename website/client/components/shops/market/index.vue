@@ -485,7 +485,10 @@ export default {
             }),
           });
 
-          let specialItems = [];
+          let specialItems = [{
+            ...getItemInfo(this.user, 'fortify'),
+            showCount: false,
+          }];
 
           if (this.user.purchased.plan.customerId) {
             let gemItem = getItemInfo(this.user, 'gem');

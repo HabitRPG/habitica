@@ -116,36 +116,37 @@ function removePinnedItemsByOwnedGear (user) {
   });
 }
 
+const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fortify'];
+
 /**
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
 function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
   if (!path) {
     // If path isn't passed it means an item was passed
-    path = getItemInfo(user, type, item, req.language).path;
+    path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
   } else {
     if (!item) {
       item = get(content, path);
     }
 
-    if (!item) {
+    if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure
 
       throw new BadRequest(i18n.t('wrongItemPath', {path}, req.language));
     }
 
     // check if item exists & valid to be pinned
-    getItemInfo(user, type, item, req.language);
+    getItemInfo(user, type, item, officialPinnedItems, req.language);
   }
 
 
   if (path === 'armoire' || path === 'potion') {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
-
-  let officialPinnedItems = getOfficialPinnedItems(user);
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
     return officialPinnedItem.path === path;

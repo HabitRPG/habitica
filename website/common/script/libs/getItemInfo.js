@@ -299,6 +299,20 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     }
+    case 'fortify': {
+      itemInfo = {
+        key: 'fortify',
+        purchaseType: 'fortify',
+        class: 'inventory_special_fortify',
+        text: i18n.t('fortifyName'),
+        notes: i18n.t('fortifyPop'),
+        value: 4,
+        currency: 'gems',
+        path: 'special.fortify',
+        pinType: 'fortify',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {
