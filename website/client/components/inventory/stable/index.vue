@@ -330,11 +330,6 @@
       padding-right:0;
     }
 
-    .drawer-container {
-      // 3% padding + 252px sidebar width
-      left: calc(3% + 252px) !important;
-    }
-
     .svg-icon.inline.icon-16 {
       vertical-align: bottom;
     }
