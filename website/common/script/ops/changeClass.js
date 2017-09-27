@@ -7,7 +7,7 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../libs/errors';
-import { removePinnedGearByClass, addPinnedGearByClass } from './pinnedGearUtils';
+import { removePinnedGearByClass, removePinnedItemsByOwnedGear, addPinnedGearByClass } from './pinnedGearUtils';
 
 function resetClass (user, req = {}) {
   removePinnedGearByClass(user);
@@ -48,6 +48,8 @@ module.exports = function changeClass (user, req = {}, analytics) {
 
     user.items.gear.owned[`weapon_${klass}_0`] = true;
     if (klass === 'rogue')  user.items.gear.owned[`shield_${klass}_0`] = true;
+
+    removePinnedItemsByOwnedGear(user);
 
     if (analytics) {
       analytics.track('change class', {

@@ -105,6 +105,18 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
 }
 
 /**
+ * removes all pinned gear that the user already owns (like class starter gear which has been pinned before)
+ * @param user
+ */
+function removePinnedItemsByOwnedGear (user) {
+  each(user.items.gear.owned, (bool, key) => {
+    if (bool) {
+      removeItemByPath(user, `gear.flat.${key}`);
+    }
+  });
+}
+
+/**
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
 function togglePinnedItem (user, {item, type, path}, req = {}) {
@@ -150,6 +162,7 @@ module.exports = {
   addPinnedGear,
   removePinnedGearByClass,
   removePinnedGearAddPossibleNewOnes,
+  removePinnedItemsByOwnedGear,
   togglePinnedItem,
   removeItemByPath,
   isPinned,

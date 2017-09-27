@@ -2,7 +2,7 @@
 div
   h4.popover-content-title {{ itemText }}
   .popover-content-text {{ itemNotes }}
-  .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr", v-once)
+  .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr")
     span.popover-content-attr-key {{ `${$t(attr)}: ` }}
     span.popover-content-attr-val {{ `+${item[attr]}` }}
 </template>
