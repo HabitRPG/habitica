@@ -274,9 +274,26 @@ router.beforeEach(function routerGuard (to, from, next) {
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the
     // root of the website, in which case show the home page.
-    // TODO when redirecting to login if user login then redirect back to initial page
-    // so if you tried to go to /party you'll be redirected to /party after login/signup
-    return next({name: to.path === '/' ? 'home' : 'login'});
+    // Pass the requested page as a query parameter to redirect later.
+
+    const redirectTo = to.path === '/' ? 'home' : 'login';
+    return next({
+      name: redirectTo,
+      query: redirectTo === 'login' ? {
+        redirectTo: to.path,
+      } : null,
+    });
+  }
+
+  // Keep the redirectTo query param when going from login to register
+  // !to.query.redirectTo is to avoid entering a loop of infinite redirects
+  if (to.name === 'register' && !to.query.redirectTo && from.name === 'login' && from.query.redirectTo) {
+    return next({
+      name: 'register',
+      query: {
+        redirectTo: from.query.redirectTo,
+      },
+    });
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {

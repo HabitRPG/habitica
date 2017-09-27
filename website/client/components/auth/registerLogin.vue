@@ -226,7 +226,7 @@
   }
 
   .toggle-link {
-    color: #fff !important;
+    color: $white !important;
   }
 
   .forgot-password {
@@ -307,16 +307,19 @@ export default {
         passwordConfirm: this.passwordConfirm,
       });
 
-      if (this.$store.state.afterLoginRedirect) {
-        window.location.href = this.$store.state.afterLoginRedirect;
-        return;
+      let redirectTo;
+
+      if (this.$route.query.redirectTo) {
+        redirectTo = this.$route.query.redirectTo;
+      } else {
+        redirectTo = '/';
       }
 
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
       // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
-      window.location.href = '/';
+      window.location.href = redirectTo;
     },
     async login () {
       if (!this.username) {
@@ -330,16 +333,19 @@ export default {
         password: this.password,
       });
 
-      if (this.$store.state.afterLoginRedirect) {
-        window.location.href = this.$store.state.afterLoginRedirect;
-        return;
+      let redirectTo;
+
+      if (this.$route.query.redirectTo) {
+        redirectTo = this.$route.query.redirectTo;
+      } else {
+        redirectTo = '/';
       }
 
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
       // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
-      window.location.href = '/';
+      window.location.href = redirectTo;
     },
     async socialAuth (network) {
       const url = window.location.href;
@@ -354,10 +360,19 @@ export default {
         auth,
       });
 
+      let redirectTo;
+
+      if (this.$route.query.redirectTo) {
+        redirectTo = this.$route.query.redirectTo;
+      } else {
+        redirectTo = '/';
+      }
+
       // @TODO do not reload entire page
       // problem is that app.vue created hook should be called again
       // after user is logged in / just signed up
-      window.location.href = '/';
+      // ALSO it's the only way to make sure language data is reloaded and correct for the logged in user
+      window.location.href = redirectTo;
     },
     handleSubmit () {
       if (this.registering) {
