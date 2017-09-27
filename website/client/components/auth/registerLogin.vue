@@ -92,7 +92,7 @@
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
     background: linear-gradient(to bottom, #4f2a93, #6133b4); /* Standard syntax */
-    min-height: 100%;
+    min-height: 100vh;
   }
 
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
