@@ -20,9 +20,9 @@ div
           member-details(:member="user")
     .row
       .col-6.offset-3.text-center.nav
-        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
-        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
-        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
+        .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
+        .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
+        .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-8
@@ -94,9 +94,9 @@ div
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
         .col-3.text-center(v-for='(achievement, key) in category.achievements')
-          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievement.earned}')
+          .box.achievement-container(:id='key + "-achievement"', :class='{"achievement-unearned": !achievement.earned}')
             b-popover(
-              :target="'#' + key",
+              :target="'#' + key + '-achievement'",
               triggers="hover",
               placement="top",
             )
@@ -121,11 +121,11 @@ div
             span {{ value }}
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
-        .col-6 {{$t('equipment')}}
-          h2.text-center
+        .col-6
+          h2.text-center {{$t('equipment')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.eyewear}')
+              .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
@@ -133,11 +133,11 @@ div
                 div(:class="`shop_${equippedItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.headAccessory}')
+              .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.backAccessory}')
+              .box(:class='{white: equippedItems.backAccessory && equippedItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
@@ -145,7 +145,7 @@ div
                 div(:class="`shop_${equippedItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.bodyAccessory}')
+              .box(:class='{white: equippedItems.bodyAccessory && equippedItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
@@ -161,7 +161,7 @@ div
           h2.text-center {{$t('costume')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear}')
+              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.eyewear}`")
               h3 {{$t('eyewear')}}
             .col-4.item-wrapper
@@ -169,11 +169,11 @@ div
                 div(:class="`shop_${costumeItems.head}`")
               h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory}')
+              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.backAccessory}')
+              .box(:class='{white: costumeItems.backAccessory && costumeItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.backAccessory}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
@@ -181,7 +181,7 @@ div
                 div(:class="`shop_${costumeItems.armor}`")
               h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.bodyAccessory}')
+              .box(:class='{white: costumeItems.bodyAccessory && costumeItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
@@ -189,8 +189,8 @@ div
                 div(:class="`shop_${costumeItems.weapon}`")
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
-              .box(:class='{white: user.preferences.background}')
-                div(:class="user.preferences.background")
+              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+                div(:class="'background_' + user.preferences.background")
               h3 {{$t('background')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
@@ -326,7 +326,7 @@ div
   }
 
   .pet, .mount {
-    margin-top: -1.6em;
+    margin-top: -1.8em !important;
   }
 
   .header {
@@ -653,6 +653,9 @@ export default {
     user () {
       let user = this.userLoggedIn;
 
+      // Reset editing when user is changed. Move to watch or is this good?
+      this.editing = false;
+
       let profileUser = this.$store.state.profileUser;
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
@@ -660,6 +663,7 @@ export default {
 
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
+      this.editingProfile.blurb = user.profile.blurb;
 
       if (!user.achievements.quests) user.achievements.quests = {};
       if (!user.achievements.challenges) user.achievements.challenges = {};
@@ -700,6 +704,11 @@ export default {
     },
   },
   methods: {
+    selectPage (page) {
+      this.selectedPage = page;
+      // @TODO: rename this property?
+      this.$store.state.profileOptions.startingPage = page;
+    },
     sendMessage () {
       this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');

@@ -103,6 +103,15 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  @media only screen  and (min-height: 1080px) {
+    #bottom-wrap {
+      margin-top: 6em;
+      position: fixed !important;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
   .form-wrapper {
     background-color: $purple-200;
     background: $purple-200; /* For browsers that do not support gradients */
@@ -207,7 +216,7 @@
 
   #bottom-wrap {
     margin-top: 6em;
-    position: fixed;
+    position: static;
     width: 100%;
     bottom: 0;
   }
@@ -330,6 +339,11 @@ export default {
   methods: {
     async register () {
       // @TODO do not use alert
+      if (!this.email) {
+        alert(this.$t('missingEmail'));
+        return;
+      }
+
       if (this.password !== this.passwordConfirm) {
         alert(this.$t('passwordConfirmationMatch'));
         return;
@@ -365,6 +379,11 @@ export default {
       window.location.href = '/';
     },
     async login () {
+      if (!this.username) {
+        alert('Email is required');
+        return;
+      }
+
       await this.$store.dispatch('auth:login', {
         username: this.username,
         // email: this.email,

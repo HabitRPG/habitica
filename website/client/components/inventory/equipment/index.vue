@@ -66,7 +66,7 @@
             )
               .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
-        item(
+        item.pointer(
           v-for="(label, group) in gearTypesToStrings",
           :key="group",
           :item="flatGear[activeItems[group]]",
@@ -74,6 +74,7 @@
           :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
           :label="label",
           :popoverPosition="'top'",
+          @click="equipItem(flatGear[activeItems[group]])",
         )
           template(slot="popoverContent", scope="context")
             equipmentAttributesPopover(:item="context.item")
@@ -113,7 +114,7 @@
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="openEquipDialog(context.item)",
+                @click="equipItem(context.item)",
               )
             template(slot="popoverContent", scope="context")
               equipmentAttributesPopover(:item="context.item")
@@ -126,6 +127,12 @@
     :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
   )
 </template>
+
+<style lang="scss">
+.pointer {
+  cursor: pointer;
+}
+</style>
 
 <script>
 import { mapState } from 'client/libs/store';

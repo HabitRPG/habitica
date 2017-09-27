@@ -34,7 +34,8 @@
       .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
-          span {{ classText }}&nbsp;
+          // @TODO: what is classText
+          span(v-if='classText') {{ classText }}&nbsp;
           button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
           small.cost 3
             span.Pet_Currency_Gem1x.inline-gems
@@ -117,21 +118,20 @@
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-          // hr
-          // TODO
-          // div(v-if='!user.auth.local.username')
+          hr
+          div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
-            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
+            .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
-                input.form-control(type='text', placeholder="$t('username')", v-model='localAuth.username', required)
+                input.form-control(type='text', :placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
-                input.form-control(type='text', placeholder="$t('email')", v-model='localAuth.email', required)
+                input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('password')", v-model='localAuth.password', required)
+                input.form-control(type='password', :placeholder="$t('password')", v-model='localAuth.password', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
-              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value="$t('submit')")
+                input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
+              button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
 
         .usersettings(v-if='user.auth.local.username')
           p {{ $t('username') }}
@@ -231,6 +231,12 @@ export default {
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
+      localAuth: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
     };
   },
   mounted () {
@@ -290,6 +296,7 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
+      this.user.flags.newStuff = true;
       this.$root.$emit('show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
@@ -379,6 +386,9 @@ export default {
       } catch (e) {
         alert(e.message);
       }
+    },
+    addLocalAuth () {
+      axios.post('/api/v3/user/auth/local/register', this.localAuth, 'addedLocalAuth');
     },
   },
 };

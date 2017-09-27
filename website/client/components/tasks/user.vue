@@ -65,7 +65,7 @@
         b-dropdown(:right="true", :variant="'success'")
           div(slot="button-content")
             .svg-icon.positive(v-html="icons.positive")
-            | {{ $t('create') }}
+            | {{ $t('addTaskToUser') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
             span.dropdown-icon-item(v-once)
               span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')

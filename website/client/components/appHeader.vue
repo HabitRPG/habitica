@@ -3,11 +3,12 @@ div
   create-party-modal
   #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
     members-modal(:hide-badge="true")
-    member-details(:member="user")
+    .col-6
+      member-details(:member="user")
     .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
       // TODO button should open the party members modal
       button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
-    .party-members.d-flex(
+    .party-members.col-6.d-flex(
       v-if="partyMembers && partyMembers.length > 1",
       v-resize="1500",
       @resized="setPartyMembersWidth($event)"
@@ -21,13 +22,13 @@ div
         @onHover="expandMember(member._id)",
         :expanded="member._id === expandedMember",
       )
-    .no-party.d-flex.justify-content-center.text-center(v-else)
+    .no-party.col-6.d-flex.justify-content-center.text-center(v-else)
       .align-self-center(v-once)
         h3 {{ $t('battleWithFriends') }}
         span.small-text(v-html="$t('inviteFriendsParty')")
         br
         // TODO link to party creation or party page if partying solo
-        button.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
+        button.btn.btn-primary(@click='openPartyModal()') {{ partyMembers && partyMembers.length > 1 ? $t('startAParty') : $t('inviteFriends') }}
 </template>
 
 <style lang="scss" scoped>

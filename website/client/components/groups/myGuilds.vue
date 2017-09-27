@@ -17,7 +17,7 @@
       .col-4
         button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('create')}}
+          span(v-once) {{$t('createGuild2')}}
         // @TODO: Add when we implement recent activity .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)

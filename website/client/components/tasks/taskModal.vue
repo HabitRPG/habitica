@@ -114,7 +114,8 @@
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.category-select(v-else) {{getTagsFor(task)[0]}}
+            span.category-select(v-else)
+              .category-label(v-for='tagName in getTagsFor(task)') {{tagName}}
           .category-box(v-if="showTagsSelect")
             .container
               .row
@@ -577,7 +578,7 @@ export default {
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
     sortedChecklist (data) {
-      let sorting = clone(this.checklist);
+      let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
       sorting.splice(data.oldIndex, 1);
       sorting.splice(data.newIndex, 0, movingItem);
@@ -591,12 +592,14 @@ export default {
       }
     },
     addChecklistItem (e) {
-      this.task.checklist.push({
+      let checkListItem = {
         id: uuid.v4(),
         text: this.newChecklistItem,
         completed: false,
-      });
-      this.checklist = clone(this.task.checklist);
+      };
+      this.task.checklist.push(checkListItem);
+      // @TODO: managing checklist separately to help with sorting on the UI
+      this.checklist.push(checkListItem);
       this.newChecklistItem = null;
       if (e) e.preventDefault();
     },

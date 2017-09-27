@@ -114,8 +114,13 @@
             @click="itemClicked(group.key, context.item)",
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text }}
-              .popover-content-text(v-html="context.item.notes")
+              div.questPopover(v-if="group.key === 'quests'")
+                h4.popover-content-title {{ context.item.text }}
+                questInfo(:quest="context.item")
+
+              div(v-else)
+                h4.popover-content-title {{ context.item.text }}
+                .popover-content-text(v-html="context.item.notes")
             template(slot="itemBadge", scope="context")
               countBadge(
                 :show="true",
@@ -191,6 +196,8 @@ import startQuestModal from '../../groups/startQuestModal';
 
 import createAnimal from 'client/libs/createAnimal';
 
+import QuestInfo from '../../shops/quests/questInfo.vue';
+
 import moment from 'moment';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
@@ -228,6 +235,7 @@ export default {
     CountBadge,
     startQuestModal,
     cardsModal,
+    QuestInfo,
   },
   directives: {
     drag: DragDropDirective,

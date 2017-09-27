@@ -12,7 +12,7 @@
     div(v-if='questData')
       questDialogContent(:item="questData")
     div.text-center
-      button.btn.btn-primary(@click='questInit()', :disabled="!Boolean(selectedQuest)") {{$t('inviteToPartyOrQuest')}}
+      button.btn.btn-primary(@click='questInit()', :disabled="!Boolean(selectedQuest) || loading") {{$t('inviteToPartyOrQuest')}}
     div.text-center
       p {{$t('inviteInformation')}}
     .side-panel(v-if='questData')
@@ -122,6 +122,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       selectedQuest: {},
       icons: Object.freeze({
         copy: copyIcon,
@@ -157,6 +158,8 @@ export default {
     },
 
     async questInit () {
+      this.loading = true;
+
       Analytics.updateUser({
         partyID: this.group._id,
         partySize: this.group.memberCount,
@@ -169,6 +172,8 @@ export default {
       const quest = response.data.data;
 
       if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;
+
+      this.loading = false;
 
       this.$root.$emit('hide::modal', 'start-quest-modal');
     },

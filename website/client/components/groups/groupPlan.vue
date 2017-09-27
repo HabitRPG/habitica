@@ -88,19 +88,8 @@ div
       .form-group(v-if='type === "guild"')
         .radio
           label
-            input(type='radio', name='new-group-privacy', value='public', v-model='newGroup.privacy')
-            | {{ $t('public') }}
-        .radio
-          label
             input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
             | {{ $t('inviteOnly') }}
-
-      // @TODO Does it cost gems for a group plan?
-        .form-group
-        input.btn.btn-default(type='submit', :disabled='!newGroup.privacy && !newGroup.name', :value="$t('create')")
-        span.gem-cost {{ '4 ' + $t('gems') }}
-        p
-          small {{ $t('gemCost') }}
 
       .form-group
         .checkbox
@@ -108,9 +97,9 @@ div
             input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
             | {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
-        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('create')")
+        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
       .form-group
-        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('create') }}
+        button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
     .col-12(v-if='activePage === PAGES.PAY')
       .payment-providers
         h3 Choose your payment method
