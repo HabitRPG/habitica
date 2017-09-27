@@ -122,11 +122,24 @@ function removePinnedItemsByOwnedGear (user) {
 function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
 
-  if (!path) { // If path isn't passed it means an item was passed
+  if (!path) {
+    // If path isn't passed it means an item was passed
     path = getItemInfo(user, type, item, req.language).path;
+  } else {
+    if (!item) {
+      item = get(content, path);
+    }
+
+    if (!item) {
+      // path not exists in our content structure
+
+      throw new BadRequest(i18n.t('wrongItemPath', {path}, req.language));
+    }
+
+    // check if item exists & valid to be pinned
+    getItemInfo(user, type, item, req.language);
   }
 
-  if (!item) item = get(content, path);
 
   if (path === 'armoire' || path === 'potion') {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
