@@ -216,10 +216,8 @@
         div.content-text(v-once) {{ $t('welcomeStableText') }}
 
     b-modal#hatching-modal(
-      :visible="hatchablePet != null",
       @change="resetHatchablePet($event)"
     )
-
       div.content(v-if="hatchablePet")
         div.potionEggGroup
           div.potionEggBackground
@@ -378,7 +376,7 @@
     }
 
     .title {
-      height: 24px;
+      min-height: 24px;
       margin-top: 24px;
       font-family: Roboto;
       font-size: 20px;
@@ -924,6 +922,8 @@
           }
           // opens the hatch dialog
           this.hatchablePet = pet;
+
+          this.$root.$emit('show::modal', 'hatching-modal');
         }
       },
 
