@@ -24,7 +24,7 @@ const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
 
-const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
+const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
@@ -98,8 +98,9 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
-    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
