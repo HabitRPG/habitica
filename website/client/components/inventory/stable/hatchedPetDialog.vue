@@ -1,12 +1,10 @@
 <template lang="pug">
 
   b-modal#hatchedPet-modal(
-    :visible="true",
-    v-if="pet != null",
     :hide-header="true"
   )
-    div.content
-      div.dialog-header.title You hatched a new pet!
+    div.content(v-if="pet != null")
+      div.dialog-header.title(v-once) {{ $t('hatchedPetGeneric') }}
 
 
       div.inner-content
@@ -45,7 +43,7 @@
     }
 
     .inner-content {
-      margin: 33px auto auto;
+      margin: 24px auto auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -77,16 +75,33 @@
     components: {
       bModal,
     },
+    data () {
+      return {
+        pet: null,
+      };
+    },
+    created () {
+
+    },
+    mounted () {
+      this.$root.$on('hatchedPet::open', this.openDialog);
+    },
+    destroyed () {
+      this.$root.$off('hatchedPet::open', this.openDialog);
+    },
     methods: {
+      openDialog (item) {
+        this.pet = item;
+        this.$root.$emit('show::modal', 'hatchedPet-modal');
+      },
+
       close () {
         this.$emit('closed', this.item);
         this.$root.$emit('hide::modal', 'hatchedPet-modal');
+        this.pet = null;
       },
     },
     props: {
-      pet: {
-        type: Object,
-      },
       hideText: {
         type: Boolean,
       },

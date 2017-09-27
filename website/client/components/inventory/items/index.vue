@@ -127,10 +127,7 @@
                 :count="context.item.quantity"
               )
 
-  hatchedPetDialog(
-    :pet="hatchedPet",
-    @closed="closeHatchedPetDialog()"
-  )
+  hatchedPetDialog()
 
   div.hatchingPotionInfo(ref="draggingPotionInfo")
     div(v-if="currentDraggingPotion != null")
@@ -251,7 +248,6 @@ export default {
 
       currentDraggingPotion: null,
       potionClickMode: false,
-      hatchedPet: null,
       cardOptions: {
         cardType: '',
         messageOptions: 0,
@@ -345,7 +341,7 @@ export default {
     },
     hatchPet (potion, egg) {
       this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
-      this.hatchedPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
+      this.$root.$emit('hatchedPet::open', createAnimal(egg, potion, 'pet', this.content, this.user.items));
     },
     onDragEnd () {
       this.currentDraggingPotion = null;
@@ -404,9 +400,6 @@ export default {
         this.currentDraggingPotion = null;
         this.potionClickMode = false;
       }
-    },
-    closeHatchedPetDialog () {
-      this.hatchedPet = null;
     },
 
     async itemClicked (groupKey, item) {

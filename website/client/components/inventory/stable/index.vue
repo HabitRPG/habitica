@@ -237,9 +237,7 @@
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
     hatchedPetDialog(
-      :pet="hatchedPet",
       :hideText="true",
-      @closed="closeHatchedPetDialog()"
     )
 
     div.foodInfo(ref="dragginFoodInfo")
@@ -575,7 +573,6 @@
         highlightPet: '',
 
         hatchablePet: null,
-        hatchedPet: null,
         foodClickMode: false,
         currentDraggingFood: null,
 
@@ -870,7 +867,8 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
-        this.hatchedPet = pet;
+
+        this.$root.$emit('hatchedPet::open', pet);
         this.closeHatchPetDialog();
       },
 
@@ -939,9 +937,6 @@
 
       closeHatchPetDialog () {
         this.$root.$emit('hide::modal', 'hatching-modal');
-      },
-      closeHatchedPetDialog () {
-        this.hatchedPet = null;
       },
 
       resetHatchablePet ($event) {
