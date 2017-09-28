@@ -36,9 +36,10 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
@@ -70,9 +71,10 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
