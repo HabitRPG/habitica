@@ -49,7 +49,7 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/npc/normal/tavern_background.png');
+    background-image: url('~assets/images/npc/fall/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
@@ -69,7 +69,7 @@
   }
 
   .sorceress_front {
-    background-image: url('~assets/images/npc/normal/seasonal_shop_opened_npc.png');
+    background-image: url('~assets/images/npc/fall/seasonal_shop_opened_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
