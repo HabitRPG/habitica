@@ -1,6 +1,7 @@
 <template lang="pug">
 .row
   .col-12.text-center
+    // @TODO i18n. How to setup the strings with the router-link inside?
     img.not-found-img(src='~assets/images/404.png')
     h1.not-found Sometimes even the bravest adventurer gets lost. 
     h2.not-found Looks like this link is broken or the page may have moved, sorry! 
@@ -32,7 +33,7 @@ export default {
 }
 
 .not-found-img {
-  margin-top: 96px;
+  margin-top: 152px;
   margin-bottom: 42px;
 }
 
