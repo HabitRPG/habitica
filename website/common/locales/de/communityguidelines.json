@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Ich willige ein, mich an die Community-Richtlinien zu halten",
-    "tavernCommunityGuidelinesPlaceholder": "Freundliche Erinnerung: Dieser Chat ist für alle Altersgruppen, also bitte benutze eine angemessene Sprache und poste nur angemessenen Inhalt! Falls Du Fragen hast, sieh bitte in den Community-Richtlinien weiter unten nach.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Willkommen in Habitica!",
     "commGuidePara001": "Sei gegrüßt, Abenteurer! Willkommen in Habitica, dem Land der Produktivität, des gesunden Lebens und dem gelegentlich randalierenden Greif. Wir sind eine fröhliche Gemeinschaft voller hilfreicher Menschen, die sich auf ihrem Weg der persönlichen Entwicklung gegenseitig unterstützen.",
     "commGuidePara002": "Damit hier jeder sicher, glücklich und produktiv sein kann, gibt es ein paar Richtlinien. Wir haben uns große Mühe gegeben, sie möglichst nett und leicht verständlich zu formulieren. Bitte nimm Dir die Zeit, sie durchzulesen.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Unterstützendes Verhalten.</strong> Habiticaner spenden einander Beifall in siegreichen Zeiten und ermutigen einander in schwierigen Zeiten. Wir leihen uns gegenseitig Stärke, sind füreinander da an und lernen voneinander. In Gruppen unterstützen wir uns mit Zaubersprüchen; in Chaträumen ermuntern wir uns mit freundlichen und unterstützenden Worten.",
     "commGuideList01D": "<strong>Respektvoller Umgang.</strong> Wir haben alle unterschiedliche Hintergründe, Fähigkeiten und Meinungen. Das macht unsere Gemeinschaft aus! Habiticaner respektieren diese Unterschiede und feiern sie. Schau öfter vorbei und schon bald wirst Du Freunde mit den unterschiedlichsten Hintergründen kennen lernen.",
     "commGuideHeadingMeet": "Treffe die Mitarbeiter und die Moderatoren!",
-    "commGuidePara006": "In Habitica haben sich einige unermüdliche Ritter mit den Mitarbeitern zusammengetan, um die Gemeinschaft ruhig, zufrieden und frei von Trollen zu halten. Jeder von ihnen hat einen Spezialbereich und kann manchmal in andere Bereiche berufen werden. Mitarbeiter und Mods werden offizielle Statements oft mit den Worten \"Mod Talk\" oder \"Mod Hat On\" kennzeichnen.",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Mitarbeiter haben violette Namensschilder, die mit einer Krone markiert sind. Ihr Titel ist \"Heroisch\".",
     "commGuidePara008": "Mods haben dunkelblaue Namensschilder, die mit Sternen markiert sind. Ihr Titel ist \"Beschützer\". Die einzige Ausnahme ist Bailey, welcher als NPC ein schwarz-grünes Namensschild trägt, das mit einem Stern markiert ist.",
     "commGuidePara009": "Die derzeitigen Mitarbeiter sind (von links nach rechts):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Sicherstellen, dass der Inhalt des Wiki für die ganze Habitica-Seite relevant ist und nicht nur für eine bestimmte Gilde oder Gruppe (solche Informationen können in die Foren verschoben werden)",
     "commGuidePara049": "Die folgenden Leute sind die derzeitigen Wiki-Administratoren:",
     "commGuidePara049A": "Folgende Moderatoren können im Notfall Änderungen machen, wenn ein Moderator benötigt wird und die oben genannten Administratoren nicht erreichbar sind:",
-    "commGuidePara018": "Emeritierte Wiki-Administratoren sind",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Regelverletzungen, Konsequenzen und Wiederherstellung",
     "commGuideHeadingInfractions": "Regelverletzungen",
     "commGuidePara050": "Zum größten Teil unterstützen sich Habiticaner gegenseitig, zeigen Respekt und geben ihr Bestes um die Community unterhaltsam und freundlich zu halten. Jedoch kann es immer wieder vorkommen, dass ein Habiticaner die obigen Richtlinien missachtet. Sollte das passieren, werden die Moderatoren Maßnahmen ergreifen, die sie für notwenig erachten, um Habitica sicher und komfortabel für alle zu halten.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "um Pixelkunst einzureichen",
     "commGuideLink08": "Das Quest-Trello",
     "commGuideLink08description": "um geschriebene Quests einzureichen",
-    "lastUpdated": "Zuletzt aktualisiert"
+    "lastUpdated": "Last updated:"
 }

@@ -8,6 +8,8 @@
     "unlockableQuests": "Feloldható Küldetések",
     "goldQuests": "Aranyból Vásárolható Küldetések",
     "questDetails": "Küldetés Részletei",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Meghívások",
     "completed": "Befejezve!",
     "rewardsAllParticipants": "Jutalom az Küldetés összes résztvevőjének",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Nincs aktuális Küldetés, melyből kiléphetnél.",
     "questLeaderCannotLeaveQuest": "A Küldetés vezetője nem léphet ki a Küldetésből.",
     "notPartOfQuest": "Nem veszel részt ezen a Küldetésen.",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Nincs aktuális Küldetés, amit meg lehetne szakítani.",
     "onlyLeaderAbortQuest": "Csak a csapat vagy a Küldetés vezetője szakíthatja meg a Küldetést.",
     "questAlreadyRejected": "Már elutasítottad ezt a Küldetés-meghívót.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> bejelentkezés",
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Leárazott Küldetéscsomag",
-    "buyQuestBundle": "Vásárolj Küldetéscsomagot!"
+    "buyQuestBundle": "Vásárolj Küldetéscsomagot!",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

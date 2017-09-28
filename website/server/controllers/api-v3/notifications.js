@@ -12,7 +12,7 @@ let api = {};
  * @apiName ReadNotification
  * @apiGroup Notification
  *
- * @apiParam {UUID} notificationId
+ * @apiParam (Path) {UUID} notificationId
  *
  * @apiSuccess {Object} data user.notifications
  */

@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Súhlasím s dodržiavaním Komunitných Pravidiel",
-    "tavernCommunityGuidelinesPlaceholder": "Priateľská pripomienka: toto je chat pre všetky vekové skupiny. Prosím, vyjadrujte sa slušne a vkladajte len príslušný obsah! Ak máte otázky, poraďte sa s Komunitnými Pravidlami. ",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Vitajte vo svete Habitica",
     "commGuidePara001": "Zdar, dobrodruh! Vitaj v Habitice, zemi produktivity, zdravej životosprávy a príležitostného besniaceho Gryphona. Máme tu šťastnú Komunitu plnú nápomocných ľudí, ktorí jeden druhému pomáhajú na ich ceste k zlepšovaniu sa. ",
     "commGuidePara002": "Aby v Komunite boli všetci aj naďalej chránení, šťastní a produktívni, máme nejaké pravidlá. Starostlivo sme ich vytvorili, aby boli čo najviac priateľské a jednoduché na čítanie. Prosím, nájdi si čas na ich prečítanie. ",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Podporujúce správanie.</strong> Habiticania oslavujú víťazstvá ostatných a pomáhajú si počas ťažkých chvíľ. Dodávajú si navzájom silu, spoliehajú sa na seba a učia sa od seba navzájom. V skupinách to dosiahneme s našimi kúzlami; v chatovacích miestnostiach s milými a podporujúcimi slovami. ",
     "commGuideList01D": "<strong>Zdvorilé spôsoby.</strong> Všetci máme rozdielne pôvody, rôzne balíčky schopností, a rôzne názory. To je súčasť toho, čo robí našu komunitu takú úžasnú! Habiticania rešpektujú tieto rozdiely a oslavujú ich. Zostaň a čoskoro budeš mať priateľov z každého kúta spoločnosti. ",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "Habitica has some tireless knight-errants who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Personál má fialové tagy označené korunkou. Ich titul je \"Hrdina\".",
     "commGuidePara008": "Moderátori majú tmavomodré tagy označené hviezdičkou. Ich titul je \"Strážca\". Jedinou výnimkou je Bailey, ktorý, ako NPC, má čierny a zelený tag označený hviezdičkou. ",
     "commGuidePara009": "Súčasní zamestnanci sú (zľava doprava):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Ensuring that wiki content is relevant to the whole site of Habitica and not pertaining to a particular guild or party (such information can be moved to the forums)",
     "commGuidePara049": "The following people are the current wiki administrators:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Wiki Administrators Emeritus are",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Infractions, Consequences, and Restoration",
     "commGuideHeadingInfractions": "Infractions",
     "commGuidePara050": "Overwhelmingly, Habiticans assist each other, are respectful, and work to make the whole community fun and friendly. However, once in a blue moon, something that a Habitican does may violate one of the above guidelines. When this happens, the Mods will take whatever actions they deem necessary to keep Habitica safe and comfortable for everyone.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "na odovzdanie pixel artu",
     "commGuideLink08": "Quest Trello",
     "commGuideLink08description": "na odovzdanie spísaného questu.",
-    "lastUpdated": "Naposledy aktualizované"
+    "lastUpdated": "Last updated:"
 }

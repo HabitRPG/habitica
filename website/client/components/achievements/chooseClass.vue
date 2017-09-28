@@ -1,119 +1,203 @@
 <template lang="pug">
-  b-modal#choose-class(:title="$t('chooseClassHeading')", size='lg', :hide-footer="true")
+  b-modal#choose-class(
+    size='lg',
+    :hide-header='true',
+    :hide-footer='true',
+    :no-close-on-esc='true',
+    :no-close-on-backdrop='true',
+  )
     .modal-body.select-class
+      h1.header-purple.text-center {{ $t('chooseClass') }}
       .container-fluid
-        .row
-          .col-md-3(@click='selectedClass = "warrior"')
-            h5 {{ $t('warriorWiki') }}
-            figure.herobox(:class='{"selected-class": selectedClass === "warrior"}')
-              .character-sprites
-                span(:class='`skin_${user.preferences.skin}`')
-                span(class='head_0')
-                span(:class='`${user.preferences.size}_armor_warrior_5`')
-                span(:class='`hair_base_${user.preferences.hair.base}_${user.preferences.hair.color}`')
-                span(:class='`hair_bangs_${user.preferences.hair.bangs}_${user.preferences.hair.color}`')
-                span(:class='`hair_beard_${user.preferences.hair.beard}_${user.preferences.hair.color}`')
-                span(:class='`hair_mustache_${user.preferences.hair.mustache}_${user.preferences.hair.color}`')
-                span(class='head_warrior_5')
-                span(class='shield_warrior_5')
-                span(class='weapon_warrior_6')
-          .col-md-3(@click='selectedClass = "wizard"')
-            h5 {{ $t('mageWiki') }}
-            figure.herobox(:class='{"selected-class": selectedClass === "wizard"}')
-              .character-sprites
-                span(class='`skin_${user.preferences.skin}`')
-                span(class='head_0')
-                span(:class='`${user.preferences.size}_armor_wizard_5`')
-                span(:class='`hair_base_${user.preferences.hair.base}_${user.preferences.hair.color}`')
-                span(:class='`hair_bangs_${user.preferences.hair.bangs}_${user.preferences.hair.color}`')
-                span(:class='`hair_beard_${user.preferences.hair.beard}_${user.preferences.hair.color}`')
-                span(:class='`hair_mustache_${user.preferences.hair.mustache}_${user.preferences.hair.color}`')
-                span(class='head_wizard_5')
-                span(class='shield_wizard_5')
-                span(class='weapon_wizard_6')
-          .col-md-3(@click='selectedClass = "rogue"')
-            h5 {{ $t('rogueWiki') }}
-            figure.herobox(:class='{"selected-class": selectedClass === "rogue"}')
-              .character-sprites
-                span(:class='`skin_${user.preferences.skin}`')
-                span(class='head_0')
-                span(:class='`${user.preferences.size}_armor_rogue_5`')
-                span(:class='`hair_base_${user.preferences.hair.base}_${user.preferences.hair.color}`')
-                span(:class='`hair_bangs_${user.preferences.hair.bangs}_${user.preferences.hair.color}`')
-                span(:class='`hair_beard_${user.preferences.hair.beard}_${user.preferences.hair.color}`')
-                span(:class='`hair_mustache_${user.preferences.hair.mustache}_${user.preferences.hair.color}`')
-                span(class='head_rogue_5')
-                span(class='shield_rogue_6')
-                span(class='weapon_rogue_6')
-          .col-md-3(@click='selectedClass = "healer"')
-            h5 {{ $t('healerWiki') }}
-            figure.herobox(ng-class='{"selected-class": selectedClass === "healer"}')
-              .character-sprites
-                span(:class='`skin_${user.preferences.skin}`')
-                span(class='head_0')
-                span(:class='`${user.preferences.size}_armor_healer_5`')
-                span(:class='`hair_base_${user.preferences.hair.base}_${user.preferences.hair.color}`')
-                span(:class='`hair_bangs_${user.preferences.hair.bangs}_${user.preferences.hair.color}`')
-                span(:class='`hair_beard_${user.preferences.hair.beard}_${user.preferences.hair.color}`')
-                span(:class='`hair_mustache_${user.preferences.hair.mustache}_${user.preferences.hair.color}`')
-                span(class='head_healer_5')
-                span(class='shield_healer_5')
-                span(class='weapon_healer_6')
         br
-        .well(v-if='selectedClass === "warrior"') {{ $t('warriorText') }}
-        .well(v-if='selectedClass === "wizard"') {{ $t('mageText') }}
-        .well(v-if='selectedClass === "rogue"') {{ $t('rogueText') }}
-        .well(v-if='selectedClass === "healer"') {{ $t('healerText') }}
-
-    .modal-footer
-      span(popover-placement='left', popover-trigger='mouseenter', :popover="$t('optOutOfClassesText')")
-        button.btn.btn-danger(@click='disableClasses({}); close()') {{ $t('optOutOfClasses') }}
-      button.btn.btn-primary(:disabled='!selectedClass' @click='changeClass(selectedClass); selectedClass = undefined; close()') {{ $t('select') }}
-      .pull-left {{ $t('chooseClassLearn') }}
+        .row
+          .col-md-3(v-for='heroClass in classes')
+            div(@click='selectedClass = heroClass')
+              avatar(
+                :member='user',
+                :avatarOnly='true',
+                :withBackground='false',
+                :overrideAvatarGear='classGear(heroClass)',
+                :hideClassBadge='true',
+                :spritesMargin='"1.8em 1.5em"',
+                :overrideTopPadding='"0px"',
+                :class='selectionBox(selectedClass, heroClass)',
+              )
+        br
+        .d-flex.justify-content-center(v-for='heroClass in classes')
+          .d-inline-flex(v-if='selectedClass === heroClass')
+            .class-badge.d-flex.justify-content-center
+              .svg-icon.align-self-center(v-html='icons[heroClass]')
+            .class-name(:class='`${heroClass}-color`') {{ $t(heroClass) }}
+        div(v-for='heroClass in classes')
+          .class-explanation.text-center(v-if='selectedClass === heroClass') {{ $t(`${heroClass}Text`) }}
+        .text-center(v-markdown='$t("chooseClassLearnMarkdown")')
+        .modal-actions.text-center
+          button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
+          button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
+          #classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+          b-popover.d-inline-block(
+            target="classOptOutBtn",
+            triggers="hover",
+            placement="top",
+          )
+            .popover-content-text {{ $t('optOutOfClassesText') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
+  .btn-primary {
+    margin-right: 1em;
+  }
+
+  .class-badge {
+    $badge-size: 32px;
+
+    width: $badge-size;
+    height: $badge-size;
+    background: $white;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    border-radius: 100px;
+
+    .svg-icon {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  .class-explanation {
+    font-size: 16px;
+    margin: 1.5em auto;
+  }
+
+  .class-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto 0.33333em;
+  }
+
+  .danger {
+    color: $red-50;
+    margin-bottom: 0em;
+  }
+
+  .header-purple {
+    color: $purple-200;
+    margin-top: 1.33333em;
+    margin-bottom: 0em;
+  }
+
+  .modal-actions {
+    margin: 2em auto;
+  }
+
+  .selection-box {
+    width: 140px;
+    height: 148px;
+    border-radius: 16px;
+    border: solid 4px $purple-300;
+  }
+
+  .healer-color {
+    color: $yellow-10;
+  }
+
+  .rogue-color {
+    color: $purple-200;
+  }
+
+  .warrior-color {
+    color: $red-50;
+  }
+
+  .wizard-color {
+    color: $blue-10;
   }
 </style>
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
+import bPopover from 'bootstrap-vue/lib/components/popover';
 
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
-import percent from '../../../common/script/libs/percent';
-import {maxHealth} from '../../../common/script/index';
+import markdownDirective from 'client/directives/markdown';
+import warriorIcon from 'assets/svg/warrior.svg';
+import rogueIcon from 'assets/svg/rogue.svg';
+import healerIcon from 'assets/svg/healer.svg';
+import wizardIcon from 'assets/svg/wizard.svg';
 
 export default {
   components: {
     bModal,
+    bPopover,
     Avatar,
+  },
+  computed: {
+    ...mapState({
+      user: 'user.data',
+      classes: 'content.classes',
+    }),
   },
   data () {
     return {
-      maxHealth,
+      icons: Object.freeze({
+        warrior: warriorIcon,
+        rogue: rogueIcon,
+        healer: healerIcon,
+        wizard: wizardIcon,
+      }),
       selectedClass: '',
     };
   },
-  computed: {
-    ...mapState({user: 'user.data'}),
-    barStyle () {
-      return {
-        width: `${percent(this.user.stats.hp, maxHealth)}%`,
-      };
-    },
+  directives: {
+    markdown: markdownDirective,
   },
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'choose-class');
     },
-    disableClasses () {
-      // @TODO:
+    clickSelectClass (heroClass) {
+      this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
     },
-    changeClass () {
-      // @TODO:
+    clickDisableClasses () {
+      this.$store.dispatch('user:disableClasses');
+    },
+    classGear (heroClass) {
+      if (heroClass === 'rogue') {
+        return {
+          armor: 'armor_rogue_5',
+          head: 'head_rogue_5',
+          shield: 'shield_rogue_6',
+          weapon: 'weapon_rogue_6',
+        };
+      } else if (heroClass === 'wizard') {
+        return {
+          armor: 'armor_wizard_5',
+          head: 'head_wizard_5',
+          weapon: 'weapon_wizard_6',
+        };
+      } else if (heroClass === 'healer') {
+        return {
+          armor: 'armor_healer_5',
+          head: 'head_healer_5',
+          shield: 'shield_healer_5',
+          weapon: 'weapon_healer_6',
+        };
+      } else {
+        return {
+          head: 'head_warrior_5',
+          weapon: 'weapon_warrior_6',
+          shield: 'shield_warrior_5',
+          armor: 'armor_warrior_5',
+        };
+      }
+    },
+    selectionBox (selectedClass, heroClass) {
+      if (selectedClass === heroClass) {
+        return 'selection-box';
+      }
     },
   },
 };

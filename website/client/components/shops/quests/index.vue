@@ -39,12 +39,12 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredQuests') }}
+              span.text {{ shop.featured.text }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in shop.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.goldValue ? item.goldValue : item.value",
@@ -52,19 +52,24 @@
                 :itemContentClass="'inventory_quest_scroll_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text(v-html="item.notes()")
+                  div.questPopover
+                    h4.popover-content-title {{ item.text }}
+                    questInfo(:quest="item")
+
+                template(slot="itemBadge", scope="ctx")
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
 
       h1.mb-0.page-header(v-once) {{ $t('quests') }}
 
       .clearfix
-        h2.float-left
-          | {{ $t('items') }}
-
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
@@ -87,6 +92,7 @@
           :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="'pet_quests'",
         )
           template(slot="item", scope="ctx")
             shopItem(
@@ -96,12 +102,12 @@
               :priceType="ctx.item.currency",
               :itemContentClass="ctx.item.class",
               :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
+              @click="selectItem(ctx.item)"
             )
               span(slot="popoverContent", scope="ctx")
-                div
+                div.questPopover
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text(v-html="ctx.item.notes")
+                  questInfo(:quest="ctx.item")
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
@@ -116,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
@@ -124,16 +130,14 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                @click="selectItem(item)"
               )
                 span(slot="popoverContent")
-                  div
+                  div.questPopover
                     h4.popover-content-title {{ item.text }}
-                    .popover-content-text(v-html="item.notes")
+                    questInfo(:quest="item")
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -153,16 +157,14 @@
             :key="item.key",
             :item="item",
             :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
+            @click="selectItem(item)"
           )
             span(slot="popoverContent")
-              div
+              div.questPopover
                 h4.popover-content-title {{ item.text }}
-                .popover-content-text(v-html="item.notes")
+                questInfo(:quest="item")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -177,11 +179,10 @@
               )
 
     buyModal(
-      :item="selectedItemToBuy",
+      :item="selectedItemToBuy || {}",
       :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
       :withPin="true",
       @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
     )
       template(slot="item", scope="ctx")
         item.flat(
@@ -193,6 +194,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -273,7 +275,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/quest_shop_banner_background.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
 
         background-repeat: repeat-x;
 
@@ -301,7 +303,7 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~assets/images/shops/quest_shop__banner_web_iannpc.png');
+        background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
 
@@ -328,18 +330,22 @@
   import Avatar from 'client/components/avatar';
 
   import BuyModal from './buyQuestModal.vue';
+  import QuestInfo from './questInfo.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
+  import shops from 'common/script/libs/shops';
+
+  import isPinned from 'common/script/libs/isPinned';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
 
 export default {
     components: {
@@ -355,6 +361,7 @@ export default {
 
       Avatar,
       BuyModal,
+      QuestInfo,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -384,34 +391,37 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        quests: 'shops.quests.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      shop () {
+        return shops.getQuestShop(this.user);
+      },
       categories () {
-        if (this.quests) {
-          this.quests.categories.map((category) => {
+        if (this.shop.categories) {
+          this.shop.categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.quests.categories;
+          return this.shop.categories;
         } else {
           return [];
         }
       },
-
-      featuredItems () {
-        return featuredItems.quests.map(i => {
-          return this.content.quests[i];
-        });
-      },
     },
     methods: {
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hideLocked && i.locked) {
             return false;
           }
@@ -453,16 +463,15 @@ export default {
         return false;
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      selectItem (item) {
+        this.selectedItemToBuy = item;
+
+        this.$root.$emit('show::modal', 'buy-quest-modal');
       },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchQuests');
     },
   };
 </script>

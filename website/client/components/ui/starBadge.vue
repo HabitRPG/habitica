@@ -1,7 +1,7 @@
 <template lang="pug">
 span.badge.badge-pill.badge-item.badge-star(
   :class="{'item-selected-badge': selected === true}",
-  @click="click",
+  @click.stop="click",
   v-if="show",
 ) &#9733;
 </template>

@@ -33,7 +33,7 @@ let api = {};
  * @apiName CreateGroupTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} groupId The id of the group the new task(s) will belong to
+ * @apiParam (Path) {UUID} groupId The id of the group the new task(s) will belong to
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
@@ -66,8 +66,8 @@ api.createGroupTasks = {
  * @apiName GetGroupTasks
  * @apiGroup Task
  *
- * @apiParam {UUID} groupId The id of the group from which to retrieve the tasks
- * @apiParam {string="habits","dailys","todos","rewards"} type Optional query parameter to return just a type of tasks
+ * @apiParam (Path) {UUID} groupId The id of the group from which to retrieve the tasks
+ * @apiParam (Query) {string="habits","dailys","todos","rewards"} [type] Query parameter to return just a type of tasks
  *
  * @apiSuccess {Array} data An array of tasks
  */
@@ -99,8 +99,8 @@ api.getGroupTasks = {
  * @apiName GroupMoveTask
  * @apiGroup Task
  *
- * @apiParam {String} taskId The task _id
- * @apiParam {Number} position Query parameter - Where to move the task (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {String} taskId The task _id
+ * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */
@@ -150,8 +150,8 @@ api.groupMoveTask = {
  * @apiName AssignTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The id of the task that will be assigned
- * @apiParam {UUID} userId The id of the user that will be assigned to the task
+ * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
+ * @apiParam (Path) {UUID} assignedUserId The id of the user that will be assigned to the task
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
@@ -208,8 +208,8 @@ api.assignTask = {
  * @apiName UnassignTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The id of the task that will be assigned
- * @apiParam {UUID} userId The id of the user that will be assigned to the task
+ * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
+ * @apiParam (Path) {UUID} assignedUserId The id of the user that will be unassigned from the task
  *
  * @apiSuccess data An object if a single task was created, otherwise an array of tasks
  */
@@ -258,8 +258,8 @@ api.unassignTask = {
  * @apiName ApproveTask
  * @apiGroup Task
  *
- * @apiParam {UUID} taskId The id of the task that is the original group task
- * @apiParam {UUID} userId The id of the user that will be approved
+ * @apiParam (Path) {UUID} taskId The id of the task that is the original group task
+ * @apiParam (Path) {UUID} userId The id of the user that will be approved
  *
  * @apiSuccess task The approved task
  */
@@ -339,7 +339,7 @@ api.approveTask = {
  * @apiName GetGroupApprovals
  * @apiGroup Task
  *
- * @apiParam {UUID} groupId The id of the group from which to retrieve the approvals
+ * @apiParam (Path) {UUID} groupId The id of the group from which to retrieve the approvals
  *
  * @apiSuccess {Array} data An array of tasks
  */

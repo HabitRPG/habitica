@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar
+    .standard-sidebar(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -25,37 +25,20 @@
     .standard-page
       div.featuredItems
         .background
-          div.npc
+          div.npc(:class="{'closed': closed }")
             div.featured-label
               span.rectangle
-              span.text(v-once) {{ timeTravelers.text }}
+              span.text(v-once) {{ $t('timeTravelers') }}
               span.rectangle
-          div.content(v-if="false")
-            div.featured-label.with-border
+          div.content(v-if="closed")
+            div.featured-label.with-border.closed
               span.rectangle
-              span.text(v-once) {{ $t('featuredQuests') }}
+              span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
 
-            div.items.margin-center
-              shopItem(
-                v-for="item in featuredItems",
-                :key="item.key",
-                :item="item",
-                :price="item.goldValue ? item.goldValue : item.value",
-                :priceType="item.goldValue ? 'gold' : 'gem'",
-                :itemContentClass="'inventory_quest_scroll_'+item.key",
-                :emptyItem="false",
-                :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
-              )
-                template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text() }}
-                    .popover-content-text {{ item.notes() }}
+      h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
 
-      h1.mb-0.page-header(v-once) {{ timeTravelers.text }}
-
-      .clearfix
+      .clearfix(v-if="!closed")
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
@@ -69,7 +52,7 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected",
+        v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
         h2 {{ category.text }}
@@ -78,6 +61,7 @@
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="category.identifier",
         )
           template(slot="item", scope="ctx")
             shopItem(
@@ -85,40 +69,26 @@
               :item="ctx.item",
               :price="ctx.item.value",
               :priceType="ctx.item.currency",
-              :itemContentClass="getItemClass(ctx.item)",
               :emptyItem="false",
-              @click="selectedItemToBuy = ctx.item"
+              @click="selectItemToBuy(ctx.item)"
             )
               span(slot="popoverContent", scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
-                  .popover-content-text {{ ctx.item.notes }}
-                  div {{ ctx.item }}
 
               template(slot="itemBadge", scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
+                  v-if="ctx.item.pinType !== 'IGNORE'",
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-    buyModal(
-      :item="selectedItemToBuy",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
-    )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -195,21 +165,16 @@
       position: relative;
     }
 
-    .mounts {
-      .shop-content .image div {
-        position: absolute;
-        top: 0;
-        left: 7px;
-        right: 0;
-        z-index: 0;
-      }
+    .avatar {
+      cursor: default;
+      margin: 0 auto;
     }
 
     .featuredItems {
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
 
         background-repeat: repeat-x;
 
@@ -237,8 +202,13 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/time_travelers_open_banner_web_tylerandvickynpcs.png');
+        background: url('~assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
         background-repeat: no-repeat;
+
+        &.closed {
+          background: url('~assets/images/npc/normal/time_travelers_closed_banner.png');
+          background-repeat: no-repeat;
+        }
 
         .featured-label {
           position: absolute;
@@ -271,14 +241,17 @@
   import svgPin from 'assets/svg/pin.svg';
   import svgHourglass from 'assets/svg/hourglass.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _map from 'lodash/map';
 
-export default {
+  import isPinned from 'common/script/libs/isPinned';
+  import shops from 'common/script/libs/shops';
+
+
+  export default {
     components: {
       ShopItem,
       Item,
@@ -313,67 +286,87 @@ export default {
         sortItemsBy: ['AZ', 'sortByNumber'],
         selectedSortItemsBy: 'AZ',
 
-        selectedItemToBuy: null,
-
         hidePinned: false,
+
+        backgroundUpdate: new Date(),
       };
     },
     computed: {
       ...mapState({
         content: 'content',
         quests: 'shops.quests.data',
-        timeTravelers: 'shops.time-travelers.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
-      categories () {
-        if (this.timeTravelers) {
-          let normalGroups = _filter(this.timeTravelers.categories, (c) => {
-            return c.identifier === 'mounts' || c.identifier === 'pets';
-          });
 
-          let setGroups = _filter(this.timeTravelers.categories, (c) => {
-            return c.identifier !== 'mounts' && c.identifier !== 'pets';
-          });
-
-          let setCategory = {
-            identifier: 'sets',
-            text: this.$t('mysterySets'),
-            items: setGroups.map((c) => {
-              return {
-                ...c,
-                value: 1,
-                currency: 'hourglasses',
-                type: 'set_mystery',
-                key: c.identifier,
-              };
-            }),
-          };
-
-          normalGroups.push(setCategory);
-
-          normalGroups.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
-          return normalGroups;
-        } else {
-          return [];
-        }
+      closed () {
+        return this.user.purchased.plan.consecutive.trinkets === 0;
       },
 
-      featuredItems () {
-        return featuredItems.quests.map(i => {
-          return this.content.quests[i];
+      shop () {
+        return shops.getTimeTravelersShop(this.user);
+      },
+
+      categories () {
+        let apiCategories = this.shop.categories;
+
+        // FIX ME Refactor the apiCategories Hack to force update for now until we restructure the data
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+        let normalGroups = _filter(apiCategories, (c) => {
+          return c.identifier === 'mounts' || c.identifier === 'pets';
         });
+
+        normalGroups.map((group) => {
+          group.items = group.items.map((item) => {
+            return {
+              ...item,
+              class: `shop_${group.identifier}_${item.key}`,
+            };
+          });
+        });
+
+        let setGroups = _filter(apiCategories, (c) => {
+          return c.identifier !== 'mounts' && c.identifier !== 'pets';
+        });
+
+        let setCategory = {
+          identifier: 'sets',
+          text: this.$t('mysterySets'),
+          items: setGroups.map((c) => {
+            return {
+              ...c,
+              value: 1,
+              currency: 'hourglasses',
+              key: c.identifier,
+              class: `shop_set_mystery_${c.identifier}`,
+              purchaseType: 'set_mystery',
+            };
+          }),
+        };
+
+        normalGroups.push(setCategory);
+
+        normalGroups.map((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+
+        return normalGroups;
       },
     },
     methods: {
       travelersItems (category, sortBy, searchBy, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hidePinned && i.pinned) {
             return false;
           }
@@ -399,25 +392,19 @@ export default {
       getGrouped (entries) {
         return _groupBy(entries, 'group');
       },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
+      togglePinned (item) {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
         }
       },
-      togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
-      },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
-      },
-      getItemClass (item) {
-        return `shop_${item.type}_${item.key}`;
+      selectItemToBuy (item) {
+        this.$root.$emit('buyModal::showItem', item);
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchTimeTravelers');
+      this.$root.$on('buyModal::boughtItem', () => {
+        this.backgroundUpdate = new Date();
+      });
     },
   };
 </script>

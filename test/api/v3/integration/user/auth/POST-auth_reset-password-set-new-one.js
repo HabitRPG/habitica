@@ -10,49 +10,46 @@ import {
 import moment from 'moment';
 import {
   generateUser,
+  requester,
+  translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import superagent from 'superagent';
-import nconf from 'nconf';
 
-const API_TEST_SERVER_PORT = nconf.get('PORT');
-
-describe('POST /user/auth/local/reset-password-set-new-one', () => {
-  let endpoint = `http://localhost:${API_TEST_SERVER_PORT}/static/user/auth/local/reset-password-set-new-one`;
+describe('POST /user/auth/reset-password-set-new-one', () => {
+  const endpoint = '/user/auth/reset-password-set-new-one';
+  const api = requester();
 
   // Tests to validate the validatePasswordResetCodeAndFindUser function
-
   it('renders an error page if the code is missing', async () => {
-    try {
-      await superagent.post(endpoint);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(endpoint)).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the code is invalid json', async () => {
-    try {
-      await superagent.post(`${endpoint}?code=invalid`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}?code=invalid`)).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the code cannot be decrypted', async () => {
     let user = await generateUser();
 
-    try {
-      let code = JSON.stringify({ // not encrypted
-        userId: user._id,
-        expiresAt: new Date(),
-      });
-      await superagent.post(`${endpoint}?code=${code}`);
+    let code = JSON.stringify({ // not encrypted
+      userId: user._id,
+      expiresAt: new Date(),
+    });
 
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the code is expired', async () => {
@@ -66,12 +63,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    try {
-      await superagent.post(`${endpoint}?code=${code}`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the user does not exist', async () => {
@@ -80,12 +78,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       expiresAt: moment().add({days: 1}),
     }));
 
-    try {
-      await superagent.post(`${endpoint}?code=${code}`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the user has no local auth', async () => {
@@ -99,12 +98,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       auth: 'not an object with valid fields',
     });
 
-    try {
-      await superagent.post(`${endpoint}?code=${code}`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   it('renders an error page if the code doesn\'t match the one saved at user.auth.passwordResetCode', async () => {
@@ -118,12 +118,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': 'invalid',
     });
 
-    try {
-      await superagent.post(`${endpoint}?code=${code}`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('invalidPasswordResetCode'),
+    });
   });
 
   //
@@ -139,12 +140,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    try {
-      await superagent.post(`${endpoint}?code=${code}`);
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('renders the error page if the password confirmation is missing', async () => {
@@ -158,14 +160,14 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    try {
-      await superagent
-        .post(`${endpoint}?code=${code}`)
-        .send({newPassword: 'my new password'});
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
   });
 
   it('renders the error page if the password confirmation does not match', async () => {
@@ -179,17 +181,15 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    try {
-      await superagent
-        .post(`${endpoint}?code=${code}`)
-        .send({
-          newPassword: 'my new password',
-          confirmPassword: 'not matching',
-        });
-      throw new Error('Request should fail.');
-    } catch (err) {
-      expect(err.status).to.equal(401);
-    }
+    await expect(api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      confirmPassword: 'not matching',
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('passwordConfirmationMatch'),
+    });
   });
 
   it('renders the success page and save the user', async () => {
@@ -203,14 +203,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    let res = await superagent
-      .post(`${endpoint}?code=${code}`)
-      .send({
-        newPassword: 'my new password',
-        confirmPassword: 'my new password',
-      });
+    let res = await api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      confirmPassword: 'my new password',
+      code,
+    });
 
-    expect(res.status).to.equal(200);
+    expect(res.message).to.equal(t('passwordChangeSuccess'));
 
     await user.sync();
     expect(user.auth.local.passwordResetCode).to.equal(undefined);
@@ -246,14 +245,13 @@ describe('POST /user/auth/local/reset-password-set-new-one', () => {
       'auth.local.passwordResetCode': code,
     });
 
-    let res = await superagent
-      .post(`${endpoint}?code=${code}`)
-      .send({
-        newPassword: 'my new password',
-        confirmPassword: 'my new password',
-      });
+    let res = await api.post(`${endpoint}`, {
+      newPassword: 'my new password',
+      confirmPassword: 'my new password',
+      code,
+    });
 
-    expect(res.status).to.equal(200);
+    expect(res.message).to.equal(t('passwordChangeSuccess'));
 
     await user.sync();
     expect(user.auth.local.passwordResetCode).to.equal(undefined);

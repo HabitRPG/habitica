@@ -23,7 +23,7 @@
           br
           | {{ $t('chromeChatExtensionDesc') }}
         li
-          a(target='_blank' :href='`http://data.habitrpg.com?uuid= + user._id`') {{ $t('dataTool') }}
+          a(target='_blank' :href='`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id') {{ $t('dataTool') }}
           br
           | {{ $t('dataToolDesc') }}
         li(v-html="$t('otherExtensions')")
@@ -59,7 +59,7 @@
                 button.btn.btn-sm.btn-primary(type='submit', @click='addWebhook(newWebhook.url)') {{ $t('add') }}
 </template>
 
-<style scope>
+<style scoped>
   .section {
     margin-top: 2em;
   }
@@ -70,8 +70,6 @@ import { mapState } from 'client/libs/store';
 import uuid from '../../../common/script/libs/uuid';
 // @TODO: env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
-let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
 
 export default {
   data () {
@@ -83,9 +81,9 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     apiToken () {
-      return AUTH_SETTINGS.auth.apiToken;
+      return this.credentials.API_TOKEN;
     },
   },
   methods: {

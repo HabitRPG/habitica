@@ -71,7 +71,7 @@ describe('slack', () => {
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
           title: 'Flag in Some group',
-          title_link: sandbox.match(/.*\/#\/options\/groups\/guilds\/group-id/),
+          title_link: sandbox.match(/.*\/groups\/guild\/group-id/),
         })],
       });
     });
@@ -86,7 +86,7 @@ describe('slack', () => {
       expect(IncomingWebhook.prototype.send).to.be.calledWithMatch({
         attachments: [sandbox.match({
           title: 'Flag in Tavern',
-          title_link: sandbox.match(/.*\/#\/options\/groups\/tavern/),
+          title_link: sandbox.match(/.*\/groups\/tavern/),
         })],
       });
     });

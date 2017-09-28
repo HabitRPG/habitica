@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as Analytics from 'client/libs/analytics';
 
 export async function getChat (store, payload) {
   let response = await axios.get(`/api/v3/groups/${payload.groupId}/chat`);
@@ -7,10 +8,38 @@ export async function getChat (store, payload) {
 }
 
 export async function postChat (store, payload) {
-  let url = `/api/v3/groups/${payload.groupId}/chat`;
+  const group = payload.group;
+
+  let url = `/api/v3/groups/${group._id}/chat`;
 
   if (payload.previousMsg) {
     url += `?previousMsg=${payload.previousMsg}`;
+  }
+
+  if (group.type === 'party') {
+    Analytics.updateUser({
+      partyID: group.id,
+      partySize: group.memberCount,
+    });
+  }
+
+  if (group.privacy === 'public') {
+    Analytics.track({
+      hitType: 'event',
+      eventCategory: 'behavior',
+      eventAction: 'group chat',
+      groupType: group.type,
+      privacy: group.privacy,
+      groupName: group.name,
+    });
+  } else {
+    Analytics.track({
+      hitType: 'event',
+      eventCategory: 'behavior',
+      eventAction: 'group chat',
+      groupType: group.type,
+      privacy: group.privacy,
+    });
   }
 
   let response = await axios.post(url, {
@@ -52,7 +81,7 @@ export async function clearFlagCount (store, payload) {
 }
 
 export async function markChatSeen (store, payload) {
-  if (store.user.newMessages) delete store.user.newMessages[payload.groupId];
+  if (store.state.user.newMessages) delete store.state.user.newMessages[payload.groupId];
   let url = `/api/v3/groups/${payload.groupId}/chat/seen`;
   let response = await axios.post(url);
   return response.data.data;

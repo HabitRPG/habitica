@@ -10,10 +10,10 @@ import staticMiddleware from './static';
 import domainMiddleware from './domain';
 import mongoose from 'mongoose';
 import compression from 'compression';
-import favicon from 'serve-favicon';
+// import favicon from 'serve-favicon';
 import methodOverride from 'method-override';
 import passport from 'passport';
-import path from 'path';
+// import path from 'path';
 import maintenanceMode from './maintenanceMode';
 import {
   forceSSL,
@@ -31,10 +31,10 @@ import basicAuth from 'express-basic-auth';
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
 const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH:ENABLED') === 'true';
-const PUBLIC_DIR = path.join(__dirname, '/../../client-old');
+// const PUBLIC_DIR = path.join(__dirname, '/../../client');
 
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
-const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
+const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 module.exports = function attachMiddlewares (app, server) {
   app.set('view engine', 'jade');
@@ -49,7 +49,7 @@ module.exports = function attachMiddlewares (app, server) {
   app.use(attachTranslateFunction);
 
   app.use(compression());
-  app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
+  // app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
 
   app.use(maintenanceMode);
 
@@ -68,7 +68,7 @@ module.exports = function attachMiddlewares (app, server) {
     secret: SESSION_SECRET,
     httpOnly: true, // so cookies are not accessible with browser JS
     // TODO what about https only (secure) ?
-    maxAge: TWO_WEEKS,
+    maxAge: TEN_YEARS,
   }));
 
   // Initialize Passport! Also use passport.session() middleware, to support

@@ -66,7 +66,7 @@ async function saveContentToDisk (language, content) {
  * @apiName ContentGet
  * @apiGroup Content
  *
- * @apiParam {String="bg","cs","da","de","en","en@pirate","en_GB","es","es_419","fr","he","hu","id","it","ja","nl","pl","pt","pt_BR","ro","ru","sk","sr","sv","uk","zh","zh_TW"} [language=en]  Query parameter, the  language code used for the items' strings. If the authenticated user makes the request, the content will return with the user's configured language.
+ * @apiParam (Query) {String="bg","cs","da","de","en","en@pirate","en_GB","es","es_419","fr","he","hu","id","it","ja","nl","pl","pt","pt_BR","ro","ru","sk","sr","sv","uk","zh","zh_TW"} [language=en]  Language code used for the items' strings. If the authenticated user makes the request, the content will return with the user's configured language.
  *
  * @apiSuccess {Object} data Various data about the content of Habitica. The content route
  * contains many keys, but the data listed below are the recomended data to use.
@@ -101,6 +101,7 @@ async function saveContentToDisk (language, content) {
 api.getContent = {
   method: 'GET',
   url: '/content',
+  noLanguage: true,
   async handler (req, res) {
     let language = 'en';
     let proposedLang = req.query.language && req.query.language.toString();

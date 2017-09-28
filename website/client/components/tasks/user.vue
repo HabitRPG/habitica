@@ -12,7 +12,11 @@
         .input-group
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           .filter-panel(v-if="isFilterPanelOpen")
-            .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
+            .tags-category.d-flex(
+              v-for="tagsType in tagsByType", 
+              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+              :key="tagsType.key"
+            )
               .tags-header
                 strong(v-once) {{ $t(tagsType.key) }}
                 a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
@@ -21,7 +25,7 @@
                   template(v-if="editingTags && tagsType.key === 'tags'")
                     .col-6(v-for="(tag, tagIndex) in tagsSnap")
                       .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
+                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
                         span.input-group-btn(@click="removeTag(tagIndex)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
                     .col-6
@@ -35,7 +39,7 @@
                           @change="toggleTag(tag)",
                         )
                         span.custom-control-indicator
-                        span.custom-control-description {{ tag.name }}
+                        span.custom-control-description(v-markdown='tag.name')
 
             .filter-panel-footer.clearfix
               template(v-if="editingTags === true")
@@ -61,10 +65,10 @@
         b-dropdown(:right="true", :variant="'success'")
           div(slot="button-content")
             .svg-icon.positive(v-html="icons.positive")
-            | {{ $t('create') }}
+            | {{ $t('addTaskToUser') }}
           b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
             span.dropdown-icon-item(v-once)
-              span.svg-icon.inline(v-html="icons[type]")
+              span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')
               span.text {{$t(type)}}
 
     .row.tasks-columns
@@ -74,13 +78,16 @@
         :isUser="true", :searchText="searchTextThrottled",
         :selectedTags="selectedTags",
         @editTask="editTask",
+        @openBuyDialog="openBuyDialog($event)"
       )
+
+  spells
 </template>
 
 <style lang="scss">
-#create-dropdown .dropdown-toggle::after {
-  display: none;
-}
+  #create-dropdown .dropdown-toggle::after {
+    display: none;
+  }
 </style>
 
 <style lang="scss" scoped>
@@ -103,7 +110,33 @@
   }
 
   .dropdown-icon-item .svg-icon {
-    width: 16px;
+    color: #C3C0C7;
+  }
+
+  .dropdown-icon-item {
+      .icon_habit {
+        width: 30px;
+        height: 20px;
+      }
+
+      .icon_daily {
+        width: 24px;
+        height: 20px;
+      }
+
+      .icon_todo {
+        width: 20px;
+        height: 20px;
+      }
+
+      .icon_reward {
+        width: 26px;
+        height: 20px;
+      }
+  }
+
+  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
+    color: #4f2a93;
   }
 
   button.btn.btn-secondary.filter-button {
@@ -188,11 +221,21 @@
       background-image: url(~client/assets/svg/for-css/positive.svg);
     }
 
-    .tag-edit-item .input-group-btn {
-      border-bottom: 1px solid $gray-500 !important;
+    .tag-edit-item {
+      .input-group-btn {
+        border-bottom: 1px solid $gray-500 !important;
 
-      &:focus {
-        border-color: $purple-500;
+        &:focus {
+          border-color: $purple-500;
+        }
+      }
+
+      .destroy-icon {
+        display: none;
+      }
+
+      &:hover .destroy-icon {
+        display: inline;
       }
     }
 
@@ -228,6 +271,8 @@
 <script>
 import TaskColumn from './column';
 import TaskModal from './taskModal';
+import spells from './spells';
+import markdown from 'client/directives/markdown';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -246,12 +291,19 @@ import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import Item from 'client/components/inventory/item.vue';
+
 export default {
   components: {
     TaskColumn,
     TaskModal,
     bDropdown,
     bDropdownItem,
+    Item,
+    spells,
+  },
+  directives: {
+    markdown,
   },
   data () {
     return {
@@ -329,6 +381,7 @@ export default {
       this.tagsSnap.splice(index, 1);
     },
     saveTags () {
+      if (this.newTag) this.addTag();
       this.setUser({tags: this.tagsSnap});
       this.cancelTagsEditing();
     },
@@ -392,6 +445,9 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    openBuyDialog (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

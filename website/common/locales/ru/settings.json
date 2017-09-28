@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Персональное начало суток",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Изменить персональное начало суток?",
     "sureChangeCustomDayStart": "Вы уверены, что хотите изменить персональное начало суток?",
     "customDayStartHasChanged": "Ваше персональное начало дня изменилось.",
@@ -105,9 +106,7 @@
     "email": "Электронная почта",
     "registerWithSocial": "Регистрация через <%= network %>",
     "registeredWithSocial": "Зарегистрирован с помощью <%= network %>",
-    "loginNameDescription1": "Используется для входа в Habitica. Чтобы изменить его, используйте форму ниже. Если вы хотите изменить имя, показываемое на аватаре и в чатах, перейдите",
-    "loginNameDescription2": "Пользователь->Профиль",
-    "loginNameDescription3": "и нажмите \"Изменить\".",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Уведомления по электронной почте",
     "wonChallenge": "Вы выиграли испытание",
     "newPM": "Получено личное сообщение",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Напоминания о заданиях в Habitica",
     "subscribeUsing": "Подписаться с использованием",
     "unsubscribedSuccessfully": "Подписка успешно отменена!",
-    "unsubscribedTextUsers": "Вы успешно отписались от всех рассылок Habitica. Вы можете разрешить отправку только нужных вам сообщений <a href=\"/#/options/settings/notifications\">в настройках</a> (требуется вход).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Больше вы не будете получать email-сообщений от Habitica",
     "unsubscribeAllEmails": "Отметьте, что бы отписаться от всех уведомлений по электронной почте",
     "unsubscribeAllEmailsText": "Отписываясь от уведомлений по электронной почте, я понимаю, что Habitica не сможет известить меня по электронной почте о важных изменениях на сайте или в моей учетной записи.",
@@ -185,5 +184,6 @@
     "timezone": "Часовой пояс",
     "timezoneUTC": "Habitica использует часовой пояс, установленный на вашем компьютере. В данный момент это: <strong><%= utc %></strong>",
     "timezoneInfo": "Если часовой пояс определен неверно, сначала следует перезагрузить страницу, нажав на кнопку \"обновить\" в вашем браузере, чтобы убедиться, что Habitica использует самую последнюю информацию. Если время по-прежнему определено неверно, поправьте установки времени на вашем компьютере и снова перезагрузите эту страницу.<br><br> <strong>Если вы используете Habitica на нескольких компьютерах или мобильных устройствах, необходимо установить одинаковый часовой пояс на всех используемых устройствах.</strong>Если ваши Ежедневные задания сбрасываются в неправильное время, повторите эту проверку на всех остальных компьютерах и в браузерах на мобильных устройствах.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

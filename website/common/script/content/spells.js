@@ -2,6 +2,8 @@ import t from './translation';
 import each from 'lodash/each';
 import { NotAuthorized } from '../libs/errors';
 import statsComputed from '../libs/statsComputed';
+import crit from '../fns/crit';
+import updateStats from '../fns/updateStats';
 
 /*
   ---------------------------------------------------------------
@@ -15,7 +17,7 @@ import statsComputed from '../libs/statsComputed';
 
   * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
     web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` spells,
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` skills,
     you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
     spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
     available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
@@ -29,8 +31,8 @@ function diminishingReturns (bonus, max, halfway) {
   return max * (bonus / (bonus + halfway));
 }
 
-function calculateBonus (value, stat, crit = 1, statScale = 0.5) {
-  return (value < 0 ? 1 : value + 1) + stat * statScale * crit;
+function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
+  return (value < 0 ? 1 : value + 1) + stat * statScale * critVal;
 }
 
 let spells = {};
@@ -43,12 +45,12 @@ spells.wizard = {
     target: 'task',
     notes: t('spellWizardFireballNotes'),
     cast (user, target, req) {
-      let bonus = statsComputed(user).int * user.fns.crit('per');
+      let bonus = statsComputed(user).int * crit.crit(user, 'per');
       bonus *= Math.ceil((target.value < 0 ? 1 : target.value + 1) * 0.075);
       user.stats.exp += diminishingReturns(bonus, 75);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += Math.ceil(statsComputed(user).int * 0.1);
-      user.fns.updateStats(user.stats, req);
+      updateStats(user, user.stats, req);
     },
   },
   mpheal: { // Ethereal Surge
@@ -100,7 +102,7 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      let bonus = statsComputed(user).str * user.fns.crit('con');
+      let bonus = statsComputed(user).str * crit.crit(user, 'con');
       target.value += diminishingReturns(bonus, 2.5, 35);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
@@ -167,11 +169,11 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
-      let _crit = user.fns.crit('str', 0.3);
+      let _crit = crit.crit(user, 'str', 0.3);
       let bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
-      user.fns.updateStats(user.stats, req);
+      updateStats(user, user.stats, req);
     },
   },
   toolsOfTrade: { // Tools of the Trade

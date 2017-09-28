@@ -1,5 +1,8 @@
 FROM node:boron
 
+# Upgrade NPM to v5 (Yarn is needed because of this bug https://github.com/npm/npm/issues/16807)
+# The used solution is suggested here https://github.com/npm/npm/issues/16807#issuecomment-313591975
+RUN yarn global add npm@5
 # Install global packages
 RUN npm install -g gulp grunt-cli bower mocha
 

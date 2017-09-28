@@ -1,3 +1,13 @@
+
+function getText (textOrFunction) {
+  if (textOrFunction instanceof Function) {
+    return textOrFunction();
+  } else {
+    return textOrFunction;
+  }
+}
+
+
 export default function createAnimal (egg, potion, type, content, userItems) {
   let animalKey = `${egg.key}-${potion.key}`;
 
@@ -5,9 +15,9 @@ export default function createAnimal (egg, potion, type, content, userItems) {
     key: animalKey,
     class: type === 'pet' ? `Pet Pet-${animalKey}` : `Mount_Icon_${animalKey}`,
     eggKey: egg.key,
-    eggName: egg.text(),
+    eggName: getText(egg.text),
     potionKey: potion.key,
-    potionName: potion.text(),
+    potionName: getText(potion.text),
     name: content[`${type}Info`][animalKey].text(),
     isOwned () {
       return userItems[`${type}s`][animalKey] > 0;
@@ -19,7 +29,7 @@ export default function createAnimal (egg, potion, type, content, userItems) {
       return type === 'pet' && this.isOwned() && !this.mountOwned();
     },
     isHatchable () {
-      return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
+      return !this.isOwned() & userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
     },
   };
 }

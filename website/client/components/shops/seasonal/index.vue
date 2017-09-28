@@ -14,7 +14,7 @@
             label.custom-control.custom-checkbox
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
               span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(category.localeKey+'Capitalized') }}
+              span.custom-control-description(v-once) {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -24,38 +24,38 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{opened: seasonal.opened}")
           div.npc
             div.featured-label
               span.rectangle
               span.text Leslie
               span.rectangle
-          div.content
+          div.content(v-if="!seasonal.opened")
+            div.featured-label.with-border.closed
+              span.rectangle
+              span.text(v-once, v-html="seasonal.notes")
+              span.rectangle
+          div.content(v-else-if="seasonal.featured.items.length !== 0")
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredset', { name: featuredSet.text }) }}
+              span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredSet.items",
+                v-for="item in seasonal.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                :showEventBadge="false",
+                @click="itemSelected(item)"
               )
-                template(slot="popoverContent", scope="ctx")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
 
       h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
 
-      .clearfix
+      .clearfix(v-if="seasonal.opened")
         h2.float-left
           | {{ $t('classArmor') }}
 
@@ -88,66 +88,22 @@
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
-                :itemContentClass="item.class",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedItemToBuy = item"
+                :showEventBadge="false",
+                @click="itemSelected(item)"
               )
-                span(slot="popoverContent")
-                  div
-                    h4.popover-content-title {{ item.text }}
-                    .popover-content-text {{ item.notes }}
-
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-
-        div.items(v-if="false")
-          shopItem(
-            v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
-            :key="item.key",
-            :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
-            :emptyItem="false",
-            :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
-          )
-            span(slot="popoverContent")
-              div
-                h4.popover-content-title {{ item.text }}
-                .popover-content-text {{ item.notes }}
-
-            template(slot="itemBadge", scope="ctx")
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-    buyModal(
-      :item="selectedItemToBuy",
-      :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-      :withPin="true",
-      @change="resetItemToBuy($event)",
-      @buyPressed="buyItem($event)"
-    )
-      template(slot="item", scope="ctx")
-        item.flat(
-          :item="ctx.item",
-          :itemContentClass="ctx.item.class",
-          :showPopover="false"
-        )
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -256,7 +212,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_background.png');
+        background: url('~assets/images/npc/normal/seasonal_shop_closed_background.png');
 
         background-repeat: repeat-x;
 
@@ -272,6 +228,11 @@
         justify-content: center;
         align-items: center;
       }
+      .background.opened {
+        background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_background.png');
+
+        background-repeat: repeat-x;
+      }
 
       .content {
         display: flex;
@@ -284,7 +245,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/seasonal_shop_closed_banner_web_leslienpc.png');
+        background: url('~assets/images/npc/normal/seasonal_shop_closed_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -293,6 +254,11 @@
           margin: 0;
           left: 60px;
         }
+      }
+
+      .opened .npc{
+        background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_npc.png');
+        background-repeat: no-repeat;
       }
     }
   }
@@ -309,7 +275,6 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import BuyModal from '../buyModal.vue';
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -320,15 +285,23 @@
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
-
   import _filter from 'lodash/filter';
   import _map from 'lodash/map';
+  import _mapValues from 'lodash/mapValues';
+  import _forEach from 'lodash/forEach';
   import _sortBy from 'lodash/sortBy';
   import _throttle from 'lodash/throttle';
   import _groupBy from 'lodash/groupBy';
+  import _reverse from 'lodash/reverse';
 
-export default {
+  import isPinned from 'common/script/libs/isPinned';
+  import getOfficialPinnedItems from 'common/script/libs/getOfficialPinnedItems';
+
+  import i18n from 'common/script/i18n';
+
+  import shops from 'common/script/libs/shops';
+
+  export default {
     components: {
       ShopItem,
       Item,
@@ -341,7 +314,6 @@ export default {
       bDropdownItem,
 
       Avatar,
-      BuyModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -351,7 +323,6 @@ export default {
     data () {
       return {
         viewOptions: {},
-
         searchText: null,
         searchTextThrottled: null,
 
@@ -363,10 +334,19 @@ export default {
           healer: svgHealer,
         }),
 
-        sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
+        gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
+          weapon: i18n.t('weaponCapitalized'),
+          shield: i18n.t('offhandCapitalized'),
+          head: i18n.t('headgearCapitalized'),
+          armor: i18n.t('armorCapitalized'),
+          headAccessory: i18n.t('headAccessoryCapitalized'),
+          body: i18n.t('body'),
+          back: i18n.t('back'),
+          eyewear: i18n.t('eyewear'),
+        }),
 
-        selectedItemToBuy: null,
+        sortItemsBy: ['AZ'],
+        selectedSortItemsBy: 'AZ',
 
         hidePinned: false,
       };
@@ -374,35 +354,44 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        seasonal: 'shops.seasonal.data',
         user: 'user.data',
         userStats: 'user.data.stats',
-        userItems: 'user.data.items',
       }),
-      categories () {
-        if (this.seasonal) {
-          this.seasonal.categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
 
-          return this.seasonal.categories;
+      usersOfficalPinnedItems () {
+        return getOfficialPinnedItems(this.user);
+      },
+
+      seasonal () {
+        return shops.getSeasonalShop(this.user);
+      },
+      seasonalCategories () {
+        return this.seasonal.categories;
+      },
+      categories () {
+        if (this.seasonalCategories) {
+          return _reverse(_sortBy(this.seasonalCategories, (c) => {
+            if (c.event) {
+              return c.event.start;
+            } else {
+              return -1;
+            }
+          }));
         } else {
           return [];
         }
       },
       filterCategories () {
         if (this.content) {
-          let equipmentList = _filter(_map(this.content.itemList, (i, key) => {
+          let equipmentList = _mapValues(this.gearTypesToStrings, (value, key) => {
             return {
-              ...i,
               key,
+              value,
             };
-          }), 'isEquipment');
+          });
 
-          equipmentList.map((category) => {
-            this.$set(this.viewOptions, category.key, {
+          _forEach(equipmentList, (value) => {
+            this.$set(this.viewOptions, value.key, {
               selected: true,
             });
           });
@@ -411,12 +400,6 @@ export default {
         } else {
           return [];
         }
-      },
-
-      featuredSet () {
-        return _filter(this.categories, (c) => {
-          return c.identifier === featuredItems.seasonal;
-        })[0];
       },
     },
     methods: {
@@ -428,7 +411,14 @@ export default {
         }
       },
       seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
-        let result = _filter(category.items, (i) => {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
+          };
+        });
+
+        result = _filter(result, (i) => {
           if (hidePinned && i.pinned) {
             return false;
           }
@@ -446,11 +436,6 @@ export default {
 
             break;
           }
-          case 'sortByNumber': {
-            result = _sortBy(result, ['value']);
-
-            break;
-          }
         }
 
         return result;
@@ -463,16 +448,14 @@ export default {
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
-        result.spells = [
-          spellCategory,
-        ];
+
+        if (spellCategory) {
+          result.spells = [
+            spellCategory,
+          ];
+        }
 
         return result;
-      },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
       },
       isGearLocked (gear) {
         if (gear.value > this.userStats.gp) {
@@ -482,16 +465,15 @@ export default {
         return false;
       },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      itemSelected (item) {
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
+        }
       },
-    },
-    created () {
-      this.$store.dispatch('shops:fetchSeasonal');
     },
   };
 </script>

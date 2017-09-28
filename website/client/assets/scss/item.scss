@@ -2,7 +2,7 @@
 
 .items > div {
   display: inline-block;
-  margin-right: 24px;
+  margin-right: 23px;
 }
 
 .items > div:last-of-type {
@@ -46,10 +46,29 @@
   &.highlight {
     box-shadow: 0 0 8px 8px rgba($black, 0.16), 0 5px 10px 0 rgba($black, 0.12) !important;
   }
+
+  &.highlight-border {
+    border-color: $purple-500;
+  }
+
+  &.suggested {
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    border: solid 1px $suggested-item-color;
+  }
+
+  &.suggested:hover {
+    border: solid 1px $purple-500;
+  }
 }
 
 .flat .item {
   box-shadow: none;
+  border: none;
+}
+
+.bordered-item .item {
+  background: $gray-700 !important;
+  margin: 0 auto;
 }
 
 .drawer-content .item:hover {
@@ -76,4 +95,8 @@
   text-align: center;
   color: $gray-400;
   margin-top: 4px;
+}
+
+.questPopover {
+  width: 200px;
 }

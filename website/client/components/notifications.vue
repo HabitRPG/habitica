@@ -1,6 +1,10 @@
 <template lang="pug">
 div
-  yesterdaily-model(:yesterDailies='yesterDailies')
+  yesterdaily-modal(
+    :yesterDailies='yesterDailies',
+    @hide="runYesterDailiesAction()",
+  )
+  armoire-empty
   new-stuff
   death
   low-health
@@ -18,18 +22,78 @@ div
   joined-guild
   joined-challenge
   invited-friend
+  login-incentives(:data='notificationData')
+  quest-completed
+  quest-invitation
 </template>
+
+<style lang='scss'>
+  .introjs-helperNumberLayer, .introjs-bullets {
+    display: none;
+  }
+
+  .introjs-tooltip {
+    background-image: url('~client/assets/svg/for-css/tutorial-border.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 131px;
+    min-height: 131px !important;
+    width: 400px;
+    max-width: 400px;
+
+    .featured-label {
+      position: absolute;
+      top: -1.5em;
+    }
+
+    .npc_justin_textbox {
+      position: absolute;
+      right: 1em;
+      top: -3.6em;
+      width: 48px;
+      height: 52px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
+  }
+
+  .introjs-button:hover, .introjs-button:active {
+    background-image: none;
+    background-color: #4f2a93 !important;
+    color: #fff;
+  }
+
+  .introjs-tooltipbuttons {
+    margin-top: 1em;
+  }
+
+  .introjs-button {
+    text-shadow: none;
+    text-align: center;
+    display: block;
+    max-width: 90px;
+    font-family: Roboto;
+    font-size: 14px;
+    background-image: none;
+    color: #fff;
+    margin: 0 auto;
+    padding: .8em;
+    border-radius: 2px;
+    background-color: #4f2a93 !important;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
+  }
+</style>
 
 <script>
 import axios from 'axios';
 import moment from 'moment';
+import throttle from 'lodash/throttle';
 
 import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import guide from 'client/mixins/guide';
 
-import yesterdailyModel from './yesterdailyModel';
+import yesterdailyModal from './yesterdailyModal';
 import welcomeModal from './achievements/welcome';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
@@ -51,11 +115,12 @@ import rebirth from './achievements/rebirth';
 import streak from './achievements/streak';
 import ultimateGear from './achievements/ultimateGear';
 import wonChallenge from './achievements/wonChallenge';
+import loginIncentives from './achievements/login-incentives';
 
 export default {
   mixins: [notifications, guide],
   components: {
-    yesterdailyModel,
+    yesterdailyModal,
     wonChallenge,
     ultimateGear,
     streak,
@@ -77,6 +142,7 @@ export default {
     rebirthEnabled,
     dropsEnabled,
     contributor,
+    loginIncentives,
   },
   data () {
     // Levels that already display modals and should not trigger generic Level Up
@@ -92,10 +158,12 @@ export default {
 
     return {
       yesterDailies: [],
+      notificationData: {},
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
       isRunningYesterdailies: false,
+      nextCron: null,
     };
   },
   computed: {
@@ -141,26 +209,20 @@ export default {
   },
   watch: {
     baileyShouldShow () {
-      this.$root.$emit('show:modal', 'new-stuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
-        this.$root.$emit('show:modal', 'death');
+        this.$root.$emit('show::modal', 'death');
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
-        this.$root.$emit('show:modal', 'low-health');
+        this.$root.$emit('show::modal', 'low-health');
         // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
       }
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
       this.hp(after - before, 'hp');
-
-      // @TODO: I am pretty sure we no long need this with $store
-      // this.$broadcast('syncPartyRequest', {
-      //   type: 'user_update',
-      //   user: this.user,
-      // });
 
       if (after < 0) this.playSound('Minus_Habit');
     },
@@ -183,7 +245,7 @@ export default {
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        this.text(`+ ${Notification.coins(bonus)} ${this.$t('streakCoins')}`);
+        this.text(`+ ${this.coins(bonus)} ${this.$t('streakCoins')}`);
         delete this.user._tmp.streakBonus;
       }
     },
@@ -199,7 +261,7 @@ export default {
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${after}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show:modal', 'level-up');
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
     },
     userClassSelect (after) {
       if (!after) return;
@@ -207,7 +269,6 @@ export default {
       // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
     },
     userNotifications (after) {
-      if (!this.user._wrapped) return;
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
     },
@@ -227,40 +288,82 @@ export default {
       this.$root.$emit('show::modal', 'quest-invitation');
     },
   },
-  async mounted () {
-    Promise.all(['user.fetch', 'tasks.fetchUserTasks'])
-      .then(() => {
-        if (!this.user.flags.welcomed) {
-          this.$store.state.avatarEditorOptions.editingUser = false;
-          this.$root.$emit('show::modal', 'avatar-modal');
-        }
 
-        // @TODO: This is a timeout to ensure dom is loaded
-        window.setTimeout(() => {
-          this.initTour();
-          if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-          this.goto('intro', 0);
-        }, 2000);
+  mounted () {
+    Promise.all([
+      this.$store.dispatch('user:fetch'),
+      this.$store.dispatch('tasks:fetchUserTasks'),
+    ]).then(() => {
+      if (this.user.flags.newStuff) {
+        this.$root.$emit('show::modal', 'new-stuff');
+      }
 
-        this.runYesterDailies();
-      });
+      if (!this.user.flags.welcomed) {
+        this.$store.state.avatarEditorOptions.editingUser = false;
+        this.$root.$emit('show::modal', 'avatar-modal');
+      }
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+        this.goto('intro', 0);
+      }, 2000);
+
+      this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
+    });
   },
   methods: {
-    playSound () {
-      // @TODO:
+    playSound (sound) {
+      this.$root.$emit('playSound', sound);
+    },
+    checkNextCron: throttle(function checkNextCron () {
+      if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+        Promise.all([
+          this.$store.dispatch('user:fetch', {forceLoad: true}),
+          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        ]).then(() => this.runYesterDailies());
+      }
+    }, 1000),
+    scheduleNextCron () {
+      // Reset the yesterDailies array
+      this.yesterDailies = [];
+
+      // Open yesterdailies modal the next time cron runs
+      const dayStart = this.user.preferences.dayStart;
+      let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
+
+      const currentHour = moment().format('H');
+      if (currentHour >= dayStart) {
+        nextCron = nextCron.add(1, 'day');
+      }
+
+      // Setup a listener that executes 10 seconds after the next cron time
+      this.nextCron = Number(nextCron.format('x'));
+      this.isRunningYesterdailies = false;
     },
     async runYesterDailies () {
-      // @TODO: Hopefully we don't need this even we load correctly
       if (this.isRunningYesterdailies) return;
+      this.isRunningYesterdailies = true;
+
       if (!this.user.needsCron) {
         this.handleUserNotifications(this.user.notifications);
+        this.scheduleNextCron();
         return;
       }
 
       let dailys = this.$store.state.tasks.data.dailys;
-      this.isRunningYesterdailies = true;
 
-      let yesterDay = moment().subtract('1', 'day').startOf('day').add({ hours: this.user.preferences.dayStart });
+      let yesterDay = moment().subtract('1', 'day').startOf('day').add({
+        hours: this.user.preferences.dayStart,
+      });
+
       dailys.forEach((task) => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
@@ -269,20 +372,34 @@ export default {
       });
 
       if (this.yesterDailies.length === 0) {
-        this.isRunningYesterdailies = false;
-        await axios.post('/api/v3/cron');
-        this.handleUserNotifications(this.user);
+        this.runYesterDailiesAction();
         return;
       }
 
       this.$root.$emit('show::modal', 'yesterdaily');
+    },
+    async runYesterDailiesAction () {
+      // Run Cron
+      await axios.post('/api/v3/cron');
+
+      // Notifications
+
+      // Sync
+      // @TODO add a loading spinner somewhere
+      await Promise.all([
+        this.$store.dispatch('user:fetch', {forceLoad: true}),
+        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
+
+      this.handleUserNotifications(this.user.notifications);
+      this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
       if (!this.user.groupNotifications) this.user.groupNotifications = [];
       this.user.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
-      if (!after || after.length === 0) return;
+      if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       let notificationsToRead = [];
       let scoreTaskNotification = [];
@@ -386,7 +503,8 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            //  @TODO: Notification.showLoginIncentive(this.user, notification.data, Social.loadWidgets);
+            this.notificationData = notification.data;
+            this.$root.$emit('show::modal', 'login-incentives');
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
@@ -405,7 +523,7 @@ export default {
 
       let userReadNotifsPromise = false;
 
-      if (notificationsToRead.length >= 0) {
+      if (notificationsToRead.length > 0) {
         await axios.post('/api/v3/notifications/read', {
           notificationIds: notificationsToRead,
         });
@@ -437,16 +555,6 @@ export default {
 
       this.user.notifications = []; // reset the notifications
     },
-    // @TODO: I think I have these handled in the http interceptor
-    // this.$on('responseError500', function(ev, error){
-    //   Notification.error(error);
-    // });
-    // this.$on('responseError', function(ev, error){
-    //   Notification.error(error, true);
-    // });
-    // this.$on('responseText', function(ev, error){
-    //   Notification.text(error);
-    // });
   },
 };
 </script>

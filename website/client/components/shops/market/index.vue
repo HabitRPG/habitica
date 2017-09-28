@@ -39,23 +39,26 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredItems') }}
+              span.text {{ market.featured.text }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in market.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
-                :priceType="item.currency",
                 :itemContentClass="'shop_'+item.key",
                 :emptyItem="false",
                 :popoverPosition="'top'",
-                @click="selectedGearToBuy = item"
+                @click="featuredItemSelected(item)"
               )
-                template(slot="popoverContent", scope="ctx")
-                  equipmentAttributesPopover(:item="ctx.item")
+                template(slot="itemBadge", scope="ctx")
+                  span.badge.badge-pill.badge-item.badge-svg(
+                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  )
+                    span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       h1.mb-0.page-header(v-once) {{ $t('market') }}
 
@@ -71,14 +74,14 @@
               span.text {{ getClassName(selectedGroupGearByClass) }}
 
             b-dropdown-item(
-              v-for="sort in content.classes",
-              @click="selectedGroupGearByClass = sort",
-              :active="selectedGroupGearByClass === sort",
-              :key="sort"
+              v-for="gearCategory in marketGearCategories",
+              @click="selectedGroupGearByClass = gearCategory.identifier",
+              :active="selectedGroupGearByClass === gearCategory.identifier",
+              :key="gearCategory.identifier"
             )
               span.dropdown-icon-item
-                span.svg-icon.inline.icon-16(v-html="icons[sort]")
-                span.text {{ getClassName(sort) }}
+                span.svg-icon.inline.icon-16(v-html="icons[gearCategory.identifier]")
+                span.text {{ gearCategory.text }}
 
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -95,22 +98,17 @@
         :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
-        :showAllLabel="$t('showAllGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment')  })",
-        :showLessLabel="$t('showLessGeneric', { type: getClassName(selectedGroupGearByClass) + ' '+$t('equipment') })"
+        :type="'gear'",
+        :noItemsLabel="$t('noGearItemsOfClass')"
       )
         template(slot="item", scope="ctx")
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
-            :price="ctx.item.value",
-            :priceType="ctx.item.currency",
-            :itemContentClass="'shop_'+ctx.item.key",
             :emptyItem="userItems.gear[ctx.item.key] === undefined",
             :popoverPosition="'top'",
-            @click="selectedGearToBuy = ctx.item"
+            @click="gearSelected(ctx.item)"
           )
-            template(slot="popoverContent", scope="ctx")
-              equipmentAttributesPopover(:item="ctx.item")
 
             template(slot="itemBadge", scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
@@ -142,25 +140,30 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled)",
+            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
-            :price="item.value",
-            :priceType="item.currency",
-            :itemContentClass="item.class",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="selectedItemToBuy = item"
+            @click="itemSelected(item)"
           )
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
             template(slot="itemBadge", scope="ctx")
               countBadge(
-                :show="true",
+                v-if="item.showCount != false",
+                :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
 
+              span.badge.badge-pill.badge-item.badge-svg(
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
+                @click.prevent.stop="togglePinned(ctx.item)"
+              )
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
+        div.fill-height
 
       drawer(
         :title="$t('quickInventory')"
@@ -171,16 +174,14 @@
             @changedPosition="tabSelected($event)"
           )
             div(slot="right-item")
+              #petLikeToEatMarket.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
+                target="petLikeToEatMarket",
                 :placement="'top'",
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.hand-cursor(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
           :items="ownedItems(selectedDrawerItemType) || []",
@@ -201,12 +202,13 @@
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
                 )
               span(slot="popoverContent")
-                h4.popover-content-title {{ ctx.item.text() }}
+                h4.popover-content-title {{ getItemName(selectedDrawerItemType, ctx.item) }}
 
       sellModal(
         :item="selectedItemToSell",
         :itemType="selectedDrawerItemType",
         :itemCount="selectedItemToSell != null ? userItems[drawerTabs[selectedDrawerTab].contentType][selectedItemToSell.key] : 0",
+        :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
         template(slot="item", scope="ctx")
@@ -220,42 +222,15 @@
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
               )
-
-      buyModal(
-        :item="selectedGearToBuy",
-        priceType="gold",
-        :withPin="true",
-        @change="resetGearToBuy($event)",
-        @buyPressed="buyGear($event)"
-      )
-        template(slot="item", scope="ctx")
-          div
-            avatar(
-              :member="user",
-              :avatarOnly="true",
-              :withBackground="true",
-              :overrideAvatarGear="memberOverrideAvatarGear(selectedGearToBuy)"
-            )
-
-        template(slot="additionalInfo", scope="ctx")
-          equipmentAttributesGrid.bordered(:item="ctx.item")
-
-      buyModal(
-        :item="selectedItemToBuy",
-        :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
-        @change="resetItemToBuy($event)",
-        @buyPressed="buyItem($event)"
-      )
-        template(slot="item", scope="ctx")
-          item.flat(
-            :item="ctx.item",
-            :itemContentClass="ctx.item.class",
-            :showPopover="false"
-          )
 </template>
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
+
+  .fill-height {
+    height: 38px; // button + margin + padding
+  }
 
   .badge-svg {
     left: calc((100% - 18px) / 2);
@@ -288,11 +263,10 @@
     width: 12px;
     height: 12px;
   }
-
-  .hand-cursor {
-    cursor: pointer;
+  .icon-48 {
+    width: 48px;
+    height: 48px;
   }
-
 
   .featured-label {
     margin: 24px auto;
@@ -305,14 +279,15 @@
     padding: 24px 24px 10px;
   }
 
+  .item-wrapper.bordered-item .item {
+    width: 112px;
+    height: 112px;
+  }
+
   .market {
     .avatar {
       cursor: default;
       margin: 0 auto;
-
-      .character-sprites span {
-        left: 25px;
-      }
     }
 
     .standard-page {
@@ -323,7 +298,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
 
@@ -351,7 +326,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -380,24 +355,25 @@
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
 
-  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
-
   import SellModal from './sellModal.vue';
-  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
   import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
+  import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
   import svgWizard from 'assets/svg/wizard.svg';
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
+  import getItemInfo from 'common/script/libs/getItemInfo';
+  import isPinned from 'common/script/libs/isPinned';
+  import shops from 'common/script/libs/shops';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -405,6 +381,8 @@
   import _throttle from 'lodash/throttle';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
+
+  import notifications from 'client/mixins/notifications';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -415,6 +393,7 @@
   };
 
 export default {
+    mixins: [notifications],
     components: {
       ShopItem,
       Item,
@@ -429,11 +408,11 @@ export default {
       bDropdown,
       bDropdownItem,
 
-      EquipmentAttributesPopover,
       SellModal,
-      BuyModal,
       EquipmentAttributesGrid,
       Avatar,
+
+      SelectMembersModal,
     },
     watch: {
       searchText: _throttle(function throttleSearch () {
@@ -449,6 +428,7 @@ export default {
 
         icons: Object.freeze({
           pin: svgPin,
+          gem: svgGem,
           information: svgInformation,
           warrior: svgWarrior,
           wizard: svgWizard,
@@ -468,8 +448,6 @@ export default {
         selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
-        selectedGearToBuy: null,
-        selectedItemToBuy: null,
 
         hideLocked: false,
         hidePinned: false,
@@ -478,20 +456,73 @@ export default {
     computed: {
       ...mapState({
         content: 'content',
-        market: 'shops.market.data',
         user: 'user.data',
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      marketGearCategories () {
+        return shops.getMarketGearCategories(this.user);
+      },
+      market () {
+        return shops.getMarketShop(this.user);
+      },
       categories () {
         if (this.market) {
-          this.market.categories.map((category) => {
+          let categories = [
+            ...this.market.categories,
+          ];
+
+          categories.push({
+            identifier: 'cards',
+            text: this.$t('cards'),
+            items: _map(_filter(this.content.cardTypes, (value) => {
+              return value.yearRound;
+            }), (value) => {
+              return {
+                ...getItemInfo(this.user, 'card', value),
+                showCount: false,
+              };
+            }),
+          });
+
+          let specialItems = [{
+            ...getItemInfo(this.user, 'fortify'),
+            showCount: false,
+          }];
+
+          if (this.user.purchased.plan.customerId) {
+            let gemItem = getItemInfo(this.user, 'gem');
+
+            specialItems.push({
+              ...gemItem,
+              showCount: false,
+            });
+          }
+
+          if (this.user.flags.rebirthEnabled) {
+            let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
+
+            specialItems.push({
+              showCount: false,
+              ...rebirthItem,
+            });
+          }
+
+          if (specialItems.length > 0) {
+            categories.push({
+              identifier: 'special',
+              text: this.$t('special'),
+              items: specialItems,
+            });
+          }
+
+          categories.map((category) => {
             this.$set(this.viewOptions, category.identifier, {
               selected: true,
             });
           });
 
-          return this.market.categories;
+          return categories;
         } else {
           return [];
         }
@@ -519,12 +550,6 @@ export default {
             label: this.$t('special'),
           },
         ];
-      },
-
-      featuredItems () {
-        return featuredItems.market.map(i => {
-          return this.content.gear.flat[i];
-        });
       },
     },
     methods: {
@@ -574,17 +599,20 @@ export default {
             return '';
         }
       },
+      getItemName (type, item) {
+        switch (type) {
+          case 'eggs':
+            return this.$t('egg', {eggType: item.text()});
+          case 'hatchingPotions':
+            return this.$t('potion', {potionType: item.text()});
+          default:
+            return item.text();
+        }
+      },
       filteredGear (groupByClass, searchBy, sortBy, hideLocked, hidePinned) {
-        let result = _filter(this.content.gear.flat, ['klass', groupByClass]);
-        result = _map(result, (e) => {
-          return {
-            ...e,
-            pinned: false, // TODO read pinned state
-            locked: this.isGearLocked(e),
-          };
-        });
+        let category = _filter(this.marketGearCategories, ['identifier', groupByClass]);
 
-        result = _filter(result, (gear) => {
+        let result = _filter(category[0].items, (gear) => {
           if (hideLocked && gear.locked) {
             return false;
           }
@@ -593,7 +621,7 @@ export default {
           }
 
           if (searchBy) {
-            let foundPosition = gear.text().toLowerCase().indexOf(searchBy);
+            let foundPosition = gear.text.toLowerCase().indexOf(searchBy);
             if (foundPosition === -1) {
               return false;
             }
@@ -603,13 +631,33 @@ export default {
           return !this.userItems.gear.owned[gear.key];
         });
 
-        result = _sortBy(result, [sortGearTypeMap[sortBy]]);
+        // first all unlocked
+        // then the selected sort
+        result = _sortBy(result, [(item) => item.locked, sortGearTypeMap[sortBy]]);
 
         return result;
       },
-      sortedMarketItems (category, sortBy, searchBy) {
-        let result = _filter(category.items, (i) => {
-          return !searchBy || i.text.toLowerCase().indexOf(searchBy) !== -1;
+      sortedMarketItems (category, sortBy, searchBy, hidePinned) {
+        let result = _map(category.items, (e) => {
+          return {
+            ...e,
+            pinned: isPinned(this.user, e),
+          };
+        });
+
+        result = _filter(result, (item) => {
+          if (hidePinned && item.pinned) {
+            return false;
+          }
+
+          if (searchBy) {
+            let foundPosition = item.text.toLowerCase().indexOf(searchBy);
+            if (foundPosition === -1) {
+              return false;
+            }
+          }
+
+          return true;
         });
 
         switch (sortBy) {
@@ -633,43 +681,35 @@ export default {
           this.selectedItemToSell = null;
         }
       },
-      resetGearToBuy ($event) {
-        if (!$event) {
-          this.selectedGearToBuy = null;
-        }
-      },
-      resetItemToBuy ($event) {
-        if (!$event) {
-          this.selectedItemToBuy = null;
-        }
-      },
       isGearLocked (gear) {
-        if (gear.value > this.userStats.gp) {
+        if (gear.klass !== this.userStats.class) {
           return true;
         }
 
         return false;
       },
-      memberOverrideAvatarGear (gear) {
-        return {
-          [gear.type]: gear.key,
-        };
-      },
       togglePinned (item) {
-        let isPinned = Boolean(item.pinned);
-        item.pinned = !isPinned;
-        this.$store.dispatch(isPinned ? 'shops:unpinGear' : 'shops:pinGear', {key: item.key});
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.showUnpinNotification(item);
+        }
       },
-      buyGear (item) {
-        this.$store.dispatch('shops:buyItem', {key: item.key});
+      itemSelected (item) {
+        this.$root.$emit('buyModal::showItem', item);
       },
-      buyItem (item) {
-        this.$store.dispatch('shops:purchase', {type: item.purchaseType, key: item.key});
+      featuredItemSelected (item) {
+        if (item.purchaseType === 'gear') {
+          this.gearSelected(item);
+        } else {
+          this.itemSelected(item);
+        }
+      },
+      gearSelected (item) {
+        if (!item.locked) {
+          this.$root.$emit('buyModal::showItem', item);
+        }
       },
     },
     created () {
-      this.$store.dispatch('shops:fetchMarket');
-
       this.selectedGroupGearByClass = this.userStats.class;
     },
   };

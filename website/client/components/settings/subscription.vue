@@ -32,21 +32,21 @@
           tr(v-if='hasCanceledSubscription'): td.alert.alert-warning
             span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
             i.glyphicon.glyphicon-time
-            |  {{ $t('subCanceled') }}
+            |  {{ $t('subCanceled') }} &nbsp;
             strong {{user.purchased.plan.dateTerminated | date}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
-            p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', {purchasedPlanIdInfo}) }}
+            p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
             p(v-if='hasGroupPlan') {{ $t('youHaveGroupPlan') }}
           tr(v-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
-            | &nbsp; {{ $t('purchasedPlanExtraMonths', {purchasedPlanExtraMonthsDetails}) }}
+            | &nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}
           tr(v-if='hasConsecutiveSubscription'): td
             span.glyphicon.glyphicon-forward
             | &nbsp; {{ $t('consecutiveSubscription') }}
             ul.list-unstyled
               li {{ $t('consecutiveMonths') }} {{user.purchased.plan.consecutive.count + user.purchased.plan.consecutive.offset}}
-              li {{ $t('gemCapExtra') }}} {{user.purchased.plan.consecutive.gemCapExtra}}
+              li {{ $t('gemCapExtra') }} {{user.purchased.plan.consecutive.gemCapExtra}}
               li {{ $t('mysticHourglasses') }} {{user.purchased.plan.consecutive.trinkets}}
 
         div(v-if='!hasSubscription || hasCanceledSubscription')
@@ -82,7 +82,7 @@
               a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
-              a.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
+              a.btn.btn-secondary.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
 
     .row
@@ -112,14 +112,15 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
 import { mapState } from 'client/libs/store';
+import encodeParams from 'client/libs/encodeParams';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import amazonPaymentsModal from '../payments/amazonModal';
-
-const STRIPE_PUB_KEY = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh';
+import paymentsMixin from '../../mixins/payments';
 
 export default {
+  mixins: [paymentsMixin],
   components: {
     amazonPaymentsModal,
   },
@@ -133,7 +134,6 @@ export default {
         key: 'basic_earned',
       },
       amazonPayments: {},
-      StripeCheckout: {},
       paymentMethods: {
         AMAZON_PAYMENTS: 'Amazon Payments',
         STRIPE: 'Stripe',
@@ -144,22 +144,15 @@ export default {
       },
     };
   },
-  mounted () {
-    this.StripeCheckout = window.StripeCheckout;
-  },
   filters: {
     date (value) {
       if (!value) return '';
-      return moment(value).formate(this.user.preferences.dateFormat);
+      return moment(value);
+      // return moment(value).format(this.user.preferences.dateFormat); // @TODO make that work (`TypeError: this is undefined`)
     },
   },
   computed: {
-    ...mapState({user: 'user.data'}),
-    paypalPurchaseLink () {
-      let couponString = '';
-      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
-      return `/paypal/subscribe?_id=${this.user._id}&apiToken=${this.user.apiToken}&sub=${this.subscription.key}${couponString}`;
-    },
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
     subscriptionBlocksOrdered () {
       let subscriptions = filter(subscriptionBlocks, (o) => {
         return o.discount !== true;
@@ -170,6 +163,16 @@ export default {
       }]);
     },
     purchasedPlanIdInfo () {
+      if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
+        // @TODO: find which subs are in the common
+        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        return {
+          price: 0,
+          months: 0,
+          plan: '',
+        };
+      }
+
       return {
         price: this.subscriptionBlocks[this.user.purchased.plan.planId].price,
         months: this.subscriptionBlocks[this.user.purchased.plan.planId].months,
@@ -205,7 +208,7 @@ export default {
     },
     purchasedPlanExtraMonthsDetails () {
       return {
-        months: this.user.purchased.plan.extraMonths.toFixed(2),
+        months: parseFloat(this.user.purchased.plan.extraMonths).toFixed(2),
       };
     },
     buyGemsGoldCap () {
@@ -235,6 +238,14 @@ export default {
         amount: this.numberOfMysticHourglasses,
       };
     },
+    canCancelSubscription () {
+      return (
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
+        !this.hasCanceledSubscription &&
+        !this.hasGroupPlan
+      );
+    },
   },
   methods: {
     async applyCoupon (coupon) {
@@ -249,90 +260,6 @@ export default {
       let subs = subscriptionBlocks;
       subs.basic_6mo.discount = true;
       subs.google_6mo.discount = false;
-    },
-    showStripe (data) {
-      if (!this.checkGemAmount(data)) return;
-
-      let sub = false;
-
-      if (data.subscription) {
-        sub = data.subscription;
-      } else if (data.gift && data.gift.type === 'subscription') {
-        sub = data.gift.subscription.key;
-      }
-
-      sub = sub && subscriptionBlocks[sub];
-
-      let amount = 500;// 500 = $5
-      if (sub) amount = sub.price * 100;
-      if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
-      if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
-
-      this.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        amount,
-        name: 'Habitica',
-        description: sub ? this.$t('subscribe') : this.$t('checkout'),
-        image: '/apple-touch-icon-144-precomposed.png',
-        panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        token: async (res) => {
-          let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
-
-          if (data.groupToCreate) {
-            url = '/api/v3/groups/create-plan?a=a';
-            res.groupToCreate = data.groupToCreate;
-            res.paymentType = 'Stripe';
-          }
-
-          if (data.gift) url += `&gift=${this.encodeGift(data.uuid, data.gift)}`;
-          if (data.subscription) url += `&sub=${sub.key}`;
-          if (data.coupon) url += `&coupon=${data.coupon}`;
-          if (data.groupId) url += `&groupId=${data.groupId}`;
-
-          let response = await axios.post(url, res);
-          // Success
-          if (response && response.data && response.data._id) {
-            this.$router.push(`/#/options/groups/guilds/${response.data._id}`);
-          } else {
-            window.location.reload(true);
-          }
-          // Error
-          alert(response.message);
-        },
-      });
-    },
-    showStripeEdit (config) {
-      let groupId;
-      if (config && config.groupId) {
-        groupId = config.groupId;
-      }
-
-      this.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        name: this.$t('subUpdateTitle'),
-        description: this.$t('subUpdateDescription'),
-        panelLabel: this.$t('subUpdateCard'),
-        token: async (data) => {
-          data.groupId = groupId;
-          let url = '/stripe/subscribe/edit';
-          let response = await axios.post(url, data);
-
-          // Succss
-          window.location.reload(true);
-          // error
-          alert(response.message);
-        },
-      });
-    },
-    canCancelSubscription () {
-      return (
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
-        !this.hasCanceledSubscription &&
-        !this.hasGroupPlan
-      );
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
@@ -356,7 +283,7 @@ export default {
 
       let queryParams = {
         _id: this.user._id,
-        apiToken: this.user.apiToken,
+        apiToken: this.credentials.API_TOKEN,
         noRedirect: true,
       };
 
@@ -364,63 +291,15 @@ export default {
         queryParams.groupId = group._id;
       }
 
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${$.param(queryParams)}`;
+      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
       await axios.get(cancelUrl);
       //  Success
       alert(this.$t('paypalCanceled'));
       this.$router.push('/');
     },
     getCancelSubInfo () {
+      // @TODO: String 'cancelSubInfoGroup Plan' not found. ?
       return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
-    },
-    amazonPaymentsInit (data) {
-      if (!this.isAmazonReady) return;
-      if (!this.checkGemAmount(data)) return;
-      if (data.type !== 'single' && data.type !== 'subscription') return;
-
-      if (data.gift) {
-        if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
-        data.gift.uuid = data.giftedTo;
-      }
-
-      if (data.subscription) {
-        this.amazonPayments.subscription = data.subscription;
-        this.amazonPayments.coupon = data.coupon;
-      }
-
-      if (data.groupId) {
-        this.amazonPayments.groupId = data.groupId;
-      }
-
-      if (data.groupToCreate) {
-        this.amazonPayments.groupToCreate = data.groupToCreate;
-      }
-
-      this.amazonPayments.gift = data.gift;
-      this.amazonPayments.type = data.type;
-
-      this.$root.$emit('show::modal', 'amazon-payment');
-    },
-    payPalPayment (data) {
-      if (!this.checkGemAmount(data)) return;
-
-      let gift = this.encodeGift(data.giftedTo, data.gift);
-      let url = `/paypal/checkout?_id=${this.user._id}&apiToken=${this.user.apiToken}&gift=${gift}`;
-      axios.get(url);
-    },
-    encodeGift (uuid, gift) {
-      gift.uuid = uuid;
-      let encodedString = JSON.stringify(gift);
-      return encodeURIComponent(encodedString);
-    },
-    checkGemAmount (data) {
-      let isGem = data && data.gift && data.gift.type === 'gems';
-      let notEnoughGem = isGem && (!data.gift.gems.amount || data.gift.gems.amount === 0);
-      if (notEnoughGem) {
-        Notification.error(this.$t('badAmountOfGemsToPurchase'), true);
-        return false;
-      }
-      return true;
     },
   },
 };

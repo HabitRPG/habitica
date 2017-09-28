@@ -8,6 +8,8 @@
     "unlockableQuests": "Quêtes à débloquer",
     "goldQuests": "Quêtes achetables avec de l'or",
     "questDetails": "Détails de la quête",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Invitations",
     "completed": " complétée !",
     "rewardsAllParticipants": "Récompenses individuelles",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Il n'y a pas de quête active à quitter",
     "questLeaderCannotLeaveQuest": "Le responsable de la quête ne peut quitter la quête",
     "notPartOfQuest": "Vous ne participez pas à la quête",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Il n'y a pas de quête active à interrompre.",
     "onlyLeaderAbortQuest": "Seul le responsable du groupe ou de la quête peut interrompre une quête.",
     "questAlreadyRejected": "Vous avez déjà rejeté l'invitation à la quête.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> connexion(s)",
     "createAccountQuest": "Vous avez reçu cette quête en rejoignant Habitica. Si des amis vous rejoignent, ils l'auront aussi.",
     "questBundles": "Lots de quêtes à prix réduits",
-    "buyQuestBundle": "Acheter ce lot de quêtes"
+    "buyQuestBundle": "Acheter ce lot de quêtes",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

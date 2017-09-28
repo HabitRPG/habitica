@@ -439,7 +439,7 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
-    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme']},
+    sound: {type: String, default: 'rosstavoTheme', enum: ['off', ...shared.content.audioThemes]},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
     language: String,
@@ -581,6 +581,17 @@ let schema = new Schema({
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
   invitesSent: {type: Number, default: 0},
+
+  // Items manually pinned by the user
+  pinnedItems: [{
+    path: {type: String},
+    type: {type: String},
+  }],
+  // Items the user manually unpinned from the ones suggested by Habitica
+  unpinnedItems: [{
+    path: {type: String},
+    type: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

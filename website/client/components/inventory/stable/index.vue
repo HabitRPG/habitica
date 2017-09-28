@@ -2,15 +2,14 @@
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
     .standard-sidebar
       div
+        #npmMattStable.npc_matt
         b-popover(
-          :triggers="['hover']",
-          :placement="'right'"
+          triggers="hover",
+          placement="right",
+          target="npmMattStable"
         )
-          span(slot="content")
-            h4.popover-content-title(v-once) {{ $t('mattBoch') }}
-            .popover-content-text(v-once) {{ $t('mattBochText1') }}
-
-          div.npc_matt
+          h4.popover-content-title(v-once) {{ $t('mattBoch') }}
+          .popover-content-text(v-once) {{ $t('mattBochText1') }}
 
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -84,6 +83,7 @@
           :items="pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="petGroup.key",
         )
           template(slot="item", scope="context")
             div(
@@ -99,12 +99,21 @@
                 :popoverPosition="'top'",
                 :progress="context.item.progress",
                 :emptyItem="!context.item.isOwned()",
-                :showPopover="context.item.isOwned()",
+                :showPopover="currentDraggingFood == null",
                 :highlightBorder="highlightPet == context.item.key",
                 @click="petClicked(context.item)"
               )
                 span(slot="popoverContent")
-                  div(v-if="context.item.isOwned()")
+                  div.hatchablePopover(v-if="context.item.isHatchable()")
+                    h4.popover-content-title {{ context.item.name }}
+                    div.popover-content-text(v-html="$t('haveHatchablePet', { potion: context.item.potionName, egg: context.item.eggName })")
+                    div.potionEggGroup
+                      div.potionEggBackground
+                        div(:class="'Pet_HatchingPotion_'+context.item.potionKey")
+                      div.potionEggBackground
+                        div(:class="'Pet_Egg_'+context.item.eggKey")
+
+                  div(v-else)
                     h4.popover-content-title {{ context.item.name }}
 
                 template(slot="itemBadge", scope="context")
@@ -130,6 +139,7 @@
           :items="mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)",
           :itemWidth=94,
           :itemMargin=24,
+          :type="mountGroup.key",
         )
           template(slot="item", scope="context")
             mountItem(
@@ -138,7 +148,8 @@
               :key="context.item.key",
               :popoverPosition="'top'",
               :emptyItem="!context.item.isOwned()",
-              :showPopover="context.item.isOwned()",
+              :showPopover="true",
+              @click="selectMount(context.item)"
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ context.item.name }}
@@ -151,7 +162,7 @@
 
       drawer(
         :title="$t('quickInventory')",
-        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? $t('noFoodAvailable') : null"
+        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null"
       )
         div(slot="drawer-header")
           .drawer-tab-container
@@ -167,18 +178,14 @@
                   :class="{ 'drawer-tab-text-active': selectedDrawerTab === 1 }",
                 )  {{ drawerTabs[1].label }}
 
+              #petLikeToEatStable.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
-                :placement="'top'"
+                target="petLikeToEatStable"
+                placement="top"
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.float-right(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
-
-
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
         drawer-slider(
           :items="drawerTabs[selectedDrawerTab].items",
           :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",
@@ -200,7 +207,8 @@
       :ok-only="true",
       :ok-title="$t('gotIt')",
       :visible="!hideDialog",
-      :hide-header="true"
+      :hide-header="true",
+      @hide="hideFlag()"
     )
       div.content
         div.npc_matt
@@ -263,9 +271,16 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet {
-    position: absolute;
+  .stable .item .item-content.Pet:not(.FlyingPig) {
     top: -28px;
+  }
+
+  .stable .item .item-content.FlyingPig {
+    top: 7px;
+  }
+
+  .stable .item .item-content.Pet-Dragon-Hydra {
+    top: -16px !important;
   }
 
   .hatchablePopover {
@@ -436,7 +451,38 @@
 
     .popover {
       position: inherit;
-      width: 100px;
+      width: 180px;
+    }
+
+    .popover-content {
+      color: white;
+    }
+  }
+
+  .hatchablePopover {
+    width: 180px;
+
+    .potionEggGroup {
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    .potionEggBackground {
+      display: inline-flex;
+      align-items: center;
+
+      width: 64px;
+      height: 64px;
+      border-radius: 2px;
+      background-color: #4e4a57;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+
+      & div {
+        margin: 0 auto;
+      }
     }
   }
 </style>
@@ -476,6 +522,8 @@
   import svgInformation from 'assets/svg/information.svg';
   import svgClose from 'assets/svg/close.svg';
 
+  import notifications from 'client/mixins/notifications';
+
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
@@ -484,6 +532,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
+    mixins: [notifications],
     components: {
       PetItem,
       Item,
@@ -739,7 +788,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['pet']);
+            animals = _sortBy(animals, ['name']);
             break;
 
           case 'sortByColor':
@@ -793,7 +842,7 @@
 
       getPetItemClass (pet) {
         if (pet.isOwned()) {
-          return `Pet Pet-${pet.key}`;
+          return `Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.mountOwned()) {
@@ -848,10 +897,10 @@
         }
       },
 
-      onDrop (ev, pet) {
-        this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
-
+      async onDrop (ev, pet) {
         this.highlightPet = '';
+
+        this.feedAction(pet.key, ev.draggingKey);
       },
 
       onDragEnd () {
@@ -864,17 +913,32 @@
       },
 
       petClicked (pet) {
-        if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
-          // food process
-          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
-          this.currentDraggingFood = null;
-          this.foodClickMode = false;
+        if (this.currentDraggingFood !== null) {
+          if (pet.isAllowedToFeed()) {
+            // food process
+            this.feedAction(pet.key, this.currentDraggingFood.key);
+            this.currentDraggingFood = null;
+            this.foodClickMode = false;
+          }
         } else {
-          if (pet.isOwned() || !pet.isHatchable()) {
+          if (pet.isOwned()) {
+            this.selectPet(pet);
+            return;
+          }
+
+          if (!pet.isHatchable()) {
             return;
           }
           // opens the hatch dialog
           this.hatchablePet = pet;
+        }
+      },
+
+      async feedAction (petKey, foodKey) {
+        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+        if (result.message) {
+          this.text(result.message);
         }
       },
 
@@ -907,11 +971,17 @@
 
       mouseMoved ($event) {
         if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
-          this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
+          this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
         } else {
           lastMouseMoveEvent = $event;
         }
+      },
+
+      hideFlag () {
+        this.$store.dispatch('user:set', {
+          'flags.tutorial.common.mounts': true,
+        });
       },
     },
   };

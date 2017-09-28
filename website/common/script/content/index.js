@@ -1,6 +1,5 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import includes from 'lodash/includes';
 import moment from 'moment';
 import t from './translation';
 
@@ -25,13 +24,15 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds.js';
+import backgrounds from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
 import loginIncentives from './loginIncentives';
+
+import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
 
@@ -45,8 +46,12 @@ api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme'];
+
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
+
+api.officialPinnedItems = officialPinnedItems;
 
 /*
    ---------------------------------------------------------------
@@ -68,6 +73,7 @@ api.bundles = {
       return moment().isBetween('2017-05-16', '2017-05-31');
     },
     type: 'quests',
+    class: 'quest_bundle_featheredFriends',
     value: 7,
   },
   splashyPals: {
@@ -83,6 +89,7 @@ api.bundles = {
       return moment().isBetween('2017-07-11', '2017-08-02');
     },
     type: 'quests',
+    class: 'quest_bundle_splashyPals',
     value: 7,
   },
   farmFriends: {
@@ -127,8 +134,8 @@ api.armoire = {
   },
   value: 100,
   key: 'armoire',
-  canOwn (u) {
-    return includes(u.achievements.ultimateGearSets, true);
+  canOwn () {
+    return true;
   },
 };
 
@@ -533,7 +540,8 @@ each(api.food, (food, key) => {
 
 api.appearances = appearances;
 
-api.backgrounds = backgrounds;
+api.backgrounds = backgrounds.tree;
+api.backgroundsFlat = backgrounds.flat;
 
 api.userDefaults = {
   habits: [

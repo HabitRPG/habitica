@@ -1,35 +1,64 @@
 <template lang="pug">
-b-popover(
-  :triggers="[showPopover?'hover':'']",
-  :placement="popoverPosition",
-)
-  span(slot="content")
-    slot(name="popoverContent", :item="item")
-
-  .item-wrapper(@click="click()")
-    .item(
-      :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
-    )
+div
+  .item-wrapper(@click="click()", :id="itemId")
+    .item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
+
+
+      span.badge.badge-pill.badge-item.badge-clock(
+        v-if="item.event && showEventBadge",
+      )
+        span.svg-icon.inline.clock(v-html="icons.clock")
+
       div.shop-content
         span.svg-icon.inline.lock(v-if="item.locked" v-html="icons.lock")
-
+        span.suggestedDot(v-if="item.isSuggested")
 
         div.image
-          div(:class="itemContentClass")
+          div(:class="item.class", v-once)
+          slot(name="itemImage", :item="item")
+          span.svg-icon.inline.icon-48(v-if="item.key == 'gem'", v-html="icons.gems")
+
 
         div.price
-          span.svg-icon.inline.icon-16(v-html="icons[getSvgClass()]")
+          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
 
-          span.price-label(:class="getSvgClass()") {{ price }}
+          span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
+  b-popover(
+    :target="itemId",
+    v-if="showPopover",
+    triggers="hover",
+    :placement="popoverPosition",
+  )
+    slot(name="popoverContent", :item="item")
+      equipmentAttributesPopover(
+        v-if="item.purchaseType==='gear'",
+        :item="item"
+      )
+      div.questPopover(v-else-if="item.purchaseType === 'quests'")
+        h4.popover-content-title {{ item.text }}
+        questInfo(:quest="item")
+      div(v-else)
+        h4.popover-content-title(v-once) {{ item.text }}
+        .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
+
+      div(v-if="item.event") {{ limitedString }}
 
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
-.item {
-  min-height: 106px;
+  .item-wrapper {
+    z-index: 10;
+  }
+
+  .item {
+    min-height: 106px;
+  }
+
+  .item:not(.locked) {
+    cursor: pointer;
   }
 
   .item.item-empty {
@@ -59,7 +88,7 @@ b-popover(
       margin-right: 4px;
     }
 
-    margin-bottom: 8px;
+    margin-top: 1.25em;
   }
 
   .price-label {
@@ -90,43 +119,84 @@ b-popover(
     top: 8px;
     margin-top: 0;
   }
+
+  span.badge.badge-pill.badge-item.badge-clock {
+    height: 24px;
+    width: 24px;
+    background-color: $purple-300;
+    position: absolute;
+    left: -8px;
+    top: -12px;
+    margin-top: 0;
+    padding: 4px;
+  }
+
+  span.svg-icon.inline.clock {
+    height: 16px;
+    width: 16px;
+  }
+
+  .suggestedDot {
+    width: 6px;
+    height: 6px;
+    background-color: $suggested-item-color;
+    border-radius: 4px;
+
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    margin-top: 0;
+  }
+
+  .icon-48 {
+    width: 48px;
+    height: 48px;
+  }
 </style>
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import uuid from 'uuid';
 
   import svgGem from 'assets/svg/gem.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgLock from 'assets/svg/lock.svg';
+  import svgClock from 'assets/svg/clock.svg';
+
+  import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
+
+  import QuestInfo from './quests/questInfo.vue';
+
+  import moment from 'moment';
+
+  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
 
   export default {
     components: {
       bPopover,
+      EquipmentAttributesPopover,
+      QuestInfo,
     },
     data () {
-      return {
-        icons: Object.freeze({
+      return Object.freeze({
+        itemId: uuid.v4(),
+        icons: {
           gems: svgGem,
           gold: svgGold,
           lock: svgLock,
           hourglasses: svgHourglasses,
-        }),
-      };
+          clock: svgClock,
+        },
+      });
     },
     props: {
       item: {
         type: Object,
       },
-      itemContentClass: {
-        type: String,
-      },
       price: {
         type: Number,
         default: -1,
-      },
-      priceType: {
-        type: String,
       },
       emptyItem: {
         type: Boolean,
@@ -144,17 +214,44 @@ b-popover(
         type: Boolean,
         default: true,
       },
+      showEventBadge: {
+        type: Boolean,
+        default: true,
+      },
+    },
+    computed: {
+      showNotes () {
+        if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
+      },
+      currencyClass () {
+        if (this.item.currency && this.icons[this.item.currency]) {
+          return this.item.currency;
+        } else {
+          return 'gold';
+        }
+      },
+      limitedString () {
+        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+      },
     },
     methods: {
       click () {
         this.$emit('click', {});
       },
-      getSvgClass () {
-        if (this.priceType && this.icons[this.priceType]) {
-          return this.priceType;
+      getPrice () {
+        if (this.price === -1) {
+          return this.item.value;
         } else {
-          return 'gold';
+          return this.price;
         }
+      },
+      getItemClasses () {
+        return {
+          'item-empty': this.emptyItem,
+          'highlight-border': this.highlightBorder,
+          suggested: this.item.isSuggested,
+          locked: this.item.locked,
+        };
       },
     },
   };

@@ -1,224 +1,335 @@
 <template lang="pug">
-b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='true')
+b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true', :hide-footer='true', :class='{"page-2": modalPage > 1 && !editing}')
   .section.row.welcome-section(v-if='modalPage === 1 && !editing')
     .col-6.offset-3.text-center
       h3(v-once) {{$t('welcomeTo')}}
       .svg-icon.logo(v-html='icons.logoPurple')
 
-  .section.row
+  .avatar-section.row(:class='{"page-2": modalPage === 2}')
     .col-6.offset-3
-      .user-creation-bg
-      avatar(:member='user')
+      .user-creation-bg(v-if='!editing')
+      avatar(:member='user', :avatarOnly='!editing', :class='{"edit-avatar": editing}')
 
-  div(v-if='modalPage == 2')
+  .section(v-if='modalPage === 2', :class='{"edit-modal": editing}')
     // @TODO Implement in V2 .section.row
       .col-12.text-center
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
-    .section.row.text-center.customize-menu
-      .col-3
-        .menu-item(@click='changeTopPage("body", "size")')
-          .svg-icon(v-html='icons.bodyIcon')
-        strong(v-once) {{$t('body')}}
-      .col-3
-        .menu-item(@click='changeTopPage("skin", "color")')
-          .svg-icon(v-html='icons.skinIcon')
-        strong(v-once) {{$t('skin')}}
-      .col-3
-        .menu-item(@click='changeTopPage("hair", "color")')
-          .svg-icon(v-html='icons.hairIcon')
-        strong(v-once) {{$t('hair')}}
-      .col-3
-        .menu-item(@click='changeTopPage("extra", "glasses")')
-          .svg-icon(v-html='icons.accessoriesIcon')
-        strong(v-once) {{$t('extra')}}
-      .col-3(v-if='editing')
-        .menu-item(@click='changeTopPage("backgrounds", "2017")')
-          .svg-icon(v-html='icons.backgroundsIcon')
-        strong(v-once) {{$t('backgrounds')}}
-    .section.customize-section(v-if='activeTopPage === "body"')
-      .row.sub-menu
-          .col-2.offset-4.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
-            strong(v-once) {{$t('size')}}
-          .col-2.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
-            strong(v-once) {{$t('shirt')}}
+    #options-nav.container.section.text-center.customize-menu
+      .row
+        div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
+          .menu-item(@click='changeTopPage("body", "size")')
+            .svg-icon(v-html='icons.bodyIcon')
+          strong(v-once) {{$t('bodyBody')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("skin", "color")')
+            .svg-icon(v-html='icons.skinIcon')
+          strong(v-once) {{$t('skin')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("hair", "color")')
+            .svg-icon(v-html='icons.hairIcon')
+          strong(v-once) {{$t('hair')}}
+        div(:class='{"col-3": !editing, "col-2": editing}')
+          .menu-item(@click='changeTopPage("extra", "glasses")')
+            .svg-icon(v-html='icons.accessoriesIcon')
+          strong(v-once) {{$t('extra')}}
+        .col-2(v-if='editing')
+          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+            .svg-icon(v-html='icons.backgroundsIcon')
+          strong(v-once) {{$t('backgrounds')}}
+    #body.section.customize-section(v-if='activeTopPage === "body"')
+      .row.sub-menu.text-center
+        .col-3.offset-3.sub-menu-item(@click='changeSubPage("size")', :class='{active: activeSubPage === "size"}')
+          strong(v-once) {{$t('size')}}
+        .col-3.sub-menu-item(@click='changeSubPage("shirt")', :class='{active: activeSubPage === "shirt"}')
+          strong(v-once) {{$t('shirt')}}
       .row(v-if='activeSubPage === "size"')
         .col-12.customize-options.size-options
-          .slim_shirt_black.option(@click='set({"preferences.size":"slim"})', :class='{active: user.preferences.size === "slim"}')
-          .broad_shirt_black.option(@click='set({"preferences.size":"broad"})', :class='{active: user.preferences.size === "broad"}')
+          .option(v-for='option in ["slim", "broad"]', :class='{active: user.preferences.size === option}')
+            .sprite.customize-option(:class="`${option}_shirt_black`", @click='set({"preferences.size": option})')
       .row(v-if='activeSubPage === "shirt"')
         .col-12.customize-options
-          .slim_shirt_black.option(@click='set({"preferences.shirt":"black"})', :class='{active: user.preferences.shirt === "black"}')
-          .slim_shirt_blue.option(@click='set({"preferences.shirt":"blue"})', :class='{active: user.preferences.shirt === "blue"}')
-          .slim_shirt_green.option(@click='set({"preferences.shirt":"green"})', :class='{active: user.preferences.shirt === "green"}')
-          .slim_shirt_pink.option(@click='set({"preferences.shirt":"pink"})', :class='{active: user.preferences.shirt === "pink"}')
-          .slim_shirt_white.option(@click='set({"preferences.shirt":"white"})', :class='{active: user.preferences.shirt === "white"}')
-          .slim_shirt_yellow.option(@click='set({"preferences.shirt":"yellow"})', :class='{active: user.preferences.shirt === "yellow"}')
-        .col-12
-          .broad_shirt_convict.option(@click='set({"preferences.shirt":"convict"})', :class='{active: user.preferences.shirt === "convict"}')
-
-    .section.customize-section(v-if='activeTopPage === "skin"')
-      .row.sub-menu
-          .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
-            strong(v-once) {{$t('color')}}
+          .option(v-for='option in ["black", "blue", "green", "pink", "white", "yellow"]',
+            :class='{active: user.preferences.shirt === option}')
+            .sprite.customize-option(:class="`slim_shirt_${option}`", @click='set({"preferences.shirt": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='item in specialShirts',
+            :class='{active: item.active, locked: item.locked}')
+            .sprite.customize-option(:class="`broad_shirt_${item.key}`", @click='item.click')
+            .gem-lock(v-if='item.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("shirt", specialShirtKeys)', @click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
+    #skin.section.customize-section(v-if='activeTopPage === "skin"')
+      .row.sub-menu.col-6.offset-3.text-center
+        .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
+          strong(v-once) {{$t('color')}}
       .row
         .col-12.customize-options
-          .skin_ddc994.option(@click='set({"preferences.skin":"ddc994"})', :class='{active: user.preferences.skin === "ddc994"}')
-          .skin_f5a76e.option(@click='set({"preferences.skin":"f5a76e"})', :class='{active: user.preferences.skin === "f5a76e"}')
-          .skin_ea8349.option(@click='set({"preferences.skin":"ea8349"})', :class='{active: user.preferences.skin === "ea8349"}')
-          .skin_c06534.option(@click='set({"preferences.skin":"c06534"})', :class='{active: user.preferences.skin === "c06534"}')
-          .skin_98461a.option(@click='set({"preferences.skin":"98461a"})', :class='{active: user.preferences.skin === "98461a"}')
-          .skin_915533.option(@click='set({"preferences.skin":"915533"})', :class='{active: user.preferences.skin === "915533"}')
-          .skin_c3e1dc.option(@click='set({"preferences.skin":"c3e1dc"})', :class='{active: user.preferences.skin === "c3e1dc"}')
-          .skin_6bd049.option(@click='set({"preferences.skin":"6bd049"})', :class='{active: user.preferences.skin === "6bd049"}')
-
-    .section.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu
-          .col-2.offset-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
-            strong(v-once) {{$t('color')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
-            strong(v-once) {{$t('bangs')}}
-          .col-2.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
-            strong(v-once) {{$t('ponytail')}}
-      .row(v-if='activeSubPage === "color"')
+          .option(v-for='option in ["ddc994", "f5a76e", "ea8349", "c06534", "98461a", "915533", "c3e1dc", "6bd049"]',
+            :class='{active: user.preferences.skin === option}')
+            .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
+      .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
         .col-12.customize-options
-          .hair_bangs_1_white.option(@click='set({"preferences.hair.color": "white"})', :class='{active: user.preferences.hair.color === "white"}')
-          .hair_bangs_1_brown.option(@click='set({"preferences.hair.color": "brown"})', :class='{active: user.preferences.hair.color === "brown"}')
-          .hair_bangs_1_blond.option(@click='set({"preferences.hair.color": "blond"})', :class='{active: user.preferences.hair.color === "blond"}')
-          .hair_bangs_1_red.option(@click='set({"preferences.hair.color": "red"})', :class='{active: user.preferences.hair.color === "red"}')
-          .hair_bangs_1_black.option(@click='set({"preferences.hair.color": "black"})', :class='{active: user.preferences.hair.color === "black"}')
-      .row(v-if='activeSubPage === "bangs"')
+          //h3(v-if='!hideSet(set)') {{$t(set.key)}}
+          .option(v-for='option in set.options',
+            :class='{active: option.active, locked: option.locked, hide: option.hide}')
+            .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+        .col-12.text-center
+          button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)', @click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
+    #hair.section.customize-section(v-if='activeTopPage === "hair"')
+      .row.sub-menu.text-center
+        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
+          strong(v-once) {{$t('color')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
+          strong(v-once) {{$t('bangs')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
+          strong(v-once) {{$t('ponytail')}}
+      .row.sub-menu.text-center
+        .col-3.offset-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
+          strong(v-once) {{$t('style')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
+            strong(v-once) {{$t('facialhair')}}
+      #hair-color.row(v-if='activeSubPage === "color"')
         .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.bangs": 0})', :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 1})', :class="[{ active: user.preferences.hair.bangs === 1 }, 'hair_bangs_1_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 2})',:class="[{ active: user.preferences.hair.bangs === 2 }, 'hair_bangs_2_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 3})', :class="[{ active: user.preferences.hair.bangs === 3 }, 'hair_bangs_3_' + user.preferences.hair.color]")
-          .option(@click='set({"preferences.hair.bangs": 4})', :class="[{ active: user.preferences.hair.bangs === 4 }, 'hair_bangs_4_' + user.preferences.hair.color]")
-      .row(v-if='activeSubPage === "ponytail"')
+          .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
+            :class='{active: user.preferences.hair.color === option}')
+            .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
+        //.row(v-if='editing')
+          .col-12.customize-options(v-if='editing')
+            .option(v-for='option in premiumHairColors',
+              :class='{active: option.active === option, locked: option.locked}')
+              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+              .gem-lock(v-if='option.locked')
+                .svg-icon.gem(v-html='icons.gem')
+                span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+        .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+          .col-12.customize-options
+            //h3(v-if='!hideSet(set)') {{set.text}}
+            .option(v-for='option in set.options',
+              :class='{active: option.active, locked: option.locked, hide: option.hide}')
+              .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+              .gem-lock(v-if='option.locked')
+                .svg-icon.gem(v-html='icons.gem')
+                span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+      #style.row(v-if='activeSubPage === "style"')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair3',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair3Keys, "base")', @click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair4',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair4Keys, "base")', @click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+      #bangs.row(v-if='activeSubPage === "bangs"')
+        .col-12.customize-options
+          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
+            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+          .option(v-for='option in ["1", "2", "3", "4"]',
+            :class='{active: user.preferences.hair.bangs === option}')
+            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
+      #base-hair.row(v-if='activeSubPage === "ponytail"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
-          .hair_base_1_blond.option(@click='set({"preferences.hair.base": 1})', :class="[{ active: user.preferences.hair.base === 1 }, 'hair_base_1_' + user.preferences.hair.color]")
-          .hair_base_3_blond.option(@click='set({"preferences.hair.base": 3})', :class="[{ active: user.preferences.hair.base === 3 }, 'hair_base_3_' + user.preferences.hair.color]")
-
-    .section.container.customize-section(v-if='activeTopPage === "extra"')
+          .option(v-for='option in baseHair1',
+            :class='{active: user.preferences.hair.base === option}')
+            .base.sprite.customize-option(:class="`hair_base_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.base": option})')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair2',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+      #facialhair.row(v-if='activeSubPage === "facialhair"')
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair5',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")', @click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
+        .col-12.customize-options(v-if='editing')
+          .option(v-for='option in baseHair6',
+            :class='{active: option.active, locked: option.locked}')
+            .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
+    #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
-            strong(v-once) {{$t('glasses')}}
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
-            strong(v-once) {{$t('wheelchair')}}
-          .col-4.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
-            strong(v-once) {{$t('flower')}}
+        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
+          strong(v-once) {{$t('glasses')}}
+        .col-4.text-center.sub-menu-item(@click='changeSubPage("wheelchair")', :class='{active: activeSubPage === "wheelchair"}')
+          strong(v-once) {{$t('wheelchair')}}
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("flower")', :class='{active: activeSubPage === "flower"}')
+          strong(v-once) {{$t('flower')}}
+      .row.sub-menu(v-if='editing')
+        .col-4.offset-4.text-center.sub-menu-item(@click='changeSubPage("ears")' :class='{active: activeSubPage === "ears"}')
+          strong(v-once) {{$t('animalEars')}}
       .row(v-if='activeSubPage === "glasses"')
         .col-12.customize-options
-          .eyewear_special_blackTopFrame.option(@click='equip("eyewear_special_blackTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blackTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blackTopFrame"}')
-          .eyewear_special_blueTopFrame.option(@click='equip("eyewear_special_blueTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_blueTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_blueTopFrame"}')
-          .eyewear_special_greenTopFrame.option(@click='equip("eyewear_special_greenTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_greenTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_greenTopFrame"}')
-          .eyewear_special_pinkTopFrame.option(@click='equip("eyewear_special_pinkTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_pinkTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_pinkTopFrame"}')
-          .eyewear_special_redTopFrame.option(@click='equip("eyewear_special_redTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_redTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_redTopFrame"}')
-          .eyewear_special_whiteTopFrame.option(@click='equip("eyewear_special_whiteTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_whiteTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_whiteTopFrame"}')
-          .eyewear_special_yellowTopFrame.option(@click='equip("eyewear_special_yellowTopFrame")', :class='{active: user.preferences.costume ? user.items.gear.costume.eyewear === "eyewear_special_yellowTopFrame" : user.items.gear.equipped.eyewear === "eyewear_special_yellowTopFrame"}')
-      .row(v-if='activeSubPage === "wheelchair"')
-        .col-12.customize-options.weelchairs
+          .option(v-for='option in eyewear', :class='{active: option.active}')
+            .sprite.customize-option(:class="`eyewear_special_${option.key}`", @click='option.click')
+      #animal-ears.row(v-if='activeSubPage === "ears"')
+        .section.col-12.customize-options
+          .option(v-for='option in animalEars',
+            :class='{active: option.active, locked: option.locked}')
+            .sprite.customize-option(:class="`headAccessory_special_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
+          .col-12.text-center
+            button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
+      #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
+        .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
             | None
-          .option(@click='set({"preferences.chair": "black"})', :class='{active: user.preferences.chair === "black"}')
-            .button_chair_black
-          .option(@click='set({"preferences.chair": "blue"})', :class='{active: user.preferences.chair === "blue"}')
-            .button_chair_blue
-          .option(@click='set({"preferences.chair": "green"})', :class='{active: user.preferences.chair === "green"}')
-            .button_chair_green
-          .option(@click='set({"preferences.chair": "pink"})', :class='{active: user.preferences.chair === "pink"}')
-            .button_chair_pink
-          .option(@click='set({"preferences.chair": "red"})', :class='{active: user.preferences.chair === "red"}')
-            .button_chair_red
-          .option(@click='set({"preferences.chair": "yellow"})', :class='{active: user.preferences.chair === "yellow"}')
-            .button_chair_yellow
-      .row(v-if='activeSubPage === "flower"')
+          .option(v-for='option in ["black", "blue", "green", "pink", "red", "yellow"]',
+            :class='{active: user.preferences.chair === option}')
+            .chair.sprite.customize-option(:class="`button_chair_${option}`", @click='set({"preferences.chair": option})')
+      #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .hair_flower_1.option(@click='set({"preferences.hair.flower":1})', :class='{active: user.preferences.hair.flower === 1}')
-          .hair_flower_2.option(@click='set({"preferences.hair.flower":2})', :class='{active: user.preferences.hair.flower === 2}')
-          .hair_flower_3.option(@click='set({"preferences.hair.flower":3})', :class='{active: user.preferences.hair.flower === 3}')
-          .hair_flower_4.option(@click='set({"preferences.hair.flower":4})', :class='{active: user.preferences.hair.flower === 4}')
-          .hair_flower_5.option(@click='set({"preferences.hair.flower":5})', :class='{active: user.preferences.hair.flower === 5}')
-          .hair_flower_6.option(@click='set({"preferences.hair.flower":6})', :class='{active: user.preferences.hair.flower === 6}')
-
-    .section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.sub-menu
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
-            strong(v-once) 2017
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
-            strong(v-once) 2016
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
-            strong(v-once) 2015
-          .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
-            strong(v-once) 2014
+          .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
+            :class='{active: user.preferences.hair.flower === option}')
+            .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
+      .row(v-if='activeSubPage === "flower"')
+        .col-12.customize-options
+          // button.customize-option(ng-repeat='item in ::getGearArray("animal")', class='{{::item.key}}',
+            ng-class="{locked: user.items.gear.owned[item.key] == undefined, selectableInventory: user.preferences.costume ? user.items.gear.costume.headAccessory == item.key : user.items.gear.equipped.headAccessory == item.key}",
+            popover='{{::item.notes()}}', popover-title='{{::item.text()}}', popover-trigger='mouseenter',
+            popover-placement='right', popover-append-to-body='true',
+            ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
+    #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
+      .row.text-center.set-title
+        strong {{backgroundShopSets[0].text}}
+      .row.incentive-background-row
+        .col-12(v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+        .col-2(v-for='bg in backgroundShopSets[0].items',
+          @click='unlock("background." + bg.key)',
+          :popover-title='bg.text',
+          :popover='bg.notes',
+          popover-trigger='mouseenter')
+          .incentive-background(:class='[`background_${bg.key}`]')
+            .small-rectangle
+      .row.sub-menu.col-10.offset-1
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
+          strong(v-once) 2017
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+          strong(v-once) 2016
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+          strong(v-once) 2015
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+          strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        div(v-for='set in sets', v-if='activeSubPage === key')
-          h2 {{set.text}}
-          div(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
-          div(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            //+gemCost(7)
-            button.btn.btn-primary(@click='unlock(setKeys("background", set.items))') {{ $t('unlockSet', {cost: 15}) }}
-             span.Pet_Currency_Gem1x.inline-gems
-          button.customize-option(v-for='bg in set.items',
-            type='button',
-            :class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]',
-            @click='unlock("background." + bg.key)',
+        .row(v-for='set in sets', v-if='activeSubPage === key')
+          .col-8.offset-2.text-center.set-title
+            strong {{set.text}}
+          .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
+            @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',
             :popover='bg.notes',
             popover-trigger='mouseenter')
+            .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
+            .purchase-single(v-if='!user.purchased.background[bg.key]')
+              .svg-icon.gem(v-html='icons.gem')
+              span 7
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
+              @click.prevent.stop="togglePinned(bg)",
+              v-if='!user.purchased.background[bg.key]'
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
+          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
+            .gem-amount
+              .svg-icon.gem(v-html='icons.gem')
+              span 15
+            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
       .col-12.text-center
         h2 I want to work on:
     .section.row
-      .col-4.offset-2
-        div
+      .col-6
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('work') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='exercise', v-model='taskCategories')
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('excercise') }}
-        div
+            span.custom-control-description(v-once) {{ $t('exercise') }}
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='health_wellness', v-model='taskCategories')
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('health') }}
-        div
+            span.custom-control-description(v-once) {{ $t('health_wellness') }}
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('school') }}
-      .col-4
-        div
+      .col-6
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('chores') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='creativity', v-model='taskCategories')
             span.custom-control-indicator
             span.custom-control-description(v-once) {{ $t('creativity') }}
-        div
+        .task-option
           label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox")
+            input.custom-control-input(type="checkbox", value='self_care', v-model='taskCategories')
             span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('budgeting') }}
+            span.custom-control-description(v-once) {{ $t('self_care') }}
 
-  .section.row.justin-message-section(:class='{top: modalPage > 1}')
-    .col-9
-      .justin-message(v-if='modalPage == 1')
-        p(v-once) {{$t('justinIntroMessage1')}}
-        p(v-once) {{$t('justinIntroMessage2')}}
-      .justin-message(v-if='modalPage > 1')
-        p(v-once) {{$t('justinIntroMessage3')}}
+  .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
+    .col-12
+      .justin-message.d-flex.flex-column.justify-content-center
+        .featured-label
+          span.rectangle
+          span.text Justin
+          span.rectangle
+        .npc_justin_textbox
+        div(v-if='modalPage === 1')
+          p(v-once) {{$t('justinIntroMessage1')}}
+          p(v-once) {{$t('justinIntroMessage2')}}
+        div(v-if='modalPage === 2')
+          p So how would you like to look? Don’t worry, you can change this later.
+        div(v-if='modalPage === 3')
+          p(v-once) {{$t('justinIntroMessage3')}}
 
   .section.container.footer(v-if='!editing')
     .row
@@ -235,8 +346,22 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
           .next(v-once) {{$t('next')}}
           .next-arrow
         div(v-if='modalPage === 3', @click='done()')
-          button.btn.btn-primary.next(v-once) {{$t('done')}}
+          button.btn.btn-primary.next(v-once, v-if='!loading') {{$t('done')}}
 </template>
+
+<style>
+  .page-2 #avatar-modal__BV_body_ {
+    margin-top: 9em;
+  }
+
+  .page-2 .modal-content {
+    margin-top: 7em;
+  }
+
+  #avatar-modal_modal_body, #avatar-modal__BV_body_ {
+    padding: 0;
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
@@ -256,29 +381,47 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
     position: relative;
   }
 
+  .purchase-all {
+    margin-bottom: 1em;
+  }
+
   .section {
     margin-top: 2em;
   }
 
+  .edit-modal {
+    margin-top: 10em;
+  }
+
+  .row.sub-menu + .row.sub-menu {
+    margin-top: 0.5em;
+  }
+
   .welcome-section {
-    margin-top: 5em;
-    margin-bottom: 5em;
+    margin-top: 2.5em;
+    margin-bottom: 2.5em;
   }
 
   .logo {
     width: 190px;
+    margin: 0 auto;
   }
 
   .user-creation-bg {
     background-image: url('~client/assets/creator/creator-hills-bg.png');
     height: 105px;
     width: 219px;
+    margin: 0 auto;
   }
 
   .avatar {
     position: absolute;
-    top: -23px;
-    left: 48px;
+    top: -22px;
+    left: 4em;
+  }
+
+  .edit-avatar {
+    left: 9.2em;
   }
 
   .justin-message {
@@ -286,17 +429,46 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
     height: 144px;
     width: 400px;
     padding: 2em;
-    margin-left: 1.5em;
+    margin: 0 auto;
+    position: relative;
+
+    .featured-label {
+      position: absolute;
+      top: -1em;
+
+      .text {
+        min-height: auto;
+        color: $white;
+      }
+    }
+
+    .npc_justin_textbox {
+      position: absolute;
+      right: 1em;
+      top: -3.6em;
+      width: 48px;
+      height: 52px;
+      background-image: url('~client/assets/images/justin_textbox.png');
+    }
+
+    p {
+      margin: auto;
+    }
+
+    p + p {
+      margin-top: 1em;
+    }
   }
 
   .justin-message-section {
-    margin-top: 6em;
-    margin-bottom: 6em;
+    margin-top: 4em;
+    margin-bottom: 2em;
   }
 
   .justin-message-section.top {
     position: absolute;
-    top: -15em;
+    top: -16em;
+    left: 3.5em;
   }
 
   .circles {
@@ -321,6 +493,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
       width: 32px;
       height: 32px;
       margin: 0 auto;
+      color: #6133B4;
     }
 
     .menu-item:hover {
@@ -337,6 +510,7 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
 
   .sub-menu-item {
     text-align: center;
+    border-bottom: 2px solid #f9f9f9;
   }
 
   .sub-menu .sub-menu-item:hover, .sub-menu .sub-menu-item.active {
@@ -344,19 +518,50 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
     border-bottom: 2px solid $purple-200;
   }
 
+  .customize-section {
+    text-align: center;
+    padding-bottom: 2em;
+  }
+
+  .option.locked {
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  }
+
+  .option.hide {
+    display: none !important;
+  }
+
   .customize-options .option {
     display: inline-block;
-    padding: 2em;
     vertical-align: bottom;
-  }
-
-  .size-options {
-    padding-left: 9em;
-  }
-
-  .weelchairs .option {
-    width: 90px;
+    padding: .5em;
     height: 90px;
+    width: 90px;
+    margin-bottom: .5em;
+    margin-right: .5em;
+
+    .gem-lock {
+      .svg-icon {
+        width: 16px;
+      }
+
+      span {
+        color: #24cc8f;
+        font-weight: bold;
+        margin-left: .5em;
+      }
+
+      .svg-icon, span {
+        display: inline-block;
+        vertical-align: bottom;
+      }
+    }
+
+    .sprite.customize-option {
+      margin: 0 auto;
+    }
   }
 
   .option.active {
@@ -372,15 +577,131 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
   .customize-section {
     background-color: #f9f9f9;
     padding-top: 1em;
-    min-height: 250px;
+    min-height: 280px;
   }
 
   .interests-section {
-    margin-top: 7em;
+    margin-top: 3em;
+
+    .task-option {
+      margin: 0 auto;
+      width: 70%;
+    }
+  }
+
+  #backgrounds {
+    .set-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .background {
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 2px;
+    }
+
+    strong {
+      margin: 0 auto;
+    }
+
+    .incentive-background-row {
+      margin-bottom: 2em;
+    }
+
+    .incentive-background {
+      background-image: none;
+      width: 68px;
+      height: 68px;
+      border-radius: 8px;
+      background-color: #92b6bd;
+      margin: 0 auto;
+      padding-top: .3em;
+
+      .small-rectangle {
+        width: 60px;
+        height: 40px;
+        border-radius: 4px;
+        margin: 0 auto;
+        opacity: .6;
+        background: white;
+      }
+    }
+
+    .background_violet {
+      background-color: #a993ed;
+    }
+
+    .background_blue {
+      background-color: #92b6bd;
+    }
+
+    .background_green {
+      background-color: #92bd94;
+    }
+
+    .background_purple {
+      background-color: #9397bd;
+    }
+
+    .background_red {
+      background-color: #b77e80;
+    }
+
+    .background_yellow {
+      background-color: #bcbb91;
+    }
+
+    .incentive-background:hover {
+      cursor: pointer;
+    }
+
+    .background:hover {
+      cursor: pointer;
+    }
+
+    .purchase-single {
+      width: 141px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0.5em;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 0 0 2px 2px;
+
+      span {
+        font-weight: bold;
+        font-size: 12px;
+        color: #24cc8f;
+      }
+
+      .gem {
+        width: 16px;
+      }
+    }
+
+    .gem {
+      margin-right: .5em;
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .gem-amount {
+      margin-top: 1em;
+      margin-bottom: 1em;
+
+      .gem {
+        width: 24px;
+      }
+
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: #24cc8f;
+      }
+    }
   }
 
   .footer {
-    position: absolute;
     padding-bottom: 1em;
     bottom: 0;
     width: 100%;
@@ -406,7 +727,6 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
     }
 
     .next {
-      color: #6133b4;
       font-weight: bold;
       display: inline-block;
       padding: 0.4em;
@@ -425,16 +745,54 @@ b-modal#avatar-modal(title="", size='md', :hide-header='true', :hide-footer='tru
       vertical-align: bottom;
     }
   }
+
+  .badge-svg {
+    left: calc((100% - 18px) / 2);
+    cursor: pointer;
+    color: $gray-400;
+    background: $white;
+    padding: 4.5px 6px;
+
+    &.item-selected-badge {
+      background: $purple-300;
+      color: $white;
+    }
+  }
+
+  .icon-12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
+    color: #a5a1ac;
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg.hide {
+    display: none;
+  }
+
+  .background-button:hover {
+    span.badge.badge-pill.badge-item.badge-svg.hide {
+      display: block;
+    }
+  }
 </style>
 
 <script>
+import axios from 'axios';
+import moment from 'moment';
 import map from 'lodash/map';
 import get from 'lodash/get';
+import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import avatar from './avatar';
 import { getBackgroundShopSets } from '../../common/script/libs/shops';
 import unlock from '../../common/script/ops/unlock';
 import guide from 'client/mixins/guide';
+import notifications from 'client/mixins/notifications';
+import appearance from 'common/script/content/appearance';
+import appearanceSets from 'common/script/content/appearance/sets';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
 
@@ -444,35 +802,170 @@ import accessoriesIcon from 'assets/svg/accessories.svg';
 import skinIcon from 'assets/svg/skin.svg';
 import hairIcon from 'assets/svg/hair.svg';
 import backgroundsIcon from 'assets/svg/backgrounds.svg';
+import gem from 'assets/svg/gem.svg';
+import pin from 'assets/svg/pin.svg';
+import isPinned from 'common/script/libs/isPinned';
+
+const skinsBySet = groupBy(appearance.skin, 'set.key');
+const hairColorBySet = groupBy(appearance.hair.color, 'set.key');
+
+let tasksByCategory = {
+  work: [
+    {
+      type: 'habit',
+      text: 'Process email',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Most important task >> Worked on today’s most important task',
+      notes: 'Tap to specify your most important task',
+    },
+    {
+      type: 'todo',
+      text: 'Work project >> Complete work project',
+      notes: 'Tap to specify the name of your current project + set a due date!',
+    },
+  ],
+  exercise: [
+    {
+      type: 'habit',
+      text: '10 min cardio >> + 10 minutes cardio',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Stretching >> Daily workout routine',
+      notes: 'Tap to choose your schedule and specify exercises!',
+    },
+    {
+      type: 'todo',
+      text: 'Set up workout schedule',
+      notes: 'Tap to add a checklist!',
+    },
+  ],
+  health_wellness: [ // eslint-disable-line
+    {
+      type: 'habit',
+      text: 'Eat Health/Junk Food',
+      up: true,
+      down: true,
+    },
+    {
+      type: 'daily',
+      text: 'Floss',
+      notes: 'Tap to make any changes!',
+    },
+    {
+      type: 'todo',
+      text: 'Schedule check-up >> Brainstorm a healthy change',
+      notes: 'Tap to add checklists!',
+    },
+  ],
+  school: [
+    {
+      type: 'habit',
+      text: 'Study/Procrastinate',
+      up: true,
+      down: true,
+    },
+    {
+      type: 'daily',
+      text: 'Finish homework',
+      notes: 'Tap to choose your homework schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Finish assignment for class',
+      notes: 'Tap to name the assignment and choose a due date!]',
+    },
+  ],
+  self_care: [ // eslint-disable-line
+    {
+      type: 'habit',
+      text: 'Take a short break',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: '5 minutes of quiet breathing',
+      notes: 'Tap to choose your schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Engage in a fun activity',
+      notes: 'Tap to specify what you plan to do!',
+    },
+  ],
+  chores: [
+    {
+      type: 'habit',
+      text: '10 minutes cleaning',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Wash dishes',
+      notes: 'Tap to choose your schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Organize closet >> Organize clutter',
+      notes: 'Tap to specify the cluttered area!',
+    },
+  ],
+  creativity: [
+    {
+      type: 'habit',
+      text: 'Study a master of the craft >> + Practiced a new creative technique',
+      up: true,
+      down: false,
+    },
+    {
+      type: 'daily',
+      text: 'Work on creative project',
+      notes: 'Tap to specify the name of your current project + set the schedule!',
+    },
+    {
+      type: 'todo',
+      text: 'Finish creative project',
+      notes: 'Tap to specify the name of your project',
+    },
+  ],
+};
 
 export default {
-  mixins: [guide],
+  mixins: [guide, notifications],
   components: {
     avatar,
     bModal,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
+    // Buy modal is global, so we listen at root. I'd like to not
+    this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   data () {
     let backgroundShopSets = getBackgroundShopSets();
-
-    // @TODO: add dates to backgrounds
-    let backgroundShopSetsByYear = {
-      2014: [],
-      2015: [],
-      2016: [],
-      2017: [],
-    };
-    backgroundShopSets.forEach((set) => {
-      let year = set.identifier.substr(set.identifier.length - 4);
-      if (!backgroundShopSetsByYear[year]) return;
-      backgroundShopSetsByYear[year].push(set);
-    });
-
     return {
+      loading: false,
       backgroundShopSets,
-      backgroundShopSetsByYear,
+      backgroundUpdate: new Date(),
+      specialShirtKeys: ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'],
+      rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
+      animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
+      premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
+      baseHair1: ['1', '3'],
+      baseHair2Keys: ['2', '4', '5', '6', '7', '8'],
+      baseHair3Keys: ['9', '10', '11', '12', '13', '14'],
+      baseHair4Keys: ['15', '16', '17', '18', '19', '20'],
+      baseHair5Keys: ['1', '2', '3'],
+      baseHair6Keys: ['1', '2'],
+      animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       icons: Object.freeze({
         logoPurple,
         bodyIcon,
@@ -480,24 +973,304 @@ export default {
         skinIcon,
         hairIcon,
         backgroundsIcon,
+        gem,
+        pin,
       }),
       modalPage: 1,
       activeTopPage: 'body',
       activeSubPage: 'size',
+      taskCategories: [],
     };
   },
   watch: {
     editing () {
       if (this.editing) this.modalPage = 2;
     },
+    startingPage () {
+      if (!this.$store.state.avatarEditorOptions.startingPage) return;
+      this.activeTopPage = this.$store.state.avatarEditorOptions.startingPage;
+      this.activeSubPage = this.$store.state.avatarEditorOptions.subpage;
+      this.$store.state.avatarEditorOptions.startingPage = '';
+      this.$store.state.avatarEditorOptions.subpage = '';
+    },
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    eyewear () {
+      let keys = ['blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame'];
+      let options = keys.map(key => {
+        let newKey = `eyewear_special_${key}`;
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
+        option.click = () => {
+          return this.equip(newKey);
+        };
+        return option;
+      });
+      return options;
+    },
+    animalEarsUnlockString () {
+      let animalItemKeys = this.animalEarsKeys.map(key => {
+        return `items.gear.owned.headAccessory_special_${key}`;
+      });
+
+      return animalItemKeys.join(',');
+    },
+    animalEarsOwned () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let own = true;
+      this.animalEarsKeys.forEach(key => {
+        if (!this.user.items.gear.owned[`headAccessory_special_${key}`]) own = false;
+      });
+      return own;
+    },
+    animalEars () {
+      // @TODO: This is not like other purchase items
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.animalEarsKeys;
+      let options = keys.map(key => {
+        let newKey = `headAccessory_special_${key}`;
+        let userPurchased = this.user.items.gear.owned[newKey];
+        let locked = !userPurchased;
+
+        let option = {};
+        option.key = key;
+        option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
+        option.locked = locked;
+        option.click = () => {
+          return locked ? this.purchase('gear', newKey) : this.equip(newKey);
+        };
+        return option;
+      });
+      return options;
+    },
+    specialShirts () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.specialShirtKeys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'shirt');
+      });
+      return options;
+    },
+    rainbowSkins () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.rainbowSkinKeys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'skin');
+      });
+      return options;
+    },
+    animalSkins () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.animalSkinKeys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'skin');
+      });
+      return options;
+    },
+    seasonalSkins () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let seasonalSkins = [];
+      for (let key in skinsBySet) {
+        let set = skinsBySet[key];
+
+        let keys = set.map(item => {
+          return item.key;
+        });
+
+        let options = keys.map(optionKey => {
+          return this.mapKeysToOption(optionKey, 'skin', '', key);
+        });
+
+        let text = this.$t(key);
+        if (appearanceSets[key] && appearanceSets[key].text) {
+          text = appearanceSets[key].text();
+        }
+
+        let compiledSet = {
+          key,
+          options,
+          keys,
+          text,
+        };
+        seasonalSkins.push(compiledSet);
+      }
+
+      return seasonalSkins;
+    },
+    seasonalHairColors () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      let seasonalHairColors = [];
+      for (let key in hairColorBySet) {
+        let set = hairColorBySet[key];
+
+        let keys = set.map(item => {
+          return item.key;
+        });
+
+        let options = keys.map(optionKey => {
+          return this.mapKeysToOption(optionKey, 'hair', 'color', key);
+        });
+
+        let text = this.$t(key);
+        if (appearanceSets[key] && appearanceSets[key].text) {
+          text = appearanceSets[key].text();
+        }
+
+        let compiledSet = {
+          key,
+          options,
+          keys,
+          text,
+        };
+        seasonalHairColors.push(compiledSet);
+      }
+
+      return seasonalHairColors;
+    },
+    premiumHairColors () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.premiumHairColorKeys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'color');
+      });
+      return options;
+    },
+    baseHair2 () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.baseHair2Keys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'base');
+      });
+      return options;
+    },
+    baseHair3 () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.baseHair3Keys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'base');
+      });
+      return options;
+    },
+    baseHair4 () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.baseHair4Keys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'base');
+      });
+      return options;
+    },
+    baseHair5 () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.baseHair5Keys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'beard');
+      });
+      return options;
+    },
+    baseHair6 () {
+      // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+      let keys = this.baseHair6Keys;
+      let options = keys.map(key => {
+        return this.mapKeysToOption(key, 'hair', 'mustache');
+      });
+      return options;
+    },
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
+    startingPage () {
+      return this.$store.state.avatarEditorOptions.startingPage;
+    },
+    backgroundShopSetsByYear () {
+      // @TODO: add dates to backgrounds
+      let backgroundShopSetsByYear = {
+        2014: [],
+        2015: [],
+        2016: [],
+        2017: [],
+      };
+
+      // Hack to force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      this.backgroundShopSets.forEach((set) => {
+        let year = set.identifier.substr(set.identifier.length - 4);
+        if (!backgroundShopSetsByYear[year]) return;
+
+        let setOwnedByUser = false;
+        for (let key in set.items) {
+          if (this.user.purchased.background[key]) setOwnedByUser = true;
+        }
+        set.userOwns = setOwnedByUser;
+
+        backgroundShopSetsByYear[year].push(set);
+      });
+      return backgroundShopSetsByYear;
+    },
   },
   methods: {
+    hideSet (set) {
+      return moment(appearanceSets[set.key].availableUntil).isBefore(moment());
+    },
+    purchase (type, key) {
+      this.$store.dispatch('shops:purchase', {
+        type,
+        key,
+      });
+      this.backgroundUpdate = new Date();
+    },
+    mapKeysToOption (key, type, subType, set) {
+      let userPreference = subType ? this.user.preferences[type][subType] : this.user.preferences[type];
+      let userPurchased = subType ? this.user.purchased[type][subType] : this.user.purchased[type];
+      let locked = !userPurchased || !userPurchased[key];
+      let pathKey = subType ? `${type}.${subType}` : `${type}`;
+      let hide = false;
+
+      if (set && appearanceSets[set]) {
+        if (locked) hide = moment(appearanceSets[set].availableUntil).isBefore(moment());
+      }
+
+      let option = {};
+      option.key = key;
+      option.active = userPreference === key;
+      option.locked = locked;
+      option.hide = hide;
+      option.click = () => {
+        return locked ? this.unlock(`${pathKey}.${key}`) : this.set({[`preferences.${pathKey}`]: key});
+      };
+      return option;
+    },
+    userOwnsSet (type, setKeys, subType) {
+      let owns = true;
+
+      setKeys.forEach(key => {
+        if (subType) {
+          if (!this.user.purchased[type] || !this.user.purchased[type][subType] || !this.user.purchased[type][subType][key]) owns = false;
+          return;
+        }
+        if (!this.user.purchased[type][key]) owns = false;
+      });
+
+      return owns;
+    },
     prev () {
       this.modalPage -= 1;
     },
@@ -518,7 +1291,22 @@ export default {
       this.$store.dispatch('common:equip', {key, type: 'equipped'});
       this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
     },
-    done () {
+    async done () {
+      this.loading = true;
+
+      let tasksToCreate = [];
+      this.taskCategories.forEach(category => {
+        tasksToCreate = tasksToCreate.concat(tasksByCategory[category]);
+      });
+
+      // @TODO: Move to the action
+      let response = await axios.post('/api/v3/tasks/user', tasksToCreate);
+      let tasks = response.data.data;
+      tasks.forEach(task => {
+        this.$store.state.user.data.tasksOrder[`${task.type}s`].unshift(task._id);
+        this.$store.state.tasks.data[`${task.type}s`].unshift(task);
+      });
+
       this.$root.$emit('hide::modal', 'avatar-modal');
       this.$router.push('/');
       this.$store.dispatch('user:set', {
@@ -542,13 +1330,8 @@ export default {
         if (type === 'background') key = value.key;
         if (this.user.purchased[type][key]) setOwnedByUser = true;
       }
-      // let setOwnedByUser = find(set, (value, key) => {
-      //   console.log(type)
-      //   if (type === 'background') key = value.key;
-      //   return this.user.purchased[type][key];
-      // });
 
-      return Boolean(setOwnedByUser);
+      return setOwnedByUser;
     },
     /**
      * For gem-unlockable preferences, (a) if owned, select preference (b) else, purchase
@@ -557,7 +1340,7 @@ export default {
      */
     async unlock (path) {
       let fullSet = path.indexOf(',') !== -1;
-      let isBackground = Boolean(path.indexOf('background.'));
+      let isBackground = path.indexOf('background.') !== -1;
 
       let cost;
 
@@ -579,13 +1362,18 @@ export default {
           // if (this.user.balance < cost) return $rootScope.openModal('buyGems');
         }
       }
-      // @TODO: Add when we implment the user calls
-      // let response = await axios.post('/api/v3/user/unlock');
-      unlock(this.user, {
-        query: {
-          path,
-        },
-      });
+
+      await axios.post(`/api/v3/user/unlock?path=${path}`);
+      try {
+        unlock(this.user, {
+          query: {
+            path,
+          },
+        });
+        this.backgroundUpdate = new Date();
+      } catch (e) {
+        alert(e.message);
+      }
     },
     setKeys (type, _set) {
       return map(_set, (v, k) => {
@@ -597,6 +1385,20 @@ export default {
       let backgroundClass = 'background-locked';
       if (this.user.purchased.background[bgKey]) backgroundClass = 'background-unlocked';
       return backgroundClass;
+    },
+    isBackgroundPinned (bg) {
+      return isPinned(this.user, bg);
+    },
+    togglePinned (bg) {
+      if (!this.$store.dispatch('user:togglePinnedItem', {type: bg.pinType, path: bg.path})) {
+        this.text(this.$t('unpinnedItem', {item: bg.text}));
+      }
+    },
+    backgroundSelected (bg) {
+      this.$root.$emit('buyModal::showItem', bg);
+    },
+    backgroundPurchased () {
+      this.backgroundUpdate = new Date();
     },
   },
 };

@@ -17,7 +17,7 @@
       .col-4
         button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('create')}}
+          span(v-once) {{$t('createGuild2')}}
         // @TODO: Add when we implement recent activity .float-right
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
@@ -119,6 +119,11 @@ export default {
       let user = this.$store.state.user.data;
       let filterGuild = this.filterGuild;
       return this.guilds.filter((guild) => {
+        if (guild.categories) {
+          guild.categorySlugs = guild.categories.map(cat => {
+            return cat.slug;
+          });
+        }
         return filterGuild(guild, filters, search, user);
       });
     },
@@ -136,6 +141,7 @@ export default {
       this.loading = false;
     },
     createGroup () {
+      this.$store.state.editingGroup = {};
       this.$root.$emit('show::modal', 'guild-form');
     },
   },

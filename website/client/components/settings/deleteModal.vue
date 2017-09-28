@@ -1,18 +1,31 @@
 <template lang="pug">
   b-modal#delete(:title="$t('deleteAccount')", :hide-footer='true' size='md')
-    strong {{ $t('deleteLocalAccountText') }}
-      br
-      .row
-        .col-6
-          input.form-control(type='password', v-model='password')
-      br
-      .row
-        #feedback.col-12.form-group
-          label(for='feedbackTextArea') {{ $t('feedback') }}
-          textarea#feedbackTextArea.form-control(v-model='feedback')
-    .modal-footer
-      button.btn.btn-danger(@click='close()') {{ $t('neverMind') }}
-      button.btn.btn-primary(@click='deleteAccount()', :disabled='!password') {{ $t('deleteDo') }}
+    .regular-delete(v-if='user.auth.local.email')
+      strong {{ $t('deleteLocalAccountText') }}
+        br
+        .row
+          .col-6
+            input.form-control(type='password', v-model='password')
+        br
+        .row
+          #feedback.col-12.form-group
+            label(for='feedbackTextArea') {{ $t('feedback') }}
+            textarea#feedbackTextArea.form-control(v-model='feedback')
+      .modal-footer
+        button.btn.btn-primary(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-danger(@click='deleteAccount()', :disabled='!password') {{ $t('deleteDo') }}
+        .modal-header
+    .social-delete(v-if='!user.auth.local.email')
+      h4 {{ $t('deleteAccount') }}
+      .modal-body
+        p {{ $t('deleteSocialAccountText') }}
+        br
+        .row
+          .col-md-6
+            input.form-control(type='text', v-model='password')
+      .modal-footer
+        button.btn.btn-default(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-danger(:disabled='!password', @click='deleteAccount()') {{ $t('deleteDo') }}
 </template>
 
 <script>
@@ -46,7 +59,7 @@ export default {
         },
       });
       localStorage.clear();
-      this.$router.push('/home');
+      window.location.href = '/static/home';
       this.$root.$emit('hide::modal', 'reset');
     },
   },

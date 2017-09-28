@@ -1,6 +1,32 @@
 import intersection from 'lodash/intersection';
 
 export default {
+  filters: {
+    // https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
+    abbrNum: (number) => {
+      let decPlaces = 2;
+      decPlaces = Math.pow(10, decPlaces);
+
+      let abbrev = ['k', 'm', 'b', 't'];
+      for (let i = abbrev.length - 1; i >= 0; i--) {
+        let size = Math.pow(10, (i + 1) * 3);
+
+        if (size <= number) {
+          number = Math.round(number * decPlaces / size) / decPlaces;
+
+          if (number === 1000 && i < abbrev.length - 1) {
+            number = 1;
+            i++;
+          }
+
+          number += abbrev[i];
+          break;
+        }
+      }
+
+      return number;
+    },
+  },
   methods: {
     isMemberOfGroup (user, group) {
       if (group._id === this.$store.state.constants.TAVERN_ID) return true;
@@ -19,7 +45,7 @@ export default {
       return false;
     },
     isLeaderOfGroup (user, group) {
-      return user._id === group.leader._id;
+      return user._id === group.leader || user._id === group.leader._id;
     },
     filterGuild (group, filters, search, user) {
       let passedSearch = true;
@@ -28,14 +54,14 @@ export default {
       let isLeader = true;
       let correctSize = true;
 
-      if (group._id === this.$store.state.constants.TAVERN_ID) return false;
+      if (group._id === this.$store.state.constants.TAVERN_ID || group._id === 'habitrpg') return false;
 
       if (search) {
         passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
       }
 
       if (filters.categories && filters.categories.length > 0) {
-        let intersectingCats = intersection(filters.categories, group.categories);
+        let intersectingCats = intersection(filters.categories, group.categorySlugs);
         hasCategories = intersectingCats.length > 0;
       }
 

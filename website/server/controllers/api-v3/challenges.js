@@ -154,7 +154,8 @@ let api = {};
  * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs
  * @apiParam (Body) {String} challenge.name The full name of the challenge
  * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
- * @apiParam (Body) {String} [challenge.description] A description of the challenge
+ * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose of the challenge; maximum 250 characters; if not supplied, challenge.name will be used
+ * @apiParam (Body) {String} [challenge.description] A detailed description of the challenge
  * @apiParam (Body) {Boolean} [official=false] Whether or not a challenge is an official Habitica challenge (requires admin)
  * @apiParam (Body) {Number} [challenge.prize=0] Number of gems offered as a prize to challenge winner
  *
@@ -220,6 +221,9 @@ api.createChallenge = {
 
     group.challengeCount += 1;
 
+    if (!req.body.summary) {
+      req.body.summary = req.body.name;
+    }
     req.body.leader = user._id;
     req.body.official = user.contributor.admin && req.body.official ? true : false;
     let challenge = new Challenge(Challenge.sanitize(req.body));
@@ -371,13 +375,19 @@ api.getUserChallenges = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+    let orOptions = [
+      {_id: {$in: user.challenges}}, // Challenges where the user is participating
+      {leader: user._id}, // Challenges where I'm the leader
+    ];
+
+    if (!req.query.member) {
+      orOptions.push({
+        group: {$in: user.getGroups()},
+      }); // Challenges in groups where I'm a member
+    }
 
     let challenges = await Challenge.find({
-      $or: [
-        {_id: {$in: user.challenges}}, // Challenges where the user is participating
-        {group: {$in: user.getGroups()}}, // Challenges in groups where I'm a member
-        {leader: user._id}, // Challenges where I'm the leader
-      ],
+      $or: orOptions,
     })
     .sort('-official -createdAt')
     // see below why we're not using populate
@@ -585,6 +595,7 @@ api.exportChallengeCsv = {
  *
  * @apiParam (Path) {UUID} challengeId The challenge _id
  * @apiParam (Body) {String} [challenge.name] The new full name of the challenge.
+ * @apiParam (Body) {String} [challenge.summary] The new challenge summary.
  * @apiParam (Body) {String} [challenge.description] The new challenge description.
  * @apiParam (Body) {String} [challenge.leader] The UUID of the new challenge leader.
  *

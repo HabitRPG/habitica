@@ -7,8 +7,8 @@
     .col-6
       .form-horizontal
         h5 {{ $t('language') }}
-        select.form-control(v-model='selectedLanguage',
-          @change='changeLanguage()')
+        select.form-control(:value='user.preferences.language',
+          @change='changeLanguage($event)')
           option(v-for='lang in availableLanguages', :value='lang.code') {{lang.name}}
 
         small
@@ -24,19 +24,24 @@
           option(v-for='dateFormat in availableFormats', :value='dateFormat') {{dateFormat}}
       hr
 
+      .form-horizontal
+        h5 {{ $t('audioTheme') }}
+        select.form-control(v-model='user.preferences.sound',
+          @change='set("sound")')
+          option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
+      hr
+
+      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+        h5 {{ $t('characterBuild') }}
+        h6(v-once) {{ $t('class') + ': ' }}
+          // @TODO: what is classText
+          span(v-if='classText') {{ classText }}&nbsp;
+          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
+          small.cost 3
+            span.Pet_Currency_Gem1x.inline-gems
+      hr
+
       div
-        .checkbox
-          label
-            input(type='checkbox', @click='hideHeader() ', v-model='user.preferences.hideHeader')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('showHeaderPop')") {{ $t('showHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', @click='toggleStickyHeader()', v-model='user.preferences.stickyHeader', :disabled="user.preferences.hideHeader")
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('stickyHeaderPop')") {{ $t('stickyHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.newTaskEdit', @click='set("newTaskEdit")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('newTaskEditPop')") {{ $t('newTaskEdit') }}
         .checkbox
           label
             input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
@@ -116,28 +121,24 @@
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
-            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
+            .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
-                input.form-control(type='text', placeholder="$t('username')", v-model='localAuth.username', required)
+                input.form-control(type='text', :placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
-                input.form-control(type='text', placeholder="$t('email')", v-model='localAuth.email', required)
+                input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('password')", v-model='localAuth.password', required)
+                input.form-control(type='password', :placeholder="$t('password')", v-model='localAuth.password', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
-              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value="$t('submit')")
+                input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
+              button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
 
         .usersettings(v-if='user.auth.local.username')
           p {{ $t('username') }}
             |: {{user.auth.local.username}}
           p
             small.muted
-                | {{ $t('loginNameDescription1') }}
-                |&nbsp;
-                a(href='/#/options/profile/profile') {{ $t('loginNameDescription2') }}
-                |&nbsp;
-                | {{ $t('loginNameDescription3') }}
+                | {{ $t('loginNameDescription') }}
           p {{ $t('email') }}
             |: {{user.auth.local.email}}
           hr
@@ -146,39 +147,39 @@
           .form(v-if='user.auth.local', name='changeUsername', novalidate)
             //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
             .form-group
-              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username', required)
+              input.form-control(type='text', :placeholder="$t('newUsername')", v-model='usernameUpdates.username')
             .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('password')", v-model='usernameUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("username", usernameUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changeEmail') }}
           .form(v-if='user.auth.local', name='changeEmail', novalidate)
             .form-group
-              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail', required)
+              input.form-control(type='text', :placeholder="$t('newEmail')", v-model='emailUpdates.newEmail')
             .form-group
-              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('password')", v-model='emailUpdates.password')
             button.btn.btn-primary(type='submit', @click='changeUser("email", emailUpdates)') {{ $t('submit') }}
 
           h5 {{ $t('changePass') }}
           .form(v-if='user.auth.local', name='changePassword', novalidate)
             .form-group
-              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password', required)
+              input.form-control(type='password', :placeholder="$t('oldPass')", v-model='passwordUpdates.password')
             .form-group
-              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword', required)
+              input.form-control(type='password', :placeholder="$t('newPass')", v-model='passwordUpdates.newPassword')
             .form-group
-              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword', required)
+              input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
 
           div
             h5 {{ $t('dangerZone') }}
             div
               button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', :popover="$t('resetAccPop')") {{ $t('resetAccount') }}
+                popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
               button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+                popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
-<style scope>
+<style scoped>
   .usersettings h5 {
     margin-top: 1em;
   }
@@ -190,10 +191,12 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
+import changeClass from  '../../../common/script/ops/changeClass';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -202,6 +205,9 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
+  },
+  directives: {
+    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -218,19 +224,19 @@ export default {
     return {
       SOCIAL_AUTH_NETWORKS: [],
       party: {},
-      // @TODO: import
-      availableLanguages: [
-        {
-          code: 'en',
-          name: 'English',
-        },
-      ],
+      // Made available by the server as a script
       availableFormats: ['MM/dd/yyyy', 'dd/MM/yyyy', 'yyyy/MM/dd'],
       dayStartOptions,
       newDayStart: 0,
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
+      localAuth: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
     };
   },
   mounted () {
@@ -240,7 +246,14 @@ export default {
     this.newDayStart = this.user.preferences.dayStart;
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      availableLanguages: 'i18n.availableLanguages',
+      content: 'content',
+    }),
+    availableAudioThemes () {
+      return ['off', ...this.content.audioThemes];
+    },
     timezoneOffsetToUtc () {
       let offset = this.user.preferences.timezoneOffset;
       let sign = offset > 0 ? '-' : '+';
@@ -253,9 +266,6 @@ export default {
       let minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
 
       return `UTC${sign}${hour}:${minutes}`;
-    },
-    selectedLanguage () {
-      return this.user.preferences.language;
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -287,7 +297,7 @@ export default {
     },
     showBailey () {
       this.user.flags.newStuff = true;
-      this.set('flags', 'newStuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -310,12 +320,12 @@ export default {
         nextCron = nextCron.add(1, 'day');
       }
 
-      return nextCron.format('x');
+      return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
     },
     openDayStartModal () {
       let nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(`Are you sure you want to change cron? Next cron will be ${nextCron}`)) return;
+      if (!confirm(this.$t('sureChangeCustomDayStartTime', {time: nextCron}))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -327,9 +337,11 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage () {
-      this.user.preferences.language = this.selectedLanguage.code;
+    changeLanguage (e) {
+      const newLang = e.target.value;
+      this.user.preferences.language = newLang;
       this.set('language');
+      window.location.href = '/';
     },
     async changeUser (attribute, updates) {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
@@ -365,6 +377,18 @@ export default {
       });
 
       this.$router.go('/tasks');
+    },
+    async changeClass () {
+      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+      try {
+        changeClass(this.user);
+        await axios.post('/api/v3/user/change-class');
+      } catch (e) {
+        alert(e.message);
+      }
+    },
+    addLocalAuth () {
+      axios.post('/api/v3/user/auth/local/register', this.localAuth, 'addedLocalAuth');
     },
   },
 };

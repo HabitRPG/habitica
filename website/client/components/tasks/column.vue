@@ -6,21 +6,32 @@
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
-        :class="{active: activeFilter.label === filter.label}",
+        :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list(ref="taskList")
+  .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
     task(
       v-for="task in taskList",
       :key="task.id", :task="task",
       v-if="filterTask(task)",
       :isUser="isUser",
       @editTask="editTask",
+      :group='group',
     )
-    .bottom-gradient
+    template(v-if="hasRewardsList")
+      .reward-items
+        shopItem(
+          v-for="reward in inAppRewards",
+          :item="reward",
+          :key="reward.key",
+          :highlightBorder="reward.isSuggested",
+          @click="openBuyDialog(reward)",
+          :popoverPosition="'left'"
+        )
+
     .column-background(
-      v-if="isUser === true", 
-      :class="{'initial-description': tasks[`${type}s`].length === 0}",
+      v-if="isUser === true",
+      :class="{'initial-description': initialColumnDescription}",
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
@@ -33,6 +44,16 @@
 
   .tasks-column {
     height: 556px;
+  }
+
+  .task-wrapper + .reward-items {
+    margin-top: 16px;
+  }
+
+  .reward-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .tasks-list {
@@ -116,21 +137,25 @@
   .icon-habit {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-daily {
     width: 30px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-todo {
     width: 20px;
     height: 20px;
+    color: #A5A1AC;
   }
 
   .icon-reward {
     width: 26px;
     height: 20px;
+    color: #A5A1AC;
   }
 </style>
 
@@ -138,19 +163,26 @@
 import Task from './task';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
+import inAppRewards from 'common/script/libs/inAppRewards';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 import bModal from 'bootstrap-vue/lib/components/modal';
+import shopItem from '../shops/shopItem';
 import throttle from 'lodash/throttle';
+import sortable from 'client/directives/sortable.directive';
 
 export default {
   components: {
     Task,
     bModal,
+    shopItem,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride'],
+  directives: {
+    sortable,
+  },
+  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     const types = Object.freeze({
       habit: {
@@ -194,21 +226,52 @@ export default {
       reward: rewardIcon,
     });
 
+    let activeFilters = {};
+    for (let type in types) {
+      activeFilters[type] = types[type].filters.find(f => f.default === true);
+    }
+
     return {
       types,
-      activeFilter: types[this.type].filters.find(f => f.default === true),
+      activeFilters,
       icons,
       openedCompletedTodos: false,
+
+      forceRefresh: new Date(),
     };
   },
   computed: {
     ...mapState({
       tasks: 'tasks.data',
+      user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
     taskList () {
+      // @TODO: This should not default to user's tasks. It should require that you pass options in
       if (this.taskListOverride) return this.taskListOverride;
       return this.tasks[`${this.type}s`];
+    },
+    inAppRewards () {
+      let watchRefresh = this.forceRefresh; // eslint-disable-line
+
+      return inAppRewards(this.user);
+    },
+    hasRewardsList () {
+      return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
+    },
+    initialColumnDescription () {
+      // Show the column description in the middle only if there are no elements (tasks or in app items)
+      if (this.hasRewardsList) {
+        if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
+      }
+
+      return this.tasks[`${this.type}s`].length === 0;
+    },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
+      return this.user.preferences.dailyDueDefaultView;
     },
   },
   watch: {
@@ -218,12 +281,35 @@ export default {
       }, 250),
       deep: true,
     },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
+    },
   },
   mounted () {
     this.setColumnBackgroundVisibility();
+
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.forceRefresh = new Date();
+    });
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    sorted (data) {
+      const sorting = this.taskList;
+      const taskIdToMove = this.taskList[data.oldIndex]._id;
+
+      if (sorting) {
+        const deleted = sorting.splice(data.oldIndex, 1);
+        sorting.splice(data.newIndex, 0, deleted[0]);
+      }
+
+      this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: data.newIndex,
+      });
+    },
     editTask (task) {
       this.$emit('editTask', task);
     },
@@ -231,7 +317,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
-      this.activeFilter = filter;
+      this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
@@ -241,6 +327,14 @@ export default {
         Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
           combinedTasksHeights += el.offsetHeight;
         });
+
+        if (!this.$refs.columnBackground) return;
+
+        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        if (rewardsList) {
+          combinedTasksHeights += rewardsList.offsetHeight;
+        }
+
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
         if (tasklistHeight - combinedTasksHeights < 150) {
@@ -252,17 +346,17 @@ export default {
     },
     filterTask (task) {
       // View
-      if (!this.activeFilter.filter(task)) return false;
+      if (!this.activeFilters[task.type].filter(task)) return false;
 
       // Tags
       const selectedTags = this.selectedTags;
 
       if (selectedTags && selectedTags.length > 0) {
-        const hasSelectedTag = task.tags.find(tagId => {
-          return selectedTags.indexOf(tagId) !== -1;
+        const hasAllSelectedTag = selectedTags.every(tagId => {
+          return task.tags.indexOf(tagId) !== -1;
         });
 
-        if (!hasSelectedTag) return false;
+        if (!hasAllSelectedTag) return false;
       }
 
       // Text
@@ -278,6 +372,11 @@ export default {
         });
 
         return checklistItemIndex !== -1;
+      }
+    },
+    openBuyDialog (rewardItem) {
+      if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
+        this.$emit('openBuyDialog', rewardItem);
       }
     },
   },

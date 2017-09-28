@@ -1,6 +1,6 @@
 <template lang="pug">
-.avatar(:style="{width, height, paddingTop}", :class="backgroundClass")
-  .character-sprites
+.avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
+  .character-sprites(:style='{margin: spritesMargin}')
     template(v-if="!avatarOnly")
       // Mount Body
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
@@ -18,9 +18,10 @@
       span(:class="'chair_' + member.preferences.chair")
       span(:class="getGearClass('back')")
       span(:class="skinClass")
-      span.head_0
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
+      span.head_0
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
+      span.head_0
       span(:class="getGearClass('back_collar')")
       span(:class="getGearClass('body')")
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
@@ -40,7 +41,7 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  .class-badge.d-flex.justify-content-center(v-if="hasClass")
+  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideClassBadge")
     .align-self-center.svg-icon(v-html="icons[member.stats.class]")
 </template>
 
@@ -56,7 +57,6 @@
   }
 
   .character-sprites {
-    margin: 0 auto;
     width: 90px;
     height: 90px;
   }
@@ -105,6 +105,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideClassBadge: {
+      type: Boolean,
+      default: false,
+    },
     withBackground: {
       type: Boolean,
     },
@@ -118,6 +122,13 @@ export default {
     height: {
       type: Number,
       default: 147,
+    },
+    spritesMargin: {
+      type: String,
+      default: '0 auto 0 24px',
+    },
+    overrideTopPadding: {
+      type: String,
     },
   },
   data () {
@@ -138,6 +149,10 @@ export default {
       return this.$store.getters['members:isBuffed'](this.member);
     },
     paddingTop () {
+      if (this.overrideTopPadding) {
+        return this.overrideTopPadding;
+      }
+
       let val = '28px';
 
       if (!this.avatarOnly) {
@@ -151,6 +166,10 @@ export default {
       let background = this.member.preferences.background;
 
       let allowToShowBackground = !this.avatarOnly || this.withBackground;
+
+      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
+        return `background_${this.overrideAvatarGear.background}`;
+      }
 
       if (background && allowToShowBackground) {
         return `background_${this.member.preferences.background}`;
@@ -184,6 +203,10 @@ export default {
       }
 
       return result;
+    },
+    castEnd (e) {
+      if (!this.$store.state.spellOptions.castingSpell) return;
+      this.$root.$emit('castEnd', this.member, 'user', e);
     },
   },
 };

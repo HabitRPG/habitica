@@ -1,33 +1,32 @@
 <template lang="pug">
-div
-  profile
-  .d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal()')
-    avatar(:member="member",
-      @click.native="$emit('click')",
-      @mouseover.native="$emit('onHover')",
-      @mouseout.native="$emit('onHover')",
-    )
-    .member-stats
+.row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
+    .col-4
+      avatar(:member="member",
+        @click.native="$emit('click')",
+        @mouseover.native="$emit('onHover')",
+        @mouseout.native="$emit('onHover')",
+      )
+    .member-stats(:class="{'col-8': !expanded}")
       h3.character-name
         | {{member.profile.name}}
         .is-buffed(v-if="isBuffed")
           .svg-icon(v-html="icons.buff")
       span.small-text.character-level {{ characterLevel }}
-      .progress-container.d-flex
+      .progress-container
         .svg-icon(v-html="icons.health")
         .progress
           .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
-        span.small-text {{member.stats.hp | round}} / {{MAX_HEALTH}}
-      .progress-container.d-flex
+        span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
+      .progress-container
         .svg-icon(v-html="icons.experience")
         .progress
           .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
-        span.small-text {{member.stats.exp | round}} / {{toNextLevel}}
-      .progress-container.d-flex(v-if="hasClass")
+        span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
+      .progress-container(v-if="hasClass")
         .svg-icon(v-html="icons.mana")
         .progress
           .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
-        span.small-text {{member.stats.mp | round}} / {{maxMP}}
+        span.small-text {{member.stats.mp | statFloor}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
@@ -44,13 +43,12 @@ div
     padding-left: 16px;
     padding-right: 24px;
     opacity: 1;
-    transition: opacity 0.15s ease-out;
+    transition: width 0.15s ease-out;
   }
 
   .member-details.condensed:not(.expanded) .member-stats {
     opacity: 0;
-    position: absolute;
-    z-index: -1;
+    display: none;
   }
 
   // Condensed version
@@ -112,7 +110,7 @@ div
   .character-level {
     display: block;
     font-style: normal;
-    margin-bottom: 16px;
+    margin-bottom: .5em;
   }
 
   .is-buffed {
@@ -137,7 +135,7 @@ div
   }
 
   .progress-container {
-    margin-bottom: 12px;
+    margin-bottom: .5em;
   }
 
   .progress-container > span {
@@ -150,11 +148,12 @@ div
     width: 24px;
     height: 24px;
     margin-right: 8px;
-    margin-top: -4px;
+    padding-top: .3em;
   }
 
   .progress-container > .progress {
-    width: 303px;
+    width: 80%;
+    min-width: 200px;
     margin: 0px;
     border-radius: 2px;
     height: 16px;
@@ -165,6 +164,11 @@ div
     border-radius: 2px;
     height: 16px;
     min-width: 0px;
+  }
+
+  .progress-container .svg-icon, .progress-container .progress {
+    display: inline-block;
+    vertical-align: bottom;
   }
 </style>
 
@@ -211,10 +215,20 @@ export default {
       }),
     };
   },
+  filters: {
+    statFloor (value) {
+      if (value < 1 && value > 0) {
+        return Math.ceil(value * 10) / 10;
+      } else {
+        return Math.floor(value);
+      }
+    },
+  },
   methods: {
     percent,
-    showMemberModal () {
-      // @TODO: set viewing users in $store?
+    showMemberModal (member) {
+      this.$store.state.profileUser = member;
+      this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
   },

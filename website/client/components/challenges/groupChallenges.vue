@@ -5,14 +5,14 @@ div
     .col-12.text-center
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
       h4(v-once) {{ $t('haveNoChallenges') }}
-      p(v-once) {{ $t('challengeDescription') }}
+      p(v-once) {{ $t('challengeDetails') }}
   router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges',:key='challenge._id')
     .col-12.challenge-item
       .row
         .col-9
           router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
             strong {{challenge.name}}
-          p {{challenge.description}}
+          p {{challenge.summary || challenge.name}}
           div
             .svg-icon.member-icon(v-html="icons.memberIcon")
             .member-count {{challenge.memberCount}}
@@ -95,11 +95,6 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
   },
-  async mounted () {
-    this.groupIdForChallenges = this.groupId;
-    if (this.user.party._id) this.groupIdForChallenges = this.user.party._id;
-    this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
-  },
   data () {
     return {
       challenges: [],
@@ -111,7 +106,20 @@ export default {
       groupIdForChallenges: '',
     };
   },
+  mounted () {
+    this.loadChallenges();
+  },
+  watch: {
+    async groupId () {
+      this.loadChallenges();
+    },
+  },
   methods: {
+    async loadChallenges () {
+      this.groupIdForChallenges = this.groupId;
+      if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+      this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
+    },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
     },

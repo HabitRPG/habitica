@@ -1,18 +1,18 @@
 <template lang="pug">
   .item-rows
-    div.items(v-resize="500", @resized="currentWidth = $event.width")
+    div.items(v-resize="500", @resized="setCurrentWidth($event)")
       template(v-for="item in itemsToShow(showAll)")
         slot(
           name="item",
-          :item="item",
+          :item="item"
         )
 
     div(v-if="items.length === 0")
       p(v-once) {{ noItemsLabel }}
 
-    .btn.btn-show-more(
-      @click="showAll = !showAll",
-      v-if="items.length > itemsPerRow()"
+    .btn.btn-flat.btn-show-more(
+      @click="toggleItemsToShow()",
+      v-if="items.length > itemsPerRow"
     ) {{ showAll ? $t('showLess') : $t('showMore') }}
 
     div.fill-height(v-else)
@@ -27,13 +27,21 @@
 
 <script>
   import ResizeDirective from 'client/directives/resize.directive';
+  import { mapState } from 'client/libs/store';
 
   import _take from 'lodash/take';
-  import _drop from 'lodash/drop';
 
   export default {
     directives: {
       resize: ResizeDirective,
+    },
+    computed: {
+      ...mapState({
+        openedItemRows: 'openedItemRows',
+      }),
+      itemsPerRow () {
+        return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
+      },
     },
     data () {
       return {
@@ -44,26 +52,46 @@
       };
     },
     methods: {
-      itemsToShow (showAll) {
-        let itemsPerRow = this.itemsPerRow();
-        let rowsToShow = showAll ? Math.ceil(this.items.length / itemsPerRow) : 1;
-        let result = [];
+      toggleItemsToShow () {
+        this.showAll = !this.showAll;
 
-        for (let i = 0; i < rowsToShow; i++) {
-          let skipped = _drop(this.items, i * itemsPerRow);
-          let row = _take(skipped, itemsPerRow);
-          result = result.concat(row);
+        let array = this.$store.state.openedItemRows;
+        if (this.showAll) {
+          array.push(this.type);
+        } else {
+          let index = array.indexOf(this.type);
+
+          if (index > -1) {
+            array.splice(index, 1);
+          }
+        }
+      },
+      itemsToShow (showAll) {
+        let itemsLength = this.items.length;
+
+        if (itemsLength === 0)
+          return [];
+
+        let itemsPerRow = this.itemsPerRow;
+
+        if (showAll || itemsLength <= itemsPerRow) {
+          return this.items;
         }
 
-        return result;
+        return _take(this.items, itemsPerRow);
       },
-      itemsPerRow () {
-        return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
+      setCurrentWidth ($event) {
+        if (this.currentWidth !== $event.width) {
+          this.currentWidth = $event.width;
+        }
       },
     },
     props: {
       items: {
         type: Array,
+      },
+      type: {
+        type: String,
       },
       itemWidth: {
         type: Number,
@@ -74,6 +102,9 @@
       noItemsLabel: {
         type: String,
       },
+    },
+    created () {
+      this.showAll = this.openedItemRows.includes(this.type);
     },
   };
 </script>
