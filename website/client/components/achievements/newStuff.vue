@@ -15,7 +15,7 @@
       p Welcome to the new Habitica! We're so excited to share it with you at last. This project, which has been a labor of love since last December, is the single biggest update that Habitica has ever released (with over 150 pages of designs, an entire rewrite of all of our front-end code, countless rounds of testing and iteration, and many, many meetings). Just refresh your page to load the new website!
       .promo_login_screen.center-block
       p(v-markdown="'You can find a full list of changes [here](https://docs.google.com/document/d/1GZ0A2MK3JCZPuFUOStR7aVUI8fQlmjFDtLdj5Lg5XHY/edit), as well as explanations for why we made each, but here are a few quick tips to help you get oriented:'")
-      .grassy-meadow-backdrop
+      .seasonal-shop-backdrop
         .daniel_front
       ul
         li There's a ton of new art around the site! Peek at the NPCs and Guild chats to admire some of the changes.
@@ -29,7 +29,7 @@
         .sorceress_front
       p Have general questions about how the new site works? Come ask in the <a href='https://habitica.com/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a'>Habitica Help Guild</a>, and we'll be glad to assist! Likewise, if you encounter a persistent bug that isn't fixed by refreshing your page, you can report it in the <a href='https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac'>Report a Bug Guild</a> and we will investigate as soon as possible.
       p If you have thoughts about the new design, we look forward to hearing them. On <strong>October 12th</strong> we will be opening a Trello card for public comments on the redesign. This delay will give us time to focus our attention on answering general questions and fixing any bugs that might arise. For this reason, we ask that you hold back on sharing your feedback about the new designs until that Trello card is live and linked in a Bailey announcement. Thanks for understanding!
-      .promo_veteran_pets.center-block
+      .promo_veteran_pets_2017.center-block
       p This is a major time of change for Habitica, so to thank you for your patience, we've given everyone a Veteran Pet! Newer users have received a Veteran Wolf, and older users have received (depending on which pets they already had) a Veteran Tiger, a Veteran Lion, or a Veteran Bear. Head to the new <a href='https://habitica.com/inventory/stable'>Stable</a> page and filter to the Special Pets section to see the latest addition to your menagerie!"')
       p We are so excited to continue to build Habitica with you. Now go check it out!
       p Thank you for playing, and good luck with your tasks <3
@@ -52,7 +52,7 @@
   }
 
   .daniel_front {
-    background-image: url('~assets/images/npc/normal/tavern_npc.png');
+    background-image: url('~assets/images/npc/fall/seasonal_shop_opened_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
