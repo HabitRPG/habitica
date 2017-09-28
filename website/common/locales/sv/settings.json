@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Skräddarsydd Dagsstart",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Ändra skräddarsydd dagsstarten?",
     "sureChangeCustomDayStart": "Är du säker på att du vill ändrar skräddarsydd dagsstarten?",
     "customDayStartHasChanged": "Your custom day start has changed.",
@@ -105,9 +106,7 @@
     "email": "E-postadress",
     "registerWithSocial": "Registrera med <%= network %>",
     "registeredWithSocial": "Registrerad med <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "Användare->Profil",
-    "loginNameDescription3": "och klicka på Redigera knappen",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "E-postnotiser",
     "wonChallenge": "Du vann en utmaning!",
     "newPM": "Mottagit privatmeddelande",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Påminnelser att titta in i Habitica",
     "subscribeUsing": "Prenumerera genom",
     "unsubscribedSuccessfully": "Avprenumerationen lyckades!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/#/options/settings/notifications\">the settings</a> (requires login).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Du kommer inte få fler e-post från Habitica.",
     "unsubscribeAllEmails": "Kryssa i för avregistrera från emails",
     "unsubscribeAllEmailsText": "Genom att kryssa i den ruta bekräftar jag att genom att avluta alla e-postpresnumerationer, kommer Habitica inte kunna meddela mig om viktiga förändringar av webbplatsen eller mitt konto.",
@@ -185,5 +184,6 @@
     "timezone": "Tidszon",
     "timezoneUTC": "Habitica använder den tidszon som är inställd på din dator, vilket är: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

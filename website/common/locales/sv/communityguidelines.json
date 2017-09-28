@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Härmed åtar jag mig att följa gemenskapens riktlinjer",
-    "tavernCommunityGuidelinesPlaceholder": "Påminnelse: Denna chatt är för alla åldrar, se till att innehåll och språk är lämpligt! Konsultera de Gemensamma Riktlinjerna nedan om du har några frågor.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Välkommen till Habitica!",
     "commGuidePara001": "Var hälsad, lycksökare! Välkommen till Habitica, produktivitetens, hälsosamhetens och den eventuella härjande gryphens rike.  Vi är ett glatt sällskap, fullt av hjälpsamt folk som stöttar varandra på vägen mot självförbättring.",
     "commGuidePara002": "För att hålla alla i gemenskapen säkra, glada och produktiva har vi några riktlinjer. De är noga utformade för att vara så trevliga och lättlästa som möjligt. Snälla, ta dig tid att läsa dem.",
@@ -8,12 +8,12 @@
     "commGuidePara004": "Fram med gåspenna och pergament för anteckningar, så kör vi!",
     "commGuideHeadingBeing": "Att vara en Habitican",
     "commGuidePara005": "Habitica är först och främst en sida fokuserad på förbättring. Därför har vi haft turen att dra till oss en av de varmaste, snällaste, artigaste och stöttande gemenskaper som finns på internet. Habiticaner har många egenskaper. Några av de vanligaste och mest märkvärda är:",
-    "commGuideList01A": "<strong>En Hjälpsam Anda.</strong> Många personer ägnar tid och energi till att hjälpa nya medlemmar i gemenskapen och vägleda dem. Nybörjargillet (\"Habitica Help\"), till exempel, är ett gille enbart dedikerat till att svara på folks frågor. Om du tror att du kan hjälpa till, var inte blyg!",
+    "commGuideList01A": "<strong>En hjälpsam anda.</strong> Många personer ägnar tid och energi till att hjälpa nya medlemmar i gemenskapen och vägleda dem. Nybörjargillet (\"Habitica Help\"), till exempel, är ett gille enbart dedikerat till att svara på folks frågor. Om du tror att du kan hjälpa till, var inte blyg!",
     "commGuideList01B": "<strong>En flitig attityd.</strong> Habiticaner jobbar hårt för att förbättra sina liv, men hjälper också till att bygga sidan och hela tiden förbättra den. Vi är ett open-source projekt, så vi arbetar hela tiden på att göra sidan så bra som möjligt.",
     "commGuideList01C": "<strong>Ett stödjande sätt.</strong> Habiticaner firar varandras segrar och tröstar varandra när det är tufft. Vi hjälper, lutar oss mot och lär oss av varandra. I sällskapen gör vi det med trollformler, i chattrummen använder vi vänliga och stöttande ord.",
     "commGuideList01D": "<strong>Ett respektfullt uppförande.</strong> Vi kommer alla från olika bakgrunder, har olika förmågor och olika åsikter. Det är en del av vad som gör vår gemenskap så fantastisk! Habiticaner respekterar dessa olikheter och hyllar dem. Du kommer snabbt att lära känna vänner från alla möjliga livssituationer.",
     "commGuideHeadingMeet": "Möt Personalen och Moderatorer!",
-    "commGuidePara006": "Habitica har några outtröttliga kringströvande riddare som sluter sig samman med den anställda personalen för att hålla gemenskapen lugn, nöjd och fri från troll. Var och en har sitt specialområde, men kallas ibland in för att tjäna i andra sociala sfärer. Personal och moderatorer inleder ofta officiella uttalanden med \"Mod Talk\" eller \"Mod Hat On\" (\"moderatorprat\" respektive \"i moderator-roll\")",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Personalen har lila taggar markerade med kronor. Deras titel är \"Heroisk\".",
     "commGuidePara008": "Moderatorer har mörkblå taggar markerade med stjärnor. Deras titel är \"väktare\". Det enda undantaget är Bailey, som är en NPC och har en svart och grön tagg markerad med en stjärna.",
     "commGuidePara009": "Den nuvarande personalen är (från vänster till höger):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Säkerställ att wikins innehåll är relevant för hela Habitica och inte bara avser ett specifikt gille eller sällskap (sådan information kan flyttas till forumen).",
     "commGuidePara049": "Följande är för närvarande wiki-administratörer:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Wiki-administratörer Emeritus är:",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Överträdelser, påföljder och återupprättande",
     "commGuideHeadingInfractions": "Överträdelser",
     "commGuidePara050": "Habiticaner hjälper varandra på ett överväldigande sätt; är respektfulla och arbetar för att göra hela gemenskapen trevlig och vänskaplig. Ändå händer det i sällsynta fall att något en Habitican gör strider mot någon av ovanstående riktlinjer. När det händer kommer Moderatorerna att vidta vilka åtgärder de än anser nödvändiga för att hålla Habitica tryggt och bekvämt för alla.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "för inlämning av pixelkonst.",
     "commGuideLink08": "UppdragsTrello",
     "commGuideLink08description": "för inlämning av uppdragsskrivande.",
-    "lastUpdated": "Senast uppdaterat"
+    "lastUpdated": "Last updated:"
 }

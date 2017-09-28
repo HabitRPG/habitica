@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Accetto di rispettare le linee guida della community",
-    "tavernCommunityGuidelinesPlaceholder": "Nota amichevole: questa è una chat per utenti di ogni età, quindi per favore assicurati che il tuo linguaggio e i contenuti che pubblichi siano appropriati. Consulta le Linee guida della community qui sotto se hai qualche domanda.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Benvenuto ad Habitica!",
     "commGuidePara001": "Salute, avventuriero! Benvenuto ad Habitica, la terra della produttività, dello stile di vita salutare e occasionalmente di grifoni infuriati. Abbiamo un'allegra community piena di persone disponibili che si supportano a vicenda nel percorso per migliorarsi.",
     "commGuidePara002": "Per aiutare a mantenere la sicurezza, la felicità e la produttività nella community, abbiamo alcune linee guida. Le abbiamo stilate accuratamente per renderle il più semplici possibile. Per favore, leggile con attenzione.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Propensione al supporto.</strong> Gli Habitichesi festeggiano le vittorie altrui, e si supportano a vicenda durante i periodi di difficoltà. Si aiutano a vicenda e imparano gli uni dagli altri. Nelle squadre facciamo tutto questo con i nostri incantesimi; nelle chat, lo facciamo con parole gentili e di supporto.",
     "commGuideList01D": "<strong>Rispetto verso il prossimo.</strong> Abbiamo tutti esperienze, abilità e opinioni differenti. Questo è ciò che fa di noi una community così spettacolare! Gli Habitichesi rispettano queste differenze e le esaltano. Prova a frequentare questo posto, e presto avrai degli amici di ogni tipo.",
     "commGuideHeadingMeet": "Incontra lo Staff e i moderatori!",
-    "commGuidePara006": "Habitica dispone di instancabili cavalieri erranti che hanno unito le forze con lo staff per mantenere la community calma, allegra e libera dai troll. Ognuno ha uno specifico dominio, ma alcune volte può accadere che vengano chiamati per servire altre sfere sociali. Staff e moderatori spesso precedono le dichiarazioni ufficiali con le parole \"Parla il moderatore\" oppure \"Modalità moderatore On\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "I membri dello Staff hanno etichette viola contrassegnate da una corona. Il loro titolo è \"Eroico\".",
     "commGuidePara008": "I moderatori hanno etichette blu scuro contrassegnate da una stella. Il loro titolo è \"Guardiano\". L'unica eccezione è Bailey che, in quanto NPC, ha un'etichetta nera e verde contrassegnata da una stella.",
     "commGuidePara009": "L'attuale gruppo dello staff è composto da (partendo da sinistra verso destra):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Assicurati che i contenuti della wiki riguardino l'intero sito di Habitica e non una particolare gilda o squadra (tali informazioni potranno essere spostate nei forum)",
     "commGuidePara049": "Le seguenti persone sono gli attuali amministratori della wiki:",
     "commGuidePara049A": "I seguenti moderatori possono applicare cambiamenti d'emergenza in caso sia necessario un moderatore e gli amministratori indicati qui sopra non siano disponibili:",
-    "commGuidePara018": "Gli amministratori emeriti della wiki sono",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Infrazioni, conseguenze e restauro",
     "commGuideHeadingInfractions": "Infrazioni",
     "commGuidePara050": "La stragrande maggioranza degli Habitichesi si assistono l'un l'altro, sono rispettosi e lavorano per rendere la community divertente e piacevole. Tuttavia, durante la luna blu, alcuni Habitichesi potrebbero violare una delle linee guida. Quando succede i moderatori prendono qualunque azione ritengono necessaria per mantere Habitica sicura e piacevole per tutti.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "per contribuire con pixel art.",
     "commGuideLink08": "Il Trello missioni",
     "commGuideLink08description": "per proporre testi per le missioni.",
-    "lastUpdated": "Ultimo aggiornamento"
+    "lastUpdated": "Last updated:"
 }

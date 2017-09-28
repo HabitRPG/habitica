@@ -8,6 +8,8 @@
     "unlockableQuests": "Açılabilir Görevler",
     "goldQuests": "Altınla Satın Alınabilir Görevler",
     "questDetails": "Görev Detayları",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Davetler",
     "completed": "Tamamlandı!",
     "rewardsAllParticipants": "Tüm Görev Katılımcıları için Ödüller",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Ayrılınacak aktif bir görev bulunmuyor",
     "questLeaderCannotLeaveQuest": "Görev lideri görevden ayrılamaz",
     "notPartOfQuest": "Bu görevin bir parçası değilsin",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Yarıda kesilecek aktif bir görev bulunmuyor.",
     "onlyLeaderAbortQuest": "Yalnızca grup veya görev lideri görevi yarıda kesebilir.",
     "questAlreadyRejected": "Görev davetini zaten reddettin.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Giriş",
     "createAccountQuest": "Habitica'ya katıldığında bu görevi kazandın! Eğer bir arkadaşın da katılırsa, o da aynısından kazanacak.",
     "questBundles": "İndirimli Görev Paketleri",
-    "buyQuestBundle": "Görev Paketini Al"
+    "buyQuestBundle": "Görev Paketini Al",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "I hereby agree to follow yer landlubber's Community Laws",
-    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: there be younguns in this here chat, so please be mindin' yer language! Cast yer eyes on th' Community Guidelines below if ye have any questions.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Welcome t' Habitica",
     "commGuidePara001": "Greetings, adventurer! Welcome t' Habitica, land o' deck-swabbin', good livin', an' th' occasional rampaging sea beast. Me mates and I have a cheerful crew full o' helpful sailors supportin' each other on their way t' betterin' themselves.",
     "commGuidePara002": "To keep ye landlubbers safe an' productive an' moral high, we've drawn up some guidelines. We worked real hard t' make 'em simple an' friendlylike. Read 'em or there will be flogging.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>A Supportive Demeanor.</strong> Habiticans cheer fer each other's victories, an' comfort each other durin' th' hard times. We lend strength t' each other an' lean on each other an' learn from each other. In crews, we do this with our spells; in chat rooms, we do this with kind an' supportive words.",
     "commGuideList01D": "<strong>A Respectful Manner.</strong> We all have different backgrounds, different skill sets, an' different opinions. That's part o' what makes our community so wonderful! Habiticans respect these differences an' celebrate them. Stick around, an' soon ye will have friends from all walks o' life.",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "Habitica has some tireless knight-errants who join forces with th' staff members t' keep th' community calm, contented, an' free of trolls. Each has a specific domain, but will sometimes be called t' serve in other social spheres. Staff an' Mods will often precede official statements with th' words \"Mod Talk\" or \"Mod Hat On\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Staff be holdin' purple flags that been touched by me lady's golden crown.  They be Heroes of ther' land.",
     "commGuidePara008": "Privateers be hav'n dark blue flags touched by stars. Thar title be \"Guardian\". The only exception be Bailey, who, bein' an NPC, has a black and green flag emblazoned by a lonely star. ",
     "commGuidePara009": "The current Staff Members be (from port t' starboard):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Ensuring that wiki content be relevant t' th' whole site o' Habitica and not pertainin'  t' a particular Ship or crew (such information can be moved t' th' forums)",
     "commGuidePara049": "Th' following people be th' current wiki administrators:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Wiki Administrators Emeritus be",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Walking th' Plank",
     "commGuideHeadingInfractions": "Infractions",
     "commGuidePara050": "Overwhelmingly, Habiticans assist each other, are respectful, an' work t' make th' whole community fun an' friendly. However, once in a blue moon, somethin' that a Habitican does may violate one o' th' above guidelines. When this happens, th' Mods will take whatever actions they deem necessary t' keep Habitica safe an' comfortable for everyone.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "fer submittin' pixel arrrt.",
     "commGuideLink08": "Th' Quest Trello",
     "commGuideLink08description": "for submittin' quest writin'.",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated:"
 }

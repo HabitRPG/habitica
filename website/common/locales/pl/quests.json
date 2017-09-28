@@ -8,6 +8,8 @@
     "unlockableQuests": "Misje możliwe do odblokowania",
     "goldQuests": "Misje wycenione w złocie",
     "questDetails": "Szczegóły misji",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Zaproszenia",
     "completed": "Zakończone!",
     "rewardsAllParticipants": "Nagrody dla wszystkich uczestników misji",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Brak aktywnych misji do opuszczenia",
     "questLeaderCannotLeaveQuest": "Przywódca misji nie może jej opuścić",
     "notPartOfQuest": "Nie uczestniczysz w misji",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Brak aktywnej misji do przerwania.",
     "onlyLeaderAbortQuest": "Tylko przywódca grupy lub misji może ją przerwać.",
     "questAlreadyRejected": "Już odrzuciłeś zaproszenie na misje.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Wizyt",
     "createAccountQuest": "Otrzymałeś tą misję, kiedy dołączyłeś do Habitiki. Jeżeli twój przyjaciel dołączy, również otrzyma misję.",
     "questBundles": "Przecenione pakiety misji",
-    "buyQuestBundle": "Kup pakiet misji"
+    "buyQuestBundle": "Kup pakiet misji",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

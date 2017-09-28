@@ -8,6 +8,8 @@
     "unlockableQuests": "Мисии, които могат да бъдат отключени",
     "goldQuests": "Мисии, които могат да бъдат купени със злато",
     "questDetails": "Подробности за мисията",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Покани",
     "completed": "Завършена!",
     "rewardsAllParticipants": "Награди за всички участници в мисията",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Няма текуща мисия за напускане",
     "questLeaderCannotLeaveQuest": "Водачът на мисията не може да я напусне",
     "notPartOfQuest": "Не сте част от мисията",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Няма текуща мисия за прекратяване.",
     "onlyLeaderAbortQuest": "Само водачът на групата или мисията може да я прекрати.",
     "questAlreadyRejected": "Вече сте отказали поканата за мисията.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> отчитания",
     "createAccountQuest": "Получихте тази мисия като се присъединихте към Хабитика! Ако Ваш приятел се присъедини, той или тя също ще я получат.",
     "questBundles": "Пакети мисии с отстъпка",
-    "buyQuestBundle": "Купуване на пакет мисии"
+    "buyQuestBundle": "Купуване на пакет мисии",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

@@ -47,6 +47,7 @@
     "xml": "(XML/可扩展标记语言)",
     "json": "(JSON)",
     "customDayStart": "自定义每日任务的结算时间",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "变更每日任务的结算时间？",
     "sureChangeCustomDayStart": "你确定要变更每日任务的结算时间？",
     "customDayStartHasChanged": "你自定义的每日任务的结算时间已经改变。",
@@ -105,9 +106,7 @@
     "email": "邮箱",
     "registerWithSocial": "注册 <%= network %>",
     "registeredWithSocial": "注册 <%= network %>",
-    "loginNameDescription1": "这是你用来登陆Habitica的登录名。要改变它，请使用以下的表格。如果你想要改变游戏中显示的昵称，请访问",
-    "loginNameDescription2": "用户 -> 档案",
-    "loginNameDescription3": "并且点击编辑按钮",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "电子邮件通知",
     "wonChallenge": "你赢得了一项挑战！",
     "newPM": "收到悄悄话",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Habitica签到提醒",
     "subscribeUsing": "捐助通过",
     "unsubscribedSuccessfully": "取消订阅成功！",
-    "unsubscribedTextUsers": "你已经成功退订所有Habitica发出的邮件，你可以打开你想要收到的邮件从 <a href=\"/#/options/settings/notifications\">设置中</a> (需要登录)",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "你将不会收到任何来自Habitica的邮件。",
     "unsubscribeAllEmails": "确认从电子邮件退订",
     "unsubscribeAllEmailsText": "以此确认，我明白在我取消邮箱订阅后，Habitica不会再通过邮件通知我关于我的账号或关于网站的重要更改。",
@@ -185,5 +184,6 @@
     "timezone": "时区",
     "timezoneUTC": "Habitica直接引用你电脑上的时区设置：<strong><%= utc %></strong>",
     "timezoneInfo": "如果那个时区是错误的，首先用你浏览器的重载或刷新按钮重载这个页面以确保Habitica有最新的信息。如果还是不行，调整你电脑上的时区然后再次重载页面。<br><br> <strong>如果你在其他电脑或移动设备上使用Habitica，它们上的时区必须是一样的才行。</strong>如果你的每日任务已经在错误的时间被重置，在你所有其他的电脑和你移动设备的一个浏览器上重复这个检查。",
-    "push": "推"
+    "push": "推",
+    "about": "About"
 }

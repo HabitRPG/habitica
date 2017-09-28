@@ -8,6 +8,8 @@
     "unlockableQuests": "Queesten om vrij te spelen",
     "goldQuests": "Queesten te koop met goud",
     "questDetails": "Details van de queeste",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Uitnodigingen",
     "completed": "voltooid!",
     "rewardsAllParticipants": "Beloningen voor alle queeste-deelnemers",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Geen actieve queeste om te verlaten",
     "questLeaderCannotLeaveQuest": "Queesteleider kan de queeste niet verlaten",
     "notPartOfQuest": "Je bent geen deel van de queeste",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Er is geen actieve queeste om te stoppen.",
     "onlyLeaderAbortQuest": "Enkel de groeps- of queesteleider kan de queeste stoppen.",
     "questAlreadyRejected": "Je hebt de queesteuitnodiging al geweigerd.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> check-ins",
     "createAccountQuest": "Je hebt deze queeste verdiend toen je je aanmeldde voor Habitica! Als een van je vrienden zich aanmeldt krijgt deze er ook een.",
     "questBundles": "Afgeprijsde queestebundels",
-    "buyQuestBundle": "Koop queestebundel"
+    "buyQuestBundle": "Koop queestebundel",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Accept să respect regulile comunității",
-    "tavernCommunityGuidelinesPlaceholder": "Reamintire: Acesta este un chat pentru toate vârstele, vă rugăm păstrați conținutul și limbajul potrivit. Consultați Regulile Comunității de mai jos dacă aveți nelămuriri.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Bine ai venit în Habitica",
     "commGuidePara001": "Salutări, aventurierule! Bun venit în Habitica, tărâmul productivității, vieții sănătoase și ocazionalului grifon scăpat de sub control. Avem o comunitate veselă plină de oameni dispuși să ajute și să se susțină unii pe alții în călătoria lor spre autoîmbunătățire.",
     "commGuidePara002": "Pentru a ajuta la păstrarea tuturor în siguranță, fericiți și productivi în comunitate, avem câteva reguli. Le-am construit cu grijă pentru a le face cât mai prietenoase și ușor de citit. Te rugăm să îți faci timpul să le citești.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Un comportament încurajator.</strong> Habiticanii aclamă succesele celorlalți și se consolează unul pe altul în timpul perioadelor dificile. Ne oferim putere unul celuilalt și ne sprijinim unul pe celălalt și învățăm unii de la ceilalți. În achipe, facem acest lucru cu vrăjile noastre; în chat, facem asta cu cuvinte blânde și încurajatoare.",
     "commGuideList01D": "<strong>Maniere respectuoase.</strong> Cu toții avem trecuturi diferite, talente diferite și opinii diferite. Acesta este unul din lucrurile care fac comunitatea noastră atât de minunată! Habiticanii respectă aceste diferențe și le celebrează. Rămâi cu noi și în curând vei avea prieteni din toate categoriile vieții.",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "Habitica are niște cavaleri rătăcitori neobosiți care se alătură personalului pentru a menține comunitatea calmă, liniștită și liberă de trolli. Fiecare are un domeniu specific, dar vor fi câteodată chemați să servească altor sfere sociale. Personalul și moderatorii vor preceda deseori afirmațiile oficiale cu cuvintele \"Mod Talk\" - \"Cuvintele Moderatorului\" sau \"Mod Hat On\" - \"Mi-am pus pălăria de moderator\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Persoanele din conducere au nume purpurii și sunt marcate cu coroane. Titlul lor este \"Eroic\"",
     "commGuidePara008": "Moderatorii au însemne albastru închis marcate cu steluțe. Titlul lor este \"Gardian\". Singura excepție este Bailey, care, ca NPC, are însemn negru si verde marcat cu o stea.",
     "commGuidePara009": "Membrii curenți ai personalului sunt (de la stânga la dreapta):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Ensuring that wiki content is relevant to the whole site of Habitica and not pertaining to a particular guild or party (such information can be moved to the forums)",
     "commGuidePara049": "The following people are the current wiki administrators:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Administratorii Emeriți ai Wiki sunt",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Infractions, Consequences, and Restoration",
     "commGuideHeadingInfractions": "Infracțiuni",
     "commGuidePara050": "Overwhelmingly, Habiticans assist each other, are respectful, and work to make the whole community fun and friendly. However, once in a blue moon, something that a Habitican does may violate one of the above guidelines. When this happens, the Mods will take whatever actions they deem necessary to keep Habitica safe and comfortable for everyone.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "pentru transmiterea desenelor pixelate.",
     "commGuideLink08": "The Quest Trello",
     "commGuideLink08description": "for submitting quest writing.",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated:"
 }

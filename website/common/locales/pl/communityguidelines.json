@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Zgadzam się na przestrzeganie Regulaminu Społeczności",
-    "tavernCommunityGuidelinesPlaceholder": "Życzliwe przypomnienie: to czat dla ludzi w każdym wieku, więc uważaj na język oraz treść swoich wypowiedzi! Jeśli masz jakieś pytania, zajrzyj do Regulaminu społeczności poniżej.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Witamy w Habitice!",
     "commGuidePara001": "Witaj, poszukiwaczu przygód! Witaj w Habitice, krainie produktywności, zdrowego stylu życia i sporadycznych wściekłych gryfów. Mamy tu radosną społeczność pełną pomocnych ludzi wspierających się nawzajem w swej drodze do samodoskonalenia.",
     "commGuidePara002": "By utrzymać społeczność w atmosferze bezpieczeństwa, radości i produktywności, mamy kilka wskazówek. Sporządziliśmy je z rozwagą, by były tak przyjazne i łatwe w rozumieniu, jak to tylko możliwe. Prosimy o poświęcenie czasu na ich przeczytanie.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Wspierająca Postawa</strong>Habitanie gratulują sobie zwycięstw oraz pocieszają w trudnych okresach. Użyczamy sobie nawzajem siły i wspieramy, a także uczymy się od siebie. W drużynach robimy to za pomocą zaklęć, na chatach dzięki serdecznym i życzliwym słowom.",
     "commGuideList01D": "<strong>Postawa Pełna Szacunku.</strong>Wszyscy pochodzimy z różnych środowisk, mamy różne umiejętności i opinie. To część tego, co czyni tę społeczność wyjątkową! Habitanie szanują te różnice i cieszą się z nich. Zostań na chwilę, a wkrótce będziesz mieć przyjaciół na wszystkich ścieżkach życia.",
     "commGuideHeadingMeet": "Poznaj Zespół i Modów!",
-    "commGuidePara006": "Habitica ma w swoich szeregach niezmordowanych rycerzy-pomocników, którzy łączą siły z personelem, by utrzymać społeczność w spokoju, zadowoleniu i wolności od trolli. Każdy z nich ma swój sektor, ale czasem mogą zostać wezwani, by służyć w innych kręgach. Personel i Moderatorzy będą często poprzedzać oficjalne komunikaty słowami \"Mówi Mod\" (ang. Mod Talk) lub \"Czapka Moda Założona\" (ang. Mod Hat On).",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Personel ma fioletowe tagi z koroną. Ich tytuł to \"Heroiczny\".",
     "commGuidePara008": "Moderatorzy mają granatowe tagi z gwiazdkami. Ich tytułem jest \"Strażnik\". Jedynym wyjątkiem jest Bailey, która, jako NPC, ma czarno-zielony tag z gwiazdką.",
     "commGuidePara009": "Obecni członkowie Personelu to (od lewej do prawej):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Informacje wprowadzane na wiki muszą stosować się do całej Habitiki, a nie do jednej z gildii albo drużyn (informacje odnoszące się do nich mogą być przeniesione na fora)",
     "commGuidePara049": "Obecnymi administratorami wiki są:",
     "commGuidePara049A": "Poniżsi moderatorzy mogą dokonować zmian w sytuacjach awaryjnych, kiedy moderator jest potrzebny, a żaden z powyższych administratorów nie jest dostępny:",
-    "commGuidePara018": "Do Administrators Emeritus wiki należą:",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Naruszenie zasad, Konsekwencje i Powrót do łask",
     "commGuideHeadingInfractions": "Naruszenie zasad",
     "commGuidePara050": "Przytłaczająca większość Habitanów pomaga sobie nawzajem, szanuje współużytkowników i pracuje na to, by społeczność była radosna i przyjazna. Jednakże, raz na jakiś czas, komuś zdarza się naruszyć którąś z powyższych reguł. Gdy to się zdarza, Modzi podejmują wszelkie starania, by przywrócić wszystkim w Habitice bezpieczeństwo i spokój.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "to dodawania grafik pikselowych.",
     "commGuideLink08": "Misjowe Trello",
     "commGuideLink08description": "do dodawania opisów misji.",
-    "lastUpdated": "Ostatnio zaktualizowano"
+    "lastUpdated": "Last updated:"
 }

@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Topluluk Kuralları'na uymayı kabul ediyorum.",
-    "tavernCommunityGuidelinesPlaceholder": "Dostane bir uyarı: bu tüm yaş gruplarına açık bir sohbettir, bu yüzden mesajlarının içeriğini ve üslubunu uygun sınırlar içerisinde tutmaya özen göster! Aklına takılan bir şeyler olursa aşağıdan Topluluk Kuralları'na göz at.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Habitica'ya hoş geldin!",
     "commGuidePara001": "Merhaba, maceracı! Üretkenliğin, sağlıklı yaşamın ve nadiren de olsa öfkeli griffonların diyarı Habitica'ya hoş geldin. Biz birbirinin kişisel gelişimini destekleyen oldukça yardımsever, eğlenceli bir topluluğuz.",
     "commGuidePara002": "Toplulukta herkesi güvende, mutlu ve üretken tutmak için bazı kılavuzlarımız var. Bu kılavuzları dostça ve kolay okunabilir kılmak için özenerek hazırladık. Lütfen kılavuzları okumak için zaman ayır.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Destekleyicilik.</strong> Habiticalılar, birbirlerinin başarılarına alkış tutar ve zor günlerde birbirlerine destek olurlar. Birbirimizden güç alır ve öğreniriz. Destek olmak için gruplarda büyülerimizi kullanırız; sohbet odalarında ise müşfik ve destekleyici söylemlerde bulunuruz.",
     "commGuideList01D": "<strong>Saygılı Yaklaşım.</strong> Hepimizin farklı geçmişleri, yetenekleri ve bakış açıları vardır. Bu, topluluğumuzun harika özelliklerinden biridir! Habiticalılar, farklılıklara saygı duyar ve çeşitlilikle övünür. Bizimle takılırsanız çok geçmeden hayatın her kesiminden arkadaşlar edinmiş olacaksınız.",
     "commGuideHeadingMeet": "Kadro ve Moderatörlerle Tanış!",
-    "commGuidePara006": "Habitica'da yorulmak bilmeyen bazı şövalye ruhlu üyeler, site kadrosuyla el ele çalışarak toplumumuzu sakin, memnun ve troll'süz tutmaya çalışırlar. Her birinin kendi görev bölgesi vardır ama bazı durumlarda farklı sosyal bölgelerde göreve çağrılabilirler. Yetkililer ve Moderatörler, resmi duyurularda bulunmadan önce genellikle \"Mod Talk (Mod Buyruğu)\" ya da \"Mod Hat On (Mod Şapkamı Giydim)\" gibi ifadeler kullanırlar.",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Kadro üyeleri, taçlarla işaretlenmiş mor etiketlere sahiptir. \"Kahraman\" unvanıyla anılırlar.",
     "commGuidePara008": "Moderatörler, yıldız işaretli koyu mavi etiketlere sahiptir. \"Muhafız\" unvanıyla anılırlar. Bir NPC olan Bailey, bu durumun tek istisnasıdır ve yıldız işaretli siyah/yeşil bir etiket taşır.",
     "commGuidePara009": "Güncel Kadro Üyelerimiz (soldan sağa):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Wiki içeriğinin Habitica'nın tamamı ile alakalı olduğundan ve belirli bir lonca ve takım üzerine yoğunlaşmadığından emin olmak (bu tarz bilgiler forumlara taşınabilir)",
     "commGuidePara049": "Bu kişiler, şu anki wiki yöneticileridir:",
     "commGuidePara049A": "Aşağıdaki moderatörler, bir moderatörün gerekli olduğu ve yukarıdaki yöneticilerin erişilemediği durumlarda acil düzenlemeler yapabilir:",
-    "commGuidePara018": "Emekli Wiki Yöneticileri:",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "İhlaller, Sonuçları ve Çözümleri",
     "commGuideHeadingInfractions": "İhlaller",
     "commGuidePara050": "Habitica vatandaşları karşı konulmaz biçimde birbirlerine destek olurlar, saygılıdırlar ve tüm topluluğu eğlenceli ve dost canlısı tutmak için çalışırlar. Buna rağmen, kırk yılda bir de olsa bir Habitica vatandaşının yaptıkları yukarıdaki kuralları ihlal edebilir. Böyle bir durumda Modlar, Habitica'yı herkes için güvende ve huzurlu tutmak adına yapılması gerektiğini düşündükleri ne varsa yaparlar.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "pixel art sunmak için.",
     "commGuideLink08": "Görev Trello'su",
     "commGuideLink08description": "görev metni sunmak için.",
-    "lastUpdated": "Son güncelleme"
+    "lastUpdated": "Last updated:"
 }

@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Prihvatam Pravila ponašanja",
-    "tavernCommunityGuidelinesPlaceholder": "Ne zaboravite da čet koriste igrači svih uzrasta. Molimo Vas da obratite pažnju na sadržaj svojih poruka! Pročitajte Pravila ponašanja ako su Vam potrebna dodatna pojašnjenja.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Dobro došli u Habitiku!",
     "commGuidePara001": "Pozdrav, junače! Dobro došli u Habitiku, zemlju produktivnosti, zdravog života, i ponekog pomahnitalog grifona. U našoj veseloj zajednici upoznaćete ljude koji podržavaju jedni druge na putu samousavršavanja.",
     "commGuidePara002": "Osmislili smo Pravila ponašanja kako bi svi bili bezbedni, zadovoljni, i konstruktivni prema drugim članovima zajednice. Napisali smo ih tako da budu laka za čitanje i razumevanje. Molimo Vas da ih pročitate.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Podrška</strong> Habitikanci se raduju svojim i tuđim uspesima, i teše jedni druge kad je teško. Mi pomažemo jedni drugima, i oslanjamo se jedni na druge. U družinama, to činimo čarolijama; u čet sobama – lepim rečima i razumevanjem.",
     "commGuideList01D": "<strong>Poštovanje različitosti.</strong> Imamo različita porekla, različite sposobnosti, i različita mišljenja. To je jedna od stvari koje čine ovu zajednicu lepšom! Habitikanci cene te različitosti. Razgovarajte s ljudima, i uskoro ćete imati prijatelje sa svih strana sveta.",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "Neumorni vitezovi Habitike zajedno sa osobljem čuvaju mir u zajednici i rasteruju trolove. Svaki moderator ima svoju teritoriju, ali može, po potrebi, da interveniše i na drugim mestima. Osoblje i moderatori će početak zvanične izjave obično obeležiti rečima „Mod Talk” ili „Mod Hat On”.",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Članovi osoblja obeleženi su ljubičastom bojom i krunom. Njihova titula je „Heroic”.",
     "commGuidePara008": "Moderatori su obeleženi tamno plavom bojom i zvezdom. Njihova titula je „Guardian”. Izuzetak je Bejli, koja, pošto je NPC, ima crnu boju sa zelenim slovima.",
     "commGuidePara009": "Članovi osoblja trenutno su (s leva na desno):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Neka se sadržaj odnosi na ceo Habitica, a ne na određeno udruženje ili družinu (takvom sadržaju mesto je na forumu)",
     "commGuidePara049": "Sledeći ljudi su wiki administratori:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Wiki administratori emeriti su",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Prekršaji, posledice, i ukidanje kazne",
     "commGuideHeadingInfractions": "Prekršaji",
     "commGuidePara050": "Velika većina Habitikanaca pomažu jedni drugima, ponašaju se pristojno, i trude se da svim članovima zajednice bude zabavno i prijatno. S vremena na vreme, međutim, neko od Habitikanaca prekrši pravila ponašanja. U takvim slučajevima, moderatori će preduzeti mere koje smatraju neophodnim kako bi zaštitili ostale građane Habitike.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "za pixel art.",
     "commGuideLink08": "Trello za misije",
     "commGuideLink08description": "gde možete predati svoje pedloge za nove misije.",
-    "lastUpdated": "Ažurirano"
+    "lastUpdated": "Last updated:"
 }

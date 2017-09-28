@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Begin van de dag aanpassen",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Begin van de dag aanpassen? ",
     "sureChangeCustomDayStart": "Weet je zeker dat je het begin van de dag wilt aanpassen?",
     "customDayStartHasChanged": "Je aangepaste begin van de dag is veranderd.",
@@ -105,9 +106,7 @@
     "email": "E-mail",
     "registerWithSocial": "Registreer met <%= network %>",
     "registeredWithSocial": "Geregistreerd met <%= network %>",
-    "loginNameDescription1": "Dit gebruik je om je aan te melden op Habitica. Om het te veranderen gebruik je het onderstaande formulier. Als je in plaats daarvan de naam wilt veranderen die op je avatar en in chatberichten verschijnt, ga je naar ",
-    "loginNameDescription2": "Gebruiker->Profiel",
-    "loginNameDescription3": "en klik op de Bewerk-knop.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "E-mailberichten",
     "wonChallenge": "Je hebt een uitdaging gewonnen!",
     "newPM": "Privébericht ontvangen",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Herinneringsberichten om Habitica te checken",
     "subscribeUsing": "Abonneer met",
     "unsubscribedSuccessfully": "Afmelden succesvol!",
-    "unsubscribedTextUsers": "Je hebt je succesvol afgemeld van alle Habitica e-mail. Je kunt in de <a href=\"/#/options/settings/notifications\">instellingen</a> aangeven welke e-mail je wel wilt ontvangen. (Hier moet je voor ingelogd zijn.)",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Je zult geen e-mail meer ontvangen van Habitica.",
     "unsubscribeAllEmails": "Klik hier om e-mails uit te zetten",
     "unsubscribeAllEmailsText": "Door dit aan te klikken geef ik aan dat ik begrijp dat als ik me uitschrijf van e-mails, Habitica nooit meer per e-mail contact met me op kan nemen om belangrijke wijzigingen in de site of mijn account door te geven.",
@@ -185,5 +184,6 @@
     "timezone": "Tijdzone",
     "timezoneUTC": "Habitica gebruikt de tijdzone die op je PC ingesteld is: <strong><%=utc %></strong>",
     "timezoneInfo": "Als die tijdzone fout is, laad dan eerst deze pagina opnieuw met je browsers herlaad- of verversknop om er zeker van te zijn dat Habitica de meest recente informatie heeft. Als het nog steeds fout is, pas dan de tijdzone op je PC aan en herlaad opnieuw deze pagina. <br><br> <strong> Als je Habitica op andere PC's of mobiele apparaten gebruikt, dan moet de tijdzone overal hetzelfde zijn.</strong>  Als je dagelijkse taken op de verkeerde tijd zijn gereset, herhaal dan deze controle op alle andere PC's en in een browser op je mobiele apparaat.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }
