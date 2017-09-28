@@ -1,12 +1,13 @@
 var updateStore = require('../website/common/script/libs/updateStore');
 var getItemInfo = require('../website/common/script/libs/getItemInfo');
 
-var migrationName = '20170811_pinned_items.js';
+var migrationName = '20170928_redesign_launch.js';
 var authorName = 'paglias'; // in case script author needs to know when their ...
 var authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; //... own data is done
 
 /*
  * Migrate existing in app rewards lists to pinned items
+ * Award Veteran Pets
  */
 
 var monk = require('monk');
@@ -16,8 +17,15 @@ var dbUsers = monk(connectionString).get('users', { castIds: false });
 function processUsers(lastId) {
   // specify a query to limit the affected users (empty for all users):
   var query = {
-    'migration':{$ne:migrationName},
+    'migration': {$ne:migrationName},
+    'auth.timestamps.loggedin': {$gt: new Date('2017-09-21')},
   };
+
+  var fields = {
+    'items.pets': 1,
+    'items.gear': 1,
+    'stats.class': 1,
+  }
 
   if (lastId) {
     query._id = {
@@ -26,6 +34,7 @@ function processUsers(lastId) {
   }
 
   return dbUsers.find(query, {
+    fields: fields,
     sort: {_id: 1},
     limit: 250,
   })
@@ -83,6 +92,16 @@ function updateUser (user) {
   });
 
   set.pinnedItems = newPinnedItems;
+
+  if (user.items.pets['Lion-Veteran']) {
+    set['items.pets.Bear-Veteran'] = 5;
+  } else if (user.items.pets['Tiger-Veteran']) {
+    set['items.pets.Lion-Veteran'] = 5;
+  } else if (user.items.pets['Wolf-Veteran']) {
+    set['items.pets.Tiger-Veteran'] = 5;
+  } else {
+    set['items.pets.Wolf-Veteran'] = 5;
+  }
 
   if (count % progressCount == 0) console.warn(count + ' ' + user._id);
   if (user._id == authorUuid) console.warn(authorName + ' processed');
