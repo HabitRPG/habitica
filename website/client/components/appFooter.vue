@@ -119,7 +119,7 @@
     padding-top: 3em;
     margin: 0;
     color: #878190;
-    z-index: 99;
+    z-index: 17;
 
     a {
       color: #878190;

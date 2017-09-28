@@ -44,6 +44,10 @@
 <style lang='scss' scoped>
   @import '~client/assets/scss/static.scss';
 
+  .center-block {
+    margin: 0 auto;
+  }
+
   .grassy-meadow-backdrop {
     background-image: url('~assets/images/npc/normal/tavern_background.png');
     background-repeat: repeat-x;
