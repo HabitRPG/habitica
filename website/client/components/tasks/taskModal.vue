@@ -42,7 +42,7 @@
         template(v-if="task.type !== 'reward'")
           label(v-once)
             span.float-left {{ $t('difficulty') }}
-            .svg-icon.info-icon(v-html="icons.information")
+            // @TODO .svg-icon.info-icon(v-html="icons.information")
           .d-flex.justify-content-center
             .option-item(:class="optionClass(task.priority === 0.1)", @click="task.priority = 0.1")
               .option-item-box
