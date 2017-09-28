@@ -85,6 +85,8 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
+import NotFoundPage from './components/404';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -253,6 +255,7 @@ const router = new VueRouter({
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
         { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
+        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: {requiresLogin: false} },
       ],
     },
     {
@@ -263,6 +266,7 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
+    { path: '*', redirect: { name: 'notFound' } },
   ],
 });
 
