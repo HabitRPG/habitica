@@ -43,7 +43,7 @@
             span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
-            span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
+            span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
             span.action.float-right.liked(v-if='likeCount(msg) > 0')
