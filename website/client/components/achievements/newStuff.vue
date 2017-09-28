@@ -15,7 +15,7 @@
       p Welcome to the new Habitica! We're so excited to share it with you at last. This project, which has been a labor of love since last December, is the single biggest update that Habitica has ever released (with over 150 pages of designs, an entire rewrite of all of our front-end code, countless rounds of testing and iteration, and many, many meetings). Just refresh your page to load the new website!
       .promo_login_screen.center-block
       p(v-markdown="'You can find a full list of changes [here](https://docs.google.com/document/d/1GZ0A2MK3JCZPuFUOStR7aVUI8fQlmjFDtLdj5Lg5XHY/edit), as well as explanations for why we made each, but here are a few quick tips to help you get oriented:'")
-      .seasonal-shop-backdrop
+      .grassy-meadow-backdrop
         .daniel_front
       ul
         li There's a ton of new art around the site! Peek at the NPCs and Guild chats to admire some of the changes.
@@ -56,7 +56,7 @@
   }
 
   .daniel_front {
-    background-image: url('~assets/images/npc/fall/seasonal_shop_opened_npc.png');
+    background-image: url('~assets/images/npc/fall/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
@@ -69,7 +69,7 @@
   }
 
   .sorceress_front {
-    background-image: url('~assets/images/npc/normal/tavern_npc.png');
+    background-image: url('~assets/images/npc/normal/seasonal_shop_opened_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
