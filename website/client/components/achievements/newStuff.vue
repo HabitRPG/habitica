@@ -14,7 +14,7 @@
       hr
       p Welcome to the new Habitica! We're so excited to share it with you at last. This project, which has been a labor of love since last December, is the single biggest update that Habitica has ever released (with over 150 pages of designs, an entire rewrite of all of our front-end code, countless rounds of testing and iteration, and many, many meetings). Just refresh your page to load the new website!
       .promo_login_screen.center-block
-      p(v-markdown="'You can find a full list of changes [here](https://docs.google.com/document/d/1GZ0A2MK3JCZPuFUOStR7aVUI8fQlmjFDtLdj5Lg5XHY/edit), as well as explanations for why we made each, but here are a few quick tips to help you get oriented:'")
+      p(v-markdown="'You can find a full list of changes [here](http://habitica.wikia.com/wiki/Habitica_Redesign_Fact_Sheet), as well as explanations for why we made each, but here are a few quick tips to help you get oriented:'")
       .grassy-meadow-backdrop
         .daniel_front
       ul
