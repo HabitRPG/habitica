@@ -72,7 +72,7 @@
               span.text {{$t(type)}}
 
     .row.tasks-columns
-      task-column.col-3(
+      task-column.col-lg-3.col-md-6(
         v-for="column in columns",
         :type="column", :key="column",
         :isUser="true", :searchText="searchTextThrottled",
