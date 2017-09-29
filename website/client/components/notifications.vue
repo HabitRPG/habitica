@@ -303,6 +303,10 @@ export default {
         this.$root.$emit('show::modal', 'avatar-modal');
       }
 
+      if (this.questCompleted) {
+        this.$root.$emit('show::modal', 'quest-completed');
+      }
+
       // @TODO: This is a timeout to ensure dom is loaded
       window.setTimeout(() => {
         this.initTour();
