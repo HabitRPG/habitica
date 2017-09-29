@@ -36,9 +36,9 @@
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
           span(v-if='classText') {{ classText }}&nbsp;
-          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-          small.cost 3
-            span.Pet_Currency_Gem1x.inline-gems
+          button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
+          small.cost &nbsp; 3 {{ $t('gems') }}
+            // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
       hr
 
       div
@@ -82,7 +82,7 @@
 
         button.btn.btn-primary(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
         button.btn.btn-primary(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
-        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClass({})',
+        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
           popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
 
         hr
@@ -378,8 +378,8 @@ export default {
 
       this.$router.go('/tasks');
     },
-    async changeClass () {
-      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+    async changeClassForUser (confirmationNeeded) {
+      if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;
       try {
         changeClass(this.user);
         await axios.post('/api/v3/user/change-class');
