@@ -238,7 +238,6 @@ import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
-import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
@@ -363,8 +362,8 @@ export default {
       if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
     },
-    loadProfileCache: debounce(function loadProfileCache (newSearch) {
-      this._loadProfileCache();
+    loadProfileCache: debounce(function loadProfileCache (screenPosition) {
+      this._loadProfileCache(screenPosition);
     }, 1000),
     async _loadProfileCache (screenPosition) {
       let promises = [];
@@ -402,7 +401,7 @@ export default {
       for (let uuid in aboutToCache) {
         if (!this.cachedProfileData[uuid]) {
           this.$set(this.cachedProfileData, uuid, {rejected: true});
-        };
+        }
       }
     },
     displayDivider (message) {
