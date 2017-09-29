@@ -5,14 +5,14 @@
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
 
-  div(v-for="(msg, index) in chat", v-if='chat && canViewFlag(msg)')
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid]',
+          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
           :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
@@ -273,9 +273,6 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mounted () {
-    this.loadProfileCache();
-  },
   created () {
     window.addEventListener('scroll', throttle(() => {
       this.loadProfileCache(window.scrollY / 1000);
@@ -308,6 +305,7 @@ export default {
       cachedProfileData: {},
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
+      loading: false,
     };
   },
   filters: {
@@ -321,13 +319,15 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    // @TODO: We need a different lazy load mechnism.
+    // But honestly, adding a paging route to chat would solve this
     messages () {
       return this.chat;
     },
   },
   watch: {
-    messages () {
-      // @TODO: MAybe we should watch insert and remove?
+    messages (oldValue, newValue) {
+      if (newValue.length === oldValue.length) return;
       this.loadProfileCache();
     },
   },
@@ -359,6 +359,9 @@ export default {
       return this.user.contributor.admin;
     },
     async loadProfileCache (screenPosition) {
+      if (this.loading) return;
+      this.loading = true;
+
       let promises = [];
 
       // @TODO: write an explination
@@ -368,7 +371,6 @@ export default {
         return;
       }
 
-      // @TODO: Not sure we need this hash
       let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
@@ -382,9 +384,22 @@ export default {
 
       let results = await Promise.all(promises);
       results.forEach(result => {
+        // We could not load the user. Maybe they were deleted. So, let's cache empty so we don't try again
+        if (!result || !result.data || result.status >= 400) {
+          return;
+        }
+
         let userData = result.data.data;
         this.$set(this.cachedProfileData, userData._id, userData);
       });
+
+      // Merge in any attempts that were rejected so we don't attempt again
+      for (let uuid in aboutToCache) {
+        if (this.cachedProfileData[uuid]) return;
+        this.cachedProfileData[uuid] = {rejected: true};
+      }
+
+      this.loading = false;
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
