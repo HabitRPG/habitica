@@ -350,6 +350,7 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
 
 import { TAVERN_ID } from '../../../common/script/constants';
@@ -527,7 +528,10 @@ export default {
       };
       document.body.removeChild(div);
     },
-    updateCarretPosition (eventUpdate) {
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
       if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
         this.sendMessage();
         return;

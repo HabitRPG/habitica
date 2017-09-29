@@ -55,7 +55,7 @@
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='http://data.habitrpg.com/?uuid=', target='_blank') {{ $t('dataDisplayTool') }}
+                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
