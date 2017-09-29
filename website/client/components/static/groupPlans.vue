@@ -44,8 +44,12 @@
     methods: {
       goToNewGroupPage () {
         if (!this.$store.state.isUserLoggedIn) {
-          this.$store.state.afterLoginRedirect = '/group-plans';
-          this.$router.push('/register');
+          this.$router.push({
+            name: 'register',
+            query: {
+              redirectTo: '/group-plans',
+            },
+          });
           return;
         }
 

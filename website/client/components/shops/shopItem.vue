@@ -17,6 +17,8 @@ div
         div.image
           div(:class="item.class", v-once)
           slot(name="itemImage", :item="item")
+          span.svg-icon.inline.icon-48(v-if="item.key == 'gem'", v-html="icons.gems")
+
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
@@ -33,6 +35,9 @@ div
         v-if="item.purchaseType==='gear'",
         :item="item"
       )
+      div.questPopover(v-else-if="item.purchaseType === 'quests'")
+        h4.popover-content-title {{ item.text }}
+        questInfo(:quest="item")
       div(v-else)
         h4.popover-content-title(v-once) {{ item.text }}
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
@@ -142,6 +147,11 @@ div
     top: 8px;
     margin-top: 0;
   }
+
+  .icon-48 {
+    width: 48px;
+    height: 48px;
+  }
 </style>
 
 <script>
@@ -156,6 +166,8 @@ div
 
   import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
 
+  import QuestInfo from './quests/questInfo.vue';
+
   import moment from 'moment';
 
   import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
@@ -164,6 +176,7 @@ div
     components: {
       bPopover,
       EquipmentAttributesPopover,
+      QuestInfo,
     },
     data () {
       return Object.freeze({

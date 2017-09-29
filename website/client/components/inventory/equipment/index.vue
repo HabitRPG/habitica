@@ -66,14 +66,16 @@
             )
               .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
-        item(
+        item.pointer(
           v-for="(label, group) in gearTypesToStrings",
-          :key="group",
+          :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group",
           :item="flatGear[activeItems[group]]",
           :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
           :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
           :label="label",
           :popoverPosition="'top'",
+          :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
+          @click="equipItem(flatGear[activeItems[group]])",
         )
           template(slot="popoverContent", scope="context")
             equipmentAttributesPopover(:item="context.item")
@@ -113,7 +115,7 @@
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="openEquipDialog(context.item)",
+                @click="equipItem(context.item)",
               )
             template(slot="popoverContent", scope="context")
               equipmentAttributesPopover(:item="context.item")
@@ -126,6 +128,12 @@
     :isEquipped="gearToEquip == null ? false : activeItems[gearToEquip.type] === gearToEquip.key"
   )
 </template>
+
+<style lang="scss">
+.pointer {
+  cursor: pointer;
+}
+</style>
 
 <script>
 import { mapState } from 'client/libs/store';
@@ -156,6 +164,7 @@ const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sor
 const sortGearTypeMap = {
   sortByName: (i) => i.text(),
   sortByCon: 'con',
+  sortByPer: 'per',
   sortByStr: 'str',
   sortByInt: 'int',
 };

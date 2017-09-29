@@ -68,6 +68,7 @@
   "wishlist": "Wishlist",
   "items": "Items",
   "wrongItemType": "The item type \"<%= type %>\" is not valid.",
+  "wrongItemPath": "The item path \"<%= path %>\" is not valid.",
   "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
   "cannotUnpinArmoirPotion": "The Health Potion and Enchanted Armoire cannot be unpinned.",
   "purchasedItem": "You bought <%= itemName %>",
@@ -138,7 +139,7 @@
   "tourMuchMore": "When you're done with tasks, you can form a Party with friends, chat in the shared-interest Guilds, join Challenges, and more!",
 
   "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
-  "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Rest in the Inn.\" Come say hi!",
+  "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
   "tourPartyPage": "Your Party will help you stay accountable. Invite friends to unlock a Quest Scroll!",
   "tourGuildsPage": "Guilds are common-interest chat groups created by the players, for the players. Browse through the list and join the Guilds that interest you. Be sure to check out the popular Habitica Help: Ask a Question guild, where anyone can ask questions about Habitica!",
   "tourChallengesPage": "Challenges are themed task lists created by users! Joining a Challenge will add its tasks to your account. Compete against other users to win Gem prizes!",

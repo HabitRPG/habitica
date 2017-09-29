@@ -8,6 +8,8 @@
     "unlockableQuests": "Unlockable Quests",
     "goldQuests": "Gold-Purchasable Quests",
     "questDetails": "Quest Details",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Invitations",
     "completed": "Completed!",
     "rewardsAllParticipants": "Rewards for all Quest Participants",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "No active quest to leave",
     "questLeaderCannotLeaveQuest": "Quest leader cannot leave quest",
     "notPartOfQuest": "You are not part of the quest",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "There is no active quest to abort.",
     "onlyLeaderAbortQuest": "Only the group or quest leader can abort a quest.",
     "questAlreadyRejected": "You already rejected the quest invitation.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "buyQuestBundle": "Buy Quest Bundle",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

@@ -14,10 +14,10 @@
 
   "sortByType": "Type",
   "sortByPrice": "Price",
-  "sortByCon": "Con",
-  "sortByPer": "Per",
-  "sortByStr": "Str",
-  "sortByInt": "Int",
+  "sortByCon": "CON",
+  "sortByPer": "PER",
+  "sortByStr": "STR",
+  "sortByInt": "INT",
 
   "weapon": "weapon",
   "weaponCapitalized" : "Main-Hand Item",

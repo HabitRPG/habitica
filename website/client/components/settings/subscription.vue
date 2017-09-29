@@ -36,11 +36,11 @@
             strong {{user.purchased.plan.dateTerminated | date}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
-            p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', {purchasedPlanIdInfo}) }}
+            p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
             p(v-if='hasGroupPlan') {{ $t('youHaveGroupPlan') }}
           tr(v-if='user.purchased.plan.extraMonths'): td
             span.glyphicon.glyphicon-credit-card
-            | &nbsp; {{ $t('purchasedPlanExtraMonths', {purchasedPlanExtraMonthsDetails}) }}
+            | &nbsp; {{ $t('purchasedPlanExtraMonths', purchasedPlanExtraMonthsDetails) }}
           tr(v-if='hasConsecutiveSubscription'): td
             span.glyphicon.glyphicon-forward
             | &nbsp; {{ $t('consecutiveSubscription') }}
@@ -163,6 +163,16 @@ export default {
       }]);
     },
     purchasedPlanIdInfo () {
+      if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
+        // @TODO: find which subs are in the common
+        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        return {
+          price: 0,
+          months: 0,
+          plan: '',
+        };
+      }
+
       return {
         price: this.subscriptionBlocks[this.user.purchased.plan.planId].price,
         months: this.subscriptionBlocks[this.user.purchased.plan.planId].months,
@@ -198,7 +208,7 @@ export default {
     },
     purchasedPlanExtraMonthsDetails () {
       return {
-        months: this.user.purchased.plan.extraMonths.toFixed(2),
+        months: parseFloat(this.user.purchased.plan.extraMonths).toFixed(2),
       };
     },
     buyGemsGoldCap () {
@@ -228,6 +238,14 @@ export default {
         amount: this.numberOfMysticHourglasses,
       };
     },
+    canCancelSubscription () {
+      return (
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
+        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
+        !this.hasCanceledSubscription &&
+        !this.hasGroupPlan
+      );
+    },
   },
   methods: {
     async applyCoupon (coupon) {
@@ -242,14 +260,6 @@ export default {
       let subs = subscriptionBlocks;
       subs.basic_6mo.discount = true;
       subs.google_6mo.discount = false;
-    },
-    canCancelSubscription () {
-      return (
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.GOOGLE &&
-        this.user.purchased.plan.paymentMethod !== this.paymentMethods.APPLE &&
-        !this.hasCanceledSubscription &&
-        !this.hasGroupPlan
-      );
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
@@ -288,6 +298,7 @@ export default {
       this.$router.push('/');
     },
     getCancelSubInfo () {
+      // @TODO: String 'cancelSubInfoGroup Plan' not found. ?
       return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
     },
   },

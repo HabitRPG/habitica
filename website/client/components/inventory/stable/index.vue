@@ -451,7 +451,7 @@
 
     .popover {
       position: inherit;
-      width: 100px;
+      width: 180px;
     }
 
     .popover-content {
@@ -971,8 +971,8 @@
 
       mouseMoved ($event) {
         if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
-          this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
+          this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
         } else {
           lastMouseMoveEvent = $event;
         }

@@ -114,8 +114,13 @@
             @click="itemClicked(group.key, context.item)",
           )
             template(slot="popoverContent", scope="context")
-              h4.popover-content-title {{ context.item.text }}
-              .popover-content-text(v-html="context.item.notes")
+              div.questPopover(v-if="group.key === 'quests'")
+                h4.popover-content-title {{ context.item.text }}
+                questInfo(:quest="context.item")
+
+              div(v-else)
+                h4.popover-content-title {{ context.item.text }}
+                .popover-content-text(v-html="context.item.notes")
             template(slot="itemBadge", scope="context")
               countBadge(
                 :show="true",
@@ -191,9 +196,12 @@ import startQuestModal from '../../groups/startQuestModal';
 
 import createAnimal from 'client/libs/createAnimal';
 
+import QuestInfo from '../../shops/quests/questInfo.vue';
+
 import moment from 'moment';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
@@ -228,6 +236,7 @@ export default {
     CountBadge,
     startQuestModal,
     cardsModal,
+    QuestInfo,
   },
   directives: {
     drag: DragDropDirective,
@@ -436,8 +445,9 @@ export default {
 
     mouseMoved ($event) {
       if (this.potionClickMode) {
-        this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
-        this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
+        // dragging potioninfo is 180px wide (90 would be centered)
+        this.$refs.clickPotionInfo.style.left = `${$event.x - 70}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y}px`;
       } else {
         lastMouseMoveEvent = $event;
       }

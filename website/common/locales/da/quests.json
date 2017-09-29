@@ -8,6 +8,8 @@
     "unlockableQuests": "Oplåselige Quests",
     "goldQuests": "Quests til salg for guld",
     "questDetails": "Quest-detaljer",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Invitationer",
     "completed": "Færdig!",
     "rewardsAllParticipants": "Belønninger for alle Questdeltagere",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Ingen aktiv quest at forlade",
     "questLeaderCannotLeaveQuest": "Questlederen kan ikke forlade questen",
     "notPartOfQuest": "Du er ikke en del af denne quest",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Der er ingen aktiv quest at forlade.",
     "onlyLeaderAbortQuest": "Kun gruppe- eller questlederen kan forlade en quest.",
     "questAlreadyRejected": "Du har allerede afvist questinvitationen.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "Du fik denne quest da du sluttede dig til Habitica! Hvis en ven også opretter sig vil de også få en.",
     "questBundles": "Nedsatte Quest Pakker",
-    "buyQuestBundle": "Køb Quest Pakke"
+    "buyQuestBundle": "Køb Quest Pakke",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

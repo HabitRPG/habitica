@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "התחלת יום מותאמת אישית",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "שנו את מועד תחילת היום?",
     "sureChangeCustomDayStart": "האם אתם בטוחים שאתם מעוניינים לשנות את מועד תחילת היום?",
     "customDayStartHasChanged": "מועד תחילת היום המותאם אישית שהגדרתם שונה.",
@@ -105,9 +106,7 @@
     "email": "דוא\"ל",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "משתמש->פרופיל",
-    "loginNameDescription3": "and click the Edit button.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "הודעות",
     "wonChallenge": "זכית באתגר!",
     "newPM": "קיבלת הודעה פרטית חדשה",
@@ -130,7 +129,7 @@
     "remindersToLogin": "תזכורות לחזור להאביטיקה",
     "subscribeUsing": "הרשמו באמצעות",
     "unsubscribedSuccessfully": "הרישום בוטל בהצלחה!",
-    "unsubscribedTextUsers": "ביטלת את הרשמתך מכל המיילים של Habitica. אתה יכול לאפשר רק מיילים שאתה רוצה לקבל מ<a href=\"/#/options/settings/notifications\">ההגדרות</a> (דורש התחברות).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "לא תקבל יותר אף הודעה מהאביטיקה.",
     "unsubscribeAllEmails": "סמן כדי לבטל רישום ממיילים",
     "unsubscribeAllEmailsText": "על-ידי סימון תיבה זה, אני מצהיר שאני מבין שעל-ידי ביטול הרישום מכל המיילים, Habitica לעולם לא יוכל להודיע לי באמצעות דוא\"ל על שינויים חשובים לאתר או לחשבון שלי.",
@@ -185,5 +184,6 @@
     "timezone": "אזור זמן",
     "timezoneUTC": "האביטיקה משתמשת באזור הזמן של המחשב שלכם, שהוא: <strong><%= utc %></strong> ",
     "timezoneInfo": "אם אזור הזמן הזה שגוי, קודם יש לנסות לטעון מחדש את העמוד באמצעות לחיצה על מקש הרענן או הטעינה מחדש של הדפדפן שלך, כדי לוודא שלHabitica יש את המידע העדכני ביותר. אם זה עדיין לא נכון, יש לכוון את אזור הזמן במחשב שלך, ואז לטעון מחדש את העמוד הזה. <br><br> <strong>אם עשית שימוש בHabitica על מחשבים או מכשירים ניידים אחרים, אזור הזמן חייב להיות זהה בכולם.</strong> אם המטלות היומיות שלך אופסו בזמן הלא נכון, יש לחזור על הבדיקה הזו בכל המחשבים האחרים, ובדפדפן שבמכשירים הניידים שלך.",
-    "push": "דחיפה"
+    "push": "דחיפה",
+    "about": "About"
 }

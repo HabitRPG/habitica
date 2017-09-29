@@ -63,6 +63,7 @@ div
         span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
+        span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
         .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
@@ -75,7 +76,8 @@ div
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
           a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'subscription'}") {{ $t('subscription') }}
           a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
           li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
             .dropdown-item.text-center
@@ -103,6 +105,12 @@ div
         padding: .5em !important;
       }
     }
+
+    .dropdown-menu {
+      position: absolute !important;
+      left: -10em;
+      top: -.5em;
+    }
   }
 
   @media only screen and (max-width : 1224px) and (min-width: 1200px) {
@@ -128,6 +136,12 @@ div
 
     .navbar-toggleable-lg .navbar-collapse {
       display: block;
+    }
+  }
+
+  @media only screen and (max-width: 1280px) {
+    .nav-link {
+      padding: .8em 1em !important;
     }
   }
 
@@ -294,6 +308,13 @@ div
     text-align: center;
     font-weight: bold;
     font-size: 12px;
+  }
+
+  .message-count.top-count {
+    position: absolute;
+    right: 0;
+    top: .5em;
+    padding: .2em;
   }
 </style>
 

@@ -6,7 +6,7 @@
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
-        :class="{active: activeFilter.label === filter.label}",
+        :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
@@ -226,9 +226,14 @@ export default {
       reward: rewardIcon,
     });
 
+    let activeFilters = {};
+    for (let type in types) {
+      activeFilters[type] = types[type].filters.find(f => f.default === true);
+    }
+
     return {
       types,
-      activeFilter: types[this.type].filters.find(f => f.default === true),
+      activeFilters,
       icons,
       openedCompletedTodos: false,
 
@@ -252,7 +257,7 @@ export default {
       return inAppRewards(this.user);
     },
     hasRewardsList () {
-      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
+      return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
     },
     initialColumnDescription () {
       // Show the column description in the middle only if there are no elements (tasks or in app items)
@@ -262,6 +267,12 @@ export default {
 
       return this.tasks[`${this.type}s`].length === 0;
     },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
+      return this.user.preferences.dailyDueDefaultView;
+    },
   },
   watch: {
     taskList: {
@@ -269,6 +280,11 @@ export default {
         this.setColumnBackgroundVisibility();
       }, 250),
       deep: true,
+    },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
     },
   },
   mounted () {
@@ -301,7 +317,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
-      this.activeFilter = filter;
+      this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
@@ -330,7 +346,7 @@ export default {
     },
     filterTask (task) {
       // View
-      if (!this.activeFilter.filter(task)) return false;
+      if (!this.activeFilters[task.type].filter(task)) return false;
 
       // Tags
       const selectedTags = this.selectedTags;

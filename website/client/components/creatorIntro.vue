@@ -228,8 +228,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       .row.text-center.set-title
         strong {{backgroundShopSets[0].text}}
       .row.incentive-background-row
+        .col-12(v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
         .col-2(v-for='bg in backgroundShopSets[0].items',
-          @click='buy("background." + bg.key)',
+          @click='unlock("background." + bg.key)',
           :popover-title='bg.text',
           :popover='bg.notes',
           popover-trigger='mouseenter')
@@ -248,7 +249,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .row(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
-          .col-12(v-if='showPlainBackgroundBlurb(set.identifier, set.items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
             @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',

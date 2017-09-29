@@ -1,7 +1,8 @@
 <template lang="pug">
 .row.standard-page
   small.muted(v-html="$t('blurbHallContributors')")
-  .well(v-if='user.contributor.admin')
+  .well
+    div(v-if='user.contributor.admin')
       h2 {{ $t('rewardUser') }}
 
       .row
@@ -69,29 +70,29 @@
             button.form-control.btn.btn-primary(@click='saveHero()')
               | {{ $t('save') }}
 
-      .table-responsive
-        table.table.table-striped
-          thead
-            tr
-              th {{ $t('name') }}
-              th(v-if='user.contributor && user.contributor.admin') {{ $t('UUID') }}
-              th {{ $t('contribLevel') }}
-              th {{ $t('title') }}
-              th {{ $t('contributions') }}
-          tbody
-            tr(v-for='(hero, index) in heroes')
-              td
-                span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
-                  a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero, true)')
-                    | {{hero.profile.name}}&nbsp;
-                    //- span(v-class='userAdminGlyphiconStyle(hero)')
-                span(v-if='!hero.contributor || !hero.contributor.admin')
-                  a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero, true)') {{hero.profile.name}}
-              td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
-              td {{hero.contributor.level}}
-              td {{hero.contributor.text}}
-              td
-                div(v-markdown='hero.contributor.contributions', target='_blank')
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th {{ $t('name') }}
+            th(v-if='user.contributor && user.contributor.admin') {{ $t('UUID') }}
+            th {{ $t('contribLevel') }}
+            th {{ $t('title') }}
+            th {{ $t('contributions') }}
+        tbody
+          tr(v-for='(hero, index) in heroes')
+            td
+              span(v-if='hero.contributor && hero.contributor.admin', :popover="$t('gamemaster')", popover-trigger='mouseenter', popover-placement='right')
+                a.label.label-default(:class='userLevelStyle(hero)', @click='clickMember(hero, true)')
+                  | {{hero.profile.name}}&nbsp;
+                  //- span(v-class='userAdminGlyphiconStyle(hero)')
+              span(v-if='!hero.contributor || !hero.contributor.admin')
+                a.label.label-default(v-if='hero.profile', v-class='userLevelStyle(hero)', @click='clickMember(hero, true)') {{hero.profile.name}}
+            td(v-if='user.contributor.admin', @click='populateContributorInput(hero._id, index)').btn-link {{hero._id}}
+            td {{hero.contributor.level}}
+            td {{hero.contributor.text}}
+            td
+              div(v-markdown='hero.contributor.contributions', target='_blank')
 </template>
 
 <script>
@@ -185,8 +186,9 @@ export default {
       window.scrollTo(0, 200);
       this.loadHero(id, index);
     },
-    clickMember (hero) {
-      this.$store.state.profileUser = hero;
+    async clickMember (hero) {
+      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: hero._id });
+      this.$store.state.profileUser = heroDetails.data.data;
       this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },

@@ -130,6 +130,7 @@
 </style>
 
 <script>
+import clone from 'lodash/clone';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -139,7 +140,7 @@ import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHAL
 import { mapState } from 'client/libs/store';
 
 export default {
-  props: ['challenge', 'groupId', 'cloning'],
+  props: ['groupId', 'cloning'],
   components: {
     bModal,
     bDropdown,
@@ -186,19 +187,19 @@ export default {
       },
       {
         label: 'mental_health',
-        key: 'mental_health ',
+        key: 'mental_health',
       },
       {
         label: 'getting_organized',
-        key: 'getting_organized ',
+        key: 'getting_organized',
       },
       {
         label: 'self_improvement',
-        key: 'self_improvement ',
+        key: 'self_improvement',
       },
       {
         label: 'spirituality',
-        key: 'spirituality ',
+        key: 'spirituality',
       },
       {
         label: 'time_management',
@@ -250,7 +251,6 @@ export default {
       _id: TAVERN_ID,
     });
 
-    this.resetWorkingChallenge();
     this.setUpWorkingChallenge();
   },
   watch: {
@@ -300,16 +300,8 @@ export default {
       return userBalance + groupBalance;
     },
     minPrize () {
-      let groupFound;
-      this.groups.forEach(group => {
-        if (group._id === this.workingChallenge.group) {
-          groupFound = group;
-          return;
-        }
-      });
-
-      if (groupFound && groupFound.privacy === 'private') return 0;
-      return 1;
+      if (this.workingChallenge.group === TAVERN_ID) return 1;
+      return 0;
     },
     insufficientGemsForTavernChallenge () {
       let balance = this.user.balance || 0;
@@ -321,9 +313,14 @@ export default {
         return false;
       }
     },
+    challenge () {
+      return this.$store.state.challengeOptions.workingChallenge;
+    },
   },
   methods: {
     setUpWorkingChallenge () {
+      this.resetWorkingChallenge();
+
       if (!this.challenge) return;
 
       this.workingChallenge = Object.assign({}, this.workingChallenge, this.challenge);
@@ -357,6 +354,8 @@ export default {
         shortName: '',
         todos: [],
       };
+
+      this.$store.state.workingChallenge = {};
     },
     async createChallenge () {
       // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
@@ -385,9 +384,11 @@ export default {
           name: catName,
         });
       });
-      this.workingChallenge.categories = serverCategories;
 
-      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: this.workingChallenge});
+      let challengeDetails = clone(this.workingChallenge);
+      challengeDetails.categories = serverCategories;
+
+      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
       // @TODO: When to remove from guild instead?
       this.user.balance -= this.workingChallenge.prize / 4;
 
@@ -403,18 +404,21 @@ export default {
       let categoryKeys = this.workingChallenge.categories;
       let serverCategories = [];
       categoryKeys.forEach(key => {
-        let catName = this.categoriesHashByKey[key];
+        let newKey = key.trim();
+        let catName = this.categoriesHashByKey[newKey];
         serverCategories.push({
-          slug: key,
+          slug: newKey,
           name: catName,
         });
       });
-      this.workingChallenge.categories = serverCategories;
+
+      let challengeDetails = clone(this.workingChallenge);
+      challengeDetails.categories = serverCategories;
 
       this.$emit('updatedChallenge', {
-        challenge: this.workingChallenge,
+        challenge: challengeDetails,
       });
-      this.$store.dispatch('challenges:updateChallenge', {challenge: this.workingChallenge});
+      this.$store.dispatch('challenges:updateChallenge', {challenge: challengeDetails});
       this.resetWorkingChallenge();
       this.$root.$emit('hide::modal', 'challenge-modal');
     },

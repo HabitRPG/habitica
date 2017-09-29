@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Kamu telah mendapatkan <%= reward %>",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
+  "earnedRewardForDevotion": "Kamu telah mendapatkan <%= reward %> karena telah bersemangat dalam mengembangkan dirimu.",
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Keren! ",
   "totalCount": "<%= count %> total jumlah",

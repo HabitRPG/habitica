@@ -105,22 +105,48 @@ function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) {
 }
 
 /**
+ * removes all pinned gear that the user already owns (like class starter gear which has been pinned before)
+ * @param user
+ */
+function removePinnedItemsByOwnedGear (user) {
+  each(user.items.gear.owned, (bool, key) => {
+    if (bool) {
+      removeItemByPath(user, `gear.flat.${key}`);
+    }
+  });
+}
+
+const PATHS_WITHOUT_ITEM = ['special.gems', 'special.rebirth_orb', 'special.fortify'];
+
+/**
  * @returns {boolean} TRUE added the item / FALSE removed it
  */
 function togglePinnedItem (user, {item, type, path}, req = {}) {
   let arrayToChange;
+  let officialPinnedItems = getOfficialPinnedItems(user);
 
-  if (!path) { // If path isn't passed it means an item was passed
-    path = getItemInfo(user, type, item, req.language).path;
+  if (!path) {
+    // If path isn't passed it means an item was passed
+    path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
+  } else {
+    if (!item) {
+      item = get(content, path);
+    }
+
+    if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
+      // path not exists in our content structure
+
+      throw new BadRequest(i18n.t('wrongItemPath', {path}, req.language));
+    }
+
+    // check if item exists & valid to be pinned
+    getItemInfo(user, type, item, officialPinnedItems, req.language);
   }
 
-  if (!item) item = get(content, path);
 
   if (path === 'armoire' || path === 'potion') {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
-
-  let officialPinnedItems = getOfficialPinnedItems(user);
 
   let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
     return officialPinnedItem.path === path;
@@ -150,6 +176,7 @@ module.exports = {
   addPinnedGear,
   removePinnedGearByClass,
   removePinnedGearAddPossibleNewOnes,
+  removePinnedItemsByOwnedGear,
   togglePinnedItem,
   removeItemByPath,
   isPinned,

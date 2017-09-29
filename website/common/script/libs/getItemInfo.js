@@ -269,6 +269,50 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     }
+    case 'gem': {
+      itemInfo = {
+        key: 'gem',
+        purchaseType: 'gems',
+        class: 'gem',
+        text: i18n.t('subGemName'),
+        notes: i18n.t('subGemPop'),
+        value: 20,
+        currency: 'gold',
+        path: 'special.gems',
+        pinType: 'gem',
+        locked: !user.purchased.plan.customerId,
+      };
+      break;
+    }
+    case 'rebirth_orb': {
+      itemInfo = {
+        key: 'rebirth_orb',
+        purchaseType: 'rebirth_orb',
+        class: 'rebirth_orb',
+        text: i18n.t('rebirthName'),
+        notes: i18n.t('rebirthPop'),
+        value: user.stats.lvl < 100 ? 6 : 0,
+        currency: 'gems',
+        path: 'special.rebirth_orb',
+        pinType: 'rebirth_orb',
+        locked: !user.flags.rebirthEnabled,
+      };
+      break;
+    }
+    case 'fortify': {
+      itemInfo = {
+        key: 'fortify',
+        purchaseType: 'fortify',
+        class: 'inventory_special_fortify',
+        text: i18n.t('fortifyName'),
+        notes: i18n.t('fortifyPop'),
+        value: 4,
+        currency: 'gems',
+        path: 'special.fortify',
+        pinType: 'fortify',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {

@@ -8,6 +8,8 @@
     "unlockableQuests": "הרפתקאות שאינן ניתנות לפתיחה",
     "goldQuests": "הרפתקאות לרכישה בזהב",
     "questDetails": "פרטי הרפתקה",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "הזמנות",
     "completed": "הושלם!",
     "rewardsAllParticipants": "Rewards for all Quest Participants",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "אין הרפתקה לעזוב",
     "questLeaderCannotLeaveQuest": "מנהיג ההרפתקה לא יכול לעזוב אותה",
     "notPartOfQuest": "אינכם חלק מההרפתקה.",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "אין כרגע הרפתקה פעילה כדי לבטל אותה.",
     "onlyLeaderAbortQuest": "רק מנהיג החבורה או ההרפתקה יכולים לבטל הרפתקה.",
     "questAlreadyRejected": "כבר דחיתם את ההזמנה להרפתקה.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "buyQuestBundle": "Buy Quest Bundle",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

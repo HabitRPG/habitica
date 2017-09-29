@@ -7,6 +7,7 @@ import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import buyArmoire from 'common/script/ops/buyArmoire';
+import rerollOp from 'common/script/ops/reroll';
 
 export function buyItem (store, params) {
   const user = store.state.user.data;
@@ -87,6 +88,15 @@ export function genericPurchase (store, params) {
 
       axios.post('/api/v3/user/buy-armoire');
       return;
+    case 'fortify': {
+      let rerollResult = rerollOp(store.state.user.data);
+
+      axios.post('/api/v3/user/reroll');
+
+      return rerollResult;
+    }
+    case 'rebirth_orb':
+      return store.dispatch('user:rebirth');
     case 'potion':
     case 'marketGear':
       return buyItem(store, params);
@@ -99,8 +109,6 @@ export function genericPurchase (store, params) {
     default:
       if (params.pinType === 'quests' && params.currency === 'gold') {
         return buyQuestItem(store, params);
-      } else if (params.key === 'rebirth_orb') {
-        return store.dispatch('user:rebirth');
       } else if (params.currency === 'hourglasses') {
         return purchaseHourglassItem(store, params);
       } else {
