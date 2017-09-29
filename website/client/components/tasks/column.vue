@@ -43,7 +43,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .tasks-column {
-    height: 556px;
+    min-height: 556px;
   }
 
   .task-wrapper + .reward-items {
@@ -60,11 +60,9 @@
     border-radius: 4px;
     background: $gray-600;
     padding: 8px;
-    // not sure why but this is necessary or the last task will overflow the container
-    padding-bottom: 0.1px;
-    position: relative;
-    height: calc(100% - 64px);
-    overflow: auto;
+    position: relative; // needed for the .bottom-gradient to be position: absolute
+    height: calc(100% - 56px);
+    padding-bottom: 30px;
   }
 
   .bottom-gradient {

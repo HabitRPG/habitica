@@ -72,7 +72,7 @@
               span.text {{$t(type)}}
 
     .row.tasks-columns
-      task-column.col-3(
+      task-column.col-lg-3.col-md-6(
         v-for="column in columns",
         :type="column", :key="column",
         :isUser="true", :searchText="searchTextThrottled",
@@ -114,25 +114,25 @@
   }
 
   .dropdown-icon-item {
-      .icon_habit {
-        width: 30px;
-        height: 20px;
-      }
+    .icon_habit {
+      width: 30px;
+      height: 20px;
+    }
 
-      .icon_daily {
-        width: 24px;
-        height: 20px;
-      }
+    .icon_daily {
+      width: 24px;
+      height: 20px;
+    }
 
-      .icon_todo {
-        width: 20px;
-        height: 20px;
-      }
+    .icon_todo {
+      width: 20px;
+      height: 20px;
+    }
 
-      .icon_reward {
-        width: 26px;
-        height: 20px;
-      }
+    .icon_reward {
+      width: 26px;
+      height: 20px;
+    }
   }
 
   .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
