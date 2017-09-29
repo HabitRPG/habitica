@@ -431,6 +431,7 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
@@ -655,7 +656,10 @@ export default {
       };
       document.body.removeChild(div);
     },
-    updateCarretPosition (eventUpdate) {
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
       if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
         this.sendMessage();
         return;
