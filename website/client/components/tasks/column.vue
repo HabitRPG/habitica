@@ -159,6 +159,7 @@
 
 <script>
 import Task from './task';
+import sortBy from 'lodash/sortBy';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
@@ -203,7 +204,7 @@ export default {
         label: 'todos',
         filters: [
           {label: 'remaining', filter: t => !t.completed, default: true}, // active
-          {label: 'scheduled', filter: t => !t.completed && t.date},
+          {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
           {label: 'complete2', filter: t => t.completed},
         ],
       },
@@ -316,6 +317,10 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilters[type] = filter;
+
+      if (filter.sort) {
+        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
+      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
