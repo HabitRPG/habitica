@@ -36,13 +36,15 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
-            span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+              // @TODO make copyAsTodo work in the inbox
+            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
-            span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
+              // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+            span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
             span.action.float-right.liked(v-if='likeCount(msg) > 0')
@@ -70,12 +72,15 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='user.flags.communityGuidelinesAccepted', @click='report(msg)')
+            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
+              // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
