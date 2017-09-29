@@ -84,7 +84,7 @@
               | + {{ likeCount(msg) }}
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid]',
+          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
           :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
@@ -239,6 +239,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -273,13 +274,14 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mounted () {
+    this.loadProfileCache();
+  },
   created () {
-    window.addEventListener('scroll', throttle(() => {
-      this.loadProfileCache(window.scrollY / 1000);
-    }, 1000));
+    window.addEventListener('scroll', this.handleScroll);
   },
   destroyed () {
-    // window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   },
   data () {
     return {
@@ -332,6 +334,9 @@ export default {
     },
   },
   methods: {
+    handleScroll () {
+      this.loadProfileCache(window.scrollY / 1000);
+    },
     isUserMentioned (message) {
       let user = this.user;
 
@@ -358,10 +363,10 @@ export default {
       if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
     },
-    async loadProfileCache (screenPosition) {
-      if (this.loading) return;
-      this.loading = true;
-
+    loadProfileCache: debounce(function loadProfileCache (newSearch) {
+      this._loadProfileCache();
+    }, 1000),
+    async _loadProfileCache (screenPosition) {
       let promises = [];
 
       // @TODO: write an explination
@@ -374,7 +379,7 @@ export default {
       let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (uuid && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
+        if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           aboutToCache[uuid] = {};
           promises.push(axios.get(`/api/v3/members/${uuid}`));
@@ -395,11 +400,10 @@ export default {
 
       // Merge in any attempts that were rejected so we don't attempt again
       for (let uuid in aboutToCache) {
-        if (this.cachedProfileData[uuid]) return;
-        this.cachedProfileData[uuid] = {rejected: true};
+        if (!this.cachedProfileData[uuid]) {
+          this.$set(this.cachedProfileData, uuid, {rejected: true});
+        };
       }
-
-      this.loading = false;
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
