@@ -485,14 +485,14 @@ export default {
         return;
       }
 
-      const res = await axios.post('/api/v3/user/reset-password', {
+      const res = await axios.post('/api/v3/user/auth/reset-password-set-new-one', {
         newPassword: this.password,
         confirmPassword: this.passwordConfirm,
         code: this.resetPasswordSetNewOneData.code,
       });
 
-      if (res.message) {
-        alert(res.message);
+      if (res.data.message) {
+        alert(res.data.message);
       }
 
       this.password = '';
