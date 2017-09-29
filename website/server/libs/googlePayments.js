@@ -35,7 +35,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, signatu
   let isValidated = iap.isValidated(googleRes);
   if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  let receiptObj = JSON.parse(testObj.data); // passed as a string
+  let receiptObj = typeof testObj.data === 'string' ? JSON.parse(testObj.data) : testObj.data; // passed as a string
   let token = receiptObj.token || receiptObj.purchaseToken;
 
   let existingReceipt = await IapPurchaseReceipt.findOne({
@@ -106,7 +106,7 @@ api.subscribe = async function subscribe (sku, user, receipt, signature, headers
     signature,
   };
 
-  let receiptObj = JSON.parse(receipt); // passed as a string
+  let receiptObj = typeof receipt === 'string' ? JSON.parse(receipt) : receipt; // passed as a string
   let token = receiptObj.token || receiptObj.purchaseToken;
 
   let existingUser = await User.findOne({

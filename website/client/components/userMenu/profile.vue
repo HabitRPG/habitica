@@ -5,7 +5,7 @@ div
       .profile-actions
         button.btn.btn-secondary(@click='sendMessage()')
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(v-if='userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
           @click="blockUser()", tooltip-placement='right')
           span.glyphicon.glyphicon-plus
           | {{$t('block')}}

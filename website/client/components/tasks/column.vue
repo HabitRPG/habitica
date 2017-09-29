@@ -43,7 +43,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .tasks-column {
-    height: 556px;
+    min-height: 556px;
   }
 
   .task-wrapper + .reward-items {
@@ -60,11 +60,9 @@
     border-radius: 4px;
     background: $gray-600;
     padding: 8px;
-    // not sure why but this is necessary or the last task will overflow the container
-    padding-bottom: 0.1px;
-    position: relative;
-    height: calc(100% - 64px);
-    overflow: auto;
+    position: relative; // needed for the .bottom-gradient to be position: absolute
+    height: calc(100% - 56px);
+    padding-bottom: 30px;
   }
 
   .bottom-gradient {
@@ -161,6 +159,7 @@
 
 <script>
 import Task from './task';
+import sortBy from 'lodash/sortBy';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
@@ -205,7 +204,7 @@ export default {
         label: 'todos',
         filters: [
           {label: 'remaining', filter: t => !t.completed, default: true}, // active
-          {label: 'scheduled', filter: t => !t.completed && t.date},
+          {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
           {label: 'complete2', filter: t => t.completed},
         ],
       },
@@ -318,6 +317,10 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilters[type] = filter;
+
+      if (filter.sort) {
+        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
+      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {

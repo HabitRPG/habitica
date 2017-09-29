@@ -5,14 +5,14 @@
       copy-as-todo-modal(:copying-message='copyingMessage', :group-name='groupName', :group-id='groupId')
       report-flag-modal
 
-  div(v-for="(msg, index) in chat", v-if='chat && canViewFlag(msg)')
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
     .row(v-if='user._id !== msg.uuid')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid]',
+          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
           :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
@@ -36,13 +36,15 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
-            span.action(v-if='user.contributor.admin || (msg.uuid !== user._id && user.flags.communityGuidelinesAccepted)', @click='report(msg)')
+              // @TODO make copyAsTodo work in the inbox
+            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
-            span.action(v-if='msg.uuid === user._id || inbox', @click='remove(msg, index)')
+              // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
+            span.action(v-if='msg.uuid === user._id || inbox || user.contributor.admin', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
             span.action.float-right.liked(v-if='likeCount(msg) > 0')
@@ -70,12 +72,15 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            span.action( @click='copyAsTodo(msg)')
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='user.flags.communityGuidelinesAccepted', @click='report(msg)')
+            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
+              // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
             span.action(v-if='msg.uuid === user._id', @click='remove(msg, index)')
               .svg-icon(v-html="icons.delete")
               | {{$t('delete')}}
@@ -84,7 +89,7 @@
               | + {{ likeCount(msg) }}
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid]',
+          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
           :member="cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
@@ -238,7 +243,7 @@ import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -277,12 +282,10 @@ export default {
     this.loadProfileCache();
   },
   created () {
-    window.addEventListener('scroll', throttle(() => {
-      this.loadProfileCache(window.scrollY / 1000);
-    }, 1000));
+    window.addEventListener('scroll', this.handleScroll);
   },
   destroyed () {
-    // window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   },
   data () {
     return {
@@ -308,6 +311,7 @@ export default {
       cachedProfileData: {},
       currentProfileLoadedCount: 0,
       currentProfileLoadedEnd: 10,
+      loading: false,
     };
   },
   filters: {
@@ -321,17 +325,22 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    // @TODO: We need a different lazy load mechnism.
+    // But honestly, adding a paging route to chat would solve this
     messages () {
       return this.chat;
     },
   },
   watch: {
-    messages () {
-      // @TODO: MAybe we should watch insert and remove?
+    messages (oldValue, newValue) {
+      if (newValue.length === oldValue.length) return;
       this.loadProfileCache();
     },
   },
   methods: {
+    handleScroll () {
+      this.loadProfileCache(window.scrollY / 1000);
+    },
     isUserMentioned (message) {
       let user = this.user;
 
@@ -358,7 +367,10 @@ export default {
       if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
     },
-    async loadProfileCache (screenPosition) {
+    loadProfileCache: debounce(function loadProfileCache (screenPosition) {
+      this._loadProfileCache(screenPosition);
+    }, 1000),
+    async _loadProfileCache (screenPosition) {
       let promises = [];
 
       // @TODO: write an explination
@@ -368,11 +380,10 @@ export default {
         return;
       }
 
-      // @TODO: Not sure we need this hash
       let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
-        if (uuid && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
+        if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           aboutToCache[uuid] = {};
           promises.push(axios.get(`/api/v3/members/${uuid}`));
@@ -382,9 +393,21 @@ export default {
 
       let results = await Promise.all(promises);
       results.forEach(result => {
+        // We could not load the user. Maybe they were deleted. So, let's cache empty so we don't try again
+        if (!result || !result.data || result.status >= 400) {
+          return;
+        }
+
         let userData = result.data.data;
         this.$set(this.cachedProfileData, userData._id, userData);
       });
+
+      // Merge in any attempts that were rejected so we don't attempt again
+      for (let uuid in aboutToCache) {
+        if (!this.cachedProfileData[uuid]) {
+          this.$set(this.cachedProfileData, uuid, {rejected: true});
+        }
+      }
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
