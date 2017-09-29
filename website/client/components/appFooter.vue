@@ -36,7 +36,7 @@
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
-            router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
+            router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
             a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
           li
