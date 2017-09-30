@@ -52,7 +52,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-      .item-with-icon(v-if="userHourglasses != 0")
+      .item-with-icon(v-if="userHourglasses > 0")
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon

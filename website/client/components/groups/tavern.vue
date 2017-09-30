@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .clearfix.col-8.standard-page
+  .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
@@ -29,7 +29,7 @@
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-md-4.sidebar
+  .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
         .daniel_front

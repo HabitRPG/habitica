@@ -72,7 +72,7 @@
         v-on:taskEdited='taskEdited',
       )
   .row
-    task-column.col-3(
+    task-column.col-12.col-sm-6.col-3(
       v-for="column in columns",
       :type="column",
       :key="column",

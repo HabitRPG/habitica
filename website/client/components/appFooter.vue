@@ -4,12 +4,12 @@
   modify-inventory(v-if="isUserLoaded")
   footer.container-fluid
     .row
-      .col-2
+      .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
         h3
           a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
-      .col-2
+      .col-12.col-md-2
         h3 Company
         ul
           li
@@ -28,7 +28,7 @@
             a(href='/static/press-kit') {{ $t('presskit') }}
           li
             a(href='/static/contact') {{ $t('contactUs') }}
-      .col-2
+      .col-12.col-md-2
         h3 Community
         ul
           li
@@ -47,7 +47,7 @@
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
             a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
-      .col-6
+      .col-12.col-md-6
         .row
           .col-6
             h3 Developers

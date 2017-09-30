@@ -4,7 +4,7 @@
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
-  .col-8.standard-page
+  .col-12.col-sm-8.standard-page
     .row
       .col-6.title-details
         h1 {{group.name}}
@@ -46,7 +46,7 @@
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-4.sidebar
+  .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-6
       .col-6
