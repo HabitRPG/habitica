@@ -11,9 +11,9 @@
       .col-4.offset-4
         .input-group
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          .filter-panel(v-if="isFilterPanelOpen")
+          .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
             .tags-category.d-flex(
-              v-for="tagsType in tagsByType", 
+              v-for="tagsType in tagsByType",
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
               :key="tagsType.key"
             )
@@ -50,7 +50,6 @@
                 .float-left
                   a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
                 .float-right
-                  a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
                   a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
           span.input-group-btn
             button.btn.btn-secondary.filter-button(
@@ -368,6 +367,9 @@ export default {
   },
   methods: {
     ...mapActions({setUser: 'user:set'}),
+    checkMouseOver: throttle(function throttleSearch () {
+      this.closeFilterPanel();
+    }, 250),
     editTags () {
       // clone the arrays being edited so that we can revert if needed
       this.tagsSnap = this.tagsByType.user.tags.slice();
@@ -430,7 +432,6 @@ export default {
     applyFilters () {
       const temporarilySelectedTags = this.temporarilySelectedTags;
       this.selectedTags = temporarilySelectedTags.slice();
-      this.closeFilterPanel();
     },
     toggleTag (tag) {
       const temporarilySelectedTags = this.temporarilySelectedTags;
@@ -440,6 +441,8 @@ export default {
       } else {
         temporarilySelectedTags.splice(tagI, 1);
       }
+
+      this.applyFilters();
     },
     isTagSelected (tag) {
       const tagId = tag.id;
