@@ -1,7 +1,7 @@
 <template lang="pug">
   b-modal#quest-details(title="Empty", size='md', :hide-footer="true", :hide-header="true")
     .left-panel.content
-      h3.text-center {{ $t('participants') }}
+      h3.text-center {{ $t('participantsTitle') }}
       .row
         .col-10.offset-1.text-center
           span.description(v-once) {{ $t('participantDesc') }}
