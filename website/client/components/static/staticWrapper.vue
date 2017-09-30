@@ -1,14 +1,14 @@
 <template lang='pug'>
   div
-    static-header(:class='{"home-header": $route.name === "home"}')
+    static-header(v-if='$route.name !== "news"', :class='{"home-header": $route.name === "home"}')
 
     .static-wrapper
       router-view
 
-    #purple-footer
+    #purple-footer(v-if='$route.name !== "news"')
       app-footer
 
-    #bottom-wrap.purple-4
+    #bottom-wrap.purple-4(v-if='$route.name !== "news"')
       #bottom-background
         .seamless_mountains_demo_repeat
         .midground_foreground_extended2
