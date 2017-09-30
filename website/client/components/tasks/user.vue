@@ -19,17 +19,17 @@
             )
               .tags-header
                 strong(v-once) {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
+                a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
               .tags-list.container
                 .row(:class="{'no-gutters': !editingTags}")
-                  template(v-if="editingTags && tagsType.key === 'tags'")
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap")
+                  template(v-if="editingTags && tagsType.key !== 'groups'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
                       .inline-edit-input-group.tag-edit-item.input-group
                         input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        span.input-group-btn(@click="removeTag(tagIndex)")
+                        span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
-                    .col-6
-                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
+                    .col-6(v-if="tagsType.key === 'tags'")
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
                   template(v-else)
                     .col-6(v-for="(tag, tagIndex) in tagsType.tags")
                       label.custom-control.custom-checkbox
@@ -321,7 +321,10 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
-      tagsSnap: null, // tags snapshot when being edited
+      tagsSnap: {
+        tags: [],
+        challenges: [],
+      }, // tags snapshot when being edited
       editingTags: false,
       newTag: null,
       editingTask: null,
@@ -372,24 +375,32 @@ export default {
     }, 250),
     editTags () {
       // clone the arrays being edited so that we can revert if needed
-      this.tagsSnap = this.tagsByType.user.tags.slice();
+      this.tagsSnap.tags = this.tagsByType.user.tags.slice();
+      this.tagsSnap.challenges = this.tagsByType.challenges.tags.slice();
       this.editingTags = true;
     },
-    addTag () {
-      this.tagsSnap.push({id: uuid.v4(), name: this.newTag});
+    addTag (eventObj, key) {
+      this.tagsSnap[key].push({id: uuid.v4(), name: this.newTag});
       this.newTag = null;
     },
-    removeTag (index) {
-      this.tagsSnap.splice(index, 1);
+    removeTag (index, key) {
+      this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
       if (this.newTag) this.addTag();
-      this.setUser({tags: this.tagsSnap});
+
+      this.tagsByType.user.tags = this.tagsSnap.tags;
+      this.tagsByType.challenges.tags = this.tagsSnap.challenges;
+
+      this.setUser({tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges)});
       this.cancelTagsEditing();
     },
     cancelTagsEditing () {
       this.editingTags = false;
-      this.tagsSnap = null;
+      this.tagsSnap = {
+        tags: [],
+        challenges: [],
+      };
       this.newTag = null;
     },
     editTask (task) {

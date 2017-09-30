@@ -26,7 +26,7 @@ export async function set (store, changes) {
     if (key === 'tags') {
       // Keep challenge and group tags
       const oldTags = user.tags.filter(t => {
-        return t.group || t.challenge;
+        return t.group;
       });
 
       user.tags = changes[key].concat(oldTags);

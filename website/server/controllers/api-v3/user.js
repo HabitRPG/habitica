@@ -305,7 +305,7 @@ api.updateUser = {
 
         // Keep challenge and group tags
         user.tags.forEach(t => {
-          if (t.group || t.challenge) {
+          if (t.group) {
             oldTags.push(t);
           } else {
             removedTagsIds.push(t.id);
@@ -320,7 +320,7 @@ api.updateUser = {
             removedTagsIds.splice(oldI, 1);
           }
 
-          user.tags.push(Tag.sanitize(t));
+          user.tags.push(t);
         });
 
         // Remove from all the tasks
