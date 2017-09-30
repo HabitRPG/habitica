@@ -51,7 +51,7 @@
           )
 
     .row
-      task-column.col-6(
+      task-column.col-12.col-sm-6(
         v-for="column in columns",
         :type="column",
         :key="column",

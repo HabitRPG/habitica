@@ -23,7 +23,7 @@
         p(v-once) {{$t('challengeDescription2')}}
 
     .row
-      .col-6(v-for='challenge in filteredChallenges')
+      .col-12.col-md-6(v-for='challenge in filteredChallenges')
         challenge-item(:challenge='challenge')
 </template>
 
