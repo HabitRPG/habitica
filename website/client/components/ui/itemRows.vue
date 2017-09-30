@@ -6,15 +6,17 @@
           name="item",
           :item="item"
         )
-    //- div(v-if="items.length === 0")
-    //-   p(v-once) {{ noItemsLabel }}
-    //-
-    //- .btn.btn-flat.btn-show-more(
-    //-   @click="toggleItemsToShow()",
-    //-   v-if="items.length > itemsPerRow"
-    //- ) {{ showAll ? $t('showLess') : $t('showMore') }}
-    //-
-    //- div.fill-height(v-else)
+
+    div(v-if="items.length === 0")
+      p(v-once) {{ noItemsLabel }}
+
+    .btn.btn-flat.btn-show-more(
+      @click="toggleItemsToShow()",
+      v-if="items.length > itemsPerRow"
+    ) {{ showAll ? $t('showLess') : $t('showMore') }}
+
+    div.fill-height(v-else)
+
 </template>
 
 <style lang="scss" scoped>

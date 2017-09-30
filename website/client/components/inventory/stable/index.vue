@@ -1,7 +1,7 @@
 <template lang="pug">
   // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar.col-2
+    .standard-sidebar.col-3.hidden-xs-down
       div
         #npmMattStable.npc_matt
         b-popover(
@@ -54,7 +54,7 @@
             @change="updateHideMissing"
           )
 
-    .standard-page.col-10
+    .standard-page.col-12.col-sm-9
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
 
@@ -74,13 +74,15 @@
         span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
 
       div(
-        v-for="petGroup in petGroups",
+        v-for="(petGroup, index) in petGroups",
         v-if="viewOptions[petGroup.key].selected",
         :key="petGroup.key"
       )
-        h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
+        h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
-        .pet-row.d-flex(v-for="(group, key) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)")
+        .pet-row.d-flex(
+          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
+          v-if='index === 0 || showMore === petGroup.key')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -113,6 +115,9 @@
               template(slot="itemBadge", scope="context")
               starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
+        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
+          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
+
       h2
         | {{ $t('mounts') }}
         |
@@ -125,7 +130,8 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        .pet-row.d-flex(v-for="(group, key) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)")
+        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+          v-if='index === 0 || showMore === mountGroup.key')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -144,6 +150,9 @@
                   :show="item.isOwned()",
                   @click="selectMount(item)",
                 )
+
+        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
+          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :title="$t('quickInventory')",
@@ -265,12 +274,17 @@
     top: -16px !important;
   }
 
+  .group {
+    height: 130px;
+    overflow: hidden;
+  }
+
   .pet-row {
-    max-width: 90%;
+    max-width: 100%;
     flex-wrap: wrap;
 
     .item {
-      margin-right: 1em;
+      margin-right: .5em;
     }
   }
 
@@ -577,6 +591,7 @@
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
+        showMore: '',
       };
     },
     watch: {
@@ -704,7 +719,13 @@
       },
     },
     methods: {
-
+      setShowMore (key) {
+        if (this.showMore === key) {
+          this.showMore = '';
+          return;
+        }
+        this.showMore = key;
+      },
       getAnimalList (animalGroup, type) {
         let key = animalGroup.key;
 
