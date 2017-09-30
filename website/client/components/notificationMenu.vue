@@ -157,6 +157,7 @@ export default {
       // return this.user.party;
     },
     userNewMessages () {
+      // @TODO: For some reason data becomes corrupted. We should fix this on the server
       let userNewMessages = [];
       for (let key in this.user.newMessages) {
         let message = this.user.newMessages[key];
