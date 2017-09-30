@@ -248,6 +248,22 @@
           div.popover-content {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
 </template>
 
+<style lang='scss' scoped>
+  .group {
+    height: 130px;
+    overflow: hidden;
+  }
+
+  .pet-row {
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    .item {
+      margin-right: .5em;
+    }
+  }
+</style>
+
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
@@ -272,20 +288,6 @@
 
   .stable .item .item-content.Pet-Dragon-Hydra {
     top: -16px !important;
-  }
-
-  .group {
-    height: 130px;
-    overflow: hidden;
-  }
-
-  .pet-row {
-    max-width: 100%;
-    flex-wrap: wrap;
-
-    .item {
-      margin-right: .5em;
-    }
   }
 
   .hatchablePopover {
