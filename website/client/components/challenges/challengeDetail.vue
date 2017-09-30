@@ -68,7 +68,7 @@
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
@@ -246,6 +246,9 @@ export default {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
     canJoin () {
       return !this.isMember;
     },
@@ -403,6 +406,7 @@ export default {
     cloneChallenge () {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('show::modal', 'challenge-modal');
     },
   },
