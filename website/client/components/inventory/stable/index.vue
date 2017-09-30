@@ -868,7 +868,7 @@
 
         // Don't group special
         if (animalGroup.key === 'specialMounts') {
-          return {'none': mounts};
+          return {none: mounts};
         }
 
         let groupKey = 'eggKey';
