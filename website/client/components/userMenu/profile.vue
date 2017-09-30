@@ -795,7 +795,7 @@ export default {
       return display;
     },
     allocate (stat) {
-      allocate(this.user, stat);
+      allocate(this.user, {query: { stat }});
       axios.post(`/api/v3/user/allocate?stat=${stat}`);
     },
     allocateNow () {

@@ -3,6 +3,7 @@
   group-form-modal(v-if='isParty')
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
+  quest-details-modal(:group='this.group')
   .col-12.col-sm-8.standard-page
     .row
       .col-6.title-details
@@ -80,9 +81,13 @@
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
-          h2 Pending quest
-          button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
-          button.btn.btn-secondary(v-once, @click="questCancel()") {{ $t('cancel') }}
+          .col-2
+            .quest(:class='`inventory_quest_scroll_${questData.key}`')
+          .col-6.titles
+            strong {{ questData.text() }}
+            p {{acceptedCount}} / {{group.memberCount}}
+          .col-4
+            button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
@@ -353,6 +358,10 @@
   }
 
   .quest-active-section {
+    .titles {
+        padding-top: .5em;
+    }
+
     .quest-box {
       background-image: url('~client/assets/svg/for-css/quest-border.svg');
       background-size: 100% 100%;
@@ -431,6 +440,8 @@
 </style>
 
 <script>
+// @TODO: Break this down into components
+
 import debounce from 'lodash/debounce';
 import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
@@ -439,6 +450,7 @@ import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
+import questDetailsModal from './questDetailsModal';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
@@ -482,6 +494,7 @@ export default {
     inviteModal,
     groupChallenges,
     autocomplete,
+    questDetailsModal,
   },
   directives: {
     bToggle,
@@ -523,6 +536,17 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    acceptedCount () {
+      let count = 0;
+
+      if (!this.group || !this.group.quest) return count;
+
+      for (let uuid in this.group.quest.members) {
+        if (this.group.quest.members[uuid]) count += 1;
+      }
+
+      return count;
+    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
@@ -721,6 +745,9 @@ export default {
     openStartQuestModal () {
       this.$root.$emit('show::modal', 'start-quest-modal');
     },
+    openQuestDetails () {
+      this.$root.$emit('show::modal', 'quest-details');
+    },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
       if (!this.user.achievements.partyUp && this.group.memberCount >= 2) {
@@ -815,11 +842,6 @@ export default {
       this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
-    async questCancel () {
-      if (!confirm(this.$t('sureCancel'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/cancel'});
-      this.group.quest = quest;
-    },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
       if (!confirm(this.$t('doubleSureAbort'))) return;
@@ -833,10 +855,6 @@ export default {
     },
     async questAccept () {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/accept'});
-      this.group.quest = quest;
-    },
-    async questForceStart () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
       this.group.quest = quest;
     },
     // @TODO: Move to notificaitons component?
