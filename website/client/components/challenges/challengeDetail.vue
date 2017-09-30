@@ -406,6 +406,7 @@ export default {
     cloneChallenge () {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('show::modal', 'challenge-modal');
     },
   },
