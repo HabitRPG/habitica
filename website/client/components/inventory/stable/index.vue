@@ -850,7 +850,7 @@
 
         // Don't group special
         if (animalGroup.key === 'specialPets') {
-          return {'none': pets};
+          return {none: pets};
         }
 
         let groupKey = 'eggKey';
