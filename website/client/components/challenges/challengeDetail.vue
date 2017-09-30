@@ -68,7 +68,7 @@
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
@@ -245,6 +245,9 @@ export default {
     isLeader () {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
+    },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
     },
     canJoin () {
       return !this.isMember;
