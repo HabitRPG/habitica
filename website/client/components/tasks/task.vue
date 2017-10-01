@@ -16,7 +16,7 @@
         .task-clickable-area(@click="edit($event, task)")
           h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
           .task-notes.small-text(v-markdown="task.notes")
-        .checklist(v-if="task.checklist && task.checklist.length > 0")
+        .checklist(v-if="canViewchecklist")
           label.custom-control.custom-checkbox.checklist-item(
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
@@ -344,6 +344,11 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
     }),
+    canViewchecklist () {
+      let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
+      let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
+      return hasChecklist && userIsTaskUser;
+    },
     leftControl () {
       const task = this.task;
       if (task.type === 'reward') return false;
