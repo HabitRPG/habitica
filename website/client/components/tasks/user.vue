@@ -412,6 +412,8 @@ export default {
     },
     createTask (type) {
       this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask.tags = this.selectedTags;
+
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
