@@ -1,6 +1,5 @@
 <template lang="pug">
 .task-wrapper
-  broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
   .task(@click='castEnd($event, task)')
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
@@ -311,7 +310,6 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
-import brokenTaskModal from './brokenTaskModal';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 
@@ -321,7 +319,6 @@ export default {
     bPopover,
     approvalFooter,
     approvalHeader,
-    brokenTaskModal,
   },
   directives: {
     markdown: markdownDirective,
@@ -339,7 +336,6 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
       }),
-      brokenChallengeTask: {},
     };
   },
   computed: {
@@ -505,7 +501,7 @@ export default {
       }
     },
     handleBrokenTask (task) {
-      this.brokenChallengeTask = task;
+      this.$store.state.brokenChallengeTask = task;
       this.$root.$emit('show::modal', 'broken-task-modal');
     },
   },

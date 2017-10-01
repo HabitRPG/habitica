@@ -133,6 +133,7 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       userIdToMessage: '',
+      brokenChallengeTask: {},
     },
   });
 
