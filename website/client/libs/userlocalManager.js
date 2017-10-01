@@ -1,10 +1,10 @@
 const CONSTANTS = {
   keyConstants: {
-    SPELL_DRAWER_STATE: 'spell-drqaer-state',
+    SPELL_DRAWER_STATE: 'spell-drawer-state',
   },
   valueConstants: {
-    SPELL_DRAWER_CLOSED: 'spell-drqaer-closed',
-    SPELL_DRAWER_OPEN: 'spell-drqaer-open',
+    SPELL_DRAWER_CLOSED: 'spell-drawer-closed',
+    SPELL_DRAWER_OPEN: 'spell-drawer-open',
   },
 };
 
