@@ -152,6 +152,7 @@ import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
 import mana from 'assets/svg/mana.svg';
 import quests from 'common/script/content/quests';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   mixins: [notifications],
@@ -183,6 +184,11 @@ export default {
       if (keyEvent.keyCode !== 27) return;
       this.castCancel();
     });
+
+    const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
+    if (spellDrawerState === CONSTANTS.valueConstants.SPELL_DRAWER_CLOSED) {
+      this.$store.state.spellOptions.spellDrawOpen = false;
+    }
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -191,8 +197,15 @@ export default {
     },
   },
   methods: {
-    drawerToggled (openChanged) {
-      this.$store.state.spellOptions.spellDrawOpen = openChanged;
+    drawerToggled (newState) {
+      this.$store.state.spellOptions.spellDrawOpen = newState;
+
+      if (newState) {
+        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.SPELL_DRAWER_OPEN);
+        return;
+      }
+
+      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.SPELL_DRAWER_CLOSED);
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
