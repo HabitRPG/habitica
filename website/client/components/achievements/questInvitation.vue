@@ -49,7 +49,6 @@ import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
 import { mapState } from 'client/libs/store';
-import revive from '../../../common/script/ops/revive';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
 
@@ -73,11 +72,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'death');
-    },
-    revive () {
-      // @TODO: Post
-      revive(this.user);
+      this.$root.$emit('hide::modal', 'quest-invitation');
     },
   },
 };

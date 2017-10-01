@@ -1350,7 +1350,15 @@ export default {
         cost = fullSet ? 1.25 : 0.5; // (Hair, skin, etc) 5G per set, 2G per individual
       }
 
-      let loginIncentives = ['background.blue', 'background.green', 'background.red', 'background.purple', 'background.yellow', 'background.violet'];
+      let loginIncentives = [
+        'background.blue',
+        'background.green',
+        'background.red',
+        'background.purple',
+        'background.yellow',
+        'background.violet',
+      ];
+
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
           if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;
