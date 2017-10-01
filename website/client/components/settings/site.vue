@@ -169,14 +169,15 @@
             .form-group
               input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
+          hr
 
+        div
+          h5 {{ $t('dangerZone') }}
           div
-            h5 {{ $t('dangerZone') }}
-            div
-              button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
-              button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+            button.btn.btn-danger(@click='openResetModal()',
+              popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
+            button.btn.btn-danger(@click='openDeleteModal()',
+              popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
 <style scoped>
