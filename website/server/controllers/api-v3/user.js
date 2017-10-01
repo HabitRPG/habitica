@@ -20,7 +20,6 @@ import {
 } from '../../libs/email';
 import nconf from 'nconf';
 import get from 'lodash/get';
-import { model as Tag } from '../../models/tag';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
