@@ -36,7 +36,7 @@
               span.text(v-once, v-html="seasonal.notes")
               span.rectangle
           div.content(v-else-if="seasonal.featured.items.length !== 0")
-            div.featured-label.with-border
+            div.featured-label.with-border(v-if='!featuredGearBought')
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
@@ -349,6 +349,7 @@
         selectedSortItemsBy: 'AZ',
 
         hidePinned: false,
+        featuredGearBought: false,
       };
     },
     computed: {
@@ -363,7 +364,22 @@
       },
 
       seasonal () {
-        return shops.getSeasonalShop(this.user);
+        let seasonal = shops.getSeasonalShop(this.user);
+
+        let itemsNotOwned = seasonal.featured.items.filter(item => {
+          return !this.user.items.gear.owned[item.key];
+        });
+        seasonal.featured.items = itemsNotOwned;
+
+        // If we are out of gear, show the spells
+        // @TODO: Open this up when they are available.
+        // @TODO: add dates to check instead?
+        if (seasonal.featured.items.length === 0) {
+          this.featuredGearBought = true;
+          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+        }
+
+        return seasonal;
       },
       seasonalCategories () {
         return this.seasonal.categories;
