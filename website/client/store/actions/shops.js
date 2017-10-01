@@ -8,6 +8,7 @@ import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import buyArmoire from 'common/script/ops/buyArmoire';
 import rerollOp from 'common/script/ops/reroll';
+import { getDropClass } from 'client/libs/notifications';
 
 export function buyItem (store, params) {
   const user = store.state.user.data;
@@ -78,10 +79,14 @@ export function genericPurchase (store, params) {
 
       // @TODO: We might need to abstract notifications to library rather than mixin
       if (buyResult[1]) {
+        const resData = buyResult[0];
+        const item = resData.armoire;
+
         store.state.notificationStore.push({
           title: '',
           text: buyResult[1],
-          type: 'drop',
+          type: item.type === 'experience' ? 'xp' : 'drop',
+          icon: item.type === 'experience' ? null : getDropClass({type: item.type, key: item.dropKey}),
           timeout: true,
         });
       }

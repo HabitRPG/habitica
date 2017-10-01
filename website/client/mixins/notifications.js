@@ -1,5 +1,6 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
+import { getDropClass } from 'client/libs/notifications';
 
 export default {
   computed: {
@@ -14,32 +15,7 @@ export default {
       this.notify(message, 'crit', 'glyphicon glyphicon-certificate');
     },
     drop (val, item) {
-      let dropClass = '';
-      if (item) {
-        switch (item.type) {
-          case 'Egg':
-            dropClass = `Pet_Egg_${item.key}`;
-            break;
-          case 'HatchingPotion':
-            dropClass = `Pet_HatchingPotion_${item.key}`;
-            break;
-          case 'Food':
-            dropClass = `Pet_Food_${item.key}`;
-            break;
-          case 'armor':
-          case 'back':
-          case 'body':
-          case 'eyewear':
-          case 'head':
-          case 'headAccessory':
-          case 'shield':
-          case 'weapon':
-            dropClass = `shop_${item.key}`;
-            break;
-          default:
-            dropClass = 'glyphicon glyphicon-gift';
-        }
-      }
+      let dropClass = getDropClass({key: item.key, type: item.type});
       this.notify(val, 'drop', dropClass);
     },
     quest (type, val) {
