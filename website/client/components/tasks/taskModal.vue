@@ -110,12 +110,14 @@
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfWeek') }}
 
-        .option(v-if="isUserTask")
+        .tags-select.option(v-if="isUserTask")
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
             span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
             span.category-select(v-else)
-              .category-label(v-for='tagName in getTagsFor(task)') {{tagName}}
+              .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+              .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
+              .dropdown-toggle
           .category-box(v-if="showTagsSelect")
             .container
               .row
@@ -328,6 +330,39 @@
       }
     }
 
+    .tags-select {
+      .category-select {
+        align-items: center;
+        display: flex;
+        padding: .6em;
+        width: 100%;
+
+        .tags-more {
+          color: #a5a1ac;
+          flex: 0 1 auto;
+          font-size: 12px;
+          padding-left: .5em;
+          text-align: left;
+          width: 100%;
+        }
+
+        .dropdown-toggle {
+          position: absolute;
+          right: 1em;
+        }
+
+        .category-label {
+          min-width: 68px;
+          overflow: hidden;
+          padding: .5em 1em;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 68px;
+          word-wrap: break-word;
+        }
+      }
+    }
+
     .checklist-group {
       border-top: 1px solid $gray-500;
     }
@@ -453,6 +488,7 @@ export default {
   props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
   data () {
     return {
+      maxTags: 3,
       showTagsSelect: false,
       showAssignedSelect: false,
       newChecklistItem: null,
@@ -574,6 +610,15 @@ export default {
         }
       },
     },
+    selectedTags () {
+      return this.getTagsFor(this.task);
+    },
+    truncatedSelectedTags () {
+      return this.selectedTags.slice(0, this.maxTags);
+    },
+    remainingSelectedTags () {
+      return this.selectedTags.slice(this.maxTags);
+    }
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
