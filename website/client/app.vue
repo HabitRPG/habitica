@@ -147,11 +147,7 @@ export default {
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
-          localStorage.removeItem('habit-mobile-settings');
-          localStorage.removeItem('hello');
-          this.$store.state.isUserLoggedIn = false;
-          window.location.href = '/static/home';
-          return Promise.reject(error);
+          this.$store.dispatch('auth:logout');
         }
 
         // Don't show errors from getting user details. These users have delete their account,
