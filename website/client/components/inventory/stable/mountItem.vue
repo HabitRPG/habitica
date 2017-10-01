@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  .item-wrapper(:id="itemId")
+  .item-wrapper(@click="click()", :id="itemId")
     .item(
       :class="{'item-empty': emptyItem}",
     )
@@ -47,6 +47,11 @@ div
       return Object.freeze({
         itemId: uuid.v4(),
       });
+    },
+    methods: {
+      click () {
+        this.$emit('click', {});
+      },
     },
   };
 </script>
