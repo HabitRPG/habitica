@@ -80,6 +80,7 @@
   "logoUrl": "Logo URL",
   "assignLeader": "Assign Group Leader",
   "members": "Members",
+  "memberList": "Member List",
   "partyList": "Order for party members in header",
   "banTip": "Boot Member",
   "moreMembers": "more members",
