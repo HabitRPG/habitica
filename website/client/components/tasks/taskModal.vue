@@ -113,8 +113,8 @@
         .option(v-if="isUserTask")
           label(v-once) {{ $t('tags') }}
           .category-wrap(@click="showTagsSelect = !showTagsSelect")
-            span.tag.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.tag.category-select(v-else)
+            span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
+            span.category-select(v-else)
               .category-label(v-for='tagName in getTagsFor(task)') {{tagName}}
           .category-box(v-if="showTagsSelect")
             .container
@@ -314,11 +314,6 @@
     .category-wrap {
       cursor: pointer;
       margin-top: 0px;
-
-      .tag.category-select {
-        display: inline-block;
-        margin: 0 1em 1em 0;
-      }
     }
 
     .category-box {
