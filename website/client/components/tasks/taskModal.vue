@@ -331,10 +331,19 @@
     }
 
     .tags-select {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      label {
+        margin: 0;
+      }
+
       .category-select {
         align-items: center;
         display: flex;
         padding: .6em;
+        padding-right: 2.2em;
         width: 100%;
 
         .tags-more {
