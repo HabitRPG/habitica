@@ -1,6 +1,6 @@
 <template lang="pug">
   .standard-page
-    amazon-payments-modal(:amazon-payments='amazonPayments')
+    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
 
     h1 {{ $t('subscription') }}
     .row

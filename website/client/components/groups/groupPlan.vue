@@ -1,7 +1,7 @@
 <template lang="pug">
 // @TODO: Move to group plans folder
 div
-  amazon-payments-modal(:amazon-payments='amazonPayments')
+  amazon-payments-modal(:amazon-payments-prop='amazonPayments')
   div
     .header
       h1.text-center Need more for your Group?

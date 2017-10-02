@@ -7,7 +7,7 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    amazon-payments-modal(:amazon-payments='amazonPayments')
+    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
     b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
       .container-fluid.purple-gradient
         .gemfall
