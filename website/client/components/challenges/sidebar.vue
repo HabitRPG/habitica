@@ -39,6 +39,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   data () {
@@ -151,13 +152,27 @@ export default {
       });
     }, 250),
   },
+  mounted () {
+    let filters = getLocalSetting(this.$route.name);
+
+    if (!filters) return;
+    filters = JSON.parse(filters);
+
+    this.categoryFilters = filters.categories;
+    this.roleFilters = filters.roles;
+    this.ownershipFilters = filters.ownership;
+  },
   methods: {
     emitFilters () {
-      this.$emit('filter', {
+      let filters = {
         categories: this.categoryFilters,
         roles: this.roleFilters,
         ownership: this.ownershipFilters,
-      });
+      };
+
+      setLocalSetting(this.$route.name, JSON.stringify(filters));
+
+      this.$emit('filter', filters);
     },
   },
 };

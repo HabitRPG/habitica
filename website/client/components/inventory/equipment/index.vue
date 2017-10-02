@@ -1,5 +1,5 @@
 <template lang="pug">
-.row
+.row(v-if='viewOptionsLoaded')
   .standard-sidebar
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -214,6 +214,7 @@ export default {
         armoire: i18n.t('armoireText'),
       }),
       viewOptions: {},
+      viewOptionsLoaded: false,
       gearToEquip: null,
       sortGearBy: sortGearTypes,
       selectedSortGearBy: 'sortByName',
@@ -223,14 +224,41 @@ export default {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText;
     }, 250),
+    viewOptions: {
+      handler (newVal) {
+        if (!newVal) return;
+        if (!this.viewOptionsLoaded) return;
+        setLocalSetting(this.$route.name, JSON.stringify(newVal));
+      },
+      deep: true,
+    },
   },
   mounted () {
     const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
     if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
       this.$store.state.equipmentDrawerOpen = false;
     }
+
+    this.loadFilters();
   },
   methods: {
+    loadFilters () {
+      let filters = getLocalSetting(this.$route.name);
+      if (!filters) {
+        // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
+        this.groups.forEach((label, group) => {
+          this.$set(this.viewOptions, group, {
+            selected: true,
+            open: false,
+            itemsInFirstPosition: [],
+            firstRender: true,
+          });
+        });
+      }
+      filters = JSON.parse(filters);
+      this.viewOptions = Object.assign({}, filters);
+      this.viewOptionsLoaded = true;
+    },
     openEquipDialog (item) {
       this.gearToEquip = item;
     },
@@ -367,13 +395,6 @@ export default {
     },
     itemsGroups () {
       return map(this.groups, (label, group) => {
-        this.$set(this.viewOptions, group, {
-          selected: true,
-          open: false,
-          itemsInFirstPosition: [],
-          firstRender: true,
-        });
-
         return {
           key: group,
           label,

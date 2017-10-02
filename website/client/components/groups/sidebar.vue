@@ -39,6 +39,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   data () {
@@ -149,8 +150,27 @@ export default {
       });
     }, 1000),
   },
+  mounted () {
+    let filters = getLocalSetting(this.$route.name);
+
+    if (!filters) return;
+    filters = JSON.parse(filters);
+
+    // @TODO: We could probably change some variable names and reduce a little bit of code
+    this.categoryFilters = filters.categories;
+    this.roleFilters = filters.roles;
+    this.guildSizeFilters = filters.guildSize;
+  },
   methods: {
     emitFilters () {
+      let filters = {
+        categories: this.categoryFilters,
+        roles: this.roleFilters,
+        guildSize: this.guildSizeFilters,
+      };
+
+      setLocalSetting(this.$route.name, JSON.stringify(filters));
+
       this.$emit('filter', {
         categories: this.categoryFilters,
         roles: this.roleFilters,

@@ -594,6 +594,7 @@
 
         selectedDrawerTab: 0,
         showMore: '',
+        petGroups: [],
       };
     },
     watch: {
@@ -603,6 +604,9 @@
         this.searchTextThrottled = search;
       }, 250),
     },
+    mounted () {
+      this.loadPetGroups();
+    },
     computed: {
       ...mapState({
         content: 'content',
@@ -611,52 +615,6 @@
         userItems: 'user.data.items',
         hideDialog: 'user.data.flags.tutorial.common.mounts',
       }),
-
-      petGroups () {
-        let petGroups = [
-          {
-            label: this.$t('filterByStandard'),
-            key: 'standardPets',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByMagicPotion'),
-            key: 'magicPets',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.premiumHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByQuest'),
-            key: 'questPets',
-            petSource: {
-              eggs: this.content.questEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('special'),
-            key: 'specialPets',
-            petSource: {
-              special: this.content.specialPets,
-            },
-          },
-        ];
-
-        petGroups.map((petGroup) => {
-          this.$set(this.viewOptions, petGroup.key, {
-            selected: true,
-            animalCount: 0,
-          });
-        });
-
-
-        return petGroups;
-      },
       mountGroups () {
         let mountGroups = [
           {
@@ -721,6 +679,50 @@
       },
     },
     methods: {
+      loadPetGroups () {
+        let petGroups = [
+          {
+            label: this.$t('filterByStandard'),
+            key: 'standardPets',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByMagicPotion'),
+            key: 'magicPets',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.premiumHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByQuest'),
+            key: 'questPets',
+            petSource: {
+              eggs: this.content.questEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('special'),
+            key: 'specialPets',
+            petSource: {
+              special: this.content.specialPets,
+            },
+          },
+        ];
+
+        petGroups.map((petGroup) => {
+          this.$set(this.viewOptions, petGroup.key, {
+            selected: true,
+            animalCount: 0,
+          });
+        });
+
+        this.petGroups = petGroups;
+      },
       setShowMore (key) {
         if (this.showMore === key) {
           this.showMore = '';

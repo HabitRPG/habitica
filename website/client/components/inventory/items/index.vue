@@ -179,6 +179,7 @@
 </style>
 
 <script>
+import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
@@ -258,10 +259,20 @@ export default {
       },
     };
   },
+  mounted () {
+    this.loadFilters();
+  },
   watch: {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText;
     }, 250),
+    groups: {
+      handler (newVal) {
+        if (!newVal) return;
+        setLocalSetting(this.$route.name, JSON.stringify(newVal));
+      },
+      deep: true,
+    },
   },
   computed: {
     ...mapState({
@@ -336,6 +347,12 @@ export default {
     },
   },
   methods: {
+    loadFilters () {
+      let filters = getLocalSetting(this.$route.name);
+      if (!filters) return;
+      filters = JSON.parse(filters);
+      this.groups = filters;
+    },
     userHasPet (potionKey, eggKey) {
       let animalKey = `${eggKey}-${potionKey}`;
 
