@@ -228,6 +228,11 @@ export default {
           return;
         }
 
+        if (this.amazonPayments.groupId) {
+          this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
+          return;
+        }
+
         window.location.reload(true);
         this.reset();
       }

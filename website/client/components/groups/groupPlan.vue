@@ -1,4 +1,5 @@
 <template lang="pug">
+// @TODO: Move to group plans folder
 div
   amazon-payments-modal(:amazon-payments='amazonPayments')
   div
@@ -390,21 +391,23 @@ export default {
       this.changePage(this.PAGES.PAY);
     },
     pay (paymentMethod) {
-      this.paymentMethod = paymentMethod;
       let subscriptionKey = 'group_monthly'; // @TODO: Get from content API?
+      let paymentData = {
+        subscription: subscriptionKey,
+        coupon: null,
+      };
+
+      if (this.upgradingGroup && this.upgradingGroup._id) {
+        paymentData.groupId = this.upgradingGroup._id;
+      } else {
+        paymentData.groupToCreate = this.newGroup;
+      }
+
+      this.paymentMethod = paymentMethod;
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe({
-          subscription: subscriptionKey,
-          coupon: null,
-          groupToCreate: this.newGroup,
-        });
+        this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
-        this.amazonPaymentsInit({
-          type: 'subscription',
-          subscription: subscriptionKey,
-          coupon: null,
-          groupToCreate: this.newGroup,
-        });
+        this.amazonPaymentsInit(paymentData);
       }
     },
   },
