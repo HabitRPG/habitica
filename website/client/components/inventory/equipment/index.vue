@@ -38,6 +38,8 @@
     drawer(
       :title="$t('equipment')",
       :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
+      :openStatus='openStatus',
+      v-on:toggled='drawerToggled'
     )
       div(slot="drawer-header")
         .drawer-tab-container
@@ -137,6 +139,8 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+
 import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
@@ -220,6 +224,12 @@ export default {
       this.searchTextThrottled = this.searchText;
     }, 250),
   },
+  mounted () {
+    const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
+    if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+      this.$store.state.equipmentDrawerOpen = false;
+    }
+  },
   methods: {
     openEquipDialog (item) {
       this.gearToEquip = item;
@@ -241,6 +251,16 @@ export default {
     sortItems (items, sortBy) {
       return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
     },
+    drawerToggled (newState) {
+      this.$store.state.equipmentDrawerOpen = newState;
+
+      if (newState) {
+        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        return;
+      }
+
+      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+    },
   },
   computed: {
     ...mapState({
@@ -251,6 +271,9 @@ export default {
       costumeItems: 'user.data.items.gear.costume',
       flatGear: 'content.gear.flat',
     }),
+    openStatus () {
+      return this.$store.state.equipmentDrawerOpen ? 1 : 0;
+    },
     drawerPreference () {
       return this.costume === true ? 'costume' : 'autoEquip';
     },

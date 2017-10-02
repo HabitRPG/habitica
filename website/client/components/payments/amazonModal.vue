@@ -2,8 +2,10 @@
   b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='md')
     h2.text-center Continue with Amazon
     #AmazonPayButton
-    #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
-    #AmazonPayRecurring(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'",
+    | {{amazonPayments}}
+    | {{amazonLoggedIn}}
+    #AmazonPayWallet(v-if="amazonLoggedIn", style="width: 400px; height: 228px;")
+    #AmazonPayRecurring(v-if="amazonLoggedIn && amazonPayments.type === 'subscription'",
                         style="width: 400px; height: 140px;")
     .modal-footer
       .text-center
@@ -34,7 +36,7 @@ export default {
   components: {
     bModal,
   },
-  props: ['amazonPayments'],
+  props: ['amazonPaymentsProp'],
   data () {
     return {
       OffAmazonPayments: {},
@@ -43,11 +45,21 @@ export default {
       amazonPaymentsbillingAgreementId: '',
       amazonPaymentspaymentSelected: false,
       amazonPaymentsrecurringConsent: 'false',
+      amazonLoggedIn: false,
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isAmazonReady']),
+    // @TODO: Eh, idk if we should move data props here or move these props to data. But we shouldn't have both
+    amazonPayments () {
+      let amazonPayments = {
+        type: 'single',
+        loggedIn: this.amazonLoggedIn,
+      };
+      amazonPayments = Object.assign({}, amazonPayments, this.amazonPaymentsProp);
+      return amazonPayments;
+    },
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
         return this.amazonPaymentspaymentSelected === true;
@@ -87,9 +99,10 @@ export default {
 
           onSignIn: async (contract) => {
             this.amazonPaymentsbillingAgreementId = contract.getAmazonBillingAgreementId();
+            this.amazonLoggedIn = true;
+            this.$set(this.amazonPayments, 'loggedIn', true);
 
             if (this.amazonPayments.type === 'subscription') {
-              this.amazonPayments.loggedIn = true;
               this.amazonPaymentsinitWidgets();
             } else {
               let url = '/amazon/createOrderReferenceId';
@@ -97,8 +110,7 @@ export default {
                 billingAgreementId: this.amazonPaymentsbillingAgreementId,
               });
 
-              if (response.status === 200) {
-                this.amazonPayments.loggedIn = true;
+              if (response.status <= 400) {
                 this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
 
                 // @TODO: Clarify the deifference of these functions by renaming
@@ -228,6 +240,11 @@ export default {
           return;
         }
 
+        if (this.amazonPayments.groupId) {
+          this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
+          return;
+        }
+
         window.location.reload(true);
         this.reset();
       }
@@ -285,7 +302,7 @@ export default {
     reset () {
       this.amazonPaymentsmodal = null;
       this.amazonPayments.type = null;
-      this.amazonPayments.loggedIn = false;
+      this.amazonLoggedIn = false;
       this.amazonPaymentsgift = null;
       this.amazonPaymentsbillingAgreementId = null;
       this.amazonPayments.orderReferenceId = null;

@@ -56,6 +56,10 @@
 </style>
 
 <style>
+  .modal {
+    overflow-y: scroll !important;
+  }
+
   .modal-backdrop.show {
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
