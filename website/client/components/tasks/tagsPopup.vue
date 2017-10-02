@@ -5,11 +5,13 @@
       strong(v-once) {{ $t('tags') }}
     .tags-list.container
       .row
-        .col-6(v-for="tag in tags")
+        .col-4(v-for="tag in tags")
           label.custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags")
             span.custom-control-indicator
-            span.custom-control-description(v-markdown='tag.name')
+            span.custom-control-description(:title='tag.name') {{tag.name}}
+  .tags-footer
+    span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
 </template>
 
 <style lang="scss" scoped>
@@ -53,6 +55,28 @@
       .custom-control-description {
         color: $gray-50 !important;
         font-weight: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        width: 8em;
+      }
+    }
+
+    .tags-footer {
+      border-top: 1px solid $gray-600;
+
+      display: flex;
+      justify-content: center;
+
+      .clear-tags {
+        cursor: pointer;
+        margin: 1.1em 0;
+        color: $red-50;
+        font-size: 14px;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -79,6 +103,11 @@ export default {
   },
   mounted () {
     this.selectedTags = this.value;
+  },
+  methods: {
+    clearTags () {
+      this.selectedTags = [];
+    }
   }
 };
 </script>
