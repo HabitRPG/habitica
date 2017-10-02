@@ -134,6 +134,7 @@ export default function () {
       modalStack: [],
       userIdToMessage: '',
       brokenChallengeTask: {},
+      equipmentDrawerOpen: true,
     },
   });
 
