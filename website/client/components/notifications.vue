@@ -303,6 +303,11 @@ export default {
         this.$root.$emit('show::modal', 'avatar-modal');
       }
 
+      if (this.user.stats.hp <= 0) {
+        this.playSound('Death');
+        this.$root.$emit('show::modal', 'death');
+      }
+
       if (this.questCompleted) {
         this.$root.$emit('show::modal', 'quest-completed');
       }

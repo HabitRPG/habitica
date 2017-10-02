@@ -1,5 +1,5 @@
 <template lang='pug'>
-  b-modal#broken-task-modal(title="Broken Challenge", size='sm', :hide-footer="true", v-if='brokenChallengeTask.challenge')
+  b-modal#broken-task-modal(title="Broken Challenge", size='sm', :hide-footer="true", v-if='brokenChallengeTask && brokenChallengeTask.challenge')
     .modal-body
       div(v-if='brokenChallengeTask.challenge.broken === "TASK_DELETED" || brokenChallengeTask.challenge.broken === "CHALLENGE_TASK_NOT_FOUND"')
         h2 {{ $t('brokenTask') }}
@@ -38,9 +38,13 @@ import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  props: ['brokenChallengeTask'],
   components: {
     bModal,
+  },
+  computed: {
+    brokenChallengeTask () {
+      return this.$store.state.brokenChallengeTask;
+    },
   },
   methods: {
     ...mapActions({
@@ -70,6 +74,7 @@ export default {
       this.destroyTask(this.brokenChallengeTask);
     },
     close () {
+      this.$store.state.brokenChallengeTask = {};
       this.$root.$emit('hide::modal', 'broken-task-modal');
     },
   },
