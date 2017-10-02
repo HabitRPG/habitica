@@ -81,16 +81,18 @@ export async function genericPurchase (store, params) {
       let result = await axios.post('/api/v3/user/buy-armoire');
       buyResult = result.data.data;
 
-      // @TODO: We might need to abstract notifications to library rather than mixin
       if (buyResult) {
         const resData = buyResult;
         const item = resData.armoire;
 
+        const isExperience = item.type === 'experience';
+
+        // @TODO: We might need to abstract notifications to library rather than mixin
         store.state.notificationStore.push({
           title: '',
-          text: item.dropText,
-          type: item.type === 'experience' ? 'xp' : 'drop',
-          icon: item.type === 'experience' ? null : getDropClass({type: item.type, key: item.dropKey}),
+          text: isExperience ? item.value : item.dropText,
+          type: isExperience ? 'xp' : 'drop',
+          icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
           timeout: true,
         });
       }

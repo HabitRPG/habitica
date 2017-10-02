@@ -31,3 +31,22 @@ export function getDropClass ({type, key}) {
 
   return dropClass;
 }
+
+export function getSign (number) {
+  let sign = '+';
+
+  if (number && number < 0) {
+    sign = '-';
+  }
+
+  return sign;
+}
+
+export function round (number, nDigits) {
+  return Math.abs(number.toFixed(nDigits || 1));
+}
+
+export function getXPMessage (val) {
+  if (val < -50) return; // don't show when they level up (resetting their exp)
+  return `${getSign(val)} ${round(val)}`;
+}
