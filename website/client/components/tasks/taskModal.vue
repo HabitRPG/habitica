@@ -113,7 +113,7 @@
         .tags-select.option(v-if="isUserTask")
           .tags-inline
             label(v-once) {{ $t('tags') }}
-            .category-wrap(@click="showTagsSelect = !showTagsSelect", :class="tagsSelectBorderClass")
+            .category-wrap(@click="showTagsSelect = !showTagsSelect", v-bind:class="{ active: showTagsSelect }")
               span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
               span.category-select(v-else)
                 .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
@@ -327,7 +327,6 @@
         display: flex;
         justify-content: space-between;
 
-
         label {
           margin: 0;
         }
@@ -336,7 +335,15 @@
           cursor: inherit;
           position: relative;
           border: 1px solid transparent;
-          transition: border 0s;
+          border-radius: 2px;
+
+          &.active {
+            border-color: $purple-500;
+
+            .category-select {
+              box-shadow: none;
+            }
+          }
 
           .tags-toggle {
             cursor: pointer;
@@ -641,11 +648,6 @@ export default {
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
     },
-    tagsSelectBorderClass () {
-      if (this.showTagsSelect) {
-        return `${this.cssClass}-border`
-      }
-    }
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),

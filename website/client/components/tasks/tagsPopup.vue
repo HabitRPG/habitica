@@ -5,12 +5,11 @@
       strong(v-once) {{ $t('tags') }}
     .tags-list.container
       .row
-        template
-          .col-6(v-for="tag in tags")
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags")
-              span.custom-control-indicator
-              span.custom-control-description(v-markdown='tag.name')
+        .col-6(v-for="tag in tags")
+          label.custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags")
+            span.custom-control-indicator
+            span.custom-control-description(v-markdown='tag.name')
 </template>
 
 <style lang="scss" scoped>
