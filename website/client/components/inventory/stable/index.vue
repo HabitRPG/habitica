@@ -376,7 +376,6 @@
     }
 
     .title {
-      min-height: 24px;
       margin-top: 24px;
       font-family: Roboto;
       font-size: 20px;
