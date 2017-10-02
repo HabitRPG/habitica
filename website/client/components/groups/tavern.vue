@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .clearfix.col-8.standard-page
+  .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
@@ -15,10 +15,10 @@
 
         .row
           .col-6
-            button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
           .col-6
-            button.btn.btn-secondary.float-right.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
-            button.btn.btn-secondary.float-right(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
+            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -29,7 +29,7 @@
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-md-4.sidebar
+  .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
         .daniel_front
@@ -350,6 +350,7 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
 
 import { TAVERN_ID } from '../../../common/script/constants';
@@ -527,7 +528,10 @@ export default {
       };
       document.body.removeChild(div);
     },
-    updateCarretPosition (eventUpdate) {
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
       if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
         this.sendMessage();
         return;

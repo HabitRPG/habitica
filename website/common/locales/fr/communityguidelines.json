@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "J'accepte de me conformer aux Règles de vie en communauté.",
-    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
+    "tavernCommunityGuidelinesPlaceholder": "Rappel amical : ceci est un canal de discussion sans restrictions d'âge, merci donc de garder un langage et un contenu appropriés ! Consultez les règles de vie en communauté dans la barre latérale si vous avez des questions.",
     "commGuideHeadingWelcome": "Bienvenue en Habitica !",
     "commGuidePara001": "Salutations, brave aventurier ! Bienvenue en Habitica, le pays de la productivité, de la vie saine et de l'occasionnel griffon ravageur. Nous sommes une joyeuse communauté faite de personnes serviables qui se soutiennent les unes les autres sur la voie de l’amélioration de soi.",
     "commGuidePara002": "Afin que tout le monde se sente bien, heureux et productif dans la communauté, nous avons établi quelques règles de conduite. Nous les avons minutieusement forgées afin de les rendre aussi agréables et faciles à lire que possible. Nous vous enjoignons à prendre le temps de les lire.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Un esprit d'entraide.</strong>Les Habiticiens et Habiticiennes acclament les victoires des leurs compatriotes et se réconfortent durant les jours difficiles. Nous échangeons nos forces, comptons sur les autres, et apprenons des autres. Au sein des équipes, nous faisons cela grâce à nos sortilèges ; dans les lieux d’échanges, avec des mots de soutien et d'encouragements.",
     "commGuideList01D": "<strong>Une attitude respectueuse.</strong> Nous avons tous et toutes des passés différents, différentes compétences et différentes opinions. C’est en partie ce qui rend notre communauté si merveilleuse ! Les Habiticiens et Habiticiennes respectent les différences et s'en réjouissent. Restez un peu parmi nous, et vous aurez bientôt des acolytes de tous les horizons.",
     "commGuideHeadingMeet": "Rencontrez l'équipe derrière Habitica et ses modérateurs !",
-    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
+    "commGuidePara006": "Habitica compte plusieurs chevaliers-errants qui unissent leurs forces avec celles des membres de l'équipe d'administration afin de préserver le calme et le contentement de la communauté et de la protéger des trolls. Tous et toutes ont leur domaine spécifique, mais certains peuvent être appelés à l'occasion à servir dans d'autres sphères sociales. Les administrateurs et les modérateurs précèdent souvent leurs déclarations officielles par les mots \"Mod Talk\" ou \"Mod Hat On\".",
     "commGuidePara007": "Les membres du staff ont une étiquette de couleur pourpre, marquée d'une couronne. Ils portent le titre \"Héroïque\".",
     "commGuidePara008": "Les Mods ont une étiquette bleu foncé, marquée d'une étoile. Leur titre est \"Gardien\". Bailey fait exception ; étant un PNJ, son étiquette est noire et verte, surmontée d'une étoile.",
     "commGuidePara009": "Les membres actuels du staff sont (de gauche à droite) :",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "pour proposer des illustrations.",
     "commGuideLink08": "Le tableau de quêtes de Trello",
     "commGuideLink08description": "pour proposer des quêtes.",
-    "lastUpdated": "Last updated:"
+    "lastUpdated": "Dernière mise à jour :"
 }

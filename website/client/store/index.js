@@ -22,12 +22,15 @@ let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
 
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
-  axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
-  axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
 
-  axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
+  if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
+    axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
+    axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
 
-  isUserLoggedIn = true;
+    axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
+
+    isUserLoggedIn = true;
+  }
 }
 
 const i18nData = window && window['habitica-i18n'];
@@ -57,7 +60,7 @@ export default function () {
       isUserLoaded: false, // Means the user and the user's tasks are ready
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
-      credentials: AUTH_SETTINGS ? {
+      credentials: isUserLoggedIn ? {
         API_ID: AUTH_SETTINGS.auth.apiId,
         API_TOKEN: AUTH_SETTINGS.auth.apiToken,
       } : {},
@@ -130,6 +133,8 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       userIdToMessage: '',
+      brokenChallengeTask: {},
+      equipmentDrawerOpen: true,
     },
   });
 

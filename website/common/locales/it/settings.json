@@ -129,7 +129,7 @@
     "remindersToLogin": "Promemoria per accedere ad Habitica",
     "subscribeUsing": "Abbonati utilizzando",
     "unsubscribedSuccessfully": "Disattivazione avvenuta con successo!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
+    "unsubscribedTextUsers": "Hai disattivato con successo tutte le notifiche via e-mail di Habitica. Puoi abilitare solo le e-mail che vuoi ricevere in <a href=\"/user/settings/notifications\">Impostazioni > &gt; Notifiche</a> (richiede il login).",
     "unsubscribedTextOthers": "Non riceverai altre mail da Habitica.",
     "unsubscribeAllEmails": "Disattiva tutte le notifiche email",
     "unsubscribeAllEmailsText": "Selezionando questa opzione, confermo di essere cosciente del fatto che, disattivando le notifiche via email, Habitica non sarà mai in grado di notificarmi via email cambiamenti importanti riguardo al sito o al mio account.",

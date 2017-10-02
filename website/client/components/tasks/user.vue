@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.user-tasks-page
+  broken-task-modal
   task-modal(
     :task="editingTask || creatingTask",
     :purpose="creatingTask !== null ? 'create' : 'edit'",
@@ -11,25 +12,25 @@
       .col-4.offset-4
         .input-group
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          .filter-panel(v-if="isFilterPanelOpen")
+          .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
             .tags-category.d-flex(
-              v-for="tagsType in tagsByType", 
+              v-for="tagsType in tagsByType",
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
               :key="tagsType.key"
             )
               .tags-header
                 strong(v-once) {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
+                a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
               .tags-list.container
                 .row(:class="{'no-gutters': !editingTags}")
-                  template(v-if="editingTags && tagsType.key === 'tags'")
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap")
+                  template(v-if="editingTags && tagsType.key !== 'groups'")
+                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
                       .inline-edit-input-group.tag-edit-item.input-group
                         input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        span.input-group-btn(@click="removeTag(tagIndex)")
+                        span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
                           .svg-icon.destroy-icon(v-html="icons.destroy")
-                    .col-6
-                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
+                    .col-6(v-if="tagsType.key === 'tags'")
+                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
                   template(v-else)
                     .col-6(v-for="(tag, tagIndex) in tagsType.tags")
                       label.custom-control.custom-checkbox
@@ -50,7 +51,6 @@
                 .float-left
                   a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
                 .float-right
-                  a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
                   a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
           span.input-group-btn
             button.btn.btn-secondary.filter-button(
@@ -290,6 +290,7 @@ import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
+import brokenTaskModal from './brokenTaskModal';
 
 import Item from 'client/components/inventory/item.vue';
 
@@ -301,6 +302,7 @@ export default {
     bDropdownItem,
     Item,
     spells,
+    brokenTaskModal,
   },
   directives: {
     markdown,
@@ -322,7 +324,10 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
-      tagsSnap: null, // tags snapshot when being edited
+      tagsSnap: {
+        tags: [],
+        challenges: [],
+      }, // tags snapshot when being edited
       editingTags: false,
       newTag: null,
       editingTask: null,
@@ -368,26 +373,38 @@ export default {
   },
   methods: {
     ...mapActions({setUser: 'user:set'}),
+    checkMouseOver: throttle(function throttleSearch () {
+      if (this.editingTags) return;
+      this.closeFilterPanel();
+    }, 250),
     editTags () {
       // clone the arrays being edited so that we can revert if needed
-      this.tagsSnap = this.tagsByType.user.tags.slice();
+      this.tagsSnap.tags = this.tagsByType.user.tags.slice();
+      this.tagsSnap.challenges = this.tagsByType.challenges.tags.slice();
       this.editingTags = true;
     },
-    addTag () {
-      this.tagsSnap.push({id: uuid.v4(), name: this.newTag});
+    addTag (eventObj, key) {
+      this.tagsSnap[key].push({id: uuid.v4(), name: this.newTag});
       this.newTag = null;
     },
-    removeTag (index) {
-      this.tagsSnap.splice(index, 1);
+    removeTag (index, key) {
+      this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
       if (this.newTag) this.addTag();
-      this.setUser({tags: this.tagsSnap});
+
+      this.tagsByType.user.tags = this.tagsSnap.tags;
+      this.tagsByType.challenges.tags = this.tagsSnap.challenges;
+
+      this.setUser({tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges)});
       this.cancelTagsEditing();
     },
     cancelTagsEditing () {
       this.editingTags = false;
-      this.tagsSnap = null;
+      this.tagsSnap = {
+        tags: [],
+        challenges: [],
+      };
       this.newTag = null;
     },
     editTask (task) {
@@ -399,6 +416,8 @@ export default {
     },
     createTask (type) {
       this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask.tags = this.selectedTags;
+
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
@@ -430,7 +449,6 @@ export default {
     applyFilters () {
       const temporarilySelectedTags = this.temporarilySelectedTags;
       this.selectedTags = temporarilySelectedTags.slice();
-      this.closeFilterPanel();
     },
     toggleTag (tag) {
       const temporarilySelectedTags = this.temporarilySelectedTags;
@@ -440,6 +458,8 @@ export default {
       } else {
         temporarilySelectedTags.splice(tagI, 1);
       }
+
+      this.applyFilters();
     },
     isTagSelected (tag) {
       const tagId = tag.id;

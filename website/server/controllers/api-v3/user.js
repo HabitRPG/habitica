@@ -20,7 +20,6 @@ import {
 } from '../../libs/email';
 import nconf from 'nconf';
 import get from 'lodash/get';
-import { model as Tag } from '../../models/tag';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -305,7 +304,7 @@ api.updateUser = {
 
         // Keep challenge and group tags
         user.tags.forEach(t => {
-          if (t.group || t.challenge) {
+          if (t.group) {
             oldTags.push(t);
           } else {
             removedTagsIds.push(t.id);
@@ -320,7 +319,7 @@ api.updateUser = {
             removedTagsIds.splice(oldI, 1);
           }
 
-          user.tags.push(Tag.sanitize(t));
+          user.tags.push(t);
         });
 
         // Remove from all the tasks

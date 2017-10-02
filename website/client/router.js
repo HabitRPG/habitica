@@ -19,6 +19,7 @@ const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/
 const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
+const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
@@ -250,6 +251,7 @@ const router = new VueRouter({
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
+        { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
         { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},

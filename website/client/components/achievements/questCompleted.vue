@@ -1,13 +1,19 @@
 <template lang="pug">
-  b-modal#quest-completed(v-if='user.party.quest.completed', :title="quests[user.party.quest.completed].text() + '' + $t('completed')",
-    size='lg', :hide-footer="true")
+  b-modal#quest-completed(v-if='user.party.quest.completed', :title="title",
+    size='md', :hide-footer="true")
     .modal-body.text-center
-      div(:class='`quest_${user.party.quest.completed}`')
-      p(v-html='quests[user.party.quest.completed].completion()')
+      .quest(:class='`quest_${user.party.quest.completed}`')
+      p(v-html='this.questData.completion()')
       .quest-rewards(key='user.party.quest.completed', header-participant="$t('youReceived')", header-quest-owner="$t('questOwnerReceived')")
     .modal-footer
       button.btn.btn-primary(@click='setQuestCompleted()') {{ $t('ok') }}
 </template>
+
+<style scoped>
+  .quest {
+    margin: 0 auto;
+  }
+</style>
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
@@ -29,6 +35,12 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    questData () {
+      return this.quests.quests[this.user.party.quest.completed];
+    },
+    title () {
+      return `${this.questData.text()} ${this.$t('completed')}`;
+    },
     barStyle () {
       return {
         width: `${percent(this.user.stats.hp, maxHealth)}%`,

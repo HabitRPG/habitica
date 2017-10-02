@@ -3,7 +3,9 @@
   group-form-modal(v-if='isParty')
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
-  .col-8.standard-page
+  quest-details-modal(:group='this.group')
+  group-gems-modal
+  .col-12.col-sm-8.standard-page
     .row
       .col-6.title-details
         h1 {{group.name}}
@@ -17,9 +19,9 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div(v-once) {{ $t('members') }}
+              div(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
-            .item-with-icon
+            .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
@@ -30,11 +32,13 @@
         .row.new-message-row
           textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-left(v-once, @click='sendMessage()') {{ $t('send') }}
+
         .row
           .col-6
             button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
+          .col-6
+            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -44,8 +48,7 @@
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
-
-  .col-4.sidebar
+  .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-6
       .col-6
@@ -80,9 +83,13 @@
             p(v-once) {{ $t('questDescription') }}
             button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
-          h2 Pending quest
-          button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
-          button.btn.btn-secondary(v-once, @click="questCancel()") {{ $t('cancel') }}
+          .col-2
+            .quest(:class='`inventory_quest_scroll_${questData.key}`')
+          .col-6.titles
+            strong {{ questData.text() }}
+            p {{acceptedCount}} / {{group.memberCount}}
+          .col-4
+            button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
@@ -296,13 +303,6 @@
     .new-message-row {
       position: relative;
     }
-
-    .send-chat {
-      z-index: 10;
-      position: absolute;
-      right: 1em;
-      bottom: 1em;
-    }
   }
 
   .toggle-up .svg-icon, .toggle-down .svg-icon {
@@ -353,6 +353,10 @@
   }
 
   .quest-active-section {
+    .titles {
+        padding-top: .5em;
+    }
+
     .quest-box {
       background-image: url('~client/assets/svg/for-css/quest-border.svg');
       background-size: 100% 100%;
@@ -431,6 +435,9 @@
 </style>
 
 <script>
+// @TODO: Break this down into components
+
+import debounce from 'lodash/debounce';
 import extend from 'lodash/extend';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import styleHelper from 'client/mixins/styleHelper';
@@ -438,6 +445,7 @@ import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import membersModal from './membersModal';
 import startQuestModal from './startQuestModal';
+import questDetailsModal from './questDetailsModal';
 import quests from 'common/script/content/quests';
 import percent from 'common/script/libs/percent';
 import groupFormModal from './groupFormModal';
@@ -445,6 +453,7 @@ import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
+import groupGemsModal from 'client/components/groups/groupGemsModal';
 import markdownDirective from 'client/directives/markdown';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -481,6 +490,8 @@ export default {
     inviteModal,
     groupChallenges,
     autocomplete,
+    questDetailsModal,
+    groupGemsModal,
   },
   directives: {
     bToggle,
@@ -522,6 +533,17 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    acceptedCount () {
+      let count = 0;
+
+      if (!this.group || !this.group.quest) return count;
+
+      for (let uuid in this.group.quest.members) {
+        if (this.group.quest.members[uuid]) count += 1;
+      }
+
+      return count;
+    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
@@ -655,7 +677,10 @@ export default {
       };
       document.body.removeChild(div);
     },
-    updateCarretPosition (eventUpdate) {
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
       if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
         this.sendMessage();
         return;
@@ -716,6 +741,9 @@ export default {
     },
     openStartQuestModal () {
       this.$root.$emit('show::modal', 'start-quest-modal');
+    },
+    openQuestDetails () {
+      this.$root.$emit('show::modal', 'quest-details');
     },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
@@ -811,11 +839,6 @@ export default {
       this.$store.state.profileOptions.startingPage = 'profile';
       this.$root.$emit('show::modal', 'profile');
     },
-    async questCancel () {
-      if (!confirm(this.$t('sureCancel'))) return;
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/cancel'});
-      this.group.quest = quest;
-    },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
       if (!confirm(this.$t('doubleSureAbort'))) return;
@@ -831,14 +854,13 @@ export default {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/accept'});
       this.group.quest = quest;
     },
-    async questForceStart () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
-      this.group.quest = quest;
-    },
     // @TODO: Move to notificaitons component?
     async questReject () {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/reject'});
       this.group.quest = quest;
+    },
+    showGroupGems () {
+      this.$root.$emit('show::modal', 'group-gems-modal');
     },
   },
 };

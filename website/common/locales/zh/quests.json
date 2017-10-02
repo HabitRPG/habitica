@@ -8,8 +8,8 @@
     "unlockableQuests": "未解锁的任务",
     "goldQuests": "可用金币购买的任务",
     "questDetails": "任务详情",
-    "questDetailsTitle": "Quest Details",
-    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
+    "questDetailsTitle": "任务详情",
+    "questDescription": "任务允许玩家们与他们的队伍成员关注在游戏中长期的目标。",
     "invitations": "邀请",
     "completed": "完成了！",
     "rewardsAllParticipants": "任务参与者的奖励",
@@ -102,7 +102,7 @@
     "noActiveQuestToLeave": "没有正进行的探索任务来退出",
     "questLeaderCannotLeaveQuest": "探索任务发起者不能离开探索任务",
     "notPartOfQuest": "您没有参加这个任务",
-    "youAreNotOnQuest": "You're not on a quest",
+    "youAreNotOnQuest": "您没有参加这个任务",
     "noActiveQuestToAbort": "没有正进行的探索任务来放弃。",
     "onlyLeaderAbortQuest": "仅有小组长或任务发起者能放弃一个任务。",
     "questAlreadyRejected": "您已经拒绝了任务邀请。",
@@ -117,5 +117,5 @@
     "createAccountQuest": "当你加人Habitica的时候，你会收到这个任务！如果你的朋友加入，他们也会得到一个。",
     "questBundles": "打折的任务包",
     "buyQuestBundle": "购买任务包",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "找不到一个可以开始的任务？ 尝试查看市场上新版本的任务商店！"
 }

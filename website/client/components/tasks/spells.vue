@@ -21,16 +21,13 @@ div(v-if='user.stats.lvl > 10')
             @click='castStart(skill)',
             v-for='(skill, key) in spells[user.stats.class]',
             v-if='user.stats.lvl >= skill.lvl',
-            popover-trigger='mouseenter',
-            popover-placement='top',
-            :popover='skillNotes(skill)')
+            v-b-popover.hover.auto='skill.notes()')
             .spell.col-12.row
               .col-8.details
                 a(:class='{"disabled": spellDisabled(key)}')
-                p.title {{skill.text()}}
-                p.notes {{skill.notes()}}
+                div.img(:class='`shop_${skill.key} shop-sprite item-img`')
+                span.title {{skill.text()}}
               .col-4.mana
-                .img(:class='`shop_${skill.key} shop-sprite item-img`')
                 .mana-text
                   .svg-icon(v-html="icons.mana")
                   div {{skill.mana}}
@@ -52,23 +49,33 @@ div(v-if='user.stats.lvl > 10')
 
   .spell:hover {
     cursor: pointer;
+    border: solid 2px #50b5e9;
   }
 
   .spell {
     background: #ffffff;
+    border: solid 2px transparent;
     margin-bottom: 1em;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    border-radius: 2px;
+    border-radius: 1000px;
     color: #4e4a57;
     padding-right: 0;
     padding-left: 0;
+    overflow: hidden;
 
     .details {
       text-align: left;
       padding-top: .5em;
 
-      p {
-        margin-bottom: .5em;
+      .img {
+        display: inline-block;
+      }
+
+      span {
+        display: inline-block;
+        width: 50%;
+        padding-bottom: .7em;
+        vertical-align: bottom;
       }
 
       .notes {
@@ -83,6 +90,7 @@ div(v-if='user.stats.lvl > 10')
 
     .mana-text {
       margin-bottom: .2em;
+      padding-top: 1.1em;
 
       div {
         display: inline-block;
@@ -142,6 +150,7 @@ div(v-if='user.stats.lvl > 10')
 <script>
 import axios from 'axios';
 import isArray from 'lodash/isArray';
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 
 import spells from '../../../common/script/content/spells';
 
@@ -152,6 +161,7 @@ import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
 import mana from 'assets/svg/mana.svg';
 import quests from 'common/script/content/quests';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
   mixins: [notifications],
@@ -160,6 +170,7 @@ export default {
   },
   directives: {
     mousePosition: MouseMoveDirective,
+    bPopover,
   },
   data () {
     return {
@@ -183,6 +194,12 @@ export default {
       if (keyEvent.keyCode !== 27) return;
       this.castCancel();
     });
+
+    // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
+    const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
+    if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+      this.$store.state.spellOptions.spellDrawOpen = false;
+    }
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -191,8 +208,15 @@ export default {
     },
   },
   methods: {
-    drawerToggled (openChanged) {
-      this.$store.state.spellOptions.spellDrawOpen = openChanged;
+    drawerToggled (newState) {
+      this.$store.state.spellOptions.spellDrawOpen = newState;
+
+      if (newState) {
+        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        return;
+      }
+
+      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {

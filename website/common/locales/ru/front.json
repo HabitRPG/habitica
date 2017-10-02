@@ -1,6 +1,6 @@
 {
     "FAQ": "ЧаВо",
-    "termsAndAgreement": "By clicking the button below, you are indicating that you have read and agree to the <a href='/static/terms'>Terms of Service</a> and <a href='/static/privacy'>Privacy Policy</a>.",
+    "termsAndAgreement": "При нажатии кнопки снизу, вы подтверждаете то, что вы прочитали и согласились с <a href='/static/terms'>Условиями Использования</a> и <a href='/static/privacy'>Политикой Конфиденциальности</a>.",
     "accept1Terms": "Нажимая кнопку ниже, я принимаю",
     "accept2Terms": "и",
     "alexandraQuote": "Не смогла не рассказать о [Habitica] во время выступления в Мадриде. Незаменимый инструмент для фрилансеров, которые не могут заставить себя работать без начальника.",

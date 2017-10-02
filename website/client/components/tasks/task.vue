@@ -1,6 +1,5 @@
 <template lang="pug">
 .task-wrapper
-  broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
   .task(@click='castEnd($event, task)')
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
@@ -17,7 +16,7 @@
         .task-clickable-area(@click="edit($event, task)")
           h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
           .task-notes.small-text(v-markdown="task.notes")
-        .checklist(v-if="task.checklist && task.checklist.length > 0")
+        .checklist(v-if="canViewchecklist")
           label.custom-control.custom-checkbox.checklist-item(
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
@@ -311,7 +310,6 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
-import brokenTaskModal from './brokenTaskModal';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 
@@ -321,7 +319,6 @@ export default {
     bPopover,
     approvalFooter,
     approvalHeader,
-    brokenTaskModal,
   },
   directives: {
     markdown: markdownDirective,
@@ -339,7 +336,6 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
       }),
-      brokenChallengeTask: {},
     };
   },
   computed: {
@@ -348,6 +344,11 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
     }),
+    canViewchecklist () {
+      let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
+      let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
+      return hasChecklist && userIsTaskUser;
+    },
     leftControl () {
       const task = this.task;
       if (task.type === 'reward') return false;
@@ -505,7 +506,7 @@ export default {
       }
     },
     handleBrokenTask (task) {
-      this.brokenChallengeTask = task;
+      this.$store.state.brokenChallengeTask = task;
       this.$root.$emit('show::modal', 'broken-task-modal');
     },
   },

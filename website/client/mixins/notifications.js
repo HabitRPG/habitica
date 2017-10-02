@@ -1,5 +1,6 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
+import { getDropClass, getXPMessage, getSign, round } from 'client/libs/notifications';
 
 export default {
   computed: {
@@ -14,40 +15,14 @@ export default {
       this.notify(message, 'crit', 'glyphicon glyphicon-certificate');
     },
     drop (val, item) {
-      let dropClass = '';
-      if (item) {
-        switch (item.type) {
-          case 'Egg':
-            dropClass = `Pet_Egg_${item.key}`;
-            break;
-          case 'HatchingPotion':
-            dropClass = `Pet_HatchingPotion_${item.key}`;
-            break;
-          case 'Food':
-            dropClass = `Pet_Food_${item.key}`;
-            break;
-          case 'armor':
-          case 'back':
-          case 'body':
-          case 'eyewear':
-          case 'head':
-          case 'headAccessory':
-          case 'shield':
-          case 'weapon':
-            dropClass = `shop_${item.key}`;
-            break;
-          default:
-            dropClass = 'glyphicon glyphicon-gift';
-        }
-      }
+      let dropClass = getDropClass({key: item.key, type: item.type});
       this.notify(val, 'drop', dropClass);
     },
     quest (type, val) {
       this.notify(this.$t(type, { val }), 'success');
     },
     exp (val) {
-      if (val < -50) return; // don't show when they level up (resetting their exp)
-      let message = `${this.sign(val)} ${this.round(val)}`;
+      let message = getXPMessage(val);
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
     error (error) {
@@ -84,14 +59,10 @@ export default {
       this.notify(val, 'info', null, null, onClick);
     },
     sign (number) {
-      let sign = '+';
-      if (number && number < 0) {
-        sign = '-';
-      }
-      return sign;
+      return getSign(number);
     },
     round (number, nDigits) {
-      return Math.abs(number.toFixed(nDigits || 1));
+      return round(number, nDigits);
     },
     notify (html, type, icon, sign) {
       this.notifications.push({

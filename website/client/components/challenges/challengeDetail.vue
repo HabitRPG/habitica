@@ -10,7 +10,7 @@
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
-          span {{challenge.leader.profile.name}}
+          span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
@@ -51,7 +51,7 @@
           )
 
     .row
-      task-column.col-6(
+      task-column.col-12.col-sm-6(
         v-for="column in columns",
         :type="column",
         :key="column",
@@ -68,7 +68,7 @@
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
       div(v-if='isLeader')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
       div(v-if='isLeader')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
@@ -246,6 +246,9 @@ export default {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
     canJoin () {
       return !this.isMember;
     },
@@ -403,6 +406,7 @@ export default {
     cloneChallenge () {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('show::modal', 'challenge-modal');
     },
   },

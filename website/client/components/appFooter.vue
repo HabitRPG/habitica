@@ -4,12 +4,12 @@
   modify-inventory(v-if="isUserLoaded")
   footer.container-fluid
     .row
-      .col-2
+      .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
         h3
           a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
-      .col-2
+      .col-12.col-md-2
         h3 Company
         ul
           li
@@ -28,7 +28,7 @@
             a(href='/static/press-kit') {{ $t('presskit') }}
           li
             a(href='/static/contact') {{ $t('contactUs') }}
-      .col-2
+      .col-12.col-md-2
         h3 Community
         ul
           li
@@ -47,7 +47,7 @@
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
             a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
-      .col-6
+      .col-12.col-md-6
         .row
           .col-6
             h3 Developers
@@ -55,7 +55,7 @@
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='http://data.habitrpg.com/?uuid=', target='_blank') {{ $t('dataDisplayTool') }}
+                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
@@ -82,7 +82,7 @@
     .row
       .col-4
         | © 2017 Habitica. All rights reserved.
-        // .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
+        .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
             a.btn.btn-default(@click="setHealthLow()") Health = 1

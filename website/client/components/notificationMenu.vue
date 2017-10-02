@@ -37,11 +37,11 @@ div.item-with-icon.item-notifications.dropdown
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value')
-      span(@click='navigateToGroup(key)')
+    a.dropdown-item(v-for='message in userNewMessages')
+      span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
-      span.clear-button(@click='clearMessages(key)', :popover="$t('clear')",
+      span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
@@ -156,6 +156,18 @@ export default {
       return {name: ''};
       // return this.user.party;
     },
+    userNewMessages () {
+      // @TODO: For some reason data becomes corrupted. We should fix this on the server
+      let userNewMessages = [];
+      for (let key in this.user.newMessages) {
+        let message = this.user.newMessages[key];
+        if (message && message.name && message.value) {
+          message.key = key;
+          userNewMessages.push(message);
+        }
+      }
+      return userNewMessages;
+    },
   },
   methods: {
     // @TODO: I hate this function, we can do better with a hashmap
@@ -244,8 +256,8 @@ export default {
         count += this.user.stats.points > 0 ? 1 : 0;
       }
 
-      if (this.user.newMessages) {
-        count += Object.keys(this.user.newMessages).length;
+      if (this.userNewMessages) {
+        count += Object.keys(this.userNewMessages).length;
       }
 
       return count;
