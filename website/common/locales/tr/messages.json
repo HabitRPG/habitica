@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Yeteri kadar elmasın yok!",
     "messageAuthPasswordMustMatch": ":password ve :confirmPassword uyuşmuyor",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword zorunludur",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Kullanıcı adı zaten kullanılıyor",
     "messageAuthEmailTaken": "Mail adresi zaten kullanımda",
     "messageAuthNoUserFound": "Kullanıcı bulunamadı.",
     "messageAuthMustBeLoggedIn": "Giriş yapman gerekiyor.",
