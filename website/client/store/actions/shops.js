@@ -70,28 +70,31 @@ export function unlock (store, params) {
   };
 }
 
-export function genericPurchase (store, params) {
+export async function genericPurchase (store, params) {
   switch (params.pinType) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
     case 'armoire': // eslint-disable-line
       let buyResult = buyArmoire(store.state.user.data);
 
+      // We need the server result because armoir has random item in the result
+      let result = await axios.post('/api/v3/user/buy-armoire');
+      buyResult = result.data.data;
+
       // @TODO: We might need to abstract notifications to library rather than mixin
-      if (buyResult[1]) {
-        const resData = buyResult[0];
+      if (buyResult) {
+        const resData = buyResult;
         const item = resData.armoire;
 
         store.state.notificationStore.push({
           title: '',
-          text: buyResult[1],
+          text: item.dropText,
           type: item.type === 'experience' ? 'xp' : 'drop',
           icon: item.type === 'experience' ? null : getDropClass({type: item.type, key: item.dropKey}),
           timeout: true,
         });
       }
 
-      axios.post('/api/v3/user/buy-armoire');
       return;
     case 'fortify': {
       let rerollResult = rerollOp(store.state.user.data);
