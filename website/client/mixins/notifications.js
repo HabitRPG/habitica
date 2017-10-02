@@ -1,6 +1,6 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from 'client/libs/store';
-import { getDropClass } from 'client/libs/notifications';
+import { getDropClass, getXPMessage, getSign, round } from 'client/libs/notifications';
 
 export default {
   computed: {
@@ -22,8 +22,7 @@ export default {
       this.notify(this.$t(type, { val }), 'success');
     },
     exp (val) {
-      if (val < -50) return; // don't show when they level up (resetting their exp)
-      let message = `${this.sign(val)} ${this.round(val)}`;
+      let message = getXPMessage(val);
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
     },
     error (error) {
@@ -60,14 +59,10 @@ export default {
       this.notify(val, 'info', null, null, onClick);
     },
     sign (number) {
-      let sign = '+';
-      if (number && number < 0) {
-        sign = '-';
-      }
-      return sign;
+      return getSign(number);
     },
     round (number, nDigits) {
-      return Math.abs(number.toFixed(nDigits || 1));
+      return round(number, nDigits);
     },
     notify (html, type, icon, sign) {
       this.notifications.push({
