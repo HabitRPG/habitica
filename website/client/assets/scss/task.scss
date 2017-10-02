@@ -31,6 +31,10 @@
     &-modal-input {
       color: $header-color !important;
     }
+
+    &-border {
+      border-color: lighten($purple-300, 24%) !important;
+    }
   }
 
   &-worst {
@@ -51,6 +55,10 @@
 
     &-modal-input {
       color: $maroon-500 !important;
+    }
+
+    &-border {
+      border-color: lighten($maroon-100, 24%) !important;
     }
   }
 
@@ -73,6 +81,10 @@
     &-modal-input {
       color: $red-500 !important;
     }
+
+    &-border {
+      border-color: lighten($red-100, 12%) !important;
+    }
   }
 
   &-bad {
@@ -93,6 +105,10 @@
 
     &-modal-input {
       color: $orange-500 !important;
+    }
+
+    &-border {
+      border-color: lighten($orange-100, 12%) !important;
     }
   }
 
@@ -115,6 +131,10 @@
     &-modal-input {
       color: $yellow-500 !important;
     }
+
+    &-border {
+      border-color: lighten($yellow-100, 12%) !important;
+    }
   }
 
   &-good {
@@ -135,6 +155,10 @@
 
     &-modal-input {
       color: $green-500 !important;
+    }
+
+    &-border {
+      border-color: lighten($green-10, 12%) !important;
     }
   }
 
@@ -157,6 +181,10 @@
     &-modal-input {
       color: $blue-500 !important;
     }
+
+    &-border {
+      border-color: lighten($blue-50, 12%) !important;
+    }
   }
 
   &-best {
@@ -177,6 +205,10 @@
 
     &-modal-input {
       color: $teal-500 !important;
+    }
+
+    &-border {
+      border-color: $teal-50 !important;
     }
   }
 

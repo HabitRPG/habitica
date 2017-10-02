@@ -111,26 +111,15 @@
               span.custom-control-description {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
-          label(v-once) {{ $t('tags') }}
-          .category-wrap(@click="showTagsSelect = !showTagsSelect")
-            span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.category-select(v-else)
-              .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
-              .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
-              .dropdown-toggle
-          .category-box(v-if="showTagsSelect")
-            .container
-              .row
-                .form-check.col-6(
-                  v-for="tag in user.tags",
-                  :key="tag.id",
-                )
-                  label.custom-control.custom-checkbox
-                    input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
-                    span.custom-control-indicator
-                    span.custom-control-description(v-once) {{ tag.name }}
-              .row
-                button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+          .tags-inline
+            label(v-once) {{ $t('tags') }}
+            .category-wrap(@click="showTagsSelect = !showTagsSelect", :class="tagsSelectBorderClass")
+              span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
+              span.category-select(v-else)
+                .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
+                .dropdown-toggle
+          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags")
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
@@ -331,44 +320,66 @@
     }
 
     .tags-select {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+      position: relative;
 
-      label {
-        margin: 0;
-      }
-
-      .category-select {
+      .tags-inline {
         align-items: center;
         display: flex;
-        padding: .6em;
-        padding-right: 2.2em;
-        width: 100%;
+        justify-content: space-between;
 
-        .tags-more {
-          color: #a5a1ac;
-          flex: 0 1 auto;
-          font-size: 12px;
-          padding-left: .5em;
-          text-align: left;
-          width: 100%;
+
+        label {
+          margin: 0;
         }
 
-        .dropdown-toggle {
-          position: absolute;
-          right: 1em;
-        }
+        .category-wrap {
+          cursor: inherit;
+          position: relative;
+          border: 1px solid transparent;
+          transition: border 0s;
 
-        .category-label {
-          min-width: 68px;
-          overflow: hidden;
-          padding: .5em 1em;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          width: 68px;
-          word-wrap: break-word;
+          .tags-toggle {
+            cursor: pointer;
+          }
+
+          .category-select {
+            align-items: center;
+            display: flex;
+            padding: .6em;
+            padding-right: 2.2em;
+            width: 100%;
+
+            .tags-more {
+              color: #a5a1ac;
+              flex: 0 1 auto;
+              font-size: 12px;
+              padding-left: .5em;
+              text-align: left;
+              width: 100%;
+            }
+
+            .dropdown-toggle {
+              position: absolute;
+              right: 1em;
+            }
+
+            .category-label {
+              min-width: 68px;
+              overflow: hidden;
+              padding: .5em 1em;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              width: 68px;
+              word-wrap: break-word;
+            }
+          }
         }
+      }
+
+      .tags-popup {
+        position: absolute;
+        top: 3.5em;
+        left: 6.5em;
       }
     }
 
@@ -462,6 +473,7 @@
 </style>
 
 <script>
+import TagsPopup from './tagsPopup';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -485,6 +497,7 @@ import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   components: {
+    TagsPopup,
     bModal,
     bDropdown,
     bDropdownItem,
@@ -627,6 +640,11 @@ export default {
     },
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
+    },
+    tagsSelectBorderClass () {
+      if (this.showTagsSelect) {
+        return `${this.cssClass}-border`
+      }
     }
   },
   methods: {
