@@ -47,7 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Персональное начало суток",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "Вы уверены, что хотите изменить начало дня? Ваши ежедневные задания будут сбрасываться, когда вы первый раз за день зайдёте в страну Habitica после <%= time %>. Убедитесь, что завершили свои ежедневные задания до этого времени!",
     "changeCustomDayStart": "Изменить персональное начало суток?",
     "sureChangeCustomDayStart": "Вы уверены, что хотите изменить персональное начало суток?",
     "customDayStartHasChanged": "Ваше персональное начало дня изменилось.",

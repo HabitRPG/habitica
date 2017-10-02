@@ -80,6 +80,7 @@
     "logoUrl": "標識的網址",
     "assignLeader": "指定隊長",
     "members": "隊員",
+    "memberList": "Member List",
     "partyList": "隊伍成員的排序方式",
     "banTip": "引導成員",
     "moreMembers": "更多成員",
@@ -385,5 +386,9 @@
     "selectPartyMember": "Select a Party Member",
     "areYouSureDeleteMessage": "Are you sure you want to delete this message?",
     "reverseChat": "Reverse Chat",
-    "invites": "Invites"
+    "invites": "Invites",
+    "details": "Details",
+    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those that clicked 'accept' will be able to participate in the Quest and receive the drops.",
+    "groupGems": "Group Gems",
+    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
 }

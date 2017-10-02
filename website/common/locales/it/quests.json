@@ -8,8 +8,8 @@
     "unlockableQuests": "Missioni sbloccabili",
     "goldQuests": "Missioni acquistabili con l'oro",
     "questDetails": "Dettagli missione",
-    "questDetailsTitle": "Quest Details",
-    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
+    "questDetailsTitle": "Dettagli missione",
+    "questDescription": "Le Missioni permettono ai giocatori di concentrarsi su obiettivi comuni, a lungo termine, insieme ai membri della propria squadra.",
     "invitations": "Inviti",
     "completed": "Completata!",
     "rewardsAllParticipants": "Ricompense per tutti i partecipanti",
@@ -102,7 +102,7 @@
     "noActiveQuestToLeave": "Nessuna missione attiva da abbandonare",
     "questLeaderCannotLeaveQuest": "Il Capomissione non può abbandonare la missione",
     "notPartOfQuest": "Non fai parte della missione",
-    "youAreNotOnQuest": "You're not on a quest",
+    "youAreNotOnQuest": "Non stai partecipando ad una missione",
     "noActiveQuestToAbort": "Non c'è una missione attiva da annullare.",
     "onlyLeaderAbortQuest": "Solo il leader del gruppo o della missione può annullare una missione",
     "questAlreadyRejected": "Hai già rifiutato l'invito alla missione",
@@ -117,5 +117,5 @@
     "createAccountQuest": "Hai ricevuto questa missione quando ti sei iscritto ad Habitica! Se un tuo amico si iscriverà, ne riceverà una anche lui.",
     "questBundles": "Pacchetto missioni scontato",
     "buyQuestBundle": "Compra pacchetto missioni",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Non sai con quale missione cominciare? Fai un salto al Negozio Missioni nel Mercato per le nuove uscite!"
 }

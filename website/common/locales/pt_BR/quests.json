@@ -8,8 +8,8 @@
     "unlockableQuests": "Missões Desbloqueáveis",
     "goldQuests": "Missões Compráveis com Ouro",
     "questDetails": "Detalhes da Missão",
-    "questDetailsTitle": "Quest Details",
-    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
+    "questDetailsTitle": "Detalhes da Missão",
+    "questDescription": "Missões permitem que os jogadores foquem em objetivos do jogo a longo com membros de seus grupos.",
     "invitations": "Convites",
     "completed": "Completo!",
     "rewardsAllParticipants": "Recompensas para Todos os Participantes da Missão",
@@ -117,5 +117,5 @@
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, ele também terá um.",
     "questBundles": "Pacotes de Missões com Desconto",
     "buyQuestBundle": "Comprar Pacote de Missões",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!"
 }

@@ -47,7 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Tageswechsel einstellen",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "Bist Du sicher, dass Du Deinen Individuellen Tageswechsel umstellen willst? Deine Täglichen Aufgaben werden das nächste Mal zurückgesetzt, wenn Du Habitica nach <%= time %> verwendest. Stelle sicher, dass Du bis dahin Deine Aufgaben erledigt hast.",
     "changeCustomDayStart": "Tageswechsel ändern?",
     "sureChangeCustomDayStart": "Willst Du Deinen Tageswechsel wirklich ändern?",
     "customDayStartHasChanged": "Dein persönlicher Tagesstart wurde geändert.",
@@ -106,7 +106,7 @@
     "email": "E-Mail",
     "registerWithSocial": "Mit <%= network %> verbinden",
     "registeredWithSocial": "Mit <%= network %> verbunden",
-    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
+    "loginNameDescription": "Hiermit meldest Du Dich bei Habitica an. Um es zu ändern, verwende das Formular unten. Wenn Du stattdessen den Namen ändern möchtest, der über Deinem Avatar und in Chat-Nachrichten erscheint, gehe zum Nutzer Icon &gt; Profil und klicke den Bearbeiten Button.",
     "emailNotifications": "E-Mail-Benachrichtigungen",
     "wonChallenge": "Du hast einen Wettbewerb gewonnen!",
     "newPM": "Du hast eine private Nachricht erhalten",
@@ -129,7 +129,7 @@
     "remindersToLogin": "Erinnerungen, Habitica zu überprüfen",
     "subscribeUsing": "Abonniere mit",
     "unsubscribedSuccessfully": "Erfolgreich abgemeldet!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
+    "unsubscribedTextUsers": "Du hast Dich erfolgreich von allen Habitica Emails abgemeldet. Du kannst die Emails, die Du erhalten möchtest, unter <a href=\"/user/settings/notifications\">Einstellungen>&gt; Mitteilungen</a> freischalten (erfordert Anmeldung).",
     "unsubscribedTextOthers": "Du wirst keine weitere E-Mails von Habitica erhalten.",
     "unsubscribeAllEmails": "Häkchen setzen, um keine weiteren E-Mails zu erhalten",
     "unsubscribeAllEmailsText": "Indem ich hier ein Häkchen gesetzt habe, bestätige ich, dass ich verstanden habe, dass ich aus allen Habitica-E-Mail-Listen ausgetragen wurde. Habitica kann mir keine E-Mails mehr zu wichtigen Änderungen der Seite oder meines Accounts schicken.",
@@ -185,5 +185,5 @@
     "timezoneUTC": "Habitica verwendet die Zeitzone, welche an Deinem PC eingestellt ist: <strong><%= utc %></strong>",
     "timezoneInfo": "Wenn diese Zeitzone falsch ist, lade die Seite mit Hilfe Deines Browsers erneut, um sicherzustellen, dass Habitica die aktuellen Informationen darstellt. Ist diese immernoch falsch, passe die Zeitzone Deines PCs an und lade die Seite erneut.<br><br> <strong>Wenn Du Habitica auf anderen PCs oder Mobilgeräten verwendest, muss die Zeitzone auf allen übereinstimmen.</strong> Wenn Deine täglichen Aufgaben zur falschen Zeit zurückgesetzt werden, wiederhole diese Prüfung auf allen anderen PCs und in einem Browser Deiner Mobilgeräte.",
     "push": "Push",
-    "about": "About"
+    "about": "Über"
 }
