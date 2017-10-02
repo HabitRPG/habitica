@@ -10,7 +10,7 @@
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
-          span {{challenge.leader.profile.name}}
+          span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")

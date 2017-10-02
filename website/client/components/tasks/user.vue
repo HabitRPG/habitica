@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.user-tasks-page
+  broken-task-modal
   task-modal(
     :task="editingTask || creatingTask",
     :purpose="creatingTask !== null ? 'create' : 'edit'",
@@ -289,6 +290,7 @@ import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
+import brokenTaskModal from './brokenTaskModal';
 
 import Item from 'client/components/inventory/item.vue';
 
@@ -300,6 +302,7 @@ export default {
     bDropdownItem,
     Item,
     spells,
+    brokenTaskModal,
   },
   directives: {
     markdown,
@@ -412,6 +415,8 @@ export default {
     },
     createTask (type) {
       this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask.tags = this.selectedTags;
+
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');

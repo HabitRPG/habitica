@@ -4,6 +4,7 @@
   invite-modal(:group='this.group')
   start-quest-modal(:group='this.group')
   quest-details-modal(:group='this.group')
+  group-gems-modal
   .col-12.col-sm-8.standard-page
     .row
       .col-6.title-details
@@ -18,9 +19,9 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div(v-once) {{ $t('members') }}
+              div(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
-            .item-with-icon
+            .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
               span.number {{group.balance * 4}}
               div(v-once) {{ $t('guildBank') }}
@@ -47,7 +48,6 @@
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
-
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-6
@@ -453,6 +453,7 @@ import inviteModal from './inviteModal';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import groupChallenges from '../challenges/groupChallenges';
+import groupGemsModal from 'client/components/groups/groupGemsModal';
 import markdownDirective from 'client/directives/markdown';
 
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
@@ -490,6 +491,7 @@ export default {
     groupChallenges,
     autocomplete,
     questDetailsModal,
+    groupGemsModal,
   },
   directives: {
     bToggle,
@@ -856,6 +858,9 @@ export default {
     async questReject () {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/reject'});
       this.group.quest = quest;
+    },
+    showGroupGems () {
+      this.$root.$emit('show::modal', 'group-gems-modal');
     },
   },
 };

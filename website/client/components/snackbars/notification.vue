@@ -123,6 +123,7 @@ export default {
     };
   },
   created () {
+    // @TODO the notifications always close even if timeout is false
     let timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
     if (timeout) {
       let delay = this.notification.delay || 1000;

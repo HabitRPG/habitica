@@ -113,7 +113,7 @@
                 div(v-else)
                   h4.popover-content-title {{ item.name }}
               template(slot="itemBadge", scope="context")
-              starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
+                starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
           | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}

@@ -1,15 +1,22 @@
 <template lang="pug">
-  b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='lg')
+  b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='md')
+    h2.text-center Continue with Amazon
     #AmazonPayButton
     #AmazonPayWallet(v-if="amazonPayments.loggedIn", style="width: 400px; height: 228px;")
     #AmazonPayRecurring(v-if="amazonPayments.loggedIn && amazonPayments.type === 'subscription'",
                         style="width: 400px; height: 140px;")
     .modal-footer
-      .btn.btn-primary(:disabled="amazonPaymentsCanCheckout() || !amazonButtonEnabled",
-        @click="amazonCheckOut()") {{ $t('checkout') }}
+      .text-center
+        .btn.btn-primary(v-if="amazonPaymentsCanCheckout",
+          @click="amazonCheckOut()") {{ $t('checkout') }}
 </template>
 
 <style scoped>
+  #AmazonPayButton {
+    margin: 0 auto;
+    width: 150px;
+  }
+
   #AmazonPayRecurring {
     height: 200px;
     width: 500px;
@@ -41,6 +48,17 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isAmazonReady']),
+    amazonPaymentsCanCheckout () {
+      if (this.amazonPayments.type === 'single') {
+        return this.amazonPaymentspaymentSelected === true;
+      } else if (this.amazonPayments.type === 'subscription') {
+        return this.amazonPaymentspaymentSelected === true &&
+                // Mah.. one is a boolean the other a string...
+                this.amazonPaymentsrecurringConsent === 'true';
+      } else {
+        return false;
+      }
+    },
   },
   mounted () {
     if (this.isAmazonReady) return this.setupAmazon();
@@ -79,11 +97,16 @@ export default {
                 billingAgreementId: this.amazonPaymentsbillingAgreementId,
               });
 
-              // @TODO: Success
-              this.amazonPayments.loggedIn = true;
-              this.amazonPaymentsorderReferenceId = response.data.orderReferenceId;
-              this.amazonPaymentsinitWidgets();
-              // @TODO: error
+              if (response.status === 200) {
+                this.amazonPayments.loggedIn = true;
+                this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
+
+                // @TODO: Clarify the deifference of these functions by renaming
+                this.amazonPaymentsinitWidgets();
+                this.amazonInitWidgets();
+                return;
+              }
+
               alert(response.message);
             }
           },
@@ -106,17 +129,6 @@ export default {
           onError: this.amazonOnError,
         });
     },
-    amazonPaymentsCanCheckout () {
-      if (this.amazonPayments.type === 'single') {
-        return this.amazonPaymentspaymentSelected === true;
-      } else if (this.amazonPayments.type === 'subscription') {
-        return this.amazonPaymentspaymentSelected === true &&
-                // Mah.. one is a boolean the other a string...
-                this.amazonPaymentsrecurringConsent === 'true';
-      } else {
-        return false;
-      }
-    },
     amazonInitWidgets () {
       let walletParams = {
         sellerId: AMAZON_PAYMENTS.SELLER_ID, // @TODO: Import
@@ -131,6 +143,7 @@ export default {
         onError: this.amazonOnError,
       };
 
+      // @TODO: Check if this is duplicated below
       if (this.amazonPayments.type === 'subscription') {
         walletParams.agreementType = 'BillingAgreement';
 
@@ -158,7 +171,7 @@ export default {
           }).bind('AmazonPayRecurring');
         };
       } else {
-        walletParams.amazonOrderReferenceId = this.amazonPaymentsorderReferenceId;
+        walletParams.amazonOrderReferenceId = this.amazonPayments.orderReferenceId;
       }
 
       new this.OffAmazonPayments.Widgets.Wallet(walletParams).bind('AmazonPayWallet');
@@ -166,18 +179,22 @@ export default {
     async amazonCheckOut () {
       this.amazonButtonEnabled = false;
 
+      // @TODO: Create factory functions
+      // @TODO: A gift should not read the same as buying gems for yourself.
       if (this.amazonPayments.type === 'single') {
         let url = '/amazon/checkout';
         let response = await axios.post(url, {
-          orderReferenceId: this.amazonPaymentsorderReferenceId,
+          orderReferenceId: this.amazonPayments.orderReferenceId,
           gift: this.amazonPaymentsgift,
         });
 
-        // Success
-        this.amazonPaymentsreset();
-        window.location.reload(true);
+        if (response.status < 400) {
+          this.reset();
+          // @TODO: What are we syncing?
+          window.location.reload(true);
+          return;
+        }
 
-        // Failure
         alert(response.message);
         this.amazonPaymentsreset();
       } else if (this.amazonPayments.type === 'subscription') {
@@ -212,7 +229,7 @@ export default {
         }
 
         window.location.reload(true);
-        this.amazonPaymentsreset();
+        this.reset();
       }
     },
     amazonPaymentsinitWidgets () {
@@ -263,16 +280,15 @@ export default {
     },
     amazonOnError (error) {
       alert(error.getErrorMessage());
-      // @TODO: this.amazonPaymentsreset();
+      this.reset();
     },
     reset () {
-      this.amazonPaymentsmodal.close(); // @TODO:  this.$root.$emit('hide::modal', 'guild-form');
       this.amazonPaymentsmodal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;
       this.amazonPaymentsgift = null;
       this.amazonPaymentsbillingAgreementId = null;
-      this.amazonPaymentsorderReferenceId = null;
+      this.amazonPayments.orderReferenceId = null;
       this.amazonPaymentspaymentSelected = false;
       this.amazonPaymentsrecurringConsent = false;
       this.amazonPaymentssubscription = null;

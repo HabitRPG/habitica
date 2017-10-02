@@ -141,6 +141,7 @@ export default {
         gemAmount: this.gift.gems.amount,
       });
       this.text(this.$t('sentGems'));
+      this.close();
     },
     close () {
       this.$root.$emit('hide::modal', 'send-gems');
