@@ -83,23 +83,17 @@
 </style>
 
 <script>
-import markdown from 'client/directives/markdown';
-import Vue from 'vue';
-
 export default {
-  directives: {
-    markdown,
-  },
   props: ['tags', 'value'],
   data () {
     return {
-      selectedTags: []
-    }
+      selectedTags: [],
+    };
   },
   watch: {
     selectedTags () {
       this.$emit('input', this.selectedTags);
-    }
+    },
   },
   mounted () {
     this.selectedTags = this.value;
@@ -107,7 +101,7 @@ export default {
   methods: {
     clearTags () {
       this.selectedTags = [];
-    }
-  }
+    },
+  },
 };
 </script>

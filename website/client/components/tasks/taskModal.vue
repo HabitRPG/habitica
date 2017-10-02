@@ -114,7 +114,9 @@
           .tags-inline
             label(v-once) {{ $t('tags') }}
             .category-wrap(@click="showTagsSelect = !showTagsSelect", v-bind:class="{ active: showTagsSelect }")
-              span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
+              span.category-select(v-if='task.tags && task.tags.length === 0')
+                .tags-none {{$t('none')}}
+                .dropdown-toggle
               span.category-select(v-else)
                 .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
                 .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
@@ -123,7 +125,7 @@
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
-          b-dropdown(:text="$t(task.frequency)")
+          b-dropdown.streak-dropdown(:text="$t(task.frequency)")
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
 
@@ -325,7 +327,7 @@
       .tags-inline {
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         label {
           margin: 0;
@@ -336,6 +338,7 @@
           position: relative;
           border: 1px solid transparent;
           border-radius: 2px;
+          margin-left: 4em;
 
           &.active {
             border-color: $purple-500;
@@ -345,23 +348,28 @@
             }
           }
 
-          .tags-toggle {
-            cursor: pointer;
-          }
-
           .category-select {
             align-items: center;
             display: flex;
             padding: .6em;
-            padding-right: 2.2em;
+            padding-right: 2.8em;
             width: 100%;
+
+            .tags-none {
+              margin: .26em 0 .26em .6em;
+
+              & + .dropdown-toggle {
+                right: 1.3em;
+              }
+            }
 
             .tags-more {
               color: #a5a1ac;
               flex: 0 1 auto;
               font-size: 12px;
-              padding-left: .5em;
               text-align: left;
+              position: relative;
+              left: .5em;
               width: 100%;
             }
 
@@ -386,8 +394,12 @@
       .tags-popup {
         position: absolute;
         top: 3.5em;
-        left: 6.5em;
+        left: 6.2em;
       }
+    }
+
+    .streak-dropdown {
+      margin-left: .5em;
     }
 
     .checklist-group {
