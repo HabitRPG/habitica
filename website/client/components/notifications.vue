@@ -331,7 +331,7 @@ export default {
     });
   },
   methods: {
-    showLevelUpNotifications(newlevel) {
+    showLevelUpNotifications (newlevel) {
       this.lvl();
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;

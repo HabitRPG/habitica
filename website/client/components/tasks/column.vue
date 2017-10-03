@@ -46,6 +46,11 @@
     min-height: 556px;
   }
 
+  .task-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
   .task-wrapper + .reward-items {
     margin-top: 16px;
   }
@@ -104,7 +109,7 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 7;
+    z-index: 1;
 
     &.initial-description {
       top: 30%;
