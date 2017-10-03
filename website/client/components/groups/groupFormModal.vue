@@ -63,7 +63,7 @@
       .form-group
         label
           strong(v-once) {{$t('groupDescription')}} *
-        a.float-right {{ $t('markdownFormattingHelp') }}
+        a.float-right(v-markdown='$t("markdownFormattingHelp")')
         textarea.form-control.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
 
       .form-group(v-if='creatingParty && !workingGroup.id')
@@ -177,6 +177,7 @@ import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import markdownDirective from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
 
@@ -197,6 +198,9 @@ export default {
     bFormSelect,
     bTooltip,
     toggleSwitch,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     let data = {
