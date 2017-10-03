@@ -306,7 +306,7 @@
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
-          this.genericPurchase(this.item);
+          this.makeGenericPurchase(this.item);
           this.purchased(this.item.text);
         }
 

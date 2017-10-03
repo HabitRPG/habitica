@@ -1,6 +1,6 @@
 export default {
   methods: {
-    genericPurchase (item) {
+    makeGenericPurchase (item) {
       this.$store.dispatch('shops:genericPurchase', {
         pinType: item.pinType,
         type: item.purchaseType,

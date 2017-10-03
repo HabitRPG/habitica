@@ -414,7 +414,7 @@ export default {
       // Buy armoire and health potions immediately
       let itemsToPurchaseImmediately = ['potion', 'armoire'];
       if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
-        this.genericPurchase(rewardItem);
+        this.makeGenericPurchase(rewardItem);
         this.$emit('buyPressed', rewardItem);
         return;
       }
