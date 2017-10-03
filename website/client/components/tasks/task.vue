@@ -18,6 +18,7 @@
           .task-notes.small-text(v-markdown="task.notes")
         .checklist(v-if="canViewchecklist")
           label.custom-control.custom-checkbox.checklist-item(
+            v-if='!castingSpell',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
             input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
@@ -393,6 +394,7 @@ export default {
   methods: {
     ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
     toggleChecklistItem (item) {
+      if (this.castingSpell) return;
       item.completed = !item.completed;
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
