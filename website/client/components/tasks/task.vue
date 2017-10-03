@@ -339,7 +339,10 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      castingSpell: 'spellOptions.castingSpell',
+    }),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
@@ -407,6 +410,8 @@ export default {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
+      if (this.castingSpell) return;
+
       // TODO move to an action
       const Content = this.$store.state.content;
       const user = this.user;
