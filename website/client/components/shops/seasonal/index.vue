@@ -372,12 +372,11 @@
         seasonal.featured.items = itemsNotOwned;
 
         // If we are out of gear, show the spells
-        // @TODO: Open this up when they are available.
         // @TODO: add dates to check instead?
-        // if (seasonal.featured.items.length === 0) {
-        //   this.featuredGearBought = true;
-        //   seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
-        // }
+        if (seasonal.featured.items.length === 0) {
+          this.featuredGearBought = true;
+          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+        }
 
         return seasonal;
       },

@@ -40,7 +40,7 @@
     "hatchingPotion": "pozione di schiusura",
     "noHatchingPotions": "Non hai nessuna pozione di schiusura.",
     "inventoryText": "Clicca su un uovo per vedere le pozioni utilizzabili (che verranno evidenziate in verde) e scegline una con cui far comparire il tuo animale. Se nessuna pozione viene evidenziata, clicca di nuovo sull'uovo per deselezionarlo, e questa volta clicca prima su una pozione, in modo da evidenziare le uova su cui poterla utilizzare. Se lo desideri, puoi anche vendere gli oggetti che ti avanzano ad Alexander il Mercante.",
-    "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch.",
+    "haveHatchablePet": "Hai una Pozione <%= potion %> e un uovo di <%= egg %> per far nascere questo animale! <b>Clicca</b> l'orma per far schiudere l'uovo.",
     "quickInventory": "Inventario veloce",
     "foodText": "cibo",
     "food": "Cibo e Selle",
@@ -119,6 +119,6 @@
     "dragThisFood": "Trascina questo <%= foodName %> su un Animale e guardalo crescere!",
     "clickOnPetToFeed": "Clicca su un Animale per dargli <%= foodName %> e guardalo crescere!",
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
-    "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
+    "clickOnEggToHatch": "Clicca su un Uovo per usare la tua Pozione <%= potionName %> e far nascere un nuovo animale!",
     "hatchDialogText": "Versa la tua Pozione <%= potionName %> sul tuo uovo di <%= eggName %>, e nascerà <%= petName %>."
 }
