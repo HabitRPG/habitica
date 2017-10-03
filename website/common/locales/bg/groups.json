@@ -80,7 +80,7 @@
     "logoUrl": "Адрес на логото",
     "assignLeader": "Задаване на водач на групата",
     "members": "Членове",
-    "memberList": "Member List",
+    "memberList": "Списък на членовете",
     "partyList": "Подредба на членовете на групата",
     "banTip": "Изритване",
     "moreMembers": "още членове",
@@ -387,8 +387,8 @@
     "areYouSureDeleteMessage": "Наистина ли искате да изтриете това съобщение?",
     "reverseChat": "Обръщане на разговора",
     "invites": "Покани",
-    "details": "Details",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those that clicked 'accept' will be able to participate in the Quest and receive the drops.",
-    "groupGems": "Group Gems",
-    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
+    "details": "Подробности",
+    "participantDesc": "След като всички членове са приели или отказали, мисията започва. Само онези, които са натиснали „Приемам“, могат да участват в мисията и да им се падат предмети.",
+    "groupGems": "Групови диаманти",
+    "groupGemsDesc": "Диамантите на гилдията могат да бъдат използвани за създаване на предизвикателства! В бъдеще ще можете да добавяте още диаманти в гилдията."
 }

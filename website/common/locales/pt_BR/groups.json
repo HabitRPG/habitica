@@ -80,7 +80,7 @@
     "logoUrl": "URL do Logo",
     "assignLeader": "Nomear Líder do Grupo",
     "members": "Membros",
-    "memberList": "Member List",
+    "memberList": "Lista de Membros",
     "partyList": "Ordem dos membros do grupo no cabeçalho",
     "banTip": "Expulsar Membro",
     "moreMembers": "mais membros",
@@ -340,7 +340,7 @@
     "memberCount": "Quantidade de Membros",
     "recentActivity": "Atividade Recente",
     "myGuilds": "Minhas Guildas",
-    "guildsDiscovery": "Descubra Guildas",
+    "guildsDiscovery": "Encontre Guildas",
     "guildOrPartyLeader": "Líder",
     "guildLeader": "Líder da Guilda",
     "member": "Membro",
@@ -387,8 +387,8 @@
     "areYouSureDeleteMessage": "Tem certeza que quer deletar esta mensagem?",
     "reverseChat": "Chat em Ordem Reversa",
     "invites": "Convites",
-    "details": "Details",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those that clicked 'accept' will be able to participate in the Quest and receive the drops.",
-    "groupGems": "Group Gems",
-    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
+    "details": "Detalhes",
+    "participantDesc": "Quando todos os membros tiverem ou aceitado ou rejeitado, a Missão começa. Apenas quem tiver clicado em \"Aceitar\" poderá participar da Missão e receber os drops.",
+    "groupGems": "Gemas do Grupo",
+    "groupGemsDesc": "Gemas da Guildas podem ser gastas para criar Desafios! No futuro, você poderá adicionar mais Gemas da Guilda."
 }
