@@ -125,7 +125,7 @@
     "mystery": "Mistero",
     "changeClass": "Cambia classe, recupera Punti Attributo allocati",
     "lvl10ChangeClass": "Per cambiare classe devi essere almeno al livello 10.",
-    "changeClassConfirmCost": "Are you sure you want to change your class for 3 Gems?",
+    "changeClassConfirmCost": "Vuoi davvero cambiare Classe per 3 gemme?",
     "invalidClass": "Classe non valida. Per favore specifica 'warrior', 'rogue', 'wizard', o 'healer'.",
     "levelPopover": "Ogni volta che sali di livello ottieni un punto da assegnare ad un attributo a tua scelta. Puoi farlo manualmente, o lasciare che se ne occupi il gioco selezionando una delle opzioni di allocazione automatica.",
     "unallocated": "Punti Attributo non allocati",
@@ -200,7 +200,7 @@
     "invalidAttribute": "\"<%= attr %>\" non è un attributo valido.",
     "notEnoughAttrPoints": "Non hai abbastanza punti attributo.",
     "style": "Stile",
-    "facialhair": "Facial",
+    "facialhair": "Barba e baffi",
     "photo": "Foto",
     "info": "Info",
     "joined": "Iscritto",
@@ -216,5 +216,5 @@
     "mainHand": "Mano principale",
     "offHand": "Mano secondaria",
     "pointsAvailable": "Punti disponibili",
-    "pts": "pts"
+    "pts": "punti"
 }

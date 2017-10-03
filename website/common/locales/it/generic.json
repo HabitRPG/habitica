@@ -261,7 +261,7 @@
     "finance": "Finance",
     "health_fitness": "Salute + Fitness",
     "hobbies_occupations": "Hobbies + Occupations",
-    "location_based": "Location-based",
+    "location_based": "Basate su luoghi",
     "mental_health": "Mental Health + Self-Care",
     "getting_organized": "Getting Organized",
     "self_improvement": "Crescita personale",
@@ -269,7 +269,7 @@
     "time_management": "Gestione del tempo + Responsabilità",
     "recovery_support_groups": "Recovery + Support Groups",
     "messages": "Messaggi",
-    "emptyMessagesLine1": "You don't have any messages",
+    "emptyMessagesLine1": "Non hai alcun messaggio",
     "emptyMessagesLine2": "Invia un messaggio per creare una conversazione!",
     "letsgo": "Let's Go!",
     "selected": "Selezionato"

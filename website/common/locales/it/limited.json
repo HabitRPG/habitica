@@ -111,13 +111,13 @@
     "fall2017HabitoweenSet": "Guerriero Habitoween (Guerriero)",
     "fall2017MasqueradeSet": "Masquerade Mage (Mage)",
     "fall2017HauntedHouseSet": "Haunted House Healer (Healer)",
-    "fall2017TrickOrTreatSet": "Trick or Treat Rogue (Rogue)",
+    "fall2017TrickOrTreatSet": "Dolcetto o scasseggio (Assassino)",
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
     "dateEndApril": "19 aprile",
     "dateEndMay": "17 maggio",
     "dateEndJune": "14 giugno",
     "dateEndJuly": "29 luglio",
     "dateEndAugust": "31 agosto",
-    "dateEndOctober": "October 31",
+    "dateEndOctober": "31 ottobre",
     "discountBundle": "pacchetto"
 }

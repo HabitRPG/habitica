@@ -47,10 +47,5 @@ gulp.task('build:prod', [
   'build:server', 
   'prepare:staticNewStuff', 
   'build:client',
-], (done) => {
-  runSequence(
-    'grunt-build:prod',
-    'apidoc',
-    done
-  );
-});
+  'apidoc',
+]);

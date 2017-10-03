@@ -17,7 +17,7 @@
       .form-group
         label
           strong(v-once) {{$t('challengeDescription')}} *
-        a.float-right {{ $t('markdownFormattingHelp') }}
+        a.float-right(v-markdown='$t("markdownFormattingHelp")')
         textarea.description-textarea.form-control(:placeholder="$t('challengeDescriptionPlaceholder')", v-model="workingChallenge.description")
       .form-group(v-if='creating')
         label
@@ -136,6 +136,8 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
+import markdownDirective from 'client/directives/markdown';
+
 import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHALLENGES } from '../../../common/script/constants';
 import { mapState } from 'client/libs/store';
 
@@ -146,6 +148,9 @@ export default {
     bDropdown,
     bDropdownItem,
     bFormInput,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     let categoryOptions = [

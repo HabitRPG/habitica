@@ -158,6 +158,7 @@ export default {
 
     return {
       yesterDailies: [],
+      levelBeforeYesterdailies: 0,
       notificationData: {},
       unlockLevels,
       lastShownNotifications,
@@ -256,12 +257,8 @@ export default {
       this.mp(mana);
     },
     userLvl (after, before) {
-      if (after <= before) return;
-      this.lvl();
-      this.playSound('Level_Up');
-      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
-      if (this.unlockLevels[`${after}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+      if (after <= before || this.isRunningYesterdailies) return;
+      this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
       if (!after) return;
@@ -334,6 +331,13 @@ export default {
     });
   },
   methods: {
+    showLevelUpNotifications (newlevel) {
+      this.lvl();
+      this.playSound('Level_Up');
+      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
+      if (this.unlockLevels[`${newlevel}`]) return;
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+    },
     playSound (sound) {
       this.$root.$emit('playSound', sound);
     },
@@ -390,6 +394,7 @@ export default {
         return;
       }
 
+      this.levelBeforeYesterdailies = this.user.stats.lvl;
       this.$root.$emit('show::modal', 'yesterdaily');
     },
     async runYesterDailiesAction () {
@@ -404,6 +409,10 @@ export default {
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
+
+      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+        this.showLevelUpNotifications(this.user.stats.lvl);
+      }
 
       this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();

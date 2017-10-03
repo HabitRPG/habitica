@@ -44,7 +44,7 @@
     "buyNow": "Köp Nu",
     "sortByNumber": "Nummer",
     "featuredItems": "Featured Items!",
-    "hideLocked": "Hide locked",
+    "hideLocked": "Göm låsta",
     "hidePinned": "Hide pinned",
     "amountExperience": "<%= amount %> Erfarenhet",
     "amountGold": "<%= amount %> Guld",
