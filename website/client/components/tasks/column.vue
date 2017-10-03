@@ -168,6 +168,7 @@ import sortBy from 'lodash/sortBy';
 import { mapState, mapActions } from 'client/libs/store';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
+import spells from 'common/script/content/spells';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
@@ -257,8 +258,30 @@ export default {
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
+      let rewards = inAppRewards(this.user);
 
-      return inAppRewards(this.user);
+
+      // Add season rewards if user is affected
+      // @TODO: Add buff coniditional
+      const seasonalSkills = {
+        snowball: 'salt',
+        spookySparkles: 'opaquePotion',
+        shinySeed: 'petalFreePotion',
+        seafoam: 'sand',
+      };
+
+      for (let key in seasonalSkills) {
+        if (this.user.stats.buffs[key]) {
+          let debuff = seasonalSkills[key];
+          let item = Object.assign({}, spells.special[debuff]);
+          item.text = item.text();
+          item.notes = item.notes();
+          item.class = `shop_${key}`;
+          rewards.push(item);
+        }
+      }
+
+      return rewards;
     },
     hasRewardsList () {
       return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';

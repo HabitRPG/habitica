@@ -209,6 +209,7 @@
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
   import * as Analytics from 'client/libs/analytics';
+  import spellsMixin from 'client/mixins/spells';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -233,7 +234,7 @@
   import moment from 'moment';
 
   export default {
-    mixins: [currencyMixin, notifications],
+    mixins: [currencyMixin, notifications, spellsMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -301,7 +302,9 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        if (this.genericPurchase) {
+        if (this.item.cast) {
+          this.castStart(this.item);
+        } else if (this.genericPurchase) {
           this.$store.dispatch('shops:genericPurchase', {
             pinType: this.item.pinType,
             type: this.item.purchaseType,
