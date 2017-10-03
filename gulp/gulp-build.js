@@ -6,8 +6,6 @@ import webpackProductionBuild from '../webpack/build';
 gulp.task('build', () => {
   if (process.env.NODE_ENV === 'production') {
     gulp.start('build:prod');
-  } else {
-    gulp.start('build:dev');
   }
 });
 
@@ -33,8 +31,6 @@ gulp.task('build:client', ['bootstrap'], (done) => {
   });
 });
 
-gulp.task('build:dev', ['prepare:staticNewStuff']);
-
 gulp.task('build:dev:watch', ['build:dev'], () => {
   gulp.watch(['website/client-old/**/*.styl', 'website/common/script/*']);
 });
@@ -42,7 +38,6 @@ gulp.task('build:dev:watch', ['build:dev'], () => {
 gulp.task('build:prod', [
   'browserify', 
   'build:server', 
-  'prepare:staticNewStuff', 
   'build:client',
   'apidoc',
 ]);
