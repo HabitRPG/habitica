@@ -116,7 +116,7 @@
   "shortName": "Short Name",
   "shortNamePlaceholder": "What short tag should be used to identify your Challenge?",
   "updateChallenge": "Update Challenge",
-  "haveNoChallenges": "You don't have any Challenges",
+  "haveNoChallenges": "This group has no Challenges",
   "loadMore": "Load More",
   "exportChallengeCsv": "Export Challenge",
   "editingChallenge": "Editing Challenge",
