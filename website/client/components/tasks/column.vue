@@ -165,20 +165,25 @@
 <script>
 import Task from './task';
 import sortBy from 'lodash/sortBy';
+import throttle from 'lodash/throttle';
+import bModal from 'bootstrap-vue/lib/components/modal';
+
+import sortable from 'client/directives/sortable.directive';
+import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
+import shopItem from '../shops/shopItem';
+
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
+
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import shopItem from '../shops/shopItem';
-import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 
 export default {
+  mixins: [buyMixin],
   components: {
     Task,
     bModal,
@@ -406,6 +411,14 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
+      // Buy armoire and health potions immediately
+      let itemsToPurchaseImmediately = ['potion', 'armoire'];
+      if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
+        this.genericPurchase(rewardItem);
+        this.$emit('buyPressed', rewardItem);
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
       }

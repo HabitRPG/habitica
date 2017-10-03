@@ -221,6 +221,7 @@
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
 
   import { mapState } from 'client/libs/store';
 
@@ -234,7 +235,7 @@
   import moment from 'moment';
 
   export default {
-    mixins: [currencyMixin, notifications, spellsMixin],
+    mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -305,16 +306,8 @@
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
-          this.$store.dispatch('shops:genericPurchase', {
-            pinType: this.item.pinType,
-            type: this.item.purchaseType,
-            key: this.item.key,
-            currency: this.item.currency,
-          });
-
+          this.genericPurchase(this.item);
           this.purchased(this.item.text);
-          this.$root.$emit('buyModal::boughtItem', this.item);
-          this.$root.$emit('playSound', 'Reward');
         }
 
         this.$emit('buyPressed', this.item);
