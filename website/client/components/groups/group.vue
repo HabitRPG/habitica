@@ -716,6 +716,9 @@ export default {
     fetchRecentMessages () {
       this.fetchGuild();
     },
+    reverseChat () {
+      this.group.chat.reverse();
+    },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
