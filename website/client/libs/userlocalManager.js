@@ -1,10 +1,12 @@
+// @TODO: This might become too generic. If so, check the refactor docs
 const CONSTANTS = {
   keyConstants: {
     SPELL_DRAWER_STATE: 'spell-drawer-state',
+    EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
   },
   valueConstants: {
-    SPELL_DRAWER_CLOSED: 'spell-drawer-closed',
-    SPELL_DRAWER_OPEN: 'spell-drawer-open',
+    DRAWER_CLOSED: 'drawer-closed',
+    DRAWER_OPEN: 'drawer-open',
   },
 };
 

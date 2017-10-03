@@ -294,6 +294,7 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
+      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
       }
@@ -310,6 +311,10 @@ export default {
 
       if (this.questCompleted) {
         this.$root.$emit('show::modal', 'quest-completed');
+      }
+
+      if (this.userClassSelect) {
+        this.$root.$emit('show::modal', 'choose-class');
       }
 
       // @TODO: This is a timeout to ensure dom is loaded

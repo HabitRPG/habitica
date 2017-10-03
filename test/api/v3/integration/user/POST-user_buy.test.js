@@ -56,6 +56,7 @@ describe('POST /user/buy/:key', () => {
         message: t('messageHealthAlreadyMax'),
       });
   });
+
   it('buys a piece of gear', async () => {
     let key = 'armor_warrior_1';
 
@@ -63,5 +64,22 @@ describe('POST /user/buy/:key', () => {
     await user.sync();
 
     expect(user.items.gear.owned.armor_warrior_1).to.eql(true);
+  });
+
+  it('buys a special spell', async () => {
+    let key = 'spookySparkles';
+    let item = content.special[key];
+
+    await user.update({'stats.gp': 250});
+    let res = await user.post(`/user/buy/${key}`);
+    await user.sync();
+
+    expect(res.data).to.eql({
+      items: JSON.parse(JSON.stringify(user.items)), // otherwise dates can't be compared
+      stats: user.stats,
+    });
+    expect(res.message).to.equal(t('messageBought', {
+      itemText: item.text(),
+    }));
   });
 });

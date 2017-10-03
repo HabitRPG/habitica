@@ -472,10 +472,15 @@ export default {
       });
     },
     showMemberModal (memberId) {
-      // @TODO move to action or anyway move from here because it's super duplicate
-      this.$store.state.profileUser = this.cachedProfileData[memberId];
-      this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('show::modal', 'profile');
+      const profile = this.cachedProfileData[memberId];
+
+      // Open the modal only if the data is available
+      if (profile && !profile.rejected) {
+        // @TODO move to action or anyway move from here because it's super duplicate
+        this.$store.state.profileUser = profile;
+        this.$store.state.profileOptions.startingPage = 'profile';
+        this.$root.$emit('show::modal', 'profile');
+      }
     },
   },
 };

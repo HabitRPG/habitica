@@ -870,7 +870,16 @@ api.buy = {
   url: '/user/buy/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyRes = common.ops.buy(user, req, res.analytics);
+
+    let buyRes;
+    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
+    if (specialKeys.indexOf(req.params.key) !== -1) {
+      buyRes = common.ops.buySpecialSpell(user, req);
+    } else {
+      buyRes = common.ops.buy(user, req, res.analytics);
+    }
+
     await user.save();
     res.respond(200, ...buyRes);
   },

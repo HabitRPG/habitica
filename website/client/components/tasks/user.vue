@@ -374,6 +374,7 @@ export default {
   methods: {
     ...mapActions({setUser: 'user:set'}),
     checkMouseOver: throttle(function throttleSearch () {
+      if (this.editingTags) return;
       this.closeFilterPanel();
     }, 250),
     editTags () {

@@ -111,7 +111,7 @@ div
           .achievement-icon.achievement-alien
           h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
-            span {{chal}}
+            span(v-markdown='chal')
             hr
         .col-6(v-if='user.achievements.quests')
           .achievement-icon.achievement-karaoke

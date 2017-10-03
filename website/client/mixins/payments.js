@@ -100,6 +100,11 @@ export default {
             return;
           }
 
+          if (data.groupId) {
+            this.$router.push(`/group-plans/${data.groupId}/task-information`);
+            return;
+          }
+
           window.location.reload(true);
         },
       });
