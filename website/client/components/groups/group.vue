@@ -130,7 +130,7 @@
                     .col-6
                       span.float-left
                         | Rage {{questData.boss.rage.value}}
-            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
+            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
 
     .section-header(v-if='!isParty')
       .row
@@ -570,8 +570,10 @@ export default {
       return this.isMemberOfGroup(this.user, this.group);
     },
     canEditQuest () {
-      let isQuestLeader = this.group.quest && this.group.quest.leader === this.user._id;
-      return isQuestLeader;
+      if (!this.group.quest) return false;
+      let isQuestLeader = this.group.quest.leader === this.user._id;
+      let isPartyLeader = this.group.leader._id === this.user._id;
+      return isQuestLeader || isPartyLeader;
     },
     isMemberOfPendingQuest () {
       let userid = this.user._id;
