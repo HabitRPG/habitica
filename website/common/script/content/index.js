@@ -102,7 +102,7 @@ api.bundles = {
       'sheep',
     ],
     canBuy () {
-      return moment().isBetween('2017-09-12', '2017-10-02');
+      return moment().isBetween('2017-09-12', '2017-10-07');
     },
     type: 'quests',
     value: 7,
