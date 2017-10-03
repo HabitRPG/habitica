@@ -1,6 +1,5 @@
 <template lang="pug">
-  // @TODO: breakdown to componentes and use some SOLID
-  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)", v-if='viewOptionsLoaded')
     .standard-sidebar.col-3.hidden-xs-down
       div
         #npmMattStable.npc_matt
@@ -495,6 +494,7 @@
 </style>
 
 <script>
+  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -566,6 +566,7 @@
     data () {
       return {
         viewOptions: {},
+        viewOptionsLoaded: false,
         hideMissing: false,
 
         searchText: null,
@@ -595,6 +596,7 @@
         selectedDrawerTab: 0,
         showMore: '',
         petGroups: [],
+        mountGroups: [],
       };
     },
     watch: {
@@ -603,9 +605,19 @@
 
         this.searchTextThrottled = search;
       }, 250),
+      viewOptions: {
+        handler (newVal) {
+          if (!newVal) return;
+          if (!this.viewOptionsLoaded) return;
+          setLocalSetting(this.$route.name, JSON.stringify(newVal));
+        },
+        deep: true,
+      },
     },
     mounted () {
       this.loadPetGroups();
+      this.loadMountGroups();
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -615,52 +627,6 @@
         userItems: 'user.data.items',
         hideDialog: 'user.data.flags.tutorial.common.mounts',
       }),
-      mountGroups () {
-        let mountGroups = [
-          {
-            label: this.$t('filterByStandard'),
-            key: 'standardMounts',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByMagicPotion'),
-            key: 'magicMounts',
-            petSource: {
-              eggs: this.content.dropEggs,
-              potions: this.content.premiumHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('filterByQuest'),
-            key: 'questMounts',
-            petSource: {
-              eggs: this.content.questEggs,
-              potions: this.content.dropHatchingPotions,
-            },
-          },
-          {
-            label: this.$t('special'),
-            key: 'specialMounts',
-            petSource: {
-              special: this.content.specialMounts,
-            },
-          },
-        ];
-
-        mountGroups.map((mountGroup) => {
-          this.$set(this.viewOptions, mountGroup.key, {
-            selected: true,
-            animalCount: 0,
-          });
-        });
-
-
-        return mountGroups;
-      },
-
       drawerTabs () {
         return [
           {
@@ -679,6 +645,16 @@
       },
     },
     methods: {
+      loadFilters () {
+        let filters = getLocalSetting(this.$route.name);
+        filters = JSON.parse(filters);
+        if (!filters || !filters.magicMounts) {
+          this.viewOptionsLoaded = true;
+          return;
+        }
+        this.viewOptions = Object.assign({}, filters);
+        this.viewOptionsLoaded = true;
+      },
       loadPetGroups () {
         let petGroups = [
           {
@@ -723,6 +699,50 @@
 
         this.petGroups = petGroups;
       },
+      loadMountGroups () {
+        let mountGroups = [
+          {
+            label: this.$t('filterByStandard'),
+            key: 'standardMounts',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByMagicPotion'),
+            key: 'magicMounts',
+            petSource: {
+              eggs: this.content.dropEggs,
+              potions: this.content.premiumHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('filterByQuest'),
+            key: 'questMounts',
+            petSource: {
+              eggs: this.content.questEggs,
+              potions: this.content.dropHatchingPotions,
+            },
+          },
+          {
+            label: this.$t('special'),
+            key: 'specialMounts',
+            petSource: {
+              special: this.content.specialMounts,
+            },
+          },
+        ];
+
+        mountGroups.map((mountGroup) => {
+          this.$set(this.viewOptions, mountGroup.key, {
+            selected: true,
+            animalCount: 0,
+          });
+        });
+
+        this.mountGroups = mountGroups;
+      },
       setShowMore (key) {
         if (this.showMore === key) {
           this.showMore = '';
@@ -731,6 +751,8 @@
         this.showMore = key;
       },
       getAnimalList (animalGroup, type) {
+        if (!animalGroup) return [];
+
         let key = animalGroup.key;
 
         this.cachedAnimalList = this.cachedAnimalList || {};
