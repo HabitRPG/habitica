@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.quests
+  .row.quests(v-if='viewOptionsLoaded')
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -320,6 +320,7 @@
 
 
 <script>
+  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
@@ -367,10 +368,19 @@ export default {
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
+      viewOptions: {
+        handler (newVal) {
+          if (!newVal) return;
+          if (!this.viewOptionsLoaded) return;
+          setLocalSetting(this.$route.name, JSON.stringify(newVal));
+        },
+        deep: true,
+      },
     },
     data () {
       return {
         viewOptions: {},
+        viewOptionsLoaded: false,
 
         searchText: null,
         searchTextThrottled: null,
@@ -388,6 +398,9 @@ export default {
         hidePinned: false,
       };
     },
+    mounted () {
+      this.loadFilters();
+    },
     computed: {
       ...mapState({
         content: 'content',
@@ -400,12 +413,6 @@ export default {
       },
       categories () {
         if (this.shop.categories) {
-          this.shop.categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
           return this.shop.categories;
         } else {
           return [];
@@ -413,6 +420,24 @@ export default {
       },
     },
     methods: {
+      loadFilters () {
+        let filters = getLocalSetting(this.$route.name);
+        if (!this.viewOptionsLoaded) {
+          this.shop.categories.forEach((category) => {
+            this.$set(this.viewOptions, category.identifier, {
+              selected: true,
+            });
+          });
+        }
+        filters = JSON.parse(filters);
+        // @TODO: I think there are hidden props, Object.keys won't ever be 0 length
+        if (!filters || !filters.gold) {
+          this.viewOptionsLoaded = true;
+          return;
+        }
+        this.viewOptions = Object.assign({}, filters);
+        this.viewOptionsLoaded = true;
+      },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
         let result = _map(category.items, (e) => {
           return {

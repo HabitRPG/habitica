@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.timeTravelers
+  .row.timeTravelers(v-if='viewOptionsLoaded')
     .standard-sidebar(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -83,7 +83,6 @@
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
 </template>
 
 <style lang="scss">
@@ -224,6 +223,7 @@
 
 
 <script>
+  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
@@ -270,10 +270,19 @@
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
+      viewOptions: {
+        handler (newVal) {
+          if (!newVal) return;
+          if (!this.viewOptionsLoaded) return;
+          setLocalSetting(this.$route.name, JSON.stringify(newVal));
+        },
+        deep: true,
+      },
     },
     data () {
       return {
         viewOptions: {},
+        viewOptionsLoaded: false,
 
         searchText: null,
         searchTextThrottled: null,
@@ -290,6 +299,9 @@
 
         backgroundUpdate: new Date(),
       };
+    },
+    mounted () {
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -348,16 +360,27 @@
 
         normalGroups.push(setCategory);
 
-        normalGroups.map((category) => {
-          this.$set(this.viewOptions, category.identifier, {
-            selected: true,
-          });
-        });
-
         return normalGroups;
       },
     },
     methods: {
+      loadFilters () {
+        let filters = getLocalSetting(this.$route.name);
+        if (!this.viewOptionsLoaded) {
+          this.categories.forEach((category) => {
+            this.$set(this.viewOptions, category.identifier, {
+              selected: true,
+            });
+          });
+        }
+        filters = JSON.parse(filters);
+        if (!filters || !filters.mounts) {
+          this.viewOptionsLoaded = true;
+          return;
+        }
+        this.viewOptions = Object.assign({}, filters);
+        this.viewOptionsLoaded = true;
+      },
       travelersItems (category, sortBy, searchBy, hidePinned) {
         let result = _map(category.items, (e) => {
           return {

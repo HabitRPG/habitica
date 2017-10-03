@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.seasonal
+  .row.seasonal(v-if='viewOptionsLoaded')
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -266,6 +266,7 @@
 
 
 <script>
+  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
@@ -319,10 +320,19 @@
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
+      viewOptions: {
+        handler (newVal) {
+          if (!newVal) return;
+          if (!this.viewOptionsLoaded) return;
+          setLocalSetting(this.$route.name, JSON.stringify(newVal));
+        },
+        deep: true,
+      },
     },
     data () {
       return {
         viewOptions: {},
+        viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: null,
 
@@ -351,6 +361,9 @@
         hidePinned: false,
         featuredGearBought: false,
       };
+    },
+    mounted () {
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -405,20 +418,33 @@
               value,
             };
           });
+          return equipmentList;
+        }
 
-          _forEach(equipmentList, (value) => {
+        return [];
+      },
+    },
+    methods: {
+      // @TODO: We can probably generalize this by abstract "filters loaded"
+      loadFilters () {
+        let filters = getLocalSetting(this.$route.name);
+        // "Filters Loaded"
+        if (!this.viewOptionsLoaded) {
+          _forEach(this.filterCategories, (value) => {
             this.$set(this.viewOptions, value.key, {
               selected: true,
             });
           });
-
-          return equipmentList;
-        } else {
-          return [];
         }
+        filters = JSON.parse(filters);
+        // @TODO: I think there are hidden props, Object.keys won't ever be 0 length
+        if (!filters || !filters.armor) {
+          this.viewOptionsLoaded = true;
+          return;
+        }
+        this.viewOptions = Object.assign({}, filters);
+        this.viewOptionsLoaded = true;
       },
-    },
-    methods: {
       getClassName (classType) {
         if (classType === 'wizard') {
           return this.$t('mage');
