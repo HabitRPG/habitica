@@ -84,7 +84,6 @@ window.env.translations = ${JSON.stringify(i18n.translations['en'])};`, cb);
 });
 
 gulp.task('test:prepare:build', ['build', 'test:prepare:translations']);
-// exec(testBin('grunt build:test'), cb);
 
 gulp.task('test:prepare:webdriver', (cb) => {
   exec('npm run test:prepare:webdriver', cb);
