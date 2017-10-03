@@ -29,7 +29,6 @@ const SANITY_TEST_COMMAND = 'npm run test:sanity';
 const COMMON_TEST_COMMAND = 'npm run test:common';
 const CONTENT_TEST_COMMAND = 'npm run test:content';
 const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
-const KARMA_TEST_COMMAND = 'npm run test:karma';
 
 /* Helper methods for reporting test summary */
 let testResults = [];
@@ -75,24 +74,11 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   }
 });
 
-gulp.task('test:prepare:translations', (cb) => {
-  fs.writeFile(
-    'test/client-old/spec/mocks/translations.js',
-     `if(!window.env) window.env = {};
-window.env.translations = ${JSON.stringify(i18n.translations['en'])};`, cb);
-
-});
-
-gulp.task('test:prepare:build', ['build', 'test:prepare:translations']);
-
-gulp.task('test:prepare:webdriver', (cb) => {
-  exec('npm run test:prepare:webdriver', cb);
-});
+gulp.task('test:prepare:build', ['build']);
 
 gulp.task('test:prepare', [
   'test:prepare:build',
   'test:prepare:mongo',
-  'test:prepare:webdriver',
 ]);
 
 gulp.task('test:sanity', (cb) => {
@@ -184,99 +170,6 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:karma', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(KARMA_TEST_COMMAND),
-    (err, stdout) => {
-      if (err) {
-        process.exit(1);
-      }
-      cb();
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:karma:watch', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(`${KARMA_TEST_COMMAND}:watch`),
-    (err, stdout) => {
-      cb(err);
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:karma:safe', ['test:prepare:build'], (cb) => {
-  let runner = exec(
-    testBin(KARMA_TEST_COMMAND),
-    (err, stdout) => {
-      testResults.push({
-        suite: 'Karma Specs\t',
-        pass: testCount(stdout, /(\d+) tests? completed/),
-        fail: testCount(stdout, /(\d+) tests? failed/),
-        pend: testCount(stdout, /(\d+) tests? skipped/),
-      });
-      cb();
-    }
-  );
-  pipe(runner);
-});
-
-gulp.task('test:e2e', ['test:prepare', 'test:prepare:server'], (cb) => {
-  let support = [
-    'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    testBin('npm run test:e2e:webdriver', 'DISPLAY=:99'),
-  ].map(exec);
-  support.push(server);
-
-  Bluebird.all([
-    awaitPort(TEST_SERVER_PORT),
-    awaitPort(4444),
-  ]).then(() => {
-    let runner = exec(
-      'npm run test:e2e',
-      (err, stdout, stderr) => {
-        support.forEach(kill);
-        if (err) {
-          process.exit(1);
-        }
-        cb();
-      }
-    );
-    pipe(runner);
-  });
-});
-
-gulp.task('test:e2e:safe', ['test:prepare', 'test:prepare:server'], (cb) => {
-  let support = [
-    'Xvfb :99 -screen 0 1024x768x24 -extension RANDR',
-    'npm run test:e2e:webdriver',
-  ].map(exec);
-
-  Bluebird.all([
-    awaitPort(TEST_SERVER_PORT),
-    awaitPort(4444),
-  ]).then(() => {
-    let runner = exec(
-      'npm run test:e2e',
-      (err, stdout, stderr) => {
-        let match = stdout.match(/(\d+) tests?.*(\d) failures?/);
-
-        testResults.push({
-          suite: 'End-to-End Specs\t',
-          pass: testCount(stdout, /(\d+) passing/),
-          fail: testCount(stdout, /(\d+) failing/),
-          pend: testCount(stdout, /(\d+) pending/),
-        });
-        support.forEach(kill);
-        cb();
-      }
-    );
-    pipe(runner);
-  });
-});
-
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
     testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
@@ -330,7 +223,6 @@ gulp.task('test', (done) => {
     'test:sanity',
     'test:content',
     'test:common',
-    'test:karma',
     'test:api-v3:unit',
     'test:api-v3:integration',
     done
