@@ -56,15 +56,16 @@
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
         .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
+          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader || isAdmin') {{ $t('edit') }}
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
+          // @TODO: hide the invitation button if there's an active group plan and the player is not the leader
         .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
         .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
 
     .section-header(v-if='isParty')
       .row
@@ -81,7 +82,7 @@
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
-            button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
+            button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           .col-2
             .quest(:class='`inventory_quest_scroll_${questData.key}`')
@@ -129,7 +130,7 @@
                     .col-6
                       span.float-left
                         | Rage {{questData.boss.rage.value}}
-            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
+            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
 
     .section-header(v-if='!isParty')
       .row
@@ -562,12 +563,17 @@ export default {
     isLeader () {
       return this.user._id === this.group.leader._id;
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);
     },
     canEditQuest () {
-      let isQuestLeader = this.group.quest && this.group.quest.leader === this.user._id;
-      return isQuestLeader;
+      if (!this.group.quest) return false;
+      let isQuestLeader = this.group.quest.leader === this.user._id;
+      let isPartyLeader = this.group.leader._id === this.user._id;
+      return isQuestLeader || isPartyLeader;
     },
     isMemberOfPendingQuest () {
       let userid = this.user._id;
@@ -709,6 +715,9 @@ export default {
     },
     fetchRecentMessages () {
       this.fetchGuild();
+    },
+    reverseChat () {
+      this.group.chat.reverse();
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
