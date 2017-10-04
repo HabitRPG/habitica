@@ -123,8 +123,6 @@
   }
 
   .checklist {
-    display: flex;
-    flex-direction: column;
     margin-bottom: 2px;
     margin-top: 8px;
   }
