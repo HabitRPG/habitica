@@ -383,6 +383,8 @@
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -393,7 +395,7 @@
   };
 
 export default {
-    mixins: [notifications],
+    mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -694,6 +696,11 @@ export default {
         }
       },
       itemSelected (item) {
+        if (item.purchaseType !== 'gear' && this.$store.state.recentlyPurchased[item.key]) {
+          this.makeGenericPurchase(item);
+          return;
+        }
+
         this.$root.$emit('buyModal::showItem', item);
       },
       featuredItemSelected (item) {
