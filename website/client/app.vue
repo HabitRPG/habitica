@@ -320,9 +320,11 @@ export default {
         }
       }
     },
-    memberSelected (member) {
+    async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
+
+      this.$store.dispatch('party:getMembers', {forceLoad: true});
 
       this.$root.$emit('hide::modal', 'select-member-modal');
     },
