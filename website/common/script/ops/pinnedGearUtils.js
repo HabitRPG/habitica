@@ -179,5 +179,6 @@ module.exports = {
   removePinnedItemsByOwnedGear,
   togglePinnedItem,
   removeItemByPath,
+  selectGearToPin,
   isPinned,
 };

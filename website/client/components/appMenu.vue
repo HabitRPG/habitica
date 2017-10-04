@@ -331,7 +331,6 @@ export default {
         hourglasses: svgHourglasses,
         logo,
       }),
-      groupPlans: [],
     };
   },
   computed: {
@@ -341,6 +340,7 @@ export default {
     ...mapState({
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
+      groupPlans: 'groupPlans',
     }),
   },
   mounted () {
@@ -367,7 +367,7 @@ export default {
       this.$root.$emit('show::modal', 'profile');
     },
     async getUserGroupPlans () {
-      this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+      this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
     },
     openPartyModal () {
       this.$root.$emit('show::modal', 'create-party-modal');
