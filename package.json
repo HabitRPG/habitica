@@ -31,7 +31,7 @@
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
     "bootstrap": "4.0.0-alpha.6",
-    "bootstrap-vue": "^1.0.0-beta.6",
+    "bootstrap-vue": "~1.0.0-beta.7",
     "browserify": "~12.0.1",
     "compression": "^1.6.1",
     "connect-ratelimit": "0.0.7",
@@ -153,7 +153,7 @@
     "client:unit:watch": "cross-env NODE_ENV=test karma start test/client/unit/karma.conf.js",
     "client:e2e": "node test/client/e2e/runner.js",
     "client:test": "npm run client:unit && npm run client:e2e",
-    "start": "gulp run:dev",
+    "start": "gulp nodemon",
     "postinstall": "gulp build",
     "apidoc": "gulp apidoc"
   },
