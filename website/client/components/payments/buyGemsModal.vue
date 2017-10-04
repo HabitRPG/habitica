@@ -21,6 +21,12 @@
             .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
             .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
         div(v-show='selectedPage === "gems"')
+          div(v-if='hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
+            .row.text-center
+              .col-6.offset-3
+                p {{ $t("gemsPurchaseNote") }}
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
           .row
