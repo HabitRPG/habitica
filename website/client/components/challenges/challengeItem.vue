@@ -2,7 +2,7 @@
 .card
   .row
     router-link.col-12(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-      h3 {{challenge.name}}
+      h3(v-markdown='challenge.name')
   .row
     .col-6
       div.details
@@ -163,6 +163,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import markdownDirective from 'client/directives/markdown';
 
 export default {
   props: ['challenge'],
@@ -178,6 +179,9 @@ export default {
         rewardIcon,
       }),
     };
+  },
+  directives: {
+    markdown: markdownDirective,
   },
 };
 </script>

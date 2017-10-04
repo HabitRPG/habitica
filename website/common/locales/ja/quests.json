@@ -8,6 +8,8 @@
     "unlockableQuests": "アンロックできるクエスト",
     "goldQuests": "ゴールドで購入できるクエスト",
     "questDetails": "クエストの詳細",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "招待状",
     "completed": "完了！",
     "rewardsAllParticipants": "クエスト参加者全員への報酬",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "進行中のクエストがないので辞退できません",
     "questLeaderCannotLeaveQuest": "クエストのリーダーはクエストを辞退できません",
     "notPartOfQuest": "クエストのメンバーではありません",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "進行中のクエストがないので中止できません",
     "onlyLeaderAbortQuest": "グループ リーダーまたはクエストのリーダーだけが、クエストを中断できます。",
     "questAlreadyRejected": "あなたはこのクエストの招待をすでに拒否しました。",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %>日のログイン",
     "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。",
     "questBundles": "割引されたクエスト セット",
-    "buyQuestBundle": "クエスト セットを買う"
+    "buyQuestBundle": "クエスト セットを買う",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

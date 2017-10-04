@@ -9,17 +9,16 @@
       .container-fluid
         app-header
         buyModal(
-          :item="selectedItemToBuy",
-          :withPin="false",
+          :item="selectedItemToBuy || {}",
+          :withPin="true",
           @change="resetItemToBuy($event)",
           @buyPressed="customPurchase($event)",
           :genericPurchase="genericPurchase(selectedItemToBuy)",
 
         )
         selectMembersModal(
-          :item="selectedCardToBuy",
+          :item="selectedSpellToBuy || {}",
           :group="user.party",
-          @change="resetCardToBuy($event)",
           @memberSelected="memberSelected($event)",
         )
 
@@ -57,6 +56,10 @@
 </style>
 
 <style>
+  .modal {
+    overflow-y: scroll !important;
+  }
+
   .modal-backdrop.show {
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
@@ -75,6 +78,7 @@ import * as Analytics from 'client/libs/analytics';
 import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
+import { setup as setupPayments } from 'client/libs/payments';
 
 export default {
   mixins: [notifications],
@@ -90,9 +94,8 @@ export default {
   },
   data () {
     return {
-      isUserLoaded: false,
       selectedItemToBuy: null,
-      selectedCardToBuy: null,
+      selectedSpellToBuy: null,
 
       sound: {
         oggSource: '',
@@ -101,7 +104,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
     ...mapState({user: 'user.data'}),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false ? true : false;
@@ -128,17 +131,38 @@ export default {
 
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
+      this.$root.$emit('show::modal', 'buy-modal');
+    });
+
+    this.$root.$on('selectMembersModal::showItem', (item) => {
+      this.selectedSpellToBuy = item;
+      this.$root.$emit('show::modal', 'select-member-modal');
     });
 
     // @TODO split up this file, it's too big
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
-      if (this.user) {
+      if (this.user && response.data && response.data.notifications) {
         this.$set(this.user, 'notifications', response.data.notifications);
       }
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Don't show errors from getting user details. These users have delete their account,
+        // but their chat message still exists.
+        let configExists = Boolean(error.response) && Boolean(error.response.config);
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+          // @TODO: We resolve the promise because we need our caching to cache this user as tried
+          // Chat paging should help this, but maybe we can also find another solution..
+          return Promise.resolve(error);
+        }
+
         this.$store.state.notificationStore.push({
           title: 'Habitica',
           text: error.response.data.message,
@@ -194,7 +218,7 @@ export default {
         this.$store.dispatch('user:fetch'),
         this.$store.dispatch('tasks:fetchUserTasks'),
       ]).then(() => {
-        this.isUserLoaded = true;
+        this.$store.state.isUserLoaded = true;
         Analytics.setUser();
         Analytics.updateUser();
 
@@ -206,6 +230,12 @@ export default {
             'preferences.timezoneOffset': this.browserTimezoneOffset,
           });
         }
+
+        this.$nextTick(() => {
+          // Load external scripts after the app has been rendered
+          setupPayments();
+          Analytics.load();
+        });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
       });
@@ -266,11 +296,6 @@ export default {
         this.selectedItemToBuy = null;
       }
     },
-    resetCardToBuy ($event) {
-      if (!$event) {
-        this.selectedCardToBuy = null;
-      }
-    },
     itemSelected (item) {
       this.selectedItemToBuy = item;
     },
@@ -286,15 +311,20 @@ export default {
     customPurchase (item) {
       if (item.purchaseType === 'card') {
         if (this.user.party._id) {
-          this.selectedCardToBuy = item;
+          this.selectedSpellToBuy = item;
+
+          this.$root.$emit('hide::modal', 'buy-modal');
+          this.$root.$emit('show::modal', 'select-member-modal');
         } else {
           this.error(this.$t('errorNotInParty'));
         }
       }
     },
     memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedCardToBuy.key, targetId: member.id});
-      this.selectedCardToBuy = null;
+      this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+      this.selectedSpellToBuy = null;
+
+      this.$root.$emit('hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
       const loadingScreen = document.getElementById('loading-screen');

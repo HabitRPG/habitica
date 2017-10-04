@@ -5,7 +5,7 @@ div
       .profile-actions
         button.btn.btn-secondary(@click='sendMessage()')
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(v-if='userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
           @click="blockUser()", tooltip-placement='right')
           span.glyphicon.glyphicon-plus
           | {{$t('block')}}
@@ -20,46 +20,49 @@ div
           member-details(:member="user")
     .row
       .col-6.offset-3.text-center.nav
-        .nav-item(@click='selectedPage = "profile"', :class="{active: selectedPage === 'profile'}") Profile
-        .nav-item(@click='selectedPage = "stats"', :class="{active: selectedPage === 'stats'}") Stats
-        .nav-item(@click='selectedPage = "achievements"', :class="{active: selectedPage === 'achievements'}") Achievements
+        .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
+        .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
+        .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
         .col-8
           .header
             h1 {{user.profile.name}}
             h4
-              strong User Id:
+              strong {{ $t('userId') }}:
               | {{user._id}}
         .col-4
-          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') Edit
+          button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')
         .col-8
           .about
-            h2 About
+            h2 {{ $t('about') }}
             p(v-markdown='user.profile.blurb')
           .photo
-            h2 Photo
+            h2 {{ $t('photo') }}
             img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
 
         .col-4
           .info
-            h2 info
+            h2 {{ $t('info') }}
             div
-              strong Joined:
-              | {{user.auth.timestamps.created}}
+              strong {{ $t('joined') }}:&nbsp;
+              | {{userJoinedDate}}
             div
-              strong Total Log Ins:
+              strong {{ $t('latestCheckin') }}:&nbsp;
+              | {{userLastLoggedIn}}
+            div
+              strong {{ $t('totalLogins') }}:&nbsp;
               span {{ $t('totalCheckins', {count: user.loginIncentives}) }}
             div
               | {{getProgressDisplay()}}
               .progress
                 .progress-bar(role='progressbar', :aria-valuenow='incentivesProgress', aria-valuemin='0', aria-valuemax='100', :style='{width: incentivesProgress + "%"}')
-                  span.sr-only {{ incentivesProgress }}% Complete
+                  span.sr-only {{ incentivesProgress }}% {{$t('complete')}}
           // @TODO: Implement in V2 .social
 
       .row(v-if='editing')
-        h1 Edit Profile
+        h1 {{$t('editProfile')}}
         .col-12
           .alert.alert-info.alert-sm(v-html='$t("communityGuidelinesWarning", managerEmail)')
 
@@ -87,114 +90,112 @@ div
         .col-12.text-center
           button.btn.btn-primary(@click='save()') {{ $t("save") }}
           button.btn.btn-warning(@click='editing = false') {{ $t("cancel") }}
-
     #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
         .col-3.text-center(v-for='(achievement, key) in category.achievements')
-          .box.achievement-container(:id='key', :class='{"achievement-unearned": !achievement.earned}')
+          .box.achievement-container(:id='key + "-achievement"', :class='{"achievement-unearned": !achievement.earned}')
             b-popover(
-              :target="'#' + key",
+              :target="'#' + key + '-achievement'",
               triggers="hover",
               placement="top",
             )
               h4.popover-content-title {{ achievement.title }}
               div.popover-content-text(v-html="achievement.text")
             .achievement(:class='achievement.icon + "2x"', v-if='achievement.earned')
-             .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
+              .counter.badge.badge-info.stack-count(v-if='achievement.optionalCount') {{achievement.optionalCount}}
             .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
       hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
           .achievement-icon.achievement-alien
-          h2.text-center Challeges Won
+          h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
-            span {{chal}}
+            span(v-markdown='chal')
             hr
         .col-6(v-if='user.achievements.quests')
           .achievement-icon.achievement-karaoke
-          h2.text-center Quests Completed
+          h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }}
             span {{ value }}
-
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
         .col-6
-          h2.text-center Equipment
+          h2.text-center {{$t('equipment')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.eyewear}')
+              .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.eyewear}`")
-              h3 Eyewear
+              h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.head}')
+              .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.head}`")
-              h3 Head Gear
+              h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.headAccessory}')
+              .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
-              h3 Head Access.
+              h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.backAccessory}')
+              .box(:class='{white: equippedItems.backAccessory && equippedItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.backAccessory}`")
-              h3 Back Access.
+              h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.armor}')
+              .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.armor}`")
-              h3 Armor
+              h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.bodyAccessory}')
+              .box(:class='{white: equippedItems.bodyAccessory && equippedItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.bodyAccessory}`")
-              h3 Body Access.
+              h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.weapon}')
+              .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.weapon}`")
-              h3 Main-Hand
+              h3 {{$t('mainHand')}}
             .col-4.item-wrapper
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.shield}')
+              .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.shield}`")
-              h3 Off-Hand
+              h3 {{$t('offHand')}}
         .col-6
-          h2.text-center Costume
+          h2.text-center {{$t('costume')}}
           .well
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear}')
+              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.eyewear}`")
-              h3 Eyewear
+              h3 {{$t('eyewear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.head}')
+              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.head}`")
-              h3 Head Gear
+              h3 {{$t('headGear')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory}')
+              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
-              h3 Head Access.
+              h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.backAccessory}')
+              .box(:class='{white: costumeItems.backAccessory && costumeItems.backAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.backAccessory}`")
-              h3 Back Access.
+              h3 {{$t('backAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.armor}')
+              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.armor}`")
-              h3 Armor
+              h3 {{$t('armor')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.bodyAccessory}')
+              .box(:class='{white: costumeItems.bodyAccessory && costumeItems.bodyAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.bodyAccessory}`")
-              h3 Body Access.
+              h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon}')
+              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.weapon}`")
-              h3 Main-Hand
+              h3 {{$t('mainHand')}}
             .col-4.item-wrapper
-              .box(:class='{white: user.preferences.background}')
-                div(:class="user.preferences.background")
-              h3 Background
+              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+                div(:class="'background_' + user.preferences.background")
+              h3 {{$t('background')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.shield}')
+              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.shield}`")
-              h3 Off-Hand
+              h3 {{$t('offHand')}}
       .row.pet-mount-row
         .col-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -202,7 +203,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentPet}')
-                  div(:class="user.items.currentPet")
+                  .pet(:class="`Pet-${user.items.currentPet}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -218,7 +219,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentMount}')
-                  div(:class="user.items.currentMount")
+                  .mount(:class="`Mount-${user.items.currentMount}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentMount, 'mount') }}
@@ -230,7 +231,7 @@ div
                   span {{ mountMasterProgress(user.items.mounts) }}
       #attributes.row
         hr.col-12
-        h2.col-12 Attributes
+        h2.col-12 {{$t('attributes')}}
         .col-6(v-for="(statInfo, stat) in stats")
           .row.col-12.stats-column
             .col-4.attribute-label
@@ -241,31 +242,33 @@ div
             .col-6
               ul.bonus-stats
                 li
-                  strong Level:
+                  strong {{$t('level')}}:
                   | {{statsComputed.levelBonus[stat]}}
                 li
-                  strong Equipment:
+                  strong {{$t('equipment')}}:
                   | {{statsComputed.gearBonus[stat]}}
                 li
-                  strong Class:
+                  strong {{$t('class')}}:
                   | {{statsComputed.classBonus[stat]}}
                 li
-                  strong Allocated:
+                  strong {{$t('allocated')}}:
                   | {{user.stats[stat]}}
                 li
-                  strong Buffs:
+                  strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
       #allocation(v-if='user._id === userLoggedIn._id')
         .row.title-row
           .col-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
             h3(v-if='user.stats.points || userLevel100Plus')
-              | Points Available
+              | {{$t('pointsAvailable')}}
               .counter.badge(v-if='user.stats.points || userLevel100Plus')
                 | {{user.stats.points}}&nbsp;
           .col-6
             .float-right
-              toggle-switch(:label="$t('autoAllocation')", v-model='user.preferences.automaticAllocation', @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
+              toggle-switch(:label="$t('autoAllocation')",
+                v-model='user.preferences.automaticAllocation',
+                @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
 
         .row
           .col-3(v-for='(statInfo, stat) in allocateStatsList')
@@ -273,10 +276,10 @@ div
               .col-12
                 div(:class='stat') {{ $t(stats[stat].title) }}
                 .number {{ user.stats[stat] }}
-                .points pts
+                .points {{$t('pts')}}
               .col-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
-  private-message-modal(:userIdToMessage='userIdToMessage')
+  private-message-modal
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
@@ -320,6 +323,10 @@ div
   .pet-mount-row {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+
+  .pet, .mount {
+    margin-top: -1.8em !important;
   }
 
   .header {
@@ -399,9 +406,10 @@ div
       color: #fff;
       background-color: #ff944c;
       box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      min-width: 24px;
+      min-height: 24px;
+      border-radius: 2em;
+      padding: .5em;
     }
 
     .achievement-icon {
@@ -537,6 +545,7 @@ div
 </style>
 
 <script>
+import moment from 'moment';
 import axios from 'axios';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
@@ -629,6 +638,12 @@ export default {
       userLoggedIn: 'user.data',
       flatGear: 'content.gear.flat',
     }),
+    userJoinedDate () {
+      return moment(this.user.auth.timestamps.created).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
+    userLastLoggedIn () {
+      return moment(this.user.auth.timestamps.loggedin).format(this.userLoggedIn.preferences.dateFormat.toUpperCase());
+    },
     equippedItems () {
       return this.user.items.gear.equipped;
     },
@@ -638,6 +653,9 @@ export default {
     user () {
       let user = this.userLoggedIn;
 
+      // Reset editing when user is changed. Move to watch or is this good?
+      this.editing = false;
+
       let profileUser = this.$store.state.profileUser;
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
@@ -645,6 +663,7 @@ export default {
 
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
+      this.editingProfile.blurb = user.profile.blurb;
 
       if (!user.achievements.quests) user.achievements.quests = {};
       if (!user.achievements.challenges) user.achievements.challenges = {};
@@ -685,8 +704,13 @@ export default {
     },
   },
   methods: {
+    selectPage (page) {
+      this.selectedPage = page;
+      // @TODO: rename this property?
+      this.$store.state.profileOptions.startingPage = page;
+    },
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     getProgressDisplay () {
@@ -771,7 +795,7 @@ export default {
       return display;
     },
     allocate (stat) {
-      allocate(this.user, stat);
+      allocate(this.user, {query: { stat }});
       axios.post(`/api/v3/user/allocate?stat=${stat}`);
     },
     allocateNow () {

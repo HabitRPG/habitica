@@ -1,6 +1,8 @@
 <template lang="pug">
+// @TODO: Move this to a member directory
 div
-  b-modal#members-modal(:title="$t('createGuild')", size='md')
+  remove-member-modal(:member-to-remove='memberToRemove', :group-id='this.groupId' @member-removed='memberRemoved')
+  b-modal#members-modal(:title="$t('createGuild')", size='md', :hide-footer='true')
     .header-wrap(slot="modal-header")
       .row
         .col-6
@@ -15,33 +17,47 @@ div
           span.dropdown-label {{ $t('sortBy') }}
           b-dropdown(:text="$t('sort')", right=true)
             b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
-    .row(v-for='member in sortedMembers')
-      .col-11.no-padding-left
-        member-details(:member='member')
-      .col-1.actions
-        b-dropdown(right=true)
-          .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
-            span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
-              span.text {{$t('removeMember')}}
-          b-dropdown-item(@click='sendMessage(member._id)')
-            span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.messageIcon")
-              span.text {{$t('sendMessage')}}
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
-            span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.starIcon")
-              span.text {{$t('promoteToLeader')}}
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
-            span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.starIcon")
-              span.text {{$t('addManager')}}
-          b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
-            span.dropdown-icon-item
-              .svg-icon.inline(v-html="icons.removeIcon")
-              span.text {{$t('removeManager2')}}
-    .row.gradient(v-if='members.length > 3')
+    .row(v-if='invites.length > 0')
+      .col-6.offset-3.nav
+        .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
+        .nav-item(@click='viewInvites()', :class="{active: selectedPage === 'invites'}") {{ $t('invites') }}
+    div(v-if='selectedPage === "members"')
+      .row(v-for='(member, index) in sortedMembers')
+        .col-11.no-padding-left
+          member-details(:member='member')
+        .col-1.actions
+          b-dropdown(right=true)
+            .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
+            b-dropdown-item(@click='removeMember(member, index)', v-if='isLeader')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
+                span.text {{$t('removeMember')}}
+            b-dropdown-item(@click='sendMessage(member._id)')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.messageIcon")
+                span.text {{$t('sendMessage')}}
+            b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.starIcon")
+                span.text {{$t('promoteToLeader')}}
+            b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.starIcon")
+                span.text {{$t('addManager')}}
+            b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.removeIcon")
+                span.text {{$t('removeManager2')}}
+      .row(v-if='groupId === "challenge"')
+        .col-12.text-center
+          button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
+      .row.gradient(v-if='members.length > 3')
+    div(v-if='selectedPage === "invites"')
+      .row(v-for='member in invites')
+        .col-11.no-padding-left
+          member-details(:member='member')
+    .modal-footer
+      button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
 
 <style lang='scss'>
@@ -126,10 +142,29 @@ div
   .dropdown-icon-item .svg-icon {
     width: 20px;
   }
+
+  .nav {
+    font-weight: bold;
+    margin-bottom: .5em;
+    margin-top: .5em;
+  }
+
+  .nav-item {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 auto;
+    padding: .5em;
+    color: #878190;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: #4f2a93;
+    border-bottom: 2px solid #4f2a93;
+    cursor: pointer;
+  }
 </style>
 
 <script>
-// @TODO: Move this under members directory
 import sortBy from 'lodash/sortBy';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -137,6 +172,7 @@ import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
 import privateMessageModal from 'client/components/private-message-modal';
+import removeMemberModal from 'client/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
@@ -151,12 +187,15 @@ export default {
     bDropdownItem,
     MemberDetails,
     privateMessageModal,
+    removeMemberModal,
   },
   data () {
     return {
       sortOption: '',
+      selectedPage: 'members',
       members: [],
-      memberToRemove: '',
+      invites: [],
+      memberToRemove: {},
       sortOptions: [
         {
           value: 'level',
@@ -203,8 +242,18 @@ export default {
     groupId () {
       return this.$store.state.memberModalOptions.groupId || this.group._id;
     },
+    challengeId () {
+      return this.$store.state.memberModalOptions.challengeId;
+    },
     sortedMembers () {
       let sortedMembers = this.members;
+
+      if (this.searchTerm) {
+        sortedMembers = sortedMembers.filter(member => {
+          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase) !== -1;
+        });
+      }
+
       if (!this.sortOption) return sortedMembers;
 
       sortedMembers = sortBy(this.members, [(member) => {
@@ -220,7 +269,7 @@ export default {
         }
       }]);
 
-      return this.members;
+      return sortedMembers;
     },
   },
   watch: {
@@ -234,7 +283,7 @@ export default {
   },
   methods: {
     sendMessage () {
-      this.userIdToMessage = this.user._id;
+      this.$store.state.userIdToMessage = this.user._id;
       this.$root.$emit('show::modal', 'private-message');
     },
     async getMembers () {
@@ -245,6 +294,12 @@ export default {
           includeAllPublicFields: true,
         });
         this.members = members;
+
+        let invites = await this.$store.dispatch('members:getGroupInvites', {
+          groupId,
+          includeAllPublicFields: true,
+        });
+        this.invites = invites;
       }
 
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
@@ -270,24 +325,15 @@ export default {
 
       this.$root.$emit('show::modal', 'members-modal');
     },
-    async removeMember (member) {
+    async removeMember (member, index) {
       this.memberToRemove = member;
+      this.memberToRemove.index = index;
       this.$root.$emit('show::modal', 'remove-member');
     },
-    async confirmRemoveMember (confirmation) {
-      if (!confirmation) {
-        this.memberToRemove = '';
-        return;
-      }
-
-      await this.$store.dispatch('members:removeMember', {
-        memberId: this.memberToRemove._id,
-        groupId: this.group._id,
-        message: this.removeMessage,
-      });
-
-      this.memberToRemove = '';
-      this.removeMessage = '';
+    memberRemoved () {
+      this.members.splice(this.memberToRemove.index, 1);
+      this.group.memberCount -= 1;
+      this.memberToRemove =  {};
     },
     async quickReply (uid) {
       this.memberToReply = uid;
@@ -311,6 +357,23 @@ export default {
     },
     sort (option) {
       this.sortOption = option;
+    },
+    async loadMoreMembers () {
+      const lastMember = this.members[this.members.length - 1];
+      if (!lastMember) return;
+
+      let newMembers = await this.$store.dispatch('members:getChallengeMembers', {
+        challengeId: this.challengeId,
+        lastMemberId: lastMember._id,
+      });
+
+      this.members = this.members.concat(newMembers);
+    },
+    viewMembers () {
+      this.selectedPage = 'members';
+    },
+    viewInvites () {
+      this.selectedPage = 'invites';
     },
   },
 };

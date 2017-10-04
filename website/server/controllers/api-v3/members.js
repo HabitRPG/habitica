@@ -170,6 +170,8 @@ api.getMemberAchievements = {
 };
 
 // Return a request handler for getMembersForGroup / getInvitesForGroup / getMembersForChallenge
+
+// @TODO: This violates the Liskov substitution principle. We should create factory functions. See Webhooks for a good example
 function _getMembersForItem (type) {
   // check for allowed `type`
   if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
@@ -243,9 +245,18 @@ function _getMembersForItem (type) {
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       } else {
         query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
         // @TODO invitations are now stored like this: `'invitations.parties': []`  Probably need a database index for it.
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       }
     }
 

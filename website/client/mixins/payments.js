@@ -1,24 +1,46 @@
 import axios from 'axios';
 
-let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-let API_TOKEN = '';
-if (AUTH_SETTINGS) {
-  AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
-  API_TOKEN = AUTH_SETTINGS.auth.apiToken;
-}
-
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
-
-let StripeCheckout = window.StripeCheckout;
+import { mapState } from 'client/libs/store';
+import notificationsMixin from 'client/mixins/notifications';
 
 export default {
+  mixins: [notificationsMixin],
   computed: {
+    ...mapState(['credentials']),
+    // @TODO refactor into one single computed property
     paypalCheckoutLink () {
-      return `/paypal/checkout?_id=${this.user._id}&apiToken=${API_TOKEN}`;
+      return `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}`;
+    },
+    paypalSubscriptionLink () {
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscriptionPlan}`;
+    },
+    paypalPurchaseLink () {
+      if (!this.subscription) {
+        this.subscription = {
+          key: 'basic_earned',
+        };
+      }
+      let couponString = '';
+      if (this.subscription.coupon) couponString = `&coupon=${this.subscription.coupon}`;
+      return `/paypal/subscribe?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&sub=${this.subscription.key}${couponString}`;
     },
   },
   methods: {
+    encodeGift (uuid, gift) {
+      gift.uuid = uuid;
+      let encodedString = JSON.stringify(gift);
+      return encodeURIComponent(encodedString);
+    },
+    openPaypalGift (data) {
+      if (!this.checkGemAmount(data)) return;
+
+      let gift = this.encodeGift(data.giftedTo, data.gift);
+      const url = `/paypal/checkout?_id=${this.credentials.API_ID}&apiToken=${this.credentials.API_TOKEN}&gift=${gift}`;
+
+      window.open(url, '_blank');
+    },
     showStripe (data) {
       if (!this.checkGemAmount(data)) return;
 
@@ -37,13 +59,13 @@ export default {
       if (data.gift && data.gift.type === 'gems') amount = data.gift.gems.amount / 4 * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
 
-      StripeCheckout.open({
+      window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         amount,
         name: 'Habitica',
         description: sub ? this.$t('subscribe') : this.$t('checkout'),
-        image: '/apple-touch-icon-144-precomposed.png',
+        // image: '/apple-touch-icon-144-precomposed.png',
         panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
         token: async (res) => {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
@@ -61,6 +83,7 @@ export default {
 
           let response = await axios.post(url, res);
 
+          // @TODO handle with normal notifications?
           let responseStatus = response.status;
           if (responseStatus >= 400) {
             alert(`Error: ${response.message}`);
@@ -69,9 +92,16 @@ export default {
 
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
+            // @TODO this does not do anything as we reload just below
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            // @TODO action
             this.user.guilds.push(newGroup._id);
+            return;
+          }
+
+          if (data.groupId) {
+            this.$router.push(`/group-plans/${data.groupId}/task-information`);
             return;
           }
 
@@ -85,7 +115,7 @@ export default {
         groupId = config.groupId;
       }
 
-      StripeCheckout.open({
+      window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         name: this.$t('subUpdateTitle'),

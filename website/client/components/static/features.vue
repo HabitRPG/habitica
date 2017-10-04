@@ -71,9 +71,6 @@
         p.span
           span {{ $t('marketing4Lead3-2') }}
           a.btn.btn-primary(href='/static/plans',target='_blank') {{ $t('contactUs') }}
-        p.span
-          span {{ $t('marketing4Lead3-3') }}
-          a.btn.btn-primary(href='/static/videos') {{ $t('watchVideos') }}
 </template>
 
 <style lang='scss' scoped>

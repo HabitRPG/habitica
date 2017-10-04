@@ -6,7 +6,7 @@
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
-        :class="{active: activeFilter.label === filter.label}",
+        :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
@@ -43,7 +43,12 @@
   @import '~client/assets/scss/colors.scss';
 
   .tasks-column {
-    height: 556px;
+    min-height: 556px;
+  }
+
+  .task-wrapper {
+    position: relative;
+    z-index: 2;
   }
 
   .task-wrapper + .reward-items {
@@ -60,11 +65,9 @@
     border-radius: 4px;
     background: $gray-600;
     padding: 8px;
-    // not sure why but this is necessary or the last task will overflow the container
-    padding-bottom: 0.1px;
-    position: relative;
-    height: calc(100% - 64px);
-    overflow: auto;
+    position: relative; // needed for the .bottom-gradient to be position: absolute
+    height: calc(100% - 56px);
+    padding-bottom: 30px;
   }
 
   .bottom-gradient {
@@ -106,7 +109,7 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 7;
+    z-index: 1;
 
     &.initial-description {
       top: 30%;
@@ -161,19 +164,26 @@
 
 <script>
 import Task from './task';
+import sortBy from 'lodash/sortBy';
+import throttle from 'lodash/throttle';
+import bModal from 'bootstrap-vue/lib/components/modal';
+
+import sortable from 'client/directives/sortable.directive';
+import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
+import shopItem from '../shops/shopItem';
+
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
+import spells from 'common/script/content/spells';
+
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import shopItem from '../shops/shopItem';
-import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 
 export default {
+  mixins: [buyMixin],
   components: {
     Task,
     bModal,
@@ -205,7 +215,7 @@ export default {
         label: 'todos',
         filters: [
           {label: 'remaining', filter: t => !t.completed, default: true}, // active
-          {label: 'scheduled', filter: t => !t.completed && t.date},
+          {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
           {label: 'complete2', filter: t => t.completed},
         ],
       },
@@ -226,11 +236,18 @@ export default {
       reward: rewardIcon,
     });
 
+    let activeFilters = {};
+    for (let type in types) {
+      activeFilters[type] = types[type].filters.find(f => f.default === true);
+    }
+
     return {
       types,
-      activeFilter: types[this.type].filters.find(f => f.default === true),
+      activeFilters,
       icons,
       openedCompletedTodos: false,
+
+      forceRefresh: new Date(),
     };
   },
   computed: {
@@ -245,10 +262,34 @@ export default {
       return this.tasks[`${this.type}s`];
     },
     inAppRewards () {
-      return inAppRewards(this.user);
+      let watchRefresh = this.forceRefresh; // eslint-disable-line
+      let rewards = inAppRewards(this.user);
+
+
+      // Add season rewards if user is affected
+      // @TODO: Add buff coniditional
+      const seasonalSkills = {
+        snowball: 'salt',
+        spookySparkles: 'opaquePotion',
+        shinySeed: 'petalFreePotion',
+        seafoam: 'sand',
+      };
+
+      for (let key in seasonalSkills) {
+        if (this.user.stats.buffs[key]) {
+          let debuff = seasonalSkills[key];
+          let item = Object.assign({}, spells.special[debuff]);
+          item.text = item.text();
+          item.notes = item.notes();
+          item.class = `shop_${key}`;
+          rewards.push(item);
+        }
+      }
+
+      return rewards;
     },
     hasRewardsList () {
-      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
+      return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
     },
     initialColumnDescription () {
       // Show the column description in the middle only if there are no elements (tasks or in app items)
@@ -258,6 +299,12 @@ export default {
 
       return this.tasks[`${this.type}s`].length === 0;
     },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
+      return this.user.preferences.dailyDueDefaultView;
+    },
   },
   watch: {
     taskList: {
@@ -266,9 +313,18 @@ export default {
       }, 250),
       deep: true,
     },
+    dailyDueDefaultView () {
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.types.daily.filters[1]);
+      }
+    },
   },
   mounted () {
     this.setColumnBackgroundVisibility();
+
+    this.$root.$on('buyModal::boughtItem', () => {
+      this.forceRefresh = new Date();
+    });
   },
   methods: {
     ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
@@ -293,7 +349,11 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
-      this.activeFilter = filter;
+      this.activeFilters[type] = filter;
+
+      if (filter.sort) {
+        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
+      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
@@ -322,7 +382,7 @@ export default {
     },
     filterTask (task) {
       // View
-      if (!this.activeFilter.filter(task)) return false;
+      if (!this.activeFilters[task.type].filter(task)) return false;
 
       // Tags
       const selectedTags = this.selectedTags;
@@ -351,6 +411,14 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
+      // Buy armoire and health potions immediately
+      let itemsToPurchaseImmediately = ['potion', 'armoire'];
+      if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
+        this.makeGenericPurchase(rewardItem);
+        this.$emit('buyPressed', rewardItem);
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
       }

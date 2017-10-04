@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-2.standard-sidebar
+.col-2.standard-sidebar.hidden-xs-down
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
@@ -15,7 +15,7 @@
           input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t(group.label) }}
-    .form-group
+    .form-group(v-if='$route.name !== "findChallenges"')
       h3 Membership
       .form-check(
         v-for="group in roleOptions",

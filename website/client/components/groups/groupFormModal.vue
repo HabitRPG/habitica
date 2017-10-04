@@ -9,7 +9,7 @@
         label
           strong(v-once) {{$t('guildOrPartyLeader')}} *
         select.form-control(v-model="workingGroup.newLeader")
-          option(v-for='member in members', :value="member._id") {{ member.profile.name }}
+          option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
 
       .form-group(v-if='!this.workingGroup.id')
         label
@@ -63,7 +63,7 @@
       .form-group
         label
           strong(v-once) {{$t('groupDescription')}} *
-        a.float-right {{ $t('markdownFormattingHelp') }}
+        a.float-right(v-markdown='$t("markdownFormattingHelp")')
         textarea.form-control.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
 
       .form-group(v-if='creatingParty && !workingGroup.id')
@@ -177,6 +177,7 @@ import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import markdownDirective from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
 
@@ -197,6 +198,9 @@ export default {
     bFormSelect,
     bTooltip,
     toggleSwitch,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     let data = {
@@ -316,6 +320,17 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
+    potentialLeaders () {
+      let leaders = [{ _id: this.user._id, name: this.user.profile.name }];
+      // @TODO consider pushing all recent posters to the top of the list if they are guild members - more likely to be the ones the leader wants to see (and then ignore them in the while below)
+      let i = 0;
+      while (this.members[i]) {
+        let memb = this.members[i];
+        i++;
+        if (memb._id !== this.user._id) leaders.push({_id: memb._id, name: memb.profile.name});
+      }
+      return leaders;
+    },
   },
   watch: {
     editingGroup () {
@@ -373,7 +388,7 @@ export default {
     async submit () {
       if (this.$store.state.user.data.balance < 1 && !this.workingGroup.id) {
         // @TODO: Add proper notifications
-        alert('Not enough gems');
+        alert(this.$t('notEnoughGems'));
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
         // @TODO when modal is implemented, enable analytics
@@ -385,27 +400,16 @@ export default {
         }); */
       }
 
-      if (!this.workingGroup.name || !this.workingGroup.description) {
-        // @TODO: Add proper notifications - split this out into two, make errors translatable. Suggestion: `<% fieldName %> is required` for all errors where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
-        alert('Enter a name and description');
-        return;
-      }
+      let errors = [];
 
-      if (!this.workingGroup.summary) {
-        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
-        alert('Enter a summary');
-        return;
-      }
+      if (!this.workingGroup.name) errors.push(this.$t('nameRequired'));
+      if (!this.workingGroup.summary) errors.push(this.$t('summaryRequired'));
+      if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) errors.push(this.$t('summaryTooLong'));
+      if (!this.workingGroup.description) errors.push(this.$t('descriptionRequired'));
+      if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) errors.push(this.$t('categoiresRequired'));
 
-      if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) {
-        // @TODO: Add proper notifications. Summary is mandatory for only public guilds (not tavern, private guilds, parties)
-        alert('Summary is too long');
-        return;
-      }
-
-      if (!this.workingGroup.categories || this.workingGroup.categories.length === 0) {
-        // @TODO: Add proper notifications
-        alert('One or more categories must be selected');
+      if (errors.length > 0) {
+        alert(errors.join('\n'));
         return;
       }
 

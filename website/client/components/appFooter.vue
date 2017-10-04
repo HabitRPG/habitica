@@ -1,15 +1,15 @@
 <template lang="pug">
 .row
-  buy-gems-modal
-  modify-inventory
+  buy-gems-modal(v-if="isUserLoaded")
+  modify-inventory(v-if="isUserLoaded")
   footer.container-fluid
     .row
-      .col-2
+      .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
         h3
           a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
-      .col-2
+      .col-12.col-md-2
         h3 Company
         ul
           li
@@ -28,7 +28,7 @@
             a(href='/static/press-kit') {{ $t('presskit') }}
           li
             a(href='/static/contact') {{ $t('contactUs') }}
-      .col-2
+      .col-12.col-md-2
         h3 Community
         ul
           li
@@ -36,7 +36,7 @@
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
-            router-link(to='/groups/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
+            router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
             a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
           li
@@ -47,7 +47,7 @@
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
             a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
-      .col-6
+      .col-12.col-md-6
         .row
           .col-6
             h3 Developers
@@ -55,7 +55,7 @@
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='http://data.habitrpg.com/?uuid=', target='_blank') {{ $t('dataDisplayTool') }}
+                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
@@ -74,32 +74,32 @@
         .row
           .col-10 {{ $t('donateText3') }}
           .col-2
-            button.btn.btn-donate(@click='donate()')
-              .svg-icon.heart(v-html='icons.heart')
+            button.btn.btn-donate(@click="donate()")
+              .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
     .row
       hr.col-12
     .row
       .col-4
         | © 2017 Habitica. All rights reserved.
-        .debug.float-left(v-if='!IS_PRODUCTION')
-          button.btn.btn-primary(@click='debugMenuShown = !debugMenuShown') Toggle Debug Menu
-          .debug-group(v-if='debugMenuShown')
-            a.btn.btn-default(@click='setHealthLow()') Health = 1
-            a.btn.btn-default(@click='addMissedDay(1)') +1 Missed Day
-            a.btn.btn-default(@click='addMissedDay(2)') +2 Missed Days
-            a.btn.btn-default(@click='addMissedDay(8)') +8 Missed Days
-            a.btn.btn-default(@click='addMissedDay(32)') +32 Missed Days
-            a.btn.btn-default(@click='addTenGems()') +10 Gems
-            a.btn.btn-default(@click='addHourglass()') +1 Mystic Hourglass
-            a.btn.btn-default(@click='addGold()') +500GP
-            a.btn.btn-default(@click='plusTenHealth()') + 10HP
-            a.btn.btn-default(@click='addMana()') +MP
-            a.btn.btn-default(@click='addLevelsAndGold()') +Exp +GP +MP
-            a.btn.btn-default(@click='addOneLevel()') +1 Level
-            a.btn.btn-default(@click='addQuestProgress()' tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
-            a.btn.btn-default(@click='makeAdmin()') Make Admin
-            a.btn.btn-default(@click='openModifyInventoryModal()') Modify Inventory
+        .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
+          button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
+          .debug-group(v-if="debugMenuShown")
+            a.btn.btn-default(@click="setHealthLow()") Health = 1
+            a.btn.btn-default(@click="addMissedDay(1)") +1 Missed Day
+            a.btn.btn-default(@click="addMissedDay(2)") +2 Missed Days
+            a.btn.btn-default(@click="addMissedDay(8)") +8 Missed Days
+            a.btn.btn-default(@click="addMissedDay(32)") +32 Missed Days
+            a.btn.btn-default(@click="addTenGems()") +10 Gems
+            a.btn.btn-default(@click="addHourglass()") +1 Mystic Hourglass
+            a.btn.btn-default(@click="addGold()") +500GP
+            a.btn.btn-default(@click="plusTenHealth()") + 10HP
+            a.btn.btn-default(@click="addMana()") +MP
+            a.btn.btn-default(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-default(@click="addOneLevel()") +1 Level
+            a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(@click="makeAdmin()") Make Admin
+            a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
       .col-4.text-center
         .logo
       .col-4.text-right
@@ -119,6 +119,7 @@
     padding-top: 3em;
     margin: 0;
     color: #878190;
+    z-index: 17;
 
     a {
       color: #878190;
@@ -252,6 +253,7 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    ...mapState(['isUserLoaded']),
   },
   methods: {
     plusTenHealth () {

@@ -57,7 +57,7 @@
       b-dropdown(:right="true", :variant="'success'")
         div(slot="button-content")
           .svg-icon.positive(v-html="icons.positive")
-          | {{ $t('create') }}
+          | {{ $t('addTaskToGroupPlan') }}
         b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
           span.dropdown-icon-item(v-once)
             span.svg-icon.inline(v-html="icons[type]")
@@ -72,7 +72,7 @@
         v-on:taskEdited='taskEdited',
       )
   .row
-    task-column.col-3(
+    task-column.col-12.col-sm-6.col-3(
       v-for="column in columns",
       :type="column",
       :key="column",

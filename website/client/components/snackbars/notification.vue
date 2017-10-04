@@ -1,6 +1,6 @@
 <template lang="pug">
 transition(name="fade")
-  .notification.callout.animated(:class="classes", v-if='show')
+  .notification.callout.animated(:class="classes", v-if='show', @click='show = false')
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
@@ -123,6 +123,7 @@ export default {
     };
   },
   created () {
+    // @TODO the notifications always close even if timeout is false
     let timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
     if (timeout) {
       let delay = this.notification.delay || 1000;
@@ -141,12 +142,13 @@ export default {
   },
   computed: {
     message () {
-      let direction = this.negative === 'negative' ? 'lost' : 'gained';
-
-      if (this.notification.type === 'hp') return `You ${direction} some ${this.$t('health')}`;
-      if (this.notification.type === 'mp') return `You ${direction} some ${this.$t('mana')}`;
-      if (this.notification.type === 'xp') return `You ${direction} some exp`;
-      if (this.notification.type === 'gp') return `You ${direction} some ${this.$t('gold')}`;
+      let localeKey = this.negative === 'negative' ? 'lost' : 'gained';
+      if (this.notification.type === 'hp') localeKey += 'Health';
+      if (this.notification.type === 'mp') localeKey += 'Mana';
+      if (this.notification.type === 'xp') localeKey += 'Experience';
+      if (this.notification.type === 'gp') localeKey += 'Gold';
+      return this.$t(localeKey);
+      // This requires eight translatable strings, but that gives the translators the most flexibility for matching gender/number and for using idioms for lost/spent/used/gained.
     },
     negative () {
       return this.notification.sign === '-' ? 'negative' : 'positive';

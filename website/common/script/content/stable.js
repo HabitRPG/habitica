@@ -69,6 +69,7 @@ let specialPets = {
   'JackOLantern-Ghost': 'ghostJackolantern',
   'Jackalope-RoyalPurple': 'royalPurpleJackalope',
   'Orca-Base': 'orca',
+  'Bear-Veteran': 'veteranBear',
 };
 
 let specialMounts = {

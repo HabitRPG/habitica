@@ -9,22 +9,24 @@ import * as Analytics from 'client/libs/analytics';
 import ParentPage from './components/parentPage';
 
 // Static Pages
-const StaticWrapper = () => import(/* webpackChunkName: "static" */'./components/static/staticWrapper');
+const StaticWrapper = () => import(/* webpackChunkName: "entry" */'./components/static/staticWrapper');
+const HomePage = () => import(/* webpackChunkName: "entry" */'./components/static/home');
+
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
 const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
+const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
 
-const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
+const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
@@ -85,6 +87,8 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
+import NotFoundPage from './components/404';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -98,8 +102,9 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
-    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -247,11 +252,13 @@ const router = new VueRouter({
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
+        { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
         { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
         { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
+        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: {requiresLogin: false} },
       ],
     },
     {
@@ -262,6 +269,7 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
+    { path: '*', redirect: { name: 'notFound' } },
   ],
 });
 
@@ -274,9 +282,26 @@ router.beforeEach(function routerGuard (to, from, next) {
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the
     // root of the website, in which case show the home page.
-    // TODO when redirecting to login if user login then redirect back to initial page
-    // so if you tried to go to /party you'll be redirected to /party after login/signup
-    return next({name: to.path === '/' ? 'home' : 'login'});
+    // Pass the requested page as a query parameter to redirect later.
+
+    const redirectTo = to.path === '/' ? 'home' : 'login';
+    return next({
+      name: redirectTo,
+      query: redirectTo === 'login' ? {
+        redirectTo: to.path,
+      } : null,
+    });
+  }
+
+  // Keep the redirectTo query param when going from login to register
+  // !to.query.redirectTo is to avoid entering a loop of infinite redirects
+  if (to.name === 'register' && !to.query.redirectTo && from.name === 'login' && from.query.redirectTo) {
+    return next({
+      name: 'register',
+      query: {
+        redirectTo: from.query.redirectTo,
+      },
+    });
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {

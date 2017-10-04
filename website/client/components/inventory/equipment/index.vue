@@ -38,6 +38,8 @@
     drawer(
       :title="$t('equipment')",
       :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
+      :openStatus='openStatus',
+      v-on:toggled='drawerToggled'
     )
       div(slot="drawer-header")
         .drawer-tab-container
@@ -66,14 +68,16 @@
             )
               .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
-        item(
+        item.pointer(
           v-for="(label, group) in gearTypesToStrings",
-          :key="group",
+          :key="flatGear[activeItems[group]] ? flatGear[activeItems[group]].key : group",
           :item="flatGear[activeItems[group]]",
           :itemContentClass="flatGear[activeItems[group]] ? 'shop_' + flatGear[activeItems[group]].key : null",
           :emptyItem="!flatGear[activeItems[group]] || flatGear[activeItems[group]].key.indexOf('_base_0') !== -1",
           :label="label",
           :popoverPosition="'top'",
+          :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
+          @click="equipItem(flatGear[activeItems[group]])",
         )
           template(slot="popoverContent", scope="context")
             equipmentAttributesPopover(:item="context.item")
@@ -113,7 +117,7 @@
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
-                @click="openEquipDialog(context.item)",
+                @click="equipItem(context.item)",
               )
             template(slot="popoverContent", scope="context")
               equipmentAttributesPopover(:item="context.item")
@@ -127,8 +131,16 @@
   )
 </template>
 
+<style lang="scss">
+.pointer {
+  cursor: pointer;
+}
+</style>
+
 <script>
 import { mapState } from 'client/libs/store';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+
 import each from 'lodash/each';
 import map from 'lodash/map';
 import throttle from 'lodash/throttle';
@@ -156,6 +168,7 @@ const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sor
 const sortGearTypeMap = {
   sortByName: (i) => i.text(),
   sortByCon: 'con',
+  sortByPer: 'per',
   sortByStr: 'str',
   sortByInt: 'int',
 };
@@ -211,6 +224,12 @@ export default {
       this.searchTextThrottled = this.searchText;
     }, 250),
   },
+  mounted () {
+    const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
+    if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+      this.$store.state.equipmentDrawerOpen = false;
+    }
+  },
   methods: {
     openEquipDialog (item) {
       this.gearToEquip = item;
@@ -232,6 +251,16 @@ export default {
     sortItems (items, sortBy) {
       return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
     },
+    drawerToggled (newState) {
+      this.$store.state.equipmentDrawerOpen = newState;
+
+      if (newState) {
+        setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        return;
+      }
+
+      setLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+    },
   },
   computed: {
     ...mapState({
@@ -242,6 +271,9 @@ export default {
       costumeItems: 'user.data.items.gear.costume',
       flatGear: 'content.gear.flat',
     }),
+    openStatus () {
+      return this.$store.state.equipmentDrawerOpen ? 1 : 0;
+    },
     drawerPreference () {
       return this.costume === true ? 'costume' : 'autoEquip';
     },

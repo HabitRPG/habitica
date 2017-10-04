@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "我願意遵守社群守則",
-    "tavernCommunityGuidelinesPlaceholder": "友善的提醒：這是一個所有年齡的聊天室，所以請保持內容和語言適當！ 若您有問題, 請查閱以下的社群規範.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "歡迎來到 Habitica!",
     "commGuidePara001": "嗨，冒險者！歡迎來到 Habitica。在這片大地上，生產力源源不絕、健康生活觸手可及，偶爾還能遇見獅鷲獸。這裡的人們快樂地相互支持，鼓勵彼此成為更好的人。",
     "commGuidePara002": "為了確保社群裡的每個人都平安、快樂和效率滿滿，我們小心地制定了有善並易懂的原則，請您細心閱讀。",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>積極的援助。</strong>Habitican 們為他人的成功喝采，在逆境中安慰彼此。在隊伍中使用技能、在聊天室中說友善的鼓勵話語，彼此支援、彼此依賴、彼此學習。",
     "commGuideList01D": "<strong>尊敬的禮儀。</strong>我們有不同的背景、不同的技能以及不同的想法，這是如此我們的社群才如此美妙！Habitican們尊重、擁抱彼此的差異，記住這點，很快地你將會用有來自生活中各方各面的朋友。",
     "commGuideHeadingMeet": "認識一下管理員們吧！",
-    "commGuidePara006": "Habitica 有一群努力不懈的俠客，與職員們合力維持社群的平穩充實，也讓它免於山怪之害。他們各有專精，但有時會應要求出現在其他社交領域。職員和管理員通常會在官方聲明前加上「管理員的話」或「管理員具名」。",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "職員有紫色星星標籤，他們的頭銜是「英雄」。",
     "commGuidePara008": "管理員的名字後方有星號，以暗藍色作底色，他們的頭銜是\"護衛\"。唯一的例外是貝利，一位NPC，他的名字是黑底綠字的，後方有星號。",
     "commGuidePara009": "現在的職員成員是（從左到右）：",
@@ -90,7 +90,7 @@
     "commGuideList04H": "保證wiki內容與Habitica的整個站點相關，而且不相關於某個公會或者隊伍(這樣的信息會被移到論壇)",
     "commGuidePara049": "以下是當前的wiki管理者:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Wiki名譽退休管理者有",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "違規、後果和恢復",
     "commGuideHeadingInfractions": "違規",
     "commGuidePara050": "Habit公民互相幫助互相尊重，並努力讓整個社區更有趣更友好。然而在極少數情況下，Habit公民的所作所為可能違反以上的準則。當這種情況發生時，管理員將採取一切必要行動來保持Habit大陸的可靠和舒適。",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "用於提交像素畫。",
     "commGuideLink08": "Trello 的任務",
     "commGuideLink08description": "對於提交任務的寫作。",
-    "lastUpdated": "最後更新"
+    "lastUpdated": "Last updated:"
 }

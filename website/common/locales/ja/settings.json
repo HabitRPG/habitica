@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "日付更新の設定",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "日付更新する時間を変更しますか?",
     "sureChangeCustomDayStart": "日付更新する時間を変更します。よろしいですか?",
     "customDayStartHasChanged": "日付更新時間が変更されました。",
@@ -105,9 +106,7 @@
     "email": "メール",
     "registerWithSocial": "<%= network %> で登録",
     "registeredWithSocial": "<%= network %> で登録しました。",
-    "loginNameDescription1": "これは Habitica でのログインに使用するものです。変更するには、下のフォームを利用してください。アバター上や、チャットメッセージで表示される「表示名」を変更するには、",
-    "loginNameDescription2": "ユーザー->プロフィール",
-    "loginNameDescription3": "で、「編集」ボタンをクリック。",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "メール通知",
     "wonChallenge": "あなたはチャレンジに成功しました!",
     "newPM": "プライベートメッセージが届きました",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Habitica へのチェックインを通知する",
     "subscribeUsing": "寄付の送金方法 : ",
     "unsubscribedSuccessfully": "購読を中止しました!",
-    "unsubscribedTextUsers": "Habitica からのメールをすべて停止しました。受け取りたいメールだけを<a href=\"/#/options/settings/notifications\">the settings</a>(要ログイン)から有効にできます。",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Habitica からの他のメールは発信されません。",
     "unsubscribeAllEmails": "チェックすると、メールの購読解除",
     "unsubscribeAllEmailsText": "私は、このボックスをチェックすることですべてのメールの購読を解除し、 サイトやアカウントの変更についての重要な内容であっても Habitica がメールを通じて私に告知することができなくなることを理解したことを証明します。",
@@ -185,5 +184,6 @@
     "timezone": "タイム ゾーン",
     "timezoneUTC": "Habitica はお使いのPCに設定されたタイム ゾーンを利用します。現在の設定 : <strong><%= utc %></strong>",
     "timezoneInfo": "タイムゾーンの設定が間違っているなら、このページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンで、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください<br><br><strong>もし、別のPCやモバイル機器でも Habitica を使っているなら、すべてを同じタイムゾーンに設定しなくてはなりません。</strong> もし日課がも違った時間にリセットされたら、これまでのチェックを別のすべてのPCとモバイル機器の Web ブラウザでくり返してください。",
-    "push": "プッシュ"
+    "push": "プッシュ",
+    "about": "About"
 }

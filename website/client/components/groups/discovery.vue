@@ -13,7 +13,7 @@
             b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
         button.btn.btn-secondary.create-group-button.float-right(@click='createGroup()')
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
-          span(v-once) {{$t('create')}}
+          span(v-once) {{$t('createGuild2')}}
     .row
       .col-md-12
         public-guild-item(v-for="guild in filteredGuilds", :key='guild._id', :guild="guild", :display-leave='true')
@@ -118,6 +118,7 @@ export default {
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       guilds.forEach((guild) => {
+        if (!guild.categories) return;
         guild.categorySlugs = guild.categories.map(cat => {
           return cat.slug;
         });

@@ -4,6 +4,7 @@ import { BadRequest } from './errors';
 import count from '../count';
 
 import isPinned from './isPinned';
+import getOfficialPinnedItems from './getOfficialPinnedItems';
 
 import _mapValues from 'lodash/mapValues';
 
@@ -16,9 +17,7 @@ function lockQuest (quest, user) {
   return quest.previous;
 }
 
-const officialPinnedItems = content.officialPinnedItems;
-
-function isItemSuggested (itemInfo) {
+function isItemSuggested (officialPinnedItems, itemInfo) {
   return officialPinnedItems.findIndex(officialItem => {
     return officialItem.type === itemInfo.pinType && officialItem.path === itemInfo.path;
   }) > -1;
@@ -40,10 +39,16 @@ function getDefaultGearProps (item, language) {
     per: item.per,
     con: item.con,
     klass: item.klass,
+    event: item.event,
+    set: item.set,
   };
 }
 
-module.exports = function getItemInfo (user, type, item, language = 'en') {
+module.exports = function getItemInfo (user, type, item, officialPinnedItems, language = 'en') {
+  if (officialPinnedItems === undefined) {
+    officialPinnedItems = getOfficialPinnedItems(user);
+  }
+
   let itemInfo;
 
   switch (type) {
@@ -110,7 +115,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
         notes: item.notes(language),
         value: item.value,
         currency: 'gems',
-        class: item.class,
+        class: `quest_bundle_${item.key}`,
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',
@@ -150,7 +155,7 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
       break;
     case 'seasonalSpell':
       itemInfo = {
-        key: item.keyspellKey,
+        key: item.key,
         text: item.text(language),
         notes: item.notes(language),
         value: item.value,
@@ -264,10 +269,54 @@ module.exports = function getItemInfo (user, type, item, language = 'en') {
       };
       break;
     }
+    case 'gem': {
+      itemInfo = {
+        key: 'gem',
+        purchaseType: 'gems',
+        class: 'gem',
+        text: i18n.t('subGemName'),
+        notes: i18n.t('subGemPop'),
+        value: 20,
+        currency: 'gold',
+        path: 'special.gems',
+        pinType: 'gem',
+        locked: !user.purchased.plan.customerId,
+      };
+      break;
+    }
+    case 'rebirth_orb': {
+      itemInfo = {
+        key: 'rebirth_orb',
+        purchaseType: 'rebirth_orb',
+        class: 'rebirth_orb',
+        text: i18n.t('rebirthName'),
+        notes: i18n.t('rebirthPop'),
+        value: user.stats.lvl < 100 ? 6 : 0,
+        currency: 'gems',
+        path: 'special.rebirth_orb',
+        pinType: 'rebirth_orb',
+        locked: !user.flags.rebirthEnabled,
+      };
+      break;
+    }
+    case 'fortify': {
+      itemInfo = {
+        key: 'fortify',
+        purchaseType: 'fortify',
+        class: 'inventory_special_fortify',
+        text: i18n.t('fortifyName'),
+        notes: i18n.t('fortifyPop'),
+        value: 4,
+        currency: 'gems',
+        path: 'special.fortify',
+        pinType: 'fortify',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {
-    itemInfo.isSuggested = isItemSuggested(itemInfo);
+    itemInfo.isSuggested = isItemSuggested(officialPinnedItems, itemInfo);
     itemInfo.pinned = isPinned(user, itemInfo);
   } else {
     throw new BadRequest(i18n.t('wrongItemType', {type}, language));

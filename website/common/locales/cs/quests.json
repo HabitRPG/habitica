@@ -8,6 +8,8 @@
     "unlockableQuests": "Odemknutelné výpravy",
     "goldQuests": "Výpravy za Zlaťáky",
     "questDetails": "Detaily výpravy",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Pozvánky",
     "completed": "Dokončeno!",
     "rewardsAllParticipants": "Odměny pro všechny účastníky",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Žádné aktivní výpravy k opuštění.",
     "questLeaderCannotLeaveQuest": "Vůdce výpravy nemůže opustit výpravu.",
     "notPartOfQuest": "Nejsi součástí výpravy.",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Žádné aktivní výpravy ke zrušení.",
     "onlyLeaderAbortQuest": "Pouze družina vůdce výpravy může zrušit výpravu.",
     "questAlreadyRejected": "Jíž jsi zamítl pozvání na výpravu.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "buyQuestBundle": "Buy Quest Bundle",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

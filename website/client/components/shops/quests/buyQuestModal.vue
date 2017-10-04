@@ -1,12 +1,10 @@
 <template lang="pug">
   b-modal#buy-quest-modal(
-    :visible="true",
-    v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )
     span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': item.pinned}",
+      :class="{'item-selected-badge': isPinned}",
       v-if="withPin",
       @click.prevent.stop="togglePinned()"
     )
@@ -212,7 +210,14 @@
           pin: svgPin,
           experience: svgExperience,
         }),
+
+        isPinned: false,
       };
+    },
+    watch: {
+      item: function itemChanged () {
+        this.isPinned = this.item && this.item.pinned;
+      },
     },
     computed: {
       ...mapState({
@@ -250,7 +255,11 @@
         this.hideDialog();
       },
       togglePinned () {
-        this.$emit('togglePinned', this.item);
+        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
+
+        if (!this.isPinned) {
+          this.text(this.$t('unpinnedItem', {item: this.item.text}));
+        }
       },
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-quest-modal');

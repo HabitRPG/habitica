@@ -22,12 +22,15 @@ let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
 
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
-  axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
-  axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
 
-  axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
+  if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
+    axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
+    axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
 
-  isUserLoggedIn = true;
+    axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
+
+    isUserLoggedIn = true;
+  }
 }
 
 const i18nData = window && window['habitica-i18n'];
@@ -54,7 +57,13 @@ export default function () {
     state: {
       title: 'Habitica',
       isUserLoggedIn,
+      isUserLoaded: false, // Means the user and the user's tasks are ready
+      isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      credentials: isUserLoggedIn ? {
+        API_ID: AUTH_SETTINGS.auth.apiId,
+        API_TOKEN: AUTH_SETTINGS.auth.apiToken,
+      } : {},
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue
@@ -89,10 +98,11 @@ export default function () {
       challengeOptions: {
         cloning: false,
         tasksToClone: {},
+        workingChallenge: {},
       },
-      editingGroup: {}, // TODO move to local state
+      editingGroup: {}, // @TODO move to local state
       // content data, frozen to prevent Vue from modifying it since it's static and never changes
-      // TODO apply freezing to the entire codebase (the server) and not only to the client side?
+      // @TODO apply freezing to the entire codebase (the server) and not only to the client side?
       // NOTE this takes about 10-15ms on a fast computer
       content: deepFreeze(content),
       constants: deepFreeze({...commonConstants, DAY_MAPPING}),
@@ -104,6 +114,7 @@ export default function () {
       memberModalOptions: {
         viewingMembers: [],
         groupId: '',
+        challengeId: '',
         group: {},
       },
       openedItemRows: [],
@@ -121,7 +132,9 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      afterLoginRedirect: '',
+      userIdToMessage: '',
+      brokenChallengeTask: {},
+      equipmentDrawerOpen: true,
     },
   });
 

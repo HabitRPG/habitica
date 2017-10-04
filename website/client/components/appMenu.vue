@@ -3,9 +3,10 @@ div
   inbox-modal
   creator-intro
   profile
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-lg
+  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
     .navbar-header
-      .logo.svg-icon(v-html="icons.logo")
+      .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
+      .svg-icon.gryphon.hidden-xl-up
     b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -52,7 +53,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-      .item-with-icon(v-if="userHourglasses != 0")
+      .item-with-icon(v-if="userHourglasses > 0")
         .svg-icon(v-html="icons.hourglasses")
         span {{ userHourglasses }}
       .item-with-icon
@@ -63,6 +64,7 @@ div
         span {{Math.floor(user.stats.gp * 100) / 100}}
       notification-menu
       a.dropdown.item-with-icon.item-user
+        span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
         .svg-icon.user(v-html="icons.user")
         .dropdown-menu.dropdown-menu-right.user-dropdown
           a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
@@ -75,7 +77,8 @@ div
           a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
           a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
           a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item.dropdown-separated(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
+          router-link.dropdown-item.dropdown-separated(:to="{name: 'subscription'}") {{ $t('subscription') }}
           a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
           li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
             .dropdown-item.text-center
@@ -91,43 +94,31 @@ div
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
 
-  /* Less than Desktops and laptops ----------- */
-  @media only screen  and (max-width : 1224px) {
-    #nav_collapse {
-      background: $purple-100;
-      margin-top: 1em;
-      margin-left: 70%;
-      padding-bottom: 1em;
-
-      a {
-        padding: .5em !important;
-      }
+  @media only screen and (max-width: 1280px) {
+    .nav-link {
+      padding: .8em 1em !important;
     }
   }
 
-  @media only screen and (max-width : 1224px) and (min-width: 1200px) {
+  @media only screen and (max-width: 1200px) {
+    .navbar-header {
+      margin-right: 0px;
+    }
+
+    .gryphon {
+      background-image: url('~assets/images/melior@3x.png');
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      color: $white;
+      margin: 0 auto;
+    }
+  }
+
+  @media only screen and (max-width: 990px) {
     #nav_collapse {
-      margin-top: 37em !important;
-
-      a {
-        width: 100%;
-      }
-    }
-
-    .navbar-collapse.collapse {
-      display: none !important;
-    }
-
-    .navbar-collapse.collapse.show {
-      display: block !important;
-    }
-
-    .navbar-toggler, .navbar-nav {
-      display: block;
-    }
-
-    .navbar-toggleable-lg .navbar-collapse {
-      display: block;
+      margin-top: 1.3em;
+      background-color: $purple-200;
     }
   }
 
@@ -295,6 +286,13 @@ div
     font-weight: bold;
     font-size: 12px;
   }
+
+  .message-count.top-count {
+    position: absolute;
+    right: 0;
+    top: .5em;
+    padding: .2em;
+  }
 </style>
 
 <script>
@@ -364,6 +362,7 @@ export default {
       this.$root.$emit('show::modal', 'avatar-modal');
     },
     showProfile (startingPage) {
+      this.$store.state.profileUser = this.user;
       this.$store.state.profileOptions.startingPage = startingPage;
       this.$root.$emit('show::modal', 'profile');
     },

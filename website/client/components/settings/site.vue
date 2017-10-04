@@ -34,25 +34,14 @@
       .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
-          span {{ classText }}&nbsp;
-          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-          small.cost 3
-            span.Pet_Currency_Gem1x.inline-gems
+          // @TODO: what is classText
+          span(v-if='classText') {{ classText }}&nbsp;
+          button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
+          small.cost &nbsp; 3 {{ $t('gems') }}
+            // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
       hr
 
       div
-        .checkbox
-          label
-            input(type='checkbox', @click='hideHeader() ', v-model='user.preferences.hideHeader')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('showHeaderPop')") {{ $t('showHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', @click='toggleStickyHeader()', v-model='user.preferences.stickyHeader', :disabled="user.preferences.hideHeader")
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('stickyHeaderPop')") {{ $t('stickyHeader') }}
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.newTaskEdit', @click='set("newTaskEdit")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('newTaskEditPop')") {{ $t('newTaskEdit') }}
         .checkbox
           label
             input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
@@ -93,7 +82,7 @@
 
         button.btn.btn-primary(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
         button.btn.btn-primary(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
-        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClass({})',
+        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
           popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
 
         hr
@@ -129,21 +118,20 @@
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
-          // hr
-          // TODO
-          // div(v-if='!user.auth.local.username')
+          hr
+          div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
-            form(ng-submit='http("post", "/api/v3/user/auth/local/register", localAuth, "addedLocalAuth")', name='localAuth', novalidate)
+            .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
-                input.form-control(type='text', placeholder="$t('username')", v-model='localAuth.username', required)
+                input.form-control(type='text', :placeholder="$t('username')", v-model='localAuth.username', required)
               .form-group
-                input.form-control(type='text', placeholder="$t('email')", v-model='localAuth.email', required)
+                input.form-control(type='text', :placeholder="$t('email')", v-model='localAuth.email', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('password')", v-model='localAuth.password', required)
+                input.form-control(type='password', :placeholder="$t('password')", v-model='localAuth.password', required)
               .form-group
-                input.form-control(type='password', placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
-              button.btn.btn-primary(type='submit', ng-disabled='localAuth.$invalid', value="$t('submit')")
+                input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='localAuth.confirmPassword', required)
+              button.btn.btn-primary(type='submit', @click='addLocalAuth()') {{ $t('submit') }}
 
         .usersettings(v-if='user.auth.local.username')
           p {{ $t('username') }}
@@ -181,14 +169,15 @@
             .form-group
               input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
+          hr
 
+        div
+          h5 {{ $t('dangerZone') }}
           div
-            h5 {{ $t('dangerZone') }}
-            div
-              button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', :popover="$t('resetAccPop')") {{ $t('resetAccount') }}
-              button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', :popover="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+            button.btn.btn-danger(@click='openResetModal()',
+              popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
+            button.btn.btn-danger(@click='openDeleteModal()',
+              popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
 <style scoped>
@@ -203,6 +192,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -216,6 +206,9 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
+  },
+  directives: {
+    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -239,6 +232,12 @@ export default {
       usernameUpdates: {},
       emailUpdates: {},
       passwordUpdates: {},
+      localAuth: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      },
     };
   },
   mounted () {
@@ -299,7 +298,7 @@ export default {
     },
     showBailey () {
       this.user.flags.newStuff = true;
-      this.set('flags', 'newStuff');
+      this.$root.$emit('show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -322,12 +321,12 @@ export default {
         nextCron = nextCron.add(1, 'day');
       }
 
-      return nextCron.format('x');
+      return nextCron.format(`${this.user.preferences.dateFormat.toUpperCase()} @ h:mm a`);
     },
     openDayStartModal () {
       let nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!confirm(`Are you sure you want to change cron? Next cron will be ${nextCron}`)) return;
+      if (!confirm(this.$t('sureChangeCustomDayStartTime', {time: nextCron}))) return;
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -380,14 +379,17 @@ export default {
 
       this.$router.go('/tasks');
     },
-    async changeClass () {
-      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+    async changeClassForUser (confirmationNeeded) {
+      if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;
       try {
         changeClass(this.user);
         await axios.post('/api/v3/user/change-class');
       } catch (e) {
         alert(e.message);
       }
+    },
+    addLocalAuth () {
+      axios.post('/api/v3/user/auth/local/register', this.localAuth, 'addedLocalAuth');
     },
   },
 };

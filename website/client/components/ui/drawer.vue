@@ -26,9 +26,9 @@
     max-width: 80%;
 
     @media screen and (min-width: 1241px) {
-      max-width: 968px;
+      max-width: 978px;
       // 16.67% is the width of the .col-2 sidebar
-      left: calc((100% + 16.67% - 968px) / 2);
+      left: calc((100% + 16.67% - 978px) / 2);
       right: 0%;
     }
   }

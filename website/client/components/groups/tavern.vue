@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .clearfix.col-8.standard-page
+  .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
         h1(v-once) {{ $t('welcomeToTavern') }}
@@ -10,10 +10,15 @@
         h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(placeholder="Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.", v-model='newMessage', @keydown='updateCarretPosition')
+          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-          button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-          button.btn.btn-secondary.float-left(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+
+        .row
+          .col-6
+            button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
+            button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
+          .col-6
+            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -24,7 +29,7 @@
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
 
-  .col-md-4.sidebar
+  .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
         .daniel_front
@@ -50,6 +55,7 @@
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.staff")
+          // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
               .title {{user.name}}
@@ -137,6 +143,7 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .chat-row {
     position: relative;
@@ -164,6 +171,11 @@
       line-height: 1.43;
       color: $gray-300;
       padding: .5em;
+    }
+
+    .user-entry {
+      font-style: normal;
+      color: $black;
     }
 
     .hr {
@@ -221,14 +233,14 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~assets/images/tavern_backdrop_web_backgroundtile.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
   }
 
   .daniel_front {
-    background-image: url('~assets/images/tavern_backdrop_web_daniel_and_props.png');
+    background-image: url('~assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
@@ -338,6 +350,7 @@
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
 
 import { TAVERN_ID } from '../../../common/script/constants';
@@ -515,7 +528,15 @@ export default {
       };
       document.body.removeChild(div);
     },
-    updateCarretPosition (eventUpdate) {
+    updateCarretPosition: debounce(function updateCarretPosition (eventUpdate) {
+      this._updateCarretPosition(eventUpdate);
+    }, 250),
+    _updateCarretPosition (eventUpdate) {
+      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
+        this.sendMessage();
+        return;
+      }
+
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
@@ -543,6 +564,9 @@ export default {
     },
     async fetchRecentMessages () {
       this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
+    },
+    reverseChat () {
+      this.group.chat.reverse();
     },
   },
 };

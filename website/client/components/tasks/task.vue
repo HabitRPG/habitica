@@ -1,6 +1,5 @@
 <template lang="pug">
 .task-wrapper
-  broken-task-modal(:brokenChallengeTask='brokenChallengeTask')
   .task(@click='castEnd($event, task)')
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
@@ -17,8 +16,9 @@
         .task-clickable-area(@click="edit($event, task)")
           h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
           .task-notes.small-text(v-markdown="task.notes")
-        .checklist(v-if="task.checklist && task.checklist.length > 0")
+        .checklist(v-if="canViewchecklist")
           label.custom-control.custom-checkbox.checklist-item(
+            v-if='!castingSpell',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
             input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
@@ -311,7 +311,6 @@ import checkIcon from 'assets/svg/check.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
-import brokenTaskModal from './brokenTaskModal';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 
@@ -321,7 +320,6 @@ export default {
     bPopover,
     approvalFooter,
     approvalHeader,
-    brokenTaskModal,
   },
   directives: {
     markdown: markdownDirective,
@@ -339,15 +337,22 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
       }),
-      brokenChallengeTask: {},
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      castingSpell: 'spellOptions.castingSpell',
+    }),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
     }),
+    canViewchecklist () {
+      let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
+      let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
+      return hasChecklist && userIsTaskUser;
+    },
     leftControl () {
       const task = this.task;
       if (task.type === 'reward') return false;
@@ -389,6 +394,7 @@ export default {
   methods: {
     ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
     toggleChecklistItem (item) {
+      if (this.castingSpell) return;
       item.completed = !item.completed;
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
@@ -406,6 +412,8 @@ export default {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
+      if (this.castingSpell) return;
+
       // TODO move to an action
       const Content = this.$store.state.content;
       const user = this.user;
@@ -459,7 +467,8 @@ export default {
       }
 
       if (drop) {
-        let text;
+        let dropText;
+        let dropNotes;
         let type;
 
         this.$root.$emit('playSound', 'Item_Drop');
@@ -483,14 +492,17 @@ export default {
         }
 
         if (drop.type === 'HatchingPotion') {
-          text = Content.hatchingPotions[drop.key].text();
-          this.drop(this.$t('messageDropPotion', {dropText: text}), drop);
+          dropText = Content.hatchingPotions[drop.key].text();
+          dropNotes = Content.hatchingPotions[drop.key].notes();
+          this.drop(this.$t('messageDropPotion', {dropText, dropNotes}), drop);
         } else if (drop.type === 'Egg') {
-          text = Content.eggs[drop.key].text();
-          this.drop(this.$t('messageDropEgg', {dropText: text}), drop);
+          dropText = Content.eggs[drop.key].text();
+          dropNotes = Content.eggs[drop.key].notes();
+          this.drop(this.$t('messageDropEgg', {dropText, dropNotes}), drop);
         } else if (drop.type === 'Food') {
-          text = Content.food[drop.key].text();
-          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText: text}), drop);
+          dropText = Content.food[drop.key].text();
+          dropNotes = Content.food[drop.key].notes();
+          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText, dropNotes}), drop);
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
@@ -501,7 +513,7 @@ export default {
       }
     },
     handleBrokenTask (task) {
-      this.brokenChallengeTask = task;
+      this.$store.state.brokenChallengeTask = task;
       this.$root.$emit('show::modal', 'broken-task-modal');
     },
   },

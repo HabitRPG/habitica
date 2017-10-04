@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "אני מסכים לציית להנחיות הקהילה",
-    "tavernCommunityGuidelinesPlaceholder": "תזכורת ידידותית: זהו צא׳ט המיועד לכל הגילאים. אנא שימרו על תוכן ושפה ראויים! במידה ויש לכם שאלות נוספות, ניתן להיעזר בחוקים הקהילתיים שבתחתית העמוד.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "ברוך הבא להאביטיקה!",
     "commGuidePara001": "ברכות, הרפתקנים! ברוכים הבאים להאביטיקה - ארץ הפרודקטיביות, החיים הבריאים והגריפון המשתוללת לעיתים. יש לנו קהילה מסבירת פנים מלאה באנשים השמחים לעזור ולתמוך זו בזה בדרך לשיפור עצמי.",
     "commGuidePara002": "כדי לשמור על כל חברי הקהילה בטוחים, שמחים, ופרודקטיביים, יש לנו כמה הנחיות. בררנו אותן בקפידה כדי שתהיינה ברורות וקלות לקריאה ככל הניתן. אנא, הקדישו את הזמן לעיין בהן.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>התנהגות תומכת.</strong> האביטיקנים מעודדים את ניצחונותיהם זה של זה, ומנחמים זה את זה בזמנים קשים. אנו מלווים כוח אחד לשני, נשענים זה על זה ולומדים זה מזה. בחבורות, אנו עושים זאת עם לחשים ויכולות; בחדרי שיחה, אנו עושים זאת באמצעות מילים אדיבות ותומכות.",
     "commGuideList01D": "<strong>התנהלות מכבדת.</strong> כולנו מגיעים מרקעים שונים, בעלי כישורים שונים ודעות שונות. זה אחד מהדברים שהופכים את הקהילה שלנו לכה נפלאה! האביטיקנים מעריכים ומכבדים את ההבדלים הללו. הישאר בסביבה, ובקרוב יהיו גם לך מגוון רחב של חברים.",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "להאביטיקה ישנה אסופת אבירים-נודדים המאחדים כוחות עם חברי הצוות כדי לשמור על הקהילה רגועה, מסופקת, ונקייה מטרולים. לכל אחד מהם יש אזור משלו, אך מדי פעם הם נקראים לשרת באזורים חברתיים אחרים. צוות האתר והעורכים מדי פעם יקדימו את דבריהם הרשמיים במילים \"Mod Talk\" (דבר העורך) או \"Mod Hat On\" (חבישת כובע העורך).",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "לצוות יש תגיות סגולות המסומנות בכתרים. התואר שלהם הוא \"הירואי\".",
     "commGuidePara008": "לעורכים יש תגיות כחולות כהות המסומנות בכוכב. התואר שלהם הוא \"שומר\". יוצאת מן הכלל היא באיילי. בתור דב\"שית, באיילי בעלת תגית שחורה וירוקה המסומנת בכוכב.",
     "commGuidePara009": "חברי הצוות הנוכחיים הם (משמאל לימין):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "יש להבטיח שתוכן הוויקי רלוונטי לכל משתמשי האתר ולא פונה רק לגילדה או חבורה מסויימת (מידע שכזה יכול לעבור לפורומים)",
     "commGuidePara049": "האנשים הבאים הם מנהלי הוויקי הנוכחיים:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "מנהלי וויקי בדימוס:",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "עבירות, השלכות ותיקונן",
     "commGuideHeadingInfractions": "עבירות",
     "commGuidePara050": "באופן כללי, האביטיקנים עוזרים זה לזה, מכבדים אחד את השני, ופועלים יחד כדי להפוך את הקהילה כולה לנעימה וחברותית. אולם, לעיתים רחוקות מאוד, מעשהו של האביטיקן עשוי להפר את אחד מהחוקים הנ\"ל. כאשר זה קורה, המנהלים ינקטו בכל פעולה שנראית להם הכרחית כדי להשאיר את האביטיקה בטוחה ונוחה עבור כולם.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "להגשת אומנות פיקסלים.",
     "commGuideLink08": "Trello ההרפתקאות",
     "commGuideLink08description": "להגשת סיפורי משימה.",
-    "lastUpdated": "עדכון אחרון"
+    "lastUpdated": "Last updated:"
 }

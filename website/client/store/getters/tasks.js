@@ -2,9 +2,11 @@ import { shouldDo } from 'common/script/cron';
 
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
-  return (task) => store.state.user.data.tags
-    .filter(tag => task.tags && task.tags.indexOf(tag.id) !== -1)
-    .map(tag => tag.name);
+  return (task) => {
+    return store.state.user.data.tags
+      .filter(tag => task.tags && task.tags.indexOf(tag.id) !== -1)
+      .map(tag => tag.name);
+  };
 }
 
 function getTaskColorByValue (value) {

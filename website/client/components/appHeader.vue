@@ -1,32 +1,34 @@
 <template lang="pug">
-#app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
+div
   create-party-modal
-  members-modal(:hide-badge="true")
-  member-details(:member="user")
-  .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
-    // TODO button should open the party members modal
-    button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
-  .party-members.d-flex(
-    v-if="partyMembers && partyMembers.length > 1",
-    v-resize="1500",
-    @resized="setPartyMembersWidth($event)"
-  )
-    member-details(
-      v-for="(member, $index) in partyMembers",
-      :key="member._id",
-      v-if="member._id !== user._id && $index < membersToShow",
-      :member="member",
-      condensed=true,
-      @onHover="expandMember(member._id)",
-      :expanded="member._id === expandedMember",
+  #app-header.row(:class="{'hide-header': $route.name === 'groupPlan'}")
+    members-modal(:hide-badge="true")
+    .col-6
+      member-details(:member="user")
+    .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
+      // TODO button should open the party members modal
+      button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
+    .party-members.col-6.d-flex(
+      v-if="partyMembers && partyMembers.length > 1",
+      v-resize="1500",
+      @resized="setPartyMembersWidth($event)"
     )
-  .no-party.d-flex.justify-content-center.text-center(v-else)
-    .align-self-center(v-once)
-      h3 {{ $t('battleWithFriends') }}
-      span.small-text(v-html="$t('inviteFriendsParty')")
-      br
-      // TODO link to party creation or party page if partying solo
-      button.btn.btn-primary(@click='openPartyModal()') {{ $t('startAParty') }}
+      member-details(
+        v-for="(member, $index) in partyMembers",
+        :key="member._id",
+        v-if="member._id !== user._id && $index < membersToShow",
+        :member="member",
+        condensed=true,
+        @onHover="expandMember(member._id)",
+        :expanded="member._id === expandedMember",
+      )
+    .no-party.col-6.d-flex.justify-content-center.text-center(v-else)
+      .align-self-center(v-once)
+        h3 {{ $t('battleWithFriends') }}
+        span.small-text(v-html="$t('inviteFriendsParty')")
+        br
+        // TODO link to party creation or party page if partying solo
+        button.btn.btn-primary(@click='openPartyModal()') {{ partyMembers && partyMembers.length > 1 ? $t('startAParty') : $t('inviteFriends') }}
 </template>
 
 <style lang="scss" scoped>

@@ -39,12 +39,12 @@
           div.content
             div.featured-label.with-border
               span.rectangle
-              span.text(v-once) {{ $t('featuredItems') }}
+              span.text {{ market.featured.text }}
               span.rectangle
 
             div.items.margin-center
               shopItem(
-                v-for="item in featuredItems",
+                v-for="item in market.featured.items",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -150,9 +150,6 @@
             span(slot="popoverContent")
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemImage", scope="scope")
-              span.svg-icon.inline.icon-48(v-if="scope.item.key == 'gem'", v-html="icons.gem")
-
             template(slot="itemBadge", scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -229,6 +226,7 @@
 
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -300,7 +298,7 @@
       height: 216px;
 
       .background {
-        background: url('~assets/images/shops/shop_background.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_background.png');
 
         background-repeat: repeat-x;
 
@@ -328,7 +326,7 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~assets/images/shops/market_banner_web_alexnpc.png');
+        background: url('~assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -358,7 +356,6 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import BuyModal from '../buyModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
@@ -374,7 +371,6 @@
   import svgRogue from 'assets/svg/rogue.svg';
   import svgHealer from 'assets/svg/healer.svg';
 
-  import featuredItems from 'common/script/content/shop-featuredItems';
   import getItemInfo from 'common/script/libs/getItemInfo';
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
@@ -382,7 +378,6 @@
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
   import _map from 'lodash/map';
-  import _get from 'lodash/get';
   import _throttle from 'lodash/throttle';
 
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
@@ -414,7 +409,6 @@ export default {
       bDropdownItem,
 
       SellModal,
-      BuyModal,
       EquipmentAttributesGrid,
       Avatar,
 
@@ -469,13 +463,13 @@ export default {
       marketGearCategories () {
         return shops.getMarketGearCategories(this.user);
       },
-      marketCategories () {
-        return shops.getMarketCategories(this.user);
+      market () {
+        return shops.getMarketShop(this.user);
       },
       categories () {
-        if (this.marketCategories) {
+        if (this.market) {
           let categories = [
-            ...this.marketCategories,
+            ...this.market.categories,
           ];
 
           categories.push({
@@ -491,32 +485,26 @@ export default {
             }),
           });
 
-          let specialItems = [];
+          let specialItems = [{
+            ...getItemInfo(this.user, 'fortify'),
+            showCount: false,
+          }];
 
           if (this.user.purchased.plan.customerId) {
+            let gemItem = getItemInfo(this.user, 'gem');
+
             specialItems.push({
+              ...gemItem,
               showCount: false,
-              key: 'gem',
-              class: 'gem',
-              pinKey: 'gems',
-              purchaseType: 'gems',
-              text: this.$t('subGemName'),
-              notes: this.$t('subGemPop'),
-              currency: 'gold',
-              value: 20,
             });
           }
 
           if (this.user.flags.rebirthEnabled) {
+            let rebirthItem = getItemInfo(this.user, 'rebirth_orb');
+
             specialItems.push({
               showCount: false,
-              key: 'rebirth_orb',
-              class: 'rebirth_orb',
-              purchaseType: 'rebirth_orb',
-              text: this.$t('rebirthName'),
-              notes: this.$t('rebirthPop'),
-              currency: 'gems',
-              value: this.user.stats.lvl < 100 ? 6 : '',
+              ...rebirthItem,
             });
           }
 
@@ -562,15 +550,6 @@ export default {
             label: this.$t('special'),
           },
         ];
-      },
-
-      featuredItems () {
-        return featuredItems.market.map(i => {
-          let newItem = getItemInfo(this.user, i.type, _get(this.content, i.path));
-          newItem.pinned = isPinned(this.user, newItem);
-
-          return newItem;
-        });
       },
     },
     methods: {

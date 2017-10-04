@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Vlastní začátek dne",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Změnit vlastní začátek dne?",
     "sureChangeCustomDayStart": "Jsi si jistý, že chceš změnit svůj vlastní začátek dne?",
     "customDayStartHasChanged": "Tvůj vlastní začátek dne byl změněn.",
@@ -105,9 +106,7 @@
     "email": "Email",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "Uživatel -> Profil",
-    "loginNameDescription3": "and click the Edit button.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Emailová upozornění",
     "wonChallenge": "Vyhrál jsi výzvu!",
     "newPM": "Obdržena soukromá zpráva",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Upomínky k přihlášení do země Habitica",
     "subscribeUsing": "Použití předplatného",
     "unsubscribedSuccessfully": "Úspěšně odepsán",
-    "unsubscribedTextUsers": "Úspěšně ses odepsal ze všech emailu ze země Habitica. Můžeš povolit pouze ty emaily, které chceš dostávat v <a href=\"/#/options/settings/notifications\">Nastavení</a> (musíš být přihlášen).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Již nedostaneš ze země Habitica žádný další email.",
     "unsubscribeAllEmails": "Zaškrtni, aby ses odhlásil z emailů",
     "unsubscribeAllEmailsText": "Zaškrtnutím toho políčka potvrzuji, že rozumím tomu, že kvůli odhlášení se z emailů mě nebude moci nikdy nikdo kontaktovat emailem o důležitých změnách na stránce nebo v mém účtu ze země Habitica.",
@@ -185,5 +184,6 @@
     "timezone": "Časové pásmo",
     "timezoneUTC": "Habitica používá časové pásmo nastavené na tvém PC, což je : <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

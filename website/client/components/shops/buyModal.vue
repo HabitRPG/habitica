@@ -1,12 +1,10 @@
 <template lang="pug">
   b-modal#buy-modal(
-    :visible="true",
-    v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )
     span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': item.pinned}",
+      :class="{'item-selected-badge': isPinned}",
       v-if="withPin",
       @click.prevent.stop="togglePinned()"
     )
@@ -56,8 +54,12 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}"
+          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
         ) {{ $t('buyNow') }}
+
+    div.limitedTime(v-if="item.event")
+      span.svg-icon.inline.icon-16(v-html="icons.clock")
+      span.limitedString {{ limitedString }}
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
@@ -176,22 +178,50 @@
       pointer-events: none;
       opacity: 0.55;
     }
+
+    .limitedTime {
+      height: 32px;
+      background-color: #6133b4;
+      width: calc(100% + 30px);
+      margin: 0 -15px; // the modal content has its own padding
+
+      font-size: 12px;
+      line-height: 1.33;
+      text-align: center;
+      color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .limitedString {
+        height: 16px;
+        margin-left: 8px;
+      }
+    }
+
+    .bordered {
+      margin-top: 8px;
+    }
   }
 </style>
 
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
   import * as Analytics from 'client/libs/analytics';
+  import spellsMixin from 'client/mixins/spells';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
   import svgHourglasses from 'assets/svg/hourglass.svg';
   import svgPin from 'assets/svg/pin.svg';
+  import svgClock from 'assets/svg/clock.svg';
 
   import BalanceInfo  from './balanceInfo.vue';
   import currencyMixin from './_currencyMixin';
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
 
   import { mapState } from 'client/libs/store';
 
@@ -200,8 +230,12 @@
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';
 
+  import seasonalShopConfig from 'common/script/libs/shops-seasonal.config';
+
+  import moment from 'moment';
+
   export default {
-    mixins: [currencyMixin, notifications],
+    mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -217,13 +251,24 @@
           gems: svgGem,
           hourglasses: svgHourglasses,
           pin: svgPin,
+          clock: svgClock,
         }),
+
+        isPinned: false,
       };
     },
     computed: {
       ...mapState({user: 'user.data'}),
       showAvatar () {
         return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
+      },
+
+      preventHealthPotion () {
+        if (this.item.key === 'potion' && this.user.stats.hp >= 50) {
+          return false;
+        }
+
+        return true;
       },
 
       showAttributesGrid () {
@@ -244,23 +289,25 @@
           return this.item.notes;
         }
       },
+      limitedString () {
+        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+      },
+    },
+    watch: {
+      item: function itemChanged () {
+        this.isPinned = this.item && this.item.pinned;
+      },
     },
     methods: {
       onChange ($event) {
         this.$emit('change', $event);
       },
       buyItem () {
-        if (this.genericPurchase) {
-          this.$store.dispatch('shops:genericPurchase', {
-            pinType: this.item.pinType,
-            type: this.item.purchaseType,
-            key: this.item.key,
-            currency: this.item.currency,
-          });
-
+        if (this.item.cast) {
+          this.castStart(this.item);
+        } else if (this.genericPurchase) {
+          this.makeGenericPurchase(this.item);
           this.purchased(this.item.text);
-          this.$root.$emit('buyModal::boughtItem', this.item);
-          this.$root.$emit('playSound', 'Reward');
         }
 
         this.$emit('buyPressed', this.item);
@@ -278,7 +325,9 @@
         this.$root.$emit('show::modal', 'buy-gems');
       },
       togglePinned () {
-        if (!this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path})) {
+        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
+
+        if (!this.isPinned) {
           this.text(this.$t('unpinnedItem', {item: this.item.text}));
         }
       },
