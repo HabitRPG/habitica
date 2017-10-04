@@ -68,6 +68,8 @@
 
 <script>
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
+
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
@@ -141,6 +143,9 @@ export default {
     });
 
     // @TODO split up this file, it's too big
+
+    loadProgressBar();
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user && response.data && response.data.notifications) {
