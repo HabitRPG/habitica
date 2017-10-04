@@ -393,5 +393,8 @@
   "details": "Details",
   "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
   "groupGems": "Group Gems",
-  "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
+  "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
+  "groupTaskBoard": "Task Board",
+  "groupInformation": "Group Information",
+  "groupBilling": "Group Billing"
 }

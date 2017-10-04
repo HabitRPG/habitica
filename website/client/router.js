@@ -73,6 +73,7 @@ const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './compo
 // Group Plans
 const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
+const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/billing');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -143,6 +144,12 @@ const router = new VueRouter({
           name: 'groupPlanDetailInformation',
           path: '/group-plans/:groupId/information',
           component: GroupPage,
+          props: true,
+        },
+        {
+          name: 'groupPlanBilling',
+          path: '/group-plans/:groupId/billing',
+          component: GroupPlanBilling,
           props: true,
         },
       ],
