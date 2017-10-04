@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#leave-challenge-modal(title={{ $t('leaveChallenge') }}, size='sm', :hide-footer="true")
+  b-modal#leave-challenge-modal(title="Leave Challenge", size='sm', :hide-footer="true")
     .modal-body
       h2 {{ $t('leaveCha') }}
       div
