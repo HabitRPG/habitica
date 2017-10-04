@@ -14,7 +14,6 @@
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
     div.content(v-if="item != null")
-
       div.inner-content
         slot(name="item", :item="item")
           div(v-if="showAvatar")
@@ -46,6 +45,11 @@
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
           span.value(:class="getPriceClass()") {{ item.value }}
 
+        .gems-left(v-if='item.key === "gem"')
+          strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
+          strong(v-if='gemsLeft === 0') {{ $t('maxBuyGems') }}
+
+
         button.btn.btn-primary(
           @click="purchaseGems()",
           v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value)"
@@ -54,6 +58,7 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
+          :disabled='item.key === "gem" && gemsLeft === 0',
           :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
         ) {{ $t('buyNow') }}
 
@@ -203,6 +208,10 @@
     .bordered {
       margin-top: 8px;
     }
+
+    .gems-left {
+      margin-top: .5em;
+    }
   }
 </style>
 
@@ -210,6 +219,7 @@
   import bModal from 'bootstrap-vue/lib/components/modal';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
+  import planGemLimits from 'common/script/libs/planGemLimits';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -291,6 +301,10 @@
       },
       limitedString () {
         return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+      },
+      gemsLeft () {
+        if (!this.user.purchased.plan) return 0;
+        return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
       },
     },
     watch: {

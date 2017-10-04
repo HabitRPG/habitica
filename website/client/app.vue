@@ -129,6 +129,7 @@ export default {
       this.$refs.sound.load();
     });
 
+    // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
       this.$root.$emit('show::modal', 'buy-modal');
