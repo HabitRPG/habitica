@@ -14,7 +14,7 @@
 </style>
 
 <script>
-import { mapActions } from 'client/libs/store';
+import findIndex from 'lodash/findIndex';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 
@@ -38,7 +38,7 @@ export default {
     },
     close () {
       this.$root.$emit('hide::modal', 'leave-challenge-modal');
-    }
-  }
-}
+    },
+  },
+};
 </script>
