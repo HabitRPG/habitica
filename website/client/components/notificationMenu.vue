@@ -1,8 +1,7 @@
 <template lang="pug">
 div.item-with-icon.item-notifications.dropdown
+  span.message-count.top-count(v-if='notificationsCount > 0')  {{ notificationsCount }}
   .svg-icon.notifications(v-html="icons.notifications")
-  // span.glyphicon(:class='iconClasses()')
-  // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
@@ -57,6 +56,25 @@ div.item-with-icon.item-notifications.dropdown
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .message-count {
+    background-color: #46a7d9;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .message-count.top-count {
+    position: absolute;
+    right: -.5em;
+    top: .5em;
+    padding: .2em;
+  }
 
   .clear-button {
     margin-left: .5em;
@@ -168,6 +186,31 @@ export default {
       }
       return userNewMessages;
     },
+    notificationsCount () {
+      let count = 0;
+
+      if (this.user.invitations.parties) {
+        count += this.user.invitations.parties.length;
+      }
+
+      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
+        count++;
+      }
+
+      if (this.user.invitations.guilds) {
+        count += this.user.invitations.guilds.length;
+      }
+
+      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
+        count += this.user.stats.points > 0 ? 1 : 0;
+      }
+
+      if (this.userNewMessages) {
+        count += Object.keys(this.userNewMessages).length;
+      }
+
+      return count;
+    },
   },
   methods: {
     // @TODO: I hate this function, we can do better with a hashmap
@@ -236,31 +279,6 @@ export default {
     },
     clearCards () {
       this.$store.dispatch('chat:clearCards');
-    },
-    getNotificationsCount () {
-      let count = 0;
-
-      if (this.user.invitations.parties) {
-        count += this.user.invitations.parties.length;
-      }
-
-      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
-        count++;
-      }
-
-      if (this.user.invitations.guilds) {
-        count += this.user.invitations.guilds.length;
-      }
-
-      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
-        count += this.user.stats.points > 0 ? 1 : 0;
-      }
-
-      if (this.userNewMessages) {
-        count += Object.keys(this.userNewMessages).length;
-      }
-
-      return count;
     },
     iconClasses () {
       return this.selectNotificationValue(
