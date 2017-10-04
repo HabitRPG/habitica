@@ -31,7 +31,7 @@
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
     "bootstrap": "4.0.0-alpha.6",
-    "bootstrap-vue": "~1.0.0-beta.7",
+    "bootstrap-vue": "1.0.0-beta.7",
     "browserify": "~12.0.1",
     "compression": "^1.6.1",
     "connect-ratelimit": "0.0.7",
