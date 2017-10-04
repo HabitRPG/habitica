@@ -29,10 +29,26 @@ div
         br
         // TODO link to party creation or party page if partying solo
         button.btn.btn-primary(@click='openPartyModal()') {{ partyMembers && partyMembers.length > 1 ? $t('startAParty') : $t('inviteFriends') }}
+  a.useMobileApp(v-if="isAndroidMobile()", v-once, href="https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica") {{ $t('useMobileApps') }}
+  a.useMobileApp(v-if="isIOSMobile()", v-once, href="https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8") {{ $t('useMobileApps') }}
+
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .useMobileApp {
+    background: red;
+    color: white;
+    z-index: 10;
+    width: 100%;
+    margin: 10px 5px 0 0;
+    height: 64px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+  }
 
   #app-header {
     padding-left: 14px;
@@ -117,6 +133,7 @@ export default {
       user: 'user:data',
       partyMembers: 'party:members',
     }),
+
     showHeader () {
       if (this.$store.state.hideHeader) return false;
       return true;
@@ -129,6 +146,12 @@ export default {
     ...mapActions({
       getPartyMembers: 'party:getMembers',
     }),
+    isAndroidMobile () {
+      return navigator.userAgent.match(/Android/i);
+    },
+    isIOSMobile () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
     expandMember (memberId) {
       if (this.expandedMember === memberId) {
         this.expandedMember = null;
