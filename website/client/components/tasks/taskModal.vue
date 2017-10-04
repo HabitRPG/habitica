@@ -376,6 +376,7 @@
             .dropdown-toggle {
               position: absolute;
               right: 1em;
+              top: .8em;
             }
 
             .category-label {
