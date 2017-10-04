@@ -136,6 +136,7 @@ export default function () {
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       recentlyPurchased: {},
+      groupPlans: [],
     },
   });
 
