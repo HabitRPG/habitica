@@ -3,6 +3,7 @@ import axios from 'axios';
 const STRIPE_PUB_KEY = process.env.STRIPE_PUB_KEY; // eslint-disable-line
 import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
+import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
 
 export default {
@@ -169,6 +170,42 @@ export default {
       this.amazonPayments.type = data.type;
 
       this.$root.$emit('show::modal', 'amazon-payment');
+    },
+    async cancelSubscription (config) {
+      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
+      if (!confirm(this.$t('sureCancelSub'))) return;
+
+      let group;
+      if (config && config.group) {
+        group = config.group;
+      }
+
+      let paymentMethod = this.user.purchased.plan.paymentMethod;
+      if (group) {
+        paymentMethod = group.purchased.plan.paymentMethod;
+      }
+
+      if (paymentMethod === 'Amazon Payments') {
+        paymentMethod = 'amazon';
+      } else {
+        paymentMethod = paymentMethod.toLowerCase();
+      }
+
+      let queryParams = {
+        _id: this.user._id,
+        apiToken: this.credentials.API_TOKEN,
+        noRedirect: true,
+      };
+
+      if (group) {
+        queryParams.groupId = group._id;
+      }
+
+      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
+      await axios.get(cancelUrl);
+      //  Success
+      alert(this.$t('paypalCanceled'));
+      this.$router.push('/');
     },
   },
 };
