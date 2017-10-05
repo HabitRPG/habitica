@@ -53,9 +53,16 @@ div
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
       .row.gradient(v-if='members.length > 3')
     div(v-if='selectedPage === "invites"')
-      .row(v-for='member in invites')
+      .row(v-for='(member, index) in invites')
         .col-11.no-padding-left
           member-details(:member='member')
+        .col-1.actions
+          b-dropdown(right=true)
+            .svg-icon.inline.dots(slot='button-content', v-html="icons.dots")
+            b-dropdown-item(@click='removeInvite(member, index)', v-if='isLeader')
+              span.dropdown-icon-item
+                .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
+                span.text {{$t('removeInvite')}}
     .modal-footer
       button.btn.btn-primary(@click='close()') {{ $t('close') }}
 </template>
@@ -374,6 +381,14 @@ export default {
     },
     viewInvites () {
       this.selectedPage = 'invites';
+    },
+    async removeInvite (member, index) {
+      this.invites.splice(index, 1);
+      await this.$store.dispatch('members:removeMember', {
+        memberId: member._id,
+        groupId: this.groupId,
+      });
+      this.viewMembers();
     },
   },
 };

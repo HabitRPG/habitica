@@ -767,7 +767,7 @@ export default {
 
         await this.$store.dispatch('tasks:unassignTask', {
           taskId: this.task._id,
-          userId: this.user._id,
+          userId: memberId,
         });
         return;
       }
@@ -778,7 +778,7 @@ export default {
 
       await this.$store.dispatch('tasks:assignTask', {
         taskId: this.task._id,
-        userId: this.user._id,
+        userId: memberId,
       });
     },
   },

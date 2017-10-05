@@ -301,6 +301,9 @@ export default {
         challengeId: this.searchId,
         tasks: clonedTasks,
       });
+
+      this.$store.state.challengeOptions.cloning = false;
+      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});

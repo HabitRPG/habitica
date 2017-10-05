@@ -10,8 +10,13 @@ div
       .col-12
         strong(v-once) {{$t('selectChallengeWinnersDescription')}}
       .col-12
-        select.form-control(v-model='winnerId')
-          option(v-for='member in members', :value='member._id') {{member.profile.name}}
+        input.form-control(type='text', v-model='searchTerm')
+      .col-12
+        div(v-for='member in memberResults', @click='selectMember(member._id)')
+          strong {{member.profile.name}}
+          span(v-if='winnerId === member._id') Selected
+      //-   select.form-control(v-model='winnerId')
+      //-     option(v-for='member in members', :value='member._id') {{member.profile.name}}
       .col-12
         button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
       .col-12
@@ -72,6 +77,7 @@ div
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -86,9 +92,25 @@ export default {
   data () {
     return {
       winnerId: '',
+      searchTerm: '',
+      memberResults: [],
     };
   },
+  watch: {
+    searchTerm: debounce(function searchTerm (newSearch) {
+      this.searchChallengeMember(newSearch);
+    }, 500),
+  },
   methods: {
+    async searchChallengeMember (search) {
+      this.memberResults = await this.$store.dispatch('members:getChallengeMembers', {
+        challengeId: this.challengeId,
+        searchTerm: search,
+      });
+    },
+    selectMember (memberId) {
+      this.winnerId = memberId;
+    },
     async closeChallenge () {
       this.challenge = await this.$store.dispatch('challenges:selectChallengeWinner', {
         challengeId: this.challengeId,

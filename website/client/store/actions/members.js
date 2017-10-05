@@ -35,6 +35,10 @@ export async function getChallengeMembers (store, payload) {
     url += `&lastId=${payload.lastMemberId}`;
   }
 
+  if (payload.searchTerm) {
+    url += `&search=${payload.searchTerm}`;
+  }
+
   let response = await axios.get(url);
   return response.data.data;
 }
