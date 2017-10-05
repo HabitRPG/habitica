@@ -698,6 +698,8 @@
   "armorArmoireYellowPartyDressNotes": "You're perceptive, strong, smart, and so fashionable! Increases Perception, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Yellow Hairbow Set (Item 2 of 2).",
   "armorArmoireFarrierOutfitText": "Farrier Outfit",
   "armorArmoireFarrierOutfitNotes": "These sturdy work clothes can stand up to the messiest Stable. Increases Intelligence, Constitution, and Perception by <%= attrs %> each. Enchanted Armoire: Farrier Set (Item 2 of 3).",
+  "armorArmoireCandlestickMakerOutfitText": "Candlestick Maker Outfit",
+  "armorArmoireCandlestickMakerOutfitNotes": "This sturdy set of clothes will protect you from hot wax spills as you ply your craft! Increases Constitution by <%= con %>. Enchanted Armoire: Candlestick Maker Set (Item 1 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1080,6 +1082,8 @@
   "headArmoireSwanFeatherCrownNotes": "This tiara is lovely and light as a swan's feather! Increases Intelligence by <%= int %>. Enchanted Armoire: Swan Dancer Set (Item 1 of 3).",
   "headArmoireAntiProcrastinationHelmText": "Anti-Procrastination Helm",
   "headArmoireAntiProcrastinationHelmNotes": "This mighty steel helm will help you win the fight to be healthy, happy, and productive! Increases Perception by <%= per %>. Enchanted Armoire: Anti-Procrastination Set (Item 1 of 3).",
+  "headArmoireCandlestickMakerHatText": "Candlestick Maker Hat",
+  "headArmoireCandlestickMakerHatNotes": "A jaunty hat makes every job more fun, and candlemaking is no exception! Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Candlestick Maker Set (Item 2 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1289,6 +1293,8 @@
   "shieldArmoireAntiProcrastinationShieldNotes": "This strong steel shield will help you block distractions when they approach! Increases Constitution by <%= con %>. Enchanted Armoire: Anti-Procrastination Set (Item 3 of 3).",
   "shieldArmoireHorseshoeText": "Horseshoe",
   "shieldArmoireHorseshoeNotes": "Help protect the feet of your hooved mounts with this iron shoe. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Farrier Set (Item 3 of 3)",
+  "shieldArmoireHandmadeCandlestickText": "Handmade Candlestick",
+  "shieldArmoireHandmadeCandlestickNotes": "Your fine wax wares provide light and warmth to grateful Habiticans! Increases Strength by <%= str %>. Enchanted Armoire: Candlestick Maker Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
