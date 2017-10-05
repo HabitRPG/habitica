@@ -142,4 +142,22 @@ describe('GET /challenges/:challengeId/members', () => {
     let resIds = res.concat(res2).map(member => member._id);
     expect(resIds).to.eql(expectedIds.sort());
   });
+
+  it('supports using req.query.search to get search members', async () => {
+    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    let challenge = await generateChallenge(user, group);
+
+    let usersToGenerate = [];
+    for (let i = 0; i < 3; i++) {
+      usersToGenerate.push(generateUser({challenges: [challenge._id]}));
+    }
+    let generatedUsers = await Promise.all(usersToGenerate);
+    let profileNames = generatedUsers.map(generatedUser => generatedUser.profile.name);
+
+    let firstProfileName = profileNames[0];
+    let nameToSearch = firstProfileName.substring(0, 4);
+
+    let response = await user.get(`/challenges/${challenge._id}/members?search=${nameToSearch}`);
+    expect(response[0].profile.name).to.eql(firstProfileName);
+  });
 });
