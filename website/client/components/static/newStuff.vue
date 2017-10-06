@@ -53,20 +53,8 @@
         h3 New Take This Challenge
         p(v-markdown='"The next Take This Challenge has launched, [Multiplayer Co-Op Exercise!](/challenges/e577f6bd-59af-4f89-b011-44767527ee92), with a focus on working out with a partner. Be sure to check it out to earn additional pieces of the Take This armor set!"')
     p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
-    .media
-      .media-body
-        p(v-markdown='"Congratulations to the winners of the last Take This Challenge, “Hero\'s Triumph!”: grand prize winner David Rule, and runners-up José Barata Gonçalves, Ar_tem, Ziggy, schooler, and Ayano. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t completed the set already. It is located in the [Market](/shops/market) under Class \> None. Enjoy!"')
-        .small by Doctor B, the Take This team, Lemoness, and SabreCat
-        .media
-          .promo_mystery_201709
-          .media-body
-            h3 Last Chance for Sorcery Student Set and Farm Friends Pet Quest Bundle
-            p(v-markdown='"We\'ve extended the availability of the September mystery item set and the Farm Friends Pet Quest Bundle due to our upgrade! You have two days left to [subscribe](user/settings/subscription) and receive the Sorcery Student Set, or to pick up the Cow, Horse, and Sheep quests for a discounted price of 7 Gems!"')
-        p Thanks so much for your support! You help keep Habitica running.
-        .small by Lemoness and SabreCat
-        .small art by UncommonCriminal, Soloana, fuzzytrees, Feralem Tau, Eevachu, Beffymaroo, JessicaChase, starsystemic, nonight, Misceo and Tocath
-        .small writing by schizelle, VikingRunner, Salambander, Leephon, and Lemoness
-      .promo_farm_friends.left-margin
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, “Hero\'s Triumph!”: grand prize winner David Rule, and runners-up José Barata Gonçalves, Ar_tem, Ziggy, schooler, and Ayano. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t completed the set already. It is located in the [Market](/shops/market) under Class \> None. Enjoy!"')
+    .small by Doctor B, the Take This team, Lemoness, and SabreCat
     br
 </template>
 
