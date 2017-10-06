@@ -1,20 +1,22 @@
-<template lang='pug'>
-  div
-    static-header(v-if='showContentWrap', :class='{"home-header": $route.name === "home"}')
+<template lang="pug">
+div
+  static-header(v-if='showContentWrap', :class='{"home-header": $route.name === "home"}')
 
-    .static-wrapper
-      router-view
+  .static-wrapper
+    router-view
 
-    #purple-footer(v-if='showContentWrap')
-      app-footer
+  #purple-footer(v-if='showContentWrap')
+    app-footer
 
-    #bottom-wrap.purple-4(v-if='showContentWrap')
-      #bottom-background
-        .seamless_mountains_demo_repeat
-        .midground_foreground_extended2
+  #bottom-wrap.purple-4(v-if='showContentWrap')
+    #bottom-background
+      .seamless_mountains_demo_repeat
+      .midground_foreground_extended2
 </template>
 
-<style lang='scss'>
+<style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
   .home-header {
     background: #6133b4 !important;
     position: static;
@@ -54,12 +56,8 @@
       box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
     }
   }
-</style>
 
-<style lang='scss'>
-  @import '~client/assets/scss/colors.scss';
-
-  .purple-4 {
+  #bottom-wrap.purple-4 {
     background-color: #271b3d;
   }
 
@@ -141,18 +139,18 @@
 </style>
 
 <script>
-  import AppFooter from 'client/components/appFooter';
-  import StaticHeader from './header.vue';
+import AppFooter from 'client/components/footer';
+import StaticHeader from './header.vue';
 
-  export default {
-    components: {
-      AppFooter,
-      StaticHeader,
+export default {
+  components: {
+    AppFooter,
+    StaticHeader,
+  },
+  computed: {
+    showContentWrap () {
+      return this.$route.name !== 'news';
     },
-    computed: {
-      showContentWrap () {
-        return this.$route.name !== 'news';
-      },
-    },
-  };
+  },
+};
 </script>
