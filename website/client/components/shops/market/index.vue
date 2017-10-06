@@ -64,7 +64,7 @@
 
       .clearfix
         h2.float-left
-          | {{ $t('classEquipment') }}
+          | {{ $t('equipment') }}
 
         div.float-right
           span.dropdown-label {{ $t('class') }}
