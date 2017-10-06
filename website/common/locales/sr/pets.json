@@ -73,6 +73,7 @@
     "useGems": "Ako želite neku zver i ne možete više da čekate da je nađete, u <strong>Inventar > Pijaca</strong> možete da ih kupite za dragulje.",
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Prikaži sad",
     "displayLater": "Prikaži kasnije",
     "petNotOwned": "Ne posedujete ovog ljubimca.",
