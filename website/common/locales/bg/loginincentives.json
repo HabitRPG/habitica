@@ -1,6 +1,6 @@
 {
   "unlockedReward": "Получихте <%= reward %>",
-  "earnedRewardForDevotion": "Получихте <%= reward %> за усърдието си в подобряването на живота Ви.",
+  "earnedRewardForDevotion": "Получихте <%= reward %> за усърдието си в подобряването на живота си.",
   "nextRewardUnlocksIn": "Брой отчитания до следващата награда: <%= numberOfCheckinsLeft %>",
   "awesome": "Страхотно!",
   "totalCount": "Общо: <%= count %>",
@@ -10,7 +10,7 @@
   "checkinEarned": "Броячът на отчитанията Ви се увеличи!",
   "unlockedCheckInReward": "Отключихте награда за отчитане!",
   "totalCheckinsTitle": "Общ брой отчитания",
-  "checkinProgressTitle": "Напредък до следващата",
+  "checkinProgressTitle": "Напредък до следващата награда",
   "incentiveBackgroundsUnlockedWithCheckins": "Заключените едноцветни фонови изображения ще се отключат чрез ежедневните Ви отчитания.",
   "checkinReceivedAllRewardsMessage": "Получили сте всички награди за отчитане! Поздравления!",
   "oneOfAllPetEggs": "по един брой от всяко обикновено яйце за любимец",

@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Custom Day Start",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Change Custom Day Start, matey?",
     "sureChangeCustomDayStart": "Arr ye sure ye want t' change yer custom day start?",
     "customDayStartHasChanged": "Yer custom day start has changed.",
@@ -105,9 +106,7 @@
     "email": "Email",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "User->Profile",
-    "loginNameDescription3": "and click the Edit button.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Email Notifications",
     "wonChallenge": "Ye won a Challenge!",
     "newPM": "Received Private Message",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Reminders t' check in t' Habitica",
     "subscribeUsing": "Subscribe usin'",
     "unsubscribedSuccessfully": "Unsubscribed successfully!",
-    "unsubscribedTextUsers": "Ye've successfully unsubscribed from all Habitica emails. Ye can enable only th' emails ye want t' receive from <a href=\"/#/options/settings/notifications\">th' settin's</a> (requires login).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Ye won't receive any other email from Habitica.",
     "unsubscribeAllEmails": "Check t' Unsubscribe from Emails",
     "unsubscribeAllEmailsText": "By checkin' this box, I certify that I understand that by unsubscribing from all emails, Habitica will never be able t' notify me via email about important changes t' th' site or my account.",
@@ -185,5 +184,6 @@
     "timezone": "Time Zone",
     "timezoneUTC": "Habitica uses the time zone set on yer PC, which is: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using yer browser's reload or refresh button t' ensure that Habitica has th' most recent information. If it is still wrong, adjust th' time zone on yer PC an' then reload this page again.<br><br> <strong>If ye use Habitica on other PCs or mobile devices, th' time zone must be the same on them all.</strong> If yer Dailies have been resetting at th' wrong time, repeat this check on all other PCs an' on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

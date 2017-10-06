@@ -1,31 +1,31 @@
 <template lang="pug">
-  b-modal#death(:title="$t('lostAllHealth')", size='lg', :hide-footer="true")
-    .modal-body
-      .container-fluid
-        .row
-          .col-6.col-xs-12
-            .hero-stats
-              .meter-label(:tooltip="$t('health')")
-                span.glyphicon.glyphicon-heart
-              .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
-                .bar(:style='barStyle')
-                span.meter-text.value
-                  | {{Math.ceil(user.stats.hp)}} / {{maxHealth}}
-            figure.herobox.text-center
-              .character-sprites
-                avatar(:member='user')
-                // @TOOD: Sleep +generatedAvatar({sleep:true})
-                span(class='knockout')
-          .col-6.col-xs-12
-            h4.dont-despair {{ $t('dontDespair') }}
-            p.death-penalty {{ $t('deathPenaltyDetails') }}
-      .modal-footer
-        a.btn.btn-danger.btn-lg.flex-column.btn-wrap(@click='revive(); close()') {{ $t('refillHealthTryAgain') }}
-        h4.text-center {{ $t('dyingOftenTips') }}
+  b-modal#death(:title="$t('lostAllHealth')", size='md', :hide-footer="true")
+    .row
+      .col-12
+        .hero-stats
+          .meter-label(:tooltip="$t('health')")
+            span.glyphicon.glyphicon-heart
+          .meter.health(:tooltip='Math.round(user.stats.hp * 100) / 100')
+            .bar(:style='barStyle')
+          // span.meter-text.value
+            | {{Math.ceil(user.stats.hp)}} / {{maxHealth}}
+          avatar(:member='user', :sleep='true', :avatarOnly='true', :withBackground='true')
+          // @TOOD: Sleep +generatedAvatar({sleep:true})
+          span(class='knockout')
+      .col-6.offset-3
+        h4.dont-despair {{ $t('dontDespair') }}
+        p.death-penalty {{ $t('deathPenaltyDetails') }}
+    .modal-footer
+      .col-12.text-center
+        button.btn.btn-danger(@click='revive()') {{ $t('refillHealthTryAgain') }}
+        h4.text-center(v-html="$t('dyingOftenTips')")
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
+<style scoped>
+  .avatar {
+    width: 140px;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
 </style>
@@ -33,6 +33,7 @@
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 
+import axios from 'axios';
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import revive from '../../../common/script/ops/revive';
@@ -61,9 +62,10 @@ export default {
     close () {
       this.$root.$emit('hide::modal', 'death');
     },
-    revive () {
-      // @TODO: Post
+    async revive () {
+      await axios.post('/api/v3/user/revive');
       revive(this.user);
+      this.close();
     },
   },
 };

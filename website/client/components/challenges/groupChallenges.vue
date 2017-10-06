@@ -5,15 +5,14 @@ div
     .col-12.text-center
       .svg-icon.challenge-icon(v-html="icons.challengeIcon")
       h4(v-once) {{ $t('haveNoChallenges') }}
-      p(v-once) {{ $t('challengeDescription') }}
-      button.btn.btn-secondary(v-once, @click='createChallenge()') {{ $t('createChallenge') }}
+      p(v-once) {{ $t('challengeDetails') }}
   router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }", v-for='challenge in challenges',:key='challenge._id')
     .col-12.challenge-item
       .row
         .col-9
           router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-            strong {{challenge.name}}
-          p {{challenge.description}}
+            strong(v-markdown='challenge.name')
+          p(v-markdown='challenge.summary || challenge.name')
           div
             .svg-icon.member-icon(v-html="icons.memberIcon")
             .member-count {{challenge.memberCount}}
@@ -83,10 +82,11 @@ div
 <script>
 import challengeModal from './challengeModal';
 import { mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 
+import challengeIcon from 'assets/svg/challenge.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
-import challengeIcon from 'assets/svg/challenge.svg';
 
 export default {
   props: ['groupId'],
@@ -95,11 +95,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-  },
-  async mounted () {
-    this.groupIdForChallenges = this.groupId;
-    if (this.user.party._id) this.groupIdForChallenges = this.user.party._id;
-    this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
   },
   data () {
     return {
@@ -112,7 +107,23 @@ export default {
       groupIdForChallenges: '',
     };
   },
+  directives: {
+    markdown: markdownDirective,
+  },
+  mounted () {
+    this.loadChallenges();
+  },
+  watch: {
+    async groupId () {
+      this.loadChallenges();
+    },
+  },
   methods: {
+    async loadChallenges () {
+      this.groupIdForChallenges = this.groupId;
+      if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+      this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
+    },
     createChallenge () {
       this.$root.$emit('show::modal', 'challenge-modal');
     },

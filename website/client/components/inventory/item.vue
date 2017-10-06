@@ -4,25 +4,26 @@ div(v-if="emptyItem")
     .item.item-empty
       .item-content
     span.item-label(v-if="label") {{ label }}
-b-popover(
-  v-else,
-  :triggers="[showPopover?'hover':'']",
-  :placement="popoverPosition",
-)
-  span(slot="content")
-    slot(name="popoverContent", :item="item")
-
-  .item-wrapper(@click="click")
-    .item(:class="{'item-active': active }")
+div(v-else)
+  .item-wrapper(@click="click", :id="itemId")
+    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }")
       slot(name="itemBadge", :item="item")
       span.item-content(
         :class="itemContentClass"
       )
     span.item-label(v-if="label") {{ label }}
+  b-popover(
+    v-if="showPopover"
+    :target="itemId",
+    triggers="hover",
+    :placement="popoverPosition",
+  )
+    slot(name="popoverContent", :item="item")
 </template>
 
 <script>
 import bPopover from 'bootstrap-vue/lib/components/popover';
+import uuid from 'uuid';
 
 export default {
   components: {
@@ -53,6 +54,14 @@ export default {
     active: {
       type: Boolean,
     },
+    highlightBorder: {
+      type: Boolean,
+    },
+  },
+  data () {
+    return Object.freeze({
+      itemId: uuid.v4(),
+    });
   },
   methods: {
     click () {

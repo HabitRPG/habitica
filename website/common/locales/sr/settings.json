@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Vreme početka dana",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Change Custom Day Start?",
     "sureChangeCustomDayStart": "Are you sure you want to change your custom day start?",
     "customDayStartHasChanged": "Your custom day start has changed.",
@@ -105,9 +106,7 @@
     "email": "E-mail adresa",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "Korisnik -> Profil",
-    "loginNameDescription3": "and click the Edit button.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Obaveštenja imejlom",
     "wonChallenge": "You won a Challenge!",
     "newPM": "Primljena privatna poruka",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Podsetnici da se prijavite na Habitica",
     "subscribeUsing": "Subscribe using",
     "unsubscribedSuccessfully": "Pretplata uspešno prekinuta!",
-    "unsubscribedTextUsers": "Uspešno ste prekinuli pretplatu na sve Habitica email-ove. Možete odobriti samo one email-ove koje hoćete da primate u <a href=\"/#/options/settings/notifications\">Postavke</a> (potrebna je prijava).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Habitica Vam neće slati druge mejlove.",
     "unsubscribeAllEmails": "Kliknite ovde ako ne želite da Vam šaljemo poruke",
     "unsubscribeAllEmailsText": "Ovim potrvrđujem da razumem da, ako otkažem dozvolu Habitica-u da mi šalje poruke, Habitica više neće moći da me obaveštava mejlovima o bitnim promenama u igri ili na mom nalogu.",
@@ -185,5 +184,6 @@
     "timezone": "vremenska zona",
     "timezoneUTC": "Habitica uses the time zone set on your PC, which is: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

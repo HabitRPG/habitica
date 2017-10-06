@@ -8,7 +8,7 @@
       h6 {{ $t('userId') }}
       pre.prettyprint {{user.id}}
       h6 {{ $t('APIToken') }}
-      pre.prettyprint {{user.apiToken}}
+      pre.prettyprint {{apiToken}}
       small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
 
     .section
@@ -23,7 +23,7 @@
           br
           | {{ $t('chromeChatExtensionDesc') }}
         li
-          a(target='_blank' :href='`http://data.habitrpg.com?uuid= + user._id`') {{ $t('dataTool') }}
+          a(target='_blank' :href='`https://oldgods.net/habitica/habitrpg_user_data_display.html?uuid=` + user._id') {{ $t('dataTool') }}
           br
           | {{ $t('dataToolDesc') }}
         li(v-html="$t('otherExtensions')")
@@ -59,7 +59,7 @@
                 button.btn.btn-sm.btn-primary(type='submit', @click='addWebhook(newWebhook.url)') {{ $t('add') }}
 </template>
 
-<style scope>
+<style scoped>
   .section {
     margin-top: 2em;
   }
@@ -81,7 +81,10 @@ export default {
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', credentials: 'credentials'}),
+    apiToken () {
+      return this.credentials.API_TOKEN;
+    },
   },
   methods: {
     async addWebhook (url) {

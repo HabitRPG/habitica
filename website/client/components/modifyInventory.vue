@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#modify-inventory(title="Modify Inventory", size='lg', :hide-footer="true")
+  b-modal#modify-inventory(v-if='user.profile', title="Modify Inventory", size='lg', :hide-footer="true")
     .modal-header
       h4 Modify Inventory for {{user.profile.name}}
     .modal-body

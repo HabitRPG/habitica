@@ -19,12 +19,29 @@ api.getMarketItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
+    let resObject = shops.getMarketShop(user, req.language);
+
+    res.respond(200, resObject);
+  },
+};
+
+/**
+ * @apiIgnore
+ * @api {get} /api/v3/shops/market-gear get the available gear for the market
+ * @apiName GetMarketGear
+ * @apiGroup Shops
+ *
+ * @apiSuccess {Object} data List of available gear
+ */
+api.getMarketGear = {
+  method: 'GET',
+  url: '/shops/market-gear',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
     let resObject = {
-      identifier: 'market',
-      text: res.t('market'),
-      notes: res.t('welcomeMarketMobile'),
-      imageName: 'npc_alex',
-      categories: shops.getMarketCategories(user, req.language),
+      categories: shops.getMarketGearCategories(user, req.language),
     };
 
     res.respond(200, resObject);
@@ -47,13 +64,7 @@ api.getQuestShopItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let resObject = {
-      identifier: 'questShop',
-      text: res.t('quests'),
-      notes: res.t('ianTextMobile'),
-      imageName: 'npc_ian',
-      categories: shops.getQuestShopCategories(user, req.language),
-    };
+    let resObject = shops.getQuestShop(user, req.language);
 
     res.respond(200, resObject);
   },
@@ -74,15 +85,8 @@ api.getTimeTravelerShopItems = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    let hasTrinkets = user.purchased.plan.consecutive.trinkets > 0;
 
-    let resObject = {
-      identifier: 'timeTravelersShop',
-      text: res.t('timeTravelers'),
-      notes: hasTrinkets ? res.t('timeTravelersPopover') : res.t('timeTravelersPopoverNoSubMobile'),
-      imageName: hasTrinkets ? 'npc_timetravelers_active' : 'npc_timetravelers',
-      categories: shops.getTimeTravelersCategories(user, req.language),
-    };
+    let resObject = shops.getTimeTravelersShop(user, req.language);
 
     res.respond(200, resObject);
   },
@@ -104,13 +108,7 @@ api.getSeasonalShopItems = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let resObject = {
-      identifier: 'seasonalShop',
-      text: res.t('seasonalShop'),
-      notes: res.t('seasonalShopClosedText'),
-      imageName: 'seasonalshop_closed',
-      categories: shops.getSeasonalShopCategories(user, req.language),
-    };
+    let resObject = shops.getSeasonalShop(user, req.language);
 
     res.respond(200, resObject);
   },

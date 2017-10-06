@@ -1,33 +1,47 @@
 <template lang="pug">
-.item-with-icon.item-notifications.dropdown
-  .svg-icon(v-html="icons.notifications")
-  // span.glyphicon(:class='iconClasses()')
-  // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
+div.item-with-icon.item-notifications.dropdown
+  span.message-count.top-count(v-if='notificationsCount > 0')  {{ notificationsCount }}
+  .svg-icon.notifications(v-html="icons.notifications")
   .dropdown-menu.dropdown-menu-right.user-dropdown
-    h4.dropdown-item(v-if='!hasNoNotifications()') {{ $t('notifications') }}
+    h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
+    a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+      div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
+      div
+        button.btn.btn-primary(@click='questAccept(user.party._id)') Accept
+        button.btn.btn-primary(@click='questReject(user.party._id)') Reject
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='party in user.invitations.parties', @click='go("/party")')
-      span.glyphicon.glyphicon-user
-      span {{ $t('invitedTo', {name: party.name}) }}
+    a.dropdown-item(v-for='(party, index) in user.invitations.parties')
+      div
+        span.glyphicon.glyphicon-user
+        span {{ $t('invitedTo', {name: party.name}) }}
+      div
+        button.btn.btn-primary(@click='accept(party, index, "party")') Accept
+        button.btn.btn-primary(@click='reject(party, index, "party")') Reject
     a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
       a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
-    a.dropdown-item(v-for='guild in user.invitations.guilds', @click='go("/groups/discovery")')
-      span.glyphicon.glyphicon-user
-      span {{ $t('invitedTo', {name: guild.name}) }}
+    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
+      div
+        span.glyphicon.glyphicon-user
+        span {{ $t('invitedTo', {name: guild.name}) }}
+      div
+        button.btn.btn-primary(@click='accept(guild, index, "guild")') Accept
+        button.btn.btn-primary(@click='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(k,v) in user.newMessages', v-if='v.value', @click='navigateToGroup(k)')
-      span.glyphicon.glyphicon-comment
-      span {{v.name}}
-      a.dropdown-item(@click='clearMessages(k)', :popover="$t('clear')", popover-placement='right', popover-trigger='mouseenter',popover-append-to-body='true')
+    a.dropdown-item(v-for='message in userNewMessages')
+      span(@click='navigateToGroup(message.key)')
+        span.glyphicon.glyphicon-comment
+        span {{message.name}}
+      span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
+        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
       span
@@ -42,12 +56,51 @@
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
-  .svg-icon {
-    width: 25px;
+
+  .message-count {
+    background-color: #46a7d9;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .message-count.top-count {
+    position: absolute;
+    right: -.5em;
+    top: .5em;
+    padding: .2em;
+  }
+
+  .clear-button {
+    margin-left: .5em;
+  }
+
+  .item-notifications {
+    width: 44px;
   }
 
   .item-notifications:hover {
     cursor: pointer;
+  }
+
+  .notifications {
+    vertical-align: bottom;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    margin-left: 8px;
+    margin-top: .2em;
+  }
+
+  .user-dropdown {
+    max-height: 350px;
+    overflow: scroll;
   }
 
   /* @TODO: Move to shared css */
@@ -58,6 +111,10 @@
 
   .dropdown + .dropdown {
     margin-left: 0px;
+  }
+
+  .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
   }
 
   .dropdown-menu:not(.user-dropdown) {
@@ -98,6 +155,7 @@ import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 
 import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 
@@ -107,6 +165,7 @@ export default {
       icons: Object.freeze({
         notifications: notificationsIcon,
       }),
+      quests,
     };
   },
   computed: {
@@ -114,6 +173,43 @@ export default {
     party () {
       return {name: ''};
       // return this.user.party;
+    },
+    userNewMessages () {
+      // @TODO: For some reason data becomes corrupted. We should fix this on the server
+      let userNewMessages = [];
+      for (let key in this.user.newMessages) {
+        let message = this.user.newMessages[key];
+        if (message && message.name && message.value) {
+          message.key = key;
+          userNewMessages.push(message);
+        }
+      }
+      return userNewMessages;
+    },
+    notificationsCount () {
+      let count = 0;
+
+      if (this.user.invitations.parties) {
+        count += this.user.invitations.parties.length;
+      }
+
+      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
+        count++;
+      }
+
+      if (this.user.invitations.guilds) {
+        count += this.user.invitations.guilds.length;
+      }
+
+      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
+        count += this.user.stats.points > 0 ? 1 : 0;
+      }
+
+      if (this.userNewMessages) {
+        count += Object.keys(this.userNewMessages).length;
+      }
+
+      return count;
     },
   },
   methods: {
@@ -177,36 +273,12 @@ export default {
       }
       return questInfo;
     },
-    clearMessages () {
-      this.$store.dispatch('chat:markChatSeen');
+    clearMessages (key) {
+      this.$store.dispatch('chat:markChatSeen', {groupId: key});
+      this.$delete(this.user.newMessages, key);
     },
     clearCards () {
       this.$store.dispatch('chat:clearCards');
-    },
-    getNotificationsCount () {
-      let count = 0;
-
-      if (this.user.invitations.parties) {
-        count += this.user.invitations.parties.length;
-      }
-
-      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
-        count++;
-      }
-
-      if (this.user.invitations.guilds) {
-        count += this.user.invitations.guilds.length;
-      }
-
-      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
-        count += this.user.stats.points > 0 ? 1 : 0;
-      }
-
-      if (this.user.newMessages) {
-        count += Object.keys(this.user.newMessages).length;
-      }
-
-      return count;
     },
     iconClasses () {
       return this.selectNotificationValue(
@@ -227,7 +299,7 @@ export default {
       // @TODO: USe notifications: User.readNotification(notification.id);
       this.user.groupNotifications.splice(index, 1);
       return navigate; // @TODO: remove
-      // @TODO: this.$route.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
+      // @TODO: this.$router.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
     },
     groupApprovalNotificationIcon (notification) {
       if (notification.type === 'GROUP_TASK_APPROVAL') {
@@ -237,14 +309,53 @@ export default {
       }
     },
     go (path) {
-      this.$route.push(path);
+      this.$router.push(path);
     },
     navigateToGroup (key) {
       if (key === this.party._id || key === this.user.party._id) {
         this.go('/party');
         return;
       }
-      this.go(`/groups/guild/${key}`);
+
+      this.$router.push({ name: 'guild', params: { groupId: key }});
+    },
+    async reject (group) {
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
+      // @TODO: User.sync();
+    },
+    async accept (group, index, type) {
+      if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+        return;
+      }
+
+      if (type === 'party') {
+        // @TODO: pretty sure mutability is wrong. Need to check React docs
+        // @TODO mutation to store data should only happen through actions
+        this.user.invitations.parties.splice(index, 1);
+
+        Analytics.updateUser({partyID: group.id});
+      } else {
+        this.user.invitations.guilds.splice(index, 1);
+      }
+
+      if (type === 'party') {
+        this.user.party._id = group.id;
+        this.$router.push('/party');
+      } else {
+        this.user.guilds.push(group.id);
+        this.$router.push(`/groups/guild/${group.id}`);
+      }
+
+      // @TODO: check for party , type: 'myGuilds'
+      await this.$store.dispatch('guilds:join', {guildId: group.id});
+    },
+    async questAccept (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
+      this.user.party.quest = quest;
+    },
+    async questReject (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
+      this.user.party.quest = quest;
     },
   },
 };

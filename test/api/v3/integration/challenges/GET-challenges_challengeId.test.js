@@ -48,8 +48,10 @@ describe('GET /challenges/:challengeId', () => {
       });
       expect(chal.group).to.eql({
         _id: group._id,
+        categories: [],
         id: group.id,
         name: group.name,
+        summary: group.name,
         type: group.type,
         privacy: group.privacy,
         leader: groupLeader.id,
@@ -100,8 +102,10 @@ describe('GET /challenges/:challengeId', () => {
       });
       expect(chal.group).to.eql({
         _id: group._id,
+        categories: [],
         id: group.id,
         name: group.name,
+        summary: group.name,
         type: group.type,
         privacy: group.privacy,
         leader: groupLeader.id,
@@ -153,7 +157,9 @@ describe('GET /challenges/:challengeId', () => {
       expect(chal.group).to.eql({
         _id: group._id,
         id: group.id,
+        categories: [],
         name: group.name,
+        summary: group.name,
         type: group.type,
         privacy: group.privacy,
         leader: groupLeader.id,

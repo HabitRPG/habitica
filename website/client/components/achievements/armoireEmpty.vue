@@ -1,14 +1,21 @@
 <template lang="pug">
   b-modal#armoire-empty(:title="$t('armoireText')", size='lg', :hide-footer="true")
-    .modal-header
-      .shop_armoire.pull-right
     .modal-body
-      p {{$t('armoireLastItem')}}
-      br
-      p {{$t('armoireNotesEmpty')}}
+      .row
+        .col-6.offset-3
+          .shop_armoire
+          p {{$t('armoireLastItem')}}
+          p {{$t('armoireNotesEmpty')}}
     .modal-footer
-      button.btn.btn-default(@click='close()') {{$t('close')}}
+      .col-12.text-center
+          button.btn.btn-primary(@click='close()') {{$t('close')}}
 </template>
+
+<style scoped>
+  .shop_armoire {
+    margin: 1em auto;
+  }
+</style>
 
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';

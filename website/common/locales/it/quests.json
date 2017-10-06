@@ -8,6 +8,8 @@
     "unlockableQuests": "Missioni sbloccabili",
     "goldQuests": "Missioni acquistabili con l'oro",
     "questDetails": "Dettagli missione",
+    "questDetailsTitle": "Dettagli missione",
+    "questDescription": "Le Missioni permettono ai giocatori di concentrarsi su obiettivi comuni, a lungo termine, insieme ai membri della propria squadra.",
     "invitations": "Inviti",
     "completed": "Completata!",
     "rewardsAllParticipants": "Ricompense per tutti i partecipanti",
@@ -87,7 +89,7 @@
     "whichQuestStart": "Che missione vuoi cominciare?",
     "getMoreQuests": "Ottieni altre missioni",
     "unlockedAQuest": "Hai sbloccato una missione!",
-    "leveledUpReceivedQuest": "Sei salito al livello <strong>Livello <%= level %></strong> e hai ricevuto una Pergamena!",
+    "leveledUpReceivedQuest": "Sei salito al <strong>Livello <%= level %></strong> e hai ricevuto una Pergamena!",
     "questInvitationDoesNotExist": "Non è stato ancora mandato alcun invito ad una missione.",
     "questInviteNotFound": "Nessun invito ad una missione trovato.",
     "guildQuestsNotSupported": "Le Gilde non possono essere invitate a partecipare ad una missione.",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Nessuna missione attiva da abbandonare",
     "questLeaderCannotLeaveQuest": "Il Capomissione non può abbandonare la missione",
     "notPartOfQuest": "Non fai parte della missione",
+    "youAreNotOnQuest": "Non stai partecipando ad una missione",
     "noActiveQuestToAbort": "Non c'è una missione attiva da annullare.",
     "onlyLeaderAbortQuest": "Solo il leader del gruppo o della missione può annullare una missione",
     "questAlreadyRejected": "Hai già rifiutato l'invito alla missione",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> accessi",
     "createAccountQuest": "Hai ricevuto questa missione quando ti sei iscritto ad Habitica! Se un tuo amico si iscriverà, ne riceverà una anche lui.",
     "questBundles": "Pacchetto missioni scontato",
-    "buyQuestBundle": "Compra pacchetto missioni"
+    "buyQuestBundle": "Compra pacchetto missioni",
+    "noQuestToStart": "Non sai con quale missione cominciare? Fai un salto al Negozio Missioni nel Mercato per le nuove uscite!"
 }

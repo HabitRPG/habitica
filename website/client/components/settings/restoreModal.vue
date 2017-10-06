@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import clone from 'lodash/clone';
 import { mapState } from 'client/libs/store';
 
 import bModal from 'bootstrap-vue/lib/components/modal';
@@ -72,8 +73,8 @@ export default {
     };
   },
   mounted () {
-    this.restoreValues.stats = this.user.stats;
-    this.restoreValues.achievements.streak = this.user.achievements.streak;
+    this.restoreValues.stats = clone(this.user.stats);
+    this.restoreValues.achievements.streak = clone(this.user.achievements.streak);
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -89,8 +90,8 @@ export default {
         return;
       }
 
-      this.user.stats = this.restoreValues.stats;
-      this.user.achievements.streak = this.restoreValues.achievements.streak;
+      this.user.stats = clone(this.restoreValues.stats);
+      this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
       let settings = {
         'stats.hp': this.restoreValues.stats.hp,

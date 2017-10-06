@@ -3,12 +3,21 @@ import omit from 'lodash/omit';
 import findIndex from 'lodash/findIndex';
 
 export async function getPublicGuilds (store, payload) {
+  let params = {
+    type: 'publicGuilds',
+    paginate: true,
+    page: payload.page,
+  };
+
+  if (payload.categories) params.categories = payload.categories;
+  if (payload.minMemberCount) params.minMemberCount = payload.minMemberCount;
+  if (payload.maxMemberCount) params.maxMemberCount = payload.maxMemberCount;
+  if (payload.leader) params.leader = payload.leader;
+  if (payload.member) params.member = payload.member;
+  if (payload.search) params.search = payload.search;
+
   let response = await axios.get('/api/v3/groups', {
-    params: {
-      type: 'publicGuilds',
-      paginate: true,
-      page: payload.page,
-    },
+    params,
   });
 
   return response.data.data;
@@ -164,4 +173,9 @@ export async function removeManager  (store, payload) {
   // @TODO: Add managers to group or does the component handle?
 
   return response;
+}
+
+export async function getGroupPlans () {
+  let response = await axios.get('/api/v3/group-plans');
+  return response.data.data;
 }

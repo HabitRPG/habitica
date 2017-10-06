@@ -11,6 +11,9 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+import { removeItemByPath } from './pinnedGearUtils';
+import getItemInfo from '../libs/getItemInfo';
+
 module.exports = function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
   let key = get(req.params, 'key');
@@ -102,6 +105,9 @@ module.exports = function purchase (user, req = {}, analytics) {
   if (!user.balance || user.balance < price) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
+
+  let itemInfo = getItemInfo(user, type, item);
+  removeItemByPath(user, itemInfo.path);
 
   user.balance -= price;
 

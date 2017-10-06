@@ -12,7 +12,7 @@
       div.inner-content
         slot(name="item", :item="item")
 
-        h4.title {{ item.text() }}
+        h4.title {{ text ? text : item.text() }}
         div.text {{ item.notes() }}
 
         div
@@ -34,8 +34,6 @@
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
       balanceInfo.float-right
-
-
 </template>
 <style lang="scss">
 
@@ -174,6 +172,9 @@
         type: Object,
       },
       itemType: {
+        type: String,
+      },
+      text: {
         type: String,
       },
       itemCount: {

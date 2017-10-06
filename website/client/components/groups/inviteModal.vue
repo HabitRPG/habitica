@@ -13,7 +13,7 @@ b-modal#invite-modal(:title="$t('inviteFriends')", size='lg')
               input.form-control(type='text', v-model='user.uuid')
             tr
               td
-                button.btn.btn-xs.pull-right(@click='addUuid()')
+                button.btn.btn-primary.pull-right(@click='addUuid()')
                   i.glyphicon.glyphicon-plus
                   | +
           tr
@@ -36,7 +36,7 @@ b-modal#invite-modal(:title="$t('inviteFriends')", size='lg')
               input.form-control(type='email', v-model='email.email')
           tr
             td(colspan=2)
-              a.btn.btn-xs.pull-right(@click='addEmail()')
+              button.btn.btn-primary.pull-right(@click='addEmail()')
                 i.glyphicon.glyphicon-plus
                 | +
           tr
@@ -55,8 +55,12 @@ import filter from 'lodash/filter';
 import map from 'lodash/map';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
+import * as Analytics from 'client/libs/analytics';
 
 export default {
+  components: {
+    bModal,
+  },
   mixins: [notifications],
   props: ['group'],
   data () {
@@ -65,8 +69,13 @@ export default {
       emails: [],
     };
   },
-  components: {
-    bModal,
+  mounted () {
+    Analytics.track({
+      hitType: 'event',
+      eventCategory: 'button',
+      eventAction: 'click',
+      eventLabel: 'Invite Friends',
+    });
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -123,6 +132,9 @@ export default {
 
       this.text(this.$t(invitationString));
 
+      this.invitees = [];
+      this.emails = [];
+
       // @TODO: This function didn't make it over this.resetInvitees();
 
       // @TODO: Sync group invites?
@@ -131,7 +143,7 @@ export default {
       // } else {
       //   this.$router.push(`/groups/guilds/${this.group._id}`);
       // }
-      this.$root.$emit('hide:modal', 'invite-modal');
+      this.$root.$emit('hide::modal', 'invite-modal');
       // @TODO: error?
       // _resetInvitees();
     },

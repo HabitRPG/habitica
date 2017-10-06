@@ -16,11 +16,15 @@ function equipmentStatBonusComputed (stat, user) {
   let equippedKeys = values(!equipped.toObject ? equipped : equipped.toObject());
 
   each(equippedKeys, (equippedItem) => {
-    let equipmentStat = gear[equippedItem][stat];
-    let classBonusMultiplier = gear[equippedItem].klass === user.stats.class ||
-      gear[equippedItem].specialClass === user.stats.class ? 0.5 : 0;
-    gearBonus += equipmentStat;
-    classBonus += equipmentStat * classBonusMultiplier;
+    let item = gear[equippedItem];
+
+    if (item) {
+      let equipmentStat = item[stat];
+      let classBonusMultiplier = item.klass === user.stats.class ||
+        item.specialClass === user.stats.class ? 0.5 : 0;
+      gearBonus += equipmentStat;
+      classBonus += equipmentStat * classBonusMultiplier;
+    }
   });
 
   return {

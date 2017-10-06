@@ -11,6 +11,7 @@ export default {
     profile,
   },
   mounted () {
+    this.$store.state.profileUser = {};
     this.$root.$emit('show::modal', 'profile');
   },
 };

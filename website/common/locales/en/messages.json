@@ -1,4 +1,5 @@
 {
+
   "messageLostItem": "Your <%= itemText %> broke.",
   "messageTaskNotFound": "Task not found.",
   "messageDuplicateTaskID": "A task with that ID already exists.",
@@ -21,9 +22,9 @@
   "messageNotEnoughGold": "Not Enough Gold",
   "messageTwoHandedEquip": "Wielding <%= twoHandedText %> takes two hands, so <%= offHandedText %> has been unequipped.",
   "messageTwoHandedUnequip": "Wielding <%= twoHandedText %> takes two hands, so it was unequipped when you armed yourself with <%= offHandedText %>.",
-  "messageDropFood": "You've found <%= dropArticle %><%= dropText %>! <%= dropNotes %>",
-  "messageDropEgg": "You've found a <%= dropText %> Egg! <%= dropNotes %>",
-  "messageDropPotion": "You've found a <%= dropText %> Hatching Potion! <%= dropNotes %>",
+  "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
+  "messageDropEgg": "You've found a <%= dropText %> Egg!",
+  "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
   "messageDropQuest": "You've found a quest!",
   "messageDropMysteryItem": "You open the box and find <%= dropText %>!",
   "messageFoundQuest": "You've found the quest \"<%= questText %>\"!",
@@ -41,7 +42,7 @@
 
   "messageAuthPasswordMustMatch": ":password and :confirmPassword don't match",
   "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-  "messageAuthUsernameTaken": "Username already taken",
+  "messageAuthUsernameTaken": "Login Name already taken",
   "messageAuthEmailTaken": "Email already taken",
   "messageAuthNoUserFound": "No user found.",
   "messageAuthMustBeLoggedIn": "You must be logged in.",

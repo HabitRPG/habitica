@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Я погоджуюсь дотримуватися правил спільноти.",
-    "tavernCommunityGuidelinesPlaceholder": "Доброзичливе нагадування: у цьому чаті спілкуються люди різного віку, тому просимо вас стежити за мовою і змістом. Зверніться до Правил Спільноти нижче, якщо в вас є питання.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Ласкаво просимо до країни Habitica!",
     "commGuidePara001": "Вітаю, шукачу пригод! Запрошуємо до Habitica — країни продуктивності, здорового життя та іноді шалених грифонів. У нас веселе товариство людей, які завжди раді допомогти та підтримати інших на їхньому шляху до самовдосконалення.",
     "commGuidePara002": "Аби всі у нашому товаристві були здорові, щасливі та продуктивні, існує кілька правил. Ми ретельно склали правила, щоб вони були настільки доброзичливі та зручні для сприйняття, наскільки це можливо. Будь ласка, знайдіть час, щоб прочитати їх.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Вияв підтримки.</strong> Звичаньці радіють від перемог один одного та втішають у важкі часи. Ми зичимо сили, допомагаємо та вчимося один в одного. У групах робимо це за допомогою своїх заклинань, а в чатах — за допомогою добрих та підбадьорливих слів.",
     "commGuideList01D": "<strong>Шанобливість.</strong> Усі ми різні, маємо різні навички та різні думки. І це одна з причин, чому наша спільнота така чудова! Звичаньці поважають відмінності та хвалять їх. Залишайтеся з нами і невдовзі у вас будуть друзі з усіх усюд.",
     "commGuideHeadingMeet": "Meet the Staff and Mods!",
-    "commGuidePara006": "У Habitica є кілька невтомних мандрівних лицарів, які разом зі штатними працівниками докладають зусиль, аби у спільноті всі були спокійні, задоволені і тролі не буянили. Кожен з них має свій домен, але іноді їх можуть покликати в інші громадські сфери. Працівники та модератори частенько попереджають про офіційні повідомлення словами \"Модератор каже\" або \"Новинка\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Теґи штатних працівників забарвлені у пурпуровий колір і позначаються коронами. Вони мають звання \"Герої\".",
     "commGuidePara008": "Теґи модераторів — темно-сині і позначаються зірочками. Вони мають звання \"Охорона\". Винятком є Бейлі, яка є неігровим персонажем. Її теґи чорно-зелені і позначаються зірочкою.",
     "commGuidePara009": "Діючими штатними працівникам є (зліва направо):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Перевіряйте, щоб вікі-контент відносився до всього сайту Habitica, а не тільки до якоїсь певної гільдії або гурту (подібна інформація може бути розглянута на форумах)",
     "commGuidePara049": "Ось діючі wiki-адміністратори:",
     "commGuidePara049A": "The following moderators can make emergency edits in situations where a moderator is needed and the above admins are unavailable:",
-    "commGuidePara018": "Ось Почесні wiki-адміністратори",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Порушення, Наслідки та Відновлення",
     "commGuideHeadingInfractions": "Порушення",
     "commGuidePara050": "Звісно, Звичаїнці допомагають та поважають один одного, і працюють над тим, щоб зробити всю спільноту веселим й дружнім місцем. Тим не менш, так буває що якась дія Звичаїнця може порушити один з вищевказаних принципів. Якщо це трапиться, Модератори вжитимуть всі необхідні заходи за для підтримки у Habitica спокою та комфорту для всіх.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "for submitting pixel art.",
     "commGuideLink08": "The Quest Trello",
     "commGuideLink08description": "for submitting quest writing.",
-    "lastUpdated": "Останнє оновлення"
+    "lastUpdated": "Last updated:"
 }

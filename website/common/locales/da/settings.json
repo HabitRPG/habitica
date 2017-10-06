@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Brugerdefineret Dagstart",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Skift Brugerdefineret Dagstart?",
     "sureChangeCustomDayStart": "Er du sikker på, at du vil ændre din brugerdefinerede dagsstart?",
     "customDayStartHasChanged": "Din brugerdefinerede dag er ændret.",
@@ -105,9 +106,7 @@
     "email": "Email",
     "registerWithSocial": "Registrer med <%= network %>",
     "registeredWithSocial": "Registreret med <%= network %>",
-    "loginNameDescription1": "Dette er hvad du bruger til at logge ind på Habitica. Hvis du vil ændre det, så brug formularen herunder. Hvis du i stedet vil ændre navnet der står ved din avatar og i chatbeskeder, så gå til",
-    "loginNameDescription2": "Bruger->Profil",
-    "loginNameDescription3": "og klik på knappen Redigér.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Mail-notifikationer",
     "wonChallenge": "Du har vundet en Udfordring!",
     "newPM": "Modtaget Privatbesked",
@@ -130,7 +129,7 @@
     "remindersToLogin": "Påmindelser om at tjekke ind på Habitica",
     "subscribeUsing": "Abonnér med",
     "unsubscribedSuccessfully": "Du er nu afmeldt!",
-    "unsubscribedTextUsers": "Du er nu afmeldt alle emails fra Habitica. Du kan tilmelde dig de enkelte typer emails, du ønsker at modtage under <a href=\"/#/options/settings/notifications\">indstillinger</a> (kræver login).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Du vil ikke modtage flere emails fra Habitica.",
     "unsubscribeAllEmails": "Markér for at afmelde emails",
     "unsubscribeAllEmailsText": "Ved at markere denne boks er jeg indforstået med, at ved at afmelde alle emails vil Habitica aldrig være i stand til at informere mig via email om vigtige ændringer på siden eller min konto.",
@@ -185,5 +184,6 @@
     "timezone": "Tidszone",
     "timezoneUTC": "Habitica bruger tidszonen sat på din PC, som er: <strong><%= utc %></strong>",
     "timezoneInfo": "Hvis tidszonen er forkert, kan du først genindlæse denne side ved hjælp af din browsers knap til genindlæsning for at give Habitica de mest opdaterede informationer. Hvis den stadig er forkert, kan du justere din tidszone på din PC og derefter genindlæse siden igen.<br><br> <strong>Hvis du bruger Habitica på andre PC'er eller mobile enheder, skal tidszonen være den samme på dem alle.</strong> Hvis dine Daglige er blevet nulstellet på det forkerte tidspunkt. kan du gentage denne gennemgang på alle andre PC'er og i en browser på dine mobile enheder.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

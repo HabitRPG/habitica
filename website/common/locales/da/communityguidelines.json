@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Jeg lover at overholde Retningslinjerne for Fællesskabet.",
-    "tavernCommunityGuidelinesPlaceholder": "Venlig påmindelse: denne chat er åben for alle aldersgrupper, så hold venligst indhold og sprog børnevenligt - og engelsk, så alle kan forstå det. Se Retningslinjer for Fællesskabet nedenunder, hvis du har spørgsmål.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Velkommen til Habitica!",
     "commGuidePara001": "Velkommen, eventyrer! Dette er Habitica, landet med produktivitet, sund livsstil og sporadiske grif-angreb. Vi har et positivt fællesskab fyldt med hjælpsomme mennesker, der støtter hinanden på vejen til selvforbedring.",
     "commGuidePara002": "For at alle er sikre, glade og produktive i fællesskabet har vi nogle retningslinjer. Vi har omhyggeligt lavet dem så venlige og letlæselige som muligt. Brug venligst den tid, det tager at læse dem.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>En Støttende Opførsel.</strong> Habitikanere hepper på hinandens sejre og trøster hinanden i modgang. Vi giver styrke til hinanden og læner os op ad hinanden og lærer fra hinanden. I grupper gør vi det med fores fortryllelser; i chatrum gør vi det med venlige og støttende ord.",
     "commGuideList01D": "<strong>En Respektfuld Væremåde.</strong> Vi har alle forskellige baggrunde, forskellige evner og forskellige holdninger. Det er en del af, hvad der gør vores fællesskab så skønt! Habitikanere respekterer disse forskelle og fejrer dem. Bliv hængende og du vil snart have mange forskelligeartede venner.",
     "commGuideHeadingMeet": "Mød de Ansatte og Moderatorerne!",
-    "commGuidePara006": "Habitica har nogle utrættelige omflakkende riddere, som arbejder sammen med de ansatte for at holde fællesskabet roligt, tilfredst og troldefrit. De har hvert et specifikt område, men bliver nogen gange bedt om at hjælpe i andre sociale områder. Ansatte og Moderatorer vil ofte starte en officiel udtalelse med ordene \"Mod Talk\" - aka \"Moderatortale\" - eller \"Mod Hat On\" - \"Moderatorhatten på\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Ansatte har lilla tags markeret med kroner. Deres titel er \"Heltemodig\".",
     "commGuidePara008": "Moderatorer har mørkeblå tags markeret med stjerner. Deres titel er \"Beskytter\". Den eneste undtagelse er Bailey, der som NPC har et sort og grønt tag markeret med en stjerne.",
     "commGuidePara009": "De nuværende Ansatte er (fra venstre mod højre):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Sørg for at wikiens indhold er relevant for hele Habitica og ikke kun specifikke klaner eller grupper (denne information kan flyttes til forumet)",
     "commGuidePara049": "Nuværende wiki-administratorer er:",
     "commGuidePara049A": "Følgende moderatorer kan foretage nødredigering i situationer hvor en moderator er nødvendig og de ovenstående administratorer er utilgængelige:",
-    "commGuidePara018": "Tidligere wiki-administratorer er",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Overtrædelser, Konsekvenser og Genskabelse",
     "commGuideHeadingInfractions": "Overtrædelser",
     "commGuidePara050": "I overvældende grad hjælper Habitikanere hinanden og er respektfulde, og arbejder for at hele fællesskabet er sjovt og venligt. Dog er der en sjælden gang imellem en Habitikaner, som gør noget, der bryder en af de ovenstående retningslinjer. Når dette sker vll Moderatorerne gøre hvad de anser som nødvendigt for at Habitica forbliver sikkert og behageligt for alle.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "for at indsende pixelkunst.",
     "commGuideLink08": "Quest-Trello",
     "commGuideLink08description": "for at indsende Quest-tekst.",
-    "lastUpdated": "Sidst opdateret"
+    "lastUpdated": "Last updated:"
 }

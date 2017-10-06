@@ -20,6 +20,10 @@
   &-purple {
     background: $purple-300;
 
+    &-color {
+      color: $purple-300;
+    }
+
     &-control-habit {
       background: $purple-300;
     }
@@ -31,13 +35,18 @@
 
   &-worst {
     background: $maroon-100;
+
+    &-color {
+      color: darken($maroon-100, 12%);
+    }
+
     &-control-habit {
       background: darken($maroon-100, 12%);
     }
 
     &-control-daily-todo {
       background: $maroon-500;
-      background: $maroon-100;
+      color: $maroon-100;
     }
 
     &-modal-input {
@@ -47,6 +56,11 @@
 
   &-worse {
     background: $red-100;
+
+    &-color {
+      color: darken($red-100, 12%);
+    }
+
     &-control-habit {
       background: darken($red-100, 12%);
     }
@@ -63,6 +77,11 @@
 
   &-bad {
     background: $orange-100;
+
+    &-color {
+      color: darken($orange-100, 12%);
+    }
+
     &-control-habit {
       background: darken($orange-100, 12%);
     }
@@ -79,6 +98,11 @@
 
   &-neutral {
     background: $yellow-100;
+
+    &-color {
+      color: darken($yellow-100, 12%);
+    }
+
     &-control-habit {
       background: darken($yellow-100, 12%);
     }
@@ -95,6 +119,11 @@
 
   &-good {
     background: $green-10;
+
+    &-color {
+      color: darken($green-10, 12%);
+    }
+
     &-control-habit {
       background: darken($green-10, 12%);
     }
@@ -111,6 +140,11 @@
 
   &-better {
     background: $blue-50;
+
+    &-color {
+      color: darken($blue-50, 12%);
+    }
+
     &-control-habit {
       background: darken($blue-50, 12%);
     }
@@ -127,6 +161,11 @@
 
   &-best {
     background: $teal-50;
+
+    &-color {
+      color: darken($teal-50, 12%);
+    }
+
     &-control-habit {
       background: darken($teal-50, 12%);
     }
@@ -142,7 +181,7 @@
   }
 
   &-reward {
-    background: rgba($yellow-500, 0.26);
+    background: #FFF5E5
   }
 
   &-daily-todo-disabled {

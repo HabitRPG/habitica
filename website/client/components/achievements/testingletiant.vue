@@ -2,23 +2,22 @@
   b-modal#testingletiant(:title="$t('guildReminderTitle')", size='lg', :hide-footer="true")
     .modal-content
     .modal-body.text-center
-      h3 {{ $t('guildReminderTitle') }}
       br
-      .scene_guilds.center-block
+      .scene_guilds
       br
       h4 {{ $t('guildReminderText2') }}
     .modal-footer
       .container-fluid
         .row
-          .col-xs-6.text-center
-            button.btn-lg.btn-default(@click='close()') {{ $t('guildReminderDismiss') }}
-          .col-xs-6.text-center
-            button.btn-lg.btn-primary(ui-sref='options.social.guilds.public', href='/#/options/groups/guilds/public', ng-click='$close()') {{ $t('guildReminderCTA') }}
+          .col-6.text-center
+            button.btn.btn-secondary(@click='close()') {{ $t('guildReminderDismiss') }}
+          .col-6.text-center
+            .btn.btn-primary(@click='takeMethere()') {{ $t('guildReminderCTA') }}
 </template>
 
-<style scope>
-  .dont-despair, .death-penalty {
-    margin-top: 1.5em;
+<style scoped>
+  .scene_guilds {
+    margin: 0 auto;
   }
 </style>
 
@@ -32,6 +31,10 @@ export default {
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'testingletiant');
+    },
+    takeMethere () {
+      this.$router.push('/groups/discovery');
+      this.close();
     },
   },
 };

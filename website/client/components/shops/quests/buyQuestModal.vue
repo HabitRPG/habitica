@@ -1,13 +1,12 @@
 <template lang="pug">
   b-modal#buy-quest-modal(
-    :visible="true",
-    v-if="item != null",
     :hide-header="true",
     @change="onChange($event)"
   )
     span.badge.badge-pill.badge-dialog(
-      :class="{'item-selected-badge': true}",
-      v-if="withPin"
+      :class="{'item-selected-badge': isPinned}",
+      v-if="withPin",
+      @click.prevent.stop="togglePinned()"
     )
       span.svg-icon.inline.color.icon-10(v-html="icons.pin")
 
@@ -17,40 +16,36 @@
     div.content(v-if="item != null")
 
       div.inner-content
-        slot(name="item", :item="item")
-
-        h4.title {{ itemText }}
-        div.text(v-html="itemNotes")
-
-        slot(name="additionalInfo", :item="item")
+        questDialogContent(:item="item")
 
         div
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
-        button.btn.btn-primary(@click="buyItem()") {{ $t('buyNow') }}
+        button.btn.btn-primary(
+          @click="purchaseGems()",
+          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value)"
+        ) {{ $t('purchaseGems') }}
+
+
+        button.btn.btn-primary(
+          @click="buyItem()",
+          v-else,
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value)}"
+        ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
-      h3(v-once) {{ $t('rewards') }}
-      div.reward-item
-        span.svg-icon.inline.icon(v-html="icons.experience")
-        span.reward-text {{ $t('amountExperience', { amount: item.drop.exp }) }}
-      div.reward-item(v-if="item.drop.gp != 0")
-        span.svg-icon.inline.icon(v-html="icons.gold")
-        span.reward-text {{ $t('amountGold', { amount: item.drop.gp }) }}
-      div.reward-item(v-for="drop in item.drop.items")
-        span.icon
-          div(:class="getDropIcon(drop)")
-        span.reward-text {{ getDropName(drop) }}
+      questDialogDrops(:item="item")
 
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
-      balanceInfo.float-right
-
-
+      balanceInfo(
+        :currencyNeeded="priceType",
+        :amountNeeded="item.value"
+      ).float-right
 </template>
-<style lang="scss">
 
+<style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
 
@@ -59,6 +54,8 @@
 
     .content {
       text-align: center;
+      max-height: 80vh;
+      overflow-y: scroll;
     }
 
     .item-wrapper {
@@ -67,7 +64,14 @@
 
     .inner-content {
       margin: 33px auto auto;
-      width: 282px;
+      width: 400px;
+    }
+
+
+    .questInfo {
+      width: 70%;
+      margin: 0 auto;
+      margin-bottom: 10px;
     }
 
     .content-text {
@@ -91,34 +95,6 @@
       width: 364px;
       z-index: -1;
       height: 100%;
-
-
-      h3 {
-        margin-top: 24px;
-        margin-bottom: 16px;
-      }
-
-      .reward-item {
-        width: 306px;
-        height: 84px;
-        border-radius: 2px;
-        background-color: $white;
-        margin-bottom: 8px;
-
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .icon {
-          margin: 18px;
-          height: 48px;
-          width: 48px;
-        }
-
-        .reward-text {
-          font-weight: bold;
-        }
-      }
     }
 
     span.svg-icon.inline.icon-32 {
@@ -178,12 +154,23 @@
       padding: 8px 10px;
       top: -12px;
       background: white;
+      cursor: pointer;
+
+      &.item-selected-badge {
+        background: $purple-300;
+        color: $white;
+      }
+    }
+
+
+    .notEnough {
+      pointer-events: none;
+      opacity: 0.55;
     }
   }
 </style>
 
 <script>
-
   import {mapState} from 'client/libs/store';
 
   import bModal from 'bootstrap-vue/lib/components/modal';
@@ -195,11 +182,22 @@
   import svgExperience from 'assets/svg/experience.svg';
 
   import BalanceInfo  from '../balanceInfo.vue';
+  import currencyMixin from '../_currencyMixin';
+  import QuestInfo from './questInfo.vue';
+  import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
+
+  import questDialogDrops from './questDialogDrops';
+  import questDialogContent from './questDialogContent';
 
   export default {
+    mixins: [currencyMixin, notifications, buyMixin],
     components: {
       bModal,
       BalanceInfo,
+      QuestInfo,
+      questDialogDrops,
+      questDialogContent,
     },
     data () {
       return {
@@ -210,7 +208,14 @@
           pin: svgPin,
           experience: svgExperience,
         }),
+
+        isPinned: false,
       };
+    },
+    watch: {
+      item: function itemChanged () {
+        this.isPinned = this.item && this.item.pinned;
+      },
     },
     computed: {
       ...mapState({
@@ -236,8 +241,16 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        this.$emit('buyPressed', this.item);
+        this.makeGenericPurchase(this.item, 'buyQuestModal');
+        this.purchased(this.item.text);
         this.hideDialog();
+      },
+      togglePinned () {
+        this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
+
+        if (!this.isPinned) {
+          this.text(this.$t('unpinnedItem', {item: this.item.text}));
+        }
       },
       hideDialog () {
         this.$root.$emit('hide::modal', 'buy-quest-modal');
@@ -273,6 +286,10 @@
           default:
             return `Unknown type: ${drop.type}`;
         }
+      },
+
+      purchaseGems () {
+        this.$root.$emit('show::modal', 'buy-gems');
       },
     },
     props: {

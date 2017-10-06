@@ -279,6 +279,24 @@ let armor = {
     set: 'antiProcrastination',
     canOwn: ownsItem('armor_armoire_antiProcrastinationArmor'),
   },
+  farrierOutfit: {
+    text: t('armorArmoireFarrierOutfitText'),
+    notes: t('armorArmoireFarrierOutfitNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    int: 6,
+    per: 6,
+    set: 'farrier',
+    canOwn: ownsItem('armor_armoire_farrierOutfit'),
+  },
+  candlestickMakerOutfit: {
+    text: t('armorArmoireCandlestickMakerOutfitText'),
+    notes: t('armorArmoireCandlestickMakerOutfitNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('armor_armoire_candlestickMakerOutfit'),
+  },
 };
 
 let eyewear = {
@@ -612,6 +630,15 @@ let head = {
     set: 'antiProcrastination',
     canOwn: ownsItem('head_armoire_antiProcrastinationHelm'),
   },
+  candlestickMakerHat: {
+    text: t('headArmoireCandlestickMakerHatText'),
+    notes: t('headArmoireCandlestickMakerHatNotes', { attrs: 6 }),
+    value: 100,
+    int: 6,
+    per: 6,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('head_armoire_candlestickMakerHat'),
+  },
 };
 
 let shield = {
@@ -745,6 +772,24 @@ let shield = {
     con: 15,
     set: 'antiProcrastination',
     canOwn: ownsItem('shield_armoire_antiProcrastinationShield'),
+  },
+  horseshoe: {
+    text: t('shieldArmoireHorseshoeText'),
+    notes: t('shieldArmoireHorseshoeNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    per: 6,
+    str: 6,
+    set: 'farrier',
+    canOwn: ownsItem('shield_armoire_horseshoe'),
+  },
+  handmadeCandlestick: {
+    text: t('shieldArmoireHandmadeCandlestickText'),
+    notes: t('shieldArmoireHandmadeCandlestickNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('shield_armoire_handmadeCandlestick'),
   },
 };
 
@@ -981,6 +1026,16 @@ let weapon = {
     int: 6,
     con: 8,
     canOwn: ownsItem('weapon_armoire_battleAxe'),
+  },
+  hoofClippers: {
+    text: t('weaponArmoireHoofClippersText'),
+    notes: t('weaponArmoireHoofClippersNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    int: 6,
+    str: 6,
+    set: 'farrier',
+    canOwn: ownsItem('weapon_armoire_hoofClippers'),
   },
 };
 

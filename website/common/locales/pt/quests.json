@@ -8,6 +8,8 @@
     "unlockableQuests": "Missões Desbloqueáveis",
     "goldQuests": "Missões para comprar com Ouro",
     "questDetails": "Detalhes da Missão",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Convites",
     "completed": "Completo!",
     "rewardsAllParticipants": "Recompensas para todos os participantes da Missão",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Não há missão ativa para sair.",
     "questLeaderCannotLeaveQuest": "O líder da missão não pode sair da missão.",
     "notPartOfQuest": "Você não faz parte da missão.",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Não há missão ativa para abortar.",
     "onlyLeaderAbortQuest": "Somente o líder do grupo ou da missão podem abortá-la.",
     "questAlreadyRejected": "Você já rejeitou o convite para a missão.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> entradas",
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, também receberão esta missão. ",
     "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle"
+    "buyQuestBundle": "Buy Quest Bundle",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

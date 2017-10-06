@@ -326,6 +326,12 @@ let quests = {
     adjective: t('questEggNudibranchAdjective'),
     canBuy: hasQuestAchievementFunction('nudibranch'),
   },
+  Hippo: {
+    text: t('questEggHippoText'),
+    mountText: t('questEggHippoMountText'),
+    adjective: t('questEggHippoAdjective'),
+    canBuy: hasQuestAchievementFunction('hippo'),
+  },
 };
 
 applyEggDefaults(drops, {

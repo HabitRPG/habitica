@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from 'client/store';
+import * as Analytics from 'client/libs/analytics';
 
 // import EmptyView from './components/emptyView';
 
@@ -8,28 +9,26 @@ import getStore from 'client/store';
 import ParentPage from './components/parentPage';
 
 // Static Pages
+const StaticWrapper = () => import(/* webpackChunkName: "entry" */'./components/static/staticWrapper');
+const HomePage = () => import(/* webpackChunkName: "entry" */'./components/static/home');
+
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
 const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const FrontPage = () => import(/* webpackChunkName: "static" */'./components/static/front');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
-const MaintenancePage = () => import(/* webpackChunkName: "static" */'./components/static/maintenance');
-const MaintenanceInfoPage = () => import(/* webpackChunkName: "static" */'./components/static/maintenanceInfo');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
-// const NewStuffPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
+const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
 const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
 const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
-const VideosPage = () => import(/* webpackChunkName: "static" */'./components/static/videos');
 
-const RegisterLogin = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLogin');
+const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
 
 // User Pages
-const BackgroundsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/backgrounds');
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
 const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
@@ -68,8 +67,13 @@ const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/g
 const TavernPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/tavern');
 const MyGuilds = () => import(/* webpackChunkName: "guilds" */ './components/groups/myGuilds');
 const GuildsDiscoveryPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/discovery');
-const GuildPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/guild');
+const GroupPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/group');
 const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './components/groups/groupPlan');
+
+// Group Plans
+const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
+const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
+const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/billing');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -84,11 +88,13 @@ const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./componen
 const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
 const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
 
+import NotFoundPage from './components/404';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.NODE_ENV === 'production' ? '/new-app' : __dirname, // eslint-disable-line no-process-env
+  base: process.env.NODE_ENV === 'production' ? '/' : __dirname, // eslint-disable-line no-process-env
   linkActiveClass: 'active',
   // When navigating to another route always scroll to the top
   // To customize the behavior see https://router.vuejs.org/en/advanced/scroll-behavior.html
@@ -97,9 +103,9 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'home', path: '/home', component: FrontPage, meta: {requiresLogin: false} },
-    { name: 'register', path: '/register', component: RegisterLogin, meta: {requiresLogin: false} },
-    { name: 'login', path: '/login', component: RegisterLogin, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -120,8 +126,34 @@ const router = new VueRouter({
         { name: 'time', path: 'time', component: TimeTravelersPage },
       ],
     },
-    { name: 'party', path: '/party', component: GuildPage },
+    { name: 'party', path: '/party', component: GroupPage },
     { name: 'groupPlan', path: '/group-plans', component: GroupPlansAppPage },
+    {
+      name: 'groupPlanDetail',
+      path: '/group-plans/:groupId',
+      component: GroupPlanIndex,
+      props: true,
+      children: [
+        {
+          name: 'groupPlanDetailTaskInformation',
+          path: '/group-plans/:groupId/task-information',
+          component: GroupPlanTaskInformation,
+          props: true,
+        },
+        {
+          name: 'groupPlanDetailInformation',
+          path: '/group-plans/:groupId/information',
+          component: GroupPage,
+          props: true,
+        },
+        {
+          name: 'groupPlanBilling',
+          path: '/group-plans/:groupId/billing',
+          component: GroupPlanBilling,
+          props: true,
+        },
+      ],
+    },
     {
       path: '/groups',
       component: GuildIndex,
@@ -140,7 +172,7 @@ const router = new VueRouter({
         {
           name: 'guild',
           path: 'guild/:groupId',
-          component: GuildPage,
+          component: GroupPage,
           props: true,
         },
       ],
@@ -162,7 +194,7 @@ const router = new VueRouter({
         },
         {
           name: 'challenge',
-          path: 'challenges/:challengeId',
+          path: ':challengeId',
           component: ChallengeDetail,
           props: true,
         },
@@ -172,7 +204,6 @@ const router = new VueRouter({
       path: '/user',
       component: ParentPage,
       children: [
-        { name: 'backgrounds', path: 'backgrounds', component: BackgroundsPage },
         { name: 'stats', path: 'stats', component: ProfilePage },
         { name: 'achievements', path: 'achievements', component: ProfilePage },
         { name: 'profile', path: 'profile', component: ProfilePage },
@@ -217,26 +248,24 @@ const router = new VueRouter({
     },
     {
       path: '/static',
-      component: ParentPage,
+      component: StaticWrapper,
       children: [
-        { name: 'app', path: 'app', component: AppPage },
-        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage },
-        { name: 'communitGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage },
-        { name: 'contact', path: 'contact', component: ContactPage },
-        { name: 'faq', path: 'faq', component: FAQPage },
-        { name: 'features', path: 'features', component: FeaturesPage },
-        { name: 'front', path: 'front', component: FrontPage },
-        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage },
-        { name: 'maintenance', path: 'maintenance', component: MaintenancePage },
-        { name: 'maintenance-info', path: 'maintenance-info', component: MaintenanceInfoPage },
-        { name: 'merch', path: 'merch', component: MerchPage },
-        // { name: 'newStuff', path: 'newStuff', component: NewStuffPage },
-        { name: 'overview', path: 'overview', component: OverviewPage },
-        { name: 'plans', path: 'plans', component: GroupPlansPage },
-        { name: 'pressKit', path: 'press-kit', component: PressKitPage },
+        { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
+        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
+        { name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
+        { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
+        { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
+        { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
+        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
+        { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
+        { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
+        { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
+        { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
+        { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
+        { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
         { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
         { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
-        { name: 'videos', path: 'videos', component: VideosPage },
+        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: {requiresLogin: false} },
       ],
     },
     {
@@ -247,6 +276,7 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
+    { path: '*', redirect: { name: 'notFound' } },
   ],
 });
 
@@ -259,10 +289,38 @@ router.beforeEach(function routerGuard (to, from, next) {
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the
     // root of the website, in which case show the home page.
-    // TODO when redirecting to login if user login then redirect back to initial page
-    // so if you tried to go to /party you'll be redirected to /party after login/signup
-    return next({name: to.path === '/' ? 'home' : 'login'});
+    // Pass the requested page as a query parameter to redirect later.
+
+    const redirectTo = to.path === '/' ? 'home' : 'login';
+    return next({
+      name: redirectTo,
+      query: redirectTo === 'login' ? {
+        redirectTo: to.path,
+      } : null,
+    });
   }
+
+  // Keep the redirectTo query param when going from login to register
+  // !to.query.redirectTo is to avoid entering a loop of infinite redirects
+  if (to.name === 'register' && !to.query.redirectTo && from.name === 'login' && from.query.redirectTo) {
+    return next({
+      name: 'register',
+      query: {
+        redirectTo: from.query.redirectTo,
+      },
+    });
+  }
+
+  if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
+    return next({name: 'tasks'});
+  }
+
+  Analytics.track({
+    hitType: 'pageview',
+    eventCategory: 'navigation',
+    eventAction: 'navigate',
+    page: to.name || to.path,
+  });
 
   next();
 });

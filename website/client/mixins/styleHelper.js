@@ -9,8 +9,8 @@ export default {
     },
     userLevelStyleFromLevel (level, npc, style) {
       style = style || '';
-      if (npc) style += ' label-npc';
-      if (level) style +=   ` label-contributor-${level}`;
+      if (npc) style += ' npc';
+      if (level) style +=   ` tier${level}`;
       return style;
     },
   },

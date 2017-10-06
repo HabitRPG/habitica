@@ -8,6 +8,8 @@
     "unlockableQuests": "Feloldható Küldetések",
     "goldQuests": "Aranyból Vásárolható Küldetések",
     "questDetails": "Küldetés Részletei",
+    "questDetailsTitle": "Quest Details",
+    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Meghívások",
     "completed": "Befejezve!",
     "rewardsAllParticipants": "Jutalom az Küldetés összes résztvevőjének",
@@ -16,7 +18,7 @@
     "youWillReceive": "Amit kaptál",
     "questOwnerWillReceive": "A küldetés tulajdonosa még kapni fog",
     "youReceived": "Amit kaptál",
-    "dropQuestCongrats": "Congratulations on earning this quest scroll! You can invite your party to begin the quest now, or come back to it any time in your Inventory > Quests.",
+    "dropQuestCongrats": "Gratulálunk ennek a küldetés-tekercsnek az elnyeréséhez! Meghívhatod a csapatodat a küldetés elkezdéséhez most, vagy visszajöhetsz később a Leltár > Küldetések menüpontban.",
     "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "questSendBroken": "A \"Meghívás\" gombra kattintva hívhatod meg a csapatod tagjait... Amikor minden tag elfogadta vagy elutasította a meghívást, elkezdődik a küldetés. Az aktuális állapotot a Közösség > Csapat alatt ellenőrizheted.",
     "inviteParty": "Csapat Meghívása Küldetéshez",
@@ -67,7 +69,7 @@
     "scrollsText1": "Küldetést csak csapatban csinálhatsz. Ha egyedül szeretnéd csinálni, akkor",
     "scrollsText2": "hozz létre egy üres csapatot",
     "scrollsPre": "Még nem tártad fel ezt a küldetést!",
-    "alreadyEarnedQuestLevel": "You already earned this quest by attaining Level <%= level %>.",
+    "alreadyEarnedQuestLevel": "Ezt a küldetést már elnyerted a(z) <%= level %>. szint elérésével.",
     "alreadyEarnedQuestReward": "Már elnyerted ezt a küldetést, mivel megcsináltad a következő küldetést: <%= priorQuest %>.",
     "completedQuests": "Ezeken a küldetéseken vett részt:",
     "mustComplete": "Először teljesítened kell a küldetést <%= quest %>.",
@@ -100,6 +102,7 @@
     "noActiveQuestToLeave": "Nincs aktuális Küldetés, melyből kiléphetnél.",
     "questLeaderCannotLeaveQuest": "A Küldetés vezetője nem léphet ki a Küldetésből.",
     "notPartOfQuest": "Nem veszel részt ezen a Küldetésen.",
+    "youAreNotOnQuest": "You're not on a quest",
     "noActiveQuestToAbort": "Nincs aktuális Küldetés, amit meg lehetne szakítani.",
     "onlyLeaderAbortQuest": "Csak a csapat vagy a Küldetés vezetője szakíthatja meg a Küldetést.",
     "questAlreadyRejected": "Már elutasítottad ezt a Küldetés-meghívót.",
@@ -113,5 +116,6 @@
     "loginReward": "<%= count %> bejelentkezés",
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Leárazott Küldetéscsomag",
-    "buyQuestBundle": "Vásárolj Küldetéscsomagot!"
+    "buyQuestBundle": "Vásárolj Küldetéscsomagot!",
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
 }

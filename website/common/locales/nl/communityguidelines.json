@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Ik stem ermee in me aan de gemeenschapsrichtlijnen te houden",
-    "tavernCommunityGuidelinesPlaceholder": "Vriendelijke herinnering: dit is een chat voor alle leeftijden, dus houd alsjeblieft de inhoud en taal gepast. Raadpleeg de gemeenschapsrichtlijnen hieronder indien je vragen hebt.",
+    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "commGuideHeadingWelcome": "Welkom in Habitica!",
     "commGuidePara001": "Wees gegroet, avonturier! Welkom in Habitica, het land van productiviteit, een gezonde levensstijl en de incidentele op hol geslagen griffioen. We hebben een vrolijke gemeenschap van behulpzame mensen die elkaar ondersteunen op weg naar zelfverbetering.",
     "commGuidePara002": "Om iedereen in de gemeenschap veilig, gelukkig en productief te houden, hebben we enkele richtlijnen. We hebben ze zorgvuldig samengesteld om zo vriendelijk en leesbaar mogelijk te zijn. Neem alsjeblieft even de tijd om ze door te lezen.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Een ondersteunende houding.</strong> Habiticanen juichen voor elkaars overwinningen en troosten elkaar in moeilijke tijden. We geven elkaar kracht, leunen op elkaar en leren van elkaar. In groepen doen we dit met onze toverspreuken; in chatrooms doen we dit met vriendelijke en ondersteunende woorden.",
     "commGuideList01D": "<strong>Respectvolle manieren.</strong> We hebben allemaal een andere achtergrond, andere vaardigheden, en andere meningen. Dat maakt onze gemeenschap juist zo geweldig! Habiticanen respecteren deze verschillen en prijzen ze. Blijf een tijdje en je zult zien dat je vrienden maakt uit alle lagen van de bevolking.",
     "commGuideHeadingMeet": "Ontmoet de staf en de moderators!",
-    "commGuidePara006": "Habitica heeft een aantal onvermoeibare dolende ridders die samen met de werknemers de gemeenschap kalm, tevreden en trolvrij houden. Ze hebben allemaal een eigen domein maar worden soms gevraagd om in een ander deel van de gemeenschap actief te zijn. Werknemers en beheerders laten officiële uitspraken vaak voorafgaan door de woorden \"Mod Talk\" of \"Mod Hat On\".",
+    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
     "commGuidePara007": "Werknemers hebben paarse naamlabels met kroontjes erop. Hun titel is \"Heroisch\".",
     "commGuidePara008": "Beheerders hebben donkerblauwe labels met sterren erop. Hun titel is \"Bewaker\". De enige uitzondering is Bailey, die als NPC een zwart-met-groen label heeft met een ster erop.",
     "commGuidePara009": "De huidige werknemers zijn (van links naar rechts):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Zorg ervoor dat wikimateriaal relevant is voor heel Habitica en niet alleen geldt voor een bepaald gilde of een bepaalde groep (dat soort informatie kan op het forum besproken worden)",
     "commGuidePara049": "De volgende mensen zijn op dit moment actief als wiki-beheerders:",
     "commGuidePara049A": "De volgende moderators kunnen snel bewerkingen maken in situaties waar een moderator nodig is en de bovenstaande beheerders niet beschikbaar zijn:",
-    "commGuidePara018": "Voormalig wiki-beheerders zijn",
+    "commGuidePara018": "Wiki Administrators Emeritus are:",
     "commGuideHeadingInfractionsEtc": "Overtredingen, gevolgen en herstel",
     "commGuideHeadingInfractions": "Overtredingen",
     "commGuidePara050": "Voor het grootste gedeelte zijn Habiticanen respectvol, bereid om elkaar te helpen, en samen bezig om de gemeenschap leuk en vriendelijk te maken. Heel af en toe komt het echter voor dat een Habiticaan één van bovenstaande richtlijnen overtreedt. Als dit gebeurt, komen de beheerders in actie om Habitica veilig en comfortabel te houden voor iedereen.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "de plek om pixelkunst in te dienen.",
     "commGuideLink08": "De Quest Trello",
     "commGuideLink08description": "de plek om teksten voor queesten in te dienen.",
-    "lastUpdated": "Laatst bijgewerkt"
+    "lastUpdated": "Last updated:"
 }

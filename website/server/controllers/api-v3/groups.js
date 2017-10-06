@@ -263,9 +263,9 @@ api.createGroupPlan = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
- * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
- * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
+ * @apiParam (Query) {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam (Query) {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam (Query) {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -324,6 +324,19 @@ api.getGroups = {
     if (req.query.maxMemberCount) {
       if (!filters.memberCount) filters.memberCount = {};
       filters.memberCount.$lte = parseInt(req.query.maxMemberCount, 10);
+    }
+
+    // @TODO: Tests for below?
+    if (req.query.leader) {
+      filters.leader = user._id;
+    }
+
+    if (req.query.member) {
+      filters._id = { $in: user.guilds };
+    }
+
+    if (req.query.search) {
+      filters.$text = { $search: req.query.search };
     }
 
     let results = await Group.getGroups({
@@ -691,7 +704,7 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
  * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
  *
@@ -760,8 +773,8 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
     sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
-      {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
-      {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
+      {name: 'GUILDS_LINK', content: '/groups/discovery'},
+      {name: 'PARTY_WANTED_GUILD', content: '/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
     ]);
   }
 }
@@ -941,12 +954,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.type === 'guild') {
       emailVars.push(
         {name: 'GUILD_NAME', content: group.name},
-        {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
+        {name: 'GUILD_URL', content: '/groups/discovery'}
       );
     } else {
       emailVars.push(
         {name: 'PARTY_NAME', content: group.name},
-        {name: 'PARTY_URL', content: '/#/options/groups/party'}
+        {name: 'PARTY_URL', content: '/party'}
       );
     }
 
@@ -1055,8 +1068,8 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * }
  *
  * @apiSuccess {Array} data The invites
- * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
- * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
+ * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll receive one Object for each succesful user id invite.
+ * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll receive one String for each successful email invite.
  *
  * @apiSuccessExample {json} Successful Response with Emails
  * {
@@ -1245,6 +1258,43 @@ api.removeGroupManager = {
     await manager.save();
 
     res.respond(200, group);
+  },
+};
+
+/**
+ * @api {get} /api/v3/group-plans Get group plans for a user
+ * @apiName GetGroupPlans
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups with a group plan (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Groups the user is in with a group plan:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {groupPlans}
+ *     ]
+ */
+api.getGroupPlans = {
+  method: 'GET',
+  url: '/group-plans',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    const userGroups = user.getGroups();
+
+    const groups = await Group
+      .find({
+        _id: {$in: userGroups},
+      })
+      .select('leaderOnly leader purchased name')
+      .exec();
+
+    let groupPlans = groups.filter(group => {
+      return group.isSubscribed();
+    });
+
+    res.respond(200, groupPlans);
   },
 };
 
