@@ -73,6 +73,7 @@
     "useGems": "If you've got your eye on a pet, but can't wait any longer for it to drop, use Gems in <strong>Inventory > Market</strong> to buy one!",
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Display Now",
     "displayLater": "Display Later",
     "petNotOwned": "You do not own this pet.",

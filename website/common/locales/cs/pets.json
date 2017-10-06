@@ -73,6 +73,7 @@
     "useGems": "Pokud ti padlo oko na zvířátko a nemůžeš se dočkat až ti padne, použij Drahokamy v  <strong> Inventář > Trh </strong>  a kup si ho!",
     "hatchAPot": "Chceš vylíhnout nového <%= potion %><%= egg %>?",
     "hatchedPet": "Vylíhnul jsi nového <%= potion %><%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Zobrazit hned",
     "displayLater": "Zobrazit později",
     "petNotOwned": "Nevlastníte tohoto mazlíčka.",

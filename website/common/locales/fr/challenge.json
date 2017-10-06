@@ -114,7 +114,7 @@
     "shortName": "Nom court",
     "shortNamePlaceholder": "Quelle courte étiquette devrait être utilisée pour identifier votre défi ?",
     "updateChallenge": "Mettre à jour le défi",
-    "haveNoChallenges": "Vous n'avez aucun défi",
+    "haveNoChallenges": "This group has no Challenges",
     "loadMore": "En charger plus",
     "exportChallengeCsv": "Exporter le défi",
     "editingChallenge": "Modifier le défi",
@@ -125,5 +125,6 @@
     "descriptionRequired": "La description est requise",
     "locationRequired": "Le lieu du défi est requis ('Ajouter à')",
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
-    "viewProgressOf": "Voir la progression de"
+    "viewProgressOf": "Voir la progression de",
+    "selectMember": "Select Member"
 }

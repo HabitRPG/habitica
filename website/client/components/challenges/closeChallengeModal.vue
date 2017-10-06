@@ -10,8 +10,10 @@ div
       .col-12
         strong(v-once) {{$t('selectChallengeWinnersDescription')}}
       .col-12
-        select.form-control(v-model='winnerId')
-          option(v-for='member in members', :value='member._id') {{member.profile.name}}
+        b-dropdown.create-dropdown(:text="winnerText")
+          input.form-control(type='text', v-model='searchTerm')
+          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
+            | {{ member.profile.name }}
       .col-12
         button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
       .col-12
@@ -72,6 +74,7 @@ div
 </style>
 
 <script>
+import debounce from 'lodash/debounce';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
@@ -85,14 +88,39 @@ export default {
   },
   data () {
     return {
-      winnerId: '',
+      winner: {},
+      searchTerm: '',
+      memberResults: [],
     };
   },
+  watch: {
+    searchTerm: debounce(function searchTerm (newSearch) {
+      this.searchChallengeMember(newSearch);
+    }, 500),
+    members () {
+      this.memberResults = this.members;
+    },
+  },
+  computed: {
+    winnerText () {
+      if (!this.winner.profile) return this.$t('selectMember');
+      return this.winner.profile.name;
+    },
+  },
   methods: {
+    async searchChallengeMember (search) {
+      this.memberResults = await this.$store.dispatch('members:getChallengeMembers', {
+        challengeId: this.challengeId,
+        searchTerm: search,
+      });
+    },
+    selectMember (member) {
+      this.winner = member;
+    },
     async closeChallenge () {
       this.challenge = await this.$store.dispatch('challenges:selectChallengeWinner', {
         challengeId: this.challengeId,
-        winnerId: this.winnerId,
+        winnerId: this.winner._id,
       });
       this.$router.push('/challenges/myChallenges');
     },

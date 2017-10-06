@@ -73,6 +73,7 @@
     "useGems": "Als je je oog hebt laten vallen op een huisdier, maar niet wilt wachten tot je het juiste ei of drankje vindt, gebruik dan edelstenen in <strong>Boedel > Markt</strong> om er één te kopen!",
     "hatchAPot": "Wil je een nieuwe<%= potion %><%= egg %>uitbroeden? ",
     "hatchedPet": "Je hebt een <%= potion %> <%= egg %> uitgebroed!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Toon nu",
     "displayLater": "Toon later",
     "petNotOwned": "Je bezit dit huisdier niet.",

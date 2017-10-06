@@ -73,6 +73,7 @@
     "useGems": "Eğer bir hayvanı gözüne kestirdiysen ama bulmayı daha fazla beklemek istemiyorsan, <strong>Envanter > Pazar</strong> sayfasından bir tane satın alabilirsin!",
     "hatchAPot": "Bir <%= potion %> <%= egg %> oluşturulsun mu?",
     "hatchedPet": "Yumurtadan bir <%= potion %> <%= egg %> çıktı!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Şimdi Görüntüle",
     "displayLater": "Sonra Görüntüle",
     "petNotOwned": "Bu hayvana sahip değilsin.",

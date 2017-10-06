@@ -73,6 +73,7 @@
     "useGems": "Du willst ein bestimmtes Haustier haben, möchtest aber nicht länger warten, bis Du die richtigen Gegenstände gefunden hast? Mit Edelsteinen kannst Du im <strong>Inventar > Marktplatz</strong> die entsprechenden Gegenstände kaufen!",
     "hatchAPot": "Willst Du ein <%= potion %> <%= egg %> ausbrüten?",
     "hatchedPet": "Du hast ein neues <%= potion %> <%= egg %> ausgebrütet!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",

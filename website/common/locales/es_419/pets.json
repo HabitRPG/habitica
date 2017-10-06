@@ -73,6 +73,7 @@
     "useGems": "Si deseas una mascota pero no puedes esperar más para obtener el botín, ¡usa Gemas en <strong>Inventario > Mercado</strong> para comprar una!",
     "hatchAPot": "¿Deseas eclosionar un nuevo <%= potion %> <%= egg %>?",
     "hatchedPet": "¡Eclosionaste un/a <%= egg %> <%= potion %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Mostrar Ahora",
     "displayLater": "Mostrar Más Tarde",
     "petNotOwned": "No posees esta mascota.",
