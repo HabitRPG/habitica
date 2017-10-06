@@ -73,6 +73,7 @@
     "useGems": "Se hai messo gli occhi su un animale, ma non vuoi più aspettare per averlo, usa le gemme in <strong>Inventario > Mercato</strong> per comparne uno!",
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",

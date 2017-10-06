@@ -73,6 +73,7 @@
     "useGems": "如果你很想要某之寵物，但又不想慢慢等蛋掉落的話，可以在<strong>背包 >市集</strong>使用寶石買下它！",
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "現在顯示",
     "displayLater": "稍後顯示",
     "petNotOwned": "你不擁有這隻寵物。",

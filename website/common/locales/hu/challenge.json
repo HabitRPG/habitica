@@ -114,7 +114,7 @@
     "shortName": "Rövid cím",
     "shortNamePlaceholder": "Milyen rövid címkével legyen a kihívásod beazonosítható?",
     "updateChallenge": "Kihívás frissítése",
-    "haveNoChallenges": "Nem veszel részt egy kihívásban sem",
+    "haveNoChallenges": "This group has no Challenges",
     "loadMore": "Több betöltése",
     "exportChallengeCsv": "Kihívás exportálása",
     "editingChallenge": "Kihívás szerkesztése",
@@ -125,5 +125,6 @@
     "descriptionRequired": "Leírás szükséges",
     "locationRequired": "Kihívás helyének kiválasztása szükséges ('Hozzáadás')",
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
-    "viewProgressOf": "Haladás megtekintése"
+    "viewProgressOf": "Haladás megtekintése",
+    "selectMember": "Select Member"
 }

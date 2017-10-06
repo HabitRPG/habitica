@@ -11,8 +11,8 @@ div
       .row
         .col-9
           router-link.title(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-            strong {{challenge.name}}
-          p {{challenge.summary || challenge.name}}
+            strong(v-markdown='challenge.name')
+          p(v-markdown='challenge.summary || challenge.name')
           div
             .svg-icon.member-icon(v-html="icons.memberIcon")
             .member-count {{challenge.memberCount}}
@@ -82,10 +82,11 @@ div
 <script>
 import challengeModal from './challengeModal';
 import { mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 
+import challengeIcon from 'assets/svg/challenge.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
-import challengeIcon from 'assets/svg/challenge.svg';
 
 export default {
   props: ['groupId'],
@@ -105,6 +106,9 @@ export default {
       }),
       groupIdForChallenges: '',
     };
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   mounted () {
     this.loadChallenges();

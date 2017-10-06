@@ -114,7 +114,7 @@
     "shortName": "Kort Namn",
     "shortNamePlaceholder": "Vilken kort tagg borde användas för att identifiera din Utmaning?",
     "updateChallenge": "Uppdatera Utmaning",
-    "haveNoChallenges": "Du har inga Utmaningar",
+    "haveNoChallenges": "This group has no Challenges",
     "loadMore": "Ladda Mer",
     "exportChallengeCsv": "Exportera Utmaning",
     "editingChallenge": "Redigerar Utmaning",
@@ -125,5 +125,6 @@
     "descriptionRequired": "Beskrivning krävs.",
     "locationRequired": "Plats av utmaning krävs ('Lägg till')",
     "categoiresRequired": "En eller mer kategorier måste vara valda",
-    "viewProgressOf": "Visa Framsteg Av"
+    "viewProgressOf": "Visa Framsteg Av",
+    "selectMember": "Select Member"
 }

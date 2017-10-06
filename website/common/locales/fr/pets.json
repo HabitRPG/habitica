@@ -73,6 +73,7 @@
     "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des gemmes dans <strong>Inventaire > Marché</strong>pour l'acheter !",
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
     "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",
@@ -114,11 +115,11 @@
     "standard": "Ordinaire",
     "sortByColor": "Couleur",
     "sortByHatchable": "Peut être éclos",
-    "hatch": "Éclore!",
+    "hatch": "Faire éclore !",
     "foodTitle": "Nourriture",
     "dragThisFood": "Déplacez ce <%= foodName %> à un Familier et regardez le grandir !",
     "clickOnPetToFeed": "Cliquez sur un Familier à nourrir <%= foodName %> et regardez le grandir !",
     "dragThisPotion": "Déplacez cette <%= potionName %> vers un œuf pour en faire sortir un nouveau Familier!",
     "clickOnEggToHatch": "Cliquez sur un œuf pour utiliser votre <%= potionName %>potion d'éclosion et faire éclore un nouveau familier!",
-    "hatchDialogText": "Verser votre <%= potionName %> potion d'éclosion sur votre <%= eggName %> œuf, et il en sortira un <%= petName %>."
+    "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>."
 }

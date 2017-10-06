@@ -73,6 +73,7 @@
     "useGems": "Jeśli masz na oku zwierzaka, ale nie możesz się doczekać jego zdobycia, użyj Klejnotów w <strong>Ekwipunek > Targ</strong>, by go kupić!",
     "hatchAPot": "Wykluć <%= potion %><%= egg %>?",
     "hatchedPet": "Wyklułeś <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
     "petNotOwned": "Nie posiadasz tego chowańca.",

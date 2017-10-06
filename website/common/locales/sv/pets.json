@@ -73,6 +73,7 @@
     "useGems": "Om du är intresserad av ett husdjur men inte klarar av att vänta på att det skall dyka upp som fynd kan du använda juveler från <strong>Inventory > Markanden</strong> för att köpa ett!",
     "hatchAPot": "Kläck en ny <%= potion %> <%= egg %>?",
     "hatchedPet": "Du kläckte en ny <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Visa nu",
     "displayLater": "Visa senare",
     "petNotOwned": "Du har inte detta husdjur.",
