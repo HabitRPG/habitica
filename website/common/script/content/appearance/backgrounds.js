@@ -624,8 +624,12 @@ forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
   });
 });
 
-module.exports = {
-  tree: backgrounds,
-  flat,
-};
+export default backgrounds;
 
+export function backgroundsTree () {
+  return backgrounds;
+}
+
+export function backgroundsFlat () {
+  return flat;
+}
