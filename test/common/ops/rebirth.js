@@ -12,7 +12,7 @@ import {
   NotAuthorized,
 } from '../../../website/common/script/libs/errors';
 
-describe('shared.ops.rebirth', () => {
+describe.only('shared.ops.rebirth', () => {
   let user;
   let animal = 'Wolf-Base';
   let userStats = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
@@ -170,6 +170,15 @@ describe('shared.ops.rebirth', () => {
     expect(user.flags.classSelected).to.be.false;
     expect(user.flags.rebirthEnabled).to.be.false;
     expect(user.flags.levelDrops).to.be.empty;
+  });
+
+  it('reset rebirthEnabled even if user has beastMaster', () => {
+    user.achievements.beastMaster = 1;
+    user.flags.rebirthEnabled = true;
+
+    rebirth(user);
+
+    expect(user.flags.rebirthEnabled).to.be.false;
   });
 
   it('sets rebirth achievement', () => {
