@@ -12,7 +12,7 @@ import {
   NotAuthorized,
 } from '../../../website/common/script/libs/errors';
 
-describe.only('shared.ops.rebirth', () => {
+describe('shared.ops.rebirth', () => {
   let user;
   let animal = 'Wolf-Base';
   let userStats = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
