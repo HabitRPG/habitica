@@ -73,7 +73,7 @@
     "useGems": "Om du är intresserad av ett husdjur men inte klarar av att vänta på att det skall dyka upp som fynd kan du använda juveler från <strong>Inventory > Markanden</strong> för att köpa ett!",
     "hatchAPot": "Kläck en ny <%= potion %> <%= egg %>?",
     "hatchedPet": "Du kläckte en ny <%= potion %> <%= egg %>!",
-    "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetGeneric": "Du kläckte ett nytt husdjur!",
     "displayNow": "Visa nu",
     "displayLater": "Visa senare",
     "petNotOwned": "Du har inte detta husdjur.",
@@ -120,6 +120,6 @@
     "dragThisFood": "Dra den här <%= foodName %> till ett Husdjur och se när den växer!",
     "clickOnPetToFeed": "Klicka på ett Husdjur för att mata den med <%= foodName %> och se den växa!",
     "dragThisPotion": "Dra denna <%= potionName %> till ett Ägg för att kläcka ett nytt husdjur!",
-    "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %> ."
+    "clickOnEggToHatch": "Klicka på ett Ägg för att använda din <%= potionName %> kläckningsdryck och kläck ett nytt husdjur!",
+    "hatchDialogText": "Häll din <%= potionName %> kläckningsdryck på ditt <%= eggName %> ägg så kommer den kläckas till en <%= petName %> ."
 }

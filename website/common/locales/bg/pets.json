@@ -73,7 +73,7 @@
     "useGems": "Ако сте харесали животно, но не можете да чакате повече, за да Ви се падне, може да използвате диаманти, за да го купите в <strong>Инвентар > Пазар</strong>!",
     "hatchAPot": "Искате ли да излюпите <%= egg %> с <%= potion %>?",
     "hatchedPet": "Вие излюпихте <%= egg %> с <%= potion %>!",
-    "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetGeneric": "Излюпихте нов любимец!",
     "displayNow": "Показване сега",
     "displayLater": "Показване по-късно",
     "petNotOwned": "Не притежавате този любимец.",

@@ -200,6 +200,6 @@
     "subscriptionAlreadySubscribedLeadIn": "Obrigado por tornar-se um assinante!",
     "subscriptionAlreadySubscribed1": "Para ver os detalhes, cancelamento, renovação ou mudanças na sua assinatura, por favor vá para <a href='/user/settings/subscription'>Usuário &gt; Configurações &gt; Assinatura</a>.",
     "purchaseAll": "Comprar Todos",
-    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsPurchaseNote": "Assinantes podem comprar gemas com ouro no Mercado! Para fácil acesso, você pode marcar a gema na sua coluna de Recompensas.",
+    "gemsRemaining": "gemas restantes"
 }

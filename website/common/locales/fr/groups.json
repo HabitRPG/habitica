@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Écrivez une courte description présentant votre guilde aux Habiticiens. Quel est le but principal de la guilde et pourquoi devrait-on la rejoindre ? Essayez d'inclure des mots-clefs pertinents dans la description pour que les Habiticiens puissent aisément la trouver lorsqu'ils font des recherches !",
     "groupDescription": "Description",
     "guildDescriptionPlaceholder": "Utilisez cette section pour décrire plus en détail ce que les membres de la guilde devraient savoir à son propos. Astuces utiles, liens adéquats et commentaires encourageants sont à placer ici !",
-    "markdownFormattingHelp": "[Markdown formatting help](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
+    "markdownFormattingHelp": "[Aide à la saisie Markdown](http://fr.habitica.wikia.com/wiki/M%C3%A9mo_de_Markdown)",
     "partyDescriptionPlaceholder": "Ceci est la description de notre équipe. Elle décrit ce que nous y faisons. Si vous souhaitez en savoir plus, lisez la description. Équipe active.",
     "guildGemCostInfo": "Un coût en gemmes permet des guildes de grande qualité, et cette somme est transférée dans la banque de guilde.",
     "noGuildsTitle": "Vous n'êtes membre d'aucun guilde.",
@@ -388,10 +388,10 @@
     "reverseChat": "Inverser le fil de discussion",
     "invites": "Invitations",
     "details": "Détails",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
+    "participantDesc": "Une fois que l'ensemble des membres ont accepté ou refusé, la quête commence. Seules les personnes ayant accepté pourront participer à la quête et en recevoir les récompenses.",
     "groupGems": "Gemmes de groupe",
     "groupGemsDesc": "Les gemmes de guilde peuvent être dépensées pour faire des défis ! A l'avenir, vous pourrez ajouter plus de gemmes de guilde.",
-    "groupTaskBoard": "Task Board",
-    "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupTaskBoard": "Tableau des tâches",
+    "groupInformation": "Information du groupe",
+    "groupBilling": "Facturation du groupe"
 }

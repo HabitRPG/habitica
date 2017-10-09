@@ -111,13 +111,13 @@
     "fall2017HabitoweenSet": "Guerrier Habitoween (Guerrier)",
     "fall2017MasqueradeSet": "Mage Bal Masqué (Mage)",
     "fall2017HauntedHouseSet": "Guérisseur Maison Hantée (Guérisseur)",
-    "fall2017TrickOrTreatSet": "Voleur un Bonbon ou un Sort (Voleur)",
+    "fall2017TrickOrTreatSet": "Voleur un-bonbon-ou-un-sort (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
     "dateEndApril": "19 avril",
     "dateEndMay": "17 mai",
     "dateEndJune": "14 juin",
     "dateEndJuly": "29 juillet",
     "dateEndAugust": "31 août",
-    "dateEndOctober": "31 Octobre",
+    "dateEndOctober": "31 octobre",
     "discountBundle": "lot"
 }

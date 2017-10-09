@@ -126,8 +126,8 @@ export default {
     // @TODO the notifications always close even if timeout is false
     let timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true;
     if (timeout) {
-      let delay = this.notification.delay || 1000;
-      delay += this.$store.state.notificationStore.length * 1000;
+      let delay = this.notification.delay || 500;
+      delay += this.$store.state.notificationStore.length * 500;
       setTimeout(() => {
         this.show = false;
       }, delay);

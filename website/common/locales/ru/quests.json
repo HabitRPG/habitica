@@ -8,8 +8,8 @@
     "unlockableQuests": "Открываемые квесты",
     "goldQuests": "Квесты за золото",
     "questDetails": "Информация о квесте",
-    "questDetailsTitle": "Quest Details",
-    "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
+    "questDetailsTitle": "Информация о квесте",
+    "questDescription": "Квесты позволяют игрокам сфокусироваться на длительных внутриигровых целях с членами их команды.",
     "invitations": "Приглашения",
     "completed": "Завершено!",
     "rewardsAllParticipants": "Награды для участников квеста",
@@ -102,7 +102,7 @@
     "noActiveQuestToLeave": "Нет активных квестов, чтобы их покинуть",
     "questLeaderCannotLeaveQuest": "Лидер квеста не может покинуть квест",
     "notPartOfQuest": "Вы не участвуйте в этом квесте",
-    "youAreNotOnQuest": "You're not on a quest",
+    "youAreNotOnQuest": "Вы не участвуете в квесте",
     "noActiveQuestToAbort": "Нет активных квестов для их прерывания.",
     "onlyLeaderAbortQuest": "Только группа или лидер квеста может прервать квест.",
     "questAlreadyRejected": "Вы уже отказались от приглашения на квест.",
@@ -117,5 +117,5 @@
     "createAccountQuest": "Вы получили этот квест, когда вы присоединились к Habitica! Если ваш друг присоединяется, он так-же получит это квест.",
     "questBundles": "Наборы квестов со скидкой",
     "buyQuestBundle": "Купить набор квестов",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Не можете найти подходящий квест? Посетите магазин квестов на рынке. Возможно, что там есть новинки!"
 }
