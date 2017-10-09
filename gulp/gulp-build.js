@@ -31,12 +31,7 @@ gulp.task('build:client', ['bootstrap'], (done) => {
   });
 });
 
-gulp.task('build:dev:watch', ['build:dev'], () => {
-  gulp.watch(['website/client-old/**/*.styl', 'website/common/script/*']);
-});
-
 gulp.task('build:prod', [
-  'browserify', 
   'build:server', 
   'build:client',
   'apidoc',

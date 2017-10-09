@@ -11,7 +11,6 @@ require('babel-register');
 if (process.env.NODE_ENV === 'production') {
   require('./gulp/gulp-apidoc');
   require('./gulp/gulp-build');
-  require('./gulp/gulp-babelify');
   require('./gulp/gulp-bootstrap');
 } else {
   require('glob').sync('./gulp/gulp-*').forEach(require);
