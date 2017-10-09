@@ -200,6 +200,6 @@
     "subscriptionAlreadySubscribedLeadIn": "Благодарим Ви, че станахте абонат!",
     "subscriptionAlreadySubscribed1": "За да видите подробности за абонамента си или да го прекратите, подновите или промените, моля, щракнете върху <a href='/user/settings/subscription'>иконката на потребителя и изберете Настройки &gt; Абонамент</a>.",
     "purchaseAll": "Купуване на всичко",
-    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsPurchaseNote": "Абонатите могат да купуват диаманти със злато на пазара! За по-лесен достъп можете също да закачите диаманта към колоната си с награди.",
+    "gemsRemaining": "оставащи диаманта"
 }

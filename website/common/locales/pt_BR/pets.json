@@ -73,7 +73,7 @@
     "useGems": "Se você está de olho em um mascote mas não consegue esperar mais para encontrá-lo, use Gemas no<strong>Inventário > Mercado </strong> para comprar um!",
     "hatchAPot": "Chocar um novo <%= potion %> <%= egg %>?",
     "hatchedPet": "Você chocou um novo <%= egg %> <%= potion %>!",
-    "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetGeneric": "Você chocou um novo mascote!",
     "displayNow": "Mostrar Agora",
     "displayLater": "Mostrar Depois",
     "petNotOwned": "Você não possui esse mascote.",

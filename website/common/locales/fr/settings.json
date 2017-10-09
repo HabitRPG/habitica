@@ -106,7 +106,7 @@
     "email": "Courriel",
     "registerWithSocial": "S'inscrire avec <%= network %>",
     "registeredWithSocial": "Inscrit·e avec <%= network %>",
-    "loginNameDescription": "C'est ce que vous utilisez pour vous connecter à Habitica. Pour le changer, utiliser le formulaire plus bas. Si vous voulez changez votre pseudonyme, celui qui apparait sur votre avatar et dans les messages du chat, cliquez sur l’icône de votre personnage puis allez dans \"modifier\".",
+    "loginNameDescription": "C'est ce que vous utilisez pour vous connecter à Habitica. Pour le changer, utiliser le formulaire plus bas. Si vous voulez changez votre pseudonyme, celui qui apparaît sur votre avatar et dans les messages du chat, cliquez sur l’icône de votre personnage puis allez dans \"Modifier\".",
     "emailNotifications": "Notifications par courriel",
     "wonChallenge": "Vous avez gagné un défi !",
     "newPM": "Message Privé Reçu",

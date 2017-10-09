@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Напишете кратко описание, което да представи гилдията Ви на другите хабитиканци. Каква е основната цел на гилдията Ви и защо хората биха искали да се присъединят? Опитайте се да използвате в резюмето ключови думи, така че хабитиканците да могат лесно да го открият при търсене!",
     "groupDescription": "Описание",
     "guildDescriptionPlaceholder": "Използвайте този раздел, за да добавите повече подробности за всичко, което членовете на гилдията трябва да знаят за нея. Тук можете да добавите и полезни съвети и връзки, както и вдъхновяващи лозунги!",
-    "markdownFormattingHelp": "[Markdown formatting help](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
+    "markdownFormattingHelp": "[Помощ за форматирането чрез „Markdown“](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "Това е описанието на групата ни. То описва какво правим в тази група. Ако искате да научите повече относно това какво правим в тази група, прочетете описанието.",
     "guildGemCostInfo": "Цената за създаването на гилдия подсигурява качеството на гилдиите, а диамантите се прехвърлят в банката на гилдията.",
     "noGuildsTitle": "Не членувате в нито една гилдия.",
@@ -388,10 +388,10 @@
     "reverseChat": "Обръщане на разговора",
     "invites": "Покани",
     "details": "Подробности",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
+    "participantDesc": "След като всички членове са приели или отказали, мисията започва. Само онези, които са натиснали „Приемам“, могат да участват в мисията и да получават награди.",
     "groupGems": "Групови диаманти",
     "groupGemsDesc": "Диамантите на гилдията могат да бъдат използвани за създаване на предизвикателства! В бъдеще ще можете да добавяте още диаманти в гилдията.",
-    "groupTaskBoard": "Task Board",
-    "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupTaskBoard": "Дъска със задачи",
+    "groupInformation": "Информация за групата",
+    "groupBilling": "Таксуване на групата"
 }
