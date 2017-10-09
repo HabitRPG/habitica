@@ -114,7 +114,7 @@
     "shortName": "标签",
     "shortNamePlaceholder": "应该用什么标签来识别你的挑战？",
     "updateChallenge": "升级挑战",
-    "haveNoChallenges": "你没有参加任何挑战",
+    "haveNoChallenges": "This group has no Challenges",
     "loadMore": "载入更多",
     "exportChallengeCsv": "导出挑战",
     "editingChallenge": "正在编辑中的挑战",
@@ -125,5 +125,6 @@
     "descriptionRequired": "需要挑战介绍",
     "locationRequired": "请选择在哪里发起挑战(‘挑战发起至’)",
     "categoiresRequired": "至少选择一个类别",
-    "viewProgressOf": "查看参与者的任务状况"
+    "viewProgressOf": "查看参与者的任务状况",
+    "selectMember": "Select Member"
 }

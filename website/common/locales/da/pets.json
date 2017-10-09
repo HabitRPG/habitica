@@ -73,6 +73,7 @@
     "useGems": "Hvis du gerne vil have et bestemt kæledyr, men ikke vil vente på at du finder det, så brug ædelsten i <strong>Inventar > Marked</strong> til at købe det!",
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Du har udruger en ny <%= potion %> <%= egg %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Vis nu",
     "displayLater": "Vis senere",
     "petNotOwned": "Du ejer ikke dette kæledyr.",

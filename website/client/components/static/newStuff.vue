@@ -4,55 +4,57 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/2/2017 - SPOOKY SPARKLES, MOBILE UPDATES, AND BUG FIXES
+    h2 10/5/2017 - OCTOBER BACKGROUNDS AND ARMOIRE ITEMS, REDESIGN FIXES AND FEEDBACK, TAKE THIS CHALLENGE, LAST CHANCE FOR SORCERY STUDENT SET AND FARM FRIENDS BUNDLE
     hr
     .media
+      .promo_armoire_backgrounds_201710.right-margin
       .media-body
-        h3 Spooky Sparkles and Seasonal Shop
-        p(v-markdown='"There\'s a new Gold-purchasable item in the Seasonal Shop: [Spooky Sparkles](/shops/seasonal)! Buy some and then cast it on your friends. I wonder what it will do?"')
-        p If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!
-        p While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.
-        .small by Lemoness and SabreCat
-      .promo_spooky_sparkles
-    h3 Updates to iOS and Android Apps!
-    p(v-markdown='"There are exciting new updates to our [Android](https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en) and [iOS](https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8) apps! In both, we\'ve updated the design of the Shops and your Rewards column. Plus, now you can pin items you want from Shops to your Rewards column! We hope this makes upgrading your avatar and earning Rewards from your tasks even more motivating."')
-    p Android users can also now reset their accounts via the app!
-    p In the iOS app, we've also added improved VoiceOver support for better accessibility. We welcome your feedback on this feature via the in-app "Send Feedback" option.
-    p We hope you enjoy the updates! Be sure to download them now for a better Habitica experience!
-    p If you like the improvements that we’ve been making to our apps, please consider reviewing these new versions. It really helps us out!
-    .small by viirus and piyorii
-    .promo_login_screen.center-block
-    h3 New Post-Update Bug Fixes!
-    p Hello Habiticans! <3 We’ve released a big batch of bug fixes! Many thanks for your patience, and for taking the time to report these bugs. Some changes:
+        h3 October Backgrounds and Armoire Items!
+        p We’ve added three new backgrounds to the avatar shop! Now your avatar can tiptoe through the Tar Pits, sneak down the hall of a Spooky Hotel, and bask in the glow of Magical Candles.
+        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Candlemaker Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        .small by jordanzimmerman, nekoatsumelarper, vampitch, reesa3, Chimera Liani, and mewrose
+        h3 Bug Fixes Keep Coming!
+        p Hello Habiticans! <3 We’ve released another batch of bug fixes! Thank you all again for your reports:
+        ul
+          li We've fixed the issue preventing checklists from being collapsible!
+          li We fixed the bug where some users who reached 0 health would get their health bar stuck there without refiling.
+          li You can now upgrade Guilds into Group Plans using Stripe!
+          li We fixed issues with the Bailey announcement refusing to scroll if it coincided with multiple pop-ups.
     ul
-      li Due to concerns about accessibility and usability of the Tasks page, we’ve removed the scrollbars on the different Tasks columns.
-      li Due to concerns about the skills bar being too large, we have released a new, more compact design! It should also now stay minimized once you’ve minimized it before, so that it won’t block your tasks all the time.
-      li Now you no longer need to click “Apply Filters” – they take automatic effect when you check them and uncheck them! The dropdown also closes when you move your mouse away, to further reduce the clicking required.
-      li Clicking “Scheduled” now correctly sorts your To-Dos by date
-      li Creating a task while a filter is selected now defaults to being tagged with that filter!
-      li Your Stables are now correctly configured so that the rows of pets and mounts don’t blend together on smaller screens!
-      li You can now click directly on a Mount to equip it!
-      li We’ve fixed a few bugs that were preventing some people from subscribing or buying gems, but some are remaining. Please be sure to report these in Report a Bug (linked below) and we will help you out ASAP!
-      li You should now be able to remove tasks when you leave a Challenge!
-      li You can edit Challenge Tags again!
-      li We’ve fixed the confusing placement of the “Send” buttons in chat
-      li We’ve fixed some style issues that were causing the Quests to occasionally look strange
-      li When you edit a Guild, it will default to you as the leader
-      li The "Members" label is now called the "Member list" to help clarify that you can click it to see all the members of a Party, Guild, or Challenge!
-      li If you have a pending quest, you can now see which members have accepted before you start your quest.
-      li When you complete a quest, the final reward popups are appearing again!
-      li You can now edit Parties normally!
-      li You can now correctly allocate your Stat points without needing to refresh the page!
-      li If you opted out of choosing a class, it will no longer give you an unnecessary warning about costing 3 Gems.
-      li You can no longer accidentally block yourself from your profile.
-      li Mystic Hourglasses now only show in the header if you have more than one. (Thanks for subscribing!)
-      li Markdown works in Challenge titles again!
-      li You can now Clone Challenges again!
-      li The Bailey news loads on the mobile apps again!
-      li The red User ID notifications in the corner should be gone!
-      li(v-markdown='"Chat performance should be better. (We’re still investigating to make it even better, so please let us know in the [Report a Bug Guild](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) if chat lag is still happening to you!)"')
-    p(v-markdown='"Refresh the page to enjoy these fixes! If you’re still having trouble with them after refreshing the page, please let us know in the [Report a Bug Guild](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) and we will investigate :) If you have feedback about the update that is not related to bugs or immediate accessibility issues, we’re opening a public Trello card for these comments on October 5!"')
-    p Thanks for being such a great community! It means a lot to us <3
+      li We fixed some bugs preventing users from subscribing with Amazon.
+      li We've prevented you from opening someone's profile if their user avatar wasn't fully loaded (resulting in the wrong profile being displayed).
+      li All Quick Inventory bars now remember whether or not you minimized them, and remain in that state even when you navigate away or refresh.
+      li We prevented the filter menu from accidentally closing if you're in edit mode.
+      li Pop-ups no longer interrupt the Record Yesterday's Activity modal.
+      li The loading bar is back when you take an action on the site!
+      li Now when you buy anything in one of the shops, the confirmation popup doesn't return for the rest of your session.
+      li The Group Billing tab has returned to Group Plans!
+      li Users with many To-dos are able to check off the final To-do in their list again.
+      li We fixed the bugs where the Enchanted Armoire sometimes wouldn't correctly report what you had received.
+      li The Enchanted Armoire now tells you how much experience you received.
+      li If you already own the Bat-tle Rogue set, Spooky Sparkles are now the featured item in the Seasonal Shop.
+      li Opaque potions and other transformation item cures are now available in the Rewards column again!
+      li The Enchanted Armoire and Health Potions are now purchased with a single click, not needing a popup.
+      li Brutal Smash and other task-targeting skills can no longer accidentally check off tasks.
+      li Now if you make your screen very small, it does not prevent you from accessing all the navigation items.
+      li We fixed the issue with the limited identifier being cut off on the Rewards column when an item was located in the top row.
+      li We've fixed the bug preventing the number of notifications from displaying!
+      li Transformation items now take effect immediately, without having to refresh the page.
+      li You can now use emoji and other Markdown in Challenge titles again.
+      li Equipment items that don't belong to any specific class can now be found in the Market under Equipment > Class > None.
+    p(v-markdown='"Refresh the page to see these fixes! If you\'re still encountering these issues after a refresh, head to the [Report a Bug Guild](/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) and we will investigate. Thanks for being part of Habitica!"')
+    h3 Redesign Feedback Form Available
+    p(v-markdown='"Now that the new Habitica redesign has been out for a week and we\'ve had some time to fix some of the bugs, we wanted to open up a channel for your feedback. Please note that some pending features (like the ability to add tasks above each column, the sync button, push to top/bottom, and the ability to batch-add tasks) are still being built, and our team is still working hard to fix bugs. To see if your concerns are already being addressed, be sure to check out the [Redesign FAQ](http://habitica.wikia.com/wiki/Habitica_Redesign_FAQ) and the [Known Bugs List](http://habitica.wikia.com/wiki/Habitica_Redesign:_Known_Bugs)!"')
+    p(v-markdown='"Although originally we planned to collect feedback via Trello, we heard some concerns from the community that this would be difficult because it would require people to sign up for additional accounts. For that reason, we\'ve decided to collect feedback via [a Google form](https://docs.google.com/forms/d/e/1FAIpQLScpeCeoTbmNPotBvEWtAFeVlD6g83KEN_YlwD_GHB4yHJbZww/viewform). We hope that this makes it easier to tell us what you think! We\'re eager to get your input so that we can work to make Habitica the best that it can be."')
+    p We are a very small team, and for many of us, Habitica is a labor of love. Thank you all very much for your patience and for your support during this time of transition -- it means the world to us.
+    .media
+      .promo_takeThis_gear.right-margin
+      .media-body
+        h3 New Take This Challenge
+        p(v-markdown='"The next Take This Challenge has launched, [Multiplayer Co-Op Exercise!](/challenges/e577f6bd-59af-4f89-b011-44767527ee92), with a focus on working out with a partner. Be sure to check it out to earn additional pieces of the Take This armor set!"')
+    p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, “Hero\'s Triumph!”: grand prize winner David Rule, and runners-up José Barata Gonçalves, Ar_tem, Ziggy, schooler, and Ayano. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t completed the set already. It is located in the [Market](/shops/market) under Class \> None. Enjoy!"')
+    .small by Doctor B, the Take This team, Lemoness, and SabreCat
     br
 </template>
 
@@ -60,6 +62,10 @@
   @import '~client/assets/scss/static.scss';
   .center-block {
     margin: 0 auto 1em auto;
+  }
+
+  .left-margin {
+    margin-left: 1em;
   }
 
   .right-margin {

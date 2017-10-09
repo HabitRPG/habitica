@@ -165,6 +165,23 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     categories.push(category);
   }
 
+  let nonClassCategory = {
+    identifier: 'none',
+    text: i18n.t('none', language),
+  };
+
+  let falseGear = filter(content.gear.flat, (gear) => {
+    return user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
+  });
+
+  nonClassCategory.items = map(falseGear, (e) => {
+    let newItem = getItemInfo(user, 'marketGear', e);
+
+    return newItem;
+  });
+
+  categories.push(nonClassCategory);
+
   return categories;
 };
 

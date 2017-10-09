@@ -74,7 +74,7 @@
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
     .description-section
       h2 {{$t('challengeSummary')}}
-      p {{challenge.summary}}
+      p(v-markdown='challenge.summary')
       h2 {{$t('challengeDescription')}}
       p(v-markdown='challenge.description')
 </template>
@@ -301,6 +301,9 @@ export default {
         challengeId: this.searchId,
         tasks: clonedTasks,
       });
+
+      this.$store.state.challengeOptions.cloning = false;
+      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
