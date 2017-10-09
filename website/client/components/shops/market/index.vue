@@ -64,7 +64,7 @@
 
       .clearfix
         h2.float-left
-          | {{ $t('classEquipment') }}
+          | {{ $t('equipment') }}
 
         div.float-right
           span.dropdown-label {{ $t('class') }}
@@ -148,6 +148,7 @@
             @click="itemSelected(item)"
           )
             span(slot="popoverContent")
+              strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
 
             template(slot="itemBadge", scope="ctx")
@@ -156,12 +157,15 @@
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
+              .gems-left(v-if='item.key === "gem"')
+                | {{ gemsLeft }}
 
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
 
         div.fill-height
 
@@ -339,6 +343,19 @@
     }
 
   }
+
+  .gems-left {
+    position: absolute;
+    right: -.5em;
+    top: -.5em;
+    color: $white;
+    background: $purple-200;
+    padding: .15em .55em;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    box-shadow: 0 1px 1px 0 rgba($black, 0.12);
+  }
 </style>
 
 
@@ -374,6 +391,7 @@
   import getItemInfo from 'common/script/libs/getItemInfo';
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
+  import planGemLimits from 'common/script/libs/planGemLimits';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -383,6 +401,8 @@
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -393,7 +413,7 @@
   };
 
 export default {
-    mixins: [notifications],
+    mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -551,6 +571,10 @@ export default {
           },
         ];
       },
+      gemsLeft () {
+        if (!this.user.purchased.plan) return 0;
+        return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+      },
     },
     methods: {
       getClassName (classType) {
@@ -694,6 +718,11 @@ export default {
         }
       },
       itemSelected (item) {
+        if (item.purchaseType !== 'gear' && this.$store.state.recentlyPurchased[item.key]) {
+          this.makeGenericPurchase(item);
+          return;
+        }
+
         this.$root.$emit('buyModal::showItem', item);
       },
       featuredItemSelected (item) {

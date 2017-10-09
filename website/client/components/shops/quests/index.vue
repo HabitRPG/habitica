@@ -328,6 +328,8 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
@@ -348,6 +350,7 @@
   import _map from 'lodash/map';
 
 export default {
+    mixins: [buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -469,6 +472,11 @@ export default {
       },
       selectItem (item) {
         this.selectedItemToBuy = item;
+
+        if (this.$store.state.recentlyPurchased[item.key]) {
+          this.makeGenericPurchase(item);
+          return;
+        }
 
         this.$root.$emit('show::modal', 'buy-quest-modal');
       },

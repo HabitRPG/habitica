@@ -73,6 +73,7 @@
     "useGems": "Kalau kamu ingin memelihara sesuatu, tapi tidak sabar menunggu kapan ia akan muncul, gunakan permata di <strong>Inventori > Pasar</strong> untuk membeli telurnya!",
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Tampilkan Sekarang",
     "displayLater": "Tampilkan Nanti",
     "petNotOwned": "Kamu tidak memiliki peliharaan ini.",

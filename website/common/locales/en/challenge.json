@@ -127,5 +127,6 @@
   "descriptionRequired": "Description is required",
   "locationRequired": "Location of challenge is required ('Add to')",
   "categoiresRequired": "One or more categories must be selected",
-  "viewProgressOf": "View Progress Of"
+  "viewProgressOf": "View Progress Of",
+  "selectMember": "Select Member"
 }

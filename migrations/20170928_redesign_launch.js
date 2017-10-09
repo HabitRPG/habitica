@@ -1,4 +1,5 @@
-var updateStore = require('../website/common/script/libs/updateStore');
+import { selectGearToPin } from '../website/common/script/ops/pinnedGearUtils';
+
 var getItemInfo = require('../website/common/script/libs/getItemInfo');
 
 var migrationName = '20170928_redesign_launch.js';
@@ -69,7 +70,7 @@ function updateUser (user) {
 
   var set = {'migration': migrationName};
 
-  var oldRewardsList = updateStore(user);
+  var oldRewardsList = selectGearToPin(user);
   var newPinnedItems = [
     {
       type: 'armoire',

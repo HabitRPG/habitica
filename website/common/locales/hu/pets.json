@@ -73,6 +73,7 @@
     "useGems": "Ha megtetszik egy háziállat, de nem tudsz tovább várni arra, hogy megtaláld, használj Drágaköveket itt:  <strong>Tárgylista > Piac</strong> a vásárláshoz!",
     "hatchAPot": "Szeretnél egy új <%= potion %> <%= egg %> háziállatot kikeltetni?",
     "hatchedPet": "Egy új <%= potion %> <%= egg %> keltettél ki!",
+    "hatchedPetGeneric": "You hatched a new pet!",
     "displayNow": "Megjelenítés most",
     "displayLater": "Megjelenítés később",
     "petNotOwned": "Ennek a háziállatnak nem te vagy a gazdája.",

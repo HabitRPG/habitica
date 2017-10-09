@@ -3,9 +3,10 @@ div
   inbox-modal
   creator-intro
   profile
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-lg
+  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
     .navbar-header
-      .logo.svg-icon(v-html="icons.logo")
+      .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
+      .svg-icon.gryphon.hidden-xl-up
     b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -93,55 +94,31 @@ div
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
 
-  /* Less than Desktops and laptops ----------- */
-  @media only screen  and (max-width : 1224px) {
-    #nav_collapse {
-      background: $purple-100;
-      margin-top: 1em;
-      margin-left: 70%;
-      padding-bottom: 1em;
-
-      a {
-        padding: .5em !important;
-      }
-    }
-
-    .dropdown-menu {
-      position: absolute !important;
-      left: -10em;
-      top: -.5em;
-    }
-  }
-
-  @media only screen and (max-width : 1224px) and (min-width: 1200px) {
-    #nav_collapse {
-      margin-top: 37em !important;
-
-      a {
-        width: 100%;
-      }
-    }
-
-    .navbar-collapse.collapse {
-      display: none !important;
-    }
-
-    .navbar-collapse.collapse.show {
-      display: block !important;
-    }
-
-    .navbar-toggler, .navbar-nav {
-      display: block;
-    }
-
-    .navbar-toggleable-lg .navbar-collapse {
-      display: block;
-    }
-  }
-
   @media only screen and (max-width: 1280px) {
     .nav-link {
       padding: .8em 1em !important;
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .navbar-header {
+      margin-right: 0px;
+    }
+
+    .gryphon {
+      background-image: url('~assets/images/melior@3x.png');
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      color: $white;
+      margin: 0 auto;
+    }
+  }
+
+  @media only screen and (max-width: 990px) {
+    #nav_collapse {
+      margin-top: 1.3em;
+      background-color: $purple-200;
     }
   }
 
@@ -354,7 +331,6 @@ export default {
         hourglasses: svgHourglasses,
         logo,
       }),
-      groupPlans: [],
     };
   },
   computed: {
@@ -364,6 +340,7 @@ export default {
     ...mapState({
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
+      groupPlans: 'groupPlans',
     }),
   },
   mounted () {
@@ -390,7 +367,7 @@ export default {
       this.$root.$emit('show::modal', 'profile');
     },
     async getUserGroupPlans () {
-      this.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+      this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
     },
     openPartyModal () {
       this.$root.$emit('show::modal', 'create-party-modal');

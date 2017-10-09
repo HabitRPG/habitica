@@ -56,7 +56,8 @@
 </style>
 
 <style>
-  .modal {
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal, .modal-open {
     overflow-y: scroll !important;
   }
 
@@ -68,6 +69,8 @@
 
 <script>
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
+
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
@@ -129,6 +132,7 @@ export default {
       this.$refs.sound.load();
     });
 
+    // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
       this.$root.$emit('show::modal', 'buy-modal');
@@ -140,6 +144,9 @@ export default {
     });
 
     // @TODO split up this file, it's too big
+
+    loadProgressBar();
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user && response.data && response.data.notifications) {
@@ -320,9 +327,11 @@ export default {
         }
       }
     },
-    memberSelected (member) {
+    async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
+
+      this.$store.dispatch('party:getMembers', {forceLoad: true});
 
       this.$root.$emit('hide::modal', 'select-member-modal');
     },

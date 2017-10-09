@@ -274,6 +274,8 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -302,6 +304,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
+    mixins: [buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -485,9 +488,14 @@
         }
       },
       itemSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
+        if (item.locked) return;
+
+        if (this.$store.state.recentlyPurchased[item.key]) {
+          this.makeGenericPurchase(item);
+          return;
         }
+
+        this.$root.$emit('buyModal::showItem', item);
       },
     },
   };

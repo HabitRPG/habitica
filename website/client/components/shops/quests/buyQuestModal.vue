@@ -43,11 +43,9 @@
         :currencyNeeded="priceType",
         :amountNeeded="item.value"
       ).float-right
-
-
 </template>
-<style lang="scss">
 
+<style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
 
@@ -173,7 +171,6 @@
 </style>
 
 <script>
-
   import {mapState} from 'client/libs/store';
 
   import bModal from 'bootstrap-vue/lib/components/modal';
@@ -188,12 +185,13 @@
   import currencyMixin from '../_currencyMixin';
   import QuestInfo from './questInfo.vue';
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
 
   import questDialogDrops from './questDialogDrops';
   import questDialogContent from './questDialogContent';
 
   export default {
-    mixins: [currencyMixin, notifications],
+    mixins: [currencyMixin, notifications, buyMixin],
     components: {
       bModal,
       BalanceInfo,
@@ -243,15 +241,8 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        this.$store.dispatch('shops:genericPurchase', {
-          pinType: this.item.pinType,
-          type: this.item.purchaseType,
-          key: this.item.key,
-          currency: this.item.currency,
-        });
+        this.makeGenericPurchase(this.item, 'buyQuestModal');
         this.purchased(this.item.text);
-        this.$root.$emit('playSound', 'Reward');
-        this.$emit('buyPressed', this.item);
         this.hideDialog();
       },
       togglePinned () {

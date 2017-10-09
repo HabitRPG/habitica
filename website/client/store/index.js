@@ -135,6 +135,8 @@ export default function () {
       userIdToMessage: '',
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
+      recentlyPurchased: {},
+      groupPlans: [],
     },
   });
 

@@ -46,6 +46,11 @@
     min-height: 556px;
   }
 
+  .task-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
   .task-wrapper + .reward-items {
     margin-top: 16px;
   }
@@ -104,7 +109,7 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 7;
+    z-index: 1;
 
     &.initial-description {
       top: 30%;
@@ -160,19 +165,25 @@
 <script>
 import Task from './task';
 import sortBy from 'lodash/sortBy';
+import throttle from 'lodash/throttle';
+import bModal from 'bootstrap-vue/lib/components/modal';
+
+import sortable from 'client/directives/sortable.directive';
+import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
+import shopItem from '../shops/shopItem';
+
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
+import spells from 'common/script/content/spells';
+
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import shopItem from '../shops/shopItem';
-import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 
 export default {
+  mixins: [buyMixin],
   components: {
     Task,
     bModal,
@@ -252,8 +263,30 @@ export default {
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
+      let rewards = inAppRewards(this.user);
 
-      return inAppRewards(this.user);
+
+      // Add season rewards if user is affected
+      // @TODO: Add buff coniditional
+      const seasonalSkills = {
+        snowball: 'salt',
+        spookySparkles: 'opaquePotion',
+        shinySeed: 'petalFreePotion',
+        seafoam: 'sand',
+      };
+
+      for (let key in seasonalSkills) {
+        if (this.user.stats.buffs[key]) {
+          let debuff = seasonalSkills[key];
+          let item = Object.assign({}, spells.special[debuff]);
+          item.text = item.text();
+          item.notes = item.notes();
+          item.class = `shop_${key}`;
+          rewards.push(item);
+        }
+      }
+
+      return rewards;
     },
     hasRewardsList () {
       return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
@@ -378,6 +411,14 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
+      // Buy armoire and health potions immediately
+      let itemsToPurchaseImmediately = ['potion', 'armoire'];
+      if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
+        this.makeGenericPurchase(rewardItem);
+        this.$emit('buyPressed', rewardItem);
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
       }

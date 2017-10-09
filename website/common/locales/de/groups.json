@@ -80,7 +80,7 @@
     "logoUrl": "Logo-URL",
     "assignLeader": "Gruppenleiter bestimmen",
     "members": "Mitglieder",
-    "memberList": "Member List",
+    "memberList": "Mitglieder-Liste",
     "partyList": "Reihenfolge der Gruppenmitglieder in der Kopfzeile",
     "banTip": "Mitglied ausschließen",
     "moreMembers": "weitere Mitglieder",
@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
     "groupDescription": "Beschreibung",
     "guildDescriptionPlaceholder": "Use this section to go into more detail about everything that Guild members should know about your Guild. Useful tips, helpful links, and encouraging statements all go here!",
-    "markdownFormattingHelp": "Markdown Formatierungshilfe",
+    "markdownFormattingHelp": "[Markdown formatting help](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "This is our party's description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
     "guildGemCostInfo": "A Gem cost promotes high quality Guilds and is transferred into your Guild's bank.",
     "noGuildsTitle": "Du bist nicht Mitglied einer Gilde.",
@@ -386,9 +386,12 @@
     "selectPartyMember": "Ein Gruppenmitglied Auswählen",
     "areYouSureDeleteMessage": "Bist Du sicher, dass Du diese Nachricht löschen willst?",
     "reverseChat": "Chat-Reihenfolge Umkehren",
-    "invites": "Invites",
+    "invites": "Einladungen",
     "details": "Details",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those that clicked 'accept' will be able to participate in the Quest and receive the drops.",
+    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
     "groupGems": "Group Gems",
-    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
+    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
+    "groupTaskBoard": "Task Board",
+    "groupInformation": "Group Information",
+    "groupBilling": "Group Billing"
 }

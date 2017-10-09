@@ -51,7 +51,7 @@
     "namedHatchingPotion": "<%= type %> Hatching Potion",
     "buyGems": "ジェムを買う",
     "purchaseGems": "ジェムを購入する",
-    "items": "Items",
+    "items": "アイテム",
     "AZ": "A-Z",
     "sort": "Sort",
     "sortBy": "Sort By",
@@ -161,5 +161,5 @@
     "welcome4": "アバターの体力を減らす悪い習慣を避けましょう。さもないとあなたのアバターは死んでしまいます!",
     "welcome5": "それではアバターをカスタマイズしてタスクを設定しましょう…",
     "imReady": "Habitica をはじめる",
-    "limitedOffer": "Available until <%= date %>"
+    "limitedOffer": "<%= date %>まで購入可能"
 }
