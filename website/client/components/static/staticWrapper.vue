@@ -139,7 +139,7 @@ div
 </style>
 
 <script>
-import AppFooter from 'client/components/footer';
+import AppFooter from 'client/components/appFooter';
 import StaticHeader from './header.vue';
 
 export default {

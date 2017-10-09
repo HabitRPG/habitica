@@ -73,7 +73,7 @@ import { loadProgressBar } from 'axios-progress-bar';
 
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
-import AppFooter from './components/footer';
+import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
 import { mapState } from 'client/libs/store';

@@ -34,16 +34,17 @@
   }
 
   .drawer-toggle-icon {
-    float: right;
-    margin-right: 16px;
-    margin-top: 16px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
 
     &.closed {
-      margin-top: 3px;
+      top: 10px;
     }
   }
 
   .drawer-title {
+    position: relative;
     background-color: $gray-10;
     box-shadow: 0 1px 2px 0 rgba($black, 0.2);
     cursor: pointer;

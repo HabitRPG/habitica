@@ -2,8 +2,8 @@
 .row
   buy-gems-modal(v-if="isUserLoaded")
   modify-inventory(v-if="isUserLoaded")
-  footer.container-fluid
-    .row
+  footer.col-12(:class="{expanded: isExpandedFooter}")
+    .row(v-if="isExpandedFooter")
       .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
@@ -78,11 +78,11 @@
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
     .row
-      hr.col-12
-    .row
+      .col-12
+        hr
       .col-4
         | © 2017 Habitica. All rights reserved.
-        .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
+        // .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
             a.btn.btn-default(@click="setHealthLow()") Health = 1
@@ -101,7 +101,7 @@
             a.btn.btn-default(@click="makeAdmin()") Make Admin
             a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
       .col-4.text-center
-        .logo
+        .logo.svg-icon(v-html='icons.gryphon')
       .col-4.text-right
         span
           router-link(to="/static/privacy") {{ $t('privacy') }}
@@ -111,18 +111,41 @@
 
 <style lang="scss" scoped>
   footer {
-    background-color: #e1e0e3;
-    min-height: 408px;
-    width: 100%;
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 3em;
-    margin: 0;
-    color: #878190;
+    color: #c3c0c7;
     z-index: 17;
+    padding-bottom: 3em;
 
     a {
+      color: #2995cd;
+    }
+
+    &:not(.expanded) {
+      hr {
+        margin-top: 0px;
+        margin-bottom: 7px;
+      }
+    }
+
+    &.expanded {
+      padding-left: 6em;
+      padding-right: 6em;
+      padding-top: 3em;
+      background: #e1e0e3;
       color: #878190;
+      min-height: 408px;
+
+      a {
+        color: #878190;
+      }
+
+      .logo {
+        color: #c3c0c7;
+      }
+    }
+
+    & > .row {
+      margin-left: 12px;
+      margin-right: 12px;
     }
   }
 
@@ -171,12 +194,10 @@
   }
 
   .logo {
-    background-image: url('~assets/images/gryphon@3x.png');
     width: 24px;
     height: 24px;
     margin: 0 auto;
-    color: #c3c0c7;
-    background-size: cover;
+    color: #e1e0e3;
   }
 
   .terms-link {
@@ -228,8 +249,8 @@ import facebook from 'assets/svg/facebook.svg';
 import instagram from 'assets/svg/instagram.svg';
 import heart from 'assets/svg/heart.svg';
 
-import modifyInventory from '../modifyInventory';
-import buyGemsModal from '../payments/buyGemsModal';
+import modifyInventory from './modifyInventory';
+import buyGemsModal from './payments/buyGemsModal';
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
@@ -254,6 +275,9 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isUserLoaded']),
+    isExpandedFooter () {
+      return this.$route.name === 'tasks' ? false : true;
+    },
   },
   methods: {
     plusTenHealth () {
