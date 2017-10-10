@@ -136,8 +136,6 @@
 
 <script>
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import quests from 'common/script/content/quests';
 
 import copyIcon from 'assets/svg/copy.svg';
@@ -154,7 +152,6 @@ import questDialogContent from '../shops/quests/questDialogContent';
 export default {
   props: ['group'],
   components: {
-    bModal,
     questDialogDrops,
     questDialogContent,
   },

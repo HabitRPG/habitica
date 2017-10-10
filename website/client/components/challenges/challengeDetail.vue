@@ -177,8 +177,6 @@
 const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
@@ -209,8 +207,6 @@ export default {
     challengeMemberProgressModal,
     TaskColumn: Column,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {

@@ -56,8 +56,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
@@ -66,7 +64,6 @@ import {maxHealth} from '../../../common/script/index';
 
 export default {
   components: {
-    bModal,
     Avatar,
   },
   data () {

@@ -38,13 +38,11 @@
 
 <script>
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 
 export default {
   components: {
-    bModal,
     Avatar,
   },
   directives: {

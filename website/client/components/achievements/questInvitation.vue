@@ -45,17 +45,12 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import quests from 'common/script/content/quests';
 import { mapState } from 'client/libs/store';
 import percent from '../../../common/script/libs/percent';
 import {maxHealth} from '../../../common/script/index';
 
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       maxHealth,

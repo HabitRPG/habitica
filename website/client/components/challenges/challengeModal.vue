@@ -131,10 +131,6 @@
 
 <script>
 import clone from 'lodash/clone';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import markdownDirective from 'client/directives/markdown';
 
@@ -143,12 +139,6 @@ import { mapState } from 'client/libs/store';
 
 export default {
   props: ['groupId', 'cloning'],
-  components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
-    bFormInput,
-  },
   directives: {
     markdown: markdownDirective,
   },

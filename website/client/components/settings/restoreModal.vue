@@ -50,12 +50,7 @@
 import clone from 'lodash/clone';
 import { mapState } from 'client/libs/store';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       restoreValues: {

@@ -180,8 +180,6 @@ import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
@@ -227,8 +225,6 @@ export default {
   components: {
     Item,
     ItemRows,
-    bDropdown,
-    bDropdownItem,
     HatchedPetDialog,
     CountBadge,
     startQuestModal,

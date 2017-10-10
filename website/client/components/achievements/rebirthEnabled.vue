@@ -17,14 +17,9 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import { mapState } from 'client/libs/store';
 
 export default {
-  components: {
-    bModal,
-  },
   computed: {
     ...mapState({user: 'user.data'}),
   },

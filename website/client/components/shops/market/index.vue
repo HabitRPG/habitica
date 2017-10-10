@@ -388,10 +388,6 @@
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgPin from 'assets/svg/pin.svg';
   import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
@@ -435,10 +431,6 @@ export default {
       DrawerHeaderTabs,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       SellModal,
       EquipmentAttributesGrid,

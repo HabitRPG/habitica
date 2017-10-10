@@ -192,7 +192,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -206,9 +205,6 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
-  },
-  directives: {
-    bPopover,
   },
   data () {
     let dayStartOptions = [];

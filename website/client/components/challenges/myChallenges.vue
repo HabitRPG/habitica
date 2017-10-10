@@ -65,8 +65,6 @@
 <script>
 import { mapState } from 'client/libs/store';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
@@ -81,8 +79,6 @@ export default {
     Sidebar,
     ChallengeItem,
     challengeModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {

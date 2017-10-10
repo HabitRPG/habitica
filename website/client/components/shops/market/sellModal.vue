@@ -112,10 +112,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
@@ -124,9 +120,6 @@
 
   export default {
     components: {
-      bModal,
-      bDropdown,
-      bDropdownItem,
       BalanceInfo,
     },
     data () {

@@ -21,12 +21,7 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   methods: {
     close () {
       this.$root.$emit('hide::modal', 'testing');

@@ -166,8 +166,6 @@
 import Task from './task';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
@@ -186,7 +184,6 @@ export default {
   mixins: [buyMixin],
   components: {
     Task,
-    bModal,
     shopItem,
   },
   directives: {

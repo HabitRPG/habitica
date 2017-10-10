@@ -173,9 +173,6 @@ div
 
 <script>
 import sortBy from 'lodash/sortBy';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
 import privateMessageModal from 'client/components/private-message-modal';
@@ -189,9 +186,6 @@ import dots from 'assets/svg/dots.svg';
 export default {
   props: ['hideBadge'],
   components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
     MemberDetails,
     privateMessageModal,
     removeMemberModal,

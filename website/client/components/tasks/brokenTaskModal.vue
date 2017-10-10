@@ -33,14 +33,10 @@
 
 <script>
 import { mapActions } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
-  },
   computed: {
     brokenChallengeTask () {
       return this.$store.state.brokenChallengeTask;

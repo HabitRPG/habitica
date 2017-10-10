@@ -161,9 +161,6 @@ import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
-
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
 import svgClose from 'assets/svg/close.svg';
@@ -171,8 +168,6 @@ import svgClose from 'assets/svg/close.svg';
 export default {
   mixins: [styleHelper],
   components: {
-    bModal,
-    bFormInput,
     chatMessage,
   },
   data () {

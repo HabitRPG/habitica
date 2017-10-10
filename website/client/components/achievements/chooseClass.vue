@@ -117,9 +117,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bPopover from 'bootstrap-vue/lib/components/popover';
-
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
@@ -130,8 +127,6 @@ import wizardIcon from 'assets/svg/wizard.svg';
 
 export default {
   components: {
-    bModal,
-    bPopover,
     Avatar,
   },
   computed: {

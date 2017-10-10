@@ -284,8 +284,6 @@ import rewardIcon from 'assets/svg/reward.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
@@ -298,8 +296,6 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
     Item,
     spells,
     brokenTaskModal,

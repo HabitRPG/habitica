@@ -228,8 +228,6 @@
 import taskDefaults from 'common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -250,8 +248,6 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {

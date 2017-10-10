@@ -22,14 +22,12 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
   import newStuff from 'client/components/static/newStuff';
 
   export default {
     components: {
-      bModal,
       newStuff,
     },
     computed: {

@@ -16,14 +16,10 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
-  },
   data () {
     return {
       privateMessage: '',

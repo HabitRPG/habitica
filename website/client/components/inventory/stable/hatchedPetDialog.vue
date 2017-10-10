@@ -69,12 +69,7 @@
 
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   export default {
-    components: {
-      bModal,
-    },
     data () {
       return {
         pet: null,

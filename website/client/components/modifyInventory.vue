@@ -255,16 +255,12 @@
 
 <script>
 import axios from 'axios';
-import bModal from 'bootstrap-vue/lib/components/modal';
 
 import { mapState } from 'client/libs/store';
 
 import Content from '../../common/script/content';
 
 export default {
-  components: {
-    bModal,
-  },
   computed: {
     ...mapState({user: 'user.data'}),
   },

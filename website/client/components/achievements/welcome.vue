@@ -31,12 +31,7 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   methods: {
     ready () {
       // Guide.goto("intro",0)'

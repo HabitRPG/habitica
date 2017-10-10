@@ -46,14 +46,12 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 import { mapState } from 'client/libs/store';
 
 export default {
   components: {
-    bModal,
     achievementFooter,
     achievementAvatar,
   },

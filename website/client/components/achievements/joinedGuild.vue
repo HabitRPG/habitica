@@ -21,13 +21,11 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 
 export default {
   components: {
-    bModal,
     achievementFooter,
     achievementAvatar,
   },

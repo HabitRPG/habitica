@@ -53,14 +53,10 @@ import { mapState } from 'client/libs/store';
 
 import filter from 'lodash/filter';
 import map from 'lodash/map';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 
 export default {
-  components: {
-    bModal,
-  },
   mixins: [notifications],
   props: ['group'],
   data () {

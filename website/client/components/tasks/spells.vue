@@ -148,8 +148,6 @@ div(v-if='user.stats.lvl > 10')
 </style>
 
 <script>
-import bPopover from 'bootstrap-vue/lib/directives/popover';
-
 import spells from '../../../common/script/content/spells';
 
 import { mapState } from 'client/libs/store';
@@ -169,7 +167,6 @@ export default {
   },
   directives: {
     mousePosition: MouseMoveDirective,
-    bPopover,
   },
   data () {
     return {

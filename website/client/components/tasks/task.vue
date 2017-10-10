@@ -337,7 +337,6 @@ import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
@@ -346,7 +345,6 @@ import approvalFooter from './approvalFooter';
 export default {
   mixins: [notifications],
   components: {
-    bPopover,
     approvalFooter,
     approvalHeader,
   },

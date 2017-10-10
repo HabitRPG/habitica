@@ -488,11 +488,6 @@
 <script>
   import {mapState} from 'client/libs/store';
 
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
   import _filter from 'lodash/filter';
@@ -539,10 +534,6 @@
       FoodItem,
       MountItem,
       Drawer,
-      bDropdown,
-      bDropdownItem,
-      bPopover,
-      bModal,
       toggleSwitch,
       StarBadge,
       CountBadge,

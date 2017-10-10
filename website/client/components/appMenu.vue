@@ -3,7 +3,7 @@ div
   inbox-modal
   creator-intro
   profile
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
     .navbar-header
       .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
       .svg-icon.gryphon.hidden-xl-up
@@ -298,8 +298,6 @@ div
 
 <script>
 import axios from 'axios';
-import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
-import bCollapse from 'bootstrap-vue/lib/components/collapse';
 
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
@@ -320,8 +318,6 @@ export default {
     notificationMenu,
     creatorIntro,
     profile,
-    bNavToggle,
-    bCollapse,
   },
   data () {
     return {

@@ -53,13 +53,11 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import Task from './tasks/task';
 
 export default {
   props: ['yesterDailies'],
   components: {
-    bModal,
     Task,
   },
   data () {

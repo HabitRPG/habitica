@@ -173,8 +173,6 @@
 <script>
   import {mapState} from 'client/libs/store';
 
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
@@ -193,7 +191,6 @@
   export default {
     mixins: [currencyMixin, notifications, buyMixin],
     components: {
-      bModal,
       BalanceInfo,
       QuestInfo,
       questDialogDrops,

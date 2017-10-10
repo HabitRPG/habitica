@@ -88,7 +88,6 @@
 
 <script>
   import { mapState } from 'client/libs/store';
-  import bModal from 'bootstrap-vue/lib/components/modal';
 
   import svgClose from 'assets/svg/close.svg';
 
@@ -97,7 +96,6 @@
 
   export default {
     components: {
-      bModal,
       Avatar,
       EquipmentAttributesGrid,
     },

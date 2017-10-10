@@ -492,11 +492,6 @@ import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import markdownDirective from 'client/directives/markdown';
 
-import bCollapse from 'bootstrap-vue/lib/components/collapse';
-import bCard from 'bootstrap-vue/lib/components/card';
-import bToggle from 'bootstrap-vue/lib/directives/toggle';
-import bTooltip from 'bootstrap-vue/lib/components/tooltip';
-
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
@@ -518,9 +513,6 @@ export default {
   components: {
     membersModal,
     startQuestModal,
-    bCollapse,
-    bCard,
-    bTooltip,
     groupFormModal,
     chatMessage,
     inviteModal,
@@ -530,7 +522,6 @@ export default {
     groupGemsModal,
   },
   directives: {
-    bToggle,
     markdown: markdownDirective,
   },
   data () {

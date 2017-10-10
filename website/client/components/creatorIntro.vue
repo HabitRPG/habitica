@@ -794,8 +794,6 @@ import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import logoPurple from 'assets/svg/logo-purple.svg';
 import bodyIcon from 'assets/svg/body.svg';
 import accessoriesIcon from 'assets/svg/accessories.svg';
@@ -942,7 +940,6 @@ export default {
   mixins: [guide, notifications],
   components: {
     avatar,
-    bModal,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;

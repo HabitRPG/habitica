@@ -25,13 +25,9 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import markdownDirective from 'client/directives/markdown';
 
 export default {
-  components: {
-    bModal,
-  },
   directives: {
     markdown: markdownDirective,
   },

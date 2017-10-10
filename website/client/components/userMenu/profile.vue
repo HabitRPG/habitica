@@ -547,7 +547,6 @@ div
 <script>
 import moment from 'moment';
 import axios from 'axios';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
@@ -558,7 +557,6 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import MemberDetails from '../memberDetails';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
@@ -579,12 +577,10 @@ export default {
     markdown,
   },
   components: {
-    bModal,
     privateMessageModal,
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
-    bPopover,
   },
   data () {
     return {

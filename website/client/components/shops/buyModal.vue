@@ -216,7 +216,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -247,7 +246,6 @@
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
-      bModal,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,

@@ -18,13 +18,8 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
   props: ['task'],
-  components: {
-    bModal,
-  },
   methods: {
     approve (index) {
       if (!confirm('Are you sure you want to approve this task?')) return;
