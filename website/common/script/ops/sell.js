@@ -9,6 +9,7 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+// @TODO: 'special' type throws NotAuthorized error
 const ACCEPTEDTYPES = ['eggs', 'hatchingPotions', 'food'];
 
 module.exports = function sell (user, req = {}) {
