@@ -169,8 +169,10 @@
 
         div.fill-height
 
+      //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       drawer(
         :title="$t('quickInventory')"
+        :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
       )
         div(slot="drawer-header")
           drawer-header-tabs(
@@ -188,6 +190,7 @@
                 .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
+          v-if="hasOwnedItemsForType(selectedDrawerItemType)"
           :items="ownedItems(selectedDrawerItemType) || []",
           slot="drawer-slider",
           :itemWidth=94,
@@ -231,6 +234,14 @@
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
+
+  .market .drawer-slider {
+    min-height: 60px;
+
+    .message {
+      top: 10px;
+    }
+  }
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -350,7 +361,8 @@
     top: -.5em;
     color: $white;
     background: $purple-200;
-    padding: .15em .55em;
+    padding: .15em;
+    text-align: center;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -608,6 +620,15 @@ export default {
             }
           default:
             return mappedItems;
+        }
+      },
+      hasOwnedItemsForType (type) {
+        return this.ownedItems(type).length > 0;
+      },
+      inventoryDrawerErrorMessage (type) {
+        if (!this.hasOwnedItemsForType(type)) {
+          // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
+          return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
         }
       },
       getItemClass (type, itemKey) {

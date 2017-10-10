@@ -10,6 +10,8 @@
     "gearNotOwned": "このアイテムを持っていません。",
     "noGearItemsOfType": "この中のどれも持っていません。",
     "noGearItemsOfClass": "あなたはクラス固有の装備をすでに全部持っています！　春分・秋分や夏至・冬至の頃に開催される大祭で、新たな装備が追加されることでしょう。",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "タイプ",
     "sortByPrice": "価格",
     "sortByCon": "体質",

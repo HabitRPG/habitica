@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "舉報社群規範違規事件",
     "abuseFlagModalHeading": "您確定要舉報 <%= name %> 的違規事件？",
-    "abuseFlagModalBody": "你確定要舉報這則貼文嗎？你只能舉報違反<%= firstLinkStart %>社群規範<%= linkEnd %> 或是 <%= secondLinkStart %>服務條款<%= linkEnd %> 的貼文。任意舉報符合規定的貼文是違反社群條款的，你可能受到懲罰。當貼文涉及以下內容時是適合舉報的：<br><br><ul style='margin-left: 10px;'><li>髒話、宗教性詛咒</li><li>偏激、詆毀</li><li>成人話題</li><li>暴力或是過分的玩笑</li><li>廣告、無意義訊息</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "舉報違規行為",
     "abuseReported": "感謝您舉報這起違規事件。管理員將會被告知。",
     "abuseAlreadyReported": "您已經舉報過此留言訊息。",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

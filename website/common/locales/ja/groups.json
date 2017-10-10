@@ -141,7 +141,7 @@
     "report": "報告",
     "abuseFlag": "コミュニティガイドライン違反を報告する",
     "abuseFlagModalHeading": "<%= name %> を違反で報告しますか？",
-    "abuseFlagModalBody": "本当にこの投稿について報告しますか? 　投稿の報告は、それが<%= firstLinkStart %>コミュニティー ガイドライン<%= linkEnd %>および<%= secondLinkStart %>利用規約<%= linkEnd %>のいずれかまたは両方に違反している場合に限定すべきです。不適切に報告することは、コミュニティ ー ガイドライン上の違反行為であり、あなたが違反者とみなされます。投稿を報告すべき適切な理由は以下の通りであり、またこれらに限定するものではありません : <br><br><ul style='margin-left: 10px;'><li>ののしりや悪口、宗教的な冒涜</li><li>偏見、中傷</li><li>成人向きの話題</li><li>暴力。冗談としてであっても</li><li>スパム、無意味なメッセージ</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "違反を報告する",
     "abuseReported": "違反報告ありがとうございます。モデレータに通知されます。",
     "abuseAlreadyReported": "このメッセージは報告済みです。",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

@@ -91,6 +91,10 @@
             p {{acceptedCount}} / {{group.memberCount}}
           .col-4
             button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
+        .row.quest-active-section.quest-invite(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+          span {{ $t('wouldYouParticipate') }}
+          button.btn.btn-primary.accept(@click='questAccept(group._id)') {{$t('accept')}}
+          button.btn.btn-primary.reject(@click='questReject(group._id)') {{$t('reject')}}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
@@ -375,6 +379,37 @@
       width: 90%;
       margin: 0 auto;
       text-align: left;
+    }
+  }
+
+  .quest-invite {
+    background-color: #2995cd;
+    color: #fff;
+    padding: 1em;
+
+    span {
+      margin-top: .3em;
+    	font-size: 14px;
+    	font-weight: bold;
+    }
+
+    .accept, .reject {
+      padding: .2em 1em;
+      font-size: 12px;
+      height: 24px;
+    	border-radius: 2px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    }
+
+    .accept {
+    	background-color: #24cc8f;
+    	margin-left: 4em;
+      margin-right: .5em;
+    }
+
+    .reject {
+    	border-radius: 2px;
+    	background-color: #f74e52;
     }
   }
 
@@ -859,14 +894,13 @@ export default {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/leave'});
       this.group.quest = quest;
     },
-    async questAccept () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/accept'});
-      this.group.quest = quest;
+    async questAccept (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
+      this.user.party.quest = quest;
     },
-    // @TODO: Move to notificaitons component?
-    async questReject () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/reject'});
-      this.group.quest = quest;
+    async questReject (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
+      this.user.party.quest = quest;
     },
     showGroupGems () {
       this.$root.$emit('show::modal', 'group-gems-modal');

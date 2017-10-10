@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Overtreding van gemeenschapsrichtlijnen melden",
     "abuseFlagModalHeading": "<%= name %> rapporteren wegens overtreding?",
-    "abuseFlagModalBody": "Weet je zeker dat je deze post wil rapporteren? Je zou een post ALLEEN moeten rapporteren als deze de <%= firstLinkStart %>gemeenschapsrichtlijnen<%= linkEnd %> en/of <%= secondLinkStart %>de algemene voorwaarden<%= linkEnd %> schendt. Ongepast een post rapporteren is een overtreding van de gemeenschapsrichtlijnen en kan je een overtreding opleveren. Goede redenen om een post aan te geven zijn, maar zijn niet beperkt tot: <br><br><ul style='margin-left: 10px;'><li>schelden, religieuze verwensingen</li><li>vooroordelen, laster</li><li>onderwerpen voor voorwassenen</li><li>geweld, ook als grap</li><li>spam, onzinnige berichten</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Overtreding melden",
     "abuseReported": "Dank je voor het melden van deze overtreding. De beheerders zijn op de hoogte gesteld.",
     "abuseAlreadyReported": "Je hebt dit bericht al gemeld.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

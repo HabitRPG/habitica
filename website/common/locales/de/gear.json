@@ -10,6 +10,8 @@
     "gearNotOwned": "Du besitzt diesen Gegenstand nicht.",
     "noGearItemsOfType": "Du besitzt nichts davon.",
     "noGearItemsOfClass": "Du besitzt bereits sämtliche Klassen-Ausrüstung! Mehr wird während der großen Galas veröffentlicht, um die Sonnenwenden und Tagundnachtgleichen herum.",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Typ",
     "sortByPrice": "Preis",
     "sortByCon": "Ausdauer",

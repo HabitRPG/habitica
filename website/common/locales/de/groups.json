@@ -141,7 +141,7 @@
     "report": "Melden",
     "abuseFlag": "Verletzung der Community-Richtlinien melden",
     "abuseFlagModalHeading": "<%= name %> melden?",
-    "abuseFlagModalBody": "Möchtest Du diesen Beitrag wirklich melden? Du solltest AUSSCHLIESSLICH Beiträge melden, die unsere <%= firstLinkStart %>Community-Richtlinien<%= linkEnd %> und/oder unsere <%= secondLinkStart %>Nutzungsbedingungen<%= linkEnd %> verletzen. Das ungerechtfertigte Melden von Beiträgen stellt eine Verletzung der Community-Richtlinien dar und kann geahndet werden. Gute Gründe einen Beitrag zu melden sind unter anderem: <p></p></br><ul style='margin-left: 10px;'><li>Fluchen, Religiöse Schwüre</li><li>Intoleranz, herabwürdigende Bezeichnung jeglicher Ethnien</li><li>Nicht jugendfreie Themen</li><li>Gewalt, auch innerhalb eines Witzes</li><li>Spam, unsinnige Nachrichten</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Verstoß melden",
     "abuseReported": "Danke, dass Du diesen Verstoß gemeldet hast. Die Moderatoren wurden benachrichtigt.",
     "abuseAlreadyReported": "Du hast diese Nachricht bereits gemeldet.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Gilden-Edelsteine können für Wettbewerbe verwendet werden! Zukünftig kannst Du weitere Gilden-Edelsteine hinzufügen.",
     "groupTaskBoard": "Aufgabenliste",
     "groupInformation": "Team Informationen",
-    "groupBilling": "Team Abrechnung"
+    "groupBilling": "Team Abrechnung",
+    "wouldYouParticipate": "Would you like to participate?"
 }
