@@ -957,7 +957,7 @@
           // opens the hatch dialog
           this.hatchablePet = pet;
 
-          this.$root.$emit('show::modal', 'hatching-modal');
+          this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
 
@@ -970,7 +970,7 @@
       },
 
       closeHatchPetDialog () {
-        this.$root.$emit('hide::modal', 'hatching-modal');
+        this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
 
       resetHatchablePet ($event) {

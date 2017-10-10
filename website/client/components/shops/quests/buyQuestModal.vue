@@ -250,7 +250,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-quest-modal');
       },
       getDropIcon (drop) {
         switch (drop.type) {
@@ -286,7 +286,7 @@
       },
 
       purchaseGems () {
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
     },
     props: {

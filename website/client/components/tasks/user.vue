@@ -407,7 +407,7 @@ export default {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -416,7 +416,7 @@ export default {
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     cancelTaskModal () {

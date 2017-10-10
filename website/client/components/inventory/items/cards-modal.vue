@@ -60,7 +60,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'card');
+      this.$root.$emit('bv::hide::modal', 'card');
     },
   },
 };

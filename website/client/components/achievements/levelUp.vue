@@ -154,7 +154,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'level-up');
+      this.$root.$emit('bv::hide::modal', 'level-up');
     },
     loadWidgets () {
       // @TODO:

@@ -135,12 +135,12 @@ export default {
     // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
-      this.$root.$emit('show::modal', 'buy-modal');
+      this.$root.$emit('bv::show::modal', 'buy-modal');
     });
 
     this.$root.$on('selectMembersModal::showItem', (item) => {
       this.selectedSpellToBuy = item;
-      this.$root.$emit('show::modal', 'select-member-modal');
+      this.$root.$emit('bv::show::modal', 'select-member-modal');
     });
 
     // @TODO split up this file, it's too big
@@ -251,7 +251,7 @@ export default {
     }
 
     // Manage modals
-    this.$root.$on('show::modal', (modalId, data = {}) => {
+    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
       if (data.fromRoot) return;
 
       // Track opening of gems modal unless it's been already tracked
@@ -273,7 +273,7 @@ export default {
       this.$store.state.modalStack.push(modalId);
 
       // Hide the previous top modal
-      if (modalOnTop) this.$root.$emit('hide::modal', modalOnTop, {fromRoot: true});
+      if (modalOnTop) this.$root.$emit('bv::hide::modal', modalOnTop, {fromRoot: true});
     });
 
     // @TODO: This part is hacky and could be solved with two options:
@@ -294,7 +294,7 @@ export default {
       // Recalculate and show the last modal if there is one
       modalStackLength = this.$store.state.modalStack.length;
       modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      if (modalOnTop) this.$root.$emit('show::modal', modalOnTop, {fromRoot: true});
+      if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
   methods: {
@@ -320,8 +320,8 @@ export default {
         if (this.user.party._id) {
           this.selectedSpellToBuy = item;
 
-          this.$root.$emit('hide::modal', 'buy-modal');
-          this.$root.$emit('show::modal', 'select-member-modal');
+          this.$root.$emit('bv::hide::modal', 'buy-modal');
+          this.$root.$emit('bv::show::modal', 'select-member-modal');
         } else {
           this.error(this.$t('errorNotInParty'));
         }
@@ -333,7 +333,7 @@ export default {
 
       this.$store.dispatch('party:getMembers', {forceLoad: true});
 
-      this.$root.$emit('hide::modal', 'select-member-modal');
+      this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
       const loadingScreen = document.getElementById('loading-screen');

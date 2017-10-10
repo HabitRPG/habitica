@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'quest-completed');
+      this.$root.$emit('bv::hide::modal', 'quest-completed');
     },
     setQuestCompleted () {
       this.$store.dispatch('user:set', {'party.quest.completed': ''});

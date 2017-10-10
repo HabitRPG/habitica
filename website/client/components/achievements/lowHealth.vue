@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'low-health');
+      this.$root.$emit('bv::hide::modal', 'low-health');
     },
     acknowledgeHealthWarning () {
       this.$store.dispatch('user:set', {

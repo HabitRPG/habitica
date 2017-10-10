@@ -41,7 +41,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'remove-member');
+      this.$root.$emit('bv::hide::modal', 'remove-member');
     },
   },
 };

@@ -309,7 +309,7 @@ export default {
       // @TODO: Sync
     },
     close () {
-      this.$root.$emit('hide::modal', 'modify-inventory');
+      this.$root.$emit('bv::hide::modal', 'modify-inventory');
     },
   },
 };

@@ -139,7 +139,7 @@ export default {
       // } else {
       //   this.$router.push(`/groups/guilds/${this.group._id}`);
       // }
-      this.$root.$emit('hide::modal', 'invite-modal');
+      this.$root.$emit('bv::hide::modal', 'invite-modal');
       // @TODO: error?
       // _resetInvitees();
     },

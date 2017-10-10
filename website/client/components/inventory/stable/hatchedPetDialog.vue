@@ -87,12 +87,12 @@
     methods: {
       openDialog (item) {
         this.pet = item;
-        this.$root.$emit('show::modal', 'hatchedPet-modal');
+        this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
       },
 
       close () {
         this.$emit('closed', this.item);
-        this.$root.$emit('hide::modal', 'hatchedPet-modal');
+        this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');
         this.pet = null;
       },
     },

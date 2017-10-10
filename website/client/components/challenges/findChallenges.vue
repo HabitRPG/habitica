@@ -120,7 +120,7 @@ export default {
       this.filters = eventData;
     },
     createChallenge () {
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.loading = true;

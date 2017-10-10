@@ -331,7 +331,7 @@ export default {
       // @TODO: sync()
     },
     openModifyInventoryModal  () {
-      this.$root.$emit('show::modal', 'modify-inventory');
+      this.$root.$emit('bv::show::modal', 'modify-inventory');
     },
     donate () {
       Analytics.track({
@@ -340,7 +340,7 @@ export default {
         eventAction: 'click',
         eventLabel: 'Gems > Donate',
       });
-      this.$root.$emit('show::modal', 'buy-gems');
+      this.$root.$emit('bv::show::modal', 'buy-gems');
     },
   },
 };

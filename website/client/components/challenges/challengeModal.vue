@@ -392,7 +392,7 @@ export default {
 
       if (this.cloning) this.$store.state.challengeOptions.cloning = true;
 
-      this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
@@ -415,7 +415,7 @@ export default {
       });
       this.$store.dispatch('challenges:updateChallenge', {challenge: challengeDetails});
       this.resetWorkingChallenge();
-      this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;

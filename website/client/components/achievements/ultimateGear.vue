@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'ultimate-gear');
+      this.$root.$emit('bv::hide::modal', 'ultimate-gear');
     },
   },
 };

@@ -350,24 +350,24 @@ export default {
     showInbox () {
       markPMSRead(this.user);
       axios.post('/api/v3/user/mark-pms-read');
-      this.$root.$emit('show::modal', 'inbox-modal');
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showAvatar (startingPage, subpage) {
       this.$store.state.avatarEditorOptions.editingUser = true;
       this.$store.state.avatarEditorOptions.startingPage = startingPage;
       this.$store.state.avatarEditorOptions.subpage = subpage;
-      this.$root.$emit('show::modal', 'avatar-modal');
+      this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
     showProfile (startingPage) {
       this.$store.state.profileUser = this.user;
       this.$store.state.profileOptions.startingPage = startingPage;
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('bv::show::modal', 'profile');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
     },
     openPartyModal () {
-      this.$root.$emit('show::modal', 'create-party-modal');
+      this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;
@@ -379,7 +379,7 @@ export default {
         eventLabel: 'Gems > Toolbar',
       });
 
-      this.$root.$emit('show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };

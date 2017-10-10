@@ -707,7 +707,7 @@ export default {
     },
     sendMessage () {
       this.$store.state.userIdToMessage = this.user._id;
-      this.$root.$emit('show::modal', 'private-message');
+      this.$root.$emit('bv::show::modal', 'private-message');
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
@@ -811,7 +811,7 @@ export default {
     },
     openSendGemsModal () {
       this.userReceivingGems = this.user;
-      this.$root.$emit('show::modal', 'send-gems');
+      this.$root.$emit('bv::show::modal', 'send-gems');
     },
   },
 };

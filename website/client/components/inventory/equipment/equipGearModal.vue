@@ -142,7 +142,7 @@
         this.hideDialog();
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'equipgear-modal');
+        this.$root.$emit('bv::hide::modal', 'equipgear-modal');
       },
       memberOverrideAvatarGear (gear) {
         return {

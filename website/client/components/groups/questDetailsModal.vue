@@ -207,7 +207,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'quest-details');
+      this.$root.$emit('bv::hide::modal', 'quest-details');
     },
   },
 };

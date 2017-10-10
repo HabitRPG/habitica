@@ -32,7 +32,7 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     close () {
-      this.$root.$emit('hide::modal', 'approval-modal');
+      this.$root.$emit('bv::hide::modal', 'approval-modal');
     },
   },
 };

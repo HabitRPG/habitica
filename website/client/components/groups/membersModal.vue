@@ -285,7 +285,7 @@ export default {
   methods: {
     sendMessage () {
       this.$store.state.userIdToMessage = this.user._id;
-      this.$root.$emit('show::modal', 'private-message');
+      this.$root.$emit('bv::show::modal', 'private-message');
     },
     async getMembers () {
       let groupId = this.groupId;
@@ -324,12 +324,12 @@ export default {
         memberId: uid,
       });
 
-      this.$root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async removeMember (member, index) {
       this.memberToRemove = member;
       this.memberToRemove.index = index;
-      this.$root.$emit('show::modal', 'remove-member');
+      this.$root.$emit('bv::show::modal', 'remove-member');
     },
     memberRemoved () {
       this.members.splice(this.memberToRemove.index, 1);
@@ -341,7 +341,7 @@ export default {
       await this.$store.dispatch('members:selectMember', {
         memberId: uid,
       });
-      this.$root.$emit('show::modal', 'private-message'); //  MemberModalCtrl
+      this.$root.$emit('bv::show::modal', 'private-message'); //  MemberModalCtrl
     },
     async addManager (memberId) {
       await this.$store.dispatch('group:addManager', {
@@ -354,7 +354,7 @@ export default {
       });
     },
     close () {
-      this.$root.$emit('hide::modal', 'members-modal');
+      this.$root.$emit('bv::hide::modal', 'members-modal');
     },
     sort (option) {
       this.sortOption = option;

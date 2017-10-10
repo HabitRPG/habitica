@@ -334,7 +334,7 @@
             eventLabel: 'Gems > Rebirth',
           });
         }
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
       togglePinned () {
         this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
@@ -344,7 +344,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
       },
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {

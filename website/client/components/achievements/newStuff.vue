@@ -38,7 +38,7 @@
     },
     methods: {
       close () {
-        this.$root.$emit('hide::modal', 'new-stuff');
+        this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
         this.$store.dispatch('user:set', {'flags.newStuff': false});

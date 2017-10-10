@@ -71,7 +71,7 @@ export default {
     },
     close () {
       this.$store.state.brokenChallengeTask = {};
-      this.$root.$emit('hide::modal', 'broken-task-modal');
+      this.$root.$emit('bv::hide::modal', 'broken-task-modal');
     },
   },
 };

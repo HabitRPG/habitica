@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'quest-invitation');
+      this.$root.$emit('bv::hide::modal', 'quest-invitation');
     },
   },
 };

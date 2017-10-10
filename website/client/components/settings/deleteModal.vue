@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
     async deleteAccount () {
       await axios.delete('/api/v3/user', {
@@ -55,7 +55,7 @@ export default {
       });
       localStorage.clear();
       window.location.href = '/static/home';
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
   },
 };

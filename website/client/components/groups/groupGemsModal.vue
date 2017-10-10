@@ -20,7 +20,7 @@
 export default {
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'group-gems-modal');
+      this.$root.$emit('bv::hide::modal', 'group-gems-modal');
     },
   },
 };

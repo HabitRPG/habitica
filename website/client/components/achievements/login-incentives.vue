@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'login-incentives');
+      this.$root.$emit('bv::hide::modal', 'login-incentives');
     },
   },
 };

@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'won-challenge');
+      this.$root.$emit('bv::hide::modal', 'won-challenge');
     },
   },
 };

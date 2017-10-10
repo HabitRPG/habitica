@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'rebirth-enabled');
+      this.$root.$emit('bv::hide::modal', 'rebirth-enabled');
     },
   },
 };

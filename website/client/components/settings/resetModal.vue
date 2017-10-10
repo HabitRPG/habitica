@@ -17,14 +17,14 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
     async reset () {
       let response = await axios.post('/api/v3/user/reset');
       // @TODO: Not sure if this is correct
       this.$store.user = response.data.data.user;
       this.$router.push('/');
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
   },
 };

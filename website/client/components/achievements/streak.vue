@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'streak');
+      this.$root.$emit('bv::hide::modal', 'streak');
     },
     suppressModals () {
       let surpress = this.user.preferences.suppressModals.streak ? true : false;

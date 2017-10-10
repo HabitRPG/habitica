@@ -473,7 +473,7 @@ export default {
           return;
         }
 
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
       },
     },
   };

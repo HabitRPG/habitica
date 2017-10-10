@@ -404,7 +404,7 @@ export default {
           cardType: item.key,
           messageOptions: this.content.cardTypes[item.key].messageOptions,
         };
-        this.$root.$emit('show::modal', 'card');
+        this.$root.$emit('bv::show::modal', 'card');
         return;
       }
 
@@ -426,7 +426,7 @@ export default {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
-        this.$root.$emit('show::modal', 'start-quest-modal');
+        this.$root.$emit('bv::show::modal', 'start-quest-modal');
 
         this.$root.$emit('selectQuest', item);
       }

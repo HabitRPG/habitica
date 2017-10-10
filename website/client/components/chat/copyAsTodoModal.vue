@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'copyAsTodo');
+      this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
     saveTodo () {
       // let newTask = {
@@ -59,7 +59,7 @@ export default {
       //  @TODO: Add after tasks: User.addTask({body:newTask});
       // @TODO: Notification.text(window.env.t('messageAddedAsToDo'));
 
-      this.$root.$emit('hide::modal', 'copyAsTodo');
+      this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
   },
 };

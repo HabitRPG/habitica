@@ -173,7 +173,7 @@ export default {
 
       this.loading = false;
 
-      this.$root.$emit('hide::modal', 'start-quest-modal');
+      this.$root.$emit('bv::hide::modal', 'start-quest-modal');
     },
   },
 };

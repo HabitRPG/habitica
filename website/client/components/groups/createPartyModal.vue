@@ -185,7 +185,7 @@ export default {
         partySize: 1,
       });
 
-      this.$root.$emit('hide::modal', 'create-party-modal');
+      this.$root.$emit('bv::hide::modal', 'create-party-modal');
       this.$router.push('/party');
     },
   },

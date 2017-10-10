@@ -175,7 +175,7 @@ export default {
       }
     },
     close () {
-      this.$root.$emit('hide::modal', 'select-member-modal');
+      this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     sort (option) {
       this.sortOption = option;

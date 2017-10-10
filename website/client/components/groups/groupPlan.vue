@@ -379,7 +379,7 @@ export default {
   methods: {
     launchModal () {
       this.changePage(this.PAGES.CREATE_GROUP);
-      this.$root.$emit('show::modal', 'group-plan-modal');
+      this.$root.$emit('bv::show::modal', 'group-plan-modal');
     },
     changePage (page) {
       this.activePage = page;

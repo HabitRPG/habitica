@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'report-flag');
+      this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');

@@ -25,7 +25,7 @@
 export default {
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'testingletiant');
+      this.$root.$emit('bv::hide::modal', 'testingletiant');
     },
     takeMethere () {
       this.$router.push('/groups/discovery');

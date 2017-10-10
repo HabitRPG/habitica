@@ -140,7 +140,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'send-gems');
+      this.$root.$emit('bv::hide::modal', 'send-gems');
     },
   },
 };

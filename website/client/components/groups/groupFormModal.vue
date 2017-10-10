@@ -452,7 +452,7 @@ export default {
       if (newgroup && newgroup._id) {
         this.$router.push(`/groups/guild/${newgroup._id}`);
       }
-      this.$root.$emit('hide::modal', 'guild-form');
+      this.$root.$emit('bv::hide::modal', 'guild-form');
     },
     resetWorkingGroup () {
       this.workingGroup = {

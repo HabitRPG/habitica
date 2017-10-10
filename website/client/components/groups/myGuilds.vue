@@ -139,7 +139,7 @@ export default {
     },
     createGroup () {
       this.$store.state.editingGroup = {};
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('bv::show::modal', 'guild-form');
     },
   },
 };

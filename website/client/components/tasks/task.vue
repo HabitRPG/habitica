@@ -552,7 +552,7 @@ export default {
     },
     handleBrokenTask (task) {
       this.$store.state.brokenChallengeTask = task;
-      this.$root.$emit('show::modal', 'broken-task-modal');
+      this.$root.$emit('bv::show::modal', 'broken-task-modal');
     },
   },
 };

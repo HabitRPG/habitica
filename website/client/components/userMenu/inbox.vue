@@ -296,7 +296,7 @@ export default {
       });
     },
     close () {
-      this.$root.$emit('hide::modal', 'inbox-modal');
+      this.$root.$emit('bv::hide::modal', 'inbox-modal');
     },
   },
 };

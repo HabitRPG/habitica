@@ -151,7 +151,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'choose-class');
+      this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
       this.$store.dispatch('user:changeClass', {query: {class: heroClass}});

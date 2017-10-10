@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'joined-guild');
+      this.$root.$emit('bv::hide::modal', 'joined-guild');
     },
   },
 };

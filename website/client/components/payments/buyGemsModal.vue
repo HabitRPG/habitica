@@ -398,7 +398,7 @@
     },
     methods: {
       close () {
-        this.$root.$emit('hide::modal', 'buy-gems');
+        this.$root.$emit('bv::hide::modal', 'buy-gems');
       },
     },
     watch: {

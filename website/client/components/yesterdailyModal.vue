@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     async close () {
-      this.$root.$emit('hide::modal', 'yesterdaily');
+      this.$root.$emit('bv::hide::modal', 'yesterdaily');
     },
   },
 };

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'drops-enabled');
+      this.$root.$emit('bv::hide::modal', 'drops-enabled');
     },
   },
 };

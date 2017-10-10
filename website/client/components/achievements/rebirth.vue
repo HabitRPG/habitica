@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'rebirth');
+      this.$root.$emit('bv::hide::modal', 'rebirth');
     },
   },
 };

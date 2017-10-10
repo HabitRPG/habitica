@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'contributor');
+      this.$root.$emit('bv::hide::modal', 'contributor');
     },
   },
 };

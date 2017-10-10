@@ -157,7 +157,7 @@
         this.hideDialog();
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'sell-modal');
+        this.$root.$emit('bv::hide::modal', 'sell-modal');
       },
     },
     props: {

@@ -294,7 +294,7 @@ export default {
     },
     showBailey () {
       this.user.flags.newStuff = true;
-      this.$root.$emit('show::modal', 'new-stuff');
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -347,13 +347,13 @@ export default {
       updates = {};
     },
     openRestoreModal () {
-      this.$root.$emit('show::modal', 'restore');
+      this.$root.$emit('bv::show::modal', 'restore');
     },
     openResetModal () {
-      this.$root.$emit('show::modal', 'reset');
+      this.$root.$emit('bv::show::modal', 'reset');
     },
     openDeleteModal () {
-      this.$root.$emit('show::modal', 'delete');
+      this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (networkKey) {
       // @TODO: What do we use this for?

@@ -1304,7 +1304,7 @@ export default {
         this.$store.state.tasks.data[`${task.type}s`].unshift(task);
       });
 
-      this.$root.$emit('hide::modal', 'avatar-modal');
+      this.$root.$emit('bv::hide::modal', 'avatar-modal');
       this.$router.push('/');
       this.$store.dispatch('user:set', {
         'flags.welcomed': true,

@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
     restore () {
       if (this.restoreValues.stats.lvl < 1) {
@@ -98,7 +98,7 @@ export default {
       };
 
       this.$store.dispatch('user:set', settings);
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
   },
 };

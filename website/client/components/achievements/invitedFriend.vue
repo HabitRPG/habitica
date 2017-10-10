@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'invited-friend');
+      this.$root.$emit('bv::hide::modal', 'invited-friend');
     },
   },
 };
