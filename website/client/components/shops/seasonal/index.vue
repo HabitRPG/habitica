@@ -353,6 +353,8 @@
 
         hidePinned: false,
         featuredGearBought: false,
+
+        backgroundUpdate: new Date(),
       };
     },
     computed: {
@@ -367,6 +369,8 @@
       },
 
       seasonal () {
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
         let seasonal = shops.getSeasonalShop(this.user);
 
         let itemsNotOwned = seasonal.featured.items.filter(item => {
@@ -497,6 +501,11 @@
 
         this.$root.$emit('buyModal::showItem', item);
       },
+    },
+    created () {
+      this.$root.$on('buyModal::boughtItem', () => {
+        this.backgroundUpdate = new Date();
+      });
     },
   };
 </script>

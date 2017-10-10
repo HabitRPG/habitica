@@ -350,7 +350,8 @@
     top: -.5em;
     color: $white;
     background: $purple-200;
-    padding: .15em .55em;
+    padding: .15em;
+    text-align: center;
     width: 24px;
     height: 24px;
     border-radius: 50%;
