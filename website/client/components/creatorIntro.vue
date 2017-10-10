@@ -71,7 +71,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
       .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
         .col-12.customize-options
-          //h3(v-if='!hideSet(set)') {{$t(set.key)}}
           .option(v-for='option in set.options',
             :class='{active: option.active, locked: option.locked, hide: option.hide}')
             .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
@@ -98,25 +97,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
             :class='{active: user.preferences.hair.color === option}')
             .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-        //.row(v-if='editing')
-          .col-12.customize-options(v-if='editing')
-            .option(v-for='option in premiumHairColors',
-              :class='{active: option.active === option, locked: option.locked}')
-              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-              .gem-lock(v-if='option.locked')
-                .svg-icon.gem(v-html='icons.gem')
-                span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
-        .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
-          .col-12.customize-options
-            //h3(v-if='!hideSet(set)') {{set.text}}
-            .option(v-for='option in set.options',
-              :class='{active: option.active, locked: option.locked, hide: option.hide}')
-              .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-              .gem-lock(v-if='option.locked')
-                .svg-icon.gem(v-html='icons.gem')
-                span 2
+        .col-12.customize-options(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+          .option(v-for='option in set.options',
+            :class='{active: option.active, locked: option.locked, hide: option.hide}')
+            .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
           .col-12.text-center
             button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
