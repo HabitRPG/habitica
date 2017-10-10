@@ -141,7 +141,7 @@
     "report": "举报",
     "abuseFlag": "举报违反社区准则的用户",
     "abuseFlagModalHeading": "举报 <%= name %> 违规",
-    "abuseFlagModalBody": "你确定要举报这个帖子？你 只能 举报违反了<%= firstLinkStart %>社区准则<%= linkEnd %>或者 <%= secondLinkStart %>服务条款<%= linkEnd %> 的帖子。不当的举报是违反社区准则的，并且你会因此而违规。适当的举报理由包括但不限于：<br><br><ul style='margin-left: 10px;'><li>咒骂 、宗教性的起誓</li><li>偏见、诋毁</li><li>成人话题</li><li>暴力内容，即便是玩笑性质的</li><li>垃圾邮件，荒谬的消息</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "举报违规",
     "abuseReported": "感谢您报告此违反服务条款的行为。版主已经接到通知。",
     "abuseAlreadyReported": "你已经举报过此信息。",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Nahlás porušenie Komunitných Pravidiel",
     "abuseFlagModalHeading": "Nahlásiť <%= name %> za priestupok?",
-    "abuseFlagModalBody": "Si si istý, že chceš nahlásiť tento príspevok? Mal by si nahlasovať LEN príspevky porušujúce <%= firstLinkStart %>Komunitné Pravidlá<%= linkEnd %> a/alebo <%= secondLinkStart %>Pravidlá Používania<%= linkEnd %>. Nevhodné nahlasovanie príspevkov je považované za porušivanie Komunitných Pravidiel a bude sa považovať za priestupok z tvojej strany. Vhodné dôvody na označenie príspevku obsahujú ale nie sú limitované nasledovnými:<br><br><ul style='margin-left: 10px;'><li>náboženské prísahy, sľuby</li><li>bigotnosť, urážky</li><li>témy pre dospelých</li><li>násilie, aj keď je myslené ako vtip</li><li>spam, nezmyselné správy</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Nahlásiť priestupok",
     "abuseReported": "Ďakujeme ti za nahlásenie porušenia pravidiel. Moderátori už boli upovedomení.",
     "abuseAlreadyReported": "Túto správu si už nahlásil.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

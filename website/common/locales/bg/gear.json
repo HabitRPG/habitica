@@ -10,6 +10,8 @@
     "gearNotOwned": "Не притежавате този предмет.",
     "noGearItemsOfType": "Не притежавате нищо от тези.",
     "noGearItemsOfClass": "Вече имате всичката възможна класова екипировка! Още ще стане налична по време на големите празненства, около слънцестоенията и равноденствията.",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Тип",
     "sortByPrice": "Цена",
     "sortByCon": "ЯКО",

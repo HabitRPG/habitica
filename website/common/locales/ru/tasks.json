@@ -6,7 +6,7 @@
     "addsingle": "Добавить одно",
     "editATask": "Edit a <%= type %>",
     "createTask": "Создать <%= type %>",
-    "addTaskToUser": "Добавить задачу",
+    "addTaskToUser": "Добавить",
     "scheduled": "Запланированные",
     "theseAreYourTasks": "Это ваши <%= taskType %>",
     "habit": "Привычка",

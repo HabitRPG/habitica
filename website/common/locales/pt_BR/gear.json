@@ -10,6 +10,8 @@
     "gearNotOwned": "Você não possui este item.",
     "noGearItemsOfType": "Você não possui nenhum desses.",
     "noGearItemsOfClass": "Você já tem todos os equipamentos da sua classe! Mais equipamentos serão liberados durante as Grandes Galas, que acontecem nas transições entre estações do ano.",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Tipo",
     "sortByPrice": "Preço",
     "sortByCon": "CON",

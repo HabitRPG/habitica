@@ -162,7 +162,7 @@
     "missingWebhookId": "The webhook's id is required.",
     "invalidWebhookType": "\"<%= type %>\" is not a valid value for the parameter \"type\".",
     "webhookBooleanOption": "\"<%= option %>\" måste vara ett Boolean värde.",
-    "webhookIdAlreadyTaken": "A webhook with the id <%= id %> already exists.",
+    "webhookIdAlreadyTaken": "En webhook med id <%= id %> finns redan.",
     "noWebhookWithId": "There is no webhook with the id <%= id %>.",
     "regIdRequired": "RegId är ett krav",
     "invalidPushClient": "Invalid client. Only Official Habitica clients can receive push notifications.",

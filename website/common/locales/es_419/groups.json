@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Reportar una violación de las Normas de la Comunidad",
     "abuseFlagModalHeading": "¿Reportar una violación hecha por <%= name %>?",
-    "abuseFlagModalBody": "¿Estás seguro de que quieres denunciar esta publicación? Deberías denunciar una publicación SÓLO cuando viola las <%= firstLinkStart %>Normas de la Comunidad<%= linkEnd %> y/o los <%= secondLinkStart %>Términos de Servicio<%= linkEnd %>. Denunciar una publicación de manera indebida es una violación de las Normas de la Comunidad y puede resultar en una sanción. Algunas de las razones apropiadas por las cuales denunciar una publicación son:<br><br><ul style='margin-left: 10px;'><li>usar malas palabras, blasfemias religiosas</li><li>intolerancia, epítetos racistas/sexistas/etc.</li><li>temas adultos</li><li>violencia, incluso en forma de broma</li><li>spam, mensajes sin sentido</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Reportar Violación",
     "abuseReported": "Gracias por reportar esta violación. Los moderadores han sido notificados.",
     "abuseAlreadyReported": "Ya has reportado este mensaje.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }
