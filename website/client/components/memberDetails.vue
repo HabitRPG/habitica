@@ -1,32 +1,36 @@
 <template lang="pug">
-.row.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
-    .col-4
-      avatar(:member="member",
-        @click.native="$emit('click')",
-        @mouseover.native="$emit('onHover')",
-        @mouseout.native="$emit('onHover')",
-      )
-    .member-stats(:class="{'col-8': !expanded}")
-      h3.character-name
-        | {{member.profile.name}}
-        .is-buffed(v-if="isBuffed")
-          .svg-icon(v-html="icons.buff")
-      span.small-text.character-level {{ characterLevel }}
-      .progress-container
-        .svg-icon(v-html="icons.health")
-        .progress
-          .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
-        span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
-      .progress-container
-        .svg-icon(v-html="icons.experience")
-        .progress
-          .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
-        span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
-      .progress-container(v-if="hasClass")
-        .svg-icon(v-html="icons.mana")
-        .progress
-          .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
-        span.small-text {{member.stats.mp | statFloor}} / {{maxMP}}
+.d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
+  avatar(
+    :member="member",
+    @click.native="$emit('click')",
+    @mouseover.native="$emit('onHover')",
+    @mouseout.native="$emit('onHover')",
+    :hide-class-badge="classBadgePosition !== 'under-avatar'",
+  )
+  .member-stats
+    .d-flex.align-items-center
+      class-badge(v-if="classBadgePosition === 'next-to-name'", :member-class="member.stats.class")
+      .d-flex.flex-column.profile-name-character
+        h3.character-name
+          | {{member.profile.name}}
+          .is-buffed(v-if="isBuffed")
+            .svg-icon(v-html="icons.buff")
+        span.small-text.character-level {{ characterLevel }}
+    .progress-container
+      .svg-icon(v-html="icons.health")
+      .progress
+        .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
+      span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
+    .progress-container
+      .svg-icon(v-html="icons.experience")
+      .progress
+        .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
+      span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
+    .progress-container(v-if="hasClass")
+      .svg-icon(v-html="icons.mana")
+      .progress
+        .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
+      span.small-text {{member.stats.mp | statFloor}} / {{maxMP}}
 </template>
 
 <style lang="scss" scoped>
@@ -34,13 +38,11 @@
 
   .member-details {
     white-space: nowrap;
-    margin-top: 24px;
-    margin-bottom: 24px;
     transition: all 0.15s ease-out;
   }
 
   .member-stats {
-    padding-left: 16px;
+    padding-left: 12px;
     padding-right: 24px;
     opacity: 1;
     transition: width 0.15s ease-out;
@@ -51,12 +53,85 @@
     display: none;
   }
 
+  .small-text {
+    color: $header-color;
+  }
+
+  .profile-name-character {
+    margin-left: 12px;
+  }
+
+  .character-name {
+    margin-bottom: 1px;
+    color: $white;
+  }
+
+  .character-level {
+    font-style: normal;
+    margin-bottom: .5em;
+  }
+
+  .is-buffed {
+    width: 20px;
+    height: 20px;
+    background: $header-dark-background;
+    display: inline-block;
+    margin-left: 16px;
+    vertical-align: middle;
+    padding-top: 4px;
+
+    .svg-icon {
+      display: block;
+      width: 10px;
+      height: 12px;
+      margin: 0 auto;
+    }
+  }
+
+  .progress-container {
+    margin-left: 4px;
+    margin-bottom: .5em;
+  }
+
+  .progress-container > span {
+    color: $header-color;
+    margin-left: 8px;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .progress-container > .svg-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    padding-top: 6px;
+  }
+
+  .progress-container > .progress {
+    width: 80%;
+    min-width: 200px;
+    margin: 0px;
+    border-radius: 2px;
+    height: 12px;
+    background-color: $header-dark-background;
+  }
+
+  .progress-container > .progress > .progress-bar {
+    border-radius: 2px;
+    height: 12px;
+    min-width: 0px;
+  }
+
+  .progress-container .svg-icon, .progress-container .progress, .progress-container .small-text {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
   // Condensed version
   .member-details.condensed.expanded {
     background: $header-dark-background;
     box-shadow: 0 0 0px 9px $header-dark-background;
     position: relative;
-    margin-bottom: 33px;
     z-index: 8;
 
     .is-buffed {
@@ -96,86 +171,14 @@
       border-radius: 0px;
       height: 10px;
     }
-  }
-
-  .small-text {
-    color: $header-color;
-  }
-
-  .character-name {
-    margin-bottom: 1px;
-    color: $white;
-  }
-
-  .character-level {
-    display: block;
-    font-style: normal;
-    margin-bottom: .5em;
-  }
-
-  .is-buffed {
-    width: 20px;
-    height: 20px;
-    background: $header-dark-background;
-    display: inline-block;
-    margin-left: 16px;
-    vertical-align: middle;
-    padding-top: 4px;
-
-    .svg-icon {
-      display: block;
-      width: 10px;
-      height: 12px;
-      margin: 0 auto;
-    }
-  }
-
-  #header-avatar {
-    margin-right: 16px;
-  }
-
-  .progress-container {
-    margin-bottom: .5em;
-  }
-
-  .progress-container > span {
-    color: $header-color;
-    margin-left: 16px;
-    font-style: normal;
-  }
-
-  .progress-container > .svg-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    padding-top: .3em;
-  }
-
-  .progress-container > .progress {
-    width: 80%;
-    min-width: 200px;
-    margin: 0px;
-    border-radius: 2px;
-    height: 16px;
-    background-color: $header-dark-background;
-  }
-
-  .progress-container > .progress > .progress-bar {
-    border-radius: 2px;
-    height: 16px;
-    min-width: 0px;
-  }
-
-  .progress-container .svg-icon, .progress-container .progress {
-    display: inline-block;
-    vertical-align: bottom;
-  }
+  } 
 </style>
 
 <script>
 import Avatar from './avatar';
+import ClassBadge from './members/classBadge';
 import { mapState } from 'client/libs/store';
-import profile from './userMenu/profile';
+import Profile from './userMenu/profile';
 
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
@@ -189,7 +192,8 @@ import manaIcon from 'assets/svg/mana.svg';
 export default {
   components: {
     Avatar,
-    profile,
+    Profile,
+    ClassBadge,
   },
   props: {
     member: {
@@ -203,6 +207,10 @@ export default {
     expanded: {
       type: Boolean,
       default: false,
+    },
+    classBadgePosition: {
+      type: String,
+      default: 'under-avatar', // next-to-name or hidden
     },
   },
   data () {
