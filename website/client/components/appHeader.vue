@@ -6,6 +6,7 @@ div
     member-details(
       :member="user",
       :class-badge-position="'next-to-name'",
+      :is-header="true",
     )
     .view-party(v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1")
       // TODO button should open the party members modal
@@ -23,6 +24,7 @@ div
         condensed=true,
         @onHover="expandMember(member._id)",
         :expanded="member._id === expandedMember",
+        :is-header="true",
       )
     .no-party.d-flex.justify-content-center.text-center(v-else)
       .align-self-center(v-once)

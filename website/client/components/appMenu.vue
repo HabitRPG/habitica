@@ -276,18 +276,19 @@ div
   }
 
   .message-count {
-    background-color: #46a7d9;
+    background-color: $blue-50;
     border-radius: 50%;
     height: 20px;
     width: 20px;
     float: right;
-    color: #fff;
+    color: $white;
     text-align: center;
     font-weight: bold;
     font-size: 12px;
   }
 
   .message-count.top-count {
+    background-color: $red-50;
     position: absolute;
     right: 0;
     top: .5em;

@@ -1,13 +1,17 @@
 <template lang="pug">
-.d-flex.member-details(:class="{ condensed, expanded }", @click='showMemberModal(member)')
-  avatar(
-    :member="member",
-    @click.native="$emit('click')",
-    @mouseover.native="$emit('onHover')",
-    @mouseout.native="$emit('onHover')",
-    :hide-class-badge="classBadgePosition !== 'under-avatar'",
-  )
-  .member-stats
+.member-details(
+  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }", 
+  @click='showMemberModal(member)'
+)
+  div(:class="{ 'col-4': !isHeader }")
+    avatar(
+      :member="member",
+      @click.native="$emit('click')",
+      @mouseover.native="$emit('onHover')",
+      @mouseout.native="$emit('onHover')",
+      :hide-class-badge="classBadgePosition !== 'under-avatar'",
+    )
+  .member-stats(:class="{'col-8': !expanded && !isHeader}")
     .d-flex.align-items-center
       class-badge(v-if="classBadgePosition === 'next-to-name'", :member-class="member.stats.class")
       .d-flex.flex-column.profile-name-character
@@ -211,6 +215,10 @@ export default {
     classBadgePosition: {
       type: String,
       default: 'under-avatar', // next-to-name or hidden
+    },
+    isHeader: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
