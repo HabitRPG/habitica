@@ -17,14 +17,9 @@
 
         div
           b.how-many-to-sell {{ $t('howManyToSell') }}
+
         div
-          b-dropdown(:text="selectedAmountToSell +''", right=true)
-            b-dropdown-item(
-              v-for="num of dropDownItems",
-              @click="selectedAmountToSell = num",
-              :active="selectedAmountToSell === num",
-              :key="num"
-            ) {{ num }}
+          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemCount", min="1")
 
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
           span.value {{ item.value }}
@@ -42,6 +37,15 @@
 
   #sell-modal {
     @include centeredModal();
+
+    .itemsToSell {
+      display: inline-block;
+      width: 5em;
+    }
+
+    .modal-dialog {
+      width: 330px;
+    }
 
     .content {
       text-align: center;
@@ -133,20 +137,11 @@
         }),
       };
     },
-    computed: {
-      dropDownItems () {
-        let result = [];
-
-        for (let i = 1; i <= this.itemCount; i++) {
-          result.push(i);
-        }
-
-        return result;
-      },
-    },
     methods: {
       onChange ($event) {
         this.$emit('change', $event);
+
+        this.selectedAmountToSell = 1;
       },
       sellItems () {
         this.$store.dispatch('shops:sellItems', {

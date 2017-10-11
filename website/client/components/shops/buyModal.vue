@@ -83,6 +83,10 @@
   #buy-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 330px;
+    }
+
     .avatar {
       cursor: default;
       margin: 0 auto;

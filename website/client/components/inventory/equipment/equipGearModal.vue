@@ -41,6 +41,10 @@
   #equipgear-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 330px;
+    }
+
     .content {
       text-align: center;
     }
