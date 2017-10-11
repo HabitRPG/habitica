@@ -35,6 +35,12 @@ module.exports = function buyGear (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
   }
 
+  let previousGear = item.key.replace(/[0-9]/, item.key.slice(-1) - 1);
+
+  if (!user.items.gear.owned[previousGear]) {
+    throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
+  }
+
   if (user.preferences.autoEquip) {
     user.items.gear.equipped[item.type] = item.key;
     message = handleTwoHanded(user, item, undefined, req);
