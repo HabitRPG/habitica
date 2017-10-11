@@ -58,12 +58,12 @@ div.item-with-icon.item-notifications.dropdown
   @import '~client/assets/scss/colors.scss';
 
   .message-count {
-    background-color: #46a7d9;
+    background-color: $blue-50;
     border-radius: 50%;
     height: 20px;
     width: 20px;
     float: right;
-    color: #fff;
+    color: $white;
     text-align: center;
     font-weight: bold;
     font-size: 12px;
@@ -74,6 +74,7 @@ div.item-with-icon.item-notifications.dropdown
     right: -.5em;
     top: .5em;
     padding: .2em;
+    background-color: $red-50;
   }
 
   .clear-button {
