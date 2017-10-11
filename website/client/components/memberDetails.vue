@@ -112,7 +112,6 @@
   }
 
   .progress-container > .progress {
-    width: 80%;
     min-width: 200px;
     margin: 0px;
     border-radius: 2px;
