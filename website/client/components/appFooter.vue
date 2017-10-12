@@ -82,7 +82,7 @@
         hr
       .col-4
         | © 2017 Habitica. All rights reserved.
-        // .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
+        .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
             a.btn.btn-default(@click="setHealthLow()") Health = 1

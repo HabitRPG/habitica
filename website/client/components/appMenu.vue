@@ -62,6 +62,8 @@ div
       .item-with-icon
         .svg-icon(v-html="icons.gold")
         span {{Math.floor(user.stats.gp * 100) / 100}}
+      a.item-with-icon(@click="sync")
+        .svg-icon(v-html="icons.sync")
       notification-menu
       a.dropdown.item-with-icon.item-user
         span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
@@ -235,7 +237,16 @@ div
     padding-top: 16px;
     padding-left: 16px;
 
+    span {
+      font-weight: bold;
+    }
+
+    &:hover .svg-icon {
+      color: $white;
+    }
+
     .svg-icon {
+      color: $header-color;
       vertical-align: bottom;
       display: inline-block;
       width: 20px;
@@ -253,11 +264,6 @@ div
 
     .svg-icon {
       margin-right: 0px;
-      color: $header-color;
-
-      &:hover {
-        color: $white;
-      }
     }
   }
 
@@ -305,6 +311,7 @@ import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
+import syncIcon from 'assets/svg/sync.svg';
 import userIcon from 'assets/svg/user.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
@@ -330,6 +337,7 @@ export default {
         gold: goldIcon,
         user: userIcon,
         hourglasses: svgHourglasses,
+        sync: syncIcon,
         logo,
       }),
     };
@@ -348,6 +356,12 @@ export default {
     this.getUserGroupPlans();
   },
   methods: {
+    sync () {
+      return Promise.all([
+        this.$store.dispatch('user:fetch', {forceLoad: true}),
+        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
+    },
     logout () {
       this.$store.dispatch('auth:logout');
     },

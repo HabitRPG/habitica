@@ -90,6 +90,7 @@ div.item-with-icon.item-notifications.dropdown
   }
 
   .notifications {
+    color: $header-color;
     vertical-align: bottom;
     display: inline-block;
     width: 20px;
@@ -97,6 +98,12 @@ div.item-with-icon.item-notifications.dropdown
     margin-right: 8px;
     margin-left: 8px;
     margin-top: .2em;
+  }
+
+  .item-with-icon:hover {
+    .svg-icon {
+      color: $white;
+    }
   }
 
   .user-dropdown {
