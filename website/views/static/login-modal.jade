@@ -1,8 +1,0 @@
-include ./login-mixins
-
-script(id='modals/login.html', type='text/ng-template')
-  .modal-header
-    button.close(type='button', ng-click='$close()') ×
-    h4.modal-title=env.t('loginAndReg')
-  .modal-body(ng-controller='AuthCtrl')
-    +loginBody
