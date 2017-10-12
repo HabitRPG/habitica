@@ -69,7 +69,7 @@
 
 <script>
 import axios from 'axios';
-import { loadProgressBar } from 'axios-progress-bar';
+import { loadProgressBar } from 'axios-progress-bar/src/index';
 
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
@@ -145,7 +145,9 @@ export default {
 
     // @TODO split up this file, it's too big
 
-    loadProgressBar();
+    loadProgressBar({
+      showSpinner: false,
+    });
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
