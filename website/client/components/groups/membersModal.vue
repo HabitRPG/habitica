@@ -40,11 +40,11 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='addManager(member)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('addManager')}}
-            b-dropdown-item(@click='sort(option.value)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='removeManager(member)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
@@ -343,14 +343,18 @@ export default {
       this.memberToRemove =  {};
     },
     async addManager (memberId) {
-      await this.$store.dispatch('group:addManager', {
+      await this.$store.dispatch('guilds:addManager', {
+        groupId: this.groupId,
         memberId,
       });
+      alert(this.$t('managerAdded'));
     },
     async removeManager (memberId) {
-      await this.$store.dispatch('group:removeManager', {
+      await this.$store.dispatch('guilds:removeManager', {
+        groupId: this.groupId,
         memberId,
       });
+      alert(this.$t('managerRemoved'));
     },
     close () {
       this.$root.$emit('hide::modal', 'members-modal');
