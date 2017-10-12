@@ -17,8 +17,6 @@ module.exports = function staticMiddleware (expressApp) {
   // Hash their file names and cache the entire /static folder
   expressApp.use('/static', express.static(`${BASE_DIR}/dist-client/static`));
 
-
-  // @TODO all these paths are not used by the new client, remove them
-  // But first check that they're not used anywhere else
-  // In particular the images used by emails
+  // Apidoc
+  expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc_build`));
 };
