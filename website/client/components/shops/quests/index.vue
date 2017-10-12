@@ -471,6 +471,8 @@ export default {
         }
       },
       selectItem (item) {
+        if (item.locked) return;
+
         this.selectedItemToBuy = item;
 
         if (this.$store.state.recentlyPurchased[item.key]) {

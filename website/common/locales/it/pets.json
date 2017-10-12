@@ -73,7 +73,7 @@
     "useGems": "Se hai messo gli occhi su un animale, ma non vuoi più aspettare per averlo, usa le gemme in <strong>Inventario > Mercato</strong> per comparne uno!",
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
-    "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",
@@ -119,7 +119,7 @@
     "foodTitle": "Cibo",
     "dragThisFood": "Trascina questo <%= foodName %> su un Animale e guardalo crescere!",
     "clickOnPetToFeed": "Clicca su un Animale per dargli <%= foodName %> e guardalo crescere!",
-    "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
+    "dragThisPotion": "Trascina questo <%= potionName %> su un uovo e fai nascere un nuovo animale!",
     "clickOnEggToHatch": "Clicca su un Uovo per usare la tua Pozione <%= potionName %> e far nascere un nuovo animale!",
     "hatchDialogText": "Versa la tua Pozione <%= potionName %> sul tuo uovo di <%= eggName %>, e nascerà <%= petName %>."
 }

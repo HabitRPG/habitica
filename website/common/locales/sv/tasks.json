@@ -72,7 +72,7 @@
     "complete2": "Slutför",
     "dated": "Daterad",
     "today": "Idag",
-    "dueIn": "Due <%= dueIn %>",
+    "dueIn": "Förfaller <%= dueIn %>",
     "due": "Ofärdig",
     "notDue": "Inte Gjort",
     "grey": "Grå",

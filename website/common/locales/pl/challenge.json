@@ -114,7 +114,7 @@
     "shortName": "Skrócona nazwa",
     "shortNamePlaceholder": "Jaki skrócony tag powinien być używany do identyfikacji Twojego Wyzwania? ",
     "updateChallenge": "Zaktualizuj Wyzwanie",
-    "haveNoChallenges": "This group has no Challenges",
+    "haveNoChallenges": "Ta grupa nie ma żadnych Wyzwań",
     "loadMore": "Załaduj więcej",
     "exportChallengeCsv": "Eksportuj Wyzwanie",
     "editingChallenge": "Edytuj wyzwanie",
@@ -126,5 +126,5 @@
     "locationRequired": "Lokalizacja Wyzwania jest wymagana (\"Dodaj do\")",
     "categoiresRequired": "Jedna lub więcej kategorii musi zostać wybrane",
     "viewProgressOf": "Zobacz postęp",
-    "selectMember": "Select Member"
+    "selectMember": "Wybierz Członka"
 }

@@ -97,6 +97,8 @@
     float: right;
 
     .svg-icon {
+      position: relative;
+      top: 4px;
       margin-left: 8px;
     }
   }

@@ -107,6 +107,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  witchyFamiliars: {
+    key: 'witchyFamiliars',
+    text: t('witchyFamiliarsText'),
+    notes: t('witchyFamiliarsNotes'),
+    bundleKeys: [
+      'rat',
+      'spider',
+      'frog',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-10-10', '2017-11-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

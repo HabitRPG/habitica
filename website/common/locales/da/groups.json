@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Anmeld overtrædelse af Retningslinjer for Fællesskabet",
     "abuseFlagModalHeading": "Anmeld <%= name %> for overtrædelse?",
-    "abuseFlagModalBody": "Er du sikker på at du vil anmelde denne besked? Du skal KUN anmelde en besked, der overtræder <%= firstLinkStart %>Retningslinjer for Fællesskabet<%= linkEnd %> og/eller <%= secondLinkStart %>Betingelser og Vilkår<%= linkEnd %>. Upassende anmeldelse af en besked er et brud på Retningslinjer for Fællesskabet og kan give dig en overtrædelse. Passende grunde til at anmelde en besked inkluderer, men er ikke begrænset til: <p></p></br><ul style='margin-left: 10px;'><li>banden, religiøse eder</li><li>snæversynethed, skældsord≤</li><li>voksenemner</li><li>vold, inklusiv som en joke</li><li>spam, meningsløse beskeder</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Anmeld Overtrædelse",
     "abuseReported": "Tak for at anmelde denne overtrædelse. Moderatorerne er blevet informeret.",
     "abuseAlreadyReported": "Du har allerede anmeldt denne besked.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

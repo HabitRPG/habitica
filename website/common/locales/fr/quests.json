@@ -102,7 +102,7 @@
     "noActiveQuestToLeave": "Il n'y a pas de quête active à quitter",
     "questLeaderCannotLeaveQuest": "Le responsable de la quête ne peut quitter la quête",
     "notPartOfQuest": "Vous ne participez pas à la quête",
-    "youAreNotOnQuest": "Vous n'êtes pas sur une quête",
+    "youAreNotOnQuest": "Vous n'êtes pas en quête",
     "noActiveQuestToAbort": "Il n'y a pas de quête active à interrompre.",
     "onlyLeaderAbortQuest": "Seul le responsable du groupe ou de la quête peut interrompre une quête.",
     "questAlreadyRejected": "Vous avez déjà rejeté l'invitation à la quête.",
@@ -117,5 +117,5 @@
     "createAccountQuest": "Vous avez reçu cette quête en rejoignant Habitica. Si des amis vous rejoignent, ils l'auront aussi.",
     "questBundles": "Lots de quêtes à prix réduits",
     "buyQuestBundle": "Acheter ce lot de quêtes",
-    "noQuestToStart": "Vous ne trouvez pas de quête pour commencer? Essayez de vérifier la boutique des quêtes dans le Marché pour de nouvelles versions!"
+    "noQuestToStart": "Vous ne trouvez pas de quête à commencer ? Essayez de vérifier la boutique des quêtes, au marché, pour de nouvelles sorties !"
 }

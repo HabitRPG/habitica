@@ -236,6 +236,7 @@ div
     font-weight: normal;
     padding-top: 16px;
     padding-left: 16px;
+    white-space: nowrap;
 
     span {
       font-weight: bold;
