@@ -10,6 +10,8 @@
     "gearNotOwned": "У вас нет этого предмета.",
     "noGearItemsOfType": "У вас нет ничего из этого.",
     "noGearItemsOfClass": "У вас уже есть всё снаряжение вашего класса! Дополнительное снаряжение будет появляться в течение сезонных Гранд-Гала, во время солнцестояний и равноденствий.",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Тип",
     "sortByPrice": "Цена",
     "sortByCon": "CON",

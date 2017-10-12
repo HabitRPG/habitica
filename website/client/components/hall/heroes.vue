@@ -38,8 +38,8 @@
             small {{ '`user.balance`' + this.$t('notGems') }}
           .accordion
             .accordion-group(heading='Items')
-              h4 Update Item
-              .form-group.well
+              h4.expand-toggle(:class="{'open': expandItems}", @click="expandItems = !expandItems") Update Item
+              .form-group.well(v-if="expandItems")
                 input.form-control(type='text',placeholder='Path (eg, items.pets.BearCub-Base)',v-model='hero.itemPath')
                 small.muted Enter the <strong>item path</strong>. E.g., <code>items.pets.BearCub-Zombie</code> or <code>items.gear.owned.head_special_0</code> or <code>items.gear.equipped.head</code>. You can find all the item paths below.
                 br
@@ -51,18 +51,19 @@
                   .accordion-group(heading='Current Items')
                     pre {{hero.items}}
             .accordion-group(heading='Auth')
-              h4 Auth
-              pre {{hero.auth}}
-              .form-group
-                .checkbox
-                  label
-                    input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
-                    | Chat Privileges Revoked
-              .form-group
-                .checkbox
-                  label
-                    input(type='checkbox', v-model='hero.auth.blocked')
-                    | Blocked
+              h4.expand-toggle(:class="{'open': expandAuth}", @click="expandAuth = !expandAuth") Auth
+              div(v-if="expandAuth")
+                pre {{hero.auth}}
+                .form-group
+                  .checkbox
+                    label
+                      input(type='checkbox', v-if='hero.flags', v-model='hero.flags.chatRevoked')
+                      | Chat Privileges Revoked
+                .form-group
+                  .checkbox
+                    label
+                      input(type='checkbox', v-model='hero.auth.blocked')
+                      | Blocked
 
           // h4 Backer Status
           // Add backer stuff like tier, disable adds, etcs
@@ -95,6 +96,12 @@
               div(v-markdown='hero.contributor.contributions', target='_blank')
 </template>
 
+<style lang="scss" scoped>
+  h4.expand-toggle::after {
+    margin-left: 5px;
+  }
+</style>
+
 <script>
 // import keys from 'lodash/keys';
 import each from 'lodash/each';
@@ -123,6 +130,8 @@ export default {
       hatchingPotions,
       special,
       gear,
+      expandItems: false,
+      expandAuth: false,
     };
   },
   directives: {
@@ -171,6 +180,8 @@ export default {
           chatRevoked: false,
         };
       }
+      this.expandItems = false;
+      this.expandAuth = false;
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7 ? true : false;

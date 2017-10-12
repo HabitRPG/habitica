@@ -87,6 +87,10 @@ export async function genericPurchase (store, params) {
 
         const isExperience = item.type === 'experience';
 
+        if (item.type === 'gear') {
+          store.state.user.data.items.gear.owned[item.dropKey] = true;
+        }
+
         // @TODO: We might need to abstract notifications to library rather than mixin
         store.state.notificationStore.push({
           title: '',

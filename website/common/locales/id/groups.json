@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Laporkan pelanggaran Pedoman Komunitas",
     "abuseFlagModalHeading": "Laporkan <%= name %> karena melanggar aturan?",
-    "abuseFlagModalBody": "Apakah kamu yakin ingin melaporkan postingan ini? Laporkan postingan HANYA JIKA postingan tersebut melanggar <%= firstLinkStart %>Pedoman Komunitas<%= linkEnd %> dan/atau <%= secondLinkStart %>Syarat dan Ketentuan<%= linkEnd %>. Pelaporan yang tidak tepat merupakan pelanggaran terhadap Pedoman Komunitas akan membuatmu mendapatkan peringatan. Alasan yang tepat untuk melaporkan postingan adalah termasuk tapi tidak terbatas pada: <br><br><ul style='margin-left: 10px;'><li>mencaci maki, penghinaan terhadap agama</li><li>memaksakan opini pribadi, bigot, mencemooh</li><li>topik dewasa</li><li>kekerasan, termasuk dalam bentuk candaan</li><li>spam, omong kosong</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Laporkan Pelanggaran",
     "abuseReported": "Terima kasih telah melaporkan pelanggaran ini. Moderator telah diberitahu.",
     "abuseAlreadyReported": "Kamu telah melaporkan pesan ini.",
@@ -393,5 +393,6 @@
     "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
-    "groupBilling": "Group Billing"
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?"
 }

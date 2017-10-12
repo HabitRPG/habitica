@@ -10,6 +10,8 @@
     "gearNotOwned": "您还未拥有这件物品",
     "noGearItemsOfType": "您还未拥有这些物品中任何一件",
     "noGearItemsOfClass": "你已经拥有了你所有的职业装备！更多的装备会在盛大的晚会公布，近二至点和二分点的时候。",
+    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "不同类型",
     "sortByPrice": "价钱",
     "sortByCon": "体质",
