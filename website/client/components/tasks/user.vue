@@ -10,9 +10,16 @@
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
-        .input-group
+        .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
+          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
+            type="button",
+            @click="toggleFilterPanel()",
+            :class="{active: selectedTags.length > 0}",
+          )
+            .svg-icon.filter-icon.mr-2(v-html="icons.filter")
+            span(v-once) {{ $t('filter') }}
+        .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
             .tags-category.d-flex(
               v-for="tagsType in tagsByType",
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
@@ -52,15 +59,6 @@
                   a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
                 .float-right
                   a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-          span.input-group-btn
-            button.btn.btn-secondary.filter-button(
-              type="button",
-              @click="toggleFilterPanel()",
-              :class="{'filter-button-open': selectedTags.length > 0}",
-            )
-              .d-flex.align-items-center
-                span(v-once) {{ $t('filter') }}
-                .svg-icon.filter-icon(v-html="icons.filter")
       #create-dropdown.col-1.offset-3
         b-dropdown(:right="true", :variant="'success'")
           div(slot="button-content")
@@ -139,31 +137,9 @@
     color: #4f2a93;
   }
 
-  button.btn.btn-secondary.filter-button {
-    box-shadow: none;
-    border-radius: 2px;
-    border: 1px solid $gray-400 !important;
-
-    &:hover, &:active, &:focus, &.open {
-      box-shadow: none;
-      border-color: $purple-500 !important;
-      color: $gray-50 !important;
-    }
-
-    &.filter-button-open {
-      color: $purple-200 !important;
-
-      .filter-icon {
-        color: $purple-200 !important;
-      }
-    }
-
-    .filter-icon {
-      height: 10px;
-      width: 12px;
-      color: $gray-50;
-      margin-left: 15px;
-    }
+  .filter-icon {
+    width: 16px;
+    height: 16px;
   }
 
   .filter-panel {
