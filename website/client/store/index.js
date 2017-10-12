@@ -132,7 +132,6 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      userIdToMessage: '',
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       recentlyPurchased: {},

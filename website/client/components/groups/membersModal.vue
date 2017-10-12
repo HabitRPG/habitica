@@ -32,7 +32,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon", v-if='isLeader')
                 span.text {{$t('removeMember')}}
-            b-dropdown-item(@click='sendMessage(member._id)')
+            b-dropdown-item(@click='sendMessage(member)')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
@@ -178,7 +178,6 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
-import privateMessageModal from 'client/components/private-message-modal';
 import removeMemberModal from 'client/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
 import removeIcon from 'assets/members/remove.svg';
@@ -193,7 +192,6 @@ export default {
     bDropdown,
     bDropdownItem,
     MemberDetails,
-    privateMessageModal,
     removeMemberModal,
   },
   data () {
@@ -289,9 +287,11 @@ export default {
     },
   },
   methods: {
-    sendMessage () {
-      this.$store.state.userIdToMessage = this.user._id;
-      this.$root.$emit('show::modal', 'private-message');
+    sendMessage (member) {
+      this.$root.$emit('habitica::new-inbox-message', {
+        userIdToMessage: member._id,
+        userName: member.profile.name,
+      });
     },
     async getMembers () {
       let groupId = this.groupId;
@@ -341,13 +341,6 @@ export default {
       this.members.splice(this.memberToRemove.index, 1);
       this.group.memberCount -= 1;
       this.memberToRemove =  {};
-    },
-    async quickReply (uid) {
-      this.memberToReply = uid;
-      await this.$store.dispatch('members:selectMember', {
-        memberId: uid,
-      });
-      this.$root.$emit('show::modal', 'private-message'); //  MemberModalCtrl
     },
     async addManager (memberId) {
       await this.$store.dispatch('group:addManager', {

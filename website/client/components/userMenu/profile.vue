@@ -279,7 +279,6 @@ div
                 .points {{$t('pts')}}
               .col-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
-  private-message-modal
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
@@ -559,7 +558,6 @@ import allocate from  '../../../common/script/ops/allocate';
 
 import MemberDetails from '../memberDetails';
 import bPopover from 'bootstrap-vue/lib/components/popover';
-import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -580,7 +578,6 @@ export default {
   },
   components: {
     bModal,
-    privateMessageModal,
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
@@ -710,8 +707,10 @@ export default {
       this.$store.state.profileOptions.startingPage = page;
     },
     sendMessage () {
-      this.$store.state.userIdToMessage = this.user._id;
-      this.$root.$emit('show::modal', 'private-message');
+      this.$root.$emit('habitica::new-inbox-message', {
+        userIdToMessage: this.user._id,
+        userName: this.user.profile.name,
+      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
