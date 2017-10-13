@@ -2781,6 +2781,228 @@ let quests = {
       unlock: t('questHippoUnlockText'),
     },
   },
+  lostMasterclasser1: {
+    text: t('questLostMasterclasser1Text'),
+    notes: t('questLostMasterclasser1Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser1Completion'),
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    collect: {
+      ancientTome: {
+        text: t('questLostMasterclasser1CollectAncientTomes'),
+        count: 40,
+      },
+      forbiddenTome: {
+        text: t('questLostMasterclasser1CollectForbiddenTomes'),
+        count: 40,
+      },
+      hiddenTome: {
+        text: t('questLostMasterclasser1CollectHiddenTomes'),
+        count: 40,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        },
+      ],
+      gp: 0,
+      exp: 200,
+    },
+  },
+  lostMasterclasser2: {
+    text: t('questLostMasterclasser2Text'),
+    notes: t('questLostMasterclasser2Notes'),
+    group: 'questGroupLostMasterclasser',
+    previous: 'lostMasterclasser1',
+    completion: t('questLostMasterclasser2Completion'),
+    value: 4,
+    goldValue: 500,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser2Boss'),
+      hp: 1500,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'gear',
+          key: 'eyewear_special_aetherMask',
+          text: t('questLostMasterclasser2DropEyewear'),
+        },
+      ],
+      gp: 0,
+      exp: 1500,
+    },
+  },
+  lostMasterclasser3: {
+    text: t('questLostMasterclasser3Text'),
+    notes: t('questLostMasterclasser3Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser3Completion'),
+    previous: 'lostMasterclasser2',
+    value: 4,
+    goldValue: 600,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser3Boss'),
+      hp: 2000,
+      str: 3,
+      rage: {
+        title: t('questLostMasterclasser3RageTitle'),
+        description: t('questLostMasterclasser3RageDescription'),
+        value: 25,
+        healing: 0.3,
+        effect: t('questLostMasterclasser3RageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Base',
+          text: t('questLostMasterclasser3DropBasePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'CottonCandyPink',
+          text: t('questLostMasterclasser3DropPinkPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questLostMasterclasser3DropGoldenPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: t('questLostMasterclasser3DropShadePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Zombie',
+          text: t('questLostMasterclasser3DropZombiePotion'),
+        }, {
+          type: 'gear',
+          key: 'body_special_aetherAmulet',
+          text: t('questLostMasterclasser3DropBodyAccessory'),
+        },
+      ],
+      gp: 0,
+      exp: 2000,
+    },
+  },
+  lostMasterclasser4: {
+    text: t('questLostMasterclasser4Text'),
+    notes: t('questLostMasterclasser4Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser4Completion'),
+    previous: 'lostMasterclasser3',
+    value: 4,
+    goldValue: 700,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser4Boss'),
+      hp: 3000,
+      str: 4,
+      rage: {
+        title: t('questLostMasterclasser4RageTitle'),
+        description: t('questLostMasterclasser4RageDescription'),
+        value: 15,
+        mpDrain: 1,
+        effect: t('questLostMasterclasser4RageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'mounts',
+          key: 'Aether-Invisible',
+          text: t('questLostMasterclasser4DropMount'),
+        }, {
+          type: 'gear',
+          key: 'back_special_aetherCloak',
+          text: t('questLostMasterclasser4DropBackAccessory'),
+        }, {
+          type: 'gear',
+          key: 'weapon_special_aetherCrystals',
+          text: t('questLostMasterclasser4DropWeapon'),
+        },
+      ],
+      gp: 0,
+      exp: 3500,
+    },
+  },
 };
 
 each(quests, (v, key) => {
