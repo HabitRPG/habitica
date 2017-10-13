@@ -712,8 +712,9 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
   return updates;
 }
 
-async function _updateUserWithRetries (userId, updates, numTry = 1) {
-  return await User.update({_id: userId}, updates).exec()
+async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) {
+  query._id = userId;
+  return await User.update(query, updates).exec()
     .then((raw) => {
       return raw;
     }).catch((err) => {
@@ -771,6 +772,33 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       return _updateUserWithRetries(userId, updates);
     }
   });
+
+  if (questK === 'lostMasterclasser4') {
+    let lostMasterclasserQuery = {
+      'achievements.lostMasterclasser': {$ne: true},
+      'achievements.quests.mayhemMistiflying1': {$gt: 0},
+      'achievements.quests.mayhemMistiflying2': {$gt: 0},
+      'achievements.quests.mayhemMistiflying3': {$gt: 0},
+      'achievements.quests.stoikalmCalamity1': {$gt: 0},
+      'achievements.quests.stoikalmCalamity2': {$gt: 0},
+      'achievements.quests.stoikalmCalamity3': {$gt: 0},
+      'achievements.quests.taskwoodsTerror1': {$gt: 0},
+      'achievements.quests.taskwoodsTerror2': {$gt: 0},
+      'achievements.quests.taskwoodsTerror3': {$gt: 0},
+      'achievements.quests.dilatoryDistress1': {$gt: 0},
+      'achievements.quests.dilatoryDistress2': {$gt: 0},
+      'achievements.quests.dilatoryDistress3': {$gt: 0},
+      'achievements.quests.lostMasterclasser1': {$gt: 0},
+      'achievements.quests.lostMasterclasser2': {$gt: 0},
+      'achievements.quests.lostMasterclasser3': {$gt: 0},
+    };
+    let lostMasterclasserUpdate = {
+      $set: {'achievements.lostMasterclasser': true},
+    };
+    promises.concat(participants.map(userId => {
+      return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
+    }));
+  }
 
   return Bluebird.all(promises);
 };
