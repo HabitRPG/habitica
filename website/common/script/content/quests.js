@@ -2979,7 +2979,7 @@ let quests = {
         title: t('questLostMasterclasser4RageTitle'),
         description: t('questLostMasterclasser4RageDescription'),
         value: 15,
-        mpDrain: 1,
+        mpDrain: true,
         effect: t('questLostMasterclasser4RageEffect'),
       },
     },

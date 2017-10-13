@@ -816,6 +816,10 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   let group = this;
   let quest = questScrolls[group.quest.key];
   let down = progress.down * quest.boss.str; // multiply by boss strength
+  // Everyone takes damage
+  let updates = {
+    $inc: {'stats.hp': down},
+  };
 
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
@@ -834,15 +838,19 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
       if (quest.boss.rage.healing) group.quest.progress.hp += group.quest.progress.hp * quest.boss.rage.healing;
       if (group.quest.progress.hp > quest.boss.hp) group.quest.progress.hp = quest.boss.hp;
+      if (quest.boss.rage.mpDrain) {
+        updates.$set = {'stats.mp': 0};
+      }
     }
   }
 
-  // Everyone takes damage
-  await User.update({
-    _id: {$in: this.getParticipatingQuestMembers()},
-  }, {
-    $inc: {'stats.hp': down},
-  }, {multi: true}).exec();
+  await User.update(
+    {_id:
+      {$in: this.getParticipatingQuestMembers()},
+    },
+    updates,
+    {multi: true}
+  ).exec();
   // Apply changes the currently cronning user locally so we don't have to reload it to get the updated state
   // TODO how to mark not modified? https://github.com/Automattic/mongoose/pull/1167
   // must be notModified or otherwise could overwrite future changes: if the user is saved it'll save
