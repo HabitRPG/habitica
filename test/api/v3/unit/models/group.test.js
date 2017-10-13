@@ -282,7 +282,7 @@ describe('Group Model', () => {
           expect(finishQuest).to.be.calledWith(quest);
         });
 
-        context('with Rage', () => {
+        context('with healing Rage', () => {
           beforeEach(async () => {
             party.quest.active = false;
             party.quest.key = 'trex_undead';
@@ -325,6 +325,46 @@ describe('Group Model', () => {
             party = await Group.findOne({_id: party._id});
 
             expect(party.quest.progress.hp).to.eql(500);
+          });
+        });
+
+        context('with Mana drain Rage', () => {
+          beforeEach(async () => {
+            party.quest.active = false;
+            party.quest.key = 'lostMasterclasser4';
+
+            await party.startQuest(questLeader);
+            await party.save();
+          });
+
+          it('applies down progress to boss rage', async () => {
+            progress.down = -2;
+
+            await Group.processQuestProgress(participatingMember, progress);
+
+            party = await Group.findOne({_id: party._id});
+
+            expect(party.quest.progress.rage).to.eql(8);
+
+            let drainedUser = await User.findById(participatingMember._id);
+            expect(drainedUser.stats.mp).to.eql(10);
+          });
+
+          it('activates rage when progress.down triggers rage bar', async () => {
+            let quest = questScrolls[party.quest.key];
+
+            progress.down = -999;
+
+            await party.save();
+            await Group.processQuestProgress(participatingMember, progress);
+
+            party = await Group.findOne({_id: party._id});
+
+            expect(Group.prototype.sendChat).to.be.calledWith(quest.boss.rage.effect('en'));
+            expect(party.quest.progress.rage).to.eql(0);
+
+            let drainedUser = await User.findById(participatingMember._id);
+            expect(drainedUser.stats.mp).to.eql(0);
           });
         });
       });
@@ -1276,7 +1316,7 @@ describe('Group Model', () => {
       let quest;
 
       beforeEach(() => {
-        quest = questScrolls.whale;
+        quest = questScrolls.lostMasterclasser4;
         party.quest.key = quest.key;
         party.quest.active = false;
         party.quest.leader = questLeader._id;
@@ -1340,6 +1380,39 @@ describe('Group Model', () => {
 
         expect(updatedLeader.achievements.quests[quest.key]).to.eql(1);
         expect(updatedParticipatingMember.achievements.quests[quest.key]).to.eql(1);
+      });
+
+      it('gives out super awesome Masterclasser achievement to the deserving', async () => {
+        questLeader.achievements.quests = {
+          mayhemMistiflying1: 1,
+          mayhemMistiflying2: 1,
+          mayhemMistiflying3: 1,
+          stoikalmCalamity1: 1,
+          stoikalmCalamity2: 1,
+          stoikalmCalamity3: 1,
+          taskwoodsTerror1: 1,
+          taskwoodsTerror2: 1,
+          taskwoodsTerror3: 1,
+          dilatoryDistress1: 1,
+          dilatoryDistress2: 1,
+          dilatoryDistress3: 1,
+          lostMasterclasser1: 1,
+          lostMasterclasser2: 1,
+          lostMasterclasser3: 1,
+        };
+        await questLeader.save();
+        await party.finishQuest(quest);
+
+        let [
+          updatedLeader,
+          updatedParticipatingMember,
+        ] = await Promise.all([
+          User.findById(questLeader._id),
+          User.findById(participatingMember._id),
+        ]);
+
+        expect(updatedLeader.achievements.lostMasterclasser).to.eql(true);
+        expect(updatedParticipatingMember.achievements.lostMasterclasser).to.not.eql(true);
       });
 
       it('gives xp and gold', async () => {
