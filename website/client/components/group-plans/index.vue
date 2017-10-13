@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  group-form-modal
   secondary-menu.col-12
     router-link.nav-link(:to="{name: 'groupPlanDetailTaskInformation', params: {groupId}}",
       exact, :class="{'active': $route.name === 'groupPlanDetailTaskInformation'}") {{ $t('groupTaskBoard') }}
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import groupFormModal from 'client/components/groups/groupFormModal';
 import SecondaryMenu from 'client/components/secondaryMenu';
 import { mapState } from 'client/libs/store';
 
@@ -23,6 +25,7 @@ export default {
   props: ['groupId'],
   components: {
     SecondaryMenu,
+    groupFormModal,
   },
   computed: {
     ...mapState({
