@@ -115,4 +115,10 @@ describe('shared.ops.buy', () => {
       itemText: item.text(),
     }));
   });
+
+  it('allows for bulk purchases', () => {
+    user.stats.hp = 30;
+    buy(user, {params: {key: 'potion'}, 'quantity': 2});
+    expect(user.stats.hp).to.eql(50);
+  });
 });
