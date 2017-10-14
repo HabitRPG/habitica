@@ -874,11 +874,13 @@ api.buy = {
     let buyRes;
     let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
+    // @TODO: Remove this when mobile passes type in body
+    let type = req.params.key;
     if (specialKeys.indexOf(req.params.key) !== -1) {
-      buyRes = common.ops.buySpecialSpell(user, req);
-    } else {
-      buyRes = common.ops.buy(user, req, res.analytics);
+      type = 'special';
     }
+    req.type = type;
+    buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
     res.respond(200, ...buyRes);
@@ -926,7 +928,7 @@ api.buyGear = {
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyGearRes = common.ops.buyGear(user, req, res.analytics);
+    let buyGearRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyGearRes);
   },
