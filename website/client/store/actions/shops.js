@@ -1,12 +1,9 @@
 import axios from 'axios';
 import buyOp from 'common/script/ops/buy';
-import buyQuestOp from 'common/script/ops/buyQuest';
 import purchaseOp from 'common/script/ops/purchaseWithSpell';
-import buyMysterySetOp from 'common/script/ops/buyMysterySet';
 import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
-import buyArmoire from 'common/script/ops/buyArmoire';
 import rerollOp from 'common/script/ops/reroll';
 import { getDropClass } from 'client/libs/notifications';
 
@@ -22,7 +19,7 @@ export function buyItem (store, params) {
 
 export function buyQuestItem (store, params) {
   const user = store.state.user.data;
-  let opResult = buyQuestOp(user, {params});
+  let opResult = buyOp(user, {params, type: 'quest'});
 
   return {
     result: opResult,
@@ -42,7 +39,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyMysterySetOp(user, {params, noConfirm: true});
+  let opResult = buyOp(user, {params, noConfirm: true, type: 'mystery'});
 
   return {
     result: opResult,
@@ -75,7 +72,7 @@ export async function genericPurchase (store, params) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
     case 'armoire': // eslint-disable-line
-      let buyResult = buyArmoire(store.state.user.data);
+      let buyResult = buyOp(store.state.user.data, {type: 'armoire'});
 
       // We need the server result because armoir has random item in the result
       let result = await axios.post('/api/v3/user/buy-armoire');
