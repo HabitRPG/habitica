@@ -7,6 +7,7 @@ import {
   BadRequest,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
+import content from '../../../../website/common/script/content/index';
 
 describe('shared.ops.buy', () => {
   let user;
@@ -91,5 +92,27 @@ describe('shared.ops.buy', () => {
 
     expect(user.items.quests).to.eql({dilatoryDistress1: 1});
     expect(user.stats.gp).to.equal(5);
+  });
+
+  it('buys a special item', () => {
+    user.stats.gp = 11;
+    let item = content.special.thankyou;
+
+    let [data, message] = buy(user, {
+      params: {
+        key: 'thankyou',
+      },
+      type: 'special',
+    });
+
+    expect(user.stats.gp).to.equal(1);
+    expect(user.items.special.thankyou).to.equal(1);
+    expect(data).to.eql({
+      items: user.items,
+      stats: user.stats,
+    });
+    expect(message).to.equal(i18n.t('messageBought', {
+      itemText: item.text(),
+    }));
   });
 });
