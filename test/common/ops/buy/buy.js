@@ -45,7 +45,9 @@ describe('shared.ops.buy', () => {
 
   it('adds equipment to inventory', () => {
     user.stats.gp = 31;
+
     buy(user, {params: {key: 'armor_warrior_1'}});
+
     expect(user.items.gear.owned).to.eql({
       weapon_warrior_0: true,
       armor_warrior_1: true,
@@ -57,5 +59,18 @@ describe('shared.ops.buy', () => {
       eyewear_special_whiteTopFrame: true,
       eyewear_special_yellowTopFrame: true,
     });
+  });
+
+  it('buys Steampunk Accessories Set', () => {
+    user.purchased.plan.consecutive.trinkets = 1;
+
+    buy(user, {params: {key: '301404'}, type: 'mystery'});
+
+    expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
+    expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
+    expect(user.items.gear.owned).to.have.property('weapon_mystery_301404', true);
+    expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
+    expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
+    expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
   });
 });
