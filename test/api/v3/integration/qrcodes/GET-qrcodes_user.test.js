@@ -6,7 +6,7 @@ import superagent from 'superagent';
 import nconf from 'nconf';
 
 const API_TEST_SERVER_PORT = nconf.get('PORT');
-describe('GET /qr-code/user/:memberId', () => {
+xdescribe('GET /qr-code/user/:memberId', () => {
   let user;
 
   before(async () => {

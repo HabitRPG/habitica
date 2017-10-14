@@ -21,15 +21,16 @@
     "messageNotEnoughGold": "Няма достатъчно злато",
     "messageTwoHandedEquip": "Използването на <%= twoHandedText %> изисква две ръце, така че разекипирахте предмета <%= offHandedText %>.",
     "messageTwoHandedUnequip": "Използването на <%= twoHandedText %> изисква две ръце, така че го/я разекипирахте, когато се въоръжихте с <%= offHandedText %>.",
-    "messageDropFood": "Намерихте <%= dropText %>! <%= dropNotes %>",
-    "messageDropEgg": "Намерихте яйце на <%= dropText %>! <%= dropNotes %>",
-    "messageDropPotion": "Намерихте излюпваща отвара за <%= dropText %>! <%= dropNotes %>",
+    "messageDropFood": "Намерихте <%= dropArticle %><%= dropText %>!",
+    "messageDropEgg": "Намерихте яйце на <%= dropText %>!",
+    "messageDropPotion": "Намерихте излюпваща отвара с(ъс) <%= dropText %>!",
     "messageDropQuest": "Намерихте мисия!",
     "messageDropMysteryItem": "Отваряте кутията и намирате <%= dropText %>!",
     "messageFoundQuest": "Намерихте мисията „<%= questText %>“!",
     "messageAlreadyPurchasedGear": "Вие сте купували тази екипировка в миналото, но в момента не я притежавате. Можете да я купите отново от колоната с награди на страницата със задачи.",
     "messageAlreadyOwnGear": "Вече притежавате този предмет. Можете да го екипирате като отидете на страницата с екипировката.",
     "messageHealthAlreadyMax": "Здравето Ви вече е пълно.",
+    "messageHealthAlreadyMin": "О, не! Нямате здраве, така че вече е твърде късно да си купите лечебна отвара, но не се притеснявайте — можете да се преродите!",
     "armoireEquipment": "<%= image %> Намерихте рядък предмет в гардероба: <%= dropText %>! Страхотно!",
     "armoireFood": "<%= image %> Тършувате из гардероба и намирате <%= dropText %>. Какво ли прави това там?",
     "armoireExp": "Сборвате се с гардероба и получавате опит. Така му се пада!",
@@ -55,5 +56,6 @@
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
     "messageNotificationNotFound": "Известието не е намерено.",
-    "notificationsRequired": "Идентификаторите на известията са задължителни."
+    "notificationsRequired": "Идентификаторите на известията са задължителни.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

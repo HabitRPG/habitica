@@ -11,6 +11,9 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+import { removeItemByPath } from './pinnedGearUtils';
+import getItemInfo from '../libs/getItemInfo';
+
 module.exports = function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
   let key = get(req.params, 'key');
@@ -29,6 +32,11 @@ module.exports = function purchase (user, req = {}, analytics) {
     let convRate = planGemLimits.convRate;
     let convCap = planGemLimits.convCap;
     convCap += user.purchased.plan.consecutive.gemCapExtra;
+
+    // Some groups limit their members ability to obtain gems
+    // The check is async so it's done on the server (in server/controllers/api-v3/user#purchase)
+    // only and not on the client,
+    // resulting in a purchase that will seem successful until the request hit the server.
 
     if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
       throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
@@ -97,6 +105,9 @@ module.exports = function purchase (user, req = {}, analytics) {
   if (!user.balance || user.balance < price) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
+
+  let itemInfo = getItemInfo(user, type, item);
+  removeItemByPath(user, itemInfo.path);
 
   user.balance -= price;
 

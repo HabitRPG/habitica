@@ -68,6 +68,8 @@ let specialPets = {
   'Gryphon-RoyalPurple': 'royalPurpleGryphon',
   'JackOLantern-Ghost': 'ghostJackolantern',
   'Jackalope-RoyalPurple': 'royalPurpleJackalope',
+  'Orca-Base': 'orca',
+  'Bear-Veteran': 'veteranBear',
 };
 
 let specialMounts = {
@@ -83,6 +85,7 @@ let specialMounts = {
   'MagicalBee-Base': 'magicalBee',
   'Turkey-Gilded': 'gildedTurkey',
   'Jackalope-RoyalPurple': 'royalPurpleJackalope',
+  'Aether-Invisible': 'invisibleAether',
 };
 
 each(specialPets, (translationString, key) => {

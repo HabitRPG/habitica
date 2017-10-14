@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Tageswechsel einstellen",
+    "sureChangeCustomDayStartTime": "Bist Du sicher, dass Du Deinen Individuellen Tageswechsel umstellen willst? Deine Täglichen Aufgaben werden das nächste Mal zurückgesetzt, wenn Du Habitica nach <%= time %> verwendest. Stelle sicher, dass Du bis dahin Deine Aufgaben erledigt hast.",
     "changeCustomDayStart": "Tageswechsel ändern?",
     "sureChangeCustomDayStart": "Willst Du Deinen Tageswechsel wirklich ändern?",
     "customDayStartHasChanged": "Dein persönlicher Tagesstart wurde geändert.",
@@ -66,6 +67,7 @@
     "resetText1": "WARNUNG! Es werden große Teile Deines Accounts zurückgesetzt. Wir raten dringend davon ab. Jedoch finden einige Spieler diese Funktion sinnvoll, um nach einem anfänglichen Testen der Seite neu beginnen zu können.",
     "resetText2": "Du wirst all deine Level, Gold und Erfahrungspunkte verlieren. All deine Aufgaben (mit Ausnahme der von Herausforderungen) werden dauerhaft gelöscht und alle historischen Daten gehen verloren. Du wirst all deine Ausrüstung verlieren, die du aber zurückkaufen kannst, einschließlich aller Ausrüstungsgegenstände aus limitierter Ausgabe und Gegenständen, die du als Abonnent erworben hast (um klassenspezifische Gegenstände zurück zu kaufen, musst du der korrekten Klasse angehören). Du behältst deine jetzige Klasse, sowie Haus- und Reittiere. Zur Sicherheit solltest du stattdessen eine Kugel der Wiedergeburt verwenden, welche deine jetzigen Aufgaben und Ausrüstungsgegenstände schont.",
     "deleteLocalAccountText": "Bist Du sicher? Dies wird Dein Konto für immer löschen und es kann nicht wiederhergestellt werden! Wenn Du Habitica wieder verwenden möchtest, musst Du ein neues Konto registrieren. Gesparte oder verbrauchte Edelsteine werden nicht ersetzt. Wenn Du absolut sicher bist, dann tippe Dein Passwort in die Text-Box unten ein.",
+    "deleteSocialAccountText": "Bist Du sicher? Dies wird Dein Konto für immer löschen und es kann nicht wiederhergestellt werden! Wenn Du Habitica wieder verwenden möchtest, musst Du ein neues Konto registrieren. Gesparte oder verbrauchte Edelsteine werden nicht ersetzt. Wenn Du absolut sicher bist, dann tippe \"DELETE\" in die Text-Box unten ein.",
     "API": "API",
     "APIv3": "API v3",
     "APIText": "Kopiere sie zur Anwendung in Applikationen von Drittanbietern. Sieh Dein API-Token aber als Passwort an und verbreite es nicht. Du wirst vielleicht gelegentlich nach Deiner Benutzer-ID gefragt, aber poste niemals Dein API-Token öffentlich wo es andere sehen können, auch nicht auf GitHub.",
@@ -104,9 +106,7 @@
     "email": "E-Mail",
     "registerWithSocial": "Mit <%= network %> verbinden",
     "registeredWithSocial": "Mit <%= network %> verbunden",
-    "loginNameDescription1": "Das wird zum Anmelden in Habitica verwendet. Um es anzupassen, verwende das Formular unten. Wenn Du stattdessen den Namen ändern willst, der auf deinem Avatar und in Chat-Nachrichten erscheint, gehe zu",
-    "loginNameDescription2": "Benutzer->Profil",
-    "loginNameDescription3": "und drücke den Bearbeiten-Knopf",
+    "loginNameDescription": "Hiermit meldest Du Dich bei Habitica an. Um es zu ändern, verwende das Formular unten. Wenn Du stattdessen den Namen ändern möchtest, der über Deinem Avatar und in Chat-Nachrichten erscheint, gehe zum Nutzer Icon &gt; Profil und klicke den Bearbeiten Button.",
     "emailNotifications": "E-Mail-Benachrichtigungen",
     "wonChallenge": "Du hast einen Wettbewerb gewonnen!",
     "newPM": "Du hast eine private Nachricht erhalten",
@@ -129,7 +129,7 @@
     "remindersToLogin": "Erinnerungen, Habitica zu überprüfen",
     "subscribeUsing": "Abonniere mit",
     "unsubscribedSuccessfully": "Erfolgreich abgemeldet!",
-    "unsubscribedTextUsers": "Du hast Dich erfolgreich von allen Habitica-E-Mails abgemeldet. In den <a href=\"/#/options/settings/notifications\">Einstellungen</a> kannst Du angeben welche E-Mails Du erhalten willst (Anmeldung erforderlich).",
+    "unsubscribedTextUsers": "Du hast Dich erfolgreich von allen Habitica Emails abgemeldet. Du kannst die Emails, die Du erhalten möchtest, unter <a href=\"/user/settings/notifications\">Einstellungen>&gt; Mitteilungen</a> freischalten (erfordert Anmeldung).",
     "unsubscribedTextOthers": "Du wirst keine weitere E-Mails von Habitica erhalten.",
     "unsubscribeAllEmails": "Häkchen setzen, um keine weiteren E-Mails zu erhalten",
     "unsubscribeAllEmailsText": "Indem ich hier ein Häkchen gesetzt habe, bestätige ich, dass ich verstanden habe, dass ich aus allen Habitica-E-Mail-Listen ausgetragen wurde. Habitica kann mir keine E-Mails mehr zu wichtigen Änderungen der Seite oder meines Accounts schicken.",
@@ -184,5 +184,6 @@
     "timezone": "Zeitzone",
     "timezoneUTC": "Habitica verwendet die Zeitzone, welche an Deinem PC eingestellt ist: <strong><%= utc %></strong>",
     "timezoneInfo": "Wenn diese Zeitzone falsch ist, lade die Seite mit Hilfe Deines Browsers erneut, um sicherzustellen, dass Habitica die aktuellen Informationen darstellt. Ist diese immernoch falsch, passe die Zeitzone Deines PCs an und lade die Seite erneut.<br><br> <strong>Wenn Du Habitica auf anderen PCs oder Mobilgeräten verwendest, muss die Zeitzone auf allen übereinstimmen.</strong> Wenn Deine täglichen Aufgaben zur falschen Zeit zurückgesetzt werden, wiederhole diese Prüfung auf allen anderen PCs und in einem Browser Deiner Mobilgeräte.",
-    "push": "Push"
+    "push": "Push",
+    "about": "Über"
 }

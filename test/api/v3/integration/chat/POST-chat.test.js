@@ -10,11 +10,22 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
+import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
+import bannedWords from '../../../../../website/server/libs/bannedWords';
+import * as email from '../../../../../website/server/libs/email';
+import { IncomingWebhook } from '@slack/client';
+import nconf from 'nconf';
+
+const BASE_URL = nconf.get('BASE_URL');
 
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
+  let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
+  let bannedWordErrorMessage = t('bannedWordUsed').split('.');
+  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
+  bannedWordErrorMessage = bannedWordErrorMessage.join('.');
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -25,7 +36,6 @@ describe('POST /chat', () => {
       },
       members: 2,
     });
-
     user = groupLeader;
     groupWithChat = group;
     member = members[0];
@@ -79,11 +89,11 @@ describe('POST /chat', () => {
   context('banned word', () => {
     it('returns an error when chat message contains a banned word in tavern', async () => {
       await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('bannedWordUsed'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('errors when word is part of a phrase', async () => {
@@ -92,7 +102,7 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
     });
 
@@ -102,8 +112,24 @@ describe('POST /chat', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('bannedWordUsed'),
+        message: bannedWordErrorMessage,
       });
+    });
+
+    it('checks error message has the banned words used', async () => {
+      let randIndex = Math.floor(Math.random() * (bannedWords.length + 1));
+      let testBannedWords = bannedWords.slice(randIndex, randIndex + 2).map((w) => w.replace(/\\/g, ''));
+      let chatMessage = `Mixing ${testBannedWords[0]} and ${testBannedWords[1]} is bad for you.`;
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage}))
+        .to.eventually.be.rejected
+        .and.have.property('message')
+        .that.includes(testBannedWords.join(', '));
+    });
+
+    it('check all banned words are matched', async () => {
+      let message = bannedWords.join(',').replace(/\\/g, '');
+      let matches = getMatchesByWordArray(message, bannedWords);
+      expect(matches.length).to.equal(bannedWords.length);
     });
 
     it('does not error when bad word is suffix of a word', async () => {
@@ -163,6 +189,114 @@ describe('POST /chat', () => {
       let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
 
       expect(message.message.id).to.exist;
+    });
+  });
+
+  context('banned slur', () => {
+    beforeEach(() => {
+      sandbox.spy(email, 'sendTxn');
+      sandbox.stub(IncomingWebhook.prototype, 'send');
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('errors and revokes privileges when chat message contains a banned slur', async () => {
+      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedSlurUsed'),
+      });
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.calledOnce;
+      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `${user.profile.name} (${user.id}) tried to post a slur`,
+        attachments: [{
+          fallback: 'Slur Message',
+          color: 'danger',
+          author_name: `${user.profile.name} - ${user.auth.local.email} - ${user._id}`,
+          title: 'Slur in Test Guild',
+          title_link: `${BASE_URL}/groups/guild/${groupWithChat.id}`,
+          text: testSlurMessage,
+          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
+      /* eslint-enable camelcase */
+
+      // Chat privileges are revoked
+      await expect(user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
+
+      // Restore chat privileges to continue testing
+      user.flags.chatRevoked = false;
+      await user.update({'flags.chatRevoked': false});
+    });
+
+    it('does not allow slurs in private groups', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Party',
+          type: 'party',
+          privacy: 'private',
+        },
+        members: 1,
+      });
+
+      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testSlurMessage})).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('bannedSlurUsed'),
+      });
+
+      // Email sent to mods
+      await sleep(0.5);
+      expect(email.sendTxn).to.be.calledThrice;
+      expect(email.sendTxn.args[2][1]).to.be.eql('slur-report-to-mods');
+
+      // Slack message to mods
+      expect(IncomingWebhook.prototype.send).to.be.calledOnce;
+      /* eslint-disable camelcase */
+      expect(IncomingWebhook.prototype.send).to.be.calledWith({
+        text: `${members[0].profile.name} (${members[0].id}) tried to post a slur`,
+        attachments: [{
+          fallback: 'Slur Message',
+          color: 'danger',
+          author_name: `${members[0].profile.name} - ${members[0].auth.local.email} - ${members[0]._id}`,
+          title: 'Slur in Party - (private party)',
+          title_link: undefined,
+          text: testSlurMessage,
+          // footer: sandbox.match(/<.*?groupId=group-id&chatId=chat-id\|Flag this message>/),
+          mrkdwn_in: [
+            'text',
+          ],
+        }],
+      });
+      /* eslint-enable camelcase */
+
+      // Chat privileges are revoked
+      await expect(members[0].post(`/groups/${groupWithChat._id}/chat`, { message: testMessage})).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('chatPrivilegesRevoked'),
+      });
+
+      // Restore chat privileges to continue testing
+      members[0].flags.chatRevoked = false;
+      await members[0].update({'flags.chatRevoked': false});
     });
   });
 

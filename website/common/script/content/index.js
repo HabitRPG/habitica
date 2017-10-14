@@ -1,6 +1,5 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
-import includes from 'lodash/includes';
 import moment from 'moment';
 import t from './translation';
 
@@ -25,13 +24,15 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds.js';
+import {backgroundsTree, backgroundsFlat} from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
 import loginIncentives from './loginIncentives';
+
+import officialPinnedItems from './officialPinnedItems';
 
 api.achievements = achievements;
 
@@ -45,8 +46,12 @@ api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme'];
+
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
+
+api.officialPinnedItems = officialPinnedItems;
 
 /*
    ---------------------------------------------------------------
@@ -66,6 +71,53 @@ api.bundles = {
     ],
     canBuy () {
       return moment().isBetween('2017-05-16', '2017-05-31');
+    },
+    type: 'quests',
+    class: 'quest_bundle_featheredFriends',
+    value: 7,
+  },
+  splashyPals: {
+    key: 'splashyPals',
+    text: t('splashyPalsText'),
+    notes: t('splashyPalsNotes'),
+    bundleKeys: [
+      'dilatory_derby',
+      'turtle',
+      'whale',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-07-11', '2017-08-02');
+    },
+    type: 'quests',
+    class: 'quest_bundle_splashyPals',
+    value: 7,
+  },
+  farmFriends: {
+    key: 'farmFriends',
+    text: t('farmFriendsText'),
+    notes: t('farmFriendsNotes'),
+    bundleKeys: [
+      'cow',
+      'horse',
+      'sheep',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-09-12', '2017-10-07');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  witchyFamiliars: {
+    key: 'witchyFamiliars',
+    text: t('witchyFamiliarsText'),
+    notes: t('witchyFamiliarsNotes'),
+    bundleKeys: [
+      'rat',
+      'spider',
+      'frog',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-10-10', '2017-11-02');
     },
     type: 'quests',
     value: 7,
@@ -97,8 +149,8 @@ api.armoire = {
   },
   value: 100,
   key: 'armoire',
-  canOwn (u) {
-    return includes(u.achievements.ultimateGearSets, true);
+  canOwn () {
+    return true;
   },
 };
 
@@ -152,6 +204,11 @@ api.cardTypes = {
   getwell: {
     key: 'getwell',
     messageOptions: 4,
+    yearRound: true,
+  },
+  goodluck: {
+    key: 'goodluck',
+    messageOptions: 3,
     yearRound: true,
   },
 };
@@ -498,7 +555,8 @@ each(api.food, (food, key) => {
 
 api.appearances = appearances;
 
-api.backgrounds = backgrounds;
+api.backgrounds = backgroundsTree();
+api.backgroundsFlat = backgroundsFlat();
 
 api.userDefaults = {
   habits: [
@@ -574,71 +632,11 @@ api.userDefaults = {
 };
 
 api.userDefaultsMobile = {
-  habits: [
-    {
-      type: 'habit',
-      text: t('defaultHabit4Text'),
-      notes: t('defaultHabit4Notes'),
-      up: true,
-      down: false,
-      attribute: 'per',
-    }, {
-      type: 'habit',
-      text: t('defaultHabit5Text'),
-      notes: t('defaultHabit5Notes'),
-      up: false,
-      down: true,
-      attribute: 'con',
-    },
-  ],
-  dailys: [
-    {
-      type: 'daily',
-      text: t('defaultDaily1Text'),
-      attribute: 'per',
-    },
-  ],
-  todos: [
-    {
-      type: 'todo',
-      text: t('defaultTodo1Text'),
-      notes: t('defaultTodoNotes'),
-      completed: false,
-      attribute: 'int',
-    },
-    {
-      type: 'todo',
-      text: t('defaultTodo2Text'),
-      notes: t('defaultTodo2Notes'),
-      completed: false,
-      attribute: 'int',
-    },
-  ],
-  rewards: [
-    {
-      type: 'reward',
-      text: t('defaultReward2Text'),
-      notes: t('defaultReward2Notes'),
-      value: 20,
-    },
-  ],
-  tags: [
-    {
-      name: t('defaultTag1'),
-    }, {
-      name: t('defaultTag2'),
-    }, {
-      name: t('defaultTag3'),
-    }, {
-      name: t('defaultTag4'),
-    }, {
-      name: t('defaultTag5'),
-    }, {
-      name: t('defaultTag6'),
-    }, {
-      name: t('defaultTag7'),
-    },
-  ],
+  habits: [],
+  dailys: [],
+  todos: [],
+  rewards: [],
+  tags: [],
 };
 
 api.faq = faq;

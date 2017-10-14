@@ -1,14 +1,18 @@
 .popover {
   border-radius: 4px;
-  background-color: rgba(52, 49, 58, 0.96);
+  background-color: rgba($gray-10, 0.96);
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
 
-  &::after, &::before {
+  &::after, &::before, .arrow {
+    display: none;
+  }
+
+  .popover-header {
     display: none;
   }
 }
 
-.popover-content {
+.popover-body {
   padding: 12px 16px;
   text-align: center;
   color: $gray-500;
@@ -21,8 +25,15 @@
   line-height: 1.14;
 }
 
-.popover-content-text {
+.popover-content-text:not(:last-child) {
   margin-bottom: 16px;
+}
+
+.popover-content-title:last-child {
+  margin-bottom: 0px;
+}
+.popover-content-text:last-child {
+  margin-bottom: 0px;
 }
 
 .popover-content-attr {

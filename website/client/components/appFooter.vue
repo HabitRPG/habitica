@@ -1,0 +1,347 @@
+<template lang="pug">
+.row
+  buy-gems-modal(v-if="isUserLoaded")
+  modify-inventory(v-if="isUserLoaded")
+  footer.container-fluid
+    .row
+      .col-12.col-md-2
+        h3
+          a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
+        h3
+          a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
+      .col-12.col-md-2
+        h3 Company
+        ul
+          li
+            a(href='/static/features') {{ $t('companyAbout') }}
+          li
+            a(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
+          li
+            a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
+          li
+            a(href='/static/faq') {{ $t('FAQ') }}
+          li
+            a(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
+          li
+            a(href='/static/merch') {{ $t('merch') }}
+          li
+            a(href='/static/press-kit') {{ $t('presskit') }}
+          li
+            a(href='/static/contact') {{ $t('contactUs') }}
+      .col-12.col-md-2
+        h3 Community
+        ul
+          li
+            a(href='/static/community-guidelines') {{ $t('communityGuidelines') }}
+          li
+            router-link(to='/hall/contributors') {{ $t('hall') }}
+          li
+            router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
+          li
+            a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
+          li
+            a(v-html='$t("communityExtensions")')
+          li
+            a(v-html='$t("communityForum")')
+          li
+            a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
+          li
+            a(href='https://www.reddit.com/r/habitrpg/', target='_blank') {{ $t('communityReddit') }}
+      .col-12.col-md-6
+        .row
+          .col-6
+            h3 Developers
+            ul
+              li
+                a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
+              li
+                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
+              li
+                a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
+              li
+                a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
+          .col-6.social
+            h3 {{ $t('footerSocial') }}
+            .social-circle
+              a(href='https://twitter.com/habitica', target='_blank')
+                .social-icon.svg-icon(v-html='icons.twitter')
+            // @TODO: Not ready yet .social-circle
+              a(href='https://www.instagram.com/habitica/', target='_blank')
+                .social-icon.svg-icon.instagram(v-html='icons.instagram')
+            .social-circle
+              a(href='https://www.facebook.com/Habitica', target='_blank')
+                .social-icon.facebook.svg-icon(v-html='icons.facebook')
+        .row
+          .col-10 {{ $t('donateText3') }}
+          .col-2
+            button.btn.btn-donate(@click="donate()")
+              .svg-icon.heart(v-html="icons.heart")
+              .text {{ $t('companyDonate') }}
+    .row
+      hr.col-12
+    .row
+      .col-4
+        | © 2017 Habitica. All rights reserved.
+        .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
+          button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
+          .debug-group(v-if="debugMenuShown")
+            a.btn.btn-default(@click="setHealthLow()") Health = 1
+            a.btn.btn-default(@click="addMissedDay(1)") +1 Missed Day
+            a.btn.btn-default(@click="addMissedDay(2)") +2 Missed Days
+            a.btn.btn-default(@click="addMissedDay(8)") +8 Missed Days
+            a.btn.btn-default(@click="addMissedDay(32)") +32 Missed Days
+            a.btn.btn-default(@click="addTenGems()") +10 Gems
+            a.btn.btn-default(@click="addHourglass()") +1 Mystic Hourglass
+            a.btn.btn-default(@click="addGold()") +500GP
+            a.btn.btn-default(@click="plusTenHealth()") + 10HP
+            a.btn.btn-default(@click="addMana()") +MP
+            a.btn.btn-default(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-default(@click="addOneLevel()") +1 Level
+            a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(@click="makeAdmin()") Make Admin
+            a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
+      .col-4.text-center
+        .logo
+      .col-4.text-right
+        span
+          router-link(to="/static/privacy") {{ $t('privacy') }}
+        span.terms-link
+          router-link(to="/static/terms") {{ $t('terms') }}
+</template>
+
+<style lang="scss" scoped>
+  footer {
+    background-color: #e1e0e3;
+    min-height: 408px;
+    width: 100%;
+    padding-left: 6em;
+    padding-right: 6em;
+    padding-top: 3em;
+    margin: 0;
+    color: #878190;
+    z-index: 17;
+
+    a {
+      color: #878190;
+    }
+  }
+
+  h3 {
+    color: #878190;
+  }
+
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: .5em;
+  }
+
+  .social {
+    h3 {
+      text-align: right;
+    }
+  }
+
+  .social-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #c3c0c7;
+    display: inline-block;
+    margin-left: 1em;
+    float: right;
+
+    .social-icon {
+      color: #e1e0e3;
+      width: 16px;
+      margin: 0 auto;
+      margin-top: 1em;
+    }
+
+    .facebook {
+      margin-top: .7em;
+    }
+
+    .instagram {
+      margin-top: .85em;
+    }
+  }
+
+  .logo {
+    background-image: url('~assets/images/gryphon@3x.png');
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    color: #c3c0c7;
+    background-size: cover;
+  }
+
+  .terms-link {
+    margin-left: 1em;
+  }
+
+  .debug-group {
+    position: absolute;
+    background: #fff;
+    top: -300px;
+    border-radius: 2px;
+    padding: 2em;
+  }
+
+  .btn-donate {
+    background: #c3c0c7;
+    box-shadow: none;
+    border-radius: 4px;
+
+    .heart {
+      width: 18px;
+      margin-right: .5em;
+      margin-bottom: .2em;
+    }
+
+    .text, .heart {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+</style>
+
+<style>
+  .facebook svg {
+    width: 10px;
+    margin: 0 auto;
+  }
+</style>
+
+<script>
+import axios from 'axios';
+import moment from 'moment';
+import { mapState } from 'client/libs/store';
+import * as Analytics from 'client/libs/analytics';
+
+import gryphon from 'assets/svg/gryphon.svg';
+import twitter from 'assets/svg/twitter.svg';
+import facebook from 'assets/svg/facebook.svg';
+import instagram from 'assets/svg/instagram.svg';
+import heart from 'assets/svg/heart.svg';
+
+import modifyInventory from './modifyInventory';
+import buyGemsModal from './payments/buyGemsModal';
+
+const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
+
+export default {
+  components: {
+    modifyInventory,
+    buyGemsModal,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        gryphon,
+        twitter,
+        facebook,
+        instagram,
+        heart,
+      }),
+      debugMenuShown: false,
+      IS_PRODUCTION,
+    };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+    ...mapState(['isUserLoaded']),
+  },
+  methods: {
+    plusTenHealth () {
+      this.$store.dispatch('user:set', {
+        'stats.hp': this.user.stats.hp += 10,
+      });
+    },
+    setHealthLow () {
+      this.$store.dispatch('user:set', {
+        'stats.hp': 1,
+      });
+    },
+    async addMissedDay (numberOfDays) {
+      if (!confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
+
+      let date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
+
+      await axios.post('/api/v3/debug/set-cron', {
+        lastCron: date,
+      });
+
+      // @TODO: Notification.text('-' + numberOfDays + ' day(s), remember to refresh');
+      // @TODO: Sync user?
+    },
+    async addTenGems () {
+      await axios.post('/api/v3/debug/add-ten-gems');
+      // @TODO: Notification.text('+10 Gems!');
+      this.user.balance += 2.5;
+    },
+    async addHourglass () {
+      await axios.post('/api/v3/debug/add-hourglass');
+      // @TODO: Sync?
+    },
+    addGold () {
+      this.$store.dispatch('user:set', {
+        'stats.gp': this.user.stats.gp + 500,
+      });
+    },
+    addMana () {
+      this.$store.dispatch('user:set', {
+        'stats.mp': this.user.stats.mp + 500,
+      });
+    },
+    addLevelsAndGold () {
+      this.$store.dispatch('user:set', {
+        'stats.exp': this.user.stats.exp + 10000,
+        'stats.gp': this.user.stats.gp  + 10000,
+        'stats.mp': this.user.stats.mp  + 10000,
+      });
+    },
+    addOneLevel () {
+      // @TODO: Name these variables better
+      let exp = 0;
+      let five = 10 * this.user.stats.lvl;
+      let four = Math.pow(this.user.stats.lvl, 2) * 0.25;
+      let three = four + five + 139.75;
+      let two = three / 10;
+      let one = Math.round(two) * 10;
+      exp = this.user.stats.exp + one;
+
+      this.$store.dispatch('user:set', {
+        'stats.exp': exp,
+      });
+    },
+    async addQuestProgress () {
+      await axios.post('/api/v3/debug/quest-progress');
+
+      //  @TODO:  Notification.text('Quest progress increased');
+      //  @TODO:  User.sync();
+    },
+    async makeAdmin  () {
+      await axios.post('/api/v3/debug/make-admin');
+
+      // @TODO: Notification.text('You are now an admin! Go to the Hall of Heroes to change your contributor level.');
+      // @TODO: sync()
+    },
+    openModifyInventoryModal  () {
+      this.$root.$emit('show::modal', 'modify-inventory');
+    },
+    donate () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'Gems > Donate',
+      });
+      this.$root.$emit('show::modal', 'buy-gems');
+    },
+  },
+};
+</script>

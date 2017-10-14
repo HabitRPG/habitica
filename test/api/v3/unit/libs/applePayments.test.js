@@ -57,7 +57,20 @@ describe('Apple Payments', ()  => {
         });
     });
 
+    it('errors if the user cannot purchase gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
+      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: i18n.t('groupPolicyCannotGetGems'),
+        });
+
+      user.canGetGems.restore();
+    });
+
     it('purchases gems', async () => {
+      sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
       await applePayments.verifyGemPurchase(user, receipt, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
@@ -74,6 +87,8 @@ describe('Apple Payments', ()  => {
         amount: 5.25,
         headers,
       });
+      expect(user.canGetGems).to.be.calledOnce;
+      user.canGetGems.restore();
     });
   });
 

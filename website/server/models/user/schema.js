@@ -102,7 +102,6 @@ let schema = new Schema({
     perfect: {type: Number, default: 0},
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
@@ -113,9 +112,12 @@ let schema = new Schema({
     partyOn: Boolean,
     congrats: Number,
     getwell: Number,
+    goodluck: Number,
     royallyLoyal: Boolean,
     joinedGuild: Boolean,
     joinedChallenge: Boolean,
+    invitedFriend: Boolean,
+    lostMasterclasser: Boolean,
   },
 
   backer: {
@@ -295,6 +297,8 @@ let schema = new Schema({
       congratsReceived: Array,
       getwell: {type: Number, default: 0},
       getwellReceived: Array,
+      goodluck: {type: Number, default: 0},
+      goodluckReceived: Array,
     },
 
     // -------------- Animals -------------------
@@ -380,6 +384,24 @@ let schema = new Schema({
     party: {type: Schema.Types.Mixed, default: () => {
       return {};
     }},
+    parties: [{
+      id: {
+        type: String,
+        ref: 'Group',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      inviter: {
+        type: String,
+        ref: 'User',
+        required: true,
+        validate: [validator.isUUID, 'Invalid uuid.'],
+      },
+    }],
   },
 
   guilds: [{type: String, ref: 'Group', validate: [validator.isUUID, 'Invalid uuid.']}],
@@ -417,7 +439,7 @@ let schema = new Schema({
     skin: {type: String, default: '915533'},
     shirt: {type: String, default: 'blue'},
     timezoneOffset: {type: Number, default: 0},
-    sound: {type: String, default: 'rosstavoTheme', enum: ['off', 'danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme']},
+    sound: {type: String, default: 'rosstavoTheme', enum: ['off', ...shared.content.audioThemes]},
     chair: {type: String, default: 'none'},
     timezoneOffsetAtLastCron: Number,
     language: String,
@@ -559,6 +581,17 @@ let schema = new Schema({
   webhooks: [WebhookSchema],
   loginIncentives: {type: Number, default: 0},
   invitesSent: {type: Number, default: 0},
+
+  // Items manually pinned by the user
+  pinnedItems: [{
+    path: {type: String},
+    type: {type: String},
+  }],
+  // Items the user manually unpinned from the ones suggested by Habitica
+  unpinnedItems: [{
+    path: {type: String},
+    type: {type: String},
+  }],
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

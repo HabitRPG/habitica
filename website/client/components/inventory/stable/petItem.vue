@@ -1,12 +1,6 @@
 <template lang="pug">
-b-popover(
-  :triggers="[showPopover?'hover':'']",
-  :placement="popoverPosition",
-)
-  span(slot="content")
-    slot(name="popoverContent", :item="item")
-
-  .item-wrapper(@click="click()")
+div
+  .item-wrapper(@click="click()", :id="itemId")
     .item(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
     )
@@ -15,6 +9,13 @@ b-popover(
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
         div.pet-progress-bar(v-bind:style="{width: 100 * progress/50 + '%' }")
     span.item-label(v-if="label") {{ label }}
+
+  b-popover(
+    :target="itemId",
+    :triggers="showPopover ? 'hover' : ''",
+    :placement="popoverPosition",
+  )
+    slot(name="popoverContent", :item="item")
 </template>
 
 <style lang="scss">
@@ -35,6 +36,7 @@ b-popover(
 
 <script>
   import bPopover from 'bootstrap-vue/lib/components/popover';
+  import uuid from 'uuid';
 
   export default {
     components: {
@@ -70,6 +72,11 @@ b-popover(
         type: Boolean,
         default: true,
       },
+    },
+    data () {
+      return Object.freeze({
+        itemId: uuid.v4(),
+      });
     },
     methods: {
       click () {

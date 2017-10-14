@@ -1,16 +1,16 @@
 <template lang="pug">
+  // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar
+    .standard-sidebar.col-3.hidden-xs-down
       div
+        #npmMattStable.npc_matt
         b-popover(
-          :triggers="['hover']",
-          :placement="'right'"
+          triggers="hover",
+          placement="right",
+          target="npmMattStable"
         )
-          span(slot="content")
-            h4.popover-content-title(v-once) {{ $t('mattBoch') }}
-            .popover-content-text(v-once) {{ $t('mattBochText1') }}
-
-          div.npc_matt
+          h4.popover-content-title(v-once) {{ $t('mattBoch') }}
+          .popover-content-text(v-once) {{ $t('mattBochText1') }}
 
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -48,13 +48,13 @@
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.hideMissing(
+          toggle-switch.float-right.no-margin(
             :label="''",
             :checked="hideMissing",
             @change="updateHideMissing"
           )
 
-    .standard-page(v-resize="500", @resized="availableContentWidth = $event.width - 48")
+    .standard-page.col-12.col-sm-9
       .clearfix
         h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
 
@@ -74,47 +74,49 @@
         span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
 
       div(
-        v-for="petGroup in petGroups",
+        v-for="(petGroup, index) in petGroups",
         v-if="viewOptions[petGroup.key].selected",
         :key="petGroup.key"
       )
-        h4(v-if="viewOptions[petGroup.key].animalCount != 0") {{ petGroup.label }}
+        h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
-        div.items
-          div(
-            v-for="pet in pets(petGroup, viewOptions[petGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
-            :key="pet.key",
-            v-drag.drop.food="pet.key",
-            @itemDragOver="onDragOver($event, pet)",
-            @itemDropped="onDrop($event, pet)",
+        .pet-row.d-flex(
+          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
+          v-if='index === 0 || showMore === petGroup.key')
+          .pet-group(
+            v-for='item in group'
+            v-drag.drop.food="item.key",
+            @itemDragOver="onDragOver($event, item)",
+            @itemDropped="onDrop($event, item)",
             @itemDragLeave="onDragLeave()",
-            :class="{'last': pet.isLastInRow}"
+            :class="{'last': item.isLastInRow}"
           )
             petItem(
-              :item="pet",
-              :itemContentClass="getPetItemClass(pet)",
+              :item="item",
+              :itemContentClass="getPetItemClass(item)",
               :popoverPosition="'top'",
-              :progress="pet.progress",
-              :emptyItem="!pet.isOwned()",
-              :showPopover="pet.isOwned()",
-              :highlightBorder="highlightPet == pet.key",
-              @click="petClicked(pet)"
+              :progress="item.progress",
+              :emptyItem="!item.isOwned()",
+              :showPopover="currentDraggingFood == null",
+              :highlightBorder="highlightPet == item.key",
+              @click="petClicked(item)"
             )
               span(slot="popoverContent")
-                div(v-if="pet.isOwned()")
-                  h4.popover-content-title {{ pet.name }}
+                div.hatchablePopover(v-if="item.isHatchable()")
+                  h4.popover-content-title {{ item.name }}
+                  div.popover-content-text(v-html="$t('haveHatchablePet', { potion: item.potionName, egg: item.eggName })")
+                  div.potionEggGroup
+                    div.potionEggBackground
+                      div(:class="'Pet_HatchingPotion_'+item.potionKey")
+                    div.potionEggBackground
+                      div(:class="'Pet_Egg_'+item.eggKey")
+                div(v-else)
+                  h4.popover-content-title {{ item.name }}
+              template(slot="itemBadge", scope="context")
+                starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
-              template(slot="itemBadge", scope="ctx")
-                starBadge(
-                  :selected="ctx.item.key === currentPet",
-                  :show="ctx.item.isOwned()",
-                  @click="selectPet(ctx.item)",
-                )
-
-        .btn.btn-show-more(
-          @click="viewOptions[petGroup.key].open = !viewOptions[petGroup.key].open",
-          v-if="viewOptions[petGroup.key].animalCount != 0"
-        ) {{ $t(viewOptions[petGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: petGroup.label, type: $t('pets')}) }}
+        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
+          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -128,33 +130,33 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        div.items
-          mountItem(
-            v-for="mount in mounts(mountGroup, viewOptions[mountGroup.key].open, hideMissing, selectedSortBy, searchTextThrottled, availableContentWidth)",
-            :item="mount",
-            :itemContentClass="mount.isOwned() ? ('Mount_Icon_' + mount.key) : 'PixelPaw GreyedOut'",
-            :key="mount.key",
-            :popoverPosition="'top'",
-            :emptyItem="!mount.isOwned()",
-            :showPopover="mount.isOwned()",
-          )
-            span(slot="popoverContent")
-              h4.popover-content-title {{ mount.name }}
-            template(slot="itemBadge", scope="ctx")
-              starBadge(
-                :selected="ctx.item.key === currentMount",
-                :show="mount.isOwned()",
-                @click="selectMount(ctx.item)",
-              )
+        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+          v-if='index === 0 || showMore === mountGroup.key')
+          .pet-group(v-for='item in group')
+            mountItem(
+              :item="item",
+              :itemContentClass="item.isOwned() ? ('Mount_Icon_' + item.key) : 'PixelPaw GreyedOut'",
+              :key="item.key",
+              :popoverPosition="'top'",
+              :emptyItem="!item.isOwned()",
+              :showPopover="true",
+              @click="selectMount(item)"
+            )
+              span(slot="popoverContent")
+                h4.popover-content-title {{ item.name }}
+              template(slot="itemBadge", scope="context")
+                starBadge(
+                  :selected="item.key === currentMount",
+                  :show="item.isOwned()",
+                  @click="selectMount(item)",
+                )
 
-        .btn.btn-show-more(
-          @click="viewOptions[mountGroup.key].open = !viewOptions[mountGroup.key].open",
-          v-if="viewOptions[mountGroup.key].animalCount != 0"
-        ) {{ $t(viewOptions[mountGroup.key].open ? 'showLessAnimals' : 'showAllAnimals', { color: mountGroup.label, type: $t('mounts')}) }}
+        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
+          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :title="$t('quickInventory')",
-        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? $t('noFoodAvailable') : null"
+        :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null"
       )
         div(slot="drawer-header")
           .drawer-tab-container
@@ -170,18 +172,14 @@
                   :class="{ 'drawer-tab-text-active': selectedDrawerTab === 1 }",
                 )  {{ drawerTabs[1].label }}
 
+              #petLikeToEatStable.drawer-help-text(v-once)
+                | {{ $t('petLikeToEat') + ' ' }}
+                span.svg-icon.inline.icon-16(v-html="icons.information")
               b-popover(
-                :triggers="['click']",
-                :placement="'top'"
+                target="petLikeToEatStable"
+                placement="top"
               )
-                span(slot="content")
-                  .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
-
-                div.float-right(v-once)
-                  | {{ $t('petLikeToEat') + ' ' }}
-                  span.svg-icon.inline.icon-16(v-html="icons.information")
-
-
+                .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
         drawer-slider(
           :items="drawerTabs[selectedDrawerTab].items",
           :scrollButtonsVisible="hasDrawerTabItems(selectedDrawerTab)",
@@ -189,21 +187,22 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", scope="context")
             foodItem(
-              :item="ctx.item",
-              :itemCount="userItems.food[ctx.item.key]",
-              :active="currentDraggingFood == ctx.item",
+              :item="context.item",
+              :itemCount="userItems.food[context.item.key]",
+              :active="currentDraggingFood == context.item",
               @itemDragEnd="onDragEnd()",
-              @itemDragStart="onDragStart($event, ctx.item)",
-              @itemClick="onFoodClicked($event, ctx.item)"
+              @itemDragStart="onDragStart($event, context.item)",
+              @itemClick="onFoodClicked($event, context.item)"
             )
 
     b-modal#welcome-modal(
       :ok-only="true",
       :ok-title="$t('gotIt')",
       :visible="!hideDialog",
-      :hide-header="true"
+      :hide-header="true",
+      @hide="hideFlag()"
     )
       div.content
         div.npc_matt
@@ -211,10 +210,8 @@
         div.content-text(v-once) {{ $t('welcomeStableText') }}
 
     b-modal#hatching-modal(
-      :visible="hatchablePet != null",
       @change="resetHatchablePet($event)"
     )
-
       div.content(v-if="hatchablePet")
         div.potionEggGroup
           div.potionEggBackground
@@ -223,13 +220,17 @@
             div(:class="'Pet_Egg_'+hatchablePet.eggKey")
 
         h4.title {{ hatchablePet.name }}
-        div.text(v-html="$t('haveHatchablePet', { potion: hatchablePet.potionName, egg: hatchablePet.eggName })")
+        div.text(v-html="$t('hatchDialogText', { potionName: hatchablePet.potionName, eggName: hatchablePet.eggName, petName: hatchablePet.name })")
 
       span.svg-icon.icon-10(v-html="icons.close", slot="modal-header", @click="closeHatchPetDialog()")
 
       div(slot="modal-footer")
         button.btn.btn-primary(@click="hatchPet(hatchablePet)") {{ $t('hatch') }}
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
+
+    hatchedPetDialog(
+      :hideText="true",
+    )
 
     div.foodInfo(ref="dragginFoodInfo")
       div(v-if="currentDraggingFood != null")
@@ -242,12 +243,27 @@
         div.food-icon(:class="'Pet_Food_'+currentDraggingFood.key")
         div.popover
           div.popover-content {{ $t('clickOnPetToFeed', {foodName: currentDraggingFood.text() }) }}
-
 </template>
 
-<style lang="scss">
+<style lang='scss' scoped>
+  .group {
+    height: 130px;
+    overflow: hidden;
+  }
 
+  .pet-row {
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    .item {
+      margin-right: .5em;
+    }
+  }
+</style>
+
+<style lang="scss">
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/modal.scss';
 
   .standard-page .clearfix .float-right {
     margin-right: 24px;
@@ -259,13 +275,16 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet {
-    position: absolute;
+  .stable .item .item-content.Pet:not(.FlyingPig) {
     top: -28px;
   }
 
-  .toggle-switch-container.hideMissing {
-    margin-top: 0;
+  .stable .item .item-content.FlyingPig {
+    top: 7px;
+  }
+
+  .stable .item .item-content.Pet-Dragon-Hydra {
+    top: -16px !important;
   }
 
   .hatchablePopover {
@@ -315,11 +334,6 @@
       padding-right:0;
     }
 
-    .drawer-container {
-      // 3% padding + 252px sidebar width
-      left: calc(3% + 252px) !important;
-    }
-
     .svg-icon.inline.icon-16 {
       vertical-align: bottom;
     }
@@ -329,22 +343,8 @@
     height: 114px;
   }
 
-  @mixin habitModal() {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    header, footer {
-      border: 0;
-    }
-
-    .modal-footer {
-      justify-content: center;
-    }
-  }
-
   #welcome-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .npc_matt {
       margin: 0 auto 21px auto;
@@ -367,10 +367,14 @@
 
       width: 400px;
     }
+
+    .modal-footer {
+      justify-content: center;
+    }
   }
 
   #hatching-modal {
-    @include habitModal();
+    @include centeredModal();
 
     .content {
       text-align: center;
@@ -380,7 +384,6 @@
     }
 
     .title {
-      height: 24px;
       margin-top: 24px;
       font-family: Roboto;
       font-size: 20px;
@@ -404,6 +407,10 @@
       position: absolute;
       right: 10px;
       top: 10px;
+    }
+
+    .modal-footer {
+      justify-content: center;
     }
   }
 
@@ -429,6 +436,8 @@
     position: absolute;
     left: -500px;
 
+    z-index: 1080;
+
     &.mouse {
       position: fixed;
       pointer-events: none
@@ -440,7 +449,38 @@
 
     .popover {
       position: inherit;
-      width: 100px;
+      width: 180px;
+    }
+
+    .popover-content {
+      color: white;
+    }
+  }
+
+  .hatchablePopover {
+    width: 180px;
+
+    .potionEggGroup {
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    .potionEggBackground {
+      display: inline-flex;
+      align-items: center;
+
+      width: 64px;
+      height: 64px;
+      border-radius: 2px;
+      background-color: #4e4a57;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+
+      & div {
+        margin: 0 auto;
+      }
     }
   }
 </style>
@@ -455,39 +495,47 @@
 
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
-  import _take from 'lodash/take';
   import _filter from 'lodash/filter';
-  import _drop from 'lodash/drop';
   import _flatMap from 'lodash/flatMap';
   import _throttle from 'lodash/throttle';
-  import _last from 'lodash/last';
+  import groupBy from 'lodash/groupBy';
 
   import Item from '../item';
+  import ItemRows from 'client/components/ui/itemRows';
   import PetItem from './petItem';
   import MountItem from './mountItem.vue';
   import FoodItem from './foodItem';
-  import Drawer from 'client/components/inventory/drawer';
+  import HatchedPetDialog from './hatchedPetDialog';
+  import Drawer from 'client/components/ui/drawer';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
-  import StarBadge from 'client/components/inventory/starBadge';
-  import CountBadge from './countBadge';
-  import DrawerSlider from './drawerSlider';
+  import StarBadge from 'client/components/ui/starBadge';
+  import CountBadge from 'client/components/ui/countBadge';
+  import DrawerSlider from 'client/components/ui/drawerSlider';
 
   import ResizeDirective from 'client/directives/resize.directive';
   import DragDropDirective from 'client/directives/dragdrop.directive';
   import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
+  import createAnimal from 'client/libs/createAnimal';
+
   import svgInformation from 'assets/svg/information.svg';
   import svgClose from 'assets/svg/close.svg';
+
+  import notifications from 'client/mixins/notifications';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
   // import deepFreeze from 'client/libs/deepFreeze';
   // const specialMounts =
 
+  let lastMouseMoveEvent = {};
+
   export default {
+    mixins: [notifications],
     components: {
       PetItem,
       Item,
+      ItemRows,
       FoodItem,
       MountItem,
       Drawer,
@@ -499,6 +547,7 @@
       StarBadge,
       CountBadge,
       DrawerSlider,
+      HatchedPetDialog,
     },
     directives: {
       resize: ResizeDirective,
@@ -534,7 +583,7 @@
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
-        availableContentWidth: 0,
+        showMore: '',
       };
     },
     watch: {
@@ -591,7 +640,6 @@
         petGroups.map((petGroup) => {
           this.$set(this.viewOptions, petGroup.key, {
             selected: true,
-            open: false,
             animalCount: 0,
           });
         });
@@ -637,7 +685,6 @@
         mountGroups.map((mountGroup) => {
           this.$set(this.viewOptions, mountGroup.key, {
             selected: true,
-            open: false,
             animalCount: 0,
           });
         });
@@ -649,7 +696,7 @@
       drawerTabs () {
         return [
           {
-            label: this.$t('food'),
+            label: this.$t('foodTitle'),
             items: _filter(this.content.food, f => {
               return f.key !== 'Saddle' && this.userItems.food[f.key];
             }),
@@ -664,7 +711,13 @@
       },
     },
     methods: {
-
+      setShowMore (key) {
+        if (this.showMore === key) {
+          this.showMore = '';
+          return;
+        }
+        this.showMore = key;
+      },
       getAnimalList (animalGroup, type) {
         let key = animalGroup.key;
 
@@ -708,28 +761,7 @@
           default: {
             _each(animalGroup.petSource.eggs, (egg) => {
               _each(animalGroup.petSource.potions, (potion) => {
-                let animalKey = `${egg.key}-${potion.key}`;
-
-                animals.push({
-                  key: animalKey,
-                  eggKey: egg.key,
-                  eggName: egg.text(),
-                  potionKey: potion.key,
-                  potionName: potion.text(),
-                  name: this.content[`${type}Info`][animalKey].text(),
-                  isOwned ()  {
-                    return userItems[`${type}s`][animalKey] > 0;
-                  },
-                  mountOwned () {
-                    return userItems.mounts[this.key] > 0;
-                  },
-                  isAllowedToFeed () {
-                    return type === 'pet' && this.isOwned() && !this.mountOwned();
-                  },
-                  isHatchable () {
-                    return userItems.eggs[egg.key] > 0 && userItems.hatchingPotions[potion.key] > 0;
-                  },
-                });
+                animals.push(createAnimal(egg, potion, type, this.content, userItems));
               });
             });
           }
@@ -740,7 +772,7 @@
         return animals;
       },
 
-      listAnimals (animalGroup, type, isOpen, hideMissing, sort, searchText, availableSpace) {
+      listAnimals (animalGroup, type, hideMissing, sort, searchText) {
         let animals = this.getAnimalList(animalGroup, type);
         let isPetList = type === 'pet';
         let withProgress = isPetList && animalGroup.key !== 'specialPets';
@@ -761,7 +793,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['pet']);
+            animals = _sortBy(animals, ['name']);
             break;
 
           case 'sortByColor':
@@ -780,32 +812,14 @@
           }
         }
 
-        let animalRows = [];
+        let animalRows = withProgress ? _flatMap(animals, (a) => {
+          let progress = this.userItems[`${type}s`][a.key];
 
-        let itemsPerRow = Math.floor(availableSpace / (94 + 20));
-
-        let rowsToShow = isOpen ? Math.ceil(animals.length / itemsPerRow) : 1;
-
-        for (let i = 0; i < rowsToShow; i++) {
-          let skipped = _drop(animals, i * itemsPerRow);
-          let row = _take(skipped, itemsPerRow);
-
-          let rowWithProgressData = withProgress ? _flatMap(row, (a) => {
-            let progress = this.userItems[`${type}s`][a.key];
-
-            return {
-              ...a,
-              progress,
-            };
-          }) : row;
-
-          let lastRowItem = _last(rowWithProgressData);
-          if (lastRowItem) {
-            lastRowItem.isLastInRow = true;
-          }
-
-          animalRows.push(...rowWithProgressData);
-        }
+          return {
+            ...a,
+            progress,
+          };
+        }) : animals;
 
         this.viewOptions[animalGroup.key].animalCount = animals.length;
 
@@ -823,17 +837,45 @@
         return `${countOwned.length}/${countAll}`;
       },
 
-      pets (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
-        return this.listAnimals(animalGroup, 'pet', showAll, hideMissing, sortBy, searchText, availableSpace);
+      pets (animalGroup, hideMissing, sortBy, searchText) {
+        let pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
+
+        // Don't group special
+        if (animalGroup.key === 'specialPets') {
+          return {none: pets};
+        }
+
+        let groupKey = 'eggKey';
+        if (sortBy === 'sortByColor') {
+          groupKey = 'potionKey';
+        } else if (sortBy === 'AZ') {
+          groupKey = '';
+        }
+
+        return groupBy(pets, groupKey);
       },
 
-      mounts (animalGroup, showAll, hideMissing, sortBy, searchText, availableSpace) {
-        return this.listAnimals(animalGroup, 'mount', showAll, hideMissing, sortBy, searchText, availableSpace);
+      mounts (animalGroup, hideMissing, sortBy, searchText) {
+        let mounts = this.listAnimals(animalGroup, 'mount', hideMissing, sortBy, searchText);
+
+        // Don't group special
+        if (animalGroup.key === 'specialMounts') {
+          return {none: mounts};
+        }
+
+        let groupKey = 'eggKey';
+        if (sortBy === 'sortByColor') {
+          groupKey = 'potionKey';
+        } else if (sortBy === 'AZ') {
+          groupKey = '';
+        }
+
+        return groupBy(mounts, groupKey);
       },
 
       getPetItemClass (pet) {
         if (pet.isOwned()) {
-          return `Pet Pet-${pet.key}`;
+          return `Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.mountOwned()) {
@@ -866,6 +908,9 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+
+        this.closeHatchPetDialog();
+        this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {
@@ -886,10 +931,10 @@
         }
       },
 
-      onDrop (ev, pet) {
-        this.$store.dispatch('common:feed', {pet: pet.key, food: ev.draggingKey});
-
+      async onDrop (ev, pet) {
         this.highlightPet = '';
+
+        this.feedAction(pet.key, ev.draggingKey);
       },
 
       onDragEnd () {
@@ -902,18 +947,34 @@
       },
 
       petClicked (pet) {
-        if (this.currentDraggingFood !== null && pet.isAllowedToFeed()) {
-          // food process
-          this.$store.dispatch('common:feed', {pet: pet.key, food: this.currentDraggingFood.key});
-          this.currentDraggingFood = null;
-          this.foodClickMode = false;
+        if (this.currentDraggingFood !== null) {
+          if (pet.isAllowedToFeed()) {
+            // food process
+            this.feedAction(pet.key, this.currentDraggingFood.key);
+            this.currentDraggingFood = null;
+            this.foodClickMode = false;
+          }
         } else {
-          if (pet.isOwned() || !pet.isHatchable()) {
+          if (pet.isOwned()) {
+            this.selectPet(pet);
             return;
           }
 
+          if (!pet.isHatchable()) {
+            return;
+          }
           // opens the hatch dialog
           this.hatchablePet = pet;
+
+          this.$root.$emit('show::modal', 'hatching-modal');
+        }
+      },
+
+      async feedAction (petKey, foodKey) {
+        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+
+        if (result.message) {
+          this.text(result.message);
         }
       },
 
@@ -931,6 +992,10 @@
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
           this.foodClickMode = true;
+
+          this.$nextTick(() => {
+            this.mouseMoved(lastMouseMoveEvent);
+          });
         } else {
           this.currentDraggingFood = null;
           this.foodClickMode = false;
@@ -939,9 +1004,17 @@
 
       mouseMoved ($event) {
         if (this.foodClickMode) {
-          this.$refs.clickFoodInfo.style.left = `${$event.x + 20}px`;
-          this.$refs.clickFoodInfo.style.top = `${$event.y + 20}px`;
+          this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
+          this.$refs.clickFoodInfo.style.top = `${$event.y}px`;
+        } else {
+          lastMouseMoveEvent = $event;
         }
+      },
+
+      hideFlag () {
+        this.$store.dispatch('user:set', {
+          'flags.tutorial.common.mounts': true,
+        });
       },
     },
   };

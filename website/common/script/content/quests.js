@@ -411,6 +411,7 @@ let quests = {
   vice1: {
     text: t('questVice1Text'),
     notes: t('questVice1Notes'),
+    group: 'questGroupVice',
     value: 4,
     lvl: 30,
     category: 'unlockable',
@@ -435,6 +436,7 @@ let quests = {
   vice2: {
     text: t('questVice2Text'),
     notes: t('questVice2Notes'),
+    group: 'questGroupVice',
     value: 4,
     lvl: 30,
     category: 'unlockable',
@@ -461,6 +463,7 @@ let quests = {
   vice3: {
     text: t('questVice3Text'),
     notes: t('questVice3Notes'),
+    group: 'questGroupVice',
     completion: t('questVice3Completion'),
     previous: 'vice2',
     value: 4,
@@ -661,6 +664,7 @@ let quests = {
   atom1: {
     text: t('questAtom1Text'),
     notes: t('questAtom1Notes'),
+    group: 'questGroupAtom',
     value: 4,
     lvl: 15,
     category: 'unlockable',
@@ -686,6 +690,7 @@ let quests = {
   atom2: {
     text: t('questAtom2Text'),
     notes: t('questAtom2Notes'),
+    group: 'questGroupAtom',
     previous: 'atom1',
     value: 4,
     lvl: 15,
@@ -711,6 +716,7 @@ let quests = {
   atom3: {
     text: t('questAtom3Text'),
     notes: t('questAtom3Notes'),
+    group: 'questGroupAtom',
     previous: 'atom2',
     completion: t('questAtom3Completion'),
     value: 4,
@@ -840,6 +846,7 @@ let quests = {
   moonstone1: {
     text: t('questMoonstone1Text'),
     notes: t('questMoonstone1Notes'),
+    group: 'questGroupMoonstone',
     value: 4,
     lvl: 60,
     category: 'unlockable',
@@ -865,6 +872,7 @@ let quests = {
   moonstone2: {
     text: t('questMoonstone2Text'),
     notes: t('questMoonstone2Notes'),
+    group: 'questGroupMoonstone',
     value: 4,
     lvl: 60,
     previous: 'moonstone1',
@@ -890,6 +898,7 @@ let quests = {
   moonstone3: {
     text: t('questMoonstone3Text'),
     notes: t('questMoonstone3Notes'),
+    group: 'questGroupMoonstone',
     completion: t('questMoonstone3Completion'),
     previous: 'moonstone2',
     value: 4,
@@ -947,6 +956,7 @@ let quests = {
   goldenknight1: {
     text: t('questGoldenknight1Text'),
     notes: t('questGoldenknight1Notes'),
+    group: 'questGroupGoldenknight',
     value: 4,
     lvl: 40,
     category: 'unlockable',
@@ -972,6 +982,7 @@ let quests = {
   goldenknight2: {
     text: t('questGoldenknight2Text'),
     notes: t('questGoldenknight2Notes'),
+    group: 'questGroupGoldenknight',
     value: 4,
     previous: 'goldenknight1',
     lvl: 40,
@@ -997,6 +1008,7 @@ let quests = {
   goldenknight3: {
     text: t('questGoldenknight3Text'),
     notes: t('questGoldenknight3Notes'),
+    group: 'questGroupGoldenknight',
     completion: t('questGoldenknight3Completion'),
     previous: 'goldenknight2',
     value: 4,
@@ -1042,6 +1054,7 @@ let quests = {
   basilist: {
     text: t('questBasilistText'),
     notes: t('questBasilistNotes'),
+    group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
     value: 4,
     category: 'unlockable',
@@ -1389,6 +1402,7 @@ let quests = {
   dilatoryDistress1: {
     text: t('questDilatoryDistress1Text'),
     notes: t('questDilatoryDistress1Notes'),
+    group: 'questGroupDilatoryDistress',
     completion: t('questDilatoryDistress1Completion'),
     value: 4,
     goldValue: 200,
@@ -1418,6 +1432,7 @@ let quests = {
   dilatoryDistress2: {
     text: t('questDilatoryDistress2Text'),
     notes: t('questDilatoryDistress2Notes'),
+    group: 'questGroupDilatoryDistress',
     completion: t('questDilatoryDistress2Completion'),
     previous: 'dilatoryDistress1',
     value: 4,
@@ -1457,6 +1472,7 @@ let quests = {
   dilatoryDistress3: {
     text: t('questDilatoryDistress3Text'),
     notes: t('questDilatoryDistress3Notes'),
+    group: 'questGroupDilatoryDistress',
     completion: t('questDilatoryDistress3Completion'),
     previous: 'dilatoryDistress2',
     value: 4,
@@ -2065,6 +2081,7 @@ let quests = {
   taskwoodsTerror1: {
     text: t('questTaskwoodsTerror1Text'),
     notes: t('questTaskwoodsTerror1Notes'),
+    group: 'questGroupTaskwoodsTerror',
     completion: t('questTaskwoodsTerror1Completion'),
     value: 4,
     goldValue: 200,
@@ -2103,6 +2120,7 @@ let quests = {
   taskwoodsTerror2: {
     text: t('questTaskwoodsTerror2Text'),
     notes: t('questTaskwoodsTerror2Notes'),
+    group: 'questGroupTaskwoodsTerror',
     completion: t('questTaskwoodsTerror2Completion'),
     previous: 'taskwoodsTerror1',
     value: 4,
@@ -2137,6 +2155,7 @@ let quests = {
   taskwoodsTerror3: {
     text: t('questTaskwoodsTerror3Text'),
     notes: t('questTaskwoodsTerror3Notes'),
+    group: 'questGroupTaskwoodsTerror',
     completion: t('questTaskwoodsTerror3Completion'),
     previous: 'taskwoodsTerror2',
     value: 4,
@@ -2206,6 +2225,7 @@ let quests = {
   dustbunnies: {
     text: t('questDustBunniesText'),
     notes: t('questDustBunniesNotes'),
+    group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
     value: 4,
     category: 'unlockable',
@@ -2226,6 +2246,7 @@ let quests = {
   moon1: {
     text: t('questMoon1Text'),
     notes: t('questMoon1Notes'),
+    group: 'questGroupMoon',
     completion: t('questMoon1Completion'),
     value: 4,
     category: 'unlockable',
@@ -2255,6 +2276,7 @@ let quests = {
   moon2: {
     text: t('questMoon2Text'),
     notes: t('questMoon2Notes'),
+    group: 'questGroupMoon',
     completion: t('questMoon2Completion'),
     previous: 'moon1',
     value: 4,
@@ -2284,6 +2306,7 @@ let quests = {
   moon3: {
     text: t('questMoon3Text'),
     notes: t('questMoon3Notes'),
+    group: 'questGroupMoon',
     completion: t('questMoon3Completion'),
     previous: 'moon2',
     value: 4,
@@ -2377,6 +2400,7 @@ let quests = {
   stoikalmCalamity1: {
     text: t('questStoikalmCalamity1Text'),
     notes: t('questStoikalmCalamity1Notes'),
+    group: 'questGroupStoikalmCalamity',
     completion: t('questStoikalmCalamity1Completion'),
     value: 4,
     goldValue: 200,
@@ -2415,6 +2439,7 @@ let quests = {
   stoikalmCalamity2: {
     text: t('questStoikalmCalamity2Text'),
     notes: t('questStoikalmCalamity2Notes'),
+    group: 'questGroupStoikalmCalamity',
     completion: t('questStoikalmCalamity2Completion'),
     previous: 'stoikalmCalamity1',
     value: 4,
@@ -2441,6 +2466,7 @@ let quests = {
   stoikalmCalamity3: {
     text: t('questStoikalmCalamity3Text'),
     notes: t('questStoikalmCalamity3Notes'),
+    group: 'questGroupStoikalmCalamity',
     completion: t('questStoikalmCalamity3Completion'),
     previous: 'stoikalmCalamity2',
     value: 4,
@@ -2578,6 +2604,7 @@ let quests = {
   mayhemMistiflying1: {
     text: t('questMayhemMistiflying1Text'),
     notes: t('questMayhemMistiflying1Notes'),
+    group: 'questGroupMayhemMistiflying',
     completion: t('questMayhemMistiflying1Completion'),
     value: 4,
     goldValue: 200,
@@ -2616,6 +2643,7 @@ let quests = {
   mayhemMistiflying2: {
     text: t('questMayhemMistiflying2Text'),
     notes: t('questMayhemMistiflying2Notes'),
+    group: 'questGroupMayhemMistiflying',
     completion: t('questMayhemMistiflying2Completion'),
     previous: 'mayhemMistiflying1',
     value: 4,
@@ -2650,6 +2678,7 @@ let quests = {
   mayhemMistiflying3: {
     text: t('questMayhemMistiflying3Text'),
     notes: t('questMayhemMistiflying3Notes'),
+    group: 'questGroupMayhemMistiflying',
     completion: t('questMayhemMistiflying3Completion'),
     previous: 'mayhemMistiflying2',
     value: 4,
@@ -2718,6 +2747,260 @@ let quests = {
       gp: 31,
       exp: 200,
       unlock: t('questNudibranchUnlockText'),
+    },
+  },
+  hippo: {
+    text: t('questHippoText'),
+    notes: t('questHippoNotes'),
+    completion: t('questHippoCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questHippoBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Hippo',
+          text: t('questHippoDropHippoEgg'),
+        },
+      ],
+      gp: 55,
+      exp: 500,
+      unlock: t('questHippoUnlockText'),
+    },
+  },
+  lostMasterclasser1: {
+    text: t('questLostMasterclasser1Text'),
+    notes: t('questLostMasterclasser1Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser1Completion'),
+    value: 4,
+    goldValue: 400,
+    category: 'gold',
+    collect: {
+      ancientTome: {
+        text: t('questLostMasterclasser1CollectAncientTomes'),
+        count: 40,
+      },
+      forbiddenTome: {
+        text: t('questLostMasterclasser1CollectForbiddenTomes'),
+        count: 40,
+      },
+      hiddenTome: {
+        text: t('questLostMasterclasser1CollectHiddenTomes'),
+        count: 40,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Potatoe',
+          text: t('foodPotatoe'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Meat',
+          text: t('foodMeat'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        }, {
+          type: 'food',
+          key: 'Milk',
+          text: t('foodMilk'),
+        },
+      ],
+      gp: 0,
+      exp: 200,
+    },
+  },
+  lostMasterclasser2: {
+    text: t('questLostMasterclasser2Text'),
+    notes: t('questLostMasterclasser2Notes'),
+    group: 'questGroupLostMasterclasser',
+    previous: 'lostMasterclasser1',
+    completion: t('questLostMasterclasser2Completion'),
+    value: 4,
+    goldValue: 500,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser2Boss'),
+      hp: 1500,
+      str: 2.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Chocolate',
+          text: t('foodChocolate'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'Honey',
+          text: t('foodHoney'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'food',
+          key: 'RottenMeat',
+          text: t('foodRottenMeat'),
+        }, {
+          type: 'gear',
+          key: 'eyewear_special_aetherMask',
+          text: t('questLostMasterclasser2DropEyewear'),
+        },
+      ],
+      gp: 0,
+      exp: 1500,
+    },
+  },
+  lostMasterclasser3: {
+    text: t('questLostMasterclasser3Text'),
+    notes: t('questLostMasterclasser3Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser3Completion'),
+    previous: 'lostMasterclasser2',
+    value: 4,
+    goldValue: 600,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser3Boss'),
+      hp: 2000,
+      str: 3,
+      rage: {
+        title: t('questLostMasterclasser3RageTitle'),
+        description: t('questLostMasterclasser3RageDescription'),
+        value: 25,
+        healing: 0.3,
+        effect: t('questLostMasterclasser3RageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Base',
+          text: t('questLostMasterclasser3DropBasePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'CottonCandyPink',
+          text: t('questLostMasterclasser3DropPinkPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Golden',
+          text: t('questLostMasterclasser3DropGoldenPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Shade',
+          text: t('questLostMasterclasser3DropShadePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Zombie',
+          text: t('questLostMasterclasser3DropZombiePotion'),
+        }, {
+          type: 'gear',
+          key: 'body_special_aetherAmulet',
+          text: t('questLostMasterclasser3DropBodyAccessory'),
+        },
+      ],
+      gp: 0,
+      exp: 2000,
+    },
+  },
+  lostMasterclasser4: {
+    text: t('questLostMasterclasser4Text'),
+    notes: t('questLostMasterclasser4Notes'),
+    group: 'questGroupLostMasterclasser',
+    completion: t('questLostMasterclasser4Completion'),
+    previous: 'lostMasterclasser3',
+    value: 4,
+    goldValue: 700,
+    category: 'gold',
+    boss: {
+      name: t('questLostMasterclasser4Boss'),
+      hp: 3000,
+      str: 4,
+      rage: {
+        title: t('questLostMasterclasser4RageTitle'),
+        description: t('questLostMasterclasser4RageDescription'),
+        value: 15,
+        mpDrain: true,
+        effect: t('questLostMasterclasser4RageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'mounts',
+          key: 'Aether-Invisible',
+          text: t('questLostMasterclasser4DropMount'),
+        }, {
+          type: 'gear',
+          key: 'back_special_aetherCloak',
+          text: t('questLostMasterclasser4DropBackAccessory'),
+        }, {
+          type: 'gear',
+          key: 'weapon_special_aetherCrystals',
+          text: t('questLostMasterclasser4DropWeapon'),
+        },
+      ],
+      gp: 0,
+      exp: 3500,
     },
   },
 };

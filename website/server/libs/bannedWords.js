@@ -52,15 +52,17 @@
 // Do not block the following words:
 // 'ale' because it's Polish for 'but'.
 // 'af' because it's Danish for 'of'.
+// 'tard' because it's French for 'late' and there's no common synonyms.
 // 'god' because it is allowed for use in ways that are not oaths.
 // Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
 // Legitimate given names: 'Jesus', 'Sherry'
-// Legitimate surnames: 'Christ'
+// Legitimate surnames: 'Christ', 'Mead'
 // Legitimate place names: 'Dyke'
 //
 // Explanations for some blocked words:
 // 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
+// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
 
 let bannedWords = [
   'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
@@ -92,8 +94,10 @@ let bannedWords = [
   'fucked',
   'fuckwit',
   'fucker',
+  'fuckers',
   'f\\*ck',
   'motherfucker',
+  'motherfuckers',
   'motherfucking',
   'muthafucka',
   'fu',
@@ -116,26 +120,8 @@ let bannedWords = [
   'bitching',
   'b\\*tch',
 
-  'nigger',
-  'niggers',
-  'nigga',
-  'niggas',
   'fag',
-  'fags',
-  'faggot',
-  'faggots',
-  'whore',
-  'whores',
   'slut',
-  'sluts',
-  'cunt',
-  'cunts',
-  'spic',
-  'spics',
-  'tranny',
-  'trannies',
-  'tard',
-  'tards',
   'retard',
   'retards',
   'bastard',
@@ -167,7 +153,6 @@ let bannedWords = [
   'alcohol',
   'beer',
   'beers',
-  'mead',
   'champagne',
   'rum',
   'brandy',

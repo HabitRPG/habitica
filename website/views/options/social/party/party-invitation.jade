@@ -1,8 +1,0 @@
-.container-fluid(ng-show='user.invitations.party.id')
-  h2=env.t('invitedTo', {name: '{{user.invitations.party.name}}'})
-
-  a.btn.btn-success(
-    data-type='party',
-    ng-click='join(user.invitations.party)'
-  )=env.t('accept')
-  a.btn.btn-danger(ng-click='reject(user.invitations.party)')=env.t('reject')

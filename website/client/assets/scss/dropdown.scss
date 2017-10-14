@@ -6,7 +6,7 @@
   line-height: 1.43;
 }
 
-.dropdown.show > .dropdown-toggle {
+.dropdown.show > .dropdown-toggle:not(.btn-success) {
   color: $purple-200;
   border-color: $purple-500 !important;
   box-shadow: none;
@@ -34,7 +34,6 @@
   line-height: 1.71;
   color: $gray-50;
   cursor: pointer;
-  border-bottom: 1px solid $gray-500;
 
   &:focus {
     outline: none;
@@ -58,4 +57,15 @@
   color: $gray-10;
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.dropdown-icon-item {
+  .svg-icon {
+    margin: 0px 16px 0px 0px;
+    vertical-align: middle;
+  }
+
+  .text {
+    vertical-align: middle;
+  }
 }

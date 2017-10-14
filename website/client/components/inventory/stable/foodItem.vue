@@ -1,13 +1,6 @@
 <template lang="pug">
-b-popover(
-  :triggers="['hover']",
-  :placement="'top'",
-)
-  span(slot="content")
-    h4.popover-content-title {{ item.text() }}
-    div.popover-content-text(v-html="item.notes()")
-
-  .item-wrapper(@click="click($event)")
+div
+  .item-wrapper(@click="click($event)", :id="itemId")
     .item(:class="{'item-active': active }")
       countBadge(
         :show="true",
@@ -19,13 +12,22 @@ b-popover(
         @itemDragEnd="dragend($event)",
         @itemDragStart="dragstart($event)"
       )
+  b-popover(
+    :target="itemId",
+    triggers="hover",
+    placement="top",
+  )
+    h4.popover-content-title {{ item.text() }}
+    div.popover-content-text(v-html="item.notes()")
 </template>
 
 <script>
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 
-import CountBadge from './countBadge';
+import CountBadge from 'client/components/ui/countBadge';
+
+import uuid from 'uuid';
 
 export default {
   components: {
@@ -48,6 +50,11 @@ export default {
     active: {
       type: Boolean,
     },
+  },
+  data () {
+    return Object.freeze({
+      itemId: uuid.v4(),
+    });
   },
   methods: {
     dragend ($event) {

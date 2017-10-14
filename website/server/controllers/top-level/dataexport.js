@@ -12,7 +12,6 @@ import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
 import Bluebird from 'bluebird';
-import locals from '../../middlewares/locals';
 import md from 'habitica-markdown';
 import {
   S3,
@@ -160,10 +159,11 @@ api.exportUserDataXml = {
  *
  * @apiUse UserNotFound
  */
+ // @TODO fix
 api.exportUserAvatarHtml = {
   method: 'GET',
   url: '/export/avatar-:memberId.html',
-  middlewares: [locals],
+  // middlewares: [locals],
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 

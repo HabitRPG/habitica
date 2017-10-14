@@ -261,6 +261,42 @@ let armor = {
     set: 'swanDancer',
     canOwn: ownsItem('armor_armoire_swanDancerTutu'),
   },
+  yellowPartyDress: {
+    text: t('armorArmoireYellowPartyDressText'),
+    notes: t('armorArmoireYellowPartyDressNotes', { attrs: 7 }),
+    value: 100,
+    per: 7,
+    int: 7,
+    str: 7,
+    set: 'yellowHairbow',
+    canOwn: ownsItem('armor_armoire_yellowPartyDress'),
+  },
+  antiProcrastinationArmor: {
+    text: t('armorArmoireAntiProcrastinationArmorText'),
+    notes: t('armorArmoireAntiProcrastinationArmorNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'antiProcrastination',
+    canOwn: ownsItem('armor_armoire_antiProcrastinationArmor'),
+  },
+  farrierOutfit: {
+    text: t('armorArmoireFarrierOutfitText'),
+    notes: t('armorArmoireFarrierOutfitNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    int: 6,
+    per: 6,
+    set: 'farrier',
+    canOwn: ownsItem('armor_armoire_farrierOutfit'),
+  },
+  candlestickMakerOutfit: {
+    text: t('armorArmoireCandlestickMakerOutfitText'),
+    notes: t('armorArmoireCandlestickMakerOutfitNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('armor_armoire_candlestickMakerOutfit'),
+  },
 };
 
 let eyewear = {
@@ -363,6 +399,7 @@ let head = {
     int: 5,
     per: 5,
     str: 5,
+    set: 'yellowHairbow',
     canOwn: ownsItem('head_armoire_yellowHairbow'),
   },
   redFloppyHat: {
@@ -585,6 +622,23 @@ let head = {
     set: 'swanDancer',
     canOwn: ownsItem('head_armoire_swanFeatherCrown'),
   },
+  antiProcrastinationHelm: {
+    text: t('headArmoireAntiProcrastinationHelmText'),
+    notes: t('headArmoireAntiProcrastinationHelmNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'antiProcrastination',
+    canOwn: ownsItem('head_armoire_antiProcrastinationHelm'),
+  },
+  candlestickMakerHat: {
+    text: t('headArmoireCandlestickMakerHatText'),
+    notes: t('headArmoireCandlestickMakerHatNotes', { attrs: 6 }),
+    value: 100,
+    int: 6,
+    per: 6,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('head_armoire_candlestickMakerHat'),
+  },
 };
 
 let shield = {
@@ -710,6 +764,32 @@ let shield = {
     int: 4,
     str: 4,
     canOwn: ownsItem('shield_armoire_goldenBaton'),
+  },
+  antiProcrastinationShield: {
+    text: t('shieldArmoireAntiProcrastinationShieldText'),
+    notes: t('shieldArmoireAntiProcrastinationShieldNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'antiProcrastination',
+    canOwn: ownsItem('shield_armoire_antiProcrastinationShield'),
+  },
+  horseshoe: {
+    text: t('shieldArmoireHorseshoeText'),
+    notes: t('shieldArmoireHorseshoeNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    per: 6,
+    str: 6,
+    set: 'farrier',
+    canOwn: ownsItem('shield_armoire_horseshoe'),
+  },
+  handmadeCandlestick: {
+    text: t('shieldArmoireHandmadeCandlestickText'),
+    notes: t('shieldArmoireHandmadeCandlestickNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('shield_armoire_handmadeCandlestick'),
   },
 };
 
@@ -946,6 +1026,16 @@ let weapon = {
     int: 6,
     con: 8,
     canOwn: ownsItem('weapon_armoire_battleAxe'),
+  },
+  hoofClippers: {
+    text: t('weaponArmoireHoofClippersText'),
+    notes: t('weaponArmoireHoofClippersNotes', { attrs: 6 }),
+    value: 100,
+    con: 6,
+    int: 6,
+    str: 6,
+    set: 'farrier',
+    canOwn: ownsItem('weapon_armoire_hoofClippers'),
   },
 };
 

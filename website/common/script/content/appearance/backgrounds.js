@@ -535,6 +535,48 @@ let backgrounds = {
       notes: t('backgroundMidnightLakeNotes'),
     },
   },
+  backgrounds082017: {
+    back_of_giant_beast: {
+      text: t('backgroundBackOfGiantBeastText'),
+      notes: t('backgroundBackOfGiantBeastNotes'),
+    },
+    desert_dunes: {
+      text: t('backgroundDesertDunesText'),
+      notes: t('backgroundDesertDunesNotes'),
+    },
+    summer_fireworks: {
+      text: t('backgroundSummerFireworksText'),
+      notes: t('backgroundSummerFireworksNotes'),
+    },
+  },
+  backgrounds092017: {
+    beside_well: {
+      text: t('backgroundBesideWellText'),
+      notes: t('backgroundBesideWellNotes'),
+    },
+    garden_shed: {
+      text: t('backgroundGardenShedText'),
+      notes: t('backgroundGardenShedNotes'),
+    },
+    pixelists_workshop: {
+      text: t('backgroundPixelistsWorkshopText'),
+      notes: t('backgroundPixelistsWorkshopNotes'),
+    },
+  },
+  backgrounds102017: {
+    magical_candles: {
+      text: t('backgroundMagicalCandlesText'),
+      notes: t('backgroundMagicalCandlesNotes'),
+    },
+    spooky_hotel: {
+      text: t('backgroundSpookyHotelText'),
+      notes: t('backgroundSpookyHotelNotes'),
+    },
+    tar_pits: {
+      text: t('backgroundTarPitsText'),
+      notes: t('backgroundTarPitsNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -570,10 +612,24 @@ let backgrounds = {
 };
 /* eslint-enable quote-props */
 
-forOwn(backgrounds, function prefillBackgroundSet (value) {
-  forOwn(value, function prefillBackground (bgObject) {
-    bgObject.price = 7;
+let flat = {};
+
+forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
+  forOwn(backgroundsInSet, function prefillBackground (background, bgKey) {
+    background.key = bgKey;
+    background.set = set;
+    background.price = 7;
+
+    flat[bgKey] = background;
   });
 });
 
-module.exports = backgrounds;
+export default backgrounds;
+
+export function backgroundsTree () {
+  return backgrounds;
+}
+
+export function backgroundsFlat () {
+  return flat;
+}

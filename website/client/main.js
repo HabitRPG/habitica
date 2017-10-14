@@ -4,6 +4,9 @@ require('babel-polyfill');
 
 import Vue from 'vue';
 import AppComponent from './app';
+import {
+  setup as setupAnalytics,
+} from 'client/libs/analytics';
 import router from './router';
 import getStore from './store';
 import StoreModule from './libs/store';
@@ -22,12 +25,16 @@ Vue.config.performance = !IS_PRODUCTION;
 // Disable annoying reminder abour production build in dev mode
 Vue.config.productionTip = IS_PRODUCTION;
 
-Vue.use(i18n);
+// window['habitica-i18n] is injected by the server
+Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
+
+setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
+const store = getStore();
 
 export default new Vue({
   el: '#app',
   router,
-  store: getStore(),
+  store,
   render: h => h(AppComponent),
 });

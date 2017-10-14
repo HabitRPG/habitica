@@ -47,6 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Vlastní začátek dne",
+    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Změnit vlastní začátek dne?",
     "sureChangeCustomDayStart": "Jsi si jistý, že chceš změnit svůj vlastní začátek dne?",
     "customDayStartHasChanged": "Tvůj vlastní začátek dne byl změněn.",
@@ -66,6 +67,7 @@
     "resetText1": "POZOR! Tímto resetujete mnoho částí svého účtu. Silně nedoporučujeme tuto možnost používat, ale vyhovuje to některým uživatelům, kteří si se stránkou na začátku trochu hrají.",
     "resetText2": "You will lose all your levels, gold, and experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks and equipment.",
     "deleteLocalAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type your password into the text box below.",
+    "deleteSocialAccountText": "Are you sure? This will delete your account forever, and it can never be restored! You will need to register a new account to use Habitica again. Banked or spent Gems will not be refunded. If you're absolutely certain, type \"DELETE\" into the text box below.",
     "API": "API",
     "APIv3": "API v3",
     "APIText": "Zkopíruj je pro použití v aplikacích třetích stran. Avšak, stejně jako bys nikomu neřekl své heslo, tak nikomu neříkej svůj API Token. Někdy můžeš být požádán o své uživatelské ID, ale nikdy neuveřejňuj svůj API Token tam, kde ho uvidí ostatní a to včetně Githubu.",
@@ -104,9 +106,7 @@
     "email": "Email",
     "registerWithSocial": "Register with <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
-    "loginNameDescription1": "This is what you use to login to Habitica. To change it, use the form below. If instead you want to change the name that appears on your avatar and in chat messages, go to",
-    "loginNameDescription2": "Uživatel -> Profil",
-    "loginNameDescription3": "and click the Edit button.",
+    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
     "emailNotifications": "Emailová upozornění",
     "wonChallenge": "Vyhrál jsi výzvu!",
     "newPM": "Obdržena soukromá zpráva",
@@ -129,7 +129,7 @@
     "remindersToLogin": "Upomínky k přihlášení do země Habitica",
     "subscribeUsing": "Použití předplatného",
     "unsubscribedSuccessfully": "Úspěšně odepsán",
-    "unsubscribedTextUsers": "Úspěšně ses odepsal ze všech emailu ze země Habitica. Můžeš povolit pouze ty emaily, které chceš dostávat v <a href=\"/#/options/settings/notifications\">Nastavení</a> (musíš být přihlášen).",
+    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
     "unsubscribedTextOthers": "Již nedostaneš ze země Habitica žádný další email.",
     "unsubscribeAllEmails": "Zaškrtni, aby ses odhlásil z emailů",
     "unsubscribeAllEmailsText": "Zaškrtnutím toho políčka potvrzuji, že rozumím tomu, že kvůli odhlášení se z emailů mě nebude moci nikdy nikdo kontaktovat emailem o důležitých změnách na stránce nebo v mém účtu ze země Habitica.",
@@ -184,5 +184,6 @@
     "timezone": "Časové pásmo",
     "timezoneUTC": "Habitica používá časové pásmo nastavené na tvém PC, což je : <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
-    "push": "Push"
+    "push": "Push",
+    "about": "About"
 }

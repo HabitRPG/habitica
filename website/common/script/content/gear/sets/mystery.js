@@ -163,6 +163,12 @@ let armor = {
     mystery: '201704',
     value: 0,
   },
+  201707: {
+    text: t('armorMystery201707Text'),
+    notes: t('armorMystery201707Notes'),
+    mystery: '201707',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -248,6 +254,12 @@ let back = {
     text: t('backMystery201706Text'),
     notes: t('backMystery201706Notes'),
     mystery: '201706',
+    value: 0,
+  },
+  201709: {
+    text: t('backMystery201709Text'),
+    notes: t('backMystery201709Notes'),
+    mystery: '201709',
     value: 0,
   },
 };
@@ -481,6 +493,12 @@ let head = {
     mystery: '201705',
     value: 0,
   },
+  201707: {
+    text: t('headMystery201707Text'),
+    notes: t('headMystery201707Notes'),
+    mystery: '201707',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -559,6 +577,18 @@ let shield = {
     mystery: '201701',
     value: 0,
   },
+  201708: {
+    text: t('shieldMystery201708Text'),
+    notes: t('shieldMystery201708Notes'),
+    mystery: '201708',
+    value: 0,
+  },
+  201709: {
+    text: t('shieldMystery201709Text'),
+    notes: t('shieldMystery201709Notes'),
+    mystery: '201709',
+    value: 0,
+  },
   301405: {
     text: t('shieldMystery301405Text'),
     notes: t('shieldMystery301405Notes'),
@@ -596,6 +626,12 @@ let weapon = {
     text: t('weaponMystery201611Text'),
     notes: t('weaponMystery201611Notes'),
     mystery: '201611',
+    value: 0,
+  },
+  201708: {
+    text: t('weaponMystery201708Text'),
+    notes: t('weaponMystery201708Notes'),
+    mystery: '201708',
     value: 0,
   },
   301404: {

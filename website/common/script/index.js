@@ -25,6 +25,9 @@ import {
   MAX_INCENTIVES,
   TAVERN_ID,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  MAX_SUMMARY_SIZE_FOR_GUILDS,
+  MAX_SUMMARY_SIZE_FOR_CHALLENGES,
+  MIN_SHORTNAME_SIZE_FOR_CHALLENGES,
   SUPPORTED_SOCIAL_NETWORKS,
   GUILDS_PER_PAGE,
   PARTY_LIMIT_MEMBERS,
@@ -33,6 +36,9 @@ import {
 api.constants = {
   MAX_INCENTIVES,
   LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  MAX_SUMMARY_SIZE_FOR_GUILDS,
+  MAX_SUMMARY_SIZE_FOR_CHALLENGES,
+  MIN_SHORTNAME_SIZE_FOR_CHALLENGES,
   SUPPORTED_SOCIAL_NETWORKS,
   GUILDS_PER_PAGE,
   PARTY_LIMIT_MEMBERS,
@@ -63,6 +69,9 @@ api.preenTodos = preenTodos;
 
 import updateStore from './libs/updateStore';
 api.updateStore = updateStore;
+
+import inAppRewards from './libs/inAppRewards';
+api.inAppRewards = inAppRewards;
 
 import uuid from './libs/uuid';
 api.uuid = uuid;
@@ -143,6 +152,7 @@ import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
 import purchase from './ops/purchase';
+import purchaseWithSpell from './ops/purchaseWithSpell';
 import purchaseHourglass from './ops/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
@@ -160,6 +170,7 @@ import deletePM from './ops/deletePM';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
+import pinnedGearUtils from './ops/pinnedGearUtils';
 
 api.ops = {
   scoreTask,
@@ -179,6 +190,7 @@ api.ops = {
   changeClass,
   disableClasses,
   purchase,
+  purchaseWithSpell,
   purchaseHourglass,
   readCard,
   openMysteryItem,
@@ -196,6 +208,7 @@ api.ops = {
   reroll,
   reset,
   markPmsRead,
+  pinnedGearUtils,
 };
 
 /*

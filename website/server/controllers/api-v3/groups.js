@@ -83,7 +83,7 @@ let api = {};
  * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
  * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
  *
- * @apiSuccess {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
  * @apiSuccessExample {json} Private Guild:
  *     HTTP/1.1 200 OK
@@ -174,7 +174,7 @@ api.createGroup = {
  * @apiName CreateGroupPlan
  * @apiGroup Group
  *
- * @apiSuccess {Object} data The created group
+ * @apiSuccess (201) {Object} data The created group
  */
 api.createGroupPlan = {
   method: 'POST',
@@ -263,9 +263,9 @@ api.createGroupPlan = {
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
- * @apiParam {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
- * @apiParam {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
+ * @apiParam (Query) {String} type The type of groups to retrieve. Must be a query string representing a list of values like 'tavern,party'. Possible values are party, guilds, privateGuilds, publicGuilds, tavern
+ * @apiParam (Query) {String="true","false"} [paginate] Public guilds support pagination. When true guilds are returned in groups of 30
+ * @apiParam (Query) {Number} [page] When pagination is enabled for public guilds this parameter can be used to specify the page number (the initial page is number 0 and not required)
  *
  * @apiParamExample {json} Private Guilds, Tavern:
  *     {
@@ -310,9 +310,38 @@ api.getGroups = {
     let groupFields = basicGroupFields.concat(' description memberCount balance');
     let sort = '-memberCount';
 
+    let filters = {};
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      filters.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    if (req.query.minMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$gte = parseInt(req.query.minMemberCount, 10);
+    }
+
+    if (req.query.maxMemberCount) {
+      if (!filters.memberCount) filters.memberCount = {};
+      filters.memberCount.$lte = parseInt(req.query.maxMemberCount, 10);
+    }
+
+    // @TODO: Tests for below?
+    if (req.query.leader) {
+      filters.leader = user._id;
+    }
+
+    if (req.query.member) {
+      filters._id = { $in: user.guilds };
+    }
+
+    if (req.query.search) {
+      filters.$text = { $search: req.query.search };
+    }
+
     let results = await Group.getGroups({
       user, types, groupFields, sort,
-      paginate, page: req.query.page,
+      paginate, page: req.query.page, filters,
     });
     res.respond(200, results);
   },
@@ -480,29 +509,35 @@ api.joinGroup = {
 
     let isUserInvited = false;
 
-    if (group.type === 'party' && group._id === user.invitations.party.id) {
-      inviter = user.invitations.party.inviter;
-      user.invitations.party = {}; // Clear invite
-      user.markModified('invitations.party');
+    if (group.type === 'party') {
+      // Check if was invited to party
+      let inviterParty = _.find(user.invitations.parties, {id: group._id});
+      if (inviterParty) {
+        inviter = inviterParty.inviter;
 
-      // invite new user to pending quest
-      if (group.quest.key && !group.quest.active) {
-        user.party.quest.RSVPNeeded = true;
-        user.party.quest.key = group.quest.key;
-        group.quest.members[user._id] = null;
-        group.markModified('quest.members');
+        // Clear all invitations of new user
+        user.invitations.parties = [];
+        user.invitations.party = {};
+
+        // invite new user to pending quest
+        if (group.quest.key && !group.quest.active) {
+          user.party.quest.RSVPNeeded = true;
+          user.party.quest.key = group.quest.key;
+          group.quest.members[user._id] = null;
+          group.markModified('quest.members');
+        }
+
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
+        user.party._id = group._id; // Set group as user's party
+
+        isUserInvited = true;
       }
-
-      // If user was in a different party (when partying solo you can be invited to a new party)
-      // make him leave that party before doing anything
-      if (user.party._id) {
-        let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-        if (userPreviousParty) await userPreviousParty.leave(user);
-      }
-
-      user.party._id = group._id; // Set group as user's party
-
-      isUserInvited = true;
     } else if (group.type === 'guild') {
       let hasInvitation = removeFromArray(user.invitations.guilds, { id: group._id });
 
@@ -636,8 +671,9 @@ api.rejectGroupInvite = {
     let groupId = req.params.groupId;
     let isUserInvited = false;
 
-    if (groupId === user.invitations.party.id) {
-      user.invitations.party = {};
+    let hasPartyInvitation = removeFromArray(user.invitations.parties, { id: groupId });
+    if (hasPartyInvitation) {
+      user.invitations.party = user.invitations.parties.length > 0 ? user.invitations.parties[user.invitations.parties.length - 1] : {};
       user.markModified('invitations.party');
       isUserInvited = true;
     } else {
@@ -668,7 +704,7 @@ function _removeMessagesFromMember (member, groupId) {
  * @apiName LeaveGroup
  * @apiGroup Group
  *
- * @apiParam {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {String} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Query) {String="remove-all","keep-all"} keep=keep-all Whether or not to keep challenge tasks belonging to the group being left.
  * @apiParam (Body) {String="remain-in-challenges","leave-challenges"} [keepChallenges=leave-challenges] Whether or not to remain in the challenges of the group being left.
  *
@@ -737,8 +773,8 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
     sendTxnEmail(removedUser, subject, [
       {name: 'GROUP_NAME', content: group.name},
       {name: 'MESSAGE', content: message},
-      {name: 'GUILDS_LINK', content: '/#/options/groups/guilds/public'},
-      {name: 'PARTY_WANTED_GUILD', content: '/#/options/groups/guilds/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
+      {name: 'GUILDS_LINK', content: '/groups/discovery'},
+      {name: 'PARTY_WANTED_GUILD', content: '/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601'},
     ]);
   }
 }
@@ -804,7 +840,7 @@ api.removeGroupMember = {
     }
 
     let isInvited;
-    if (member.invitations.party && member.invitations.party.id === group._id) {
+    if (_.find(member.invitations.parties, {id: group._id})) {
       isInvited = 'party';
     } else if (_.findIndex(member.invitations.guilds, {id: group._id}) !== -1) {
       isInvited = 'guild';
@@ -849,7 +885,8 @@ api.removeGroupMember = {
         removeFromArray(member.invitations.guilds, { id: group._id });
       }
       if (isInvited === 'party') {
-        member.invitations.party = {};
+        removeFromArray(member.invitations.parties, { id: group._id });
+        member.invitations.party = member.invitations.parties.length > 0 ? member.invitations.parties[member.invitations.parties.length - 1] : {};
         member.markModified('invitations.party');
       }
     } else {
@@ -888,7 +925,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
-    if (userToInvite.invitations.party.id) {
+    // Do not add to invitations.parties array if the user is already invited to that party
+    if (_.find(userToInvite.invitations.parties, {id: group._id})) {
       throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
     }
 
@@ -901,6 +939,8 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
     if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+
+    userToInvite.invitations.parties.push(partyInvite);
     userToInvite.invitations.party = partyInvite;
   }
 
@@ -914,12 +954,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
     if (group.type === 'guild') {
       emailVars.push(
         {name: 'GUILD_NAME', content: group.name},
-        {name: 'GUILD_URL', content: '/#/options/groups/guilds/public'}
+        {name: 'GUILD_URL', content: '/groups/discovery'}
       );
     } else {
       emailVars.push(
         {name: 'PARTY_NAME', content: group.name},
-        {name: 'PARTY_URL', content: '/#/options/groups/party'}
+        {name: 'PARTY_URL', content: '/party'}
       );
     }
 
@@ -943,7 +983,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   if (group.type === 'guild') {
     return userInvited.invitations.guilds[userToInvite.invitations.guilds.length - 1];
   } else if (group.type === 'party') {
-    return userInvited.invitations.party;
+    return userInvited.invitations.parties[userToInvite.invitations.parties.length - 1];
   }
 }
 
@@ -1028,8 +1068,8 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  * }
  *
  * @apiSuccess {Array} data The invites
- * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll recieve one Object for each succesful user id invite.
- * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll recieve one String for each successful email invite.
+ * @apiSuccess {Object} data[0] If the invitation was a user id, you'll receive back an object. You'll receive one Object for each succesful user id invite.
+ * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email. You'll receive one String for each successful email invite.
  *
  * @apiSuccessExample {json} Successful Response with Emails
  * {
@@ -1218,6 +1258,43 @@ api.removeGroupManager = {
     await manager.save();
 
     res.respond(200, group);
+  },
+};
+
+/**
+ * @api {get} /api/v3/group-plans Get group plans for a user
+ * @apiName GetGroupPlans
+ * @apiGroup Group
+ *
+ * @apiSuccess {Object[]} data An array of the requested groups with a group plan (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
+ *
+ * @apiSuccessExample {json} Groups the user is in with a group plan:
+ *     HTTP/1.1 200 OK
+ *     [
+ *       {groupPlans}
+ *     ]
+ */
+api.getGroupPlans = {
+  method: 'GET',
+  url: '/group-plans',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    const userGroups = user.getGroups();
+
+    const groups = await Group
+      .find({
+        _id: {$in: userGroups},
+      })
+      .select('leaderOnly leader purchased name')
+      .exec();
+
+    let groupPlans = groups.filter(group => {
+      return group.isSubscribed();
+    });
+
+    res.respond(200, groupPlans);
   },
 };
 

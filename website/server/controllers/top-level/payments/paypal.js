@@ -27,7 +27,7 @@ api.checkout = {
     let gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
 
-    let link = await paypalPayments.checkout({gift});
+    let link = await paypalPayments.checkout({gift, user: res.locals.user});
 
     if (req.query.noRedirect) {
       res.respond(200);

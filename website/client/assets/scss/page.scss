@@ -1,9 +1,8 @@
-html {
-  overflow-x: hidden;
+html, body {
+  height: 100%;
 }
 
-html, body {
-  height: calc(100% - 56px); // 56px is the menu
+body {
   background: $gray-700;
 }
 

@@ -11,7 +11,7 @@
     "rebirthInList1": "Opgaver, historik, udstyr og indstillinger forbliver.",
     "rebirthInList2": "Udfordringer, Selskabs- og Klanmedlemskaber forbliver.",
     "rebirthInList3": "Ædelsten, støttetrin og bidragyder-niveauer forbliver.",
-    "rebirthInList4": "Items obtained from Gems or drops (such as pets and mounts) remain.",
+    "rebirthInList4": "Genstande erhvervet gennem Ædelsten eller drops (såsom kæledyr og mounts) forbliver.",
     "rebirthEarnAchievement": "Du får også en Præstation for at begynde et nyt eventyr!",
     "beReborn": "Bliv Genfødt",
     "rebirthAchievement": "Du har begyndt et nyt eventyr! Dette er Genfødsel nummer <%= number %> for dig, og det højeste Niveau du har opnået er <%= level %>. Hvis du vil slå denne Præstation skal du først begynde et nyt eventyr, når du har opnået et endnu højere Niveau!",

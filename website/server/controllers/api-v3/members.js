@@ -29,7 +29,7 @@ let api = {};
  * @apiName GetMember
  * @apiGroup Member
  *
- * @apiParam {UUID} memberId The member's id
+ * @apiParam (Path) {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The member object
  *
@@ -170,8 +170,10 @@ api.getMemberAchievements = {
 };
 
 // Return a request handler for getMembersForGroup / getInvitesForGroup / getMembersForChallenge
-// type is `invites` or `members`
+
+// @TODO: This violates the Liskov substitution principle. We should create factory functions. See Webhooks for a good example
 function _getMembersForItem (type) {
+  // check for allowed `type`
   if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
     throw new Error('Type must be one of "group-members", "group-invites", "challenge-members"');
   }
@@ -219,9 +221,23 @@ function _getMembersForItem (type) {
 
     if (type === 'challenge-members') {
       query.challenges = challenge._id;
+
+      if (req.query.includeAllPublicFields === 'true') {
+        fields = memberFields;
+        addComputedStats = true;
+      }
+
+      if (req.query.search) {
+        query['profile.name'] = {$regex: req.query.search};
+      }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       } else {
         query['party._id'] = group._id; // group._id and not groupId because groupId could be === 'party'
 
@@ -233,8 +249,18 @@ function _getMembersForItem (type) {
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
+
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       } else {
         query['invitations.party.id'] = group._id; // group._id and not groupId because groupId could be === 'party'
+        // @TODO invitations are now stored like this: `'invitations.parties': []`  Probably need a database index for it.
+        if (req.query.includeAllPublicFields === 'true') {
+          fields = memberFields;
+          addComputedStats = true;
+        }
       }
     }
 
@@ -271,11 +297,11 @@ function _getMembersForItem (type) {
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
- * @apiParam {UUID} groupId The group id
- * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
+ * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
- * @apiSuccess {array} data An array of members, sorted by _id
+ * @apiSuccess {Array} data An array of members, sorted by _id
  * @apiUse ChallengeNotFound
  * @apiUse GroupNotFound
  */
@@ -292,8 +318,8 @@ api.getMembersForGroup = {
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
- * @apiParam {UUID} groupId The group id
- * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
+ * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
@@ -317,11 +343,11 @@ api.getInvitesForGroup = {
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
- * @apiParam {UUID} challengeId The challenge id
- * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
+ * @apiParam (Path) {UUID} challengeId The challenge id
+ * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
 
- * @apiSuccess {array} data An array of members, sorted by _id
+ * @apiSuccess {Array} data An array of members, sorted by _id
  *
  * @apiUse ChallengeNotFound
  * @apiUse GroupNotFound
@@ -338,8 +364,8 @@ api.getMembersForChallenge = {
  * @apiName GetChallengeMemberProgress
  * @apiGroup Member
  *
- * @apiParam {UUID} challengeId The challenge _id
- * @apiParam {UUID} member The member _id
+ * @apiParam (Path) {UUID} challengeId The challenge _id
+ * @apiParam (Path) {UUID} memberId The member _id
  *
  * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  *
@@ -394,8 +420,8 @@ api.getChallengeMemberProgress = {
  * @apiName GetObjectionsToInteraction
  * @apiGroup Member
  *
- * @apiParam {UUID} toUserId The user to interact with
- * @apiParam {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
+ * @apiParam (Path) {UUID} toUserId The user to interact with
+ * @apiParam (Path) {String="send-private-message","transfer-gems"} interaction Name of the interaction to query
  *
  * @apiSuccess {Array} data Return an array of objections, if the interaction would be blocked; otherwise an empty array
  */
@@ -422,12 +448,12 @@ api.getObjectionsToInteraction = {
 };
 
 /**
- * @api {posts} /api/v3/members/send-private-message Send a private message to a member
+ * @api {post} /api/v3/members/send-private-message Send a private message to a member
  * @apiName SendPrivateMessage
  * @apiGroup Member
  *
- * @apiParam {String} message Body parameter - The message
- * @apiParam {UUID} toUserId Body parameter - The user to contact
+ * @apiParam (Body) {String} message Body parameter - The message
+ * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -457,7 +483,6 @@ api.sendPrivateMessage = {
     if (receiver.preferences.emailNotifications.newPM !== false) {
       sendTxnEmail(receiver, 'new-pm', [
         {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
-        {name: 'PMS_INBOX_URL', content: '/#/options/groups/inbox'},
       ]);
     }
     if (receiver.preferences.pushNotifications.newPM !== false) {
@@ -478,13 +503,13 @@ api.sendPrivateMessage = {
 };
 
 /**
- * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
+ * @api {post} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiName TransferGems
  * @apiGroup Member
  *
- * @apiParam {String} message Body parameter The message
- * @apiParam {UUID} toUserId Body parameter The toUser _id
- * @apiParam {Integer} gemAmount Body parameter The number of gems to send
+ * @apiParam (Body) {String} message The message
+ * @apiParam (Body) {UUID} toUserId The toUser _id
+ * @apiParam (Body) {Integer} gemAmount The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
  *

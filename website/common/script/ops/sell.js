@@ -9,11 +9,13 @@ import {
   BadRequest,
 } from '../libs/errors';
 
+// @TODO: 'special' type throws NotAuthorized error
 const ACCEPTEDTYPES = ['eggs', 'hatchingPotions', 'food'];
 
 module.exports = function sell (user, req = {}) {
   let key = get(req.params, 'key');
   let type = get(req.params, 'type');
+  let amount = get(req.query, 'amount', 1);
 
   if (!type) {
     throw new BadRequest(i18n.t('typeRequired', req.language));
@@ -31,8 +33,14 @@ module.exports = function sell (user, req = {}) {
     throw new NotFound(i18n.t('userItemsKeyNotFound', {type}, req.language));
   }
 
-  user.items[type][key]--;
-  user.stats.gp += content[type][key].value;
+  let currentAmount = user.items[type][key];
+
+  if (amount > currentAmount) {
+    throw new NotFound(i18n.t('userItemsNotEnough', {type}, req.language));
+  }
+
+  user.items[type][key] -= amount;
+  user.stats.gp += content[type][key].value * amount;
 
   return [
     pick(user, splitWhitespace('stats items')),

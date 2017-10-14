@@ -1,7 +1,5 @@
 import i18n from '../i18n';
 import get from 'lodash/get';
-import each from 'lodash/each';
-import findLast from 'lodash/findLast';
 import pick from 'lodash/pick';
 import splitWhitespace from '../libs/splitWhitespace';
 import { capByLevel } from '../statHelpers';
@@ -9,8 +7,11 @@ import {
   NotAuthorized,
   BadRequest,
 } from '../libs/errors';
+import { removePinnedGearByClass, removePinnedItemsByOwnedGear, addPinnedGearByClass } from './pinnedGearUtils';
 
 function resetClass (user, req = {}) {
+  removePinnedGearByClass(user);
+
   if (user.preferences.disableClasses) {
     user.preferences.disableClasses = false;
     user.preferences.autoAllocate = false;
@@ -43,31 +44,12 @@ module.exports = function changeClass (user, req = {}, analytics) {
     user.stats.class = klass;
     user.flags.classSelected = true;
 
-    each(['weapon', 'armor', 'shield', 'head'], (type) => {
-      let foundKey = false;
-      findLast(user.items.gear.owned, (val, key) => {
-        if (key.indexOf(`${type}_${klass}`) !== -1 && val === true) {
-          foundKey = key;
-          return true;
-        }
-      });
+    addPinnedGearByClass(user);
 
-      if (!foundKey) {
-        if (type === 'weapon') {
-          foundKey = `weapon_${klass}_0`;
-        } else if (type === 'shield' && klass === 'rogue') {
-          foundKey = 'shield_rogue_0';
-        } else {
-          foundKey = `${type}_base_0`;
-        }
-      }
+    user.items.gear.owned[`weapon_${klass}_0`] = true;
+    if (klass === 'rogue')  user.items.gear.owned[`shield_${klass}_0`] = true;
 
-      user.items.gear.equipped[type] = foundKey;
-
-      if (type === 'weapon' || (type === 'shield' && klass === 'rogue')) { // eslint-disable-line no-extra-parens
-        user.items.gear.owned[`${type}_${klass}_0`] = true;
-      }
-    });
+    removePinnedItemsByOwnedGear(user);
 
     if (analytics) {
       analytics.track('change class', {

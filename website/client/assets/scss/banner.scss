@@ -1,0 +1,43 @@
+
+@import '~client/assets/scss/colors.scss';
+
+.featured-label {
+  width: auto;
+  height: 28px;
+  border-radius: 2px;
+  background-color: #b36213;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &.with-border {
+    border: solid 2px $yellow-10;
+    height: 32px;
+  }
+
+  &.closed {
+    max-width: 50%;
+    min-height: 32px;
+    height: auto;
+    padding: 3px;
+  }
+
+  .rectangle {
+    margin: 9px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background-color: $yellow-100;
+    border: solid 2px $yellow-10;
+  }
+
+  .text {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.33;
+    color: $white;
+    flex: 1;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "unlockedReward": "Kamu telah mendapatkan <%= reward %>",
-  "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
-  "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
+  "earnedRewardForDevotion": "Kamu telah mendapatkan <%= reward %> karena telah bersemangat dalam mengembangkan dirimu.",
+  "nextRewardUnlocksIn": "Jumlah masuk hingga hadiah berikutnya: <%= numberOfCheckinsLeft %>",
   "awesome": "Keren! ",
   "totalCount": "<%= count %> total jumlah",
   "countLeft": "Check-ins until next reward: <%= count %>",

@@ -10,7 +10,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../dist-client/index.html'),
     assetsRoot: path.resolve(__dirname, '../../dist-client'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/new-app/',
+    assetsPublicPath: '/',
     staticAssetsDirectory,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
@@ -21,7 +21,7 @@ module.exports = {
     productionGzipExtensions: ['js', 'css'],
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
+    // `npm run client:build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report, // eslint-disable-line no-process-env
   },
@@ -35,6 +35,22 @@ module.exports = {
     proxyTable: {
       // proxy all requests starting with /api/v3 to localhost:3000
       '/api/v3': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/stripe': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/amazon': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/paypal': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/logout': {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },

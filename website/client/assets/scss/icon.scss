@@ -1,9 +1,7 @@
 .svg-icon {
   display: block;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
   transition: none !important;
+  fill: currentColor;
 
   svg {
     display: block;
@@ -11,6 +9,12 @@
 
   * {
     transition: none !important;
+  }
+
+  &.color {
+    svg path {
+      fill: currentColor;
+    }
   }
 }
 

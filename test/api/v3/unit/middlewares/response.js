@@ -33,6 +33,7 @@ describe('response middleware', () => {
       success: true,
       data: {field: 1},
       notifications: [],
+      userV: res.locals.user._v,
     });
   });
 
@@ -49,6 +50,7 @@ describe('response middleware', () => {
       data: {field: 1},
       message: 'hello',
       notifications: [],
+      userV: res.locals.user._v,
     });
   });
 
@@ -64,12 +66,12 @@ describe('response middleware', () => {
       success: false,
       data: {field: 1},
       notifications: [],
+      userV: res.locals.user._v,
     });
   });
 
-  it('returns userV if a user is authenticated req.query.userV is passed', () => {
+  it('returns userV if a user is authenticated', () => {
     responseMiddleware(req, res, next);
-    req.query.userV = 3;
     res.respond(200, {field: 1});
 
     expect(res.json).to.be.calledOnce;
@@ -101,6 +103,7 @@ describe('response middleware', () => {
           data: {},
         },
       ],
+      userV: res.locals.user._v,
     });
   });
 });

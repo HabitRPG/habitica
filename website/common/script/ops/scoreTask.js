@@ -7,6 +7,7 @@ import {
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
+import statsComputed from '../libs/statsComputed';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -86,7 +87,7 @@ function _gainMP (user, val) {
   val *= user._tmp.crit || 1;
   user.stats.mp += val;
 
-  if (user.stats.mp >= user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
+  if (user.stats.mp >= statsComputed(user).maxMP) user.stats.mp = statsComputed(user).maxMP;
   if (user.stats.mp < 0) {
     user.stats.mp = 0;
   }
@@ -96,7 +97,7 @@ function _gainMP (user, val) {
 // ===== CONSTITUTION =====
 // TODO Decreases HP loss from bad habits / missed dailies by 0.5% per point.
 function _subtractPoints (user, task, stats, delta) {
-  let conBonus = 1 - user._statsComputed.con / 250;
+  let conBonus = 1 - statsComputed(user).con / 250;
   if (conBonus < 0.1) conBonus = 0.1;
 
   let hpMod = delta * conBonus * task.priority * 2; // constant 2 multiplier for better results
@@ -110,13 +111,13 @@ function _addPoints (user, task, stats, direction, delta) {
   // Exp Modifier
   // ===== Intelligence =====
   // TODO Increases Experience gain by .2% per point.
-  let intBonus = 1 + user._statsComputed.int * 0.025;
+  let intBonus = 1 + statsComputed(user).int * 0.025;
   stats.exp += Math.round(delta * intBonus * task.priority * _crit * 6);
 
   // GP modifier
   // ===== PERCEPTION =====
   // TODO Increases Gold gained from tasks by .3% per point.
-  let perBonus = 1 + user._statsComputed.per * 0.02;
+  let perBonus = 1 + statsComputed(user).per * 0.02;
   let gpMod = delta * task.priority * _crit * perBonus;
 
   if (task.streak) {
@@ -157,9 +158,9 @@ function _changeTaskValue (user, task, direction, times, cron) {
         let prevProgress = user.party.quest.progress.up;
 
         if (task.type === 'todo' || task.type === 'daily') {
-          user.party.quest.progress.up += nextDelta * _crit * (1 + user._statsComputed.str / 200);
+          user.party.quest.progress.up += nextDelta * _crit * (1 + statsComputed(user).str / 200);
         } else if (task.type === 'habit') {
-          user.party.quest.progress.up += nextDelta * _crit * (0.5 + user._statsComputed.str / 400);
+          user.party.quest.progress.up += nextDelta * _crit * (0.5 + statsComputed(user).str / 400);
         }
 
         if (!user._tmp.quest) user._tmp.quest = {};
@@ -209,7 +210,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
     } else {
       _subtractPoints(user, task, stats, delta);
     }
-    _gainMP(user, max([0.25, 0.0025 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+    _gainMP(user, max([0.25, 0.0025 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
     task.history = task.history || [];
 
@@ -232,14 +233,14 @@ module.exports = function scoreTask (options = {}, req = {}) {
       delta += _changeTaskValue(user, task, direction, times, cron);
       if (direction === 'down') delta = _calculateDelta(task, direction, cron); // recalculate delta for unchecking so the gp and exp come out correctly
       _addPoints(user, task, stats, direction, delta); // obviously for delta>0, but also a trick to undo accidental checkboxes
-      _gainMP(user, max([1, 0.01 * user._statsComputed.maxMP]) * (direction === 'down' ? -1 : 1));
+      _gainMP(user, max([1, 0.01 * statsComputed(user).maxMP]) * (direction === 'down' ? -1 : 1));
 
       if (direction === 'up') {
         task.streak += 1;
         // Give a streak achievement when the streak is a multiple of 21
         if (task.streak % 21 === 0) {
           user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
-          user.addNotification('STREAK_ACHIEVEMENT');
+          if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
         }
         task.completed = true;
       } else if (direction === 'down') {
@@ -267,7 +268,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
       // MP++ per checklist item in ToDo, bonus per CLI
       let multiplier = max([reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 1), 1]);
-      _gainMP(user, max([multiplier, 0.01 * user._statsComputed.maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
+      _gainMP(user, max([multiplier, 0.01 * statsComputed(user).maxMP * multiplier]) * (direction === 'down' ? -1 : 1));
     }
   } else if (task.type === 'reward') {
     // Don't adjust values for rewards

@@ -8,7 +8,7 @@ import takeThisGear from './special-takeThis';
 import wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'summer';
+const CURRENT_SEASON = 'fall';
 
 let armor = {
   0: backerGear.armorSpecial0,
@@ -103,6 +103,7 @@ let armor = {
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
+    set: 'yetiSet',
     text: t('armorSpecialYetiText'),
     notes: t('armorSpecialYetiNotes', { con: 9 }),
     con: 9,
@@ -111,6 +112,7 @@ let armor = {
   ski: {
     event: EVENTS.winter,
     specialClass: 'rogue',
+    set: 'skiSet',
     text: t('armorSpecialSkiText'),
     notes: t('armorSpecialSkiNotes', { per: 15 }),
     per: 15,
@@ -119,6 +121,7 @@ let armor = {
   candycane: {
     event: EVENTS.winter,
     specialClass: 'wizard',
+    set: 'candycaneSet',
     text: t('armorSpecialCandycaneText'),
     notes: t('armorSpecialCandycaneNotes', { int: 9 }),
     int: 9,
@@ -127,6 +130,7 @@ let armor = {
   snowflake: {
     event: EVENTS.winter,
     specialClass: 'healer',
+    set: 'snowflakeSet',
     text: t('armorSpecialSnowflakeText'),
     notes: t('armorSpecialSnowflakeNotes', { con: 15 }),
     con: 15,
@@ -140,6 +144,7 @@ let armor = {
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
+    set: 'stealthyKittySet',
     text: t('armorSpecialSpringRogueText'),
     notes: t('armorSpecialSpringRogueNotes', { per: 15 }),
     value: 90,
@@ -148,6 +153,7 @@ let armor = {
   springWarrior: {
     event: EVENTS.spring,
     specialClass: 'warrior',
+    set: 'mightyBunnySet',
     text: t('armorSpecialSpringWarriorText'),
     notes: t('armorSpecialSpringWarriorNotes', { con: 9 }),
     value: 90,
@@ -156,6 +162,7 @@ let armor = {
   springMage: {
     event: EVENTS.spring,
     specialClass: 'wizard',
+    set: 'magicMouseSet',
     text: t('armorSpecialSpringMageText'),
     notes: t('armorSpecialSpringMageNotes', { int: 9 }),
     value: 90,
@@ -164,6 +171,7 @@ let armor = {
   springHealer: {
     event: EVENTS.spring,
     specialClass: 'healer',
+    set: 'lovingPupSet',
     text: t('armorSpecialSpringHealerText'),
     notes: t('armorSpecialSpringHealerNotes', { con: 15 }),
     value: 90,
@@ -172,6 +180,7 @@ let armor = {
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
+    set: 'roguishPirateSet',
     text: t('armorSpecialSummerRogueText'),
     notes: t('armorSpecialSummerRogueNotes', { per: 15 }),
     value: 90,
@@ -183,6 +192,7 @@ let armor = {
   summerWarrior: {
     event: EVENTS.summer,
     specialClass: 'warrior',
+    set: 'daringSwashbucklerSet',
     text: t('armorSpecialSummerWarriorText'),
     notes: t('armorSpecialSummerWarriorNotes', { con: 9 }),
     value: 90,
@@ -194,6 +204,7 @@ let armor = {
   summerMage: {
     event: EVENTS.summer,
     specialClass: 'wizard',
+    set: 'emeraldMermageSet',
     text: t('armorSpecialSummerMageText'),
     notes: t('armorSpecialSummerMageNotes', { int: 9 }),
     value: 90,
@@ -205,6 +216,7 @@ let armor = {
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
+    set: 'reefSeahealerSet',
     text: t('armorSpecialSummerHealerText'),
     notes: t('armorSpecialSummerHealerNotes', { con: 15 }),
     value: 90,
@@ -216,38 +228,55 @@ let armor = {
   fallRogue: {
     event: EVENTS.fall,
     specialClass: 'rogue',
+    set: 'vampireSmiterSet',
     text: t('armorSpecialFallRogueText'),
     notes: t('armorSpecialFallRogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
     specialClass: 'warrior',
+    set: 'monsterOfScienceSet',
     text: t('armorSpecialFallWarriorText'),
     notes: t('armorSpecialFallWarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallMage: {
     event: EVENTS.fall,
     specialClass: 'wizard',
+    set: 'witchyWizardSet',
     text: t('armorSpecialFallMageText'),
     notes: t('armorSpecialFallMageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
     specialClass: 'healer',
+    set: 'mummyMedicSet',
     text: t('armorSpecialFallHealerText'),
     notes: t('armorSpecialFallHealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
     specialClass: 'rogue',
+    set: 'icicleDrakeSet',
     text: t('armorSpecialWinter2015RogueText'),
     notes: t('armorSpecialWinter2015RogueNotes', { per: 15 }),
     value: 90,
@@ -256,6 +285,7 @@ let armor = {
   winter2015Warrior: {
     event: EVENTS.winter2015,
     specialClass: 'warrior',
+    set: 'gingerbreadSet',
     text: t('armorSpecialWinter2015WarriorText'),
     notes: t('armorSpecialWinter2015WarriorNotes', { con: 9 }),
     value: 90,
@@ -264,6 +294,7 @@ let armor = {
   winter2015Mage: {
     event: EVENTS.winter2015,
     specialClass: 'wizard',
+    set: 'northMageSet',
     text: t('armorSpecialWinter2015MageText'),
     notes: t('armorSpecialWinter2015MageNotes', { int: 9 }),
     value: 90,
@@ -272,6 +303,7 @@ let armor = {
   winter2015Healer: {
     event: EVENTS.winter2015,
     specialClass: 'healer',
+    set: 'soothingSkaterSet',
     text: t('armorSpecialWinter2015HealerText'),
     notes: t('armorSpecialWinter2015HealerNotes', { con: 15 }),
     value: 90,
@@ -286,6 +318,7 @@ let armor = {
   spring2015Rogue: {
     event: EVENTS.spring2015,
     specialClass: 'rogue',
+    set: 'sneakySqueakerSet',
     text: t('armorSpecialSpring2015RogueText'),
     notes: t('armorSpecialSpring2015RogueNotes', { per: 15 }),
     value: 90,
@@ -294,6 +327,7 @@ let armor = {
   spring2015Warrior: {
     event: EVENTS.spring2015,
     specialClass: 'warrior',
+    set: 'bewareDogSet',
     text: t('armorSpecialSpring2015WarriorText'),
     notes: t('armorSpecialSpring2015WarriorNotes', { con: 9 }),
     value: 90,
@@ -302,6 +336,7 @@ let armor = {
   spring2015Mage: {
     event: EVENTS.spring2015,
     specialClass: 'wizard',
+    set: 'magicianBunnySet',
     text: t('armorSpecialSpring2015MageText'),
     notes: t('armorSpecialSpring2015MageNotes', { int: 9 }),
     value: 90,
@@ -310,6 +345,7 @@ let armor = {
   spring2015Healer: {
     event: EVENTS.spring2015,
     specialClass: 'healer',
+    set: 'comfortingKittySet',
     text: t('armorSpecialSpring2015HealerText'),
     notes: t('armorSpecialSpring2015HealerNotes', { con: 15 }),
     value: 90,
@@ -318,6 +354,7 @@ let armor = {
   summer2015Rogue: {
     event: EVENTS.summer2015,
     specialClass: 'rogue',
+    set: 'reefRenegadeSet',
     text: t('armorSpecialSummer2015RogueText'),
     notes: t('armorSpecialSummer2015RogueNotes', { per: 15 }),
     value: 90,
@@ -329,6 +366,7 @@ let armor = {
   summer2015Warrior: {
     event: EVENTS.summer2015,
     specialClass: 'warrior',
+    set: 'sunfishWarriorSet',
     text: t('armorSpecialSummer2015WarriorText'),
     notes: t('armorSpecialSummer2015WarriorNotes', { con: 9 }),
     value: 90,
@@ -340,6 +378,7 @@ let armor = {
   summer2015Mage: {
     event: EVENTS.summer2015,
     specialClass: 'wizard',
+    set: 'shipSoothsayerSet',
     text: t('armorSpecialSummer2015MageText'),
     notes: t('armorSpecialSummer2015MageNotes', { int: 9 }),
     value: 90,
@@ -351,6 +390,7 @@ let armor = {
   summer2015Healer: {
     event: EVENTS.summer2015,
     specialClass: 'healer',
+    set: 'strappingSailorSet',
     text: t('armorSpecialSummer2015HealerText'),
     notes: t('armorSpecialSummer2015HealerNotes', { con: 15 }),
     value: 90,
@@ -362,34 +402,50 @@ let armor = {
   fall2015Rogue: {
     event: EVENTS.fall2015,
     specialClass: 'rogue',
+    set: 'battleRogueSet',
     text: t('armorSpecialFall2015RogueText'),
     notes: t('armorSpecialFall2015RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
     specialClass: 'warrior',
+    set: 'scarecrowWarriorSet',
     text: t('armorSpecialFall2015WarriorText'),
     notes: t('armorSpecialFall2015WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
     specialClass: 'wizard',
+    set: 'stitchWitchSet',
     text: t('armorSpecialFall2015MageText'),
     notes: t('armorSpecialFall2015MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
     specialClass: 'healer',
+    set: 'potionerSet',
     text: t('armorSpecialFall2015HealerText'),
     notes: t('armorSpecialFall2015HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   gaymerx: {
     event: EVENTS.gaymerx,
@@ -400,6 +456,7 @@ let armor = {
   winter2016Rogue: {
     event: EVENTS.winter2016,
     specialClass: 'rogue',
+    set: 'cocoaSet',
     text: t('armorSpecialWinter2016RogueText'),
     notes: t('armorSpecialWinter2016RogueNotes', { per: 15 }),
     value: 90,
@@ -408,6 +465,7 @@ let armor = {
   winter2016Warrior: {
     event: EVENTS.winter2016,
     specialClass: 'warrior',
+    set: 'snowDaySet',
     text: t('armorSpecialWinter2016WarriorText'),
     notes: t('armorSpecialWinter2016WarriorNotes', { con: 9 }),
     value: 90,
@@ -416,6 +474,7 @@ let armor = {
   winter2016Mage: {
     event: EVENTS.winter2016,
     specialClass: 'wizard',
+    set: 'snowboardingSet',
     text: t('armorSpecialWinter2016MageText'),
     notes: t('armorSpecialWinter2016MageNotes', { int: 9 }),
     value: 90,
@@ -424,6 +483,7 @@ let armor = {
   winter2016Healer: {
     event: EVENTS.winter2016,
     specialClass: 'healer',
+    set: 'festiveFairySet',
     text: t('armorSpecialWinter2016HealerText'),
     notes: t('armorSpecialWinter2016HealerNotes', { con: 15 }),
     value: 90,
@@ -438,6 +498,7 @@ let armor = {
   spring2016Rogue: {
     event: EVENTS.spring2016,
     specialClass: 'rogue',
+    set: 'cleverDogSet',
     text: t('armorSpecialSpring2016RogueText'),
     notes: t('armorSpecialSpring2016RogueNotes', { per: 15 }),
     value: 90,
@@ -446,6 +507,7 @@ let armor = {
   spring2016Warrior: {
     event: EVENTS.spring2016,
     specialClass: 'warrior',
+    set: 'braveMouseSet',
     text: t('armorSpecialSpring2016WarriorText'),
     notes: t('armorSpecialSpring2016WarriorNotes', { con: 9 }),
     value: 90,
@@ -454,6 +516,7 @@ let armor = {
   spring2016Mage: {
     event: EVENTS.spring2016,
     specialClass: 'wizard',
+    set: 'grandMalkinSet',
     text: t('armorSpecialSpring2016MageText'),
     notes: t('armorSpecialSpring2016MageNotes', { int: 9 }),
     value: 90,
@@ -462,6 +525,7 @@ let armor = {
   spring2016Healer: {
     event: EVENTS.spring2016,
     specialClass: 'healer',
+    set: 'springingBunnySet',
     text: t('armorSpecialSpring2016HealerText'),
     notes: t('armorSpecialSpring2016HealerNotes', { con: 15 }),
     value: 90,
@@ -470,6 +534,7 @@ let armor = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('armorSpecialSummer2016RogueText'),
     notes: t('armorSpecialSummer2016RogueNotes', { per: 15 }),
     value: 90,
@@ -481,6 +546,7 @@ let armor = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('armorSpecialSummer2016WarriorText'),
     notes: t('armorSpecialSummer2016WarriorNotes', { con: 9 }),
     value: 90,
@@ -492,6 +558,7 @@ let armor = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     text: t('armorSpecialSummer2016MageText'),
     notes: t('armorSpecialSummer2016MageNotes', { int: 9 }),
     value: 90,
@@ -503,6 +570,7 @@ let armor = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('armorSpecialSummer2016HealerText'),
     notes: t('armorSpecialSummer2016HealerNotes', { con: 15 }),
     value: 90,
@@ -514,38 +582,55 @@ let armor = {
   fall2016Rogue: {
     event: EVENTS.fall2016,
     specialClass: 'rogue',
+    set: 'fall2016BlackWidowSet',
     text: t('armorSpecialFall2016RogueText'),
     notes: t('armorSpecialFall2016RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Warrior: {
     event: EVENTS.fall2016,
     specialClass: 'warrior',
+    set: 'fall2016SwampThingSet',
     text: t('armorSpecialFall2016WarriorText'),
     notes: t('armorSpecialFall2016WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Mage: {
     event: EVENTS.fall2016,
     specialClass: 'wizard',
+    set: 'fall2016WickedSorcererSet',
     text: t('armorSpecialFall2016MageText'),
     notes: t('armorSpecialFall2016MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Healer: {
     event: EVENTS.fall2016,
     specialClass: 'healer',
+    set: 'fall2016GorgonHealerSet',
     text: t('armorSpecialFall2016HealerText'),
     notes: t('armorSpecialFall2016HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2017Rogue: {
     event: EVENTS.winter2017,
     specialClass: 'rogue',
+    set: 'winter2017FrostyRogueSet',
     text: t('armorSpecialWinter2017RogueText'),
     notes: t('armorSpecialWinter2017RogueNotes', { per: 15 }),
     value: 90,
@@ -554,6 +639,7 @@ let armor = {
   winter2017Warrior: {
     event: EVENTS.winter2017,
     specialClass: 'warrior',
+    set: 'winter2017IceHockeySet',
     text: t('armorSpecialWinter2017WarriorText'),
     notes: t('armorSpecialWinter2017WarriorNotes', { con: 9 }),
     value: 90,
@@ -562,6 +648,7 @@ let armor = {
   winter2017Mage: {
     event: EVENTS.winter2017,
     specialClass: 'wizard',
+    set: 'winter2017WinterWolfSet',
     text: t('armorSpecialWinter2017MageText'),
     notes: t('armorSpecialWinter2017MageNotes', { int: 9 }),
     value: 90,
@@ -570,6 +657,7 @@ let armor = {
   winter2017Healer: {
     event: EVENTS.winter2017,
     specialClass: 'healer',
+    set: 'winter2017SugarPlumSet',
     text: t('armorSpecialWinter2017HealerText'),
     notes: t('armorSpecialWinter2017HealerNotes', { con: 15 }),
     value: 90,
@@ -584,6 +672,7 @@ let armor = {
   spring2017Rogue: {
     event: EVENTS.spring2017,
     specialClass: 'rogue',
+    set: 'spring2017SneakyBunnySet',
     text: t('armorSpecialSpring2017RogueText'),
     notes: t('armorSpecialSpring2017RogueNotes', { per: 15 }),
     value: 90,
@@ -592,6 +681,7 @@ let armor = {
   spring2017Warrior: {
     event: EVENTS.spring2017,
     specialClass: 'warrior',
+    set: 'spring2017FelineWarriorSet',
     text: t('armorSpecialSpring2017WarriorText'),
     notes: t('armorSpecialSpring2017WarriorNotes', { con: 9 }),
     value: 90,
@@ -600,6 +690,7 @@ let armor = {
   spring2017Mage: {
     event: EVENTS.spring2017,
     specialClass: 'wizard',
+    set: 'spring2017CanineConjurorSet',
     text: t('armorSpecialSpring2017MageText'),
     notes: t('armorSpecialSpring2017MageNotes', { int: 9 }),
     value: 90,
@@ -608,6 +699,7 @@ let armor = {
   spring2017Healer: {
     event: EVENTS.spring2017,
     specialClass: 'healer',
+    set: 'spring2017FloralMouseSet',
     text: t('armorSpecialSpring2017HealerText'),
     notes: t('armorSpecialSpring2017HealerNotes', { con: 15 }),
     value: 90,
@@ -616,6 +708,7 @@ let armor = {
   summer2017Rogue: {
     event: EVENTS.summer2017,
     specialClass: 'rogue',
+    set: 'summer2017SeaDragonSet',
     text: t('armorSpecialSummer2017RogueText'),
     notes: t('armorSpecialSummer2017RogueNotes', { per: 15 }),
     value: 90,
@@ -624,6 +717,7 @@ let armor = {
   summer2017Warrior: {
     event: EVENTS.summer2017,
     specialClass: 'warrior',
+    set: 'summer2017SandcastleWarriorSet',
     text: t('armorSpecialSummer2017WarriorText'),
     notes: t('armorSpecialSummer2017WarriorNotes', { con: 9 }),
     value: 90,
@@ -632,6 +726,7 @@ let armor = {
   summer2017Mage: {
     event: EVENTS.summer2017,
     specialClass: 'wizard',
+    set: 'summer2017WhirlpoolMageSet',
     text: t('armorSpecialSummer2017MageText'),
     notes: t('armorSpecialSummer2017MageNotes', { int: 9 }),
     value: 90,
@@ -640,8 +735,45 @@ let armor = {
   summer2017Healer: {
     event: EVENTS.summer2017,
     specialClass: 'healer',
+    set: 'summer2017SeashellSeahealerSet',
     text: t('armorSpecialSummer2017HealerText'),
     notes: t('armorSpecialSummer2017HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
+  },
+  fall2017Rogue: {
+    event: EVENTS.fall2017,
+    specialClass: 'rogue',
+    set: 'fall2017TrickOrTreatSet',
+    text: t('armorSpecialFall2017RogueText'),
+    notes: t('armorSpecialFall2017RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  fall2017Warrior: {
+    event: EVENTS.fall2017,
+    specialClass: 'warrior',
+    set: 'fall2017HabitoweenSet',
+    text: t('armorSpecialFall2017WarriorText'),
+    notes: t('armorSpecialFall2017WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  fall2017Mage: {
+    event: EVENTS.fall2017,
+    specialClass: 'wizard',
+    set: 'fall2017MasqueradeSet',
+    text: t('armorSpecialFall2017MageText'),
+    notes: t('armorSpecialFall2017MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2017Healer: {
+    event: EVENTS.fall2017,
+    specialClass: 'healer',
+    set: 'fall2017HauntedHouseSet',
+    text: t('armorSpecialFall2017HealerText'),
+    notes: t('armorSpecialFall2017HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
   },
@@ -656,6 +788,13 @@ let back = {
     notes: t('backSpecialSnowdriftVeilNotes'),
     value: 0,
   },
+  aetherCloak: {
+    text: t('backSpecialAetherCloakText'),
+    notes: t('backSpecialAetherCloakNotes', { per: 10 }),
+    value: 175,
+    per: 10,
+    canOwn: ownsItem('back_special_aetherCloak'),
+  },
 };
 
 let body = {
@@ -666,6 +805,7 @@ let body = {
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
+    set: 'reefSeahealerSet',
     text: t('bodySpecialSummerHealerText'),
     notes: t('bodySpecialSummerHealerNotes'),
     value: 20,
@@ -676,6 +816,7 @@ let body = {
   summerMage: {
     event: EVENTS.summer,
     specialClass: 'wizard',
+    set: 'emeraldMermageSet',
     text: t('bodySpecialSummerMageText'),
     notes: t('bodySpecialSummerMageNotes'),
     value: 20,
@@ -686,6 +827,7 @@ let body = {
   summer2015Healer: {
     event: EVENTS.summer2015,
     specialClass: 'healer',
+    set: 'strappingSailorSet',
     text: t('bodySpecialSummer2015HealerText'),
     notes: t('bodySpecialSummer2015HealerNotes'),
     value: 20,
@@ -696,6 +838,7 @@ let body = {
   summer2015Mage: {
     event: EVENTS.summer2015,
     specialClass: 'wizard',
+    set: 'shipSoothsayerSet',
     text: t('bodySpecialSummer2015MageText'),
     notes: t('bodySpecialSummer2015MageNotes'),
     value: 20,
@@ -706,6 +849,7 @@ let body = {
   summer2015Rogue: {
     event: EVENTS.summer2015,
     specialClass: 'rogue',
+    set: 'reefRenegadeSet',
     text: t('bodySpecialSummer2015RogueText'),
     notes: t('bodySpecialSummer2015RogueNotes'),
     value: 20,
@@ -716,12 +860,21 @@ let body = {
   summer2015Warrior: {
     event: EVENTS.summer2015,
     specialClass: 'warrior',
+    set: 'sunfishWarriorSet',
     text: t('bodySpecialSummer2015WarriorText'),
     notes: t('bodySpecialSummer2015WarriorNotes'),
     value: 20,
     canBuy: () => {
       return CURRENT_SEASON === 'summer';
     },
+  },
+  aetherAmulet: {
+    text: t('bodySpecialAetherAmuletText'),
+    notes: t('bodySpecialAetherAmuletNotes', { attrs: 10 }),
+    value: 175,
+    str: 10,
+    con: 10,
+    canOwn: ownsItem('body_special_aetherAmulet'),
   },
 };
 
@@ -731,6 +884,7 @@ let eyewear = {
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
+    set: 'roguishPirateSet',
     text: t('eyewearSpecialSummerRogueText'),
     notes: t('eyewearSpecialSummerRogueNotes'),
     value: 20,
@@ -741,6 +895,7 @@ let eyewear = {
   summerWarrior: {
     event: EVENTS.summer,
     specialClass: 'warrior',
+    set: 'daringSwashbucklerSet',
     text: t('eyewearSpecialSummerWarriorText'),
     notes: t('eyewearSpecialSummerWarriorNotes'),
     value: 20,
@@ -796,6 +951,13 @@ let eyewear = {
     notes: t('eyewearSpecialYellowTopFrameNotes'),
     value: 0,
     canOwn: ownsItem('eyewear_special_yellowTopFrame'),
+  },
+  aetherMask: {
+    text: t('eyewearSpecialAetherMaskText'),
+    notes: t('eyewearSpecialAetherMaskNotes', { int: 10 }),
+    value: 175,
+    int: 10,
+    canOwn: ownsItem('eyewear_special_aetherMask'),
   },
 };
 
@@ -899,6 +1061,7 @@ let head = {
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
+    set: 'yetiSet',
     text: t('headSpecialYetiText'),
     notes: t('headSpecialYetiNotes', { str: 9 }),
     str: 9,
@@ -907,6 +1070,7 @@ let head = {
   ski: {
     event: EVENTS.winter,
     specialClass: 'rogue',
+    set: 'skiSet',
     text: t('headSpecialSkiText'),
     notes: t('headSpecialSkiNotes', { per: 9 }),
     per: 9,
@@ -915,6 +1079,7 @@ let head = {
   candycane: {
     event: EVENTS.winter,
     specialClass: 'wizard',
+    set: 'candycaneSet',
     text: t('headSpecialCandycaneText'),
     notes: t('headSpecialCandycaneNotes', { per: 7 }),
     per: 7,
@@ -923,6 +1088,7 @@ let head = {
   snowflake: {
     event: EVENTS.winter,
     specialClass: 'healer',
+    set: 'snowflakeSet',
     text: t('headSpecialSnowflakeText'),
     notes: t('headSpecialSnowflakeNotes', { int: 7 }),
     int: 7,
@@ -931,6 +1097,7 @@ let head = {
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
+    set: 'stealthyKittySet',
     text: t('headSpecialSpringRogueText'),
     notes: t('headSpecialSpringRogueNotes', { per: 9 }),
     value: 60,
@@ -939,6 +1106,7 @@ let head = {
   springWarrior: {
     event: EVENTS.spring,
     specialClass: 'warrior',
+    set: 'mightyBunnySet',
     text: t('headSpecialSpringWarriorText'),
     notes: t('headSpecialSpringWarriorNotes', { str: 9 }),
     value: 60,
@@ -947,6 +1115,7 @@ let head = {
   springMage: {
     event: EVENTS.spring,
     specialClass: 'wizard',
+    set: 'magicMouseSet',
     text: t('headSpecialSpringMageText'),
     notes: t('headSpecialSpringMageNotes', { per: 7 }),
     value: 60,
@@ -955,6 +1124,7 @@ let head = {
   springHealer: {
     event: EVENTS.spring,
     specialClass: 'healer',
+    set: 'lovingPupSet',
     text: t('headSpecialSpringHealerText'),
     notes: t('headSpecialSpringHealerNotes', { int: 7 }),
     value: 60,
@@ -963,6 +1133,7 @@ let head = {
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
+    set: 'roguishPirateSet',
     text: t('headSpecialSummerRogueText'),
     notes: t('headSpecialSummerRogueNotes', { per: 9 }),
     value: 60,
@@ -974,6 +1145,7 @@ let head = {
   summerWarrior: {
     event: EVENTS.summer,
     specialClass: 'warrior',
+    set: 'daringSwashbucklerSet',
     text: t('headSpecialSummerWarriorText'),
     notes: t('headSpecialSummerWarriorNotes', { str: 9 }),
     value: 60,
@@ -985,6 +1157,7 @@ let head = {
   summerMage: {
     event: EVENTS.summer,
     specialClass: 'wizard',
+    set: 'emeraldMermageSet',
     text: t('headSpecialSummerMageText'),
     notes: t('headSpecialSummerMageNotes', { per: 7 }),
     value: 60,
@@ -996,6 +1169,7 @@ let head = {
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
+    set: 'reefSeahealerSet',
     text: t('headSpecialSummerHealerText'),
     notes: t('headSpecialSummerHealerNotes', { int: 7 }),
     value: 60,
@@ -1007,38 +1181,55 @@ let head = {
   fallRogue: {
     event: EVENTS.fall,
     specialClass: 'rogue',
+    set: 'vampireSmiterSet',
     text: t('headSpecialFallRogueText'),
     notes: t('headSpecialFallRogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
     specialClass: 'warrior',
+    set: 'monsterOfScienceSet',
     text: t('headSpecialFallWarriorText'),
     notes: t('headSpecialFallWarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallMage: {
     event: EVENTS.fall,
     specialClass: 'wizard',
+    set: 'witchyWizardSet',
     text: t('headSpecialFallMageText'),
     notes: t('headSpecialFallMageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
     specialClass: 'healer',
+    set: 'mummyMedicSet',
     text: t('headSpecialFallHealerText'),
     notes: t('headSpecialFallHealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
     specialClass: 'rogue',
+    set: 'icicleDrakeSet',
     text: t('headSpecialWinter2015RogueText'),
     notes: t('headSpecialWinter2015RogueNotes', { per: 9 }),
     value: 60,
@@ -1047,6 +1238,7 @@ let head = {
   winter2015Warrior: {
     event: EVENTS.winter2015,
     specialClass: 'warrior',
+    set: 'gingerbreadSet',
     text: t('headSpecialWinter2015WarriorText'),
     notes: t('headSpecialWinter2015WarriorNotes', { str: 9 }),
     value: 60,
@@ -1055,6 +1247,7 @@ let head = {
   winter2015Mage: {
     event: EVENTS.winter2015,
     specialClass: 'wizard',
+    set: 'northMageSet',
     text: t('headSpecialWinter2015MageText'),
     notes: t('headSpecialWinter2015MageNotes', { per: 7 }),
     value: 60,
@@ -1063,6 +1256,7 @@ let head = {
   winter2015Healer: {
     event: EVENTS.winter2015,
     specialClass: 'healer',
+    set: 'soothingSkaterSet',
     text: t('headSpecialWinter2015HealerText'),
     notes: t('headSpecialWinter2015HealerNotes', { int: 7 }),
     value: 60,
@@ -1077,6 +1271,7 @@ let head = {
   spring2015Rogue: {
     event: EVENTS.spring2015,
     specialClass: 'rogue',
+    set: 'sneakySqueakerSet',
     text: t('headSpecialSpring2015RogueText'),
     notes: t('headSpecialSpring2015RogueNotes', { per: 9 }),
     value: 60,
@@ -1085,6 +1280,7 @@ let head = {
   spring2015Warrior: {
     event: EVENTS.spring2015,
     specialClass: 'warrior',
+    set: 'bewareDogSet',
     text: t('headSpecialSpring2015WarriorText'),
     notes: t('headSpecialSpring2015WarriorNotes', { str: 9 }),
     value: 60,
@@ -1093,6 +1289,7 @@ let head = {
   spring2015Mage: {
     event: EVENTS.spring2015,
     specialClass: 'wizard',
+    set: 'magicianBunnySet',
     text: t('headSpecialSpring2015MageText'),
     notes: t('headSpecialSpring2015MageNotes', { per: 7 }),
     value: 60,
@@ -1101,6 +1298,7 @@ let head = {
   spring2015Healer: {
     event: EVENTS.spring2015,
     specialClass: 'healer',
+    set: 'comfortingKittySet',
     text: t('headSpecialSpring2015HealerText'),
     notes: t('headSpecialSpring2015HealerNotes', { int: 7 }),
     value: 60,
@@ -1109,6 +1307,7 @@ let head = {
   summer2015Rogue: {
     event: EVENTS.summer2015,
     specialClass: 'rogue',
+    set: 'reefRenegadeSet',
     text: t('headSpecialSummer2015RogueText'),
     notes: t('headSpecialSummer2015RogueNotes', { per: 9 }),
     value: 60,
@@ -1120,6 +1319,7 @@ let head = {
   summer2015Warrior: {
     event: EVENTS.summer2015,
     specialClass: 'warrior',
+    set: 'sunfishWarriorSet',
     text: t('headSpecialSummer2015WarriorText'),
     notes: t('headSpecialSummer2015WarriorNotes', { str: 9 }),
     value: 60,
@@ -1131,6 +1331,7 @@ let head = {
   summer2015Mage: {
     event: EVENTS.summer2015,
     specialClass: 'wizard',
+    set: 'shipSoothsayerSet',
     text: t('headSpecialSummer2015MageText'),
     notes: t('headSpecialSummer2015MageNotes', { per: 7 }),
     value: 60,
@@ -1142,6 +1343,7 @@ let head = {
   summer2015Healer: {
     event: EVENTS.summer2015,
     specialClass: 'healer',
+    set: 'strappingSailorSet',
     text: t('headSpecialSummer2015HealerText'),
     notes: t('headSpecialSummer2015HealerNotes', { int: 7 }),
     value: 60,
@@ -1153,34 +1355,50 @@ let head = {
   fall2015Rogue: {
     event: EVENTS.fall2015,
     specialClass: 'rogue',
+    set: 'battleRogueSet',
     text: t('headSpecialFall2015RogueText'),
     notes: t('headSpecialFall2015RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
     specialClass: 'warrior',
+    set: 'scarecrowWarriorSet',
     text: t('headSpecialFall2015WarriorText'),
     notes: t('headSpecialFall2015WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
     specialClass: 'wizard',
+    set: 'stitchWitchSet',
     text: t('headSpecialFall2015MageText'),
     notes: t('headSpecialFall2015MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
     specialClass: 'healer',
+    set: 'potionerSet',
     text: t('headSpecialFall2015HealerText'),
     notes: t('headSpecialFall2015HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   gaymerx: {
     event: EVENTS.gaymerx,
@@ -1191,6 +1409,7 @@ let head = {
   winter2016Rogue: {
     event: EVENTS.winter2016,
     specialClass: 'rogue',
+    set: 'cocoaSet',
     text: t('headSpecialWinter2016RogueText'),
     notes: t('headSpecialWinter2016RogueNotes', { per: 9 }),
     value: 60,
@@ -1199,6 +1418,7 @@ let head = {
   winter2016Warrior: {
     event: EVENTS.winter2016,
     specialClass: 'warrior',
+    set: 'snowDaySet',
     text: t('headSpecialWinter2016WarriorText'),
     notes: t('headSpecialWinter2016WarriorNotes', { str: 9 }),
     value: 60,
@@ -1207,6 +1427,7 @@ let head = {
   winter2016Mage: {
     event: EVENTS.winter2016,
     specialClass: 'wizard',
+    set: 'snowboardingSet',
     text: t('headSpecialWinter2016MageText'),
     notes: t('headSpecialWinter2016MageNotes', { per: 7 }),
     value: 60,
@@ -1215,6 +1436,7 @@ let head = {
   winter2016Healer: {
     event: EVENTS.winter2016,
     specialClass: 'healer',
+    set: 'festiveFairySet',
     text: t('headSpecialWinter2016HealerText'),
     notes: t('headSpecialWinter2016HealerNotes', { int: 7 }),
     value: 60,
@@ -1229,6 +1451,7 @@ let head = {
   spring2016Rogue: {
     event: EVENTS.spring2016,
     specialClass: 'rogue',
+    set: 'cleverDogSet',
     text: t('headSpecialSpring2016RogueText'),
     notes: t('headSpecialSpring2016RogueNotes', { per: 9 }),
     value: 60,
@@ -1237,6 +1460,7 @@ let head = {
   spring2016Warrior: {
     event: EVENTS.spring2016,
     specialClass: 'warrior',
+    set: 'braveMouseSet',
     text: t('headSpecialSpring2016WarriorText'),
     notes: t('headSpecialSpring2016WarriorNotes', { str: 9 }),
     value: 60,
@@ -1245,6 +1469,7 @@ let head = {
   spring2016Mage: {
     event: EVENTS.spring2016,
     specialClass: 'wizard',
+    set: 'grandMalkinSet',
     text: t('headSpecialSpring2016MageText'),
     notes: t('headSpecialSpring2016MageNotes', { per: 7 }),
     value: 60,
@@ -1253,6 +1478,7 @@ let head = {
   spring2016Healer: {
     event: EVENTS.spring2016,
     specialClass: 'healer',
+    set: 'springingBunnySet',
     text: t('headSpecialSpring2016HealerText'),
     notes: t('headSpecialSpring2016HealerNotes', { int: 7 }),
     value: 60,
@@ -1261,6 +1487,7 @@ let head = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('headSpecialSummer2016RogueText'),
     notes: t('headSpecialSummer2016RogueNotes', { per: 9 }),
     value: 60,
@@ -1272,6 +1499,7 @@ let head = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('headSpecialSummer2016WarriorText'),
     notes: t('headSpecialSummer2016WarriorNotes', { str: 9 }),
     value: 60,
@@ -1283,6 +1511,7 @@ let head = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     text: t('headSpecialSummer2016MageText'),
     notes: t('headSpecialSummer2016MageNotes', { per: 7 }),
     value: 60,
@@ -1294,6 +1523,7 @@ let head = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('headSpecialSummer2016HealerText'),
     notes: t('headSpecialSummer2016HealerNotes', { int: 7 }),
     value: 60,
@@ -1305,38 +1535,55 @@ let head = {
   fall2016Rogue: {
     event: EVENTS.fall2016,
     specialClass: 'rogue',
+    set: 'fall2016BlackWidowSet',
     text: t('headSpecialFall2016RogueText'),
     notes: t('headSpecialFall2016RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Warrior: {
     event: EVENTS.fall2016,
     specialClass: 'warrior',
+    set: 'fall2016SwampThingSet',
     text: t('headSpecialFall2016WarriorText'),
     notes: t('headSpecialFall2016WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Mage: {
     event: EVENTS.fall2016,
     specialClass: 'wizard',
+    set: 'fall2016WickedSorcererSet',
     text: t('headSpecialFall2016MageText'),
     notes: t('headSpecialFall2016MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Healer: {
     event: EVENTS.fall2016,
     specialClass: 'healer',
+    set: 'fall2016GorgonHealerSet',
     text: t('headSpecialFall2016HealerText'),
     notes: t('headSpecialFall2016HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2017Rogue: {
     event: EVENTS.winter2017,
     specialClass: 'rogue',
+    set: 'winter2017FrostyRogueSet',
     text: t('headSpecialWinter2017RogueText'),
     notes: t('headSpecialWinter2017RogueNotes', { per: 9 }),
     value: 60,
@@ -1345,6 +1592,7 @@ let head = {
   winter2017Warrior: {
     event: EVENTS.winter2017,
     specialClass: 'warrior',
+    set: 'winter2017IceHockeySet',
     text: t('headSpecialWinter2017WarriorText'),
     notes: t('headSpecialWinter2017WarriorNotes', { str: 9 }),
     value: 60,
@@ -1353,6 +1601,7 @@ let head = {
   winter2017Mage: {
     event: EVENTS.winter2017,
     specialClass: 'wizard',
+    set: 'winter2017WinterWolfSet',
     text: t('headSpecialWinter2017MageText'),
     notes: t('headSpecialWinter2017MageNotes', { per: 7 }),
     value: 60,
@@ -1361,6 +1610,7 @@ let head = {
   winter2017Healer: {
     event: EVENTS.winter2017,
     specialClass: 'healer',
+    set: 'winter2017SugarPlumSet',
     text: t('headSpecialWinter2017HealerText'),
     notes: t('headSpecialWinter2017HealerNotes', { int: 7 }),
     value: 60,
@@ -1375,6 +1625,7 @@ let head = {
   spring2017Rogue: {
     event: EVENTS.spring2017,
     specialClass: 'rogue',
+    set: 'spring2017SneakyBunnySet',
     text: t('headSpecialSpring2017RogueText'),
     notes: t('headSpecialSpring2017RogueNotes', { per: 9 }),
     value: 60,
@@ -1383,6 +1634,7 @@ let head = {
   spring2017Warrior: {
     event: EVENTS.spring2017,
     specialClass: 'warrior',
+    set: 'spring2017FelineWarriorSet',
     text: t('headSpecialSpring2017WarriorText'),
     notes: t('headSpecialSpring2017WarriorNotes', { str: 9 }),
     value: 60,
@@ -1391,6 +1643,7 @@ let head = {
   spring2017Mage: {
     event: EVENTS.spring2017,
     specialClass: 'wizard',
+    set: 'spring2017CanineConjurorSet',
     text: t('headSpecialSpring2017MageText'),
     notes: t('headSpecialSpring2017MageNotes', { per: 7 }),
     value: 60,
@@ -1399,6 +1652,7 @@ let head = {
   spring2017Healer: {
     event: EVENTS.spring2017,
     specialClass: 'healer',
+    set: 'spring2017FloralMouseSet',
     text: t('headSpecialSpring2017HealerText'),
     notes: t('headSpecialSpring2017HealerNotes', { int: 7 }),
     value: 60,
@@ -1407,6 +1661,7 @@ let head = {
   summer2017Rogue: {
     event: EVENTS.summer2017,
     specialClass: 'rogue',
+    set: 'summer2017SeaDragonSet',
     text: t('headSpecialSummer2017RogueText'),
     notes: t('headSpecialSummer2017RogueNotes', { per: 9 }),
     value: 60,
@@ -1415,6 +1670,7 @@ let head = {
   summer2017Warrior: {
     event: EVENTS.summer2017,
     specialClass: 'warrior',
+    set: 'summer2017SandcastleWarriorSet',
     text: t('headSpecialSummer2017WarriorText'),
     notes: t('headSpecialSummer2017WarriorNotes', { str: 9 }),
     value: 60,
@@ -1423,6 +1679,7 @@ let head = {
   summer2017Mage: {
     event: EVENTS.summer2017,
     specialClass: 'wizard',
+    set: 'summer2017WhirlpoolMageSet',
     text: t('headSpecialSummer2017MageText'),
     notes: t('headSpecialSummer2017MageNotes', { per: 7 }),
     value: 60,
@@ -1431,8 +1688,51 @@ let head = {
   summer2017Healer: {
     event: EVENTS.summer2017,
     specialClass: 'healer',
+    set: 'summer2017SeashellSeahealerSet',
     text: t('headSpecialSummer2017HealerText'),
     notes: t('headSpecialSummer2017HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
+  },
+  namingDay2017: {
+    text: t('headSpecialNamingDay2017Text'),
+    notes: t('headSpecialNamingDay2017Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_namingDay2017'),
+  },
+  fall2017Rogue: {
+    event: EVENTS.fall2017,
+    specialClass: 'rogue',
+    set: 'fall2017TrickOrTreatSet',
+    text: t('headSpecialFall2017RogueText'),
+    notes: t('headSpecialFall2017RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  fall2017Warrior: {
+    event: EVENTS.fall2017,
+    specialClass: 'warrior',
+    set: 'fall2017HabitoweenSet',
+    text: t('headSpecialFall2017WarriorText'),
+    notes: t('headSpecialFall2017WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  fall2017Mage: {
+    event: EVENTS.fall2017,
+    specialClass: 'wizard',
+    set: 'fall2017MasqueradeSet',
+    text: t('headSpecialFall2017MageText'),
+    notes: t('headSpecialFall2017MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  fall2017Healer: {
+    event: EVENTS.fall2017,
+    specialClass: 'healer',
+    set: 'fall2017HauntedHouseSet',
+    text: t('headSpecialFall2017HealerText'),
+    notes: t('headSpecialFall2017HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
   },
@@ -1442,6 +1742,7 @@ let headAccessory = {
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
+    set: 'stealthyKittySet',
     text: t('headAccessorySpecialSpringRogueText'),
     notes: t('headAccessorySpecialSpringRogueNotes'),
     value: 20,
@@ -1449,6 +1750,7 @@ let headAccessory = {
   springWarrior: {
     event: EVENTS.spring,
     specialClass: 'warrior',
+    set: 'mightyBunnySet',
     text: t('headAccessorySpecialSpringWarriorText'),
     notes: t('headAccessorySpecialSpringWarriorNotes'),
     value: 20,
@@ -1456,6 +1758,7 @@ let headAccessory = {
   springMage: {
     event: EVENTS.spring,
     specialClass: 'wizard',
+    set: 'magicMouseSet',
     text: t('headAccessorySpecialSpringMageText'),
     notes: t('headAccessorySpecialSpringMageNotes'),
     value: 20,
@@ -1463,6 +1766,7 @@ let headAccessory = {
   springHealer: {
     event: EVENTS.spring,
     specialClass: 'healer',
+    set: 'lovingPupSet',
     text: t('headAccessorySpecialSpringHealerText'),
     notes: t('headAccessorySpecialSpringHealerNotes'),
     value: 20,
@@ -1470,6 +1774,7 @@ let headAccessory = {
   spring2015Rogue: {
     event: EVENTS.spring2015,
     specialClass: 'rogue',
+    set: 'sneakySqueakerSet',
     text: t('headAccessorySpecialSpring2015RogueText'),
     notes: t('headAccessorySpecialSpring2015RogueNotes'),
     value: 20,
@@ -1477,6 +1782,7 @@ let headAccessory = {
   spring2015Warrior: {
     event: EVENTS.spring2015,
     specialClass: 'warrior',
+    set: 'bewareDogSet',
     text: t('headAccessorySpecialSpring2015WarriorText'),
     notes: t('headAccessorySpecialSpring2015WarriorNotes'),
     value: 20,
@@ -1484,6 +1790,7 @@ let headAccessory = {
   spring2015Mage: {
     event: EVENTS.spring2015,
     specialClass: 'wizard',
+    set: 'magicianBunnySet',
     text: t('headAccessorySpecialSpring2015MageText'),
     notes: t('headAccessorySpecialSpring2015MageNotes'),
     value: 20,
@@ -1491,6 +1798,7 @@ let headAccessory = {
   spring2015Healer: {
     event: EVENTS.spring2015,
     specialClass: 'healer',
+    set: 'comfortingKittySet',
     text: t('headAccessorySpecialSpring2015HealerText'),
     notes: t('headAccessorySpecialSpring2015HealerNotes'),
     value: 20,
@@ -1578,6 +1886,7 @@ let headAccessory = {
   spring2016Rogue: {
     event: EVENTS.spring2016,
     specialClass: 'rogue',
+    set: 'cleverDogSet',
     text: t('headAccessorySpecialSpring2016RogueText'),
     notes: t('headAccessorySpecialSpring2016RogueNotes'),
     value: 20,
@@ -1585,6 +1894,7 @@ let headAccessory = {
   spring2016Warrior: {
     event: EVENTS.spring2016,
     specialClass: 'warrior',
+    set: 'braveMouseSet',
     text: t('headAccessorySpecialSpring2016WarriorText'),
     notes: t('headAccessorySpecialSpring2016WarriorNotes'),
     value: 20,
@@ -1592,6 +1902,7 @@ let headAccessory = {
   spring2016Mage: {
     event: EVENTS.spring2016,
     specialClass: 'wizard',
+    set: 'grandMalkinSet',
     text: t('headAccessorySpecialSpring2016MageText'),
     notes: t('headAccessorySpecialSpring2016MageNotes'),
     value: 20,
@@ -1599,6 +1910,7 @@ let headAccessory = {
   spring2016Healer: {
     event: EVENTS.spring2016,
     specialClass: 'healer',
+    set: 'springingBunnySet',
     text: t('headAccessorySpecialSpring2016HealerText'),
     notes: t('headAccessorySpecialSpring2016HealerNotes'),
     value: 20,
@@ -1606,6 +1918,7 @@ let headAccessory = {
   spring2017Rogue: {
     event: EVENTS.spring2017,
     specialClass: 'rogue',
+    set: 'spring2017SneakyBunnySet',
     text: t('headAccessorySpecialSpring2017RogueText'),
     notes: t('headAccessorySpecialSpring2017RogueNotes'),
     value: 20,
@@ -1613,6 +1926,7 @@ let headAccessory = {
   spring2017Warrior: {
     event: EVENTS.spring2017,
     specialClass: 'warrior',
+    set: 'spring2017FelineWarriorSet',
     text: t('headAccessorySpecialSpring2017WarriorText'),
     notes: t('headAccessorySpecialSpring2017WarriorNotes'),
     value: 20,
@@ -1620,6 +1934,7 @@ let headAccessory = {
   spring2017Mage: {
     event: EVENTS.spring2017,
     specialClass: 'wizard',
+    set: 'spring2017CanineConjurorSet',
     text: t('headAccessorySpecialSpring2017MageText'),
     notes: t('headAccessorySpecialSpring2017MageNotes'),
     value: 20,
@@ -1627,6 +1942,7 @@ let headAccessory = {
   spring2017Healer: {
     event: EVENTS.spring2017,
     specialClass: 'healer',
+    set: 'spring2017FloralMouseSet',
     text: t('headAccessorySpecialSpring2017HealerText'),
     notes: t('headAccessorySpecialSpring2017HealerNotes'),
     value: 20,
@@ -1697,6 +2013,7 @@ let shield = {
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
+    set: 'yetiSet',
     text: t('shieldSpecialYetiText'),
     notes: t('shieldSpecialYetiNotes', { con: 7 }),
     con: 7,
@@ -1705,6 +2022,7 @@ let shield = {
   ski: {
     event: EVENTS.winter,
     specialClass: 'rogue',
+    set: 'skiSet',
     text: t('weaponSpecialSkiText'),
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
@@ -1713,6 +2031,7 @@ let shield = {
   snowflake: {
     event: EVENTS.winter,
     specialClass: 'healer',
+    set: 'snowflakeSet',
     text: t('shieldSpecialSnowflakeText'),
     notes: t('shieldSpecialSnowflakeNotes', { con: 9 }),
     con: 9,
@@ -1721,6 +2040,7 @@ let shield = {
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
+    set: 'stealthyKittySet',
     text: t('shieldSpecialSpringRogueText'),
     notes: t('shieldSpecialSpringRogueNotes', { str: 8 }),
     value: 80,
@@ -1729,6 +2049,7 @@ let shield = {
   springWarrior: {
     event: EVENTS.spring,
     specialClass: 'warrior',
+    set: 'mightyBunnySet',
     text: t('shieldSpecialSpringWarriorText'),
     notes: t('shieldSpecialSpringWarriorNotes', { con: 7 }),
     value: 70,
@@ -1737,6 +2058,7 @@ let shield = {
   springHealer: {
     event: EVENTS.spring,
     specialClass: 'healer',
+    set: 'lovingPupSet',
     text: t('shieldSpecialSpringHealerText'),
     notes: t('shieldSpecialSpringHealerNotes', { con: 9 }),
     value: 70,
@@ -1745,6 +2067,7 @@ let shield = {
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
+    set: 'roguishPirateSet',
     text: t('shieldSpecialSummerRogueText'),
     notes: t('shieldSpecialSummerRogueNotes', { str: 8 }),
     value: 80,
@@ -1756,6 +2079,7 @@ let shield = {
   summerWarrior: {
     event: EVENTS.summer,
     specialClass: 'warrior',
+    set: 'daringSwashbucklerSet',
     text: t('shieldSpecialSummerWarriorText'),
     notes: t('shieldSpecialSummerWarriorNotes', { con: 7 }),
     value: 70,
@@ -1767,6 +2091,7 @@ let shield = {
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
+    set: 'reefSeahealerSet',
     text: t('shieldSpecialSummerHealerText'),
     notes: t('shieldSpecialSummerHealerNotes', { con: 9 }),
     value: 70,
@@ -1778,30 +2103,43 @@ let shield = {
   fallRogue: {
     event: EVENTS.fall,
     specialClass: 'rogue',
+    set: 'vampireSmiterSet',
     text: t('shieldSpecialFallRogueText'),
     notes: t('shieldSpecialFallRogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
     specialClass: 'warrior',
+    set: 'monsterOfScienceSet',
     text: t('shieldSpecialFallWarriorText'),
     notes: t('shieldSpecialFallWarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
     specialClass: 'healer',
+    set: 'mummyMedicSet',
     text: t('shieldSpecialFallHealerText'),
     notes: t('shieldSpecialFallHealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
     specialClass: 'rogue',
+    set: 'icicleDrakeSet',
     text: t('shieldSpecialWinter2015RogueText'),
     notes: t('shieldSpecialWinter2015RogueNotes', { str: 8 }),
     value: 80,
@@ -1810,6 +2148,7 @@ let shield = {
   winter2015Warrior: {
     event: EVENTS.winter2015,
     specialClass: 'warrior',
+    set: 'gingerbreadSet',
     text: t('shieldSpecialWinter2015WarriorText'),
     notes: t('shieldSpecialWinter2015WarriorNotes', { con: 7 }),
     value: 70,
@@ -1818,6 +2157,7 @@ let shield = {
   winter2015Healer: {
     event: EVENTS.winter2015,
     specialClass: 'healer',
+    set: 'soothingSkaterSet',
     text: t('shieldSpecialWinter2015HealerText'),
     notes: t('shieldSpecialWinter2015HealerNotes', { con: 9 }),
     value: 70,
@@ -1826,6 +2166,7 @@ let shield = {
   spring2015Rogue: {
     event: EVENTS.spring2015,
     specialClass: 'rogue',
+    set: 'sneakySqueakerSet',
     text: t('shieldSpecialSpring2015RogueText'),
     notes: t('shieldSpecialSpring2015RogueNotes', { str: 8 }),
     value: 80,
@@ -1834,6 +2175,7 @@ let shield = {
   spring2015Warrior: {
     event: EVENTS.spring2015,
     specialClass: 'warrior',
+    set: 'bewareDogSet',
     text: t('shieldSpecialSpring2015WarriorText'),
     notes: t('shieldSpecialSpring2015WarriorNotes', { con: 7 }),
     value: 70,
@@ -1842,6 +2184,7 @@ let shield = {
   spring2015Healer: {
     event: EVENTS.spring2015,
     specialClass: 'healer',
+    set: 'comfortingKittySet',
     text: t('shieldSpecialSpring2015HealerText'),
     notes: t('shieldSpecialSpring2015HealerNotes', { con: 9 }),
     value: 70,
@@ -1850,6 +2193,7 @@ let shield = {
   summer2015Rogue: {
     event: EVENTS.summer2015,
     specialClass: 'rogue',
+    set: 'reefRenegadeSet',
     text: t('shieldSpecialSummer2015RogueText'),
     notes: t('shieldSpecialSummer2015RogueNotes', { str: 8 }),
     value: 80,
@@ -1861,6 +2205,7 @@ let shield = {
   summer2015Warrior: {
     event: EVENTS.summer2015,
     specialClass: 'warrior',
+    set: 'sunfishWarriorSet',
     text: t('shieldSpecialSummer2015WarriorText'),
     notes: t('shieldSpecialSummer2015WarriorNotes', { con: 7 }),
     value: 70,
@@ -1872,6 +2217,7 @@ let shield = {
   summer2015Healer: {
     event: EVENTS.summer2015,
     specialClass: 'healer',
+    set: 'strappingSailorSet',
     text: t('shieldSpecialSummer2015HealerText'),
     notes: t('shieldSpecialSummer2015HealerNotes', { con: 9 }),
     value: 70,
@@ -1883,30 +2229,43 @@ let shield = {
   fall2015Rogue: {
     event: EVENTS.fall2015,
     specialClass: 'rogue',
+    set: 'battleRogueSet',
     text: t('shieldSpecialFall2015RogueText'),
     notes: t('shieldSpecialFall2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
     specialClass: 'warrior',
+    set: 'scarecrowWarriorSet',
     text: t('shieldSpecialFall2015WarriorText'),
     notes: t('shieldSpecialFall2015WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
     specialClass: 'healer',
+    set: 'potionerSet',
     text: t('shieldSpecialFall2015HealerText'),
     notes: t('shieldSpecialFall2015HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2016Rogue: {
     event: EVENTS.winter2016,
     specialClass: 'rogue',
+    set: 'cocoaSet',
     text: t('shieldSpecialWinter2016RogueText'),
     notes: t('shieldSpecialWinter2016RogueNotes', { str: 8 }),
     value: 80,
@@ -1915,6 +2274,7 @@ let shield = {
   winter2016Warrior: {
     event: EVENTS.winter2016,
     specialClass: 'warrior',
+    set: 'snowDaySet',
     text: t('shieldSpecialWinter2016WarriorText'),
     notes: t('shieldSpecialWinter2016WarriorNotes', { con: 7 }),
     value: 70,
@@ -1923,6 +2283,7 @@ let shield = {
   winter2016Healer: {
     event: EVENTS.winter2016,
     specialClass: 'healer',
+    set: 'festiveFairySet',
     text: t('shieldSpecialWinter2016HealerText'),
     notes: t('shieldSpecialWinter2016HealerNotes', { con: 9 }),
     value: 70,
@@ -1931,6 +2292,7 @@ let shield = {
   spring2016Rogue: {
     event: EVENTS.spring2016,
     specialClass: 'rogue',
+    set: 'cleverDogSet',
     text: t('shieldSpecialSpring2016RogueText'),
     notes: t('shieldSpecialSpring2016RogueNotes', { str: 8 }),
     value: 80,
@@ -1939,6 +2301,7 @@ let shield = {
   spring2016Warrior: {
     event: EVENTS.spring2016,
     specialClass: 'warrior',
+    set: 'braveMouseSet',
     text: t('shieldSpecialSpring2016WarriorText'),
     notes: t('shieldSpecialSpring2016WarriorNotes', { con: 7 }),
     value: 70,
@@ -1947,6 +2310,7 @@ let shield = {
   spring2016Healer: {
     event: EVENTS.spring2016,
     specialClass: 'healer',
+    set: 'springingBunnySet',
     text: t('shieldSpecialSpring2016HealerText'),
     notes: t('shieldSpecialSpring2016HealerNotes', { con: 9 }),
     value: 70,
@@ -1955,6 +2319,7 @@ let shield = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('shieldSpecialSummer2016RogueText'),
     notes: t('shieldSpecialSummer2016RogueNotes', { str: 8 }),
     value: 80,
@@ -1966,6 +2331,7 @@ let shield = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('shieldSpecialSummer2016WarriorText'),
     notes: t('shieldSpecialSummer2016WarriorNotes', { con: 7 }),
     value: 70,
@@ -1977,6 +2343,7 @@ let shield = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('shieldSpecialSummer2016HealerText'),
     notes: t('shieldSpecialSummer2016HealerNotes', { con: 9 }),
     value: 70,
@@ -1988,30 +2355,43 @@ let shield = {
   fall2016Rogue: {
     event: EVENTS.fall2016,
     specialClass: 'rogue',
+    set: 'fall2016BlackWidowSet',
     text: t('shieldSpecialFall2016RogueText'),
     notes: t('shieldSpecialFall2016RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Warrior: {
     event: EVENTS.fall2016,
     specialClass: 'warrior',
+    set: 'fall2016SwampThingSet',
     text: t('shieldSpecialFall2016WarriorText'),
     notes: t('shieldSpecialFall2016WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Healer: {
     event: EVENTS.fall2016,
     specialClass: 'healer',
+    set: 'fall2016GorgonHealerSet',
     text: t('shieldSpecialFall2016HealerText'),
     notes: t('shieldSpecialFall2016HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2017Rogue: {
     event: EVENTS.winter2017,
     specialClass: 'rogue',
+    set: 'winter2017FrostyRogueSet',
     text: t('shieldSpecialWinter2017RogueText'),
     notes: t('shieldSpecialWinter2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2020,6 +2400,7 @@ let shield = {
   winter2017Warrior: {
     event: EVENTS.winter2017,
     specialClass: 'warrior',
+    set: 'winter2017IceHockeySet',
     text: t('shieldSpecialWinter2017WarriorText'),
     notes: t('shieldSpecialWinter2017WarriorNotes', { con: 7 }),
     value: 70,
@@ -2028,6 +2409,7 @@ let shield = {
   winter2017Healer: {
     event: EVENTS.winter2017,
     specialClass: 'healer',
+    set: 'winter2017SugarPlumSet',
     text: t('shieldSpecialWinter2017HealerText'),
     notes: t('shieldSpecialWinter2017HealerNotes', { con: 9 }),
     value: 70,
@@ -2036,6 +2418,7 @@ let shield = {
   spring2017Rogue: {
     event: EVENTS.spring2017,
     specialClass: 'rogue',
+    set: 'spring2017SneakyBunnySet',
     text: t('shieldSpecialSpring2017RogueText'),
     notes: t('shieldSpecialSpring2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2044,6 +2427,7 @@ let shield = {
   spring2017Warrior: {
     event: EVENTS.spring2017,
     specialClass: 'warrior',
+    set: 'spring2017FelineWarriorSet',
     text: t('shieldSpecialSpring2017WarriorText'),
     notes: t('shieldSpecialSpring2017WarriorNotes', { con: 7 }),
     value: 70,
@@ -2052,6 +2436,7 @@ let shield = {
   spring2017Healer: {
     event: EVENTS.spring2017,
     specialClass: 'healer',
+    set: 'spring2017FloralMouseSet',
     text: t('shieldSpecialSpring2017HealerText'),
     notes: t('shieldSpecialSpring2017HealerNotes', { con: 9 }),
     value: 70,
@@ -2060,6 +2445,7 @@ let shield = {
   summer2017Rogue: {
     event: EVENTS.summer2017,
     specialClass: 'rogue',
+    set: 'summer2017SeaDragonSet',
     text: t('shieldSpecialSummer2017RogueText'),
     notes: t('shieldSpecialSummer2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2068,6 +2454,7 @@ let shield = {
   summer2017Warrior: {
     event: EVENTS.summer2017,
     specialClass: 'warrior',
+    set: 'summer2017SandcastleWarriorSet',
     text: t('shieldSpecialSummer2017WarriorText'),
     notes: t('shieldSpecialSummer2017WarriorNotes', { con: 7 }),
     value: 70,
@@ -2076,8 +2463,36 @@ let shield = {
   summer2017Healer: {
     event: EVENTS.summer2017,
     specialClass: 'healer',
+    set: 'summer2017SeashellSeahealerSet',
     text: t('shieldSpecialSummer2017HealerText'),
     notes: t('shieldSpecialSummer2017HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
+  fall2017Rogue: {
+    event: EVENTS.fall2017,
+    specialClass: 'rogue',
+    set: 'fall2017TrickOrTreatSet',
+    text: t('shieldSpecialFall2017RogueText'),
+    notes: t('shieldSpecialFall2017RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2017Warrior: {
+    event: EVENTS.fall2017,
+    specialClass: 'warrior',
+    set: 'fall2017HabitoweenSet',
+    text: t('shieldSpecialFall2017WarriorText'),
+    notes: t('shieldSpecialFall2017WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  fall2017Healer: {
+    event: EVENTS.fall2017,
+    specialClass: 'healer',
+    set: 'fall2017HauntedHouseSet',
+    text: t('shieldSpecialFall2017HealerText'),
+    notes: t('shieldSpecialFall2017HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
   },
@@ -2173,9 +2588,21 @@ let weapon = {
     value: 0,
     canOwn: ownsItem('weapon_special_tachi'),
   },
+  aetherCrystals: {
+    text: t('weaponSpecialAetherCrystalsText'),
+    notes: t('weaponSpecialAetherCrystalsNotes', { attrs: 10 }),
+    con: 10,
+    int: 10,
+    per: 10,
+    str: 10,
+    value: 175,
+    twoHanded: true,
+    canOwn: ownsItem('weapon_special_aetherCrystals'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
+    set: 'yetiSet',
     text: t('weaponSpecialYetiText'),
     notes: t('weaponSpecialYetiNotes', { str: 15 }),
     str: 15,
@@ -2184,6 +2611,7 @@ let weapon = {
   ski: {
     event: EVENTS.winter,
     specialClass: 'rogue',
+    set: 'skiSet',
     text: t('weaponSpecialSkiText'),
     notes: t('weaponSpecialSkiNotes', { str: 8 }),
     str: 8,
@@ -2192,6 +2620,7 @@ let weapon = {
   candycane: {
     event: EVENTS.winter,
     specialClass: 'wizard',
+    set: 'candycaneSet',
     twoHanded: true,
     text: t('weaponSpecialCandycaneText'),
     notes: t('weaponSpecialCandycaneNotes', { int: 15, per: 7 }),
@@ -2202,6 +2631,7 @@ let weapon = {
   snowflake: {
     event: EVENTS.winter,
     specialClass: 'healer',
+    set: 'snowflakeSet',
     text: t('weaponSpecialSnowflakeText'),
     notes: t('weaponSpecialSnowflakeNotes', { int: 9 }),
     int: 9,
@@ -2210,6 +2640,7 @@ let weapon = {
   springRogue: {
     event: EVENTS.spring,
     specialClass: 'rogue',
+    set: 'stealthyKittySet',
     text: t('weaponSpecialSpringRogueText'),
     notes: t('weaponSpecialSpringRogueNotes', { str: 8 }),
     value: 80,
@@ -2218,6 +2649,7 @@ let weapon = {
   springWarrior: {
     event: EVENTS.spring,
     specialClass: 'warrior',
+    set: 'mightyBunnySet',
     text: t('weaponSpecialSpringWarriorText'),
     notes: t('weaponSpecialSpringWarriorNotes', { str: 15 }),
     value: 90,
@@ -2226,6 +2658,7 @@ let weapon = {
   springMage: {
     event: EVENTS.spring,
     specialClass: 'wizard',
+    set: 'magicMouseSet',
     twoHanded: true,
     text: t('weaponSpecialSpringMageText'),
     notes: t('weaponSpecialSpringMageNotes', { int: 15, per: 7 }),
@@ -2236,6 +2669,7 @@ let weapon = {
   springHealer: {
     event: EVENTS.spring,
     specialClass: 'healer',
+    set: 'lovingPupSet',
     text: t('weaponSpecialSpringHealerText'),
     notes: t('weaponSpecialSpringHealerNotes', { int: 9 }),
     value: 90,
@@ -2244,6 +2678,7 @@ let weapon = {
   summerRogue: {
     event: EVENTS.summer,
     specialClass: 'rogue',
+    set: 'roguishPirateSet',
     text: t('weaponSpecialSummerRogueText'),
     notes: t('weaponSpecialSummerRogueNotes', { str: 8 }),
     value: 80,
@@ -2255,6 +2690,7 @@ let weapon = {
   summerWarrior: {
     event: EVENTS.summer,
     specialClass: 'warrior',
+    set: 'daringSwashbucklerSet',
     text: t('weaponSpecialSummerWarriorText'),
     notes: t('weaponSpecialSummerWarriorNotes', { str: 15 }),
     value: 90,
@@ -2266,6 +2702,7 @@ let weapon = {
   summerMage: {
     event: EVENTS.summer,
     specialClass: 'wizard',
+    set: 'emeraldMermageSet',
     twoHanded: true,
     text: t('weaponSpecialSummerMageText'),
     notes: t('weaponSpecialSummerMageNotes', { int: 15, per: 7 }),
@@ -2279,6 +2716,7 @@ let weapon = {
   summerHealer: {
     event: EVENTS.summer,
     specialClass: 'healer',
+    set: 'reefSeahealerSet',
     text: t('weaponSpecialSummerHealerText'),
     notes: t('weaponSpecialSummerHealerNotes', { int: 9 }),
     value: 90,
@@ -2290,40 +2728,57 @@ let weapon = {
   fallRogue: {
     event: EVENTS.fall,
     specialClass: 'rogue',
+    set: 'vampireSmiterSet',
     text: t('weaponSpecialFallRogueText'),
     notes: t('weaponSpecialFallRogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallWarrior: {
     event: EVENTS.fall,
     specialClass: 'warrior',
+    set: 'monsterOfScienceSet',
     text: t('weaponSpecialFallWarriorText'),
     notes: t('weaponSpecialFallWarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallMage: {
     event: EVENTS.fall,
     specialClass: 'wizard',
+    set: 'witchyWizardSet',
     twoHanded: true,
     text: t('weaponSpecialFallMageText'),
     notes: t('weaponSpecialFallMageNotes', { int: 15, per: 7 }),
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fallHealer: {
     event: EVENTS.fall,
     specialClass: 'healer',
+    set: 'mummyMedicSet',
     text: t('weaponSpecialFallHealerText'),
     notes: t('weaponSpecialFallHealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2015Rogue: {
     event: EVENTS.winter2015,
     specialClass: 'rogue',
+    set: 'icicleDrakeSet',
     text: t('weaponSpecialWinter2015RogueText'),
     notes: t('weaponSpecialWinter2015RogueNotes', { str: 8 }),
     value: 80,
@@ -2332,6 +2787,7 @@ let weapon = {
   winter2015Warrior: {
     event: EVENTS.winter2015,
     specialClass: 'warrior',
+    set: 'gingerbreadSet',
     text: t('weaponSpecialWinter2015WarriorText'),
     notes: t('weaponSpecialWinter2015WarriorNotes', { str: 15 }),
     value: 90,
@@ -2340,6 +2796,7 @@ let weapon = {
   winter2015Mage: {
     event: EVENTS.winter2015,
     specialClass: 'wizard',
+    set: 'northMageSet',
     twoHanded: true,
     text: t('weaponSpecialWinter2015MageText'),
     notes: t('weaponSpecialWinter2015MageNotes', { int: 15, per: 7 }),
@@ -2350,6 +2807,7 @@ let weapon = {
   winter2015Healer: {
     event: EVENTS.winter2015,
     specialClass: 'healer',
+    set: 'soothingSkaterSet',
     text: t('weaponSpecialWinter2015HealerText'),
     notes: t('weaponSpecialWinter2015HealerNotes', { int: 9 }),
     value: 90,
@@ -2358,6 +2816,7 @@ let weapon = {
   spring2015Rogue: {
     event: EVENTS.spring2015,
     specialClass: 'rogue',
+    set: 'sneakySqueakerSet',
     text: t('weaponSpecialSpring2015RogueText'),
     notes: t('weaponSpecialSpring2015RogueNotes', { str: 8 }),
     value: 80,
@@ -2366,6 +2825,7 @@ let weapon = {
   spring2015Warrior: {
     event: EVENTS.spring2015,
     specialClass: 'warrior',
+    set: 'bewareDogSet',
     text: t('weaponSpecialSpring2015WarriorText'),
     notes: t('weaponSpecialSpring2015WarriorNotes', { str: 15 }),
     value: 90,
@@ -2374,6 +2834,7 @@ let weapon = {
   spring2015Mage: {
     event: EVENTS.spring2015,
     specialClass: 'wizard',
+    set: 'magicianBunnySet',
     twoHanded: true,
     text: t('weaponSpecialSpring2015MageText'),
     notes: t('weaponSpecialSpring2015MageNotes', { int: 15, per: 7 }),
@@ -2384,6 +2845,7 @@ let weapon = {
   spring2015Healer: {
     event: EVENTS.spring2015,
     specialClass: 'healer',
+    set: 'comfortingKittySet',
     text: t('weaponSpecialSpring2015HealerText'),
     notes: t('weaponSpecialSpring2015HealerNotes', { int: 9 }),
     value: 90,
@@ -2392,6 +2854,7 @@ let weapon = {
   summer2015Rogue: {
     event: EVENTS.summer2015,
     specialClass: 'rogue',
+    set: 'reefRenegadeSet',
     text: t('weaponSpecialSummer2015RogueText'),
     notes: t('weaponSpecialSummer2015RogueNotes', { str: 8 }),
     value: 80,
@@ -2403,6 +2866,7 @@ let weapon = {
   summer2015Warrior: {
     event: EVENTS.summer2015,
     specialClass: 'warrior',
+    set: 'sunfishWarriorSet',
     text: t('weaponSpecialSummer2015WarriorText'),
     notes: t('weaponSpecialSummer2015WarriorNotes', { str: 15 }),
     value: 90,
@@ -2414,6 +2878,7 @@ let weapon = {
   summer2015Mage: {
     event: EVENTS.summer2015,
     specialClass: 'wizard',
+    set: 'shipSoothsayerSet',
     twoHanded: true,
     text: t('weaponSpecialSummer2015MageText'),
     notes: t('weaponSpecialSummer2015MageNotes', { int: 15, per: 7 }),
@@ -2427,6 +2892,7 @@ let weapon = {
   summer2015Healer: {
     event: EVENTS.summer2015,
     specialClass: 'healer',
+    set: 'strappingSailorSet',
     text: t('weaponSpecialSummer2015HealerText'),
     notes: t('weaponSpecialSummer2015HealerNotes', { int: 9 }),
     value: 90,
@@ -2438,40 +2904,57 @@ let weapon = {
   fall2015Rogue: {
     event: EVENTS.fall2015,
     specialClass: 'rogue',
+    set: 'battleRogueSet',
     text: t('weaponSpecialFall2015RogueText'),
     notes: t('weaponSpecialFall2015RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Warrior: {
     event: EVENTS.fall2015,
     specialClass: 'warrior',
+    set: 'scarecrowWarriorSet',
     text: t('weaponSpecialFall2015WarriorText'),
     notes: t('weaponSpecialFall2015WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Mage: {
     event: EVENTS.fall2015,
     specialClass: 'wizard',
+    set: 'stitchWitchSet',
     twoHanded: true,
     text: t('weaponSpecialFall2015MageText'),
     notes: t('weaponSpecialFall2015MageNotes', { int: 15, per: 7 }),
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2015Healer: {
     event: EVENTS.fall2015,
     specialClass: 'healer',
+    set: 'potionerSet',
     text: t('weaponSpecialFall2015HealerText'),
     notes: t('weaponSpecialFall2015HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2016Rogue: {
     event: EVENTS.winter2016,
     specialClass: 'rogue',
+    set: 'cocoaSet',
     text: t('weaponSpecialWinter2016RogueText'),
     notes: t('weaponSpecialWinter2016RogueNotes', { str: 8 }),
     value: 80,
@@ -2480,6 +2963,7 @@ let weapon = {
   winter2016Warrior: {
     event: EVENTS.winter2016,
     specialClass: 'warrior',
+    set: 'snowDaySet',
     text: t('weaponSpecialWinter2016WarriorText'),
     notes: t('weaponSpecialWinter2016WarriorNotes', { str: 15 }),
     value: 90,
@@ -2488,6 +2972,7 @@ let weapon = {
   winter2016Mage: {
     event: EVENTS.winter2016,
     specialClass: 'wizard',
+    set: 'snowboardingSet',
     twoHanded: true,
     text: t('weaponSpecialWinter2016MageText'),
     notes: t('weaponSpecialWinter2016MageNotes', { int: 15, per: 7 }),
@@ -2498,6 +2983,7 @@ let weapon = {
   winter2016Healer: {
     event: EVENTS.winter2016,
     specialClass: 'healer',
+    set: 'festiveFairySet',
     text: t('weaponSpecialWinter2016HealerText'),
     notes: t('weaponSpecialWinter2016HealerNotes', { int: 9 }),
     value: 90,
@@ -2506,6 +2992,7 @@ let weapon = {
   spring2016Rogue: {
     event: EVENTS.spring2016,
     specialClass: 'rogue',
+    set: 'cleverDogSet',
     text: t('weaponSpecialSpring2016RogueText'),
     notes: t('weaponSpecialSpring2016RogueNotes', { str: 8 }),
     value: 80,
@@ -2514,6 +3001,7 @@ let weapon = {
   spring2016Warrior: {
     event: EVENTS.spring2016,
     specialClass: 'warrior',
+    set: 'braveMouseSet',
     text: t('weaponSpecialSpring2016WarriorText'),
     notes: t('weaponSpecialSpring2016WarriorNotes', { str: 15 }),
     value: 90,
@@ -2522,6 +3010,7 @@ let weapon = {
   spring2016Mage: {
     event: EVENTS.spring2016,
     specialClass: 'wizard',
+    set: 'grandMalkinSet',
     twoHanded: true,
     text: t('weaponSpecialSpring2016MageText'),
     notes: t('weaponSpecialSpring2016MageNotes', { int: 15, per: 7 }),
@@ -2532,6 +3021,7 @@ let weapon = {
   spring2016Healer: {
     event: EVENTS.spring2016,
     specialClass: 'healer',
+    set: 'springingBunnySet',
     text: t('weaponSpecialSpring2016HealerText'),
     notes: t('weaponSpecialSpring2016HealerNotes', { int: 9 }),
     value: 90,
@@ -2540,6 +3030,7 @@ let weapon = {
   summer2016Rogue: {
     event: EVENTS.summer2016,
     specialClass: 'rogue',
+    set: 'summer2016EelSet',
     text: t('weaponSpecialSummer2016RogueText'),
     notes: t('weaponSpecialSummer2016RogueNotes', { str: 8 }),
     value: 80,
@@ -2551,6 +3042,7 @@ let weapon = {
   summer2016Warrior: {
     event: EVENTS.summer2016,
     specialClass: 'warrior',
+    set: 'summer2016SharkWarriorSet',
     text: t('weaponSpecialSummer2016WarriorText'),
     notes: t('weaponSpecialSummer2016WarriorNotes', { str: 15 }),
     value: 90,
@@ -2562,6 +3054,7 @@ let weapon = {
   summer2016Mage: {
     event: EVENTS.summer2016,
     specialClass: 'wizard',
+    set: 'summer2016DolphinMageSet',
     twoHanded: true,
     text: t('weaponSpecialSummer2016MageText'),
     notes: t('weaponSpecialSummer2016MageNotes', { int: 15, per: 7 }),
@@ -2575,6 +3068,7 @@ let weapon = {
   summer2016Healer: {
     event: EVENTS.summer2016,
     specialClass: 'healer',
+    set: 'summer2016SeahorseHealerSet',
     text: t('weaponSpecialSummer2016HealerText'),
     notes: t('weaponSpecialSummer2016HealerNotes', { int: 9 }),
     value: 90,
@@ -2586,40 +3080,57 @@ let weapon = {
   fall2016Rogue: {
     event: EVENTS.fall2016,
     specialClass: 'rogue',
+    set: 'fall2016BlackWidowSet',
     text: t('weaponSpecialFall2016RogueText'),
     notes: t('weaponSpecialFall2016RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Warrior: {
     event: EVENTS.fall2016,
     specialClass: 'warrior',
+    set: 'fall2016SwampThingSet',
     text: t('weaponSpecialFall2016WarriorText'),
     notes: t('weaponSpecialFall2016WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Mage: {
     event: EVENTS.fall2016,
     specialClass: 'wizard',
+    set: 'fall2016WickedSorcererSet',
     twoHanded: true,
     text: t('weaponSpecialFall2016MageText'),
     notes: t('weaponSpecialFall2016MageNotes', { int: 15, per: 7 }),
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   fall2016Healer: {
     event: EVENTS.fall2016,
     specialClass: 'healer',
+    set: 'fall2016GorgonHealerSet',
     text: t('weaponSpecialFall2016HealerText'),
     notes: t('weaponSpecialFall2016HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => {
+      return CURRENT_SEASON === 'fall';
+    },
   },
   winter2017Rogue: {
     event: EVENTS.winter2017,
     specialClass: 'rogue',
+    set: 'winter2017FrostyRogueSet',
     text: t('weaponSpecialWinter2017RogueText'),
     notes: t('weaponSpecialWinter2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2628,6 +3139,7 @@ let weapon = {
   winter2017Warrior: {
     event: EVENTS.winter2017,
     specialClass: 'warrior',
+    set: 'winter2017IceHockeySet',
     text: t('weaponSpecialWinter2017WarriorText'),
     notes: t('weaponSpecialWinter2017WarriorNotes', { str: 15 }),
     value: 90,
@@ -2636,6 +3148,7 @@ let weapon = {
   winter2017Mage: {
     event: EVENTS.winter2017,
     specialClass: 'wizard',
+    set: 'winter2017WinterWolfSet',
     twoHanded: true,
     text: t('weaponSpecialWinter2017MageText'),
     notes: t('weaponSpecialWinter2017MageNotes', { int: 15, per: 7 }),
@@ -2646,6 +3159,7 @@ let weapon = {
   winter2017Healer: {
     event: EVENTS.winter2017,
     specialClass: 'healer',
+    set: 'winter2017SugarPlumSet',
     text: t('weaponSpecialWinter2017HealerText'),
     notes: t('weaponSpecialWinter2017HealerNotes', { int: 9 }),
     value: 90,
@@ -2654,6 +3168,7 @@ let weapon = {
   spring2017Rogue: {
     event: EVENTS.spring2017,
     specialClass: 'rogue',
+    set: 'spring2017SneakyBunnySet',
     text: t('weaponSpecialSpring2017RogueText'),
     notes: t('weaponSpecialSpring2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2662,6 +3177,7 @@ let weapon = {
   spring2017Warrior: {
     event: EVENTS.spring2017,
     specialClass: 'warrior',
+    set: 'spring2017FelineWarriorSet',
     text: t('weaponSpecialSpring2017WarriorText'),
     notes: t('weaponSpecialSpring2017WarriorNotes', { str: 15 }),
     value: 90,
@@ -2670,6 +3186,7 @@ let weapon = {
   spring2017Mage: {
     event: EVENTS.spring2017,
     specialClass: 'wizard',
+    set: 'spring2017CanineConjurorSet',
     twoHanded: true,
     text: t('weaponSpecialSpring2017MageText'),
     notes: t('weaponSpecialSpring2017MageNotes', { int: 15, per: 7 }),
@@ -2680,6 +3197,7 @@ let weapon = {
   spring2017Healer: {
     event: EVENTS.spring2017,
     specialClass: 'healer',
+    set: 'spring2017FloralMouseSet',
     text: t('weaponSpecialSpring2017HealerText'),
     notes: t('weaponSpecialSpring2017HealerNotes', { int: 9 }),
     value: 90,
@@ -2688,6 +3206,7 @@ let weapon = {
   summer2017Rogue: {
     event: EVENTS.summer2017,
     specialClass: 'rogue',
+    set: 'summer2017SeaDragonSet',
     text: t('weaponSpecialSummer2017RogueText'),
     notes: t('weaponSpecialSummer2017RogueNotes', { str: 8 }),
     value: 80,
@@ -2696,6 +3215,7 @@ let weapon = {
   summer2017Warrior: {
     event: EVENTS.summer2017,
     specialClass: 'warrior',
+    set: 'summer2017SandcastleWarriorSet',
     text: t('weaponSpecialSummer2017WarriorText'),
     notes: t('weaponSpecialSummer2017WarriorNotes', { str: 15 }),
     value: 90,
@@ -2704,6 +3224,7 @@ let weapon = {
   summer2017Mage: {
     event: EVENTS.summer2017,
     specialClass: 'wizard',
+    set: 'summer2017WhirlpoolMageSet',
     twoHanded: true,
     text: t('weaponSpecialSummer2017MageText'),
     notes: t('weaponSpecialSummer2017MageNotes', { int: 15, per: 7 }),
@@ -2714,8 +3235,47 @@ let weapon = {
   summer2017Healer: {
     event: EVENTS.summer2017,
     specialClass: 'healer',
+    set: 'summer2017SeashellSeahealerSet',
     text: t('weaponSpecialSummer2017HealerText'),
     notes: t('weaponSpecialSummer2017HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  fall2017Rogue: {
+    event: EVENTS.fall2017,
+    specialClass: 'rogue',
+    set: 'fall2017TrickOrTreatSet',
+    text: t('weaponSpecialFall2017RogueText'),
+    notes: t('weaponSpecialFall2017RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  fall2017Warrior: {
+    event: EVENTS.fall2017,
+    specialClass: 'warrior',
+    set: 'fall2017HabitoweenSet',
+    text: t('weaponSpecialFall2017WarriorText'),
+    notes: t('weaponSpecialFall2017WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  fall2017Mage: {
+    event: EVENTS.fall2017,
+    specialClass: 'wizard',
+    set: 'fall2017MasqueradeSet',
+    twoHanded: true,
+    text: t('weaponSpecialFall2017MageText'),
+    notes: t('weaponSpecialFall2017MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  fall2017Healer: {
+    event: EVENTS.fall2017,
+    specialClass: 'healer',
+    set: 'fall2017HauntedHouseSet',
+    text: t('weaponSpecialFall2017HealerText'),
+    notes: t('weaponSpecialFall2017HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

@@ -247,7 +247,7 @@ describe('POST /groups/:groupId/leave', () => {
 
         let userWithoutInvitation = await invitedUser.get('/user');
 
-        expect(userWithoutInvitation.invitations.party).to.be.empty;
+        expect(userWithoutInvitation.invitations.parties[0]).to.be.empty;
       });
     });
 

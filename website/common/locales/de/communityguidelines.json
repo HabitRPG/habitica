@@ -90,7 +90,7 @@
     "commGuideList04H": "Sicherstellen, dass der Inhalt des Wiki für die ganze Habitica-Seite relevant ist und nicht nur für eine bestimmte Gilde oder Gruppe (solche Informationen können in die Foren verschoben werden)",
     "commGuidePara049": "Die folgenden Leute sind die derzeitigen Wiki-Administratoren:",
     "commGuidePara049A": "Folgende Moderatoren können im Notfall Änderungen machen, wenn ein Moderator benötigt wird und die oben genannten Administratoren nicht erreichbar sind:",
-    "commGuidePara018": "Emeritierte Wiki-Administratoren sind",
+    "commGuidePara018": "Emeritierte Wiki-Administratoren sind:",
     "commGuideHeadingInfractionsEtc": "Regelverletzungen, Konsequenzen und Wiederherstellung",
     "commGuideHeadingInfractions": "Regelverletzungen",
     "commGuidePara050": "Zum größten Teil unterstützen sich Habiticaner gegenseitig, zeigen Respekt und geben ihr Bestes um die Community unterhaltsam und freundlich zu halten. Jedoch kann es immer wieder vorkommen, dass ein Habiticaner die obigen Richtlinien missachtet. Sollte das passieren, werden die Moderatoren Maßnahmen ergreifen, die sie für notwenig erachten, um Habitica sicher und komfortabel für alle zu halten.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "um Pixelkunst einzureichen",
     "commGuideLink08": "Das Quest-Trello",
     "commGuideLink08description": "um geschriebene Quests einzureichen",
-    "lastUpdated": "Zuletzt aktualisiert"
+    "lastUpdated": "Zuletzt aktualisiert:"
 }

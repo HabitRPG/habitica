@@ -18,6 +18,7 @@ import blockUser from './blockUser';
 import feed from './feed';
 import buySpecialSpell from './buySpecialSpell';
 import purchase from './purchase';
+import purchaseWithSpell from './purchaseWithSpell';
 import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
@@ -39,6 +40,7 @@ import readCard from './readCard';
 import openMysteryItem from './openMysteryItem';
 import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
+import * as pinnedGearUtils from './pinnedGearUtils';
 
 module.exports = {
   sleep,
@@ -61,6 +63,7 @@ module.exports = {
   feed,
   buySpecialSpell,
   purchase,
+  purchaseWithSpell,
   releasePets,
   releaseMounts,
   releaseBoth,
@@ -82,4 +85,5 @@ module.exports = {
   openMysteryItem,
   scoreTask,
   markPmsRead,
+  pinnedGearUtils,
 };

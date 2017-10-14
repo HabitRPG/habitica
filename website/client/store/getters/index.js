@@ -1,5 +1,6 @@
 import { flattenAndNamespace } from 'client/libs/store/helpers/internals';
 import * as user from './user';
+import * as shops from './shops';
 import * as tasks from './tasks';
 import * as party from './party';
 import * as members from './members';
@@ -12,6 +13,7 @@ const getters = flattenAndNamespace({
   tasks,
   party,
   members,
+  shops,
 });
 
 export default getters;

@@ -68,23 +68,6 @@ describe('shared.ops.buyArmoire', () => {
         done();
       }
     });
-
-    it('does not open without Ultimate Gear achievement', (done) => {
-      user.achievements.ultimateGearSets = {healer: false, wizard: false, rogue: false, warrior: false};
-
-      try {
-        buyArmoire(user);
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('cannotBuyItem'));
-        expect(user.items.gear.owned).to.eql({
-          weapon_warrior_0: true,
-        });
-        expect(user.items.food).to.be.empty;
-        expect(user.stats.exp).to.eql(0);
-        done();
-      }
-    });
   });
 
   context('non-gear awards', () => {

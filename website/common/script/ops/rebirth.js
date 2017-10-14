@@ -6,6 +6,8 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import equip from './equip';
+import { removePinnedGearByClass } from './pinnedGearUtils';
+
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
@@ -45,6 +47,8 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
       }
     }
   });
+
+  removePinnedGearByClass(user);
 
   let stats = user.stats;
   stats.buffs = {};
@@ -93,7 +97,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     user.achievements.rebirthLevel = lvl;
   }
 
-  user.addNotification('REBIRTH_ACHIEVEMENT');
+  if (user.addNotification) user.addNotification('REBIRTH_ACHIEVEMENT');
 
   user.stats.buffs = {};
 
