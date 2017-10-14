@@ -968,7 +968,8 @@ api.buyArmoire = {
   url: '/user/buy-armoire',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
+    req.params.key = 'armoire';
+    let buyArmoireResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
   },
