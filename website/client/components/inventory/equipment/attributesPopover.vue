@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   div(v-if='item.locked')
-    h4.popover-content-title Locked Item
+    h4.popover-content-title {{ `${$t('lockedItem')}` }}
     .popover-content-text(v-if='item.specialClass') {{ `${$t('classLockedItem')}` }}
     .popover-content-text(v-else) {{ `${$t('tierLockedItem')}` }}
     p

@@ -100,6 +100,8 @@
         return drop.text();
       },
       getDropsList (drops, ownerOnly) {
+        if (!drops) return [];
+
         return drops.filter(function dropsList (drop) {
           if (ownerOnly) {
             return drop.onlyOwner;

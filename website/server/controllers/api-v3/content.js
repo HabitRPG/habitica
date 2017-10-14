@@ -37,7 +37,7 @@ _.each(langCodes, code => {
 });
 
 
-const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../build/content_cache/');
+const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../../content_cache/');
 
 async function saveContentToDisk (language, content) {
   try {

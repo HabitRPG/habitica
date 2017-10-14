@@ -129,11 +129,10 @@
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
-                      .boss-health-bar.rage-bar(:style="{width: (50 / questData.boss.rage) * 100 + '%'}")
+                      .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
                 .row.boss-details.rage-details(v-if='questData.boss.rage')
                     .col-6
-                      span.float-left
-                        | Rage {{questData.boss.rage.value}}
+                      span.float-left {{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}
             button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
 
     .section-header(v-if='!isParty')

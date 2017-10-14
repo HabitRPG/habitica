@@ -108,6 +108,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair3',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -149,6 +150,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair5',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
