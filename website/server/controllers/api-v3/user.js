@@ -880,6 +880,13 @@ api.buy = {
       type = 'special';
     }
     req.type = type;
+
+    // @TODO: right now common follow express structure, but we should decouple the dependency
+    if (req.body.type) req.type = req.body.type;
+
+    let quantity = 1;
+    if (req.body.quantity) req.quantity = req.body.quantity;
+
     buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
