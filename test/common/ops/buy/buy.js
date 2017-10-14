@@ -64,7 +64,12 @@ describe('shared.ops.buy', () => {
   it('buys Steampunk Accessories Set', () => {
     user.purchased.plan.consecutive.trinkets = 1;
 
-    buy(user, {params: {key: '301404'}, type: 'mystery'});
+    buy(user, {
+      params: {
+        key: '301404'
+      },
+      type: 'mystery',
+    });
 
     expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
     expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
@@ -72,5 +77,19 @@ describe('shared.ops.buy', () => {
     expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
     expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
     expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
+  });
+
+  it('buys a Quest scroll', () => {
+    user.stats.gp = 205;
+
+    buy(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+      type: 'quest',
+    });
+
+    expect(user.items.quests).to.eql({dilatoryDistress1: 1});
+    expect(user.stats.gp).to.equal(5);
   });
 });

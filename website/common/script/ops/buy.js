@@ -7,6 +7,7 @@ import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
 import buyGear from './buyGear';
 import buyMysterySet from './buyMysterySet';
+import buyQuest from './buyQuest';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -26,6 +27,8 @@ module.exports = function buy (user, req = {}, analytics) {
     buyRes = buyArmoire(user, req, analytics);
   } else if (type === 'mystery') {
     buyRes = buyMysterySet(user, req, analytics);
+  } else if (type === 'quest') {
+    buyRes = buyQuest(user, req, analytics);
   } else {
     buyRes = buyGear(user, req, analytics);
   }
