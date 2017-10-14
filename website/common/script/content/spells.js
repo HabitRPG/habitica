@@ -62,7 +62,8 @@ spells.wizard = {
     cast (user, target) {
       each(target, (member) => {
         let bonus = statsComputed(user).int;
-        if (user._id !== member._id) {
+        //this code has pseudocode in it and doesn't run properly
+        if (user._id !== member._id && *member is not mage* ) {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }
       });
