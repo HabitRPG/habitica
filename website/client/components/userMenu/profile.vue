@@ -117,8 +117,7 @@ div
           .achievement-icon.achievement-karaoke
           h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
-            span {{ content.quests[key].text() }}
-            span {{ value }}
+            span {{ content.quests[key].text() }} ({{ value }})
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
         .col-6

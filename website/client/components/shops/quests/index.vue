@@ -136,8 +136,14 @@
               )
                 span(slot="popoverContent")
                   div.questPopover
-                    h4.popover-content-title {{ item.text }}
-                    questInfo(:quest="item")
+                    div
+                    h4.popover-content-title(v-if='item.locked') {{ `${$t('lockedItem')}` }}
+                    h4.popover-content-title(v-else) {{ item.text }}
+                    .popover-content-text(v-if='item.locked && item.key === "lostMasterclasser1"') {{ `${$t('questUnlockLostMasterclasser')}` }}
+                    .popover-content-text(v-if='item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold') {{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}
+                    .popover-content-text(v-if='item.locked && item.previous') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
+                    .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
+                    questInfo(v-if='!item.locked', :quest="item")
 
                 template(slot="itemBadge", scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
@@ -232,8 +238,6 @@
     cursor: pointer;
   }
 
-
-
   .featured-label {
     margin: 24px auto;
   }
@@ -249,7 +253,6 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
-
 
     .items {
       border-radius: 2px;
@@ -305,7 +308,6 @@
         height: 100%;
         background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
-
 
         .featured-label {
           position: absolute;
