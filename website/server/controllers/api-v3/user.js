@@ -968,7 +968,7 @@ api.buyArmoire = {
   url: '/user/buy-armoire',
   async handler (req, res) {
     let user = res.locals.user;
-    req.params.key = 'armoire';
+    req.type = 'armoire';
     let buyArmoireResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
@@ -1007,7 +1007,7 @@ api.buyHealthPotion = {
   url: '/user/buy-health-potion',
   async handler (req, res) {
     let user = res.locals.user;
-    req.params.key = 'potion';
+    req.type = 'potion';
     let buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
@@ -1048,7 +1048,8 @@ api.buyMysterySet = {
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyMysterySetRes = common.ops.buyMysterySet(user, req, res.analytics);
+    req.type = 'mystery';
+    let buyMysterySetRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyMysterySetRes);
   },
@@ -1088,7 +1089,8 @@ api.buyQuest = {
   url: '/user/buy-quest/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyQuestRes = common.ops.buyQuest(user, req, res.analytics);
+    req.type = 'quest';
+    let buyQuestRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyQuestRes);
   },
@@ -1127,7 +1129,8 @@ api.buySpecialSpell = {
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buySpecialSpellRes = common.ops.buySpecialSpell(user, req);
+    req.type = 'special';
+    let buySpecialSpellRes = common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);
   },
