@@ -4,7 +4,7 @@ import {
 } from '../../helpers/common.helper';
 import i18n from '../../../website/common/script/i18n';
 
-describe('shared.ops.blockUser', () => {
+describe.only('shared.ops.blockUser', () => {
   let user;
   let blockedUser;
   let blockedUser2;
@@ -21,6 +21,15 @@ describe('shared.ops.blockUser', () => {
       blockUser(user, { params: { uuid: '1' } });
     } catch (error) {
       expect(error.message).to.eql(i18n.t('invalidUUID'));
+      done();
+    }
+  });
+
+  it('validates user can\'t block himself', (done) => {
+    try {
+      blockUser(user, { params: { uuid: user._id } });
+    } catch (error) {
+      expect(error.message).to.eql(i18n.t('blockYourself'));
       done();
     }
   });
