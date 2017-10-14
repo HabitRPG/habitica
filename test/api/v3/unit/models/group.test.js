@@ -1316,7 +1316,7 @@ describe('Group Model', () => {
       let quest;
 
       beforeEach(() => {
-        quest = questScrolls.lostMasterclasser4;
+        quest = questScrolls.whale;
         party.quest.key = quest.key;
         party.quest.active = false;
         party.quest.leader = questLeader._id;
@@ -1383,6 +1383,9 @@ describe('Group Model', () => {
       });
 
       it('gives out super awesome Masterclasser achievement to the deserving', async () => {
+        quest = questScrolls.lostMasterclasser4;
+        party.quest.key = quest.key;
+
         questLeader.achievements.quests = {
           mayhemMistiflying1: 1,
           mayhemMistiflying2: 1,
