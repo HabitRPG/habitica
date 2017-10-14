@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
 import {
   generateUser,
-} from '../../helpers/common.helper';
-import buy from '../../../website/common/script/ops/buy';
+} from '../../../helpers/common.helper';
+import buy from '../../../../website/common/script/ops/buy';
 import {
   BadRequest,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../../website/common/script/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buy', () => {
   let user;
