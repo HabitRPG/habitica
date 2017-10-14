@@ -4,7 +4,7 @@ import {
 } from '../../helpers/common.helper';
 import i18n from '../../../website/common/script/i18n';
 
-describe.only('shared.ops.blockUser', () => {
+describe('shared.ops.blockUser', () => {
   let user;
   let blockedUser;
   let blockedUser2;
