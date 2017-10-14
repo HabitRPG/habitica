@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
     "messageNotificationNotFound": "Notification non trouvée.",
-    "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis."
+    "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

@@ -193,7 +193,7 @@
     "resets": "重置",
     "summaryStart": "每<%= everyX %><%= frequencyPlural %>重复<%= frequency %>",
     "nextDue": "下一个截止日",
-    "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
+    "checkOffYesterDailies": "勾选你昨天做过的每日任务：",
     "yesterDailiesTitle": "你昨天忘了给这些每日任务打勾了！想要现在给他们打勾嘛？",
     "yesterDailiesCallToAction": "开始新的一天！",
     "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",

@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
     "messageNotificationNotFound": "通知はありません。",
-    "notificationsRequired": "通知 ID が必要です。"
+    "notificationsRequired": "通知 ID が必要です。",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

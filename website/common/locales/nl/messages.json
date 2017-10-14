@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "path `<%= operation %>`  is niet opgeslagen, omdat het een beschermd path is.",
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",
-    "notificationsRequired": "Notificatie-id's zijn vereist."
+    "notificationsRequired": "Notificatie-id's zijn vereist.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }
