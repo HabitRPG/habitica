@@ -1,7 +1,0 @@
-h4(class=mobile?'item item-divider':'')=env.t('stats')
-table.table.table-striped
-  +basicRow('health', '{{::statCalc.hpDisplay(profile.stats.hp)}}')
-  +basicRow('mana', '{{statCalc.mpDisplay(profile)}}')(ng-if='profile.stats.lvl >= 10 && !profile.preferences.disableClasses')
-  +basicRow('gold', '{{::statCalc.goldDisplay(profile.stats.gp)}}')
-  +basicRow('level', '{{::profile.stats.lvl}}')
-  +basicRow('experience', '{{::statCalc.expDisplay(profile)}}')

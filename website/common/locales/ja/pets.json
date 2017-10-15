@@ -28,6 +28,7 @@
     "phoenix": "不死鳥",
     "magicalBee": "不思議なハチ",
     "royalPurpleJackalope": "高貴な紫のジャッカロープ",
+    "invisibleAether": "Invisible Aether",
     "rarePetPop1": "金色の足跡をクリックすると、Habitica への貢献で、この貴重なペットを入手する詳しい方法がわかります!",
     "rarePetPop2": "このペットを手に入れる方法!",
     "potion": "<%= potionType %> ポーション",
@@ -40,7 +41,7 @@
     "hatchingPotion": "たまごがえしの薬",
     "noHatchingPotions": "たまごがえしの薬をもっていません。",
     "inventoryText": "たまごをクリックすると使える薬が緑色になるので、その中のどれかをクリックすると、たまごがかえってペットになります。どの薬も緑色にならないなら、もう一度そのたまごをクリックして選択を解除し、かわりにまず薬をクリックするとつかえるたまごが緑色になります。また、不要な拾得物は、商人・Alexanderに売ることもできます。",
-    "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch.",
+    "haveHatchablePet": "あなたはこのペットをかえすための<%= potion %>たまごがえしの薬と<%= egg %>のたまごを持っています！　足跡マークを<b>クリック</b>でたまごをかえします。",
     "quickInventory": "Quick Inventory",
     "foodText": "えさ",
     "food": "えさとくら",
@@ -108,7 +109,7 @@
     "welcomeStable": "動物小屋へようこそ!",
     "welcomeStableText": "私の名前はマット、猛獣使いだ。レベル3 から、「たまご」と「たまごがえしの薬」を使って、たまごからペットをかえすことができる。「所持品」からペットをかえすと、ここに表示されるぞ!　ペットの画像をクリックしてアバターに追加しよう。レベル 3 以降に見つかるえさをペットにやると、ペットはしっかりした乗騎へと育っていくんだ。",
     "petLikeToEat": "ペットのえさの好みは？",
-    "petLikeToEatText": "Pets will grow no matter what you feed them, but they'll grow faster if you feed them the one food that they like best. Experiment to find out the pattern, or see the answers here: <br/> <a href=\"http://habitica.wikia.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.wikia.com/wiki/Food_Preferences</a>",
+    "petLikeToEatText": "ペットはあなたが何をあげても成長しますが、好みのえさをあげればより速く成長します。パターンを見つけるために試してみるか、こちらの答えをご覧ください。<br/><a href=\"http://habitica.wikia.com/wiki/Food_Preferences\" target=\"_blank\">http://ja.habitica.wikia.com/wiki/えさの好み</a>",
     "filterByStandard": "一般",
     "filterByMagicPotion": "魔法の薬",
     "filterByQuest": "クエスト",
@@ -121,5 +122,5 @@
     "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %> ."
+    "hatchDialogText": "<%= potionName %>たまごがえしの薬を<%= eggName %>のたまごにかけると、<%= petName %>が生まれます。"
 }

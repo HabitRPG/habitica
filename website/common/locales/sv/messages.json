@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
     "messageUserOperationNotFound": "<%= operation %> operationen hittades inte",
     "messageNotificationNotFound": "Notisen hittades inte.",
-    "notificationsRequired": "Notifikations-id krävs."
+    "notificationsRequired": "Notifikations-id krävs.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

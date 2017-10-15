@@ -61,7 +61,7 @@
     "cost": "цене",
     "shops": "Магазины",
     "custom": "Custom",
-    "wishlist": "Wishlist",
+    "wishlist": "Отложенные",
     "wrongItemType": "The item type \"<%= type %>\" is not valid.",
     "wrongItemPath": "The item path \"<%= path %>\" is not valid.",
     "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",

@@ -8,7 +8,7 @@
             span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
-          label(v-once) {{ `${$t('title')}*` }}
+          label(v-once) {{ `${$t('text')}*` }}
           input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
         .form-group
           label(v-once) {{ $t('notes') }}

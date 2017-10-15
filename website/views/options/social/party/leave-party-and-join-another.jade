@@ -1,9 +1,0 @@
-- var newParties = 'User.user.invitations.parties'
-.containter-fluid(ng-if='#{newParties}.length > 0 && group._id')
-  div(ng-repeat='partyInvite in #{newParties}')
-    .row.text-center
-      .col-sm-6.col-sm-offset-3.alert.alert-warning
-        p {{::env.t('invitedToNewParty', { partyName: partyInvite.name })}}
-        p
-          button.btn.btn-success(ng-click='leaveOldPartyAndJoinNewParty(partyInvite.id, partyInvite.name)')=env.t('joinNewParty')
-          button.btn.btn-default(ng-click='reject(partyInvite)')=env.t('declineInvitation')

@@ -21,7 +21,7 @@
     "messageNotEnoughGold": "Yetersiz Altın",
     "messageTwoHandedEquip": "<%= twoHandedText %> iki elle tutulabilir, bu yüzden <%= offHandedText %> bırakıldı.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> iki elle tutulabilir, bu yüzden <%= offHandedText %> kuşanıldığı için bırakıldı.",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
+    "messageDropFood": "<%= dropArticle %><%= dropText %> buldun!",
     "messageDropEgg": "You've found a <%= dropText %> Egg!",
     "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
     "messageDropQuest": "Bir görev buldun!",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "`<%= operation %>` korumalı bir yol olduğu için kaydedilemedi.",
     "messageUserOperationNotFound": "<%= operation %> operasyonu bulunamadı",
     "messageNotificationNotFound": "Bildirim bulunamadı.",
-    "notificationsRequired": "Bildirm ID'leri gerekmektedir."
+    "notificationsRequired": "Bildirm ID'leri gerekmektedir.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

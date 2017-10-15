@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
     "messageNotificationNotFound": "找不到消息",
-    "notificationsRequired": "需要Notification ids"
+    "notificationsRequired": "需要Notification ids",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

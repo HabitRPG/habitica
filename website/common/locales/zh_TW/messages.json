@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "路徑`<%= operation %>`沒有保留，因為它是一個受保護的路徑。",
     "messageUserOperationNotFound": "<%= operation %> 找不到行動",
     "messageNotificationNotFound": "找不到通知",
-    "notificationsRequired": "通知用ID是必須的。"
+    "notificationsRequired": "通知用ID是必須的。",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

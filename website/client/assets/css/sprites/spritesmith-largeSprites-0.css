@@ -1,24 +1,18 @@
-.promo_armoire_backgrounds_201710 {
+.promo_bundle_witchyFamiliars {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: -142px 0px;
   width: 141px;
-  height: 438px;
+  height: 441px;
 }
-.promo_farm_friends {
+.promo_fall_customizations {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: 0px 0px;
   width: 141px;
-  height: 441px;
+  height: 588px;
 }
-.promo_mystery_201709 {
+.scene_raking_leaves {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: -284px 0px;
-  width: 114px;
-  height: 90px;
-}
-.promo_takeThis_gear {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -284px -91px;
-  width: 114px;
-  height: 87px;
+  width: 246px;
+  height: 198px;
 }

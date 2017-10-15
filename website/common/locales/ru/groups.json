@@ -385,7 +385,7 @@
     "upgrade": "Upgrade",
     "selectPartyMember": "Select a Party Member",
     "areYouSureDeleteMessage": "Are you sure you want to delete this message?",
-    "reverseChat": "Reverse Chat",
+    "reverseChat": "Cсообщения в обратном порядке",
     "invites": "Invites",
     "details": "Details",
     "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
@@ -394,5 +394,7 @@
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
     "groupBilling": "Group Billing",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

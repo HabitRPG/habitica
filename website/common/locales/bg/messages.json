@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
     "messageNotificationNotFound": "Известието не е намерено.",
-    "notificationsRequired": "Идентификаторите на известията са задължителни."
+    "notificationsRequired": "Идентификаторите на известията са задължителни.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

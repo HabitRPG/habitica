@@ -345,10 +345,10 @@ export default {
         groupId: this.searchId,
       });
 
-      let groupedApprovals = this.loadApprovals();
+      let groupedApprovals = await this.loadApprovals();
 
       tasks.forEach((task) => {
-        if (groupedApprovals.length > 0) task.approvals = groupedApprovals[task._id];
+        if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
         this.tasksByType[task.type].push(task);
       });
     },

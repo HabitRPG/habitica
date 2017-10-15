@@ -117,8 +117,7 @@ div
           .achievement-icon.achievement-karaoke
           h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
-            span {{ content.quests[key].text() }}
-            span {{ value }}
+            span {{ content.quests[key].text() }} ({{ value }})
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
         .col-6
@@ -131,22 +130,22 @@ div
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.head}`")
-              h3 {{$t('headGear')}}
+              h3 {{$t('headgearCapitalized')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.backAccessory && equippedItems.backAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.backAccessory}`")
+              .box(:class='{white: equippedItems.back && equippedItems.back.indexOf("base_0") === -1}')
+                div(:class="`shop_${equippedItems.back}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.armor}`")
-              h3 {{$t('armor')}}
+              h3 {{$t('armorCapitalized')}}
             .col-4.item-wrapper
-              .box(:class='{white: equippedItems.bodyAccessory && equippedItems.bodyAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.bodyAccessory}`")
+              .box(:class='{white: equippedItems.body && equippedItems.body.indexOf("base_0") === -1}')
+                div(:class="`shop_${equippedItems.body}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
@@ -167,22 +166,22 @@ div
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.head}`")
-              h3 {{$t('headGear')}}
+              h3 {{$t('headgearCapitalized')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
               h3 {{$t('headAccess')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.backAccessory && costumeItems.backAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.backAccessory}`")
+              .box(:class='{white: costumeItems.back && costumeItems.back.indexOf("base_0") === -1}')
+                div(:class="`shop_${costumeItems.back}`")
               h3 {{$t('backAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.armor}`")
-              h3 {{$t('armor')}}
+              h3 {{$t('armorCapitalized')}}
             .col-4.item-wrapper
-              .box(:class='{white: costumeItems.bodyAccessory && costumeItems.bodyAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.bodyAccessory}`")
+              .box(:class='{white: costumeItems.body && costumeItems.body.indexOf("base_0") === -1}')
+                div(:class="`shop_${costumeItems.body}`")
               h3 {{$t('bodyAccess')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
@@ -190,7 +189,7 @@ div
               h3 {{$t('mainHand')}}
             .col-4.item-wrapper
               .box(:class='{white: user.preferences.background}', style="overflow:hidden")
-                div(:class="'background_' + user.preferences.background")
+                div(:class="'icon_background_' + user.preferences.background")
               h3 {{$t('background')}}
             .col-4.item-wrapper
               .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
@@ -219,7 +218,7 @@ div
             .row.col-12
               .col-4
                 .box(:class='{white: user.items.currentMount}')
-                  .mount(:class="`Mount-${user.items.currentMount}`")
+                  .mount(:class="`Mount_Icon_${user.items.currentMount}`")
               .col-8
                 div
                   | {{ formatAnimal(user.items.currentMount, 'mount') }}
@@ -279,7 +278,6 @@ div
                 .points {{$t('pts')}}
               .col-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
-  private-message-modal
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
 
@@ -325,8 +323,12 @@ div
     margin-bottom: 2em;
   }
 
-  .pet, .mount {
-    margin-top: -1.8em !important;
+  .pet {
+    margin-top: -1.4em !important;
+  }
+
+  .mount {
+    margin-top: -0.2em !important;
   }
 
   .header {
@@ -557,7 +559,6 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/allocate';
 
 import MemberDetails from '../memberDetails';
-import privateMessageModal from 'client/components/private-message-modal';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -577,7 +578,6 @@ export default {
     markdown,
   },
   components: {
-    privateMessageModal,
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
@@ -706,8 +706,10 @@ export default {
       this.$store.state.profileOptions.startingPage = page;
     },
     sendMessage () {
-      this.$store.state.userIdToMessage = this.user._id;
-      this.$root.$emit('bv::show::modal', 'private-message');
+      this.$root.$emit('habitica::new-inbox-message', {
+        userIdToMessage: this.user._id,
+        userName: this.user.profile.name,
+      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

@@ -4,7 +4,7 @@ FROM node:boron
 # The used solution is suggested here https://github.com/npm/npm/issues/16807#issuecomment-313591975
 RUN yarn global add npm@5
 # Install global packages
-RUN npm install -g gulp grunt-cli bower mocha
+RUN npm install -g gulp mocha
 
 # Clone Habitica repo and install dependencies
 RUN mkdir -p /usr/src/habitrpg
@@ -12,7 +12,6 @@ WORKDIR /usr/src/habitrpg
 RUN git clone https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
 RUN cp config.json.example config.json
 RUN npm install
-RUN bower install --allow-root
 
 # Create Build dir
 RUN mkdir -p ./website/build

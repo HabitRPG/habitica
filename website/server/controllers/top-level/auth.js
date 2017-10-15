@@ -1,4 +1,3 @@
-import locals from '../../middlewares/locals';
 import { validatePasswordResetCodeAndFindUser } from '../../libs/password';
 
 let api = {};
@@ -9,7 +8,6 @@ let api = {};
 api.resetPasswordSetNewOne  = {
   method: 'GET',
   url: '/static/user/auth/local/reset-password-set-new-one',
-  middlewares: [locals],
   runCron: false,
   async handler (req, res) {
     const code = req.query.code;

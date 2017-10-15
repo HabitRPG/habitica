@@ -3,8 +3,10 @@
     size='md', :hide-footer="true")
     .modal-body.text-center
       .quest(:class='`quest_${user.party.quest.completed}`')
-      p(v-html='this.questData.completion()')
-      .quest-rewards(key='user.party.quest.completed', header-participant="$t('youReceived')", header-quest-owner="$t('questOwnerReceived')")
+      p(v-html='questData.completion()')
+      .quest-rewards.text-center
+        h3 {{ $t('youReceived') }}
+        questDialogDrops(:item="questData")
     .modal-footer
       button.btn.btn-primary(@click='setQuestCompleted()') {{ $t('ok') }}
 </template>
@@ -13,16 +15,24 @@
   .quest {
     margin: 0 auto;
   }
+
+  .quest-rewards .questRewards {
+    margin: 0 auto;
+  }
 </style>
 
 <script>
 import quests from 'common/script/content/quests';
+import questDialogDrops from 'client/components/shops/quests/questDialogDrops';
 
 import { mapState } from 'client/libs/store';
 import percent from '../../../common/script/libs/percent';
 import { maxHealth } from '../../../common/script/index';
 
 export default {
+  components: {
+    questDialogDrops,
+  },
   data () {
     return {
       maxHealth,

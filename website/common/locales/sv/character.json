@@ -196,7 +196,7 @@
     "int": "INT",
     "showQuickAllocation": "Visa poängfördelning",
     "hideQuickAllocation": "Göm poängfördelning",
-    "quickAllocationLevelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options found in User Icon > Stats.",
+    "quickAllocationLevelPopover": "För varje nivå tjänar du ett poäng som du kan tilldela till en egenskap av ditt val. Du kan göra det manuellt eller så kan du låta spelet välja åt dig med hjälp av Automatisk Tilldelning som finns under Användarikon > Statistik.",
     "invalidAttribute": "\"<%= attr %>\" är inte en godkänd egenskap.",
     "notEnoughAttrPoints": "Du har inte tillräckligt med egenskapspoäng.",
     "style": "Stil",

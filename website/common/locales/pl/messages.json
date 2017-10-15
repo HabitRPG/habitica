@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",
     "messageNotificationNotFound": "Nie znaleziono powiadomienia.",
-    "notificationsRequired": "Wymagane są identyfikatory powiadomienia"
+    "notificationsRequired": "Wymagane są identyfikatory powiadomienia",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

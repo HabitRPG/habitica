@@ -394,5 +394,7 @@
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
     "groupBilling": "Group Billing",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

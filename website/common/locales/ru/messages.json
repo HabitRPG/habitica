@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",
-    "notificationsRequired": "Необходим идентификатор оповещений."
+    "notificationsRequired": "Необходим идентификатор оповещений.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }
