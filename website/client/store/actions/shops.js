@@ -7,9 +7,13 @@ import unlockOp from 'common/script/ops/unlock';
 import rerollOp from 'common/script/ops/reroll';
 import { getDropClass } from 'client/libs/notifications';
 
+// @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change
+// the generic buy functions to something else. Or have a Gold Vendor and Gem Vendor, etc
+
 export function buyItem (store, params) {
+  const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params});
+  let opResult = buyOp(user, {params, quantity});
 
   return {
     result: opResult,
@@ -18,13 +22,57 @@ export function buyItem (store, params) {
 }
 
 export function buyQuestItem (store, params) {
+  const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, type: 'quest'});
+  let opResult = buyOp(user, {
+    params,
+    type: 'quest',
+    quantity,
+  });
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy-quest/${params.key}`),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
   };
+}
+
+async function buyArmoire (store, params) {
+  const quantity = params.quantity || 1;
+
+  let buyResult = buyOp(store.state.user.data, {
+    params: {
+      key: 'armoire',
+    },
+    type: 'armoire',
+    quantity,
+  });
+
+  // We need the server result because armoir has random item in the result
+  let result = await axios.post('/api/v3/user/buy/armoire', {
+    type: 'armoire',
+    quantity,
+  });
+  buyResult = result.data.data;
+
+  if (buyResult) {
+    const resData = buyResult;
+    const item = resData.armoire;
+
+    const isExperience = item.type === 'experience';
+
+    if (item.type === 'gear') {
+      store.state.user.data.items.gear.owned[item.dropKey] = true;
+    }
+
+    // @TODO: We might need to abstract notifications to library rather than mixin
+    store.state.notificationStore.push({
+      title: '',
+      text: isExperience ? item.value : item.dropText,
+      type: isExperience ? 'xp' : 'drop',
+      icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
+      timeout: true,
+    });
+  }
 }
 
 export function purchase (store, params) {
@@ -43,7 +91,7 @@ export function purchaseMysterySet (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy-mystery-set/${params.key}`),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'mystery'}),
   };
 }
 
@@ -72,32 +120,7 @@ export async function genericPurchase (store, params) {
     case 'mystery_set':
       return purchaseMysterySet(store, params);
     case 'armoire': // eslint-disable-line
-      let buyResult = buyOp(store.state.user.data, {type: 'armoire'});
-
-      // We need the server result because armoir has random item in the result
-      let result = await axios.post('/api/v3/user/buy-armoire');
-      buyResult = result.data.data;
-
-      if (buyResult) {
-        const resData = buyResult;
-        const item = resData.armoire;
-
-        const isExperience = item.type === 'experience';
-
-        if (item.type === 'gear') {
-          store.state.user.data.items.gear.owned[item.dropKey] = true;
-        }
-
-        // @TODO: We might need to abstract notifications to library rather than mixin
-        store.state.notificationStore.push({
-          title: '',
-          text: isExperience ? item.value : item.dropText,
-          type: isExperience ? 'xp' : 'drop',
-          icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
-          timeout: true,
-        });
-      }
-
+      await buyArmoire(store, params);
       return;
     case 'fortify': {
       let rerollResult = rerollOp(store.state.user.data);
@@ -131,9 +154,5 @@ export async function genericPurchase (store, params) {
 export function sellItems (store, params) {
   const user = store.state.user.data;
   sellOp(user, {params, query: {amount: params.amount}});
-  axios
-    .post(`/api/v3/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
-  // TODO
-  // .then((res) => console.log('equip', res))
-  // .catch((err) => console.error('equip', err));
+  axios.post(`/api/v3/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
 }

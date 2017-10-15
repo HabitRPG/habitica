@@ -42,8 +42,13 @@
           )
 
         div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}")
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-          span.value(:class="getPriceClass()") {{ item.value }}
+          div
+            b.how-many-to-buy {{ $t('howManyToBuy') }}
+          div
+            .box
+              input(type='number', min='0', v-model='selectedAmountToBuy')
+            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+            span.value(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -99,6 +104,21 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
+    }
+
+    .box {
+      display: inline-block;
+      width: 74px;
+      height: 40px;
+      border-radius: 2px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      margin-right: .5em;
+
+      input {
+        width: 100%;
+        border: none;
+      }
     }
 
     .content-text {
@@ -217,6 +237,8 @@
 
 <script>
   import bModal from 'bootstrap-vue/lib/components/modal';
+  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -248,6 +270,8 @@
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
       bModal,
+      bDropdown,
+      bDropdownItem,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,
@@ -264,6 +288,7 @@
           clock: svgClock,
         }),
 
+        selectedAmountToBuy: 1,
         isPinned: false,
       };
     },
@@ -320,7 +345,7 @@
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
-          this.makeGenericPurchase(this.item);
+          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           this.purchased(this.item.text);
         }
 
