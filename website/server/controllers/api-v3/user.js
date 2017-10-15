@@ -1351,6 +1351,10 @@ api.purchase = {
       if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
     }
 
+    // Req is currently used as options. Slighly confusing, but this will solve that for now.
+    let quantity = 1;
+    if (req.body.quantity) req.quantity = req.body.quantity;
+
     let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);

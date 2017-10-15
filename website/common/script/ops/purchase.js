@@ -14,7 +14,7 @@ import {
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 
-function buyGems (user, analytics, req) {
+function buyGems (user, analytics, req, key) {
   let convRate = planGemLimits.convRate;
   let convCap = planGemLimits.convCap;
   convCap += user.purchased.plan.consecutive.gemCapExtra;
@@ -122,7 +122,7 @@ module.exports = function purchase (user, req = {}, analytics) {
   if (type === 'gems' && key === 'gem') {
     let gemResponse;
     for (let i = 0; i < quantity; i += 1) {
-      gemResponse = buyGems(user, analytics, req);
+      gemResponse = buyGems(user, analytics, req, key);
     }
     return gemResponse;
   }
