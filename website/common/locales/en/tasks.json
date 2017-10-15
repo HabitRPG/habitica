@@ -4,6 +4,7 @@
   "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
   "addmultiple": "Add Multiple",
   "addsingle": "Add Single",
+  "addATask": "Add a <%= type %>",
   "editATask": "Edit a <%= type %>",
   "createTask": "Create <%= type %>",
   "addTaskToUser": "Create",

@@ -20,45 +20,45 @@
             .svg-icon.filter-icon.mr-2(v-html="icons.filter")
             span(v-once) {{ $t('filter') }}
         .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
-            .tags-category.d-flex(
-              v-for="tagsType in tagsByType",
-              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
-              :key="tagsType.key"
-            )
-              .tags-header
-                strong(v-once) {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
-              .tags-list.container
-                .row(:class="{'no-gutters': !editingTags}")
-                  template(v-if="editingTags && tagsType.key !== 'groups'")
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
-                      .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
-                          .svg-icon.destroy-icon(v-html="icons.destroy")
-                    .col-6(v-if="tagsType.key === 'tags'")
-                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
-                  template(v-else)
-                    .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                      label.custom-control.custom-checkbox
-                        input.custom-control-input(
-                          type="checkbox",
-                          :checked="isTagSelected(tag)",
-                          @change="toggleTag(tag)",
-                        )
-                        span.custom-control-indicator
-                        span.custom-control-description(v-markdown='tag.name')
+          .tags-category.d-flex(
+            v-for="tagsType in tagsByType",
+            v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+            :key="tagsType.key"
+          )
+            .tags-header
+              strong(v-once) {{ $t(tagsType.key) }}
+              a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
+            .tags-list.container
+              .row(:class="{'no-gutters': !editingTags}")
+                template(v-if="editingTags && tagsType.key !== 'groups'")
+                  .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                    .inline-edit-input-group.tag-edit-item.input-group
+                      input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                      span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
+                        .svg-icon.destroy-icon(v-html="icons.destroy")
+                  .col-6(v-if="tagsType.key === 'tags'")
+                    input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
+                template(v-else)
+                  .col-6(v-for="(tag, tagIndex) in tagsType.tags")
+                    label.custom-control.custom-checkbox
+                      input.custom-control-input(
+                        type="checkbox",
+                        :checked="isTagSelected(tag)",
+                        @change="toggleTag(tag)",
+                      )
+                      span.custom-control-indicator
+                      span.custom-control-description(v-markdown='tag.name')
 
-            .filter-panel-footer.clearfix
-              template(v-if="editingTags === true")
-                .text-center
-                  a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
-                  a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
-              template(v-else)
-                .float-left
-                  a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
-                .float-right
-                  a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
+          .filter-panel-footer.clearfix
+            template(v-if="editingTags === true")
+              .text-center
+                a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
+                a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
+            template(v-else)
+              .float-left
+                a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
+              .float-right
+                a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
       .create-task-area.d-flex
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
