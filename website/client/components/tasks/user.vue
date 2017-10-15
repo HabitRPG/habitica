@@ -62,7 +62,12 @@
       .create-task-area.d-flex
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
-            .create-task-btn.rounded-btn(v-for="type in columns", :key="type", @click="createTask(type)", v-once)
+            .create-task-btn.rounded-btn(
+              v-for="type in columns", 
+              :key="type", 
+              @click="createTask(type)", 
+              v-once
+            )
               .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
 
         .create-btn.rounded-btn.btn.btn-success(
@@ -431,6 +436,7 @@ export default {
       });
     },
     createTask (type) {
+      this.openCreateBtn = false;
       this.creatingTask = taskDefaults({type, text: ''});
       this.creatingTask.tags = this.selectedTags;
 
