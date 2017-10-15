@@ -77,12 +77,24 @@
 
   .quick-add {
     border-radius: 2px;
-    background-color: $gray-500;
+    background-color: rgba($black, 0.06);
     width: 100%;
     margin-bottom: 8px;
     padding: 12px 16px;
     font-weight: bold;
     border-color: transparent;
+    transition: background 0.15s ease-in;
+
+    &:hover {
+      background-color: rgba($black, 0.1);
+      border-color: transparent;
+    }
+
+    &:active, &:focus {
+      background: $white;
+      border-color: $purple-500;
+      color: $gray-50;
+    }
   }
 
   .bottom-gradient {
