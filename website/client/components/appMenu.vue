@@ -3,7 +3,7 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md
     .navbar-header
       .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
       .svg-icon.gryphon.hidden-xl-up
@@ -142,7 +142,7 @@ div
   .nav-item {
     .nav-link {
       font-size: 16px;
-      color: $white;
+      color: $white !important;
       font-weight: bold;
       line-height: 1.5;
       padding: 16px 24px;
@@ -151,7 +151,7 @@ div
 
     &:hover {
       .nav-link {
-        color: $white;
+        color: $white !important;
         background: $purple-200;
       }
     }
@@ -232,7 +232,6 @@ div
     color: $white;
     font-size: 16px;
     font-weight: normal;
-    padding-top: 16px;
     padding-left: 16px;
     white-space: nowrap;
 
@@ -291,7 +290,7 @@ div
   .message-count.top-count {
     position: absolute;
     right: 0;
-    top: .5em;
+    top: -0.5em;
     padding: .2em;
   }
 </style>

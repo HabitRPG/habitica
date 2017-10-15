@@ -72,7 +72,7 @@ div.item-with-icon.item-notifications.dropdown
   .message-count.top-count {
     position: absolute;
     right: -.5em;
-    top: .5em;
+    top: -0.5em;
     padding: .2em;
   }
 
