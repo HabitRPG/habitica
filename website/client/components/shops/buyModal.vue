@@ -335,6 +335,7 @@
     watch: {
       item: function itemChanged () {
         this.isPinned = this.item && this.item.pinned;
+        this.selectedAmountToBuy = 1;
       },
     },
     methods: {

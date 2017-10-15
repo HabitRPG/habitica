@@ -76,12 +76,13 @@ async function buyArmoire (store, params) {
 }
 
 export function purchase (store, params) {
+  const quantity = params.quantity || 1;
   const user = store.state.user.data;
-  let opResult = purchaseOp(user, {params});
+  let opResult = purchaseOp(user, {params, quantity});
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/purchase/${params.type}/${params.key}`),
+    httpCall: axios.post(`/api/v3/user/purchase/${params.type}/${params.key}`, {quantity}),
   };
 }
 
