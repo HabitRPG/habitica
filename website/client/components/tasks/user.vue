@@ -59,15 +59,17 @@
                   a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
                 .float-right
                   a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-      #create-dropdown.col-1.offset-3
-        b-dropdown(:right="true", :variant="'success'")
-          div(slot="button-content")
-            .svg-icon.positive(v-html="icons.positive")
-            | {{ $t('addTaskToUser') }}
-          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-            span.dropdown-icon-item(v-once)
-              span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')
-              span.text {{$t(type)}}
+      .create-task-area.d-flex
+        transition(name="slide-tasks-btns")
+          .d-flex(v-if="openCreateBtn")
+            .create-task-btn.rounded-btn(v-for="type in columns", :key="type", @click="createTask(type)", v-once)
+              .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
+
+        .create-btn.rounded-btn.btn.btn-success(
+          @click="openCreateBtn = !openCreateBtn",
+          :class="{open: openCreateBtn}",
+        )
+          .svg-icon(v-html="icons.positive")
 
     .row.tasks-columns
       task-column.col-lg-3.col-md-6(
@@ -82,59 +84,96 @@
   spells
 </template>
 
-<style lang="scss">
-  #create-dropdown .dropdown-toggle::after {
-    display: none;
-  }
-</style>
-
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .user-tasks-page {
-    padding-top: 31px;
+    padding-top: 16px;
   }
 
   .tasks-navigation {
     margin-bottom: 40px;
   }
 
-  .positive {
-    display: inline-block;
-    width: 10px;
-    color: $green-500;
-    margin-right: 8px;
-    padding-top: 6px;
+  .create-task-area {
+    position: absolute;
+    right: 24px;
+    top: -40px;
+    z-index: 999;
+    height: 60px;
   }
 
-  .dropdown-icon-item .svg-icon {
-    color: #C3C0C7;
+  .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
+    max-width: 240px;
+    overflow-x: hidden;
+    transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
+    max-width: 0;
+    opacity: 0;
   }
 
-  .dropdown-icon-item {
-    .icon_habit {
-      width: 30px;
-      height: 20px;
+  .rounded-btn {
+    margin-left: 8px;
+    background: $white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    cursor: pointer;
+    color: $gray-200;
+
+    &:hover:not(.create-btn) {
+      color: $purple-400;
+      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
     }
 
-    .icon_daily {
-      width: 24px;
-      height: 20px;
-    }
-
-    .icon_todo {
+    .svg-icon {
       width: 20px;
       height: 20px;
-    }
 
-    .icon_reward {
-      width: 26px;
-      height: 20px;
+      &.icon-habit {
+        width: 24px;
+        height: 16px;
+      }
+
+      &.icon-daily {
+        width: 21.6px;
+        height: 18px;
+      }
+
+      &.icon-todo {
+        width: 18px;
+        height: 18px;
+      }
+
+      &.icon-reward {
+        width: 23.4px;
+        height: 18px;
+      }
     }
   }
 
-  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
-    color: #4f2a93;
+  .create-btn {
+    color: $white;
+    background-color: $green-10;
+
+    .svg-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    }
+
+    &.open {
+      background: $gray-200 !important;
+
+      .svg-icon {
+        transform: rotate(-45deg);
+      }
+    }
   }
 
   .filter-icon {
@@ -289,6 +328,7 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       isFilterPanelOpen: false,
+      openCreateBtn: false,
       icons: Object.freeze({
         positive: positiveIcon,
         filter: filterIcon,
