@@ -3,8 +3,7 @@
     .row
       .col-md-6.offset-3
         h1 {{ $t('merch') }}
-        // @TODO: Visual experience
-		// Separate each merch items with new line? Or better ways to show items in a table?
+        // @TODO: Visual experience: Separate each merch items with new line? Or to show items in a table?
         .col-lg-6.col-md-6.col-sm-12(v-for="(merchant, index) in merchants")
           .merch-block
             img(v-if='merchant.logo' :src="`/static/merch/${merchant.key}-logo.png`")
