@@ -240,7 +240,7 @@ export default {
           originalText: notes,
           number: this.user.stats.buffs.stealth,
         });
-      }
+      }//something's wrong with this code
 
       return notes;
     },
