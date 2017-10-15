@@ -65,16 +65,17 @@
             .create-task-btn.rounded-btn(
               v-for="type in columns", 
               :key="type", 
-              @click="createTask(type)", 
-              v-once
+              @click="createTask(type)",
+              v-b-tooltip.hover.bottom="$t(type)",
             )
               .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
 
-        .create-btn.rounded-btn.btn.btn-success(
+        #create-task-btn.create-btn.rounded-btn.btn.btn-success(
           @click="openCreateBtn = !openCreateBtn",
           :class="{open: openCreateBtn}",
         )
           .svg-icon(v-html="icons.positive")
+        b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToUser') }}
 
     .row.tasks-columns
       task-column.col-lg-3.col-md-6(
@@ -305,6 +306,9 @@ import rewardIcon from 'assets/svg/reward.svg';
 import uuid from 'uuid';
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
+import bTooltipComponent from 'bootstrap-vue/lib/components/tooltip';
+
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
@@ -320,12 +324,14 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
+    bTooltip: bTooltipComponent,
     Item,
     spells,
     brokenTaskModal,
   },
   directives: {
     markdown,
+    bTooltip,
   },
   data () {
     return {
