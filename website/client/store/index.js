@@ -134,7 +134,6 @@ export default function () {
       modalStack: [],
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
-      recentlyPurchased: {},
       groupPlans: [],
     },
   });

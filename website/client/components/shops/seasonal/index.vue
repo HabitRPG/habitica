@@ -493,12 +493,6 @@
       },
       itemSelected (item) {
         if (item.locked) return;
-
-        if (this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
     },

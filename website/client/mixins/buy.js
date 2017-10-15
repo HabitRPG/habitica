@@ -9,10 +9,6 @@ export default {
         quantity,
       });
 
-      if (item.purchaseType !== 'gear') {
-        this.$store.state.recentlyPurchased[item.key] = true;
-      }
-
       this.$root.$emit('playSound', 'Reward');
 
       if (type !== 'buyModal') {
