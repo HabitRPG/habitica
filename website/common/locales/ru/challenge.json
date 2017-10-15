@@ -123,8 +123,8 @@
     "summaryRequired": "Требуется краткое описание.",
     "summaryTooLong": "Краткое описание слишком длинное.",
     "descriptionRequired": "Требуется описание",
-    "locationRequired": "Location of challenge is required ('Add to')",
+    "locationRequired": "Требуется местонахождение испытания ('Добавить')",
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
-    "viewProgressOf": "View Progress Of",
+    "viewProgressOf": "Показать прогресс",
     "selectMember": "Выбрать учасника"
 }
