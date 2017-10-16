@@ -69,7 +69,7 @@
 
 <script>
 import axios from 'axios';
-import { loadProgressBar } from 'axios-progress-bar/src/index';
+import { loadProgressBar } from 'axios-progress-bar';
 
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
