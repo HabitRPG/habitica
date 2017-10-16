@@ -145,7 +145,9 @@ export default {
 
     // @TODO split up this file, it's too big
 
-    loadProgressBar();
+    loadProgressBar({
+      showSpinner: false,
+    });
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {

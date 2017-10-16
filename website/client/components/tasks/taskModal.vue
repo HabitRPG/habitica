@@ -527,7 +527,8 @@ export default {
   directives: {
     sortable,
   },
-  props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
+  // purpose is either create or edit, task is the task created or edited
+  props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
       maxTags: 3,

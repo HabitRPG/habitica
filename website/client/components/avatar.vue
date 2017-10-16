@@ -41,8 +41,7 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  .class-badge.d-flex.justify-content-center(v-if="hasClass && !hideClassBadge")
-    .align-self-center.svg-icon(v-html="icons[member.stats.class]")
+  class-badge.under-avatar(v-if="hasClass && !hideClassBadge", :member-class="member.stats.class")
 </template>
 
 <style lang="scss" scoped>
@@ -69,33 +68,15 @@
     bottom: 0px;
     left: 0px;
   }
-
-  .class-badge {
-    $badge-size: 32px;
-    position: absolute;
-    left: calc(50% - (16px));
-    bottom: -($badge-size / 2);
-
-    width: $badge-size;
-    height: $badge-size;
-    background: $white;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-    border-radius: 100px;
-
-    .svg-icon {
-      width: 19px;
-      height: 19px;
-    }
-  }
 </style>
 
 <script>
-import warriorIcon from 'assets/svg/warrior.svg';
-import rogueIcon from 'assets/svg/rogue.svg';
-import healerIcon from 'assets/svg/healer.svg';
-import wizardIcon from 'assets/svg/wizard.svg';
+import ClassBadge from 'client/components/members/classBadge';
 
 export default {
+  components: {
+    ClassBadge,
+  },
   props: {
     member: {
       type: Object,
@@ -130,16 +111,6 @@ export default {
     overrideTopPadding: {
       type: String,
     },
-  },
-  data () {
-    return {
-      icons: Object.freeze({
-        warrior: warriorIcon,
-        rogue: rogueIcon,
-        healer: healerIcon,
-        wizard: wizardIcon,
-      }),
-    };
   },
   computed: {
     hasClass () {
