@@ -98,7 +98,7 @@
   }
 
   .tasks-navigation {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   .create-task-area {

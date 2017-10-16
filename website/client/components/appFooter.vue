@@ -32,7 +32,7 @@
         h3 Community
         ul
           li
-            router-link(to="/static/community-guidelines") {{ $t('communityGuidelines') }}
+            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
@@ -55,7 +55,7 @@
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
+                a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
@@ -106,13 +106,13 @@
       .col-5.text-right
         template(v-if="!isExpandedFooter")
           span
-            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
+            a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
           span.ml-4
-            router-link(to="/static/community-guidelines") {{ $t('communityGuidelines') }}
+            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
         span.ml-4
-          router-link(to="/static/privacy") {{ $t('privacy') }}
+          a(target="_blanck", href="/static/privacy") {{ $t('privacy') }}
         span.ml-4
-          router-link(to="/static/terms") {{ $t('terms') }}
+          a(target="_blanck", href="/static/terms") {{ $t('terms') }}
 </template>
 
 <style lang="scss" scoped>
@@ -279,6 +279,12 @@ export default {
     ...mapState(['isUserLoaded']),
     isExpandedFooter () {
       return this.$route.name === 'tasks' ? false : true;
+    },
+    getDataDisplayToolUrl () {
+      const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
+      if (!this.user) return;
+
+      return `${base}?uuid=${this.user._id}`;
     },
   },
   methods: {
