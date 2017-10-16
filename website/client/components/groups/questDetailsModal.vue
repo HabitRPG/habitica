@@ -201,9 +201,10 @@ export default {
     async questConfirm () {
       let count = 0;
       for (let uuid in this.group.quest.members) {
-        if (this.group.quest.members[uuid]) count += 1;}
+        if (this.group.quest.members[uuid]) count += 1;
+      }
       if (!confirm(this.$t('questConfirm', { questmembers: count, totalmembers: this.group.memberCount}))) return;
-      this.questForceStart ();
+      this.questForceStart();
     },
     async questForceStart () {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
