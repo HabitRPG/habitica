@@ -9,3 +9,6 @@ For an introduction to the technologies used and how the software is organized, 
 
 To set up a local install of Habitica for development and testing on various platforms, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally).
 
+
+## License
+* This project is licensed under the MIT License - see the LICENSE.md file for details.
