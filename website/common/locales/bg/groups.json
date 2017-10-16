@@ -141,7 +141,7 @@
     "report": "Докладване",
     "abuseFlag": "Докладване на нарушение на Обществените правила",
     "abuseFlagModalHeading": "Докладване на <%= name %> за нарушение?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Наистина ли искате да докладвате тази публикация? Трябва да докладвате САМО публикации, които нарушават <%= firstLinkStart %>Обществените правила<%= linkEnd %> и/или <%= secondLinkStart %>Условията на услугата<%= linkEnd %>. Неуместното докладване на публикация е нарушение на Обществените правила, и може да получите наказание. Правилните причина за докладване на публикация включват (но не се изчерпват):<br><br><ul style='margin-left: 10px;'><li>ругаене, религиозни клетви;</li><li>фанатизъм, обиди;</li><li>теми за възрастни;</li><li>насилие, дори и на шега;</li><li>нежелани или безсмислени съобщения.</li></ul>",
     "abuseFlagModalButton": "Докладване за нарушение",
     "abuseReported": "Благодарим Ви, че докладвахте за това нарушение. Модераторите бяха уведомени.",
     "abuseAlreadyReported": "Вече сте докладвали това съобщение.",
@@ -394,5 +394,7 @@
     "groupTaskBoard": "Дъска със задачи",
     "groupInformation": "Информация за групата",
     "groupBilling": "Таксуване на групата",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Искате ли да участвате?",
+    "managerAdded": "Управителят е добавен успешно",
+    "managerRemoved": "Управителят е премахнат успешно."
 }

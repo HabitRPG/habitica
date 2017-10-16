@@ -19,7 +19,7 @@
     "exclusiveJackalopePetText": "Получите Королевского Пурпурного питомца, доступного только подписчикам!",
     "giftSubscription": "Хотите подарить кому-то подписку?",
     "giftSubscriptionText1": "Откройте профиль этого человека! Вы можете сделать это, нажав на его аватар в листе Вашей группы или нажав на его имя в чате.",
-    "giftSubscriptionText2": "Click on the gift icon in the top right of their profile.",
+    "giftSubscriptionText2": "Нажмите на значок с подарком в правом верхнем углу его профиля.",
     "giftSubscriptionText3": "Выберите \"подписка\"  и введите информацию о платеже.",
     "giftSubscriptionText4": "Спасибо за поддержку Habitica!",
     "monthUSD": "долл. США в месяц",
@@ -174,7 +174,7 @@
     "missingPaypalBlock": "Отсутствует req.session.paypalBlock",
     "missingSubKey": "Отсутствует req.query.sub",
     "paypalCanceled": "Ваша подписка была отменена",
-    "earnGemsMonthly": "Earn up to **<%= cap %> Gems** per month",
+    "earnGemsMonthly": "Заработайте до **<%= cap %> Самоцветов** в месяц",
     "receiveMysticHourglass": "Receive a Mystic Hourglass!",
     "receiveMysticHourglasses": "Receive **<%= amount %> Mystic Hourglasses**!",
     "everyMonth": "Every Month",
@@ -199,7 +199,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All",
+    "purchaseAll": "Приобрести всё",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gems remaining"
 }

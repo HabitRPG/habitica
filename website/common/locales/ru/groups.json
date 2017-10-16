@@ -328,7 +328,7 @@
     "guildBank": "Банк гильдии",
     "chatPlaceholder": "Введите здесь сообщение для членов гильдии",
     "partyChatPlaceholder": "Введите здесь сообщение для членов команды",
-    "fetchRecentMessages": "Получить последние сообщения",
+    "fetchRecentMessages": "Обновить чат",
     "like": "Нравится",
     "liked": "Понравилось",
     "joinGuild": "Присоединиться к гильдии",
@@ -384,8 +384,8 @@
     "updateParty": "Update Party",
     "upgrade": "Upgrade",
     "selectPartyMember": "Select a Party Member",
-    "areYouSureDeleteMessage": "Are you sure you want to delete this message?",
-    "reverseChat": "Reverse Chat",
+    "areYouSureDeleteMessage": "Вы уверены, что хотите удалить это сообщение?",
+    "reverseChat": "Cсообщения в обратном порядке",
     "invites": "Invites",
     "details": "Details",
     "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
@@ -394,5 +394,7 @@
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
     "groupBilling": "Group Billing",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

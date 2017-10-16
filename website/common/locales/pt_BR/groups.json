@@ -394,5 +394,7 @@
     "groupTaskBoard": "Painel de Tarefas",
     "groupInformation": "Informações do Time",
     "groupBilling": "Dados de Cobrança do Time",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

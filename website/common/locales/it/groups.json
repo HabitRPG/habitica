@@ -141,7 +141,7 @@
     "report": "Segnala",
     "abuseFlag": "Segnala violazione delle linee guida della community",
     "abuseFlagModalHeading": "Segnalare <%= name %> per violazione?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Sei sicuro di voler segnalare questo post? Dovresti segnalare SOLO post che violano le <%= firstLinkStart %>Linee guida della community<%= linkEnd %> e/o i <%= secondLinkStart %>Termini del Servizio<%= linkEnd %>. Segnalare inappropriatamente un post è una violazione delle linee guida della community e può essere considerata come un'infrazione da parte tua. Motivazioni adeguate per segnalare un post includono ma non sono limitate a: <br><br><ul style='margin-left: 10px;'><li>imprecazioni, bestemmie o altro tipo di imprecazioni religiose</li><li> bigottismo, calunnie</li><li> argomenti per adulti</li><li> violenza, anche se per scherzo</li><li>spam, messaggi senza senso</li></ul>",
     "abuseFlagModalButton": "Segnala",
     "abuseReported": "Grazie di aver segnalato questa violazione. I moderatori sono stati avvertiti.",
     "abuseAlreadyReported": "Hai già segnalato questo messaggio.",
@@ -160,7 +160,7 @@
     "partyMembersInfo": "Al momento la tua squadra ha <%= memberCount %> membri e <%= invitationCount %> inviti ancora senza risposta. In una squadra ci possono essere al massimo <%= limitMembers %> persone. Non può essere mandata una quantità di inviti superiore a questo numero.",
     "inviteByEmail": "Invita via e-mail",
     "inviteByEmailExplanation": "Se degli amici si iscrivono ad Habitica tramite la tua email, verranno automaticamente invitati nella tua squadra!",
-    "inviteMembersHowTo": "Invite people via a valid email or 36-digit User ID. If an email isn't registered yet, we'll invite them to join Habitica.",
+    "inviteMembersHowTo": "Invita persone usando un indirizzo email valido o un ID utente a 36 cifre. Se una email non è ancora registrata, manderemo un messaggio per invitare a registrarsi ad Habitica.",
     "inviteFriendsNow": "Invita amici ora",
     "inviteFriendsLater": "Invita amici più tardi",
     "inviteAlertInfo": "Se hai degli amici che usano Habitica, invitali tramite <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>ID Utente</a> da qui.",
@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
     "groupDescription": "Descrizione",
     "guildDescriptionPlaceholder": "Use this section to go into more detail about everything that Guild members should know about your Guild. Useful tips, helpful links, and encouraging statements all go here!",
-    "markdownFormattingHelp": "[Markdown formatting help](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
+    "markdownFormattingHelp": "[Guida per la formattazione (in inglese)](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "This is our party's description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
     "guildGemCostInfo": "A Gem cost promotes high quality Guilds and is transferred into your Guild's bank.",
     "noGuildsTitle": "Non appartieni ad alcuna Gilda.",
@@ -394,5 +394,7 @@
     "groupTaskBoard": "Task Board",
     "groupInformation": "Group Information",
     "groupBilling": "Group Billing",
-    "wouldYouParticipate": "Would you like to participate?"
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

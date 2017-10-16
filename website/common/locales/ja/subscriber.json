@@ -180,7 +180,7 @@
     "everyMonth": "毎月",
     "everyXMonths": "Every <%= interval %> Months",
     "everyYear": "毎年",
-    "choosePaymentMethod": "Choose your payment method",
+    "choosePaymentMethod": "お支払い方法を選択してください",
     "subscribeSupportsDevs": "Subscribing supports the developers and helps keep Habitica running",
     "buyGemsSupportsDevs": "Purchasing Gems supports the developers and helps keep Habitica running",
     "support": "SUPPORT",
