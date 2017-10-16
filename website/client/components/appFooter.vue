@@ -32,7 +32,7 @@
         h3 Community
         ul
           li
-            a(href='/static/community-guidelines') {{ $t('communityGuidelines') }}
+            router-link(to="/static/community-guidelines") {{ $t('communityGuidelines') }}
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
@@ -80,7 +80,8 @@
     .row
       .col-12
         hr
-      .col-4
+    .row
+      .col-5
         | © 2017 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
@@ -100,12 +101,17 @@
             a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-default(@click="makeAdmin()") Make Admin
             a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
-      .col-4.text-center
+      .col-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
-      .col-4.text-right
-        span
+      .col-5.text-right
+        template(v-if="!isExpandedFooter")
+          span
+            a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
+          span.ml-4
+            router-link(to="/static/community-guidelines") {{ $t('communityGuidelines') }}
+        span.ml-4
           router-link(to="/static/privacy") {{ $t('privacy') }}
-        span.terms-link
+        span.ml-4
           router-link(to="/static/terms") {{ $t('terms') }}
 </template>
 
@@ -198,10 +204,6 @@
     height: 24px;
     margin: 0 auto;
     color: #e1e0e3;
-  }
-
-  .terms-link {
-    margin-left: 1em;
   }
 
   .debug-group {
