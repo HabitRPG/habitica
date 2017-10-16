@@ -8,7 +8,7 @@
     "featuredset": "Featured Set <%= name %>",
     "mysterySets": "Gizemli Setler",
     "gearNotOwned": "Bu eşyaya sahip değilsin.",
-    "noGearItemsOfType": "You don't own any of these.",
+    "noGearItemsOfType": "Bunların hiçbirine sahip değilsin.",
     "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
     "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
     "tierLockedItem": "Bu eşyanın kilidi bu serideki önceki eşyaları aldığında açılacaktır. Çalışmaya devam et !",

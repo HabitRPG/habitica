@@ -29,6 +29,7 @@
   "questLater": "Quest Later",
   "buyQuest": "Buy Quest",
   "accepted": "Accepted",
+  "declined": "Declined",
   "rejected": "Rejected",
   "pending": "Pending",
   "questStart": "Once all members have either accepted or rejected, the quest begins. Only those that clicked \"accept\" will be able to participate in the quest and receive the drops. If members are pending too long (inactive?), the quest owner can start the quest without them by clicking \"Begin\". The quest owner can also cancel the quest and regain the quest scroll by clicking \"Cancel\".",
