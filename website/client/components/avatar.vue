@@ -41,7 +41,7 @@
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
       span.current-pet(v-if="member.items.currentPet", :class="'Pet-' + member.items.currentPet")
-  class-badge(v-if="hasClass && !hideClassBadge", :member-class="member.stats.class")
+  class-badge.under-avatar(v-if="hasClass && !hideClassBadge", :member-class="member.stats.class")
 </template>
 
 <style lang="scss" scoped>
