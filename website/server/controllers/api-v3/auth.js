@@ -643,49 +643,36 @@ api.updateEmail = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-email Update email
- * @apiDescription Change the user email address
- * @apiName UpdateEmail
+ * @api {post} /api/v3/user/auth/reset-api-token Reset API Token
+ * @apiDescription Reset the user's API Token
+ * @apiName ResetAPIToken
  * @apiGroup User
  *
- * @apiParam (Body) {String} newEmail The new email address.
  * @apiParam (Body) {String} password The user password.
  *
- * @apiSuccess {String} data.email The updated email address
+ * @apiSuccess {String} data.apiToken The new API token
  */
 api.resetAPIToken = {
-  method: 'PUT',
+  method: 'POST',
   middlewares: [authWithHeaders()],
-  url: '/user/auth/update-email',
+  url: '/user/auth/reset-api-token',
   async handler (req, res) {
     let user = res.locals.user;
 
-    if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
+    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
-    req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
     req.checkBody('password', res.t('missingPassword')).notEmpty();
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
-
-    let emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.newEmail,
-    }).select({_id: 1}).lean().exec();
-
-    if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
     let password = req.body.password;
     let isValidPassword = await passwordUtils.compare(user, password);
     if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
-    // if password is using old sha1 encryption, change it
-    if (user.auth.local.passwordHashMethod === 'sha1') {
-      await passwordUtils.convertToBcrypt(user, password);
-    }
-
-    user.auth.local.email = req.body.newEmail;
+    user.apiToken = common.uuid();
     await user.save();
 
-    return res.respond(200, { email: user.auth.local.email });
+    return res.respond(200, { apiToken: user.apiToken });
   },
 };
 
