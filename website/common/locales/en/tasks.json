@@ -6,6 +6,7 @@
   "addsingle": "Add Single",
   "addATask": "Add a <%= type %>",
   "editATask": "Edit a <%= type %>",
+  "createTask": "Create <%= type %>",
   "addTaskToUser": "Add Task",
   "scheduled": "Scheduled",
   "theseAreYourTasks": "These are your <%= taskType %>",
