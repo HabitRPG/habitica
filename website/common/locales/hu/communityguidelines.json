@@ -164,7 +164,7 @@
     "commGuideList13C": "<strong>A szintek nem \"kezdődnek újra\" területenként.</strong> Amikor a nehézséget értékeljük, akkor minden hozzájárulásodat figyelembe veszzük. Így azok az emberek, akik egy kisebb művészeti hozzájárulást csinálnak, majd egy kisebb bugot megjavítanak, aztán egy kicsit belekóstolnak a Wikibe nem haladnak gyorsabban, mint akik keményen dolgoznak egy feladaton. Ez segít igazságossá tenni a dolgokat. ",
     "commGuideList13D": "<strong>Próbaidős felhasználók nem léphetnek elő a következő szintre.</strong> A Moderátroknak jogukban áll lefagyasztani a felhasználó előrelépését szabálysértés esetén. Ha ez megtörténik a felhasználót mindig értesítjük a döntésről, és arról, hogyan tehetik jóvá. A szintek el is távolíthatóak szabályszegés vagy próbaidő eredményeképpen. ",
     "commGuideHeadingFinal": "Az utolsó szekció",
-    "commGuidePara067": "So there you have it, brave Habitican -- the Community Guidelines! Wipe that sweat off of your brow and give yourself some XP for reading it all. If you have any questions or concerns about these Community Guidelines, please email Lemoness (<%= hrefCommunityManagerEmail %>) and she will be happy to help clarify things.",
+    "commGuidePara067": "Tehát íme itt van, bátor Habitica lakó -- a közösségi irányelvek! Töröld le az izzadtságot és adj magadnak néhány XP-t hogy végigolvstad. Ha kérdésed van a Közösségi irányelvekről, kérlek írj emailt Lemonessnek (<%= hrefCommunityManagerEmail %>) és ő boldogan segít tisztázni a dolgokat. ",
     "commGuidePara068": "És most gyerünk, bátor kalandor! Pusztíts el néhány Napi Feladatot!",
     "commGuideHeadingLinks": "Hasznos linkek",
     "commGuidePara069": "A következő tehetséges művészek működtek közre ezen illusztrációk elkészítésében:",

@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Met de onderstaande knop worden al je voltooide To-do's en gearchiveerde To-do's voorgoed verwijderd, behalve de To-do's van actieve uitdagingen en groepsplannen. Exporteer ze eerst als je ze wil bewaren.",
     "addmultiple": "Voeg meerdere tegelijkertijd toe",
     "addsingle": "Voeg een enkele toe",
+    "addATask": "Add a <%= type %>",
     "editATask": "Edit a <%= type %>",
     "createTask": "Create <%= type %>",
-    "addTaskToUser": "Create",
+    "addTaskToUser": "Add Task",
     "scheduled": "Scheduled",
     "theseAreYourTasks": "These are your <%= taskType %>",
     "habit": "Gewoonte",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Begin mijn nieuwe dag!",
     "yesterDailiesOptionTitle": "Bevestig dat deze dagelijkse taak niet was gedaan voordat er schade is gedaan",
     "yesterDailiesDescription": "Als deze instelling is toegepast zal Habitica je vragen of je expres de dagelijkse taak ongedaan hebt gelaten voordat schade wordt berekend en toegepast wordt op je avatar. Dit kan je beschermen tegen onbedoelde schade.",
-    "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn."
+    "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn.",
+    "searchTasks": "Search titles and descriptions..."
 }
