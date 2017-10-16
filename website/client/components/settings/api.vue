@@ -8,7 +8,9 @@
       h6 {{ $t('userId') }}
       pre.prettyprint {{user.id}}
       h6 {{ $t('APIToken') }}
-      pre.prettyprint {{apiToken}}
+      .d-flex.align-items-center.mb-2
+        button.btn.btn-secondary(@click="showApiToken = !showApiToken") Show API Token
+        pre.prettyprint.ml-4.mb-0(v-if="showApiToken") {{apiToken}}
       small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
 
     .section
@@ -78,6 +80,7 @@ export default {
         url: '',
       },
       hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
+      showApiToken: false,
     };
   },
   computed: {
