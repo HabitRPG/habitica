@@ -2,16 +2,19 @@
 .row.standard-page
   .col-6
     h2 {{ $t('API') }}
-    small {{ $t('APIText') }}
+    p {{ $t('APIText') }}
 
     .section
       h6 {{ $t('userId') }}
       pre.prettyprint {{user.id}}
       h6 {{ $t('APIToken') }}
-      .d-flex.align-items-center.mb-2
-        button.btn.btn-secondary(@click="showApiToken = !showApiToken") Show API Token
+      .d-flex.align-items-center.mb-3
+        button.btn.btn-secondary(
+          @click="showApiToken = !showApiToken"
+        ) {{ $t(`${showApiToken ? 'hide' : 'show'}APIToken`) }}
         pre.prettyprint.ml-4.mb-0(v-if="showApiToken") {{apiToken}}
-      small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
+      p(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
+      button.btn.btn-danger(@click="regenerateAPIToken()", v-once) {{ $t('resetAPIToken') }}
 
     .section
       h3 {{ $t('thirdPartyApps') }}
@@ -118,6 +121,13 @@ export default {
       delete webhook._editing;
       await this.$store.dispatch('user:deleteWebhook', {webhook});
       this.user.webhooks.splice(index, 1);
+    },
+    async regenerateAPIToken () {
+      const res = confirm(this.$t('resetAPITokenConfirmation'));
+      if (res === true) {
+        await this.$store.dispatch('user:regenerateAPIToken');
+        this.$store.dispatch('auth:logout');
+      }
     },
   },
 };
