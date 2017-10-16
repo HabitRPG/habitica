@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches À Faire complétées et archivées seront supprimées définitivement, à l'exception des tâches de défis actifs et des offres de groupe. Exportez-les d'abord si vous souhaitez en garder une trace.",
     "addmultiple": "Ajout multiple",
     "addsingle": "Ajout unitaire",
+    "addATask": "Add a <%= type %>",
     "editATask": "Éditer une <%= type %>",
     "createTask": "Créer une <%= type %>",
-    "addTaskToUser": "Créer",
+    "addTaskToUser": "Add Task",
     "scheduled": "Planifiées",
     "theseAreYourTasks": "Voici vos <%= taskType %>",
     "habit": "Habitude",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Commencer ma nouvelle journée !",
     "yesterDailiesOptionTitle": "Confirmer que cette quotidienne n'a pas été faite avant que les dommages ne s'appliquent",
     "yesterDailiesDescription": "Si ce paramètre est activé, Habitica vous demandera, avant de calculer les dommages à appliquer à votre avatar, si vous avez intentionnellement laissé cette quotidienne comme non-faite. Cela peut vous protéger de dommages involontaires.",
-    "repeatDayError": "Merci de vérifier que vous avez au moins un jour de la semaine de sélectionné."
+    "repeatDayError": "Merci de vérifier que vous avez au moins un jour de la semaine de sélectionné.",
+    "searchTasks": "Search titles and descriptions..."
 }

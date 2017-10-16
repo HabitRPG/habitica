@@ -117,43 +117,14 @@
         .seamless_stars_varied_opacity_repeat
 </template>
 
-<style lang="scss">
-  #app  {
-    overflow: hidden;
-    height: auto !important;
-  }
-
-  .form-text a {
-    color: #fff !important;
-  }
-
-  #purple-footer {
-    background-color: #271b3d;
-
-    footer, footer a, footer h3 {
-      background: transparent;
-      color: #d5c8ff;
-    }
-
-    .logo {
-      color: #bda8ff;
-    }
-
-    .social-circle, .btn-donate {
-      background: #36205d;
-      color: #bda8ff;
-
-      .svg-icon {
-        color: #bda8ff;
-      }
-    }
-  }
-</style>
-
 <style lang="scss" scoped>
   @import '~client/assets/scss/static.scss';
 
   #front {
+    .form-text a {
+      color: #fff !important;
+    }
+
     .container-fluid {
       margin: 0;
     }

@@ -275,7 +275,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       itemInfo = {
         key: 'gem',
         purchaseType: 'gems',
-        class: 'gem',
+        class: 'shop_gem',
         text: i18n.t('subGemName'),
         notes: i18n.t('subGemPop'),
         value: 20,

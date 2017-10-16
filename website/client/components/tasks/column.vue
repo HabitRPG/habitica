@@ -9,15 +9,20 @@
         :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
-    task(
-      v-for="task in taskList",
-      :key="task.id", :task="task",
-      v-if="filterTask(task)",
-      :isUser="isUser",
-      @editTask="editTask",
-      :group='group',
+  .tasks-list
+    input.quick-add(
+      v-if="isUser", :placeholder="quickAddPlaceholder", 
+      v-model="quickAddText", @keyup.enter="quickAdd",
     )
+    .sortable-tasks(ref="taskList", v-sortable='', @onsort='sorted')
+      task(
+        v-for="task in taskList",
+        :key="task.id", :task="task",
+        v-if="filterTask(task)",
+        :isUser="isUser",
+        @editTask="editTask",
+        :group='group',
+      )
     template(v-if="hasRewardsList")
       .reward-items
         shopItem(
@@ -51,7 +56,7 @@
     z-index: 2;
   }
 
-  .task-wrapper + .reward-items {
+  .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
 
@@ -68,6 +73,28 @@
     position: relative; // needed for the .bottom-gradient to be position: absolute
     height: calc(100% - 56px);
     padding-bottom: 30px;
+  }
+
+  .quick-add {
+    border-radius: 2px;
+    background-color: rgba($black, 0.06);
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    font-weight: bold;
+    border-color: transparent;
+    transition: background 0.15s ease-in;
+
+    &:hover {
+      background-color: rgba($black, 0.1);
+      border-color: transparent;
+    }
+
+    &:active, &:focus {
+      background: $white;
+      border-color: $purple-500;
+      color: $gray-50;
+    }
   }
 
   .bottom-gradient {
@@ -140,25 +167,25 @@
   .icon-habit {
     width: 30px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-daily {
     width: 30px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-todo {
     width: 20px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-reward {
     width: 26px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 </style>
 
@@ -176,6 +203,7 @@ import shopItem from '../shops/shopItem';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
@@ -248,6 +276,7 @@ export default {
       openedCompletedTodos: false,
 
       forceRefresh: new Date(),
+      quickAddText: '',
     };
   },
   computed: {
@@ -305,6 +334,10 @@ export default {
       }
       return this.user.preferences.dailyDueDefaultView;
     },
+    quickAddPlaceholder () {
+      const type = this.$t(this.type);
+      return this.$t('addATask', {type});
+    },
   },
   watch: {
     taskList: {
@@ -327,7 +360,10 @@ export default {
     });
   },
   methods: {
-    ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
+    ...mapActions({
+      loadCompletedTodos: 'tasks:fetchCompletedTodos',
+      createTask: 'tasks:create',
+    }),
     sorted (data) {
       const sorting = this.taskList;
       const taskIdToMove = this.taskList[data.oldIndex]._id;
@@ -341,6 +377,11 @@ export default {
         taskId: taskIdToMove,
         position: data.newIndex,
       });
+    },
+    quickAdd () {
+      const task = taskDefaults({type: this.type, text: this.quickAddText});
+      this.quickAddText = null;
+      this.createTask(task);
     },
     editTask (task) {
       this.$emit('editTask', task);

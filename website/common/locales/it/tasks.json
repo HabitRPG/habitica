@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Se clicchi il bottone qua in basso, tutte le tue Cose Da Fare complete o archiviate saranno cancellate permanentemente, eccetto per le Cose Da Fare appartenenti a sfide attive o a piani per gruppi. Se vuoi conservarne una registrazione, devi prima esportarle.",
     "addmultiple": "Aggiungi multiple",
     "addsingle": "Aggiungi singola",
+    "addATask": "Add a <%= type %>",
     "editATask": "Modifica una <%= type %>",
     "createTask": "Crea <%= type %>",
-    "addTaskToUser": "Crea",
+    "addTaskToUser": "Add Task",
     "scheduled": "Pianificate",
     "theseAreYourTasks": "Queste sono le tue <%= taskType %>",
     "habit": "Abitudine",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Comincia la mia nuova giornata!",
     "yesterDailiesOptionTitle": "Conferma che questa Daily non era stata completata prima di applicare il danno",
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
-    "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana."
+    "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
+    "searchTasks": "Search titles and descriptions..."
 }

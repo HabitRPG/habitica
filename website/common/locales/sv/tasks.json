@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Om du klickar på knappen nedanför kommer alla av dina slutförda Att-Göra och arkiverade Att-Göra bli raderade permanent, förutom Att-Göra från aktiva utmaningar och Grupp-Planer. Exportera dom först om du vill ha ett register av dom.",
     "addmultiple": "Lägg till fler",
     "addsingle": "Lägg till en",
+    "addATask": "Add a <%= type %>",
     "editATask": "Redigera en <%= type %>",
     "createTask": "Skapa <%= type %>",
-    "addTaskToUser": "Skapa",
+    "addTaskToUser": "Add Task",
     "scheduled": "Planerad",
     "theseAreYourTasks": "Dessa är dina <%= taskType %>",
     "habit": "Vana",
@@ -79,7 +80,7 @@
     "score": "Poäng",
     "reward": "Belöning",
     "rewards": "Belöningar",
-    "rewardsDesc": "Rewards are a great way to use Habitica and complete your tasks. Try adding a few today!",
+    "rewardsDesc": "Belöningar är ett jättebra sätt att använda Habitica på och slutföra dina uppgifter. Prova på att lägga till några idag!",
     "ingamerewards": "Utrustning & Färdigheter",
     "gold": "Guld",
     "silver": "Silver (100 silver = 1 guld)",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Starta Min Nya Dag!",
     "yesterDailiesOptionTitle": "Bekräfta att denna Dagliga Uppgiften inte var gjord innan applicering av skada",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "Var vänlig och garantera att du har åtminstone valt en dag av veckan."
+    "repeatDayError": "Var vänlig och garantera att du har åtminstone valt en dag av veckan.",
+    "searchTasks": "Search titles and descriptions..."
 }

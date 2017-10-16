@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "下のボタンをクリックすると、進行中のチャレンジやグループプランの「To-Do」を除いて、すべての完了した「To-Do」とアーカイブ済の「To-Do」が完全に削除されます。記録を保存しておきたい場合は、まずエクスポートしてください。",
     "addmultiple": "複数追加",
     "addsingle": "1件追加",
+    "addATask": "Add a <%= type %>",
     "editATask": "<%= type %>の編集",
     "createTask": "<%= type %>の作成",
-    "addTaskToUser": "新規作成",
+    "addTaskToUser": "Add Task",
     "scheduled": "期限付き",
     "theseAreYourTasks": "ここには、あなたの<%= taskType %>が表示されます。",
     "habit": "習慣",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "新たな一日を始めましょう！",
     "yesterDailiesOptionTitle": "この日課が未完了のときは、ダメージを確定する前に確認する",
     "yesterDailiesDescription": "この設定が適用されていると、Habiticaはあなたのアバターに与えるダメージを確定する前に、未完了になっている日課があなたの意思によるものか質問します。こうすることで、意図せぬダメージからあなたを守ることができます。",
-    "repeatDayError": "曜日を最低1つは選択してください。"
+    "repeatDayError": "曜日を最低1つは選択してください。",
+    "searchTasks": "Search titles and descriptions..."
 }
