@@ -1,16 +1,25 @@
-import { authWithHeaders } from '../../middlewares/auth'; import
-common from '../../../common'; import {
-  NotFound, BadRequest, NotAuthorized,
-} from '../../libs/errors'; import * as Tasks from
-'../../models/task'; import {
-  basicFields as basicGroupFields, model as Group,
-} from '../../models/group'; import { model as User } from
-'../../models/user'; import Bluebird from 'bluebird'; import _ from
-'lodash'; import * as passwordUtils from '../../libs/password';
+import { authWithHeaders } from '../../middlewares/auth';
+import common from '../../../common';
 import {
-  getUserInfo, sendTxn as txnEmail,
-} from '../../libs/email'; import nconf from 'nconf'; import get from
-'lodash/get';
+  NotFound,
+  BadRequest,
+  NotAuthorized,
+} from '../../libs/errors';
+import * as Tasks from '../../models/task';
+import {
+  basicFields as basicGroupFields,
+  model as Group,
+} from '../../models/group';
+import { model as User } from '../../models/user';
+import Bluebird from 'bluebird';
+import _ from 'lodash';
+import * as passwordUtils from '../../libs/password';
+import {
+  getUserInfo,
+  sendTxn as txnEmail,
+} from '../../libs/email';
+import nconf from 'nconf';
+import get from 'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
