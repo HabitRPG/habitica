@@ -9,12 +9,13 @@
         :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list
+  .tasks-list(ref="tasksWrapper")
     input.quick-add(
       v-if="isUser", :placeholder="quickAddPlaceholder", 
       v-model="quickAddText", @keyup.enter="quickAdd",
+      ref="quickAdd",
     )
-    .sortable-tasks(ref="taskList", v-sortable='', @onsort='sorted')
+    .sortable-tasks(ref="tasksList", v-sortable='', @onsort='sorted')
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
@@ -399,23 +400,24 @@ export default {
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        const taskListEl = this.$refs.taskList;
-        const tasklistHeight = taskListEl.offsetHeight;
-        let combinedTasksHeights = 0;
-        Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
-          combinedTasksHeights += el.offsetHeight;
-        });
-
         if (!this.$refs.columnBackground) return;
 
-        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        const tasksWrapperEl = this.$refs.tasksWrapper;
+
+        const tasksWrapperHeight = tasksWrapperEl.offsetHeight;
+        const quickAddHeight = this.$refs.quickAdd ? this.$refs.quickAdd.offsetHeight : 0;
+        const tasksListHeight = this.$refs.tasksList.offsetHeight;
+
+        let combinedTasksHeights = tasksListHeight + quickAddHeight;
+
+        const rewardsList = tasksWrapperEl.getElementsByClassName('reward-items')[0];
         if (rewardsList) {
           combinedTasksHeights += rewardsList.offsetHeight;
         }
 
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
-        if (tasklistHeight - combinedTasksHeights < 150) {
+        if (tasksWrapperHeight - combinedTasksHeights < 150) {
           columnBackgroundStyle.display = 'none';
         } else {
           columnBackgroundStyle.display = 'block';
