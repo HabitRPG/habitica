@@ -53,7 +53,7 @@
             h3 Developers
             ul
               li
-               router-link(to='/apidoc', target='_blank') {{ $t('APIv3') }}
+                a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
                 a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
