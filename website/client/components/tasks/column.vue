@@ -380,6 +380,7 @@ export default {
     },
     quickAdd () {
       const task = taskDefaults({type: this.type, text: this.quickAddText});
+      task.tags = this.selectedTags;
       this.quickAddText = null;
       this.createTask(task);
     },
