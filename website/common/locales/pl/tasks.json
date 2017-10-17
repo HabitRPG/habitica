@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Jeśli wciśniesz ten przycisk, to wszystkie twoje zakończone i zarchiwizowane Do-Zrobienia zostaną na zawsze usunięte. Nie dotyczyny do Do-Zrobienia z aktywnych wyzwań oraz planów grupowych. Eksoportuj je najpierw, jeśli chcesz je zachować.",
     "addmultiple": "Dodaj kilka",
     "addsingle": "Dodaj pojedyncze",
+    "addATask": "Add a <%= type %>",
     "editATask": "Edytuj <%= type %>",
     "createTask": "Stwórz <%= type %>",
-    "addTaskToUser": "Utwórz",
+    "addTaskToUser": "Add Task",
     "scheduled": "Zaplanowane",
     "theseAreYourTasks": "To są twoje <%= taskType %>",
     "habit": "Nawyk",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Rozpocznij nowy dzień!",
     "yesterDailiesOptionTitle": "Zanim otrzymasz obrażenia potwierdź, że \"Codzienne\" nie zostało wykonany",
     "yesterDailiesDescription": "Jeśli ta opcja jest zaznaczona, Habitica zapyta cię, czy chcesz zostawić Codzienne jako niewykonane zanim zada ci obrażenia. To może ochronić cie przed niezamierzonymi obrażeniami.",
-    "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany."
+    "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany.",
+    "searchTasks": "Search titles and descriptions..."
 }

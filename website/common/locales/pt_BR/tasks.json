@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Se você clicar no botão abaixo, todos os seus Afazeres completados e arquivados serão apagados permanentemente, exceto os Afazeres de desafios ativos e de Planos de Time. Exporte-os primeiro se você quiser guardá-los para o futuro.",
     "addmultiple": "Adicionar Vários",
     "addsingle": "Adicionar Um Por Vez",
+    "addATask": "Add a <%= type %>",
     "editATask": "Editar <%= type %>",
     "createTask": "Criar <%= type %>",
-    "addTaskToUser": "Criar",
+    "addTaskToUser": "Add Task",
     "scheduled": "Com Data",
     "theseAreYourTasks": "<%= taskType %> ficam aqui.",
     "habit": "Hábito",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Comece Meu Novo Dia!",
     "yesterDailiesOptionTitle": "Confirme se essa Diária não foi completada antes de aplicar dano",
     "yesterDailiesDescription": "Se essa opção for selecionada, o Habitica vai te perguntar se você realmente quer deixar a Diária desmarcada antes de calcular e aplicar dano ao seu personagem. Isso pode te proteger de receber dano não intencional.",
-    "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado."
+    "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado.",
+    "searchTasks": "Search titles and descriptions..."
 }
