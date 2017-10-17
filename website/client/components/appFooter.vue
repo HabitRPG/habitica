@@ -13,21 +13,21 @@
         h3 Company
         ul
           li
-            a(href='/static/features') {{ $t('companyAbout') }}
+           router-link(to='/static/features') {{ $t('companyAbout') }}
           li
             a(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
           li
             a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
           li
-            a(href='/static/faq') {{ $t('FAQ') }}
+           router-link(to='/static/faq') {{ $t('FAQ') }}
           li
             a(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
           li
-            a(href='/static/merch') {{ $t('merch') }}
+           router-link(to='/static/merch') {{ $t('merch') }}
           li
-            a(href='/static/press-kit') {{ $t('presskit') }}
+           router-link(to='/static/press-kit') {{ $t('presskit') }}
           li
-            a(href='/static/contact') {{ $t('contactUs') }}
+           router-link(to='/static/contact') {{ $t('contactUs') }}
       .col-12.col-md-2
         h3 Community
         ul
@@ -53,7 +53,7 @@
             h3 Developers
             ul
               li
-                a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
+               router-link(to='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
                 a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
