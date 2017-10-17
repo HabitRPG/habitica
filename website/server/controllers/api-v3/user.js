@@ -1,25 +1,16 @@
-import { authWithHeaders } from '../../middlewares/auth';
-import common from '../../../common';
+import { authWithHeaders } from '../../middlewares/auth'; import
+common from '../../../common'; import {
+  NotFound, BadRequest, NotAuthorized,
+} from '../../libs/errors'; import * as Tasks from
+'../../models/task'; import {
+  basicFields as basicGroupFields, model as Group,
+} from '../../models/group'; import { model as User } from
+'../../models/user'; import Bluebird from 'bluebird'; import _ from
+'lodash'; import * as passwordUtils from '../../libs/password';
 import {
-  NotFound,
-  BadRequest,
-  NotAuthorized,
-} from '../../libs/errors';
-import * as Tasks from '../../models/task';
-import {
-  basicFields as basicGroupFields,
-  model as Group,
-} from '../../models/group';
-import { model as User } from '../../models/user';
-import Bluebird from 'bluebird';
-import _ from 'lodash';
-import * as passwordUtils from '../../libs/password';
-import {
-  getUserInfo,
-  sendTxn as txnEmail,
-} from '../../libs/email';
-import nconf from 'nconf';
-import get from 'lodash/get';
+  getUserInfo, sendTxn as txnEmail,
+} from '../../libs/email'; import nconf from 'nconf'; import get from
+'lodash/get';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -522,7 +513,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
 
- * @apiParam (Path) {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
  * Cast "Pickpocket" on a task:
