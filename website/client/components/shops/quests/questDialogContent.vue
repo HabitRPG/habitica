@@ -21,7 +21,7 @@
   .text {
     max-height: 220px;
     margin-bottom: 8px;
-    overflow-y: scroll;
+    overflow-y: auto;
     text-overflow: ellipsis;
   }
 

@@ -54,8 +54,6 @@
 
     .content {
       text-align: center;
-      max-height: 80vh;
-      overflow-y: scroll;
     }
 
     .item-wrapper {
