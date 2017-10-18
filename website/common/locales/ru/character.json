@@ -3,6 +3,8 @@
     "profile": "Профиль",
     "avatar": "Настроить аватар",
     "editAvatar": "Редактировать аватар",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Прочее",
     "fullName": "Полное имя",
     "displayName": "Отображаемое имя",
@@ -214,6 +216,6 @@
     "bodyAccess": "Аксессуар на тело",
     "mainHand": "Оружие",
     "offHand": "Защита",
-    "pointsAvailable": "Points Available",
+    "pointsAvailable": "Очков доступно",
     "pts": "очк"
 }

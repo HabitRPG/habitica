@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Alat Pertukaran",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Tidak Tampak",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Jumlah keseharian yang dihindari: <%= number %>.",
     "spellRogueStealthMaxedOut": "Kamu telah menghindari semua keseharianmu; tidak perlu merapal mantra ini lagi.",
     "spellHealerHealText": "Cahaya Penyembuh",

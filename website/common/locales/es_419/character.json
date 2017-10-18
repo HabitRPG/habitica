@@ -3,6 +3,8 @@
     "profile": "Perfil",
     "avatar": "Personalizar avatar",
     "editAvatar": "Edit Avatar",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Otro",
     "fullName": "Nombre completo",
     "displayName": "Nombre para mostrar",

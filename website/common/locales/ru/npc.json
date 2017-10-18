@@ -64,7 +64,7 @@
     "wishlist": "Отложенные",
     "wrongItemType": "Тип элемента \"<%= type %>\" недопустим.",
     "wrongItemPath": "Путь к элементу \"<%= path %>\" неверен.",
-    "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
+    "unpinnedItem": "Вы открепили <%= item %>! Больше он не будет отображаться в колонке Награды.",
     "cannotUnpinArmoirPotion": "Эликсир здоровья и Зачарованный сундук нельзя открепить.",
     "purchasedItem": "Вы купили <%= itemName %>",
     "ian": "Ян",

@@ -3,6 +3,8 @@
     "profile": "角色信息",
     "avatar": "自订形象",
     "editAvatar": "编辑角色形象",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "其他",
     "fullName": "全名",
     "displayName": "显示名",

@@ -3,6 +3,8 @@
     "profile": "Профил",
     "avatar": "Персонализиране на героя",
     "editAvatar": "Редактиране на героя",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Други",
     "fullName": "Пълно име",
     "displayName": "Екранно име",
