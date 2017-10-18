@@ -278,9 +278,9 @@
     "backgroundSandcastleNotes": "Regna su un castello di sabbia.",
     "backgrounds072017": "SERIE 38: Luglio 2017",
     "backgroundGiantSeashellText": "Conchiglia Gigante",
-    "backgroundGiantSeashellNotes": "Stenditi in una Conchiglia Gigante.",
-    "backgroundKelpForestText": "Foresta di Kelp",
-    "backgroundKelpForestNotes": "Nuota in una Foresta di Kelp.",
+    "backgroundGiantSeashellNotes": "Stenditi tra le valve di un'enorme conchiglia.",
+    "backgroundKelpForestText": "Foresta di kelp",
+    "backgroundKelpForestNotes": "Nuota in una foresta di alghe kelp.",
     "backgroundMidnightLakeText": "Lago a mezzanotte",
     "backgroundMidnightLakeNotes": "Riposati vicino ad un lago a notte fonda.",
     "backgrounds082017": "SERIE 39: Agosto 2017",
@@ -296,5 +296,12 @@
     "backgroundGardenShedText": "Capanna degli attrezzi",
     "backgroundGardenShedNotes": "Lavora in una capanna degli attrezzi.",
     "backgroundPixelistsWorkshopText": "Laboratorio del Pixelista",
-    "backgroundPixelistsWorkshopNotes": "Crea un capolavoro nel laboratorio del Pixelista."
+    "backgroundPixelistsWorkshopNotes": "Crea un capolavoro nel laboratorio del Pixelista.",
+    "backgrounds102017": "SERIE 41: Ottobre 2017",
+    "backgroundMagicalCandlesText": "Candele magiche",
+    "backgroundMagicalCandlesNotes": "Scaldati col tepore delle candele magiche.",
+    "backgroundSpookyHotelText": "Hotel Sinistro",
+    "backgroundSpookyHotelNotes": "Sbircia nella hall di un hotel sinistro",
+    "backgroundTarPitsText": "Pozzi di catrame",
+    "backgroundTarPitsNotes": "In punta di piedi attraverso i pozzi di catrame"
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
   .standard-page
-    amazon-payments-modal(:amazon-payments='amazonPayments')
+    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
 
     h1 {{ $t('subscription') }}
     .row
@@ -112,7 +112,6 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
 import { mapState } from 'client/libs/store';
-import encodeParams from 'client/libs/encodeParams';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
@@ -260,42 +259,6 @@ export default {
       let subs = subscriptionBlocks;
       subs.basic_6mo.discount = true;
       subs.google_6mo.discount = false;
-    },
-    async cancelSubscription (config) {
-      if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
-      if (!confirm(this.$t('sureCancelSub'))) return;
-
-      let group;
-      if (config && config.group) {
-        group = config.group;
-      }
-
-      let paymentMethod = this.user.purchased.plan.paymentMethod;
-      if (group) {
-        paymentMethod = group.purchased.plan.paymentMethod;
-      }
-
-      if (paymentMethod === 'Amazon Payments') {
-        paymentMethod = 'amazon';
-      } else {
-        paymentMethod = paymentMethod.toLowerCase();
-      }
-
-      let queryParams = {
-        _id: this.user._id,
-        apiToken: this.credentials.API_TOKEN,
-        noRedirect: true,
-      };
-
-      if (group) {
-        queryParams.groupId = group._id;
-      }
-
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
-      await axios.get(cancelUrl);
-      //  Success
-      alert(this.$t('paypalCanceled'));
-      this.$router.push('/');
     },
     getCancelSubInfo () {
       // @TODO: String 'cancelSubInfoGroup Plan' not found. ?

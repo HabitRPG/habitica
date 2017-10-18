@@ -36,9 +36,9 @@
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
           span(v-if='classText') {{ classText }}&nbsp;
-          button.btn.btn-danger.btn-xs(@click='changeClass(null)', v-once) {{ $t('changeClass') }}
-          small.cost 3
-            span.Pet_Currency_Gem1x.inline-gems
+          button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
+          small.cost &nbsp; 3 {{ $t('gems') }}
+            // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
       hr
 
       div
@@ -82,7 +82,7 @@
 
         button.btn.btn-primary(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
         button.btn.btn-primary(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
-        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClass({})',
+        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
           popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
 
         hr
@@ -169,14 +169,15 @@
             .form-group
               input.form-control(type='password', :placeholder="$t('confirmPass')", v-model='passwordUpdates.confirmPassword')
             button.btn.btn-primary(type='submit', @click='changeUser("password", passwordUpdates)') {{ $t('submit')  }}
+          hr
 
+        div
+          h5 {{ $t('dangerZone') }}
           div
-            h5 {{ $t('dangerZone') }}
-            div
-              button.btn.btn-danger(@click='openResetModal()',
-                popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
-              button.btn.btn-danger(@click='openDeleteModal()',
-                popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
+            button.btn.btn-danger(@click='openResetModal()',
+              popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
+            button.btn.btn-danger(@click='openDeleteModal()',
+              popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
 <style scoped>
@@ -279,7 +280,7 @@ export default {
       } else {
         settings[`preferences.${preferenceType}.${subtype}`] = this.user.preferences[preferenceType][subtype];
       }
-      this.$store.dispatch('user:set', settings);
+      return this.$store.dispatch('user:set', settings);
     },
     hideHeader () {
       this.set('hideHeader');
@@ -337,10 +338,10 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage (e) {
+    async changeLanguage (e) {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
-      this.set('language');
+      await this.set('language');
       window.location.href = '/';
     },
     async changeUser (attribute, updates) {
@@ -378,8 +379,8 @@ export default {
 
       this.$router.go('/tasks');
     },
-    async changeClass () {
-      if (!confirm('Are you sure you want to change your class for 3 gems?')) return;
+    async changeClassForUser (confirmationNeeded) {
+      if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;
       try {
         changeClass(this.user);
         await axios.post('/api/v3/user/change-class');

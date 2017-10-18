@@ -56,6 +56,11 @@
 </style>
 
 <style>
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal, .modal-open {
+    overflow-y: scroll !important;
+  }
+
   .modal-backdrop.show {
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
@@ -64,6 +69,8 @@
 
 <script>
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
+
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
@@ -125,6 +132,7 @@ export default {
       this.$refs.sound.load();
     });
 
+    // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
       this.$root.$emit('show::modal', 'buy-modal');
@@ -136,14 +144,34 @@ export default {
     });
 
     // @TODO split up this file, it's too big
+
+    loadProgressBar({
+      showSpinner: false,
+    });
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
-      if (this.user) {
+      if (this.user && response.data && response.data.notifications) {
         this.$set(this.user, 'notifications', response.data.notifications);
       }
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        // Check for conditions to reset the user auth
+        const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
+        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+          this.$store.dispatch('auth:logout');
+        }
+
+        // Don't show errors from getting user details. These users have delete their account,
+        // but their chat message still exists.
+        let configExists = Boolean(error.response) && Boolean(error.response.config);
+        if (configExists && error.response.config.method === 'get' && error.response.config.url.indexOf('/api/v3/members/') !== -1) {
+          // @TODO: We resolve the promise because we need our caching to cache this user as tried
+          // Chat paging should help this, but maybe we can also find another solution..
+          return Promise.resolve(error);
+        }
+
         this.$store.state.notificationStore.push({
           title: 'Habitica',
           text: error.response.data.message,
@@ -301,9 +329,11 @@ export default {
         }
       }
     },
-    memberSelected (member) {
+    async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
+
+      this.$store.dispatch('party:getMembers', {forceLoad: true});
 
       this.$root.$emit('hide::modal', 'select-member-modal');
     },

@@ -19,7 +19,7 @@
     "exclusiveJackalopePetText": "Få Royal Lilla Jackalope, et kæledyr kun tilgængeligt for abonnenter!",
     "giftSubscription": "Vil du give et abonnement til nogen?",
     "giftSubscriptionText1": "Åben deres profil! Det kan du gøre ved at klikke på deres avatar i din gruppes topbjælke, eller ved at klikke på deres navn i chatten.",
-    "giftSubscriptionText2": "Klik på gave-ikonet i det nederste venstre hjørne på deres profil.",
+    "giftSubscriptionText2": "Click on the gift icon in the top right of their profile.",
     "giftSubscriptionText3": "Vælg \"abonnement\" og indtast din betalings-information.",
     "giftSubscriptionText4": "Tak for støtten til Habitica!",
     "monthUSD": "US$ / Måned",
@@ -70,7 +70,7 @@
     "subCanceled": "Dit abonnement slutter d.",
     "buyGemsGoldTitle": "At købe Ædelsten med Guld",
     "becomeSubscriber": "Bliv Abonnent",
-    "subGemPop": "Fordi du abonnerer på Habitica kan du købe et antal Ædelsten for Guld hver måned. Du kan se hvor mange Ædelsten du kan købe i hjørnet af Ædelstens-ikonet.",
+    "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
     "subGemName": "Abonnent-ædelsten",
     "freeGemsTitle": "Få Ædelsten gratis",
     "maxBuyGems": "Du har købt alle de Ædelsten du kan i denne måned. Flere vil blive tilgængelige indenfor de første tre dage af måneden. Tak fordi du abonnerer!",
@@ -199,5 +199,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining"
 }

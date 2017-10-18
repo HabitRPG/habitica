@@ -1,8 +1,7 @@
 <template lang="pug">
 div.item-with-icon.item-notifications.dropdown
+  span.message-count.top-count(v-if='notificationsCount > 0')  {{ notificationsCount }}
   .svg-icon.notifications(v-html="icons.notifications")
-  // span.glyphicon(:class='iconClasses()')
-  // span.notification-counter(v-if='getNotificationsCount()') {{getNotificationsCount()}}
   .dropdown-menu.dropdown-menu-right.user-dropdown
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
@@ -37,11 +36,11 @@ div.item-with-icon.item-notifications.dropdown
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='(message, key) in user.newMessages', v-if='message.value')
-      span(@click='navigateToGroup(key)')
+    a.dropdown-item(v-for='message in userNewMessages')
+      span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
-      span.clear-button(@click='clearMessages(key)', :popover="$t('clear')",
+      span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
     a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
       span(:class="groupApprovalNotificationIcon(notification)")
@@ -58,6 +57,26 @@ div.item-with-icon.item-notifications.dropdown
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
+  .message-count {
+    background-color: $blue-50;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: $white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .message-count.top-count {
+    position: absolute;
+    right: -.5em;
+    top: .5em;
+    padding: .2em;
+    background-color: $red-50;
+  }
+
   .clear-button {
     margin-left: .5em;
   }
@@ -71,6 +90,7 @@ div.item-with-icon.item-notifications.dropdown
   }
 
   .notifications {
+    color: $header-color;
     vertical-align: bottom;
     display: inline-block;
     width: 20px;
@@ -78,6 +98,12 @@ div.item-with-icon.item-notifications.dropdown
     margin-right: 8px;
     margin-left: 8px;
     margin-top: .2em;
+  }
+
+  .item-with-icon:hover {
+    .svg-icon {
+      color: $white;
+    }
   }
 
   .user-dropdown {
@@ -156,6 +182,43 @@ export default {
       return {name: ''};
       // return this.user.party;
     },
+    userNewMessages () {
+      // @TODO: For some reason data becomes corrupted. We should fix this on the server
+      let userNewMessages = [];
+      for (let key in this.user.newMessages) {
+        let message = this.user.newMessages[key];
+        if (message && message.name && message.value) {
+          message.key = key;
+          userNewMessages.push(message);
+        }
+      }
+      return userNewMessages;
+    },
+    notificationsCount () {
+      let count = 0;
+
+      if (this.user.invitations.parties) {
+        count += this.user.invitations.parties.length;
+      }
+
+      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
+        count++;
+      }
+
+      if (this.user.invitations.guilds) {
+        count += this.user.invitations.guilds.length;
+      }
+
+      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
+        count += this.user.stats.points > 0 ? 1 : 0;
+      }
+
+      if (this.userNewMessages) {
+        count += Object.keys(this.userNewMessages).length;
+      }
+
+      return count;
+    },
   },
   methods: {
     // @TODO: I hate this function, we can do better with a hashmap
@@ -224,31 +287,6 @@ export default {
     },
     clearCards () {
       this.$store.dispatch('chat:clearCards');
-    },
-    getNotificationsCount () {
-      let count = 0;
-
-      if (this.user.invitations.parties) {
-        count += this.user.invitations.parties.length;
-      }
-
-      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
-        count++;
-      }
-
-      if (this.user.invitations.guilds) {
-        count += this.user.invitations.guilds.length;
-      }
-
-      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
-        count += this.user.stats.points > 0 ? 1 : 0;
-      }
-
-      if (this.user.newMessages) {
-        count += Object.keys(this.user.newMessages).length;
-      }
-
-      return count;
     },
     iconClasses () {
       return this.selectNotificationValue(

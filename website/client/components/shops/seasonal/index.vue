@@ -36,7 +36,7 @@
               span.text(v-once, v-html="seasonal.notes")
               span.rectangle
           div.content(v-else-if="seasonal.featured.items.length !== 0")
-            div.featured-label.with-border
+            div.featured-label.with-border(v-if='!featuredGearBought')
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
@@ -274,6 +274,8 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -302,6 +304,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
+    mixins: [buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -349,6 +352,9 @@
         selectedSortItemsBy: 'AZ',
 
         hidePinned: false,
+        featuredGearBought: false,
+
+        backgroundUpdate: new Date(),
       };
     },
     computed: {
@@ -363,7 +369,23 @@
       },
 
       seasonal () {
-        return shops.getSeasonalShop(this.user);
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+        let seasonal = shops.getSeasonalShop(this.user);
+
+        let itemsNotOwned = seasonal.featured.items.filter(item => {
+          return !this.user.items.gear.owned[item.key];
+        });
+        seasonal.featured.items = itemsNotOwned;
+
+        // If we are out of gear, show the spells
+        // @TODO: add dates to check instead?
+        if (seasonal.featured.items.length === 0) {
+          this.featuredGearBought = true;
+          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+        }
+
+        return seasonal;
       },
       seasonalCategories () {
         return this.seasonal.categories;
@@ -470,10 +492,20 @@
         }
       },
       itemSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
+        if (item.locked) return;
+
+        if (this.$store.state.recentlyPurchased[item.key]) {
+          this.makeGenericPurchase(item);
+          return;
         }
+
+        this.$root.$emit('buyModal::showItem', item);
       },
+    },
+    created () {
+      this.$root.$on('buyModal::boughtItem', () => {
+        this.backgroundUpdate = new Date();
+      });
     },
   };
 </script>

@@ -9,7 +9,7 @@
         label
           strong(v-once) {{$t('guildOrPartyLeader')}} *
         select.form-control(v-model="workingGroup.newLeader")
-          option(v-for='member in members', :value="member._id") {{ member.profile.name }}
+          option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
 
       .form-group(v-if='!this.workingGroup.id')
         label
@@ -63,7 +63,7 @@
       .form-group
         label
           strong(v-once) {{$t('groupDescription')}} *
-        a.float-right {{ $t('markdownFormattingHelp') }}
+        a.float-right(v-markdown='$t("markdownFormattingHelp")')
         textarea.form-control.description-textarea(type="text", textarea, :placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildDescriptionPlaceholder')", v-model="workingGroup.description")
 
       .form-group(v-if='creatingParty && !workingGroup.id')
@@ -177,6 +177,7 @@ import bTooltip from 'bootstrap-vue/lib/components/tooltip';
 
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import markdownDirective from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
 
@@ -197,6 +198,9 @@ export default {
     bFormSelect,
     bTooltip,
     toggleSwitch,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     let data = {
@@ -256,8 +260,8 @@ export default {
           key: 'mental_health',
         },
         {
-          label: 'organization',
-          key: 'organization',
+          label: 'getting_organized',
+          key: 'getting_organized',
         },
         {
           label: 'recovery_support_groups',
@@ -315,6 +319,17 @@ export default {
     },
     isParty () {
       return this.workingGroup.type === 'party';
+    },
+    potentialLeaders () {
+      let leaders = [{ _id: this.user._id, name: this.user.profile.name }];
+      // @TODO consider pushing all recent posters to the top of the list if they are guild members - more likely to be the ones the leader wants to see (and then ignore them in the while below)
+      let i = 0;
+      while (this.members[i]) {
+        let memb = this.members[i];
+        i++;
+        if (memb._id !== this.user._id) leaders.push({_id: memb._id, name: memb.profile.name});
+      }
+      return leaders;
     },
   },
   watch: {

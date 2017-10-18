@@ -24,7 +24,7 @@ import {
 } from './quests';
 
 import appearances from './appearance';
-import backgrounds from './appearance/backgrounds';
+import {backgroundsTree, backgroundsFlat} from './appearance/backgrounds';
 import spells from './spells';
 import subscriptionBlocks from './subscriptionBlocks';
 import faq from './faq';
@@ -102,7 +102,22 @@ api.bundles = {
       'sheep',
     ],
     canBuy () {
-      return moment().isBetween('2017-09-12', '2017-10-02');
+      return moment().isBetween('2017-09-12', '2017-10-07');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  witchyFamiliars: {
+    key: 'witchyFamiliars',
+    text: t('witchyFamiliarsText'),
+    notes: t('witchyFamiliarsNotes'),
+    bundleKeys: [
+      'rat',
+      'spider',
+      'frog',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-10-10', '2017-11-02');
     },
     type: 'quests',
     value: 7,
@@ -540,8 +555,8 @@ each(api.food, (food, key) => {
 
 api.appearances = appearances;
 
-api.backgrounds = backgrounds.tree;
-api.backgroundsFlat = backgrounds.flat;
+api.backgrounds = backgroundsTree();
+api.backgroundsFlat = backgroundsFlat();
 
 api.userDefaults = {
   habits: [

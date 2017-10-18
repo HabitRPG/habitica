@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.user-tasks-page
+  broken-task-modal
   task-modal(
     :task="editingTask || creatingTask",
     :purpose="creatingTask !== null ? 'create' : 'edit'",
@@ -9,70 +10,75 @@
   .col-12
     .row.tasks-navigation
       .col-4.offset-4
-        .input-group
+        .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
-          .filter-panel(v-if="isFilterPanelOpen")
-            .tags-category.d-flex(
-              v-for="tagsType in tagsByType", 
-              v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
-              :key="tagsType.key"
-            )
-              .tags-header
-                strong(v-once) {{ $t(tagsType.key) }}
-                a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
-              .tags-list.container
-                .row(:class="{'no-gutters': !editingTags}")
-                  template(v-if="editingTags && tagsType.key === 'tags'")
-                    .col-6(v-for="(tag, tagIndex) in tagsSnap")
-                      .inline-edit-input-group.tag-edit-item.input-group
-                        input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                        span.input-group-btn(@click="removeTag(tagIndex)")
-                          .svg-icon.destroy-icon(v-html="icons.destroy")
-                    .col-6
-                      input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
-                  template(v-else)
-                    .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                      label.custom-control.custom-checkbox
-                        input.custom-control-input(
-                          type="checkbox",
-                          :checked="isTagSelected(tag)",
-                          @change="toggleTag(tag)",
-                        )
-                        span.custom-control-indicator
-                        span.custom-control-description(v-markdown='tag.name')
+          button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
+            type="button",
+            @click="toggleFilterPanel()",
+            :class="{active: selectedTags.length > 0}",
+          )
+            .svg-icon.filter-icon.mr-2(v-html="icons.filter")
+            span(v-once) {{ $t('filter') }}
+        .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
+          .tags-category.d-flex(
+            v-for="tagsType in tagsByType",
+            v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'",
+            :key="tagsType.key"
+          )
+            .tags-header
+              strong(v-once) {{ $t(tagsType.key) }}
+              a.d-block(v-if="tagsType.key !== 'groups' && !editingTags", @click="editTags(tagsType.key)") {{ $t('editTags2') }}
+            .tags-list.container
+              .row(:class="{'no-gutters': !editingTags}")
+                template(v-if="editingTags && tagsType.key !== 'groups'")
+                  .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
+                    .inline-edit-input-group.tag-edit-item.input-group
+                      input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
+                      span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
+                        .svg-icon.destroy-icon(v-html="icons.destroy")
+                  .col-6(v-if="tagsType.key === 'tags'")
+                    input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
+                template(v-else)
+                  .col-6(v-for="(tag, tagIndex) in tagsType.tags")
+                    label.custom-control.custom-checkbox
+                      input.custom-control-input(
+                        type="checkbox",
+                        :checked="isTagSelected(tag)",
+                        @change="toggleTag(tag)",
+                      )
+                      span.custom-control-indicator
+                      span.custom-control-description(v-markdown='tag.name')
 
-            .filter-panel-footer.clearfix
-              template(v-if="editingTags === true")
-                .text-center
-                  a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
-                  a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
-              template(v-else)
-                .float-left
-                  a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
-                .float-right
-                  a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
-                  a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-          span.input-group-btn
-            button.btn.btn-secondary.filter-button(
-              type="button",
-              @click="toggleFilterPanel()",
-              :class="{'filter-button-open': selectedTags.length > 0}",
+          .filter-panel-footer.clearfix
+            template(v-if="editingTags === true")
+              .text-center
+                a.mr-3.btn-filters-primary(@click="saveTags()", v-once) {{ $t('saveEdits') }}
+                a.btn-filters-secondary(@click="cancelTagsEditing()", v-once) {{ $t('cancel') }}
+            template(v-else)
+              .float-left
+                a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
+              .float-right
+                a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
+      .create-task-area.d-flex
+        transition(name="slide-tasks-btns")
+          .d-flex(v-if="openCreateBtn")
+            .create-task-btn.rounded-btn(
+              v-for="type in columns", 
+              :key="type", 
+              @click="createTask(type)",
+              v-b-tooltip.hover.bottom="$t(type)",
             )
-              .d-flex.align-items-center
-                span(v-once) {{ $t('filter') }}
-                .svg-icon.filter-icon(v-html="icons.filter")
-      #create-dropdown.col-1.offset-3
-        b-dropdown(:right="true", :variant="'success'")
-          div(slot="button-content")
-            .svg-icon.positive(v-html="icons.positive")
-            | {{ $t('addTaskToUser') }}
-          b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
-            span.dropdown-icon-item(v-once)
-              span.svg-icon.inline(v-html="icons[type]", :class='`icon_${type}`')
-              span.text {{$t(type)}}
+              .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
+
+        #create-task-btn.create-btn.rounded-btn.btn.btn-success(
+          @click="openCreateBtn = !openCreateBtn",
+          :class="{open: openCreateBtn}",
+        )
+          .svg-icon(v-html="icons.positive")
+        b-tooltip(target="create-task-btn", placement="bottom", v-if="!openCreateBtn") {{ $t('addTaskToUser') }}
 
     .row.tasks-columns
-      task-column.col-3(
+      task-column.col-lg-3.col-md-6(
         v-for="column in columns",
         :type="column", :key="column",
         :isUser="true", :searchText="searchTextThrottled",
@@ -84,86 +90,101 @@
   spells
 </template>
 
-<style lang="scss">
-  #create-dropdown .dropdown-toggle::after {
-    display: none;
-  }
-</style>
-
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .user-tasks-page {
-    padding-top: 31px;
+    padding-top: 16px;
   }
 
   .tasks-navigation {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
-  .positive {
-    display: inline-block;
-    width: 10px;
-    color: $green-500;
-    margin-right: 8px;
-    padding-top: 6px;
+  .create-task-area {
+    position: absolute;
+    right: 24px;
+    top: -40px;
+    z-index: 999;
+    height: 60px;
   }
 
-  .dropdown-icon-item .svg-icon {
-    color: #C3C0C7;
+  .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
+    max-width: 240px;
+    overflow-x: hidden;
+    transition: all 0.3s cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slide-tasks-btns-enter, .slide-tasks-btns-leave-to {
+    max-width: 0;
+    opacity: 0;
   }
 
-  .dropdown-icon-item {
-      .icon_habit {
-        width: 30px;
-        height: 20px;
-      }
+  .rounded-btn {
+    margin-left: 8px;
+    background: $white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    cursor: pointer;
+    color: $gray-200;
 
-      .icon_daily {
+    &:hover:not(.create-btn) {
+      color: $purple-400;
+      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
+    }
+
+    .svg-icon {
+      width: 20px;
+      height: 20px;
+
+      &.icon-habit {
         width: 24px;
-        height: 20px;
+        height: 16px;
       }
 
-      .icon_todo {
-        width: 20px;
-        height: 20px;
+      &.icon-daily {
+        width: 21.6px;
+        height: 18px;
       }
 
-      .icon_reward {
-        width: 26px;
-        height: 20px;
+      &.icon-todo {
+        width: 18px;
+        height: 18px;
       }
+
+      &.icon-reward {
+        width: 23.4px;
+        height: 18px;
+      }
+    }
   }
 
-  .dropdown-icon-item:hover .svg-icon, .dropdown-item.active .svg-icon {
-    color: #4f2a93;
-  }
+  .create-btn {
+    color: $white;
+    background-color: $green-10;
 
-  button.btn.btn-secondary.filter-button {
-    box-shadow: none;
-    border-radius: 2px;
-    border: 1px solid $gray-400 !important;
-
-    &:hover, &:active, &:focus, &.open {
-      box-shadow: none;
-      border-color: $purple-500 !important;
-      color: $gray-50 !important;
+    .svg-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
     }
 
-    &.filter-button-open {
-      color: $purple-200 !important;
+    &.open {
+      background: $gray-200 !important;
 
-      .filter-icon {
-        color: $purple-200 !important;
+      .svg-icon {
+        transform: rotate(-45deg);
       }
     }
+  }
 
-    .filter-icon {
-      height: 10px;
-      width: 12px;
-      color: $gray-50;
-      margin-left: 15px;
-    }
+  .filter-icon {
+    width: 16px;
+    height: 16px;
   }
 
   .filter-panel {
@@ -285,11 +306,15 @@ import rewardIcon from 'assets/svg/reward.svg';
 import uuid from 'uuid';
 import Vue from 'vue';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
+import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
+import bTooltipComponent from 'bootstrap-vue/lib/components/tooltip';
+
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
 import taskDefaults from 'common/script/libs/taskDefaults';
+import brokenTaskModal from './brokenTaskModal';
 
 import Item from 'client/components/inventory/item.vue';
 
@@ -299,11 +324,14 @@ export default {
     TaskModal,
     bDropdown,
     bDropdownItem,
+    bTooltip: bTooltipComponent,
     Item,
     spells,
+    brokenTaskModal,
   },
   directives: {
     markdown,
+    bTooltip,
   },
   data () {
     return {
@@ -311,6 +339,7 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       isFilterPanelOpen: false,
+      openCreateBtn: false,
       icons: Object.freeze({
         positive: positiveIcon,
         filter: filterIcon,
@@ -322,7 +351,10 @@ export default {
       }),
       selectedTags: [],
       temporarilySelectedTags: [],
-      tagsSnap: null, // tags snapshot when being edited
+      tagsSnap: {
+        tags: [],
+        challenges: [],
+      }, // tags snapshot when being edited
       editingTags: false,
       newTag: null,
       editingTask: null,
@@ -363,31 +395,43 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   methods: {
     ...mapActions({setUser: 'user:set'}),
+    checkMouseOver: throttle(function throttleSearch () {
+      if (this.editingTags) return;
+      this.closeFilterPanel();
+    }, 250),
     editTags () {
       // clone the arrays being edited so that we can revert if needed
-      this.tagsSnap = this.tagsByType.user.tags.slice();
+      this.tagsSnap.tags = this.tagsByType.user.tags.slice();
+      this.tagsSnap.challenges = this.tagsByType.challenges.tags.slice();
       this.editingTags = true;
     },
-    addTag () {
-      this.tagsSnap.push({id: uuid.v4(), name: this.newTag});
+    addTag (eventObj, key) {
+      this.tagsSnap[key].push({id: uuid.v4(), name: this.newTag});
       this.newTag = null;
     },
-    removeTag (index) {
-      this.tagsSnap.splice(index, 1);
+    removeTag (index, key) {
+      this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
       if (this.newTag) this.addTag();
-      this.setUser({tags: this.tagsSnap});
+
+      this.tagsByType.user.tags = this.tagsSnap.tags;
+      this.tagsByType.challenges.tags = this.tagsSnap.challenges;
+
+      this.setUser({tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges)});
       this.cancelTagsEditing();
     },
     cancelTagsEditing () {
       this.editingTags = false;
-      this.tagsSnap = null;
+      this.tagsSnap = {
+        tags: [],
+        challenges: [],
+      };
       this.newTag = null;
     },
     editTask (task) {
@@ -398,7 +442,10 @@ export default {
       });
     },
     createTask (type) {
+      this.openCreateBtn = false;
       this.creatingTask = taskDefaults({type, text: ''});
+      this.creatingTask.tags = this.selectedTags;
+
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
         this.$root.$emit('show::modal', 'task-modal');
@@ -430,7 +477,6 @@ export default {
     applyFilters () {
       const temporarilySelectedTags = this.temporarilySelectedTags;
       this.selectedTags = temporarilySelectedTags.slice();
-      this.closeFilterPanel();
     },
     toggleTag (tag) {
       const temporarilySelectedTags = this.temporarilySelectedTags;
@@ -440,6 +486,8 @@ export default {
       } else {
         temporarilySelectedTags.splice(tagI, 1);
       }
+
+      this.applyFilters();
     },
     isTagSelected (tag) {
       const tagId = tag.id;

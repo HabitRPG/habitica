@@ -19,7 +19,7 @@
     "exclusiveJackalopePetText": "Get the Royal Purple Jackalope pet, available only to subscribers!",
     "giftSubscription": "Want to gift a subscription to someone?",
     "giftSubscriptionText1": "Open their profile! You can do this by clicking on their avatar in your party header or by clicking on their name in chat.",
-    "giftSubscriptionText2": "Click on the gift icon in the bottom left of their profile.",
+    "giftSubscriptionText2": "Click on the gift icon in the top right of their profile.",
     "giftSubscriptionText3": "Select \"subscription\" and enter your payment information.",
     "giftSubscriptionText4": "Thanks for supporting Habitica!",
     "monthUSD": "щомісяця",
@@ -70,7 +70,7 @@
     "subCanceled": "Підписка стане неактивною",
     "buyGemsGoldTitle": "To Buy Gems with Gold",
     "becomeSubscriber": "Стати підписником",
-    "subGemPop": "Так як ви підписані на Habitica, ви можете обмінювати на Самоцвіти деяку кількість Золота кожен місяць. Ви можете побачити скільки Самоцвітів доступно для купівлі в вуглу іконки Самоцвіта.",
+    "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
     "subGemName": "Самоцвіти Передплатника",
     "freeGemsTitle": "Obtain Gems for Free",
     "maxBuyGems": "You have bought all the Gems you can this month. More become available within the first three days of each month. Thanks for subscribing!",
@@ -199,5 +199,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining"
 }

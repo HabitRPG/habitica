@@ -4,7 +4,6 @@ div
     .item(:class="getItemClasses()")
       slot(name="itemBadge", :item="item", :emptyItem="emptyItem")
 
-
       span.badge.badge-pill.badge-item.badge-clock(
         v-if="item.event && showEventBadge",
       )
@@ -17,8 +16,6 @@ div
         div.image
           div(:class="item.class", v-once)
           slot(name="itemImage", :item="item")
-          span.svg-icon.inline.icon-48(v-if="item.key == 'gem'", v-html="icons.gems")
-
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")

@@ -21,9 +21,9 @@
     "messageNotEnoughGold": "Ouro Insuficiente",
     "messageTwoHandedEquip": "<%= twoHandedText %> precisa das duas mãos, então <%= offHandedText %> foi desequipado.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> precisa das duas mãos, então ele foi retirado ao equipar <%= offHandedText %>.",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropFood": "Você encontrou <%= dropArticle %><%= dropText %>!",
+    "messageDropEgg": "Você encontrou um Ovo <%= dropText %>!",
+    "messageDropPotion": "Você encontrou uma Poção de Eclosão <%= dropText %>!",
     "messageDropQuest": "Você encontrou uma Missão!",
     "messageDropMysteryItem": "Você abre a caixa e encontra <%= dropText %>!",
     "messageFoundQuest": "Você encontrou a missão \"<%= questText %>\"!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Gemas insuficientes!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword não combinam",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword necessários",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Nome de Usuário em uso",
     "messageAuthEmailTaken": "Email já cadastrado",
     "messageAuthNoUserFound": "Usuário não encontrado.",
     "messageAuthMustBeLoggedIn": "Você deve estar logado.",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
-    "notificationsRequired": "Os IDs de notificação são obrigatórios."
+    "notificationsRequired": "Os IDs de notificação são obrigatórios.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

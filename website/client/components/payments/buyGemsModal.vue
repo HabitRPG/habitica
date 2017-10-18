@@ -7,7 +7,7 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    amazon-payments-modal(:amazon-payments='amazonPayments')
+    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
     b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
       .container-fluid.purple-gradient
         .gemfall
@@ -21,6 +21,12 @@
             .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
             .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
         div(v-show='selectedPage === "gems"')
+          div(v-if='hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
+            .row.text-center
+              .col-6.offset-3
+                p {{ $t("gemsPurchaseNote") }}
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
           .row
@@ -39,14 +45,14 @@
                 .gem-text {{ $t('gems') }}
                 .divider
                 button.btn.btn-primary(@click='gemAmount = 4') {{gemAmount === 4 ? $t('selected') : '$1.00'}}
-            .card.text-center.col-3(:class="{active: gemAmount === 21 }")
+            .card.text-center.col-3(:class="{active: gemAmount === 20 }")
               .card-img-top
                 .mx-auto(v-html='icons.twentyOneGems', style='"height: 55px; width: 47.5px; margin-top: 1.85em;"')
               .card-body
                 .gem-count 20
                 .gem-text {{ $t('gems') }}
                 .divider
-                button.btn.btn-primary(@click='gemAmount === 21 ? gemAmount = 0 : gemAmount = 21') {{gemAmount === 21 ? $t('selected') : '$5.00'}}
+                button.btn.btn-primary(@click='gemAmount === 20 ? gemAmount = 0 : gemAmount = 20') {{gemAmount === 20 ? $t('selected') : '$5.00'}}
             //.card.text-center(:class="{active: gemAmount === 42}")
               .card-img-top
                 .mx-auto(v-html='icons.fortyTwoGems', style='"height: 49.5px; width: 51px; margin-top: 1.9em;"')

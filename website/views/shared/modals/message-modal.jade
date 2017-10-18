@@ -1,9 +1,0 @@
-script(type='text/ng-template', id='modals/message-modal.html')
-  .modal-header
-    h3.text-center {{::messageModal.title}}
-  .modal-body
-    p {{::messageModal.body}}
-    p {{:: env.t('some') }}
-  .modal-footer(ng-if='::!messageModal.noFooter')
-    a.btn.btn-primary(ng-click='$close()')
-      =env.t('close')

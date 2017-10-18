@@ -19,7 +19,7 @@
     "exclusiveJackalopePetText": "Zdobądź Purpurowego Królewskiego Jackalope dostępnego jedynie dla subskrybentów!",
     "giftSubscription": "Chcesz komuś dać abonament w prezencie?",
     "giftSubscriptionText1": "Otwórz ich profil. Możesz to zrobić klikając na awatar w swoim nagłówku drużyny lub klikając na nazwę w chacie.",
-    "giftSubscriptionText2": "Kliknij na ikonkę prezentu w lewym dolnym rogu ich profilu.",
+    "giftSubscriptionText2": "Click on the gift icon in the top right of their profile.",
     "giftSubscriptionText3": "Wybierz \"abonament\" i podaj swoje informacje dotyczące płatności.",
     "giftSubscriptionText4": "Dzięki za wsparcie Habitiki!",
     "monthUSD": "USD / Miesiąc",
@@ -70,7 +70,7 @@
     "subCanceled": "Subskrypcja wygaśnie",
     "buyGemsGoldTitle": "Aby kupić Klejnoty za Złoto",
     "becomeSubscriber": "Zostań Abonentem",
-    "subGemPop": "Ponieważ jesteś abonentem Habitiki, możesz co miesiąc kupić pewną ilość Klejnotów za złoto. W rogu ikony Klejnotu, możesz sprawdzić ile jeszcze Klejnotów możesz zakupić.",
+    "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
     "subGemName": "Klejnoty dla abonentów",
     "freeGemsTitle": "Zdobądź Klejnoty za Darmo",
     "maxBuyGems": "Wykupiłeś/aś już wszystkie możliwe klejnoty w tym miesiącu. Kolejne są udostępniane w ciągu pierwszych trzech dni każdego miesiąca. Dziękujemy za wykupienie abonamentu!",
@@ -199,5 +199,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining"
 }

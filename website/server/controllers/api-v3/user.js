@@ -20,7 +20,6 @@ import {
 } from '../../libs/email';
 import nconf from 'nconf';
 import get from 'lodash/get';
-import { model as Tag } from '../../models/tag';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -305,7 +304,7 @@ api.updateUser = {
 
         // Keep challenge and group tags
         user.tags.forEach(t => {
-          if (t.group || t.challenge) {
+          if (t.group) {
             oldTags.push(t);
           } else {
             removedTagsIds.push(t.id);
@@ -320,7 +319,7 @@ api.updateUser = {
             removedTagsIds.splice(oldI, 1);
           }
 
-          user.tags.push(Tag.sanitize(t));
+          user.tags.push(t);
         });
 
         // Remove from all the tasks
@@ -523,7 +522,7 @@ const partyMembersFields = 'profile.name stats achievements items.special';
  * @apiGroup User
  *
 
- * @apiParam (Path) {String=fireball, mpHeal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
  * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
  * Cast "Pickpocket" on a task:
@@ -871,7 +870,16 @@ api.buy = {
   url: '/user/buy/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyRes = common.ops.buy(user, req, res.analytics);
+
+    let buyRes;
+    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
+    if (specialKeys.indexOf(req.params.key) !== -1) {
+      buyRes = common.ops.buySpecialSpell(user, req);
+    } else {
+      buyRes = common.ops.buy(user, req, res.analytics);
+    }
+
     await user.save();
     res.respond(200, ...buyRes);
   },

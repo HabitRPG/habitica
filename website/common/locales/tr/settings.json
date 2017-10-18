@@ -47,7 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Kişisel Gün Başlangıcı",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "Özel gün başlama saatini değiştirmek istediğine emin misin?Günlük İşlerin, bir dahaki sefere <%= time %> sonrasında Habitica'yı ilk kullanışında sıfırlanacaktır. Bu zamandan önce Günlük İşlerini tamamladığından emin ol!",
     "changeCustomDayStart": "Kişisel Gün Başlangıcı değiştirilsin mi?",
     "sureChangeCustomDayStart": "Kişisel gün başlangıcı saatini değiştirmek istediğine emin misin?",
     "customDayStartHasChanged": "Kişisel gün başlangıcın değiştirildi.",
@@ -185,5 +185,5 @@
     "timezoneUTC": "Habitica bilgisayarında tanımlı zaman dilimini kullanır: <strong><%= utc %></strong>",
     "timezoneInfo": "Eğer bu zaman dilimi yanlışsa, önce tarayıcının yeniden yükle veya yenile butonunu kullanarak bu sayfayı yeniden yükle ve Habitica'nın en son bilgiye sahip olduğundan emin ol. Eğer hala yanlışsa, bilgisayarındaki zaman dilimini ayarla ve sayfayı tekrar yenile.<br><br> <strong>Eğer Habitica'yı başka bilgisayarlarda ya da mobil cihazlarda da kullanıyorsan, zaman dilimi hepsinde aynı olmalıdır.</strong> Eğer Günlük İşlerin yanlış zamanda sıfırlanıyorsa, bu kontrolü diğer tüm bilgisayarlara ve mobil cihazların tarayıcılarına da uygula.",
     "push": "Anlık",
-    "about": "About"
+    "about": "Hakkında"
 }

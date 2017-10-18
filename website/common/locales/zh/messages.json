@@ -21,9 +21,9 @@
     "messageNotEnoughGold": "金币不够",
     "messageTwoHandedEquip": " <%= twoHandedText %> 是双手武器，所以 <%= offHandedText %> 被卸下了。",
     "messageTwoHandedUnequip": " <%= twoHandedText %> 是双手武器，所以 当你装备<%= offHandedText %>时， <%= twoHandedText %> 被卸下了。",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropFood": "你找到了 <%= dropArticle %><%= dropText %>!",
+    "messageDropEgg": "你找到了一个 <%= dropText %>蛋！",
+    "messageDropPotion": "你找到了一瓶<%= dropText %>孵化药水！",
     "messageDropQuest": "你找到一个任务！",
     "messageDropMysteryItem": "你打开一个盒子找到<%= dropText %>！",
     "messageFoundQuest": "你有个新剧情任务\"<%= questText %>\"!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "宝石不够了！",
     "messageAuthPasswordMustMatch": "密码不匹配",
     "messageAuthCredentialsRequired": "需要输入用户名，邮箱，密码和确认密码",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "登录用户名已被使用",
     "messageAuthEmailTaken": "邮箱已被使用",
     "messageAuthNoUserFound": "没有找到这个用户",
     "messageAuthMustBeLoggedIn": "你必须登入",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
     "messageNotificationNotFound": "找不到消息",
-    "notificationsRequired": "需要Notification ids"
+    "notificationsRequired": "需要Notification ids",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

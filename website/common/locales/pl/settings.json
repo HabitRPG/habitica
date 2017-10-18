@@ -47,7 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Własny początek dnia",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "Jesteś pewien, że chcesz zmienić Czas Początku Dnia? Twoje Codzienne będą się resetować, kiedy pierwszy raz włączysz Habitikę po <%= time %>. Upewnij się, że wykonałeś wszystkie swoje Codzienne przed tym czasem!",
     "changeCustomDayStart": "Zmienić własny początek dnia?",
     "sureChangeCustomDayStart": "Czy na pewno chcesz zmienić własny początek dnia?",
     "customDayStartHasChanged": "Twój początek dnia został zmieniony.",
@@ -106,7 +106,7 @@
     "email": "E-mail",
     "registerWithSocial": "Zarejestruj się przez <%= network %>",
     "registeredWithSocial": "Zarejestrowany przez <%= network %>",
-    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
+    "loginNameDescription": "Jest to nazwa, której używasz logując się do Habitiki, Żeby ją zmienić, użyj formularza umieszczonego poniżej. Jeśli zamiast tego chcesz zmienić imię, które wyświetla się na awatarze i w konwersacjach kliknij na ikonę użytkownika, a następnie na przycisk \"Edytuj\".",
     "emailNotifications": "Powiadomienia e-mail",
     "wonChallenge": "Wygrałeś wyzwanie!",
     "newPM": "Otrzymane wiadomości prywatne",
@@ -129,7 +129,7 @@
     "remindersToLogin": "Przypominaj by meldować się do Habitica",
     "subscribeUsing": "Subskrybuj przez",
     "unsubscribedSuccessfully": "Poprawnie zrezygnowano z subskrypcji!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
+    "unsubscribedTextUsers": "Poprawnie zrezygnowałeś z subskrypcji wszystkich e-maili od Habitiki. W opcji </a>Ustawienia-> Powiadomienia</a>możesz włączyć wiadomości, które chcesz otrzymywać. (wymaga zalogowania)",
     "unsubscribedTextOthers": "Nie otrzymasz więcej żadnych e-maili od Habitica.",
     "unsubscribeAllEmails": "Zaznacz by zrezygnować z subskrypcji e-maili",
     "unsubscribeAllEmailsText": "Przez zaznaczenie tego pola poświadczam, że rozumiem że po zrezygnowaniu z subskrypcji wszystkich e-maili, Habitica nie będzie w stanie powiadamiać mnie przez e-mail o ważnych zmianach na stronie lub na moim koncie.",
@@ -185,5 +185,5 @@
     "timezoneUTC": "Habitica korzysta ze strefy czasowej ustawionej na twoim komputerze, to znaczy: <strong><%= utc %></strong>",
     "timezoneInfo": "Jeśli strefa czasowa jest błędna, spróbuj najpierw odświeżyć stronę przyciskiem odświeżania w przeglądarce, aby upewnić się, że Habitica ma dostęp do najnowszych danych. Jeśli strefa wciąż jest nieprawidłowa, ustaw ją na swoim komputerze i znów odśwież stronę.<br><br> <strong>Jeśli używasz Habitiki na innych komputerach lub urządzeniach mobilnych, strefa czasowa na każdym z nich musi być taka sama.</strong> Jeśli twoje codzienne zadania resetują się o niewłaściwej porze, sprawdź w ten sam sposób inne komputery oraz przeglądarki w twoich urządzeniach mobilnych.",
     "push": "Push",
-    "about": "About"
+    "about": "O nas"
 }

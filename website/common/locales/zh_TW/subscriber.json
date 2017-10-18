@@ -19,7 +19,7 @@
     "exclusiveJackalopePetText": "Get the Royal Purple Jackalope pet, available only to subscribers!",
     "giftSubscription": "Want to gift a subscription to someone?",
     "giftSubscriptionText1": "Open their profile! You can do this by clicking on their avatar in your party header or by clicking on their name in chat.",
-    "giftSubscriptionText2": "Click on the gift icon in the bottom left of their profile.",
+    "giftSubscriptionText2": "Click on the gift icon in the top right of their profile.",
     "giftSubscriptionText3": "選擇\"訂閱\"然後輸入你的付款資料。",
     "giftSubscriptionText4": "謝謝你支持Habitica！",
     "monthUSD": "USD/每月",
@@ -70,7 +70,7 @@
     "subCanceled": "訂閱狀態將失效",
     "buyGemsGoldTitle": "利用金幣購買寶石",
     "becomeSubscriber": "成為一個訂閱者",
-    "subGemPop": "因為你訂閱Habitica，您每個月可以使用金幣購買一批寶石。在寶石的圖標的一角，你可以看到有多少寶石都可以買。",
+    "subGemPop": "Because you subscribe to Habitica, you can purchase a number of Gems each month using Gold.",
     "subGemName": "訂閱的寶石",
     "freeGemsTitle": "免費獲得寶石",
     "maxBuyGems": "You have bought all the Gems you can this month. More become available within the first three days of each month. Thanks for subscribing!",
@@ -199,5 +199,7 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining"
 }

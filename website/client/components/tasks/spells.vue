@@ -21,16 +21,13 @@ div(v-if='user.stats.lvl > 10')
             @click='castStart(skill)',
             v-for='(skill, key) in spells[user.stats.class]',
             v-if='user.stats.lvl >= skill.lvl',
-            popover-trigger='mouseenter',
-            popover-placement='top',
-            :popover='skillNotes(skill)')
+            v-b-popover.hover.auto='skill.notes()')
             .spell.col-12.row
               .col-8.details
                 a(:class='{"disabled": spellDisabled(key)}')
-                p.title {{skill.text()}}
-                p.notes {{skill.notes()}}
+                div.img(:class='`shop_${skill.key} shop-sprite item-img`')
+                span.title {{skill.text()}}
               .col-4.mana
-                .img(:class='`shop_${skill.key} shop-sprite item-img`')
                 .mana-text
                   .svg-icon(v-html="icons.mana")
                   div {{skill.mana}}
@@ -38,7 +35,7 @@ div(v-if='user.stats.lvl > 10')
 
 <style lang="scss" scoped>
   .drawer-container {
-    left: 19%;
+    left: calc((100% - 978px) / 2);
   }
 
   .drawer-slider {
@@ -52,23 +49,33 @@ div(v-if='user.stats.lvl > 10')
 
   .spell:hover {
     cursor: pointer;
+    border: solid 2px #50b5e9;
   }
 
   .spell {
     background: #ffffff;
+    border: solid 2px transparent;
     margin-bottom: 1em;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    border-radius: 2px;
+    border-radius: 1000px;
     color: #4e4a57;
     padding-right: 0;
     padding-left: 0;
+    overflow: hidden;
 
     .details {
       text-align: left;
       padding-top: .5em;
 
-      p {
-        margin-bottom: .5em;
+      .img {
+        display: inline-block;
+      }
+
+      span {
+        display: inline-block;
+        width: 50%;
+        padding-bottom: .7em;
+        vertical-align: bottom;
       }
 
       .notes {
@@ -83,6 +90,7 @@ div(v-if='user.stats.lvl > 10')
 
     .mana-text {
       margin-bottom: .2em;
+      padding-top: 1.1em;
 
       div {
         display: inline-block;
@@ -140,26 +148,28 @@ div(v-if='user.stats.lvl > 10')
 </style>
 
 <script>
-import axios from 'axios';
-import isArray from 'lodash/isArray';
+import bPopover from 'bootstrap-vue/lib/directives/popover';
 
 import spells from '../../../common/script/content/spells';
 
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
+import spellsMixin from 'client/mixins/spells';
 import Drawer from 'client/components/ui/drawer';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
 
 import mana from 'assets/svg/mana.svg';
 import quests from 'common/script/content/quests';
+import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   components: {
     Drawer,
   },
   directives: {
     mousePosition: MouseMoveDirective,
+    bPopover,
   },
   data () {
     return {
@@ -183,6 +193,12 @@ export default {
       if (keyEvent.keyCode !== 27) return;
       this.castCancel();
     });
+
+    // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
+    const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
+    if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+      this.$store.state.spellOptions.spellDrawOpen = false;
+    }
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -191,8 +207,15 @@ export default {
     },
   },
   methods: {
-    drawerToggled (openChanged) {
-      this.$store.state.spellOptions.spellDrawOpen = openChanged;
+    drawerToggled (newState) {
+      this.$store.state.spellOptions.spellDrawOpen = newState;
+
+      if (newState) {
+        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+        return;
+      }
+
+      setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) {
@@ -220,122 +243,6 @@ export default {
       }
 
       return notes;
-    },
-    async castStart (spell) {
-      if (this.$store.state.spellOptions.castingSpell) {
-        this.castCancel();
-        return;
-      }
-
-      if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
-
-      if (spell.immediateUse && this.user.stats.gp < spell.value) {
-        return this.text('Not enough gold.');
-      }
-
-      this.potionClickMode = true;
-      this.applyingAction = true;
-      this.$store.state.spellOptions.castingSpell = true;
-      this.spell = spell;
-
-      if (spell.target === 'self') {
-        this.castEnd(null, spell.target);
-      } else if (spell.target === 'party') {
-        if (!this.user.party._id) {
-          let party = [this.user];
-          this.castEnd(party, spell.target);
-          return;
-        }
-
-        let party = this.$store.state.party.members;
-        party = isArray(party) ? party : [];
-        party = party.concat(this.user);
-        this.castEnd(party, spell.target);
-      } else if (spell.target === 'tasks') {
-        let userTasks = this.$store.state.tasks.data;
-        // exclude rewards
-        let tasks = userTasks.habits
-          .concat(userTasks.dailys)
-          .concat(userTasks.todos);
-        // exclude challenge and group plan tasks
-        tasks = tasks.filter((task) => {
-          if (task.challenge && task.challenge.id && !task.challenge.broken) return false;
-          if (task.group && task.group.id && !task.group.broken) return false;
-          return true;
-        });
-        this.castEnd(tasks, spell.target);
-      }
-    },
-    async castEnd (target, type) {
-      if (!this.$store.state.spellOptions.castingSpell) return;
-      let beforeQuestProgress = this.questProgress();
-
-      if (!this.applyingAction) return 'No applying action';
-
-      if (this.spell.target !== type) return this.text(this.$t('invalidTarget'));
-      if (target && target.type && target.type === 'reward') return this.text(this.$t('invalidTarget'));
-      if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
-      if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
-
-      // @TODO: just call castCancel?
-      this.$store.state.spellOptions.castingSpell = false;
-      this.potionClickMode = false;
-
-      this.spell.cast(this.user, target);
-      // User.save(); // @TODO:
-
-      let spell = this.spell;
-      let targetId = target ? target._id : null;
-      this.spell = null;
-      this.applyingAction = false;
-
-      let spellUrl = `/api/v3/user/class/cast/${spell.key}`;
-      if (targetId) spellUrl += `?targetId=${targetId}`;
-
-      await axios.post(spellUrl);
-      let msg = this.$t('youCast', {
-        spell: spell.text(),
-      });
-
-      switch (type) {
-        case 'task':
-          msg = this.$t('youCastTarget', {
-            spell: spell.text(),
-            target: target.text,
-          });
-          break;
-        case 'user':
-          msg = this.$t('youCastTarget', {
-            spell: spell.text(),
-            target: target.profile.name,
-          });
-          break;
-        case 'party':
-          msg = this.$t('youCastParty', {
-            spell: spell.text(),
-          });
-          break;
-      }
-
-      this.markdown(msg); // @TODO: mardown directive?
-      // @TODO:
-      let questProgress = this.questProgress() - beforeQuestProgress;
-      if (questProgress > 0) {
-        let userQuest = this.quests[this.user.party.quest.key];
-        if (userQuest.boss) {
-          this.quest('questDamage', questProgress.toFixed(1));
-        } else if (userQuest.collection && userQuest.collect) {
-          this.quest('questCollection', questProgress);
-        }
-      }
-      // @TOOD: User.sync();
-    },
-    castCancel () {
-      this.potionClickMode = false;
-      this.applyingAction = false;
-      this.spell = null;
-      document.querySelector('body').style.cursor = 'initial';
-      this.$store.state.spellOptions.castingSpell = false;
     },
     questProgress () {
       let user = this.user;

@@ -158,6 +158,7 @@ export default {
 
     return {
       yesterDailies: [],
+      levelBeforeYesterdailies: 0,
       notificationData: {},
       unlockLevels,
       lastShownNotifications,
@@ -256,12 +257,8 @@ export default {
       this.mp(mana);
     },
     userLvl (after, before) {
-      if (after <= before) return;
-      this.lvl();
-      this.playSound('Level_Up');
-      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
-      if (this.unlockLevels[`${after}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+      if (after <= before || this.isRunningYesterdailies) return;
+      this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
       if (!after) return;
@@ -294,6 +291,7 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
+      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
       }
@@ -301,6 +299,19 @@ export default {
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
         this.$root.$emit('show::modal', 'avatar-modal');
+      }
+
+      if (this.user.stats.hp <= 0) {
+        this.playSound('Death');
+        this.$root.$emit('show::modal', 'death');
+      }
+
+      if (this.questCompleted) {
+        this.$root.$emit('show::modal', 'quest-completed');
+      }
+
+      if (this.userClassSelect) {
+        this.$root.$emit('show::modal', 'choose-class');
       }
 
       // @TODO: This is a timeout to ensure dom is loaded
@@ -320,6 +331,13 @@ export default {
     });
   },
   methods: {
+    showLevelUpNotifications (newlevel) {
+      this.lvl();
+      this.playSound('Level_Up');
+      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
+      if (this.unlockLevels[`${newlevel}`]) return;
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+    },
     playSound (sound) {
       this.$root.$emit('playSound', sound);
     },
@@ -376,6 +394,7 @@ export default {
         return;
       }
 
+      this.levelBeforeYesterdailies = this.user.stats.lvl;
       this.$root.$emit('show::modal', 'yesterdaily');
     },
     async runYesterDailiesAction () {
@@ -385,11 +404,14 @@ export default {
       // Notifications
 
       // Sync
-      // @TODO add a loading spinner somewhere
       await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
+
+      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+        this.showLevelUpNotifications(this.user.stats.lvl);
+      }
 
       this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
@@ -503,8 +525,10 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            this.notificationData = notification.data;
-            this.$root.$emit('show::modal', 'login-incentives');
+            if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
+              this.notificationData = notification.data;
+              this.$root.$emit('show::modal', 'login-incentives');
+            }
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {

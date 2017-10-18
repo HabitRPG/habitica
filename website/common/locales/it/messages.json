@@ -21,9 +21,9 @@
     "messageNotEnoughGold": "Non hai abbastanza Oro",
     "messageTwoHandedEquip": "Brandire <%= twoHandedText %> richiede due mani, perciò <%= offHandedText %> è stato disequipaggiato.",
     "messageTwoHandedUnequip": "Brandire <%= twoHandedText %> richiede due mani, perciò è stato disequipaggiato per poterti armare con <%= offHandedText %>.",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropFood": "Hai trovato <%= dropArticle %> <%= dropText %>!",
+    "messageDropEgg": "Hai trovato un uovo di <%= dropText %>!",
+    "messageDropPotion": "Hai trovato una Pozione di Schiusura <%= dropText %>!",
     "messageDropQuest": "Hai trovato una missione!",
     "messageDropMysteryItem": "Apri il pacco e trovi <%= dropText %>!",
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Non hai abbastanza gemme!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword non corrispondono",
     "messageAuthCredentialsRequired": "sono necessari :username, :email, :password, :confirmPassword",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Nome di login già utilizzato",
     "messageAuthEmailTaken": "Indirizzo email già utilizzato",
     "messageAuthNoUserFound": "Nessun utente trovato.",
     "messageAuthMustBeLoggedIn": "Devi aver eseguito l'accesso.",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "Il percorso `<%= operation %>` non è stato salvato, perchè è un percorso protetto.",
     "messageUserOperationNotFound": "Operazione <%= operation %> non trovata",
     "messageNotificationNotFound": "Notifica non trovata.",
-    "notificationsRequired": "Sono necessari gli id delle notifiche."
+    "notificationsRequired": "Sono necessari gli id delle notifiche.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

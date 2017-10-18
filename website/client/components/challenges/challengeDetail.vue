@@ -10,7 +10,7 @@
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
-          span {{challenge.leader.profile.name}}
+          span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
@@ -35,7 +35,7 @@
         b-dropdown.create-dropdown(text="Select a Participant")
           b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
-        span(v-if='isLeader')
+        span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
               | {{$t(type)}}
@@ -51,7 +51,7 @@
           )
 
     .row
-      task-column.col-6(
+      task-column.col-12.col-sm-6(
         v-for="column in columns",
         :type="column",
         :key="column",
@@ -64,17 +64,17 @@
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
     .description-section
       h2 {{$t('challengeSummary')}}
-      p {{challenge.summary}}
+      p(v-markdown='challenge.summary')
       h2 {{$t('challengeDescription')}}
       p(v-markdown='challenge.description')
 </template>
@@ -246,6 +246,9 @@ export default {
       if (!this.challenge.leader) return false;
       return this.user._id === this.challenge.leader._id;
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
     canJoin () {
       return !this.isMember;
     },
@@ -298,6 +301,9 @@ export default {
         challengeId: this.searchId,
         tasks: clonedTasks,
       });
+
+      this.$store.state.challengeOptions.cloning = false;
+      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
@@ -403,6 +409,7 @@ export default {
     cloneChallenge () {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('show::modal', 'challenge-modal');
     },
   },

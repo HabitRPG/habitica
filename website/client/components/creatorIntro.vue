@@ -71,7 +71,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .skin.sprite.customize-option(:class="`skin_${option}`", @click='set({"preferences.skin": option})')
       .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalSkins')
         .col-12.customize-options
-          //h3(v-if='!hideSet(set)') {{$t(set.key)}}
           .option(v-for='option in set.options',
             :class='{active: option.active, locked: option.locked, hide: option.hide}')
             .skin.sprite.customize-option(:class="`skin_${option.key}`", @click='option.click')
@@ -98,29 +97,18 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .option(v-for='option in ["white", "brown", "blond", "red", "black"]',
             :class='{active: user.preferences.hair.color === option}')
             .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option}`", @click='set({"preferences.hair.color": option})')
-        //.row(v-if='editing')
-          .col-12.customize-options(v-if='editing')
-            .option(v-for='option in premiumHairColors',
-              :class='{active: option.active === option, locked: option.locked}')
-              .color-bangs.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-              .gem-lock(v-if='option.locked')
-                .svg-icon.gem(v-html='icons.gem')
-                span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", premiumHairColorKeys, "color")', @click='unlock(`hair.color.${premiumHairColorKeys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
-        .row(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
-          .col-12.customize-options
-            //h3(v-if='!hideSet(set)') {{set.text}}
-            .option(v-for='option in set.options',
-              :class='{active: option.active, locked: option.locked, hide: option.hide}')
-              .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
-              .gem-lock(v-if='option.locked')
-                .svg-icon.gem(v-html='icons.gem')
-                span 2
+        .col-12.customize-options(v-if='editing && set.key !== "undefined"', v-for='set in seasonalHairColors')
+          .option(v-for='option in set.options',
+            :class='{active: option.active, locked: option.locked, hide: option.hide}')
+            .skin.sprite.customize-option(:class="`hair_bangs_1_${option.key}`", @click='option.click')
+            .gem-lock(v-if='option.locked')
+              .svg-icon.gem(v-html='icons.gem')
+              span 2
           .col-12.text-center
             button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair3',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_base_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -162,6 +150,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair5',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_beard_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -1350,7 +1339,15 @@ export default {
         cost = fullSet ? 1.25 : 0.5; // (Hair, skin, etc) 5G per set, 2G per individual
       }
 
-      let loginIncentives = ['background.blue', 'background.green', 'background.red', 'background.purple', 'background.yellow', 'background.violet'];
+      let loginIncentives = [
+        'background.blue',
+        'background.green',
+        'background.red',
+        'background.purple',
+        'background.yellow',
+        'background.violet',
+      ];
+
       if (loginIncentives.indexOf(path) === -1) {
         if (fullSet) {
           if (confirm(this.$t('purchaseFor', {cost: cost * 4})) !== true) return;

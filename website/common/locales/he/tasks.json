@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "הוסיפו כמה",
     "addsingle": "הוסיפו אחד/ת",
+    "addATask": "Add a <%= type %>",
     "editATask": "Edit a <%= type %>",
     "createTask": "Create <%= type %>",
-    "addTaskToUser": "Create",
+    "addTaskToUser": "Add Task",
     "scheduled": "Scheduled",
     "theseAreYourTasks": "These are your <%= taskType %>",
     "habit": "הרגל",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "התחל את היום החדש שלי!",
     "yesterDailiesOptionTitle": "וודא שהמטלה היומית הזאת לא בוצעה לפני יישום הנזק",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "נא וודא/י שבחרת לפחות יום אחד בשבוע."
+    "repeatDayError": "נא וודא/י שבחרת לפחות יום אחד בשבוע.",
+    "searchTasks": "Search titles and descriptions..."
 }

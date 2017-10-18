@@ -788,6 +788,13 @@ let back = {
     notes: t('backSpecialSnowdriftVeilNotes'),
     value: 0,
   },
+  aetherCloak: {
+    text: t('backSpecialAetherCloakText'),
+    notes: t('backSpecialAetherCloakNotes', { per: 10 }),
+    value: 175,
+    per: 10,
+    canOwn: ownsItem('back_special_aetherCloak'),
+  },
 };
 
 let body = {
@@ -860,6 +867,14 @@ let body = {
     canBuy: () => {
       return CURRENT_SEASON === 'summer';
     },
+  },
+  aetherAmulet: {
+    text: t('bodySpecialAetherAmuletText'),
+    notes: t('bodySpecialAetherAmuletNotes', { attrs: 10 }),
+    value: 175,
+    str: 10,
+    con: 10,
+    canOwn: ownsItem('body_special_aetherAmulet'),
   },
 };
 
@@ -936,6 +951,13 @@ let eyewear = {
     notes: t('eyewearSpecialYellowTopFrameNotes'),
     value: 0,
     canOwn: ownsItem('eyewear_special_yellowTopFrame'),
+  },
+  aetherMask: {
+    text: t('eyewearSpecialAetherMaskText'),
+    notes: t('eyewearSpecialAetherMaskNotes', { int: 10 }),
+    value: 175,
+    int: 10,
+    canOwn: ownsItem('eyewear_special_aetherMask'),
   },
 };
 
@@ -2565,6 +2587,17 @@ let weapon = {
     str: 17,
     value: 0,
     canOwn: ownsItem('weapon_special_tachi'),
+  },
+  aetherCrystals: {
+    text: t('weaponSpecialAetherCrystalsText'),
+    notes: t('weaponSpecialAetherCrystalsNotes', { attrs: 10 }),
+    con: 10,
+    int: 10,
+    per: 10,
+    str: 10,
+    value: 175,
+    twoHanded: true,
+    canOwn: ownsItem('weapon_special_aetherCrystals'),
   },
   yeti: {
     event: EVENTS.winter,

@@ -1,5 +1,5 @@
 <template lang="pug">
-.standard-sidebar
+.standard-sidebar.hidden-xs-down
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
@@ -86,8 +86,8 @@ export default {
           key: 'mental_health',
         },
         {
-          label: 'organization',
-          key: 'organization',
+          label: 'getting_organized',
+          key: 'getting_organized',
         },
         {
           label: 'recovery_support_groups',

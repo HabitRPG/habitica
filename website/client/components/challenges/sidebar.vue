@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-2.standard-sidebar
+.col-2.standard-sidebar.hidden-xs-down
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 

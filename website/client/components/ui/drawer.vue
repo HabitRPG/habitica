@@ -26,24 +26,25 @@
     max-width: 80%;
 
     @media screen and (min-width: 1241px) {
-      max-width: 968px;
+      max-width: 978px;
       // 16.67% is the width of the .col-2 sidebar
-      left: calc((100% + 16.67% - 968px) / 2);
+      left: calc((100% + 16.67% - 978px) / 2);
       right: 0%;
     }
   }
 
   .drawer-toggle-icon {
-    float: right;
-    margin-right: 16px;
-    margin-top: 16px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
 
     &.closed {
-      margin-top: 3px;
+      top: 10px;
     }
   }
 
   .drawer-title {
+    position: relative;
     background-color: $gray-10;
     box-shadow: 0 1px 2px 0 rgba($black, 0.2);
     cursor: pointer;
@@ -96,6 +97,8 @@
     float: right;
 
     .svg-icon {
+      position: relative;
+      top: 4px;
       margin-left: 8px;
     }
   }
