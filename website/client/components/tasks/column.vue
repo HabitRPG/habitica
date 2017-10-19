@@ -11,7 +11,7 @@
       ) {{ $t(filter.label) }}
   .tasks-list(ref="tasksWrapper")
     input.quick-add(
-      v-if="isUser", :placeholder="quickAddPlaceholder", 
+      v-if="isUser", :placeholder="quickAddPlaceholder",
       v-model="quickAddText", @keyup.enter="quickAdd",
       ref="quickAdd",
     )
@@ -243,7 +243,7 @@ export default {
       todo: {
         label: 'todos',
         filters: [
-          {label: 'remaining', filter: t => !t.completed, default: true}, // active
+          {label: 'remaining', filter: t => !t.completed, default: true, sort: t => t.createdAt}, // active
           {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
           {label: 'complete2', filter: t => t.completed},
         ],
@@ -355,6 +355,11 @@ export default {
   },
   mounted () {
     this.setColumnBackgroundVisibility();
+
+    // perform default sort if present
+    if (this.types[this.type].filters[0].sort) {
+      this.activateFilter(this.type, this.types[this.type].filters[0]);
+    }
 
     this.$root.$on('buyModal::boughtItem', () => {
       this.forceRefresh = new Date();
