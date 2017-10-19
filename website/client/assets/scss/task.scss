@@ -1,5 +1,4 @@
 .daily-todo-control {
-
   &:hover {
     .svg-icon.check {
       display: block;
@@ -181,15 +180,15 @@
   }
 
   &-reward {
-    background: #FFF5E5
+    background: rgba($yellow-500, 0.48);
   }
 
   &-daily-todo-disabled {
-    background: $gray-500;
+    background: $gray-400;
 
     &-control-daily-todo {
-      background: $gray-400;
-      color: $gray-200;
+      background: rgba($black, 0.24);
+      color: $white;
     }
   }
 
@@ -202,12 +201,12 @@
   }
 
   &-habit-disabled {
-    background: $gray-700;
-    color: rgba(0, 0, 0, 0.12);
+    background: $gray-600;
+    color: rgba($black, 0.12);
 
     &-control-habit {
-      color: rgba(0, 0, 0, 0.12) !important;
-      border: 1px solid rgba(0, 0, 0, 0.12);
+      color: rgba($black, 0.12) !important;
+      border: 1px solid rgba($black, 0.12);
     }
   }
 }
