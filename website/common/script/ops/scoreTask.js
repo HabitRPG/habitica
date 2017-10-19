@@ -130,7 +130,7 @@ function _addPoints (user, task, stats, direction, delta) {
 
     stats.gp += afterStreak;
   } else {
-    stats.gp = parseInt(stats.gp) + gpMod;
+    stats.gp = parseInt(stats.gp, 10) + gpMod;
   }
 }
 
