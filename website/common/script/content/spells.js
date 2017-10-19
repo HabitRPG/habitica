@@ -1,6 +1,6 @@
 import t from './translation';
 import each from 'lodash/each';
-import { NotAuthorized } from '../libs/errors';
+import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed';
 import crit from '../fns/crit';
 import updateStats from '../fns/updateStats';
@@ -65,7 +65,7 @@ spells.wizard = {
         if (user._id !== member._id && member.stats.class !== 'wizard' ) {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }else if(member.stats.class === 'wizard'){
-          //return invalid target error
+          throw new BadRequest(`You can't cast Ethereal Surge on Mages!`);
         }
       });
     },
