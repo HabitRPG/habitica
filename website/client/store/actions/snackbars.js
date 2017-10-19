@@ -9,5 +9,5 @@ export function add (store, payload) {
 export function remove (store, payload) {
   store.state.notificationStore = store.state.notificationStore.filter(notification => {
     return notification.uuid !== payload.uuid;
-  })
+  });
 }

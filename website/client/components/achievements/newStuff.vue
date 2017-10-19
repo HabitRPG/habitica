@@ -22,7 +22,7 @@
 </style>
 
 <script>
-  import axios from 'axios';
+  // import axios from 'axios';
   import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
@@ -43,7 +43,7 @@
       this.$root.$on('show::modal', async (modalId) => {
         if (modalId !== 'new-stuff') return;
         // Request the lastest news, but not locally incase they don't refresh
-        let response = await axios.get('/static/new-stuff');
+        // let response = await axios.get('/static/new-stuff');
       });
     },
     destroyed () {

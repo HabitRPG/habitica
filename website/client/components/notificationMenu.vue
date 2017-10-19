@@ -42,10 +42,10 @@ div.item-with-icon.item-notifications.dropdown
         span {{message.name}}
       span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
-    a.dropdown-item(v-for='(notification, index) in groupNotifications', :key='notification.id')
+    a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
       span(:class="groupApprovalNotificationIcon(notification)")
       span {{notification.data.message}}
-      span.clear-button(@click='viewGroupApprovalNotification(notification, index)', :popover="$t('clear')",
+      span.clear-button(@click='viewGroupApprovalNotification(notification)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
 </template>
 
@@ -304,7 +304,7 @@ export default {
     hasNoNotifications () {
       return this.selectNotificationValue(false, false, false, false, false, true, false, false);
     },
-    viewGroupApprovalNotification (notification, index) {
+    viewGroupApprovalNotification (notification) {
       this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
         return groupNotif.id !== notification.id;
       });
