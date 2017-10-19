@@ -3,6 +3,8 @@
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
     "editAvatar": "Avatár módosítása",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Egyéb",
     "fullName": "Teljes név",
     "displayName": "Nyilvános név",

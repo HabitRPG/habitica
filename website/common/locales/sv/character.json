@@ -3,6 +3,8 @@
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "editAvatar": "Redigera Karaktär",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Annat",
     "fullName": "Fullständigt namn",
     "displayName": "Användarnamn",

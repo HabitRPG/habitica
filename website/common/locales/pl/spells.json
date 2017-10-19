@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Narzędzia fachu",
     "spellRogueToolsOfTradeNotes": "Dzielisz się talentem z drużyną. Cała twoja drużyna zyskuje wzmocnienie do Percepcji! (Bazuje na: Niewzmocnionej PER)",
     "spellRogueStealthText": "Ukrycie",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Liczba unikniętych Codziennych: <%= number %>.",
     "spellRogueStealthMaxedOut": "Uniknąłeś już wszystkich codziennych. Nie ma potrzeby rzucania zaklęcia jeszcze raz.",
     "spellHealerHealText": "Leczące światło",

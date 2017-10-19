@@ -116,7 +116,7 @@
     "standard": "基础",
     "sortByColor": "颜色",
     "sortByHatchable": "可孵化的",
-    "hatch": "Hatch!",
+    "hatch": "孵化它！",
     "foodTitle": "食物",
     "dragThisFood": "把<%= foodName %>拖到到一个宠物上并看着他们成长！",
     "clickOnPetToFeed": "点击一个宠物，将<%= foodName %>喂给它们并看着它们成长！",

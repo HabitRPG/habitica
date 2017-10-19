@@ -40,7 +40,7 @@
     "bossHP": "Boss-Lebenspunkte",
     "bossStrength": "Boss-Stärke",
     "rage": "Raserei",
-    "collect": "Sammle ein",
+    "collect": "Sammle",
     "collected": "Gesammelt",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Zu sammelnde Gegenstände",

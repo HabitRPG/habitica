@@ -25,6 +25,15 @@ describe('shared.ops.blockUser', () => {
     }
   });
 
+  it('validates user can\'t block himself', (done) => {
+    try {
+      blockUser(user, { params: { uuid: user._id } });
+    } catch (error) {
+      expect(error.message).to.eql(i18n.t('blockYourself'));
+      done();
+    }
+  });
+
   it('blocks user', () => {
     let [result] = blockUser(user, { params: { uuid: blockedUser._id } });
     expect(user.inbox.blocks).to.eql([blockedUser._id]);

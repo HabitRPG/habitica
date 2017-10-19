@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Hırsızlık Eşyaları",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Gizlilik",
-    "spellRogueStealthNotes": "Fark edilmek için fazla sinsisin. Yerine getirmediğin bazı Günlük İşlerin bu gece sana zarar vermeyecek ve tamamlama serileri/renkleri değişmeyecek. ",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılan günlük iş sayısı: <%= number %>.",
     "spellRogueStealthMaxedOut": "Tüm günlük işlerinden zaten kaçındın; bunu tekrar uygulamana gerek yok.",
     "spellHealerHealText": "İyileştirici Işık",
