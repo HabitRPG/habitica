@@ -64,5 +64,6 @@
   "messageUserOperationNotFound": "<%= operation %> operation not found",
   "messageNotificationNotFound": "Notification not found.",
 
-  "notificationsRequired": "Notification ids are required."
+  "notificationsRequired": "Notification ids are required.",
+  "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

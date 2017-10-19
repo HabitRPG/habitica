@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> no encontrado",
     "messageNotificationNotFound": "Notificación no encontrada.",
-    "notificationsRequired": "Se requieren ids de notificación."
+    "notificationsRequired": "Se requieren ids de notificación.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

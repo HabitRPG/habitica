@@ -404,7 +404,6 @@ export default {
       // Notifications
 
       // Sync
-      // @TODO add a loading spinner somewhere
       await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
@@ -526,8 +525,10 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            this.notificationData = notification.data;
-            this.$root.$emit('show::modal', 'login-incentives');
+            if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
+              this.notificationData = notification.data;
+              this.$root.$emit('show::modal', 'login-incentives');
+            }
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {

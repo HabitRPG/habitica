@@ -10,25 +10,24 @@ import {each} from 'lodash';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
-const DIST_PATH = 'website/assets/sprites/dist/';
 
-const IMG_DIST_PATH_NEW_CLIENT = 'website/static/sprites/';
-const CSS_DIST_PATH_NEW_CLIENT = 'website/client/assets/css/sprites/';
+const IMG_DIST_PATH = 'website/static/sprites/';
+const CSS_DIST_PATH = 'website/client/assets/css/sprites/';
 
 gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions']);
 
 gulp.task('sprites:main', () => {
-  let mainSrc = sync('website/assets/sprites/spritesmith/**/*.png');
+  let mainSrc = sync('website/raw_sprites/spritesmith/**/*.png');
   return createSpritesStream('main', mainSrc);
 });
 
 gulp.task('sprites:largeSprites', () => {
-  let largeSrc = sync('website/assets/sprites/spritesmith_large/**/*.png');
+  let largeSrc = sync('website/raw_sprites/spritesmith_large/**/*.png');
   return createSpritesStream('largeSprites', largeSrc);
 });
 
 gulp.task('sprites:clean', (done) => {
-  clean(`{${DIST_PATH}spritesmith*,${IMG_DIST_PATH_NEW_CLIENT}spritesmith*,${CSS_DIST_PATH_NEW_CLIENT}spritesmith*}`, done);
+  clean(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`, done);
 });
 
 gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {
@@ -36,7 +35,7 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
 
   let numberOfSheetsThatAreTooBig = 0;
 
-  let distSpritesheets = sync(`${DIST_PATH}*.png`);
+  let distSpritesheets = sync(`${IMG_DIST_PATH}*.png`);
 
   each(distSpritesheets, (img, index) => {
     let spriteSize = calculateImgDimensions(img);
@@ -68,18 +67,16 @@ function createSpritesStream (name, src) {
         cssName: `spritesmith-${name}-${index}.css`,
         algorithm: 'binary-tree',
         padding: 1,
-        cssTemplate: 'website/assets/sprites/css/css.template.handlebars',
+        cssTemplate: 'website/raw_sprites/css/css.template.handlebars',
         cssVarMap: cssVarMap,
       }));
 
     let imgStream = spriteData.img
       .pipe(imagemin())
-      .pipe(gulp.dest(IMG_DIST_PATH_NEW_CLIENT))
-      .pipe(gulp.dest(DIST_PATH));
+      .pipe(gulp.dest(IMG_DIST_PATH));
 
     let cssStream = spriteData.css
-      .pipe(gulp.dest(CSS_DIST_PATH_NEW_CLIENT))
-      .pipe(gulp.dest(DIST_PATH));
+      .pipe(gulp.dest(CSS_DIST_PATH));
 
     stream.add(imgStream);
     stream.add(cssStream);

@@ -831,7 +831,8 @@
 
         let countAll = animals.length;
         let countOwned = _filter(animals, (a) => {
-          return a.isOwned();
+          // when counting pets, include those that have been raised into mounts
+          return a.isOwned() || a.mountOwned();
         });
 
         return `${countOwned.length}/${countAll}`;
@@ -909,8 +910,8 @@
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
 
-        this.$root.$emit('hatchedPet::open', pet);
         this.closeHatchPetDialog();
+        this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {

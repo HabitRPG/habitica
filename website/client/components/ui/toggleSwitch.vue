@@ -130,7 +130,7 @@ export default {
   },
   methods: {
     handleChange ({ target: { checked } }) {
-      this.$emit('change', checked ? this.value : this.uncheckedValue);
+      this.$emit('change', checked);
     },
   },
 };

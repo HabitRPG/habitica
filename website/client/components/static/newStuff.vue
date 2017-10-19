@@ -4,55 +4,23 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/2/2017 - SPOOKY SPARKLES, MOBILE UPDATES, AND BUG FIXES
+    h2 10/16/2017 - TASK PAGE UPDATES AND FINAL MASTERCLASSER QUEST LINE
     hr
+    h3 Requested Updates to Task Page
+    p(v-markdown='"We\'re happy to announce that we\'ve pushed some of the most-requested updates from our [feedback form](https://docs.google.com/forms/d/e/1FAIpQLScpeCeoTbmNPotBvEWtAFeVlD6g83KEN_YlwD_GHB4yHJbZww/viewform): the return of quick-add tasks above each column, a more compact header and task page footer, and the ability to refresh the page using the new sync button in the upper-right! Thank you very much to everyone who left us thoughtful comments. We\'re still working on implementing some of the advanced options like push to top/bottom, the ability to batch-add tasks, and manual task attribute allocation, but you\'ll be seeing them soon."')
+    p We know that this has been a disruptive experience for many of you, and we're very sorry about that. This was a much tougher rollout than we anticipated, and we've been so grateful for your patience, your thoughtful feedback, and your supportive messages. Our small team has been working nights and weekends since July to bring you the upgrade and fix the bugs that resulted, but we only have two full-time web developers and a small handful of part-timers, so things don't always move as quickly as we'd like. It's been beyond exhausting, but we are determined to get everything running smoothly again.
+    p The good news is that a large part of this redesign was rewriting the entirety of the front-end code from scratch, so we've managed to completely get rid of the outdated, cobbled-together code that was preventing us from adding new features or quickly fixing bugs. Being trapped between the old and new code was particularly rough for us, because it meant that all our development was frozen and we were cut off from our awesome open-source contributors. Now that we've launched, we're able to actually move forward without being paralyzed by the constraints of the old site. Our new design has also enabled us to build a foundation for features that people have been requesting from the beginning, like batch-buying items, new Group Plan upgrades, quest enhancements, and more. This has been a tough time of transition, but we can't wait to show you everything that we have planned.
+    p(v-markdown='"Thank you again for sticking with us -- and if you have feedback about the redesign, please let us know via our [feedback form](https://docs.google.com/forms/d/e/1FAIpQLScpeCeoTbmNPotBvEWtAFeVlD6g83KEN_YlwD_GHB4yHJbZww/viewform)! We\'ve been reading every single comment that you send in and incorporating your requests into our roadmap going forward. We\'re incredibly lucky to have such passionate users -- you guys mean the world to us."')
+    p Look out for more updates soon!
     .media
       .media-body
-        h3 Spooky Sparkles and Seasonal Shop
-        p(v-markdown='"There\'s a new Gold-purchasable item in the Seasonal Shop: [Spooky Sparkles](/shops/seasonal)! Buy some and then cast it on your friends. I wonder what it will do?"')
-        p If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!
-        p While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.
-        .small by Lemoness and SabreCat
-      .promo_spooky_sparkles
-    h3 Updates to iOS and Android Apps!
-    p(v-markdown='"There are exciting new updates to our [Android](https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica&hl=en) and [iOS](https://itunes.apple.com/us/app/habitica-gamified-task-manager/id994882113?mt=8) apps! In both, we\'ve updated the design of the Shops and your Rewards column. Plus, now you can pin items you want from Shops to your Rewards column! We hope this makes upgrading your avatar and earning Rewards from your tasks even more motivating."')
-    p Android users can also now reset their accounts via the app!
-    p In the iOS app, we've also added improved VoiceOver support for better accessibility. We welcome your feedback on this feature via the in-app "Send Feedback" option.
-    p We hope you enjoy the updates! Be sure to download them now for a better Habitica experience!
-    p If you like the improvements that we’ve been making to our apps, please consider reviewing these new versions. It really helps us out!
-    .small by viirus and piyorii
-    .promo_login_screen.center-block
-    h3 New Post-Update Bug Fixes!
-    p Hello Habiticans! <3 We’ve released a big batch of bug fixes! Many thanks for your patience, and for taking the time to report these bugs. Some changes:
-    ul
-      li Due to concerns about accessibility and usability of the Tasks page, we’ve removed the scrollbars on the different Tasks columns.
-      li Due to concerns about the skills bar being too large, we have released a new, more compact design! It should also now stay minimized once you’ve minimized it before, so that it won’t block your tasks all the time.
-      li Now you no longer need to click “Apply Filters” – they take automatic effect when you check them and uncheck them! The dropdown also closes when you move your mouse away, to further reduce the clicking required.
-      li Clicking “Scheduled” now correctly sorts your To-Dos by date
-      li Creating a task while a filter is selected now defaults to being tagged with that filter!
-      li Your Stables are now correctly configured so that the rows of pets and mounts don’t blend together on smaller screens!
-      li You can now click directly on a Mount to equip it!
-      li We’ve fixed a few bugs that were preventing some people from subscribing or buying gems, but some are remaining. Please be sure to report these in Report a Bug (linked below) and we will help you out ASAP!
-      li You should now be able to remove tasks when you leave a Challenge!
-      li You can edit Challenge Tags again!
-      li We’ve fixed the confusing placement of the “Send” buttons in chat
-      li We’ve fixed some style issues that were causing the Quests to occasionally look strange
-      li When you edit a Guild, it will default to you as the leader
-      li The "Members" label is now called the "Member list" to help clarify that you can click it to see all the members of a Party, Guild, or Challenge!
-      li If you have a pending quest, you can now see which members have accepted before you start your quest.
-      li When you complete a quest, the final reward popups are appearing again!
-      li You can now edit Parties normally!
-      li You can now correctly allocate your Stat points without needing to refresh the page!
-      li If you opted out of choosing a class, it will no longer give you an unnecessary warning about costing 3 Gems.
-      li You can no longer accidentally block yourself from your profile.
-      li Mystic Hourglasses now only show in the header if you have more than one. (Thanks for subscribing!)
-      li Markdown works in Challenge titles again!
-      li You can now Clone Challenges again!
-      li The Bailey news loads on the mobile apps again!
-      li The red User ID notifications in the corner should be gone!
-      li(v-markdown='"Chat performance should be better. (We’re still investigating to make it even better, so please let us know in the [Report a Bug Guild](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) if chat lag is still happening to you!)"')
-    p(v-markdown='"Refresh the page to enjoy these fixes! If you’re still having trouble with them after refreshing the page, please let us know in the [Report a Bug Guild](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) and we will investigate :) If you have feedback about the update that is not related to bugs or immediate accessibility issues, we’re opening a public Trello card for these comments on October 5!"')
-    p Thanks for being such a great community! It means a lot to us <3
+        h3 Mystery of the Masterclassers Quest Line
+        p(v-markdown='"There\'s a new set of gold-purchasable quests available in the [Quest Shop](https://habitica.com/shops/quests): the Mystery of the Masterclassers Quest-Line! After some of Habitica\'s denizens are possessed by mysterious and malevolent objects, the four Masterclassers have come to you for aid in their quest to find and defeat the enigmatic foe behind these dire deeds. Can you help them save Habitica? If you can defeat the most powerful foe in the game so far, you\'ll earn the exclusive Aether Equipment Set... and a rare Mount like none other."')
+      .quest_lostMasterclasser4.left-margin
+    p The Mystery of the Masterclassers is the culmination of the story told in the gold-purchasable quests, so you need to complete all four of those previous quest-lines in order to unlock it. None of the gold-purchasable questlines are limited-edition, so you have plenty of time to save up!
+    .small by SabreCat, Beffymaroo, and Lemoness
+    .small Writing by Lemoness
+    .small Art by AnnDeLune, Beffymaroo, Katy133, Tuqjoi, Kiwibot, stefalupagus, and tricksy.fox
     br
 </template>
 
@@ -62,13 +30,17 @@
     margin: 0 auto 1em auto;
   }
 
+  .left-margin {
+    margin-left: 1em;
+  }
+
   .right-margin {
     margin-right: 1em;
   }
 
-  .small {
+  /* .small {
     margin-bottom: 1em;
-  }
+  } */
 </style>
 
 <script>

@@ -28,6 +28,7 @@
   "phoenix": "Phoenix",
   "magicalBee": "Magical Bee",
   "royalPurpleJackalope": "Royal Purple Jackalope",
+  "invisibleAether": "Invisible Aether",
   "rarePetPop1": "Click the gold paw to learn more about how you can obtain this rare pet through contributing to Habitica!",
   "rarePetPop2": "How to Get this Pet!",
   "potion": "<%= potionType %> Potion",

@@ -290,11 +290,11 @@
     "singUpForFree": "Cadastre-se De Graça",
     "or": "OU",
     "gamifyYourLife": "Gamifique Sua Vida",
-    "aboutHabitica": "Habitica is a free habit-building and productivity app that treats your real life like a game. With in-game rewards and punishments to motivate you and a strong social network to inspire you, Habitica can help you achieve your goals to become healthy, hard-working, and happy.",
+    "aboutHabitica": "Habitica é um aplicativo gratuito de desenvolvimento de hábitos e produtividade que trata sua vida real como um jogo. Com recompensas e punições no jogo para motivar você e junto com uma forte rede social que serve de inspiração, o Habitica pode ajudar no alcance de seus objetivos para torna-se uma pessoa saudável, dedicada e feliz.",
     "trackYourGoals": "Acompanhe Seus Hábitos e Objetivos",
-    "trackYourGoalsDesc": "Stay accountable by tracking and managing your Habits, Daily goals, and To-Do list with Habitica’s easy-to-use mobile apps and web interface.",
+    "trackYourGoalsDesc": "Mantenha-se responsável através do acompanhamento e gerenciamento de seus Hábitos, objetivos Diários e lista de Afazeres nos aplicativos móveis e no site, fáceis de usar.",
     "earnRewards": "Ganhe Recompensas por Suas Metas",
-    "earnRewardsDesc": "Check off tasks to level up your Avatar and unlock in-game features such as battle armor, mysterious pets, magic skills, and even quests!",
+    "earnRewardsDesc": "Marque suas tarefas para aumentar o nível de seu Avatar e desbloqueie recursos como equipamento de batalha, mascotes misteriosos, habilidades mágicas e até missões!",
     "battleMonsters": "Enfrente Monstros Junto com Seus Amigos",
     "battleMonstersDesc": "Enfrente monstros com outros Habiticanos! Use o Ouro obtido para adquirir recompensas do jogo ou customizáveis, como assistir um episódio do seu programa favorito.",
     "playersUseToImprove": "Jogadores Usam Habitica para Melhorar",
@@ -311,5 +311,6 @@
     "signup": "Registre-se",
     "getStarted": "Comece Já",
     "mobileApps": "Aplicativos Móveis",
-    "learnMore": "Aprenda Mais"
+    "learnMore": "Aprenda Mais",
+    "useMobileApps": "O Habitica não é otimizado para navegadores de dispositivos móveis. Recomendamos o download de nosso aplicativo móvel."
 }

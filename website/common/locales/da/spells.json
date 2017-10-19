@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Fagredskaber",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Snigen",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal daglige opgave undgået: <%= number %>",
     "spellRogueStealthMaxedOut": "Du har allerede undgået alle dine daglige opgaver; der er ingen grund til at kaste denne igen.",
     "spellHealerHealText": "Helende Lys",

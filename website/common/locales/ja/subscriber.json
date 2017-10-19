@@ -177,10 +177,10 @@
     "earnGemsMonthly": "Earn up to **<%= cap %> Gems** per month",
     "receiveMysticHourglass": "Receive a Mystic Hourglass!",
     "receiveMysticHourglasses": "Receive **<%= amount %> Mystic Hourglasses**!",
-    "everyMonth": "Every Month",
+    "everyMonth": "毎月",
     "everyXMonths": "Every <%= interval %> Months",
-    "everyYear": "Every Year",
-    "choosePaymentMethod": "Choose your payment method",
+    "everyYear": "毎年",
+    "choosePaymentMethod": "お支払い方法を選択してください",
     "subscribeSupportsDevs": "Subscribing supports the developers and helps keep Habitica running",
     "buyGemsSupportsDevs": "Purchasing Gems supports the developers and helps keep Habitica running",
     "support": "SUPPORT",
@@ -197,7 +197,9 @@
     "subscriptionBenefit5": "Receive the exclusive Royal Purple Jackalope pet!",
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
     "haveCouponCode": "Do you have a coupon code?",
-    "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
+    "subscriptionAlreadySubscribedLeadIn": "寄付に感謝します！",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining"
 }

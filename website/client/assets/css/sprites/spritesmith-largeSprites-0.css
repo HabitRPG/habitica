@@ -1,12 +1,18 @@
-.promo_login_screen {
+.promo_bundle_witchyFamiliars {
+  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
+  background-position: -142px 0px;
+  width: 141px;
+  height: 441px;
+}
+.promo_fall_customizations {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: 0px 0px;
-  width: 524px;
-  height: 274px;
+  width: 141px;
+  height: 588px;
 }
-.promo_spooky_sparkles {
+.scene_raking_leaves {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: 0px -275px;
-  width: 140px;
-  height: 294px;
+  background-position: -284px 0px;
+  width: 246px;
+  height: 198px;
 }

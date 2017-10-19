@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Nástroje k obchodování",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Plížení",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denních úkolů, kterým ses vyhnul: <%= number %>.",
     "spellRogueStealthMaxedOut": "Už ses vyhnul všem svým denním úkolům, takže není důvod tuto schopnost používat znovu.",
     "spellHealerHealText": "Léčivé světlo",

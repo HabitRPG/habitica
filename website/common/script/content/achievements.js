@@ -125,6 +125,11 @@ let basicAchievs = {
     titleKey: 'invitedFriend',
     textKey: 'invitedFriendText',
   },
+  lostMasterclasser: {
+    icon: 'achievement-lostMasterclasser',
+    titleKey: 'achievementLostMasterclasser',
+    textKey: 'achievementLostMasterclasserText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

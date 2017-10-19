@@ -103,7 +103,6 @@ let schema = new Schema({
     perfect: {type: Number, default: 0},
     habitBirthdays: Number,
     valentine: Number,
-    costumeContest: Boolean, // Superseded by costumeContests
     nye: Number,
     habiticaDays: Number,
     greeting: Number,
@@ -119,6 +118,7 @@ let schema = new Schema({
     joinedGuild: Boolean,
     joinedChallenge: Boolean,
     invitedFriend: Boolean,
+    lostMasterclasser: Boolean,
   },
 
   backer: {

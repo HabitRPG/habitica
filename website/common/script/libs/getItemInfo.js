@@ -9,6 +9,7 @@ import getOfficialPinnedItems from './getOfficialPinnedItems';
 import _mapValues from 'lodash/mapValues';
 
 function lockQuest (quest, user) {
+  if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
   if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
@@ -132,6 +133,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         value: item.goldValue ? item.goldValue : item.value,
         currency: item.goldValue ? 'gold' : 'gems',
         locked,
+        previous: content.quests[item.previous] ? content.quests[item.previous].text(language) : null,
         unlockCondition: item.unlockCondition,
         drop: item.drop,
         boss: item.boss,
@@ -273,7 +275,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       itemInfo = {
         key: 'gem',
         purchaseType: 'gems',
-        class: 'gem',
+        class: 'shop_gem',
         text: i18n.t('subGemName'),
         notes: i18n.t('subGemPop'),
         value: 20,
