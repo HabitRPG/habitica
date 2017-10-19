@@ -1,10 +1,14 @@
-.daily-todo-control {
+.left-control {
   &:hover {
-    .svg-icon.check {
-      display: block;
+    .daily-todo-control {
+      .svg-icon.check {
+        display: block !important;
+      }
     }
   }
+}
 
+.daily-todo-control {
   .svg-icon.check {
     display: none;
 
@@ -15,6 +19,12 @@
 }
 
 .task {
+  &-control {
+    transition-duration: 0.15s;
+    transition-property: background;
+    transition-timing-function: ease-in;
+  }
+
   // for editing rewards or when a task is created
   &-purple {
     background: $purple-300;
@@ -26,30 +36,27 @@
     &-control-habit {
       background: $purple-300;
     }
-
-    &-modal-input {
-      color: $header-color !important;
-    }
   }
 
   &-worst {
     background: $maroon-100;
 
     &-color {
-      color: darken($maroon-100, 12%);
+      color: darken($maroon-100, 24%);
     }
 
-    &-control-habit {
-      background: darken($maroon-100, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: rgba($black, 0.24);
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
 
     &-control-daily-todo {
-      background: $maroon-500;
       color: $maroon-100;
-    }
-
-    &-modal-input {
-      color: $maroon-500 !important;
     }
   }
 
@@ -57,20 +64,21 @@
     background: $red-100;
 
     &-color {
-      color: darken($red-100, 12%);
+      color: darken($red-100, 24%);
     }
 
-    &-control-habit {
-      background: darken($red-100, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: rgba($black, 0.24);
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
 
     &-control-daily-todo {
-      background: $red-500;
       color: $red-100;
-    }
-
-    &-modal-input {
-      color: $red-500 !important;
     }
   }
 
@@ -78,20 +86,22 @@
     background: $orange-100;
 
     &-color {
-      color: darken($orange-100, 12%);
+      color: darken($orange-100, 24%);
     }
 
-    &-control-habit {
-      background: darken($orange-100, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: $orange-10;
     }
+
+    &:hover {
+      .task-control {
+        background: #b75a1c; // not in the palette or derived by other colors
+      }
+    }
+
 
     &-control-daily-todo {
-      background: $orange-500;
       color: $orange-100;
-    }
-
-    &-modal-input {
-      color: $orange-500 !important;
     }
   }
 
@@ -99,20 +109,21 @@
     background: $yellow-100;
 
     &-color {
-      color: darken($yellow-100, 12%);
+      color: darken($yellow-100, 24%);
     }
 
-    &-control-habit {
-      background: darken($yellow-100, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: $yellow-10;
+    }
+
+    &:hover {
+      .task-control {
+        background: #bf7d1a; // not in the palette or derived by other colors
+      }
     }
 
     &-control-daily-todo {
-      background: $yellow-500;
       color: $yellow-100;
-    }
-
-    &-modal-input {
-      color: $yellow-500 !important;
     }
   }
 
@@ -120,41 +131,43 @@
     background: $green-10;
 
     &-color {
-      color: darken($green-10, 12%);
+      color: darken($green-10, 24%);
     }
 
-    &-control-habit {
-      background: darken($green-10, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: rgba($black, 0.24);
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
 
     &-control-daily-todo {
-      background: $green-500;
       color: $green-10;
-    }
-
-    &-modal-input {
-      color: $green-500 !important;
     }
   }
 
   &-better {
-    background: $blue-50;
+    background: $blue-100;
 
     &-color {
-      color: darken($blue-50, 12%);
+      color: darken($blue-100, 24%);
     }
 
-    &-control-habit {
-      background: darken($blue-50, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: rgba($black, 0.24);
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
 
     &-control-daily-todo {
-      background: $blue-500;
-      color: $blue-50;
-    }
-
-    &-modal-input {
-      color: $blue-500 !important;
+      color: $blue-100;
     }
   }
 
@@ -162,20 +175,21 @@
     background: $teal-50;
 
     &-color {
-      color: darken($teal-50, 12%);
+      color: darken($teal-50, 24%);
     }
 
-    &-control-habit {
-      background: darken($teal-50, 12%);
+    &-control-habit, &-control-daily-todo {
+      background: rgba($black, 0.24);
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
 
     &-control-daily-todo {
-      background: $teal-500;
       color: $teal-50;
-    }
-
-    &-modal-input {
-      color: $teal-500 !important;
     }
   }
 
@@ -189,6 +203,12 @@
     &-control-daily-todo {
       background: rgba($black, 0.24);
       color: $white;
+    }
+
+    &:hover {
+      .task-control {
+        background: rgba($black, 0.48);
+      }
     }
   }
 
