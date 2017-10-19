@@ -54,6 +54,8 @@
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
           strong(v-if='gemsLeft === 0') {{ $t('maxBuyGems') }}
 
+        div(v-if='attemptingToPurchaseMoreGemsThanAreLeft')
+          | {{$t('notEnoughGemsToBuy')}}
 
         button.btn.btn-primary(
           @click="purchaseGems()",
@@ -63,7 +65,7 @@
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :disabled='item.key === "gem" && gemsLeft === 0',
+          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft',
           :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
         ) {{ $t('buyNow') }}
 
@@ -330,6 +332,10 @@
       gemsLeft () {
         if (!this.user.purchased.plan) return 0;
         return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+      },
+      attemptingToPurchaseMoreGemsThanAreLeft () {
+        if (this.selectedAmountToBuy > this.gemsLeft) return true;
+        return false;
       },
     },
     watch: {
