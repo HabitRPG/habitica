@@ -412,7 +412,6 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
-      console.log(this.levelBeforeYesterdailies, this.user.stats.lvl)
       if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
@@ -421,8 +420,7 @@ export default {
       this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
-      if (!this.user.groupNotifications) this.user.groupNotifications = [];
-      this.user.groupNotifications.push(notification);
+      this.$store.state.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
@@ -430,7 +428,7 @@ export default {
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.user.groupNotifications = []; // Flush group notifictions
+      this.$store.state.groupNotifications = []; // Flush group notifictions
 
       after.forEach((notification) => {
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
