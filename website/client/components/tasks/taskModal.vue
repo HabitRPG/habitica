@@ -9,10 +9,10 @@
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus, spellcheck='true')
+          input.form-control.title-input(type='text',required, v-model="task.text", autofocus, spellcheck='true')
         .form-group
           label(v-once) {{ $t('notes') }}
-          textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
+          textarea.form-control(v-model="task.notes", rows="3")
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
@@ -181,9 +181,11 @@
     input, textarea {
       border: none;
       background-color: rgba(0, 0, 0, 0.16);
+      opacity: 0.64;
+      color: $white !important;
 
       &:focus {
-        color: $white !important;
+        opacity: 1;
       }
     }
 
