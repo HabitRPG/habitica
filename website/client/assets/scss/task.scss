@@ -1,14 +1,10 @@
-.left-control {
+.daily-todo-control {
   &:hover {
-    .daily-todo-control {
-      .svg-icon.check {
-        display: block !important;
-      }
+    .svg-icon.check {
+      display: block;
     }
   }
-}
 
-.daily-todo-control {
   .svg-icon.check {
     display: none;
 
@@ -47,10 +43,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: rgba($black, 0.24);
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
@@ -69,10 +63,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: rgba($black, 0.24);
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
@@ -91,14 +83,11 @@
 
     &-control-habit, &-control-daily-todo {
       background: $orange-10;
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: #b75a1c; // not in the palette or derived by other colors
       }
     }
-
 
     &-control-daily-todo {
       color: $orange-100;
@@ -114,10 +103,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: $yellow-10;
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: #bf7d1a; // not in the palette or derived by other colors
       }
     }
@@ -136,10 +123,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: rgba($black, 0.24);
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
@@ -158,10 +143,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: rgba($black, 0.24);
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
@@ -180,10 +163,8 @@
 
     &-control-habit, &-control-daily-todo {
       background: rgba($black, 0.24);
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
@@ -203,10 +184,8 @@
     &-control-daily-todo {
       background: rgba($black, 0.24);
       color: $white;
-    }
 
-    &:hover {
-      .task-control {
+      &:hover {
         background: rgba($black, 0.48);
       }
     }
