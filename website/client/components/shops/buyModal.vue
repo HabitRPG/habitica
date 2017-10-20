@@ -41,7 +41,7 @@
             :item="item"
           )
 
-        div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}")
+        div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
           div(v-if='item.purchaseType !== "gear"')
             b.how-many-to-buy {{ $t('howManyToBuy') }}
           div(v-if='item.purchaseType !== "gear"')
@@ -59,14 +59,14 @@
 
         button.btn.btn-primary(
           @click="purchaseGems()",
-          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value)"
+          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
         ) {{ $t('purchaseGems') }}
 
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
           :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft',
-          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
+          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
     div.limitedTime(v-if="item.event")
@@ -334,7 +334,7 @@
         return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
       },
       attemptingToPurchaseMoreGemsThanAreLeft () {
-        if (this.selectedAmountToBuy > this.gemsLeft) return true;
+        if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
         return false;
       },
     },
