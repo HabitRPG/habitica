@@ -213,6 +213,15 @@ export default {
         }
       }
 
+      // Verify the client is updated
+      const serverAppVersion = response.data.appVersion;
+      let serverAppVersionState = this.$store.state.serverAppVersion;
+      if (isApiCall && !serverAppVersionState) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
+        location.reload();
+      }
+
       return response;
     });
 
