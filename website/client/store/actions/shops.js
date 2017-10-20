@@ -92,7 +92,7 @@ export async function genericPurchase (store, params) {
         }
 
         // @TODO: We might need to abstract notifications to library rather than mixin
-        store.state.notificationStore.push({
+        store.dispatch('snackbars:add', {
           title: '',
           text: isExperience ? item.value : item.dropText,
           type: isExperience ? 'xp' : 'drop',
