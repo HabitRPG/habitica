@@ -19,19 +19,20 @@
         questDialogContent(:item="item")
 
         div
+          .box
+            input(type='number', min='0', v-model='selectedAmountToBuy')
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
         button.btn.btn-primary(
           @click="purchaseGems()",
-          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value)"
+          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)"
         ) {{ $t('purchaseGems') }}
-
 
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :class="{'notEnough': !this.enoughCurrency(priceType, item.value)}"
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
@@ -167,6 +168,21 @@
       pointer-events: none;
       opacity: 0.55;
     }
+
+    .box {
+      display: inline-block;
+      width: 74px;
+      height: 40px;
+      border-radius: 2px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      margin-right: .5em;
+
+      input {
+        width: 100%;
+        border: none;
+      }
+    }
   }
 </style>
 
@@ -210,6 +226,7 @@
         }),
 
         isPinned: false,
+        selectedAmountToBuy: 1,
       };
     },
     watch: {
@@ -238,10 +255,11 @@
     },
     methods: {
       onChange ($event) {
+        this.selectedAmountToBuy = 1;
         this.$emit('change', $event);
       },
       buyItem () {
-        this.makeGenericPurchase(this.item, 'buyQuestModal');
+        this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);
         this.purchased(this.item.text);
         this.hideDialog();
       },
