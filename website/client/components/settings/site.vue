@@ -280,7 +280,7 @@ export default {
       } else {
         settings[`preferences.${preferenceType}.${subtype}`] = this.user.preferences[preferenceType][subtype];
       }
-      this.$store.dispatch('user:set', settings);
+      return this.$store.dispatch('user:set', settings);
     },
     hideHeader () {
       this.set('hideHeader');
@@ -338,10 +338,10 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage (e) {
+    async changeLanguage (e) {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
-      this.set('language');
+      await this.set('language');
       window.location.href = '/';
     },
     async changeUser (attribute, updates) {

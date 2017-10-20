@@ -3,16 +3,17 @@
     .row
       .col-md-6.offset-3
         h1 {{ $t('merch') }}
-        // @TODO: how do we use static images here?
+        // @TODO: Visual experience: Separate each merch items with new line? Or to show items in a table?
         .col-lg-6.col-md-6.col-sm-12(v-for="(merchant, index) in merchants")
           .merch-block
-            img(v-if='merchant.logo' :src="`~assets/images/merch/${merchant.key}-logo.png`")
+            img(v-if='merchant.logo' :src="`/static/merch/${merchant.key}-logo.png`")
             h2(v-else) {{ merchant.name }}
             div
               a(:href="merchant.link" target='_blank')
-                img.img-rendering-auto(:src="`~assets/images/merch/${merchant.key}.png`")
+                img.img-rendering-auto(:src="`/static/merch/${merchant.key}.png`")
             p {{ $t('merch-' + merchant.key + '-summary') }}
             a.btn.btn-primary(:href="merchant.link" target='_blank') {{$t('merch-' + merchant.key + '-goto')}}
+			
 </template>
 
 <script>

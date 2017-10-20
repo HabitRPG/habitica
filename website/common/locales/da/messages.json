@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
     "messageUserOperationNotFound": "Funktionen <%= operation %> blev ikke fundet.",
     "messageNotificationNotFound": "Notifikation ikke fundet.",
-    "notificationsRequired": "Notafikation ID'er er krævet."
+    "notificationsRequired": "Notafikation ID'er er krævet.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

@@ -145,7 +145,9 @@ export default {
 
     // @TODO split up this file, it's too big
 
-    loadProgressBar();
+    loadProgressBar({
+      showSpinner: false,
+    });
 
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
@@ -170,7 +172,7 @@ export default {
           return Promise.resolve(error);
         }
 
-        this.$store.state.notificationStore.push({
+        this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: error.response.data.message,
           type: 'error',

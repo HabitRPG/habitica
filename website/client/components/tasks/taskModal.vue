@@ -8,8 +8,8 @@
             span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
-          label(v-once) {{ `${$t('title')}*` }}
-          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
+          label(v-once) {{ `${$t('text')}*` }}
+          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus, spellcheck='true')
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -527,7 +527,8 @@ export default {
   directives: {
     sortable,
   },
-  props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
+  // purpose is either create or edit, task is the task created or edited
+  props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
       maxTags: 3,

@@ -82,7 +82,7 @@
     "otherExtensions": "<a target='blank' href='http://habitica.wikia.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Other Extensions</a>",
     "otherDesc": "Find other apps, extensions, and tools on the Habitica wiki.",
     "resetDo": "Csináld, indítsd újra a fiókomat!",
-    "resetComplete": "Reset complete!",
+    "resetComplete": "Visszaállítás kész.",
     "fixValues": "Értékek helyreállítása",
     "fixValuesText1": "Ha egy hibával találkoztál, vagy te magad hibáztál, ami igazságtalanul megváltoztatta a karaktered értékeit (sebzés, amit nem kellett volna elszenvedned, arany, amiért nem dolgoztál meg, stb.), akkor a számokat kijavíthatod itt. Igen, ezzel csalhatsz is: használd ezt a funkciót bölcsen, különben szabotálod a saját fejlődésed.",
     "fixValuesText2": "Tudd, hogy itt nem tudod visszaállítani a feladatok szériáit. Hogy ezt megtedd, lépj be az adott napi feladatba, menj a haladó beállításokra, ahol megtalálod a széria visszaállítása mezőt.",
@@ -185,5 +185,5 @@
     "timezoneUTC": "A Habitica a számítógépeden beállított időzónát használja, ami a következő: <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "Push",
-    "about": "About"
+    "about": "Névjegy"
 }

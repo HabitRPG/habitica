@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Herramientas del Oficio",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Sigilo",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero de diarias evitadas: <%= number %>.",
     "spellRogueStealthMaxedOut": "Ya haz evitado todas tus tareas diaria; no hay necesidad de conjurar esto denuevo.",
     "spellHealerHealText": "Luz Curativa",

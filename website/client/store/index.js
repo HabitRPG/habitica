@@ -135,6 +135,7 @@ export default function () {
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       groupPlans: [],
+      groupNotifications: [],
     },
   });
 

@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "社交手段",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "潛行",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> 避免的每日任務：<%= number %>.",
     "spellRogueStealthMaxedOut": "你已經避免了你的每日任務，沒有必要再施放這個法術。",
     "spellHealerHealText": "治療之光",

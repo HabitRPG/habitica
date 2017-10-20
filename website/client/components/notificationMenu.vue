@@ -42,28 +42,23 @@ div.item-with-icon.item-notifications.dropdown
         span {{message.name}}
       span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
         popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
-    a.dropdown-item(v-for='(notification, index) in user.groupNotifications', @click='viewGroupApprovalNotification(notification, index, true)')
+    a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
       span(:class="groupApprovalNotificationIcon(notification)")
-      span
-        | {{notification.data.message}}
-      a.dropdown-item(@click='viewGroupApprovalNotification(notification, $index)',
-        :popover="$t('clear')",
-        popover-placement='right',
-        popover-trigger='mouseenter',
-        popover-append-to-body='true')
-        span.glyphicon.glyphicon-remove-circle
+      span {{notification.data.message}}
+      span.clear-button(@click='viewGroupApprovalNotification(notification)', :popover="$t('clear')",
+        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
 </template>
 
 <style lang='scss' scoped>
   @import '~client/assets/scss/colors.scss';
 
   .message-count {
-    background-color: #46a7d9;
+    background-color: $blue-50;
     border-radius: 50%;
     height: 20px;
     width: 20px;
     float: right;
-    color: #fff;
+    color: $white;
     text-align: center;
     font-weight: bold;
     font-size: 12px;
@@ -74,6 +69,7 @@ div.item-with-icon.item-notifications.dropdown
     right: -.5em;
     top: .5em;
     padding: .2em;
+    background-color: $red-50;
   }
 
   .clear-button {
@@ -89,6 +85,7 @@ div.item-with-icon.item-notifications.dropdown
   }
 
   .notifications {
+    color: $header-color;
     vertical-align: bottom;
     display: inline-block;
     width: 20px;
@@ -98,9 +95,15 @@ div.item-with-icon.item-notifications.dropdown
     margin-top: .2em;
   }
 
+  .item-with-icon:hover {
+    .svg-icon {
+      color: $white;
+    }
+  }
+
   .user-dropdown {
     max-height: 350px;
-    overflow: scroll;
+    overflow: auto;
   }
 
   /* @TODO: Move to shared css */
@@ -151,6 +154,7 @@ div.item-with-icon.item-notifications.dropdown
 </style>
 
 <script>
+import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 
@@ -186,6 +190,9 @@ export default {
       }
       return userNewMessages;
     },
+    groupNotifications () {
+      return this.$store.state.groupNotifications;
+    },
     notificationsCount () {
       let count = 0;
 
@@ -209,6 +216,8 @@ export default {
         count += Object.keys(this.userNewMessages).length;
       }
 
+      count += this.groupNotifications.length;
+
       return count;
     },
   },
@@ -228,8 +237,8 @@ export default {
         return unallocatedValue;
       } else if (!isEmpty(user.newMessages)) {
         return messageValue;
-      } else if (!isEmpty(user.groupNotifications)) {
-        let groupNotificationTypes = map(user.groupNotifications, 'type');
+      } else if (!isEmpty(this.groupNotifications)) {
+        let groupNotificationTypes = map(this.groupNotifications, 'type');
         if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
           return groupApprovalRequested;
         } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
@@ -295,11 +304,14 @@ export default {
     hasNoNotifications () {
       return this.selectNotificationValue(false, false, false, false, false, true, false, false);
     },
-    viewGroupApprovalNotification (notification, index, navigate) {
-      // @TODO: USe notifications: User.readNotification(notification.id);
-      this.user.groupNotifications.splice(index, 1);
-      return navigate; // @TODO: remove
-      // @TODO: this.$router.go if (navigate) go('options.social.guilds.detail', {gid: notification.data.groupId});
+    viewGroupApprovalNotification (notification) {
+      this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
+        return groupNotif.id !== notification.id;
+      });
+
+      axios.post('/api/v3/notifications/read', {
+        notificationIds: [notification.id],
+      });
     },
     groupApprovalNotificationIcon (notification) {
       if (notification.type === 'GROUP_TASK_APPROVAL') {
