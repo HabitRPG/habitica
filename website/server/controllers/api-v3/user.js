@@ -977,6 +977,7 @@ api.buyArmoire = {
   async handler (req, res) {
     let user = res.locals.user;
     req.type = 'armoire';
+    req.params.key = 'armoire';
     let buyArmoireResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
@@ -1016,6 +1017,7 @@ api.buyHealthPotion = {
   async handler (req, res) {
     let user = res.locals.user;
     req.type = 'potion';
+    req.params.key = 'potion';
     let buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
