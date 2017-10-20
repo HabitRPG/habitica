@@ -885,7 +885,8 @@ api.buy = {
     if (req.body.type) req.type = req.body.type;
 
     let quantity = 1;
-    if (req.body.quantity) req.quantity = req.body.quantity;
+    if (req.body.quantity) quantity = req.body.quantity;
+    req.quantity = quantity;
 
     buyRes = common.ops.buy(user, req, res.analytics);
 
@@ -1353,7 +1354,8 @@ api.purchase = {
 
     // Req is currently used as options. Slighly confusing, but this will solve that for now.
     let quantity = 1;
-    if (req.body.quantity) req.quantity = req.body.quantity;
+    if (req.body.quantity) quantity = req.body.quantity;
+    req.quantity = quantity;
 
     let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
     await user.save();

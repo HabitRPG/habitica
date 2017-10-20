@@ -67,7 +67,7 @@ describe('shared.ops.buy', () => {
 
     buy(user, {
       params: {
-        key: '301404'
+        key: '301404',
       },
       type: 'mystery',
     });
@@ -118,7 +118,7 @@ describe('shared.ops.buy', () => {
 
   it('allows for bulk purchases', () => {
     user.stats.hp = 30;
-    buy(user, {params: {key: 'potion'}, 'quantity': 2});
+    buy(user, {params: {key: 'potion'}, quantity: 2});
     expect(user.stats.hp).to.eql(50);
   });
 });
