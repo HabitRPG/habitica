@@ -14,7 +14,7 @@ transition(name="fade")
       .text.col-7.offset-1
         div
           | {{message}}
-      .icon.col-4
+      .icon.col-4.d-flex.align-items-center
         div.svg-icon(v-html="icons.health", v-if='notification.type === "hp"')
         div.svg-icon(v-html="icons.gold", v-if='notification.type === "gp"')
         div.svg-icon(v-html="icons.star", v-if='notification.type === "xp"')
@@ -24,10 +24,10 @@ transition(name="fade")
       .text.col-12
         div(v-html='notification.text')
     .row(v-if='notification.type === "drop"')
-      .col-2
+      .col-3
         .icon-item
           div(:class='notification.icon')
-      .text.col-9
+      .text.col-8
         div(v-html='notification.text')
 </template>
 
@@ -147,6 +147,9 @@ export default {
   },
   computed: {
     message () {
+      if (this.notification.flavorMessage) {
+        return this.notification.flavorMessage;
+      }
       let localeKey = this.negative === 'negative' ? 'lost' : 'gained';
       if (this.notification.type === 'hp') localeKey += 'Health';
       if (this.notification.type === 'mp') localeKey += 'Mana';
