@@ -285,7 +285,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
             .gem-amount
               .svg-icon.gem(v-html='icons.gem')
-              span 5
+              span 15
             button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
