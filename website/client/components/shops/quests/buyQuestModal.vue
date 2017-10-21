@@ -55,9 +55,12 @@
   #buy-quest-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      margin-top: 25em;
+    }
+
     .content {
       text-align: center;
-      max-height: 80vh;
       overflow-y: scroll;
     }
 
