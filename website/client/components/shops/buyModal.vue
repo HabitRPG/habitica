@@ -41,9 +41,9 @@
             :item="item"
           )
 
-        div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          div(v-if='item.purchaseType !== "gear"')
-            b.how-many-to-buy {{ $t('howManyToBuy') }}
+        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
+          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+            strong {{ $t('howManyToBuy') }}
           div(v-if='item.purchaseType !== "gear"')
             .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
@@ -108,18 +108,26 @@
       width: 282px;
     }
 
-    .box {
-      display: inline-block;
-      width: 74px;
-      height: 40px;
-      border-radius: 2px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      margin-right: .5em;
+    .purchase-amount {
+      margin-top: 24px;
 
-      input {
-        width: 100%;
-        border: none;
+      .how-many-to-buy {
+        margin-bottom: 16px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 74px;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-right: 24px;
+
+        input {
+          width: 100%;
+          border: none;
+        }
       }
     }
 

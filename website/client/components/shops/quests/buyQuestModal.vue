@@ -18,7 +18,9 @@
       div.inner-content
         questDialogContent(:item="item")
 
-        div
+        .purchase-amount
+          .how-many-to-buy
+            strong {{ $t('howManyToBuy') }}
           .box
             input(type='number', min='0', v-model='selectedAmountToBuy')
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
@@ -169,18 +171,26 @@
       opacity: 0.55;
     }
 
-    .box {
-      display: inline-block;
-      width: 74px;
-      height: 40px;
-      border-radius: 2px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-      margin-right: .5em;
+    .purchase-amount {
+      margin-top: 24px;
 
-      input {
-        width: 100%;
-        border: none;
+      .how-many-to-buy {
+        margin-bottom: 16px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 74px;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-right: 24px;
+
+        input {
+          width: 100%;
+          border: none;
+        }
       }
     }
   }
