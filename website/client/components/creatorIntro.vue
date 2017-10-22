@@ -555,8 +555,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     padding: .5em;
     height: 90px;
     width: 90px;
-    margin-bottom: .5em;
-    margin-right: .5em;
+    margin: 1em .5em 0 0;
+    border: 4px solid $white;
+    border-radius: 4px;
 
     .sprite.customize-option {
       margin: 0 auto;
@@ -588,9 +589,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   .option.active {
-    border: 4px solid $purple-200;
-    border-radius: 4px;
-    margin-top: 1em;
+    border-color: $purple-200;
   }
 
   .option:hover {
