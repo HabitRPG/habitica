@@ -421,8 +421,15 @@ export default {
       return moment().diff(this.task.date, 'days') >= 0;
     },
     dueIn () {
-      const dueIn = moment().to(this.task.date);
-      return this.$t('dueIn', {dueIn});
+      const endOfToday = moment().endOf('day');
+      const endOfDueDate = moment(this.task.date).endOf('day');
+      const dueInDays = moment.duration(endOfDueDate.diff(endOfToday));
+
+      const dueIn = dueInDays.asDays() === 0 ?
+        this.$t('today') :
+        dueInDays.humanize(true);
+
+      return this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
