@@ -215,11 +215,16 @@ export default {
 
       // Verify the client is updated
       const serverAppVersion = response.data.appVersion;
-      let serverAppVersionState = this.$store.state.serverAppVersion;
+      let serverAppVersionState = this.$store.state.serverAppVersion;console.log(serverAppVersionState)
+      let deniedUpdate = this.$store.state.deniedUpdate;
       if (isApiCall && !serverAppVersionState) {
         this.$store.state.serverAppVersion = serverAppVersion;
-      } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-        location.reload(true);
+      } else if (isApiCall && serverAppVersionState !== serverAppVersion && !deniedUpdate) {
+        if (confirm(this.$t('habiticaHasUpdated'))) {
+          location.reload(true);
+        } else {
+          this.$store.state.deniedUpdate = true;
+        }
       }
 
       return response;
