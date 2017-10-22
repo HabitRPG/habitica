@@ -86,15 +86,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             span 5
           button.btn.btn-secondary.purchase-all(@click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
-      .row.sub-menu.text-center
-        .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
+      .row.col-12.sub-menu.text-center
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
           strong(v-once) {{$t('color')}}
-        .col-4.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
           strong(v-once) {{$t('bangs')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("ponytail")', :class='{active: activeSubPage === "ponytail"}')
-          strong(v-once) {{$t('ponytail')}}
-      .row.sub-menu.text-center
-        .col-3.offset-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
           strong(v-once) {{$t('style')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
             strong(v-once) {{$t('facialhair')}}
@@ -141,14 +138,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               .svg-icon.gem(v-html='icons.gem')
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
-      #bangs.row(v-if='activeSubPage === "bangs"')
-        .col-12.customize-options
-          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
-            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(v-for='option in ["1", "2", "3", "4"]',
-            :class='{active: user.preferences.hair.bangs === option}')
-            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
-      #base-hair.row(v-if='activeSubPage === "ponytail"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair1',
@@ -166,6 +155,13 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               .svg-icon.gem(v-html='icons.gem')
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+      #bangs.row(v-if='activeSubPage === "bangs"')
+        .col-12.customize-options
+          .head_0.option(@click='set({"preferences.hair.bangs": 0})',
+            :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
+          .option(v-for='option in ["1", "2", "3", "4"]',
+            :class='{active: user.preferences.hair.bangs === option}')
+            .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
