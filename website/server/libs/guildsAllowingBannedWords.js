@@ -11,6 +11,7 @@ let guildsAllowingBannedWords = {
   'f646bc11-e330-482c-982a-843cd018373c': true, // Abuse Victims and Survivors
   'b5843474-07e6-4af2-9bd0-b8a00fe7fe52': true, // Alcoholics Anonymous - One Day at a Time!
   'd3339c3d-6744-4c17-b9d3-a16bdcfb5d53': true, // Am Yisrael Chai
+  '1da5ae22-6659-4600-9951-905f923c9373': true, // Anxiety Alliance
   '6dd4603a-d4d0-4d20-be5b-955bfbb857ad': true, // Arab Folks
   'c30e1c2f-8712-4d93-ae44-33071e8cf661': true, // Atheists, Feminists, and other No Good Commies
   'a760b1e4-23b6-4c75-8118-5da8346251a3': true, // Aulas de Guitarra
@@ -82,9 +83,11 @@ let guildsAllowingBannedWords = {
   '915570de-4da9-4cce-9ecb-3a5184843f61': true, // LGBTQ Christians
   '11892b37-3e4a-40ed-9702-906765becc84': true, // La Esperantistoj
   '8acf0984-79dd-4deb-b30e-65fb26e96bf4': true, // La Posada del PoniPisador (Spanish Player Vs Moustros)
+  '1e7ee0b3-93a6-45ef-8f9e-11956f79e984': true, // La voix des francophones
   '283171a5-422c-4991-bc78-95b1b5b51629': true, // Language Hackers
   '3272dfab-2b42-4ccd-ab12-eeeb4aed63ad': true, // Learning French - Apprendre le francais
   'c197e7ea-093e-4463-bee2-d08c3a951247': true, // Learning Hungarian - Magyart tanulni
+  '170f8a17-8ce0-425c-8c31-eeb7e5ae7493': true, // Legendary Book Club of Habitica
   'a65d65bf-c8f2-44ba-acf9-ec14bffe95ec': true, // Les Forgemots
   '694b15e1-19b0-4ea8-ac71-ce9f27031330': true, // Life Hackers
   '2f4ccbe5-daed-45ad-85a8-3c8afe028143': true, // Lose Weight/Get Healthy
@@ -129,6 +132,7 @@ let guildsAllowingBannedWords = {
   '580b9c90-9e8f-4c54-9106-559c87534dab': true, // Wild Yeast Guild
   '9c5d923b-9698-483a-b885-a5eba2e4ec75': true, // Witches of Habitica
   '8e389264-ada0-4834-828c-ef65679e929c': true, // Witches, Pagans, and Diviners
+  '0ff469a9-677f-4dcd-a091-2d2d3cebcaa8': true, // Writers of Ideas: Speculative Fiction Authors
   'f371368a-b3b0-4a81-a400-3bd59fc0a89d': true, // Youtube francophone
 }
 
