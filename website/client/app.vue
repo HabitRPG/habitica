@@ -219,7 +219,7 @@ export default {
       if (isApiCall && !serverAppVersionState) {
         this.$store.state.serverAppVersion = serverAppVersion;
       } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-        location.reload();
+        location.reload(true);
       }
 
       return response;
