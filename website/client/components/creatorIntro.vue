@@ -58,8 +58,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='item.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("shirt", specialShirtKeys)', @click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("shirt", specialShirtKeys)')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`shirt.${specialShirtKeys.join(",shirt.")}`)') {{ $t('purchaseAll') }}
     #skin.section.customize-section(v-if='activeTopPage === "skin"')
       .row.sub-menu.col-6.offset-3.text-center
         .col-6.offset-3.text-center.sub-menu-item(:class='{active: activeSubPage === "color"}')
@@ -77,8 +80,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-        .col-12.text-center
-          button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)', @click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
+        .col-12.text-center(v-if='!hideSet(set) && !userOwnsSet("skin", set.keys)')
+          .gem-lock
+            .svg-icon.gem(v-html='icons.gem')
+            span 5
+          button.btn.btn-secondary.purchase-all(@click='unlock(`skin.${set.keys.join(",skin.")}`)') {{ $t('purchaseAll') }}
     #hair.section.customize-section(v-if='activeTopPage === "hair"')
       .row.sub-menu.text-center
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("color")', :class='{active: activeSubPage === "color"}')
@@ -104,8 +110,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")', @click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!hideSet(set) && !userOwnsSet("hair", set.keys, "color")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.color.${set.keys.join(",hair.color.")}`)') {{ $t('purchaseAll') }}
       #style.row(v-if='activeSubPage === "style"')
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.base": 0})', :class="[{ active: user.preferences.hair.base === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
@@ -115,8 +124,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair3Keys, "base")', @click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair3Keys, "base")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair3Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair4',
             :class='{active: option.active, locked: option.locked}')
@@ -124,8 +136,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair4Keys, "base")', @click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair4Keys, "base")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair4Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #bangs.row(v-if='activeSubPage === "bangs"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
@@ -146,8 +161,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair2Keys, "base")', @click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair2Keys, "base")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.base.${baseHair2Keys.join(",hair.base.")}`)') {{ $t('purchaseAll') }}
       #facialhair.row(v-if='activeSubPage === "facialhair"')
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.beard": 0})', :class="[{ active: user.preferences.hair.beard === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
@@ -157,8 +175,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")', @click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .option(v-for='option in baseHair6',
             :class='{active: option.active, locked: option.locked}')
@@ -166,8 +187,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")', @click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair6Keys, "mustache")')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
@@ -191,8 +215,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center
-            button.btn.btn-secondary.purchase-all(v-if='!animalEarsOwned', @click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
+          .col-12.text-center(v-if='!animalEarsOwned')
+            .gem-lock
+              .svg-icon.gem(v-html='icons.gem')
+              span 5
+            button.btn.btn-secondary.purchase-all(@click='unlock(animalEarsUnlockString)') {{ $t('purchaseAll') }}
       #wheelchairs.row(v-if='activeSubPage === "wheelchair"')
         .col-12.customize-options
           .option(@click='set({"preferences.chair": "none"})', :class='{active: user.preferences.chair === "none"}')
@@ -531,25 +558,32 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     margin-bottom: .5em;
     margin-right: .5em;
 
-    .gem-lock {
-      .svg-icon {
-        width: 16px;
-      }
-
-      span {
-        color: #24cc8f;
-        font-weight: bold;
-        margin-left: .5em;
-      }
-
-      .svg-icon, span {
-        display: inline-block;
-        vertical-align: bottom;
-      }
-    }
-
     .sprite.customize-option {
       margin: 0 auto;
+    }
+  }
+
+  .text-center .gem-lock {
+    display: inline-block;
+    margin-right: 1em;
+    margin-bottom: 1.6em;
+    vertical-align: bottom;
+  }
+
+  .gem-lock {
+    .svg-icon {
+      width: 16px;
+    }
+
+    span {
+      color: #24cc8f;
+      font-weight: bold;
+      margin-left: .5em;
+    }
+
+    .svg-icon, span {
+      display: inline-block;
+      vertical-align: bottom;
     }
   }
 
