@@ -33,6 +33,7 @@ let guildsAllowingBannedWords = {
   'df71c7e9-acbd-4333-81a7-699b34c7ef56': true, // Challenge Translation Guild
   '0f2c28ff-35db-47eb-a459-5466dcd7d958': true, // Chef's Special
   '3f88cb57-e491-471e-90a3-b5a6cdb6a3d4': true, // Classical Scholars
+  'f8eb26cd-42ab-4485-bfa1-0bc59c10609e': true, // Cocktail Crusaders
   '15d9aeca-50d9-4564-b955-41333ce60d68': true, // Coffee Enthusiasts
   '22e83aae-6004-4513-b3c9-66e5ff738f66': true, // Coisas Boas
   '7732f64c-33ee-4cce-873c-fc28f147a6f7': true, // Commonwealth of i18n
