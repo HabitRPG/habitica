@@ -14,7 +14,6 @@
         ) {{ $t(`${showApiToken ? 'hide' : 'show'}APIToken`) }}
         pre.prettyprint.ml-4.mb-0(v-if="showApiToken") {{apiToken}}
       p(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
-      button.btn.btn-danger(@click="regenerateAPIToken()", v-once) {{ $t('resetAPIToken') }}
 
     .section
       h3 {{ $t('thirdPartyApps') }}
@@ -121,13 +120,6 @@ export default {
       delete webhook._editing;
       await this.$store.dispatch('user:deleteWebhook', {webhook});
       this.user.webhooks.splice(index, 1);
-    },
-    async regenerateAPIToken () {
-      const res = confirm(this.$t('resetAPITokenConfirmation'));
-      if (res === true) {
-        await this.$store.dispatch('user:regenerateAPIToken');
-        this.$store.dispatch('auth:logout');
-      }
     },
   },
 };

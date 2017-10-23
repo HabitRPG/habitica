@@ -643,40 +643,6 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-api-token Reset API Token
- * @apiDescription Reset the user's API Token
- * @apiName ResetAPIToken
- * @apiGroup User
- *
- * @apiParam (Body) {String} password The user password.
- *
- * @apiSuccess {String} data.apiToken The new API token
- */
-api.resetAPIToken = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/auth/reset-api-token',
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    if (!user.auth.local.username) throw new BadRequest(res.t('userHasNoLocalRegistration'));
-
-    req.checkBody('password', res.t('missingPassword')).notEmpty();
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let password = req.body.password;
-    let isValidPassword = await passwordUtils.compare(user, password);
-    if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-
-    user.apiToken = common.uuid();
-    await user.save();
-
-    return res.respond(200, { apiToken: user.apiToken });
-  },
-};
-
-/**
  * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
