@@ -15,7 +15,7 @@
       v-model="quickAddText", @keyup.enter="quickAdd",
       ref="quickAdd",
     )
-    .sortable-tasks(ref="tasksList", v-sortable='', @onsort='sorted')
+    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",

@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs';
+import uuid from 'uuid';
 
 let emit = (vnode, eventName, data) => {
   let handlers = vnode.data && vnode.data.on ||
@@ -9,9 +10,11 @@ let emit = (vnode, eventName, data) => {
   }
 };
 
+let sortableReferences = {};
+
 export default {
   bind (el, binding, vnode) {
-    Sortable.create(el, {
+    let sortableRef = Sortable.create(el, {
       onSort: (evt) => {
         emit(vnode, 'onsort', {
           oldIndex: evt.oldIndex,
@@ -19,5 +22,15 @@ export default {
         });
       },
     });
+
+    let uniqueId = uuid();
+    sortableReferences[uniqueId] = sortableRef;
+    el.dataset.sortableId = uniqueId;
+  },
+  unbind (el) {
+    sortableReferences[el.dataset.sortableId].destroy();
+  },
+  update (el, vNode) {
+    sortableReferences[el.dataset.sortableId].option('disabled', !vNode.value);
   },
 };
