@@ -53,19 +53,20 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-      .item-with-icon(v-if="userHourglasses > 0")
-        .svg-icon(v-html="icons.hourglasses")
-        span {{ userHourglasses }}
-      .item-with-icon
-        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
-        span {{userGems | roundBigNumber}}
-      .item-with-icon
-        .svg-icon(v-html="icons.gold")
-        span {{Math.floor(user.stats.gp * 100) / 100}}
-      a.menu-icon(@click="sync")
-        .svg-icon(v-html="icons.sync")
-      notification-menu.menu-icon
-      user-dropdown.menu-icon
+      .d-flex.align-items-center
+        .item-with-icon(v-if="userHourglasses > 0")
+          .svg-icon(v-html="icons.hourglasses")
+          span {{ userHourglasses }}
+        .item-with-icon
+          .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
+          span {{userGems | roundBigNumber}}
+        .item-with-icon.gold
+          .svg-icon(v-html="icons.gold")
+          span {{Math.floor(user.stats.gp * 100) / 100}}
+        a.item-with-icon(@click="sync")
+          .svg-icon(v-html="icons.sync")
+        notification-menu.item-with-icon
+        user-dropdown.item-with-icon
     b-nav-toggle(target='nav_collapse')
 </template>
 
@@ -192,27 +193,28 @@ div
   .item-with-icon {
     color: $white;
     font-size: 16px;
-    font-weight: normal;
-    padding-top: 16px;
-    padding-left: 16px;
     white-space: nowrap;
 
     span {
       font-weight: bold;
     }
 
-    &:hover .svg-icon {
+    &.gold {
+      margin-right: 24px;
+    }
+
+    &:hover /deep/ .svg-icon {
       color: $white;
     }
 
-    .svg-icon {
+    & /deep/ .svg-icon {
       color: $header-color;
       vertical-align: bottom;
       display: inline-block;
       width: 24px;
       height: 24px;
-      margin-right: 8px;
-      margin-left: 8px;
+      margin-right: 12px;
+      margin-left: 12px;
     }
   }
 

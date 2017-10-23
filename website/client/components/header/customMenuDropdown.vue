@@ -38,23 +38,8 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   &.open {
     .dropdown-menu {
       display: block;
-      margin-top: 0;
+      margin-top: 12px;
     }
-  }
-}
-
-.item-with-icon:hover {
-  .svg-icon {
-    color: $white;
-  }
-}
-
-.habitica-menu-dropdown-toggle {
-  color: $header-color;
-  transition: none;
-
-  .svg-icon {
-    width: 24px;
   }
 }
 </style>
