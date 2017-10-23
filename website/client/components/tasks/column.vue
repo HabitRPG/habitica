@@ -297,8 +297,25 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      if (this.taskListOverride) return this.taskListOverride;
-      return this.tasks[`${this.type}s`];
+      const filter = this.activeFilters[this.type];
+
+      let taskList = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) taskList = this.taskListOverride;
+
+      if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
+        let taskListSorted = this.$store.dispatch('tasks:order', [
+          taskList,
+          this.user.tasksOrder,
+        ]);
+
+        taskList = taskListSorted[`${this.type}s`];
+      }
+
+      if (filter.sort) {
+        taskList = sortBy(taskList, filter.sort);
+      }
+
+      return taskList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -408,18 +425,6 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilters[type] = filter;
-
-      if (['scheduled', 'due'].indexOf(filter.label) === -1) {
-        let sortedTasks = this.$store.dispatch('tasks:order', [
-          this.tasks[`${type}s`],
-          this.user.tasksOrder,
-        ]);
-        this.tasks[`${type}s`] = sortedTasks[`${type}s`];
-      }
-
-      if (filter.sort) {
-        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
-      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
