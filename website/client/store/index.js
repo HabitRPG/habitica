@@ -136,6 +136,7 @@ export default function () {
       equipmentDrawerOpen: true,
       recentlyPurchased: {},
       groupPlans: [],
+      groupNotifications: [],
     },
   });
 

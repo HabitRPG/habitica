@@ -1,6 +1,6 @@
 <template lang="pug">
 .notifications
-  div(v-for='notification in notifications')
+  div(v-for='notification in notifications', :key='notification.uuid')
     notification(:notification='notification')
 </template>
 
