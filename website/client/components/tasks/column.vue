@@ -365,19 +365,25 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    sorted (data) {
+    async sorted (data) {
+      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
       const sorting = this.taskList;
-      const taskIdToMove = this.taskList[data.oldIndex]._id;
+      const taskIdToMove = filteredList[data.oldIndex]._id;
 
+      // Server
+      const taskIdToReplace = filteredList[data.newIndex];
+      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newIndexOnServer,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
+
+      // Client
       if (sorting) {
         const deleted = sorting.splice(data.oldIndex, 1);
         sorting.splice(data.newIndex, 0, deleted[0]);
       }
-
-      this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: data.newIndex,
-      });
     },
     quickAdd () {
       const task = taskDefaults({type: this.type, text: this.quickAddText});
@@ -394,7 +400,7 @@ export default {
       }
       this.activeFilters[type] = filter;
 
-      if (type === 'todo' && filter.label !== 'scheduled') {
+      if (['scheduled', 'due'].indexOf(filter.label) === -1) {
         let sortedTasks = this.$store.dispatch('tasks:order', [
           this.tasks[`${type}s`],
           this.user.tasksOrder,
