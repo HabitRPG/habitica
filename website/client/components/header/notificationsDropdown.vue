@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-notifications
   div(slot="dropdown-toggle")
-    span.message-count.top-count(v-if='notificationsCount > 0')  {{ notificationsCount }}
+    message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
     .svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
@@ -48,28 +48,6 @@ menu-dropdown.item-notifications
 </template>
 
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
-
-.message-count {
-  background-color: $blue-50;
-  border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  float: right;
-  color: $white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.message-count.top-count {
-  position: absolute;
-  right: -.5em;
-  top: .5em;
-  padding: .2em;
-  background-color: $red-50;
-}
-
 .clear-button {
   margin-left: .5em;
 }
@@ -85,10 +63,12 @@ import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from './customMenuDropdown';
+import MessageCount from './messageCount';
 
 export default {
   components: {
     MenuDropdown,
+    MessageCount,
   },
   data () {
     return {

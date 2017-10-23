@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-user
   div(slot="dropdown-toggle")
-    span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
+    message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
     .svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
@@ -9,7 +9,7 @@ menu-dropdown.item-user
       span.small-text {{ $t('editAvatar') }}
     a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
       | {{ $t('messages') }}
-      span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
+      message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
     a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
     a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
@@ -67,10 +67,12 @@ import userIcon from 'assets/svg/user.svg';
 import MenuDropdown from './customMenuDropdown';
 import axios from 'axios';
 import markPMSRead from 'common/script/ops/markPMSRead';
+import MessageCount from './messageCount';
 
 export default {
   components: {
     MenuDropdown,
+    MessageCount,
   },
   data () {
     return {

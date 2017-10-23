@@ -213,7 +213,6 @@ div
 </style>
 
 <script>
-import axios from 'axios';
 import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
 import bCollapse from 'bootstrap-vue/lib/components/collapse';
 
@@ -222,7 +221,6 @@ import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
-import userIcon from 'assets/svg/user.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
 import InboxModal from '../userMenu/inbox.vue';
