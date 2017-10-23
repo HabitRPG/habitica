@@ -38,7 +38,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   &.open {
     .dropdown-menu {
       display: block;
-      margin-top: 12px;
+      margin-top: 16px;
     }
   }
 }
