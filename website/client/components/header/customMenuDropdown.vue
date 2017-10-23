@@ -27,10 +27,6 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     cursor: pointer;
   }
 
-  & + .dropdown {
-    margin-left: 0px;
-  }
-
   .dropdown-menu {
     cursor: auto;
 

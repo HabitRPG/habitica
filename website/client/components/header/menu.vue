@@ -175,6 +175,10 @@ div
     }
   }
 
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
   .item-with-icon {
     color: $white;
     font-size: 16px;
