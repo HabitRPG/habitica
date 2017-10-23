@@ -11,7 +11,7 @@
       ) {{ $t(filter.label) }}
   .tasks-list(ref="tasksWrapper")
     input.quick-add(
-      v-if="isUser", :placeholder="quickAddPlaceholder", 
+      v-if="isUser", :placeholder="quickAddPlaceholder",
       v-model="quickAddText", @keyup.enter="quickAdd",
       ref="quickAdd",
     )
@@ -455,6 +455,8 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
+      if (rewardItem.locked) return;
+
       // Buy armoire and health potions immediately
       let itemsToPurchaseImmediately = ['potion', 'armoire'];
       if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {

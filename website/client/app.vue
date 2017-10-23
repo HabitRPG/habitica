@@ -172,7 +172,7 @@ export default {
           return Promise.resolve(error);
         }
 
-        this.$store.state.notificationStore.push({
+        this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: error.response.data.message,
           type: 'error',

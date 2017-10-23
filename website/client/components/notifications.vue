@@ -276,8 +276,8 @@ export default {
       if (after === before || after === false) return;
       this.$root.$emit('show::modal', 'armoire-empty');
     },
-    questCompleted (after) {
-      if (!after) return;
+    questCompleted () {
+      if (!this.questCompleted) return;
       this.$root.$emit('show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
@@ -291,6 +291,26 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
+      this.checkUserAchievements();
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+        this.goto('intro', 0);
+      }, 2000);
+
+      this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
+    });
+  },
+  methods: {
+    checkUserAchievements () {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
@@ -313,24 +333,7 @@ export default {
       if (this.userClassSelect) {
         this.$root.$emit('show::modal', 'choose-class');
       }
-
-      // @TODO: This is a timeout to ensure dom is loaded
-      window.setTimeout(() => {
-        this.initTour();
-        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-        this.goto('intro', 0);
-      }, 2000);
-
-      this.runYesterDailies();
-
-      // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
-    });
-  },
-  methods: {
+    },
     showLevelUpNotifications (newlevel) {
       this.lvl();
       this.playSound('Level_Up');
@@ -417,8 +420,7 @@ export default {
       this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
-      if (!this.user.groupNotifications) this.user.groupNotifications = [];
-      this.user.groupNotifications.push(notification);
+      this.$store.state.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
@@ -426,7 +428,7 @@ export default {
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.user.groupNotifications = []; // Flush group notifictions
+      this.$store.state.groupNotifications = []; // Flush group notifictions
 
       after.forEach((notification) => {
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -578,6 +580,8 @@ export default {
       }
 
       this.user.notifications = []; // reset the notifications
+
+      this.checkUserAchievements();
     },
   },
 };
