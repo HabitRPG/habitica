@@ -65,30 +65,7 @@ div
       a.item-with-icon(@click="sync")
         .svg-icon(v-html="icons.sync")
       notification-menu
-      a.dropdown.item-with-icon.item-user
-        span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
-        .svg-icon.user(v-html="icons.user")
-        .dropdown-menu.dropdown-menu-right.user-dropdown
-          a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
-            h3 {{ user.profile.name }}
-            span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
-            | {{ $t('messages') }}
-            span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
-          a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
-          a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
-          a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
-          a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
-          router-link.dropdown-item.dropdown-separated(:to="{name: 'subscription'}") {{ $t('subscription') }}
-          a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
-          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
-            .dropdown-item.text-center
-              h3.purple {{ $t('needMoreGems') }}
-              span.small-text {{ $t('needMoreGemsInfo') }}
-            img.float-left.align-self-end(src='~assets/images/gem-rain.png')
-            button.btn.btn-primary.btn-lg.learn-button Learn More
-            img.float-right.align-self-end(src='~assets/images/gold-rain.png')
+      user-dropdown
     b-nav-toggle(target='nav_collapse')
 </template>
 
@@ -165,20 +142,6 @@ div
     }
   }
 
-  // Make the dropdown menu open on hover
-  .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
-  }
-
-  .dropdown + .dropdown {
-    margin-left: 0px;
-  }
-
-  .dropdown-separated {
-    border-bottom: 1px solid $gray-500;
-  }
-
   .user-dropdown {
     width: 14.75em;
   }
@@ -198,7 +161,7 @@ div
     white-space: normal;
   }
 
-  .dropdown-menu:not(.user-dropdown) {
+  .dropdown-menu {
     background: $purple-200;
     border-radius: 0px;
     border: none;
@@ -257,27 +220,6 @@ div
     }
   }
 
-  .item-notifications, .item-user {
-    padding-right: 12.5px;
-    padding-left: 12.5px;
-    color: $header-color;
-    transition: none;
-
-    .svg-icon {
-      margin-right: 0px;
-    }
-  }
-
-  .item-user .edit-avatar {
-    h3 {
-      color: $gray-10;
-      margin-bottom: 0px;
-    }
-
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-
   .gem:hover {
     cursor: pointer;
   }
@@ -316,14 +258,16 @@ import syncIcon from 'assets/svg/sync.svg';
 import userIcon from 'assets/svg/user.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
-import InboxModal from './userMenu/inbox.vue';
-import notificationMenu from './notificationMenu';
-import creatorIntro from './creatorIntro';
-import profile from './userMenu/profile';
+import InboxModal from '../userMenu/inbox.vue';
+import notificationMenu from './notificationsDropdown';
+import creatorIntro from '../creatorIntro';
+import profile from '../userMenu/profile';
 import markPMSRead from 'common/script/ops/markPMSRead';
+import userDropdown from './userDropdown';
 
 export default {
   components: {
+    userDropdown,
     InboxModal,
     notificationMenu,
     creatorIntro,
@@ -333,6 +277,7 @@ export default {
   },
   data () {
     return {
+      isUserDropdownOpen: false,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
@@ -357,6 +302,9 @@ export default {
     this.getUserGroupPlans();
   },
   methods: {
+    toggleUserDropdown () {
+      this.isUserDropdownOpen = !this.isUserDropdownOpen;
+    },
     sync () {
       return Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
