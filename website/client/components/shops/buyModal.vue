@@ -128,6 +128,14 @@
           width: 100%;
           border: none;
         }
+
+        input::-webkit-contacts-auto-fill-button {
+          visibility: hidden;
+          display: none !important;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+        }
       }
     }
 
