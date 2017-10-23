@@ -394,6 +394,14 @@ export default {
       }
       this.activeFilters[type] = filter;
 
+      if (type === 'todo' && filter.label !== 'scheduled') {
+        let sortedTasks = this.$store.dispatch('tasks:order', [
+          this.tasks[`${type}s`],
+          this.user.tasksOrder,
+        ]);
+        this.tasks[`${type}s`] = sortedTasks[`${type}s`];
+      }
+
       if (filter.sort) {
         this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
       }
