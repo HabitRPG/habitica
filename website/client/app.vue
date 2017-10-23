@@ -191,6 +191,7 @@ export default {
 
       const isApiCall = url.indexOf('api/v3') !== -1;
       const userV = response.data && response.data.userV;
+      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
@@ -202,7 +203,6 @@ export default {
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
         // exclude POST /api/v3/cron because the user is synced automatically after cron runs
-        const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -210,6 +210,21 @@ export default {
             this.$store.dispatch('user:fetch', {forceLoad: true}),
             this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
           ]);
+        }
+      }
+
+      // Verify the client is updated
+      const serverAppVersion = response.data.appVersion;
+      let serverAppVersionState = this.$store.state.serverAppVersion;
+      let deniedUpdate = this.$store.state.deniedUpdate;
+      if (isApiCall && !serverAppVersionState) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      } else if (isApiCall && serverAppVersionState !== serverAppVersion && !deniedUpdate || isCron) {
+        // For reload on cron
+        if (isCron || confirm(this.$t('habiticaHasUpdated'))) {
+          location.reload(true);
+        } else {
+          this.$store.state.deniedUpdate = true;
         }
       }
 
