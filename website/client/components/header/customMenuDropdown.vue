@@ -33,6 +33,10 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
   .dropdown-menu {
     cursor: auto;
+
+    /deep/ .dropdown-separated {
+      border-bottom: 1px solid $gray-500;
+    }
   }
 
   &.open {

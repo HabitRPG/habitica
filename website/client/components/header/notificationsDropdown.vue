@@ -9,8 +9,8 @@ menu-dropdown.item-notifications
     a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
       div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
       div
-        button.btn.btn-primary(@click='questAccept(user.party._id)') Accept
-        button.btn.btn-primary(@click='questReject(user.party._id)') Reject
+        button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
+        button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
@@ -19,20 +19,19 @@ menu-dropdown.item-notifications
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: party.name}) }}
       div
-        button.btn.btn-primary(@click='accept(party, index, "party")') Accept
-        button.btn.btn-primary(@click='reject(party, index, "party")') Reject
+        button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
+        button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
     a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
-      a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
+      a.dropdown-item(@click.stop='clearCards()')
     a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: guild.name}) }}
       div
-        button.btn.btn-primary(@click='accept(guild, index, "guild")') Accept
-        button.btn.btn-primary(@click='reject(guild, index, "guild")') Reject
+        button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
+        button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
@@ -41,13 +40,11 @@ menu-dropdown.item-notifications
       span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
-      span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
+      span.clear-button(@click.stop='clearMessages(message.key)') Clear
     a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
       span(:class="groupApprovalNotificationIcon(notification)")
       span {{notification.data.message}}
-      span.clear-button(@click='viewGroupApprovalNotification(notification)', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
+      span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
 </template>
 
 <style lang='scss' scoped>

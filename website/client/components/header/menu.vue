@@ -143,21 +143,6 @@ div
     }
   }
 
-  .learn-button {
-    margin: 0.75em 0.75em 0.75em 1em;
-  }
-
-  .purple {
-    color: $purple-200;
-  }
-
-  .small-text {
-    color: $gray-200;
-    font-style: normal;
-    display: block;
-    white-space: normal;
-  }
-
   .dropdown-menu {
     background: $purple-200;
     border-radius: 0px;
@@ -244,7 +229,6 @@ import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
 import profile from '../userMenu/profile';
-import markPMSRead from 'common/script/ops/markPMSRead';
 import userDropdown from './userDropdown';
 
 export default {
@@ -263,7 +247,6 @@ export default {
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
-        user: userIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
         logo,
@@ -292,25 +275,6 @@ export default {
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
-    },
-    logout () {
-      this.$store.dispatch('auth:logout');
-    },
-    showInbox () {
-      markPMSRead(this.user);
-      axios.post('/api/v3/user/mark-pms-read');
-      this.$root.$emit('show::modal', 'inbox-modal');
-    },
-    showAvatar (startingPage, subpage) {
-      this.$store.state.avatarEditorOptions.editingUser = true;
-      this.$store.state.avatarEditorOptions.startingPage = startingPage;
-      this.$store.state.avatarEditorOptions.subpage = subpage;
-      this.$root.$emit('show::modal', 'avatar-modal');
-    },
-    showProfile (startingPage) {
-      this.$store.state.profileUser = this.user;
-      this.$store.state.profileOptions.startingPage = startingPage;
-      this.$root.$emit('show::modal', 'profile');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
