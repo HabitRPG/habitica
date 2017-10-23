@@ -874,11 +874,21 @@ api.buy = {
     let buyRes;
     let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
+    // @TODO: Remove this when mobile passes type in body
+    let type = req.params.key;
     if (specialKeys.indexOf(req.params.key) !== -1) {
-      buyRes = common.ops.buySpecialSpell(user, req);
-    } else {
-      buyRes = common.ops.buy(user, req, res.analytics);
+      type = 'special';
     }
+    req.type = type;
+
+    // @TODO: right now common follow express structure, but we should decouple the dependency
+    if (req.body.type) req.type = req.body.type;
+
+    let quantity = 1;
+    if (req.body.quantity) quantity = req.body.quantity;
+    req.quantity = quantity;
+
+    buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
     res.respond(200, ...buyRes);
@@ -926,7 +936,7 @@ api.buyGear = {
   url: '/user/buy-gear/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyGearRes = common.ops.buyGear(user, req, res.analytics);
+    let buyGearRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyGearRes);
   },
@@ -966,7 +976,9 @@ api.buyArmoire = {
   url: '/user/buy-armoire',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyArmoireResponse = common.ops.buyArmoire(user, req, res.analytics);
+    req.type = 'armoire';
+    req.params.key = 'armoire';
+    let buyArmoireResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyArmoireResponse);
   },
@@ -1004,7 +1016,9 @@ api.buyHealthPotion = {
   url: '/user/buy-health-potion',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyHealthPotionResponse = common.ops.buyHealthPotion(user, req, res.analytics);
+    req.type = 'potion';
+    req.params.key = 'potion';
+    let buyHealthPotionResponse = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyHealthPotionResponse);
   },
@@ -1044,7 +1058,8 @@ api.buyMysterySet = {
   url: '/user/buy-mystery-set/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyMysterySetRes = common.ops.buyMysterySet(user, req, res.analytics);
+    req.type = 'mystery';
+    let buyMysterySetRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyMysterySetRes);
   },
@@ -1084,7 +1099,8 @@ api.buyQuest = {
   url: '/user/buy-quest/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buyQuestRes = common.ops.buyQuest(user, req, res.analytics);
+    req.type = 'quest';
+    let buyQuestRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...buyQuestRes);
   },
@@ -1123,7 +1139,8 @@ api.buySpecialSpell = {
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let buySpecialSpellRes = common.ops.buySpecialSpell(user, req);
+    req.type = 'special';
+    let buySpecialSpellRes = common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);
   },
@@ -1336,6 +1353,11 @@ api.purchase = {
       const canGetGems = await user.canGetGems();
       if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
     }
+
+    // Req is currently used as options. Slighly confusing, but this will solve that for now.
+    let quantity = 1;
+    if (req.body.quantity) quantity = req.body.quantity;
+    req.quantity = quantity;
 
     let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
     await user.save();

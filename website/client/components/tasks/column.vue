@@ -1,6 +1,11 @@
 <template lang="pug">
 .tasks-column(:class='type')
   b-modal(ref="editTaskModal")
+  buy-quest-modal(:item="selectedItemToBuy || {}",
+    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+    :withPin="true",
+    @change="resetItemToBuy($event)"
+    v-if='type === "reward"')
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
@@ -200,6 +205,7 @@ import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
+import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
@@ -215,6 +221,7 @@ export default {
   mixins: [buyMixin],
   components: {
     Task,
+    BuyQuestModal,
     bModal,
     shopItem,
   },
@@ -278,6 +285,8 @@ export default {
 
       forceRefresh: new Date(),
       quickAddText: '',
+
+      selectedItemToBuy: {},
     };
   },
   computed: {
@@ -479,8 +488,19 @@ export default {
         return;
       }
 
+      if (rewardItem.purchaseType === 'quests') {
+        this.selectedItemToBuy = rewardItem;
+        this.$root.$emit('show::modal', 'buy-quest-modal');
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
+      }
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
       }
     },
   },
