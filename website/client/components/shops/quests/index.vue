@@ -477,11 +477,6 @@ export default {
 
         this.selectedItemToBuy = item;
 
-        if (this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('show::modal', 'buy-quest-modal');
       },
     },

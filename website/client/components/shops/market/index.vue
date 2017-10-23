@@ -355,7 +355,7 @@
 
   }
 
-  .gems-left {
+  .market .gems-left {
     position: absolute;
     right: -.5em;
     top: -.5em;
@@ -739,11 +739,6 @@ export default {
         }
       },
       itemSelected (item) {
-        if (item.purchaseType !== 'gear' && this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
       featuredItemSelected (item) {

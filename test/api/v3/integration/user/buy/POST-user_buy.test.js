@@ -3,8 +3,8 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
-import shared from '../../../../../website/common/script';
+} from '../../../../../helpers/api-integration/v3';
+import shared from '../../../../../../website/common/script';
 
 let content = shared.content;
 
@@ -81,5 +81,20 @@ describe('POST /user/buy/:key', () => {
     expect(res.message).to.equal(t('messageBought', {
       itemText: item.text(),
     }));
+  });
+
+  it('allows for bulk purchases', async () => {
+    await user.update({
+      'stats.gp': 400,
+      'stats.hp': 20,
+    });
+
+    let potion = content.potion;
+    let res = await user.post('/user/buy/potion', {quantity: 2});
+    await user.sync();
+
+    expect(user.stats.hp).to.equal(50);
+    expect(res.data).to.eql(user.stats);
+    expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
   });
 });
