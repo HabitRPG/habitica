@@ -1,9 +1,9 @@
 import Sortable from 'sortablejs';
 import uuid from 'uuid';
 
-let emit = (vnode, eventName, data) => {
-  let handlers = vnode.data && vnode.data.on ||
-    vnode.componentOptions && vnode.componentOptions.listeners;
+let emit = (vNode, eventName, data) => {
+  let handlers = vNode.data && vNode.data.on ||
+    vNode.componentOptions && vNode.componentOptions.listeners;
 
   if (handlers && handlers[eventName]) {
     handlers[eventName].fns(data);
@@ -12,25 +12,34 @@ let emit = (vnode, eventName, data) => {
 
 let sortableReferences = {};
 
-export default {
-  bind (el, binding, vnode) {
-    let sortableRef = Sortable.create(el, {
-      onSort: (evt) => {
-        emit(vnode, 'onsort', {
-          oldIndex: evt.oldIndex,
-          newIndex: evt.newIndex,
-        });
-      },
-    });
+function createSortable (el, vNode) {
+  let sortableRef = Sortable.create(el, {
+    onSort: (evt) => {
+      emit(vNode, 'onsort', {
+        oldIndex: evt.oldIndex,
+        newIndex: evt.newIndex,
+      });
+    },
+  });
 
-    let uniqueId = uuid();
-    sortableReferences[uniqueId] = sortableRef;
-    el.dataset.sortableId = uniqueId;
+  let uniqueId = uuid();
+  sortableReferences[uniqueId] = sortableRef;
+  el.dataset.sortableId = uniqueId;
+}
+
+export default {
+  bind (el, binding, vNode) {
+    createSortable(el, vNode);
   },
   unbind (el) {
-    sortableReferences[el.dataset.sortableId].destroy();
+    if (sortableReferences[el.dataset.sortableId]) sortableReferences[el.dataset.sortableId].destroy();
   },
   update (el, vNode) {
-    sortableReferences[el.dataset.sortableId].option('disabled', !vNode.value);
+    if (sortableReferences[el.dataset.sortableId] && !vNode.value) {
+      sortableReferences[el.dataset.sortableId].destroy();
+      delete sortableReferences[el.dataset.sortableId];
+      return;
+    }
+    if (!sortableReferences[el.dataset.sortableId]) createSortable(el, vNode);
   },
 };
