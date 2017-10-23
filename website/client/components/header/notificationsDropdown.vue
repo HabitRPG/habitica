@@ -56,46 +56,31 @@ menu-dropdown.item-notifications
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
+@import '~client/assets/scss/colors.scss';
 
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
+.message-count {
+  background-color: $blue-50;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  float: right;
+  color: $white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+}
 
-  .message-count.top-count {
-    position: absolute;
-    right: -.5em;
-    top: .5em;
-    padding: .2em;
-    background-color: $red-50;
-  }
+.message-count.top-count {
+  position: absolute;
+  right: -.5em;
+  top: .5em;
+  padding: .2em;
+  background-color: $red-50;
+}
 
-  .clear-button {
-    margin-left: .5em;
-  }
-
-  .item-notifications {
-    width: 44px;
-  }
-
-  .notifications {
-    color: $header-color;
-    vertical-align: bottom;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    margin-left: 8px;
-    margin-top: .2em;
-  }
+.clear-button {
+  margin-left: .5em;
+}
 </style>
 
 <script>

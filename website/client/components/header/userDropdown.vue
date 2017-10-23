@@ -3,7 +3,7 @@ menu-dropdown.item-user
   div(slot="dropdown-toggle")
     span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
     .svg-icon.user(v-html="icons.user")
-  div(slot="dropdown-content")
+  .user-dropdown(slot="dropdown-content")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
       span.small-text {{ $t('editAvatar') }}
@@ -38,6 +38,10 @@ menu-dropdown.item-user
   padding-top: 16px;
   padding-bottom: 16px;
 }
+
+.user-dropdown {
+  width: 14.75em;
+}
 </style>
 
 <script>
@@ -47,7 +51,7 @@ import map from 'lodash/map';
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
-import notificationsIcon from 'assets/svg/notifications.svg';
+import userIcon from 'assets/svg/user.svg';
 import MenuDropdown from './customMenuDropdown';
 
 export default {
@@ -57,9 +61,8 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        notifications: notificationsIcon,
+        user: userIcon,
       }),
-      quests,
     };
   },
   computed: {

@@ -50,13 +50,11 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 }
 
 .habitica-menu-dropdown-toggle {
-  padding-right: 12.5px;
-  padding-left: 12.5px;
   color: $header-color;
   transition: none;
 
   .svg-icon {
-    margin-right: 0px;
+    width: 24px;
   }
 }
 </style>

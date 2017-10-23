@@ -62,10 +62,10 @@ div
       .item-with-icon
         .svg-icon(v-html="icons.gold")
         span {{Math.floor(user.stats.gp * 100) / 100}}
-      a.item-with-icon(@click="sync")
+      a.menu-icon(@click="sync")
         .svg-icon(v-html="icons.sync")
-      notification-menu
-      user-dropdown
+      notification-menu.menu-icon
+      user-dropdown.menu-icon
     b-nav-toggle(target='nav_collapse')
 </template>
 
@@ -142,10 +142,6 @@ div
     }
   }
 
-  .user-dropdown {
-    width: 14.75em;
-  }
-
   .learn-button {
     margin: 0.75em 0.75em 0.75em 1em;
   }
@@ -213,35 +209,19 @@ div
       color: $header-color;
       vertical-align: bottom;
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       margin-right: 8px;
       margin-left: 8px;
     }
   }
 
+  .menu-icon {
+    margin-left: 24px;
+  }
+
   .gem:hover {
     cursor: pointer;
-  }
-
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
-  .message-count.top-count {
-    background-color: $red-50;
-    position: absolute;
-    right: 0;
-    top: .5em;
-    padding: .2em;
   }
 </style>
 
