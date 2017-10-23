@@ -53,7 +53,7 @@
                 :popoverPosition="'top'",
                 @click="featuredItemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -101,7 +101,7 @@
         :type="'gear'",
         :noItemsLabel="$t('noGearItemsOfClass')"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
@@ -110,7 +110,7 @@
             @click="gearSelected(ctx.item)"
           )
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -151,7 +151,7 @@
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
@@ -196,14 +196,14 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             item(
               :item="ctx.item",
               :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
               popoverPosition="top",
               @click="selectedItemToSell = ctx.item"
             )
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 countBadge(
                   :show="true",
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -218,13 +218,13 @@
         :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
             :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
             :showPopover="false"
           )
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
