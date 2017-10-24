@@ -1,8 +1,9 @@
 <template lang="pug">
 menu-dropdown.item-notifications
   div(slot="dropdown-toggle")
-    message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
-    .svg-icon.notifications(v-html="icons.notifications")
+    div
+      message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
+      .svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
@@ -57,6 +58,7 @@ menu-dropdown.item-notifications
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
+// import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
@@ -69,6 +71,9 @@ export default {
   components: {
     MenuDropdown,
     MessageCount,
+  },
+  directives: {
+    // bTooltip,
   },
   data () {
     return {

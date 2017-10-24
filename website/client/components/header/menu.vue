@@ -54,16 +54,16 @@ div
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
       .d-flex.align-items-center
-        .item-with-icon(v-if="userHourglasses > 0")
+        .item-with-icon(v-if="userHourglasses > 0", v-b-tooltip.hover.bottom="$t('mysticHourglasses')")
           .svg-icon(v-html="icons.hourglasses")
           span {{ userHourglasses }}
-        .item-with-icon
+        .item-with-icon(v-b-tooltip.hover.bottom="$t('gems')")
           .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
           span {{userGems | roundBigNumber}}
-        .item-with-icon.gold
+        .item-with-icon.gold(v-b-tooltip.hover.bottom="$t('gold')")
           .svg-icon(v-html="icons.gold")
           span {{Math.floor(user.stats.gp * 100) / 100}}
-        a.item-with-icon(@click="sync")
+        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
           .svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
         user-dropdown.item-with-icon
@@ -232,6 +232,7 @@ import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
 import profile from '../userMenu/profile';
 import userDropdown from './userDropdown';
+import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 export default {
   components: {
@@ -242,6 +243,9 @@ export default {
     profile,
     bNavToggle,
     bCollapse,
+  },
+  directives: {
+    bTooltip,
   },
   data () {
     return {

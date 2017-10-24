@@ -327,6 +327,7 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
+import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -352,6 +353,7 @@ export default {
   },
   directives: {
     markdown: markdownDirective,
+    bTooltip,
   },
   props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {

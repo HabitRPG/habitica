@@ -1,8 +1,9 @@
 <template lang="pug">
 menu-dropdown.item-user
   div(slot="dropdown-toggle")
-    message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
-    .svg-icon.user(v-html="icons.user")
+    div(v-b-tooltip.hover.bottom="$t('user')")
+      message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
+      .svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
@@ -68,11 +69,15 @@ import MenuDropdown from './customMenuDropdown';
 import axios from 'axios';
 import markPMSRead from 'common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
+import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 export default {
   components: {
     MenuDropdown,
     MessageCount,
+  },
+  directives: {
+    bTooltip,
   },
   data () {
     return {
