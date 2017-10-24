@@ -40,8 +40,8 @@ let testBin = (string, additionalEnvVariables = '') => {
 };
 
 gulp.task('test:nodemon', () => {
-  process.env.PORT = TEST_SERVER_PORT;
-  process.env.NODE_DB_URI = TEST_DB_URI;
+  process.env.PORT = TEST_SERVER_PORT; // eslint-disable-line no-process-env
+  process.env.NODE_DB_URI = TEST_DB_URI; // eslint-disable-line no-process-env
 
   runSequence('nodemon');
 });

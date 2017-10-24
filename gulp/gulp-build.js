@@ -3,7 +3,7 @@ import babel from 'gulp-babel';
 import webpackProductionBuild from '../webpack/build';
 
 gulp.task('build', () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
     gulp.start('build:prod');
   }
 });
@@ -26,7 +26,7 @@ gulp.task('build:server', ['build:src', 'build:common']);
 gulp.task('build:client', ['bootstrap'], (done) => {
   webpackProductionBuild((err, output) => {
     if (err) return done(err);
-    console.log(output);
+    console.log(output); // eslint-disable-line no-console
   });
 });
 

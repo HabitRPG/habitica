@@ -6,8 +6,5 @@
   "extends": [
     "habitrpg/server",
     "habitrpg/esnext",
-  ],
-  "rules": {
-    "no-console": 0,
-  }
+  ]
 }

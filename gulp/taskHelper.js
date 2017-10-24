@@ -30,7 +30,7 @@ export function kill (proc) {
           `taskkill /PID ${pid} /T /F` :
           `kill -9 ${pid}`);
       } catch (e) {
-        console.log(e);
+        console.log(e); // eslint-disable-line no-console
       }
     });
   };
@@ -87,8 +87,8 @@ export function postToSlack (msg, config = {}) {
   let slackUrl = nconf.get('SLACK_URL');
 
   if (!slackUrl) {
-    console.error('No slack post url specified. Your message was:');
-    console.log(msg);
+    console.error('No slack post url specified. Your message was:'); // eslint-disable-line no-console
+    console.log(msg); // eslint-disable-line no-console
 
     return;
   }
@@ -101,7 +101,7 @@ export function postToSlack (msg, config = {}) {
       icon_emoji: `:${config.emoji || 'gulp'}:`,
     })
     .end((err) => {
-      if (err) console.error('Unable to post to slack', err);
+      if (err) console.error('Unable to post to slack', err); // eslint-disable-line no-console
     });
 }
 
@@ -117,7 +117,7 @@ export function runMochaTests (files, server, cb) {
   });
 
   mocha.run((numberOfFailures) => {
-    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) {
+    if (!process.env.RUN_INTEGRATION_TEST_FOREVER) { // eslint-disable-line no-process-env
       if (server) kill(server);
       process.exit(numberOfFailures);
     }

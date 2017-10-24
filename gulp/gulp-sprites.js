@@ -38,7 +38,7 @@ function calculateImgDimensions (img, addPadding) {
     padding = dims.width * 8 + dims.height * 8;
   }
 
-  if (!dims.width || !dims.height) console.error('MISSING DIMENSIONS:', dims);
+  if (!dims.width || !dims.height) console.error('MISSING DIMENSIONS:', dims); // eslint-disable-line no-console
 
   let totalPixelSize = dims.width * dims.height + padding;
 
@@ -134,7 +134,7 @@ gulp.task('sprites:clean', (done) => {
 });
 
 gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {
-  console.log('Verifiying that images do not exceed max dimensions');
+  console.log('Verifiying that images do not exceed max dimensions'); // eslint-disable-line no-console
 
   let numberOfSheetsThatAreTooBig = 0;
 
@@ -146,13 +146,17 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
     if (spriteSize > MAX_SPRITESHEET_SIZE) {
       numberOfSheetsThatAreTooBig++;
       let name = basename(img, '.png');
-      console.error(`WARNING: ${name} might be too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`);
+      console.error(`WARNING: ${name} might be too big - ${spriteSize} > ${MAX_SPRITESHEET_SIZE}`); // eslint-disable-line no-console
     }
   });
 
   if (numberOfSheetsThatAreTooBig > 0) {
-    console.error(`${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle them, but there is a margin of error in these calculations so it is probably okay. Mention this to an admin so they can test a staging site on mobile Safari after your PR is merged.`); // https://github.com/HabitRPG/habitica/pull/6683#issuecomment-185462180
+    // https://github.com/HabitRPG/habitica/pull/6683#issuecomment-185462180
+    console.error( // eslint-disable-line no-console
+      `${numberOfSheetsThatAreTooBig} sheets might too big for mobile Safari to be able to handle
+      them, but there is a margin of error in these calculations so it is probably okay. Mention
+      this to an admin so they can test a staging site on mobile Safari after your PR is merged.`);
   } else {
-    console.log('All images are within the correct dimensions');
+    console.log('All images are within the correct dimensions'); // eslint-disable-line no-console
   }
 });
