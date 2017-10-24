@@ -49,7 +49,7 @@
           h3.float-left Hide Missing
           toggle-switch.float-right.no-margin(
             :label="''",
-            :checked="hideMissing",
+            :checked="viewOptions.hideMissing",
             @change="updateHideMissing"
           )
 
@@ -80,7 +80,7 @@
         h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
         .pet-row.d-flex(
-          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
+          v-for="(group, key, index) in pets(petGroup, viewOptions.hideMissing, selectedSortBy, searchTextThrottled)",
           v-if='index === 0 || showMore === petGroup.key')
           .pet-group(
             v-for='item in group'
@@ -129,7 +129,7 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
+        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, viewOptions.hideMissing, selectedSortBy, searchTextThrottled)"
           v-if='index === 0 || showMore === mountGroup.key')
           .pet-group(v-for='item in group')
             mountItem(
@@ -556,9 +556,10 @@
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          hideMissing: false,
+        },
         viewOptionsLoaded: false,
-        hideMissing: false,
 
         searchText: null,
         searchTextThrottled: '',
@@ -920,7 +921,7 @@
 
       // Actions
       updateHideMissing (newVal) {
-        this.hideMissing = newVal;
+        this.viewOptions.hideMissing = newVal;
       },
 
       selectPet (item) {
