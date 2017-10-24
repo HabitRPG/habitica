@@ -4,13 +4,24 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/20/2017 - USE CASE SPOTLIGHT: CULTIVATING POSITIVITY
+    h2 10/24/2017 - OCTOBER SUBSCRIBER ITEMS, BATCH BUYING, COSTUME CONTEST REMINDER, AND GUILD SPOTLIGHT
     hr
-    h3 Use Case Spotlight on Positivity
-    p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/10/17/use-case-spotlight-cultivating-positivity/) is about Cultivating Positivity! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be looking to build and maintain a more positive outlook!"')
-    p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to manage Money Matters? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-    .small by Beffymaroo
+    .media
+      .media-body
+        h3 October Subscriber Item Set Revealed!
+        p(v-markdown='"The October Subscriber Item Set has been revealed: [the Imperious Imp Item Set](/user/settings/subscription)! You only have seven days to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!"')
+      .promo_mystery_201710
+    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
+    .small by Lemoness
+    h3 Batch Buying
+    p We've added the ability to buy multiple quests, potions, eggs, food items, and saddles at once! Plus, if you're a subscriber, you can also buy multiple gems with gold. Batch buying is available in the shops as well as through your pinned Rewards. We hope this makes buying rewards and items even more motivating!
+    .small by TheHollidayInn and Apollo
+    h3 Community Costume Challenge Reminder
+    p(v-markdown='"There\'s just one week left to enter and complete the [Community Costume Challenge!](/challenges/76c69212-4f33-4198-81a8-ffeb51b16b8c) If you\'d like, you can also share your entry with fellow Habiticans on social media by using the hashtag #HabitoweenCostume. Join in the fun now for a chance to win the coveted Costume Contestant Badge!"')
     .scene_positivity.center-block
+    h3 Guild Spotlight: Gatherings of Good Cheer
+    p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/10/24/gatherings-of-good-cheer-guilds-for-cultivating-positivity/) that highlights the Guilds that can help you as you work toward a more optimistic outlook! Check it out now to find Habitica\'s best communities for Cultivating Positivity."')
+    .small by Beffymaroo
     br
 </template>
 
@@ -28,9 +39,9 @@
     margin-right: 1em;
   }
 
-  /* .small {
+  .small {
     margin-bottom: 1em;
-  } */
+  }
 </style>
 
 <script>

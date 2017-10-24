@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Ferramentas do Ofício",
     "spellRogueToolsOfTradeNotes": "Seus astutos talentos buffam a Percepção de todo seu Grupo! (Baseado em: PER sem buffs)",
     "spellRogueStealthText": "Furtividade",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
+    "spellRogueStealthNotes": "Com cada uso, algumas de suas Diárias não feitas não causarão dano hoje. Seus combos e cores não mudarão também. (Baseado em: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de Diárias evitadas: <%= number %>.",
     "spellRogueStealthMaxedOut": "Você já se esquivou de todas as suas Diárias; não há necessidade de lançar de novo.",
     "spellHealerHealText": "Luz Curadora",

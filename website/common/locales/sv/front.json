@@ -264,7 +264,7 @@
     "passwordResetEmailSubject": "Lösenordsåterställning för Habitica",
     "passwordResetEmailText": "Om du har begärt en lösenordsåterställning för <%= username %> på Habitica, gå till <%= passwordResetLink %> för att skriva in ett nytt. Länken kommer att gå ut efter 24 timmar. Om du inte har begärt en lösenordsåterställning, var god ignorera detta mail.",
     "passwordResetEmailHtml": "Om du har begärt en lösenordsåterställning för <strong><%= username %></strong> på Habitica, <a href=\"<%= passwordResetLink %>\">klicka här</a> för att skriva in ett nytt. Länken kommer att gå ut efter 24 timmar.<br/><br>Om du inte har begärt en lösenordsåterställning, var god ignorera detta mail.",
-    "invalidLoginCredentialsLong": "Uh-oh - your username or password is incorrect.\n- Make sure your username or email is typed correctly.\n- You may have signed up with Facebook, not email. Double-check by trying Facebook login.\n- If you forgot your password, click \"Forgot Password\".",
+    "invalidLoginCredentialsLong": "Ojdå, ditt användarnamn eller lösenord är fel.\n- Var säker på att ditt användarnamn eller email är rättstavat.\n- Du kan ha blivit medlem med Facebook och inte din email. Dubbelkolla genom att logga in med Facebook.\n- Om du har glömt bort ditt lösenord, klicka på \"Glömt Lösenord\".",
     "invalidCredentials": "Det finns inget konto som använder de uppgifterna.",
     "accountSuspended": "Konto har blivit avstängt. Var god kontakta <%= communityManagerEmail %> med ditt Användar-id \"<%= userId %>\" för assistans.",
     "unsupportedNetwork": "Detta nätverk stöds inte för tillfället.",
