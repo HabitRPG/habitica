@@ -24,7 +24,7 @@ const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 let testResults = [];
 let testCount = (stdout, regexp) => {
   let match = stdout.match(regexp);
-  return parseInt(match && match[1] || 0);
+  return parseInt(match && match[1] || 0, 10);
 };
 
 let testBin = (string, additionalEnvVariables = '') => {
