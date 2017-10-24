@@ -12,7 +12,7 @@ import { resolve }                from 'path';
  * Get access to configruable values
  */
 nconf.argv().env().file({ file: 'config.json' });
-export var conf = nconf;
+export const conf = nconf;
 
 /*
  * Kill a child process and any sub-children that process may have spawned.
@@ -26,11 +26,12 @@ export function kill (proc) {
         pids.forEach(kill); return;
       }
       try {
-        exec(/^win/.test(process.platform)
-          ? `taskkill /PID ${pid} /T /F`
-          : `kill -9 ${pid}`);
+        exec(/^win/.test(process.platform) ?
+          `taskkill /PID ${pid} /T /F` :
+          `kill -9 ${pid}`);
+      } catch (e) {
+        console.log(e);
       }
-      catch (e) { console.log(e); }
     });
   };
 
@@ -44,21 +45,25 @@ export function kill (proc) {
  * before failing.
  */
 export function awaitPort (port, max = 60) {
-  return new Bluebird((reject, resolve) => {
-    let socket, timeout, interval;
+  return new Bluebird((rej, res) => {
+    let socket;
+    let timeout;
+    let interval;
 
     timeout = setTimeout(() => {
       clearInterval(interval);
-      reject(`Timed out after ${max} seconds`);
+      rej(`Timed out after ${max} seconds`);
     }, max * 1000);
 
     interval = setInterval(() => {
-      socket = net.connect({port: port}, () => {
+      socket = net.connect({port}, () => {
         clearInterval(interval);
         clearTimeout(timeout);
         socket.destroy();
-        resolve();
-      }).on('error', () => { socket.destroy; });
+        res();
+      }).on('error', () => {
+        socket.destroy();
+      });
     }, 1000);
   });
 }
@@ -67,8 +72,12 @@ export function awaitPort (port, max = 60) {
  * Pipe the child's stdin and stderr to the parent process.
  */
 export function pipe (child) {
-  child.stdout.on('data', (data) => { process.stdout.write(data); });
-  child.stderr.on('data', (data) => { process.stderr.write(data); });
+  child.stdout.on('data', (data) => {
+    process.stdout.write(data);
+  });
+  child.stderr.on('data', (data) => {
+    process.stderr.write(data);
+  });
 }
 
 /*
@@ -91,7 +100,7 @@ export function postToSlack (msg, config = {}) {
       text: msg,
       icon_emoji: `:${config.emoji || 'gulp'}:`,
     })
-    .end((err, res) => {
+    .end((err) => {
       if (err) console.error('Unable to post to slack', err);
     });
 }

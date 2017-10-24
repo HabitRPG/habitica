@@ -1,5 +1,4 @@
 import gulp from 'gulp';
-import runSequence from 'run-sequence';
 import babel from 'gulp-babel';
 import webpackProductionBuild from '../webpack/build';
 
@@ -32,7 +31,7 @@ gulp.task('build:client', ['bootstrap'], (done) => {
 });
 
 gulp.task('build:prod', [
-  'build:server', 
+  'build:server',
   'build:client',
   'apidoc',
 ]);
