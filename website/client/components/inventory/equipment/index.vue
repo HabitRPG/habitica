@@ -244,10 +244,10 @@ export default {
   methods: {
     loadFilters () {
       let filters = getLocalSetting(this.$route.name);
-      if (!filters) {
+      if (!filters || !filters.weapon) {
         // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
-        this.groups.forEach((label, group) => {
-          this.$set(this.viewOptions, group, {
+        this.itemsGroups.forEach((group) => {
+          this.$set(this.viewOptions, group.key, {
             selected: true,
             open: false,
             itemsInFirstPosition: [],
@@ -256,7 +256,7 @@ export default {
         });
       }
       filters = JSON.parse(filters);
-      this.viewOptions = Object.assign({}, filters);
+      this.viewOptions = Object.assign({}, this.viewOptions, filters);
       this.viewOptionsLoaded = true;
     },
     openEquipDialog (item) {
