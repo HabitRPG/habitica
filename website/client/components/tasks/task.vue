@@ -22,6 +22,7 @@
               v-if="isUser",
               @click="collapseChecklist(task)",
               :class="{open: !task.collapseChecklist}",
+              v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist ? 'expand': 'collapse'}Checklist`)",
             )
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
