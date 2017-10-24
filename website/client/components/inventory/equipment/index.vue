@@ -244,17 +244,17 @@ export default {
   methods: {
     loadFilters () {
       let filters = getLocalSetting(this.$route.name);
-      if (!filters || !filters.weapon) {
-        // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
-        this.itemsGroups.forEach((group) => {
-          this.$set(this.viewOptions, group.key, {
-            selected: true,
-            open: false,
-            itemsInFirstPosition: [],
-            firstRender: true,
-          });
+
+      // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
+      this.itemsGroups.forEach((group) => {
+        this.$set(this.viewOptions, group.key, {
+          selected: true,
+          open: false,
+          itemsInFirstPosition: [],
+          firstRender: true,
         });
-      }
+      });
+
       filters = JSON.parse(filters);
       this.viewOptions = Object.assign({}, this.viewOptions, filters);
       this.viewOptionsLoaded = true;

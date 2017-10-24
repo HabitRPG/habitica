@@ -643,7 +643,7 @@
           this.viewOptionsLoaded = true;
           return;
         }
-        this.viewOptions = Object.assign({}, filters);
+        this.viewOptions = Object.assign({}, this.viewOptions, filters);
         this.viewOptionsLoaded = true;
       },
       loadPetGroups () {
