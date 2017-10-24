@@ -40,11 +40,11 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='addManager(member)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='addManager(member._id)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('addManager')}}
-            b-dropdown-item(@click='removeManager(member)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='removeManager(member._id)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
