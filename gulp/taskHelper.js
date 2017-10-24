@@ -98,7 +98,7 @@ export function postToSlack (msg, config = {}) {
       channel: `#${config.channel || '#general'}`,
       username: config.username || 'gulp task',
       text: msg,
-      icon_emoji: `:${config.emoji || 'gulp'}:`,
+      icon_emoji: `:${config.emoji || 'gulp'}:`, // eslint-disable-line camelcase
     })
     .end((err) => {
       if (err) console.error('Unable to post to slack', err); // eslint-disable-line no-console
@@ -106,7 +106,7 @@ export function postToSlack (msg, config = {}) {
 }
 
 export function runMochaTests (files, server, cb) {
-  require('../test/helpers/globals.helper');
+  require('../test/helpers/globals.helper'); // eslint-disable-line global-require
 
   let mocha = new Mocha({reporter: 'spec'});
   let tests = glob(files);

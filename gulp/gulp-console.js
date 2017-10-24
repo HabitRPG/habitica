@@ -19,9 +19,9 @@ let improveRepl = (context) => {
     process.stdout.write('\u001B[2J\u001B[0;0f');
   }});
 
-  context.Challenge = require('../website/server/models/challenge').model;
-  context.Group     = require('../website/server/models/group').model;
-  context.User      = require('../website/server/models/user').model;
+  context.Challenge = require('../website/server/models/challenge').model; // eslint-disable-line global-require
+  context.Group     = require('../website/server/models/group').model; // eslint-disable-line global-require
+  context.User      = require('../website/server/models/user').model; // eslint-disable-line global-require
 
   const isProd = nconf.get('NODE_ENV') === 'production';
   const mongooseOptions = !isProd ? {} : {

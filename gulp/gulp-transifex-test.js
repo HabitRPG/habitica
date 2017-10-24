@@ -141,7 +141,7 @@ gulp.task('transifex:malformedStrings', () => {
       let translationFile = fs.readFileSync(`${LOCALES}${lang}/${filename}`);
       let parsedTranslationFile = JSON.parse(translationFile);
 
-      _.each(strings, (value, key) => {
+      _.each(strings, (value, key) => { // eslint-disable-line max-nested-callbacks
         let translationString = parsedTranslationFile[key];
         if (!translationString) return;
 

@@ -62,7 +62,7 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
         throw new Error(`Problem with the server: ${error}`);
       }
       if (stderr) {
-        console.error(stderr);
+        console.error(stderr); // eslint-disable-line no-console
       }
     });
   }
@@ -112,7 +112,7 @@ gulp.task('test:common:watch', ['test:common:clean'], () => {
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
-    (err, stdout) => {
+    (err, stdout) => { // eslint-disable-line handle-callback-err
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
@@ -151,7 +151,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
-    (err, stdout) => {
+    (err, stdout) => {  // eslint-disable-line handle-callback-err
       testResults.push({
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
