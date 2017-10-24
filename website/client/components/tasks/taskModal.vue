@@ -223,7 +223,7 @@
       input {
         background: $white;
         border: 1px solid $gray-500;
-        color: $gray-200;
+        color: $gray-200 !important;
 
         &:focus {
           color: $gray-50 !important;
