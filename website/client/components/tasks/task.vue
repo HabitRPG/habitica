@@ -417,17 +417,19 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
-    isDueOverdue () {
-      return moment().diff(this.task.date, 'days') >= 0;
-    },
-    dueIn () {
+    timeTillDue () {
       const endOfToday = moment().endOf('day');
       const endOfDueDate = moment(this.task.date).endOf('day');
-      const dueInDays = moment.duration(endOfDueDate.diff(endOfToday));
 
-      const dueIn = dueInDays.asDays() === 0 ?
+      return moment.duration(endOfDueDate.diff(endOfToday));
+    },
+    isDueOverdue () {
+      return this.timeTillDue.asDays() <= 0;
+    },
+    dueIn () {
+      const dueIn = this.timeTillDue.asDays() === 0 ?
         this.$t('today') :
-        dueInDays.humanize(true);
+        this.timeTillDue.humanize(true);
 
       return this.$t('dueIn', { dueIn });
     },
