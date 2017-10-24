@@ -1,5 +1,6 @@
 // @TODO: Can we import only the functions we need instead of the large object?
 import common from '../../../../common';
+import allocateBulk from '../../../../common/script/ops/stats/allocateBulk';
 import { authWithHeaders } from '../../../middlewares/auth';
 
 let api = {};
@@ -32,6 +33,54 @@ api.allocate = {
   async handler (req, res) {
     let user = res.locals.user;
     let allocateRes = common.ops.allocate(user, req);
+    await user.save();
+    res.respond(200, ...allocateRes);
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/allocate-bulk Allocate multiple attribute points
+ * @apiName UserAllocateBulk
+ * @apiGroup User
+ *
+ * @apiParam (Body)
+ * {
+ *  stats: {
+ *    'int': Integer,
+ *    'str': Integer,
+ *    'con': Integer,
+ *    'per': Integer,
+ *  },
+ * } stats Query parameter
+ *
+ * @apiParamExample {json} Example request
+ * {
+ *  stats: {
+ *    'int': int,
+ *    'str': int,
+ *    'con': int,
+ *    'per': int,
+ *  },
+ * }
+ *
+ * @apiSuccess {Object} data Returns stats from the user profile
+ *
+ * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
+ *
+ * @apiErrorExample {json}
+ *  {
+ *   "success": false,
+ *   "error": "NotAuthorized",
+ *   "message": "You don't have enough attribute points."
+ * }
+ */
+api.allocateBulk = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/allocate-bulk',
+  async handler (req, res) {
+    let user = res.locals.user;
+    let allocateRes = allocateBulk(user, req);
     await user.save();
     res.respond(200, ...allocateRes);
   },

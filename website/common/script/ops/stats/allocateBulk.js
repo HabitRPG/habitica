@@ -9,8 +9,7 @@ import {
 import i18n from '../../i18n';
 
 module.exports = function allocateBulk (user, req = {}) {
-  const stats = get(req, 'query.stats');
-
+  const stats = get(req, 'body.stats');
   if (!stats) throw new BadRequest(i18n.t('statsObjectRequired', req.language));
 
   const statKeys = Object.keys(stats);

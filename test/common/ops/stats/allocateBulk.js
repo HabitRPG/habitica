@@ -18,7 +18,7 @@ describe.only('shared.ops.allocateBulk', () => {
   it('throws an error if an invalid attribute is supplied', (done) => {
     try {
       allocateBulk(user, {
-        query: {
+        body: {
           stats: {
             'invalid': 1,
             'str': 2,
@@ -45,7 +45,7 @@ describe.only('shared.ops.allocateBulk', () => {
   it('throws an error if the user doesn\'t have attribute points', (done) => {
     try {
       allocateBulk(user, {
-        query: {
+        body: {
           stats: {
             'int': 1,
             'str': 2,
@@ -63,7 +63,7 @@ describe.only('shared.ops.allocateBulk', () => {
     user.stats.points = 1;
     try {
       allocateBulk(user, {
-        query: {
+        body: {
           stats: {
             'int': 1,
             'str': 2,
@@ -83,7 +83,7 @@ describe.only('shared.ops.allocateBulk', () => {
     expect(user.stats.str).to.equal(0);
 
     allocateBulk(user, {
-      query: {
+      body: {
         stats: {
           'int': 1,
           'str': 2,
