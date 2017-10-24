@@ -124,6 +124,13 @@ export async function scoreChecklistItem (store, {taskId, itemId}) {
   await axios.post(`/api/v3/tasks/${taskId}/checklist/${itemId}/score`);
 }
 
+export async function collapseChecklist (store, task) {
+  task.collapseChecklist = !task.collapseChecklist;
+  await axios.put(`/api/v3/tasks/${task._id}`, {
+    collapseChecklist: task.collapseChecklist,
+  });
+}
+
 export async function destroy (store, task) {
   const list = store.state.tasks.data[`${task.type}s`];
   const taskIndex = list.findIndex(t => t._id === task._id);

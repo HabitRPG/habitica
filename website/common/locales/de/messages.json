@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
     "messageNotificationNotFound": "Mitteilung nicht gefunden.",
-    "notificationsRequired": "Mitteilungs-IDs werden benötigt."
+    "notificationsRequired": "Mitteilungs-IDs werden benötigt.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

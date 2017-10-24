@@ -349,15 +349,21 @@ export default {
         groupId: this.searchId,
       });
 
+      let groupedApprovals = await this.loadApprovals();
+
+      tasks.forEach((task) => {
+        if (groupedApprovals[task._id] && groupedApprovals[task._id].length > 0) task.approvals = groupedApprovals[task._id];
+        this.tasksByType[task.type].push(task);
+      });
+    },
+    async loadApprovals () {
+      if (this.group.leader._id !== this.user._id) return [];
+
       let approvalRequests = await this.$store.dispatch('tasks:getGroupApprovals', {
         groupId: this.searchId,
       });
-      let groupedApprovals = groupBy(approvalRequests, 'group.taskId');
 
-      tasks.forEach((task) => {
-        task.approvals = groupedApprovals[task._id];
-        this.tasksByType[task.type].push(task);
-      });
+      return groupBy(approvalRequests, 'group.taskId');
     },
     editTask (task) {
       this.taskFormPurpose = 'edit';

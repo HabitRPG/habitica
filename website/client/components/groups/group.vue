@@ -56,15 +56,16 @@
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
         .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader') {{ $t('edit') }}
+          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader || isAdmin') {{ $t('edit') }}
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
           button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
+          // @TODO: hide the invitation button if there's an active group plan and the player is not the leader
         .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
         .button-container
-          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}}
+          // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
 
     .section-header(v-if='isParty')
       .row
@@ -81,7 +82,7 @@
             .svg-icon(v-html="icons.questIcon")
             h4(v-once) {{ $t('youAreNotOnQuest') }}
             p(v-once) {{ $t('questDescription') }}
-            button.btn.btn-secondary(v-once, @click="openStartQuestModal()", v-if='isLeader') {{ $t('startAQuest') }}
+            button.btn.btn-secondary(v-once, @click="openStartQuestModal()") {{ $t('startAQuest') }}
         .row.quest-active-section(v-if='isParty && onPendingQuest && !onActiveQuest')
           .col-2
             .quest(:class='`inventory_quest_scroll_${questData.key}`')
@@ -90,6 +91,10 @@
             p {{acceptedCount}} / {{group.memberCount}}
           .col-4
             button.btn.btn-secondary(@click="openQuestDetails()") {{ $t('details') }}
+        .row.quest-active-section.quest-invite(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+          span {{ $t('wouldYouParticipate') }}
+          button.btn.btn-primary.accept(@click='questAccept(group._id)') {{$t('accept')}}
+          button.btn.btn-primary.reject(@click='questReject(group._id)') {{$t('reject')}}
         .row.quest-active-section(v-if='isParty && !onPendingQuest && onActiveQuest')
           .col-12.text-center
             .quest-boss(:class="'quest_' + questData.key")
@@ -124,12 +129,11 @@
                 .row.rage-bar-row(v-if='questData.boss.rage')
                   .col-12
                     .grey-progress-bar
-                      .boss-health-bar.rage-bar(:style="{width: (50 / questData.boss.rage) * 100 + '%'}")
+                      .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
                 .row.boss-details.rage-details(v-if='questData.boss.rage')
                     .col-6
-                      span.float-left
-                        | Rage {{questData.boss.rage.value}}
-            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='isLeader') {{ $t('abort') }}
+                      span.float-left {{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}
+            button.btn.btn-secondary(v-once, @click="questAbort()", v-if='canEditQuest') {{ $t('abort') }}
 
     .section-header(v-if='!isParty')
       .row
@@ -377,6 +381,37 @@
     }
   }
 
+  .quest-invite {
+    background-color: #2995cd;
+    color: #fff;
+    padding: 1em;
+
+    span {
+      margin-top: .3em;
+    	font-size: 14px;
+    	font-weight: bold;
+    }
+
+    .accept, .reject {
+      padding: .2em 1em;
+      font-size: 12px;
+      height: 24px;
+    	border-radius: 2px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    }
+
+    .accept {
+    	background-color: #24cc8f;
+    	margin-left: 4em;
+      margin-right: .5em;
+    }
+
+    .reject {
+    	border-radius: 2px;
+    	background-color: #f74e52;
+    }
+  }
+
   .section-header {
     border-top: 1px solid #e1e0e3;
     margin-top: 1em;
@@ -562,12 +597,17 @@ export default {
     isLeader () {
       return this.user._id === this.group.leader._id;
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
     isMember () {
       return this.isMemberOfGroup(this.user, this.group);
     },
     canEditQuest () {
-      let isQuestLeader = this.group.quest && this.group.quest.leader === this.user._id;
-      return isQuestLeader;
+      if (!this.group.quest) return false;
+      let isQuestLeader = this.group.quest.leader === this.user._id;
+      let isPartyLeader = this.group.leader._id === this.user._id;
+      return isQuestLeader || isPartyLeader;
     },
     isMemberOfPendingQuest () {
       let userid = this.user._id;
@@ -710,6 +750,9 @@ export default {
     fetchRecentMessages () {
       this.fetchGuild();
     },
+    reverseChat () {
+      this.group.chat.reverse();
+    },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
       this.$root.$emit('show::modal', 'guild-form');
@@ -850,14 +893,13 @@ export default {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/leave'});
       this.group.quest = quest;
     },
-    async questAccept () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/accept'});
-      this.group.quest = quest;
+    async questAccept (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
+      this.user.party.quest = quest;
     },
-    // @TODO: Move to notificaitons component?
-    async questReject () {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/reject'});
-      this.group.quest = quest;
+    async questReject (partyId) {
+      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
+      this.user.party.quest = quest;
     },
     showGroupGems () {
       this.$root.$emit('show::modal', 'group-gems-modal');

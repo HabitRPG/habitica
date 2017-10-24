@@ -56,7 +56,8 @@
 </style>
 
 <style>
-  .modal {
+  /* @TODO: The modal-open class is not being removed. Let's try this for now */
+  .modal, .modal-open {
     overflow-y: scroll !important;
   }
 
@@ -68,6 +69,8 @@
 
 <script>
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
+
 import AppMenu from './components/appMenu';
 import AppHeader from './components/appHeader';
 import AppFooter from './components/appFooter';
@@ -129,6 +132,7 @@ export default {
       this.$refs.sound.load();
     });
 
+    // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
       this.$root.$emit('show::modal', 'buy-modal');
@@ -140,6 +144,11 @@ export default {
     });
 
     // @TODO split up this file, it's too big
+
+    loadProgressBar({
+      showSpinner: false,
+    });
+
     // Set up Error interceptors
     axios.interceptors.response.use((response) => {
       if (this.user && response.data && response.data.notifications) {
@@ -163,7 +172,7 @@ export default {
           return Promise.resolve(error);
         }
 
-        this.$store.state.notificationStore.push({
+        this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: error.response.data.message,
           type: 'error',
@@ -182,6 +191,7 @@ export default {
 
       const isApiCall = url.indexOf('api/v3') !== -1;
       const userV = response.data && response.data.userV;
+      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
@@ -193,7 +203,6 @@ export default {
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
         // exclude POST /api/v3/cron because the user is synced automatically after cron runs
-        const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -203,6 +212,21 @@ export default {
           ]);
         }
       }
+
+      // Verify the client is updated
+      // const serverAppVersion = response.data.appVersion;
+      // let serverAppVersionState = this.$store.state.serverAppVersion;
+      // let deniedUpdate = this.$store.state.deniedUpdate;
+      // if (isApiCall && !serverAppVersionState) {
+      //   this.$store.state.serverAppVersion = serverAppVersion;
+      // } else if (isApiCall && serverAppVersionState !== serverAppVersion && !deniedUpdate || isCron) {
+      //   // For reload on cron
+      //   if (isCron || confirm(this.$t('habiticaHasUpdated'))) {
+      //     location.reload(true);
+      //   } else {
+      //     this.$store.state.deniedUpdate = true;
+      //   }
+      // }
 
       return response;
     });
@@ -320,9 +344,11 @@ export default {
         }
       }
     },
-    memberSelected (member) {
+    async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
+
+      this.$store.dispatch('party:getMembers', {forceLoad: true});
 
       this.$root.$emit('hide::modal', 'select-member-modal');
     },

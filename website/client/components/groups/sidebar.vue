@@ -87,8 +87,8 @@ export default {
           key: 'mental_health',
         },
         {
-          label: 'organization',
-          key: 'organization',
+          label: 'getting_organized',
+          key: 'getting_organized',
         },
         {
           label: 'recovery_support_groups',

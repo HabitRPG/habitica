@@ -2,8 +2,8 @@
 .row
   buy-gems-modal(v-if="isUserLoaded")
   modify-inventory(v-if="isUserLoaded")
-  footer.container-fluid
-    .row
+  footer.col-12(:class="{expanded: isExpandedFooter}")
+    .row(v-if="isExpandedFooter")
       .col-12.col-md-2
         h3
           a(href='https://itunes.apple.com/us/app/habitica/id994882113?ls=1&mt=8', target='_blank') {{ $t('mobileIOS') }}
@@ -13,26 +13,26 @@
         h3 Company
         ul
           li
-            a(href='/static/features') {{ $t('companyAbout') }}
+           router-link(to='/static/features') {{ $t('companyAbout') }}
           li
             a(href='https://habitica.wordpress.com/', target='_blank') {{ $t('companyBlog') }}
           li
             a(href='http://blog.habitrpg.com/', target='_blank') {{ $t('tumblr') }}
           li
-            a(href='/static/faq') {{ $t('FAQ') }}
+           router-link(to='/static/faq') {{ $t('FAQ') }}
           li
             a(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ $t('oldNews') }}
           li
-            a(href='/static/merch') {{ $t('merch') }}
+           router-link(to='/static/merch') {{ $t('merch') }}
           li
-            a(href='/static/press-kit') {{ $t('presskit') }}
+           router-link(to='/static/press-kit') {{ $t('presskit') }}
           li
-            a(href='/static/contact') {{ $t('contactUs') }}
+           router-link(to='/static/contact') {{ $t('contactUs') }}
       .col-12.col-md-2
         h3 Community
         ul
           li
-            a(href='/static/community-guidelines') {{ $t('communityGuidelines') }}
+            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
           li
             router-link(to='/hall/contributors') {{ $t('hall') }}
           li
@@ -55,7 +55,7 @@
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
               li
-                a(href='https://oldgods.net/habitrpg/habitrpg_user_data_display.html', target='_blank') {{ $t('dataDisplayTool') }}
+                a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
               li
                 a(href='http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths', target='_blank') {{ $t('guidanceForBlacksmiths') }}
               li
@@ -78,9 +78,10 @@
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
     .row
-      hr.col-12
+      .col-12
+        hr
     .row
-      .col-4
+      .col-5
         | © 2017 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
@@ -100,29 +101,57 @@
             a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-default(@click="makeAdmin()") Make Admin
             a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
-      .col-4.text-center
-        .logo
-      .col-4.text-right
-        span
-          router-link(to="/static/privacy") {{ $t('privacy') }}
-        span.terms-link
-          router-link(to="/static/terms") {{ $t('terms') }}
+      .col-2.text-center
+        .logo.svg-icon(v-html='icons.gryphon')
+      .col-5.text-right
+        template(v-if="!isExpandedFooter")
+          span
+            a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
+          span.ml-4
+            a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
+        span.ml-4
+          a(target="_blanck", href="/static/privacy") {{ $t('privacy') }}
+        span.ml-4
+          a(target="_blanck", href="/static/terms") {{ $t('terms') }}
 </template>
 
 <style lang="scss" scoped>
   footer {
-    background-color: #e1e0e3;
-    min-height: 408px;
-    width: 100%;
-    padding-left: 6em;
-    padding-right: 6em;
-    padding-top: 3em;
-    margin: 0;
-    color: #878190;
+    color: #c3c0c7;
     z-index: 17;
+    padding-bottom: 3em;
 
     a {
+      color: #2995cd;
+    }
+
+    &:not(.expanded) {
+      hr {
+        margin-top: 0px;
+        margin-bottom: 7px;
+      }
+    }
+
+    &.expanded {
+      padding-left: 6em;
+      padding-right: 6em;
+      padding-top: 3em;
+      background: #e1e0e3;
       color: #878190;
+      min-height: 408px;
+
+      a {
+        color: #878190;
+      }
+
+      .logo {
+        color: #c3c0c7;
+      }
+    }
+
+    & > .row {
+      margin-left: 12px;
+      margin-right: 12px;
     }
   }
 
@@ -171,16 +200,10 @@
   }
 
   .logo {
-    background-image: url('~assets/images/gryphon@3x.png');
     width: 24px;
     height: 24px;
     margin: 0 auto;
-    color: #c3c0c7;
-    background-size: cover;
-  }
-
-  .terms-link {
-    margin-left: 1em;
+    color: #e1e0e3;
   }
 
   .debug-group {
@@ -254,6 +277,15 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     ...mapState(['isUserLoaded']),
+    isExpandedFooter () {
+      return this.$route.name === 'tasks' ? false : true;
+    },
+    getDataDisplayToolUrl () {
+      const base = 'https://oldgods.net/habitrpg/habitrpg_user_data_display.html';
+      if (!this.user) return;
+
+      return `${base}?uuid=${this.user._id}`;
+    },
   },
   methods: {
     plusTenHealth () {

@@ -76,11 +76,11 @@
         .section.row(v-if="sections.helpfulLinks")
           ul
             li
-              a(href='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
+             router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
               router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
             li
-              a(href='/static/faq', v-once) {{ $t('faq') }}
+             router-link(to='/static/faq', v-once) {{ $t('faq') }}
             li
               a(href='', v-html="$t('glossary')")
             li

@@ -13,9 +13,10 @@
           .pending.float-right(v-if='member.accepted === null') {{ $t('pending') }}
     div(v-if='questData')
       questDialogContent(:item="questData")
-    div.text-center.actions
+    div.text-center.actions(v-if='canEditQuest')
       div
         button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
+        // @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")
       div
         .cancel(v-once, @click="questCancel()") {{ $t('cancel') }}
     .side-panel(v-if='questData')
@@ -188,6 +189,12 @@ export default {
           accepted: this.group.quest.members[member._id],
         };
       });
+    },
+    canEditQuest () {
+      if (!this.group.quest) return false;
+      let isQuestLeader = this.group.quest.leader === this.user._id;
+      let isPartyLeader = this.group.leader._id === this.user._id;
+      return isQuestLeader || isPartyLeader;
     },
   },
   methods: {

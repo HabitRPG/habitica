@@ -209,7 +209,6 @@
         div.content-text(v-once) {{ $t('welcomeStableText') }}
 
     b-modal#hatching-modal(
-      :visible="hatchablePet != null",
       @change="resetHatchablePet($event)"
     )
       div.content(v-if="hatchablePet")
@@ -229,9 +228,7 @@
         button.btn.btn-secondary.btn-flat(@click="closeHatchPetDialog()") {{ $t('cancel') }}
 
     hatchedPetDialog(
-      :pet="hatchedPet",
       :hideText="true",
-      @closed="closeHatchedPetDialog()"
     )
 
     div.foodInfo(ref="dragginFoodInfo")
@@ -336,11 +333,6 @@
       padding-right:0;
     }
 
-    .drawer-container {
-      // 3% padding + 252px sidebar width
-      left: calc(3% + 252px) !important;
-    }
-
     .svg-icon.inline.icon-16 {
       vertical-align: bottom;
     }
@@ -391,7 +383,6 @@
     }
 
     .title {
-      height: 24px;
       margin-top: 24px;
       font-family: Roboto;
       font-size: 20px;
@@ -589,7 +580,6 @@
         highlightPet: '',
 
         hatchablePet: null,
-        hatchedPet: null,
         foodClickMode: false,
         currentDraggingFood: null,
 
@@ -865,7 +855,8 @@
 
         let countAll = animals.length;
         let countOwned = _filter(animals, (a) => {
-          return a.isOwned();
+          // when counting pets, include those that have been raised into mounts
+          return a.isOwned() || a.mountOwned();
         });
 
         return `${countOwned.length}/${countAll}`;
@@ -942,8 +933,9 @@
 
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
-        this.hatchedPet = pet;
+
         this.closeHatchPetDialog();
+        this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {
@@ -998,6 +990,8 @@
           }
           // opens the hatch dialog
           this.hatchablePet = pet;
+
+          this.$root.$emit('show::modal', 'hatching-modal');
         }
       },
 
@@ -1011,9 +1005,6 @@
 
       closeHatchPetDialog () {
         this.$root.$emit('hide::modal', 'hatching-modal');
-      },
-      closeHatchedPetDialog () {
-        this.hatchedPet = null;
       },
 
       resetHatchablePet ($event) {

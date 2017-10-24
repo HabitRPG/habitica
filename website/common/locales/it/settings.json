@@ -49,7 +49,7 @@
     "customDayStart": "Inizio giorno personalizzato",
     "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "changeCustomDayStart": "Cambiare l'ora di inizio della giornata?",
-    "sureChangeCustomDayStart": "Vuoi davvere cambiare l'ora di inizio della giornata?",
+    "sureChangeCustomDayStart": "Vuoi davvero cambiare l'ora di inizio della giornata?",
     "customDayStartHasChanged": "La tua ora di inizio giorno è stata cambiata.",
     "nextCron": "Le tue Daily verranno ripristinate la prima volta che usi Habitica dopo <%= time %>. Assicurati di aver completato le tue Daily prima di allora!",
     "customDayStartInfo1": "Habitica è impostato per resettare le tue Daily a mezzanotte (nel tuo fuso orario) ogni giorno. Qui puoi modificare l'ora di \"reset\".",

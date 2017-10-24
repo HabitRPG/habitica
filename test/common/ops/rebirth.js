@@ -172,13 +172,13 @@ describe('shared.ops.rebirth', () => {
     expect(user.flags.levelDrops).to.be.empty;
   });
 
-  it('does not reset rebirthEnabled if user has beastMaster', () => {
+  it('reset rebirthEnabled even if user has beastMaster', () => {
     user.achievements.beastMaster = 1;
     user.flags.rebirthEnabled = true;
 
     rebirth(user);
 
-    expect(user.flags.rebirthEnabled).to.be.true;
+    expect(user.flags.rebirthEnabled).to.be.false;
   });
 
   it('sets rebirth achievement', () => {

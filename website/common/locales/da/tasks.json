@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addmultiple": "Tilføj Flere",
     "addsingle": "Tilføj Én",
+    "addATask": "Add a <%= type %>",
     "editATask": "Edit a <%= type %>",
     "createTask": "Create <%= type %>",
-    "addTaskToUser": "Create",
+    "addTaskToUser": "Add Task",
     "scheduled": "Scheduled",
     "theseAreYourTasks": "These are your <%= taskType %>",
     "habit": "Vane",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Start My New Day!",
     "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "Tjek venligst at du har mindst en ugedag valgt."
+    "repeatDayError": "Tjek venligst at du har mindst en ugedag valgt.",
+    "searchTasks": "Search titles and descriptions..."
 }

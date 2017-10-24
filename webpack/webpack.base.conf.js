@@ -105,7 +105,12 @@ const baseConfig = {
       {
         test: /\.svg$/,
         use: [
-          { loader: 'svg-url-loader' },
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
           { loader: 'svgo-loader' },
         ],
         include: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],

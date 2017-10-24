@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Handelsverktyg",
     "spellRogueToolsOfTradeNotes": "Dina listiga talanger förbättrar hela ditt Sällskaps Uppmärksamhet! (Baserat på: oförbättrad UPP)",
     "spellRogueStealthText": "Smygande",
-    "spellRogueStealthNotes": "För varje kast kommer en del an dina ogjorda Dagliga Uppgifter inte orsaka skada under natten. Deras i fäljd-färger kommer inte att förändras.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal Dagliga Utmaningar undvikna: <%= number %>.",
     "spellRogueStealthMaxedOut": "Du har redan undvikit alla dina Dagliga Utmaningar; du behöver inte kasta den här igen.",
     "spellHealerHealText": "Helande ljus",

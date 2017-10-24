@@ -114,7 +114,7 @@
     "shortName": "Kurzname",
     "shortNamePlaceholder": "Mit welchem kurzen Tag soll Dein Wettbewerb bezeichnet werden?",
     "updateChallenge": "Wettbewerb aktualisieren",
-    "haveNoChallenges": "Du hast keine Wettbewerbe",
+    "haveNoChallenges": "Dieses Team hat keine Wettbewerbe",
     "loadMore": "Mehr laden",
     "exportChallengeCsv": "Wettbewerb exportieren",
     "editingChallenge": "Bearbeitet Wettbewerb ",
@@ -125,5 +125,6 @@
     "descriptionRequired": "Beschreibung ist erforderlich",
     "locationRequired": "Zuordnung des Wettbewerbs ist erforderlich (Füge hinzu)",
     "categoiresRequired": "Eine oder mehr Kategorien müssen ausgewählt sein",
-    "viewProgressOf": "Fortschritt Ansehen Von"
+    "viewProgressOf": "Fortschritt Ansehen Von",
+    "selectMember": "Ein Mitglied Auswählen"
 }

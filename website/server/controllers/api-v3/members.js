@@ -226,6 +226,10 @@ function _getMembersForItem (type) {
         fields = memberFields;
         addComputedStats = true;
       }
+
+      if (req.query.search) {
+        query['profile.name'] = {$regex: req.query.search};
+      }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;

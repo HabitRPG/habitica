@@ -10,8 +10,6 @@
 
   group-form-modal
 </template>
-<!-- .col-md-2
-  button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','guild-form')") {{ $t('createGuild') }} -->
 
 <script>
 import groupFormModal from './groupFormModal';
