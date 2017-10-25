@@ -192,6 +192,7 @@
     padding-left: 24px;
     padding-right: 24px;
     max-width: 40vw;
+    width: 100%;
     z-index: 9999;
     background: $white;
     border-radius: 2px;
