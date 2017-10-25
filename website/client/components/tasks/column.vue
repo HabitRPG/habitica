@@ -88,7 +88,6 @@
     width: 100%;
     margin-bottom: 8px;
     padding: 12px 16px;
-    font-weight: bold;
     border-color: transparent;
     transition: background 0.15s ease-in;
 
@@ -101,6 +100,10 @@
       background: $white;
       border-color: $purple-500;
       color: $gray-50;
+    }
+
+    &::placeholder {
+      font-weight: bold;
     }
   }
 
