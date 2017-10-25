@@ -176,32 +176,32 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
 
+import moment from 'moment';
+
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+
+import cardsModal from './cards-modal';
+
+import HatchedPetDialog from '../stable/hatchedPetDialog';
+import startQuestModal from '../../groups/startQuestModal';
+import QuestInfo from '../../shops/quests/questInfo.vue';
+
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
 
-import cardsModal from './cards-modal';
-import HatchedPetDialog from '../stable/hatchedPetDialog';
-
-import startQuestModal from '../../groups/startQuestModal';
-
+import { mapState } from 'client/libs/store';
 import createAnimal from 'client/libs/createAnimal';
-
-import QuestInfo from '../../shops/quests/questInfo.vue';
-
-import moment from 'moment';
-
-const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
+
+const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
 const groups = [
   ['eggs', 'Pet_Egg_'],
@@ -306,14 +306,12 @@ export default {
 
       let specialArray = itemsByType.special;
 
-      if (this.user.purchased.plan.customerId) {
-        specialArray.push({
-          key: 'mysteryItem',
-          class: `inventory_present inventory_present_${moment().format('MM')}`,
-          text: this.$t('subscriberItemText'),
-          quantity: this.user.purchased.plan.mysteryItems.length,
-        });
-      }
+      specialArray.push({
+        key: 'mysteryItem',
+        class: `inventory_present inventory_present_${moment().format('MM')}`,
+        text: this.$t('subscriberItemText'),
+        quantity: this.user.purchased.plan.mysteryItems.length,
+      });
 
       for (let type in this.content.cardTypes) {
         let card = this.user.items.special[`${type}Received`] || [];
