@@ -427,20 +427,15 @@ export default {
     methods: {
       loadFilters () {
         let filters = getLocalSetting(this.$route.name);
-        if (!this.viewOptionsLoaded) {
-          this.shop.categories.forEach((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-        }
         filters = JSON.parse(filters);
-        // @TODO: I think there are hidden props, Object.keys won't ever be 0 length
-        if (!filters || !filters.gold) {
-          this.viewOptionsLoaded = true;
-          return;
-        }
-        this.viewOptions = Object.assign({}, filters);
+
+        this.shop.categories.forEach((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+
+        this.viewOptions = Object.assign({}, this.viewOptions, filters);
         this.viewOptionsLoaded = true;
       },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {

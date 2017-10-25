@@ -598,19 +598,15 @@ export default {
     methods: {
       loadFilters () {
         let filters = getLocalSetting(this.$route.name);
-        if (!this.viewOptionsLoaded) {
-          this.categories.forEach((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-        }
         filters = JSON.parse(filters);
-        if (!filters || !filters.cards) {
-          this.viewOptionsLoaded = true;
-          return;
-        }
-        this.viewOptions = Object.assign({}, filters);
+
+        this.categories.forEach((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+
+        this.viewOptions = Object.assign({}, this.viewOptions, filters);
         this.viewOptionsLoaded = true;
       },
       getClassName (classType) {

@@ -440,24 +440,17 @@
       },
     },
     methods: {
-      // @TODO: We can probably generalize this by abstract "filters loaded"
       loadFilters () {
         let filters = getLocalSetting(this.$route.name);
-        // "Filters Loaded"
-        if (!this.viewOptionsLoaded) {
-          _forEach(this.filterCategories, (value) => {
-            this.$set(this.viewOptions, value.key, {
-              selected: true,
-            });
-          });
-        }
         filters = JSON.parse(filters);
-        // @TODO: I think there are hidden props, Object.keys won't ever be 0 length
-        if (!filters || !filters.armor) {
-          this.viewOptionsLoaded = true;
-          return;
-        }
-        this.viewOptions = Object.assign({}, filters);
+
+        _forEach(this.filterCategories, (value) => {
+          this.$set(this.viewOptions, value.key, {
+            selected: true,
+          });
+        });
+
+        this.viewOptions = Object.assign({}, this.viewOptions, filters);
         this.viewOptionsLoaded = true;
       },
       getClassName (classType) {
