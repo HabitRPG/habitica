@@ -8,10 +8,10 @@ const BOOSTRAP_NEW_CONFIG_PATH = 'website/client/assets/scss/bootstrap_config.sc
 const BOOTSTRAP_ORIGINAL_CONFIG_PATH = 'node_modules/bootstrap/scss/_custom.scss';
 
 // https://stackoverflow.com/a/14387791/969528
-function copyFile(source, target, cb) {
+function copyFile (source, target, cb) {
   let cbCalled = false;
 
-  function done(err) {
+  function done (err) {
     if (!cbCalled) {
       cb(err);
       cbCalled = true;
