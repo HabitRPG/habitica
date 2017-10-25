@@ -236,6 +236,12 @@
     flex-shrink: 0;
   }
 
+  .left-control, .right-control, .task-control {
+    transition-duration: 0.2s;
+    transition-property: background, color;
+    transition-timing-function: ease-in;
+  }
+
   .left-control {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;

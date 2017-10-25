@@ -15,12 +15,6 @@
 }
 
 .task {
-  &-control {
-    transition-duration: 0.2s;
-    transition-property: background, color;
-    transition-timing-function: ease-in;
-  }
-
   // for editing rewards or when a task is created
   &-purple {
     background: $purple-300;
