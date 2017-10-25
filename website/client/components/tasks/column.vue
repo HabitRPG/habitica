@@ -9,7 +9,7 @@
   .d-flex
     h2.tasks-column-title
       | {{ $t(types[type].label) }}
-      .badge.badge-pill.column-badge(v-if="hasBadge") {{ badgeCount }}
+      .badge.badge-pill.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
@@ -273,6 +273,7 @@ export default {
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
+    // @TODO refactor this so that filter functions aren't in data
     const types = Object.freeze({
       habit: {
         label: 'habits',
@@ -411,17 +412,25 @@ export default {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
     },
-    hasBadge () {
-      if (this.type === 'todo' && this.activeFilters.todo.label !== 'complete2') return true;
-      if (this.type === 'daily') return true;
-      return false;
-    },
     badgeCount () {
+      // 0 means the badge will not be shown
+      // It is shown for the all and due views of dailies
+      // and for the active and scheduled views of todos.
       if (this.type === 'todo') {
-        return this.taskList.length;
+        if (this.activeFilters.todo.label !== 'complete2') return this.taskList.length;
       } else if (this.type === 'daily') {
-        return this.taskList.length;
+        const activeFilter = this.activeFilters.daily.label;
+
+        if (activeFilter === 'due') {
+          return this.taskList.length;
+        } else if (activeFilter === 'all') {
+          return this.taskList.reduce((count, t) => {
+            return !t.completed && shouldDo(new Date(), t, this.userPreferences) ? count + 1 : count;
+          }, 0);
+        }
       }
+
+      return 0;
     },
   },
   watch: {
