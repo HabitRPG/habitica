@@ -59,11 +59,11 @@
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortByItems",
-              @click="selectedSortBy = sort",
-              :active="selectedSortBy === sort",
+              @click="viewOptions.selectedSortBy = sort",
+              :active="viewOptions.selectedSortBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -80,7 +80,7 @@
         h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
         .pet-row.d-flex(
-          v-for="(group, key, index) in pets(petGroup, viewOptions.hideMissing, selectedSortBy, searchTextThrottled)",
+          v-for="(group, key, index) in pets(petGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)",
           v-if='index === 0 || showMore === petGroup.key')
           .pet-group(
             v-for='item in group'
@@ -129,7 +129,7 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, viewOptions.hideMissing, selectedSortBy, searchTextThrottled)"
+        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)"
           v-if='index === 0 || showMore === mountGroup.key')
           .pet-group(v-for='item in group')
             mountItem(
@@ -558,6 +558,7 @@
       return {
         viewOptions: {
           hideMissing: false,
+          selectedSortBy: 'standard',
         },
         viewOptionsLoaded: false,
 
@@ -565,7 +566,6 @@
         searchTextThrottled: '',
 
         // sort has the translation-keys as values
-        selectedSortBy: 'standard',
         sortByItems: [
           'standard',
           'AZ',
