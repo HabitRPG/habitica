@@ -136,6 +136,7 @@ export default function () {
       modalStack: [],
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
+      quickInventoryDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],
     },

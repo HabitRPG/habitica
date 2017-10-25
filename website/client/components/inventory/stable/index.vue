@@ -154,6 +154,8 @@
           | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
+        :openStatus='openStatus',
+        v-on:toggled='drawerToggled',
         :title="$t('quickInventory')",
         :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null"
       )
@@ -485,7 +487,7 @@
 </style>
 
 <script>
-  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -606,6 +608,7 @@
       },
     },
     mounted () {
+      this.loadDrawerState();
       this.loadPetGroups();
       this.loadMountGroups();
       this.loadFilters();
@@ -618,6 +621,9 @@
         userItems: 'user.data.items',
         hideDialog: 'user.data.flags.tutorial.common.mounts',
       }),
+      openStatus () {
+        return this.$store.state.quickInventoryDrawerOpen ? 1 : 0;
+      },
       drawerTabs () {
         return [
           {
@@ -645,6 +651,22 @@
         }
         this.viewOptions = Object.assign({}, this.viewOptions, filters);
         this.viewOptionsLoaded = true;
+      },
+      loadDrawerState () {
+        const drawerState = getLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE);
+        if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+          this.$store.state.quickInventoryDrawerOpen = false;
+        }
+      },
+      drawerToggled (newState) {
+        this.$store.state.quickInventoryDrawerOpen = newState;
+
+        if (newState) {
+          setLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+          return;
+        }
+
+        setLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
       },
       loadPetGroups () {
         let petGroups = [
