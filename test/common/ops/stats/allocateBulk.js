@@ -8,7 +8,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 
-describe.only('shared.ops.allocateBulk', () => {
+describe('shared.ops.allocateBulk', () => {
   let user;
 
   beforeEach(() => {
@@ -20,8 +20,8 @@ describe.only('shared.ops.allocateBulk', () => {
       allocateBulk(user, {
         body: {
           stats: {
-            'invalid': 1,
-            'str': 2,
+            invalid: 1,
+            str: 2,
           },
         },
       });
@@ -47,8 +47,8 @@ describe.only('shared.ops.allocateBulk', () => {
       allocateBulk(user, {
         body: {
           stats: {
-            'int': 1,
-            'str': 2,
+            int: 1,
+            str: 2,
           },
         },
       });
@@ -65,8 +65,8 @@ describe.only('shared.ops.allocateBulk', () => {
       allocateBulk(user, {
         body: {
           stats: {
-            'int': 1,
-            'str': 2,
+            int: 1,
+            str: 2,
           },
         },
       });
@@ -85,8 +85,8 @@ describe.only('shared.ops.allocateBulk', () => {
     allocateBulk(user, {
       body: {
         stats: {
-          'int': 1,
-          'str': 2,
+          int: 1,
+          str: 2,
         },
       },
     });

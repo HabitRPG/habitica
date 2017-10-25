@@ -1,6 +1,5 @@
 // @TODO: Can we import only the functions we need instead of the large object?
 import common from '../../../../common';
-import allocateBulk from '../../../../common/script/ops/stats/allocateBulk';
 import { authWithHeaders } from '../../../middlewares/auth';
 
 let api = {};
@@ -80,7 +79,7 @@ api.allocateBulk = {
   url: '/user/allocate-bulk',
   async handler (req, res) {
     let user = res.locals.user;
-    let allocateRes = allocateBulk(user, req);
+    let allocateRes = common.ops.allocateBulk(user, req);
     await user.save();
     res.respond(200, ...allocateRes);
   },

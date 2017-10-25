@@ -4,6 +4,7 @@ import reset from './reset';
 import reroll from './reroll';
 import rebirth from './rebirth';
 import allocate from './stats/allocate';
+import allocateBulk from './stats/allocateBulk';
 import allocateNow from './stats/allocateNow';
 import sortTask from './sortTask';
 import updateTask from './updateTask';
@@ -49,6 +50,7 @@ module.exports = {
   reroll,
   rebirth,
   allocateNow,
+  allocateBulk,
   sortTask,
   updateTask,
   deleteTask,

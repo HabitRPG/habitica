@@ -30,7 +30,7 @@ describe('POST /user/allocate-bulk', () => {
   it('allocates attribute points', async () => {
     await user.update({'stats.points': 3});
 
-    let res = await user.post('/user/allocate-bulk', statsUpdate);
+    await user.post('/user/allocate-bulk', statsUpdate);
     await user.sync();
 
     expect(user.stats.con).to.equal(1);

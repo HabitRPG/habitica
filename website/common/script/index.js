@@ -139,6 +139,7 @@ import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
 import allocateNow from './ops/stats/allocateNow';
 import allocate from './ops/stats/allocate';
+import allocateBulk from './ops/stats/allocateBulk';
 import buy from './ops/buy';
 import buyGear from './ops/buyGear';
 import buyHealthPotion from './ops/buyHealthPotion';
@@ -176,6 +177,7 @@ api.ops = {
   scoreTask,
   sleep,
   allocate,
+  allocateBulk,
   buy,
   buyGear,
   buyHealthPotion,
