@@ -114,7 +114,7 @@
               template(slot="itemBadge", scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
-        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
+        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && viewOptions[petGroup.key].animalCount !== 0')
           | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
 
       h2
@@ -150,7 +150,7 @@
                   @click="selectMount(item)",
                 )
 
-        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
+        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts" && viewOptions[mountGroup.key].animalCount !== 0')
           | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
