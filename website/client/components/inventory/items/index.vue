@@ -270,6 +270,12 @@ export default {
       },
       deep: true,
     },
+    sortBy: {
+      handler (newVal) {
+        if (!newVal) return;
+        setLocalSetting(`${this.$route.name}-sortby`, JSON.stringify(newVal));
+      },
+    },
   },
   computed: {
     ...mapState({
@@ -349,6 +355,11 @@ export default {
       if (!filters) return;
       filters = JSON.parse(filters);
       this.groups = filters;
+
+      filters = getLocalSetting(`${this.$route.name}-sortby`);
+      if (!filters) return;
+      filters = JSON.parse(filters);
+      this.sortBy = filters;
     },
     userHasPet (potionKey, eggKey) {
       let animalKey = `${eggKey}-${potionKey}`;
