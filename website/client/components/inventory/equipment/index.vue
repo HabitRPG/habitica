@@ -6,7 +6,7 @@
 
     .form
       h2(v-once) {{ $t('filter') }}
-      h3 {{ this.groupBy === 'type' ? $t('equipmentType') : $t('class') }}
+      h3 {{ this.viewOptions.groupBy === 'type' ? $t('equipmentType') : $t('class') }}
       .form-group
         .form-check(
           v-for="group in itemsGroups",
@@ -22,18 +22,18 @@
       h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
-        b-dropdown(:text="$t(selectedSortGearBy)", right=true)
+        b-dropdown(:text="$t(viewOptions.selectedSortGearBy)", right=true)
           b-dropdown-item(
             v-for="sort in sortGearBy",
-            @click="selectedSortGearBy = sort",
-            :active="selectedSortGearBy === sort",
+            @click="viewOptions.selectedSortGearBy = sort",
+            :active="viewOptions.selectedSortGearBy === sort",
             :key="sort"
           ) {{ $t(sort) }}
 
         span.dropdown-label {{ $t('groupBy2') }}
-        b-dropdown(:text="$t(groupBy === 'type' ? 'equipmentType' : 'class')", right=true)
-          b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
-          b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
+        b-dropdown(:text="$t(viewOptions.groupBy === 'type' ? 'equipmentType' : 'class')", right=true)
+          b-dropdown-item(@click="viewOptions.groupBy = 'type'", :active="viewOptions.groupBy === 'type'") {{ $t('equipmentType') }}
+          b-dropdown-item(@click="viewOptions.groupBy = 'class'", :active="viewOptions.groupBy === 'class'") {{ $t('class') }}
 
     drawer(
       :title="$t('equipment')",
@@ -99,7 +99,7 @@
        span.badge.badge-pill.badge-default {{items[group.key].length}}
 
       itemRows(
-        :items="sortItems(items[group.key], selectedSortGearBy)",
+        :items="sortItems(items[group.key], viewOptions.selectedSortGearBy)",
         :itemWidth=94,
         :itemMargin=24,
         :type="group.key",
@@ -193,7 +193,6 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       costume: false,
-      groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         weapon: i18n.t('weaponCapitalized'),
         shield: i18n.t('offhandCapitalized'),
@@ -213,11 +212,13 @@ export default {
         mystery: i18n.t('mystery'),
         armoire: i18n.t('armoireText'),
       }),
-      viewOptions: {},
+      viewOptions: {
+        selectedSortGearBy: 'sortByName',
+        groupBy: 'type', // or 'class'
+      },
       viewOptionsLoaded: false,
       gearToEquip: null,
       sortGearBy: sortGearTypes,
-      selectedSortGearBy: 'sortByName',
     };
   },
   watch: {
@@ -388,10 +389,10 @@ export default {
       return gearItemsByClass;
     },
     groups () {
-      return this.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
+      return this.viewOptions.groupBy === 'type' ? this.gearTypesToStrings : this.gearClassesToStrings;
     },
     items () {
-      return this.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
+      return this.viewOptions.groupBy === 'type' ? this.gearItemsByType : this.gearItemsByClass;
     },
     itemsGroups () {
       return map(this.groups, (label, group) => {

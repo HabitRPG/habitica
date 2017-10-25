@@ -262,6 +262,7 @@ export default {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText;
     }, 250),
+    // @TODO: can we standardized this object to be view options like other components
     groups: {
       handler (newVal) {
         if (!newVal) return;
