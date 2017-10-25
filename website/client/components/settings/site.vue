@@ -115,7 +115,8 @@
         div
           ul.list-inline
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
-              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
+              // @TODO this is broken
+              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
@@ -276,7 +277,7 @@ export default {
       } else {
         settings[`preferences.${preferenceType}.${subtype}`] = this.user.preferences[preferenceType][subtype];
       }
-      this.$store.dispatch('user:set', settings);
+      return this.$store.dispatch('user:set', settings);
     },
     hideHeader () {
       this.set('hideHeader');
@@ -334,10 +335,10 @@ export default {
       // @TODO
       // Notification.text(response.data.data.message);
     },
-    changeLanguage (e) {
+    async changeLanguage (e) {
       const newLang = e.target.value;
       this.user.preferences.language = newLang;
-      this.set('language');
+      await this.set('language');
       window.location.href = '/';
     },
     async changeUser (attribute, updates) {
@@ -373,7 +374,7 @@ export default {
         auth,
       });
 
-      this.$router.go('/tasks');
+      window.location.href = '/';
     },
     async changeClassForUser (confirmationNeeded) {
       if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;

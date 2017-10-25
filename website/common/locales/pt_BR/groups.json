@@ -141,7 +141,7 @@
     "report": "Reportar",
     "abuseFlag": "Reportar violação das Diretrizes da Comunidade",
     "abuseFlagModalHeading": "Reportar <%= name %> por violação?",
-    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
+    "abuseFlagModalBody": "Tem certeza que deseja denunciar essa publicação? Você deve denunciar APENAS publicações que violam as <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %> e/ou os <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Denunciar inapropriadamente uma publicação é uma violação das Diretrizes de Comunidade e pode resultar em uma infração. Razões apropriadas para reportar uma publicação incluem, mas não se limitam, a: <br><br><ul style='margin-left: 10px;'><li>xingamentos, blasfêmias religiosas</li><li> intolerância, insultos</li><li>tópicos adultos</li><li>violência, inclusive brincadeiras</li><li>spam, mensagens sem sentido</li></ul>",
     "abuseFlagModalButton": "Reportar Violação",
     "abuseReported": "Obrigado por reportar essa violação. Os moderadores foram notificados.",
     "abuseAlreadyReported": "Você já reportou essa mensagem.",
@@ -388,13 +388,13 @@
     "reverseChat": "Chat em Ordem Reversa",
     "invites": "Convites",
     "details": "Detalhes",
-    "participantDesc": "Quando todos os membros tiverem aceitado ou rejeitado, a Missão começa. Somente aqueles que clicaram em \"aceitar\" poderão participar da Missão e receber os drops.",
+    "participantDesc": "Quando todos os membros tiverem aceitado ou rejeitado, a Missão começa. Somente aqueles que clicaram em \"aceitar\" poderão participar da Missão e receber as recompensas. ",
     "groupGems": "Gemas do Grupo",
     "groupGemsDesc": "Gemas da Guildas podem ser gastas para criar Desafios! No futuro, você poderá adicionar mais Gemas da Guilda.",
     "groupTaskBoard": "Painel de Tarefas",
     "groupInformation": "Informações do Time",
     "groupBilling": "Dados de Cobrança do Time",
-    "wouldYouParticipate": "Would you like to participate?",
-    "managerAdded": "Manager added successfully",
-    "managerRemoved": "Manager removed successfully"
+    "wouldYouParticipate": "Você gostaria de participar?",
+    "managerAdded": "Gestor(a) adicionado(a) com sucesso.",
+    "managerRemoved": "Gestor(a) removido(a) com sucesso."
 }

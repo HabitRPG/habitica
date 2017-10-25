@@ -6,7 +6,7 @@
     "questsForSale": "クエストの販売",
     "petQuests": "ペットと乗騎のクエスト",
     "unlockableQuests": "アンロックできるクエスト",
-    "goldQuests": "ゴールドで購入できるクエスト",
+    "goldQuests": "Masterclasser Quest Lines",
     "questDetails": "クエストの詳細",
     "questDetailsTitle": "クエストの詳細",
     "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
@@ -29,6 +29,7 @@
     "questLater": "あとでクエストをはじめる",
     "buyQuest": "クエストを買う",
     "accepted": "承認しました",
+    "declined": "Declined",
     "rejected": "拒否しました",
     "pending": "未決",
     "questStart": "すべてのメンバーが承認または拒否のどちらかを選択すると、クエストがはじまります。「承認する」をクリックしたものだけがクエストに参加して、落とし物を受け取れます。メンバーが長い間保留 (アクティブでないユーザー?) している場合は、クエストのオーナーは「はじめる」をクリックして、返事をしなかったメンバー抜きでクエストをはじめることもできます。また、クエストのオーナーは、「キャンセル」をクリックして、クエストをキャンセルし、クエストの巻物を取り戻すことができます。",
@@ -117,5 +118,5 @@
     "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。",
     "questBundles": "割引されたクエスト セット",
     "buyQuestBundle": "クエスト セットを買う",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "クエストを開始できませんか？新しいものがないか、クエストショップをチェックしてみましょう！"
 }

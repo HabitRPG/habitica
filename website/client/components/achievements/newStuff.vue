@@ -36,6 +36,16 @@
     directives: {
       markdown,
     },
+    mounted () {
+      this.$root.$on('bv::show::modal', async (modalId) => {
+        if (modalId !== 'new-stuff') return;
+        // Request the lastest news, but not locally incase they don't refresh
+        // let response = await axios.get('/static/new-stuff');
+      });
+    },
+    destroyed () {
+      this.$root.$off('bv::show::modal');
+    },
     methods: {
       close () {
         this.$root.$emit('bv::hide::modal', 'new-stuff');

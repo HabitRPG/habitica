@@ -207,7 +207,7 @@
     "getwell2": "Du är i mina tankar!",
     "getwell3": "Jag beklagar att du inte känner dig så bra!",
     "getwellCardAchievementTitle": "Förtrogenhet",
-    "getwellCardAchievementText": "Well-wishes are always appreciated. Sent or received <%= count %> get well cards.",
+    "getwellCardAchievementText": "Lyckönskningar är alltid uppskattade. Skickat eller mottagit <%= count %> krya-på-dig kort.",
     "goodluckCard": "Lycka till Kort",
     "goodluckCardExplanation": "Ni får båda ett Turkortsprestation!",
     "goodluckCardNotes": "Skicka ett lycka till kort till en sällskapsmedlem.",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "Du har inga meddelanden",
     "emptyMessagesLine2": "Skicka ett meddelande för att starta en konversation!",
     "letsgo": "Låt Oss Gå!",
-    "selected": "Valda"
+    "selected": "Valda",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

@@ -1,7 +1,7 @@
 import {
   generateUser,
   translate as t,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-integration/v3';
 
 describe('POST /user/buy-mystery-set/:key', () => {
   let user;

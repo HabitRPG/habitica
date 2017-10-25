@@ -95,8 +95,8 @@
     "challengeDescription1": "Испытания это мероприятия сообщества, в которых игроки получают награду за прохождение групповых заданий",
     "challengeDescription2": "Найдите рекомендованные испытания по вашим интересам, посмотрите общедоступные испытания или создайте свое собственное.",
     "createdBy": "Создано",
-    "joinChallenge": "Присоединиться к испытанию",
-    "leaveChallenge": "Покинуть испытание",
+    "joinChallenge": "Присоединиться",
+    "leaveChallenge": "Покинуть",
     "addTask": "Добавить задачу",
     "editChallenge": "Редактировать испытание",
     "challengeDescription": "Описание испытания",
@@ -123,8 +123,8 @@
     "summaryRequired": "Требуется краткое описание.",
     "summaryTooLong": "Краткое описание слишком длинное.",
     "descriptionRequired": "Требуется описание",
-    "locationRequired": "Location of challenge is required ('Add to')",
+    "locationRequired": "Требуется местонахождение испытания ('Добавить')",
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
-    "viewProgressOf": "View Progress Of",
+    "viewProgressOf": "Показать прогресс",
     "selectMember": "Выбрать учасника"
 }

@@ -2,8 +2,6 @@
   b-modal#amazon-payment(title="Amazon", :hide-footer="true", size='md')
     h2.text-center Continue with Amazon
     #AmazonPayButton
-    | {{amazonPayments}}
-    | {{amazonLoggedIn}}
     #AmazonPayWallet(v-if="amazonLoggedIn", style="width: 400px; height: 228px;")
     #AmazonPayRecurring(v-if="amazonLoggedIn && amazonPayments.type === 'subscription'",
                         style="width: 400px; height: 140px;")

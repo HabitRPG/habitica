@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Attrezzi del Mestiere",
     "spellRogueToolsOfTradeNotes": "Le tue astute capacità fanno guadagnare a tutta la tua squadra un bonus di Percezione! (Dipende da: PER senza bonus)",
     "spellRogueStealthText": "Furtività",
-    "spellRogueStealthNotes": "Con ogni utilizzo, alcune delle tue Daily non completate non ti danneggeranno stanotte. Il loro colore e contatore serie non cambierà.",
+    "spellRogueStealthNotes": "Con ogni utilizzo, alcune delle tue Daily non completate non ti danneggeranno stanotte. Il loro colore e contatore serie non cambierà. (Dipende da: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero di Daily evitate: <%= number %>.",
     "spellRogueStealthMaxedOut": "Hai già schivato tutte le tue Daily; non c'è bisogno di usarlo di nuovo.",
     "spellHealerHealText": "Luce Curativa",

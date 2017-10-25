@@ -37,10 +37,12 @@ div
         .col-8
           .about
             h2 {{ $t('about') }}
-            p(v-markdown='user.profile.blurb')
+            p(v-if='user.profile.blurb', v-markdown='user.profile.blurb')
+            p(v-else) {{ $t('noDescription') }}
           .photo
             h2 {{ $t('photo') }}
             img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
+            p(v-else) {{ $t('noPhoto') }}
 
         .col-4
           .info
@@ -667,8 +669,7 @@ export default {
       this.achievements = achievementsLib.getAchievementsForProfile(user);
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      user.profile.blurb = `${user.profile.blurb}`;
-
+      user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
       return user;
     },
     incentivesProgress () {

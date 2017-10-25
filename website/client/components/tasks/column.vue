@@ -1,6 +1,11 @@
 <template lang="pug">
 .tasks-column(:class='type')
   b-modal(ref="editTaskModal")
+  buy-quest-modal(:item="selectedItemToBuy || {}",
+    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+    :withPin="true",
+    @change="resetItemToBuy($event)"
+    v-if='type === "reward"')
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
@@ -9,15 +14,21 @@
         :class="{active: activeFilters[type].label === filter.label}",
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
-  .tasks-list(ref="taskList", v-sortable='', @onsort='sorted')
-    task(
-      v-for="task in taskList",
-      :key="task.id", :task="task",
-      v-if="filterTask(task)",
-      :isUser="isUser",
-      @editTask="editTask",
-      :group='group',
+  .tasks-list(ref="tasksWrapper")
+    input.quick-add(
+      v-if="isUser", :placeholder="quickAddPlaceholder",
+      v-model="quickAddText", @keyup.enter="quickAdd",
+      ref="quickAdd",
     )
+    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
+      task(
+        v-for="task in taskList",
+        :key="task.id", :task="task",
+        v-if="filterTask(task)",
+        :isUser="isUser",
+        @editTask="editTask",
+        :group='group',
+      )
     template(v-if="hasRewardsList")
       .reward-items
         shopItem(
@@ -51,7 +62,7 @@
     z-index: 2;
   }
 
-  .task-wrapper + .reward-items {
+  .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
 
@@ -68,6 +79,28 @@
     position: relative; // needed for the .bottom-gradient to be position: absolute
     height: calc(100% - 56px);
     padding-bottom: 30px;
+  }
+
+  .quick-add {
+    border-radius: 2px;
+    background-color: rgba($black, 0.06);
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    font-weight: bold;
+    border-color: transparent;
+    transition: background 0.15s ease-in;
+
+    &:hover {
+      background-color: rgba($black, 0.1);
+      border-color: transparent;
+    }
+
+    &:active, &:focus {
+      background: $white;
+      border-color: $purple-500;
+      color: $gray-50;
+    }
   }
 
   .bottom-gradient {
@@ -140,25 +173,25 @@
   .icon-habit {
     width: 30px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-daily {
     width: 30px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-todo {
     width: 20px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 
   .icon-reward {
     width: 26px;
     height: 20px;
-    color: #A5A1AC;
+    color: $gray-300;
   }
 </style>
 
@@ -170,10 +203,12 @@ import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
+import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
@@ -184,6 +219,7 @@ export default {
   mixins: [buyMixin],
   components: {
     Task,
+    BuyQuestModal,
     shopItem,
   },
   directives: {
@@ -245,6 +281,9 @@ export default {
       openedCompletedTodos: false,
 
       forceRefresh: new Date(),
+      quickAddText: '',
+
+      selectedItemToBuy: {},
     };
   },
   computed: {
@@ -255,8 +294,25 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      if (this.taskListOverride) return this.taskListOverride;
-      return this.tasks[`${this.type}s`];
+      const filter = this.activeFilters[this.type];
+
+      let taskList = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) taskList = this.taskListOverride;
+
+      if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
+        let taskListSorted = this.$store.dispatch('tasks:order', [
+          taskList,
+          this.user.tasksOrder,
+        ]);
+
+        taskList = taskListSorted[`${this.type}s`];
+      }
+
+      if (filter.sort) {
+        taskList = sortBy(taskList, filter.sort);
+      }
+
+      return taskList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -302,6 +358,10 @@ export default {
       }
       return this.user.preferences.dailyDueDefaultView;
     },
+    quickAddPlaceholder () {
+      const type = this.$t(this.type);
+      return this.$t('addATask', {type});
+    },
   },
   watch: {
     taskList: {
@@ -324,20 +384,35 @@ export default {
     });
   },
   methods: {
-    ...mapActions({loadCompletedTodos: 'tasks:fetchCompletedTodos'}),
-    sorted (data) {
+    ...mapActions({
+      loadCompletedTodos: 'tasks:fetchCompletedTodos',
+      createTask: 'tasks:create',
+    }),
+    async sorted (data) {
+      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
       const sorting = this.taskList;
-      const taskIdToMove = this.taskList[data.oldIndex]._id;
+      const taskIdToMove = filteredList[data.oldIndex]._id;
 
+      // Server
+      const taskIdToReplace = filteredList[data.newIndex];
+      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newIndexOnServer,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
+
+      // Client
       if (sorting) {
         const deleted = sorting.splice(data.oldIndex, 1);
         sorting.splice(data.newIndex, 0, deleted[0]);
       }
-
-      this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: data.newIndex,
-      });
+    },
+    quickAdd () {
+      const task = taskDefaults({type: this.type, text: this.quickAddText});
+      task.tags = this.selectedTags;
+      this.quickAddText = null;
+      this.createTask(task);
     },
     editTask (task) {
       this.$emit('editTask', task);
@@ -347,30 +422,27 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilters[type] = filter;
-
-      if (filter.sort) {
-        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
-      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        const taskListEl = this.$refs.taskList;
-        const tasklistHeight = taskListEl.offsetHeight;
-        let combinedTasksHeights = 0;
-        Array.from(taskListEl.getElementsByClassName('task')).forEach(el => {
-          combinedTasksHeights += el.offsetHeight;
-        });
-
         if (!this.$refs.columnBackground) return;
 
-        const rewardsList = taskListEl.getElementsByClassName('reward-items')[0];
+        const tasksWrapperEl = this.$refs.tasksWrapper;
+
+        const tasksWrapperHeight = tasksWrapperEl.offsetHeight;
+        const quickAddHeight = this.$refs.quickAdd ? this.$refs.quickAdd.offsetHeight : 0;
+        const tasksListHeight = this.$refs.tasksList.offsetHeight;
+
+        let combinedTasksHeights = tasksListHeight + quickAddHeight;
+
+        const rewardsList = tasksWrapperEl.getElementsByClassName('reward-items')[0];
         if (rewardsList) {
           combinedTasksHeights += rewardsList.offsetHeight;
         }
 
         const columnBackgroundStyle = this.$refs.columnBackground.style;
 
-        if (tasklistHeight - combinedTasksHeights < 150) {
+        if (tasksWrapperHeight - combinedTasksHeights < 150) {
           columnBackgroundStyle.display = 'none';
         } else {
           columnBackgroundStyle.display = 'block';
@@ -408,6 +480,8 @@ export default {
       }
     },
     openBuyDialog (rewardItem) {
+      if (rewardItem.locked) return;
+
       // Buy armoire and health potions immediately
       let itemsToPurchaseImmediately = ['potion', 'armoire'];
       if (itemsToPurchaseImmediately.indexOf(rewardItem.key) !== -1) {
@@ -416,8 +490,19 @@ export default {
         return;
       }
 
+      if (rewardItem.purchaseType === 'quests') {
+        this.selectedItemToBuy = rewardItem;
+        this.$root.$emit('show::modal', 'buy-quest-modal');
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
+      }
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
       }
     },
   },

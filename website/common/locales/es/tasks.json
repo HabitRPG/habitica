@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Si pulsas el botón de abajo, todas tus Tareas Pendientes completadas y archivadas serán borradas permanentemente, excepto las Tareas Pendientes de retos activos o Planes de Grupo. Expórtalas primero si quieres mantener un registro de las mismas.",
     "addmultiple": "Añadir varias",
     "addsingle": "Añadir una",
+    "addATask": "Add a <%= type %>",
     "editATask": "Edit a <%= type %>",
     "createTask": "Create <%= type %>",
-    "addTaskToUser": "Create",
+    "addTaskToUser": "Add Task",
     "scheduled": "Scheduled",
     "theseAreYourTasks": "These are your <%= taskType %>",
     "habit": "Hábito",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "¡Empezar mi nuevo día!",
     "yesterDailiesOptionTitle": "Confirma que esta Tarea Diaria no ha sido realizada antes de aplicar el daño",
     "yesterDailiesDescription": "Si esta opción es aplicada, Habitica te preguntará si de verdad querías dejar la Tarea Diaria sin marcar antes de calcular y aplicar el daño a tu personaje. Esto puede protegerte de daño no intencionado.",
-    "repeatDayError": "Por favor, asegúrate de que seleccionas al menos un día de la semana."
+    "repeatDayError": "Por favor, asegúrate de que seleccionas al menos un día de la semana.",
+    "searchTasks": "Search titles and descriptions..."
 }
