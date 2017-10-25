@@ -104,6 +104,8 @@ div.item-with-icon.item-notifications.dropdown
   .user-dropdown {
     max-height: 350px;
     overflow: auto;
+    left: inherit;
+    right: 0;
   }
 
   /* @TODO: Move to shared css */

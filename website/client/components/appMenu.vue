@@ -182,6 +182,7 @@ div
   .user-dropdown {
     width: 14.75em;
     left: inherit;
+    right: 0;
   }
 
   .learn-button {
