@@ -361,13 +361,12 @@ export default {
       }
 
       return taskList.filter(t => {
-        return filter.filter(t);
+        return this.filterTask(t);
       });
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       let rewards = inAppRewards(this.user);
-
 
       // Add season rewards if user is affected
       // @TODO: Add buff coniditional
