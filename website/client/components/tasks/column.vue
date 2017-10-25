@@ -17,11 +17,15 @@
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list(ref="tasksWrapper")
-    input.quick-add(
+    textarea.quick-add(
+      :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keyup.enter="quickAdd",
+      v-model="quickAddText", @keypress.enter="quickAdd",
       ref="quickAdd",
+      @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
+    transition(name="quick-add-tip-slide")
+      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
     .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
       task(
         v-for="task in taskList",
@@ -90,6 +94,8 @@
     padding: 12px 16px;
     border-color: transparent;
     transition: background 0.15s ease-in;
+    resize: none;
+    margin-bottom: 0px;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -105,6 +111,28 @@
     &::placeholder {
       font-weight: bold;
     }
+  }
+
+  .quick-add-tip {
+    font-style: normal;
+    padding: 16px;
+    text-align: center;
+    height: auto;
+
+    overflow-y: hidden;
+    max-height: 65px; // approximate max height
+  }
+
+  .quick-add-tip-slide-enter-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-leave-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
+    max-height: 0;
   }
 
   .bottom-gradient {
@@ -300,6 +328,8 @@ export default {
 
       forceRefresh: new Date(),
       quickAddText: '',
+      quickAddFocused: false,
+      quickAddRows: 1,
 
       selectedItemToBuy: {},
     };
@@ -440,11 +470,29 @@ export default {
         sorting.splice(data.newIndex, 0, deleted[0]);
       }
     },
-    quickAdd () {
-      const task = taskDefaults({type: this.type, text: this.quickAddText});
-      task.tags = this.selectedTags;
+    quickAdd (ev) {
+      // Add a new line if Shift+Enter Pressed
+      if (ev.shiftKey) {
+        this.quickAddRows++;
+        return true;
+      }
+
+      // Do not add new line is added if only Enter is pressed
+      ev.preventDefault();
+      const text = this.quickAddText;
+      if (!text) return false;
+
+      const tasks = text.split('\n').filter(taskText => {
+        return taskText ? true : false;
+      }).map(taskText => {
+        const task = taskDefaults({type: this.type, text: taskText});
+        task.tags = this.selectedTags;
+        return task;
+      });
+
       this.quickAddText = null;
-      this.createTask(task);
+      this.quickAddRows = 1;
+      this.createTask(tasks);
     },
     editTask (task) {
       this.$emit('editTask', task);
