@@ -84,18 +84,18 @@
                 span.text {{ gearCategory.text }}
 
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortGearBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortGearBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortGearBy",
-              @click="selectedSortGearBy = sort",
-              :active="selectedSortGearBy === sort",
+              @click="viewOptions.selectedSortGearBy = sort",
+              :active="viewOptions.selectedSortGearBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
+        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, viewOptions.selectedSortGearBy, hideLocked, hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
@@ -123,11 +123,11 @@
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortItemsBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              @click="viewOptions.selectedSortItemsBy = sort",
+              :active="viewOptions.selectedSortItemsBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -140,7 +140,7 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
+            v-for="item in sortedMarketItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hidePinned)",
             :key="item.key",
             :item="item",
             :emptyItem="false",
@@ -464,7 +464,10 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          selectedSortGearBy: 'sortByType',
+          selectedSortItemsBy: 'AZ',
+        },
         viewOptionsLoaded: false,
 
         searchText: null,
@@ -486,10 +489,8 @@ export default {
         selectedGroupGearByClass: '',
 
         sortGearBy: sortGearTypes,
-        selectedSortGearBy: 'sortByType',
 
         sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
 
