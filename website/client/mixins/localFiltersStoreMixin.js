@@ -3,10 +3,12 @@ import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
 export default {
   watch: {
     viewOptions: {
-      handler (newVal) {
+      handler (newVal, oldVal) {
         if (!newVal) return;
         if (!this.viewOptionsLoaded) return;
-        setLocalSetting(this.$route.name, JSON.stringify(newVal));
+
+        const newViewOptions = Object.assign({}, oldVal, newVal);
+        setLocalSetting(this.$route.name, JSON.stringify(newViewOptions));
       },
       deep: true,
     },

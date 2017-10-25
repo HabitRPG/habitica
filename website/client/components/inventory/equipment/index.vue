@@ -238,8 +238,32 @@ export default {
   },
   methods: {
     loadFilters () {
-      // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
-      this.itemsGroups.forEach((group) => {
+      // @TODO: does data need to be recomputed? or can we just compute once.
+      // Normalizing the data should help us here.
+
+      const gearTypes = map(this.gearTypesToStrings, (label, group) => {
+        return {
+          key: group,
+          label,
+        };
+      });
+
+      gearTypes.forEach((group) => {
+        this.$set(this.viewOptions, group.key, {
+          selected: true,
+          open: false,
+          itemsInFirstPosition: [],
+          firstRender: true,
+        });
+      });
+
+      const gearClasses = map(this.gearClassesToStrings, (label, group) => {
+        return {
+          key: group,
+          label,
+        };
+      });
+      gearClasses.forEach((group) => {
         this.$set(this.viewOptions, group.key, {
           selected: true,
           open: false,
