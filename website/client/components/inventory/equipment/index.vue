@@ -140,6 +140,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
 import each from 'lodash/each';
 import map from 'lodash/map';
@@ -174,6 +175,7 @@ const sortGearTypeMap = {
 };
 
 export default {
+  mixins: [localFiltersStoreMixin],
   name: 'Equipment',
   components: {
     Item,
@@ -225,14 +227,6 @@ export default {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText;
     }, 250),
-    viewOptions: {
-      handler (newVal) {
-        if (!newVal) return;
-        if (!this.viewOptionsLoaded) return;
-        setLocalSetting(this.$route.name, JSON.stringify(newVal));
-      },
-      deep: true,
-    },
   },
   mounted () {
     const drawerState = getLocalSetting(CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE);
@@ -244,8 +238,6 @@ export default {
   },
   methods: {
     loadFilters () {
-      let filters = getLocalSetting(this.$route.name);
-
       // @TODO: Should we watch groups? This shouldn't be a side affect in a map like it was before
       this.itemsGroups.forEach((group) => {
         this.$set(this.viewOptions, group.key, {
@@ -256,9 +248,7 @@ export default {
         });
       });
 
-      filters = JSON.parse(filters);
-      this.viewOptions = Object.assign({}, this.viewOptions, filters);
-      this.viewOptionsLoaded = true;
+      this.$_localFiltersStoreMixin_loadFilters();
     },
     openEquipDialog (item) {
       this.gearToEquip = item;

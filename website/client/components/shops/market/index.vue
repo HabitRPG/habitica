@@ -376,6 +376,7 @@
 <script>
   import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -428,7 +429,7 @@
   };
 
 export default {
-    mixins: [notifications, buyMixin, currencyMixin],
+    mixins: [notifications, buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -453,14 +454,6 @@ export default {
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
-      viewOptions: {
-        handler (newVal) {
-          if (!newVal) return;
-          if (!this.viewOptionsLoaded) return;
-          setLocalSetting(this.$route.name, JSON.stringify(newVal));
-        },
-        deep: true,
-      },
     },
     data () {
       return {
@@ -620,17 +613,12 @@ export default {
         setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
       },
       loadFilters () {
-        let filters = getLocalSetting(this.$route.name);
-        filters = JSON.parse(filters);
-
         this.categories.forEach((category) => {
           this.$set(this.viewOptions, category.identifier, {
             selected: true,
           });
         });
-
-        this.viewOptions = Object.assign({}, this.viewOptions, filters);
-        this.viewOptionsLoaded = true;
+        this.$_localFiltersStoreMixin_loadFilters();
       },
       getClassName (classType) {
         if (classType === 'wizard') {

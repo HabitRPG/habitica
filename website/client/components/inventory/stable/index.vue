@@ -524,6 +524,7 @@
   import svgClose from 'assets/svg/close.svg';
 
   import notifications from 'client/mixins/notifications';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -533,7 +534,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
-    mixins: [notifications],
+    mixins: [notifications, localFiltersStoreMixin],
     components: {
       PetItem,
       Item,
@@ -598,14 +599,6 @@
 
         this.searchTextThrottled = search;
       }, 250),
-      viewOptions: {
-        handler (newVal) {
-          if (!newVal) return;
-          if (!this.viewOptionsLoaded) return;
-          setLocalSetting(this.$route.name, JSON.stringify(newVal));
-        },
-        deep: true,
-      },
     },
     mounted () {
       this.loadDrawerState();
@@ -643,14 +636,7 @@
     },
     methods: {
       loadFilters () {
-        let filters = getLocalSetting(this.$route.name);
-        filters = JSON.parse(filters);
-        if (!filters || !filters.magicMounts) {
-          this.viewOptionsLoaded = true;
-          return;
-        }
-        this.viewOptions = Object.assign({}, this.viewOptions, filters);
-        this.viewOptionsLoaded = true;
+        this.$_localFiltersStoreMixin_loadFilters();
       },
       loadDrawerState () {
         const drawerState = getLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE);

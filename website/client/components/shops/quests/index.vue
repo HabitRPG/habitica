@@ -322,8 +322,8 @@
 
 
 <script>
-  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -353,7 +353,7 @@
   import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -373,14 +373,6 @@ export default {
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
-      viewOptions: {
-        handler (newVal) {
-          if (!newVal) return;
-          if (!this.viewOptionsLoaded) return;
-          setLocalSetting(this.$route.name, JSON.stringify(newVal));
-        },
-        deep: true,
-      },
     },
     data () {
       return {
@@ -427,17 +419,12 @@ export default {
     },
     methods: {
       loadFilters () {
-        let filters = getLocalSetting(this.$route.name);
-        filters = JSON.parse(filters);
-
         this.shop.categories.forEach((category) => {
           this.$set(this.viewOptions, category.identifier, {
             selected: true,
           });
         });
-
-        this.viewOptions = Object.assign({}, this.viewOptions, filters);
-        this.viewOptionsLoaded = true;
+        this.$_localFiltersStoreMixin_loadFilters();
       },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
         let result = _map(category.items, (e) => {

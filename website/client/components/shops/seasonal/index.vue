@@ -275,8 +275,8 @@
 </style>
 
 <script>
-  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -314,7 +314,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -332,14 +332,6 @@
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
       }, 250),
-      viewOptions: {
-        handler (newVal) {
-          if (!newVal) return;
-          if (!this.viewOptionsLoaded) return;
-          setLocalSetting(this.$route.name, JSON.stringify(newVal));
-        },
-        deep: true,
-      },
     },
     data () {
       return {
@@ -441,17 +433,13 @@
     },
     methods: {
       loadFilters () {
-        let filters = getLocalSetting(this.$route.name);
-        filters = JSON.parse(filters);
-
         _forEach(this.filterCategories, (value) => {
           this.$set(this.viewOptions, value.key, {
             selected: true,
           });
         });
 
-        this.viewOptions = Object.assign({}, this.viewOptions, filters);
-        this.viewOptionsLoaded = true;
+        this.$_localFiltersStoreMixin_loadFilters();
       },
       getClassName (classType) {
         if (classType === 'wizard') {
