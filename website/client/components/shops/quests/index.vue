@@ -72,11 +72,11 @@
       .clearfix
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortItemsBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              @click="viewOptions.selectedSortItemsBy = sort",
+              :active="viewOptions.selectedSortItemsBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -89,7 +89,7 @@
 
         itemRows(
           v-if="category.identifier === 'pet'",
-          :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+          :items="questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
           :type="'pet_quests'",
@@ -122,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
@@ -159,7 +159,7 @@
 
         div.items(v-else)
           shopItem(
-            v-for="item in questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+            v-for="item in questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -384,7 +384,9 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          selectedSortItemsBy: 'AZ',
+        },
         viewOptionsLoaded: false,
 
         searchText: null,
@@ -395,7 +397,6 @@ export default {
         }),
 
         sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
 
         selectedItemToBuy: null,
 
