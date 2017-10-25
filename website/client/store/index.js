@@ -137,6 +137,7 @@ export default function () {
       brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       quickInventoryDrawerOpen: true,
+      marketDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],
     },

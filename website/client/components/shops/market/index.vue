@@ -171,6 +171,8 @@
 
       //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       drawer(
+        :openStatus='openStatus',
+        v-on:toggled='drawerToggled',
         :title="$t('quickInventory')"
         :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
       )
@@ -372,7 +374,7 @@
 
 
 <script>
-  import { setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
@@ -496,6 +498,7 @@ export default {
       };
     },
     mounted () {
+      this.loadDrawerState();
       this.loadFilters();
     },
     computed: {
@@ -505,6 +508,9 @@ export default {
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      openStatus () {
+        return this.$store.state.marketDrawerOpen ? 1 : 0;
+      },
       marketGearCategories () {
         return shops.getMarketGearCategories(this.user);
       },
@@ -596,6 +602,22 @@ export default {
       },
     },
     methods: {
+      loadDrawerState () {
+        const drawerState = getLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE);
+        if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+          this.$store.state.marketDrawerOpen = false;
+        }
+      },
+      drawerToggled (newState) {
+        this.$store.state.marketDrawerOpen = newState;
+
+        if (newState) {
+          setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+          return;
+        }
+
+        setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      },
       loadFilters () {
         let filters = getLocalSetting(this.$route.name);
         filters = JSON.parse(filters);

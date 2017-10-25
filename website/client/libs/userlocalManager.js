@@ -4,6 +4,7 @@ const CONSTANTS = {
     SPELL_DRAWER_STATE: 'spell-drawer-state',
     EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
     QUICK_INVENTOR_DRAWER_STATE: 'quick-inventory-drawer-state',
+    MARKET_DRAWER_STATE: 'market-drawer-state',
   },
   valueConstants: {
     DRAWER_CLOSED: 'drawer-closed',
