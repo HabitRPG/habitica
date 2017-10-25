@@ -5,8 +5,8 @@ div
   profile
   b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md
     .navbar-header
-      .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
-      .svg-icon.gryphon.hidden-xl-up
+      .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
+      .svg-icon.gryphon.d-lg-block.d-xl-none
     b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
