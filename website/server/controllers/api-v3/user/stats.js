@@ -42,15 +42,7 @@ api.allocate = {
  * @apiName UserAllocateBulk
  * @apiGroup User
  *
- * @apiParam (Body)
- * {
- *  stats: {
- *    'int': Integer,
- *    'str': Integer,
- *    'con': Integer,
- *    'per': Integer,
- *  },
- * } stats Query parameter
+ * @apiParam (Body) { Object } stats Body parameter
  *
  * @apiParamExample {json} Example request
  * {
