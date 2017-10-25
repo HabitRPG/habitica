@@ -7,7 +7,9 @@
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
   .d-flex
-    h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
+    h2.tasks-column-title
+      | {{ $t(types[type].label) }}
+      .badge.badge-pill.column-badge(v-if="hasBadge") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
@@ -24,7 +26,6 @@
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
-        v-if="filterTask(task)",
         :isUser="isUser",
         @editTask="editTask",
         :group='group',
@@ -115,6 +116,17 @@
 
   .tasks-column-title {
     margin-bottom: 8px;
+    position: relative;
+  }
+
+  .column-badge {
+    position: absolute;
+    top: -5px;
+    right: -24px;
+    color: $white;
+    background: $purple-400;
+    line-height: 1.2;
+    font-size: 10px;
   }
 
   .filters {
@@ -315,7 +327,9 @@ export default {
         taskList = sortBy(taskList, filter.sort);
       }
 
-      return taskList;
+      return taskList.filter(t => {
+        return filter.filter(t);
+      });
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -364,6 +378,18 @@ export default {
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
+    },
+    hasBadge () {
+      if (this.type === 'todo' && this.activeFilters.todo.label !== 'complete2') return true;
+      if (this.type === 'daily') return true;
+      return false;
+    },
+    badgeCount () {
+      if (this.type === 'todo') {
+        return this.taskList.length;
+      } else if (this.type === 'daily') {
+        return this.taskList.length;
+      }
     },
   },
   watch: {
