@@ -185,6 +185,7 @@ import omit from 'lodash/omit';
 import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
+import leaveChallengeModal from './leaveChallengeModal';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -204,6 +205,7 @@ export default {
     markdown: markdownDirective,
   },
   components: {
+    leaveChallengeModal,
     closeChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
@@ -369,19 +371,7 @@ export default {
       await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     async leaveChallenge () {
-      let keepChallenge = confirm('Do you want to keep challenge tasks?');
-      let keep = 'keep-all';
-      if (!keepChallenge) keep = 'remove-all';
-
-      let index = findIndex(this.user.challenges, (challengeId) => {
-        return challengeId === this.searchId;
-      });
-      this.user.challenges.splice(index, 1);
-      await this.$store.dispatch('challenges:leaveChallenge', {
-        challengeId: this.searchId,
-        keep,
-      });
-      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+      this.$root.$emit('show::modal', 'leave-challenge-modal');
     },
     closeChallenge () {
       this.$root.$emit('show::modal', 'close-challenge-modal');
