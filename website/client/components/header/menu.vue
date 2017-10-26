@@ -143,6 +143,12 @@ div
     }
   }
 
+  // Make the dropdown menu open on hover    
+  .dropdown:hover .dropdown-menu {    
+   display: block;   
+   margin-top: 0; // remove the gap so it doesn't close    
+  }
+
   .dropdown-menu {
     background: $purple-200;
     border-radius: 0px;
