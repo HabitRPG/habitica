@@ -581,12 +581,18 @@ api.scoreTask = {
     // TODO move to common code?
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
-        removeFromArray(user.tasksOrder.todos, task._id);
+        await user.update({
+          $pull: { 'tasksOrder.todos': task._id }
+        }).exec();
       } else if (wasCompleted && !task.completed) {
-        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
-        if (!hasTask) {
-          user.tasksOrder.todos.push(task._id);
-        } // If for some reason it hadn't been removed previously don't do anything
+        // @TOOD: Why do we pull and push
+        // let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+        await user.update({
+          $pull: { 'tasksOrder.todos': task._id }
+        }).exec();
+        // if (!hasTask) {
+        //   user.tasksOrder.todos.push(task._id);
+        // } // If for some reason it hadn't been removed previously don't do anything
       }
     }
 
@@ -685,12 +691,18 @@ api.moveTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
-    let order = user.tasksOrder[`${task.type}s`];
 
-    moveTask(order, task._id, to);
+    let updateQuery = { $push: {} };
+    updateQuery.$push[`tasksOrder.${task.type}s`] = {
+       $each: [ task._id ],
+       $position: to,
+    };
+    await user.update(updateQuery).exec();
 
-    await user.save();
-    res.respond(200, order);
+    // let order = user.tasksOrder[`${task.type}s`];console.log(order)
+    // moveTask(order, task._id, to);
+    // await user.save();
+    res.respond(200, []);
   },
 };
 
@@ -1244,7 +1256,11 @@ api.deleteTask = {
     }
 
     if (task.type !== 'todo' || !task.completed) {
+      // @TODO:
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
+      // await user.update({
+      //   $pull: { 'tasksOrder.todos': task._id }
+      // }).exec();
       await Bluebird.all([(challenge || user).save(), task.remove()]);
     } else {
       await task.remove();

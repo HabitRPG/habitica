@@ -36,8 +36,9 @@ api.readNotification = {
       throw new NotFound(res.t('messageNotificationNotFound'));
     }
 
-    user.notifications.splice(index, 1);
-    await user.save();
+    await user.update({
+      $pull: { 'notifications': req.params.notificationId }
+    }).exec();
 
     res.respond(200, user.notifications);
   },
@@ -77,7 +78,9 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await user.save();
+    await user.update({
+      $pullAll: { 'notifications': notifications },
+    }).exec();
 
     res.respond(200, user.notifications);
   },
