@@ -134,6 +134,7 @@
     "mysterySet201707": "Quallenzauberer-Set",
     "mysterySet201708": "Lavakrieger-Set",
     "mysterySet201709": "Zauberschüler-Set",
+    "mysterySet201710": "Imperious Imp Set",
     "mysterySet301404": "Steampunk-Standard-Set",
     "mysterySet301405": "Steampunk-Zubehör-Set",
     "mysterySet301703": "Pfauen-Steampunk-Set",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "Um die Details Deines Abonnements zu sehen und es zu widerrufen, erneuern oder zu ändern, gehe bitte zu <a href='/user/settings/subscription'>Benutzer; Einstellungen;Abonnement</a>.",
     "purchaseAll": "Alles Kaufen",
     "gemsPurchaseNote": "Abonnenten können im Markt Edelsteine mit Gold kaufen! Für schnellen Zugriff kannst Du den Edelstein in Deiner Belohnungsspalte anheften.",
-    "gemsRemaining": "verbleibende Edelsteine"
+    "gemsRemaining": "verbleibende Edelsteine",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

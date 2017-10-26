@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "メッセージはありません",
     "emptyMessagesLine2": "メッセージを送って会話を始めましょう！",
     "letsgo": "Let's Go!",
-    "selected": "選択中"
+    "selected": "選択中",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

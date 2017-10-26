@@ -83,7 +83,6 @@
                   @click.prevent.stop="togglePinned(ctx.item)"
                 )
                   span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
 </template>
 
 <style lang="scss">
