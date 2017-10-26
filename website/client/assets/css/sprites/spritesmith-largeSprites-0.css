@@ -1,12 +1,6 @@
-.promo_mystery_201710 {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: 0px -244px;
-  width: 93px;
-  height: 90px;
-}
-.scene_positivity {
+.npc_joyful_reaper {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: 0px 0px;
-  width: 531px;
-  height: 243px;
+  width: 282px;
+  height: 147px;
 }
