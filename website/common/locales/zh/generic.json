@@ -122,7 +122,7 @@
     "error": "错误",
     "menu": "菜单",
     "notifications": "通知",
-    "noNotifications": "You have no notifications.",
+    "noNotifications": "你没有新消息。",
     "clear": "清除",
     "endTour": "结束教程",
     "audioTheme": "声音主题",
@@ -238,7 +238,7 @@
     "resetFilters": "清除所有筛选",
     "applyFilters": "确认筛选",
     "categories": "分类",
-    "habiticaOfficial": "Habitica Official",
+    "habiticaOfficial": "Habitica官方",
     "animals": "动物",
     "artDesign": "艺术&设计",
     "booksWriting": "读书&写作",
@@ -255,7 +255,7 @@
     "budgeting": "Budgeting",
     "health_wellness": "Health & Wellness",
     "self_care": "自我照顾",
-    "habitica_official": "Habitica Official",
+    "habitica_official": "Habitica官方",
     "academics": "Academics",
     "advocacy_causes": "Advocacy + Causes",
     "entertainment": "娱乐",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "你没有任何私信",
     "emptyMessagesLine2": "发送一条私信来展开一次讨论吧！",
     "letsgo": "Let's Go!",
-    "selected": "已选择"
+    "selected": "已选择",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

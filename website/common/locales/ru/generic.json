@@ -4,7 +4,7 @@
     "titleIndex": "Habitica | Ваша жизнь — ролевая игра",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://ru.habitica.wikia.com/wiki/Habitica_Вики' target='_blank'>Habitica</a>",
-    "onward": "Вперёд!",
+    "onward": "Продолжить",
     "done": "Сделано",
     "gotIt": "Ясно!",
     "titleTasks": "Задачи",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "У вас нет новых сообщений",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Выбрано",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

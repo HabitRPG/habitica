@@ -98,4 +98,24 @@ describe('POST /user/purchase/:type/:key', () => {
     await members[0].sync();
     expect(members[0].balance).to.equal(oldBalance);
   });
+
+  describe('bulk purchasing', () => {
+    it('purchases a gem item', async () => {
+      await user.post(`/user/purchase/${type}/${key}`, {quantity: 2});
+      await user.sync();
+
+      expect(user.items[type][key]).to.equal(2);
+    });
+
+    it('can convert gold to gems if subscribed', async () => {
+      let oldBalance = user.balance;
+      await user.update({
+        'purchased.plan.customerId': 'group-plan',
+        'stats.gp': 1000,
+      });
+      await user.post('/user/purchase/gems/gem', {quantity: 2});
+      await user.sync();
+      expect(user.balance).to.equal(oldBalance + 0.50);
+    });
+  });
 });

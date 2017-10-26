@@ -40,6 +40,10 @@
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
+            div.featured-label.with-border(v-else)
+              span.rectangle
+              span.text(v-once) {{ $t('featuredItems') }}
+              span.rectangle
 
             div.items.margin-center
               shopItem(
@@ -264,6 +268,11 @@
   }
 </style>
 
+<style scoped>
+  .margin-center {
+    margin: 0 auto;
+  }
+</style>
 
 <script>
   import {mapState} from 'client/libs/store';
@@ -493,12 +502,6 @@
       },
       itemSelected (item) {
         if (item.locked) return;
-
-        if (this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
     },

@@ -1,9 +1,12 @@
-import buySpecialSpellOp from './buySpecialSpell';
+import buy from './buy';
 import purchaseOp from './purchase';
 import get from 'lodash/get';
 
 module.exports = function purchaseWithSpell (user, req = {}, analytics) {
   const type = get(req.params, 'type');
 
-  return type === 'spells' ? buySpecialSpellOp(user, req) : purchaseOp(user, req, analytics);
+  // Set up type for buy function - different than the above type.
+  req.type = 'special';
+
+  return type === 'spells' ? buy(user, req, analytics) : purchaseOp(user, req, analytics);
 };
