@@ -14,13 +14,13 @@ div
         span.suggestedDot(v-if="item.isSuggested")
 
         div.image
-          div(:class="item.class", v-once)
+          div(:class="item.class")
           slot(name="itemImage", :item="item")
 
         div.price
           span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
 
-          span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
+          span.price-label(:class="currencyClass") {{ getPrice() }}
   b-popover(
     :target="itemId",
     v-if="showPopover",
