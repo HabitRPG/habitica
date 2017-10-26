@@ -117,7 +117,6 @@
     font-style: normal;
     padding: 16px;
     text-align: center;
-    height: auto;
 
     overflow-y: hidden;
     max-height: 65px; // approximate max height
@@ -133,6 +132,7 @@
 
   .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
     max-height: 0;
+    padding: 0px 16px;
   }
 
   .bottom-gradient {
