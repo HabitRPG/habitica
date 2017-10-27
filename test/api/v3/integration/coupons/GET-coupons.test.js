@@ -1,6 +1,5 @@
 import {
   generateUser,
-  translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-v3-integration.helper';
 
@@ -19,7 +18,7 @@ describe('GET /coupons/', () => {
     await expect(user.get('/coupons')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: "You don't have sudo access."
+      message: 'You don\'t have sudo access.',
     });
   });
 

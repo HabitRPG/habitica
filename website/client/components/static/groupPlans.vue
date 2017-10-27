@@ -41,11 +41,11 @@
     components: {
       StaticHeader,
     },
-    data() {
+    data () {
       return {
-        "enterprisePlansEmailSubject": "Question regarding Enterprise Plans",
-      }
-    } ,
+        enterprisePlansEmailSubject: 'Question regarding Enterprise Plans',
+      };
+    },
     methods: {
       goToNewGroupPage () {
         if (!this.$store.state.isUserLoggedIn) {
@@ -68,7 +68,7 @@
           eventLabel: 'Contact Us (Plans)',
         });
 
-        window.location.href = `mailto:vicky@habitica.com?subject=${enterprisePlansEmailSubject}`;
+        window.location.href = `mailto:vicky@habitica.com?subject=${ this.enterprisePlansEmailSubject }`;
       },
     },
   };

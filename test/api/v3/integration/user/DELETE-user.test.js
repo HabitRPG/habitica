@@ -308,7 +308,7 @@ describe('DELETE /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('incorrectDeletePhrase', {magic_word: 'DELETE'}),
+        message: t('incorrectDeletePhrase', {magicWord: 'DELETE'}),
       });
     });
 

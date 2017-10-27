@@ -18,7 +18,7 @@
     .social-delete(v-if='!user.auth.local.email')
       h4 {{ $t('deleteAccount') }}
       .modal-body
-        p {{ $t('deleteSocialAccountText', {magic_word: 'DELETE'}) }}
+        p {{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}
         br
         .row
           .col-md-6

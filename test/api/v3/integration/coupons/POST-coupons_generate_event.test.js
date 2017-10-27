@@ -25,7 +25,7 @@ describe('POST /coupons/generate/:event', () => {
     await expect(user.post('/coupons/generate/aaa')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: "You don't have sudo access."
+      message: 'You don\'t have sudo access.',
     });
   });
 
