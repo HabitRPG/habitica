@@ -67,10 +67,6 @@
     cursor: pointer;
   }
 
-  .opt-out-wrapper {
-    margin: 1em 0 0.5em 0;
-  }
-
   .class-name {
     font-size: 24px;
     font-weight: bold;
@@ -90,6 +86,10 @@
 
   .modal-actions {
     margin: 2em auto;
+  }
+
+  .opt-out-wrapper {
+    margin: 1em 0 0.5em 0;
   }
 
   .selection-box {
