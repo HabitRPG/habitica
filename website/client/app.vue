@@ -216,15 +216,11 @@ export default {
       // Verify the client is updated
       // const serverAppVersion = response.data.appVersion;
       // let serverAppVersionState = this.$store.state.serverAppVersion;
-      // let deniedUpdate = this.$store.state.deniedUpdate;
       // if (isApiCall && !serverAppVersionState) {
       //   this.$store.state.serverAppVersion = serverAppVersion;
-      // } else if (isApiCall && serverAppVersionState !== serverAppVersion && !deniedUpdate || isCron) {
-      //   // For reload on cron
-      //   if (isCron || confirm(this.$t('habiticaHasUpdated'))) {
+      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
+      //   if (document.activeElement.tagName !== 'INPUT' || confirm(this.$t('habiticaHasUpdated'))) {
       //     location.reload(true);
-      //   } else {
-      //     this.$store.state.deniedUpdate = true;
       //   }
       // }
 
