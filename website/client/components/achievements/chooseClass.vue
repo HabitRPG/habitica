@@ -35,21 +35,17 @@
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
           button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
-          #classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
-          b-popover.d-inline-block(
-            target="classOptOutBtn",
-            triggers="hover",
-            placement="top",
-          )
-            .popover-content-text {{ $t('optOutOfClassesText') }}
+          .opt-out-wrapper
+            span#classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+            b-popover.popover-content-text(
+              target="classOptOutBtn",
+              triggers="hover",
+              placement="top",
+            ) {{ $t('optOutOfClassesText') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  .btn-primary {
-    margin-right: 1em;
-  }
 
   .class-badge {
     $badge-size: 32px;
@@ -77,6 +73,10 @@
     margin: auto 0.33333em;
   }
 
+  #classOptOutBtn {
+    cursor: pointer;
+  }
+
   .danger {
     color: $red-50;
     margin-bottom: 0em;
@@ -90,6 +90,10 @@
 
   .modal-actions {
     margin: 2em auto;
+  }
+
+  .opt-out-wrapper {
+    margin: 1em 0 0.5em 0;
   }
 
   .selection-box {
