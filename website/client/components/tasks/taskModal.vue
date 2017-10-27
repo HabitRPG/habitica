@@ -190,6 +190,7 @@
 
       &:focus {
         color: $white !important;
+        opacity: 1;
       }
     }
 
