@@ -8,13 +8,11 @@
 
 require('babel-register');
 
-if (process.env.NODE_ENV === 'production') {
-  require('./gulp/gulp-apidoc');
-  require('./gulp/gulp-newstuff');
-  require('./gulp/gulp-build');
-  require('./gulp/gulp-babelify');
-  require('./gulp/gulp-bootstrap');
+if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
+  require('./gulp/gulp-apidoc'); // eslint-disable-line global-require
+  require('./gulp/gulp-build'); // eslint-disable-line global-require
+  require('./gulp/gulp-bootstrap'); // eslint-disable-line global-require
 } else {
-  require('glob').sync('./gulp/gulp-*').forEach(require);
-  require('gulp').task('default', ['test']);
+  require('glob').sync('./gulp/gulp-*').forEach(require); // eslint-disable-line global-require
+  require('gulp').task('default', ['test']); // eslint-disable-line global-require
 }

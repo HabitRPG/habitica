@@ -64,6 +64,7 @@
     "subscriberItemText": "Elke maand ontvangen abonnees een verrassingsvoorwerp. Dit voorwerp wordt meestal in de laatste week van de maand uitgebracht. Zie de wikipagina 'Mystery Item' voor meer informatie.",
     "all": "Alle",
     "none": "Geen",
+    "more": "<%= count %> more",
     "and": "en",
     "loginSuccess": "Inloggen gelukt!",
     "youSure": "Weet je het zeker?",
@@ -121,7 +122,7 @@
     "error": "Fout",
     "menu": "Menu",
     "notifications": "Meldingen",
-    "noNotifications": "Er zijn geen nieuwe berichten.",
+    "noNotifications": "You have no notifications.",
     "clear": "Leegmaken",
     "endTour": "Beëindigen",
     "audioTheme": "Achtergrondmuziek",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

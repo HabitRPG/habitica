@@ -34,8 +34,6 @@
     div.clearfix(slot="modal-footer")
       span.balance.float-left {{ $t('yourBalance') }}
       balanceInfo.float-right
-
-
 </template>
 <style lang="scss">
 

@@ -1,24 +1,6 @@
-.promo_chat_avatars {
+.npc_joyful_reaper {
   background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
   background-position: 0px 0px;
-  width: 617px;
-  height: 405px;
-}
-.promo_login_screen {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: 0px -406px;
-  width: 524px;
-  height: 274px;
-}
-.promo_seasonal_shop_fall_2017 {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -618px 0px;
-  width: 752px;
-  height: 248px;
-}
-.promo_veteran_pets_2017 {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: -618px -249px;
-  width: 363px;
-  height: 141px;
+  width: 282px;
+  height: 147px;
 }

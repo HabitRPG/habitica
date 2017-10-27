@@ -64,6 +64,7 @@
     "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
     "all": "Sve",
     "none": "Ništa",
+    "more": "<%= count %> more",
     "and": "i",
     "loginSuccess": "Uspešno ste se prijavili!",
     "youSure": "Jeste li sigurni?",
@@ -121,7 +122,7 @@
     "error": "Greška",
     "menu": "Meni",
     "notifications": "Obaveštenja",
-    "noNotifications": "Nemate novih poruka.",
+    "noNotifications": "You have no notifications.",
     "clear": "Očistiti",
     "endTour": "Završiti obilazak",
     "audioTheme": "Muzika",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

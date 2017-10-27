@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "הנתיב `<%= operation %>` לא נשמר, כיוון שהוא מוגן.",
     "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה",
     "messageNotificationNotFound": "התראה לא נמצאה.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "Notification ids are required.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

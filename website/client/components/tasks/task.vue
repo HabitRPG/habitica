@@ -17,7 +17,16 @@
           h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
           .task-notes.small-text(v-markdown="task.notes")
         .checklist(v-if="canViewchecklist")
+          .d-inline-flex
+            .collapse-checklist.d-flex.align-items-center.expand-toggle(
+              v-if="isUser",
+              @click="collapseChecklist(task)",
+              :class="{open: !task.collapseChecklist}",
+            )
+              .svg-icon(v-html="icons.checklist")
+              span {{ checklistProgress }}
           label.custom-control.custom-checkbox.checklist-item(
+            v-if='!castingSpell && !task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
             input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
@@ -116,6 +125,26 @@
   .checklist {
     margin-bottom: 2px;
     margin-top: 8px;
+  }
+
+  .collapse-checklist {
+    padding: 2px 6px;
+    margin-bottom: 9px;
+    border-radius: 1px;
+    background-color: $gray-600;
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: center;
+    color: $gray-200;
+
+    span {
+      margin: 0px 4px;
+    }
+
+    .svg-icon {
+      width: 12px;
+      height: 8px;
+    }
   }
 
   .checklist-item {
@@ -307,6 +336,7 @@ import calendarIcon from 'assets/svg/calendar.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
+import checklistIcon from 'assets/svg/checklist.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
@@ -335,11 +365,15 @@ export default {
         challenge: challengeIcon,
         tags: tagsIcon,
         check: checkIcon,
+        checklist: checklistIcon,
       }),
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({
+      user: 'user.data',
+      castingSpell: 'spellOptions.castingSpell',
+    }),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
@@ -348,6 +382,13 @@ export default {
       let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
       let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
       return hasChecklist && userIsTaskUser;
+    },
+    checklistProgress () {
+      const totalItems = this.task.checklist.length;
+      const completedItems = this.task.checklist.reduce((total, item) => {
+        return item.completed ? total + 1 : total;
+      }, 0);
+      return `${completedItems}/${totalItems}`;
     },
     leftControl () {
       const task = this.task;
@@ -388,9 +429,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions({scoreChecklistItem: 'tasks:scoreChecklistItem'}),
+    ...mapActions({
+      scoreChecklistItem: 'tasks:scoreChecklistItem',
+      collapseChecklist: 'tasks:collapseChecklist',
+    }),
     toggleChecklistItem (item) {
-      item.completed = !item.completed;
+      if (this.castingSpell) return;
+      item.completed = !item.completed; // @TODO this should go into the action?
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
@@ -407,6 +452,8 @@ export default {
       this.$root.$emit('castEnd', task, 'task', e);
     },
     async score (direction) {
+      if (this.castingSpell) return;
+
       // TODO move to an action
       const Content = this.$store.state.content;
       const user = this.user;

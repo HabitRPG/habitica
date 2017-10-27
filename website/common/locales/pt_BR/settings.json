@@ -47,7 +47,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "Início de Dia Personalizado",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "Tem certeza que quer modificar seu Início de Dia Personalizado? Suas Diárias irão reiniciar no primeiro uso do Habitica após <%= time %>. Garanta de ter completado suas Diárias antes disso!",
     "changeCustomDayStart": "Modificar o Início de Dia Personalizado?",
     "sureChangeCustomDayStart": "Você tem certeza que quer mudar o início de dia personalizado?",
     "customDayStartHasChanged": "Seu início de dia personalizado foi modificado.",
@@ -72,6 +72,8 @@
     "APIv3": "API v3",
     "APIText": "Copie isso para uso em aplicações de terceiros. Entretanto, pense no seu API Token como uma senha, não divulgue publicamente. Seu ID de Usuário pode ser, ocasionalmente, solicitado, mas nunca divulgue seu API Token em lugares onde outros possam ver, incluindo o Github.",
     "APIToken": "API Token (isso é uma senha - veja o aviso acima!)",
+    "showAPIToken": "Show API Token",
+    "hideAPIToken": "Hide API Token",
     "APITokenWarning": "Se você precisa de um novo API Token (caso você tenha compartilhado seu Token acidentalmente, por exemplo), envie um email para <%= hrefTechAssistanceEmail %> informando seu ID de usuário e Token atual. Você precisará conceder autorizações novamente quando o Token for redefinido, então deslogue do site, do aplicativo e também informe o novo Token para qualquer ferramenta do Habitica que você usar.",
     "thirdPartyApps": "Aplicativos de Terceiros",
     "dataToolDesc": "Uma página que mostra certas informações da sua conta do Habitica, como estatísticas sobre suas tarefas, equipamentos e habilidades.",
@@ -106,7 +108,7 @@
     "email": "E-mail",
     "registerWithSocial": "Conectar <%= network %>",
     "registeredWithSocial": "Registro feito com <%= network %>",
-    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
+    "loginNameDescription": "Isto é o que você usa para entrar no Habitica. Para modificar, use o formulário abaixo. Se ao invés disso você preferir modificar seu Nome de Exibição que aparecer no seu avatar e nas mensagens do chat, vá para o Ícone de Usuário &gt; Perfil e clique no botão Editar.",
     "emailNotifications": "Notificações de E-mail",
     "wonChallenge": "Você venceu um Desafio!",
     "newPM": "Recebeu Mensagem Privada",
@@ -129,7 +131,7 @@
     "remindersToLogin": "Lembretes para entrar no Habitica",
     "subscribeUsing": "Assinar usando",
     "unsubscribedSuccessfully": "Assinatura cancelada!",
-    "unsubscribedTextUsers": "You have successfully unsubscribed from all Habitica emails. You can enable only the emails you want to receive from <a href=\"/user/settings/notifications\">Settings > &gt; Notifications</a> (requires login).",
+    "unsubscribedTextUsers": "Você cancelou o recebimento de todos os emails do Habitica. Você poderá habilitar apenas os emails que quer receber indo em <a href=\"/user/settings/notifications\">Configurações > &gt; Notificações</a> (requer login).",
     "unsubscribedTextOthers": "Você não recebera mais nenhum outro e-mail do Habitica.",
     "unsubscribeAllEmails": "Marque para cancelar a assinatura de E-mails",
     "unsubscribeAllEmailsText": "Marcando esta caixa, eu certifico que entendo que, por não assinar nenhum e-mail, o Habitica nunca será capaz de me notificar via e-mail sobre mudanças importantes do site ou da minha conta.",
@@ -185,5 +187,5 @@
     "timezoneUTC": "O Habitica usa o fuso horário definido no seu computador, que é <strong><%= utc %></strong>",
     "timezoneInfo": "Se esse fuso horário não for o correto, recarregue esta página utilizando o botão de recarregar do seu navegador para garantir que o Habitica tenha a informação mais recente. Se ainda estiver errado, ajuste o fuso horário no seu computador e recarregue esta página novamente.<br><br><strong>Se você usa o Habitica em outros computadores ou dispositivos móveis, o fuso horário deve ser o mesmo em todos eles.</strong> Se suas Diárias têm sido reiniciadas na hora errada, repita esta operação em todos os outros computadores e em um navegador em seus dispositivos móveis.",
     "push": "Enviar",
-    "about": "About"
+    "about": "Sobre"
 }

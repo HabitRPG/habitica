@@ -4,7 +4,7 @@
     "titleIndex": "Habitica | 你的生活游戏",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://habitica.wikia.com/wiki/Habitica' target='_blank'>Habitica</a>",
-    "onward": "Onward!",
+    "onward": "前进！",
     "done": "已完成",
     "gotIt": "Got it!",
     "titleTasks": "任务",
@@ -64,6 +64,7 @@
     "subscriberItemText": "每月，定期捐款者会收到一个神秘物品。这物品一般是在月底前一个月推出。Wiki里的‘神秘物品’网址将有更多信息。",
     "all": "全部",
     "none": "无",
+    "more": "<%= count %> more",
     "and": "与",
     "loginSuccess": "登陆成功！",
     "youSure": "你确定吗？",
@@ -237,7 +238,7 @@
     "resetFilters": "清除所有筛选",
     "applyFilters": "确认筛选",
     "categories": "分类",
-    "habiticaOfficial": "Habitica Official",
+    "habiticaOfficial": "Habitica官方",
     "animals": "动物",
     "artDesign": "艺术&设计",
     "booksWriting": "读书&写作",
@@ -254,7 +255,7 @@
     "budgeting": "Budgeting",
     "health_wellness": "Health & Wellness",
     "self_care": "自我照顾",
-    "habitica_official": "Habitica Official",
+    "habitica_official": "Habitica官方",
     "academics": "Academics",
     "advocacy_causes": "Advocacy + Causes",
     "entertainment": "娱乐",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "你没有任何私信",
     "emptyMessagesLine2": "发送一条私信来展开一次讨论吧！",
     "letsgo": "Let's Go!",
-    "selected": "已选择"
+    "selected": "已选择",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

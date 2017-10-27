@@ -68,6 +68,7 @@
   "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
   "all": "All",
   "none": "None",
+  "more": "<%= count %> more",
   "and": "and",
   "loginSuccess": "Login successful!",
   "youSure": "Are you sure?",
@@ -125,7 +126,7 @@
   "error": "Error",
   "menu": "Menu",
   "notifications": "Notifications",
-  "noNotifications": "You have no new messages.",
+  "noNotifications": "You have no notifications.",
   "clear": "Clear",
   "endTour": "End Tour",
   "audioTheme": "Audio Theme",
@@ -279,5 +280,7 @@
   "emptyMessagesLine1": "You don't have any messages",
   "emptyMessagesLine2": "Send a message to start a conversation!",
   "letsgo": "Let's Go!",
-  "selected": "Selected"
+  "selected": "Selected",
+  "howManyToBuy": "How many would you like to buy?",
+  "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

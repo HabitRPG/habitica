@@ -9,14 +9,15 @@ import * as Analytics from 'client/libs/analytics';
 import ParentPage from './components/parentPage';
 
 // Static Pages
-const StaticWrapper = () => import(/* webpackChunkName: "static" */'./components/static/staticWrapper');
+const StaticWrapper = () => import(/* webpackChunkName: "entry" */'./components/static/staticWrapper');
+const HomePage = () => import(/* webpackChunkName: "entry" */'./components/static/home');
+
 const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
 const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
 const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const HomePage = () => import(/* webpackChunkName: "static" */'./components/static/home');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
 const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
 const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
@@ -72,6 +73,7 @@ const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './compo
 // Group Plans
 const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
+const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/billing');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ './components/challenges/index');
@@ -142,6 +144,12 @@ const router = new VueRouter({
           name: 'groupPlanDetailInformation',
           path: '/group-plans/:groupId/information',
           component: GroupPage,
+          props: true,
+        },
+        {
+          name: 'groupPlanBilling',
+          path: '/group-plans/:groupId/billing',
+          component: GroupPlanBilling,
           props: true,
         },
       ],

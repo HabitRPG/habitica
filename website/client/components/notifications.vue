@@ -158,6 +158,7 @@ export default {
 
     return {
       yesterDailies: [],
+      levelBeforeYesterdailies: 0,
       notificationData: {},
       unlockLevels,
       lastShownNotifications,
@@ -256,12 +257,8 @@ export default {
       this.mp(mana);
     },
     userLvl (after, before) {
-      if (after <= before) return;
-      this.lvl();
-      this.playSound('Level_Up');
-      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
-      if (this.unlockLevels[`${after}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+      if (after <= before || this.isRunningYesterdailies) return;
+      this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
       if (!after) return;
@@ -279,8 +276,8 @@ export default {
       if (after === before || after === false) return;
       this.$root.$emit('show::modal', 'armoire-empty');
     },
-    questCompleted (after) {
-      if (!after) return;
+    questCompleted () {
+      if (!this.questCompleted) return;
       this.$root.$emit('show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
@@ -294,6 +291,26 @@ export default {
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
+      this.checkUserAchievements();
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+        this.goto('intro', 0);
+      }, 2000);
+
+      this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
+    });
+  },
+  methods: {
+    checkUserAchievements () {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
@@ -316,24 +333,14 @@ export default {
       if (this.userClassSelect) {
         this.$root.$emit('show::modal', 'choose-class');
       }
-
-      // @TODO: This is a timeout to ensure dom is loaded
-      window.setTimeout(() => {
-        this.initTour();
-        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-        this.goto('intro', 0);
-      }, 2000);
-
-      this.runYesterDailies();
-
-      // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
-    });
-  },
-  methods: {
+    },
+    showLevelUpNotifications (newlevel) {
+      this.lvl();
+      this.playSound('Level_Up');
+      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
+      if (this.unlockLevels[`${newlevel}`]) return;
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+    },
     playSound (sound) {
       this.$root.$emit('playSound', sound);
     },
@@ -390,6 +397,7 @@ export default {
         return;
       }
 
+      this.levelBeforeYesterdailies = this.user.stats.lvl;
       this.$root.$emit('show::modal', 'yesterdaily');
     },
     async runYesterDailiesAction () {
@@ -399,18 +407,20 @@ export default {
       // Notifications
 
       // Sync
-      // @TODO add a loading spinner somewhere
       await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
+      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+        this.showLevelUpNotifications(this.user.stats.lvl);
+      }
+
       this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
-      if (!this.user.groupNotifications) this.user.groupNotifications = [];
-      this.user.groupNotifications.push(notification);
+      this.$store.state.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
@@ -418,7 +428,7 @@ export default {
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.user.groupNotifications = []; // Flush group notifictions
+      this.$store.state.groupNotifications = []; // Flush group notifictions
 
       after.forEach((notification) => {
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -517,8 +527,10 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            this.notificationData = notification.data;
-            this.$root.$emit('show::modal', 'login-incentives');
+            if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
+              this.notificationData = notification.data;
+              this.$root.$emit('show::modal', 'login-incentives');
+            }
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
@@ -568,6 +580,8 @@ export default {
       }
 
       this.user.notifications = []; // reset the notifications
+
+      this.checkUserAchievements();
     },
   },
 };

@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Dievenkneepjes",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Heimelijkheid",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal dagelijkse taken vermeden: <%= number %>.",
     "spellRogueStealthMaxedOut": "Je hebt al je dagelijkse taken al vermeden; het is niet nodig deze spreuk nogmaals te gebruiken. ",
     "spellHealerHealText": "Helend Licht",

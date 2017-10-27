@@ -64,6 +64,7 @@
     "subscriberItemText": "בכל חודש, מנויים יקבלו חפץ מיסתורי. הוא בדרך כלל משתחרר כשבוע לפני סוף החודש. ראו בוויקי את הדף 'Mystery Item' למידע נוסף.",
     "all": "הכל",
     "none": "כלום",
+    "more": "<%= count %> more",
     "and": "וגם",
     "loginSuccess": "התחברות מוצלחת",
     "youSure": "אתם בטוחים?",
@@ -121,7 +122,7 @@
     "error": "שגיאה",
     "menu": "תפריט",
     "notifications": "התראות",
-    "noNotifications": "אין לך הודעות חדשות.",
+    "noNotifications": "You have no notifications.",
     "clear": "נקה",
     "endTour": "סיים סיור",
     "audioTheme": "ערכת מנגינות",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

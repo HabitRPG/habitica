@@ -26,21 +26,23 @@
           p(v-once) {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
-            :class="{active: selectedConversation === conversation.key}")
+            :class="{active: selectedConversation.key === conversation.key}")
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText.substring(0, 30)}}
       .col-8.messages
-        .empty-messages.text-center(v-if='activeChat.length === 0')
+        .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4(v-once) Nothing Here Yet
           p(v-once) Select a conversation on the left
+        .empty-messages.text-center(v-if='activeChat.length === 0 && selectedConversation.key')
+          p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
         chat-message.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
 
-        .new-message-row(v-if='selectedConversation')
+        .new-message-row(v-if='selectedConversation.key')
           textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
@@ -175,6 +177,33 @@ export default {
     bFormInput,
     chatMessage,
   },
+  mounted () {
+    this.$root.$on('habitica::new-inbox-message', (data) => {
+      this.$root.$emit('show::modal', 'inbox-modal');
+
+      const conversation = this.conversations.find(convo => {
+        return convo.key === data.userIdToMessage;
+      });
+
+      if (conversation) {
+        this.selectConversation(data.userIdToMessage);
+        return;
+      }
+
+      const newMessage = {
+        text: '',
+        timestamp: new Date(),
+        user: data.userName,
+        uuid: data.userIdToMessage,
+        id: '',
+      };
+      this.$set(this.user.inbox.messages, data.userIdToMessage, newMessage);
+      this.selectConversation(data.userIdToMessage);
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::new-inbox-message');
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -182,7 +211,7 @@ export default {
         svgClose,
       }),
       displayCreate: true,
-      selectedConversation: '',
+      selectedConversation: {},
       search: '',
       newMessage: '',
       activeChat: [],
@@ -222,7 +251,7 @@ export default {
           newMessage.uuid = this.user._id;
         }
 
-        conversations[userId].messages.push(newMessage);
+        if (newMessage.text) conversations[userId].messages.push(newMessage);
         conversations[userId].lastMessageText = message.text;
         conversations[userId].date = message.timestamp;
       }
@@ -233,10 +262,6 @@ export default {
       conversations = conversations.reverse();
 
       return conversations;
-    },
-    currentMessages () {
-      if (!this.selectedConversation) return;
-      return this.conversations[this.selectedConversation].messages;
     },
     filtersConversations () {
       if (!this.search) return this.conversations;
@@ -250,12 +275,11 @@ export default {
       this.displayCreate = !this.displayCreate;
     },
     selectConversation (key) {
-      this.selectedConversation = key;
-
       let convoFound = this.conversations.find((conversation) => {
         return conversation.key === key;
       });
 
+      this.selectedConversation = convoFound;
       let activeChat = convoFound.messages;
 
       activeChat = sortBy(activeChat, [(o) => {
@@ -273,11 +297,11 @@ export default {
       if (!this.newMessage) return;
 
       let convoFound = this.conversations.find((conversation) => {
-        return conversation.key === this.selectedConversation;
+        return conversation.key === this.selectedConversation.key;
       });
 
       this.$store.dispatch('members:sendPrivateMessage', {
-        toUserId: this.selectedConversation,
+        toUserId: this.selectedConversation.key,
         message: this.newMessage,
       });
 

@@ -20,7 +20,8 @@ export default {
       }
 
       if (filters.categories && filters.categories.length > 0) {
-        let intersectingCats = intersection(filters.categories, challenge.categories);
+        let challengeCategories = challenge.categories.map(chal => chal.slug);
+        let intersectingCats = intersection(filters.categories, challengeCategories);
         hasCategories = intersectingCats.length > 0;
       }
 

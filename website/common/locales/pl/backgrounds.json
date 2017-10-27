@@ -215,7 +215,7 @@
     "backgroundWindyAutumnText": "Wietrzna jesień",
     "backgroundWindyAutumnNotes": "Goń liście podczas wietrznej jesieni",
     "incentiveBackgrounds": "Prosty zestaw tła",
-    "backgroundVioletText": "Fiolet",
+    "backgroundVioletText": "Fioletowy",
     "backgroundVioletNotes": "Energetyzujący fioletowy horyzont.",
     "backgroundBlueText": "Błękitny",
     "backgroundBlueNotes": "Podstawowy błękitny horyzont",
@@ -296,5 +296,12 @@
     "backgroundGardenShedText": "Szopa ogrodowa",
     "backgroundGardenShedNotes": "Popracuj w szopie ogrodowej",
     "backgroundPixelistsWorkshopText": "Pracownia Pixelisty",
-    "backgroundPixelistsWorkshopNotes": "Twórz arcydzieła w pracowni Pixelisty"
+    "backgroundPixelistsWorkshopNotes": "Twórz arcydzieła w pracowni Pixelisty",
+    "backgrounds102017": "ZESTAW 41: Opublikowany w październiku 2017",
+    "backgroundMagicalCandlesText": "Magiczne świece",
+    "backgroundMagicalCandlesNotes": "Rozgrzej się przy płomieniu magicznych świec",
+    "backgroundSpookyHotelText": "Upiorny hotel",
+    "backgroundSpookyHotelNotes": "Skradaj się wzdłuż holu upiornego hotelu",
+    "backgroundTarPitsText": "Jezioro Asfaltowe",
+    "backgroundTarPitsNotes": "Podreptaj po Jeziorze Asfaltowym"
 }

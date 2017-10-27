@@ -134,6 +134,7 @@
     "mysterySet201707": "Geleimantiërset",
     "mysterySet201708": "Lavastrijderset",
     "mysterySet201709": "Sorcery Student Set",
+    "mysterySet201710": "Imperious Imp Set",
     "mysterySet301404": "Standaard Steampunkset",
     "mysterySet301405": "Opgesmukte Steampunkset",
     "mysterySet301703": "Pauw steampunkset",
@@ -199,5 +200,8 @@
     "haveCouponCode": "Do you have a coupon code?",
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
-    "purchaseAll": "Purchase All"
+    "purchaseAll": "Purchase All",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
+    "gemsRemaining": "gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

@@ -23,6 +23,10 @@
   .fill-height {
     height: 38px; // button + margin + padding
   }
+
+  .item-rows {
+    margin-right: -24px;
+  }
 </style>
 
 <script>

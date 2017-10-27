@@ -64,6 +64,7 @@
     "subscriberItemText": "Всеки месец абонатите получават тайнствен предмет. Обикновено това става около една седмица преди края на месеца. За повече информация, прегледайте страницата в уикито с името „Mystery Item“ (Тайнствен предмет).",
     "all": "Всички",
     "none": "Никоя",
+    "more": "Още <%= count %>",
     "and": "и",
     "loginSuccess": "Влязохте успешно!",
     "youSure": "Сигурен/на ли сте?",
@@ -121,7 +122,7 @@
     "error": "Грешка",
     "menu": "Меню",
     "notifications": "Известия",
-    "noNotifications": "Нямате нови съобщения.",
+    "noNotifications": "Нямате известия.",
     "clear": "Изчистване",
     "endTour": "Край на обиколката",
     "audioTheme": "Звуков комплект",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "Нямате съобщения",
     "emptyMessagesLine2": "Изпратете съобщение, за да започнете разговор",
     "letsgo": "Хойде!",
-    "selected": "Избрано"
+    "selected": "Избрано",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
 }

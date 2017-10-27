@@ -35,7 +35,7 @@
         b-dropdown.create-dropdown(text="Select a Participant")
           b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
-        span(v-if='isLeader')
+        span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
               | {{$t(type)}}
@@ -64,17 +64,17 @@
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
       div(v-if='isMember')
         button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
       div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
-      div(v-if='isLeader')
+      div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
     .description-section
       h2 {{$t('challengeSummary')}}
-      p {{challenge.summary}}
+      p(v-markdown='challenge.summary')
       h2 {{$t('challengeDescription')}}
       p(v-markdown='challenge.description')
 </template>
@@ -301,6 +301,9 @@ export default {
         challengeId: this.searchId,
         tasks: clonedTasks,
       });
+
+      this.$store.state.challengeOptions.cloning = false;
+      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
