@@ -16,7 +16,7 @@ export function ensureSudo (req, res, next) {
   let user = res.locals.user;
 
   if (!user.contributor.sudo) {
-    return next(new NotAuthorized(res.t('noSudoAccess')));
+    return next(new NotAuthorized("You don't have sudo access."));
   }
 
   next();

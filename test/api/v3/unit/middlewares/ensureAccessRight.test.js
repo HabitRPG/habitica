@@ -42,7 +42,7 @@ describe('ensure access middlewares', () => {
 
       ensureSudo(req, res, next);
 
-      expect(next).to.be.calledWith(new NotAuthorized(i18n.t('noSudoAccess')));
+      expect(next).to.be.calledWith(new NotAuthorized("You don't have sudo access."));
     });
 
     it('passes when user is a sudo user', () => {

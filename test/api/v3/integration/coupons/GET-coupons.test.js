@@ -19,7 +19,7 @@ describe('GET /coupons/', () => {
     await expect(user.get('/coupons')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noSudoAccess'),
+      message: "You don't have sudo access."
     });
   });
 
