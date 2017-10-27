@@ -30,6 +30,7 @@
   "notParticipating": "Not Participating",
   "either": "Either",
   "createChallenge": "Create Challenge",
+  "createChallengeAddTasks": "Add Challenge Tasks",
   "createChallengeCloneTasks": "Clone Challenge Tasks",
   "addTaskToChallenge": "Add Task",
   "discard": "Discard",
