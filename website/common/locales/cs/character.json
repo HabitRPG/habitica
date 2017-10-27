@@ -3,6 +3,8 @@
     "profile": "Profil",
     "avatar": "Upravit postavu",
     "editAvatar": "Edit Avatar",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Další",
     "fullName": "Celé jméno",
     "displayName": "Zobrazené jméno",

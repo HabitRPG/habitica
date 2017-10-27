@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Орудия Труда",
     "spellRogueToolsOfTradeNotes": "Вы делитесь своим воровским инструментом с компаньонами, чтобы помочь им в «приобретении» золота. Количество получаемого золота за задачи и шансы выпадения предметов увеличиваются для всей команды в течение этого дня.",
     "spellRogueStealthText": "Уйти в тень",
-    "spellRogueStealthNotes": "Вы погружаетесь в тень, натягивая капюшон. Чем выше ваше Восприятие, тем меньше незавершенных ежедневных заданий обнаружат вас этой ночью.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Количество перепрыгнутых ежедневных заданий: <%= number %>.",
     "spellRogueStealthMaxedOut": "Вы уже избавились от всех своих ежедневных заданий: нет нужды накладывать это заклинание снова.",
     "spellHealerHealText": "Исцеляющий свет",

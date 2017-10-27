@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "Ha a lenti gombra kattintasz az összes eddigi elvégzett feladat valamint archivált feladat véglegesen törölve lesz,  kivéve feladatok akítv kihívásokból és csoportos tervekből. Először exportáld őket, ha szeretnéd őket megőrizni.",
     "addmultiple": "Több hozzáadása",
     "addsingle": "Egy hozzáadása",
+    "addATask": "Add a <%= type %>",
     "editATask": "<%= type %> szerkesztése",
     "createTask": "Új <%= type %>",
-    "addTaskToUser": "Új",
+    "addTaskToUser": "Add Task",
     "scheduled": "Határidős",
     "theseAreYourTasks": "Saját <%= taskType %>",
     "habit": "Szokás",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "Kezd el az új napomat!",
     "yesterDailiesOptionTitle": "Erősítsd meg hogy ez a napi feladat nem volt elvégezve támadás előtt",
     "yesterDailiesDescription": "Ha ez a beállítás engedélyezve van, a Habitica meg fogja kérdezni hogy a napi feladat tényleg nem volt-e elvégezve mielőtt kiszámolja a sebzést az avatárodra. Ez megvéd a nem szándékos sebzésektől.",
-    "repeatDayError": "Bizonyosodj meg róla hogy legalább a hét egyik napja ki van választva."
+    "repeatDayError": "Bizonyosodj meg róla hogy legalább a hét egyik napja ki van választva.",
+    "searchTasks": "Search titles and descriptions..."
 }

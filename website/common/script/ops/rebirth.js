@@ -81,12 +81,10 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   }
 
   let flags = user.flags;
-  if (!user.achievements.beastMaster) {
-    flags.rebirthEnabled = false;
-  }
   flags.itemsEnabled = false;
   flags.dropsEnabled = false;
   flags.classSelected = false;
+  flags.rebirthEnabled = false;
   flags.levelDrops = {};
 
   if (!user.achievements.rebirths) {

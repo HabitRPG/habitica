@@ -4,9 +4,10 @@
     "deleteToDosExplanation": "如果你点击下方的按钮，除了正在进行的挑战或者团队任务，所有你已完成的待办事项和历史记录将永远删除，如果你想留下这些记录请先把他们导出哦！",
     "addmultiple": "添加多个",
     "addsingle": "添加单个",
+    "addATask": "新增一个<%= type %>",
     "editATask": "编辑一个<%= type %>",
     "createTask": "创建一个<%= type %>",
-    "addTaskToUser": "Create",
+    "addTaskToUser": "新增任務",
     "scheduled": "限时",
     "theseAreYourTasks": "这些是你的<%= taskType %>",
     "habit": "习惯",
@@ -198,5 +199,6 @@
     "yesterDailiesCallToAction": "开始新的一天！",
     "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
-    "repeatDayError": "请在一周中至少选择一天"
+    "repeatDayError": "请在一周中至少选择一天",
+    "searchTasks": "Search titles and descriptions..."
 }

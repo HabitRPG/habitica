@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Munkaeszközök",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Lopakodás",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Kikerült napi feladatok száma: <%= number %>.",
     "spellRogueStealthMaxedOut": "Már minden napi feladatod elkerülted; nincs szükség erre a varázslatra mégegyszer. ",
     "spellHealerHealText": "Gyógyító fény",

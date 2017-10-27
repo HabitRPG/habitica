@@ -3,6 +3,8 @@
     "profile": "プロフィール",
     "avatar": "アバターのカスタマイズ",
     "editAvatar": "アバターを編集する",
+    "noDescription": "This Habitican hasn't added a description.",
+    "noPhoto": "This Habitican hasn't added a photo.",
     "other": "その他",
     "fullName": "フルネーム",
     "displayName": "表示名",

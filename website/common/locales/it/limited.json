@@ -109,7 +109,7 @@
     "summer2017SeashellSeahealerSet": "Marguaritore Conchiglia (Guaritore)",
     "summer2017SeaDragonSet": "Drago Marino (Assassino)",
     "fall2017HabitoweenSet": "Guerriero Habitoween (Guerriero)",
-    "fall2017MasqueradeSet": "Masquerade Mage (Mage)",
+    "fall2017MasqueradeSet": "Mago Mascherato (Mago)",
     "fall2017HauntedHouseSet": "Haunted House Healer (Healer)",
     "fall2017TrickOrTreatSet": "Dolcetto o scasseggio (Assassino)",
     "eventAvailability": "Disponibile fino al <%= date(locale) %>.",
