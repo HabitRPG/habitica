@@ -107,7 +107,6 @@ function getClassName (classType, language) {
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   let result = filter(items, ['pinType', 'marketGear']);
   let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
-  
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -167,11 +166,12 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let falseGear = filter(content.gear.flat, (gear) => {
-    return (user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class)
-           || (!user.items.gear.owned[gear.key]
-              && content.classes.indexOf(gear.klass) < 0
-              && content.classes.indexOf(gear.specialClass) < 0
-              && (gear.canOwn && gear.canOwn(user)));
+    let prevOwnedFalseGear = user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
+    let specialNonClassGear = !user.items.gear.owned[gear.key] &&
+                              content.classes.indexOf(gear.klass) < 0 &&
+                              content.classes.indexOf(gear.specialClass) < 0 &&
+                              (gear.canOwn && gear.canOwn(user));
+    return  prevOwnedFalseGear || specialNonClassGear;
   });
 
   nonClassCategory.items = map(falseGear, (e) => {
