@@ -3,10 +3,13 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md(type="dark")
     .navbar-header
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
-      .svg-icon.gryphon.d-lg-block.d-xl-none
+      .svg-icon.gryphon.d-md-block.d-none.d-xl-none
+      .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
+
+    b-nav-toggle(target='nav_collapse')
     b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -89,7 +92,6 @@ div
             img.float-left.align-self-end(src='~assets/images/gem-rain.png')
             button.btn.btn-primary.btn-lg.learn-button Learn More
             img.float-right.align-self-end(src='~assets/images/gold-rain.png')
-    b-nav-toggle(target='nav_collapse')
 </template>
 
 <style lang="scss" scoped>
@@ -114,12 +116,20 @@ div
       background-size: cover;
       color: $white;
       margin: 0 auto;
+
+    }
+
+    .svg-icon.gryphon.d-sm-block {
+
+      position: absolute;
+      left: calc(50% - 30px);
+      top: 1em;
     }
   }
 
   @media only screen and (max-width: 990px) {
     #nav_collapse {
-      margin-top: 1.3em;
+      margin-top: 0.6em;
       background-color: $purple-200;
     }
   }
