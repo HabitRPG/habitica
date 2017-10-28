@@ -8,6 +8,8 @@
 // in order to let webpack2 handle the imports
 
 process.env.BABEL_ENV = process.env.NODE_ENV; // eslint-disable-line no-process-env
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 const webpackConfig = require('../../../webpack/webpack.test.conf');
 
 module.exports = function (config) {
@@ -16,7 +18,21 @@ module.exports = function (config) {
     // 1. install corresponding karma launcher
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeNoSandboxHeadless'],
+    customLaunchers: {
+      ChromeNoSandboxHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          // See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+          '--headless',
+          '--disable-gpu',
+          // Without a remote debugging port, Google Chrome exits immediately.
+          ' --remote-debugging-port=9222',
+        ],
+      },
+    },
     frameworks: ['mocha', 'sinon-stub-promise', 'sinon-chai', 'chai-as-promised', 'chai'],
     reporters: ['spec', 'coverage'],
     files: ['./index.js'],
