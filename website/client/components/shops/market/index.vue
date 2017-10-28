@@ -20,13 +20,13 @@
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hideLocked",
+            v-model="viewOptions.hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -70,13 +70,13 @@
           span.dropdown-label {{ $t('class') }}
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
-              span.svg-icon.inline.icon-16(v-html="icons[selectedGroupGearByClass]")
-              span.text {{ getClassName(selectedGroupGearByClass) }}
+              span.svg-icon.inline.icon-16(v-html="icons[viewOptions.selectedGroupGearByClass]")
+              span.text {{ getClassName(viewOptions.selectedGroupGearByClass) }}
 
             b-dropdown-item(
               v-for="gearCategory in marketGearCategories",
-              @click="selectedGroupGearByClass = gearCategory.identifier",
-              :active="selectedGroupGearByClass === gearCategory.identifier",
+              @click="viewOptions.selectedGroupGearByClass = gearCategory.identifier",
+              :active="viewOptions.selectedGroupGearByClass === gearCategory.identifier",
               :key="gearCategory.identifier"
             )
               span.dropdown-icon-item
@@ -95,7 +95,7 @@
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, viewOptions.selectedSortGearBy, hideLocked, hidePinned)",
+        :items="filteredGear(viewOptions.selectedGroupGearByClass, searchTextThrottled, viewOptions.selectedSortGearBy, viewOptions.hideLocked, viewOptions.hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
@@ -140,7 +140,7 @@
 
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hidePinned)",
+            v-for="item in sortedMarketItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hidePinned)",
             :key="item.key",
             :item="item",
             :emptyItem="false",
@@ -460,6 +460,9 @@ export default {
         viewOptions: {
           selectedSortGearBy: 'sortByType',
           selectedSortItemsBy: 'AZ',
+          selectedGroupGearByClass: '',
+          hideLocked: false,
+          hidePinned: false,
         },
         viewOptionsLoaded: false,
 
@@ -479,16 +482,11 @@ export default {
         selectedDrawerTab: 0,
         selectedDrawerItemType: 'eggs',
 
-        selectedGroupGearByClass: '',
-
         sortGearBy: sortGearTypes,
 
         sortItemsBy: ['AZ', 'sortByNumber'],
 
         selectedItemToSell: null,
-
-        hideLocked: false,
-        hidePinned: false,
       };
     },
     mounted () {
@@ -613,6 +611,8 @@ export default {
         setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
       },
       loadFilters () {
+        this.viewOptions.selectedGroupGearByClass = this.userStats.class;
+
         this.categories.forEach((category) => {
           this.$set(this.viewOptions, category.identifier, {
             selected: true,
@@ -784,9 +784,6 @@ export default {
           this.$root.$emit('buyModal::showItem', item);
         }
       },
-    },
-    created () {
-      this.selectedGroupGearByClass = this.userStats.class;
     },
   };
 </script>
