@@ -57,10 +57,10 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
+      h1.mb-4.page-header(v-once) {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('classArmor') }}
 
         div.float-right
