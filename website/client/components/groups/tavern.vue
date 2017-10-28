@@ -56,7 +56,13 @@
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.staff")
           // @TODO open member modal when clicking on a staff member
-          @click.native="showMemberModal(msg.uuid)"
+          avatar(
+          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
+          :member="cachedProfileData[msg.uuid]",
+          :avatarOnly="true",
+          :hideClassBadge='true',
+          @click.native="showMemberModal(msg.uuid)",
+          )
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
               .title {{user.name}}
@@ -357,6 +363,7 @@ import { mapState } from 'client/libs/store';
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
+import Avatar from '../avatar';
 
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
@@ -381,6 +388,7 @@ export default {
   components: {
     chatMessage,
     autocomplete,
+    Avatar,
   },
   data () {
     return {
