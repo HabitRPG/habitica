@@ -19,7 +19,7 @@
 
   .standard-page
     .clearfix
-      h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
+      h1.float-left.mb-4.page-header(v-once) {{ $t('equipment') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -93,7 +93,7 @@
       :key="group.key",
       :class='group.key',
     )
-      h2
+      h2.mb-3
        | {{ group.label }}
        |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
