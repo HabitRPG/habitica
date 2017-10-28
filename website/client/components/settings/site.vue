@@ -298,7 +298,7 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      if(this.user.flags.newStuff){
+      if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
       } else {
         this.$store.dispatch('user:set', {'flags.newStuff': true});

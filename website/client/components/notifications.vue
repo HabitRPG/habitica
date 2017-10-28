@@ -210,7 +210,7 @@ export default {
   },
   watch: {
     baileyShouldShow () {
-      if(this.user.flags.newStuff){
+      if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
       } else {
         this.$root.$emit('hide::modal', 'new-stuff');

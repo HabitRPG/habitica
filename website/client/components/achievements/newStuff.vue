@@ -53,7 +53,7 @@
         this.$root.$emit('hide::modal', 'new-stuff');
       },
       dismissAlert () {
-        if(this.user.flags.newStuff){
+        if (this.user.flags.newStuff) {
           this.$store.dispatch('user:set', {'flags.newStuff': false});
         } else {
           this.close();
