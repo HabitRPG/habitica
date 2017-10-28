@@ -82,7 +82,13 @@ describe('POST /tasks/:id/score/:direction', () => {
     });
 
     it('should update the history', async () => {
-      await user.post(`/tasks/${usersChallengeTaskId}/score/down`);
+      let newCron = new Date(2015, 11, 20);
+
+      await user.post('/debug/set-cron', {
+        lastCron: newCron,
+      });
+
+      await user.post('/cron');
       await user.post(`/tasks/${usersChallengeTaskId}/score/up`);
 
       let tasks = await user.get(`/tasks/challenge/${challenge._id}`);
@@ -90,6 +96,7 @@ describe('POST /tasks/:id/score/:direction', () => {
 
       expect(task.history).to.have.lengthOf(1);
       expect(task.history[0].date).to.not.equal(previousTaskHistory.date);
+      expect(task.history[0].value).to.not.equal(previousTaskHistory.value);
     });
   });
 
