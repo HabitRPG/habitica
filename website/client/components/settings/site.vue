@@ -298,8 +298,11 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.user.flags.newStuff = true;
-      this.$root.$emit('show::modal', 'new-stuff');
+      if(this.user.flags.newStuff){
+        this.$root.$emit('show::modal', 'new-stuff');
+      } else {
+        this.$store.dispatch('user:set', {'flags.newStuff': true});
+      }
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
