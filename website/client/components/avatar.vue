@@ -23,22 +23,22 @@ head
     // Show avatar only if not currently affected by visual buff
     template(v-if!="!member.stats.buffs.snowball && !member.stats.buffs.spookySparkles && !member.stats.buffs.shinySeed && !member.stats.buffs.seafoam")
       span(:class="'chair_' + member.preferences.chair")
-      span(v-tooltip="showqeuipments", :class="getGearClass('back')")
+      span(v-tooltip="showEquipments", :class="getGearClass('back')")
       span(:class="skinClass")
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
       span.head_0
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
       span.head_0
-      span(v-tooltip="showqeuipments",:class="getGearClass('back_collar')")
-      span(v-tooltip="showqeuipments",:class="getGearClass('body')")
+      span(v-tooltip="showEquipments",:class="getGearClass('back_collar')")
+      span(v-tooltip="showEquipments",:class="getGearClass('body')")
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
-      span(v-tooltip="showqeuipments",:class="getGearClass('eyewear')")
-      span(v-tooltip="showqeuipments",:class="getGearClass('head')")
-      span(v-tooltip="showqeuipments",:class="getGearClass('headAccessory')")
+      span(v-tooltip="showEquipments",:class="getGearClass('eyewear')")
+      span(v-tooltip="showEquipments",:class="getGearClass('head')")
+      span(v-tooltip="showEquipments",:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(v-tooltip="showqeuipments",:class="getGearClass('shield')")
-      span(v-tooltip="showqeuipments",:class="getGearClass('weapon')")
+      span(v-tooltip="showEquipments",:class="getGearClass('shield')")
+      span(v-tooltip="showEquipments",:class="getGearClass('weapon')")
       
    //Equipment includes: eyewear, headgear, headaccessory, backaccessory, armor, body accessory, main hand, off hand
 
@@ -290,7 +290,7 @@ export default {
   new Vue({
     el: '#app',
     data: {
-      showqeuipments: this.user.items.gear.equipped[gearType];
+      showEquipments: this.user.items.gear.equipped[gearType];
     }
   })
 
