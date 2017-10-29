@@ -17,7 +17,8 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown(v-if="isUser")
-              div(slot="dropdown-toggle", draggable=false) ICON
+              div(slot="dropdown-toggle", draggable=false)
+                .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content")
                 .dropdown-item(@click="edit($event, task)")
                   span.dropdown-icon-item
@@ -156,12 +157,12 @@
   }
 
   .task-content {
-    padding: 8px;
+    padding: 7px 8px;
     flex-grow: 1;
     cursor: pointer;
     background: $white;
-    border: 1px solid transparent;
-    transition-duration: 0.2;
+    border: 2px solid transparent;
+    transition-duration: 0.15;
 
     &.no-right-border {
       border-right: none !important;
@@ -238,6 +239,27 @@
     margin-left: 0px !important;
   }
 
+  .dropdown-icon {
+    width: 4px;
+    height: 16px;
+    color: $gray-100 !important;
+  }
+
+  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 0;
+    transition: opacity 0.15s ease-in;
+  }
+
+  .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 1;
+  }
+
+  .task-clickable-area /deep/ .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
+    .svg-icon {
+      color: $purple-400 !important;
+    }
+  }
+
   .svg-icon.streak {
     width: 11.6px;
     height: 7.1px;
@@ -301,7 +323,7 @@
   }
 
   .left-control, .right-control, .task-control {
-    transition-duration: 0.2s;
+    transition-duration: 0.15s;
     transition-property: border-color, background, color;
     transition-timing-function: ease-in;
   }
@@ -310,7 +332,7 @@
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     min-height: 60px;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     border-right: none;
 
     & + .task-content {
@@ -322,7 +344,7 @@
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     min-height: 56px;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     border-left: none;
   }
 
@@ -413,6 +435,7 @@ import topIcon from 'assets/svg/top.svg';
 import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
+import menuIcon from 'assets/svg/menu.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
@@ -449,6 +472,7 @@ export default {
         edit: editIcon,
         top: topIcon,
         bottom: bottomIcon,
+        menu: menuIcon,
       }),
     };
   },
