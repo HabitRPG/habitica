@@ -14,7 +14,28 @@
       // Task title, description and icons
       .task-content(:class="contentClass")
         .task-clickable-area(@click="edit($event, task)")
-          h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+          .d-flex.justify-content-between
+            h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+            menu-dropdown(v-if="isUser")
+              div(slot="dropdown-toggle", draggable=false) ICON
+              div(slot="dropdown-content")
+                .dropdown-item(@click="edit($event, task)")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.edit-icon(v-html="icons.edit")
+                    span.text {{ $t('edit') }}
+                .dropdown-item(@click="moveToTop")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.push-to-top(v-html="icons.top")
+                    span.text {{ $t('taskToTop') }}
+                .dropdown-item(@click="moveToBottom")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
+                    span.text {{ $t('taskToBottom') }}
+                .dropdown-item(@click="destroy", v-if="canDelete(task)")
+                  span.dropdown-icon-item.delete-task-item
+                    span.svg-icon.inline.delete(v-html="icons.delete")
+                    span.text {{ $t('delete') }}
+
           .task-notes.small-text(v-markdown="task.notes")
         .checklist(v-if="canViewchecklist")
           .d-inline-flex
@@ -103,6 +124,29 @@
 
     &.has-notes {
       padding-bottom: 0px;
+    }
+  }
+
+  .task-clickable-area /deep/ .dropdown-menu {
+    margin-top: 0px !important;
+
+    .dropdown-item {
+      cursor: pointer !important;
+      transition: none;
+
+      * {
+        transition: none;
+      }
+
+      &:hover {
+        color: $purple-300;
+
+        .svg-icon.push-to-top, .svg-icon.push-to-bottom {
+          * {
+            stroke: $purple-300;
+          }
+        }
+      }
     }
   }
 
@@ -196,6 +240,25 @@
   .svg-icon.streak {
     width: 11.6px;
     height: 7.1px;
+  }
+
+  .delete-task-item {
+    color: $red-10;
+  }
+
+  .svg-icon.edit-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .svg-icon.push-to-top, .svg-icon.push-to-bottom {
+    width: 8px;
+    height: 9px;
+  }
+
+  .svg-icon.delete {
+    width: 14px;
+    height: 16px;
   }
 
   .tags.svg-icon, .calendar.svg-icon {
@@ -344,12 +407,17 @@ import calendarIcon from 'assets/svg/calendar.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
+import editIcon from 'assets/svg/edit.svg';
+import topIcon from 'assets/svg/top.svg';
+import bottomIcon from 'assets/svg/bottom.svg';
+import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
 import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
+import MenuDropdown from '../ui/customMenuDropdown';
 
 export default {
   mixins: [notifications],
@@ -357,6 +425,7 @@ export default {
     bPopover,
     approvalFooter,
     approvalHeader,
+    MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
@@ -375,6 +444,10 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
         checklist: checklistIcon,
+        delete: deleteIcon,
+        edit: editIcon,
+        top: topIcon,
+        bottom: bottomIcon,
       }),
     };
   },
@@ -386,6 +459,7 @@ export default {
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
+      canDelete: 'tasks:canDelete',
     }),
     canViewchecklist () {
       let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
@@ -441,6 +515,7 @@ export default {
     ...mapActions({
       scoreChecklistItem: 'tasks:scoreChecklistItem',
       collapseChecklist: 'tasks:collapseChecklist',
+      destroyTask: 'tasks:destroy',
     }),
     toggleChecklistItem (item) {
       if (this.castingSpell) return;
@@ -456,6 +531,17 @@ export default {
       } else if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
+    },
+    moveToTop () {
+
+    },
+    moveToBottom () {
+
+    },
+    destroy () {
+      if (!confirm(this.$t('sureDelete'))) return;
+      this.destroyTask(this.task);
+      this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
       this.$root.$emit('castEnd', task, 'task', e);

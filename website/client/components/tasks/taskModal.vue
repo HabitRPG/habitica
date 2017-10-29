@@ -587,6 +587,7 @@ export default {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
       getTagsFor: 'tasks:getTagsFor',
+      canDeleteTask: 'tasks:canDelete',
     }),
     ...mapState({
       user: 'user.data',
@@ -600,9 +601,7 @@ export default {
       return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
     },
     canDelete () {
-      let isUserChallenge = Boolean(this.task.userId);
-      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
-      return this.purpose !== 'create' && !activeChallenge;
+      return this.purpose !== 'create' && this.canDeleteTask(this.task);
     },
     title () {
       const type = this.$t(this.task.type);
@@ -747,7 +746,7 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
-      if (!confirm('Are you sure you want to delete this task?')) return;
+      if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('hide::modal', 'task-modal');

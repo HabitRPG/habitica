@@ -459,13 +459,12 @@ export default {
       createTask: 'tasks:create',
     }),
     async sorted (data) {
-      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
-      const sorting = this.taskList;
+      const filteredList = this.taskList;
       const taskIdToMove = filteredList[data.oldIndex]._id;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
+      const newIndexOnServer = this.tasks[`${this.type}s`].findIndex(taskId => taskId === taskIdToReplace);
       let newOrder = await this.$store.dispatch('tasks:move', {
         taskId: taskIdToMove,
         position: newIndexOnServer,
@@ -473,10 +472,8 @@ export default {
       this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      if (sorting) {
-        const deleted = sorting.splice(data.oldIndex, 1);
-        sorting.splice(data.newIndex, 0, deleted[0]);
-      }
+      const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
+      this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed

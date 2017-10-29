@@ -64,7 +64,7 @@ import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
-import MenuDropdown from './customMenuDropdown';
+import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
 
 export default {

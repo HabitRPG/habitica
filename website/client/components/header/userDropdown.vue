@@ -65,7 +65,7 @@ menu-dropdown.item-user
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import userIcon from 'assets/svg/user.svg';
-import MenuDropdown from './customMenuDropdown';
+import MenuDropdown from '../ui/customMenuDropdown';
 import axios from 'axios';
 import markPMSRead from 'common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
