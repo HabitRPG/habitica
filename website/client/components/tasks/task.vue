@@ -107,7 +107,7 @@
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
 
       .left-control, .right-control, .task-content {
-        border-color: $purple-500;
+        border-color: $purple-400;
       }
     }
   }
@@ -161,6 +161,7 @@
     cursor: pointer;
     background: $white;
     border: 1px solid transparent;
+    transition-duration: 0.2;
 
     &.no-right-border {
       border-right: none !important;
@@ -301,7 +302,7 @@
 
   .left-control, .right-control, .task-control {
     transition-duration: 0.2s;
-    transition-property: background, color;
+    transition-property: border-color, background, color;
     transition-timing-function: ease-in;
   }
 
