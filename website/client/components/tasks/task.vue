@@ -16,7 +16,7 @@
         .task-clickable-area(@click="edit($event, task)")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown(v-if="isUser")
+            menu-dropdown.task-dropdown(v-if="isUser")
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content")
@@ -137,9 +137,15 @@
     padding-bottom: 0px;
   }
 
-  .task-clickable-area /deep/ .dropdown-menu {
-    margin-top: 0px !important;
+  .task-title.has-notes + .task-dropdown /deep/ .dropdown-menu {
+    margin-top: -4px;
+  }
 
+  .task-title:not(.has-notes) + .task-dropdown /deep/ .dropdown-menu {
+    margin-top: -12px;
+  }
+
+  .task-clickable-area /deep/ .dropdown-menu {
     .dropdown-item {
       cursor: pointer !important;
       transition: none;
