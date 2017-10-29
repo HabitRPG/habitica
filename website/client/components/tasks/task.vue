@@ -123,9 +123,18 @@
     font-weight: normal;
     margin-bottom: 0px;
 
+    p {
+      margin-bottom: 0px;
+    }
+
     &.has-notes {
       padding-bottom: 0px;
     }
+  }
+
+  .task-clickable-area {
+    padding: 7px 8px;
+    padding-bottom: 0px;
   }
 
   .task-clickable-area /deep/ .dropdown-menu {
@@ -157,7 +166,8 @@
   }
 
   .task-content {
-    padding: 7px 8px;
+    padding-top: 0px;
+    padding-bottom: 7px;
     flex-grow: 1;
     cursor: pointer;
     background: $white;
@@ -215,6 +225,10 @@
       margin-left: 6px;
       padding-top: 0px;
     }
+  }
+
+  .icons, .checklist {
+    padding: 0 8px;
   }
 
   .icons {
