@@ -16,7 +16,7 @@
         .task-clickable-area(@click="edit($event, task)")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown.task-dropdown(v-if="isUser")
+            menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'")
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content")

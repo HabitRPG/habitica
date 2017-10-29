@@ -6,7 +6,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 .habitica-menu-dropdown.item-with-icon.dropdown(@click.stop="toggleDropdown()", :class="{open: isDropdownOpen}")
   .habitica-menu-dropdown-toggle
     slot(name="dropdown-toggle")
-  .dropdown-menu.dropdown-menu-right
+  .dropdown-menu(:class="{'dropdown-menu-right': right}")
     slot(name="dropdown-content")
 </template>
 
@@ -47,6 +47,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
 <script>
 export default {
+  props: ['right'],
   data () {
     return {
       isDropdownOpen: false,
