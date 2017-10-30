@@ -47,7 +47,7 @@
 
         .row
           .col-12.hr
-          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-6
@@ -652,7 +652,7 @@ export default {
   },
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;
-
+    
     this.load();
 
     if (this.user.newMessages[this.searchId]) {
@@ -767,7 +767,7 @@ export default {
       }
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-
+      
       if (this.isParty) {
         this.$store.state.party.data = group;
         this.group = this.$store.state.party.data;
