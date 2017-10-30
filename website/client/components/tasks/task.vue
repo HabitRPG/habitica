@@ -20,7 +20,7 @@
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content")
-                .dropdown-item(@click="edit($event, task)")
+                .dropdown-item.edit-task-item
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
@@ -101,8 +101,8 @@
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: transparent;
     border-radius: 2px;
-    z-index: 9;
     position: relative;
+    z-index: 9;
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
@@ -145,7 +145,31 @@
     margin-top: -12px;
   }
 
-  .task-clickable-area /deep/ .dropdown-menu {
+  .dropdown-icon {
+    width: 4px;
+    height: 16px;
+    color: $gray-100 !important;
+  }
+
+  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 0;
+    padding: 0 4px;
+    transition: opacity 0.15s ease-in;
+  }
+
+  .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 1;
+  }
+
+  .task-clickable-area /deep/ .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
+    opacity: 1;
+
+    .svg-icon {
+      color: $purple-400 !important;
+    }
+  }
+
+  .task-dropdown /deep/ .dropdown-menu {
     .dropdown-item {
       cursor: pointer !important;
       transition: none;
@@ -257,28 +281,6 @@
 
   .no-span-margin span {
     margin-left: 0px !important;
-  }
-
-  .dropdown-icon {
-    width: 4px;
-    height: 16px;
-    color: $gray-100 !important;
-  }
-
-  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
-    opacity: 0;
-    padding: 0 4px;
-    transition: opacity 0.15s ease-in;
-  }
-
-  .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
-    opacity: 1;
-  }
-
-  .task-clickable-area /deep/ .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
-    .svg-icon {
-      color: $purple-400 !important;
-    }
   }
 
   .svg-icon.streak {
@@ -574,11 +576,23 @@ export default {
 
       if (target.tagName === 'A') return; // clicked on a link
 
-      const isDropdown = e.path.find(el => {
-        return el.classList && Array.from(el.classList).indexOf('habitica-menu-dropdown') !== -1;
+      let isDropdown = false;
+      let isEditAction = false;
+
+      e.path.forEach(el => {
+        if (el.classList) {
+          const classes = Array.from(el.classList);
+          if (!isDropdown) {
+            isDropdown = classes.indexOf('habitica-menu-dropdown') !== -1;
+          }
+
+          if (!isEditAction) {
+            isEditAction = classes.indexOf('edit-task-item') !== -1;
+          }
+        }
       });
 
-      if (isDropdown) return;
+      if (isDropdown && !isEditAction) return;
 
       if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
