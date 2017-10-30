@@ -4,14 +4,25 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/26/2017 - BEHIND THE SCENES: THE JOYFUL REAPER
+    h2 10/30/2017 - HAPPY HABITOWEEN!
     hr
     .media
       .media-body
-        h3 Behind the Scenes Blog Post: The Joyful Reaper
-        p(v-markdown='"Have you ever wanted to know more about the Joyful Reaper, the Master of Healers? [Today\'s blog post](https://habitica.wordpress.com/2017/10/26/behind-the-scenes-spotlight-on-the-joyful-reaper/) features a spotlight on the guardian of the Flourishing Fields! Check it out now to learn about her masterful healer skills, as well as an explanation of some of Habitica\'s quirks."')
+        h3 It's Habitoween!
+        p It's the last day of the Fall Festival, and all the NPCs are looking monstrous. Plus, we have lots of fun things in store....
+        h3 Jack O' Lantern Pets and Mounts!
+        p(v-markdown='"The Flourishing Fields are full of cute carved pumpkins - and it looks like one has [followed you home](/inventory/stable)!"')
+        p Each Habitoween, you'll get a new and exciting Jack o'Lantern variety! What kind of Jack o' Lantern? It all depends on how many Habitoweens you've celebrated with us. Happy Fall Festival!
         .small by Lemoness
-      .npc_joyful_reaper
+        h3 Candy for Everyone!
+        p(v-markdown='"It\'s a feast for your pets and mounts! In honor of the end of the Fall Festival, we\'ve given everyone an assortment of candy. You can feed it to your pets in the [Stable](/inventory/stable)! Enjoy."')
+        .small by SabreCat and Lemoness
+      .promo_jackolanterns.left-margin
+    h3 Last Chance for Fall Festival Items and Imperious Imp Set
+    p This is your last chance to get all Fall Festival items before they vanish at the end of October 31st! This includes Limited-Edition Outfits, Seasonal Shop purchases, Seasonal Edition Skins and Hair Colors, and yes, even Spooky and Ghost Hatching Potions. Grab them all while you still can!
+    p(v-markdown='"Plus, today is the final day to [subscribe](/user/settings/subscription) and receive the Imperious Imp Item Set!"')
+    p Thanks so much for your supporting the site -- you're helping us keep Habitica alive. Happy Habitoween!
+    .small by Lemoness
     br
 </template>
 
