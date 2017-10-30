@@ -472,7 +472,6 @@ export default {
       const moved = list.splice(oldPosition, 1);
       const newPosition = where === 'top' ? 0 : list.length;
       list.splice(newPosition, 0, moved[0]);
-      console.log(list);
 
       let newOrder = await this.$store.dispatch('tasks:move', {
         taskId: taskIdToMove,
