@@ -1,21 +1,12 @@
 import {
   pipe,
-  awaitPort,
-  kill,
-  runMochaTests,
 }  from './taskHelper';
-import { server as karma }        from 'karma';
 import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
-import psTree                     from 'ps-tree';
 import gulp                       from 'gulp';
-import Bluebird                   from 'bluebird';
 import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
-import fs from 'fs';
-
-const i18n = require('../website/server/libs/i18n');
 
 // TODO rewrite
 
@@ -24,7 +15,6 @@ let server;
 
 const TEST_DB_URI       = nconf.get('TEST_DB_URI');
 
-const API_V3_TEST_COMMAND = 'npm run test:api-v3';
 const SANITY_TEST_COMMAND = 'npm run test:sanity';
 const COMMON_TEST_COMMAND = 'npm run test:common';
 const CONTENT_TEST_COMMAND = 'npm run test:content';
@@ -34,14 +24,14 @@ const CONTENT_OPTIONS = {maxBuffer: 1024 * 500};
 let testResults = [];
 let testCount = (stdout, regexp) => {
   let match = stdout.match(regexp);
-  return parseInt(match && match[1] || 0);
+  return parseInt(match && match[1] || 0, 10);
 };
 
 let testBin = (string, additionalEnvVariables = '') => {
   if (os.platform() === 'win32') {
-    if (additionalEnvVariables != '') {
+    if (additionalEnvVariables !== '') {
       additionalEnvVariables = additionalEnvVariables.split(' ').join('&&set ');
-      additionalEnvVariables = 'set ' + additionalEnvVariables + '&&';
+      additionalEnvVariables = `set ${additionalEnvVariables}&&`;
     }
     return `set NODE_ENV=test&&${additionalEnvVariables}${string}`;
   } else {
@@ -49,9 +39,9 @@ let testBin = (string, additionalEnvVariables = '') => {
   }
 };
 
-gulp.task('test:nodemon', (done) => {
-  process.env.PORT = TEST_SERVER_PORT;
-  process.env.NODE_DB_URI = TEST_DB_URI;
+gulp.task('test:nodemon', () => {
+  process.env.PORT = TEST_SERVER_PORT; // eslint-disable-line no-process-env
+  process.env.NODE_DB_URI = TEST_DB_URI; // eslint-disable-line no-process-env
 
   runSequence('nodemon');
 });
@@ -68,8 +58,12 @@ gulp.task('test:prepare:mongo', (cb) => {
 gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
   if (!server) {
     server = exec(testBin('node ./website/server/index.js', `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
-      if (error) { throw `Problem with the server: ${error}`; }
-      if (stderr) { console.error(stderr); }
+      if (error) {
+        throw new Error(`Problem with the server: ${error}`);
+      }
+      if (stderr) {
+        console.error(stderr); // eslint-disable-line no-console
+      }
     });
   }
 });
@@ -84,7 +78,7 @@ gulp.task('test:prepare', [
 gulp.task('test:sanity', (cb) => {
   let runner = exec(
     testBin(SANITY_TEST_COMMAND),
-    (err, stdout, stderr) => {
+    (err) => {
       if (err) {
         process.exit(1);
       }
@@ -97,7 +91,7 @@ gulp.task('test:sanity', (cb) => {
 gulp.task('test:common', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
-    (err, stdout, stderr) => {
+    (err) => {
       if (err) {
         process.exit(1);
       }
@@ -118,7 +112,7 @@ gulp.task('test:common:watch', ['test:common:clean'], () => {
 gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
-    (err, stdout, stderr) => {
+    (err, stdout) => { // eslint-disable-line handle-callback-err
       testResults.push({
         suite: 'Common Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
@@ -135,7 +129,7 @@ gulp.task('test:content', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
-    (err, stdout, stderr) => {
+    (err) => {
       if (err) {
         process.exit(1);
       }
@@ -157,7 +151,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
-    (err, stdout, stderr) => {
+    (err, stdout) => {  // eslint-disable-line handle-callback-err
       testResults.push({
         suite: 'Content Specs\t',
         pass: testCount(stdout, /(\d+) passing/),
@@ -173,7 +167,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
     testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-unit --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/unit --recursive --require ./test/helpers/start-server'),
-    (err, stdout, stderr) => {
+    (err) => {
       if (err) {
         process.exit(1);
       }
@@ -192,7 +186,7 @@ gulp.task('test:api-v3:integration', (done) => {
   let runner = exec(
     testBin('node_modules/.bin/istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     {maxBuffer: 500 * 1024},
-    (err, stdout, stderr) => {
+    (err) => {
       if (err) {
         process.exit(1);
       }
@@ -212,7 +206,7 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
   let runner = exec(
     testBin('mocha test/api/v3/integration --recursive --require ./test/helpers/start-server', 'LOAD_SERVER=0'),
     {maxBuffer: 500 * 1024},
-    (err, stdout, stderr) => done(err)
+    (err) => done(err)
   );
 
   pipe(runner);

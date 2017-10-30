@@ -172,7 +172,7 @@ export default {
           return Promise.resolve(error);
         }
 
-        this.$store.state.notificationStore.push({
+        this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
           text: error.response.data.message,
           type: 'error',
@@ -191,6 +191,7 @@ export default {
 
       const isApiCall = url.indexOf('api/v3') !== -1;
       const userV = response.data && response.data.userV;
+      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
@@ -202,7 +203,6 @@ export default {
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
         // exclude POST /api/v3/cron because the user is synced automatically after cron runs
-        const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -212,6 +212,17 @@ export default {
           ]);
         }
       }
+
+      // Verify the client is updated
+      // const serverAppVersion = response.data.appVersion;
+      // let serverAppVersionState = this.$store.state.serverAppVersion;
+      // if (isApiCall && !serverAppVersionState) {
+      //   this.$store.state.serverAppVersion = serverAppVersion;
+      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
+      //   if (document.activeElement.tagName !== 'INPUT' || confirm(this.$t('habiticaHasUpdated'))) {
+      //     location.reload(true);
+      //   }
+      // }
 
       return response;
     });

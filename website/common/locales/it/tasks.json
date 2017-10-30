@@ -112,7 +112,7 @@
     "fortifyPop": "Fa tornare tutte le attività al valore neutro (colore giallo) e ripristina tutti i punti vita persi.",
     "fortify": "Fortifica",
     "fortifyText": "La fortificazione farà tornare tutte le attività, eccetto quelle delle sfide, allo stato neutro (colore giallo), proprio come se le avessi appena create, e riempirà la tua barra della Salute. Questo è un ottimo aiuto se le tue attività rosse stanno rendendo il gioco troppo difficile, o se quelle blu stanno rendendo il gioco troppo semplice. Se ripartire con calma suona come una buona idea, spendi qualche gemma e fai vedere alle tue attività chi comanda!",
-    "confirmFortify": "Sei sicuro?",
+    "confirmFortify": "Sei sicuro/a?",
     "fortifyComplete": "Fortificazione completa!",
     "sureDelete": "Vuoi davvero eliminare la <%= taskType %> con il testo \"<%= taskText %>\"?",
     "sureDeleteCompletedTodos": "Vuoi davvero eliminare le tue Cose Da Fare completate?",

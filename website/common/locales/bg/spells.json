@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Майсторски усет",
     "spellRogueToolsOfTradeNotes": "Лавките Ви талантите подсилват усета на цялата група! (Зависи от: неподсиления УСЕ)",
     "spellRogueStealthText": "Невидимост",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
+    "spellRogueStealthNotes": "При всяко изпълнение част от незавършените Ви ежедневни задачи няма да Ви нанесат щети след края на деня. Сериите и цветовете им няма да се променят. (Зависи от: УСЕ)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Брой избегнати ежедневни задачи: <%= number %>.",
     "spellRogueStealthMaxedOut": "Вие вече сте избегнали всичките си ежедневни задачи. Няма нужда да правите това заклинание отново.",
     "spellHealerHealText": "Лечебна светлина",

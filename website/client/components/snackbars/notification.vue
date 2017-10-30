@@ -135,9 +135,7 @@ export default {
   },
   watch: {
     show () {
-      setTimeout(() => {
-        this.$store.state.notificationStore.splice(0, 1);
-      }, 1000);
+      this.$store.dispatch('snackbars:remove', this.notification);
     },
   },
   computed: {
