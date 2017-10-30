@@ -8,7 +8,7 @@
     "editATask": "Изменить <%= type %>",
     "createTask": "Создать <%= type %>",
     "addTaskToUser": "Добавить задачу",
-    "scheduled": "На потом",
+    "scheduled": "С датой",
     "theseAreYourTasks": "Это ваши <%= taskType %>",
     "habit": "Привычка",
     "habits": "Привычки",
