@@ -77,7 +77,7 @@
     "buyGemsAllow1": "Puoi comprare",
     "buyGemsAllow2": "Gemme in più questo mese",
     "purchaseGemsSeparately": "Compra Gemme addizionali",
-    "subFreeGemsHow": "Habitica players can earn Gems for free by winning <a href=\"/challenges/findChallenges\">challenges</a> that award Gems as a prize, or as a <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">contributor reward by helping the development of Habitica.</a>",
+    "subFreeGemsHow": "I giocatori di Habitica possono ottenere delle Gemme gratuitamente vincendo delle <a href=\"/challenges/findChallenges\">sfide</a> che hanno in palio un premio in Gemme, oppure come <a href=\"http://habitica.wikia.com/wiki/Contributing_to_Habitica\">ricompensa per aver contribuito allo sviluppo di Habitica</a>.",
     "seeSubscriptionDetails": "Vai in <a href='/user/settings/subscription'>Impostazioni &gt; Abbonamento</a> per controllare i dettagli del tuo abbonamento!",
     "timeTravelers": "Viaggiatori del Tempo",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> e <%= linkStartVicky %>Vicky<%= linkEnd %>",
@@ -194,8 +194,8 @@
     "subscriptionBenefit1": "Alexander il Mercante ti venderà delle Gemme, al prezzo di 20 Oro l'una!",
     "subscriptionBenefit2": "To-Do completate e cronologia delle attività sono disponibili più a lungo.",
     "subscriptionBenefit3": "Discover more items in Habitica with a doubled daily drop cap.",
-    "subscriptionBenefit4": "Unique cosmetic items for your avatar each month.",
-    "subscriptionBenefit5": "Receive the exclusive Royal Purple Jackalope pet!",
+    "subscriptionBenefit4": "Ogni mese costumi unici e alla moda per il tuo avatar.",
+    "subscriptionBenefit5": "Ricevi l'esclusivo animale Lepronte Viola Reale!",
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
     "haveCouponCode": "Hai un codice coupon?",
     "subscriptionAlreadySubscribedLeadIn": "Grazie per esserti abbonato/a!",
@@ -203,5 +203,5 @@
     "purchaseAll": "Compra tutto",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gemme rimanenti",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "Non puoi comprare quella quantità di gemme."
 }

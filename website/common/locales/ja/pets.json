@@ -42,7 +42,7 @@
     "noHatchingPotions": "たまごがえしの薬をもっていません。",
     "inventoryText": "たまごをクリックすると使える薬が緑色になるので、その中のどれかをクリックすると、たまごがかえってペットになります。どの薬も緑色にならないなら、もう一度そのたまごをクリックして選択を解除し、かわりにまず薬をクリックするとつかえるたまごが緑色になります。また、不要な拾得物は、商人・Alexanderに売ることもできます。",
     "haveHatchablePet": "あなたはこのペットをかえすための<%= potion %>たまごがえしの薬と<%= egg %>のたまごを持っています！　足跡マークを<b>クリック</b>でたまごをかえします。",
-    "quickInventory": "Quick Inventory",
+    "quickInventory": "所持品を使う",
     "foodText": "えさ",
     "food": "えさとくら",
     "noFoodAvailable": "えさを持っていません。",
@@ -118,9 +118,9 @@
     "sortByHatchable": "たまごがえし可能",
     "hatch": "たまごをかえす！",
     "foodTitle": "えさ",
-    "dragThisFood": "Drag this <%= foodName %> to a Pet and watch it grow!",
-    "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
-    "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
-    "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
+    "dragThisFood": "この<%= foodName %>をペットにドラッグして、あとは成長を見守りましょう!",
+    "clickOnPetToFeed": "ペットをクリックして<%= foodName %>をあげます。あとは成長を見守りましょう!",
+    "dragThisPotion": "この<%= potionName %>をたまごにドラッグして、たまごをかえしましょう!",
+    "clickOnEggToHatch": "たまごをクリックして<%= potionName %>をたまごに使い、たまごをかえしましょう!",
     "hatchDialogText": "<%= potionName %>たまごがえしの薬を<%= eggName %>のたまごにかけると、<%= petName %>が生まれます。"
 }

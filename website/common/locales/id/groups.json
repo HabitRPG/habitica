@@ -1,6 +1,6 @@
 {
-    "tavern": "Kedai Minuman",
-    "tavernChat": "Tavern Chat",
+    "tavern": "Obrolan Kedai Minuman",
+    "tavernChat": "Obrolan Kedai Minuman",
     "innCheckOut": "Keluar dari Penginapan",
     "innCheckIn": "Beristirahat di Penginapan",
     "innText": "Kamu beristirahat di Penginapan! Ketika menginap, kamu tidak akan dilukai oleh keseharianmu yang belum selesai, tapi mereka tetap akan diperbarui setiap hari. Ingat: jika kamu sedang ikut misi melawan musuh, musuh masih bisa melukaimu lewat keseharian yang tidak diselesaikan teman party-mu kecuali mereka ada di Penginapan juga! Selain itu kamu tidak akan bisa menyerang musuh (atau menemukan item misi) jika masih di dalam Penginapan.",
