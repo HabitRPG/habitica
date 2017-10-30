@@ -137,11 +137,11 @@
   }
 
   .task-title.has-notes + .task-dropdown /deep/ .dropdown-menu {
-    margin-top: -4px;
+    margin-top: -4px !important;
   }
 
   .task-title:not(.has-notes) + .task-dropdown /deep/ .dropdown-menu {
-    margin-top: -12px;
+    margin-top: -12px !important;
   }
 
   .dropdown-icon {
