@@ -598,10 +598,10 @@ export default {
       }
     },
     moveToTop () {
-
+      this.$emit('moveTo', this.task, 'top');
     },
     moveToBottom () {
-
+      this.$emit('moveTo', this.task, 'bottom');
     },
     destroy () {
       if (!confirm(this.$t('sureDelete'))) return;

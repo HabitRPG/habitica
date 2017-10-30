@@ -45,6 +45,7 @@
         :key="task.id", :task="task",
         :isUser="isUser",
         @editTask="editTask",
+        @moveTo="moveTo",
         :group='group',
       )
     template(v-if="hasRewardsList")
@@ -462,6 +463,21 @@ export default {
       // Client
       const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
       this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
+    },
+    async moveTo (task, where) { // where is 'top' or 'bottom'
+      const taskIdToMove = task._id;
+      const list = this.tasks[`${this.type}s`];
+
+      const oldPosition = list.findIndex(t => t._id === taskIdToMove);
+      const moved = list.splice(oldPosition, 1);
+      const newPosition = where === 'top' ? 0 : list.length - 1;
+      list.splice(newPosition, 0, moved[0]);
+
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newPosition,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
