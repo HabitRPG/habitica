@@ -26,7 +26,20 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
+    .column-background(
+      v-if="isUser === true",
+      :class="{'initial-description': initialColumnDescription}",
+      ref="columnBackground",
+    )
+      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
+      .small-text {{$t(`${type}sDesc`)}}
+    .sortable-tasks(
+      ref="tasksList", 
+      v-sortable='activeFilters[type].label !== "scheduled"', 
+      @onsort='sorted', 
+      data-sortableId
+    )
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
@@ -44,15 +57,6 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
-
-    .column-background(
-      v-if="isUser === true",
-      :class="{'initial-description': initialColumnDescription}",
-      ref="columnBackground",
-    )
-      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
-      .small-text {{$t(`${type}sDesc`)}}
 </template>
 
 <style lang="scss" scoped>
@@ -60,11 +64,6 @@
 
   .tasks-column {
     min-height: 556px;
-  }
-
-  .task-wrapper {
-    position: relative;
-    z-index: 2;
   }
 
   .sortable-tasks + .reward-items {
@@ -175,7 +174,6 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 1;
 
     &.initial-description {
       top: 30%;

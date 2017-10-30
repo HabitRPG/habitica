@@ -102,7 +102,6 @@
     background: transparent;
     border-radius: 2px;
     position: relative;
-    z-index: 9;
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
