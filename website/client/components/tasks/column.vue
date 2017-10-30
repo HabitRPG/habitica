@@ -491,7 +491,7 @@ export default {
       const text = this.quickAddText;
       if (!text) return false;
 
-      const tasks = text.split('\n').filter(taskText => {
+      const tasks = text.split('\n').reverse().filter(taskText => {
         return taskText ? true : false;
       }).map(taskText => {
         const task = taskDefaults({type: this.type, text: taskText});

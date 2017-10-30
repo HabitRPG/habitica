@@ -1,5 +1,5 @@
 <template lang="pug">
-menu-dropdown.item-notifications
+menu-dropdown.item-notifications(:right="true")
   div(slot="dropdown-toggle")
     div
       message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")

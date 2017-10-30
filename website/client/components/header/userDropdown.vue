@@ -1,5 +1,5 @@
 <template lang="pug">
-menu-dropdown.item-user
+menu-dropdown.item-user(:right="true")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('user')")
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")

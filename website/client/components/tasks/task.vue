@@ -16,11 +16,11 @@
         .task-clickable-area(@click="edit($event, task)")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'")
+            menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'", ref="taskDropdown")
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content", draggable=false)
-                .dropdown-item.edit-task-item
+                .dropdown-item.edit-task-item(ref="editTaskItem")
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
                     span.text {{ $t('edit') }}
@@ -575,21 +575,8 @@ export default {
 
       if (target.tagName === 'A') return; // clicked on a link
 
-      let isDropdown = false;
-      let isEditAction = false;
-
-      e.path.forEach(el => {
-        if (el.classList) {
-          const classes = Array.from(el.classList);
-          if (!isDropdown) {
-            isDropdown = classes.indexOf('habitica-menu-dropdown') !== -1;
-          }
-
-          if (!isEditAction) {
-            isEditAction = classes.indexOf('edit-task-item') !== -1;
-          }
-        }
-      });
+      const isDropdown = this.$refs.taskDropdown.$el.contains(target);
+      const isEditAction = this.$refs.editTaskItem.contains(target);
 
       if (isDropdown && !isEditAction) return;
 
