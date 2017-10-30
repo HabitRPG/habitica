@@ -152,7 +152,7 @@
 
   .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
     opacity: 0;
-    padding: 0 4px;
+    padding: 0 8px;
     transition: opacity 0.15s ease-in;
   }
 
