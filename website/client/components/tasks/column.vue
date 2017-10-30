@@ -9,7 +9,7 @@
   .d-flex
     h2.tasks-column-title
       | {{ $t(types[type].label) }}
-      .badge.badge-pill.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
+      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
@@ -141,13 +141,8 @@
   }
 
   .column-badge {
-    position: absolute;
     top: -5px;
     right: -24px;
-    color: $white;
-    background: $purple-400;
-    line-height: 1.2;
-    font-size: 10px;
   }
 
   .filters {

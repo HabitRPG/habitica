@@ -157,7 +157,7 @@
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
-              .gems-left(v-if='item.key === "gem"')
+              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
 
               span.badge.badge-pill.badge-item.badge-svg(
@@ -356,17 +356,8 @@
   }
 
   .market .gems-left {
-    position: absolute;
     right: -.5em;
     top: -.5em;
-    color: $white;
-    background: $purple-200;
-    padding: .15em;
-    text-align: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px 0 rgba($black, 0.12);
   }
 </style>
 
