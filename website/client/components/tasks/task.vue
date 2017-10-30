@@ -572,9 +572,15 @@ export default {
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      if (target.tagName === 'A') { // Link
-        return;
-      } else if (!this.$store.state.spellOptions.castingSpell) {
+      if (target.tagName === 'A') return; // clicked on a link
+
+      const isDropdown = e.path.find(el => {
+        return el.classList && Array.from(el.classList).indexOf('habitica-menu-dropdown') !== -1;
+      });
+
+      if (isDropdown) return;
+
+      if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
     },
