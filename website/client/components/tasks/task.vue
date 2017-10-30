@@ -13,7 +13,7 @@
           .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
       // Task title, description and icons
       .task-content(:class="contentClass")
-        .task-clickable-area(@click="edit($event, task)")
+        .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'", ref="taskDropdown")
@@ -134,6 +134,10 @@
   .task-clickable-area {
     padding: 7px 8px;
     padding-bottom: 0px;
+
+    &-user {
+      padding-right: 0px;
+    }
   }
 
   .task-title.has-notes + .task-dropdown /deep/ .dropdown-menu {
