@@ -27,6 +27,8 @@
 <script>
 import bModal from 'bootstrap-vue/lib/components/modal';
 import markdownDirective from 'client/directives/markdown';
+import { mapState, mapActions } from 'client/libs/store';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 export default {
   components: {
@@ -42,6 +44,9 @@ export default {
       notes: '',
     };
   },
+  computed: {
+    ...mapState({tasks: 'tasks.data'}),
+  },
   watch: {
     copyingMessage () {
       this.text = this.copyingMessage.text;
@@ -50,16 +55,16 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      createTask: 'tasks:create',
+    }),
     close () {
       this.$root.$emit('hide::modal', 'copyAsTodo');
     },
     saveTodo () {
-      // let newTask = {
-      //   text: this.text,
-      //   type: 'todo',
-      //   notes: this.notes,
-      // };
-
+      const newTask = taskDefaults({type: 'todo', text: this.text});
+      newTask.notes = this.notes;
+      this.createTask(newTask);
       //  @TODO: Add after tasks: User.addTask({body:newTask});
       // @TODO: Notification.text(window.env.t('messageAddedAsToDo'));
 

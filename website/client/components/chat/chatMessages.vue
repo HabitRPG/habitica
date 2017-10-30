@@ -36,11 +36,11 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            // @TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
-              span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-                .svg-icon(v-html="icons.copy")
-                | {{$t('copyAsTodo')}}
-                // @TODO make copyAsTodo work in the inbox
+            //@TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
+              .svg-icon(v-html="icons.copy")
+              | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
@@ -73,11 +73,11 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            // @TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
-              span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-                .svg-icon(v-html="icons.copy")
-                | {{$t('copyAsTodo')}}
-                // @TODO make copyAsTodo work in the inbox
+              // @TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
+            span.action(v-if='!inbox', @click='copyAsTodo(msg)')
+              .svg-icon(v-html="icons.copy")
+              | {{$t('copyAsTodo')}}
+              // @TODO make copyAsTodo work in the inbox
             span.action(v-if='user.flags.communityGuidelinesAccepted', @click='report(msg)')
             span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
               .svg-icon(v-html="icons.report")
