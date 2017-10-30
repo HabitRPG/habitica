@@ -109,7 +109,7 @@
     "summer2017SeashellSeahealerSet": "Poissoigneur du coquillage (Guérisseur)",
     "summer2017SeaDragonSet": "Dragon de mer (Voleur)",
     "fall2017HabitoweenSet": "Guerrier Habitoween (Guerrier)",
-    "fall2017MasqueradeSet": "Mage Bal Masqué (Mage)",
+    "fall2017MasqueradeSet": "Mage de mascarade (Mage)",
     "fall2017HauntedHouseSet": "Guérisseur Maison Hantée (Guérisseur)",
     "fall2017TrickOrTreatSet": "Voleur un-bonbon-ou-un-sort (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",

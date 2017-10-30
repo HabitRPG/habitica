@@ -25,7 +25,7 @@
     "titlePets": "Familiers",
     "titleMounts": "Montures",
     "titleEquipment": "Équipement",
-    "titleTimeTravelers": "Voyageur Temporels",
+    "titleTimeTravelers": "Voyageurs temporels",
     "titleSeasonalShop": "Boutique saisonnière",
     "titleSettings": "Paramètres",
     "saveEdits": "Sauvegarder les modifications",
@@ -275,5 +275,5 @@
     "letsgo": "Allons-y !",
     "selected": "Selectionné",
     "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

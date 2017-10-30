@@ -134,7 +134,7 @@
     "mysterySet201707": "Conjunto \"Medusomante\"",
     "mysterySet201708": "Conjunto \"Guerreiro de Lava\"",
     "mysterySet201709": "Conjunto Estudante de Feitiçaria ",
-    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201710": "Conjunto Diabrete Imperioso",
     "mysterySet301404": "Conjunto \"Revolução Industrial Padrão\"",
     "mysterySet301405": "Conjunto \"Acessórios Revolução Industrial\"",
     "mysterySet301703": "Conjunto \"Revolução Industrial Pavão\"",
@@ -203,5 +203,5 @@
     "purchaseAll": "Comprar Todos",
     "gemsPurchaseNote": "Assinantes podem comprar gemas com ouro no Mercado! Para fácil acesso, você pode marcar a gema na sua coluna de Recompensas.",
     "gemsRemaining": "gemas restantes",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de gemas."
 }

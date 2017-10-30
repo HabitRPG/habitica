@@ -134,7 +134,7 @@
     "mysterySet201707": "Gelémantiker Set",
     "mysterySet201708": "Lavakrigare Set",
     "mysterySet201709": "Trolldomstudent Set",
-    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201710": "Befallande Imp-set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Tillbehör Set",
     "mysterySet301703": "Påfågel Steampunk Set",
@@ -203,5 +203,5 @@
     "purchaseAll": "Köp Alla",
     "gemsPurchaseNote": "Prenumeranter kan köpa diamanter för guld i Marknaden! För enkel tillgång kan du också nåla fast diamanter till din Belöningskolumn.",
     "gemsRemaining": "resterande diamanter",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "Du kan inte köpa den mängden diamanter."
 }
