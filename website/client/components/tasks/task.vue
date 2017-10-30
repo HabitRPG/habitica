@@ -19,7 +19,7 @@
             menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'")
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
-              div(slot="dropdown-content")
+              div(slot="dropdown-content", draggable=false)
                 .dropdown-item.edit-task-item
                   span.dropdown-icon-item
                     span.svg-icon.inline.edit-icon(v-html="icons.edit")
