@@ -81,7 +81,7 @@
 
         .pet-row.d-flex(
           v-for="(group, key, index) in pets(petGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)",
-          v-if='index === 0 || showMore === petGroup.key')
+          v-if='index === 0 || viewOptions.showMore === petGroup.key')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -115,7 +115,7 @@
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && viewOptions[petGroup.key].animalCount !== 0')
-          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ viewOptions.showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -130,7 +130,7 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)"
-          v-if='index === 0 || showMore === mountGroup.key')
+          v-if='index === 0 || viewOptions.showMore === mountGroup.key')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -151,7 +151,7 @@
                 )
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts" && viewOptions[mountGroup.key].animalCount !== 0')
-          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ viewOptions.showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :openStatus='openStatus',
@@ -562,12 +562,11 @@
         viewOptions: {
           hideMissing: false,
           selectedSortBy: 'standard',
+          showMore: '',
         },
         viewOptionsLoaded: false,
-
         searchText: null,
         searchTextThrottled: '',
-
         // sort has the translation-keys as values
         sortByItems: [
           'standard',
@@ -575,20 +574,15 @@
           'sortByColor',
           'sortByHatchable',
         ],
-
         icons: Object.freeze({
           information: svgInformation,
           close: svgClose,
         }),
-
         highlightPet: '',
-
         hatchablePet: null,
         foodClickMode: false,
         currentDraggingFood: null,
-
         selectedDrawerTab: 0,
-        showMore: '',
         petGroups: [],
         mountGroups: [],
       };
@@ -743,11 +737,11 @@
         this.mountGroups = mountGroups;
       },
       setShowMore (key) {
-        if (this.showMore === key) {
-          this.showMore = '';
+        if (this.viewOptions.showMore === key) {
+          this.viewOptions.showMore = '';
           return;
         }
-        this.showMore = key;
+        this.viewOptions.showMore = key;
       },
       getAnimalList (animalGroup, type) {
         if (!animalGroup) return [];
