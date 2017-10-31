@@ -559,7 +559,7 @@ import keys from 'lodash/keys';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
-import allocate from  '../../../common/script/ops/allocate';
+import allocate from  '../../../common/script/ops/stats/allocate';
 
 import MemberDetails from '../memberDetails';
 import bPopover from 'bootstrap-vue/lib/components/popover';
