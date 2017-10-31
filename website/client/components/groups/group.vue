@@ -652,7 +652,7 @@ export default {
   },
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;
-    
+
     this.load();
 
     if (this.user.newMessages[this.searchId]) {
@@ -767,7 +767,7 @@ export default {
       }
 
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-      
+
       if (this.isParty) {
         this.$store.state.party.data = group;
         this.group = this.$store.state.party.data;
