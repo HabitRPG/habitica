@@ -78,7 +78,7 @@ function cssVarMap (sprite) {
     };
   }
   if (sprite.name.indexOf('shirt') !== -1)
-    sprite.custom.px.offsetY = `-${ sprite.y + 30 }px`; // even more for shirts
+    sprite.custom.px.offsetY = `-${ sprite.y + 35 }px`; // even more for shirts
   if (sprite.name.indexOf('hair_base') !== -1) {
     let styleArray = sprite.name.split('_').slice(2, 3);
     if (Number(styleArray[0]) > 14)
