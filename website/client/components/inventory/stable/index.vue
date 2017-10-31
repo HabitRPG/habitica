@@ -82,7 +82,7 @@
 
         .pet-row.d-flex(
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
-          v-if='index === 0 || isToggled(petGroup.key)')
+          v-if='index === 0 || $_openedItemRows_isToggled(petGroup.key)')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -116,7 +116,7 @@
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
-          | {{ isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -131,7 +131,7 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if='index === 0 || isToggled(mountGroup.key)')
+          v-if='index === 0 || $_openedItemRows_isToggled(mountGroup.key)')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -152,7 +152,7 @@
                 )
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
-          | {{ isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :title="$t('quickInventory')",
@@ -703,7 +703,7 @@
     },
     methods: {
       setShowMore (key) {
-        this.toggleByType(key, !this.isToggled(key));
+        this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
       },
       getAnimalList (animalGroup, type) {
         let key = animalGroup.key;

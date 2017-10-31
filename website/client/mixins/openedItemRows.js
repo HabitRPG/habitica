@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -7,7 +9,7 @@ export default {
     }),
   },
   methods: {
-    toggleByType (typeId, add) {
+    $_openedItemRows_toggleByType (typeId, add) {
       let array = this.$store.state.openedItemRows;
 
       if (add) {
@@ -20,7 +22,7 @@ export default {
         }
       }
     },
-    isToggled (typeId) {
+    $_openedItemRows_isToggled (typeId) {
       return this.openedItemRows.includes(typeId);
     },
   },

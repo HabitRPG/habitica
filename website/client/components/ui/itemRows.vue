@@ -57,7 +57,7 @@
       toggleItemsToShow () {
         this.showAll = !this.showAll;
 
-        this.toggleByType(this.type, this.showAll);
+        this.$_openedItemRows_toggleByType(this.type, this.showAll);
       },
       itemsToShow (showAll) {
         let itemsLength = this.items.length;
@@ -97,7 +97,7 @@
       },
     },
     created () {
-      this.showAll = this.isToggled(this.type);
+      this.showAll = this.$_openedItemRows_isToggled(this.type);
     },
   };
 </script>
