@@ -149,7 +149,7 @@ function cssVarMap (sprite) {
     };
   }
   if (~sprite.name.indexOf('shirt'))
-    sprite.custom.px.offset_y = `-${ sprite.y + 30 }px`; // even more for shirts
+    sprite.custom.px.offset_y = `-${ sprite.y + 35 }px`; // even more for shirts
   if (~sprite.name.indexOf('hair_base')) {
     let styleArray = sprite.name.split('_').slice(2,3);
     if (Number(styleArray[0]) > 14)
