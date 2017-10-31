@@ -439,6 +439,9 @@ api.getGroupChallenges = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    if (groupId === 'party') groupId = user.party._id;
+    if (groupId === 'habitrpg') groupId = TAVERN_ID;
+
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 

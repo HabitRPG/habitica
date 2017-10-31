@@ -72,6 +72,8 @@
     "APIv3": "API v3",
     "APIText": "Üçüncü parti uygulamalarda kullanmak için bunları kopyala. Yine de API Dizgeni bir şifre gibi düşün ve umumi biçimde paylaşma. Kullanıcı ID'ni sıklıkla paylaşacaksındır ancak diğerlerinin görebileceği alanlarda, Github dahil, API Dizgeni asla paylaşma.",
     "APIToken": "API Dizgesi (bu bir şifredir - yukarıdaki uyarıya dikkat!)",
+    "showAPIToken": "Show API Token",
+    "hideAPIToken": "Hide API Token",
     "APITokenWarning": "Eğer yeni bir API Dizgisine ihtiyaç duyarsan (örn. yanlışlıkla paylaştığında), <%= hrefTechAssistanceEmail %> adresine Kullanıcı ID'ni ve o anki Dizgini mail at. Dizgin sıfırlandığında siteden ve mobil uygulamadan çıkıp, kullandığın tüm Habitica araçlarına yeni Dizgini girmen gerekecektir.",
     "thirdPartyApps": "Üçüncü Parti Uygulamalar",
     "dataToolDesc": "Habitica hesabındaki işlerinle alakalı istatistiklerin, ekipmanların ve yeteneklerin gibi belirli bilgileri sana gösteren bir web sitesi.",

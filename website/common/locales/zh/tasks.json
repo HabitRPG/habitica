@@ -14,7 +14,7 @@
     "habits": "习惯",
     "newHabit": "新习惯",
     "newHabitBulk": "新习惯（每个一行）",
-    "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
+    "habitsDesc": "习惯没有很严格的进度。 你可以每天多次点击它。",
     "positive": "积极的",
     "negative": "消极的",
     "yellowred": "偶尔",
@@ -169,7 +169,7 @@
     "approvalRequired": "请求许可",
     "repeatZero": "无期限的每日任务",
     "repeatType": "重复类型",
-    "repeatTypeHelpTitle": "What kind of repeat is this?",
+    "repeatTypeHelpTitle": "这是哪种重复？",
     "repeatTypeHelp": "每天：任务将每天/每若干天重复一次。每周：任务将在一周内重复若干次。每月/每年：您将自己选定这一重复任务将在在每月的那一天/每年的哪一天",
     "weekly": "每周",
     "monthly": "每月",
@@ -197,8 +197,8 @@
     "checkOffYesterDailies": "勾选你昨天做过的每日任务：",
     "yesterDailiesTitle": "你昨天忘了给这些每日任务打勾了！想要现在给他们打勾嘛？",
     "yesterDailiesCallToAction": "开始新的一天！",
-    "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "yesterDailiesOptionTitle": "在造成伤害之前确认这项每日任务未完成",
+    "yesterDailiesDescription": "如果应用此设置，Habitica在计算并对您的角色造成损害之前会询问您是否打算确定这项每日任务未完成。 这可以保护您免受意外伤害。",
     "repeatDayError": "请在一周中至少选择一天",
-    "searchTasks": "Search titles and descriptions..."
+    "searchTasks": "搜索标题和描述说明..."
 }
