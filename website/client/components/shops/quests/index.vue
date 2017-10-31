@@ -20,13 +20,13 @@
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hideLocked",
+            v-model="viewOptions.hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -89,7 +89,7 @@
 
         itemRows(
           v-if="category.identifier === 'pet'",
-          :items="questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+          :items="questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
           :type="'pet_quests'",
@@ -122,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
@@ -159,7 +159,7 @@
 
         div.items(v-else)
           shopItem(
-            v-for="item in questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+            v-for="item in questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -378,22 +378,17 @@ export default {
       return {
         viewOptions: {
           selectedSortItemsBy: 'AZ',
+          hideLocked: false,
+          hidePinned: false,
         },
         viewOptionsLoaded: false,
-
         searchText: null,
         searchTextThrottled: null,
-
         icons: Object.freeze({
           pin: svgPin,
         }),
-
         sortItemsBy: ['AZ', 'sortByNumber'],
-
         selectedItemToBuy: null,
-
-        hideLocked: false,
-        hidePinned: false,
       };
     },
     mounted () {
