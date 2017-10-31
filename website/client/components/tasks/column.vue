@@ -1,6 +1,11 @@
 <template lang="pug">
 .tasks-column(:class='type')
   b-modal(ref="editTaskModal")
+  buy-quest-modal(:item="selectedItemToBuy || {}",
+    :priceType="selectedItemToBuy ? selectedItemToBuy.currency : ''",
+    :withPin="true",
+    @change="resetItemToBuy($event)"
+    v-if='type === "reward"')
   .d-flex
     h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
     .filters.d-flex.justify-content-end
@@ -15,7 +20,7 @@
       v-model="quickAddText", @keyup.enter="quickAdd",
       ref="quickAdd",
     )
-    .sortable-tasks(ref="tasksList", v-sortable='', @onsort='sorted')
+    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
@@ -200,6 +205,7 @@ import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
+import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
@@ -215,6 +221,7 @@ export default {
   mixins: [buyMixin],
   components: {
     Task,
+    BuyQuestModal,
     bModal,
     shopItem,
   },
@@ -278,6 +285,8 @@ export default {
 
       forceRefresh: new Date(),
       quickAddText: '',
+
+      selectedItemToBuy: {},
     };
   },
   computed: {
@@ -288,8 +297,25 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      if (this.taskListOverride) return this.taskListOverride;
-      return this.tasks[`${this.type}s`];
+      const filter = this.activeFilters[this.type];
+
+      let taskList = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) taskList = this.taskListOverride;
+
+      if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
+        let taskListSorted = this.$store.dispatch('tasks:order', [
+          taskList,
+          this.user.tasksOrder,
+        ]);
+
+        taskList = taskListSorted[`${this.type}s`];
+      }
+
+      if (filter.sort) {
+        taskList = sortBy(taskList, filter.sort);
+      }
+
+      return taskList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -365,19 +391,25 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    sorted (data) {
+    async sorted (data) {
+      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
       const sorting = this.taskList;
-      const taskIdToMove = this.taskList[data.oldIndex]._id;
+      const taskIdToMove = filteredList[data.oldIndex]._id;
 
+      // Server
+      const taskIdToReplace = filteredList[data.newIndex];
+      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newIndexOnServer,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
+
+      // Client
       if (sorting) {
         const deleted = sorting.splice(data.oldIndex, 1);
         sorting.splice(data.newIndex, 0, deleted[0]);
       }
-
-      this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: data.newIndex,
-      });
     },
     quickAdd () {
       const task = taskDefaults({type: this.type, text: this.quickAddText});
@@ -393,10 +425,6 @@ export default {
         this.loadCompletedTodos();
       }
       this.activeFilters[type] = filter;
-
-      if (filter.sort) {
-        this.tasks[`${type}s`] = sortBy(this.tasks[`${type}s`], filter.sort);
-      }
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
@@ -465,8 +493,19 @@ export default {
         return;
       }
 
+      if (rewardItem.purchaseType === 'quests') {
+        this.selectedItemToBuy = rewardItem;
+        this.$root.$emit('show::modal', 'buy-quest-modal');
+        return;
+      }
+
       if (rewardItem.purchaseType !== 'gear' || !rewardItem.locked) {
         this.$emit('openBuyDialog', rewardItem);
+      }
+    },
+    resetItemToBuy ($event) {
+      if (!$event) {
+        this.selectedItemToBuy = null;
       }
     },
   },

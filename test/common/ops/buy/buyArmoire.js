@@ -2,15 +2,15 @@
 
 import {
   generateUser,
-} from '../../helpers/common.helper';
-import count from '../../../website/common/script/count';
-import buyArmoire from '../../../website/common/script/ops/buyArmoire';
-import randomVal from '../../../website/common/script/libs/randomVal';
-import content from '../../../website/common/script/content/index';
+} from '../../../helpers/common.helper';
+import count from '../../../../website/common/script/count';
+import buyArmoire from '../../../../website/common/script/ops/buyArmoire';
+import randomVal from '../../../../website/common/script/libs/randomVal';
+import content from '../../../../website/common/script/content/index';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../../website/common/script/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
 
 function getFullArmoire () {
   let fullArmoire = {};
