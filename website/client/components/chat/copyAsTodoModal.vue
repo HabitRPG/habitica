@@ -62,11 +62,15 @@ export default {
       this.$root.$emit('hide::modal', 'copyAsTodo');
     },
     saveTodo () {
-      const newTask = taskDefaults({type: 'todo', text: this.text});
-      newTask.notes = this.notes;
+      const newTask = taskDefaults({type: 'todo', text: this.text, notes: this.notes});
+
       this.createTask(newTask);
-      //  @TODO: Add after tasks: User.addTask({body:newTask});
-      // @TODO: Notification.text(window.env.t('messageAddedAsToDo'));
+      this.$store.dispatch('snackbars:add', {
+        title: 'Copy Task',
+        text: this.$t('messageAddedAsToDo'),
+        type: 'success',
+        timeout: true,
+      });
 
       this.$root.$emit('hide::modal', 'copyAsTodo');
     },
