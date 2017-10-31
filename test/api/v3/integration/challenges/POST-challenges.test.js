@@ -315,7 +315,7 @@ describe('POST /challenges', () => {
       expect(groupLeader.achievements.joinedChallenge).to.be.true;
     });
 
-    it.only('sets challenge summary equal to challenge name if no summary provided', async () => {
+    it('sets challenge summary equal to challenge name if no summary provided', async () => {
       let name = 'Test Challenge'
 
       let challenge = await groupLeader.post('/challenges', {
