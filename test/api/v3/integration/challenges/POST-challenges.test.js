@@ -315,6 +315,20 @@ describe('POST /challenges', () => {
       expect(groupLeader.achievements.joinedChallenge).to.be.true;
     });
 
+    it('successfully sets a summary when summary provided', async () => {
+      let name = 'Test Challenge'
+      let summary = 'Test Summary'
+
+      let challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name: name,
+        shortName: 'TC Label',
+        summary: summary,
+      });
+
+      expect(challenge.summary).to.eql(summary);
+    });
+
     it('sets challenge summary equal to challenge name if no summary provided', async () => {
       let name = 'Test Challenge'
 
