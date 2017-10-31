@@ -292,7 +292,9 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
+      const sortedItems = _sortBy(items, sortGearTypeMap[sortBy]);
+      if (sortBy !== 'sortByName') return _reverse(sortedItems);
+      return sortedItems;
     },
     drawerToggled (newState) {
       this.$store.state.equipmentDrawerOpen = newState;
