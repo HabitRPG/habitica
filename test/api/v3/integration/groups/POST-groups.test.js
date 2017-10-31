@@ -87,15 +87,18 @@ describe('POST /group', () => {
     });
 
     context('public guild', () => {
+      let groupName = 'Test Public Guild';
+      let groupType = 'guild';
+      let groupPrivacy = 'public';
+      let summary = 'Test Summary';
+
       it('creates a group', async () => {
-        let groupName = 'Test Public Guild';
-        let groupType = 'guild';
-        let groupPrivacy = 'public';
 
         let publicGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
+          summary: summary,
         });
 
         expect(publicGuild._id).to.exist;
@@ -103,6 +106,7 @@ describe('POST /group', () => {
         expect(publicGuild.type).to.equal(groupType);
         expect(publicGuild.memberCount).to.equal(1);
         expect(publicGuild.privacy).to.equal(groupPrivacy);
+        expect(publicGuild.summary).to.equal(summary);
         expect(publicGuild.leader).to.eql({
           _id: user._id,
           profile: {
@@ -110,18 +114,30 @@ describe('POST /group', () => {
           },
         });
       });
+
+      it('sets the summary equal to the name if no summary provided', async () => {
+        let publicGuild = await user.post('/groups', {
+          name: groupName,
+          type: groupType,
+          privacy: groupPrivacy,
+        });
+
+        expect(publicGuild.summary).to.eql(groupName);
+      });
     });
 
     context('private guild', () => {
       let groupName = 'Test Private Guild';
       let groupType = 'guild';
       let groupPrivacy = 'private';
+      let summary = 'Test Summary';
 
       it('creates a group', async () => {
         let privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
+          summary: summary,
         });
 
         expect(privateGuild._id).to.exist;
@@ -129,6 +145,7 @@ describe('POST /group', () => {
         expect(privateGuild.type).to.equal(groupType);
         expect(privateGuild.memberCount).to.equal(1);
         expect(privateGuild.privacy).to.equal(groupPrivacy);
+        expect(privateGuild.summary).to.equal(summary);
         expect(privateGuild.leader).to.eql({
           _id: user._id,
           profile: {
@@ -149,6 +166,16 @@ describe('POST /group', () => {
         let updatedUser = await user.get('/user');
 
         expect(updatedUser.balance).to.eql(user.balance - 1);
+      });
+
+      it('sets the summary equal to the name if no summary provided', async () => {
+        let privateGuild = await user.post('/groups', {
+          name: groupName,
+          type: groupType,
+          privacy: groupPrivacy,
+        });
+
+        expect(privateGuild.summary).to.eql(groupName);
       });
     });
   });
