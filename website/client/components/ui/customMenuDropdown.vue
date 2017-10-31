@@ -1,4 +1,4 @@
-<!-- 
+<!--
 A simplified dropdown component that doesn't rely on buttons as toggles  like bootstrap-vue
 -->
 
@@ -11,38 +11,39 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 </template>
 
 <style lang="scss">
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.habitica-menu-dropdown.open {
-  .habitica-menu-dropdown-toggle .svg-icon {
-    color: $white !important;
+  .habitica-menu-dropdown.open {
+    .habitica-menu-dropdown-toggle .svg-icon {
+      color: $white !important;
+    }
   }
-}
+
+  .dropdown .dropdown-menu .dropdown-separated {
+    border-bottom: 1px solid $gray-500;
+  }
 </style>
+
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.dropdown {
-  &:hover {
-    cursor: pointer;
-  }
-
-  .dropdown-menu {
-    cursor: auto;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-
-    /deep/ .dropdown-separated {
-      border-bottom: 1px solid $gray-500;
+  .dropdown {
+    &:hover {
+      cursor: pointer;
     }
-  }
 
-  &.open {
     .dropdown-menu {
-      display: block;
-      margin-top: 16px;
+      cursor: auto;
+      box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+    }
+
+    &.open {
+      .dropdown-menu {
+        display: block;
+        margin-top: 16px;
+      }
     }
   }
-}
 </style>
 
 <script>
