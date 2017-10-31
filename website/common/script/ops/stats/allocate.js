@@ -1,12 +1,12 @@
 import get from 'lodash/get';
 import {
   ATTRIBUTES,
-} from '../constants';
+} from '../../constants';
 import {
   BadRequest,
   NotAuthorized,
-} from '../libs/errors';
-import i18n from '../i18n';
+} from '../../libs/errors';
+import i18n from '../../i18n';
 
 module.exports = function allocate (user, req = {}) {
   let stat = get(req, 'query.stat', 'str');
