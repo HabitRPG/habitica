@@ -36,7 +36,6 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-            //@TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
             span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
@@ -73,7 +72,6 @@
               .svg-icon(v-html="icons.like")
               span(v-if='!msg.likes[user._id]') {{ $t('like') }}
               span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-              // @TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
             span.action(v-if='!inbox', @click='copyAsTodo(msg)')
               .svg-icon(v-html="icons.copy")
               | {{$t('copyAsTodo')}}
