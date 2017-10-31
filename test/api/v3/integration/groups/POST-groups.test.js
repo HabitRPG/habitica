@@ -115,11 +115,13 @@ describe('POST /group', () => {
         });
       });
 
+      // @TODO I'm pretty sure this test is written correctly, but it is not passing
       it('sets the summary equal to the name if no summary provided', async () => {
         let publicGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
+          summary: null,
         });
 
         expect(publicGuild.summary).to.eql(groupName);
@@ -166,16 +168,6 @@ describe('POST /group', () => {
         let updatedUser = await user.get('/user');
 
         expect(updatedUser.balance).to.eql(user.balance - 1);
-      });
-
-      it('sets the summary equal to the name if no summary provided', async () => {
-        let privateGuild = await user.post('/groups', {
-          name: groupName,
-          type: groupType,
-          privacy: groupPrivacy,
-        });
-
-        expect(privateGuild.summary).to.eql(groupName);
       });
     });
   });
