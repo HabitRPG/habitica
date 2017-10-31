@@ -66,6 +66,7 @@ spells.wizard = {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }else if(member.stats.class === 'wizard'){
           throw new BadRequest(`You can't cast Ethereal Surge on Mages!`);
+          //TODO: change to i18n string to avoid making work for people
         }
       });
     },
