@@ -70,6 +70,26 @@ div
     b-nav-toggle(target='nav_collapse')
 </template>
 
+<style lang="scss">
+  @import '~client/assets/scss/colors.scss';
+
+  .item-with-icon {
+    &:hover .svg-icon {
+      color: $white;
+    }
+
+    .svg-icon {
+      color: $header-color;
+      vertical-align: bottom;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
@@ -143,10 +163,10 @@ div
     }
   }
 
-  // Make the dropdown menu open on hover    
-  .dropdown:hover .dropdown-menu {    
-   display: block;   
-   margin-top: 0; // remove the gap so it doesn't close    
+  // Make the dropdown menu open on hover
+  .dropdown:hover .dropdown-menu {
+   display: block;
+   margin-top: 0; // remove the gap so it doesn't close
   }
 
   .dropdown-menu {
@@ -196,20 +216,6 @@ div
 
     &.gold {
       margin-right: 24px;
-    }
-
-    &:hover /deep/ .svg-icon {
-      color: $white;
-    }
-
-    & /deep/ .svg-icon {
-      color: $header-color;
-      vertical-align: bottom;
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      margin-left: 12px;
     }
   }
 
