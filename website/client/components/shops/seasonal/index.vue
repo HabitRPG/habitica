@@ -20,7 +20,7 @@
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -88,7 +88,7 @@
             h3 {{ category.text }}
             div.items
               shopItem(
-                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)",
+                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, viewOptions.hidePinned)",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -335,7 +335,9 @@
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          hidePinned: false,
+        },
         viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: null,
@@ -358,13 +360,9 @@
           back: i18n.t('back'),
           eyewear: i18n.t('eyewear'),
         }),
-
         sortItemsBy: ['AZ'],
         selectedSortItemsBy: 'AZ',
-
-        hidePinned: false,
         featuredGearBought: false,
-
         backgroundUpdate: new Date(),
       };
     },
