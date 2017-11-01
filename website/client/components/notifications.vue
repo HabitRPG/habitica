@@ -412,7 +412,7 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
-      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+      if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
