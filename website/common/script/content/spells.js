@@ -62,11 +62,11 @@ spells.wizard = {
     cast (user, target) {
       each(target, (member) => {
         let bonus = statsComputed(user).int;
-        if (user._id !== member._id && member.stats.class !== 'wizard' ) {
+        if (user._id !== member._id && member.stats.class !== 'wizard') {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
-        }else if(member.stats.class === 'wizard'){
-          throw new BadRequest(`You can't cast Ethereal Surge on Mages!`);
-          //TODO: change to i18n string to avoid making work for people
+        } else if (member.stats.class === 'wizard') {
+          throw new BadRequest("You can't cast Ethereal Surge on Mages!");
+          // TODO: change to i18n string to avoid making work for people
         }
       });
     },
