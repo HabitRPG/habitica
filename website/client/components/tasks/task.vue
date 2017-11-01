@@ -208,11 +208,16 @@
     flex-grow: 1;
     cursor: pointer;
     background: $white;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     transition-duration: 0.15;
 
     &.no-right-border {
       border-right: none !important;
+    }
+
+    &.reward-content {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
     }
   }
 
@@ -362,11 +367,13 @@
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     min-height: 60px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-right: none;
 
     & + .task-content {
       border-left: none;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
     }
   }
 
@@ -374,7 +381,7 @@
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     min-height: 56px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-left: none;
   }
 
@@ -543,11 +550,19 @@ export default {
       return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
+      const type = this.task.type;
+
       const classes = [];
       classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
-      if (this.task.type === 'reward' || this.task.type === 'habit') {
+
+      if (type === 'reward' || type === 'habit') {
         classes.push('no-right-border');
       }
+
+      if (type === 'reward') {
+        classes.push('reward-content');
+      }
+
       return classes;
     },
     showStreak () {
