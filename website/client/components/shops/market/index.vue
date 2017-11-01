@@ -99,8 +99,7 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
-      )
+        :noItemsLabel="$t('noGearItemsOfClass')")
         template(slot="item", scope="ctx")
           shopItem(
             :key="ctx.item.key",
@@ -134,10 +133,8 @@
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
-      )
+        v-if="viewOptions[category.identifier].selected")
         h4 {{ category.text }}
-
         div.items
           shopItem(
             v-for="item in sortedMarketItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hidePinned)",
@@ -145,8 +142,7 @@
             :item="item",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="itemSelected(item)"
-          )
+            @click="itemSelected(item)")
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
@@ -744,7 +740,9 @@ export default {
           }
           case 'sortByNumber': {
             result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+              let value = 0;
+              if (this.userItems[i.purchaseType] && this.userItems[i.purchaseType][i.key]) value = this.userItems[i.purchaseType][i.key];
+              return value;
             });
             break;
           }
