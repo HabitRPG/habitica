@@ -93,7 +93,7 @@
     approval-footer(:task='task', v-if='this.task.group.id', :group='group')
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .task {
@@ -170,6 +170,10 @@
     .svg-icon {
       color: $purple-400 !important;
     }
+  }
+
+  .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
+    color: $purple-400 !important;
   }
 
   .task-dropdown /deep/ .dropdown-menu {
