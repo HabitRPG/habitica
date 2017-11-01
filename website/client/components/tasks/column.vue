@@ -69,7 +69,9 @@
   .reward-items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    > {
+      margin: 0 0 0.5em 0.5em;
+    }
   }
 
   .tasks-list {
