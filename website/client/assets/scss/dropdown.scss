@@ -41,7 +41,7 @@
   }
 
   &:active, &:hover {
-    background-color: rgba(#d5c8ff, 0.32);
+    background-color: rgba($suggested-item-color, 0.32);
     color: $purple-200;
   }
 
@@ -50,7 +50,7 @@
     color: $purple-200;
     
     &:active, &:hover, &:focus {
-      background-color: rgba(#d5c8ff, 0.32);
+      background-color: rgba($suggested-item-color, 0.32);
     }
     
     &:after {
