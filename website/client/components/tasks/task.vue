@@ -205,6 +205,7 @@
   .task-notes {
     color: $gray-100;
     font-style: normal;
+    padding-right: 6px;
 
     &.has-checklist {
       padding-bottom: 8px;
