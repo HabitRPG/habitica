@@ -157,6 +157,7 @@ export default {
     openPartyModal () {
       if (this.user.party._id) {
         this.$store.state.memberModalOptions.groupId = this.user.party._id;
+        this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
         // @TODO: do we need to fetch party?
         // this.$store.state.memberModalOptions.group = this.$store.state.party;
         this.$root.$emit('show::modal', 'members-modal');
