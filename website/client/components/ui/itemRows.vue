@@ -16,7 +16,6 @@
     ) {{ showAll ? $t('showLess') : $t('showMore') }}
 
     div.fill-height(v-else)
-
 </template>
 
 <style lang="scss" scoped>

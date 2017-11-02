@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.quests
+  .row.quests(v-if='viewOptionsLoaded')
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -20,13 +20,13 @@
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hideLocked",
+            v-model="viewOptions.hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -72,11 +72,11 @@
       .clearfix
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortItemsBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              @click="viewOptions.selectedSortItemsBy = sort",
+              :active="viewOptions.selectedSortItemsBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -89,7 +89,7 @@
 
         itemRows(
           v-if="category.identifier === 'pet'",
-          :items="questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+          :items="questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
           :type="'pet_quests'",
@@ -122,7 +122,7 @@
                 )
 
         div.grouped-parent(v-else-if="category.identifier === 'unlockable' || category.identifier === 'gold'")
-          div.group(v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned))", v-if="key !== 'questGroupEarnable'")
+          div.group(v-for="(items, key) in getGrouped(questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned))", v-if="key !== 'questGroupEarnable'")
             h3 {{ $t(key) }}
             div.items
               shopItem(
@@ -159,7 +159,7 @@
 
         div.items(v-else)
           shopItem(
-            v-for="item in questItems(category, selectedSortItemsBy, searchTextThrottled, hideLocked, hidePinned)",
+            v-for="item in questItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hideLocked, viewOptions.hidePinned)",
             :key="item.key",
             :item="item",
             :price="item.value",
@@ -323,6 +323,7 @@
 
 <script>
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -352,7 +353,7 @@
   import _map from 'lodash/map';
 
 export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -375,23 +376,23 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
-
+        viewOptions: {
+          selectedSortItemsBy: 'AZ',
+          hideLocked: false,
+          hidePinned: false,
+        },
+        viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: null,
-
         icons: Object.freeze({
           pin: svgPin,
         }),
-
         sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
-
         selectedItemToBuy: null,
-
-        hideLocked: false,
-        hidePinned: false,
       };
+    },
+    mounted () {
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -405,12 +406,6 @@ export default {
       },
       categories () {
         if (this.shop.categories) {
-          this.shop.categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
           return this.shop.categories;
         } else {
           return [];
@@ -418,6 +413,14 @@ export default {
       },
     },
     methods: {
+      loadFilters () {
+        this.shop.categories.forEach((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+        this.$_localFiltersStoreMixin_loadFilters();
+      },
       questItems (category, sortBy, searchBy, hideLocked, hidePinned) {
         let result = _map(category.items, (e) => {
           return {

@@ -1,6 +1,5 @@
 <template lang="pug">
-  // @TODO: breakdown to componentes and use some SOLID
-  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
+  .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)", v-if='viewOptionsLoaded')
     .standard-sidebar.col-3.hidden-xs-down
       div
         #npmMattStable.npc_matt
@@ -50,7 +49,7 @@
           h3.float-left Hide Missing
           toggle-switch.float-right.no-margin(
             :label="''",
-            :checked="hideMissing",
+            :checked="viewOptions.hideMissing",
             @change="updateHideMissing"
           )
 
@@ -60,11 +59,11 @@
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortByItems",
-              @click="selectedSortBy = sort",
-              :active="selectedSortBy === sort",
+              @click="viewOptions.selectedSortBy = sort",
+              :active="viewOptions.selectedSortBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -81,8 +80,8 @@
         h4(v-if="viewOptions[petGroup.key].animalCount !== 0") {{ petGroup.label }}
 
         .pet-row.d-flex(
-          v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
-          v-if='index === 0 || showMore === petGroup.key')
+          v-for="(group, key, index) in pets(petGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)",
+          v-if='index === 0 || viewOptions.showMore === petGroup.key')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -115,8 +114,8 @@
               template(slot="itemBadge", scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
-        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
-          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
+        .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets" && viewOptions[petGroup.key].animalCount !== 0')
+          | {{ viewOptions.showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -130,8 +129,8 @@
       )
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
-        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if='index === 0 || showMore === mountGroup.key')
+        .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, viewOptions.hideMissing, viewOptions.selectedSortBy, searchTextThrottled)"
+          v-if='index === 0 || viewOptions.showMore === mountGroup.key')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -151,10 +150,12 @@
                   @click="selectMount(item)",
                 )
 
-        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
-          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
+        .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts" && viewOptions[mountGroup.key].animalCount !== 0')
+          | {{ viewOptions.showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
 
       drawer(
+        :openStatus='openStatus',
+        v-on:toggled='drawerToggled',
         :title="$t('quickInventory')",
         :errorMessage="(!hasDrawerTabItems(selectedDrawerTab)) ? ((selectedDrawerTab === 0) ?  $t('noFoodAvailable') : $t('noSaddlesAvailable')) : null"
       )
@@ -486,6 +487,7 @@
 </style>
 
 <script>
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
 
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -522,6 +524,7 @@
   import svgClose from 'assets/svg/close.svg';
 
   import notifications from 'client/mixins/notifications';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -531,7 +534,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
-    mixins: [notifications],
+    mixins: [notifications, localFiltersStoreMixin],
     components: {
       PetItem,
       Item,
@@ -556,34 +559,32 @@
     },
     data () {
       return {
-        viewOptions: {},
-        hideMissing: false,
-
+        viewOptions: {
+          hideMissing: false,
+          selectedSortBy: 'standard',
+          showMore: '',
+        },
+        viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: '',
-
         // sort has the translation-keys as values
-        selectedSortBy: 'standard',
         sortByItems: [
           'standard',
           'AZ',
           'sortByColor',
           'sortByHatchable',
         ],
-
         icons: Object.freeze({
           information: svgInformation,
           close: svgClose,
         }),
-
         highlightPet: '',
-
         hatchablePet: null,
         foodClickMode: false,
         currentDraggingFood: null,
-
         selectedDrawerTab: 0,
-        showMore: '',
+        petGroups: [],
+        mountGroups: [],
       };
     },
     watch: {
@@ -593,6 +594,12 @@
         this.searchTextThrottled = search;
       }, 250),
     },
+    mounted () {
+      this.loadDrawerState();
+      this.loadPetGroups();
+      this.loadMountGroups();
+      this.loadFilters();
+    },
     computed: {
       ...mapState({
         content: 'content',
@@ -601,8 +608,47 @@
         userItems: 'user.data.items',
         hideDialog: 'user.data.flags.tutorial.common.mounts',
       }),
+      openStatus () {
+        return this.$store.state.quickInventoryDrawerOpen ? 1 : 0;
+      },
+      drawerTabs () {
+        return [
+          {
+            label: this.$t('foodTitle'),
+            items: _filter(this.content.food, f => {
+              return f.key !== 'Saddle' && this.userItems.food[f.key];
+            }),
+          },
+          {
+            label: this.$t('special'),
+            items: _filter(this.content.food, f => {
+              return f.key === 'Saddle' && this.userItems.food[f.key];
+            }),
+          },
+        ];
+      },
+    },
+    methods: {
+      loadFilters () {
+        this.$_localFiltersStoreMixin_loadFilters();
+      },
+      loadDrawerState () {
+        const drawerState = getLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE);
+        if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+          this.$store.state.quickInventoryDrawerOpen = false;
+        }
+      },
+      drawerToggled (newState) {
+        this.$store.state.quickInventoryDrawerOpen = newState;
 
-      petGroups () {
+        if (newState) {
+          setLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+          return;
+        }
+
+        setLocalSetting(CONSTANTS.keyConstants.QUICK_INVENTOR_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      },
+      loadPetGroups () {
         let petGroups = [
           {
             label: this.$t('filterByStandard'),
@@ -644,10 +690,9 @@
           });
         });
 
-
-        return petGroups;
+        this.petGroups = petGroups;
       },
-      mountGroups () {
+      loadMountGroups () {
         let mountGroups = [
           {
             label: this.$t('filterByStandard'),
@@ -689,36 +734,18 @@
           });
         });
 
-
-        return mountGroups;
+        this.mountGroups = mountGroups;
       },
-
-      drawerTabs () {
-        return [
-          {
-            label: this.$t('foodTitle'),
-            items: _filter(this.content.food, f => {
-              return f.key !== 'Saddle' && this.userItems.food[f.key];
-            }),
-          },
-          {
-            label: this.$t('special'),
-            items: _filter(this.content.food, f => {
-              return f.key === 'Saddle' && this.userItems.food[f.key];
-            }),
-          },
-        ];
-      },
-    },
-    methods: {
       setShowMore (key) {
-        if (this.showMore === key) {
-          this.showMore = '';
+        if (this.viewOptions.showMore === key) {
+          this.viewOptions.showMore = '';
           return;
         }
-        this.showMore = key;
+        this.viewOptions.showMore = key;
       },
       getAnimalList (animalGroup, type) {
+        if (!animalGroup) return [];
+
         let key = animalGroup.key;
 
         this.cachedAnimalList = this.cachedAnimalList || {};
@@ -896,7 +923,7 @@
 
       // Actions
       updateHideMissing (newVal) {
-        this.hideMissing = newVal;
+        this.viewOptions.hideMissing = newVal;
       },
 
       selectPet (item) {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.timeTravelers
+  .row.timeTravelers(v-if='viewOptionsLoaded')
     .standard-sidebar(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -20,7 +20,7 @@
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -41,11 +41,11 @@
       .clearfix(v-if="!closed")
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortItemsBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              @click="viewOptions.selectedSortItemsBy = sort",
+              :active="viewOptions.selectedSortItemsBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
@@ -58,7 +58,7 @@
         h2 {{ category.text }}
 
         itemRows(
-          :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
+          :items="travelersItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hidePinned)",
           :itemWidth=94,
           :itemMargin=24,
           :type="category.identifier",
@@ -224,6 +224,7 @@
 
 <script>
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -265,6 +266,7 @@
       Avatar,
       BuyModal,
     },
+    mixins: [localFiltersStoreMixin],
     watch: {
       searchText: _throttle(function throttleSearch () {
         this.searchTextThrottled = this.searchText.toLowerCase();
@@ -272,23 +274,23 @@
     },
     data () {
       return {
-        viewOptions: {},
-
+        viewOptions: {
+          selectedSortItemsBy: 'AZ',
+          hidePinned: false,
+        },
+        viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: null,
-
         icons: Object.freeze({
           pin: svgPin,
           hourglass: svgHourglass,
         }),
-
         sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
-
-        hidePinned: false,
-
         backgroundUpdate: new Date(),
       };
+    },
+    mounted () {
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -298,15 +300,12 @@
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
-
       closed () {
         return this.user.purchased.plan.consecutive.trinkets === 0;
       },
-
       shop () {
         return shops.getTimeTravelersShop(this.user);
       },
-
       categories () {
         let apiCategories = this.shop.categories;
 
@@ -347,16 +346,18 @@
 
         normalGroups.push(setCategory);
 
-        normalGroups.map((category) => {
-          this.$set(this.viewOptions, category.identifier, {
-            selected: true,
-          });
-        });
-
         return normalGroups;
       },
     },
     methods: {
+      loadFilters () {
+        this.categories.forEach((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+        this.$_localFiltersStoreMixin_loadFilters();
+      },
       travelersItems (category, sortBy, searchBy, hidePinned) {
         let result = _map(category.items, (e) => {
           return {

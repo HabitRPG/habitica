@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.market
+  .row.market(v-if='viewOptionsLoaded')
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -20,13 +20,13 @@
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hideLocked",
+            v-model="viewOptions.hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -70,13 +70,13 @@
           span.dropdown-label {{ $t('class') }}
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
-              span.svg-icon.inline.icon-16(v-html="icons[selectedGroupGearByClass]")
-              span.text {{ getClassName(selectedGroupGearByClass) }}
+              span.svg-icon.inline.icon-16(v-html="icons[viewOptions.selectedGroupGearByClass]")
+              span.text {{ getClassName(viewOptions.selectedGroupGearByClass) }}
 
             b-dropdown-item(
               v-for="gearCategory in marketGearCategories",
-              @click="selectedGroupGearByClass = gearCategory.identifier",
-              :active="selectedGroupGearByClass === gearCategory.identifier",
+              @click="viewOptions.selectedGroupGearByClass = gearCategory.identifier",
+              :active="viewOptions.selectedGroupGearByClass === gearCategory.identifier",
               :key="gearCategory.identifier"
             )
               span.dropdown-icon-item
@@ -84,23 +84,22 @@
                 span.text {{ gearCategory.text }}
 
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortGearBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortGearBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortGearBy",
-              @click="selectedSortGearBy = sort",
-              :active="selectedSortGearBy === sort",
+              @click="viewOptions.selectedSortGearBy = sort",
+              :active="viewOptions.selectedSortGearBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
       br
 
       itemRows(
-        :items="filteredGear(selectedGroupGearByClass, searchTextThrottled, selectedSortGearBy, hideLocked, hidePinned)",
+        :items="filteredGear(viewOptions.selectedGroupGearByClass, searchTextThrottled, viewOptions.selectedSortGearBy, viewOptions.hideLocked, viewOptions.hidePinned)",
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
-      )
+        :noItemsLabel="$t('noGearItemsOfClass')")
         template(slot="item", scope="ctx")
           shopItem(
             :key="ctx.item.key",
@@ -123,30 +122,27 @@
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t(selectedSortItemsBy)", right=true)
+          b-dropdown(:text="$t(viewOptions.selectedSortItemsBy)", right=true)
             b-dropdown-item(
               v-for="sort in sortItemsBy",
-              @click="selectedSortItemsBy = sort",
-              :active="selectedSortItemsBy === sort",
+              @click="viewOptions.selectedSortItemsBy = sort",
+              :active="viewOptions.selectedSortItemsBy === sort",
               :key="sort"
             ) {{ $t(sort) }}
 
 
       div(
         v-for="category in categories",
-        v-if="viewOptions[category.identifier].selected"
-      )
+        v-if="viewOptions[category.identifier].selected")
         h4 {{ category.text }}
-
         div.items
           shopItem(
-            v-for="item in sortedMarketItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
+            v-for="item in sortedMarketItems(category, viewOptions.selectedSortItemsBy, searchTextThrottled, viewOptions.hidePinned)",
             :key="item.key",
             :item="item",
             :emptyItem="false",
             :popoverPosition="'top'",
-            @click="itemSelected(item)"
-          )
+            @click="itemSelected(item)")
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
@@ -171,6 +167,8 @@
 
       //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       drawer(
+        :openStatus='openStatus',
+        v-on:toggled='drawerToggled',
         :title="$t('quickInventory')"
         :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
       )
@@ -372,7 +370,9 @@
 
 
 <script>
+  import { CONSTANTS, setLocalSetting, getLocalSetting } from 'client/libs/userlocalManager';
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -425,7 +425,7 @@
   };
 
 export default {
-    mixins: [notifications, buyMixin, currencyMixin],
+    mixins: [notifications, buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -453,7 +453,14 @@ export default {
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          selectedSortGearBy: 'sortByType',
+          selectedSortItemsBy: 'AZ',
+          selectedGroupGearByClass: '',
+          hideLocked: false,
+          hidePinned: false,
+        },
+        viewOptionsLoaded: false,
 
         searchText: null,
         searchTextThrottled: null,
@@ -471,19 +478,16 @@ export default {
         selectedDrawerTab: 0,
         selectedDrawerItemType: 'eggs',
 
-        selectedGroupGearByClass: '',
-
         sortGearBy: sortGearTypes,
-        selectedSortGearBy: 'sortByType',
 
         sortItemsBy: ['AZ', 'sortByNumber'],
-        selectedSortItemsBy: 'AZ',
 
         selectedItemToSell: null,
-
-        hideLocked: false,
-        hidePinned: false,
       };
+    },
+    mounted () {
+      this.loadDrawerState();
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -492,6 +496,9 @@ export default {
         userStats: 'user.data.stats',
         userItems: 'user.data.items',
       }),
+      openStatus () {
+        return this.$store.state.marketDrawerOpen ? 1 : 0;
+      },
       marketGearCategories () {
         return shops.getMarketGearCategories(this.user);
       },
@@ -548,12 +555,6 @@ export default {
             });
           }
 
-          categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
-          });
-
           return categories;
         } else {
           return [];
@@ -589,6 +590,32 @@ export default {
       },
     },
     methods: {
+      loadDrawerState () {
+        const drawerState = getLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE);
+        if (drawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
+          this.$store.state.marketDrawerOpen = false;
+        }
+      },
+      drawerToggled (newState) {
+        this.$store.state.marketDrawerOpen = newState;
+
+        if (newState) {
+          setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_OPEN);
+          return;
+        }
+
+        setLocalSetting(CONSTANTS.keyConstants.MARKET_DRAWER_STATE, CONSTANTS.valueConstants.DRAWER_CLOSED);
+      },
+      loadFilters () {
+        this.viewOptions.selectedGroupGearByClass = this.userStats.class;
+
+        this.categories.forEach((category) => {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: true,
+          });
+        });
+        this.$_localFiltersStoreMixin_loadFilters();
+      },
       getClassName (classType) {
         if (classType === 'wizard') {
           return this.$t('mage');
@@ -713,7 +740,9 @@ export default {
           }
           case 'sortByNumber': {
             result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+              let value = 0;
+              if (this.userItems[i.purchaseType] && this.userItems[i.purchaseType][i.key]) value = this.userItems[i.purchaseType][i.key];
+              return value;
             });
             break;
           }
@@ -753,9 +782,6 @@ export default {
           this.$root.$emit('buyModal::showItem', item);
         }
       },
-    },
-    created () {
-      this.selectedGroupGearByClass = this.userStats.class;
     },
   };
 </script>

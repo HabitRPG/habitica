@@ -1,5 +1,5 @@
 <template lang="pug">
-  .row.seasonal
+  .row.seasonal(v-if='viewOptionsLoaded')
     .standard-sidebar
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
@@ -20,7 +20,7 @@
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
             :label="''",
-            v-model="hidePinned",
+            v-model="viewOptions.hidePinned",
           )
     .standard-page
       div.featuredItems
@@ -81,14 +81,13 @@
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 
+        // @TODO: We should not use a method in the for loop, we should use a computed property
         div.grouped-parent
-          div.group(
-            v-for="category in groupSets"
-          )
+          div.group(v-for="category in groupSets", v-if='seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, viewOptions.hidePinned).length > 0')
             h3 {{ category.text }}
             div.items
               shopItem(
-                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, hidePinned)",
+                v-for="item in seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, viewOptions.hidePinned)",
                 :key="item.key",
                 :item="item",
                 :price="item.value",
@@ -276,6 +275,7 @@
 
 <script>
   import {mapState} from 'client/libs/store';
+  import localFiltersStoreMixin from 'client/mixins/localFiltersStoreMixin';
 
   import ShopItem from '../shopItem';
   import Item from 'client/components/inventory/item';
@@ -313,7 +313,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
-    mixins: [buyMixin, currencyMixin],
+    mixins: [buyMixin, currencyMixin, localFiltersStoreMixin],
     components: {
       ShopItem,
       Item,
@@ -334,7 +334,10 @@
     },
     data () {
       return {
-        viewOptions: {},
+        viewOptions: {
+          hidePinned: false,
+        },
+        viewOptionsLoaded: false,
         searchText: null,
         searchTextThrottled: null,
 
@@ -356,15 +359,14 @@
           back: i18n.t('back'),
           eyewear: i18n.t('eyewear'),
         }),
-
         sortItemsBy: ['AZ'],
         selectedSortItemsBy: 'AZ',
-
-        hidePinned: false,
         featuredGearBought: false,
-
         backgroundUpdate: new Date(),
       };
+    },
+    mounted () {
+      this.loadFilters();
     },
     computed: {
       ...mapState({
@@ -420,20 +422,22 @@
               value,
             };
           });
-
-          _forEach(equipmentList, (value) => {
-            this.$set(this.viewOptions, value.key, {
-              selected: true,
-            });
-          });
-
           return equipmentList;
-        } else {
-          return [];
         }
+
+        return [];
       },
     },
     methods: {
+      loadFilters () {
+        _forEach(this.filterCategories, (value) => {
+          this.$set(this.viewOptions, value.key, {
+            selected: true,
+          });
+        });
+
+        this.$_localFiltersStoreMixin_loadFilters();
+      },
       getClassName (classType) {
         if (classType === 'wizard') {
           return this.$t('mage');
