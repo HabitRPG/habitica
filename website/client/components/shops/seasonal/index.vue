@@ -81,10 +81,9 @@
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 
+        // @TODO: We should not use a method in the for loop, we should use a computed property
         div.grouped-parent
-          div.group(
-            v-for="category in groupSets"
-          )
+          div.group(v-for="category in groupSets", v-if='seasonalItems(category, selectedSortItemsBy, searchTextThrottled, viewOptions, viewOptions.hidePinned).length > 0')
             h3 {{ category.text }}
             div.items
               shopItem(
