@@ -121,7 +121,7 @@
                 .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
                 .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                 .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags")
+          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
@@ -665,6 +665,9 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    closeTagsPopup () {
+      this.showTagsSelect = false;
+    },
     sortedChecklist (data) {
       let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
