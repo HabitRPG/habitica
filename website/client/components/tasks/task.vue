@@ -553,6 +553,7 @@ export default {
       }
     },
     handleBrokenTask (task) {
+      if (this.$store.state.isRunningYesterdailies) return;
       this.$store.state.brokenChallengeTask = task;
       this.$root.$emit('show::modal', 'broken-task-modal');
     },
