@@ -17,7 +17,6 @@
           :task="task",
           :isUser="true",
           :dueDate="dueDate",
-          :isYesterdailyModal="true"
         )
       .start-day.text-center
         button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}

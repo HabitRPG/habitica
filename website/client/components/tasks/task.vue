@@ -17,7 +17,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isYesterdailyModal", 
+              v-if="isUser && !isRunningYesterdailies", 
               :right="task.type === 'reward'", 
               ref="taskDropdown"
             )
@@ -512,7 +512,7 @@ export default {
     markdown: markdownDirective,
     bTooltip,
   },
-  props: ['task', 'isUser', 'group', 'dueDate', 'isYesterdailyModal'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -537,6 +537,7 @@ export default {
     ...mapState({
       user: 'user.data',
       castingSpell: 'spellOptions.castingSpell',
+      isRunningYesterdailies: 'isRunningYesterdailies',
     }),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
@@ -615,7 +616,7 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
-      if (this.isYesterdailyModal) return;
+      if (this.isRunningYesterdailies) return;
 
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
