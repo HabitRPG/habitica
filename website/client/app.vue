@@ -71,8 +71,8 @@
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
 
-import AppMenu from './components/appMenu';
-import AppHeader from './components/appHeader';
+import AppMenu from './components/header/menu';
+import AppHeader from './components/header/index';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
