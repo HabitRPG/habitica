@@ -318,7 +318,7 @@ api.flagChat = {
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
+    if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL')}));
     let update = {$set: {}};
 
     // Log user ids that have flagged the message
