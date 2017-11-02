@@ -12,11 +12,12 @@
       p.call-to-action.text-center {{ $t('checkOffYesterDailies') }}
       .tasks-list
         task(
-          v-for='task in tasksByType["daily"]',
-          :key='task.id',
-          :task='task',
-          :isUser='true',
-          :dueDate='dueDate',
+          v-for="task in tasksByType.daily",
+          :key="task.id",
+          :task="task",
+          :isUser="true",
+          :dueDate="dueDate",
+          :isYesterdailyModal="true"
         )
       .start-day.text-center
         button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}

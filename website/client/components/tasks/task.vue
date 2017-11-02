@@ -16,7 +16,11 @@
         .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown.task-dropdown(v-if="isUser", :right="task.type === 'reward'", ref="taskDropdown")
+            menu-dropdown.task-dropdown(
+              v-if="isUser && !isYesterdailyModal", 
+              :right="task.type === 'reward'", 
+              ref="taskDropdown"
+            )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
               div(slot="dropdown-content", draggable=false)
@@ -37,7 +41,10 @@
                     span.svg-icon.inline.delete(v-html="icons.delete")
                     span.text {{ $t('delete') }}
 
-          .task-notes.small-text(v-markdown="task.notes")
+          .task-notes.small-text(
+            v-markdown="task.notes", 
+            :class="{'has-checklist': task.notes && hasChecklist}",
+          )
         .checklist(v-if="canViewchecklist")
           .d-inline-flex
             .collapse-checklist.d-flex.align-items-center.expand-toggle(
@@ -121,13 +128,11 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
-
-    p {
-      margin-bottom: 0px;
-    }
+    line-height: 1.43;
+    font-size: 14px;
 
     &.has-notes {
-      padding-bottom: 0px;
+      padding-bottom: 4px;
     }
   }
 
@@ -140,12 +145,8 @@
     }
   }
 
-  .task-title.has-notes + .task-dropdown /deep/ .dropdown-menu {
-    margin-top: -4px !important;
-  }
-
-  .task-title:not(.has-notes) + .task-dropdown /deep/ .dropdown-menu {
-    margin-top: -12px !important;
+  .task-title + .task-dropdown /deep/ .dropdown-menu {
+    margin-top: 2px !important;
   }
 
   .dropdown-icon {
@@ -176,6 +177,10 @@
     color: $purple-400 !important;
   }
 
+  .task-dropdown {
+    max-height: 16px;
+  }
+
   .task-dropdown /deep/ .dropdown-menu {
     .dropdown-item {
       cursor: pointer !important;
@@ -200,6 +205,10 @@
   .task-notes {
     color: $gray-100;
     font-style: normal;
+
+    &.has-checklist {
+      padding-bottom: 8px;
+    }
   }
 
   .task-content {
@@ -223,7 +232,7 @@
 
   .checklist {
     margin-bottom: 2px;
-    margin-top: 8px;
+    margin-top: -3px;
   }
 
   .collapse-checklist {
@@ -253,6 +262,7 @@
     margin-bottom: 10px;
     min-height: 0px;
     width: 100%;
+    margin-left: 8px;
 
     &-done {
       color: $gray-300;
@@ -304,14 +314,23 @@
     color: $red-10;
   }
 
+  .edit-task-item span.text {
+    margin-left: -3px;
+  }
+
   .svg-icon.edit-icon {
     width: 16px;
     height: 16px;
   }
 
   .svg-icon.push-to-top, .svg-icon.push-to-bottom {
-    width: 8px;
-    height: 9px;
+    width: 10px;
+    height: 11px;
+    margin-left: 3px;
+
+    svg {
+      stroke: $purple-300;
+    }
   }
 
   .svg-icon.delete {
@@ -492,7 +511,7 @@ export default {
     markdown: markdownDirective,
     bTooltip,
   },
-  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'isYesterdailyModal'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
@@ -523,10 +542,12 @@ export default {
       getTaskClasses: 'tasks:getTaskClasses',
       canDelete: 'tasks:canDelete',
     }),
+    hasChecklist () {
+      return this.task.checklist && this.task.checklist.length > 0;
+    },
     canViewchecklist () {
-      let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
       let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
-      return hasChecklist && userIsTaskUser;
+      return this.hasChecklist && userIsTaskUser;
     },
     checklistProgress () {
       const totalItems = this.task.checklist.length;
@@ -593,6 +614,8 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
+      if (this.isYesterdailyModal) return;
+
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
