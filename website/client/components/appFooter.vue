@@ -64,8 +64,7 @@
             h3 {{ $t('footerSocial') }}
             a.social-circle(href='https://twitter.com/habitica', target='_blank')
               .social-icon.svg-icon(v-html='icons.twitter')
-          // @TODO: Not ready yet .social-circle
-            a(href='https://www.instagram.com/habitica/', target='_blank')
+            // TODO: Not ready yet. a.social-circle(href='https://www.instagram.com/habitica/', target='_blank')
               .social-icon.svg-icon.instagram(v-html='icons.instagram')
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
