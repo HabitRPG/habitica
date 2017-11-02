@@ -137,6 +137,7 @@ export default function () {
       equipmentDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],
+      isRunningYesterdailies: false,
     },
   });
 
