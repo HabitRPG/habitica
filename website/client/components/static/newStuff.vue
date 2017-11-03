@@ -29,10 +29,10 @@
         .media
           .media-body
             h3 New Take This Challenge!
-            p The next Take This Challenge has launched, [NAME] (LINK), with a focus on [subject]. Be sure to check it out to earn additional pieces of the Take This armor set!
+            p(v-markdown='"The next Take This Challenge has launched, [Notice Me, Senpai!](/challenges/e2816060-cb5c-46b3-9763-adf2ea20a72b), with a focus on reaching out to others in times of difficulty. Be sure to check it out to earn additional pieces of the Take This armor set!"')
           .promo_take_this
-        p [Take This] (http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.
-    p Congratulations to the winners of the last Take This Challenge, [NAME]": grand prize winner [NAME], and runners-up [Names]. Plus, all participants in that Challenge have received a piece of the [Take This item set] (http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set). It is located in your Rewards column. Enjoy!
+        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, _Multiplayer Co-Op Exercise_: grand prize winner antfrommagicant, and runners-up Dalton Galke, FearMyPaintBrush, Silverilly, VulcanGopher1, and Salamander. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
     .small by Doctor B, the Take This team, Lemoness, and SabreCat
     br
 </template>
