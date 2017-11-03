@@ -4,11 +4,15 @@
     | {{ message }}
 </template>
 
-<style scoped>
-  .approval {
-    background: #24cc8f;
-    color: #fff;
-  }
+<style lang="scss" scoped>
+.claim-bottom-message {
+  z-index: 9;
+}
+
+.approval {
+  background: #24cc8f;
+  color: #fff;
+}
 </style>
 
 <script>

@@ -18,8 +18,7 @@ div
           slot(name="itemImage", :item="item")
 
         div.price
-          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
-
+          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]", v-once)
           span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
   b-popover(
     :target="itemId",

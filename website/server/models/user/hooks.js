@@ -137,8 +137,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  user.items.pets['JackOLantern-Base'] = 5;
-  user.items.currentPet = 'JackOLantern-Base';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
