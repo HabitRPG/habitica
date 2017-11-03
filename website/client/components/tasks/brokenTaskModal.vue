@@ -67,7 +67,13 @@ export default {
           challengeId: this.brokenChallengeTask.challenge.id,
           keep: keepOption,
         });
+
         await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+
+        if (this.brokenChallengeTask.type === 'todo') {
+          await this.$store.dispatch('tasks:fetchCompletedTodos', {forceLoad: true});
+        }
+
         this.close();
         return;
       }
