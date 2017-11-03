@@ -235,12 +235,16 @@ export default {
         notes = this.$t('spellWizardFrostAlreadyCast');
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellRogueStealthMaxedOut');
+      } else if (skill.key === 'surge') {
+        notes = this.$t('spellNoEthOnMage'), {
+          originalText: notes,
+        }
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,
           number: this.user.stats.buffs.stealth,
         });
-      }//something's wrong with this code
+      }// something's wrong with this code
 
       return notes;
     },
