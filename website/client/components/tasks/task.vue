@@ -623,8 +623,8 @@ export default {
 
       if (target.tagName === 'A') return; // clicked on a link
 
-      const isDropdown = this.$refs.taskDropdown.$el.contains(target);
-      const isEditAction = this.$refs.editTaskItem.contains(target);
+      const isDropdown = this.$refs.taskDropdown && this.$refs.taskDropdown.$el.contains(target);
+      const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
 
       if (isDropdown && !isEditAction) return;
 
