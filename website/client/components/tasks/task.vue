@@ -17,8 +17,8 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies", 
-              :right="task.type === 'reward'", 
+              v-if="isUser && !isRunningYesterdailies",
+              :right="task.type === 'reward'",
               ref="taskDropdown"
             )
               div(slot="dropdown-toggle", draggable=false)
@@ -42,7 +42,7 @@
                     span.text {{ $t('delete') }}
 
           .task-notes.small-text(
-            v-markdown="task.notes", 
+            v-markdown="task.notes",
             :class="{'has-checklist': task.notes && hasChecklist}",
           )
         .checklist(v-if="canViewchecklist")
@@ -749,8 +749,7 @@ export default {
     },
     handleBrokenTask (task) {
       if (this.$store.state.isRunningYesterdailies) return;
-      this.$store.state.brokenChallengeTask = task;
-      this.$root.$emit('show::modal', 'broken-task-modal');
+      this.$root.$emit('handle-broken-task', task);
     },
   },
 };
