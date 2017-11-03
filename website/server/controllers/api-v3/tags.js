@@ -221,8 +221,9 @@ api.deleteTag = {
       return tag.id === req.params.tagId;
     });
     if (!tagFound) throw new NotFound(res.t('tagNotFound'));
-    await user.update({
-      $pull: { 'tags': req.params.tagId },
+
+    let result = await user.update({
+      $pull: { 'tags': { id: tagFound.id } },
     }).exec();
 
     // Remove from all the tasks TODO test
@@ -230,11 +231,10 @@ api.deleteTag = {
       userId: user._id,
     }, {
       $pull: {
-        tags: tag.id,
+        tags: tagFound.id,
       },
     }, {multi: true}).exec();
 
-    await user.save();
     res.respond(200, {});
   },
 };
