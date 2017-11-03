@@ -36,6 +36,8 @@ api.readNotification = {
       throw new NotFound(res.t('messageNotificationNotFound'));
     }
 
+    user.notifications.splice(index, 1);
+
     await user.update({
       $pull: { 'notifications': req.params.notificationId }
     }).exec();
