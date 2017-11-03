@@ -692,17 +692,28 @@ api.moveTask = {
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
+    // In memory updates
+    let order = user.tasksOrder[`${task.type}s`];
+    moveTask(order, task._id, to);
+
+    // Server updates
+    // @TODO: maybe bulk op?
+    let pullQuery = { $pull: {} };
+    pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
+    await user.update(pullQuery).exec();
+
+    // Handle push to bottom
+    let position = to;
+    if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
+
     let updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
-       $each: [ task._id ],
-       $position: to,
+      $each: [ task._id ],
+      $position: position,
     };
     await user.update(updateQuery).exec();
 
-    // let order = user.tasksOrder[`${task.type}s`];console.log(order)
-    // moveTask(order, task._id, to);
-    // await user.save();
-    res.respond(200, []);
+    res.respond(200, order);
   },
 };
 
