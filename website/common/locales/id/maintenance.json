@@ -16,7 +16,7 @@
   "maintenanceInfoTechDetails": "Ingin detail lebih lanjut pada sisi teknis dari proses? Kunjungi <a href='http://devs.habitica.com/' target='_blank'> The Forge, blog pengembang kami</a>.",
   "maintenanceInfoMore": "Informasi Lebih Lanjut",
   "maintenanceInfoAccountChanges": "Perubahan apa yang akan Saya lihat pada akun saya setelah penulisan ulang selesai?",
-  "maintenanceInfoAccountChangesText": "At first, there won’t be any notable changes aside from performance improvements for features such as Challenges. If you notice any changes that shouldn’t be there, email us at <%= hrefTechAssistanceEmail %> and we will investigate them for you!",
+  "maintenanceInfoAccountChangesText": "Pada awalnya, tidak ada banyak perubahan mencolok selain dari peningkatan performa untuk fitur-fitur seperti Tantangan. Jika kamu menyadari adanya perubahan yang tidak seharusnya ada, email kami di <%= hrefTechAssistanceEmail %>dan kami akan memeriksanya untukmu!",
   "maintenanceInfoAddFeatures": "Fitur seperti apa yang dapat ditambahkan oleh Habitica dengan cara ini?",
   "maintenanceInfoAddFeaturesText": "Menyelesaikan penulisan ulang ini akan membuat kami dapat membangun obrolan dan Perkumpulan yang lebih baik, rencana untuk organisasi dan keluarga, dan fitur produktivitas tambahan seperti Bulanan dan kemampuan untuk merekam aktifitas kemarin! Fitur-fitur itu berdiri sendiri, jadi akan butuh waktu untuk menambahkannya, tetapi jika kami tidak menyelesaikan penulisan ulang ini, kami tidak akan mampu memulai penambahan fitur tersebut.",
   "maintenanceInfoHowLong": "Berapa lama waktu perbaharuan ini?",

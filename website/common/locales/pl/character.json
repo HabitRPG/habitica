@@ -217,5 +217,6 @@
     "mainHand": "Główna ręka",
     "offHand": "Druga ręka",
     "pointsAvailable": "Dostępne punkty",
-    "pts": "pkt"
+    "pts": "pkt",
+    "statsObjectRequired": "Stats update is required"
 }
