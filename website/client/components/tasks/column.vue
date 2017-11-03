@@ -7,7 +7,9 @@
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
   .d-flex
-    h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
+    h2.tasks-column-title
+      | {{ $t(types[type].label) }}
+      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
@@ -15,18 +17,35 @@
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list(ref="tasksWrapper")
-    input.quick-add(
+    textarea.quick-add(
+      :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keyup.enter="quickAdd",
+      v-model="quickAddText", @keypress.enter="quickAdd",
       ref="quickAdd",
+      @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
-    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
+    transition(name="quick-add-tip-slide")
+      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
+    .column-background(
+      v-if="isUser === true",
+      :class="{'initial-description': initialColumnDescription}",
+      ref="columnBackground",
+    )
+      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
+      .small-text {{$t(`${type}sDesc`)}}
+    .sortable-tasks(
+      ref="tasksList", 
+      v-sortable='activeFilters[type].label !== "scheduled"', 
+      @onsort='sorted', 
+      data-sortableId
+    )
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
-        v-if="filterTask(task)",
         :isUser="isUser",
         @editTask="editTask",
+        @moveTo="moveTo",
         :group='group',
       )
     template(v-if="hasRewardsList")
@@ -39,15 +58,6 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
-
-    .column-background(
-      v-if="isUser === true",
-      :class="{'initial-description': initialColumnDescription}",
-      ref="columnBackground",
-    )
-      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
-      .small-text {{$t(`${type}sDesc`)}}
 </template>
 
 <style lang="scss" scoped>
@@ -55,11 +65,6 @@
 
   .tasks-column {
     min-height: 556px;
-  }
-
-  .task-wrapper {
-    position: relative;
-    z-index: 2;
   }
 
   .sortable-tasks + .reward-items {
@@ -87,9 +92,10 @@
     width: 100%;
     margin-bottom: 8px;
     padding: 12px 16px;
-    font-weight: bold;
     border-color: transparent;
     transition: background 0.15s ease-in;
+    resize: none;
+    margin-bottom: 0px;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -101,20 +107,42 @@
       border-color: $purple-500;
       color: $gray-50;
     }
+
+    &::placeholder {
+      font-weight: bold;
+    }
   }
 
-  .bottom-gradient {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    height: 42px;
-    background-image: linear-gradient(to bottom, rgba($gray-10, 0), rgba($gray-10, 0.24));
-    width: 100%;
-    z-index: 99;
+  .quick-add-tip {
+    font-style: normal;
+    padding: 16px;
+    text-align: center;
+
+    overflow-y: hidden;
+    max-height: 65px; // approximate max height
+  }
+
+  .quick-add-tip-slide-enter-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-leave-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
+    max-height: 0;
+    padding: 0px 16px;
   }
 
   .tasks-column-title {
     margin-bottom: 8px;
+    position: relative;
+  }
+
+  .column-badge {
+    top: -5px;
+    right: -24px;
   }
 
   .filters {
@@ -142,7 +170,6 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 1;
 
     &.initial-description {
       top: 30%;
@@ -230,6 +257,7 @@ export default {
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
+    // @TODO refactor this so that filter functions aren't in data
     const types = Object.freeze({
       habit: {
         label: 'habits',
@@ -285,6 +313,8 @@ export default {
 
       forceRefresh: new Date(),
       quickAddText: '',
+      quickAddFocused: false,
+      quickAddRows: 1,
 
       selectedItemToBuy: {},
     };
@@ -315,12 +345,13 @@ export default {
         taskList = sortBy(taskList, filter.sort);
       }
 
-      return taskList;
+      return taskList.filter(t => {
+        return this.filterTask(t);
+      });
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       let rewards = inAppRewards(this.user);
-
 
       // Add season rewards if user is affected
       // @TODO: Add buff coniditional
@@ -365,6 +396,26 @@ export default {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
     },
+    badgeCount () {
+      // 0 means the badge will not be shown
+      // It is shown for the all and due views of dailies
+      // and for the active and scheduled views of todos.
+      if (this.type === 'todo') {
+        if (this.activeFilters.todo.label !== 'complete2') return this.taskList.length;
+      } else if (this.type === 'daily') {
+        const activeFilter = this.activeFilters.daily.label;
+
+        if (activeFilter === 'due') {
+          return this.taskList.length;
+        } else if (activeFilter === 'all') {
+          return this.taskList.reduce((count, t) => {
+            return !t.completed && shouldDo(new Date(), t, this.userPreferences) ? count + 1 : count;
+          }, 0);
+        }
+      }
+
+      return 0;
+    },
   },
   watch: {
     taskList: {
@@ -392,13 +443,12 @@ export default {
       createTask: 'tasks:create',
     }),
     async sorted (data) {
-      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
-      const sorting = this.taskList;
+      const filteredList = this.taskList;
       const taskIdToMove = filteredList[data.oldIndex]._id;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
+      const newIndexOnServer = this.tasks[`${this.type}s`].findIndex(taskId => taskId === taskIdToReplace);
       let newOrder = await this.$store.dispatch('tasks:move', {
         taskId: taskIdToMove,
         position: newIndexOnServer,
@@ -406,16 +456,47 @@ export default {
       this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      if (sorting) {
-        const deleted = sorting.splice(data.oldIndex, 1);
-        sorting.splice(data.newIndex, 0, deleted[0]);
-      }
+      const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
+      this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
     },
-    quickAdd () {
-      const task = taskDefaults({type: this.type, text: this.quickAddText});
-      task.tags = this.selectedTags;
+    async moveTo (task, where) { // where is 'top' or 'bottom'
+      const taskIdToMove = task._id;
+      const list = this.tasks[`${this.type}s`];
+
+      const oldPosition = list.findIndex(t => t._id === taskIdToMove);
+      const moved = list.splice(oldPosition, 1);
+      const newPosition = where === 'top' ? 0 : list.length;
+      list.splice(newPosition, 0, moved[0]);
+
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newPosition,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
+    },
+    quickAdd (ev) {
+      // Add a new line if Shift+Enter Pressed
+      if (ev.shiftKey) {
+        this.quickAddRows++;
+        return true;
+      }
+
+      // Do not add new line is added if only Enter is pressed
+      ev.preventDefault();
+      const text = this.quickAddText;
+      if (!text) return false;
+
+      const tasks = text.split('\n').reverse().filter(taskText => {
+        return taskText ? true : false;
+      }).map(taskText => {
+        const task = taskDefaults({type: this.type, text: taskText});
+        task.tags = this.selectedTags;
+        return task;
+      });
+
       this.quickAddText = null;
-      this.createTask(task);
+      this.quickAddRows = 1;
+      this.createTask(tasks);
     },
     editTask (task) {
       this.$emit('editTask', task);

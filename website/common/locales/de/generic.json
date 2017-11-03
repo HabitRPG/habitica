@@ -64,7 +64,7 @@
     "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
     "all": "Alle",
     "none": "Keine",
-    "more": "<%= count %> more",
+    "more": "<%= count %> mehr",
     "and": "und",
     "loginSuccess": "Anmeldung erfolgreich!",
     "youSure": "Bist Du sicher?",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
     "emptyMessagesLine2": "Beginne eine Unterhaltung, indem Du eine Nachricht verschickst!",
     "letsgo": "Auf geht's!",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "howManyToBuy": "Wie viele möchtest Du kaufen?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

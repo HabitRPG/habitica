@@ -1,7 +1,7 @@
-import allocateNow from '../../../website/common/script/ops/allocateNow';
+import allocateNow from '../../../../website/common/script/ops/stats/allocateNow';
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../helpers/common.helper';
 
 describe('shared.ops.allocateNow', () => {
   let user;

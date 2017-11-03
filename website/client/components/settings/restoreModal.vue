@@ -94,12 +94,12 @@ export default {
       this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
       let settings = {
-        'stats.hp': this.restoreValues.stats.hp,
-        'stats.exp': this.restoreValues.stats.exp,
-        'stats.gp': this.restoreValues.stats.gp,
-        'stats.lvl': this.restoreValues.stats.lvl,
-        'stats.mp': this.restoreValues.stats.mp,
-        'achievements.streak': this.restoreValues.achievements.streak,
+        'stats.hp': Number(this.restoreValues.stats.hp),
+        'stats.exp': Number(this.restoreValues.stats.exp),
+        'stats.gp': Number(this.restoreValues.stats.gp),
+        'stats.lvl': Number(this.restoreValues.stats.lvl),
+        'stats.mp': Number(this.restoreValues.stats.mp),
+        'achievements.streak': Number(this.restoreValues.achievements.streak),
       };
 
       this.$store.dispatch('user:set', settings);

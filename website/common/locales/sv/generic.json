@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "Du har inga meddelanden",
     "emptyMessagesLine2": "Skicka ett meddelande för att starta en konversation!",
     "letsgo": "Låt Oss Gå!",
-    "selected": "Valda"
+    "selected": "Valda",
+    "howManyToBuy": "Hur många vill du köpa?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

@@ -32,13 +32,20 @@ export default {
       user: 'user.data',
       groupPlans: 'groupPlans',
     }),
-    isLeader () {
+    currentGroup () {
       let groupFound = this.groupPlans.find(group => {
         return group._id === this.groupId;
       });
 
-      if (!groupFound) return false;
-      return groupFound.leader === this.user._id;
+      return groupFound;
+    },
+    isLeader () {
+      if (!this.currentGroup) return false;
+      return this.currentGroup.leader === this.user._id;
+    },
+    isManager () {
+      if (!this.currentGroup) return false;
+      return Boolean(this.currentGroup.managers[this.user._id]);
     },
   },
 };

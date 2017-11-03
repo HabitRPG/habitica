@@ -1,9 +1,9 @@
 // this variables are used to determine which shop npc/backgrounds should be loaded
-// possible values are: normal, fall
+// possible values are: normal, fall, habitoween
 // more to be added on future seasons
 
-$npc_market_flavor: "fall";
-$npc_quests_flavor: "fall";
-$npc_seasonal_flavor: "fall";
-$npc_timetravelers_flavor: "fall";
-$npc_tavern_flavor: "fall";
+$npc_market_flavor: 'normal';
+$npc_quests_flavor: 'normal';
+$npc_seasonal_flavor: 'normal';
+$npc_timetravelers_flavor: 'normal';
+$npc_tavern_flavor: 'normal';

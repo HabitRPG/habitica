@@ -257,7 +257,7 @@ export default {
       this.mp(mana);
     },
     userLvl (after, before) {
-      if (after <= before || this.isRunningYesterdailies) return;
+      if (after <= before || this.$store.state.isRunningYesterdailies) return;
       this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
@@ -285,7 +285,6 @@ export default {
       this.$root.$emit('show::modal', 'quest-invitation');
     },
   },
-
   mounted () {
     Promise.all([
       this.$store.dispatch('user:fetch'),
@@ -345,7 +344,7 @@ export default {
       this.$root.$emit('playSound', sound);
     },
     checkNextCron: throttle(function checkNextCron () {
-      if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+      if (!this.$store.state.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
         Promise.all([
           this.$store.dispatch('user:fetch', {forceLoad: true}),
           this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
@@ -367,11 +366,11 @@ export default {
 
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
-      this.isRunningYesterdailies = false;
+      this.$store.state.isRunningYesterdailies = false;
     },
     async runYesterDailies () {
-      if (this.isRunningYesterdailies) return;
-      this.isRunningYesterdailies = true;
+      if (this.$store.state.isRunningYesterdailies) return;
+      this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
         this.handleUserNotifications(this.user.notifications);
@@ -412,7 +411,7 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
-      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+      if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
