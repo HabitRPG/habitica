@@ -56,7 +56,7 @@
     @include centeredModal();
 
     .modal-dialog {
-      margin-top: 25em;
+      margin-top: 8%;
       width: 448px;
     }
 
