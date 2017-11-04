@@ -135,8 +135,10 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
+    margin-right: 8px;
     line-height: 1.43;
     font-size: 14px;
+    word-break: break-all;
 
     &.has-notes {
       padding-bottom: 4px;
@@ -213,6 +215,7 @@
     color: $gray-100;
     font-style: normal;
     padding-right: 6px;
+    word-break: break-all;
 
     &.has-checklist {
       padding-bottom: 8px;
@@ -271,6 +274,8 @@
     min-height: 0px;
     width: 100%;
     margin-left: 8px;
+    margin-right: 8px;
+    word-break: break-all;
 
     &-done {
       color: $gray-300;
