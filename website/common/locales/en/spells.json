@@ -14,7 +14,7 @@
 
 
   "spellWarriorSmashText": "Brutal Smash",
-  "spellWarriorSmashNotes": "You make a task more blue/less red to deal extra damage to Bosses! (Based on: STR)",
+  "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
 
   "spellWarriorDefensiveStanceText": "Defensive Stance",
   "spellWarriorDefensiveStanceNotes": "You crouch low and gain a buff to Constitution! (Based on: Unbuffed CON)",
