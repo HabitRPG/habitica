@@ -39,7 +39,7 @@ api.readNotification = {
     user.notifications.splice(index, 1);
 
     await user.update({
-      $pull: { 'notifications': req.params.notificationId }
+      $pull: { notifications: req.params.notificationId },
     }).exec();
 
     res.respond(200, user.notifications);
@@ -81,7 +81,7 @@ api.readNotifications = {
     }
 
     await user.update({
-      $pullAll: { 'notifications': notifications },
+      $pullAll: { notifications },
     }).exec();
 
     res.respond(200, user.notifications);

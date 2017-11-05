@@ -6,7 +6,6 @@ import {
 } from '../../libs/errors';
 import _ from 'lodash';
 import find from 'lodash/find';
-import { removeFromArray } from '../../libs/collectionManipulators';
 
 /**
  * @apiDefine TagNotFound
@@ -222,8 +221,8 @@ api.deleteTag = {
     });
     if (!tagFound) throw new NotFound(res.t('tagNotFound'));
 
-    let result = await user.update({
-      $pull: { 'tags': { id: tagFound.id } },
+    await user.update({
+      $pull: { tags: { id: tagFound.id } },
     }).exec();
 
     // Remove from all the tasks TODO test

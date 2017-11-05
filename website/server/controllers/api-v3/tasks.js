@@ -582,13 +582,13 @@ api.scoreTask = {
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
         await user.update({
-          $pull: { 'tasksOrder.todos': task._id }
+          $pull: { 'tasksOrder.todos': task._id },
         }).exec();
       } else if (wasCompleted && !task.completed) {
         // @TOOD: Why do we pull and push
         // let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
         await user.update({
-          $pull: { 'tasksOrder.todos': task._id }
+          $pull: { 'tasksOrder.todos': task._id },
         }).exec();
         // if (!hasTask) {
         //   user.tasksOrder.todos.push(task._id);
@@ -708,7 +708,7 @@ api.moveTask = {
 
     let updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
-      $each: [ task._id ],
+      $each: [task._id],
       $position: position,
     };
     await user.update(updateQuery).exec();
