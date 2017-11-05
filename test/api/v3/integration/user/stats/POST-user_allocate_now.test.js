@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../../helpers/api-integration/v3';
 
 describe('POST /user/allocate-now', () => {
   // More tests in common code unit tests

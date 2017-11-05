@@ -56,7 +56,6 @@ export default function () {
     getters,
     state: {
       serverAppVersion: '',
-      deniedUpdate: false,
       title: 'Habitica',
       isUserLoggedIn,
       isUserLoaded: false, // Means the user and the user's tasks are ready
@@ -134,10 +133,10 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],
+      isRunningYesterdailies: false,
     },
   });
 

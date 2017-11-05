@@ -1,15 +1,17 @@
 <template lang="pug">
-div.item-with-icon.item-notifications.dropdown
-  span.message-count.top-count(v-if='notificationsCount > 0')  {{ notificationsCount }}
-  .svg-icon.notifications(v-html="icons.notifications")
-  .dropdown-menu.dropdown-menu-right.user-dropdown
+menu-dropdown.item-notifications(:right="true")
+  div(slot="dropdown-toggle")
+    div
+      message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
+      .svg-icon.notifications(v-html="icons.notifications")
+  div(slot="dropdown-content")
     h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
     h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
     a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
       div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
       div
-        button.btn.btn-primary(@click='questAccept(user.party._id)') Accept
-        button.btn.btn-primary(@click='questReject(user.party._id)') Reject
+        button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
+        button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
@@ -18,20 +20,19 @@ div.item-with-icon.item-notifications.dropdown
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: party.name}) }}
       div
-        button.btn.btn-primary(@click='accept(party, index, "party")') Accept
-        button.btn.btn-primary(@click='reject(party, index, "party")') Reject
+        button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
+        button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
     a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
-      a.dropdown-item(@click='clearCards()', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true')
+      a.dropdown-item(@click.stop='clearCards()')
     a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: guild.name}) }}
       div
-        button.btn.btn-primary(@click='accept(guild, index, "guild")') Accept
-        button.btn.btn-primary(@click='reject(guild, index, "guild")') Reject
+        button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
+        button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
       @click='go("/user/profile")')
       span.glyphicon.glyphicon-plus-sign
@@ -40,130 +41,40 @@ div.item-with-icon.item-notifications.dropdown
       span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
-      span.clear-button(@click='clearMessages(message.key)', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
+      span.clear-button(@click.stop='clearMessages(message.key)') Clear
     a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
       span(:class="groupApprovalNotificationIcon(notification)")
       span {{notification.data.message}}
-      span.clear-button(@click='viewGroupApprovalNotification(notification)', :popover="$t('clear')",
-        popover-placement='right', popover-trigger='mouseenter', popover-append-to-body='true') Clear
+      span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
 </template>
 
 <style lang='scss' scoped>
-  @import '~client/assets/scss/colors.scss';
-
-  .message-count {
-    background-color: $blue-50;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    float: right;
-    color: $white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 12px;
-  }
-
-  .message-count.top-count {
-    position: absolute;
-    right: -.5em;
-    top: .5em;
-    padding: .2em;
-    background-color: $red-50;
-  }
-
-  .clear-button {
-    margin-left: .5em;
-  }
-
-  .item-notifications {
-    width: 44px;
-  }
-
-  .item-notifications:hover {
-    cursor: pointer;
-  }
-
-  .notifications {
-    color: $header-color;
-    vertical-align: bottom;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    margin-left: 8px;
-    margin-top: .2em;
-  }
-
-  .item-with-icon:hover {
-    .svg-icon {
-      color: $white;
-    }
-  }
-
-  .user-dropdown {
-    max-height: 350px;
-    overflow: auto;
-  }
-
-  /* @TODO: Move to shared css */
-  .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
-  }
-
-  .dropdown + .dropdown {
-    margin-left: 0px;
-  }
-
-  .dropdown-separated {
-    border-bottom: 1px solid $gray-500;
-  }
-
-  .dropdown-menu:not(.user-dropdown) {
-    background: $purple-200;
-    border-radius: 0px;
-    border: none;
-    box-shadow: none;
-    padding: 0px;
-
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-
-    .dropdown-item {
-      font-size: 16px;
-      box-shadow: none;
-      color: $white;
-      border: none;
-      line-height: 1.5;
-
-      &.active {
-        background: $purple-300;
-      }
-
-      &:hover {
-        background: $purple-300;
-
-        &:last-child {
-          border-bottom-right-radius: 5px;
-          border-bottom-left-radius: 5px;
-        }
-      }
-    }
-  }
+.clear-button {
+  margin-left: .5em;
+}
 </style>
 
 <script>
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
+// import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
+import MenuDropdown from '../ui/customMenuDropdown';
+import MessageCount from './messageCount';
 
 export default {
+  components: {
+    MenuDropdown,
+    MessageCount,
+  },
+  directives: {
+    // bTooltip,
+  },
   data () {
     return {
       icons: Object.freeze({

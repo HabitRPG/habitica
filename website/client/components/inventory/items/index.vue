@@ -43,7 +43,7 @@
         :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="context")
+        template(slot="item", slot-scope="context")
           item(
             :item="context.item",
             :key="context.item.key",
@@ -57,10 +57,10 @@
 
             @click="onEggClicked($event, context.item)",
           )
-            template(slot="popoverContent", scope="context")
+            template(slot="popoverContent", slot-scope="context")
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text(v-if="currentDraggingPotion == null") {{ context.item.notes }}
-            template(slot="itemBadge", scope="context")
+            template(slot="itemBadge", slot-scope="context")
               countBadge(
                 :show="true",
                 :count="context.item.quantity"
@@ -74,7 +74,7 @@
         :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="context")
+        template(slot="item", slot-scope="context")
           item(
             :item="context.item",
             :key="context.item.key",
@@ -88,10 +88,10 @@
 
             @click="onPotionClicked($event, context.item)"
           )
-            template(slot="popoverContent", scope="context")
+            template(slot="popoverContent", slot-scope="context")
               h4.popover-content-title {{ context.item.text }}
               .popover-content-text {{ context.item.notes }}
-            template(slot="itemBadge", scope="context")
+            template(slot="itemBadge", slot-scope="context")
               countBadge(
                 :show="true",
                 :count="context.item.quantity"
@@ -105,7 +105,7 @@
         :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: $t(group.key) })"
       )
-        template(slot="item", scope="context")
+        template(slot="item", slot-scope="context")
           item(
             :item="context.item",
             :key="context.item.key",
@@ -113,7 +113,7 @@
             :showPopover="currentDraggingPotion == null",
             @click="itemClicked(group.key, context.item)",
           )
-            template(slot="popoverContent", scope="context")
+            template(slot="popoverContent", slot-scope="context")
               div.questPopover(v-if="group.key === 'quests'")
                 h4.popover-content-title {{ context.item.text }}
                 questInfo(:quest="context.item")
@@ -121,7 +121,7 @@
               div(v-else)
                 h4.popover-content-title {{ context.item.text }}
                 .popover-content-text(v-html="context.item.notes")
-            template(slot="itemBadge", scope="context")
+            template(slot="itemBadge", slot-scope="context")
               countBadge(
                 :show="true",
                 :count="context.item.quantity"

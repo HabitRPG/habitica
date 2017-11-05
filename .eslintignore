@@ -16,5 +16,3 @@ migrations/*
 scripts/*
 website/common/browserify.js
 Gruntfile.js
-gulpfile.js
-gulp

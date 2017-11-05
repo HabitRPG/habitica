@@ -222,5 +222,6 @@
   "allocated": "Allocated",
   "buffs": "Buffs",
   "pointsAvailable": "Points Available",
-  "pts": "pts"
+  "pts": "pts",
+  "statsObjectRequired": "Stats update is required"
 }
