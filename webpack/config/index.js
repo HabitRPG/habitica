@@ -3,6 +3,17 @@ const path = require('path');
 const staticAssetsDirectory = './website/static/.'; // The folder where static files (not processed) live
 const prodEnv = require('./prod.env');
 const devEnv = require('./dev.env');
+const nconf = require('nconf');
+
+const PATH_TO_CONFIG = path.join(path.resolve(__dirname, '../../config.json'));
+let configFile = PATH_TO_CONFIG;
+
+nconf
+  .argv()
+  .env()
+  .file('user', configFile);
+
+const DEV_BASE_URL = nconf.get("BASE_URL");
 
 module.exports = {
   build: {
@@ -33,25 +44,25 @@ module.exports = {
     assetsPublicPath: '/',
     staticAssetsDirectory,
     proxyTable: {
-      // proxy all requests starting with /api/v3 to localhost:3000
+      // proxy all requests starting with /api/v3 to IP:PORT as specified in the top-level config
       '/api/v3': {
-        target: 'http://localhost:3000',
+        target: DEV_BASE_URL,
         changeOrigin: true,
       },
       '/stripe': {
-        target: 'http://localhost:3000',
+        target: DEV_BASE_URL,
         changeOrigin: true,
       },
       '/amazon': {
-        target: 'http://localhost:3000',
+        target: DEV_BASE_URL,
         changeOrigin: true,
       },
       '/paypal': {
-        target: 'http://localhost:3000',
+        target: DEV_BASE_URL,
         changeOrigin: true,
       },
       '/logout': {
-        target: 'http://localhost:3000',
+        target: DEV_BASE_URL,
         changeOrigin: true,
       },
     },
