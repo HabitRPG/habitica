@@ -56,42 +56,20 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-      .item-with-icon(v-if="userHourglasses > 0")
-        .svg-icon(v-html="icons.hourglasses")
-        span {{ userHourglasses }}
-      .item-with-icon
-        .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")')
-        span {{userGems | roundBigNumber}}
-      .item-with-icon
-        .svg-icon(v-html="icons.gold")
-        span {{Math.floor(user.stats.gp * 100) / 100}}
-      a.item-with-icon(@click="sync")
-        .svg-icon(v-html="icons.sync")
-      notification-menu
-      a.dropdown.item-with-icon.item-user
-        span.message-count.top-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
-        .svg-icon.user(v-html="icons.user")
-        .dropdown-menu.dropdown-menu-right.user-dropdown
-          a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
-            h3 {{ user.profile.name }}
-            span.small-text {{ $t('editAvatar') }}
-          a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
-            | {{ $t('messages') }}
-            span.message-count(v-if='user.inbox.newMessages > 0') {{user.inbox.newMessages}}
-          a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
-          a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
-          a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
-          a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}
-          router-link.dropdown-item(:to="{name: 'site'}") {{ $t('settings') }}
-          router-link.dropdown-item.dropdown-separated(:to="{name: 'subscription'}") {{ $t('subscription') }}
-          a.nav-link.dropdown-item.dropdown-separated(to="/", @click.prevent='logout()') {{ $t('logout') }}
-          li(v-if='!this.user.purchased.plan.customerId', @click='showBuyGemsModal("subscribe")')
-            .dropdown-item.text-center
-              h3.purple {{ $t('needMoreGems') }}
-              span.small-text {{ $t('needMoreGemsInfo') }}
-            img.float-left.align-self-end(src='~assets/images/gem-rain.png')
-            button.btn.btn-primary.btn-lg.learn-button Learn More
-            img.float-right.align-self-end(src='~assets/images/gold-rain.png')
+      .d-flex.align-items-center
+        .item-with-icon(v-if="userHourglasses > 0")
+          .svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
+          span {{ userHourglasses }}
+        .item-with-icon
+          .svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
+          span {{userGems | roundBigNumber}}
+        .item-with-icon.gold
+          .svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
+          span {{Math.floor(user.stats.gp * 100) / 100}}
+        a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+          .svg-icon(v-html="icons.sync")
+        notification-menu.item-with-icon
+        user-dropdown.item-with-icon
 </template>
 
 <style lang="scss" scoped>
@@ -177,40 +155,11 @@ div
 
   // Make the dropdown menu open on hover
   .dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; // remove the gap so it doesn't close
+   display: block;
+   margin-top: 0; // remove the gap so it doesn't close
   }
 
-  .dropdown + .dropdown {
-    margin-left: 0px;
-  }
-
-  .dropdown-separated {
-    border-bottom: 1px solid $gray-500;
-  }
-
-  .user-dropdown {
-    width: 14.75em;
-    left: inherit;
-    right: 0;
-  }
-
-  .learn-button {
-    margin: 0.75em 0.75em 0.75em 1em;
-  }
-
-  .purple {
-    color: $purple-200;
-  }
-
-  .small-text {
-    color: $gray-200;
-    font-style: normal;
-    display: block;
-    white-space: normal;
-  }
-
-  .dropdown-menu:not(.user-dropdown) {
+  .dropdown-menu {
     background: $purple-200;
     border-radius: 0px;
     border: none;
@@ -242,51 +191,41 @@ div
     }
   }
 
+  .dropdown + .dropdown {
+    margin-left: 0px;
+  }
+
   .item-with-icon {
     color: $white;
     font-size: 16px;
     font-weight: normal;
-    padding-left: 16px;
     white-space: nowrap;
 
     span {
       font-weight: bold;
     }
 
-    &:hover .svg-icon {
+    &.gold {
+      margin-right: 24px;
+    }
+
+    &:hover /deep/ .svg-icon {
       color: $white;
     }
 
-    .svg-icon {
+    & /deep/ .svg-icon {
       color: $header-color;
       vertical-align: bottom;
       display: inline-block;
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      margin-left: 8px;
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      margin-left: 12px;
     }
   }
 
-  .item-notifications, .item-user {
-    padding-right: 12.5px;
-    padding-left: 12.5px;
-    color: $header-color;
-    transition: none;
-
-    .svg-icon {
-      margin-right: 0px;
-    }
-  }
-
-  .item-user .edit-avatar {
-    h3 {
-      color: $gray-10;
-      margin-bottom: 0px;
-    }
-
-    padding-top: 16px;
-    padding-bottom: 16px;
+  .menu-icon {
+    margin-left: 24px;
   }
 
   .gem:hover {
@@ -315,24 +254,22 @@ div
 </style>
 
 <script>
-import axios from 'axios';
-
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
-import userIcon from 'assets/svg/user.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
-import InboxModal from './userMenu/inbox.vue';
-import notificationMenu from './notificationMenu';
-import creatorIntro from './creatorIntro';
-import profile from './userMenu/profile';
-import markPMSRead from 'common/script/ops/markPMSRead';
+import InboxModal from '../userMenu/inbox.vue';
+import notificationMenu from './notificationsDropdown';
+import creatorIntro from '../creatorIntro';
+import profile from '../userMenu/profile';
+import userDropdown from './userDropdown';
 
 export default {
   components: {
+    userDropdown,
     InboxModal,
     notificationMenu,
     creatorIntro,
@@ -340,10 +277,10 @@ export default {
   },
   data () {
     return {
+      isUserDropdownOpen: false,
       icons: Object.freeze({
         gem: gemIcon,
         gold: goldIcon,
-        user: userIcon,
         hourglasses: svgHourglasses,
         sync: syncIcon,
         logo,
@@ -364,30 +301,14 @@ export default {
     this.getUserGroupPlans();
   },
   methods: {
+    toggleUserDropdown () {
+      this.isUserDropdownOpen = !this.isUserDropdownOpen;
+    },
     sync () {
       return Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
-    },
-    logout () {
-      this.$store.dispatch('auth:logout');
-    },
-    showInbox () {
-      markPMSRead(this.user);
-      axios.post('/api/v3/user/mark-pms-read');
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
-    },
-    showAvatar (startingPage, subpage) {
-      this.$store.state.avatarEditorOptions.editingUser = true;
-      this.$store.state.avatarEditorOptions.startingPage = startingPage;
-      this.$store.state.avatarEditorOptions.subpage = subpage;
-      this.$root.$emit('bv::show::modal', 'avatar-modal');
-    },
-    showProfile (startingPage) {
-      this.$store.state.profileUser = this.user;
-      this.$store.state.profileOptions.startingPage = startingPage;
-      this.$root.$emit('bv::show::modal', 'profile');
     },
     async getUserGroupPlans () {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');

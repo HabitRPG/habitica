@@ -12,6 +12,7 @@
             span.custom-control-description(:title='tag.name') {{tag.name}}
   .tags-footer
     span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
+    span.close-tags(@click="close()") {{$t("close")}}
 </template>
 
 <style lang="scss" scoped>
@@ -68,6 +69,18 @@
       display: flex;
       justify-content: center;
 
+      .close-tags {
+        color: $red-50;
+        margin: 1.1em 0;
+        margin-left: 2em;
+        font-size: 14px;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+
       .clear-tags {
         cursor: pointer;
         margin: 1.1em 0;
@@ -101,6 +114,9 @@ export default {
   methods: {
     clearTags () {
       this.selectedTags = [];
+    },
+    close () {
+      this.$emit('close');
     },
   },
 };

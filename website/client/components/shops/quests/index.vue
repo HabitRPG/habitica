@@ -54,12 +54,12 @@
                 :popoverPosition="'top'",
                 @click="selectItem(item)"
               )
-                template(slot="popoverContent", scope="ctx")
+                template(slot="popoverContent", slot-scope="ctx")
                   div.questPopover
                     h4.popover-content-title {{ item.text }}
                     questInfo(:quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -94,7 +94,7 @@
           :itemMargin=24,
           :type="'pet_quests'",
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             shopItem(
               :key="ctx.item.key",
               :item="ctx.item",
@@ -104,12 +104,12 @@
               :emptyItem="false",
               @click="selectItem(ctx.item)"
             )
-              span(slot="popoverContent", scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx")
                 div.questPopover
                   h4.popover-content-title {{ ctx.item.text }}
                   questInfo(:quest="ctx.item")
 
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
@@ -145,7 +145,7 @@
                     .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
                     questInfo(v-if='!item.locked', :quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -172,7 +172,7 @@
                 h4.popover-content-title {{ item.text }}
                 questInfo(:quest="item")
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -190,7 +190,7 @@
       :withPin="true",
       @change="resetItemToBuy($event)",
     )
-      template(slot="item", scope="ctx")
+      template(slot="item", slot-scope="ctx")
         item.flat(
           :item="ctx.item",
           :itemContentClass="ctx.item.class",

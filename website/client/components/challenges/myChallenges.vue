@@ -146,6 +146,7 @@ export default {
       this.filters = eventData;
     },
     createChallenge () {
+      this.$store.state.challengeOptions.workingChallenge = {};
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     async loadchallanges () {

@@ -217,5 +217,6 @@
     "mainHand": "Tangan Utama",
     "offHand": "Tangan Lain",
     "pointsAvailable": "Poin Tersedia",
-    "pts": "poin"
+    "pts": "poin",
+    "statsObjectRequired": "Stats update is required"
 }

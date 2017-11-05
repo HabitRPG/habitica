@@ -53,7 +53,7 @@
                 :popoverPosition="'top'",
                 @click="featuredItemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -101,7 +101,7 @@
         :type="'gear'",
         :noItemsLabel="$t('noGearItemsOfClass')"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
@@ -110,7 +110,7 @@
             @click="gearSelected(ctx.item)"
           )
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -151,13 +151,13 @@
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
-              .gems-left(v-if='item.key === "gem"')
+              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
 
               span.badge.badge-pill.badge-item.badge-svg(
@@ -196,14 +196,14 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             item(
               :item="ctx.item",
               :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
               popoverPosition="top",
               @click="selectedItemToSell = ctx.item"
             )
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 countBadge(
                   :show="true",
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -218,13 +218,13 @@
         :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
             :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
             :showPopover="false"
           )
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -356,17 +356,8 @@
   }
 
   .market .gems-left {
-    position: absolute;
     right: -.5em;
     top: -.5em;
-    color: $white;
-    background: $purple-200;
-    padding: .15em;
-    text-align: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px 0 rgba($black, 0.12);
   }
 </style>
 

@@ -112,7 +112,7 @@
                       div(:class="'Pet_Egg_'+item.eggKey")
                 div(v-else)
                   h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
@@ -144,7 +144,7 @@
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(
                   :selected="item.key === currentMount",
                   :show="item.isOwned()",
@@ -187,7 +187,7 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="context")
+          template(slot="item", slot-scope="context")
             foodItem(
               :item="context.item",
               :itemCount="userItems.food[context.item.key]",

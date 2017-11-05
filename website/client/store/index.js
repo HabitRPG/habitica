@@ -133,10 +133,10 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],
+      isRunningYesterdailies: false,
     },
   });
 

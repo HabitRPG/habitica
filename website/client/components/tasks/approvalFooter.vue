@@ -16,9 +16,13 @@ div
 </template>
 
 <style scoped>
-  .task-unclaimed a {
-    float: right;
-  }
+.claim-bottom-message {
+  z-index: 9;
+}
+
+.task-unclaimed a {
+  float: right;
+}
 </style>
 
 <script>

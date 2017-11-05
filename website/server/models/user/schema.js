@@ -200,6 +200,7 @@ let schema = new Schema({
         items: {type: Boolean, default: false},
         mounts: {type: Boolean, default: false},
         inbox: {type: Boolean, default: false},
+        stats: {type: Boolean, default: false},
       },
       ios: {
         addTask: {type: Boolean, default: false},

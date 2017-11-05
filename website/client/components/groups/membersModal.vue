@@ -249,7 +249,7 @@ export default {
 
       if (this.searchTerm) {
         sortedMembers = sortedMembers.filter(member => {
-          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase) !== -1;
+          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1;
         });
       }
 

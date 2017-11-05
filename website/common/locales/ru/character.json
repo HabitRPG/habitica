@@ -217,5 +217,6 @@
     "mainHand": "Оружие",
     "offHand": "Защита",
     "pointsAvailable": "Очков доступно",
-    "pts": "очк"
+    "pts": "очк",
+    "statsObjectRequired": "Stats update is required"
 }

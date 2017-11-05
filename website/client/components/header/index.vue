@@ -102,9 +102,9 @@ div
 
 <script>
 import { mapGetters, mapActions } from 'client/libs/store';
-import MemberDetails from './memberDetails';
-import createPartyModal from './groups/createPartyModal';
-import membersModal from './groups/membersModal';
+import MemberDetails from '../memberDetails';
+import createPartyModal from '../groups/createPartyModal';
+import membersModal from '../groups/membersModal';
 import ResizeDirective from 'client/directives/resize.directive';
 
 export default {
