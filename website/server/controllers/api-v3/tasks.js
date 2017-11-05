@@ -1267,12 +1267,13 @@ api.deleteTask = {
     }
 
     if (task.type !== 'todo' || !task.completed) {
-      // @TODO:
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
-      // await user.update({
-      //   $pull: { 'tasksOrder.todos': task._id }
-      // }).exec();
-      await Bluebird.all([(challenge || user).save(), task.remove()]);
+
+      let pullQuery = {$pull: {}};
+      pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
+      let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+
+      await Bluebird.all([taskOrderUpdate, task.remove()]);
     } else {
       await task.remove();
     }
