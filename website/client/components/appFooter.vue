@@ -73,7 +73,7 @@
             .btn.btn-contribute
               a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
                 .svg-icon.heart(v-html="icons.heart")
-                .text {{ $t('companyDonate') }}
+                .text {{ $t('companyContribute') }}
     .row
       .col-12
         hr
