@@ -1,6 +1,5 @@
 <template lang="pug">
 .row
-  buy-gems-modal(v-if="isUserLoaded")
   modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
@@ -71,9 +70,10 @@
         .row
           .col-10 {{ $t('donateText3') }}
           .col-2
-            button.btn.btn-donate(@click="donate()")
-              .svg-icon.heart(v-html="icons.heart")
-              .text {{ $t('companyDonate') }}
+            .btn.btn-contribute
+              a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
+                .svg-icon.heart(v-html="icons.heart")
+                .text {{ $t('companyDonate') }}
     .row
       .col-12
         hr
@@ -211,7 +211,7 @@
     padding: 2em;
   }
 
-  .btn-donate {
+  .btn-contribute {
     background: #c3c0c7;
     box-shadow: none;
     border-radius: 4px;
