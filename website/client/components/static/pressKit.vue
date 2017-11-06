@@ -3,18 +3,18 @@
     h1 {{ $t('presskit') }}
       p {{ $t('presskitText', { pressEnquiryEmail : PRESS_ENQUIRY_EMAIL }) }}
       p
-        a.btn.btn-lg.btn-success(href='~assets/images/presskit/presskit.zip') presskit.zip
+        a.btn.btn-lg.btn-success(href='/static/presskit/presskit.zip') presskit.zip
 
     div(v-for='(images, category) in imgs')
       h2 {{ $t('pk' + category) }}
       div(v-if='Array.isArray(images)')
         div(v-for='img in images')
-          img.img-rendering-auto.press-img(:src="`assets/images/presskit/${category}/${img}.png`")
+          img.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${img}.png`")
       div(v-else)
         div(v-for='(images, category) in images')
           h3 {{ $t('pk' + category) }}
           div(v-for='img in images')
-            img.img-rendering-auto.press-img(:src="~`assets/images/presskit/${category}/${img}.png`")
+            img.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${img}.png`")
 </template>
 
 <script>
