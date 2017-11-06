@@ -20,7 +20,7 @@
         mugen-scroll(
           :handler="fetchGuilds",
           :should-handle="!loading && !this.hasLoadedAllGuilds",
-          :handle-on-mount="false",
+          :handle-on-mount="true",
           v-show="loading",
         )
           span(v-once) {{ $t('loading') }}
@@ -90,9 +90,6 @@ export default {
         categories: '',
       },
     };
-  },
-  created () {
-    if (!this.$store.state.publicGuilds) this.fetchGuilds();
   },
   computed: {
     filteredGuilds () {

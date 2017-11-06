@@ -82,7 +82,6 @@ export default function () {
         'time-travelers': asyncResourceFactory(),
       },
       myGuilds: [],
-      publicGuilds: [],
       groupFormOptions: {
         creatingParty: false,
         groupId: '',
