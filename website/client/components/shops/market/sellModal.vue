@@ -18,13 +18,8 @@
         div
           b.how-many-to-sell {{ $t('howManyToSell') }}
         div
-          b-dropdown(:text="selectedAmountToSell +''", right=true)
-            b-dropdown-item(
-              v-for="num of dropDownItems",
-              @click="selectedAmountToSell = num",
-              :active="selectedAmountToSell === num",
-              :key="num"
-            ) {{ num }}
+          .box
+            input(type='number', min='0', :max='maxItemsToSell', v-model='selectedAmountToSell')
 
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
           span.value {{ item.value }}
@@ -132,6 +127,7 @@
     data () {
       return {
         selectedAmountToSell: 1,
+        maxItemsToSell: this.itemCount,
 
         icons: Object.freeze({
           close: svgClose,
@@ -141,15 +137,6 @@
       };
     },
     computed: {
-      dropDownItems () {
-        let result = [];
-
-        for (let i = 1; i <= this.itemCount; i++) {
-          result.push(i);
-        }
-
-        return result;
-      },
     },
     methods: {
       onChange ($event) {
