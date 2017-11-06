@@ -11,7 +11,7 @@ import {each} from 'lodash';
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 
-const IMG_DIST_PATH = 'website/static/sprites/';
+const IMG_DIST_PATH = 'website/client/assets/images/sprites/';
 const CSS_DIST_PATH = 'website/client/assets/css/sprites/';
 
 function checkForSpecialTreatment (name) {
