@@ -20,7 +20,7 @@
         mugen-scroll(
           :handler="fetchGuilds",
           :should-handle="!loading && !this.hasLoadedAllGuilds",
-          :handle-on-mount="false",
+          :handle-on-mount="true",
           v-show="loading",
         )
           span(v-once) {{ $t('loading') }}
@@ -52,6 +52,16 @@ import bDropdown from 'bootstrap-vue/lib/components/dropdown';
 import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import positiveIcon from 'assets/svg/positive.svg';
+
+function _mapCategories (guilds) {
+  guilds.forEach((guild) => {
+    if (!guild.categories) return;
+    guild.categorySlugs = guild.categories.map(cat => {
+      if (!cat) return;
+      return cat.slug;
+    });
+  });
+}
 
 export default {
   mixins: [groupUtilities],
@@ -91,9 +101,6 @@ export default {
       },
     };
   },
-  created () {
-    if (!this.$store.state.publicGuilds) this.fetchGuilds();
-  },
   computed: {
     filteredGuilds () {
       let search = this.search;
@@ -117,12 +124,7 @@ export default {
       this.queryFilters.search = eventData.searchTerm;
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
-      guilds.forEach((guild) => {
-        if (!guild.categories) return;
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds = guilds;
     },
     async updateFilters (eventData) {
@@ -170,11 +172,7 @@ export default {
       }
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
-      guilds.forEach((guild) => {
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds = guilds;
     },
     async fetchGuilds () {
@@ -187,11 +185,7 @@ export default {
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
-      guilds.forEach((guild) => {
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds.push(...guilds);
 
       this.lastPageLoaded++;
