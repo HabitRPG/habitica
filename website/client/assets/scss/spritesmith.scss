@@ -1,0 +1,14 @@
+$spritesmith1: url("../images/sprites/spritesmith-main-0.png");
+
+.achievement-alien {
+  background-image: $spritesmith1;
+  background-position: -1667px -1533px;
+  width: 24px;
+  height: 26px;
+}
+.achievement-alien2x {
+  background-image: $spritesmith1;
+  background-position: -1177px -1480px;
+  width: 48px;
+  height: 52px;
+}
