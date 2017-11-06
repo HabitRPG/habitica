@@ -85,6 +85,8 @@ let specialMounts = {
   'MagicalBee-Base': 'magicalBee',
   'Turkey-Gilded': 'gildedTurkey',
   'Jackalope-RoyalPurple': 'royalPurpleJackalope',
+  'Aether-Invisible': 'invisibleAether',
+  'JackOLantern-Ghost': 'ghostJackolantern',
 };
 
 each(specialPets, (translationString, key) => {

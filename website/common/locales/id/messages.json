@@ -21,9 +21,9 @@
     "messageNotEnoughGold": "Anda tidak memiliki cukup Gold",
     "messageTwoHandedEquip": "Menggunakan <%= twoHandedText %> membutuhkan dua tangan, jadi <%= offHandedText %> telah dilepaskan.",
     "messageTwoHandedUnequip": "Menggunakan <%= twoHandedText %> membutuhkan dua tangan, jadi benda tersebut dilepaskan saat kamu menggunakan <%= offHandedText %>.",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropFood": "Kamu menemukan <%= dropArticle %><%= dropText %>!",
+    "messageDropEgg": "Kamu menemukan Telur <%= dropText %>!",
+    "messageDropPotion": "Kamu menemukan Ramuan Penetas <%= dropText %>!",
     "messageDropQuest": "Kamu menemukan sebuah misi!",
     "messageDropMysteryItem": "Kamu membuka kotak dan menemukan <%= dropText %>!",
     "messageFoundQuest": "Kamu menemukan misi \"<%= questText %>\"!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Permata tidak cukup!",
     "messageAuthPasswordMustMatch": ":password dan :confirm Kata Sandi tidak cocok",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirm Kata Sandi dibutuhkan",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Nama Login telah diambil",
     "messageAuthEmailTaken": "Email telah digunakan",
     "messageAuthNoUserFound": "Tidak ada pengguna yang ditemukan",
     "messageAuthMustBeLoggedIn": "Anda harus masuk.",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
     "messageNotificationNotFound": "Notifikasi tidak ditemukan.",
-    "notificationsRequired": "Notification ids are required."
+    "notificationsRequired": "Id notifikasi diperlukan.",
+    "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!"
 }

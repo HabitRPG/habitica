@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "商売道具",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "ステルス",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change.",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> のがれた日課 : <%= number %> 件",
     "spellRogueStealthMaxedOut": "すべての日課をのがれています。再度唱える必要はありません。",
     "spellHealerHealText": "ヒール",

@@ -3,6 +3,8 @@
   "profile": "Profile",
   "avatar": "Customize Avatar",
   "editAvatar": "Edit Avatar",
+  "noDescription": "This Habitican hasn't added a description.",
+  "noPhoto": "This Habitican hasn't added a photo.",
   "other": "Other",
   "fullName": "Full Name",
   "displayName": "Display Name",
@@ -211,7 +213,6 @@
   "questsCompleted": "Quests Completed",
   "equipment": "Equipment",
   "costume": "Costume",
-  "headGear": "Head Gear",
   "headAccess": "Head Access.",
   "backAccess": "Back Access.",
   "bodyAccess": "Body Access.",
@@ -221,5 +222,6 @@
   "allocated": "Allocated",
   "buffs": "Buffs",
   "pointsAvailable": "Points Available",
-  "pts": "pts"
+  "pts": "pts",
+  "statsObjectRequired": "Stats update is required"
 }

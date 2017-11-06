@@ -8,8 +8,12 @@
             span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
-          label(v-once) {{ `${$t('title')}*` }}
-          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus)
+          label(v-once) {{ `${$t('text')}*` }}
+          input.form-control.title-input(
+            type="text", :class="[`${cssClass}-modal-input`]",
+            required, v-model="task.text",
+            autofocus, spellcheck="true",
+          )
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -21,7 +25,7 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          div(v-sortable='', @onsort='sortedChecklist')
+          div(v-sortable='true', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -110,29 +114,22 @@
               span.custom-control-indicator
               span.custom-control-description {{ $t('dayOfWeek') }}
 
-        .option(v-if="isUserTask")
-          label(v-once) {{ $t('tags') }}
-          .category-wrap(@click="showTagsSelect = !showTagsSelect")
-            span.category-select(v-if='task.tags && task.tags.length === 0') {{$t('none')}}
-            span.category-select(v-else)
-              .category-label(v-for='tagName in getTagsFor(task)') {{tagName}}
-          .category-box(v-if="showTagsSelect")
-            .container
-              .row
-                .form-check.col-6(
-                  v-for="tag in user.tags",
-                  :key="tag.id",
-                )
-                  label.custom-control.custom-checkbox
-                    input.custom-control-input(type="checkbox", :value="tag.id", v-model="task.tags")
-                    span.custom-control-indicator
-                    span.custom-control-description(v-once) {{ tag.name }}
-              .row
-                button.btn.btn-primary(@click="showTagsSelect = !showTagsSelect") {{$t('close')}}
+        .tags-select.option(v-if="isUserTask")
+          .tags-inline
+            label(v-once) {{ $t('tags') }}
+            .category-wrap(@click="showTagsSelect = !showTagsSelect", v-bind:class="{ active: showTagsSelect }")
+              span.category-select(v-if='task.tags && task.tags.length === 0')
+                .tags-none {{$t('none')}}
+                .dropdown-toggle
+              span.category-select(v-else)
+                .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
+                .dropdown-toggle
+          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
-          b-dropdown(:text="$t(task.frequency)")
+          b-dropdown.streak-dropdown(:text="$t(task.frequency)")
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
 
@@ -188,9 +185,12 @@
     input, textarea {
       border: none;
       background-color: rgba(0, 0, 0, 0.16);
+      opacity: 0.64;
+      color: $white !important;
 
       &:focus {
         color: $white !important;
+        opacity: 1;
       }
     }
 
@@ -228,7 +228,7 @@
       input {
         background: $white;
         border: 1px solid $gray-500;
-        color: $gray-200;
+        color: $gray-200 !important;
 
         &:focus {
           color: $gray-50 !important;
@@ -328,6 +328,88 @@
       }
     }
 
+    .tags-select {
+      position: relative;
+
+      .tags-inline {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
+
+        label {
+          margin: 0;
+        }
+
+        .category-wrap {
+          cursor: inherit;
+          position: relative;
+          border: 1px solid transparent;
+          border-radius: 2px;
+          margin-left: 4em;
+
+          &.active {
+            border-color: $purple-500;
+
+            .category-select {
+              box-shadow: none;
+            }
+          }
+
+          .category-select {
+            align-items: center;
+            display: flex;
+            padding: .6em;
+            padding-right: 2.8em;
+            width: 100%;
+
+            .tags-none {
+              margin: .26em 0 .26em .6em;
+
+              & + .dropdown-toggle {
+                right: 1.3em;
+              }
+            }
+
+            .tags-more {
+              color: #a5a1ac;
+              flex: 0 1 auto;
+              font-size: 12px;
+              text-align: left;
+              position: relative;
+              left: .5em;
+              width: 100%;
+            }
+
+            .dropdown-toggle {
+              position: absolute;
+              right: 1em;
+              top: .8em;
+            }
+
+            .category-label {
+              min-width: 68px;
+              overflow: hidden;
+              padding: .5em 1em;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              width: 68px;
+              word-wrap: break-word;
+            }
+          }
+        }
+      }
+
+      .tags-popup {
+        position: absolute;
+        top: 3.5em;
+        left: 6.2em;
+      }
+    }
+
+    .streak-dropdown {
+      margin-left: .5em;
+    }
+
     .checklist-group {
       border-top: 1px solid $gray-500;
     }
@@ -418,6 +500,7 @@
 </style>
 
 <script>
+import TagsPopup from './tagsPopup';
 import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -441,6 +524,7 @@ import goldIcon from 'assets/svg/gold.svg';
 
 export default {
   components: {
+    TagsPopup,
     bModal,
     bDropdown,
     bDropdownItem,
@@ -450,9 +534,11 @@ export default {
   directives: {
     sortable,
   },
-  props: ['task', 'purpose', 'challengeId', 'groupId'], // purpose is either create or edit, task is the task created or edited
+  // purpose is either create or edit, task is the task created or edited
+  props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
+      maxTags: 3,
       showTagsSelect: false,
       showAssignedSelect: false,
       newChecklistItem: null,
@@ -501,6 +587,7 @@ export default {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
       getTagsFor: 'tasks:getTagsFor',
+      canDeleteTask: 'tasks:canDelete',
     }),
     ...mapState({
       user: 'user.data',
@@ -514,9 +601,7 @@ export default {
       return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
     },
     canDelete () {
-      let isUserChallenge = Boolean(this.task.userId);
-      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
-      return this.purpose !== 'create' && !activeChallenge;
+      return this.purpose !== 'create' && this.canDeleteTask(this.task);
     },
     title () {
       const type = this.$t(this.task.type);
@@ -574,9 +659,21 @@ export default {
         }
       },
     },
+    selectedTags () {
+      return this.getTagsFor(this.task);
+    },
+    truncatedSelectedTags () {
+      return this.selectedTags.slice(0, this.maxTags);
+    },
+    remainingSelectedTags () {
+      return this.selectedTags.slice(this.maxTags);
+    },
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    closeTagsPopup () {
+      this.showTagsSelect = false;
+    },
     sortedChecklist (data) {
       let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
@@ -652,7 +749,7 @@ export default {
       this.$root.$emit('hide::modal', 'task-modal');
     },
     destroy () {
-      if (!confirm('Are you sure you want to delete this task?')) return;
+      if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('hide::modal', 'task-modal');
@@ -680,7 +777,7 @@ export default {
 
         await this.$store.dispatch('tasks:unassignTask', {
           taskId: this.task._id,
-          userId: this.user._id,
+          userId: memberId,
         });
         return;
       }
@@ -691,7 +788,7 @@ export default {
 
       await this.$store.dispatch('tasks:assignTask', {
         taskId: this.task._id,
-        userId: this.user._id,
+        userId: memberId,
       });
     },
   },

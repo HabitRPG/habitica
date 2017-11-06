@@ -64,6 +64,7 @@
     "subscriberItemText": "Cada mes, los suscriptores recibirán un artículo misterioso. Esto sucede usualmente una semana antes de fin de mes. Ve la página de la wiki \"Artículo Misterioso\" para más información.",
     "all": "Todo",
     "none": "Ninguno",
+    "more": "<%= count %> more",
     "and": "y",
     "loginSuccess": "¡Has iniciado sesión!",
     "youSure": "¿Estás seguro?",
@@ -121,7 +122,7 @@
     "error": "Error",
     "menu": "Menú",
     "notifications": "Notificaciones",
-    "noNotifications": "No tienes mensajes nuevos.",
+    "noNotifications": "You have no notifications.",
     "clear": "Borrar",
     "endTour": "Terminar el tour",
     "audioTheme": "Tema de audio",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

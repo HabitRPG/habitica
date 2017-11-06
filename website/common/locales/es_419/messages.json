@@ -22,7 +22,7 @@
     "messageTwoHandedEquip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual <%= offHandedText %> ha sido removid@.",
     "messageTwoHandedUnequip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual fue removido cuando equipaste <%= offHandedText %>.",
     "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
+    "messageDropEgg": "¡Has encontrado un Huevo de <%= dropText %>!",
     "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
     "messageDropQuest": "¡Has encontrado una misión!",
     "messageDropMysteryItem": "¡Abres la caja y encuentras <%= dropText %>!",
@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> operación no encontrada",
     "messageNotificationNotFound": "Notificación no encontrada.",
-    "notificationsRequired": "Se requiere el ID de notificación."
+    "notificationsRequired": "Se requiere el ID de notificación.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

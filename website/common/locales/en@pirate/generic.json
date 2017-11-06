@@ -64,6 +64,7 @@
     "subscriberItemText": "Ev'ry month, subscribers be receivin' mystery loot. This usually be released about one week before th' end o' th' month. Point yer spyglass at the wiki's 'Mystery Item' page for more information.",
     "all": "All",
     "none": "None",
+    "more": "<%= count %> more",
     "and": "'n",
     "loginSuccess": "Ye set sail successfully!",
     "youSure": "Arr ye sure?",
@@ -121,7 +122,7 @@
     "error": "Error",
     "menu": "Menu",
     "notifications": "Notifications",
-    "noNotifications": "Ye 'ave no new messages.",
+    "noNotifications": "You have no notifications.",
     "clear": "Clear",
     "endTour": "End Tour",
     "audioTheme": "Audio Theme",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

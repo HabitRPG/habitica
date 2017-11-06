@@ -53,7 +53,7 @@
                 :popoverPosition="'top'",
                 @click="featuredItemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -64,7 +64,7 @@
 
       .clearfix
         h2.float-left
-          | {{ $t('classEquipment') }}
+          | {{ $t('equipment') }}
 
         div.float-right
           span.dropdown-label {{ $t('class') }}
@@ -101,7 +101,7 @@
         :type="'gear'",
         :noItemsLabel="$t('noGearItemsOfClass')"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
@@ -110,7 +110,7 @@
             @click="gearSelected(ctx.item)"
           )
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -148,14 +148,17 @@
             @click="itemSelected(item)"
           )
             span(slot="popoverContent")
+              strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
+              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
+                | {{ gemsLeft }}
 
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
@@ -163,10 +166,13 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+
         div.fill-height
 
+      //- @TODO: Create new InventoryDrawer component and re-use in 'inventory/stable' component.
       drawer(
         :title="$t('quickInventory')"
+        :errorMessage="inventoryDrawerErrorMessage(selectedDrawerItemType)"
       )
         div(slot="drawer-header")
           drawer-header-tabs(
@@ -184,19 +190,20 @@
                 .popover-content-text(v-html="$t('petLikeToEatText')", v-once)
 
         drawer-slider(
+          v-if="hasOwnedItemsForType(selectedDrawerItemType)"
           :items="ownedItems(selectedDrawerItemType) || []",
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             item(
               :item="ctx.item",
               :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
               popoverPosition="top",
               @click="selectedItemToSell = ctx.item"
             )
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 countBadge(
                   :show="true",
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -211,13 +218,13 @@
         :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
             :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
             :showPopover="false"
           )
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -227,6 +234,14 @@
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
+
+  .market .drawer-slider {
+    min-height: 60px;
+
+    .message {
+      top: 10px;
+    }
+  }
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -339,6 +354,11 @@
     }
 
   }
+
+  .market .gems-left {
+    right: -.5em;
+    top: -.5em;
+  }
 </style>
 
 
@@ -374,6 +394,7 @@
   import getItemInfo from 'common/script/libs/getItemInfo';
   import isPinned from 'common/script/libs/isPinned';
   import shops from 'common/script/libs/shops';
+  import planGemLimits from 'common/script/libs/planGemLimits';
 
   import _filter from 'lodash/filter';
   import _sortBy from 'lodash/sortBy';
@@ -383,6 +404,8 @@
   const sortGearTypes = ['sortByType', 'sortByPrice', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
   import notifications from 'client/mixins/notifications';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   const sortGearTypeMap = {
     sortByType: 'type',
@@ -393,7 +416,7 @@
   };
 
 export default {
-    mixins: [notifications],
+    mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -551,6 +574,10 @@ export default {
           },
         ];
       },
+      gemsLeft () {
+        if (!this.user.purchased.plan) return 0;
+        return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+      },
     },
     methods: {
       getClassName (classType) {
@@ -584,6 +611,15 @@ export default {
             }
           default:
             return mappedItems;
+        }
+      },
+      hasOwnedItemsForType (type) {
+        return this.ownedItems(type).length > 0;
+      },
+      inventoryDrawerErrorMessage (type) {
+        if (!this.hasOwnedItemsForType(type)) {
+          // @TODO: Change any places using similar locales from `pets.json` and use these new locales from 'inventory.json'
+          return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
         }
       },
       getItemClass (type, itemKey) {

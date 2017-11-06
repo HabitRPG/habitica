@@ -64,6 +64,7 @@
     "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Ele normalmente é liberado cerca de uma semana antes do final do mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
     "all": "Todos",
     "none": "Nenhum",
+    "more": "<%= count %> a mais",
     "and": "e",
     "loginSuccess": "Conectado(a) com sucesso!",
     "youSure": "Tem certeza?",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "Você não tem mensagens",
     "emptyMessagesLine2": "Envie uma mensagem para iniciar uma conversa!",
     "letsgo": "Vamo que vamo!",
-    "selected": "Selecionado"
+    "selected": "Selecionado",
+    "howManyToBuy": "Qual quantidade gostaria de comprar?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

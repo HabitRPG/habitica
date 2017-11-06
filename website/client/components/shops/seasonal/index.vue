@@ -40,6 +40,10 @@
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
+            div.featured-label.with-border(v-else)
+              span.rectangle
+              span.text(v-once) {{ $t('featuredItems') }}
+              span.rectangle
 
             div.items.margin-center
               shopItem(
@@ -53,7 +57,7 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
+      h1.mb-0.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
         h2.float-left
@@ -93,7 +97,7 @@
                 :showEventBadge="false",
                 @click="itemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -264,6 +268,11 @@
   }
 </style>
 
+<style scoped>
+  .margin-center {
+    margin: 0 auto;
+  }
+</style>
 
 <script>
   import {mapState} from 'client/libs/store';
@@ -274,6 +283,8 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   import bPopover from 'bootstrap-vue/lib/components/popover';
   import bDropdown from 'bootstrap-vue/lib/components/dropdown';
@@ -302,6 +313,7 @@
   import shops from 'common/script/libs/shops';
 
   export default {
+    mixins: [buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -350,6 +362,8 @@
 
         hidePinned: false,
         featuredGearBought: false,
+
+        backgroundUpdate: new Date(),
       };
     },
     computed: {
@@ -364,6 +378,8 @@
       },
 
       seasonal () {
+        let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
         let seasonal = shops.getSeasonalShop(this.user);
 
         let itemsNotOwned = seasonal.featured.items.filter(item => {
@@ -485,10 +501,14 @@
         }
       },
       itemSelected (item) {
-        if (!item.locked) {
-          this.$root.$emit('buyModal::showItem', item);
-        }
+        if (item.locked) return;
+        this.$root.$emit('buyModal::showItem', item);
       },
+    },
+    created () {
+      this.$root.$on('buyModal::boughtItem', () => {
+        this.backgroundUpdate = new Date();
+      });
     },
   };
 </script>

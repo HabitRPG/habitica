@@ -64,6 +64,7 @@
     "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Zazwyczaj jest on wydawany około tygodnia przed końcem miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" w wiki.",
     "all": "Wszystkie",
     "none": "Żadne",
+    "more": "<%= count %> more",
     "and": "i",
     "loginSuccess": "Zalogowano pomyślnie!",
     "youSure": "Na pewno?",
@@ -121,7 +122,7 @@
     "error": "Błąd",
     "menu": "Menu",
     "notifications": "Powiadomienia",
-    "noNotifications": "Nie masz nowych wiadomości",
+    "noNotifications": "You have no notifications.",
     "clear": "Wyczyść",
     "endTour": "Zamknij przewodnik",
     "audioTheme": "Zestaw dźwięków",
@@ -272,5 +273,7 @@
     "emptyMessagesLine1": "Nie masz żadnych wiadomości",
     "emptyMessagesLine2": "Wyślij wiadomość, aby zacząć konwersację!",
     "letsgo": "Let's Go!",
-    "selected": "Selected"
+    "selected": "Selected",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

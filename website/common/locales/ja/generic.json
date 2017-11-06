@@ -64,6 +64,7 @@
     "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
     "all": "すべて",
     "none": "なし",
+    "more": "<%= count %> more",
     "and": "かつ",
     "loginSuccess": "ログインに成功しました！",
     "youSure": "本当によろしいですか？",
@@ -121,7 +122,7 @@
     "error": "エラー",
     "menu": "メニュー",
     "notifications": "通知",
-    "noNotifications": "新しいメッセージはありません",
+    "noNotifications": "You have no notifications.",
     "clear": "クリア",
     "endTour": "ツアーを終える",
     "audioTheme": "BGMテーマ",
@@ -268,9 +269,11 @@
     "spirituality": "Spirituality",
     "time_management": "Time-Management + Accountability",
     "recovery_support_groups": "Recovery + Support Groups",
-    "messages": "Messages",
-    "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "messages": "メッセージ",
+    "emptyMessagesLine1": "メッセージはありません",
+    "emptyMessagesLine2": "メッセージを送って会話を始めましょう！",
     "letsgo": "Let's Go!",
-    "selected": "選択中"
+    "selected": "選択中",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

@@ -563,6 +563,34 @@ let backgrounds = {
       notes: t('backgroundPixelistsWorkshopNotes'),
     },
   },
+  backgrounds102017: {
+    magical_candles: {
+      text: t('backgroundMagicalCandlesText'),
+      notes: t('backgroundMagicalCandlesNotes'),
+    },
+    spooky_hotel: {
+      text: t('backgroundSpookyHotelText'),
+      notes: t('backgroundSpookyHotelNotes'),
+    },
+    tar_pits: {
+      text: t('backgroundTarPitsText'),
+      notes: t('backgroundTarPitsNotes'),
+    },
+  },
+  backgrounds112017: {
+    fiber_arts_room: {
+      text: t('backgroundFiberArtsRoomText'),
+      notes: t('backgroundFiberArtsRoomNotes'),
+    },
+    midnight_castle: {
+      text: t('backgroundMidnightCastleText'),
+      notes: t('backgroundMidnightCastleNotes'),
+    },
+    tornado: {
+      text: t('backgroundTornadoText'),
+      notes: t('backgroundTornadoNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -610,8 +638,12 @@ forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
   });
 });
 
-module.exports = {
-  tree: backgrounds,
-  flat,
-};
+export default backgrounds;
 
+export function backgroundsTree () {
+  return backgrounds;
+}
+
+export function backgroundsFlat () {
+  return flat;
+}

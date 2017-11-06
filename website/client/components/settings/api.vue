@@ -2,14 +2,18 @@
 .row.standard-page
   .col-6
     h2 {{ $t('API') }}
-    small {{ $t('APIText') }}
+    p {{ $t('APIText') }}
 
     .section
       h6 {{ $t('userId') }}
       pre.prettyprint {{user.id}}
       h6 {{ $t('APIToken') }}
-      pre.prettyprint {{apiToken}}
-      small(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
+      .d-flex.align-items-center.mb-3
+        button.btn.btn-secondary(
+          @click="showApiToken = !showApiToken"
+        ) {{ $t(`${showApiToken ? 'hide' : 'show'}APIToken`) }}
+        pre.prettyprint.ml-4.mb-0(v-if="showApiToken") {{apiToken}}
+      p(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
 
     .section
       h3 {{ $t('thirdPartyApps') }}
@@ -78,6 +82,7 @@ export default {
         url: '',
       },
       hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
+      showApiToken: false,
     };
   },
   computed: {

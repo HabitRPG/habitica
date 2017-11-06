@@ -114,7 +114,7 @@
     "shortName": "Nome Curto",
     "shortNamePlaceholder": "Que etiqueta curta serve para identificar o seu Desafio?",
     "updateChallenge": "Atualizar Desafio",
-    "haveNoChallenges": "Você não possui Desafios",
+    "haveNoChallenges": "Esse grupo não possui Desafios",
     "loadMore": "Carregar Mais",
     "exportChallengeCsv": "Exportar o Desafio",
     "editingChallenge": "Editando o Desafio",
@@ -125,5 +125,6 @@
     "descriptionRequired": "Descrição necessária",
     "locationRequired": "A localização do desafio é necessária ('Adicionar a')",
     "categoiresRequired": "Uma ou mais categorias devem ser selecionadas",
-    "viewProgressOf": "Ver Progresso De"
+    "viewProgressOf": "Ver Progresso De",
+    "selectMember": "Selecione um Membro"
 }

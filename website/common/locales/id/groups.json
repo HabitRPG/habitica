@@ -1,6 +1,6 @@
 {
-    "tavern": "Kedai Minuman",
-    "tavernChat": "Tavern Chat",
+    "tavern": "Obrolan Kedai Minuman",
+    "tavernChat": "Obrolan Kedai Minuman",
     "innCheckOut": "Keluar dari Penginapan",
     "innCheckIn": "Beristirahat di Penginapan",
     "innText": "Kamu beristirahat di Penginapan! Ketika menginap, kamu tidak akan dilukai oleh keseharianmu yang belum selesai, tapi mereka tetap akan diperbarui setiap hari. Ingat: jika kamu sedang ikut misi melawan musuh, musuh masih bisa melukaimu lewat keseharian yang tidak diselesaikan teman party-mu kecuali mereka ada di Penginapan juga! Selain itu kamu tidak akan bisa menyerang musuh (atau menemukan item misi) jika masih di dalam Penginapan.",
@@ -141,7 +141,7 @@
     "report": "Report",
     "abuseFlag": "Laporkan pelanggaran Pedoman Komunitas",
     "abuseFlagModalHeading": "Laporkan <%= name %> karena melanggar aturan?",
-    "abuseFlagModalBody": "Apakah kamu yakin ingin melaporkan postingan ini? Laporkan postingan HANYA JIKA postingan tersebut melanggar <%= firstLinkStart %>Pedoman Komunitas<%= linkEnd %> dan/atau <%= secondLinkStart %>Syarat dan Ketentuan<%= linkEnd %>. Pelaporan yang tidak tepat merupakan pelanggaran terhadap Pedoman Komunitas akan membuatmu mendapatkan peringatan. Alasan yang tepat untuk melaporkan postingan adalah termasuk tapi tidak terbatas pada: <br><br><ul style='margin-left: 10px;'><li>mencaci maki, penghinaan terhadap agama</li><li>memaksakan opini pribadi, bigot, mencemooh</li><li>topik dewasa</li><li>kekerasan, termasuk dalam bentuk candaan</li><li>spam, omong kosong</li></ul>",
+    "abuseFlagModalBody": "Are you sure you want to report this post? You should ONLY report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a post include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical messages</li></ul>",
     "abuseFlagModalButton": "Laporkan Pelanggaran",
     "abuseReported": "Terima kasih telah melaporkan pelanggaran ini. Moderator telah diberitahu.",
     "abuseAlreadyReported": "Kamu telah melaporkan pesan ini.",
@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
     "groupDescription": "Description",
     "guildDescriptionPlaceholder": "Use this section to go into more detail about everything that Guild members should know about your Guild. Useful tips, helpful links, and encouraging statements all go here!",
-    "markdownFormattingHelp": "Markdown formatting help",
+    "markdownFormattingHelp": "[Markdown formatting help](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "This is our party's description. It describes what we do in this party. If you want to learn more about what we do in this party, read the description. Party on.",
     "guildGemCostInfo": "A Gem cost promotes high quality Guilds and is transferred into your Guild's bank.",
     "noGuildsTitle": "You aren't a member of any Guilds.",
@@ -388,7 +388,13 @@
     "reverseChat": "Reverse Chat",
     "invites": "Invites",
     "details": "Details",
-    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those that clicked 'accept' will be able to participate in the Quest and receive the drops.",
+    "participantDesc": "Once all members have either accepted or declined, the Quest begins. Only those who clicked 'accept' will be able to participate in the Quest and receive the rewards.",
     "groupGems": "Group Gems",
-    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems."
+    "groupGemsDesc": "Guild Gems can be spent to make Challenges! In the future, you will be able to add more Guild Gems.",
+    "groupTaskBoard": "Task Board",
+    "groupInformation": "Group Information",
+    "groupBilling": "Group Billing",
+    "wouldYouParticipate": "Would you like to participate?",
+    "managerAdded": "Manager added successfully",
+    "managerRemoved": "Manager removed successfully"
 }

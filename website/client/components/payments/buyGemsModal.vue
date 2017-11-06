@@ -21,6 +21,12 @@
             .nav-item(@click='selectedPage = "subscribe"', :class="{active: selectedPage === 'subscribe'}") {{ $t('subscribe') }}
             .nav-item(@click='selectedPage = "gems"', :class="{active: selectedPage === 'gems'}") {{ $t('buyGems') }}
         div(v-show='selectedPage === "gems"')
+          div(v-if='hasSubscription')
+            .row.text-center
+              h2.mx-auto.text-leadin {{ $t('subscriptionAlreadySubscribedLeadIn') }}
+            .row.text-center
+              .col-6.offset-3
+                p {{ $t("gemsPurchaseNote") }}
           .row.text-center
             h2.mx-auto.text-leadin {{ $t('gemBenefitLeadin') }}
           .row
@@ -144,11 +150,11 @@
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
                   button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('selected') : $t('select') }}
-            .row.text-center
+            .row.text-center(v-if='subscriptionPlan')
               h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
             .row.text-center
               a.mx-auto {{ $t('haveCouponCode') }}
-            .card-deck
+            .card-deck(v-if='subscriptionPlan')
               .card.text-center.payment-method
                 .card-body(@click='showStripe({subscription: subscriptionPlan})')
                   .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')

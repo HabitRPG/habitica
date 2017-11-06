@@ -257,7 +257,7 @@ export default {
       this.mp(mana);
     },
     userLvl (after, before) {
-      if (after <= before || this.isRunningYesterdailies) return;
+      if (after <= before || this.$store.state.isRunningYesterdailies) return;
       this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
@@ -276,8 +276,8 @@ export default {
       if (after === before || after === false) return;
       this.$root.$emit('show::modal', 'armoire-empty');
     },
-    questCompleted (after) {
-      if (!after) return;
+    questCompleted () {
+      if (!this.questCompleted) return;
       this.$root.$emit('show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
@@ -285,12 +285,31 @@ export default {
       this.$root.$emit('show::modal', 'quest-invitation');
     },
   },
-
   mounted () {
     Promise.all([
       this.$store.dispatch('user:fetch'),
       this.$store.dispatch('tasks:fetchUserTasks'),
     ]).then(() => {
+      this.checkUserAchievements();
+
+      // @TODO: This is a timeout to ensure dom is loaded
+      window.setTimeout(() => {
+        this.initTour();
+        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
+        this.goto('intro', 0);
+      }, 2000);
+
+      this.runYesterDailies();
+
+      // Do not remove the event listener as it's live for the entire app lifetime
+      document.addEventListener('mousemove', () => this.checkNextCron());
+      document.addEventListener('touchstart', () => this.checkNextCron());
+      document.addEventListener('mousedown', () => this.checkNextCron());
+      document.addEventListener('keydown', () => this.checkNextCron());
+    });
+  },
+  methods: {
+    checkUserAchievements () {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
         this.$root.$emit('show::modal', 'new-stuff');
@@ -313,24 +332,7 @@ export default {
       if (this.userClassSelect) {
         this.$root.$emit('show::modal', 'choose-class');
       }
-
-      // @TODO: This is a timeout to ensure dom is loaded
-      window.setTimeout(() => {
-        this.initTour();
-        if (this.user.flags.tour.intro === this.TOUR_END || !this.user.flags.welcomed) return;
-        this.goto('intro', 0);
-      }, 2000);
-
-      this.runYesterDailies();
-
-      // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
-    });
-  },
-  methods: {
+    },
     showLevelUpNotifications (newlevel) {
       this.lvl();
       this.playSound('Level_Up');
@@ -342,7 +344,7 @@ export default {
       this.$root.$emit('playSound', sound);
     },
     checkNextCron: throttle(function checkNextCron () {
-      if (!this.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
+      if (!this.$store.state.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
         Promise.all([
           this.$store.dispatch('user:fetch', {forceLoad: true}),
           this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
@@ -364,11 +366,11 @@ export default {
 
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
-      this.isRunningYesterdailies = false;
+      this.$store.state.isRunningYesterdailies = false;
     },
     async runYesterDailies () {
-      if (this.isRunningYesterdailies) return;
-      this.isRunningYesterdailies = true;
+      if (this.$store.state.isRunningYesterdailies) return;
+      this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
         this.handleUserNotifications(this.user.notifications);
@@ -404,13 +406,12 @@ export default {
       // Notifications
 
       // Sync
-      // @TODO add a loading spinner somewhere
       await Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
-      if (this.levelBeforeYesterdailies < this.user.stats.lvl) {
+      if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
@@ -418,8 +419,7 @@ export default {
       this.scheduleNextCron();
     },
     transferGroupNotification (notification) {
-      if (!this.user.groupNotifications) this.user.groupNotifications = [];
-      this.user.groupNotifications.push(notification);
+      this.$store.state.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
@@ -427,7 +427,7 @@ export default {
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.user.groupNotifications = []; // Flush group notifictions
+      this.$store.state.groupNotifications = []; // Flush group notifictions
 
       after.forEach((notification) => {
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -526,8 +526,10 @@ export default {
             }
             break;
           case 'LOGIN_INCENTIVE':
-            this.notificationData = notification.data;
-            this.$root.$emit('show::modal', 'login-incentives');
+            if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
+              this.notificationData = notification.data;
+              this.$root.$emit('show::modal', 'login-incentives');
+            }
             break;
           default:
             if (notification.data.headerText && notification.data.bodyText) {
@@ -577,6 +579,8 @@ export default {
       }
 
       this.user.notifications = []; // reset the notifications
+
+      this.checkUserAchievements();
     },
   },
 };

@@ -137,7 +137,9 @@ api.fns = {
 
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
-import allocate from './ops/allocate';
+import allocateNow from './ops/stats/allocateNow';
+import allocate from './ops/stats/allocate';
+import allocateBulk from './ops/stats/allocateBulk';
 import buy from './ops/buy';
 import buyGear from './ops/buyGear';
 import buyHealthPotion from './ops/buyHealthPotion';
@@ -145,7 +147,6 @@ import buyArmoire from './ops/buyArmoire';
 import buyMysterySet from './ops/buyMysterySet';
 import buyQuest from './ops/buyQuest';
 import buySpecialSpell from './ops/buySpecialSpell';
-import allocateNow from './ops/allocateNow';
 import hatch from './ops/hatch';
 import feed from './ops/feed';
 import equip from './ops/equip';
@@ -176,6 +177,7 @@ api.ops = {
   scoreTask,
   sleep,
   allocate,
+  allocateBulk,
   buy,
   buyGear,
   buyHealthPotion,

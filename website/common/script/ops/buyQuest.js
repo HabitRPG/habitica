@@ -15,6 +15,10 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   let item = content.quests[key];
   if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));
 
+  if (key === 'lostMasterclasser1' && !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3)) {
+    throw new NotAuthorized(i18n.t('questUnlockLostMasterclasser', req.language));
+  }
+
   if (!(item.category === 'gold' && item.goldValue)) {
     throw new NotAuthorized(i18n.t('questNotGoldPurchasable', {key}, req.language));
   }

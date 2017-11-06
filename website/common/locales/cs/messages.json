@@ -56,5 +56,6 @@
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
     "messageNotificationNotFound": "Oznámení nenalezeno.",
-    "notificationsRequired": "Id upozornění je potřeba."
+    "notificationsRequired": "Id upozornění je potřeba.",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

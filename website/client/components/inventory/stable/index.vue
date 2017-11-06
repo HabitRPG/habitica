@@ -112,7 +112,7 @@
                       div(:class="'Pet_Egg_'+item.eggKey")
                 div(v-else)
                   h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
@@ -144,7 +144,7 @@
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(
                   :selected="item.key === currentMount",
                   :show="item.isOwned()",
@@ -187,7 +187,7 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="context")
+          template(slot="item", slot-scope="context")
             foodItem(
               :item="context.item",
               :itemCount="userItems.food[context.item.key]",
@@ -831,7 +831,8 @@
 
         let countAll = animals.length;
         let countOwned = _filter(animals, (a) => {
-          return a.isOwned();
+          // when counting pets, include those that have been raised into mounts
+          return a.isOwned() || a.mountOwned();
         });
 
         return `${countOwned.length}/${countAll}`;
@@ -909,8 +910,8 @@
       hatchPet (pet) {
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
 
-        this.$root.$emit('hatchedPet::open', pet);
         this.closeHatchPetDialog();
+        this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {

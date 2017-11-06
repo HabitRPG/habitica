@@ -141,7 +141,7 @@
     "report": "Reportar",
     "abuseFlag": "Reportar violação das Diretrizes da Comunidade",
     "abuseFlagModalHeading": "Reportar <%= name %> por violação?",
-    "abuseFlagModalBody": "Tem certeza de que deseja denunciar essa publicação? Você deve denunciar APENAS uma publicação que viola as <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %> e/ou os <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Denunciar inapropriadamente uma publicação é uma violação das Diretrizes da Comunidade e pode resultar em uma infração. Razões apropriadas para reportar uma publicação incluem, mas não se limitam a: <br><br><ul style='margin-left: 10px;'><li>xingamentos, blasfêmias religiosas</li><li>intolerância, insultos</li><li>tópicos adultos</li><li>violência, inclusive como brincadeira</li><li>spam, mensagens sem sentido</li></ul>",
+    "abuseFlagModalBody": "Tem certeza que deseja denunciar essa publicação? Você deve denunciar APENAS publicações que violam as <%= firstLinkStart %>Diretrizes de Comunidade<%= linkEnd %> e/ou os <%= secondLinkStart %>Termos de Serviço<%= linkEnd %>. Denunciar inapropriadamente uma publicação é uma violação das Diretrizes de Comunidade e pode resultar em uma infração. Razões apropriadas para reportar uma publicação incluem, mas não se limitam, a: <br><br><ul style='margin-left: 10px;'><li>xingamentos, blasfêmias religiosas</li><li> intolerância, insultos</li><li>tópicos adultos</li><li>violência, inclusive brincadeiras</li><li>spam, mensagens sem sentido</li></ul>",
     "abuseFlagModalButton": "Reportar Violação",
     "abuseReported": "Obrigado por reportar essa violação. Os moderadores foram notificados.",
     "abuseAlreadyReported": "Você já reportou essa mensagem.",
@@ -355,7 +355,7 @@
     "guildSummaryPlaceholder": "Escreva uma breve descrição anunciando sua Guilda para outros Habiticanos. Qual o principal propósito de sua Guilda e por que as pessoas deveriam entrar nela? Tente incluir palavras chave no resumo de forma que Habiticanos possam encontrar sua Guilda facilmente quando a procurarem.",
     "groupDescription": "Descrição",
     "guildDescriptionPlaceholder": "Utilize essa parte para dar maiores detalhes sobre tudo que os membros de sua Guilda devem saber sobre ela. Boas dicas, links úteis e orientações de conduta entram aqui!",
-    "markdownFormattingHelp": "Ajuda na formatação do texto",
+    "markdownFormattingHelp": "[Ajuda na formatação do texto](http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet)",
     "partyDescriptionPlaceholder": "Essa é a descrição do seu grupo. Aqui é descrito o que nós fazemos neste grupo. Se você quiser aprender mais sobre o que fazemos juntos, leia a descrição. Junte-se a nós. ",
     "guildGemCostInfo": "O custo em Gemas promove Guildas de alta qualidade e é transferido para o banco da Guilda.",
     "noGuildsTitle": "Você não participa de nenhuma Guilda.",
@@ -388,7 +388,13 @@
     "reverseChat": "Chat em Ordem Reversa",
     "invites": "Convites",
     "details": "Detalhes",
-    "participantDesc": "Quando todos os membros tiverem ou aceitado ou rejeitado, a Missão começa. Apenas quem tiver clicado em \"Aceitar\" poderá participar da Missão e receber os drops.",
+    "participantDesc": "Quando todos os membros tiverem aceitado ou rejeitado, a Missão começa. Somente aqueles que clicaram em \"aceitar\" poderão participar da Missão e receber as recompensas. ",
     "groupGems": "Gemas do Grupo",
-    "groupGemsDesc": "Gemas da Guildas podem ser gastas para criar Desafios! No futuro, você poderá adicionar mais Gemas da Guilda."
+    "groupGemsDesc": "Gemas da Guildas podem ser gastas para criar Desafios! No futuro, você poderá adicionar mais Gemas da Guilda.",
+    "groupTaskBoard": "Painel de Tarefas",
+    "groupInformation": "Informações do Time",
+    "groupBilling": "Dados de Cobrança do Time",
+    "wouldYouParticipate": "Você gostaria de participar?",
+    "managerAdded": "Gestor(a) adicionado(a) com sucesso.",
+    "managerRemoved": "Gestor(a) removido(a) com sucesso."
 }

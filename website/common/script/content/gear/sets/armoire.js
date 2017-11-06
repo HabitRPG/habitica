@@ -289,6 +289,23 @@ let armor = {
     set: 'farrier',
     canOwn: ownsItem('armor_armoire_farrierOutfit'),
   },
+  candlestickMakerOutfit: {
+    text: t('armorArmoireCandlestickMakerOutfitText'),
+    notes: t('armorArmoireCandlestickMakerOutfitNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('armor_armoire_candlestickMakerOutfit'),
+  },
+  wovenRobes: {
+    text: t('armorArmoireWovenRobesText'),
+    notes: t('armorArmoireWovenRobesNotes', { con: 8, int: 9 }),
+    value: 100,
+    con: 8,
+    int: 9,
+    set: 'weaver',
+    canOwn: ownsItem('armor_armoire_wovenRobes'),
+  },
 };
 
 let eyewear = {
@@ -622,6 +639,15 @@ let head = {
     set: 'antiProcrastination',
     canOwn: ownsItem('head_armoire_antiProcrastinationHelm'),
   },
+  candlestickMakerHat: {
+    text: t('headArmoireCandlestickMakerHatText'),
+    notes: t('headArmoireCandlestickMakerHatNotes', { attrs: 6 }),
+    value: 100,
+    int: 6,
+    per: 6,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('head_armoire_candlestickMakerHat'),
+  },
 };
 
 let shield = {
@@ -765,6 +791,23 @@ let shield = {
     str: 6,
     set: 'farrier',
     canOwn: ownsItem('shield_armoire_horseshoe'),
+  },
+  handmadeCandlestick: {
+    text: t('shieldArmoireHandmadeCandlestickText'),
+    notes: t('shieldArmoireHandmadeCandlestickNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'candlestickMaker',
+    canOwn: ownsItem('shield_armoire_handmadeCandlestick'),
+  },
+  weaversShuttle: {
+    text: t('shieldArmoireWeaversShuttleText'),
+    notes: t('shieldArmoireWeaversShuttleNotes', { int: 8, per: 9 }),
+    value: 100,
+    per: 9,
+    int: 8,
+    set: 'weaver',
+    canOwn: ownsItem('shield_armoire_weaversShuttle'),
   },
 };
 
@@ -1011,6 +1054,15 @@ let weapon = {
     str: 6,
     set: 'farrier',
     canOwn: ownsItem('weapon_armoire_hoofClippers'),
+  },
+  weaversComb: {
+    text: t('weaponArmoireWeaversCombText'),
+    notes: t('weaponArmoireWeaversCombNotes', { per: 8, str: 9 }),
+    value: 100,
+    per: 8,
+    str: 9,
+    set: 'weaver',
+    canOwn: ownsItem('weapon_armoire_weaversComb'),
   },
 };
 

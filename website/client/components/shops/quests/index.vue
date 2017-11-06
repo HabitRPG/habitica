@@ -54,12 +54,12 @@
                 :popoverPosition="'top'",
                 @click="selectItem(item)"
               )
-                template(slot="popoverContent", scope="ctx")
+                template(slot="popoverContent", slot-scope="ctx")
                   div.questPopover
                     h4.popover-content-title {{ item.text }}
                     questInfo(:quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -94,7 +94,7 @@
           :itemMargin=24,
           :type="'pet_quests'",
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             shopItem(
               :key="ctx.item.key",
               :item="ctx.item",
@@ -104,12 +104,12 @@
               :emptyItem="false",
               @click="selectItem(ctx.item)"
             )
-              span(slot="popoverContent", scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx")
                 div.questPopover
                   h4.popover-content-title {{ ctx.item.text }}
                   questInfo(:quest="ctx.item")
 
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
@@ -136,10 +136,16 @@
               )
                 span(slot="popoverContent")
                   div.questPopover
-                    h4.popover-content-title {{ item.text }}
-                    questInfo(:quest="item")
+                    div
+                    h4.popover-content-title(v-if='item.locked') {{ `${$t('lockedItem')}` }}
+                    h4.popover-content-title(v-else) {{ item.text }}
+                    .popover-content-text(v-if='item.locked && item.key === "lostMasterclasser1"') {{ `${$t('questUnlockLostMasterclasser')}` }}
+                    .popover-content-text(v-if='item.locked && item.unlockCondition && item.unlockCondition.incentiveThreshold') {{ `${$t('loginIncentiveQuest', {count: item.unlockCondition.incentiveThreshold})}` }}
+                    .popover-content-text(v-if='item.locked && item.previous') {{ `${$t('unlockByQuesting', {title: item.previous})}` }}
+                    .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
+                    questInfo(v-if='!item.locked', :quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -166,7 +172,7 @@
                 h4.popover-content-title {{ item.text }}
                 questInfo(:quest="item")
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -184,7 +190,7 @@
       :withPin="true",
       @change="resetItemToBuy($event)",
     )
-      template(slot="item", scope="ctx")
+      template(slot="item", slot-scope="ctx")
         item.flat(
           :item="ctx.item",
           :itemContentClass="ctx.item.class",
@@ -232,8 +238,6 @@
     cursor: pointer;
   }
 
-
-
   .featured-label {
     margin: 24px auto;
   }
@@ -249,7 +253,6 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
-
 
     .items {
       border-radius: 2px;
@@ -306,7 +309,6 @@
         background: url('~assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
-
         .featured-label {
           position: absolute;
           bottom: -14px;
@@ -328,6 +330,8 @@
   import ItemRows from 'client/components/ui/itemRows';
   import toggleSwitch from 'client/components/ui/toggleSwitch';
   import Avatar from 'client/components/avatar';
+  import buyMixin from 'client/mixins/buy';
+  import currencyMixin from '../_currencyMixin';
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
@@ -348,6 +352,7 @@
   import _map from 'lodash/map';
 
 export default {
+    mixins: [buyMixin, currencyMixin],
     components: {
       ShopItem,
       Item,
@@ -468,6 +473,8 @@ export default {
         }
       },
       selectItem (item) {
+        if (item.locked) return;
+
         this.selectedItemToBuy = item;
 
         this.$root.$emit('show::modal', 'buy-quest-modal');
