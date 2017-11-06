@@ -150,7 +150,7 @@ describe('DELETE /tasks/:id', () => {
       await user.del(`/tasks/${task._id}`);
       await user.sync();
 
-      expect(user.tasksOrder['habits'].indexOf(task._id)).to.eql(-1);
+      expect(user.tasksOrder.habits.indexOf(task._id)).to.eql(-1);
     });
   });
 });

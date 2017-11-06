@@ -114,7 +114,10 @@ export async function createTasks (req, res, options = {}) {
   // Push all task ids
   let taskOrderUpdateQuery = {$push: {}};
   for (let taskType in taskOrderToAdd) {
-    taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {$each: taskOrderToAdd[taskType]};
+    taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
+      $each: taskOrderToAdd[taskType],
+      $position: 0,
+    };
   }
 
   await owner.update(taskOrderUpdateQuery).exec();

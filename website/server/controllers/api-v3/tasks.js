@@ -584,15 +584,10 @@ api.scoreTask = {
         await user.update({
           $pull: { 'tasksOrder.todos': task._id },
         }).exec();
-      } else if (wasCompleted && !task.completed) {
-        // @TOOD: Why do we pull and push
-        // let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
+      } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
         await user.update({
-          $pull: { 'tasksOrder.todos': task._id },
+          $push: { 'tasksOrder.todos': task._id },
         }).exec();
-        // if (!hasTask) {
-        //   user.tasksOrder.todos.push(task._id);
-        // } // If for some reason it hadn't been removed previously don't do anything
       }
     }
 

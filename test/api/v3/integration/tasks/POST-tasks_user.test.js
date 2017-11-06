@@ -447,7 +447,7 @@ describe('POST /tasks/user', () => {
         text: 'a todo',
       });
 
-      let updatedUser = await user.get('/user');
+      let updatedUser = await user.get('/user');console.log(updatedUser.tasksOrder.todos)
       expect(updatedUser.tasksOrder.todos[0]).to.eql(task._id);
       expect(updatedUser.tasksOrder.todos.length).to.eql(originalTodosOrderLen + 1);
     });
