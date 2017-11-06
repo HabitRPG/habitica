@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.8.0",
+  "version": "4.9.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -116,7 +116,7 @@
     "validator": "^4.9.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "vue": "git://github.com/habitrpg/vue#e8f45fcfc98ed1859669f3a6a8b23ae28bf4d46f",
+    "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
     "vue-mugen-scroll": "^0.2.1",
     "vue-router": "^3.0.0",

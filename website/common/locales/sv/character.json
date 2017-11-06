@@ -217,5 +217,6 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "pointsAvailable": "Tillgängliga Poäng",
-    "pts": "poäng"
+    "pts": "poäng",
+    "statsObjectRequired": "Stats update is required"
 }

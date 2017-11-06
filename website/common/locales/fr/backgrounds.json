@@ -38,7 +38,7 @@
     "backgroundHauntedHouseText": "Maison hantée",
     "backgroundHauntedHouseNotes": "Faufilez-vous dans une maison hantée",
     "backgroundPumpkinPatchText": "Potager à citrouilles",
-    "backgroundPumpkinPatchNotes": "Taillez des lanternes d'Halloween dans un potager à citrouilles.",
+    "backgroundPumpkinPatchNotes": "Taillez des lanternes d'Habitoween dans un potager à citrouilles.",
     "backgrounds112014": "Ensemble 6 : sorti en novembre 2014",
     "backgroundHarvestFeastText": "Fête de la moisson",
     "backgroundHarvestFeastNotes": "Savourez une fête de la moisson.",
@@ -303,5 +303,12 @@
     "backgroundSpookyHotelText": "Hôtel effrayant",
     "backgroundSpookyHotelNotes": "Faufilez-vous dans le hall d'un hôtel effrayant.",
     "backgroundTarPitsText": "Puits de goudron",
-    "backgroundTarPitsNotes": "Avancez à pas de loup dans des puits de goudron."
+    "backgroundTarPitsNotes": "Avancez à pas de loup dans des puits de goudron.",
+    "backgrounds112017": "SET 42: Released November 2017",
+    "backgroundFiberArtsRoomText": "Fiber Arts Room",
+    "backgroundFiberArtsRoomNotes": "Spin thread in a Fiber Arts Room.",
+    "backgroundMidnightCastleText": "Midnight Castle",
+    "backgroundMidnightCastleNotes": "Stroll by the Midnight Castle.",
+    "backgroundTornadoText": "Tornado",
+    "backgroundTornadoNotes": "Fly through a Tornado."
 }

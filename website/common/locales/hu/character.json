@@ -3,8 +3,8 @@
     "profile": "Profil",
     "avatar": "Avatár személyreszabása",
     "editAvatar": "Avatár módosítása",
-    "noDescription": "Habitica ezen lakója nem adott meg leírást.",
-    "noPhoto": "Habitica ezen lakója nem adott meg fotót.",
+    "noDescription": "Ez a Habitica lakos még nem adott meg leírást.",
+    "noPhoto": "Ez a Habitica lakos még nem adott meg fotót.",
     "other": "Egyéb",
     "fullName": "Teljes név",
     "displayName": "Nyilvános név",
@@ -217,5 +217,6 @@
     "mainHand": "Jobbkezes fegyver",
     "offHand": "Balkezes fegyver",
     "pointsAvailable": "Kiosztható pontok",
-    "pts": "pont"
+    "pts": "pont",
+    "statsObjectRequired": "Stats update is required"
 }

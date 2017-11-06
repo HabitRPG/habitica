@@ -11,7 +11,7 @@
           label(v-once) {{ `${$t('text')}*` }}
           input.form-control.title-input(
             type="text", :class="[`${cssClass}-modal-input`]",
-            required, v-model="task.text", 
+            required, v-model="task.text",
             autofocus, spellcheck="true",
           )
         .form-group
@@ -25,7 +25,7 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          div(v-sortable='', @onsort='sortedChecklist')
+          div(v-sortable='true', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")

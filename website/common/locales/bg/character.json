@@ -217,5 +217,6 @@
     "mainHand": "Основна ръка",
     "offHand": "Страничен",
     "pointsAvailable": "Налични точки",
-    "pts": "точки"
+    "pts": "точки",
+    "statsObjectRequired": "Stats update is required"
 }

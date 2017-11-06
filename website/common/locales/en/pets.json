@@ -75,6 +75,7 @@
   "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
   "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
   "hatchedPetGeneric": "You hatched a new pet!",
+  "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
   "displayNow": "Display Now",
   "displayLater": "Display Later",
   "petNotOwned": "You do not own this pet.",
