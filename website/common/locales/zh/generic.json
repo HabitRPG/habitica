@@ -253,7 +253,7 @@
     "exercise": "锻炼",
     "creativity": "创作力",
     "budgeting": "Budgeting",
-    "health_wellness": "Health & Wellness",
+    "health_wellness": "健康与保健",
     "self_care": "自我照顾",
     "habitica_official": "Habitica官方",
     "academics": "Academics",
@@ -274,6 +274,6 @@
     "emptyMessagesLine2": "发送一条私信来展开一次讨论吧！",
     "letsgo": "Let's Go!",
     "selected": "已选择",
-    "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "howManyToBuy": "你想买多少呢？",
+    "habiticaHasUpdated": "有一個新的Habitica更新。刷新以獲取最新版本！"
 }
