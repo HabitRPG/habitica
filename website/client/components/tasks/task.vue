@@ -135,7 +135,7 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
-    margin-right: 8px;
+    margin-right: 15px;
     line-height: 1.43;
     font-size: 14px;
     word-break: break-all;
@@ -161,6 +161,7 @@
   .dropdown-icon {
     width: 4px;
     height: 16px;
+    margin-right: 10px;
     color: $gray-100 !important;
   }
 
@@ -214,7 +215,7 @@
   .task-notes {
     color: $gray-100;
     font-style: normal;
-    padding-right: 6px;
+    padding-right: 20px;
     word-break: break-all;
 
     &.has-checklist {
@@ -274,7 +275,7 @@
     min-height: 0px;
     width: 100%;
     margin-left: 8px;
-    margin-right: 8px;
+    padding-right: 20px;
     word-break: break-all;
 
     &-done {
