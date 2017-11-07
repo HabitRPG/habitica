@@ -385,6 +385,7 @@ export default {
       });
     },
     taskCreated (task) {
+      task.group.id = this.group._id;
       this.tasksByType[task.type].push(task);
     },
     taskEdited (task) {
