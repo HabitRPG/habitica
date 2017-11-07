@@ -447,7 +447,6 @@ export function cron (options = {}) {
 
   // First remove a possible previous cron notification
   // we don't want to flood the users with many cron notifications at once
-
   let oldCronNotif = user.notifications.toObject().find((notif, index) => {
     if (notif.type === 'CRON') {
       user.notifications.splice(index, 1);
