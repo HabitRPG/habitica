@@ -95,6 +95,12 @@
             input(type="number", v-model="task.everyX", min="0", required)
             | {{ repeatSuffix }}
             br
+          template(v-if="task.frequency === 'daily'")
+            .form-check
+              label.custom-control.custom-checkbox
+                input.custom-control-input(type="checkbox", v-model="task.repeatAfterCompletion")
+                span.custom-control-indicator
+                span.custom-control-description {{ $t('repeatAfterCompletionTitle', {everyX: task.everyX}) }}
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",

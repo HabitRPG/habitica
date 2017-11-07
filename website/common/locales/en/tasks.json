@@ -169,6 +169,7 @@
   "taskApprovalHasBeenRequested": "Approval has been requested",
   "approvals": "Approvals",
   "approvalRequired": "Approval Required",
+  "repeatAfterCompletionTitle": "Repeat Every <%= everyX %> Days Since Last Completed",
   "repeatZero": "Daily is never due",
   "repeatType": "Repeat Type",
   "repeatTypeHelpTitle": "What kind of repeat is this?",
