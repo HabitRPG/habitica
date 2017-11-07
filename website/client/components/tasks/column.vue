@@ -35,9 +35,9 @@
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
     .sortable-tasks(
-      ref="tasksList", 
-      v-sortable='activeFilters[type].label !== "scheduled"', 
-      @onsort='sorted', 
+      ref="tasksList",
+      v-sortable='activeFilters[type].label !== "scheduled"',
+      @onsort='sorted',
       data-sortableId
     )
       task(
@@ -444,20 +444,32 @@ export default {
     }),
     async sorted (data) {
       const filteredList = this.taskList;
-      const taskIdToMove = filteredList[data.oldIndex]._id;
+      const taskToMove = filteredList[data.oldIndex];
+      const taskIdToMove = taskToMove._id;
+      let originTasks = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.tasks[`${this.type}s`].findIndex(taskId => taskId === taskIdToReplace);
-      let newOrder = await this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: newIndexOnServer,
-      });
-      this.user.tasksOrder[`${this.type}s`] = newOrder;
+      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+
+      let newOrder;
+      if (taskToMove.group.id) {
+        newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      } else {
+        newOrder = await this.$store.dispatch('tasks:move', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      }
+      if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
-      this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
+      const deleted = originTasks.splice(data.oldIndex, 1);
+      originTasks.splice(data.newIndex, 0, deleted[0]);
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;

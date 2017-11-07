@@ -218,3 +218,8 @@ export async function move (store, payload) {
   let response = await axios.post(`/api/v3/tasks/${payload.taskId}/move/to/${payload.position}`);
   return response.data.data;
 }
+
+export async function moveGroupTask (store, payload) {
+  let response = await axios.post(`/api/v3/group-tasks/${payload.taskId}/move/to/${payload.position}`);
+  return response.data.data;
+}
