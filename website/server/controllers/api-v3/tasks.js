@@ -581,13 +581,17 @@ api.scoreTask = {
     // TODO move to common code?
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
-        await user.update({
-          $pull: { 'tasksOrder.todos': task._id },
-        }).exec();
+        // @TODO: mongoose's push and pull should be atomic and help with
+        // our concurrency issues. If not, we need to use this update $pull and $push
+        // await user.update({
+        //   $pull: { 'tasksOrder.todos': task._id },
+        // }).exec();
+        user.tasksOrder.todos.pull(task._id);
       } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
-        await user.update({
-          $push: { 'tasksOrder.todos': task._id },
-        }).exec();
+        // await user.update({
+        //   $push: { 'tasksOrder.todos': task._id },
+        // }).exec();
+        user.tasksOrder.todos.push(task._id);
       }
     }
 
