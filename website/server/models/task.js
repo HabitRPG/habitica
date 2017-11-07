@@ -292,6 +292,8 @@ export let DailySchema = new Schema(_.defaults({
       'Valid everyX values are integers from 0 to 9999',
     ],
   },
+  repeatAfterCompletion: {$type: Boolean, default: false},
+  lastCompleted: Date,
   startDate: {
     $type: Date,
     default () {
