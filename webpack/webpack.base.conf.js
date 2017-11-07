@@ -109,6 +109,7 @@ const baseConfig = {
             loader: 'svg-url-loader',
             options: {
               limit: 10000,
+              name: utils.assetsPath('svg/[name].[hash:7].[ext]'),
             },
           },
           { loader: 'svgo-loader' },
