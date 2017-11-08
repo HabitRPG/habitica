@@ -147,9 +147,6 @@ import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
@@ -181,9 +178,6 @@ export default {
     EquipmentAttributesPopover,
     StarBadge,
     Drawer,
-    bDropdown,
-    bDropdownItem,
-    bPopover,
     toggleSwitch,
     EquipGearModal,
   },

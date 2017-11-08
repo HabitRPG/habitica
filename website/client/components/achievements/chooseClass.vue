@@ -117,9 +117,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bPopover from 'bootstrap-vue/lib/components/popover';
-
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
@@ -130,8 +127,6 @@ import wizardIcon from 'assets/svg/wizard.svg';
 
 export default {
   components: {
-    bModal,
-    bPopover,
     Avatar,
   },
   computed: {
@@ -156,7 +151,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'choose-class');
+      this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
       this.$store.dispatch('user:changeClass', {query: {class: heroClass}});

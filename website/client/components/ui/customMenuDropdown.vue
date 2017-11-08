@@ -1,4 +1,4 @@
-<!-- 
+<!--
 A simplified dropdown component that doesn't rely on buttons as toggles  like bootstrap-vue
 -->
 
@@ -32,6 +32,8 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     max-height: calc(100vh - 100px);
     overflow: auto;
+    left: inherit;
+    right: 0px !important;
 
     /deep/ .dropdown-separated {
       border-bottom: 1px solid $gray-500;

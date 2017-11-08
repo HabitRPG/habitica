@@ -210,15 +210,15 @@ export default {
   },
   watch: {
     baileyShouldShow () {
-      this.$root.$emit('show::modal', 'new-stuff');
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
-        this.$root.$emit('show::modal', 'death');
+        this.$root.$emit('bv::show::modal', 'death');
         // @TODO: {keyboard:false, backdrop:'static'}
       } else if (after <= 30 && !this.user.flags.warnedLowHealth) {
-        this.$root.$emit('show::modal', 'low-health');
+        this.$root.$emit('bv::show::modal', 'low-health');
         // @TODO: {keyboard:false, backdrop:'static', controller:'UserCtrl', track:'Health Warning'}
       }
       if (after === before) return;
@@ -262,7 +262,7 @@ export default {
     },
     userClassSelect (after) {
       if (!after) return;
-      this.$root.$emit('show::modal', 'choose-class');
+      this.$root.$emit('bv::show::modal', 'choose-class');
       // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
     },
     userNotifications (after) {
@@ -274,15 +274,15 @@ export default {
     },
     armoireEmpty (after, before) {
       if (after === before || after === false) return;
-      this.$root.$emit('show::modal', 'armoire-empty');
+      this.$root.$emit('bv::show::modal', 'armoire-empty');
     },
     questCompleted () {
       if (!this.questCompleted) return;
-      this.$root.$emit('show::modal', 'quest-completed');
+      this.$root.$emit('bv::show::modal', 'quest-completed');
     },
     invitedToQuest (after) {
       if (after !== true) return;
-      this.$root.$emit('show::modal', 'quest-invitation');
+      this.$root.$emit('bv::show::modal', 'quest-invitation');
     },
   },
   mounted () {
@@ -312,25 +312,25 @@ export default {
     checkUserAchievements () {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (this.user.flags.newStuff) {
-        this.$root.$emit('show::modal', 'new-stuff');
+        this.$root.$emit('bv::show::modal', 'new-stuff');
       }
 
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
-        this.$root.$emit('show::modal', 'avatar-modal');
+        this.$root.$emit('bv::show::modal', 'avatar-modal');
       }
 
       if (this.user.stats.hp <= 0) {
         this.playSound('Death');
-        this.$root.$emit('show::modal', 'death');
+        this.$root.$emit('bv::show::modal', 'death');
       }
 
       if (this.questCompleted) {
-        this.$root.$emit('show::modal', 'quest-completed');
+        this.$root.$emit('bv::show::modal', 'quest-completed');
       }
 
       if (this.userClassSelect) {
-        this.$root.$emit('show::modal', 'choose-class');
+        this.$root.$emit('bv::show::modal', 'choose-class');
       }
     },
     showLevelUpNotifications (newlevel) {
@@ -338,7 +338,7 @@ export default {
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${newlevel}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('show::modal', 'level-up');
+      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('bv::show::modal', 'level-up');
     },
     playSound (sound) {
       this.$root.$emit('playSound', sound);
@@ -397,7 +397,7 @@ export default {
       }
 
       this.levelBeforeYesterdailies = this.user.stats.lvl;
-      this.$root.$emit('show::modal', 'yesterdaily');
+      this.$root.$emit('bv::show::modal', 'yesterdaily');
     },
     async runYesterDailiesAction () {
       // Run Cron
@@ -449,50 +449,50 @@ export default {
           case 'GUILD_PROMPT':
             // @TODO: I'm pretty sure we can find better names for these
             if (notification.data.textletiant === -1) {
-              this.$root.$emit('show::modal', 'testing');
+              this.$root.$emit('bv::show::modal', 'testing');
             } else {
-              this.$root.$emit('show::modal', 'testingletiant');
+              this.$root.$emit('bv::show::modal', 'testingletiant');
             }
             break;
           case 'DROPS_ENABLED':
-            this.$root.$emit('show::modal', 'drops-enabled');
+            this.$root.$emit('bv::show::modal', 'drops-enabled');
             break;
           case 'REBIRTH_ENABLED':
-            this.$root.$emit('show::modal', 'rebirth-enabled');
+            this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            this.$root.$emit('show::modal', 'won-challenge');
+            this.$root.$emit('bv::show::modal', 'won-challenge');
             break;
           case 'STREAK_ACHIEVEMENT':
             this.streak(this.user.achievements.streak);
             this.playSound('Achievement_Unlocked');
             if (!this.user.preferences.suppressModals.streak) {
-              this.$root.$emit('show::modal', 'streak');
+              this.$root.$emit('bv::show::modal', 'streak');
             }
             break;
           case 'ULTIMATE_GEAR_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'ultimate-gear');
+            this.$root.$emit('bv::show::modal', 'ultimate-gear');
             break;
           case 'REBIRTH_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'rebirth');
+            this.$root.$emit('bv::show::modal', 'rebirth');
             break;
           case 'GUILD_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'joined-guild');
+            this.$root.$emit('bv::show::modal', 'joined-guild');
             break;
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'joined-challenge');
+            this.$root.$emit('bv::show::modal', 'joined-challenge');
             break;
           case 'INVITED_FRIEND_ACHIEVEMENT':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'invited-friend');
+            this.$root.$emit('bv::show::modal', 'invited-friend');
             break;
           case 'NEW_CONTRIBUTOR_LEVEL':
             this.playSound('Achievement_Unlocked');
-            this.$root.$emit('show::modal', 'contributor');
+            this.$root.$emit('bv::show::modal', 'contributor');
             break;
           case 'CRON':
             if (notification.data) {
@@ -528,7 +528,7 @@ export default {
           case 'LOGIN_INCENTIVE':
             if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
               this.notificationData = notification.data;
-              this.$root.$emit('show::modal', 'login-incentives');
+              this.$root.$emit('bv::show::modal', 'login-incentives');
             }
             break;
           default:

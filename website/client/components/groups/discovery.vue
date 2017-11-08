@@ -47,10 +47,6 @@ import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from 'client/mixins/groupsUtilities';
 
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
 import positiveIcon from 'assets/svg/positive.svg';
 
 function _mapCategories (guilds) {
@@ -65,7 +61,7 @@ function _mapCategories (guilds) {
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
+  components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
       icons: Object.freeze({
@@ -193,7 +189,7 @@ export default {
     },
     createGroup () {
       this.$store.state.editingGroup = {};
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('bv::show::modal', 'guild-form');
     },
   },
 };

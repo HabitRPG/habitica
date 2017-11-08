@@ -19,16 +19,12 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import markdown from 'client/directives/markdown';
 
 export default {
   props: ['cardOptions'],
   directives: {
     markdown,
-  },
-  components: {
-    bModal,
   },
   computed: {
     ...mapState({
@@ -64,7 +60,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'card');
+      this.$root.$emit('bv::hide::modal', 'card');
     },
   },
 };

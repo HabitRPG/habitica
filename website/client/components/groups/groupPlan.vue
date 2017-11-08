@@ -323,7 +323,6 @@ div
 import paymentsMixin from '../../mixins/payments';
 import amazonPaymentsModal from '../payments/amazonModal';
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import group from 'assets/svg/group.svg';
 import amazonpay from 'assets/svg/amazonpay.svg';
 import positiveIcon from 'assets/svg/positive.svg';
@@ -332,7 +331,6 @@ export default {
   mixins: [paymentsMixin],
   components: {
     amazonPaymentsModal,
-    bModal,
   },
   data () {
     return {
@@ -381,7 +379,7 @@ export default {
   methods: {
     launchModal () {
       this.changePage(this.PAGES.CREATE_GROUP);
-      this.$root.$emit('show::modal', 'group-plan-modal');
+      this.$root.$emit('bv::show::modal', 'group-plan-modal');
     },
     changePage (page) {
       this.activePage = page;

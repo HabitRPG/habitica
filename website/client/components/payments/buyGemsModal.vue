@@ -340,7 +340,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -360,7 +359,6 @@
   export default {
     mixins: [paymentsMixin],
     components: {
-      bModal,
       planGemLimits,
       amazonPaymentsModal,
     },
@@ -400,7 +398,7 @@
     },
     methods: {
       close () {
-        this.$root.$emit('hide::modal', 'buy-gems');
+        this.$root.$emit('bv::hide::modal', 'buy-gems');
       },
     },
     watch: {

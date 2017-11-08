@@ -477,7 +477,6 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -493,7 +492,6 @@ import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
 import menuIcon from 'assets/svg/menu.svg';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
@@ -503,14 +501,12 @@ import MenuDropdown from '../ui/customMenuDropdown';
 export default {
   mixins: [notifications],
   components: {
-    bPopover,
     approvalFooter,
     approvalHeader,
     MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
-    bTooltip,
   },
   props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {

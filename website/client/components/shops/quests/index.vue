@@ -335,9 +335,6 @@
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
 
@@ -359,10 +356,6 @@ export default {
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
       BuyModal,
@@ -477,7 +470,7 @@ export default {
 
         this.selectedItemToBuy = item;
 
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
       },
     },
   };

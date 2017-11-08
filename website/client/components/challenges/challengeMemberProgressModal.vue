@@ -10,13 +10,11 @@
 
 <script>
 import axios from 'axios';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import Column from '../tasks/column';
 
 export default {
   props: ['challengeId', 'memberId'],
   components: {
-    bModal,
     TaskColumn: Column,
   },
   data () {
