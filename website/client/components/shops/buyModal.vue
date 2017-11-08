@@ -42,9 +42,9 @@
           )
 
         .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+          .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
-          div(v-if='item.purchaseType !== "gear"')
+          div(v-if='showAmountToBuy(item)')
             .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
@@ -285,6 +285,11 @@
 
   import moment from 'moment';
 
+  const hideAmountSelectionForPurchaseTypes = [
+    'gear', 'backgrounds', 'mystery_set', 'card',
+    'rebirth_orb', 'fortify', 'armoire'
+  ];
+
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
@@ -401,6 +406,13 @@
           return this.item.currency;
         } else {
           return 'gold';
+        }
+      },
+      showAmountToBuy (item) {
+        if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+          return false;
+        } else {
+          return true;
         }
       },
       getAvatarOverrides (item) {

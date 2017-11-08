@@ -333,7 +333,7 @@
               currency: 'hourglasses',
               key: c.identifier,
               class: `shop_set_mystery_${c.identifier}`,
-              purchaseType: 'set_mystery',
+              purchaseType: 'mystery_set',
             };
           }),
         };
