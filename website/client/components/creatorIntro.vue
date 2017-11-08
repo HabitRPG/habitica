@@ -362,7 +362,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 </template>
 
 <style>
-  .page-2 #avatar-modal__BV_body_ {
+  /* @TODO do not rely on avatar-modal___BV_modal_body_,
+     it already changed once when bootstrap-vue reached version 1 */
+  .page-2 #avatar-modal___BV_modal_body_ {
     margin-top: 9em;
   }
 
@@ -370,7 +372,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     margin-top: 7em;
   }
 
-  #avatar-modal_modal_body, #avatar-modal__BV_body_ {
+  #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
   }
 </style>
