@@ -321,8 +321,8 @@ export function cron (options = {}) {
             user.stats.buffs.stealth--;
             EvadeTask++;
           }
-          if (multiDaysCountAsOneDay) break;
         }
+        if (multiDaysCountAsOneDay) break;
       }
 
       if (scheduleMisses > EvadeTask) {
