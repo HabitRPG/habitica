@@ -593,7 +593,8 @@ export default {
       return moment().diff(this.task.date, 'days') >= 0;
     },
     dueIn () {
-      const dueIn = moment().to(this.task.date);
+      // this.task && is necessary to make sure the computed property updates correctly
+      const dueIn = moment().to(this.task && this.task.date);
       return this.$t('dueIn', {dueIn});
     },
     hasTags () {
