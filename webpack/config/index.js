@@ -3,15 +3,12 @@ const path = require('path');
 const staticAssetsDirectory = './website/static/.'; // The folder where static files (not processed) live
 const prodEnv = require('./prod.env');
 const devEnv = require('./dev.env');
-const nconf = require('nconf');
+const nconf = require('nconf')
+const setupNconf = require('../../website/server/libs/setupNconf');
 
-const PATH_TO_CONFIG = path.join(path.resolve(__dirname, '../../config.json'));
-let configFile = PATH_TO_CONFIG;
+let configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
-nconf
-  .argv()
-  .env()
-  .file('user', configFile);
+setupNconf(configFile);
 
 const DEV_BASE_URL = nconf.get("BASE_URL");
 
