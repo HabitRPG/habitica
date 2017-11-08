@@ -56,10 +56,15 @@
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
           label.custom-control.custom-checkbox.checklist-item(
-            v-if='!castingSpell && !task.collapseChecklist',
+            v-if='!task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
-            input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+            input.custom-control-input(
+              type="checkbox",
+              :checked="item.completed",
+              @change="toggleChecklistItem(item)",
+              :disabled="castingSpell",
+            )
             span.custom-control-indicator
             span.custom-control-description(v-markdown='item.text')
         .icons.small-text.d-flex.align-items-center
