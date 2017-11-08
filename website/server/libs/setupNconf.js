@@ -1,3 +1,4 @@
+// require allows import from webpack
 const nconf = require('nconf');
 const { join, resolve } = require('path');
 
