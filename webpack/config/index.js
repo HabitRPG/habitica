@@ -3,14 +3,14 @@ const path = require('path');
 const staticAssetsDirectory = './website/static/.'; // The folder where static files (not processed) live
 const prodEnv = require('./prod.env');
 const devEnv = require('./dev.env');
-const nconf = require('nconf')
+const nconf = require('nconf');
 const setupNconf = require('../../website/server/libs/setupNconf');
 
 let configFile = path.join(path.resolve(__dirname, '../../config.json'));
 
 setupNconf(configFile);
 
-const DEV_BASE_URL = nconf.get("BASE_URL");
+const DEV_BASE_URL = nconf.get('BASE_URL');
 
 module.exports = {
   build: {
