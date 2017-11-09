@@ -573,7 +573,7 @@ export default {
 
       if (rewardItem.purchaseType === 'quests') {
         this.selectedItemToBuy = rewardItem;
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
         return;
       }
 
