@@ -14,18 +14,21 @@ describe('POST /notifications/:notificationId/read', () => {
   it('errors when notification is not found', async () => {
     let dummyId = generateUUID();
 
-    await expect(user.post(`/notifications/${dummyId}/read`)).to.eventually.be.rejected.and.eql({
+    await expect(user.post('/notifications/read', {
+      notificationIds: [dummyId],
+    })).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('messageNotificationNotFound'),
     });
   });
 
-  it('removes a notification', async () => {
+  it('removes multiple notifications', async () => {
     expect(user.notifications.length).to.equal(0);
 
     const id = generateUUID();
     const id2 = generateUUID();
+    const id3 = generateUUID();
 
     await user.update({
       notifications: [{
@@ -36,13 +39,20 @@ describe('POST /notifications/:notificationId/read', () => {
         id: id2,
         type: 'LOGIN_INCENTIVE',
         data: {},
+      }, {
+        id: id3,
+        type: 'CRON',
+        data: {},
       }],
     });
 
     await user.sync();
-    expect(user.notifications.length).to.equal(2);
+    expect(user.notifications.length).to.equal(3);
 
-    const res = await user.post(`/notifications/${id}/read`);
+    const res = await user.post('/notifications/read', {
+      notificationIds: [id, id3],
+    });
+
     expect(res).to.deep.equal([{
       id: id2,
       type: 'LOGIN_INCENTIVE',
