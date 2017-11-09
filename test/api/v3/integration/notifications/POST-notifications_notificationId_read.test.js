@@ -21,6 +21,35 @@ describe('POST /notifications/:notificationId/read', () => {
       });
   });
 
-  xit('removes a notification', async () => {
+  it('removes a notification', async () => {
+    expect(user.notifications.length).to.equal(0);
+
+    const id = generateUUID();
+    const id2 = generateUUID();
+
+    await user.update({
+      notifications: [{
+        id,
+        type: 'DROPS_ENABLED',
+        data: {},
+      }, {
+        id: id2,
+        type: 'LOGIN_INCENTIVE',
+        data: {},
+      }],
+    });
+
+    await user.sync();
+    expect(user.notifications.length).to.equal(2);
+
+    const res = await user.post(`/notifications/${id}/read`);
+    expect(res).to.deep.equal([{
+      id: id2,
+      type: 'LOGIN_INCENTIVE',
+      data: {},
+    }]);
+
+    await user.sync();
+    expect(user.notifications.length).to.equal(1);
   });
 });
