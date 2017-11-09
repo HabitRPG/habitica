@@ -151,7 +151,7 @@
     "optOutOfPMs": "Kiszáll",
     "chooseClass": "Válaszd ki a kasztod",
     "chooseClassLearnMarkdown": "[Tudj meg többet a Habitica kaszt rendszeréről](http://habitica.wikia.com/wiki/Class_System)",
-    "optOutOfClassesText": "Nem érdekelnek a kasztok? Később akarsz választani? Jelöld be - és harcos maradsz különleges képességek nélkül. Később is olvashatsz a kaszt rendszerről a wiki-n és bármikor engedélyezheted azt a Felhasználói ikon -> Beállítások menüben.",
+    "optOutOfClassesText": "Nem érdekelnek a kasztok? Később akarsz választani? Jelöld be - és harcos maradsz különleges képességek nélkül. Később is olvashatsz a kaszt rendszerről a wiki-n és bármikor engedélyezheted azt a Felhasználó ikon -> Beállítások menüben.",
     "selectClass": "<%= heroClass %> kiválasztása",
     "select": "Kiválaszt",
     "stealth": "Lopakodás",
@@ -198,7 +198,7 @@
     "int": "INT",
     "showQuickAllocation": "Tulajdonság pont elosztás mutatása",
     "hideQuickAllocation": "Tulajdonság pont elosztás elrejtése",
-    "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést az automatikus kiosztás menüpontban a Felhasználói ikon -> Statisztika menüpontban.",
+    "quickAllocationLevelPopover": "Minden szintlépés ad egy pontot, amit elkölthetsz egy általad választott tulajdonságra. Ezt teheted manuálisan, vagy a játékra is bízhatod a döntést az automatikus kiosztás menüpontban a Felhasználó ikon -> Statisztika menüpontban.",
     "invalidAttribute": "\"<%= attr %>\" nem valódi tulajdonság.",
     "notEnoughAttrPoints": "Nincs elég tulajdonság pontod.",
     "style": "Stílus",
@@ -218,5 +218,5 @@
     "offHand": "Balkezes fegyver",
     "pointsAvailable": "Kiosztható pontok",
     "pts": "pont",
-    "statsObjectRequired": "Stats update is required"
+    "statsObjectRequired": "Statisztika frissítése szükséges"
 }
