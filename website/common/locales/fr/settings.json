@@ -131,7 +131,7 @@
     "remindersToLogin": "Rappels de vérification d'Habitica",
     "subscribeUsing": "Abonnez-vous avec",
     "unsubscribedSuccessfully": "Correctement désabonné !",
-    "unsubscribedTextUsers": "Vous vous êtes désabonné de tous les courriels de Habitica avec succès. Vous pouvez activer uniquement les courriels que vous souhaitez recevoir dans <a href=\"/#/options/settings/notifications\">Paramètres > &gt; Notifications</a> (nécessite d'être connecté).",
+    "unsubscribedTextUsers": "Vous venez de vous désabonner de tous les courriels d'Habitica avec succès. Vous pouvez activer uniquement les courriels que vous souhaitez recevoir dans<a href=\"/user/settings/notifications\"> Paramètres > &gt; Notifications </a> (nécessite d'être connecté).",
     "unsubscribedTextOthers": "Vous ne recevrez plus d'autre courriel de Habitica.",
     "unsubscribeAllEmails": "Cocher pour se désabonner des courriels",
     "unsubscribeAllEmailsText": "En cochant cette case, je certifie comprendre qu'en me désabonnant de tous les courriels, Habitica n'aura jamais la possibilité de m'avertir par courriel de changements importants au niveau du site ou de mon compte.",
