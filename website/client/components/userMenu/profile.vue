@@ -110,13 +110,13 @@ div
       hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
-          .achievement-icon.achievement-alien
+          .achievement-icon.achievement-karaoke
           h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
             span(v-markdown='chal')
             hr
         .col-6(v-if='user.achievements.quests')
-          .achievement-icon.achievement-karaoke
+          .achievement-icon.achievement-alien
           h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }} ({{ value }})
