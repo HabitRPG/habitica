@@ -287,7 +287,7 @@
 
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
-    'rebirth_orb', 'fortify', 'armoire'
+    'rebirth_orb', 'fortify', 'armoire',
   ];
 
   export default {
@@ -368,6 +368,16 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        if (this.item.currency === 'gems'
+          && !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
+          return;
+        }
+
+        if (this.item.currency === 'hourglasses'
+          && !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+          return;
+        }
+
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
