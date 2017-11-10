@@ -292,7 +292,9 @@ export default {
     // @TODO: This part is hacky and could be solved with two options:
     // 1 - Find a way to pass fromRoot to hidden
     // 2 - Enforce that all modals use the hide::modal event
-    this.$root.$on('bv::hide::modal', (modalId) => {
+    this.$root.$on('bv::modal::hidden', (bvEvent) => {
+      const modalId = bvEvent.target.id;
+
       let modalStackLength = this.$store.state.modalStack.length;
       let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
