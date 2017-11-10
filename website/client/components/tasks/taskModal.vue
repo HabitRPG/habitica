@@ -454,7 +454,7 @@
       }
 
       &:hover {
-        cursor: move;
+        cursor: text;
       }
     }
 
