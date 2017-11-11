@@ -77,7 +77,7 @@
     "comfortingKittySet": "Tröstande Katt (Helare)",
     "sneakySqueakerSet": "Tjuvaktig Tjallare (Tjuv)",
     "sunfishWarriorSet": "Klumpfiskskrigare (Krigare)",
-    "shipSoothsayerSet": "Ship Soothsayer (Mage)",
+    "shipSoothsayerSet": "Skepp-siare (Magiker)",
     "strappingSailorSet": "Strapping Sailor (Healer)",
     "reefRenegadeSet": "Revrenegat (Tjuv)",
     "scarecrowWarriorSet": "Fågelskrämme-krigare (Krigare)",
@@ -119,5 +119,6 @@
     "dateEndJuly": "Juli 29",
     "dateEndAugust": "Augusti 31",
     "dateEndOctober": "Den 31:a Oktober",
+    "dateEndNovember": "November 30",
     "discountBundle": "bunt"
 }

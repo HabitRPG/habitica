@@ -217,5 +217,6 @@
     "mainHand": "Haupthand",
     "offHand": "Schildhand",
     "pointsAvailable": "Verfügbare Punkte",
-    "pts": "Pkte"
+    "pts": "Pkte",
+    "statsObjectRequired": "Stats update is required"
 }

@@ -1,222 +1,342 @@
-.Pet-Wolf-Ghost {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Unicorn-Zombie {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Golden {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -328px -100px;
+.Pet-Whale-Base {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: 0px -400px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Holly {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -246px -100px;
-  width: 81px;
-  height: 99px;
-}
-.Pet-Wolf-Peppermint {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Whale-CottonCandyBlue {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: -164px 0px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Red {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Whale-CottonCandyPink {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: 0px -100px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-RoyalPurple {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Whale-Desert {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: -82px -100px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Shade {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Whale-Golden {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: -164px -100px;
   width: 81px;
   height: 99px;
 }
-.Pet-Wolf-Shimmer {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+.Pet-Whale-Red {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: -246px 0px;
   width: 81px;
   height: 99px;
 }
+.Pet-Whale-Shade {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -246px -100px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Whale-Skeleton {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: 0px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Whale-White {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -82px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Whale-Zombie {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -164px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Aquatic {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -246px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Base {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -328px 0px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-CottonCandyBlue {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -328px -100px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-CottonCandyPink {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -328px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Cupid {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: 0px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Desert {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -82px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Ember {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -164px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Fairy {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -246px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Floral {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -328px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Ghost {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -410px 0px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Golden {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -410px -100px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Holly {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -410px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Peppermint {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -410px -300px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Red {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -492px 0px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-RoyalPurple {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -492px -100px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Shade {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -492px -200px;
+  width: 81px;
+  height: 99px;
+}
+.Pet-Wolf-Shimmer {
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -492px -300px;
+  width: 81px;
+  height: 99px;
+}
 .Pet-Wolf-Skeleton {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
   background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-Spooky {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: 0px -200px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -82px -400px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-Thunderstorm {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -82px -200px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -164px -400px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-Veteran {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -164px -200px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -246px -400px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-White {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -246px -200px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -328px -400px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-Zombie {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -328px 0px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -410px -400px;
   width: 81px;
   height: 99px;
 }
 .Pet_HatchingPotion_Aquatic {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -328px -200px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: 0px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Base {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: 0px -300px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -138px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_CottonCandyBlue {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -69px -300px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -69px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_CottonCandyPink {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -138px -300px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -138px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Cupid {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px -345px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -207px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Desert {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -276px -300px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -276px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Ember {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -410px 0px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -345px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Fairy {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -410px -69px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -414px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Floral {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -410px -138px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -483px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Ghost {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -410px -207px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px 0px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Golden {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -410px -276px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -69px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Holly {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: 0px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -492px -400px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Peppermint {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -69px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -207px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Purple {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -138px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -276px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Red {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -207px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -345px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_RoyalPurple {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -276px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -414px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Shade {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -345px -369px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -574px -483px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Shimmer {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px 0px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: 0px -569px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Skeleton {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px -69px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -69px -569px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Spooky {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px -138px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -138px -569px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Thunderstorm {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px -207px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -207px -569px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_White {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -479px -276px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -276px -569px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Zombie {
-  background-image: url(/static/sprites/spritesmith-main-20.png);
-  background-position: -207px -300px;
+  background-image: url('~assets/images/sprites/spritesmith-main-20.png');
+  background-position: -345px -569px;
   width: 68px;
   height: 68px;
 }

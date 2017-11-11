@@ -12,13 +12,7 @@
           div(:class="pet.class")
 
         h4.title {{ pet.name }}
-        div.text(v-if="!hideText")
-          | Visit the
-          |
-          router-link(:to="{name: 'stable'}") {{ $t('stable') }}
-          |
-          | to feed and equip your newest pet!
-          // @TODO make translatable with the entire sentence in one string (translators can't do sentences in multiple parts)
+        div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse')")
 
         button.btn.btn-primary(@click="close()") {{ $t('onward') }}
 
@@ -69,16 +63,16 @@
 
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
+  import markdownDirective from 'client/directives/markdown';
 
   export default {
-    components: {
-      bModal,
-    },
     data () {
       return {
         pet: null,
       };
+    },
+    directives: {
+      markdown: markdownDirective,
     },
     created () {
 
@@ -92,12 +86,12 @@
     methods: {
       openDialog (item) {
         this.pet = item;
-        this.$root.$emit('show::modal', 'hatchedPet-modal');
+        this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
       },
 
       close () {
         this.$emit('closed', this.item);
-        this.$root.$emit('hide::modal', 'hatchedPet-modal');
+        this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');
         this.pet = null;
       },
     },

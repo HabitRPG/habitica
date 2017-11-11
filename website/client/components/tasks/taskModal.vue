@@ -9,7 +9,11 @@
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus, spellcheck='true')
+          input.form-control.title-input(
+            type="text", :class="[`${cssClass}-modal-input`]",
+            required, v-model="task.text",
+            autofocus, spellcheck="true",
+          )
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -21,7 +25,7 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          div(v-sortable='', @onsort='sortedChecklist')
+          div(v-sortable='true', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -121,7 +125,7 @@
                 .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
                 .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                 .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags")
+          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
@@ -181,9 +185,12 @@
     input, textarea {
       border: none;
       background-color: rgba(0, 0, 0, 0.16);
+      opacity: 0.64;
+      color: $white !important;
 
       &:focus {
         color: $white !important;
+        opacity: 1;
       }
     }
 
@@ -221,7 +228,7 @@
       input {
         background: $white;
         border: 1px solid $gray-500;
-        color: $gray-200;
+        color: $gray-200 !important;
 
         &:focus {
           color: $gray-50 !important;
@@ -494,10 +501,7 @@
 
 <script>
 import TagsPopup from './tagsPopup';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import sortable from 'client/directives/sortable.directive';
 import clone from 'lodash/clone';
@@ -518,9 +522,6 @@ import goldIcon from 'assets/svg/gold.svg';
 export default {
   components: {
     TagsPopup,
-    bModal,
-    bDropdown,
-    bDropdownItem,
     Datepicker,
     toggleSwitch,
   },
@@ -580,6 +581,7 @@ export default {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
       getTagsFor: 'tasks:getTagsFor',
+      canDeleteTask: 'tasks:canDelete',
     }),
     ...mapState({
       user: 'user.data',
@@ -593,9 +595,7 @@ export default {
       return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
     },
     canDelete () {
-      let isUserChallenge = Boolean(this.task.userId);
-      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
-      return this.purpose !== 'create' && !activeChallenge;
+      return this.purpose !== 'create' && this.canDeleteTask(this.task);
     },
     title () {
       const type = this.$t(this.task.type);
@@ -665,6 +665,9 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    closeTagsPopup () {
+      this.showTagsSelect = false;
+    },
     sortedChecklist (data) {
       let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
@@ -737,16 +740,16 @@ export default {
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
-      if (!confirm('Are you sure you want to delete this task?')) return;
+      if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     cancel () {
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
       this.showTagsSelect = false;

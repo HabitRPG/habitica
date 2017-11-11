@@ -20,6 +20,7 @@ input, textarea, input.form-control, textarea.form-control {
     border-color: $purple-500;
     color: $gray-50;
     outline: 0;
+    box-shadow: none;
   }
 
   &:disabled {

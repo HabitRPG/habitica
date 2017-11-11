@@ -22,7 +22,7 @@
     "messageTwoHandedEquip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual <%= offHandedText %> ha sido removid@.",
     "messageTwoHandedUnequip": "Empuñar <%= twoHandedText %> requiere dos manos, por lo cual fue removido cuando equipaste <%= offHandedText %>.",
     "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
+    "messageDropEgg": "¡Has encontrado un Huevo de <%= dropText %>!",
     "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
     "messageDropQuest": "¡Has encontrado una misión!",
     "messageDropMysteryItem": "¡Abres la caja y encuentras <%= dropText %>!",

@@ -22,13 +22,9 @@ div(v-else)
 </template>
 
 <script>
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import uuid from 'uuid';
 
 export default {
-  components: {
-    bPopover,
-  },
   props: {
     item: {
       type: Object,

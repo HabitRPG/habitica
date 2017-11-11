@@ -13,6 +13,8 @@ import StoreModule from './libs/store';
 import './filters/registerGlobals';
 import i18n from './libs/i18n';
 
+import BootstrapVue from 'bootstrap-vue';
+
 const IS_PRODUCTION = process.env.NODE_ENV === 'production'; // eslint-disable-line no-process-env
 
 // Configure Vue global options, see https://vuejs.org/v2/api/#Global-Config
@@ -28,6 +30,7 @@ Vue.config.productionTip = IS_PRODUCTION;
 // window['habitica-i18n] is injected by the server
 Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
+Vue.use(BootstrapVue);
 
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
