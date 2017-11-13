@@ -12,7 +12,7 @@
       .form-group
         label
           strong(v-once) {{$t('challengeSummary')}} *
-        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         textarea.summary-textarea.form-control(:placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
       .form-group
         label
