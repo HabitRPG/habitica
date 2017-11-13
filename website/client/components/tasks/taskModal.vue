@@ -452,9 +452,18 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+    }
+
+    .checklist-group {
+      .destroy-icon {
+        display: none;
+      }
 
       &:hover {
-        cursor: move;
+        .destroy-icon {
+          display: inline-block;
+          color: $gray-200;
+        }
       }
     }
 
