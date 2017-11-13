@@ -31,6 +31,10 @@
   }
 }
 
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  color: $white !important;
+}
+
 .btn:disabled, .btn.disabled {
   box-shadow: none;
   opacity: 0.64;
