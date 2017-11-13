@@ -16,23 +16,23 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
     #options-nav.container.section.text-center.customize-menu
       .row
-        div(:class='{"col-3": !editing, "col-2 offset-1": editing}')
+        .menu-container(:class='{"col-3": !editing, "col-2 offset-1": editing, active: activeTopPage === "body"}')
           .menu-item(@click='changeTopPage("body", "size")')
             .svg-icon(v-html='icons.bodyIcon')
           strong(v-once) {{$t('bodyBody')}}
-        div(:class='{"col-3": !editing, "col-2": editing}')
+        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}')
           .menu-item(@click='changeTopPage("skin", "color")')
             .svg-icon(v-html='icons.skinIcon')
           strong(v-once) {{$t('skin')}}
-        div(:class='{"col-3": !editing, "col-2": editing}')
+        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}')
           .menu-item(@click='changeTopPage("hair", "color")')
             .svg-icon(v-html='icons.hairIcon')
           strong(v-once) {{$t('hair')}}
-        div(:class='{"col-3": !editing, "col-2": editing}')
+        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}')
           .menu-item(@click='changeTopPage("extra", "glasses")')
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
-        .col-2(v-if='editing')
+        .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
           .menu-item(@click='changeTopPage("backgrounds", "2017")')
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
@@ -362,7 +362,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 </template>
 
 <style>
-  .page-2 #avatar-modal__BV_body_ {
+  /* @TODO do not rely on avatar-modal___BV_modal_body_,
+     it already changed once when bootstrap-vue reached version 1 */
+  .page-2 #avatar-modal___BV_modal_body_ {
     margin-top: 9em;
   }
 
@@ -370,7 +372,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     margin-top: 7em;
   }
 
-  #avatar-modal_modal_body, #avatar-modal__BV_body_ {
+  #avatar-modal___BV_modal_body_, #avatar-modal___BV_modal_body_ {
     padding: 0;
   }
 </style>
@@ -505,14 +507,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       width: 32px;
       height: 32px;
       margin: 0 auto;
-      color: #6133B4;
     }
 
-    .menu-item:hover {
+    .menu-container {
+      color: #a5a1ac;
+    }
+
+    .menu-container:hover, .menu-container.active {
       cursor: pointer;
-      svg path, strong {
-        stroke: purple !important;
-      }
+      color: #6133B4;
     }
   }
 

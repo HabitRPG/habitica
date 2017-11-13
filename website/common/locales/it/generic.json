@@ -64,7 +64,7 @@
     "subscriberItemText": "Ogni mese, gli abbonati ricevono un oggetto misterioso. Questo oggetto in genere viene rilasciato circa una settimana prima della fine del mese. Leggi la pagina \"Mystery Item\" della wiki per maggiori informazioni.",
     "all": "Tutto",
     "none": "Nessuno",
-    "more": "<%= count %> more",
+    "more": "altri <%= count %>",
     "and": "e",
     "loginSuccess": "Accesso eseguito con successo!",
     "youSure": "Sei sicuro/a?",
@@ -264,16 +264,16 @@
     "hobbies_occupations": "Hobbies + Occupations",
     "location_based": "Basate su luoghi",
     "mental_health": "Mental Health + Self-Care",
-    "getting_organized": "Getting Organized",
+    "getting_organized": "Organizzarsi",
     "self_improvement": "Crescita personale",
     "spirituality": "Spiritualità",
     "time_management": "Gestione del tempo + Responsabilità",
-    "recovery_support_groups": "Recovery + Support Groups",
+    "recovery_support_groups": "Riabilitazione + Gruppi di supporto",
     "messages": "Messaggi",
     "emptyMessagesLine1": "Non hai alcun messaggio",
     "emptyMessagesLine2": "Invia un messaggio per creare una conversazione!",
     "letsgo": "Andiamo!",
     "selected": "Selezionato",
     "howManyToBuy": "Quanti vorresti comprarne?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "habiticaHasUpdated": "È disponibile un nuovo aggiornamento per Habitica. Ricarica la pagina per usare la versione più recente!"
 }

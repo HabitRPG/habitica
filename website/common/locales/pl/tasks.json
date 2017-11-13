@@ -115,7 +115,7 @@
     "fortifyText": "Wzmocnienie przywróci wszystkie zadania do wartości neutralnej (żółty kolor), tak jakbyś dopiero co je dodał, a w dodatku uzdrowi cię do pełna. Jest to świetne rozwiązanie, jeśli czerwone zadania sprawiają w grze zbyt wiele trudności lub z powodu niebieskich zadań gra jest zbyt łatwa. Jeśli rozpoczęcie od zera brzmi znacznie bardziej motywująco, to poświęć Klejnoty i poczuj ulgę!",
     "confirmFortify": "Na pewno?",
     "fortifyComplete": "Wzmocnienie ukończone!",
-    "sureDelete": "Are you sure you want to delete this task?",
+    "sureDelete": "Jesteś pewien, że chcesz usunąć te zadanie?",
     "sureDeleteCompletedTodos": "Jesteś pewien, że chcesz usunąć zakończone zadania?",
     "streakCoins": "Premia za serię!",
     "taskToTop": "To top",

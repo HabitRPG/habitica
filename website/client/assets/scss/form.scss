@@ -20,6 +20,7 @@ input, textarea, input.form-control, textarea.form-control {
     border-color: $purple-500;
     color: $gray-50;
     outline: 0;
+    box-shadow: none;
   }
 
   &:disabled {
@@ -124,6 +125,7 @@ $bg-disabled-control: #34303a;
     cursor: pointer;
     padding-left: 10px;
     padding-right: 10px;
+    align-items: center;
   }
 
   .destroy-icon {

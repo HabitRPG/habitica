@@ -3,9 +3,9 @@
     "stringNotFound": "Строка '<%= string %>' не найдена.",
     "titleIndex": "Habitica | Ваша жизнь — ролевая игра",
     "habitica": "Habitica",
-    "habiticaLink": "<a href='http://ru.habitica.wikia.com/wiki/Habitica_Вики' target='_blank'>Habitica</a>",
-    "onward": "Продолжить",
-    "done": "Сделано",
+    "habiticaLink": "Хабитика",
+    "onward": "Навстречу приключениям!",
+    "done": "Готово",
     "gotIt": "Ясно!",
     "titleTasks": "Задачи",
     "titleAvatar": "Аватар",
@@ -13,7 +13,7 @@
     "titleStats": "Характеристики",
     "titleAchievs": "Достижения",
     "titleProfile": "Профиль",
-    "titleInbox": "Почта",
+    "titleInbox": "Сообщения",
     "titleTavern": "Таверна",
     "titleParty": "Команда",
     "titleHeroes": "Зал героев",
@@ -275,5 +275,5 @@
     "letsgo": "Начнем!",
     "selected": "Выбрано",
     "howManyToBuy": "Сколько вы хотите купить?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "habiticaHasUpdated": "Новое обновление в Habitica. Перезагрузите страницу, чтобы увидеть новую версию!"
 }

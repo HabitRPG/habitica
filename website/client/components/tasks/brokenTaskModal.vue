@@ -45,7 +45,7 @@ export default {
   created () {
     this.$root.$on('handle-broken-task', (task) => {
       this.brokenChallengeTask = Object.assign({}, task);
-      this.$root.$emit('show::modal', 'broken-task-modal');
+      this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
   removed () {

@@ -1,7 +1,7 @@
 <template lang="pug">
 menu-dropdown.item-notifications(:right="true")
   div(slot="dropdown-toggle")
-    div
+    div(v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
       .svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
@@ -58,7 +58,6 @@ menu-dropdown.item-notifications(:right="true")
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
-// import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';

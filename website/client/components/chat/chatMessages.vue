@@ -22,7 +22,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
               @click="showMemberModal(msg.uuid)",
@@ -59,7 +59,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
               @click="showMemberModal(msg.uuid)",
