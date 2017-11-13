@@ -92,18 +92,29 @@ function sanitizeChecklist (task) {
     });
   }
 }
+
+// Supply an array to create multiple tasks
 export async function create (store, createdTask) {
-  const type = `${createdTask.type}s`;
-  const list = store.state.tasks.data[type];
+  // Treat all create actions as if we are adding multiple tasks
+  const payload = Array.isArray(createdTask) ? createdTask : [createdTask];
 
-  sanitizeChecklist(createdTask);
+  payload.forEach(t => {
+    const type = `${t.type}s`;
+    const list = store.state.tasks.data[type];
 
-  list.unshift(createdTask);
-  store.state.user.data.tasksOrder[type].unshift(createdTask._id);
+    sanitizeChecklist(t);
 
-  const response = await axios.post('/api/v3/tasks/user', createdTask);
+    list.unshift(t);
+    store.state.user.data.tasksOrder[type].unshift(t._id);
+  });
 
-  Object.assign(list[0], response.data.data);
+  const response = await axios.post('/api/v3/tasks/user', payload);
+  const data = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
+
+  data.forEach(taskRes => {
+    const taskData = store.state.tasks.data[`${taskRes.type}s`].find(t => t._id === taskRes._id);
+    Object.assign(taskData, taskRes);
+  });
 }
 
 export async function save (store, editedTask) {

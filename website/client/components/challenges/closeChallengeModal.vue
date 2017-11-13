@@ -75,17 +75,9 @@ div
 
 <script>
 import debounce from 'lodash/debounce';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 export default {
   props: ['challengeId', 'members'],
-  components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
-  },
   data () {
     return {
       winner: {},

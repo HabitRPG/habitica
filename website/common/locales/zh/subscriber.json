@@ -202,6 +202,6 @@
     "subscriptionAlreadySubscribed1": "要查看您的捐助详细信息并取消，续订或更改，请转到<a href='/user/settings/subscription'>用户图标＜设置＜订阅</a>中。",
     "purchaseAll": "全部购买",
     "gemsPurchaseNote": "捐助者可以在市场上使用金币购买到宝石！ 为了方便购买，您还可以将宝石固定到“奖励”列。",
-    "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "gemsRemaining": "剩下的宝石",
+    "notEnoughGemsToBuy": "你无法购买那麽多的宝石"
 }

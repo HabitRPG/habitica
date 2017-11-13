@@ -82,7 +82,7 @@
 
         .pet-row.d-flex(
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
-          v-if='index === 0 || showMore === petGroup.key')
+          v-if='index === 0 || $_openedItemRows_isToggled(petGroup.key)')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -112,11 +112,11 @@
                       div(:class="'Pet_Egg_'+item.eggKey")
                 div(v-else)
                   h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
-          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -131,7 +131,7 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if='index === 0 || showMore === mountGroup.key')
+          v-if='index === 0 || $_openedItemRows_isToggled(mountGroup.key)')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -144,7 +144,7 @@
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(
                   :selected="item.key === currentMount",
                   :show="item.isOwned()",
@@ -152,7 +152,7 @@
                 )
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
-          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :title="$t('quickInventory')",
@@ -187,7 +187,7 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="context")
+          template(slot="item", slot-scope="context")
             foodItem(
               :item="context.item",
               :itemCount="userItems.food[context.item.key]",
@@ -488,11 +488,6 @@
 <script>
   import {mapState} from 'client/libs/store';
 
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
   import _filter from 'lodash/filter';
@@ -522,6 +517,7 @@
   import svgClose from 'assets/svg/close.svg';
 
   import notifications from 'client/mixins/notifications';
+  import openedItemRowsMixin from 'client/mixins/openedItemRows';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -531,7 +527,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
-    mixins: [notifications],
+    mixins: [notifications, openedItemRowsMixin],
     components: {
       PetItem,
       Item,
@@ -539,10 +535,6 @@
       FoodItem,
       MountItem,
       Drawer,
-      bDropdown,
-      bDropdownItem,
-      bPopover,
-      bModal,
       toggleSwitch,
       StarBadge,
       CountBadge,
@@ -583,7 +575,6 @@
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
-        showMore: '',
       };
     },
     watch: {
@@ -712,11 +703,7 @@
     },
     methods: {
       setShowMore (key) {
-        if (this.showMore === key) {
-          this.showMore = '';
-          return;
-        }
-        this.showMore = key;
+        this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
       },
       getAnimalList (animalGroup, type) {
         let key = animalGroup.key;
@@ -967,7 +954,7 @@
           // opens the hatch dialog
           this.hatchablePet = pet;
 
-          this.$root.$emit('show::modal', 'hatching-modal');
+          this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
 
@@ -980,7 +967,7 @@
       },
 
       closeHatchPetDialog () {
-        this.$root.$emit('hide::modal', 'hatching-modal');
+        this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
 
       resetHatchablePet ($event) {

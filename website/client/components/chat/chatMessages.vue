@@ -22,7 +22,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
               @click="showMemberModal(msg.uuid)",
@@ -59,7 +59,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
               @click="showMemberModal(msg.uuid)",
@@ -447,13 +447,13 @@ export default {
     },
     copyAsTodo (message) {
       this.copyingMessage = message;
-      this.$root.$emit('show::modal', 'copyAsTodo');
+      this.$root.$emit('bv::show::modal', 'copyAsTodo');
     },
     async report (message) {
       this.$store.state.flagChatOptions.message = message;
       this.$store.state.flagChatOptions.groupId = this.groupId;
 
-      this.$root.$emit('show::modal', 'report-flag');
+      this.$root.$emit('bv::show::modal', 'report-flag');
     },
     async remove (message, index) {
       if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
@@ -479,7 +479,7 @@ export default {
         // @TODO move to action or anyway move from here because it's super duplicate
         this.$store.state.profileUser = profile;
         this.$store.state.profileOptions.startingPage = 'profile';
-        this.$root.$emit('show::modal', 'profile');
+        this.$root.$emit('bv::show::modal', 'profile');
       }
     },
   },

@@ -16,9 +16,13 @@ div
 </template>
 
 <style scoped>
-  .task-unclaimed a {
-    float: right;
-  }
+.claim-bottom-message {
+  z-index: 9;
+}
+
+.task-unclaimed a {
+  float: right;
+}
 </style>
 
 <script>
@@ -105,7 +109,7 @@ export default {
 
     },
     showRequests () {
-      this.$root.$emit('show::modal', 'approval-modal');
+      this.$root.$emit('bv::show::modal', 'approval-modal');
     },
   },
 };
