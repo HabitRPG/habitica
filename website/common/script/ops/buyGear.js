@@ -35,9 +35,10 @@ module.exports = function buyGear (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
   }
 
-  let previousGear = item.key.replace(/[0-9]/, item.key.slice(-1) - 1);
+  let gearNumber = Number(item.key.slice(-1));
+  let previousGear = item.key.replace(/[0-9]/, gearNumber - 1);
 
-  if (!user.items.gear.owned[previousGear]) {
+  if (gearNumber !== 0 && !user.items.gear.owned[previousGear]) {
     throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
   }
 
