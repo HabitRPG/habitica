@@ -368,13 +368,13 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        if (this.item.currency === 'gems'
-          && !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
+        if (this.item.currency === 'gems' &&
+          !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
           return;
         }
 
-        if (this.item.currency === 'hourglasses'
-          && !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+        if (this.item.currency === 'hourglasses' &&
+          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
           return;
         }
 
