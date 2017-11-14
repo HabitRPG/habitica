@@ -69,38 +69,8 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/pin.scss';
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
 
   .tasks-column {
     min-height: 556px;
@@ -109,6 +79,7 @@
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
+
 
   .reward-items {
     display: flex;
@@ -271,6 +242,7 @@ import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
+import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
@@ -283,7 +255,7 @@ import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 
 export default {
-  mixins: [buyMixin],
+  mixins: [buyMixin, notifications],
   components: {
     Task,
     BuyQuestModal,
@@ -630,10 +602,10 @@ export default {
     togglePinned (item) {
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
-          this.$parent.$parent.text(this.$t('unpinnedItem', {item: item.text}));
+          this.text(this.$t('unpinnedItem', {item: item.text}));
         }
       } catch (e) {
-        this.$parent.$parent.text(e.message);
+        this.error(e.message);
       }
     },
   },

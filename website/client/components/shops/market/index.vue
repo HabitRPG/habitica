@@ -234,6 +234,7 @@
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
+  @import '~client/assets/scss/pin.scss';
 
   .market .drawer-slider {
     min-height: 60px;
@@ -247,37 +248,7 @@
     height: 38px; // button + margin + padding
   }
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
+  
   .icon-48 {
     width: 48px;
     height: 48px;
