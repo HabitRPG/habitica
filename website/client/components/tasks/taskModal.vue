@@ -66,7 +66,7 @@
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.date",
             :clearButton='true',
             clearButtonIcon='category-select',
@@ -77,7 +77,7 @@
           )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.startDate",
             :clearButton='false',
             :todayButton='true',
