@@ -133,7 +133,7 @@ export default {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
 
-      sortedMembers = sortBy(this.members, [(member) => {
+      sortBy(this.members, [(member) => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
           return member.contributor.level;

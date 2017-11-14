@@ -39,7 +39,7 @@ export function buyQuestItem (store, params) {
 async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
 
-  let buyResult = buyOp(store.state.user.data, {
+  buyOp(store.state.user.data, {
     params: {
       key: 'armoire',
     },
@@ -52,7 +52,7 @@ async function buyArmoire (store, params) {
     type: 'armoire',
     quantity,
   });
-  buyResult = result.data.data;
+  let buyResult = result.data.data;
 
   if (buyResult) {
     const resData = buyResult;
