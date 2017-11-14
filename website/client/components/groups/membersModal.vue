@@ -350,6 +350,8 @@ export default {
       //     }
       //   }
       // ]);
+
+      // Use the memberlist filtered by searchTerm
       sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
 
       return sortedMembers;
