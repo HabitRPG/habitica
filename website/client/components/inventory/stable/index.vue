@@ -1,7 +1,7 @@
 <template lang="pug">
   // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar.hidden-xs-down
+    .standard-sidebar.d-none.d-sm-block
       div
         #npmMattStable.npc_matt
         b-popover(

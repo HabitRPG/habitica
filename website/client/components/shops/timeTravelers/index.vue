@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar(v-if="!closed")
+    .standard-sidebar.d-none.d-sm-block(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
