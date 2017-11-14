@@ -13,6 +13,7 @@
             type="text", :class="[`${cssClass}-modal-input`]",
             required, v-model="task.text",
             autofocus, spellcheck="true",
+            :disabled="groupAccessRequiredAndOnPersonalPage"
           )
         .form-group
           label(v-once) {{ $t('notes') }}
@@ -596,6 +597,10 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    groupAccessRequiredAndOnPersonalPage () {
+      if (!this.groupId && this.task.group.id) return true;
+      return false;
+    },
     checklistEnabled () {
       return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
     },
