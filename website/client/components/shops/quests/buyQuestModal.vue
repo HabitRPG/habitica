@@ -62,7 +62,6 @@
 
     .content {
       text-align: center;
-      overflow-y: scroll;
     }
 
     .item-wrapper {
