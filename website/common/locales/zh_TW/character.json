@@ -3,8 +3,8 @@
     "profile": "基本資料",
     "avatar": "客制化角色圖像",
     "editAvatar": "編輯角色",
-    "noDescription": "This Habitican hasn't added a description.",
-    "noPhoto": "This Habitican hasn't added a photo.",
+    "noDescription": "此 Habitica 玩家未新增說明。",
+    "noPhoto": "此 Habitica 玩家未新增相片。",
     "other": "其他",
     "fullName": "全名",
     "displayName": "顯示名稱",
@@ -217,5 +217,6 @@
     "mainHand": "主手",
     "offHand": "副手",
     "pointsAvailable": "可用點數",
-    "pts": "點"
+    "pts": "點",
+    "statsObjectRequired": "Stats update is required"
 }

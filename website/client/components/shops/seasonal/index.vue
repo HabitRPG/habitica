@@ -57,7 +57,7 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
+      h1.mb-0.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
         h2.float-left
@@ -97,7 +97,7 @@
                 :showEventBadge="false",
                 @click="itemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -286,10 +286,6 @@
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
 
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
   import svgWizard from 'assets/svg/wizard.svg';
@@ -320,10 +316,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
     },
@@ -502,12 +494,6 @@
       },
       itemSelected (item) {
         if (item.locked) return;
-
-        if (this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
     },

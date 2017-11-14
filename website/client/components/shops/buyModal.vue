@@ -41,25 +41,32 @@
             :item="item"
           )
 
-        div(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value)}")
-          span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-          span.value(:class="getPriceClass()") {{ item.value }}
+        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
+          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+            strong {{ $t('howManyToBuy') }}
+          div(v-if='item.purchaseType !== "gear"')
+            .box
+              input(type='number', min='0', v-model='selectedAmountToBuy')
+            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+            span.value(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
           strong(v-if='gemsLeft === 0') {{ $t('maxBuyGems') }}
 
+        div(v-if='attemptingToPurchaseMoreGemsThanAreLeft')
+          | {{$t('notEnoughGemsToBuy')}}
 
         button.btn.btn-primary(
           @click="purchaseGems()",
-          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value)"
+          v-if="getPriceClass() === 'gems' && !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
         ) {{ $t('purchaseGems') }}
 
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :disabled='item.key === "gem" && gemsLeft === 0',
-          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value)}"
+          :disabled='item.key === "gem" && gemsLeft === 0 || attemptingToPurchaseMoreGemsThanAreLeft',
+          :class="{'notEnough': !preventHealthPotion || !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
     div.limitedTime(v-if="item.event")
@@ -83,6 +90,10 @@
   #buy-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 330px;
+    }
+
     .avatar {
       cursor: default;
       margin: 0 auto;
@@ -99,6 +110,37 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
+    }
+
+    .purchase-amount {
+      margin-top: 24px;
+
+      .how-many-to-buy {
+        margin-bottom: 16px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 74px;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-right: 24px;
+
+        input {
+          width: 100%;
+          border: none;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+          visibility: hidden;
+          display: none !important;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+        }
+      }
     }
 
     .content-text {
@@ -216,7 +258,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -247,7 +288,6 @@
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
-      bModal,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,
@@ -264,6 +304,7 @@
           clock: svgClock,
         }),
 
+        selectedAmountToBuy: 1,
         isPinned: false,
       };
     },
@@ -306,10 +347,15 @@
         if (!this.user.purchased.plan) return 0;
         return planGemLimits.convCap + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
       },
+      attemptingToPurchaseMoreGemsThanAreLeft () {
+        if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
+        return false;
+      },
     },
     watch: {
       item: function itemChanged () {
         this.isPinned = this.item && this.item.pinned;
+        this.selectedAmountToBuy = 1;
       },
     },
     methods: {
@@ -320,7 +366,7 @@
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
-          this.makeGenericPurchase(this.item);
+          this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           this.purchased(this.item.text);
         }
 
@@ -336,7 +382,7 @@
             eventLabel: 'Gems > Rebirth',
           });
         }
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
       togglePinned () {
         this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
@@ -346,7 +392,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
       },
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {

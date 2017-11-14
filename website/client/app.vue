@@ -71,8 +71,8 @@
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
 
-import AppMenu from './components/appMenu';
-import AppHeader from './components/appHeader';
+import AppMenu from './components/header/menu';
+import AppHeader from './components/header/index';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -135,12 +135,12 @@ export default {
     // @TODO: I'm not sure these should be at the app level. Can we move these back into shop/inventory or maybe they need a lateral move?
     this.$root.$on('buyModal::showItem', (item) => {
       this.selectedItemToBuy = item;
-      this.$root.$emit('show::modal', 'buy-modal');
+      this.$root.$emit('bv::show::modal', 'buy-modal');
     });
 
     this.$root.$on('selectMembersModal::showItem', (item) => {
       this.selectedSpellToBuy = item;
-      this.$root.$emit('show::modal', 'select-member-modal');
+      this.$root.$emit('bv::show::modal', 'select-member-modal');
     });
 
     // @TODO split up this file, it's too big
@@ -191,6 +191,7 @@ export default {
 
       const isApiCall = url.indexOf('api/v3') !== -1;
       const userV = response.data && response.data.userV;
+      const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
@@ -202,7 +203,6 @@ export default {
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1  && method === 'post';
         // exclude POST /api/v3/cron because the user is synced automatically after cron runs
-        const isCron = url.indexOf('/api/v3/cron') === 0 && method === 'post';
 
         // Something has changed on the user object that was not tracked here, sync the user
         if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
@@ -212,6 +212,17 @@ export default {
           ]);
         }
       }
+
+      // Verify the client is updated
+      // const serverAppVersion = response.data.appVersion;
+      // let serverAppVersionState = this.$store.state.serverAppVersion;
+      // if (isApiCall && !serverAppVersionState) {
+      //   this.$store.state.serverAppVersion = serverAppVersion;
+      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
+      //   if (document.activeElement.tagName !== 'INPUT' || confirm(this.$t('habiticaHasUpdated'))) {
+      //     location.reload(true);
+      //   }
+      // }
 
       return response;
     });
@@ -253,7 +264,7 @@ export default {
     }
 
     // Manage modals
-    this.$root.$on('show::modal', (modalId, data = {}) => {
+    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
       if (data.fromRoot) return;
 
       // Track opening of gems modal unless it's been already tracked
@@ -275,13 +286,15 @@ export default {
       this.$store.state.modalStack.push(modalId);
 
       // Hide the previous top modal
-      if (modalOnTop) this.$root.$emit('hide::modal', modalOnTop, {fromRoot: true});
+      if (modalOnTop) this.$root.$emit('bv::hide::modal', modalOnTop, {fromRoot: true});
     });
 
     // @TODO: This part is hacky and could be solved with two options:
     // 1 - Find a way to pass fromRoot to hidden
     // 2 - Enforce that all modals use the hide::modal event
-    this.$root.$on('hidden::modal', (modalId) => {
+    this.$root.$on('bv::modal::hidden', (bvEvent) => {
+      const modalId = bvEvent.target.id;
+
       let modalStackLength = this.$store.state.modalStack.length;
       let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
@@ -296,7 +309,7 @@ export default {
       // Recalculate and show the last modal if there is one
       modalStackLength = this.$store.state.modalStack.length;
       modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      if (modalOnTop) this.$root.$emit('show::modal', modalOnTop, {fromRoot: true});
+      if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
   methods: {
@@ -322,8 +335,8 @@ export default {
         if (this.user.party._id) {
           this.selectedSpellToBuy = item;
 
-          this.$root.$emit('hide::modal', 'buy-modal');
-          this.$root.$emit('show::modal', 'select-member-modal');
+          this.$root.$emit('bv::hide::modal', 'buy-modal');
+          this.$root.$emit('bv::show::modal', 'select-member-modal');
         } else {
           this.error(this.$t('errorNotInParty'));
         }
@@ -335,7 +348,7 @@ export default {
 
       this.$store.dispatch('party:getMembers', {forceLoad: true});
 
-      this.$root.$emit('hide::modal', 'select-member-modal');
+      this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     hideLoadingScreen () {
       const loadingScreen = document.getElementById('loading-screen');
@@ -348,4 +361,26 @@ export default {
 <style src="intro.js/minified/introjs.min.css"></style>
 <style src="bootstrap/scss/bootstrap.scss" lang="scss"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
-<style src="assets/css/index.css"></style>
+<style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
+<style src="assets/css/sprites/spritesmith-main-0.css"></style>
+<style src="assets/css/sprites/spritesmith-main-1.css"></style>
+<style src="assets/css/sprites/spritesmith-main-2.css"></style>
+<style src="assets/css/sprites/spritesmith-main-3.css"></style>
+<style src="assets/css/sprites/spritesmith-main-4.css"></style>
+<style src="assets/css/sprites/spritesmith-main-5.css"></style>
+<style src="assets/css/sprites/spritesmith-main-6.css"></style>
+<style src="assets/css/sprites/spritesmith-main-7.css"></style>
+<style src="assets/css/sprites/spritesmith-main-8.css"></style>
+<style src="assets/css/sprites/spritesmith-main-9.css"></style>
+<style src="assets/css/sprites/spritesmith-main-10.css"></style>
+<style src="assets/css/sprites/spritesmith-main-11.css"></style>
+<style src="assets/css/sprites/spritesmith-main-12.css"></style>
+<style src="assets/css/sprites/spritesmith-main-13.css"></style>
+<style src="assets/css/sprites/spritesmith-main-14.css"></style>
+<style src="assets/css/sprites/spritesmith-main-15.css"></style>
+<style src="assets/css/sprites/spritesmith-main-16.css"></style>
+<style src="assets/css/sprites/spritesmith-main-17.css"></style>
+<style src="assets/css/sprites/spritesmith-main-18.css"></style>
+<style src="assets/css/sprites/spritesmith-main-19.css"></style>
+<style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites.css"></style>

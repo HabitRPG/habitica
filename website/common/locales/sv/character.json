@@ -3,8 +3,8 @@
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
     "editAvatar": "Redigera Karaktär",
-    "noDescription": "This Habitican hasn't added a description.",
-    "noPhoto": "This Habitican hasn't added a photo.",
+    "noDescription": "Denna Habitican har inte lagt till en beskrivning.",
+    "noPhoto": "Denna Habitican har inte lagt till ett foto.",
     "other": "Annat",
     "fullName": "Fullständigt namn",
     "displayName": "Användarnamn",
@@ -151,7 +151,7 @@
     "optOutOfPMs": "Välj Bort",
     "chooseClass": "Välj din Klass",
     "chooseClassLearnMarkdown": "[Lär dig mer om Habiticas klassystem](http://habitica.wikia.com/wiki/Class_System)",
-    "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
+    "optOutOfClassesText": "Vill du inte besväras med klasser? Vill du välja senare? Hoppa av - du kommer att vara en krigare utan speciella förmågor. Du kan läsa mer om klass-systemet senare på vår wiki och aktivera klasser när som helst under Användarikon > Inställningar.",
     "selectClass": "Välj <%= heroClass %>",
     "select": "Välj",
     "stealth": "Smygande",
@@ -217,5 +217,6 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "pointsAvailable": "Tillgängliga Poäng",
-    "pts": "poäng"
+    "pts": "poäng",
+    "statsObjectRequired": "Stats update is required"
 }

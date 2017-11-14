@@ -3,8 +3,8 @@
     "profile": "Профил",
     "avatar": "Персонализиране на героя",
     "editAvatar": "Редактиране на героя",
-    "noDescription": "This Habitican hasn't added a description.",
-    "noPhoto": "This Habitican hasn't added a photo.",
+    "noDescription": "Този хабитиканец не е добавил описание.",
+    "noPhoto": "Този хабитиканец не е добавил снимка.",
     "other": "Други",
     "fullName": "Пълно име",
     "displayName": "Екранно име",
@@ -217,5 +217,6 @@
     "mainHand": "Основна ръка",
     "offHand": "Страничен",
     "pointsAvailable": "Налични точки",
-    "pts": "точки"
+    "pts": "точки",
+    "statsObjectRequired": "Промяната на показателите е задължителна"
 }

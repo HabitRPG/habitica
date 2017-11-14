@@ -9,11 +9,14 @@ div(v-if='user.stats.lvl > 10')
       .col-4.mana
         .img(:class='`shop_${spell.key} shop-sprite item-img`')
 
-  drawer(:title="$t('skillsTitle')",
+  drawer(
+    :title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", @mouseMoved="mouseMoved($event)",
+    v-mousePosition="30", 
+    @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
-    v-on:toggled='drawerToggled')
+    @toggled='drawerToggled'
+  )
     div(slot="drawer-slider")
       .container.spell-container
         .row
@@ -148,8 +151,6 @@ div(v-if='user.stats.lvl > 10')
 </style>
 
 <script>
-import bPopover from 'bootstrap-vue/lib/directives/popover';
-
 import spells from '../../../common/script/content/spells';
 
 import { mapState } from 'client/libs/store';
@@ -169,7 +170,6 @@ export default {
   },
   directives: {
     mousePosition: MouseMoveDirective,
-    bPopover,
   },
   data () {
     return {

@@ -14,16 +14,12 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import markdownDirective from 'client/directives/markdown';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -57,7 +53,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'report-flag');
+      this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');

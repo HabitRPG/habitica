@@ -77,7 +77,6 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
 import toArray from 'lodash/toArray';
 import omitBy from 'lodash/omitBy';
 import orderBy from 'lodash/orderBy';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from 'client/mixins/payments';
@@ -88,9 +87,6 @@ const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   props: ['userReceivingGems'],
-  components: {
-    bModal,
-  },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
@@ -144,7 +140,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'send-gems');
+      this.$root.$emit('bv::hide::modal', 'send-gems');
     },
   },
 };

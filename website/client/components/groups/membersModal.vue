@@ -40,11 +40,11 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
-            b-dropdown-item(@click='addManager(member)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='addManager(member._id)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('addManager')}}
-            b-dropdown-item(@click='removeManager(member)', v-if='isLeader && groupIsSubscribed')
+            b-dropdown-item(@click='removeManager(member._id)', v-if='isLeader && groupIsSubscribed')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
@@ -173,9 +173,6 @@ div
 
 <script>
 import sortBy from 'lodash/sortBy';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import { mapState } from 'client/libs/store';
 
 import removeMemberModal from 'client/components/members/removeMemberModal';
@@ -188,9 +185,6 @@ import dots from 'assets/svg/dots.svg';
 export default {
   props: ['hideBadge'],
   components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
     MemberDetails,
     removeMemberModal,
   },
@@ -255,7 +249,7 @@ export default {
 
       if (this.searchTerm) {
         sortedMembers = sortedMembers.filter(member => {
-          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase) !== -1;
+          return member.profile.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1;
         });
       }
 
@@ -330,17 +324,24 @@ export default {
         memberId: uid,
       });
 
-      this.$root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async removeMember (member, index) {
       this.memberToRemove = member;
       this.memberToRemove.index = index;
-      this.$root.$emit('show::modal', 'remove-member');
+      this.$root.$emit('bv::show::modal', 'remove-member');
     },
     memberRemoved () {
       this.members.splice(this.memberToRemove.index, 1);
       this.group.memberCount -= 1;
       this.memberToRemove =  {};
+    },
+    async quickReply (uid) {
+      this.memberToReply = uid;
+      await this.$store.dispatch('members:selectMember', {
+        memberId: uid,
+      });
+      this.$root.$emit('bv::show::modal', 'private-message'); //  MemberModalCtrl
     },
     async addManager (memberId) {
       await this.$store.dispatch('guilds:addManager', {
@@ -357,7 +358,7 @@ export default {
       alert(this.$t('managerRemoved'));
     },
     close () {
-      this.$root.$emit('hide::modal', 'members-modal');
+      this.$root.$emit('bv::hide::modal', 'members-modal');
     },
     sort (option) {
       this.sortOption = option;

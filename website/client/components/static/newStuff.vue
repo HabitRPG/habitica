@@ -4,13 +4,18 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/20/2017 - USE CASE SPOTLIGHT: CULTIVATING POSITIVITY
+    h2 11/7/2017 - THUNDERSTORM HATCHING POTIONS AND COSTUME CHALLENGE AWARDS
     hr
-    h3 Use Case Spotlight on Positivity
-    p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/10/17/use-case-spotlight-cultivating-positivity/) is about Cultivating Positivity! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be looking to build and maintain a more positive outlook!"')
-    p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to manage Money Matters? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-    .small by Beffymaroo
-    .scene_positivity.center-block
+    .media
+      .media-body
+        h3 Thunderstorm Hatching Potions
+        p(v-markdown='"There\'s a new pet breed in town! Between now and November 30th, you can buy Thunderstorm Hatching Potions from [the Market](/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Thunderstorm Potion Pets aren\'t picky, so they\'ll happily eat any kind of food that you feed them!"')
+        p After they're gone, it will be at least a year before the Thunderstorm Hatching Potions are available again, so be sure to get them now!
+        .small by Balduranne and SabreCat
+        h3 Costume Challenge Awarded
+        p(v-markdown='"Congratulations to everyone who completed this year\'s costume Challenge! If your entry followed the rules, you\'ve been awarded your badge (or had your badge count increased). (If you have any issues, email admin@habitica.com and we will investigate for you). We\'ll be sharing some of our favorites to our [Tumblr](http://blog.habitrpg.com/), so be sure to follow us to see all the great entries!"')
+        .small by Lemoness, SabreCat, and Beffymaroo
+      .promo_potions_thunderstorm
     br
 </template>
 
@@ -28,9 +33,9 @@
     margin-right: 1em;
   }
 
-  /* .small {
+  .small {
     margin-bottom: 1em;
-  } */
+  }
 </style>
 
 <script>

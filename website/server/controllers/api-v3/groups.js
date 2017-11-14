@@ -1287,7 +1287,7 @@ api.getGroupPlans = {
       .find({
         _id: {$in: userGroups},
       })
-      .select('leaderOnly leader purchased name')
+      .select('leaderOnly leader purchased name managers')
       .exec();
 
     let groupPlans = groups.filter(group => {

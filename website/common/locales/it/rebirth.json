@@ -24,6 +24,6 @@
     "rebirthPop": "Fai ripartire il tuo personaggio dal Livello 1 mantenendo medaglie, oggetti, equipaggiamento, attività e cronologia delle attività.",
     "rebirthName": "Sfera della Rinascita",
     "reborn": "Rinascita, livello massimo <%= reLevel %>",
-    "confirmReborn": "Sei sicuro?",
+    "confirmReborn": "Sei sicuro/a?",
     "rebirthComplete": "Rinascita completata!"
 }
