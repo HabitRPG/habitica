@@ -58,10 +58,49 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .badge-svg {
+    left: calc((100% - 18px) / 2);
+    cursor: pointer;
+    color: $gray-400;
+    background: $white;
+    padding: 4.5px 6px;
+
+    &.item-selected-badge {
+      background: $purple-300;
+      color: $white;
+    }
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
+    color: #a5a1ac;
+  }
+
+  span.badge.badge-pill.badge-item.badge-svg.hide {
+    display: none;
+  }
+
+  .item:hover {
+    span.badge.badge-pill.badge-item.badge-svg.hide {
+      display: block;
+    }
+  }
+
+  .icon-12 {
+    width: 12px;
+    height: 12px;
+  }
 
   .tasks-column {
     min-height: 556px;
@@ -237,6 +276,7 @@ import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
@@ -295,6 +335,7 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
+      pin: svgPin,
     });
 
     let activeFilters = {};
@@ -584,6 +625,15 @@ export default {
     resetItemToBuy ($event) {
       if (!$event) {
         this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.$parent.$parent.text(this.$t('unpinnedItem', {item: item.text}));
+        }
+      } catch (e) {
+        this.$parent.$parent.text(e.message);
       }
     },
   },
