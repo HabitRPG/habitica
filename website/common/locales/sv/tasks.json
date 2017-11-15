@@ -115,7 +115,7 @@
     "fortifyText": "Fortify will return all your tasks, except challenge tasks, to a neutral (yellow) state, as if you'd just added them, and top your Health off to full. This is great if all your red tasks are making the game too hard, or all your blue tasks are making the game too easy. If starting fresh sounds much more motivating, spend the Gems and catch a reprieve!",
     "confirmFortify": "Är du säker?",
     "fortifyComplete": "Stärkning är fullständig!",
-    "sureDelete": "Are you sure you want to delete this task?",
+    "sureDelete": "Är du säker på att du vill radera denna uppgift?",
     "sureDeleteCompletedTodos": "Är du säker på att du vill radera dina avslutade att-göra?",
     "streakCoins": "Följdbonus!",
     "taskToTop": "Till Toppen",
@@ -200,7 +200,7 @@
     "yesterDailiesTitle": "Du lämnade dessa dagliga uppgifter omarkerade igår! Vill du markera av någon av dom nu?",
     "yesterDailiesCallToAction": "Starta Min Nya Dag!",
     "yesterDailiesOptionTitle": "Bekräfta att denna Dagliga Uppgiften inte var gjord innan applicering av skada",
-    "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
+    "yesterDailiesDescription": "Om denna inställning är aktiverad kommer Habitica att fråga dig om du menade att lämna en Daglig Uppgift ogjord innan den applicerar skada till din karaktär. Detta kan skydda dig från oavsiktlig skada.",
     "repeatDayError": "Var vänlig och garantera att du har åtminstone valt en dag av veckan.",
     "searchTasks": "Sök igenom titlar och beskrivningar..."
 }

@@ -208,7 +208,7 @@
     "questLeaderCannotLeaveGroup": "Kamu tidak dapat meninggalkan party ketika kamu telah memulai misi. Batalkan misi terlebih dahulu.",
     "cannotLeaveWhileActiveQuest": "Kamu tidak dapat meninggalkan party selama menjalani misi. Silakan tinggalkan misi terlebih dahulu.",
     "onlyLeaderCanRemoveMember": "Hanya ketua grup yang dapat mengeluarkan anggota!",
-    "cannotRemoveCurrentLeader": "Kamu tidak dapat mengeluarkan pemimpin kelompok. Pilihlah seorang pemimpin kelompok yang baru terlebih dahulu.",
+    "cannotRemoveCurrentLeader": "Kamu tidak dapat mengeluarkan ketua grup. Pilihlah seorang pemimpin baru terlebih dahulu.",
     "memberCannotRemoveYourself": "Kamu tidak dapat mengeluarkan dirimu sendiri!",
     "groupMemberNotFound": "Pengguna tidak ditemukan di antara anggota grup",
     "mustBeGroupMember": "Harus seorang anggota grup.",

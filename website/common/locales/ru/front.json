@@ -272,7 +272,7 @@
     "onlySocialAttachLocal": "Локальная аутентификация может быть добавлена только к социальному аккаунту.",
     "invalidReqParams": "Неверные параметры запроса.",
     "memberIdRequired": "\"member\" должен быть действительным UUID.",
-    "heroIdRequired": "\"herold\" должен быть действительным UUID.",
+    "heroIdRequired": "\"heroId\" должен быть действительным UUID.",
     "cannotFulfillReq": "Ваш запрос не может быть выполнен. Если ошибка будет повторяться, свяжитесь с администратором admin@habitica.com.",
     "modelNotFound": "Эта модель не существует.",
     "signUpWithSocial": "Зарегистрироваться с помощью <%= social %>",
