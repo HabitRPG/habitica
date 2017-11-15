@@ -76,24 +76,36 @@ export default {
     },
   },
   methods: {
-    claim () {
+    async claim () {
       if (!confirm('Are you sure you want to claim this task?')) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:assignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       this.task.group.assignedUsers.push(this.user._id);
-      // @TODO: Reload user tasks?
     },
-    unassign () {
+    async unassign () {
       if (!confirm('Are you sure you want to unclaim this task?')) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:unassignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       let index = this.task.group.assignedUsers.indexOf(this.user._id);
       this.task.group.assignedUsers.splice(index, 1);
-      // @TODO: Reload user tasks?
     },
     approve () {
       if (!confirm('Are you sure you want to approve this task?')) return;

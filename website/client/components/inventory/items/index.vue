@@ -18,7 +18,7 @@
             span.custom-control-description(v-once) {{ $t(group.key) }}
   .standard-page
     .clearfix
-      h1.float-left.mb-0.page-header(v-once) {{ $t('items') }}
+      h1.float-left.mb-4.page-header(v-once) {{ $t('items') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t(sortBy)", right=true)
@@ -29,7 +29,7 @@
       v-if="group.selected",
       :key="group.key",
     )
-      h2
+      h2.mb-3
        | {{ $t(group.key) }}
        |
        span.badge.badge-pill.badge-default(v-if="group.key != 'special'") {{group.quantity}}

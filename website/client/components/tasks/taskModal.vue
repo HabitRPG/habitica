@@ -13,6 +13,7 @@
             type="text", :class="[`${cssClass}-modal-input`]",
             required, v-model="task.text",
             autofocus, spellcheck="true",
+            :disabled="groupAccessRequiredAndOnPersonalPage"
           )
         .form-group
           label(v-once) {{ $t('notes') }}
@@ -66,7 +67,7 @@
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.date",
             :clearButton='true',
             clearButtonIcon='category-select',
@@ -77,7 +78,7 @@
           )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.startDate",
             :clearButton='false',
             :todayButton='true',
@@ -596,6 +597,10 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    groupAccessRequiredAndOnPersonalPage () {
+      if (!this.groupId && this.task.group.id) return true;
+      return false;
+    },
     checklistEnabled () {
       return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
     },

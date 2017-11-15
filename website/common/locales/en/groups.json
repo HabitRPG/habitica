@@ -353,7 +353,7 @@
   "privacySettings": "Privacy Settings",
   "onlyLeaderCreatesChallenges": "Only the Leader can create Challenges",
   "privateGuild": "Private Guild",
-  "charactersRemaining": "characters remaining",
+  "charactersRemaining": "<%= characters %> characters remaining",
   "guildSummary": "Summary",
   "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
   "groupDescription": "Description",

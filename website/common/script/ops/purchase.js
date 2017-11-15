@@ -138,7 +138,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
   }
 
-  if (!user.balance || user.balance < price) {
+  if (!user.balance || user.balance < price * quantity) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
