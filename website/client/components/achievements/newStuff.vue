@@ -1,6 +1,5 @@
 <template lang="pug">
   b-modal#new-stuff(
-    v-if='user.flags.newStuff',
     size='lg',
     :hide-header='true',
     :hide-footer='true',
