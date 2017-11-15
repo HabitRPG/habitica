@@ -138,7 +138,8 @@
     margin-right: 15px;
     line-height: 1.43;
     font-size: 14px;
-    word-break: break-all;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-notes {
       padding-bottom: 4px;
@@ -216,7 +217,8 @@
     color: $gray-100;
     font-style: normal;
     padding-right: 20px;
-    word-break: break-all;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-checklist {
       padding-bottom: 8px;
@@ -231,6 +233,7 @@
     background: $white;
     border: 1px solid transparent;
     transition-duration: 0.15;
+    min-width: 0px;
 
     &.no-right-border {
       border-right: none !important;
@@ -276,7 +279,7 @@
     width: 100%;
     margin-left: 8px;
     padding-right: 20px;
-    word-break: break-all;
+    overflow-wrap: break-word;
 
     &-done {
       color: $gray-300;
@@ -290,6 +293,7 @@
     .custom-control-description {
       margin-left: 6px;
       padding-top: 0px;
+      min-width: 0px;
     }
   }
 
