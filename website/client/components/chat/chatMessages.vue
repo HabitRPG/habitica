@@ -246,6 +246,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import debounce from 'lodash/debounce';
+import escapeRegExp from 'lodash/escapeRegExp';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -352,7 +353,8 @@ export default {
       let messagetext = message.text.toLowerCase();
       let username = user.profile.name;
       let mentioned = messagetext.indexOf(username.toLowerCase());
-      let pattern = `${username}([^\w]|$){1}`;
+      let escapedUsername = escapeRegExp(username);
+      let pattern = `${escapedUsername}([^\w]|$){1}`;
 
       if (mentioned === -1) return message.highlight;
 
