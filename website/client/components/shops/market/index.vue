@@ -60,10 +60,10 @@
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-      h1.mb-0.page-header(v-once) {{ $t('market') }}
+      h1.mb-4.page-header(v-once) {{ $t('market') }}
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('equipment') }}
 
         div.float-right
@@ -118,7 +118,7 @@
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('items') }}
 
         div.float-right
