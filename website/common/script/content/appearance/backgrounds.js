@@ -577,6 +577,20 @@ let backgrounds = {
       notes: t('backgroundTarPitsNotes'),
     },
   },
+  backgrounds112017: {
+    fiber_arts_room: {
+      text: t('backgroundFiberArtsRoomText'),
+      notes: t('backgroundFiberArtsRoomNotes'),
+    },
+    midnight_castle: {
+      text: t('backgroundMidnightCastleText'),
+      notes: t('backgroundMidnightCastleNotes'),
+    },
+    tornado: {
+      text: t('backgroundTornadoText'),
+      notes: t('backgroundTornadoNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

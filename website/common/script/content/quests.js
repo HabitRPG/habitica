@@ -3003,6 +3003,38 @@ let quests = {
       exp: 3500,
     },
   },
+  yarn: {
+    text: t('questYarnText'),
+    notes: t('questYarnNotes'),
+    completion: t('questYarnCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questYarnBoss'),
+      hp: 500,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Yarn',
+          text: t('questYarnDropYarnEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Yarn',
+          text: t('questYarnDropYarnEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Yarn',
+          text: t('questYarnDropYarnEgg'),
+        },
+      ],
+      gp: 37,
+      exp: 275,
+      unlock: t('questYarnUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

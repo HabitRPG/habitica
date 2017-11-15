@@ -105,7 +105,7 @@
     "questGoldenknight3DropHoney": "蜂蜜 (食物)",
     "questGoldenknight3DropGoldenPotion": "黄金孵化药水",
     "questGoldenknight3DropWeapon": "马斯泰因的碎石流星锤(副手武器)",
-    "questGroupEarnable": "Earnable Quests",
+    "questGroupEarnable": "可以获得任务",
     "questBasilistText": "基础列表",
     "questBasilistNotes": "集市上发生了一场让人想要逃跑的骚乱。而你作为一名勇敢的冒险者，却明知山有虎偏向虎山行，发现了由一堆未完成的待办事项聚合成的一个怪兽<基础列表>！附近的Habitican们被<基础列表>的长度吓得不能动弹，更别提着手工作了。这时你听到 @Arcosine 在不远处喊道：“快！在有人受到轻微的伤害之前，完成你的待办事项和每日任务来打败这条怪兽！”冒险者们，速战速决，核对你的任务——但是注意！如果你有任何未完成的每日任务，这条<基础列表>就会攻击你和你的队伍！",
     "questBasilistCompletion": "这条基础列表碎成了漫天的碎纸片，微微地闪着彩虹色。“吁，”@Arcosine说道，“有你们在真是太棒了！”你从地上的碎纸片中收集起散落的金币，感觉自己与以前相比更加老练了。",
@@ -464,7 +464,7 @@
     "questButterflyDropButterflyEgg": "毛毛虫(宠物蛋)",
     "questButterflyUnlockText": "解锁毛毛虫蛋购买功能",
     "questGroupMayhemMistiflying": "Mayhem in Mistiflying",
-    "questMayhemMistiflying1Text": "Mayhem in Mistiflying, Part 1: In Which Mistiflying Experiences a Dreadful Bother",
+    "questMayhemMistiflying1Text": "Mayhem in Mistiflying，第一部分：令人恐惧的经历，一个可怕的麻烦",
     "questMayhemMistiflying1Notes": "虽然我们这儿的占卜者预计天气将会不错，但这天下午却异常风大，所以你跟随着你的朋友@Kiwibot去了她的家中，来躲避这场大风。<br><br>\n但没有意料到的是，四月捣蛋鬼正懒洋洋地躺在餐桌上呢。<br><br>\n“哦，你好，”他说，“你们怎么来了，那么，给我来点好茶吧。”<br><br>\n“但，，，”@Kiwibot说道，“”那是我的—“”<br><br>\n“那是，那是当然”，四月捣蛋鬼一边说道，一边把曲奇饼干往嘴边送，“你只要想着，我突然出现在你家只是为了缓解下我对这阵骷髅旋风的惊吓。”他随意了嘬了口茶，又说，“顺便提句，这整个被迷雾掩埋的城市正在遭受攻击.”<br><br>\n你和你的朋友有些惊慌失措，于是飞奔到马厩，骑上了那匹速度最快的飞马，奔向那座流动的城市。正如你所见，一大群在空中旋转着的、发出哒哒声响的骷髅，正包围着整个城市。。。同时，一些骷髅也将注意力转向了你们！",
     "questMayhemMistiflying1Completion": "The final skull drops from the sky, a shimmering set of rainbow robes clasped in its jaws, but the steady wind has not slackened. Something else is at play here. And where is that slacking April Fool? You pick up the robes, then swoop into the city.",
     "questMayhemMistiflying1Boss": "空中骷髅群",
@@ -543,5 +543,11 @@
     "questLostMasterclasser4RageEffect": "`Anti'zinnya uses SIPHONING VOID!` In a twisted inversion of the Ethereal Surge spell, you feel your magic drain away into the darkness!",
     "questLostMasterclasser4DropBackAccessory": "Aether Cloak (Back Accessory)",
     "questLostMasterclasser4DropWeapon": "Aether Crystals (Two-Handed Weapon)",
-    "questLostMasterclasser4DropMount": "Invisible Aether Mount"
+    "questLostMasterclasser4DropMount": "Invisible Aether Mount",
+    "questYarnText": "A Tangled Yarn",
+    "questYarnNotes": "It’s such a pleasant day that you decide to take a walk through the Taskan Countryside. As you pass by its famous yarn shop, a piercing scream startles the birds into flight and scatters the butterflies into hiding. You run towards the source and see @Arcosine running up the path towards you. Behind him, a horrifying creature consisting of yarn, pins, and knitting needles is clicking and clacking ever closer.<br><br>The shopkeepers race after him, and @stefalupagus grabs your arm, out of breath. \"Looks like all of his unfinished projects\" <em>gasp gasp</em> \"have transformed the yarn from our Yarn Shop\" <em>gasp gasp</em> \"into a tangled mass of Yarnghetti!\"<br><br>\"Sometimes, life gets in the way and a project is abandoned, becoming ever more tangled and confused,\" says @khdarkwolf. \"The confusion can even spread to other projects, until there are so many half-finished works running around that no one gets anything done!\"<br><br>It’s time to make a choice: complete your stalled projects… or decide to unravel them for good. Either way, you'll have to increase your productivity quickly before the Dread Yarnghetti spreads confusion and discord to the rest of Habitica!",
+    "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
+    "questYarnBoss": "The Dread Yarnghetti",
+    "questYarnDropYarnEgg": "Yarn (Egg)",
+    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market"
 }

@@ -179,7 +179,7 @@ export default {
       standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
     },
     toggle () {
-      this.open = !this.open;
+      this.open = !this.isOpen;
       this.$emit('toggled', this.open);
     },
   },

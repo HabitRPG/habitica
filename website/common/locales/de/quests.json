@@ -77,7 +77,7 @@
     "mustLevel": "Du musst Level <%= level %> haben, um diese Quest zu starten.",
     "mustLvlQuest": "Du musst Level <%= level %> sein um dieses Quest zu erwerben!",
     "mustInviteFriend": "Um diese Quest freizuschalten musst Du einen Freund in Deine Gruppe einladen. Willst Du jetzt jemanden einladen?",
-    "unlockByQuesting": "Um dieses Quest freizuschalten musst Du erst <%= title %> abschließen.",
+    "unlockByQuesting": "Um diese Quest freizuschalten musst Du erst <%= title %> abschließen.",
     "sureCancel": "Bist Du sicher, dass Du diese Quest abbrechen willst? Alle akzeptierten Einladungen werden verloren gehen. Der Quest-Besitzer wird die Questschriftrolle zurück bekommen.",
     "sureAbort": "Bist Du sicher, dass Du diese Mission abbrechen willst? Das wird sie für alle in Deiner Gruppe abbrechen und jeder Fortschritt wird verloren gehen. Die Questschriftrolle wird dem Quest-Besitzer zurückgegeben.",
     "doubleSureAbort": "Bist Du wirklich, wirklich sicher? Sei ganz sicher, dass sie Dich nicht für immer hassen werden!",
@@ -97,7 +97,7 @@
     "questNotFound": "Quest \"<%= key %>\" nicht gefunden.",
     "questNotOwned": "Du besitzt diese Quest-Schriftrolle nicht.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" ist nicht mit Gold käuflich.",
-    "questLevelTooHigh": "Du musst Level <%= level %> sein, um diese Quest zu starten.",
+    "questLevelTooHigh": "Du musst Level <%= level %> haben, um diese Quest zu starten.",
     "questAlreadyUnderway": "Deine Gruppe nimmt bereits an einer Quest teil. Versuche es erneut, wenn die Quest abgeschlossen ist.",
     "questAlreadyAccepted": "Du hast die Questeinladung bereits angenommen.",
     "noActiveQuestToLeave": "Keine Quest zum Verlassen aktiv",
@@ -112,11 +112,11 @@
     "questNotPending": "Es ist keine Quest zum Start vorhanden.",
     "questOrGroupLeaderOnlyStartQuest": "Nur der Quest- oder Gruppen-Leiter kann den Quest-Start erzwingen",
     "createAccountReward": "Account erstellen",
-    "loginIncentiveQuest": "Um dieses Quest freizuschalten, melde Dich an <%= count %> verschiedenen Tagen auf Habitica an.",
+    "loginIncentiveQuest": "Um diese Quest freizuschalten, melde Dich an <%= count %> verschiedenen Tagen auf Habitica an.",
     "loginIncentiveQuestObtained": "Du hast diese Quest erhalten, indem Du Dich an <%= count %> unterschiedlichen Tagen angemeldet hast!",
     "loginReward": "<%= count %> Anmeldungen",
     "createAccountQuest": "Du hast diese Quest beim Beitreten zu Habitica erhalten! Wenn einer Deiner Freunde beitritt, erhält er ebenfalls eine.",
     "questBundles": "Reduzierte Quest-Pakete",
     "buyQuestBundle": "Quest-Paket kaufen",
-    "noQuestToStart": "Du findest kein Quest, dass Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!"
+    "noQuestToStart": "Du findest keine Quest, die Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!"
 }

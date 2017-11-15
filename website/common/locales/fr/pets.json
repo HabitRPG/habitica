@@ -118,7 +118,7 @@
     "sortByHatchable": "Peut éclore",
     "hatch": "Faire éclore !",
     "foodTitle": "Nourriture",
-    "dragThisFood": "Déplacez ce <%= foodName %> sur un familier et regardez-le grandir !",
+    "dragThisFood": "Déplacez cette <%= foodName %> sur un familier et regardez-le grandir !",
     "clickOnPetToFeed": "Cliquez sur un familier à nourrir avec cette <%= foodName %> et regardez-le grandir !",
     "dragThisPotion": "Déplacez cette <%= potionName %> vers un œuf pour en faire sortir un nouveau familier !",
     "clickOnEggToHatch": "Cliquez sur un œuf à associer à votre potion d'éclosion <%= potionName %> et faites éclore un nouveau familier !",

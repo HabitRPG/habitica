@@ -79,9 +79,9 @@
           :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
           @click="equipItem(flatGear[activeItems[group]])",
         )
-          template(slot="popoverContent", scope="context")
+          template(slot="popoverContent", slot-scope="context")
             equipmentAttributesPopover(:item="context.item")
-          template(slot="itemBadge", scope="context")
+          template(slot="itemBadge", slot-scope="context")
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
@@ -105,7 +105,7 @@
         :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
       )
-        template(slot="item", scope="context")
+        template(slot="item", slot-scope="context")
           item(
             :item="context.item",
             :itemContentClass="'shop_' + context.item.key",
@@ -113,13 +113,13 @@
             :key="context.item.key",
             @click="openEquipDialog(context.item)"
           )
-            template(slot="itemBadge", scope="context")
+            template(slot="itemBadge", slot-scope="context")
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
                 @click="equipItem(context.item)",
               )
-            template(slot="popoverContent", scope="context")
+            template(slot="popoverContent", slot-scope="context")
               equipmentAttributesPopover(:item="context.item")
 
   equipGearModal(
@@ -147,9 +147,6 @@ import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
@@ -181,9 +178,6 @@ export default {
     EquipmentAttributesPopover,
     StarBadge,
     Drawer,
-    bDropdown,
-    bDropdownItem,
-    bPopover,
     toggleSwitch,
     EquipGearModal,
   },

@@ -177,8 +177,6 @@
 const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
@@ -209,8 +207,6 @@ export default {
     challengeMemberProgressModal,
     TaskColumn: Column,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {
@@ -325,7 +321,7 @@ export default {
       this.workingTask = this.editingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -334,7 +330,7 @@ export default {
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     cancelTaskModal () {
@@ -361,7 +357,7 @@ export default {
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
       this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
@@ -384,13 +380,13 @@ export default {
       await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     closeChallenge () {
-      this.$root.$emit('show::modal', 'close-challenge-modal');
+      this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
       // @TODO: set working challenge
       this.cloning = false;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     // @TODO: view members
     updatedChallenge (eventData) {
@@ -398,7 +394,7 @@ export default {
     },
     openMemberProgressModal (memberId) {
       this.progressMemberId = memberId;
-      this.$root.$emit('show::modal', 'challenge-member-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     },
     async exportChallengeCsv () {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
@@ -410,7 +406,7 @@ export default {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
   },
 };
