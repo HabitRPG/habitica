@@ -47,10 +47,10 @@
         label
           strong(v-once) {{$t('endDate')}}
         b-form-input.end-date-input
-      .form-group
+      .form-group(v-if='creating')
         label
           strong(v-once) {{$t('prize')}}
-        input(type='number', :min='minPrize', :max='maxPrize', v-model="workingChallenge.prize", :disabled='!creating')
+        input(type='number', :min='minPrize', :max='maxPrize', v-model="workingChallenge.prize")
       .row.footer-wrap
         .col-12.text-center.submit-button-wrapper
           .alert.alert-warning(v-if='insufficientGemsForTavernChallenge')
