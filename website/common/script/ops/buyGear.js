@@ -38,7 +38,7 @@ module.exports = function buyGear (user, req = {}, analytics) {
   let gearNumber = Number(item.key.slice(-1));
   let previousGear = item.key.replace(/[0-9]/, gearNumber - 1);
 
-  if (gearNumber !== 0 && !user.items.gear.owned[previousGear]) {
+  if (gearNumber !== 1 && !user.items.gear.owned[previousGear]) {
     throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
   }
 
