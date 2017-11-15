@@ -1,9 +1,9 @@
 {
     "backgrounds": "Pozadine",
-    "background": "Pozadina",
+    "background": "Позадина",
     "backgroundShop": "Prodavnica pozadina",
     "backgroundShopText": "Prodavnica pozadina",
-    "noBackground": "Pozadina nije izabrana",
+    "noBackground": "Позадина није изабрана",
     "backgrounds062014": "Komplet 1: jun 2014.",
     "backgroundBeachText": "Plaža",
     "backgroundBeachNotes": "Odmarajte se na toploj plaži.",
@@ -13,7 +13,7 @@
     "backgroundForestNotes": "Pešačite kroz šumu na topli letnji dan.",
     "backgrounds072014": "Komplet 2: jul 2014.",
     "backgroundCoralReefText": "Koralni greben",
-    "backgroundCoralReefNotes": "Plivajte oko koralnog grebena.",
+    "backgroundCoralReefNotes": "Пливајте на коралном гребену.",
     "backgroundOpenWatersText": "Otvoreno more",
     "backgroundOpenWatersNotes": "Uživajte u otvorenom moru.",
     "backgroundSeafarerShipText": "Prekomorski brod",
@@ -59,7 +59,7 @@
     "backgroundFrigidPeakText": "Zaleđeni vrh",
     "backgroundFrigidPeakNotes": "Osvojite zaleđeni vrh.",
     "backgroundSnowyPinesText": "Zavejani četinari",
-    "backgroundSnowyPinesNotes": "Nađite sklonište među zavejanim četinarima",
+    "backgroundSnowyPinesNotes": "Нађите склониште међу завејаним четинарима.",
     "backgrounds022015": "Komplet 9: februar 2015.",
     "backgroundBlacksmithyText": "Kovačnica",
     "backgroundBlacksmithyNotes": "Radite kao kovač.",
@@ -303,5 +303,12 @@
     "backgroundSpookyHotelText": "Spooky Hotel",
     "backgroundSpookyHotelNotes": "Sneak down the hall of a Spooky Hotel.",
     "backgroundTarPitsText": "Tar Pits",
-    "backgroundTarPitsNotes": "Tiptoe through the Tar Pits."
+    "backgroundTarPitsNotes": "Tiptoe through the Tar Pits.",
+    "backgrounds112017": "SET 42: Released November 2017",
+    "backgroundFiberArtsRoomText": "Fiber Arts Room",
+    "backgroundFiberArtsRoomNotes": "Spin thread in a Fiber Arts Room.",
+    "backgroundMidnightCastleText": "Midnight Castle",
+    "backgroundMidnightCastleNotes": "Stroll by the Midnight Castle.",
+    "backgroundTornadoText": "Tornado",
+    "backgroundTornadoNotes": "Fly through a Tornado."
 }

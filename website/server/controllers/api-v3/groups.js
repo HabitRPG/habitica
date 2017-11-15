@@ -567,12 +567,12 @@ api.joinGroup = {
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
-    group.memberCount += 1;
-
     if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
+
+    group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
 
@@ -1287,7 +1287,7 @@ api.getGroupPlans = {
       .find({
         _id: {$in: userGroups},
       })
-      .select('leaderOnly leader purchased name')
+      .select('leaderOnly leader purchased name managers')
       .exec();
 
     let groupPlans = groups.filter(group => {

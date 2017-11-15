@@ -40,9 +40,13 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
 
     let taskToMove = tasks[1];
     expect(taskToMove.text).to.equal('habit 2');
+
     let newOrder = await user.post(`/tasks/${tasks[1]._id}/move/to/3`);
+    await user.sync();
+
     expect(newOrder[3]).to.equal(taskToMove._id);
     expect(newOrder.length).to.equal(5);
+    expect(user.tasksOrder.habits).to.eql(newOrder);
   });
 
   it('can move task to new position using alias', async () => {

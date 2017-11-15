@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  button.btn.btn-primary(b-btn, @click="$root.$emit('show::modal','new-party-modal')") {{ $t('viewMembers') }}
+  button.btn.btn-primary(b-btn, @click="$root.$emit('bv::show::modal','new-party-modal')") {{ $t('viewMembers') }}
 
   b-modal#new-party-modal(:title="$t('createGuild')", size='lg')
     .header-wrap(slot="modal-header")

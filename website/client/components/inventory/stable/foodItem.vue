@@ -22,7 +22,6 @@ div
 </template>
 
 <script>
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 
 import CountBadge from 'client/components/ui/countBadge';
@@ -31,7 +30,6 @@ import uuid from 'uuid';
 
 export default {
   components: {
-    bPopover,
     CountBadge,
   },
   directives: {

@@ -23,8 +23,10 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
+import notifications from 'client/mixins/notifications';
 
 export default {
+  mixins: [notifications],
   data () {
     return {
       codes: {
@@ -51,10 +53,12 @@ export default {
       //   })
     },
     async enterCoupon () {
-      let code = await axios.get(`/api/v3/coupons/enter/${this.couponCode}`);
+      let code = await axios.post(`/api/v3/coupons/enter/${this.couponCode}`);
       if (!code) return;
-      // @TODO: what needs to be updated? User.sync();
-      // @TODO: mixin Notification.text(env.t('promoCodeApplied'));
+
+      this.$store.state.user.data = code.data.data;
+
+      this.text(this.$t('promoCodeApplied'));
     },
   },
 };

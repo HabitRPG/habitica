@@ -18,8 +18,7 @@ div
           slot(name="itemImage", :item="item")
 
         div.price
-          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]")
-
+          span.svg-icon.inline.icon-16(v-html="icons[currencyClass]", v-once)
           span.price-label(:class="currencyClass", v-once) {{ getPrice() }}
   b-popover(
     :target="itemId",
@@ -152,7 +151,6 @@ div
 </style>
 
 <script>
-  import bPopover from 'bootstrap-vue/lib/components/popover';
   import uuid from 'uuid';
 
   import svgGem from 'assets/svg/gem.svg';
@@ -171,7 +169,6 @@ div
 
   export default {
     components: {
-      bPopover,
       EquipmentAttributesPopover,
       QuestInfo,
     },

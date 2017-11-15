@@ -14,67 +14,51 @@ import {
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 
-module.exports = function purchase (user, req = {}, analytics) {
-  let type = get(req.params, 'type');
-  let key = get(req.params, 'key');
+function buyGems (user, analytics, req, key) {
+  let convRate = planGemLimits.convRate;
+  let convCap = planGemLimits.convCap;
+  convCap += user.purchased.plan.consecutive.gemCapExtra;
+
+  // Some groups limit their members ability to obtain gems
+  // The check is async so it's done on the server (in server/controllers/api-v3/user#purchase)
+  // only and not on the client,
+  // resulting in a purchase that will seem successful until the request hit the server.
+  if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
+    throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
+  }
+
+  if (user.stats.gp < convRate) {
+    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+  }
+
+  if (user.purchased.plan.gemsBought >= convCap) {
+    throw new NotAuthorized(i18n.t('reachedGoldToGemCap', {convCap}, req.language));
+  }
+
+  user.balance += 0.25;
+  user.purchased.plan.gemsBought++;
+  user.stats.gp -= convRate;
+
+  if (analytics) {
+    analytics.track('purchase gems', {
+      uuid: user._id,
+      itemKey: key,
+      acquireMethod: 'Gold',
+      goldCost: convRate,
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
+
+  return [
+    pick(user, splitWhitespace('stats balance')),
+    i18n.t('plusOneGem', req.language),
+  ];
+}
+
+function getItemAndPrice (user, type, key, req) {
   let item;
   let price;
-
-  if (!type) {
-    throw new BadRequest(i18n.t('typeRequired', req.language));
-  }
-
-  if (!key) {
-    throw new BadRequest(i18n.t('keyRequired', req.language));
-  }
-
-  if (type === 'gems' && key === 'gem') {
-    let convRate = planGemLimits.convRate;
-    let convCap = planGemLimits.convCap;
-    convCap += user.purchased.plan.consecutive.gemCapExtra;
-
-    // Some groups limit their members ability to obtain gems
-    // The check is async so it's done on the server (in server/controllers/api-v3/user#purchase)
-    // only and not on the client,
-    // resulting in a purchase that will seem successful until the request hit the server.
-
-    if (!user.purchased || !user.purchased.plan || !user.purchased.plan.customerId) {
-      throw new NotAuthorized(i18n.t('mustSubscribeToPurchaseGems', req.language));
-    }
-
-    if (user.stats.gp < convRate) {
-      throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
-    }
-
-    if (user.purchased.plan.gemsBought >= convCap) {
-      throw new NotAuthorized(i18n.t('reachedGoldToGemCap', {convCap}, req.language));
-    }
-
-    user.balance += 0.25;
-    user.purchased.plan.gemsBought++;
-    user.stats.gp -= convRate;
-
-    if (analytics) {
-      analytics.track('purchase gems', {
-        uuid: user._id,
-        itemKey: key,
-        acquireMethod: 'Gold',
-        goldCost: convRate,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
-
-    return [
-      pick(user, splitWhitespace('stats balance')),
-      i18n.t('plusOneGem', req.language),
-    ];
-  }
-
-  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
-  if (acceptedTypes.indexOf(type) === -1) {
-    throw new NotFound(i18n.t('notAccteptedType', req.language));
-  }
 
   if (type === 'gear') {
     item = content.gear.flat[key];
@@ -98,17 +82,10 @@ module.exports = function purchase (user, req = {}, analytics) {
     price = item.value / 4;
   }
 
-  if (!item.canBuy(user)) {
-    throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
-  }
+  return {item, price};
+}
 
-  if (!user.balance || user.balance < price) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
-  }
-
-  let itemInfo = getItemInfo(user, type, item);
-  removeItemByPath(user, itemInfo.path);
-
+function purchaseItem (user, item, price, type, key) {
   user.balance -= price;
 
   if (type === 'gear') {
@@ -126,6 +103,50 @@ module.exports = function purchase (user, req = {}, analytics) {
       user.items[type][key] = 0;
     }
     user.items[type][key]++;
+  }
+}
+
+module.exports = function purchase (user, req = {}, analytics) {
+  let type = get(req.params, 'type');
+  let key = get(req.params, 'key');
+  let quantity = req.quantity || 1;
+
+  if (!type) {
+    throw new BadRequest(i18n.t('typeRequired', req.language));
+  }
+
+  if (!key) {
+    throw new BadRequest(i18n.t('keyRequired', req.language));
+  }
+
+  if (type === 'gems' && key === 'gem') {
+    let gemResponse;
+    for (let i = 0; i < quantity; i += 1) {
+      gemResponse = buyGems(user, analytics, req, key);
+    }
+    return gemResponse;
+  }
+
+  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
+  if (acceptedTypes.indexOf(type) === -1) {
+    throw new NotFound(i18n.t('notAccteptedType', req.language));
+  }
+
+  let {price, item} = getItemAndPrice(user, type, key, req);
+
+  if (!item.canBuy(user)) {
+    throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
+  }
+
+  if (!user.balance || user.balance < price * quantity) {
+    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  let itemInfo = getItemInfo(user, type, item);
+  removeItemByPath(user, itemInfo.path);
+
+  for (let i = 0; i < quantity; i += 1) {
+    purchaseItem(user, item, price, type, key);
   }
 
   if (analytics) {

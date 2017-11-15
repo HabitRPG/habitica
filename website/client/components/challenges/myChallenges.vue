@@ -65,8 +65,6 @@
 <script>
 import { mapState } from 'client/libs/store';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
@@ -81,8 +79,6 @@ export default {
     Sidebar,
     ChallengeItem,
     challengeModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {
@@ -150,7 +146,8 @@ export default {
       this.filters = eventData;
     },
     createChallenge () {
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$store.state.challengeOptions.workingChallenge = {};
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.challenges = await this.$store.dispatch('challenges:getUserChallenges', {

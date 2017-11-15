@@ -3,8 +3,8 @@
     "profile": "角色信息",
     "avatar": "自订形象",
     "editAvatar": "编辑角色形象",
-    "noDescription": "This Habitican hasn't added a description.",
-    "noPhoto": "This Habitican hasn't added a photo.",
+    "noDescription": "这个Habitican没有添加描述。",
+    "noPhoto": "这个Habitican没有添加图像",
     "other": "其他",
     "fullName": "全名",
     "displayName": "显示名",
@@ -217,5 +217,6 @@
     "mainHand": "主要",
     "offHand": "副手",
     "pointsAvailable": "可用的属性点",
-    "pts": "pts"
+    "pts": "pts",
+    "statsObjectRequired": "需要统计更新"
 }

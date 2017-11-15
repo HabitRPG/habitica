@@ -2,7 +2,7 @@
     "subscription": "Suscripción",
     "subscriptions": "Suscripciones",
     "subDescription": "Comprar Joyas con Oro",
-    "sendGems": "Send Gems",
+    "sendGems": "Enviar gemas",
     "buyGemsGold": "Comprar Gemas con oro",
     "buyGemsGoldText": "Alexander el Mercader te venderá Gemas por un precio de 20 de Oro por Gema. Sus envíos mensuales están limitados a 25 Gemas por mes, pero por cada 3 meses consecutivos que estés suscrito, este límite aumenta en 5 Gemas hasta un máximo de 50 Gemas por mes!",
     "mustSubscribeToPurchaseGems": "Debes estar suscrito para conseguir gemas con oro.",
@@ -134,6 +134,7 @@
     "mysterySet201707": "Conjunto Medusomante",
     "mysterySet201708": "Conjunto de Guerrero de Lava",
     "mysterySet201709": "Sorcery Student Set",
+    "mysterySet201710": "Imperious Imp Set",
     "mysterySet301404": "El Conjunto Steampunk",
     "mysterySet301405": "Accesorios Steampunk",
     "mysterySet301703": "Conjunto de Pavo real Steampunk",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase All",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsRemaining": "gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }
