@@ -780,7 +780,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['name']);
+            animals = _sortBy(animals, ['eggName']);
             break;
 
           case 'sortByColor':
