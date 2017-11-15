@@ -424,6 +424,8 @@ export default {
     async handleUserNotifications (after) {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 
+      if (this.$store.state.isRunningYesterdailies) return;
+
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
