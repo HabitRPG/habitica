@@ -25,12 +25,23 @@ describe('POST /user/buy-gear/:key', () => {
       });
   });
 
-  it('buys a piece of gear', async () => {
+  it('buys the first level gear', async () => {
     let key = 'armor_warrior_1';
 
     await user.post(`/user/buy-gear/${key}`);
     await user.sync();
 
     expect(user.items.gear.owned.armor_warrior_1).to.eql(true);
+  });
+
+  it('tries to buy subsequent, level gear', async () => {
+    let key = 'armor_warrior_2';
+
+    return expect(user.post(`/user/buy-gear/${key}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: 'String \'previousGearNotOwned\' not found.'
+      });
   });
 });
