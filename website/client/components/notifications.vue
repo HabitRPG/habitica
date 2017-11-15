@@ -373,8 +373,8 @@ export default {
       this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
-        this.handleUserNotifications(this.user.notifications);
         this.scheduleNextCron();
+        this.handleUserNotifications(this.user.notifications);
         return;
       }
 
@@ -415,8 +415,8 @@ export default {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
-      this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
+      this.handleUserNotifications(this.user.notifications);
     },
     transferGroupNotification (notification) {
       this.$store.state.groupNotifications.push(notification);
