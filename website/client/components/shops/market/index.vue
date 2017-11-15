@@ -234,7 +234,6 @@
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/variables.scss';
-  @import '~client/assets/scss/pin.scss';
 
   .market .drawer-slider {
     min-height: 60px;
