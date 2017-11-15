@@ -12,7 +12,7 @@ div(v-if='user.stats.lvl > 10')
   drawer(
     :title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", 
+    v-mousePosition="30",
     @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
     @toggled='drawerToggled'
@@ -244,7 +244,7 @@ export default {
           originalText: notes,
           number: this.user.stats.buffs.stealth,
         });
-      }// something's wrong with this code
+      }
 
       return notes;
     },
