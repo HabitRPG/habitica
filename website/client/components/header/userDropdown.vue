@@ -69,15 +69,11 @@ import MenuDropdown from '../ui/customMenuDropdown';
 import axios from 'axios';
 import markPMSRead from 'common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 export default {
   components: {
     MenuDropdown,
     MessageCount,
-  },
-  directives: {
-    bTooltip,
   },
   data () {
     return {
@@ -94,17 +90,17 @@ export default {
       this.$store.state.avatarEditorOptions.editingUser = true;
       this.$store.state.avatarEditorOptions.startingPage = startingPage;
       this.$store.state.avatarEditorOptions.subpage = subpage;
-      this.$root.$emit('show::modal', 'avatar-modal');
+      this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
     showInbox () {
       markPMSRead(this.user);
       axios.post('/api/v3/user/mark-pms-read');
-      this.$root.$emit('show::modal', 'inbox-modal');
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {
       this.$store.state.profileUser = this.user;
       this.$store.state.profileOptions.startingPage = startingPage;
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('bv::show::modal', 'profile');
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;
@@ -116,7 +112,7 @@ export default {
         eventLabel: 'Gems > User Dropdown',
       });
 
-      this.$root.$emit('show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
     logout () {
       this.$store.dispatch('auth:logout');

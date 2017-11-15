@@ -151,7 +151,6 @@ div
 </style>
 
 <script>
-  import bPopover from 'bootstrap-vue/lib/components/popover';
   import uuid from 'uuid';
 
   import svgGem from 'assets/svg/gem.svg';
@@ -170,7 +169,6 @@ div
 
   export default {
     components: {
-      bPopover,
       EquipmentAttributesPopover,
       QuestInfo,
     },

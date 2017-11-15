@@ -201,7 +201,7 @@ export default {
       let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: hero._id });
       this.$store.state.profileUser = heroDetails.data.data;
       this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('bv::show::modal', 'profile');
     },
     userLevelStyle () {
       // @TODO: implement

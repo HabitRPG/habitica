@@ -20,17 +20,17 @@
           .is-buffed(v-if="isBuffed")
             .svg-icon(v-html="icons.buff")
         span.small-text.character-level {{ characterLevel }}
-    .progress-container(b-tooltip.hover.bottom="$t('health')")
+    .progress-container(v-b-tooltip.hover.bottom="$t('health')")
       .svg-icon(v-html="icons.health")
       .progress
         .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
       span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
-    .progress-container(b-tooltip.hover.bottom="$t('experience')")
+    .progress-container(v-b-tooltip.hover.bottom="$t('experience')")
       .svg-icon(v-html="icons.experience")
       .progress
         .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
       span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
-    .progress-container(v-if="hasClass", b-tooltip.hover.bottom="$t('mana')")
+    .progress-container(v-if="hasClass", v-b-tooltip.hover.bottom="$t('mana')")
       .svg-icon(v-html="icons.mana")
       .progress
         .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
@@ -186,7 +186,6 @@ import Profile from './userMenu/profile';
 import { toNextLevel } from '../../common/script/statHelpers';
 import statsComputed from '../../common/script/libs/statsComputed';
 import percent from '../../common/script/libs/percent';
-// import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import buffIcon from 'assets/svg/buff.svg';
 import healthIcon from 'assets/svg/health.svg';
@@ -248,7 +247,7 @@ export default {
     showMemberModal (member) {
       this.$store.state.profileUser = member;
       this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('bv::show::modal', 'profile');
     },
   },
   computed: {

@@ -86,9 +86,6 @@ div
 <script>
 // @TODO: Move this under members directory
 import sortBy from 'lodash/sortBy';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import MemberDetails from './memberDetails';
 import removeIcon from 'assets/members/remove.svg';
@@ -98,9 +95,6 @@ import starIcon from 'assets/members/star.svg';
 export default {
   props: ['group', 'hideBadge', 'item'],
   components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
     MemberDetails,
   },
   data () {
@@ -181,7 +175,7 @@ export default {
       }
     },
     close () {
-      this.$root.$emit('hide::modal', 'select-member-modal');
+      this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     sort (option) {
       this.sortOption = option;

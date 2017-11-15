@@ -56,10 +56,15 @@
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
           label.custom-control.custom-checkbox.checklist-item(
-            v-if='!castingSpell && !task.collapseChecklist',
+            v-if='!task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
-            input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+            input.custom-control-input(
+              type="checkbox",
+              :checked="item.completed",
+              @change="toggleChecklistItem(item)",
+              :disabled="castingSpell",
+            )
             span.custom-control-indicator
             span.custom-control-description(v-markdown='item.text')
         .icons.small-text.d-flex.align-items-center
@@ -477,7 +482,6 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -493,7 +497,6 @@ import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
 import menuIcon from 'assets/svg/menu.svg';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
@@ -503,14 +506,12 @@ import MenuDropdown from '../ui/customMenuDropdown';
 export default {
   mixins: [notifications],
   components: {
-    bPopover,
     approvalFooter,
     approvalHeader,
     MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
-    bTooltip,
   },
   props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
@@ -597,7 +598,8 @@ export default {
       return moment().diff(this.task.date, 'days') >= 0;
     },
     dueIn () {
-      const dueIn = moment().to(this.task.date);
+      // this.task && is necessary to make sure the computed property updates correctly
+      const dueIn = moment().to(this.task && this.task.date);
       return this.$t('dueIn', {dueIn});
     },
     hasTags () {

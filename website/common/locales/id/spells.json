@@ -19,7 +19,7 @@
     "spellRoguePickPocketText": "Mencuri",
     "spellRoguePickPocketNotes": "Kamu rampok tugas di dekatmu dan dapatkan koin emas! (Berdasarkan: PER)",
     "spellRogueBackStabText": "Tusuk dari Belakang",
-    "spellRogueBackStabNotes": "You betray a foolish task and gain gold and XP! (Based on: STR)",
+    "spellRogueBackStabNotes": "Kamu mengkhianati sebuah tugas bodoh dan mendapatkan koin emas serta XP! (Berdasarkan: KEK)",
     "spellRogueToolsOfTradeText": "Alat Pertukaran",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Tidak Tampak",
@@ -56,5 +56,5 @@
     "challengeTasksNoCast": "Menggunakan kemampuan pada tantangan tidak diperbolehkan.",
     "groupTasksNoCast": "Menggunakan kemampuan pada tugas kelompok tidak diperbolehkan.",
     "spellNotOwned": "Anda tidak memiliki kemampuan ini.",
-    "spellLevelTooHigh": "Kamu harus berada pada level <%= level %> untuk menggunakan kemampuan ini."
+    "spellLevelTooHigh": "Kamu harus berada di level <%= level %> untuk menggunakan kemampuan ini."
 }

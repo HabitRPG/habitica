@@ -109,7 +109,7 @@ export default {
 
     },
     showRequests () {
-      this.$root.$emit('show::modal', 'approval-modal');
+      this.$root.$emit('bv::show::modal', 'approval-modal');
     },
   },
 };

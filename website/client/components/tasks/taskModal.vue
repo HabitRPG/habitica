@@ -452,9 +452,18 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+    }
+
+    .checklist-group {
+      .destroy-icon {
+        display: none;
+      }
 
       &:hover {
-        cursor: move;
+        .destroy-icon {
+          display: inline-block;
+          color: $gray-200;
+        }
       }
     }
 
@@ -501,10 +510,7 @@
 
 <script>
 import TagsPopup from './tagsPopup';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import sortable from 'client/directives/sortable.directive';
 import clone from 'lodash/clone';
@@ -525,9 +531,6 @@ import goldIcon from 'assets/svg/gold.svg';
 export default {
   components: {
     TagsPopup,
-    bModal,
-    bDropdown,
-    bDropdownItem,
     Datepicker,
     toggleSwitch,
   },
@@ -746,16 +749,16 @@ export default {
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
       if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     cancel () {
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
       this.showTagsSelect = false;
