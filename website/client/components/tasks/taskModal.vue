@@ -25,7 +25,7 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          div(v-sortable='true', @onsort='sortedChecklist')
+          draggable(v-model="checklist" :options="{handle: '.grippy', filter: '.task-dropdown'}" @update="sortedChecklist")
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -514,6 +514,7 @@ import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import uuid from 'uuid';
+import draggable from 'vuedraggable';
 
 import informationIcon from 'assets/svg/information.svg';
 import difficultyTrivialIcon from 'assets/svg/difficulty-trivial.svg';
@@ -530,6 +531,7 @@ export default {
     TagsPopup,
     Datepicker,
     toggleSwitch,
+    draggable,
   },
   directives: {
     sortable,
