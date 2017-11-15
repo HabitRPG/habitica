@@ -21,10 +21,12 @@ const BASE_URL = nconf.get('BASE_URL');
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
-  let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
+  let testBannedWordReligiousMessage = 'TEST_PLACEHOLDER_BANNED_WORD_RELIGIOUS';
+  let testBannedWordSwearMessage = 'TEST_PLACEHOLDER_BANNED_WORD_SWEARWORD';
+  let testBannedWordAddictiveMessage = 'TEST_PLACEHOLDER_BANNED_WORD_ADDICTIVE';
   let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
   let bannedWordErrorMessage = t('bannedWordUsed').split('.');
-  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
+  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordSwearMessage.toLowerCase())})`;
   bannedWordErrorMessage = bannedWordErrorMessage.join('.');
 
   before(async () => {
@@ -33,6 +35,7 @@ describe('POST /chat', () => {
         name: 'Test Guild',
         type: 'guild',
         privacy: 'public',
+        whitelistBannedWords: ['bannedWordsAddictive'],
       },
       members: 2,
     });
@@ -87,8 +90,8 @@ describe('POST /chat', () => {
   });
 
   context('banned word', () => {
-    it('returns an error when chat message contains a banned word in tavern', async () => {
-      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordMessage}))
+    it('returns an error when chat message contains a banned religious word in tavern', async () => {
+      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordReligiousMessage}))
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
@@ -96,8 +99,32 @@ describe('POST /chat', () => {
         });
     });
 
+    it('returns an error when chat message contains a banned swear word in tavern', async () => {
+      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordSwearMessage}))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
+    });
+
+    it('returns an error when chat message contains a banned addictive word in tavern', async () => {
+      await expect(user.post('/groups/habitrpg/chat', { message: testBannedWordAddictiveMessage}))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
+    });
+
+    it('allows posting words from a whitelisted group', async () => {
+      let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testBannedWordAddictiveMessage});
+
+      expect(message.message.id).to.exist;
+    });
+
     it('errors when word is part of a phrase', async () => {
-      let wordInPhrase = `phrase ${testBannedWordMessage} end`;
+      let wordInPhrase = `phrase ${testBannedWordSwearMessage} end`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -107,7 +134,7 @@ describe('POST /chat', () => {
     });
 
     it('errors when word is surrounded by non alphabet characters', async () => {
-      let wordInPhrase = `_!${testBannedWordMessage}@_`;
+      let wordInPhrase = `_!${testBannedWordSwearMessage}@_`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -133,14 +160,14 @@ describe('POST /chat', () => {
     });
 
     it('does not error when bad word is suffix of a word', async () => {
-      let wordAsSuffix = `prefix${testBannedWordMessage}`;
+      let wordAsSuffix = `prefix${testBannedWordSwearMessage}`;
       let message = await user.post('/groups/habitrpg/chat', { message: wordAsSuffix});
 
       expect(message.message.id).to.exist;
     });
 
     it('does not error when bad word is prefix of a word', async () => {
-      let wordAsPrefix = `${testBannedWordMessage}suffix`;
+      let wordAsPrefix = `${testBannedWordSwearMessage}suffix`;
       let message = await user.post('/groups/habitrpg/chat', { message: wordAsPrefix});
 
       expect(message.message.id).to.exist;
@@ -156,7 +183,7 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordSwearMessage});
 
       expect(message.message.id).to.exist;
     });
@@ -171,7 +198,7 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordSwearMessage});
 
       expect(message.message.id).to.exist;
     });
@@ -186,7 +213,7 @@ describe('POST /chat', () => {
         members: 1,
       });
 
-      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
+      let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordSwearMessage});
 
       expect(message.message.id).to.exist;
     });
