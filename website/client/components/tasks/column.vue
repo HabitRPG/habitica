@@ -69,7 +69,6 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-  @import '~client/assets/scss/pin.scss';
 
 
   .tasks-column {
