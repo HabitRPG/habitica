@@ -555,8 +555,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     padding: .5em;
     height: 90px;
     width: 90px;
-    margin: 1em .5em 0 0;
-    border: 4px solid $white;
+    margin: 1em .5em .5em 0;
+    border: 4px solid $gray-700;
     border-radius: 4px;
 
     .sprite.customize-option {
