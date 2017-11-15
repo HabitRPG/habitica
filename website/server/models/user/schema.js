@@ -454,7 +454,6 @@ let schema = new Schema({
     disableClasses: {type: Boolean, default: false},
     newTaskEdit: {type: Boolean, default: false},
     dailyDueDefaultView: {type: Boolean, default: false},
-    tagsCollapsed: {type: Boolean, default: false},
     advancedCollapsed: {type: Boolean, default: false},
     toolbarCollapsed: {type: Boolean, default: false},
     reverseChatOrder: {type: Boolean, default: false},
