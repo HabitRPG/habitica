@@ -350,7 +350,7 @@
     "privacySettings": "Datenschutzeinstellungen",
     "onlyLeaderCreatesChallenges": "Nur der Leiter kann Wettbewerbe erstellen",
     "privateGuild": "Private Gilde",
-    "charactersRemaining": "verbleibende Zeichen",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Zusammenfassung",
     "guildSummaryPlaceholder": "Schreibe eine Kurzbeschreibung um Deine Gilde anderen Habiticanern bekannt zu machen. Was ist der Hauptzweck der Gilde und warum sollten Leute dem ihr beitreten? Verwende hilfreiche Schlüsselwörter in der Beschreibung, um die Suche für andere Habiticaner zu erleichtern!",
     "groupDescription": "Beschreibung",

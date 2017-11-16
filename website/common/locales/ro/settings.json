@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Setează pe „scadente” implicit cotidienele",
     "dailyDueDefaultViewPop": "Cu această setare, cotidienele vor fi implicit „scadente” în loc de „toate”",
     "reverseChatOrder": "Show chat messages in reverse order",
-    "startCollapsed": "Lista de etichete cu țeluri pornește colapsat.",
-    "startCollapsedPop": "Cu această opțiune activată, lista de etichete a unui țel va fi ascunsă atunci când deschizi o sarcină pentru modificare prima dată.",
     "startAdvCollapsed": "Opțiunile avansate ale țelurilor sunt ascunse",
     "startAdvCollapsedPop": "Cu această opțiune activată, Opțiunile Avansate vor fi ascunse atunci când deschizi pentru prima oară un țel pentru modificare.",
     "dontShowAgain": "Nu mai arăta asta din nou",

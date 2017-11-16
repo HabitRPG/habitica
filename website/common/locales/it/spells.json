@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "Il ghiaccio congela i contatori serie di tutte le tue attività, così non torneranno a zero domani!",
     "spellWizardFrostAlreadyCast": "Hai già usato questa abilità oggi. Le tue serie sono congelate e non c'è bisogno di usarla di nuovo.",
     "spellWarriorSmashText": "Attacco Brutale",
-    "spellWarriorSmashNotes": "Rendi un'attività più blu/meno rossa, infliggendo danni extra ai Boss! (Dipende da: FOR)",
+    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "Posizione Difensiva",
     "spellWarriorDefensiveStanceNotes": "Ti prepari all'attacco delle tue attività e guadagni un bonus di Costituzione! (Dipende da: COS senza bonus)",
     "spellWarriorValorousPresenceText": "Presenza Valorosa",

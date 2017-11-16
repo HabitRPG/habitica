@@ -21,7 +21,7 @@
     "rebirthOrb": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu <%= level %>.",
     "rebirthOrb100": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu 100 lub wyższego",
     "rebirthOrbNoLevel": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa",
-    "rebirthPop": "Stwórz nową postać na Poziomie 1 zachowując osiągnięcia, przedmioty kolekcjonerskie, wyposażenie oraz zadania wraz z historią.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Kula Odrodzenia",
     "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>",
     "confirmReborn": "Na pewno?",

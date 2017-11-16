@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "日課を標準で「期限」タブに入れる",
     "dailyDueDefaultViewPop": "この設定にチェックを入れると、日課は標準で「すべて」タブではなく「期限」タブに入ります。",
     "reverseChatOrder": "チャットの順番を逆にする",
-    "startCollapsed": "タスクのタグ一覧をたたむ",
-    "startCollapsedPop": "このオプションを設定すると、編集のために最初にタスクを開いたときに、タスクのリストタグが非表示になります。",
     "startAdvCollapsed": "タスクの拡張オプションをたたむ",
     "startAdvCollapsedPop": "このオプションを設定すると、編集のために最初にタスクを開いたときに、拡張オプションが非表示になります。",
     "dontShowAgain": "次回、これを表示しない",

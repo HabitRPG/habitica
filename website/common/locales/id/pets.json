@@ -75,6 +75,7 @@
     "hatchAPot": "Tetaskan seekor <%= egg %><%= potion %> baru?",
     "hatchedPet": "Kamu menetaskan <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Kamu menetaskan seekor peliharaan baru!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Tampilkan Sekarang",
     "displayLater": "Tampilkan Nanti",
     "petNotOwned": "Kamu tidak memiliki peliharaan ini.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Klik seekor Peliharaan untuk memberinya makan <%= foodName %> dan lihat ia bertumbuh!",
     "dragThisPotion": "Tarik <%= potionName %> ini ke sebuah Telur dan tetaskan peliharaan baru!",
     "clickOnEggToHatch": "Klik sebuah Telur untuk menggunakan ramuan penetas <%= potionName %>-mu dan tetaskan peliharaan baru!",
-    "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

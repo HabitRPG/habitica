@@ -350,7 +350,7 @@
     "privacySettings": "Sekretessinställningar",
     "onlyLeaderCreatesChallenges": "Bara Ledaren kan skapa Utmaningar",
     "privateGuild": "Privat Gille",
-    "charactersRemaining": "återstående tecken",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Sammanfattning",
     "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
     "groupDescription": "Beskrivning",

@@ -172,7 +172,7 @@
     "repeatZero": "Daglig uppgift har inget förfallodatum",
     "repeatType": "Repetera Typ",
     "repeatTypeHelpTitle": "Vilken sorts repetition är detta?",
-    "repeatTypeHelp": "Select \"Daily\" if you want this task to repeat every day or every third day, etc. Select \"Weekly\"if you want it to repeat on certain days of the week. If you select \"Monthly\" or \"Yearly\", adjust the Start Date to control which day of the month or year the task will be due on.",
+    "repeatTypeHelp": "Välj \"Daglig\" om du vill att denna uppgift ska repeteras varje dag eller var tredje dag, etc. Välj \"Veckovis\" om du vill att den ska repetera på särskilda dagar av veckan. Om du väljer \"Månadsvis\" eller \"Årlig\", välj Startdatum för att kontrollera på vilken dag av månaden eller året du vill att uppgiften ska förfalla på.",
     "weekly": "Veckovis",
     "monthly": "Månadsvis",
     "yearly": "Årligen",

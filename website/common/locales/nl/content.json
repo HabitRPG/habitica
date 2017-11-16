@@ -160,7 +160,7 @@
     "questEggHippoAdjective": "een vrolijk",
     "questEggYarnText": "Yarn",
     "questEggYarnMountText": "Flying Carpet",
-    "questEggYarnAdjective": "woolen",
+    "questEggYarnAdjective": "wollen",
     "eggNotes": "Vind een uitbroeddrank om over dit ei te gieten en er zal een <%= eggAdjective(locale) %> <%= eggText(locale) %> uitkomen.",
     "hatchingPotionBase": "Normale",
     "hatchingPotionWhite": "Witte",

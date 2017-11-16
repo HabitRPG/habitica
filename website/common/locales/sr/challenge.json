@@ -29,6 +29,7 @@
     "either": "Oba",
     "createChallenge": "Napravi novi izazov",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "Odbaci",
     "challengeTitle": "Naziv izazova",

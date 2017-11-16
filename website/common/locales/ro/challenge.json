@@ -29,6 +29,7 @@
     "either": "Oricare",
     "createChallenge": "Crează Provocare",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "Renunță",
     "challengeTitle": "Titlul provocării",
