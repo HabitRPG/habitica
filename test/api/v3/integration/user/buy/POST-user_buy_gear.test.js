@@ -41,7 +41,7 @@ describe('POST /user/buy-gear/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: 'String \'previousGearNotOwned\' not found.',
+        message: 'You need to purchase a lower level gear before this one.',
       });
   });
 });
