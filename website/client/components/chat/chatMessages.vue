@@ -26,7 +26,7 @@
             h3.leader(
               :class='userLevelStyle(msg)'
               @click="showMemberModal(msg.uuid)",
-              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.title : ''",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
@@ -64,7 +64,7 @@
             h3.leader(
               :class='userLevelStyle(msg)',
               @click="showMemberModal(msg.uuid)",
-              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.title : ''",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
               .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
