@@ -2,10 +2,10 @@
 div
   approval-modal(:task='task')
   .claim-bottom-message.col-12
-    .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
+    .task-unclaimed.d-flex.justify-content-between(v-if='!approvalRequested && !multipleApprovalsRequested')
       span {{ message }}
-      a(@click='claim()', v-if='!userIsAssigned') Claim
-      a(@click='unassign()', v-if='userIsAssigned') Remove Claim
+      a.text-right(@click='claim()', v-if='!userIsAssigned') Claim
+      a.text-right(@click='unassign()', v-if='userIsAssigned') Remove Claim
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') Approve Task
