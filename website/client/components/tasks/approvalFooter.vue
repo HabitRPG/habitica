@@ -3,7 +3,7 @@ div
   approval-modal(:task='task')
   .claim-bottom-message.col-12
     .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
-      | {{ message }}
+      span {{ message }}
       a(@click='claim()', v-if='!userIsAssigned') Claim
       a(@click='unassign()', v-if='userIsAssigned') Remove Claim
     .row.task-single-approval(v-if='approvalRequested')
@@ -15,13 +15,19 @@ div
       a(@click='showRequests()') View Requests
 </template>
 
-<style scoped>
+<style lang="scss", scoped>
 .claim-bottom-message {
   z-index: 9;
 }
 
-.task-unclaimed a {
-  float: right;
+.task-unclaimed {
+  span {
+    margin-right: 0.25rem;
+  }
+
+  a {
+    display: inline-block;
+  }
 }
 </style>
 
