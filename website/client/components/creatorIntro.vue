@@ -538,12 +538,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     padding-bottom: 2em;
   }
 
-  .option.locked {
-    border-radius: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-  }
-
   .option.hide {
     display: none !important;
   }
@@ -557,6 +551,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     margin: 1em .5em .5em 0;
     border: 4px solid $gray-700;
     border-radius: 4px;
+
+    &.locked {
+      border: none;
+      border-radius: 2px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      margin-top: 0;
+    }
 
     .sprite.customize-option {
       margin: 0 auto;
