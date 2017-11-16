@@ -270,7 +270,6 @@ import tier7 from 'assets/svg/tier-7.svg';
 import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tier10 from 'assets/svg/tier-npc.svg';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
@@ -282,7 +281,6 @@ export default {
   },
   directives: {
     markdown: markdownDirective,
-    bTooltip,
   },
   mounted () {
     this.loadProfileCache();
