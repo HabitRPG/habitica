@@ -25,7 +25,11 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          draggable(v-model="checklist" :options="{handle: '.grippy', filter: '.task-dropdown'}" @update="sortedChecklist")
+          draggable(
+          v-model="checklist",
+          :options="{handle: '.grippy', filter: '.task-dropdown'}",
+          @update="sortedChecklist"
+          )
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -509,7 +513,6 @@
 import TagsPopup from './tagsPopup';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
-import sortable from 'client/directives/sortable.directive';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
@@ -532,9 +535,6 @@ export default {
     Datepicker,
     toggleSwitch,
     draggable,
-  },
-  directives: {
-    sortable,
   },
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],
