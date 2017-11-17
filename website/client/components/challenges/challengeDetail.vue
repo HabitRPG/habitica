@@ -1,6 +1,7 @@
 <template lang="pug">
 .row
   challenge-modal(:cloning='cloning' v-on:updatedChallenge='updatedChallenge')
+  leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
 
@@ -191,6 +192,7 @@ import markdownDirective from 'client/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
+import leaveChallengeModal from './leaveChallengeModal';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -206,6 +208,7 @@ export default {
   },
   components: {
     closeChallengeModal,
+    leaveChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     TaskColumn: Column,
@@ -370,19 +373,7 @@ export default {
       await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     async leaveChallenge () {
-      let keepChallenge = confirm('Do you want to keep challenge tasks?');
-      let keep = 'keep-all';
-      if (!keepChallenge) keep = 'remove-all';
-
-      let index = findIndex(this.user.challenges, (challengeId) => {
-        return challengeId === this.searchId;
-      });
-      this.user.challenges.splice(index, 1);
-      await this.$store.dispatch('challenges:leaveChallenge', {
-        challengeId: this.searchId,
-        keep,
-      });
-      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+      this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
     },
     closeChallenge () {
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
