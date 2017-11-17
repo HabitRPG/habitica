@@ -26,9 +26,13 @@
   }
 
   &:active:not(.btn-flat), &.active:not(.btn-flat) {
-    box-shadow: none;
+    box-shadow: none !important;
     border: 1px solid transparent;
   }
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  color: $white !important;
 }
 
 .btn:disabled, .btn.disabled {
@@ -45,7 +49,7 @@
   }
 
   &:hover:not(:disabled), &:active, &.active, &:focus {
-    background: #5d3b9c;
+    background: #5d3b9c !important;
     color: $white;
   }
 }

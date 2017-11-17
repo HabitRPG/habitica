@@ -105,7 +105,7 @@
     "questGoldenknight3DropHoney": "Honing (voedsel)",
     "questGoldenknight3DropGoldenPotion": "Gouden uitbroeddrank",
     "questGoldenknight3DropWeapon": "Mustaine's Milestone Mashing Morning Star (Off-hand Weapon)",
-    "questGroupEarnable": "Earnable Quests",
+    "questGroupEarnable": "Queesten om te verdienen",
     "questBasilistText": "De Basi-lijst",
     "questBasilistNotes": "Er heerst onrust in de marktplaats - het soort waar je eigenlijk voor weg moet rennen. Omdat je een dappere avonturier bent, ren je er juist naartoe. Je ontdekt een basi-lijst, die samen aan het smelten is uit een klont onvoltooide To-do's! Habiticanen in de omgeving zijn verlamd van angst door hoe lang de basi-lijst is, en zijn niet in staat aan het werk te gaan. Ergens dichtbij hoor je @Arcosine roepen: \"Snel! Voltooi je To-do's en Dagelijkse Taken om het monster te verslaan, voordat er iemand zich openhaalt aan het papier!\" Sla snel toe, avonturier, en vink iets af - maar pas op! Als je ook maar één Dagelijkse Taak onvoltooid laat, zal de basi-lijst jou en je groep aanvallen!",
     "questBasilistCompletion": "De basi-lijst valt uiteen in papiersnippers met zachtjes glinsterende regenboogkleuren. \"Oef!\" zegt @Arcosine. \"Het is maar goed dat jullie langskwamen!\" Je voelt je meer ervaren dan ooit, en raapt wat goud op dat tussen het papier ligt.",
@@ -543,5 +543,11 @@
     "questLostMasterclasser4RageEffect": "`Anti'zinnya uses SIPHONING VOID!` In a twisted inversion of the Ethereal Surge spell, you feel your magic drain away into the darkness!",
     "questLostMasterclasser4DropBackAccessory": "Aether Cloak (Back Accessory)",
     "questLostMasterclasser4DropWeapon": "Aether Crystals (Two-Handed Weapon)",
-    "questLostMasterclasser4DropMount": "Invisible Aether Mount"
+    "questLostMasterclasser4DropMount": "Invisible Aether Mount",
+    "questYarnText": "A Tangled Yarn",
+    "questYarnNotes": "It’s such a pleasant day that you decide to take a walk through the Taskan Countryside. As you pass by its famous yarn shop, a piercing scream startles the birds into flight and scatters the butterflies into hiding. You run towards the source and see @Arcosine running up the path towards you. Behind him, a horrifying creature consisting of yarn, pins, and knitting needles is clicking and clacking ever closer.<br><br>The shopkeepers race after him, and @stefalupagus grabs your arm, out of breath. \"Looks like all of his unfinished projects\" <em>gasp gasp</em> \"have transformed the yarn from our Yarn Shop\" <em>gasp gasp</em> \"into a tangled mass of Yarnghetti!\"<br><br>\"Sometimes, life gets in the way and a project is abandoned, becoming ever more tangled and confused,\" says @khdarkwolf. \"The confusion can even spread to other projects, until there are so many half-finished works running around that no one gets anything done!\"<br><br>It’s time to make a choice: complete your stalled projects… or decide to unravel them for good. Either way, you'll have to increase your productivity quickly before the Dread Yarnghetti spreads confusion and discord to the rest of Habitica!",
+    "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
+    "questYarnBoss": "The Dread Yarnghetti",
+    "questYarnDropYarnEgg": "Yarn (Egg)",
+    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market"
 }

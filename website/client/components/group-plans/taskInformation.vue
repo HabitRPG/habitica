@@ -70,6 +70,7 @@
         :groupId="groupId",
         v-on:taskCreated='taskCreated',
         v-on:taskEdited='taskEdited',
+        v-on:taskDestroyed='taskDestroyed'
       )
   .row
     task-column.col-12.col-sm-6.col-3(
@@ -228,8 +229,6 @@
 import taskDefaults from 'common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -250,8 +249,6 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {
@@ -371,7 +368,7 @@ export default {
       this.workingTask = this.editingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -380,10 +377,11 @@ export default {
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     taskCreated (task) {
+      task.group.id = this.group._id;
       this.tasksByType[task.type].push(task);
     },
     taskEdited (task) {
@@ -391,6 +389,12 @@ export default {
         return taskItem._id === task._id;
       });
       this.tasksByType[task.type].splice(index, 1, task);
+    },
+    taskDestroyed (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1);
     },
     cancelTaskModal () {
       this.editingTask = null;

@@ -23,8 +23,8 @@
     "turkey": "Dindon",
     "gildedTurkey": "Dinde dorée",
     "polarBearPup": "Ourson polaire",
-    "jackolantern": "Citrouille d'Halloween",
-    "ghostJackolantern": "Citrouille d'Halloween fantomatique",
+    "jackolantern": "Citrouille d'Habitoween",
+    "ghostJackolantern": "Citrouille d'Habitoween fantomatique",
     "seasonalShop": "Boutique saisonnière",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sorcière saisonnière<%= linkEnd %>",
@@ -119,5 +119,6 @@
     "dateEndJuly": "29 juillet",
     "dateEndAugust": "31 août",
     "dateEndOctober": "31 octobre",
+    "dateEndNovember": "November 30",
     "discountBundle": "lot"
 }

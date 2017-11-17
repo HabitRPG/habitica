@@ -29,6 +29,7 @@
     "either": "Entrambi",
     "createChallenge": "Crea sfida",
     "createChallengeAddTasks": "Aggiungi attività sfida",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Aggiungi attività",
     "discard": "Annulla",
     "challengeTitle": "Titolo sfida",

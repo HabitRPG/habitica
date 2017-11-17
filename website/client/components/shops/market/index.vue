@@ -60,10 +60,10 @@
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-      h1.mb-0.page-header(v-once) {{ $t('market') }}
+      h1.mb-4.page-header(v-once) {{ $t('market') }}
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('equipment') }}
 
         div.float-right
@@ -118,7 +118,7 @@
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('items') }}
 
         div.float-right
@@ -247,37 +247,7 @@
     height: 38px; // button + margin + padding
   }
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
+  
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -379,10 +349,6 @@
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgPin from 'assets/svg/pin.svg';
   import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
@@ -426,10 +392,6 @@ export default {
       DrawerHeaderTabs,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       SellModal,
       EquipmentAttributesGrid,

@@ -29,6 +29,7 @@
     "either": "Beides",
     "createChallenge": "Wettbewerb erstellen",
     "createChallengeAddTasks": "Wettbewerbsaufgabe hinzufügen",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Aufgabe hinzufügen",
     "discard": "Verwerfen",
     "challengeTitle": "Titel des Wettbewerbs",

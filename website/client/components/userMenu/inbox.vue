@@ -163,9 +163,6 @@ import sortBy from 'lodash/sortBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
-
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
 import svgClose from 'assets/svg/close.svg';
@@ -173,13 +170,11 @@ import svgClose from 'assets/svg/close.svg';
 export default {
   mixins: [styleHelper],
   components: {
-    bModal,
-    bFormInput,
     chatMessage,
   },
   mounted () {
     this.$root.$on('habitica::new-inbox-message', (data) => {
-      this.$root.$emit('show::modal', 'inbox-modal');
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
 
       const conversation = this.conversations.find(convo => {
         return convo.key === data.userIdToMessage;
@@ -325,7 +320,7 @@ export default {
       });
     },
     close () {
-      this.$root.$emit('hide::modal', 'inbox-modal');
+      this.$root.$emit('bv::hide::modal', 'inbox-modal');
     },
   },
 };

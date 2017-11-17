@@ -67,7 +67,7 @@
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
-      h1.mb-0.page-header(v-once) {{ $t('quests') }}
+      h1.mb-4.page-header(v-once) {{ $t('quests') }}
 
       .clearfix
         div.float-right
@@ -85,7 +85,7 @@
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           v-if="category.identifier === 'pet'",
@@ -335,9 +335,6 @@
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
 
@@ -359,10 +356,6 @@ export default {
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
       BuyModal,
@@ -477,7 +470,7 @@ export default {
 
         this.selectedItemToBuy = item;
 
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
       },
     },
   };

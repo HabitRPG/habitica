@@ -219,6 +219,10 @@
   "questEggHippoMountText": "Hippo",
   "questEggHippoAdjective": "a happy",
 
+  "questEggYarnText": "Yarn",
+  "questEggYarnMountText": "Flying Carpet",
+  "questEggYarnAdjective": "woolen",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",

@@ -75,6 +75,7 @@
     "hatchAPot": "Kläck en ny <%= potion %> <%= egg %>?",
     "hatchedPet": "Du kläckte en ny <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Du kläckte ett nytt husdjur!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Visa nu",
     "displayLater": "Visa senare",
     "petNotOwned": "Du har inte detta husdjur.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Klicka på ett Husdjur för att mata den med <%= foodName %> och se den växa!",
     "dragThisPotion": "Dra denna <%= potionName %> till ett Ägg för att kläcka ett nytt husdjur!",
     "clickOnEggToHatch": "Klicka på ett Ägg för att använda din <%= potionName %> kläckningsdryck och kläck ett nytt husdjur!",
-    "hatchDialogText": "Häll din <%= potionName %> kläckningsdryck på ditt <%= eggName %> ägg så kommer den kläckas till en <%= petName %> ."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

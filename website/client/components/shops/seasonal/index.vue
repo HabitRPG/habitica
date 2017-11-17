@@ -57,10 +57,10 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
+      h1.mb-4.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('classArmor') }}
 
         div.float-right
@@ -286,10 +286,6 @@
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
 
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
   import svgWizard from 'assets/svg/wizard.svg';
@@ -320,10 +316,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
     },

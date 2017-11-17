@@ -21,7 +21,7 @@
     "rebirthOrb": "使用一個重生球在達到水平後重新開始 <%= level %>。",
     "rebirthOrb100": "使用重生球在達到100級或更高級別後重新開始。",
     "rebirthOrbNoLevel": "使用了重生球來重生。",
-    "rebirthPop": "讓您的角色重新回到等級 1，但保留成就、收集品、裝備及任務和紀錄。",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "重生之球",
     "reborn": "重生，最高級別 <%= reLevel %>",
     "confirmReborn": "你確定嗎？",

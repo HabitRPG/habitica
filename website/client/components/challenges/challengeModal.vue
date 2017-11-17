@@ -12,7 +12,7 @@
       .form-group
         label
           strong(v-once) {{$t('challengeSummary')}} *
-        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         textarea.summary-textarea.form-control(:placeholder="$t('challengeSummaryPlaceholder')", v-model="workingChallenge.summary")
       .form-group
         label
@@ -57,7 +57,7 @@
             You do not have enough gems to create a Tavern challenge
             // @TODO if buy gems button is added, add analytics tracking to it
             // see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134
-          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeAddTasks')}}
+          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeCloneTasks')}}
           button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
         .col-12.text-center
           p(v-once) {{$t('challengeMinimum')}}
@@ -131,10 +131,6 @@
 
 <script>
 import clone from 'lodash/clone';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import markdownDirective from 'client/directives/markdown';
 
@@ -143,12 +139,6 @@ import { mapState } from 'client/libs/store';
 
 export default {
   props: ['groupId', 'cloning'],
-  components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
-    bFormInput,
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -402,7 +392,7 @@ export default {
 
       if (this.cloning) this.$store.state.challengeOptions.cloning = true;
 
-      this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
     updateChallenge () {
@@ -425,7 +415,7 @@ export default {
       });
       this.$store.dispatch('challenges:updateChallenge', {challenge: challengeDetails});
       this.resetWorkingChallenge();
-      this.$root.$emit('hide::modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;

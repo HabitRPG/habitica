@@ -18,7 +18,7 @@
             span.custom-control-description(v-once) {{ $t(group.key) }}
   .standard-page
     .clearfix
-      h1.float-left.mb-0.page-header(v-once) {{ $t('items') }}
+      h1.float-left.mb-4.page-header(v-once) {{ $t('items') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t(sortBy)", right=true)
@@ -29,7 +29,7 @@
       v-if="group.selected",
       :key="group.key",
     )
-      h2
+      h2.mb-3
        | {{ $t(group.key) }}
        |
        span.badge.badge-pill.badge-default(v-if="group.key != 'special'") {{group.quantity}}
@@ -180,8 +180,6 @@ import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
@@ -227,8 +225,6 @@ export default {
   components: {
     Item,
     ItemRows,
-    bDropdown,
-    bDropdownItem,
     HatchedPetDialog,
     CountBadge,
     startQuestModal,
@@ -408,7 +404,7 @@ export default {
           cardType: item.key,
           messageOptions: this.content.cardTypes[item.key].messageOptions,
         };
-        this.$root.$emit('show::modal', 'card');
+        this.$root.$emit('bv::show::modal', 'card');
         return;
       }
 
@@ -430,7 +426,7 @@ export default {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
-        this.$root.$emit('show::modal', 'start-quest-modal');
+        this.$root.$emit('bv::show::modal', 'start-quest-modal');
 
         this.$root.$emit('selectQuest', item);
       }

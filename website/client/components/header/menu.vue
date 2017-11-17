@@ -3,10 +3,13 @@ div
   inbox-modal
   creator-intro
   profile
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-md
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md(type="dark")
     .navbar-header
-      .logo.svg-icon.hidden-lg-down(v-html="icons.logo")
-      .svg-icon.gryphon.hidden-xl-up
+      .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
+      .svg-icon.gryphon.d-md-block.d-none.d-xl-none
+      .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
+
+    b-nav-toggle(target='nav_collapse')
     b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
       ul.navbar-nav.mr-auto
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -67,7 +70,6 @@ div
           .svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
         user-dropdown.item-with-icon
-    b-nav-toggle(target='nav_collapse')
 </template>
 
 <style lang="scss" scoped>
@@ -92,12 +94,20 @@ div
       background-size: cover;
       color: $white;
       margin: 0 auto;
+
+    }
+
+    .svg-icon.gryphon.d-sm-block {
+
+      position: absolute;
+      left: calc(50% - 30px);
+      top: 1em;
     }
   }
 
   @media only screen and (max-width: 990px) {
     #nav_collapse {
-      margin-top: 1.3em;
+      margin-top: 0.6em;
       background-color: $purple-200;
     }
   }
@@ -122,7 +132,7 @@ div
   .nav-item {
     .nav-link {
       font-size: 16px;
-      color: $white;
+      color: $white !important;
       font-weight: bold;
       line-height: 1.5;
       padding: 16px 24px;
@@ -131,7 +141,7 @@ div
 
     &:hover {
       .nav-link {
-        color: $white;
+        color: $white !important;
         background: $purple-200;
       }
     }
@@ -143,10 +153,10 @@ div
     }
   }
 
-  // Make the dropdown menu open on hover    
-  .dropdown:hover .dropdown-menu {    
-   display: block;   
-   margin-top: 0; // remove the gap so it doesn't close    
+  // Make the dropdown menu open on hover
+  .dropdown:hover .dropdown-menu {
+   display: block;
+   margin-top: 0; // remove the gap so it doesn't close
   }
 
   .dropdown-menu {
@@ -188,6 +198,7 @@ div
   .item-with-icon {
     color: $white;
     font-size: 16px;
+    font-weight: normal;
     white-space: nowrap;
 
     span {
@@ -220,12 +231,29 @@ div
   .gem:hover {
     cursor: pointer;
   }
+
+  .message-count {
+    background-color: $blue-50;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    float: right;
+    color: $white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .message-count.top-count {
+    background-color: $red-50;
+    position: absolute;
+    right: 0;
+    top: -0.5em;
+    padding: .2em;
+  }
 </style>
 
 <script>
-import bNavToggle from 'bootstrap-vue/lib/components/nav-toggle';
-import bCollapse from 'bootstrap-vue/lib/components/collapse';
-
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import gemIcon from 'assets/svg/gem.svg';
@@ -238,7 +266,6 @@ import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
 import profile from '../userMenu/profile';
 import userDropdown from './userDropdown';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 export default {
   components: {
@@ -247,11 +274,6 @@ export default {
     notificationMenu,
     creatorIntro,
     profile,
-    bNavToggle,
-    bCollapse,
-  },
-  directives: {
-    bTooltip,
   },
   data () {
     return {
@@ -292,7 +314,7 @@ export default {
       this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
     },
     openPartyModal () {
-      this.$root.$emit('show::modal', 'create-party-modal');
+      this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;
@@ -304,7 +326,7 @@ export default {
         eventLabel: 'Gems > Toolbar',
       });
 
-      this.$root.$emit('show::modal', 'buy-gems', {alreadyTracked: true});
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };

@@ -127,7 +127,7 @@
     "commGuidePara060A": "If the situation calls for it, you may receive a PM or email in addition to or instead of a post in the forum in which the infraction occurred.",
     "commGuidePara060B": "If your account is banned (a severe consequence), you will not be able to log into Habitica and will receive an error message upon attempting to log in. If you wish to apologize or make a plea for reinstatement, please email Lemoness at <%= hrefCommunityManagerEmail %> with your UUID (which will be given in the error message). It is your responsibility to reach out if you desire reconsideration or reinstatement.",
     "commGuideHeadingSevereConsequences": "Exempel på allvarliga konsekvenser",
-    "commGuideList09A": "Account bans (see above)",
+    "commGuideList09A": "Konto-bann (Se ovan)",
     "commGuideList09B": "Kontoborttagning",
     "commGuideList09C": "Permanently disabling (\"freezing\") progression through Contributor Tiers",
     "commGuideHeadingModerateConsequences": "Exempel på måttliga konsekvenser",

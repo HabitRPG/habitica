@@ -82,7 +82,6 @@ export default function () {
         'time-travelers': asyncResourceFactory(),
       },
       myGuilds: [],
-      publicGuilds: [],
       groupFormOptions: {
         creatingParty: false,
         groupId: '',
@@ -133,7 +132,6 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      brokenChallengeTask: {},
       equipmentDrawerOpen: true,
       groupPlans: [],
       groupNotifications: [],

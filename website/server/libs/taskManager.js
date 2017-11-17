@@ -77,6 +77,8 @@ export async function createTasks (req, res, options = {}) {
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
+  let taskOrderToAdd = {};
+
   toSave = toSave.map(taskData => {
     // Validate that task.type is valid
     if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
@@ -103,10 +105,22 @@ export async function createTasks (req, res, options = {}) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge/group
-    owner.tasksOrder[`${taskType}s`].unshift(newTask._id);
+    if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
+    taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
+
+  // Push all task ids
+  let taskOrderUpdateQuery = {$push: {}};
+  for (let taskType in taskOrderToAdd) {
+    taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
+      $each: taskOrderToAdd[taskType],
+      $position: 0,
+    };
+  }
+
+  await owner.update(taskOrderUpdateQuery).exec();
 
   // tasks with aliases need to be validated asyncronously
   await _validateTaskAlias(toSave, res);
