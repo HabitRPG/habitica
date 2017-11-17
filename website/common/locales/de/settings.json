@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Setze Standardansicht der täglichen Aufgaben auf \"Fällig\"",
     "dailyDueDefaultViewPop": "Mit dieser Option änderst Du die Standardansicht der täglichen Aufgaben zu \"Fällig\" statt zu \"Alle\"",
     "reverseChatOrder": "Zeige die Chat-Nachrichten in umgekehrter Reihenfolge",
-    "startCollapsed": "Tag-Liste in Aufgaben standardmäßig verdecken",
-    "startCollapsedPop": "Mit dieser Option wird die Liste der Tags verdeckt, wenn Du eine Aufgabe das erste mal bearbeitest.",
     "startAdvCollapsed": "Erweiterte Optionen standardmäßig verdecken",
     "startAdvCollapsedPop": "Mit dieser Option werden erweiterte Optionen ausgeblendet, wenn Du eine Aufgabe das erste mal bearbeitest.",
     "dontShowAgain": "Nicht mehr anzeigen",

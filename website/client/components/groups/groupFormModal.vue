@@ -56,7 +56,7 @@
       .form-group(v-if='!isParty')
         label
           strong(v-once) {{$t('guildSummary')}} *
-        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
         // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -345,7 +345,10 @@ export default {
       if (editingGroup.summary) this.workingGroup.summary = editingGroup.summary;
       if (editingGroup.description) this.workingGroup.description = editingGroup.description;
       if (editingGroup._id) this.workingGroup.id = editingGroup._id;
-      if (editingGroup.leader._id) this.workingGroup.newLeader = editingGroup.leader._id;
+      if (editingGroup.leader._id) {
+        this.workingGroup.newLeader = editingGroup.leader._id;
+        this.workingGroup.currentLeaderId = editingGroup.leader._id;
+      }
       if (editingGroup._id) this.getMembers();
     },
   },
@@ -424,14 +427,19 @@ export default {
       });
       this.workingGroup.categories = serverCategories;
 
+      let groupData = Object.assign({}, this.workingGroup);
+      if (groupData.newLeader === this.workingGroup.currentLeaderId) {
+        groupData.leader = this.workingGroup.currentLeaderId;
+      }
+
       let newgroup;
-      if (this.workingGroup.id) {
-        await this.$store.dispatch('guilds:update', {group: this.workingGroup});
+      if (groupData.id) {
+        await this.$store.dispatch('guilds:update', {group: groupData});
         this.$root.$emit('updatedGroup', this.workingGroup);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        newgroup = await this.$store.dispatch('guilds:create', {group: this.workingGroup});
+        newgroup = await this.$store.dispatch('guilds:create', {group: groupData});
         this.$store.state.user.data.balance -= 1;
       }
 

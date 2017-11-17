@@ -105,8 +105,6 @@
 
   .drawer-slider {
     padding: 12px 0 0 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
     white-space: nowrap;
     position: relative;
 

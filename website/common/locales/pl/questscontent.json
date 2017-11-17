@@ -543,5 +543,11 @@
     "questLostMasterclasser4RageEffect": "`Anty'zinnya używa POCHŁANIAJĄCEJ PUSTKI!` Uderza was pokrętnie odwrócenie czaru Eterycznego Przypływu, czujecie jak wasza magia jest wsysana do nicości!",
     "questLostMasterclasser4DropBackAccessory": "Eteryczny Płaszcz (Akcesorium na plecy)",
     "questLostMasterclasser4DropWeapon": "Eteryczne Kryształy (Broń dwuręczna)",
-    "questLostMasterclasser4DropMount": "Niewidzialny Eteryczny Wierzchowiec"
+    "questLostMasterclasser4DropMount": "Niewidzialny Eteryczny Wierzchowiec",
+    "questYarnText": "A Tangled Yarn",
+    "questYarnNotes": "It’s such a pleasant day that you decide to take a walk through the Taskan Countryside. As you pass by its famous yarn shop, a piercing scream startles the birds into flight and scatters the butterflies into hiding. You run towards the source and see @Arcosine running up the path towards you. Behind him, a horrifying creature consisting of yarn, pins, and knitting needles is clicking and clacking ever closer.<br><br>The shopkeepers race after him, and @stefalupagus grabs your arm, out of breath. \"Looks like all of his unfinished projects\" <em>gasp gasp</em> \"have transformed the yarn from our Yarn Shop\" <em>gasp gasp</em> \"into a tangled mass of Yarnghetti!\"<br><br>\"Sometimes, life gets in the way and a project is abandoned, becoming ever more tangled and confused,\" says @khdarkwolf. \"The confusion can even spread to other projects, until there are so many half-finished works running around that no one gets anything done!\"<br><br>It’s time to make a choice: complete your stalled projects… or decide to unravel them for good. Either way, you'll have to increase your productivity quickly before the Dread Yarnghetti spreads confusion and discord to the rest of Habitica!",
+    "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
+    "questYarnBoss": "The Dread Yarnghetti",
+    "questYarnDropYarnEgg": "Yarn (Egg)",
+    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market"
 }
