@@ -26,6 +26,8 @@
 
 <script>
 import markdownDirective from 'client/directives/markdown';
+import { mapState, mapActions } from 'client/libs/store';
+import taskDefaults from 'common/script/libs/taskDefaults';
 
 export default {
   directives: {
@@ -38,6 +40,9 @@ export default {
       notes: '',
     };
   },
+  computed: {
+    ...mapState({tasks: 'tasks.data'}),
+  },
   watch: {
     copyingMessage () {
       this.text = this.copyingMessage.text;
@@ -46,18 +51,22 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      createTask: 'tasks:create',
+    }),
     close () {
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
     saveTodo () {
-      // let newTask = {
-      //   text: this.text,
-      //   type: 'todo',
-      //   notes: this.notes,
-      // };
+      const newTask = taskDefaults({type: 'todo', text: this.text, notes: this.notes});
 
-      //  @TODO: Add after tasks: User.addTask({body:newTask});
-      // @TODO: Notification.text(window.env.t('messageAddedAsToDo'));
+      this.createTask(newTask);
+      this.$store.dispatch('snackbars:add', {
+        title: 'Copy Task',
+        text: this.$t('messageAddedAsToDo'),
+        type: 'success',
+        timeout: true,
+      });
 
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
