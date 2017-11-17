@@ -42,10 +42,10 @@
           )
 
         .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+          .how-many-to-buy(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
             strong {{ $t('howManyToBuy') }}
           div(v-if='item.purchaseType !== "gear"')
-            .box
+            .box(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
             span.value(:class="getPriceClass()") {{ item.value }}

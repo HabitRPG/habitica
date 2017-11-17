@@ -100,6 +100,12 @@ let armor = {
     value: 0,
     canOwn: ownsItem('armor_special_samuraiArmor'),
   },
+  turkeyArmorBase: {
+    text: t('armorSpecialTurkeyArmorBaseText'),
+    notes: t('armorSpecialTurkeyArmorBaseNotes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_turkeyArmorBase'),
+  },
   yeti: {
     event: EVENTS.winter,
     specialClass: 'warrior',
@@ -795,6 +801,12 @@ let back = {
     per: 10,
     canOwn: ownsItem('back_special_aetherCloak'),
   },
+  turkeyTailBase: {
+    text: t('backSpecialTurkeyTailBaseText'),
+    notes: t('backSpecialTurkeyTailBaseNotes'),
+    value: 0,
+    canOwn: ownsItem('back_special_turkeyTailBase'),
+  },
 };
 
 let body = {
@@ -1057,6 +1069,12 @@ let head = {
     notes: t('headSpecialNyeNotes'),
     value: 0,
     canOwn: ownsItem('head_special_nye'),
+  },
+  turkeyHelmBase: {
+    text: t('headSpecialTurkeyHelmBaseText'),
+    notes: t('headSpecialTurkeyHelmBaseNotes'),
+    value: 0,
+    canOwn: ownsItem('head_special_turkeyHelmBase'),
   },
   yeti: {
     event: EVENTS.winter,

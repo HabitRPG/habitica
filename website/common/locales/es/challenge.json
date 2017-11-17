@@ -88,7 +88,7 @@
     "userAlreadyInChallenge": "El usuario ya está participando en el desafío.",
     "cantOnlyUnlinkChalTask": "Solo se pueden desvincular las tareas de los desafíos que se hayan interrumpido.",
     "shortNameTooShort": "El nombre de la etiqueta debe tener al menos 3 caracteres.",
-    "joinedChallenge": "Se unió a un desafío ",
+    "joinedChallenge": "Se unió a un desafío",
     "joinedChallengeText": "¡Este usuario se puso a prueba uniéndose a un desafío!",
     "myChallenges": "My Challenges",
     "findChallenges": "Discover Challenges",

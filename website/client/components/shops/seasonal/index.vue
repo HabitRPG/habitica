@@ -383,7 +383,9 @@
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
           this.featuredGearBought = true;
-          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          if (seasonal.categories.length > 0) {
+            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          }
         }
 
         return seasonal;

@@ -75,7 +75,7 @@
     "hatchAPot": "Искате ли да излюпите <%= egg %> с <%= potion %>?",
     "hatchedPet": "Вие излюпихте <%= egg %> с <%= potion %>!",
     "hatchedPetGeneric": "Излюпихте нов любимец!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Посетете [конюшнята](/inventory/stable), за да нахраните и екипирате новия си любимец!",
     "displayNow": "Показване сега",
     "displayLater": "Показване по-късно",
     "petNotOwned": "Не притежавате този любимец.",
@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "Щракнете върху любимец, за да му дадете <%= foodName %> и да видите как расте!",
     "dragThisPotion": "Завлачете <%= potionName %> до яйце и ще се излюпи нов любимец!",
     "clickOnEggToHatch": "Щракнете върху яйце, за да използвате своята излюпваща отвара с(ъс) <%= potionName %> и ще се излюпи нов любимец!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Изсипете своята излюпваща отвара с(ъс) <%= potionName %> върху своето яйце на <%= eggName %> и от него ще се излюпи <%= petName %>."
 }
