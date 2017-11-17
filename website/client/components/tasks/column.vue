@@ -64,7 +64,6 @@
               @click.prevent.stop="togglePinned(ctx.item)"
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
 </template>
 
 <style lang="scss" scoped>
@@ -399,6 +398,12 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
+      const onUserPage = !this.taskListOverride || this.taskListOverride.length === 0;
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+      }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
