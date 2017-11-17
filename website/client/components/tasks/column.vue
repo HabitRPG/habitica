@@ -64,7 +64,6 @@
               @click.prevent.stop="togglePinned(ctx.item)"
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
 </template>
 
 <style lang="scss" scoped>
@@ -334,6 +333,16 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    onUserPage () {
+      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+        this.types.reward.filters = [];
+      }
+
+      return onUserPage;
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filter = this.activeFilters[this.type];
@@ -399,6 +408,7 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
@@ -434,9 +444,8 @@ export default {
       deep: true,
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
+      if (!this.dailyDueDefaultView) return;
+      this.activateFilter('daily', this.types.daily.filters[1]);
     },
   },
   mounted () {
@@ -526,6 +535,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
+
       this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {

@@ -11,7 +11,7 @@
         select.form-control(v-model="workingGroup.newLeader")
           option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
 
-      .form-group(v-if='!this.workingGroup.id')
+      .form-group
         label
           strong(v-once) {{$t('privacySettings')}} *
         br
@@ -35,7 +35,7 @@
           // @TODO discuss the impact of this with moderators before implementing
 
         br
-        label.custom-control.custom-checkbox(v-if='!isParty')
+        label.custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
           input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
@@ -345,6 +345,9 @@ export default {
       if (editingGroup.summary) this.workingGroup.summary = editingGroup.summary;
       if (editingGroup.description) this.workingGroup.description = editingGroup.description;
       if (editingGroup._id) this.workingGroup.id = editingGroup._id;
+
+      this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
+
       if (editingGroup.leader._id) {
         this.workingGroup.newLeader = editingGroup.leader._id;
         this.workingGroup.currentLeaderId = editingGroup.leader._id;
@@ -410,11 +413,9 @@ export default {
         this.workingGroup.privacy = 'public';
       }
 
-      if (!this.workingGroup.onlyLeaderCreatesChallenges) {
-        this.workingGroup.leaderOnly = {
-          challenges: true,
-        };
-      }
+      this.workingGroup.leaderOnly = {
+        challenges: this.workingGroup.onlyLeaderCreatesChallenges,
+      };
 
       let categoryKeys = this.workingGroup.categories;
       let serverCategories = [];
