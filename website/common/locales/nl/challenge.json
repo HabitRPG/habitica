@@ -28,7 +28,8 @@
     "notParticipating": "Niet deelnemend",
     "either": "Beide",
     "createChallenge": "Uitdaging aanmaken",
-    "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeAddTasks": "Uitdagingstaken toevoegen",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Taak toevoegen",
     "discard": "Gooi weg",
     "challengeTitle": "Titel van de uitdaging",
@@ -125,6 +126,6 @@
     "descriptionRequired": "Omschrijving is vereist",
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
-    "viewProgressOf": "View Progress Of",
+    "viewProgressOf": "Bekijk vooruitgang van",
     "selectMember": "Lid selecteren"
 }

@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "A napi feladatok \"esedékes\" fülének mutatása alapértelmezettként",
     "dailyDueDefaultViewPop": "Ezzel a beállítással alapértelmezetten az adott napon esedékes napi feladatok lesznek mutatva és nem az összes.",
     "reverseChatOrder": "A chat üzenetek sorrendjének megfordítása",
-    "startCollapsed": "A feladatok cimkelistája összecsukva indul",
-    "startCollapsedPop": "Ha ez be van állítva, akkor a cimkelista el lesz rejtve, amikor megnyitsz egy feladatot szerkesztésre.",
     "startAdvCollapsed": "A haladó beállítások a feladatoknál összecsukva indulnak.",
     "startAdvCollapsedPop": "Ha ez be van állítva, akkor a haladó beállítások el lesznek rejtve, amikor először megnyitsz egy feladatot szerkesztésre.",
     "dontShowAgain": "Ne mutasd többet",

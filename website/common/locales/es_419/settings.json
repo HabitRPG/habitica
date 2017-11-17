@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Establecer el valor predeterminado de las Diarias a la pestaña 'Por hacer'",
     "dailyDueDefaultViewPop": "Con esta opción marcada, las tareas Diarias se pondrán de manera predeterminada en 'Por hacer' en lugar de 'Todas'",
     "reverseChatOrder": "Mostrar mensajes del chat en orden inverso",
-    "startCollapsed": "Las listas de etiquetas no se muestran automáticamente",
-    "startCollapsedPop": "Con esta opción marcada, la lista de etiquetas estará escondida al abrir la tarea para editarla.",
     "startAdvCollapsed": "Las opciones avanzadas de las tareas no se abren automáticamente",
     "startAdvCollapsedPop": "Con esta opción marcada, las opciones avanzadas estarán escondidas al abrir la tarea para editarla.",
     "dontShowAgain": "No mostrar esto de nuevo",

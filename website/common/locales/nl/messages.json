@@ -22,8 +22,8 @@
     "messageTwoHandedEquip": "Om <%= twoHandedText %> te hanteren heb je beide handen nodig, dus <%= offHandedText %> is weggelegd. ",
     "messageTwoHandedUnequip": "Om <%= twoHandedText %> te hanteren heb je beide handen nodig, dus het is weggelegd toen je jezelf met <%= offHandedText %> bewapende.",
     "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropEgg": "Je hebt het ei van een <%= dropText %> gevonden!",
+    "messageDropPotion": "Je hebt de uitbroeddrank van een <%= dropText %> gevonden!",
     "messageDropQuest": "Je hebt een queeste gevonden!",
     "messageDropMysteryItem": "Je opent de kist en vindt <%= dropText %>!",
     "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Niet genoeg edelstenen!",
     "messageAuthPasswordMustMatch": ":password en :confirmPassword komen niet overeen",
     "messageAuthCredentialsRequired": ":username, :email, :password, :confirmPassword required",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Loginnaam al bezet",
     "messageAuthEmailTaken": "E-mailadres al in gebruik",
     "messageAuthNoUserFound": "Geen gebruiker gevonden.",
     "messageAuthMustBeLoggedIn": "Je moet ingelogd zijn.",
@@ -57,5 +57,5 @@
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"
 }

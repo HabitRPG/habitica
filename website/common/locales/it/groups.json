@@ -350,7 +350,7 @@
     "privacySettings": "Impostazioni privacy",
     "onlyLeaderCreatesChallenges": "Solo il Leader può creare delle Sfide",
     "privateGuild": "Gilda privata",
-    "charactersRemaining": "caratteri rimanenti",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Riassunto",
     "guildSummaryPlaceholder": "Scrivi una breve traduzione per pubblicizzare la tua Gilda con gli altri abitanti di Habitica. Qual è l'obbiettivo principale della tua Gilda e perché le persone dovrebbero aggiungersi? Prova a inserire parole chiavi utili nella descrizione facendo in modo che gli abitanti di Habitica possano trovarla facilmente quando fanno una ricerca!",
     "groupDescription": "Descrizione",

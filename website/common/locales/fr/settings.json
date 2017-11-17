@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Afficher par défaut les Quotidiennes de l'onglet \"Restantes\"",
     "dailyDueDefaultViewPop": "Lorsque cette option est activée, les Quotidiennes afficheront par défaut l'onglet \"Restantes\" plutôt que l'onglet \"Tous\"",
     "reverseChatOrder": "Montrer les messages de la discussion dans l'ordre inverse",
-    "startCollapsed": "Liste des étiquettes réduite à l'ouverture des tâches",
-    "startCollapsedPop": "Avec cette option cochée, la liste des étiquettes d'une tâche sera cachée à l'ouverture de la tâche pour modification.",
     "startAdvCollapsed": "Options Avancées des tâches réduites",
     "startAdvCollapsedPop": "Avec cette option cochée, les Options Avancées seront cachées quand vous modifierez une tâche pour la première fois.",
     "dontShowAgain": "Ne pas montrer ceci de nouveau",
