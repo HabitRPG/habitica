@@ -56,7 +56,7 @@
       .form-group(v-if='!isParty')
         label
           strong(v-once) {{$t('guildSummary')}} *
-        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
         // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -168,13 +168,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bBtn from 'bootstrap-vue/lib/components/button';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
-import bFormCheckbox from 'bootstrap-vue/lib/components/form-checkbox';
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-import bTooltip from 'bootstrap-vue/lib/components/tooltip';
-
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import markdownDirective from 'client/directives/markdown';
@@ -191,12 +184,6 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 
 export default {
   components: {
-    bModal,
-    bBtn,
-    bFormInput,
-    bFormCheckbox,
-    bFormSelect,
-    bTooltip,
     toggleSwitch,
   },
   directives: {
@@ -465,7 +452,7 @@ export default {
       if (newgroup && newgroup._id) {
         this.$router.push(`/groups/guild/${newgroup._id}`);
       }
-      this.$root.$emit('hide::modal', 'guild-form');
+      this.$root.$emit('bv::hide::modal', 'guild-form');
     },
     resetWorkingGroup () {
       this.workingGroup = {

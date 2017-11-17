@@ -4,24 +4,23 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/24/2017 - OCTOBER SUBSCRIBER ITEMS, BATCH BUYING, COSTUME CONTEST REMINDER, AND GUILD SPOTLIGHT
+    h2 11/14/2017 - NEW PET QUEST, BEHIND THE SCENES, AND FEATURED WIKI ARTICLE
     hr
+    h3 New Pet Quest: A Tangled Yarn
+    p(v-markdown='"Wayward yarn from unfinished craft projects is spreading confusion through the Taskan countryside! Can you wrap up this tangled mess? Get the latest pet quest, [A Tangled Yarn](/shops/quests), and earn some woolen Yarn pets by completing your real-life tasks."')
     .media
       .media-body
-        h3 October Subscriber Item Set Revealed!
-        p(v-markdown='"The October Subscriber Item Set has been revealed: [the Imperious Imp Item Set](/user/settings/subscription)! You only have seven days to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!"')
-      .promo_mystery_201710
-    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-    .small by Lemoness
-    h3 Batch Buying
-    p We've added the ability to buy multiple quests, potions, eggs, food items, and saddles at once! Plus, if you're a subscriber, you can also buy multiple gems with gold. Batch buying is available in the shops as well as through your pinned Rewards. We hope this makes buying rewards and items even more motivating!
-    .small by TheHollidayInn and Apollo
-    h3 Community Costume Challenge Reminder
-    p(v-markdown='"There\'s just one week left to enter and complete the [Community Costume Challenge!](/challenges/76c69212-4f33-4198-81a8-ffeb51b16b8c) If you\'d like, you can also share your entry with fellow Habiticans on social media by using the hashtag #HabitoweenCostume. Join in the fun now for a chance to win the coveted Costume Contestant Badge!"')
-    .scene_positivity.center-block
-    h3 Guild Spotlight: Gatherings of Good Cheer
-    p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/10/24/gatherings-of-good-cheer-guilds-for-cultivating-positivity/) that highlights the Guilds that can help you as you work toward a more optimistic outlook! Check it out now to find Habitica\'s best communities for Cultivating Positivity."')
-    .small by Beffymaroo
+        .small by SabreCat, Faelwyn the Rising Phoenix, Bartelmy, Arcosine, stefalupagus, khdarkwolf, JinjooHat, basekick, Hacheiseiko, TheMushroomKing and Vampitch
+        h3 Behind the Scenes: Tips for Burnout Prevention and Recovery from the Habitica Team!
+        p(v-markdown='"There\'s a new [Behind the Scenes post](https://habitica.wordpress.com/2017/11/14/behind-the-scenes-tips-for-burnout-prevention-and-recovery-from-the-habitica-team/) on the Habitica blog in which the team shares their tips for preventing burnout and bouncing back when it happens! Check it out for great ideas for self-care and recuperation!"')
+        .small by Beffymaroo
+      .quest_burnout
+    .media
+      .scene_habit_cycle
+      .media-body
+        h3 Blog Post: The Habit Loop
+        p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2017/11/08/the-habit-loop/) is about The Habit Loop! We hope that it will help you as you work on building better, stronger, and healthier Habits. Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com/), and [Facebook](https://www.facebook.com/Habitica/)."')
+        .small by Beffymaroo and the Wiki Wizards
     br
 </template>
 

@@ -21,7 +21,7 @@
     "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level <%= level %> erreicht wurde.",
     "rebirthOrb100": "Hat eine Sphäre der Wiedergeburt verwendet um noch mal von vorne zu beginnen, nachdem Level 100 oder höher erreicht wurde.",
     "rebirthOrbNoLevel": "Hat eine Sphäre der Wiedergeburt verwendet um noch mal von vorne zu beginnen.",
-    "rebirthPop": "Beginne erneut mit einem Charakter auf Level 1, aber behalte Erfolge, Sammelgegenstände, Ausrüstung und Aufgaben mit Verlauf bei.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Sphäre der Wiedergeburt",
     "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
     "confirmReborn": "Bist Du sicher?",

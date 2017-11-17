@@ -21,9 +21,9 @@
     "messageNotEnoughGold": "Nedostatek zlaťáků",
     "messageTwoHandedEquip": "<%= twoHandedText %> vyžaduje obě ruce, takže je <%= offHandedText %> zpět ve Vybavení.",
     "messageTwoHandedUnequip": "<%= twoHandedText %> vyžaduje dvě ruce, a tak je zpátky ve Vybavení a místo toho je v tvé ruce <%= offHandedText %>.",
-    "messageDropFood": "You've found <%= dropArticle %><%= dropText %>!",
-    "messageDropEgg": "You've found a <%= dropText %> Egg!",
-    "messageDropPotion": "You've found a <%= dropText %> Hatching Potion!",
+    "messageDropFood": "Našel jsi<%= dropArticle %><%= dropText %>!",
+    "messageDropEgg": "Našel jsi vajíčko, ze kterého se vylíhne <%= dropText %>!",
+    "messageDropPotion": "Našel jsi <%= dropText %> líhnoucí lektvar!",
     "messageDropQuest": "Našel jsi Výpravu!",
     "messageDropMysteryItem": "Copak se to skrývá v té krabici? No vida, je to <%= dropText %>!",
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
@@ -37,7 +37,7 @@
     "messageInsufficientGems": "Nedostatek drahokamů!",
     "messageAuthPasswordMustMatch": ":password a :confirmPassword se neshodují",
     "messageAuthCredentialsRequired": "Je vyžadováno :username, :email, :password, :confirmPassword ",
-    "messageAuthUsernameTaken": "Login Name already taken",
+    "messageAuthUsernameTaken": "Přihlašovací jméno už je zabrané.",
     "messageAuthEmailTaken": "Email se již používá",
     "messageAuthNoUserFound": "Uživatel nenalezen.",
     "messageAuthMustBeLoggedIn": "Musíš být přihlášen.",
@@ -57,5 +57,5 @@
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
     "messageNotificationNotFound": "Oznámení nenalezeno.",
     "notificationsRequired": "Id upozornění je potřeba.",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!"
 }

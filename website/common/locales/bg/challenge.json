@@ -29,6 +29,7 @@
     "either": "Без значение",
     "createChallenge": "Създаване на предизвикателство",
     "createChallengeAddTasks": "Добавяне на задачи в предизвикателството",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Добавяне на задача",
     "discard": "Отказ",
     "challengeTitle": "Име на предизвикателството",

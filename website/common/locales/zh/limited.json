@@ -109,9 +109,9 @@
     "summer2017SeashellSeahealerSet": "贝壳海洋医师（医师）",
     "summer2017SeaDragonSet": "海龙（盗贼）",
     "fall2017HabitoweenSet": "Habitoween Warrior (Warrior)",
-    "fall2017MasqueradeSet": "Masquerade Mage (Mage)",
-    "fall2017HauntedHouseSet": "Haunted House Healer (Healer)",
-    "fall2017TrickOrTreatSet": "Trick or Treat Rogue (Rogue)",
+    "fall2017MasqueradeSet": "假面舞会法师(法师)",
+    "fall2017HauntedHouseSet": "鬼屋医师(医师)",
+    "fall2017TrickOrTreatSet": "捣蛋盗贼(盗贼)",
     "eventAvailability": "在<%= date(locale) %>前可购买。",
     "dateEndApril": "4月19日",
     "dateEndMay": "5月17日",
@@ -119,5 +119,6 @@
     "dateEndJuly": "7月29日",
     "dateEndAugust": "8月31日",
     "dateEndOctober": "10月31日",
+    "dateEndNovember": "November 30",
     "discountBundle": "一批"
 }

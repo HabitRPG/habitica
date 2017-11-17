@@ -12,7 +12,7 @@ export default {
   },
   mounted () {
     this.$store.state.profileUser = {};
-    this.$root.$emit('show::modal', 'profile');
+    this.$root.$emit('bv::show::modal', 'profile');
   },
 };
 </script>

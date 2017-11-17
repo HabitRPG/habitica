@@ -22,7 +22,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])'
               @click="showMemberModal(msg.uuid)",
@@ -59,7 +59,7 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
               :class='userLevelStyle(cachedProfileData[msg.uuid])',
               @click="showMemberModal(msg.uuid)",
@@ -246,6 +246,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import debounce from 'lodash/debounce';
+import escapeRegExp from 'lodash/escapeRegExp';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -352,7 +353,8 @@ export default {
       let messagetext = message.text.toLowerCase();
       let username = user.profile.name;
       let mentioned = messagetext.indexOf(username.toLowerCase());
-      let pattern = `${username}([^\w]|$){1}`;
+      let escapedUsername = escapeRegExp(username);
+      let pattern = `@${escapedUsername}([^\w]|$){1}`;
 
       if (mentioned === -1) return message.highlight;
 
@@ -447,13 +449,13 @@ export default {
     },
     copyAsTodo (message) {
       this.copyingMessage = message;
-      this.$root.$emit('show::modal', 'copyAsTodo');
+      this.$root.$emit('bv::show::modal', 'copyAsTodo');
     },
     async report (message) {
       this.$store.state.flagChatOptions.message = message;
       this.$store.state.flagChatOptions.groupId = this.groupId;
 
-      this.$root.$emit('show::modal', 'report-flag');
+      this.$root.$emit('bv::show::modal', 'report-flag');
     },
     async remove (message, index) {
       if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
@@ -479,7 +481,7 @@ export default {
         // @TODO move to action or anyway move from here because it's super duplicate
         this.$store.state.profileUser = profile;
         this.$store.state.profileOptions.startingPage = 'profile';
-        this.$root.$emit('show::modal', 'profile');
+        this.$root.$emit('bv::show::modal', 'profile');
       }
     },
   },

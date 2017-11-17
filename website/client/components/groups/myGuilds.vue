@@ -67,9 +67,6 @@ import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 
 import MugenScroll from 'vue-mugen-scroll';
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
@@ -79,7 +76,7 @@ import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
+  components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
       icons: Object.freeze({
@@ -142,7 +139,7 @@ export default {
     },
     createGroup () {
       this.$store.state.editingGroup = {};
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('bv::show::modal', 'guild-form');
     },
   },
 };

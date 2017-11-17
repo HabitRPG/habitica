@@ -142,15 +142,11 @@ schema.plugin(baseModel, {
 schema.pre('init', function ensureSummaryIsFetched (next, group) {
   // The Vue website makes the summary be mandatory for all new groups, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
-  // When any public guild without a summary is fetched from the database, this code
-  // supplies the name as the summary. This can be removed when all public guilds have
+  // When any guild without a summary is fetched from the database, this code
+  // supplies the name as the summary. This can be removed when all guilds have
   // a summary and the API makes it mandatory (a breaking change!)
-  // NOTE: these groups do NOT need summaries: Tavern, private guilds, parties
-  // ALSO NOTE: it's possible for a private guild to become public and vice versa when
-  // a guild owner requests it of an admin so that must be taken into account
-  // when making the summary mandatory - process for changing privacy:
-  // http://habitica.wikia.com/wiki/Guilds#Changing_a_Guild_from_Private_to_Public_or_Public_to_Private
-  // Maybe because of that we'd want to keep this code here forever. @TODO: think about that.
+  // NOTE: the Tavern and parties do NOT need summaries so ensure they don't break
+  // if we remove this code.
   if (!group.summary) {
     group.summary = group.name ? group.name.substring(0, MAX_SUMMARY_SIZE_FOR_GUILDS) : ' ';
   }

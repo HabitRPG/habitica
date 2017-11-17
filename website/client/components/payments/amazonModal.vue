@@ -26,14 +26,10 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 
 const AMAZON_PAYMENTS = process.env.AMAZON_PAYMENTS; // eslint-disable-line
 
 export default {
-  components: {
-    bModal,
-  },
   props: ['amazonPaymentsProp'],
   data () {
     return {
