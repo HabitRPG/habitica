@@ -41,7 +41,7 @@ async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
   let armoire = content.armoire;
 
-buyOp(store.state.user.data, {
+  buyOp(store.state.user.data, {
     params: {
       key: 'armoire',
     },
