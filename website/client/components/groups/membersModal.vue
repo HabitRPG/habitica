@@ -197,34 +197,16 @@ export default {
       members: [],
       invites: [],
       memberToRemove: {},
-      // sortOptions: [
-      //   {
-      //     value: 'level',
-      //     text: this.$t('tier'),
-      //   },
-      //   {
-      //     value: 'name',
-      //     text: this.$t('name'),
-      //   },
-      //   {
-      //     value: 'lvl',
-      //     text: this.$t('level'),
-      //   },
-      //   {
-      //     value: 'class',
-      //     text: this.$t('class'),
-      //   },
-      // ],
       sortOptions: [
         {
           value: 'class',
-          text: this.$t('sortClass'),
+          text: this.$t('class'),
           order: 'asc',
           param: 'stats.class',
         },
         {
           value: 'background',
-          text: this.$t('sortBackground'),
+          text: this.$t('background'),
           order: 'asc',
           param: 'preferences.background',
         },
@@ -333,26 +315,10 @@ export default {
         });
       }
 
-      // Check if sortOption is an empty object
-      if (isEmpty(this.sortOption)) return sortedMembers;
-
-      // sortedMembers = sortBy(this.members, [
-      //   member => {
-      //     if (this.sortOption === 'tier') {
-      //       if (!member.contributor) return;
-      //       return member.contributor.level;
-      //     } else if (this.sortOption === 'name') {
-      //       return member.profile.name;
-      //     } else if (this.sortOption === 'lvl') {
-      //       return member.stats.lvl;
-      //     } else if (this.sortOption === 'class') {
-      //       return member.stats.class;
-      //     }
-      //   }
-      // ]);
-
-      // Use the memberlist filtered by searchTerm
-      sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
+      if (!isEmpty(this.sortOption)){
+        // Use the memberlist filtered by searchTerm
+        sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
+      }
 
       return sortedMembers;
     },
