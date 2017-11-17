@@ -103,8 +103,6 @@
   "yesRemove": "Yes, remove them",
   "foreverAlone": "Can't like your own message. Don't be that person.",
 
-  "sortClass": "Class",
-  "sortBackground": "Background",
   "sortDateJoinedAsc": "Earliest Date Joined",
   "sortDateJoinedDesc": "Latest Date Joined",
   "sortLoginAsc": "Earliest Login",
