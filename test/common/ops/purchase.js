@@ -231,11 +231,28 @@ describe('shared.ops.purchase', () => {
   context('bulk purchase', () => {
     let userGemAmount = 10;
 
-    before(() => {
+    beforeEach(() => {
       user.balance = userGemAmount;
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
       user.purchased.plan.customerId = 'customer-id';
+    });
+
+    it('errors when user does not have enough gems', (done) => {
+      user.balance = 1;
+      let type = 'eggs';
+      let key = 'TigerCub';
+
+      try {
+        purchase(user, {
+          params: {type, key},
+          quantity: 2,
+        });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notEnoughGems'));
+        done();
+      }
     });
 
     it('makes bulk purchases of gems', () => {

@@ -13,6 +13,7 @@
             type="text", :class="[`${cssClass}-modal-input`]",
             required, v-model="task.text",
             autofocus, spellcheck="true",
+            :disabled="groupAccessRequiredAndOnPersonalPage"
           )
         .form-group
           label(v-once) {{ $t('notes') }}
@@ -70,7 +71,7 @@
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.date",
             :clearButton='true',
             clearButtonIcon='category-select',
@@ -81,7 +82,7 @@
           )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.startDate",
             :clearButton='false',
             :todayButton='true',
@@ -99,12 +100,6 @@
             input(type="number", v-model="task.everyX", min="0", required)
             | {{ repeatSuffix }}
             br
-          template(v-if="task.frequency === 'daily'")
-            .form-check
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", v-model="task.repeatAfterCompletion")
-                span.custom-control-indicator
-                span.custom-control-description {{ $t('repeatAfterCompletionTitle', {everyX: task.everyX}) }}
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
@@ -462,9 +457,19 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+    }
+
+    .checklist-group {
+      .destroy-icon {
+        display: none;
+      }
 
       &:hover {
         cursor: text;
+        .destroy-icon {
+          display: inline-block;
+          color: $gray-200;
+        }
       }
     }
 
@@ -595,6 +600,10 @@ export default {
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    groupAccessRequiredAndOnPersonalPage () {
+      if (!this.groupId && this.task.group.id) return true;
+      return false;
+    },
     checklistEnabled () {
       return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
     },

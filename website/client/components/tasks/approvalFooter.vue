@@ -2,10 +2,10 @@
 div
   approval-modal(:task='task')
   .claim-bottom-message.col-12
-    .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
-      | {{ message }}
-      a(@click='claim()', v-if='!userIsAssigned') Claim
-      a(@click='unassign()', v-if='userIsAssigned') Remove Claim
+    .task-unclaimed.d-flex.justify-content-between(v-if='!approvalRequested && !multipleApprovalsRequested')
+      span {{ message }}
+      a.text-right(@click='claim()', v-if='!userIsAssigned') Claim
+      a.text-right(@click='unassign()', v-if='userIsAssigned') Remove Claim
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') Approve Task
@@ -15,13 +15,19 @@ div
       a(@click='showRequests()') View Requests
 </template>
 
-<style scoped>
+<style lang="scss", scoped>
 .claim-bottom-message {
   z-index: 9;
 }
 
-.task-unclaimed a {
-  float: right;
+.task-unclaimed {
+  span {
+    margin-right: 0.25rem;
+  }
+
+  a {
+    display: inline-block;
+  }
 }
 </style>
 
@@ -76,24 +82,36 @@ export default {
     },
   },
   methods: {
-    claim () {
+    async claim () {
       if (!confirm('Are you sure you want to claim this task?')) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:assignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       this.task.group.assignedUsers.push(this.user._id);
-      // @TODO: Reload user tasks?
     },
-    unassign () {
+    async unassign () {
       if (!confirm('Are you sure you want to unclaim this task?')) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:unassignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       let index = this.task.group.assignedUsers.indexOf(this.user._id);
       this.task.group.assignedUsers.splice(index, 1);
-      // @TODO: Reload user tasks?
     },
     approve () {
       if (!confirm('Are you sure you want to approve this task?')) return;

@@ -543,5 +543,11 @@
     "questLostMasterclasser4RageEffect": "`Anti'zinnya utilise ABSORPTION DU VIDE !` A travers une inversion du sort de poussée éthérée, vous sentez votre magie drainée dans les ténèbres !",
     "questLostMasterclasser4DropBackAccessory": "Cape d'éther (Accessoire dorsal)",
     "questLostMasterclasser4DropWeapon": "Cristaux d'éther (Arme à deux mains)",
-    "questLostMasterclasser4DropMount": "Monture d'éther invisible"
+    "questLostMasterclasser4DropMount": "Monture d'éther invisible",
+    "questYarnText": "Une laine emmêlée",
+    "questYarnNotes": "C'est un jour si plaisant que vous décidez d'aller vous balader dans la campagne Tâcheraine. Alors que vous passez à côté de sa fameuse boutique de laine vous entendez un cri perçant qui disperse les oiseaux et fait se cacher les papillons. Vous courez vers la source du bruit et voyez @Arcosine se précipiter dans votre direction. Derrière lui, une créature horrifiante faite de laine, d'épingles et d'aiguilles à tricoter cliquète et claquète en se rapprochant inexorablement. <br><br>Le commerçant lui court après, et @stefalupagus attrape votre bras, le souffle court. \"On dirait que ses projets inaboutis.\" <em>huff huff</em> \"ont changé la laine de notre boutique.\" <em>huff huff</em> \"en une masse enchevêtrée de Taglainatelles !\"<br><br>\"Parfois la vie se met dans le passage et un projet est abandonné, devenant de plus en plus emmêlée et confuse\", dit @khdarkwolf. \"La confusion peut même s'étendre à d'autres projets, jusqu'à ce qu'il y ait tellement de projet à moitié finis qu'on n'arrive plus à finir quoi que ce soit !\"<br><br>Il est temps de faire un choix : finir vos projets en retard... Ou s'en défaire pour de bon. Quoi qu'il en soit, vous allez devoir améliorer votre productivité rapidement avant que les effroyables Taiglanatelles n'étendent la confusion et la discorde au reste d'Habitica.",
+    "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
+    "questYarnBoss": "The Dread Yarnghetti",
+    "questYarnDropYarnEgg": "Yarn (Egg)",
+    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market"
 }

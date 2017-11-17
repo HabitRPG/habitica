@@ -28,7 +28,7 @@
     "seasonalShop": "Szezonális bolt",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Szezonális varázslónő<%= linkEnd %>",
-    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! It’s only open during Habitica’s four Grand Galas.",
+    "seasonalShopClosedText": "A szezonális bolt jelenleg zárva van!! Csak a Habitica négy nagy gálája közben van nyitva.",
     "seasonalShopText": "Happy Spring Fling!! Would you like to buy some rare items? They’ll only be available until April 30th!",
     "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? They’ll only be available until July 31st!",
     "seasonalShopFallText": "Happy Fall Festival!! Would you like to buy some rare items? They’ll only be available until October 31st!",
@@ -119,5 +119,6 @@
     "dateEndJuly": "júlus 29.",
     "dateEndAugust": "August 31",
     "dateEndOctober": "October 31",
+    "dateEndNovember": "November 30",
     "discountBundle": "bundle"
 }

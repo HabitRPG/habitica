@@ -28,7 +28,7 @@
     "seasonalShop": "Toko musiman",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Penyihir Musiman<%= linkEnd %>",
-    "seasonalShopClosedText": "Toko Musiman sekarang sedang tutup!! Tokonya hanya buka selama empat Gala Besar Habitica.",
+    "seasonalShopClosedText": "Toko Musiman sekarang sedang tutup!! Tokonya hanya buka selama empat Grand Gala Habitica.",
     "seasonalShopText": "Happy Spring Fling!! Apakah kamu mau membeli barang-barang langka bernuansa musim semi? Hanya tersedia hingga 30 April!",
     "seasonalShopSummerText": "Happy Summer Splash!! Apakah kamu mau membeli barang-barang langka bernuansa musim panas? Tersedia hingga 31 Juli!",
     "seasonalShopFallText": "Happy Fall Festival!! Apakah kamu mau membeli barang-barang langka bernuansa musim gugur? Hanya tersedia hingga 31 October!",
@@ -119,5 +119,6 @@
     "dateEndJuly": "29 Juli",
     "dateEndAugust": "31 Agustus",
     "dateEndOctober": "31 Oktober",
+    "dateEndNovember": "30 November",
     "discountBundle": "bundel"
 }

@@ -1,24 +1,24 @@
-.promo_armoire_backgrounds_201711 {
+.promo_potions_thunderstorm {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -221px;
+  background-position: -499px 0px;
   width: 141px;
   height: 441px;
 }
-.promo_batch_tasks {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 362px;
-  height: 220px;
-}
-.promo_push_top_bottom {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -363px 0px;
-  width: 360px;
-  height: 219px;
-}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -221px;
+  background-position: -303px -250px;
   width: 114px;
   height: 87px;
+}
+.scene_guilds {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 498px;
+  height: 249px;
+}
+.scene_habit_cycle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -250px;
+  width: 302px;
+  height: 264px;
 }

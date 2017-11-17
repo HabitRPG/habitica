@@ -57,10 +57,18 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
 
   .tasks-column {
     min-height: 556px;
@@ -69,6 +77,7 @@
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
+
 
   .reward-items {
     display: flex;
@@ -230,11 +239,13 @@ import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
+import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
@@ -242,7 +253,7 @@ import rewardIcon from 'assets/svg/reward.svg';
 import draggable from 'vuedraggable';
 
 export default {
-  mixins: [buyMixin],
+  mixins: [buyMixin, notifications],
   components: {
     Task,
     BuyQuestModal,
@@ -292,6 +303,7 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
+      pin: svgPin,
     });
 
     let activeFilters = {};
@@ -438,20 +450,32 @@ export default {
     }),
     async sorted (data) {
       const filteredList = this.taskList;
-      const taskIdToMove = filteredList[data.oldIndex]._id;
+      const taskToMove = filteredList[data.oldIndex];
+      const taskIdToMove = taskToMove._id;
+      let originTasks = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.tasks[`${this.type}s`].findIndex(taskId => taskId === taskIdToReplace);
-      let newOrder = await this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: newIndexOnServer,
-      });
-      this.user.tasksOrder[`${this.type}s`] = newOrder;
+      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+
+      let newOrder;
+      if (taskToMove.group.id) {
+        newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      } else {
+        newOrder = await this.$store.dispatch('tasks:move', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      }
+      if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
-      this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
+      const deleted = originTasks.splice(data.oldIndex, 1);
+      originTasks.splice(data.newIndex, 0, deleted[0]);
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
@@ -570,7 +594,7 @@ export default {
 
       if (rewardItem.purchaseType === 'quests') {
         this.selectedItemToBuy = rewardItem;
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
         return;
       }
 
@@ -581,6 +605,15 @@ export default {
     resetItemToBuy ($event) {
       if (!$event) {
         this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.text(this.$t('unpinnedItem', {item: item.text}));
+        }
+      } catch (e) {
+        this.error(e.message);
       }
     },
   },

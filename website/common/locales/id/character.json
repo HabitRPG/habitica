@@ -142,7 +142,7 @@
     "taskAllocationPop": "Memberikan poin berdasarkan kategori Kekuatan, Kecerdasan, Ketahanan, dan Persepsi yang berhubungan dengan tugas-tugas yang kamu selesaikan.",
     "distributePoints": "Distribusikan Poin yang Belum Dialokasikan",
     "distributePointsPop": "Gunakan semua poin atribut yang belum terpakai sesuai dengan skema alokasi yang dipilih.",
-    "warriorText": "Para Prajurit mencetak lebih banyak \"serangan kritis\" saat menyelesaikan tugas, yang secara acak memberi tambahan Koin Emas, Pengalaman, dan memperbesar kemungkinan mendapatkan item. Prajurit juga mengakibatkan damage besar pada monster-monster bos. Mainkan Prajurit kalau kamu termotivasi oleh imbalan-imbalan berbentuk jackpot yang tidak terduga, atau ingin menghajar para monster!",
+    "warriorText": "Para Prajurit mencetak lebih banyak \"serangan kritis\" saat menyelesaikan tugas, yang secara acak memberi tambahan Koin Emas, Pengalaman, dan memperbesar kemungkinan mendapatkan item. Prajurit juga mengakibatkan damage besar kepada monster-monster bos. Mainkan Prajurit kalau kamu termotivasi oleh imbalan-imbalan berbentuk jackpot yang tidak terduga, atau ingin menghajar para monster!",
     "wizardText": "Mage belajar dengan cepat, memperoleh Pengalaman dan Level lebih cepat daripada pekerjaan lain. Mereka juga punya banyak Mana untuk menggunakan kemampuan khusus. Pilih Mage jika kamu suka bermain Habitica dengan menggunakan taktik, atau jika kamu merasa sangat termotivasi untuk naik level dan membuka fitur-fitur lanjutan!",
     "mageText": "Penyihir cepat belajar, meraih Pengalaman dan Level lebih cepat daripada pekerjaan-pekerjaan lainnya. Mereka juga mendapatkan banyak Mana dengan menggunakan kemampuan khusus. Bermainlah sebagai Penyihir jika kamu menyukai aspek permainan taktik dari Habitica, atau jika kamu sangat termotifasi dengan peraihan level dan membuka fitur lebih lanjut.",
     "rogueText": "Para Pencuri suka mengumpulkan kekayaan, memperoleh Koin Emas lebih banyak dari siapapun, dan mahir dalam menemukan item. Kemampuan Tipuan yang hebat dapat menghindarkan mereka dari konsekuensi melewatkan Keseharian. Mainkan Pencuri jika kamu suka Imbalan dan Pencapaian, berjuang untuk hasil jarahan dan lencana!",
@@ -166,8 +166,8 @@
     "notEnoughMana": "Mana tidak cukup.",
     "invalidTarget": "Kamu tidak dapat menggunakan kemampuan kamu untuk itu.",
     "youCast": "Kamu menggunakan <%= spell %>.",
-    "youCastTarget": "Kamu menggunakan <%= spell %> pada <%= target %>.",
-    "youCastParty": "Kamu menggunakan <%= spell %> pada kelompok.",
+    "youCastTarget": "Kamu menggunakan <%= spell %> kepada <%= target %>.",
+    "youCastParty": "Kamu menggunakan <%= spell %> kepada party.",
     "critBonus": "Serangan Kritis! Bonus:",
     "gainedGold": "Kamu mendapat beberapa Koin Emas",
     "gainedMana": "Kamu mendapat beberapa Mana",
@@ -218,5 +218,5 @@
     "offHand": "Tangan Lain",
     "pointsAvailable": "Poin Tersedia",
     "pts": "poin",
-    "statsObjectRequired": "Stats update is required"
+    "statsObjectRequired": "Pembaruan Status diperlukan"
 }
