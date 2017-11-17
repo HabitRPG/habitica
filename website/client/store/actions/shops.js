@@ -126,9 +126,13 @@ export async function genericPurchase (store, params) {
       await buyArmoire(store, params);
       return;
     case 'fortify': {
-      let rerollResult = rerollOp(store.state.user.data);
+      let rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
 
-      axios.post('/api/v3/user/reroll');
+      await axios.post('/api/v3/user/reroll');
+      await Promise.all([
+        store.dispatch('user:fetch', {forceLoad: true}),
+        store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
 
       return rerollResult;
     }
