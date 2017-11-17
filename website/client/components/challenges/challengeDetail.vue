@@ -33,7 +33,8 @@
         span.view-progress
           strong {{ $t('viewProgressOf') }}
         b-dropdown.create-dropdown(text="Select a Participant")
-          b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
+          input.form-control(type='text', v-model='searchTerm')
+          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="openMemberProgressModal(member._id)")
             | {{ member.profile.name }}
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
@@ -189,6 +190,7 @@ import TaskModal from '../tasks/taskModal';
 import markdownDirective from 'client/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
+import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -198,6 +200,7 @@ import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],
+  mixins: [challengeMemberSearchMixin],
   directives: {
     markdown: markdownDirective,
   },
@@ -231,6 +234,8 @@ export default {
       workingTask: {},
       taskFormPurpose: 'create',
       progressMemberId: '',
+      searchTerm: '',
+      memberResults: [],
     };
   },
   computed: {
