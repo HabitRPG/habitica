@@ -27,9 +27,9 @@
           label(v-once) {{ $t('checklist') }}
           br
           draggable(
-          v-model="checklist",
-          :options="{handle: '.grippy', filter: '.task-dropdown'}",
-          @update="sortedChecklist"
+            v-model="checklist",
+            :options="{handle: '.grippy', filter: '.task-dropdown'}",
+            @update="sortedChecklist"
           )
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
