@@ -108,6 +108,10 @@ export default {
       if (!this.filters.ownership || this.filters.ownership.length === 0) {
         this.filters.ownership = ['owned', 'not_owned'];
       }
+      // If roles is not defined, show all tasks
+      if (!this.filters.roles || this.filters.roles.length === 0) {
+        this.filters.roles = ['participating', 'not_participating'];
+      }
 
       // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {

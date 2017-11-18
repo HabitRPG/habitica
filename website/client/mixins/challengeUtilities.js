@@ -11,7 +11,8 @@ export default {
     filterChallenge (challenge, filters, search, user) {
       let passedSearch = true;
       let hasCategories = true;
-      let isMember = true;
+      let participating = false;
+      let notParticipating = false;
       let owned = false;
       let notOwned = false;
 
@@ -27,11 +28,11 @@ export default {
 
       let filteringRole = filters.roles && filters.roles.length > 0;
       if (filteringRole && filters.roles.indexOf('participating') !== -1) {
-        isMember = this.isMemberOfChallenge(user, challenge);
+        participating = this.isMemberOfChallenge(user, challenge);
       }
 
       if (filteringRole && filters.roles.indexOf('not_participating') !== -1) {
-        isMember = !this.isMemberOfChallenge(user, challenge);
+        notParticipating = !this.isMemberOfChallenge(user, challenge);
       }
 
       if (filters.ownership && filters.ownership.indexOf('not_owned') !== -1) {
@@ -42,7 +43,7 @@ export default {
         owned = this.isLeaderOfChallenge(user, challenge);
       }
 
-      return passedSearch && hasCategories && isMember && (owned || notOwned);
+      return passedSearch && hasCategories && (participating || notParticipating) && (owned || notOwned);
     },
   },
 };
