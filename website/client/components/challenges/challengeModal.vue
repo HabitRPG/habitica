@@ -233,7 +233,10 @@ export default {
   async mounted () {
     this.groups = await this.$store.dispatch('guilds:getMyGuilds');
     if (this.user.party._id) {
-      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+      let party;
+      if (this.party.data._id) party = this.party.data;
+      else party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
+
       this.groups.push({
         name: party.name,
         _id: party._id,
@@ -260,7 +263,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({user: 'user.data', party: 'party'}),
     creating () {
       return !this.workingChallenge.id;
     },
