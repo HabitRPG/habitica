@@ -315,7 +315,7 @@ export default {
         });
       }
 
-      if (!isEmpty(this.sortOption)){
+      if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
         sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
       }
