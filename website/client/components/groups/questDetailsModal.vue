@@ -52,11 +52,10 @@
     height: 460px;
     width: 320px;
     top: 2.5em;
-    left: -22em;
+    left: -22.8em;
     z-index: -1;
     padding: 2em;
-    overflow: scroll;
-
+    overflow-y: auto;
     h3 {
       color: $white;
     }
