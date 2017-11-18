@@ -286,6 +286,14 @@ schema.methods.canGetGems = async function canObtainGems () {
     return true;
   }
 
+  const groups = await getUserGroups(user);
+
+  return groups.every(g => {
+    return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
+  });
+};
+
+async function getUserGroups (user) {
   const userGroups = user.getGroups();
 
   const groups = await Group
@@ -295,7 +303,13 @@ schema.methods.canGetGems = async function canObtainGems () {
     .select('leaderOnly leader purchased')
     .exec();
 
+  return groups;
+}
+
+schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
+  const groups = await getUserGroups(this);
+
   return groups.every(g => {
-    return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
+    return g.isSubscribed();
   });
-};
+}
