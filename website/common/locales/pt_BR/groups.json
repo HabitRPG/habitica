@@ -350,7 +350,7 @@
     "privacySettings": "Opções de Privacidade",
     "onlyLeaderCreatesChallenges": "Apenas o Líder pode criar Desafios",
     "privateGuild": "Guilda Privada",
-    "charactersRemaining": "caracteres restantes",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Resumo",
     "guildSummaryPlaceholder": "Escreva uma breve descrição anunciando sua Guilda para outros Habiticanos. Qual o principal propósito de sua Guilda e por que as pessoas deveriam entrar nela? Tente incluir palavras chave no resumo de forma que Habiticanos possam encontrar sua Guilda facilmente quando a procurarem.",
     "groupDescription": "Descrição",

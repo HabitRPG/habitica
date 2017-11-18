@@ -350,7 +350,7 @@
     "privacySettings": "Privacy-instellingen",
     "onlyLeaderCreatesChallenges": "Alleen de leider kan uitdagingen aanmaken",
     "privateGuild": "Privégilde",
-    "charactersRemaining": "karakters over",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Samenvatting",
     "guildSummaryPlaceholder": "Write a short description advertising your Guild to other Habiticans. What is the main purpose of your Guild and why should people join it? Try to include useful keywords in the summary so that Habiticans can easily find it when they search!",
     "groupDescription": "Beschrijving",

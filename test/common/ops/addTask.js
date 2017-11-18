@@ -127,14 +127,6 @@ describe('shared.ops.addTask', () => {
       expect(addTask(user)._edit).to.not.be.ok;
     });
 
-    it('respects tagsCollapsed preference', () => {
-      user.preferences.tagsCollapsed = true;
-      expect(addTask(user)._tags).to.not.be.ok;
-
-      user.preferences.tagsCollapsed = false;
-      expect(addTask(user)._tags).to.be.ok;
-    });
-
     it('respects advancedCollapsed preference', () => {
       user.preferences.advancedCollapsed = true;
       expect(addTask(user)._advanced).not.be.ok;

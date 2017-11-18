@@ -84,13 +84,15 @@
               .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
-            b-popover.tags-popover.no-span-margin(
+            #tags-popover
+            b-popover(
               v-if="hasTags",
               :target="`tags-icon-${task._id}`",
               triggers="hover",
               placement="bottom",
+              container="tags-popover",
             )
-              .d-flex.align-items-center
+              .d-flex.align-items-center.tags-container
                 .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
                 .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
@@ -307,10 +309,6 @@
     margin-left: 4px;
   }
 
-  .no-span-margin span {
-    margin-left: 0px !important;
-  }
-
   .svg-icon.streak {
     width: 11.6px;
     height: 7.1px;
@@ -446,34 +444,37 @@
       font-weight: bold;
     }
   }
+
+  #tags-popover /deep/ {
+    .tags-container {
+      flex-wrap: wrap;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tags-popover-title {
+      margin-right: 4px;
+      display: block;
+      float: left;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tag-label {
+      display: block;
+      float: left;
+      margin-left: 4px;
+      border-radius: 100px;
+      background-color: $gray-50;
+      padding: 4px 10px;
+      color: $gray-300;
+      white-space: nowrap;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
 </style>
 
-<style lang="scss">
-  // not working as scoped css
-  @import '~client/assets/scss/colors.scss';
-
-  .tags-popover {
-    // TODO fix padding, see https://github.com/bootstrap-vue/bootstrap-vue/issues/559#issuecomment-311150335
-    white-space: nowrap;
-  }
-
-  .tags-popover-title {
-    margin-right: 4px;
-    display: block;
-    float: left;
-  }
-
-  .tag-label {
-    display: block;
-    float: left;
-    margin-left: 4px;
-    border-radius: 100px;
-    background-color: $gray-50;
-    padding: 4px 10px;
-    color: $gray-300;
-    white-space: nowrap;
-  }
-</style>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'client/libs/store';
@@ -594,13 +595,22 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
+    timeTillDue () {
+      // this.task && is necessary to make sure the computed property updates correctly
+      const endOfToday = moment().endOf('day');
+      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
+
+      return moment.duration(endOfDueDate.diff(endOfToday));
+    },
     isDueOverdue () {
-      return moment().diff(this.task.date, 'days') >= 0;
+      return this.timeTillDue.asDays() <= 0;
     },
     dueIn () {
-      // this.task && is necessary to make sure the computed property updates correctly
-      const dueIn = moment().to(this.task && this.task.date);
-      return this.$t('dueIn', {dueIn});
+      const dueIn = this.timeTillDue.asDays() === 0 ?
+        this.$t('today') :
+        this.timeTillDue.humanize(true);
+
+      return this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;

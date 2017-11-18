@@ -29,6 +29,7 @@
     "either": "都显示",
     "createChallenge": "创建一个挑战",
     "createChallengeAddTasks": "新增挑戰任務",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "新增任務",
     "discard": "取消",
     "challengeTitle": "挑战标题",

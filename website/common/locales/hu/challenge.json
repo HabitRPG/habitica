@@ -29,6 +29,7 @@
     "either": "Bármelyik",
     "createChallenge": "Kihívás létrehozása",
     "createChallengeAddTasks": "Kihíváshoz tartozó feladat hozzáadása",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Feladat hozzáadása",
     "discard": "Elvet",
     "challengeTitle": "Kihívás címe",

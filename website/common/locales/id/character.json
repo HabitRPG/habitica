@@ -167,7 +167,7 @@
     "invalidTarget": "Kamu tidak dapat menggunakan kemampuan kamu untuk itu.",
     "youCast": "Kamu menggunakan <%= spell %>.",
     "youCastTarget": "Kamu menggunakan <%= spell %> kepada <%= target %>.",
-    "youCastParty": "Kamu menggunakan <%= spell %> kepada kelompok.",
+    "youCastParty": "Kamu menggunakan <%= spell %> kepada party.",
     "critBonus": "Serangan Kritis! Bonus:",
     "gainedGold": "Kamu mendapat beberapa Koin Emas",
     "gainedMana": "Kamu mendapat beberapa Mana",

@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Ustaw Codzienne domyślnie na zakładkę 'dzisiejsze'",
     "dailyDueDefaultViewPop": "Po włączeniu, Codzienne będą domyślnie na zakładce 'dzisiejsze' zamiast 'wszystkie'",
     "reverseChatOrder": "Pokazuj wiadomości w odwrotnej kolejności",
-    "startCollapsed": "Lista tagów w zadaniach startuje zwinięta",
-    "startCollapsedPop": "Jeśli ta opcja jest włączona, lista tagów w zadaniach będzie ukryta, gdy po raz pierwszy otworzysz zadanie do edycji.",
     "startAdvCollapsed": "Zaawansowane Opcje w zadaniach startują zwinięte",
     "startAdvCollapsedPop": "Jeśli ta opcja jest włączona, Zaawansowane Opcje będą ukryte, gdy po raz pierwszy otworzysz zadanie do edycji.",
     "dontShowAgain": "Nie pokazuj mi tego więcej",
