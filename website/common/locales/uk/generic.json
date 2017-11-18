@@ -108,7 +108,7 @@
     "achievementDilatoryText": "Допомогав перемогти Жахливого Драк'она Неквапливості напротязі Літнього Сплеску Подій 2014!",
     "costumeContest": "Costume Contestant",
     "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
-    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "- Грає з:",
     "lastLoggedIn": "- Востаннє заходив:",
     "notPorted": "Ми ще не перенесли цю особливість з оригінального сайту.",
