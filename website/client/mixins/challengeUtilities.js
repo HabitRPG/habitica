@@ -12,8 +12,8 @@ export default {
       let passedSearch = true;
       let hasCategories = true;
       let isMember = true;
-      let isLeader = true;
-      let ownerShip = true;
+      let owned = false;
+      let notOwned = false;
 
       if (search) {
         passedSearch = challenge.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
@@ -35,14 +35,14 @@ export default {
       }
 
       if (filters.ownership && filters.ownership.indexOf('not_owned') !== -1) {
-        ownerShip = !this.isLeaderOfChallenge(user, challenge);
+        notOwned = !this.isLeaderOfChallenge(user, challenge);
       }
 
       if (filters.ownership && filters.ownership.indexOf('owned') !== -1) {
-        ownerShip = this.isLeaderOfChallenge(user, challenge);
+        owned = this.isLeaderOfChallenge(user, challenge);
       }
 
-      return passedSearch && hasCategories && isMember && isLeader && ownerShip;
+      return passedSearch && hasCategories && isMember && (owned || notOwned);
     },
   },
 };

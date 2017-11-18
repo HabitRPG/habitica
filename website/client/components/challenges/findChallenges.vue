@@ -103,6 +103,12 @@ export default {
       let search = this.search;
       let filters = this.filters;
       let user = this.$store.state.user.data;
+
+      // If ownership is not defined, show all tasks
+      if (!this.filters.ownership || this.filters.ownership.length === 0) {
+        this.filters.ownership = ['owned', 'not_owned'];
+      }
+
       // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {
         return this.filterChallenge(challenge, filters, search, user);
