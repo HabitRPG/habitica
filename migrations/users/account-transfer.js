@@ -7,7 +7,7 @@ var authorUuid = ''; //... own data is done
  */
 
 const monk = require('monk');
-const connectionString = ''; // FOR TEST DATABASE
+const connectionString = '';
 const Users = monk(connectionString).get('users', { castIds: false });
 
 import uniq from 'lodash/uniq';
