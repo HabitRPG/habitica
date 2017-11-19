@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "En la columna Tareas diarias, mostrar de forma predeterminada la pestaña Por vencer",
     "dailyDueDefaultViewPop": "Si esta opción está activada, la columna Tareas diarias mostrará la pestaña Por vencer en lugar de Todo",
     "reverseChatOrder": "Mostrar mensajes del chat en orden inverso",
-    "startCollapsed": "Las listas de etiquetas no se muestran automáticamente",
-    "startCollapsedPop": "Con esta opción marcada, la lista de etiquetas estará escondida al abrir la tarea para editarla.",
     "startAdvCollapsed": "Las opciones avanzadas de las tareas no se abren automáticamente",
     "startAdvCollapsedPop": "Con esta opción marcada, las opciones avanzadas estarán escondidas al abrir la tarea para editarla.",
     "dontShowAgain": "No volver a mostrar esto",

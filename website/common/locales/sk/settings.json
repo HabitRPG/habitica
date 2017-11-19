@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Nastaviť záložku s dennými úlohami štandarne na \"v pláne\"",
     "dailyDueDefaultViewPop": "S týmto nastavením sa budú denné úlohy štandardne zobrazovať v režime \"v pláne\" namiesto \"všetky\"",
     "reverseChatOrder": "Ukáž chat správy v opačnom poradí",
-    "startCollapsed": "Zrolovaný zoznam štítkov v úlohách",
-    "startCollapsedPop": "Keď je zvolená táto možnosť, keď začneš upravovať úlohu, zoznam štítkov bude skrytý.",
     "startAdvCollapsed": "Zrolované pokročilé možnosti v úlohách",
     "startAdvCollapsedPop": "S nastavením tejto možnosti budú pokročilé možnosti v momente, keď prvý krát otvoríš úlohu na úpravy, skryté.",
     "dontShowAgain": "Už mi to nezobrazuj",

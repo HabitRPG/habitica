@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Standaard de 'Onvoltooid' tab laten zien in Dagelijkse Taken",
     "dailyDueDefaultViewPop": "Deze optie toont voor Dagelijkse Taken standaard de 'Onvoltooid' tab in plaats van 'Alle'",
     "reverseChatOrder": "Laat chatberichten zien in omgekeerde volgorde",
-    "startCollapsed": "Labels in taken aanvankelijk ingeklapt laten zien",
-    "startCollapsedPop": "Deze optie verbergt aanvankelijk de lijst met labels als je een taak opent om hem te bewerken.",
     "startAdvCollapsed": "Geavanceerde opties in taken aanvankelijk ingeklapt laten zien",
     "startAdvCollapsedPop": "Deze optie verbergt de geavanceerde opties wanneer je voor het eerst een taak opent om hem te bewerken.",
     "dontShowAgain": "Laat dit niet meer zien",

@@ -75,6 +75,7 @@
     "hatchAPot": "Chocar um novo <%= potion %> <%= egg %>?",
     "hatchedPet": "Você chocou um novo <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Você chocou um novo mascote!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Mostrar Agora",
     "displayLater": "Mostrar Depois",
     "petNotOwned": "Você não possui esse mascote.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Clique num Mascote para alimentá-lo com <%= foodName %> e vê-lo evoluir!",
     "dragThisPotion": "Arraste a <%= potionName %> até um Ovo e choque um novo mascote!",
     "clickOnEggToHatch": "Clique em um Ovo para usar sua Poção de Eclosão <%= potionName %> e chocar um novo mascote!",
-    "hatchDialogText": "Use sua Poção de Eclosão <%= potionName %> no seu ovo <%= eggName %> e ele irá chocar como <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

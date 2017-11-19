@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Menyetel Keseharian pada tab 'tenggang waktu'",
     "dailyDueDefaultViewPop": "Tugas harian akan menampilkan daftar tugas dalam 'tenggang waktu', bukannya menampilkan semua tugas.",
     "reverseChatOrder": "Perlihatkan obrolan dalam urutan terbalik",
-    "startCollapsed": "Daftar label pada tugas tersembunyi",
-    "startCollapsedPop": "Dengan menyetel pilihan ini, daftar label tugas akan tersembunyi ketika mengedit tugas.",
     "startAdvCollapsed": "Opsi Tambahan pada tugas tersembunyi",
     "startAdvCollapsedPop": "Dengan menyetel pilihan ini, Pengaturan Lebih Lanjut akan tersembunyi ketika mengedit tugas.",
     "dontShowAgain": "Jangan perlihatkan lagi",

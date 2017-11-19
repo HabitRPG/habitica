@@ -6,7 +6,7 @@
     "questsForSale": "Missões à Venda",
     "petQuests": "Missões de Mascotes e Montadas",
     "unlockableQuests": "Missões Desbloqueáveis",
-    "goldQuests": "Masterclasser Quest Lines",
+    "goldQuests": "Sequência de Missões de Masterclasser",
     "questDetails": "Detalhes da Missão",
     "questDetailsTitle": "Detalhes de Missão",
     "questDescription": "Missões permite que os jogadores se foquem em objetivos de longa duração dentro do jogo com membros da sua equipe.",
@@ -112,11 +112,11 @@
     "questNotPending": "Não há missão para iniciar.",
     "questOrGroupLeaderOnlyStartQuest": "Somente o líder da missão ou do grupo podem forçar o início da missão.",
     "createAccountReward": "Criar Conta",
-    "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
+    "loginIncentiveQuest": "Para desbloquear esta missão, faça check-in em Habitica <%= count %> dias diferentes!",
     "loginIncentiveQuestObtained": "Você ganhou esta missão ao entrar no Habitica em <%= count %> dias diferentes!",
     "loginReward": "<%= count %> entradas",
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, também receberão esta missão. ",
-    "questBundles": "Discounted Quest Bundles",
-    "buyQuestBundle": "Buy Quest Bundle",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "questBundles": "Conjuntos de Missões em Desconto",
+    "buyQuestBundle": "Comprar Conjunto de Missões",
+    "noQuestToStart": "Não encontra uma missão para começar? Tente ver se na Loja de Missões no Mercado há novas missões lançadas!"
 }

@@ -58,10 +58,17 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
 
   .tasks-column {
     min-height: 556px;
@@ -70,6 +77,7 @@
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
+
 
   .reward-items {
     display: flex;
@@ -234,18 +242,20 @@ import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
+import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
 
 export default {
-  mixins: [buyMixin],
+  mixins: [buyMixin, notifications],
   components: {
     Task,
     BuyQuestModal,
@@ -297,6 +307,7 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
+      pin: svgPin,
     });
 
     let activeFilters = {};
@@ -324,6 +335,16 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    onUserPage () {
+      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+        this.types.reward.filters = [];
+      }
+
+      return onUserPage;
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filter = this.activeFilters[this.type];
@@ -389,6 +410,7 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
@@ -424,9 +446,8 @@ export default {
       deep: true,
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
+      if (!this.dailyDueDefaultView) return;
+      this.activateFilter('daily', this.types.daily.filters[1]);
     },
   },
   mounted () {
@@ -516,6 +537,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
+
       this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {
@@ -598,6 +620,15 @@ export default {
     resetItemToBuy ($event) {
       if (!$event) {
         this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.text(this.$t('unpinnedItem', {item: item.text}));
+        }
+      } catch (e) {
+        this.error(e.message);
       }
     },
   },

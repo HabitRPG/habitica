@@ -44,10 +44,6 @@
       div
         .checkbox
           label
-            input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
-        .checkbox
-          label
             input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
             span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startAdvCollapsedPop')") {{ $t('startAdvCollapsed') }}
         .checkbox

@@ -75,6 +75,7 @@
     "hatchAPot": "Hatch a new <%= potion %> <%= egg %>?",
     "hatchedPet": "You hatched a new <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Exibir Agora",
     "displayLater": "Exibir Mais Tarde",
     "petNotOwned": "Não é o dono deste mascote.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %> ."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

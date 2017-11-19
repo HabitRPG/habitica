@@ -1,3 +1,9 @@
+.promo_mystery_201711 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -783px 0px;
+  width: 141px;
+  height: 294px;
+}
 .promo_potions_thunderstorm {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -499px 0px;
@@ -6,9 +12,15 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -303px -250px;
+  background-position: -783px -295px;
   width: 114px;
   height: 87px;
+}
+.promo_turkey_day_2017 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -641px 0px;
+  width: 141px;
+  height: 441px;
 }
 .scene_guilds {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');

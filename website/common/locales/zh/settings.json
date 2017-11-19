@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "每日任务默认选中“待办”项",
     "dailyDueDefaultViewPop": "选择这个选项后，每日任务会默认选中“待办”项而不是“全部”项",
     "reverseChatOrder": "倒序查看聊天记录",
-    "startCollapsed": "默认收起标签列表",
-    "startCollapsedPop": "选择这个选项后，展开编辑新任务的时候标签列表是隐藏的。",
     "startAdvCollapsed": "默认隐藏高级选项",
     "startAdvCollapsedPop": "选择这个选项后，展开编辑新任务的时候高级选项是隐藏的。",
     "dontShowAgain": "下次不再出现",

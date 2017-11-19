@@ -29,6 +29,7 @@
     "either": "Vilket som",
     "createChallenge": "Skapa utmaning",
     "createChallengeAddTasks": "Lägg till Utmaningsuppgifter",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Lägg till Uppgift",
     "discard": "Kasta bort",
     "challengeTitle": "Titel på utmaning",

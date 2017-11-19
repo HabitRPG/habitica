@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Set Dailies default to 'due' tab",
     "dailyDueDefaultViewPop": "With this option set, the Dailies tasks will default to 'due' instead of 'all'",
     "reverseChatOrder": "Show chat messages in reverse order",
-    "startCollapsed": "Tag list in tasks starts collapsed",
-    "startCollapsedPop": "With this option set, the list of task tags will be hidden when you first open a task for editing.",
     "startAdvCollapsed": "Advanced Options in tasks start collapsed",
     "startAdvCollapsedPop": "With this option set, Advanced Options will be hidden when you first open a task for editing.",
     "dontShowAgain": "Don't show this again",

@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "Все ваши задачи покрываются льдом, из-за чего ваши серии не сбрасываются завтра!",
     "spellWizardFrostAlreadyCast": "Вы уже накладывали это заклинание сегодня. Ваши счетчики серий заморожены и нет нужды накладывать это заклинание снова.",
     "spellWarriorSmashText": "Мощный удар",
-    "spellWarriorSmashNotes": "Вы делаете задание более синим/менее красным, чтобы нанести больше урона Боссам! (Основывается на: СИЛ)",
+    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "Защитная стойка",
     "spellWarriorDefensiveStanceNotes": "Вы низко приседаете и получаете бафф к телосложению! (Основывается на: ТЕЛ без баффов)",
     "spellWarriorValorousPresenceText": "Присутствие духа",

@@ -12,6 +12,7 @@ import {
 import { v4 as generateUUID } from 'uuid';
 import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
+import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
 import { IncomingWebhook } from '@slack/client';
 import nconf from 'nconf';
@@ -96,6 +97,24 @@ describe('POST /chat', () => {
         });
     });
 
+    it('returns an error when chat message contains a banned word in a public guild', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'public guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+        members: 1,
+      });
+
+      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage}))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
+    });
+
     it('errors when word is part of a phrase', async () => {
       let wordInPhrase = `phrase ${testBannedWordMessage} end`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
@@ -161,7 +180,7 @@ describe('POST /chat', () => {
       expect(message.message.id).to.exist;
     });
 
-    it('does not error when sending a chat message containing a banned word to a public guild', async () => {
+    it('does not error when sending a chat message containing a banned word to a public guild in which banned words are allowed', async () => {
       let { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'public guild',
@@ -170,6 +189,8 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
+
+      guildsAllowingBannedWords[group._id] = true;
 
       let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
 

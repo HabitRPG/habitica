@@ -21,7 +21,7 @@
     "rebirthOrb": "Usó una Esfera de Renacimiento para comenzar de nuevo después de alcanzar el Nivel <%= level %>.",
     "rebirthOrb100": "Usó una Esfera de Renacimiento para comenzar de nuevo después de alcanzar el Nivel 100 o superior.",
     "rebirthOrbNoLevel": "Usó una Esfera de Renacimiento para comenzar de nuevo.",
-    "rebirthPop": "Reinicia tu personaje a Nivel 1, manteniendo tus logros, coleccionables, equipamiento y tareas con historia.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
     "confirmReborn": "¿Está seguro?",

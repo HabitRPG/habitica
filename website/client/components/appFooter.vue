@@ -62,15 +62,12 @@
                 a(href='http://devs.habitica.com/', target='_blank') {{ $t('devBlog') }}
           .col-6.social
             h3 {{ $t('footerSocial') }}
-            .social-circle
-              a(href='https://twitter.com/habitica', target='_blank')
-                .social-icon.svg-icon(v-html='icons.twitter')
-            // @TODO: Not ready yet .social-circle
-              a(href='https://www.instagram.com/habitica/', target='_blank')
-                .social-icon.svg-icon.instagram(v-html='icons.instagram')
-            .social-circle
-              a(href='https://www.facebook.com/Habitica', target='_blank')
-                .social-icon.facebook.svg-icon(v-html='icons.facebook')
+            a.social-circle(href='https://twitter.com/habitica', target='_blank')
+              .social-icon.svg-icon(v-html='icons.twitter')
+            // TODO: Not ready yet. a.social-circle(href='https://www.instagram.com/habitica/', target='_blank')
+              .social-icon.svg-icon.instagram(v-html='icons.instagram')
+            a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
+              .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
           .col-10 {{ $t('donateText3') }}
           .col-2
