@@ -4,18 +4,34 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/7/2017 - THUNDERSTORM HATCHING POTIONS AND COSTUME CHALLENGE AWARDS
+    h2 11/17/2017 - THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE
     hr
     .media
+      .promo_turkey_day_2017.right-margin
+      .media-body.d-flex.align-self-center.flex-column
+        h3 Happy Thanksgiving!
+        p It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!
+        h3 Turkey Pets, Mounts, and Costume!
+        p For the occasion, all Habiticans have received Turkey-themed items! What items? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey pet, mount, or gear set! Check your Stable and your pinned Rewards to see what you got!
+        p Thank you for using Habitica - we really love you all <3
+        .small by Lemoness
+    .media
       .media-body
-        h3 Thunderstorm Hatching Potions
-        p(v-markdown='"There\'s a new pet breed in town! Between now and November 30th, you can buy Thunderstorm Hatching Potions from [the Market](/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Thunderstorm Potion Pets aren\'t picky, so they\'ll happily eat any kind of food that you feed them!"')
-        p After they're gone, it will be at least a year before the Thunderstorm Hatching Potions are available again, so be sure to get them now!
-        .small by Balduranne and SabreCat
-        h3 Costume Challenge Awarded
-        p(v-markdown='"Congratulations to everyone who completed this year\'s costume Challenge! If your entry followed the rules, you\'ve been awarded your badge (or had your badge count increased). (If you have any issues, email admin@habitica.com and we will investigate for you). We\'ll be sharing some of our favorites to our [Tumblr](http://blog.habitrpg.com/), so be sure to follow us to see all the great entries!"')
-        .small by Lemoness, SabreCat, and Beffymaroo
-      .promo_potions_thunderstorm
+        h3 November Subscriber Items Revealed!
+        p(v-markdown='"The November Subscriber Items have been revealed: the [Carpet Rider Item Set](https://habitica.com/user/settings/subscription)! You have until November 30 to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!"')
+        p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
+        .small by Lemoness
+      .promo_mystery_201711.left-margin
+    h3 Android App Update
+    p There’s an exciting new update to our Android app!
+    ul
+      li We’ve smashed some pesky bugs, including the issue with task reordering!
+      li You can now view and assign attribute points (or choose auto-allocation)!
+      li We’ve added Equipment to the Market, plus the ability to change your login name and email, reset or delete your account, make changes to your profile, and access Fix Character Values.
+      li You can also request a password reset from the login screen!
+    p We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!
+    p If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!
+    .small by Viirus and piyorii
     br
 </template>
 

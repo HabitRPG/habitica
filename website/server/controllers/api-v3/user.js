@@ -617,20 +617,7 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        $and: [ // exclude challenge and group tasks
-          {
-            $or: [
-              {'challenge.id': {$exists: false}},
-              {'challenge.broken': {$exists: true}},
-            ],
-          },
-          {
-            $or: [
-              {'group.id': {$exists: false}},
-              {'group.broken': {$exists: true}},
-            ],
-          },
-        ],
+        ...Tasks.taskIsGroupOrChallengeQuery,
       }).exec();
 
       spell.cast(user, tasks, req);
@@ -1654,20 +1641,7 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).exec();
 
     let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
@@ -1825,20 +1799,7 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     };
     let tasks = await Tasks.Task.find(query).exec();
     let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
@@ -1882,20 +1843,7 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).select('_id type challenge group').exec();
 
     let resetRes = common.ops.reset(user, tasks);

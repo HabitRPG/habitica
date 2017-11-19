@@ -74,24 +74,17 @@ div
 </style>
 
 <script>
-import debounce from 'lodash/debounce';
+import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 
 export default {
   props: ['challengeId', 'members'],
+  mixins: [challengeMemberSearchMixin],
   data () {
     return {
       winner: {},
       searchTerm: '',
       memberResults: [],
     };
-  },
-  watch: {
-    searchTerm: debounce(function searchTerm (newSearch) {
-      this.searchChallengeMember(newSearch);
-    }, 500),
-    members () {
-      this.memberResults = this.members;
-    },
   },
   computed: {
     winnerText () {
@@ -100,12 +93,6 @@ export default {
     },
   },
   methods: {
-    async searchChallengeMember (search) {
-      this.memberResults = await this.$store.dispatch('members:getChallengeMembers', {
-        challengeId: this.challengeId,
-        searchTerm: search,
-      });
-    },
     selectMember (member) {
       this.winner = member;
     },

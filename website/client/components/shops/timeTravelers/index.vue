@@ -36,7 +36,7 @@
               span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
 
-      h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
+      h1.mb-4.page-header(v-once) {{ $t('timeTravelers') }}
 
       .clearfix(v-if="!closed")
         div.float-right
@@ -55,7 +55,7 @@
         v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",

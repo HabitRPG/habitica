@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "D'un seul sort, de la glace gèle tous vos combos pour qu'ils ne soient pas remis à zéro demain !",
     "spellWizardFrostAlreadyCast": "Vous avez déjà lancé ce sort aujourd'hui. Vos combos sont gelés, et vous n'avez pas besoin de le lancer à nouveau.",
     "spellWarriorSmashText": "Frappe brutale",
-    "spellWarriorSmashNotes": "Vous rendez une tâche plus bleue/moins rouge pour infliger des dégâts supplémentaire aux boss ! (Basé sur : Force)",
+    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "Posture défensive",
     "spellWarriorDefensiveStanceNotes": "Vous vous accroupissez et gagnez un bonus de Constitution ! (Basé sur : Constitution sans bonus)",
     "spellWarriorValorousPresenceText": "Présence valeureuse",

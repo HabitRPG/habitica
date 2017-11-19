@@ -57,10 +57,10 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
+      h1.mb-4.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('classArmor') }}
 
         div.float-right
@@ -383,7 +383,9 @@
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
           this.featuredGearBought = true;
-          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          if (seasonal.categories.length > 0) {
+            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          }
         }
 
         return seasonal;

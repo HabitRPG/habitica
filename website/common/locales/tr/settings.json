@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Günlük İşleri 'aktif' sekmesi için varsayılan olarak ayarla",
     "dailyDueDefaultViewPop": "Bu ayar seçildiğinde Günlük İşler, 'tümü' yerine 'sıradakiler' sekmesinde varsayılan olarak yer alırlar",
     "reverseChatOrder": "Sohbet mesajlarını gösterme sırasını tersine çevir",
-    "startCollapsed": "İşlerdeki etiket listesini daraltılmış olarak başlat",
-    "startCollapsedPop": "Bu seçenek seçiliyken, bir işi düzenlemek için ilk açışında iş etiketleri gizli olacaktır.",
     "startAdvCollapsed": "İşlerdeki Gelişmiş Ayarları daraltılmış olarak başlat",
     "startAdvCollapsedPop": "Bu seçenek seçiliyken, bir işi düzenlemek için ilk açışında Gelişmiş Ayarlar gizli olacaktır.",
     "dontShowAgain": "Bunu bir daha gösterme",

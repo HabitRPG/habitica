@@ -350,7 +350,7 @@
     "privacySettings": "隐私设置",
     "onlyLeaderCreatesChallenges": "只有公会会长能创建挑战",
     "privateGuild": "私人公会",
-    "charactersRemaining": "characters remaining",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "概要",
     "guildSummaryPlaceholder": "写一个简短的描述将你的公会展示给其他Habiticans。 你的公会的主要目的是什么？为什么大家要加入呢？ 尝试在概要中包含有用的关键字，以便Habiticans在搜索时可以轻松找到它！",
     "groupDescription": "详细描述",

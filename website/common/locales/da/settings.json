@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Sæt Daglige som 'forfalden' som standard.",
     "dailyDueDefaultViewPop": "Hvis valgt vil Daglige som standard blive sat som 'forfalden' i stedet for 'alle'.",
     "reverseChatOrder": "Vis beskeder i omvendt rækkefølge",
-    "startCollapsed": "Tag-liste i opgaver starter lukket",
-    "startCollapsedPop": "Hvis valgt vil listen af opgavetags være skjult når du åbner en opgave for at rette den.",
     "startAdvCollapsed": "Avancerede Indstillinger i opgaver starter lukket",
     "startAdvCollapsedPop": "Hvis valgt vil Avancerede Indstillinger være skjult når du åbner en opgave for at rette den.",
     "dontShowAgain": "Vis ikke igen",

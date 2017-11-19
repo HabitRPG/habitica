@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "Med ett kast fryser du allt du har gjort i följd så att de inte kommer att återställas till noll imorgon!",
     "spellWizardFrostAlreadyCast": "Du har redan kastat den här idag. Dina följder är frusna, och du behöver int kasta den här igen.",
     "spellWarriorSmashText": "Brutalt Slag",
-    "spellWarriorSmashNotes": "Du gör en uppgift mer blå/mindre röd för att göra extra skada till Bossar! (Baserat på: STY)",
+    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "Försvarsställning",
     "spellWarriorDefensiveStanceNotes": "Du hukar dig lågt och får en förbättring till Tålighet! (Baserat på: oförbättrad TÅL)",
     "spellWarriorValorousPresenceText": "Utstrålande Tapperhet",

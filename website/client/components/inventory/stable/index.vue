@@ -56,7 +56,7 @@
 
     .standard-page
       .clearfix
-        h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
+        h1.float-left.mb-4.page-header(v-once) {{ $t('stable') }}
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
@@ -68,7 +68,7 @@
               :key="sort"
             ) {{ $t(sort) }}
 
-      h2
+      h2.mb-3
         | {{ $t('pets') }}
         |
         span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
@@ -780,7 +780,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['name']);
+            animals = _sortBy(animals, ['eggName']);
             break;
 
           case 'sortByColor':

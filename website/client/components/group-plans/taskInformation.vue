@@ -70,6 +70,7 @@
         :groupId="groupId",
         v-on:taskCreated='taskCreated',
         v-on:taskEdited='taskEdited',
+        v-on:taskDestroyed='taskDestroyed'
       )
   .row
     task-column.col-12.col-sm-6.col-3(
@@ -380,6 +381,7 @@ export default {
       });
     },
     taskCreated (task) {
+      task.group.id = this.group._id;
       this.tasksByType[task.type].push(task);
     },
     taskEdited (task) {
@@ -387,6 +389,12 @@ export default {
         return taskItem._id === task._id;
       });
       this.tasksByType[task.type].splice(index, 1, task);
+    },
+    taskDestroyed (task) {
+      let index = findIndex(this.tasksByType[task.type], (taskItem) => {
+        return taskItem._id === task._id;
+      });
+      this.tasksByType[task.type].splice(index, 1);
     },
     cancelTaskModal () {
       this.editingTask = null;

@@ -75,6 +75,7 @@
     "hatchAPot": "Willst Du ein <%= potion %> <%= egg %> ausbrüten?",
     "hatchedPet": "Du hast ein neues <%= potion %> <%= egg %> ausgebrütet!",
     "hatchedPetGeneric": "Du hast ein neues Haustier ausgebrütet!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Klicke auf ein Haustier um ihm <%= foodName %> zu füttern und sieh, wie es wächst!",
     "dragThisPotion": "Ziehe dieses <%= potionName %> zu einem Ei und brüte ein neues Haustier aus!",
     "clickOnEggToHatch": "Klicke auf ein Ei um Dein <%= potionName %> Schlüpfelixier zu nutzen und ein neues Haustier auszubrüten!",
-    "hatchDialogText": "Gieße Dein <%= potionName %> Schlüpfelixier auf Dein <%= eggName %> Ei und es schlüpft ein <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }
