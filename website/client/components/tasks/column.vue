@@ -80,10 +80,19 @@
 
 
   .reward-items {
-    display: flex;
-    flex-wrap: wrap;
-    & > div {
-      margin: 0 0 0.5em 0.5em;
+    @supports (display: grid) {
+      display: grid;
+      grid-column-gap: 16px;
+      grid-row-gap: 4px;
+      grid-template-columns: repeat(auto-fill, 94px);
+    }
+
+    @supports not (display: grid) {
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+      margin: 0 16px 4px 0;
+      }
     }
   }
 
