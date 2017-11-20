@@ -254,6 +254,7 @@
   "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
   "wrongPassword": "Wrong password.",
   "incorrectDeletePhrase": "Please type <%= magicWord %> in all caps to delete your account.",
+  "incorrectResetPhrase": "Please type RESET in all caps to reset your api token.",
   "notAnEmail": "Invalid email address.",
   "emailTaken": "Email address is already used in an account.",
   "newEmailRequired": "Missing new email address.",

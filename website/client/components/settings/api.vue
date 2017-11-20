@@ -1,5 +1,6 @@
 <template lang="pug">
 .row.standard-page
+  token-modal
   .col-6
     h2 {{ $t('API') }}
     p {{ $t('APIText') }}
@@ -14,6 +15,8 @@
         ) {{ $t(`${showApiToken ? 'hide' : 'show'}APIToken`) }}
         pre.prettyprint.ml-4.mb-0(v-if="showApiToken") {{apiToken}}
       p(v-html='$t("APITokenWarning", { hrefTechAssistanceEmail })')
+      button.btn.btn-danger(@click="regenerateAPIToken()", v-once) {{ $t('resetAPIToken') }}
+
 
     .section
       h3 {{ $t('thirdPartyApps') }}
@@ -72,10 +75,15 @@
 <script>
 import { mapState } from 'client/libs/store';
 import uuid from '../../../common/script/libs/uuid';
+import tokenModal from './tokenModal';
+
 // @TODO: env.EMAILS.TECH_ASSISTANCE_EMAIL
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
+  components: {
+    tokenModal,
+  },
   data () {
     return {
       newWebhook: {
@@ -120,6 +128,9 @@ export default {
       delete webhook._editing;
       await this.$store.dispatch('user:deleteWebhook', {webhook});
       this.user.webhooks.splice(index, 1);
+    },
+    async regenerateAPIToken () {
+      this.$root.$emit('show::modal', 'token');
     },
   },
 };

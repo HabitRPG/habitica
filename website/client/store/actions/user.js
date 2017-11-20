@@ -77,6 +77,11 @@ export async function deleteWebhook (store, payload) {
   return response.data.data;
 }
 
+export async function regenerateAPIToken (store, params) {
+  let response = await axios.post('/api/v3/user/auth/reset-api-token', params);
+  return response.data;
+}
+
 export async function changeClass (store, params) {
   const user = store.state.user.data;
 

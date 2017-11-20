@@ -339,11 +339,11 @@ api.loginSocial = {
       // Clean previous email preferences
       if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
         EmailUnsubscription
-        .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-        .exec()
-        .then(() => {
-          if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-        }); // eslint-disable-line max-nested-callbacks
+          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+          .exec()
+          .then(() => {
+            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+          }); // eslint-disable-line max-nested-callbacks
       }
 
       if (!existingUser) {
@@ -639,6 +639,47 @@ api.updateEmail = {
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/auth/reset-api-token Reset API Token
+ * @apiDescription Reset the user's API Token
+ * @apiName ResetAPIToken
+ * @apiGroup User
+ *
+ * @apiParam (Body) {String} password the user password or current API token
+ *
+ * @apiSuccess {String} data.apiToken The new API token
+ */
+api.resetAPIToken = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/auth/reset-api-token',
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    let authType = 'local';
+    if ((user.auth.facebook.id || user.auth.google.id) && !user.auth.local.email)  {
+      authType = 'social';
+    }
+
+    req.checkBody('password', res.t('invalidReqParams')).notEmpty();
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let password = req.body.password;
+    if (authType === 'local') {
+      let isValidPassword = await passwordUtils.compare(user, password);
+      if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
+    } else if (authType === 'social') {
+      if (password !== res.t('reset')) throw new NotAuthorized(res.t('incorrectResetPhrase'));
+    }
+
+    user.apiToken = common.uuid();
+    await user.save();
+
+    return res.respond(200, { apiToken: user.apiToken });
   },
 };
 
