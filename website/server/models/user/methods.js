@@ -275,6 +275,19 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   return {daysMissed, timezoneOffsetFromUserPrefs};
 };
 
+async function getUserGroupData (user) {
+  const userGroups = user.getGroups();
+
+  const groups = await Group
+    .find({
+      _id: {$in: userGroups},
+    })
+    .select('leaderOnly leader purchased')
+    .exec();
+
+  return groups;
+}
+
 // Determine if the user can get gems: some groups restrict their members ability to obtain them.
 // User is allowed to buy gems if no group has `leaderOnly.getGems` === true or if
 // its the group leader
@@ -286,16 +299,17 @@ schema.methods.canGetGems = async function canObtainGems () {
     return true;
   }
 
-  const userGroups = user.getGroups();
-
-  const groups = await Group
-    .find({
-      _id: {$in: userGroups},
-    })
-    .select('leaderOnly leader purchased')
-    .exec();
+  const groups = await getUserGroupData(user);
 
   return groups.every(g => {
     return !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true;
+  });
+};
+
+schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
+  const groups = await getUserGroupData(this);
+
+  return groups.every(g => {
+    return g.isSubscribed();
   });
 };
