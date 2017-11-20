@@ -42,6 +42,10 @@ div
       color: #4f2a93;
     }
 
+    h3 {
+      color: #878190;
+    }
+
     .actions {
       padding-top: 5em;
 
