@@ -278,7 +278,6 @@ api.createSubscription = async function createSubscription (data) {
 
   //  If we are buying a group subscription
   if (data.groupId) {
-
     let groupFields = basicGroupFields.concat(' purchased');
     group = await Group.getGroup({user: data.user, groupId: data.groupId, populateLeader: false, groupFields});
 

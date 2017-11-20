@@ -278,7 +278,6 @@ describe('POST /groups/:groupId/leave', () => {
         members: 1,
       });
 
-      let privateGuild = group;
       let leader = groupLeader;
       let member = members[0];
       let userWithFreePlan = await User.findById(leader._id).exec();
