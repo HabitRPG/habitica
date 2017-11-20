@@ -159,7 +159,7 @@
     "questEggHippoMountText": "カバ",
     "questEggHippoAdjective": "幸せな",
     "questEggYarnText": "毛糸",
-    "questEggYarnMountText": "空飛ぶじゅうたん",
+    "questEggYarnMountText": "空飛ぶカーペット",
     "questEggYarnAdjective": "ウールの",
     "eggNotes": "たまごがえしの薬を見つけて、たまごにかけると、<%= eggAdjective(locale) %> <%= eggText(locale) %>が生まれます。",
     "hatchingPotionBase": "普通の",
