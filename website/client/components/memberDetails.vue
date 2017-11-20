@@ -67,7 +67,7 @@
 
   .character-name {
     margin-bottom: 1px;
-    color: $header-color;
+    color: $white;
   }
 
   .character-level {
