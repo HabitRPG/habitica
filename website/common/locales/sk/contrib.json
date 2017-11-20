@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, si úžasný! Za pomoc Habitce si na <%= level %>. leveli prispievateľa. Pozri si",
     "contribLink": "aké ceny si získal za svoj prínos.",
     "contribName": "Prispievateľ",
-    "contribText": "Has contributed to Habitica (code, design, pixel art, legal advice, docs, etc). Want this badge? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Read more.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Čítaj viac",
     "kickstartName": "Kickstarter Backer - $<%= key %> Tier",
     "kickstartText": "Podporil projekt na Kickstarteri",

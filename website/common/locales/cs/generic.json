@@ -108,7 +108,7 @@
     "achievementDilatoryText": "Pomohl přemoci obávaného Drag'ona z Liknavosti v průběhu letní Šplouch akce 2014!",
     "costumeContest": "Soutěžící s kostýmem",
     "costumeContestText": "Účastnil se soutěže kodtýmů Habitoweenu. Na některé z kostýmů se můžeš podívat na <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>Habitica blogu</a>!",
-    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the entries <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>on the Habitica blog</a>!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "- Členem od",
     "lastLoggedIn": "- Naposledy přihlášen",
     "notPorted": "Tato funkce zatím nebyla převedena z původní stránky.",
