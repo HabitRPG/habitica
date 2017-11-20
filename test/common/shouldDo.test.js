@@ -649,6 +649,26 @@ describe('shouldDo', () => {
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });
 
+    it('activates Daily on every (x) week on weekday across a year', () => {
+      dailyTask.repeat = {
+        su: false,
+        s: false,
+        f: false,
+        th: false,
+        w: false,
+        t: false,
+        m: false,
+      };
+
+      day = moment('2017-11-19');
+      day.startDate = day.toDate();
+      dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
+      dailyTask.everyX = 3;
+      const threeWeeksFromToday = moment("2018-01-21");
+
+      expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
+    });
+
     it('activates Daily on start date', () => {
       dailyTask.everyX = 3;
 
