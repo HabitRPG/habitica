@@ -661,10 +661,10 @@ describe('shouldDo', () => {
       };
 
       day = moment('2017-11-19');
-      day.startDate = day.toDate();
+      dailyTask.startDate = day.toDate();
       dailyTask.repeat[DAY_MAPPING[day.day()]] = true;
       dailyTask.everyX = 3;
-      const threeWeeksFromToday = moment("2018-01-21");
+      const threeWeeksFromToday = moment('2018-01-21');
 
       expect(shouldDo(threeWeeksFromToday, dailyTask, options)).to.equal(true);
     });

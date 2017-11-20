@@ -76,6 +76,7 @@ export function startOfDay (options = {}) {
   if (moment(o.now).hour() < o.dayStart) {
     dayStart.subtract({ days: 1 });
   }
+
   return dayStart;
 }
 
