@@ -33,7 +33,7 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest', quantity}),
   };
 }
 
