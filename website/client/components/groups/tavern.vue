@@ -214,14 +214,6 @@
     }
   }
 
-  .toggle-up, .toggle-down {
-    width: 20px;
-  }
-
-  .toggle-up:hover, .toggle-down:hover {
-    cursor: pointer;
-  }
-
   .pause-button {
     background-color: #ffb445 !important;
     color: $white;

@@ -31,7 +31,7 @@
   "extraNotes": "Extra Notes",
   "notes": "Notes",
   "direction/Actions": "Direction/Actions",
-  "advancedOptions": "Advanced Options",
+  "advancedSettings": "Advanced Settings",
   "taskAlias": "Task Alias",
   "taskAliasPopover": "This task alias can be used when integrating with 3rd party integrations. Only dashes, underscores, and alphanumeric characters are supported. The task alias must be unique among all your tasks.",
   "taskAliasPlaceholder": "your-task-alias-here",

@@ -171,6 +171,18 @@
             :checked="requiresApproval",
             @change="updateRequiresApproval")
 
+        .advanced-settings
+          .d-flex.justify-content-between.align-items-center
+            h3 {{ $t('advancedSettings') }}
+            .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
+              .svg-icon(v-html="icons.down", :class="{'toggle-open': showAdvancedOptions}")
+          b-collapse(v-model="showAdvancedOptions")
+            b-card
+              p.card-text Collapse contents Here
+              b-btn(v-b-toggle.collapse1_inner='', size='sm') Toggle Inner Collapse
+              b-collapse#collapse1_inner.mt-2
+                b-card Hello!
+
       .task-modal-footer(slot="modal-footer")
         span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
         span.delete-task-btn(v-once, v-if='canDelete', @click="destroy()") {{ $t('delete') }}
@@ -503,6 +515,22 @@
       margin-left: 0px;
       width: 57px;
     }
+
+    .advanced-settings {
+      background: $gray-700;
+      margin-left: -23px;
+      margin-right: -23px;
+      padding: 16px 24px;
+
+      h3 {
+        color: $gray-10;
+        margin-bottom: 0px;
+      }
+
+      .toggle-open {
+        transform: rotate(180deg);
+      }
+    }
   }
 </style>
 
@@ -533,6 +561,7 @@ import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import goldIcon from 'assets/svg/gold.svg';
+import downIcon from 'assets/svg/down.svg';
 
 export default {
   components: {
@@ -561,12 +590,14 @@ export default {
         positive: positiveIcon,
         destroy: deleteIcon,
         gold: goldIcon,
+        down: downIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],
       memberNamesById: {},
       assignedMembers: [],
       checklist: [],
+      showAdvancedOptions: false,
     };
   },
   watch: {
