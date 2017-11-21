@@ -18,10 +18,10 @@
 .task {
   // for editing rewards or when a task is created
   &-purple {
-    background: $purple-300;
+    background: $purple-300 !important;
 
     &-color {
-      color: $purple-300;
+      color: $purple-300 !important;
     }
 
     &-control-habit {
@@ -34,10 +34,10 @@
   }
 
   &-worst {
-    background: $maroon-100;
+    background: $maroon-100 !important;
 
     &-color {
-      color: darken($maroon-100, 12%);
+      color: darken($maroon-100, 12%) !important;
     }
 
     &-control-habit {
@@ -55,10 +55,10 @@
   }
 
   &-worse {
-    background: $red-100;
+    background: $red-100 !important;
 
     &-color {
-      color: darken($red-100, 12%);
+      color: darken($red-100, 12%) !important;
     }
 
     &-control-habit {
@@ -76,10 +76,10 @@
   }
 
   &-bad {
-    background: $orange-100;
+    background: $orange-100 !important;
 
     &-color {
-      color: darken($orange-100, 12%);
+      color: darken($orange-100, 12%) !important;
     }
 
     &-control-habit {
@@ -97,10 +97,10 @@
   }
 
   &-neutral {
-    background: $yellow-100;
+    background: $yellow-100 !important;
 
     &-color {
-      color: darken($yellow-100, 12%);
+      color: darken($yellow-100, 12%) !important;
     }
 
     &-control-habit {
@@ -118,10 +118,10 @@
   }
 
   &-good {
-    background: $green-10;
+    background: $green-10 !important;
 
     &-color {
-      color: darken($green-10, 12%);
+      color: darken($green-10, 12%) !important;
     }
 
     &-control-habit {
@@ -139,10 +139,10 @@
   }
 
   &-better {
-    background: $blue-50;
+    background: $blue-50 !important;
 
     &-color {
-      color: darken($blue-50, 12%);
+      color: darken($blue-50, 12%) !important;
     }
 
     &-control-habit {
@@ -160,10 +160,10 @@
   }
 
   &-best {
-    background: $teal-50;
+    background: $teal-50 !important;
 
     &-color {
-      color: darken($teal-50, 12%);
+      color: darken($teal-50, 12%) !important;
     }
 
     &-control-habit {
@@ -181,7 +181,7 @@
   }
 
   &-reward {
-    background: #FFF5E5
+    background: #FFF5E5;
   }
 
   &-daily-todo-disabled {

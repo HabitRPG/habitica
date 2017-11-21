@@ -34,37 +34,37 @@
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
-          .option-item(:class="optionClass(task.up === true)", @click="toggleUpDirection()")
-            .option-item-box
-              .task-control.habit-control(:class="controlClass.up + '-control-habit'")
-                .svg-icon.positive(v-html="icons.positive")
-            .option-item-label(v-once) {{ $t('positive') }}
-          .option-item(:class="optionClass(task.down === true)", @click="toggleDownDirection()")
-            .option-item-box
-              .task-control.habit-control(:class="controlClass.down + '-control-habit'")
-                .svg-icon.negative(v-html="icons.negative")
-            .option-item-label(v-once) {{ $t('negative') }}
+          .option-item(@click="toggleUpDirection()", :class="task.up === true ? 'option-item-selected' : ''")
+            .option-item-box(:class="task.up === true ? cssClass : ''")
+              .task-control.habit-control
+                .svg-icon.positive(v-html="icons.positive", :class="task.up === true ? `${cssClass}-color` : ''")
+            .option-item-label(:class="task.up === true ? `${cssClass}-color` : ''") {{ $t('positive') }}
+          .option-item(@click="toggleDownDirection()", :class="task.down === true ? 'option-item-selected' : ''")
+            .option-item-box(:class="task.down === true ? cssClass : ''")
+              .task-control.habit-control
+                .svg-icon.negative(v-html="icons.negative", :class="task.down === true ? `${cssClass}-color` : ''")
+            .option-item-label(:class="task.down === true ? `${cssClass}-color` : ''") {{ $t('negative') }}
         template(v-if="task.type !== 'reward'")
           label(v-once)
             span.float-left {{ $t('difficulty') }}
             // @TODO .svg-icon.info-icon(v-html="icons.information")
-          .d-flex.justify-content-center
-            .option-item(:class="optionClass(task.priority === 0.1)", @click="setDifficulty(0.1)")
-              .option-item-box
+          .d-flex.justify-content-center.difficulty-options
+            .option-item(:class="task.priority === 0.1 ? 'option-item-selected' : ''", @click="setDifficulty(0.1)")
+              .option-item-box(:class="task.priority === 0.1 ? cssClass : ''")
                 .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
-              .option-item-label(v-once) {{ $t('trivial') }}
-            .option-item(:class="optionClass(task.priority === 1)", @click="setDifficulty(1)")
-              .option-item-box
+              .option-item-label(:class="task.priority === 0.1 ? `${cssClass}-color` : ''") {{ $t('trivial') }}
+            .option-item(:class="task.priority === 1 ? 'option-item-selected' : ''", @click="setDifficulty(1)")
+              .option-item-box(:class="task.priority === 1 ? cssClass : ''")
                 .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
-              .option-item-label(v-once) {{ $t('easy') }}
-            .option-item(:class="optionClass(task.priority === 1.5)", @click="setDifficulty(1.5)")
-              .option-item-box
+              .option-item-label(:class="task.priority === 1 ? `${cssClass}-color` : ''") {{ $t('easy') }}
+            .option-item(:class="task.priority === 1.5 ? 'option-item-selected' : ''", @click="setDifficulty(1.5)")
+              .option-item-box(:class="task.priority === 1.5 ? cssClass : ''")
                 .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
-              .option-item-label(v-once) {{ $t('medium') }}
-            .option-item(:class="optionClass(task.priority === 2)", @click="setDifficulty(2)")
-              .option-item-box
+              .option-item-label(:class="task.priority === 1.5 ? `${cssClass}-color` : ''") {{ $t('medium') }}
+            .option-item(:class="task.priority === 2 ? 'option-item-selected' : ''", @click="setDifficulty(2)")
+              .option-item-box(:class="task.priority === 2 ? cssClass : ''")
                 .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
-              .option-item-label(v-once) {{ $t('hard') }}
+              .option-item-label(:class="task.priority === 2 ? `${cssClass}-color` : ''") {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
           datepicker.d-inline-block(
@@ -293,6 +293,10 @@
       position: relative;
     }
 
+    .difficulty-options .option-item-selected .svg-icon {
+      color: $white !important;
+    }
+
     .option-item {
       margin-right: 48px;
       cursor: pointer;
@@ -302,8 +306,8 @@
       }
 
       &-selected {
-        .svg-icon, .option-item-label {
-          color: inherit !important;
+        .habit-control {
+          background: $white !important;
         }
       }
 
@@ -319,14 +323,15 @@
 
         .habit-control.task-habit-disabled-control-habit {
           color: $white !important;
-          border: none;
-          background: $gray-300;
+          background: $white;
+          border: solid 2px $gray-600;
         }
       }
 
       &-label {
         color: $gray-50;
         text-align: center;
+        transition-property: none;
       }
     }
 
@@ -390,7 +395,7 @@
             }
 
             .tags-more {
-              color: #a5a1ac;
+              color: $gray-300;
               flex: 0 1 auto;
               font-size: 12px;
               text-align: left;
@@ -447,9 +452,8 @@
       margin-top: .5em;
       margin-right: .3em;
       font-size: 12px;
-      font-family: sans-serif;
       letter-spacing: 2px;
-      color: #cccccc;
+      color: $gray-300;
       text-shadow: 1px 0 1px black;
     }
 
@@ -656,9 +660,6 @@ export default {
     cssClass () {
       return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'editModal' : 'createModal');
     },
-    controlClass () {
-      return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'control' : 'controlCreate');
-    },
     isUserTask () {
       return !this.challengeId && !this.groupId;
     },
@@ -742,13 +743,6 @@ export default {
       sorting.splice(data.oldIndex, 1);
       sorting.splice(data.newIndex, 0, movingItem);
       this.task.checklist = sorting;
-    },
-    optionClass (activeCondition) {
-      if (activeCondition) {
-        return [`${this.cssClass}-color`, 'option-item-selected'];
-      } else {
-        return [];
-      }
     },
     addChecklistItem (e) {
       let checkListItem = {
