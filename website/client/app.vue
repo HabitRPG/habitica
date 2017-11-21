@@ -1,5 +1,6 @@
 <template lang="pug">
 #app(:class='{"casting-spell": castingSpell}')
+  amazon-payments-modal
   snackbars
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
@@ -82,6 +83,7 @@ import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
+import amazonPaymentsModal from 'client/components/payments/amazonModal';
 
 export default {
   mixins: [notifications],
@@ -94,6 +96,7 @@ export default {
     snackbars,
     BuyModal,
     SelectMembersModal,
+    amazonPaymentsModal,
   },
   data () {
     return {

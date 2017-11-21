@@ -1,7 +1,6 @@
 <template lang="pug">
 // @TODO: Move to group plans folder
 div
-  amazon-payments-modal(:amazon-payments-prop='amazonPayments')
   div
     .header
       h1.text-center Need more for your Group?
@@ -321,7 +320,6 @@ div
 
 <script>
 import paymentsMixin from '../../mixins/payments';
-import amazonPaymentsModal from '../payments/amazonModal';
 import { mapState } from 'client/libs/store';
 import group from 'assets/svg/group.svg';
 import amazonpay from 'assets/svg/amazonpay.svg';
@@ -329,9 +327,6 @@ import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   mixins: [paymentsMixin],
-  components: {
-    amazonPaymentsModal,
-  },
   data () {
     return {
       amazonPayments: {},
