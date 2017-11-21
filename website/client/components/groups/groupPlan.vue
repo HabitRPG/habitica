@@ -77,7 +77,7 @@ div
             div Each Additional
             div Member
 
-  b-modal#group-plan-modal(title="Empty", size='md', hide-footer=true)
+  b-modal#group-plan-modal(title="Select Payment", size='md', hide-footer=true)
     .col-12(v-if='activePage === PAGES.CREATE_GROUP')
       .form-group
         label.control-label(for='new-group-name') Name
@@ -199,6 +199,9 @@ div
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 2em;
     text-align: center;
+    display: inline-block !important;
+    vertical-align: bottom;
+    margin-right: 1em;
 
     img {
       margin: 0 auto;
@@ -400,6 +403,7 @@ export default {
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
+        paymentData.type = 'subscription';
         this.amazonPaymentsInit(paymentData);
       }
     },

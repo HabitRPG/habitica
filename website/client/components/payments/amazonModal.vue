@@ -33,10 +33,16 @@ export default {
   data () {
     return {
       amazonPayments: {
+        modal: null,
+        type: null,
+        gift: null,
         loggedIn: false,
         paymentSelected: false,
         billingAgreementId: '',
         recurringConsent: false,
+        orderReferenceId: null,
+        subscription: null,
+        coupon: null,
       },
       OffAmazonPayments: {},
       isAmazonSetup: false,
@@ -180,7 +186,7 @@ export default {
         let url = '/amazon/checkout';
         let response = await axios.post(url, {
           orderReferenceId: this.amazonPayments.orderReferenceId,
-          gift: this.amazonPaymentsgift,
+          gift: this.amazonPayments.gift,
         });
 
         if (response.status < 400) {
@@ -240,16 +246,18 @@ export default {
       this.reset();
     },
     reset () {
-      this.amazonPaymentsmodal = null;
+      // @TODO: Ensure we are using all of these
+      // some vars are set in the payments mixin. We should try to edit in one place
+      this.amazonPayments.modal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;
-      this.amazonPaymentsgift = null;
+      this.amazonPayments.gift = null;
       this.amazonPayments.billingAgreementId = null;
       this.amazonPayments.orderReferenceId = null;
       this.amazonPayments.paymentSelected = false;
       this.amazonPayments.recurringConsent = false;
-      this.amazonPaymentssubscription = null;
-      this.amazonPaymentscoupon = null;
+      this.amazonPayments.subscription = null;
+      this.amazonPayments.coupon = null;
     },
   },
 };

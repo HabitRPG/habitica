@@ -125,6 +125,7 @@ export default {
       subscription: {
         key: 'basic_earned',
       },
+      // @TODO: Remove the need for this or move it to mixin
       amazonPayments: {},
       paymentMethods: {
         AMAZON_PAYMENTS: 'Amazon Payments',
