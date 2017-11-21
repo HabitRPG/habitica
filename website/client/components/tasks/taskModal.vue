@@ -5,7 +5,7 @@
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
-            span.cancel-task-btn.mr-2(v-if="purpose !== 'create'", v-once, @click="cancel()") {{ $t('cancel') }}
+            span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
@@ -176,16 +176,16 @@
             h3 {{ $t('advancedSettings') }}
             .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
               .svg-icon(v-html="icons.down", :class="{'toggle-open': showAdvancedOptions}")
-          b-collapse(v-model="showAdvancedOptions")
+          b-collapse#advancedOptionsCollapse(v-model="showAdvancedOptions")
             b-card
               p.card-text Collapse contents Here
               b-btn(v-b-toggle.collapse1_inner='', size='sm') Toggle Inner Collapse
               b-collapse#collapse1_inner.mt-2
                 b-card Hello!
 
-      .task-modal-footer(slot="modal-footer")
-        span.cancel-task-btn(v-once, v-if="purpose === 'create'", @click="cancel()") {{ $t('cancel') }}
-        span.delete-task-btn(v-once, v-if='canDelete', @click="destroy()") {{ $t('delete') }}
+      .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
+        span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
 
 <style lang="scss">
@@ -202,13 +202,14 @@
 
     input, textarea {
       border: none;
-      background-color: rgba(0, 0, 0, 0.16);
+      background-color: rgba(26, 24, 29, 0.48);
       opacity: 0.64;
       color: $white !important;
 
       &:focus {
         color: $white !important;
         opacity: 1;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.16);
       }
     }
 
@@ -265,25 +266,25 @@
     .difficulty-trivial-icon {
       width: 16px;
       height: 16px;
-      color: #A5A1AC;
+      color: $gray-300;
     }
 
     .difficulty-normal-icon {
       width: 36px;
       height: 16px;
-      color: #A5A1AC;
+      color: $gray-300;
     }
 
     .difficulty-medium-icon {
       width: 36px;
       height: 32px;
-      color: #A5A1AC;
+      color: $gray-300;
     }
 
     .difficulty-hard-icon {
       width: 36px;
       height: 36px;
-      color: #A5A1AC;
+      color: $gray-300;
     }
 
     .option {
@@ -494,19 +495,11 @@
     }
 
     .task-modal-footer {
-      margin: 0 auto;
-      padding-bottom: 24px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      margin-top: 50px;
-
-
-
-      .delete-task-btn {
-        color: $red-50;
-      }
+      padding: 16px 24px;
+      width: 100%;
 
       .cancel-task-btn {
+        margin-right: 16px;
         color: $blue-10;
       }
     }
