@@ -63,15 +63,15 @@ export default {
       }
 
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsersNames[0]}`;
+        return this.$t('assignedToUser', {userName: assignedUsersNames[0]});
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsersLength} members`;
+        return this.$t('assignedToMembers', {userCount: assignedUsersLength});
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return `Assigned to you and ${assignedUsersLength} members`;
+        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength});
       } else if (this.userIsAssigned) {
-        return 'You are assigned to this task';
+        return this.$t('youAreAssigned');
       } else if (assignedUsersLength === 0) {
-        return 'This task is unassigned';
+        return this.$t('taskIsUnassigned');
       }
     },
     approvalRequested () {
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     async claim () {
-      if (!confirm('Are you sure you want to claim this task?')) return;
+      if (!confirm(this.$t('confirmClaim'))) return;
 
       let taskId = this.task._id;
       // If we are on the user task
@@ -98,7 +98,7 @@ export default {
       this.task.group.assignedUsers.push(this.user._id);
     },
     async unassign () {
-      if (!confirm('Are you sure you want to unclaim this task?')) return;
+      if (!confirm(this.$t('confirmUnClaim'))) return;
 
       let taskId = this.task._id;
       // If we are on the user task
@@ -114,7 +114,7 @@ export default {
       this.task.group.assignedUsers.splice(index, 1);
     },
     approve () {
-      if (!confirm('Are you sure you want to approve this task?')) return;
+      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:unassignTask', {
         taskId: this.task._id,
