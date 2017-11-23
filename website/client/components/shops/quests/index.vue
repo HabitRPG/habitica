@@ -67,7 +67,7 @@
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
-      h1.mb-0.page-header(v-once) {{ $t('quests') }}
+      h1.mb-4.page-header(v-once) {{ $t('quests') }}
 
       .clearfix
         div.float-right
@@ -85,7 +85,7 @@
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           v-if="category.identifier === 'pet'",

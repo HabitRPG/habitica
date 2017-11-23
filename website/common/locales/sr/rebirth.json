@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "Restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Sfera za reinkarnaciju",
     "reborn": "Reinkarniran, najviši nivo <%= reLevel %>",
     "confirmReborn": "Jeste li sigurni?",

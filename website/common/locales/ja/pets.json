@@ -75,6 +75,7 @@
     "hatchAPot": "新しい<%= potion %><%= egg %>をかえしますか?",
     "hatchedPet": "<%= potion %><%= egg %> が生まれました!",
     "hatchedPetGeneric": "新しいペットが生まれました！",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "いますぐ表示",
     "displayLater": "あとで表示",
     "petNotOwned": "このペットをもっていません。",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "ペットをクリックして<%= foodName %>をあげます。あとは成長を見守りましょう!",
     "dragThisPotion": "この<%= potionName %>をたまごにドラッグして、たまごをかえしましょう!",
     "clickOnEggToHatch": "たまごをクリックして<%= potionName %>をたまごに使い、たまごをかえしましょう!",
-    "hatchDialogText": "<%= potionName %>たまごがえしの薬を<%= eggName %>のたまごにかけると、<%= petName %>が生まれます。"
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

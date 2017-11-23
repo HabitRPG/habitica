@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "預設每日任務顯示「待辦」欄",
     "dailyDueDefaultViewPop": "啟動這項設定後，會將每日任務預設顯示的「全部」改設為「待辦」",
     "reverseChatOrder": "反向列出對話訊息",
-    "startCollapsed": "預設收起標籤列表",
-    "startCollapsedPop": "選擇這個選項後，展開編輯新任務時，標籤列表是隱藏的。",
     "startAdvCollapsed": "預設隱藏進階選項",
     "startAdvCollapsedPop": "選擇這個選項後，展開編輯新任務時，進階選項是隱藏的。",
     "dontShowAgain": "不要再顯示",

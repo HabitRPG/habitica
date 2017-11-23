@@ -21,7 +21,7 @@
     "rebirthOrb": "Použil Kouli Znovozrození, aby začal znova, po dosáhnutí úrovně <%= level %>.",
     "rebirthOrb100": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně 100 nebo vyšší.",
     "rebirthOrbNoLevel": "Použil Kouli Znovozrození, aby začal znova.",
-    "rebirthPop": "Vrať zpět tvoji postavu na úroveň 1 a zároveň si ponech úspěchy, sběratelské předměty, vybavení a úkoly s historií.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Koule znovuzrození",
     "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
     "confirmReborn": "Jsi si jistý?",

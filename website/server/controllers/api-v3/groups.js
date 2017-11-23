@@ -567,12 +567,12 @@ api.joinGroup = {
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
-    group.memberCount += 1;
-
     if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
+
+    group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
 
@@ -755,12 +755,19 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-
-    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
-
+    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     _removeMessagesFromMember(user, group._id);
-
     await user.save();
+
+    if (group.type !== 'party') {
+      let guildIndex = user.guilds.indexOf(group._id);
+      user.guilds.splice(guildIndex, 1);
+    }
+
+    let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
+    if (!isMemberOfGroupPlan) {
+      await payments.cancelGroupSubscriptionForUser(user, group);
+    }
 
     res.respond(200, {});
   },

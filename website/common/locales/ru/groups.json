@@ -350,7 +350,7 @@
     "privacySettings": "Настройки конфиденциальности",
     "onlyLeaderCreatesChallenges": "Только лидер может создавать испытания",
     "privateGuild": "Закрытая гильдия",
-    "charactersRemaining": "символов осталось",
+    "charactersRemaining": "<%= characters %> characters remaining",
     "guildSummary": "Описание",
     "guildSummaryPlaceholder": "Напишите краткое описание вашей гильдии для других жителей страны Habitica. В чём главный смысл вашей гильдии и почему люди должны вступать в неё? Старайтесь включать полезные ключевые слова в описании, чтобы другие жители страны Habitica могли легко найти эту гильдию, когда будут её искать!",
     "groupDescription": "Описание",
