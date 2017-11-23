@@ -74,32 +74,17 @@ div
 </style>
 
 <script>
-import debounce from 'lodash/debounce';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 
 export default {
   props: ['challengeId', 'members'],
-  components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
-  },
+  mixins: [challengeMemberSearchMixin],
   data () {
     return {
       winner: {},
       searchTerm: '',
       memberResults: [],
     };
-  },
-  watch: {
-    searchTerm: debounce(function searchTerm (newSearch) {
-      this.searchChallengeMember(newSearch);
-    }, 500),
-    members () {
-      this.memberResults = this.members;
-    },
   },
   computed: {
     winnerText () {
@@ -108,12 +93,6 @@ export default {
     },
   },
   methods: {
-    async searchChallengeMember (search) {
-      this.memberResults = await this.$store.dispatch('members:getChallengeMembers', {
-        challengeId: this.challengeId,
-        searchTerm: search,
-      });
-    },
     selectMember (member) {
       this.winner = member;
     },

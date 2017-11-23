@@ -11,7 +11,7 @@
         select.form-control(v-model="workingGroup.newLeader")
           option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
 
-      .form-group(v-if='!this.workingGroup.id')
+      .form-group
         label
           strong(v-once) {{$t('privacySettings')}} *
         br
@@ -35,7 +35,7 @@
           // @TODO discuss the impact of this with moderators before implementing
 
         br
-        label.custom-control.custom-checkbox(v-if='!isParty')
+        label.custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
           input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
           span.custom-control-indicator
           span.custom-control-description(v-once) {{ $t('privateGuild') }}
@@ -56,7 +56,7 @@
       .form-group(v-if='!isParty')
         label
           strong(v-once) {{$t('guildSummary')}} *
-        div.summary-count {{charactersRemaining}} {{ $t('charactersRemaining') }}
+        div.summary-count {{ $t('charactersRemaining', {characters: charactersRemaining}) }}
         textarea.form-control.summary-textarea(:placeholder="isParty ? $t('partyDescriptionPlaceholder') : $t('guildSummaryPlaceholder')", v-model="workingGroup.summary")
         // @TODO: need summary only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -168,13 +168,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bBtn from 'bootstrap-vue/lib/components/button';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
-import bFormCheckbox from 'bootstrap-vue/lib/components/form-checkbox';
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-import bTooltip from 'bootstrap-vue/lib/components/tooltip';
-
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import markdownDirective from 'client/directives/markdown';
@@ -191,12 +184,6 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 
 export default {
   components: {
-    bModal,
-    bBtn,
-    bFormInput,
-    bFormCheckbox,
-    bFormSelect,
-    bTooltip,
     toggleSwitch,
   },
   directives: {
@@ -358,7 +345,13 @@ export default {
       if (editingGroup.summary) this.workingGroup.summary = editingGroup.summary;
       if (editingGroup.description) this.workingGroup.description = editingGroup.description;
       if (editingGroup._id) this.workingGroup.id = editingGroup._id;
-      if (editingGroup.leader._id) this.workingGroup.newLeader = editingGroup.leader._id;
+
+      this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
+
+      if (editingGroup.leader._id) {
+        this.workingGroup.newLeader = editingGroup.leader._id;
+        this.workingGroup.currentLeaderId = editingGroup.leader._id;
+      }
       if (editingGroup._id) this.getMembers();
     },
   },
@@ -420,11 +413,9 @@ export default {
         this.workingGroup.privacy = 'public';
       }
 
-      if (!this.workingGroup.onlyLeaderCreatesChallenges) {
-        this.workingGroup.leaderOnly = {
-          challenges: true,
-        };
-      }
+      this.workingGroup.leaderOnly = {
+        challenges: this.workingGroup.onlyLeaderCreatesChallenges,
+      };
 
       let categoryKeys = this.workingGroup.categories;
       let serverCategories = [];
@@ -437,14 +428,19 @@ export default {
       });
       this.workingGroup.categories = serverCategories;
 
+      let groupData = Object.assign({}, this.workingGroup);
+      if (groupData.newLeader === this.workingGroup.currentLeaderId) {
+        groupData.leader = this.workingGroup.currentLeaderId;
+      }
+
       let newgroup;
-      if (this.workingGroup.id) {
-        await this.$store.dispatch('guilds:update', {group: this.workingGroup});
+      if (groupData.id) {
+        await this.$store.dispatch('guilds:update', {group: groupData});
         this.$root.$emit('updatedGroup', this.workingGroup);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
-        newgroup = await this.$store.dispatch('guilds:create', {group: this.workingGroup});
+        newgroup = await this.$store.dispatch('guilds:create', {group: groupData});
         this.$store.state.user.data.balance -= 1;
       }
 
@@ -465,7 +461,7 @@ export default {
       if (newgroup && newgroup._id) {
         this.$router.push(`/groups/guild/${newgroup._id}`);
       }
-      this.$root.$emit('hide::modal', 'guild-form');
+      this.$root.$emit('bv::hide::modal', 'guild-form');
     },
     resetWorkingGroup () {
       this.workingGroup = {

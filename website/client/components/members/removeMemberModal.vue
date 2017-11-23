@@ -21,13 +21,8 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
   props: ['memberToRemove', 'groupId'],
-  components: {
-    bModal,
-  },
   data () {
     return {
       removeMessage: '',
@@ -46,7 +41,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'remove-member');
+      this.$root.$emit('bv::hide::modal', 'remove-member');
     },
   },
 };

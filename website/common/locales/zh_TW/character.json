@@ -217,5 +217,6 @@
     "mainHand": "主手",
     "offHand": "副手",
     "pointsAvailable": "可用點數",
-    "pts": "點"
+    "pts": "點",
+    "statsObjectRequired": "Stats update is required"
 }

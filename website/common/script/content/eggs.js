@@ -332,6 +332,12 @@ let quests = {
     adjective: t('questEggHippoAdjective'),
     canBuy: hasQuestAchievementFunction('hippo'),
   },
+  Yarn: {
+    text: t('questEggYarnText'),
+    mountText: t('questEggYarnMountText'),
+    adjective: t('questEggYarnAdjective'),
+    canBuy: hasQuestAchievementFunction('yarn'),
+  },
 };
 
 applyEggDefaults(drops, {

@@ -105,8 +105,6 @@
 
   .drawer-slider {
     padding: 12px 0 0 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
     white-space: nowrap;
     position: relative;
 
@@ -179,7 +177,7 @@ export default {
       standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
     },
     toggle () {
-      this.open = !this.open;
+      this.open = !this.isOpen;
       this.$emit('toggled', this.open);
     },
   },

@@ -42,10 +42,10 @@
           )
 
         .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+          .how-many-to-buy(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
             strong {{ $t('howManyToBuy') }}
           div(v-if='item.purchaseType !== "gear"')
-            .box
+            .box(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
             span.value(:class="getPriceClass()") {{ item.value }}
@@ -89,6 +89,10 @@
 
   #buy-modal {
     @include centeredModal();
+
+    .modal-dialog {
+      width: 330px;
+    }
 
     .avatar {
       cursor: default;
@@ -254,9 +258,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -287,9 +288,6 @@
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
-      bModal,
-      bDropdown,
-      bDropdownItem,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,
@@ -384,7 +382,7 @@
             eventLabel: 'Gems > Rebirth',
           });
         }
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
       togglePinned () {
         this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
@@ -394,7 +392,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
       },
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {

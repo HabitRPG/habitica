@@ -114,8 +114,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import {maxHealth} from '../../../common/script/index';
@@ -128,7 +126,6 @@ let BASE_URL = 'https://habitica.com';
 export default {
   mixins: [styleHelper],
   components: {
-    bModal,
     Avatar,
   },
   data () {
@@ -157,7 +154,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'level-up');
+      this.$root.$emit('bv::hide::modal', 'level-up');
     },
     loadWidgets () {
       // @TODO:

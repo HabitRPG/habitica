@@ -18,13 +18,8 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
   props: ['task'],
-  components: {
-    bModal,
-  },
   methods: {
     approve (index) {
       if (!confirm('Are you sure you want to approve this task?')) return;
@@ -37,7 +32,7 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     close () {
-      this.$root.$emit('hide::modal', 'approval-modal');
+      this.$root.$emit('bv::hide::modal', 'approval-modal');
     },
   },
 };

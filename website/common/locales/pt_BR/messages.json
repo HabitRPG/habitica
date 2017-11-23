@@ -57,5 +57,5 @@
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
-    "beginningOfConversation": "Este é começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade."
+    "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade."
 }

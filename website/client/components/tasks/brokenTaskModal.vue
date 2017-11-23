@@ -1,6 +1,6 @@
 <template lang='pug'>
-  b-modal#broken-task-modal(title="Broken Challenge", size='sm', :hide-footer="true", v-if='brokenChallengeTask && brokenChallengeTask.challenge')
-    .modal-body
+  b-modal#broken-task-modal(title="Broken Challenge", size='sm', :hide-footer="true")
+    .modal-body(v-if='brokenChallengeTask && brokenChallengeTask.challenge')
       div(v-if='brokenChallengeTask.challenge.broken === "TASK_DELETED" || brokenChallengeTask.challenge.broken === "CHALLENGE_TASK_NOT_FOUND"')
         h2 {{ $t('brokenTask') }}
         div
@@ -33,18 +33,23 @@
 
 <script>
 import { mapActions } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
+  data () {
+    return {
+      brokenChallengeTask: {},
+    };
   },
-  computed: {
-    brokenChallengeTask () {
-      return this.$store.state.brokenChallengeTask;
-    },
+  created () {
+    this.$root.$on('handle-broken-task', (task) => {
+      this.brokenChallengeTask = Object.assign({}, task);
+      this.$root.$emit('bv::show::modal', 'broken-task-modal');
+    });
+  },
+  removed () {
+    this.$root.$remove('handle-broken-task');
   },
   methods: {
     ...mapActions({
@@ -58,7 +63,13 @@ export default {
           challengeId: this.brokenChallengeTask.challenge.id,
           keep: keepOption,
         });
+
         await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+
+        if (this.brokenChallengeTask.type === 'todo') {
+          await this.$store.dispatch('tasks:fetchCompletedTodos', {forceLoad: true});
+        }
+
         this.close();
         return;
       }
@@ -75,7 +86,7 @@ export default {
     },
     close () {
       this.$store.state.brokenChallengeTask = {};
-      this.$root.$emit('hide::modal', 'broken-task-modal');
+      this.$root.$emit('bv::hide::modal', 'broken-task-modal');
     },
   },
 };
