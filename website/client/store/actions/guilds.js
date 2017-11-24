@@ -37,15 +37,20 @@ export async function getMyGuilds (store) {
 }
 
 export async function getGroup (store, payload) {
-  let response = await axios.get(`/api/v3/groups/${payload.groupId}`);
+  // Unless forceReload is true, if we are looking for the party and it exists in the store, return that
+  // Otherwise call the API
+  if (payload.groupId === 'party' && store.state.party.data && !payload.forceReload) {
+    return store.state.party;
+  } else {
+    let response = await axios.get(`/api/v3/groups/${payload.groupId}`);
+    // @TODO: should we store the active group for modifying?
+    // let guilds = response.data.data;
+    // store.state.myGuilds = guilds;
 
-  // @TODO: should we store the active group for modifying?
-  // let guilds = response.data.data;
-  // store.state.myGuilds = guilds;
+    // @TODO: Populate with members, challenges, and invites
 
-  // @TODO: Populate wiht members, challenges, and invites
-
-  return response.data.data;
+    return response.data.data;
+  }
 }
 
 
