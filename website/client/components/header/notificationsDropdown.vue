@@ -34,7 +34,7 @@ menu-dropdown.item-notifications(:right="true")
         button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
         button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
-      @click='go("/user/profile")')
+      @click='showProfile()')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
     a.dropdown-item(v-for='message in userNewMessages')
@@ -278,6 +278,12 @@ export default {
     async questReject (partyId) {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
       this.user.party.quest = quest;
+    },
+    showProfile () {
+      this.$root.$emit('habitica:show-profile', {
+        user: this.user,
+        startingPage: 'stats',
+      });
     },
   },
 };

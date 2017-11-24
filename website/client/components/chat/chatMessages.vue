@@ -478,10 +478,10 @@ export default {
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        // @TODO move to action or anyway move from here because it's super duplicate
-        this.$store.state.profileUser = profile;
-        this.$store.state.profileOptions.startingPage = 'profile';
-        this.$root.$emit('bv::show::modal', 'profile');
+        this.$root.$emit('habitica:show-profile', {
+          user: profile,
+          startingPage: 'profile',
+        });
       }
     },
   },
