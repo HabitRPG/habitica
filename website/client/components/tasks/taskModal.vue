@@ -177,11 +177,10 @@
             .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
               .svg-icon(v-html="icons.down", :class="{'toggle-open': showAdvancedOptions}")
           b-collapse#advancedOptionsCollapse(v-model="showAdvancedOptions")
-            b-card
-              p.card-text Collapse contents Here
-              b-btn(v-b-toggle.collapse1_inner='', size='sm') Toggle Inner Collapse
-              b-collapse#collapse1_inner.mt-2
-                b-card Hello!
+            .advanced-settings-body
+              .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-once)
+                .svg-icon.d-inline-b(v-html="icons.destroy")
+                span {{ $t('deleteTask') }}
 
       .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
         span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
@@ -202,14 +201,13 @@
 
     input, textarea {
       border: none;
-      background-color: rgba(26, 24, 29, 0.48);
-      opacity: 0.64;
+      background-color: rgba(26, 24, 29, 0.24);
       color: $white !important;
 
       &:focus {
         color: $white !important;
-        opacity: 1;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.16);
+        background-color: rgba(26, 24, 29, 0.48);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.24);
       }
     }
 
@@ -498,6 +496,16 @@
       }
     }
 
+    .delete-task-btn {
+      color: $red-50;
+
+      .svg-icon {
+        width: 14px;
+        height: 16px;
+        margin-right: 8.5px;
+      }
+    }
+
     .task-modal-footer {
       padding: 16px 24px;
       width: 100%;
@@ -518,6 +526,10 @@
       margin-left: -23px;
       margin-right: -23px;
       padding: 16px 24px;
+
+      &-body {
+        margin-top: 17px;
+      }
 
       h3 {
         color: $gray-10;
