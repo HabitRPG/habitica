@@ -137,6 +137,7 @@ export default {
 
       // Reset the page when filters are updated
       this.lastPageLoaded = 0;
+      this.hasLoadedAllGuilds = false;
       this.queryFilters.page = this.lastPageLoaded;
 
       this.queryFilters.categories = eventData.categories.join(',');
@@ -173,10 +174,11 @@ export default {
     },
     async fetchGuilds () {
       // We have the data cached
-      if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
+      if (this.lastPageLoaded === 0 && this.guilds.length > 0) {
+        this.lastPageLoaded += 1;
+      }
 
       this.loading = true;
-
       this.queryFilters.page = this.lastPageLoaded;
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
