@@ -95,7 +95,7 @@
     "hideTags": "Sembunyikan",
     "showTags": "Perlihatkan",
     "editTags2": "Edit Label",
-    "toRequired": "You must supply a \"to\" property",
+    "toRequired": "Kamu harus memasukkan \"ke\"",
     "startDate": "Tanggal Mulai",
     "startDateHelpTitle": "Kapan tugas ini dimulai?",
     "startDateHelp": "Tentukan tanggal di mana tugas ini memiliki efek. Tidak akan bisa menentukan tenggat waktu pada hari yang telah lewat.",
