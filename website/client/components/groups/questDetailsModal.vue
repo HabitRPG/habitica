@@ -180,6 +180,7 @@ export default {
       return quests.quests[this.group.quest.key];
     },
     members () {
+      let party = this.partyMembers || [];
       return this.partyMembers.map(member => {
         return {
           name: member.profile.name,
