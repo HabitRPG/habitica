@@ -36,7 +36,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='sort(option.value)', v-if='isLeader')
+            b-dropdown-item(@click='promoteToLeader(member._id)', v-if='isLeader')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
@@ -387,6 +387,12 @@ export default {
         groupId: this.groupId,
       });
       this.viewMembers();
+    },
+    async promoteToLeader (memberId) {
+      let groupData = Object.assign({}, this.group);
+      groupData.leader = memberId;
+      await this.$store.dispatch('guilds:update', {group: groupData});
+      this.$root.$emit('updatedGroup', groupData);
     },
   },
 };
