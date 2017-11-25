@@ -790,7 +790,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
 
   if (masterClasserQuests.includes(questK)) {
     let lostMasterclasserQuery = {
-      'achievements.lostMasterclasser': {$ne: true}
+      'achievements.lostMasterclasser': {$ne: true},
     };
     masterClasserQuests.forEach(questName => {
       lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
