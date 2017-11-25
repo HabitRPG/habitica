@@ -75,6 +75,7 @@
     "hatchAPot": "Szeretnél egy új <%= potion %> <%= egg %> háziállatot kikeltetni?",
     "hatchedPet": "Egy új <%= potion %> <%= egg %> keltettél ki!",
     "hatchedPetGeneric": "Egy új háziállatot keltettél ki!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Megjelenítés most",
     "displayLater": "Megjelenítés később",
     "petNotOwned": "Ennek a háziállatnak nem te vagy a gazdája.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Kattints a háziállatra hogy megetesd <%= foodName %> és nézd hogyan növekszik! ",
     "dragThisPotion": "Húzd oda <%= potionName %> egy tojáshoz és kelts ki egy új háziállatot!",
     "clickOnEggToHatch": "Kattints egy tojásra hogy használd a <%= potionName %> keltetőfőzeted és kelts ki egy új háziállatot!",
-    "hatchDialogText": "Öntsd rá a <%= potionName %> keltetőfőzeted a <%= eggName %> tojásodra, és ki fog kelni a <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

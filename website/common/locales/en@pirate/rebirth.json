@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb o' Rebirth t' start o'er aft attainin' Level <%= level %>.",
     "rebirthOrb100": "Used an Orb o' Rebirth t' start over aft attainin' Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb o' Rebirth t' start o'er.",
-    "rebirthPop": "Restart ye character at Level 1 while retainin' achievements, collectibles, equipment, and tasks wit' history.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "confirmReborn": "Be ye positive?",

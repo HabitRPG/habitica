@@ -2,7 +2,7 @@
 div
   yesterdaily-modal(
     :yesterDailies='yesterDailies',
-    @hide="runYesterDailiesAction()",
+    @run-cron="runYesterDailiesAction()",
   )
   armoire-empty
   new-stuff
@@ -210,6 +210,7 @@ export default {
   },
   watch: {
     baileyShouldShow () {
+      if (this.user.needsCron) return;
       this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     userHp (after, before) {
@@ -311,10 +312,6 @@ export default {
   methods: {
     checkUserAchievements () {
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
-      if (this.user.flags.newStuff) {
-        this.$root.$emit('bv::show::modal', 'new-stuff');
-      }
-
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
         this.$root.$emit('bv::show::modal', 'avatar-modal');
@@ -373,8 +370,8 @@ export default {
       this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
-        this.handleUserNotifications(this.user.notifications);
         this.scheduleNextCron();
+        this.handleUserNotifications(this.user.notifications);
         return;
       }
 
@@ -411,17 +408,25 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
+      this.$store.state.isRunningYesterdailies = false;
+
       if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
-      this.handleUserNotifications(this.user.notifications);
       this.scheduleNextCron();
+      this.handleUserNotifications(this.user.notifications);
     },
     transferGroupNotification (notification) {
       this.$store.state.groupNotifications.push(notification);
     },
     async handleUserNotifications (after) {
+      if (this.$store.state.isRunningYesterdailies) return;
+
+      if (this.user.flags.newStuff) {
+        this.$root.$emit('bv::show::modal', 'new-stuff');
+      }
+
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       let notificationsToRead = [];

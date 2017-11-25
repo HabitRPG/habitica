@@ -23,7 +23,7 @@ gulp.task('build:common', () => {
 gulp.task('build:server', ['build:src', 'build:common']);
 
 // Client Production Build
-gulp.task('build:client', ['bootstrap'], (done) => {
+gulp.task('build:client', (done) => {
   webpackProductionBuild((err, output) => {
     if (err) return done(err);
     console.log(output); // eslint-disable-line no-console

@@ -29,6 +29,7 @@
     "either": "בחרו אחד",
     "createChallenge": "יצירת אתגר",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "ביטול",
     "challengeTitle": "שם האתגר",

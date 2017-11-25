@@ -75,6 +75,7 @@
     "hatchAPot": "Из яйца вылупится <%= potion %> питомец-<%= egg %>. Использовать эликсир?",
     "hatchedPet": "Вы вывели нового питомца: <%= potion %>(-ая) <%= egg %>!",
     "hatchedPetGeneric": "У вас вылупился новый питомец!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Показать сейчас",
     "displayLater": "Показать позже",
     "petNotOwned": "У вас нет этого питомца.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Нажми на питомца, чтобы скормить ему <%= foodName %> и наблюдай, как он растет!",
     "dragThisPotion": "Перемести <%= potionName %> на яйцо и вылупи нового питомца!",
     "clickOnEggToHatch": "Выберите яйцо, над которым применить <%= potionName %> инкубационный эликсир для выращивания нового питомца!",
-    "hatchDialogText": "Полейте ваш <%= potionName %> инкубационный эликсир на яйцо <%= eggName %>, и из него вылупится <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

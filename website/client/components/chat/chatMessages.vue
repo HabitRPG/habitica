@@ -354,7 +354,7 @@ export default {
       let username = user.profile.name;
       let mentioned = messagetext.indexOf(username.toLowerCase());
       let escapedUsername = escapeRegExp(username);
-      let pattern = `${escapedUsername}([^\w]|$){1}`;
+      let pattern = `@${escapedUsername}([^\w]|$){1}`;
 
       if (mentioned === -1) return message.highlight;
 

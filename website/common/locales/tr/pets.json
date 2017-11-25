@@ -42,14 +42,14 @@
     "noHatchingPotions": "Hiç kuluçka iksirin yok.",
     "inventoryText": "Kullanılabilir iksirleri yeşil renkte işaretli görmek için bir yumurtaya tıkla ve yumurtayı açmak için bu işaretli iksirlerden birini seç. Eğer hiçbir iksir işaretli değilse, yumurtayı seçili konumdan çıkarmak için yumurtaya tekrar tıkla ve iksiri üzerinde kullanabileceğin yumurtaları işaretli görmek için önce iksire tıklamayı dene. Eğer işine yaramayacak olanlar varsa, bunları Tüccar Alexander'a satabilirsin.",
     "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch.",
-    "quickInventory": "Quick Inventory",
+    "quickInventory": "Pratik envanter",
     "foodText": "yiyecek",
     "food": "Yiyecek ve Eyerler",
     "noFoodAvailable": "Hiç yiyeceğin yok.",
     "noSaddlesAvailable": "Hiç eyerin yok.",
     "noFood": "Hiç yiyeceğin veya eyerin yok.",
     "dropsExplanation": "Eğer görevlerini tamamlayarak kazanmayı beklemek istemiyorsan, bu eşyaları Elmas karşılığında daha hızlı edinebilirsin. <a href=\"http://tr.habitica.wikia.com/wiki/Düşen_Eşyalar\">Eşya kazanma sistemi ile ilgili detaylı bilgi al.</a>",
-    "dropsExplanationEggs": "Standart yumurtaları veya Görev bitirerek Görev yumurtalarını bulmayı beklemek istemiyorsan, yumurtaları daha hızlı almak için Elmas harca. <a href=\"http://habitica.wikia.com/wiki/Drops\">Ganimet sistemi hakkında daha fazla bilgi edin.</a>",
+    "dropsExplanationEggs": "Standart yumurtaları veya görev bitirerek görev yumurtalarını bulmayı beklemek istemiyorsan, yumurtaları daha hızlı almak için Elmas harca. <a href=\"http://habitica.wikia.com/wiki/Drops\">Ganimet sistemi hakkında daha fazla bilgi edin.</a>",
     "premiumPotionNoDropExplanation": "Sihirli Kuluçka İksirleri, Görevlerden kazanılan yumurtaların üzerinde kullanılamaz. Sihirli Kuluçka İksirlerini edinmenin tek yolu buradan satın almaktır, rastgele ödül olarak kazanılamaz.",
     "beastMasterProgress": "Hayvan Terbiyecisi Aşaması",
     "stableBeastMasterProgress": "Hayvan Terbiyecisi Aşaması: <%= number %> Evcil Hayvan Bulundu",
@@ -75,6 +75,7 @@
     "hatchAPot": "Bir <%= potion %> <%= egg %> oluşturulsun mu?",
     "hatchedPet": "Yumurtadan bir <%= potion %> <%= egg %> çıktı!",
     "hatchedPetGeneric": "Yumurtadan bir evcil hayvan çıktı!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Şimdi Görüntüle",
     "displayLater": "Sonra Görüntüle",
     "petNotOwned": "Bu hayvana sahip değilsin.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %> ."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

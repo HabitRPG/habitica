@@ -755,12 +755,19 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-
-    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
-
+    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     _removeMessagesFromMember(user, group._id);
-
     await user.save();
+
+    if (group.type !== 'party') {
+      let guildIndex = user.guilds.indexOf(group._id);
+      user.guilds.splice(guildIndex, 1);
+    }
+
+    let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
+    if (!isMemberOfGroupPlan) {
+      await payments.cancelGroupSubscriptionForUser(user, group);
+    }
 
     res.respond(200, {});
   },

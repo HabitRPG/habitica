@@ -156,6 +156,7 @@ module.exports = function purchase (user, req = {}, analytics) {
       itemType: 'Market',
       acquireMethod: 'Gems',
       gemCost: price * 4,
+      quantityPurchased: quantity,
       category: 'behavior',
       headers: req.headers,
     });

@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Posílat denní úkoly do záložky zbývající",
     "dailyDueDefaultViewPop": "Pokud je tato možnost zvolena, denní úkoly se budou zobrazovat v záložce Zbývající místo v záložce Vše",
     "reverseChatOrder": "Zobrazit zprávy v opačném pořadí",
-    "startCollapsed": "Seznam štítků se v úkolu zobrazí zabalený",
-    "startCollapsedPop": "Pokud je tato volba nastavena, seznam štítků bude skryt, když poprvé otevřeš úkol pro úpravu.",
     "startAdvCollapsed": "Pokročilé možnosti se v úkolu zobrazí zabalené.",
     "startAdvCollapsedPop": "Pokud je tato volba nastavena, pokročilé možnosti budou skryté, když poprvé otevřeš úkol pro úpravu.",
     "dontShowAgain": "Znovu neukazovat",

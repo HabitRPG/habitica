@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Visualizza lista Daily incomplete di default",
     "dailyDueDefaultViewPop": "Con questa opzione selezionata, le Daily mostrate saranno quelle della lista \"incomplete\" invece che \"tutte\".",
     "reverseChatOrder": "Mostra i messaggi nella chat in ordine inverso",
-    "startCollapsed": "Comprimi lista tag/etichette",
-    "startCollapsedPop": "Selezionando questa opzione, la lista dei tag dell'attività che stai modificando verrà inizialmente nascosta.",
     "startAdvCollapsed": "Comprimi opzioni avanzate",
     "startAdvCollapsedPop": "Selezionando questa opzione, la sezione delle opzioni avanzate verrà nascosta quando modifichi un'attività.",
     "dontShowAgain": "Non mostrare di nuovo",

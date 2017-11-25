@@ -21,7 +21,7 @@
     "rebirthOrb": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj miután elérted a <%= level %> szintet.",
     "rebirthOrb100": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj miután elérted a 100 szintet vagy magasabbat.",
     "rebirthOrbNoLevel": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj.",
-    "rebirthPop": "Kezd újra a karaktered 1. szinttől, megtartva a kitüntetéseket, gyűjteményeket, felszereléseket és a feladatelőzményeket.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Újjászületés gömbje",
     "reborn": "Újjászülettél, maximális szint <%= reLevel %>",
     "confirmReborn": "Biztos vagy benne?",

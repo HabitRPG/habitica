@@ -11,8 +11,6 @@
     "dailyDueDefaultView": "Svrstati Svakodnevne zadatke u tab „Preostali",
     "dailyDueDefaultViewPop": "Ako je opcija odabrana, svakodnevni zadaci biće smešteni pod tab „Preostali” umesto „Svi”.",
     "reverseChatOrder": "Show chat messages in reverse order",
-    "startCollapsed": "Sakriti spisak tagova kod zadataka",
-    "startCollapsedPop": "Ako je opcija odabrana, spisak tagova će biti skriven kad otvorite prozor za izmenu zadatka.",
     "startAdvCollapsed": "Sakriti Napredna podešavanja",
     "startAdvCollapsedPop": "Ako je opcija odabrana, Napredna podešavanja će biti skrivena kad otvorite prozor za izmenu zadatka.",
     "dontShowAgain": "Ne prikazuj ovo ponovo",
