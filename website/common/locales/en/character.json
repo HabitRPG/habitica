@@ -102,7 +102,7 @@
   "stats": "Stats",
   "achievs": "Achievements",
   "strength": "Strength",
-  "strengthText": "Strength increases the chance of random \"critical hits\" and the Gold, Experience, and drop chance boost from them. It also helps deal damage to boss monsters.",
+  "strText": "Strength increases the chance of random \"critical hits\" and the Gold, Experience, and drop chance boost from them. It also helps deal damage to boss monsters.",
   "constitution": "Constitution",
   "conText": "Constitution reduces the damage you take from negative Habits and missed Dailies.",
   "perception": "Perception",

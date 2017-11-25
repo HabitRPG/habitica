@@ -139,11 +139,6 @@
             b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
               | {{ $t(frequency) }}
 
-        .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
-          .form-group
-            label(v-once) {{ $t('restoreStreak') }}
-            input(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
-
         .option.group-options(v-if='groupId')
           label(v-once) Assigned To
           .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
@@ -178,6 +173,35 @@
               .svg-icon(v-html="icons.down", :class="{'toggle-open': showAdvancedOptions}")
           b-collapse#advancedOptionsCollapse(v-model="showAdvancedOptions")
             .advanced-settings-body
+              .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
+                .form-group
+                  label(v-once) {{ $t('restoreStreak') }}
+                  input(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
+
+              .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
+                .form-group
+                  label(v-once) {{ $t('restoreStreak') }}
+                  input(
+                    type="number", v-model="task.counterUp", min="0", required, 
+                    :disabled="challengeAccessRequired", v-if="task.up",
+                  )
+                  input(
+                    type="number", v-model="task.counterDown", min="0", required, 
+                    :disabled="challengeAccessRequired", v-if="task.down",
+                  )
+
+              .option(v-if="isUserTask")
+                .form-group
+                  label(v-once) {{ $t('attributeAllocation') }}
+                  .form-check.col-6(
+                    v-for="attr in ATTRIBUTES",
+                    :key="attr",
+                  )
+                    label.custom-control.custom-radio
+                      input.custom-control-input(type="radio", :value="attr", v-model="task.attribute")
+                      span.custom-control-indicator
+                      span.custom-control-description(v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
+
               .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-once)
                 .svg-icon.d-inline-b(v-html="icons.destroy")
                 span {{ $t('deleteTask') }}
@@ -607,6 +631,12 @@ export default {
       assignedMembers: [],
       checklist: [],
       showAdvancedOptions: false,
+      attributesStrings: {
+        str: 'strength',
+        int: 'intelligence',
+        con: 'constitution',
+        per: 'perception',
+      },
     };
   },
   watch: {
@@ -641,6 +671,7 @@ export default {
     ...mapState({
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
+      ATTRIBUTES: 'constants.ATTRIBUTES',
     }),
     groupAccessRequiredAndOnPersonalPage () {
       if (!this.groupId && this.task.group && this.task.group.id) return true;
