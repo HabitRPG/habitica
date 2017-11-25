@@ -202,7 +202,7 @@
     input, textarea {
       border: none;
       background-color: rgba(26, 24, 29, 0.24);
-      color: $white !important;
+      color: rgba($white, 0.64) !important;
 
       &:focus {
         color: $white !important;
