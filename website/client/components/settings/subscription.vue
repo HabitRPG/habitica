@@ -239,7 +239,7 @@ export default {
     },
     dateTerminated () {
       if (!this.user.preferences || !this.user.preferences.dateFormat) return moment(this.user.purchased.plan.dateTerminated);
-      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
+      return format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (
