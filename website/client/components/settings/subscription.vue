@@ -143,13 +143,6 @@ export default {
       },
     };
   },
-  filters: {
-    date (value) {
-      if (!value) return '';
-      return moment(value);
-      // return moment(value).format(this.user.preferences.dateFormat); // @TODO make that work (`TypeError: this is undefined`)
-    },
-  },
   computed: {
     ...mapState({user: 'user.data', credentials: 'credentials'}),
     subscriptionBlocksOrdered () {
@@ -238,7 +231,7 @@ export default {
       };
     },
     dateTerminated () {
-      if (!this.user.preferences || !this.user.preferences.dateFormat) return moment(this.user.purchased.plan.dateTerminated);
+      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
       return this.user.purchased.plan.dateTerminated.format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
