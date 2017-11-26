@@ -232,7 +232,7 @@ export default {
     },
     dateTerminated () {
       if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
-      return this.user.purchased.plan.dateTerminated.format(this.user.preferences.dateFormat.toUpperCase());
+      return moemnt(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (
