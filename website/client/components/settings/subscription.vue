@@ -33,7 +33,7 @@
             span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
             i.glyphicon.glyphicon-time
             |  {{ $t('subCanceled') }} &nbsp;
-            strong {{user.purchased.plan.dateTerminated | date}}
+            strong {{dateTerminated}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
             p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
@@ -236,6 +236,10 @@ export default {
       return {
         amount: this.numberOfMysticHourglasses,
       };
+    },
+    dateTerminated () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) return moment(this.user.purchased.plan.dateTerminated);
+      return this.user.purchased.plan.dateTerminated.format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (
