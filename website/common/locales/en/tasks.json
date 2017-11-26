@@ -170,7 +170,7 @@
   "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
   "taskApprovalHasBeenRequested": "Approval has been requested",
   "approvals": "Approvals",
-  "approvalRequired": "Approval Required",
+  "approvalRequired": "Needs Approval",
   "repeatZero": "Daily is never due",
   "repeatType": "Repeat Type",
   "repeatTypeHelpTitle": "What kind of repeat is this?",

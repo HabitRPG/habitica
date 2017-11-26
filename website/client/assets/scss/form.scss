@@ -54,6 +54,37 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
+.input-group {
+  .input-group-addon {
+    background: $gray-600;
+    color: $gray-300;
+    border-radius: 2px;
+
+    &.streak-addon .svg-icon {
+      width: 11.6px;
+      height: 7.1px;
+    }
+
+    &.positive-addon .svg-icon {
+      width: 10px;
+      height: 10px;
+    }
+
+    &.negative-addon .svg-icon {
+      width: 10px;
+      height: 2px;
+    }
+  }
+
+  input:not(:first-child) {
+    border-left: none !important;
+  }
+
+  input:first-child {
+    border-right: none !important;
+  }
+}
+
 // Checkboxes and radios
 $bg-focused-active-control: #4f2993;
 $bg-disabled-control: #34303a;

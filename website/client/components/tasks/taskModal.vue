@@ -66,41 +66,47 @@
                 .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
               .option-item-label(:class="task.priority === 2 ? `${cssClass}-color` : ''") {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
-          label(v-once) {{ $t('dueDate') }}
-          datepicker.d-inline-block(
-            v-model="task.date",
-            :clearButton='true',
-            clearButtonIcon='category-select',
-            :clearButtonText='$t("clear")',
-            :todayButton='!challengeAccessRequired',
-            todayButtonIcon='category-select',
-            :todayButtonText='$t("today")',
-            :disabled-picker='challengeAccessRequired'
-          )
+          .form-group.row
+            label.col-form-label.col-3(v-once) {{ $t('dueDate') }}
+            .col-9
+              datepicker.d-inline-block(
+                v-model="task.date",
+                :clearButton='true',
+                clearButtonIcon='category-select',
+                :clearButtonText='$t("clear")',
+                :todayButton='!challengeAccessRequired',
+                todayButtonIcon='category-select',
+                :todayButtonText='$t("today")',
+                :disabled-picker='challengeAccessRequired'
+              )
         .option(v-if="task.type === 'daily'")
-          label(v-once) {{ $t('startDate') }}
-          datepicker.d-inline-block(
-            v-model="task.startDate",
-            :clearButton='false',
-            :todayButton='!challengeAccessRequired',
-            todayButtonIcon='category-select',
-            :todayButtonText='$t("today")',
-            :disabled-picker='challengeAccessRequired'
-          )
+          .form-group.row
+            label.col-form-label.col-3(v-once) {{ $t('startDate') }}
+            .col-9
+              datepicker(
+                v-model="task.startDate",
+                :clearButton='false',
+                :todayButton='!challengeAccessRequired',
+                todayButtonIcon='category-select',
+                :todayButtonText='$t("today")',
+                :disabled-picker='challengeAccessRequired'
+              )
         .option(v-if="task.type === 'daily'")
-          .form-group
-            label(v-once) {{ $t('repeats') }}
-            b-dropdown(:text="$t(task.frequency)")
-              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']",
-              :key="frequency", @click="task.frequency = frequency",
-              :disabled='challengeAccessRequired',
-              :class="{active: task.frequency === frequency}")
-                | {{ $t(frequency) }}
-          .form-group
-            label(v-once) {{ $t('repeatEvery') }}
-            input(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
-            | {{ repeatSuffix }}
-            br
+          .form-group.row
+            label.col-form-label.col-5(v-once) {{ $t('repeats') }}
+            .col-7
+              b-dropdown(:text="$t(task.frequency)")
+                b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']",
+                :key="frequency", @click="task.frequency = frequency",
+                :disabled='challengeAccessRequired',
+                :class="{active: task.frequency === frequency}")
+                  | {{ $t(frequency) }}
+          .form-group.row
+            label.col-form-label.col-5(v-once) {{ $t('repeatEvery') }}
+            .col-7
+              .input-group
+                input.form-control(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
+                .input-group-addon {{ repeatSuffix }}
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
@@ -121,50 +127,59 @@
               span.custom-control-description {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
-          .tags-inline
-            label(v-once) {{ $t('tags') }}
-            .category-wrap(@click="toggleTagSelect()", v-bind:class="{ active: showTagsSelect }")
-              span.category-select(v-if='task.tags && task.tags.length === 0')
-                .tags-none {{$t('none')}}
-                .dropdown-toggle
-              span.category-select(v-else)
-                .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
-                .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
-                .dropdown-toggle
+          .tags-inline.form-group.row
+            label.col-form-label.col-2(v-once) {{ $t('tags') }}
+            .col-10
+              .category-wrap(@click="toggleTagSelect()", v-bind:class="{ active: showTagsSelect }")
+                span.category-select(v-if='task.tags && task.tags.length === 0')
+                  .tags-none {{$t('none')}}
+                  .dropdown-toggle
+                span.category-select(v-else)
+                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                  .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
+                  .dropdown-toggle
           tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
-          label(v-once) {{ $t('resetStreak') }}
-          b-dropdown.streak-dropdown(:text="$t(task.frequency)")
-            b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-              | {{ $t(frequency) }}
+          .form-group.row
+            label.col-form-label.col-5(v-once) {{ $t('resetStreak') }}
+            .col-7
+              b-dropdown.streak-dropdown(:text="$t(task.frequency)")
+                b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+                  | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
-          label(v-once) Assigned To
-          .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
-            span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
-            span.category-select(v-else)
-              span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
-          .category-box(v-if="showAssignedSelect")
-            .container
-              .row
-                .form-check.col-6(
-                  v-for="member in members",
-                  :key="member._id",
-                )
-                  label.custom-control.custom-checkbox
-                    input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
-                    span.custom-control-indicator
-                    span.custom-control-description(v-once) {{ member.profile.name }}
+          .form-group.row
+            label.col-5.col-form-label(v-once) {{ $t('assignedTo') }}
+            .col-7
+              .category-wrap(@click="showAssignedSelect = !showAssignedSelect")
+                span.category-select(v-if='assignedMembers && assignedMembers.length === 0') {{$t('none')}}
+                span.category-select(v-else)
+                  span(v-for='memberId in assignedMembers') {{memberNamesById[memberId]}}
+              .category-box(v-if="showAssignedSelect")
+                .container
+                  .row
+                    .form-check.col-6(
+                      v-for="member in members",
+                      :key="member._id",
+                    )
+                      label.custom-control.custom-checkbox
+                        input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
+                        span.custom-control-indicator
+                        span.custom-control-description(v-once) {{ member.profile.name }}
 
-              .row
-                button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
+                  .row
+                    button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
         .option.group-options(v-if='groupId')
-          label(v-once) Needs Approval
-          toggle-switch(:label='""',
-            :checked="requiresApproval",
-            @change="updateRequiresApproval")
+          .form-group.row
+            label.col-5.col-form-label(v-once) {{ $t('approvalRequired') }}
+            .col-7
+              toggle-switch(
+                label="",
+                :checked="requiresApproval",
+                @change="updateRequiresApproval"
+              )
 
         .advanced-settings
           .d-flex.justify-content-between.align-items-center
@@ -174,33 +189,44 @@
           b-collapse#advancedOptionsCollapse(v-model="showAdvancedOptions")
             .advanced-settings-body
               .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
-                .form-group
-                  label(v-once) {{ $t('restoreStreak') }}
-                  input(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
+                .form-group.row
+                  label.col-form-label.col-5(v-once) {{ $t('restoreStreak') }}
+                  .input-group.col-7
+                    .input-group-addon.streak-addon
+                      .svg-icon(v-html="icons.streak")
+                    input.form-control(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
 
               .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
-                .form-group
-                  label(v-once) {{ $t('restoreStreak') }}
-                  input(
-                    type="number", v-model="task.counterUp", min="0", required, 
-                    :disabled="challengeAccessRequired", v-if="task.up",
-                  )
-                  input(
-                    type="number", v-model="task.counterDown", min="0", required, 
-                    :disabled="challengeAccessRequired", v-if="task.down",
-                  )
+                .form-group.row
+                  label.col-form-label.col-4(v-once) {{ $t('restoreStreak') }}
+                  .input-group.col-4
+                    .input-group-addon.positive-addon
+                      .svg-icon(v-html="icons.positive")
+                    input.form-control(
+                      type="number", v-model="task.counterUp", min="0", required, 
+                      :disabled="challengeAccessRequired", v-if="task.up",
+                    )
+                  .input-group.col-4
+                    .input-group-addon.negative-addon
+                      .svg-icon(v-html="icons.negative")
+                    input.form-control(
+                      type="number", v-model="task.counterDown", min="0", required, 
+                      :disabled="challengeAccessRequired", v-if="task.down",
+                    )
 
               .option(v-if="isUserTask")
-                .form-group
-                  label(v-once) {{ $t('attributeAllocation') }}
-                  .form-check.col-6(
-                    v-for="attr in ATTRIBUTES",
-                    :key="attr",
-                  )
-                    label.custom-control.custom-radio
-                      input.custom-control-input(type="radio", :value="attr", v-model="task.attribute")
-                      span.custom-control-indicator
-                      span.custom-control-description(v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
+                .form-group.row
+                  label.col-5(v-once) {{ $t('attributeAllocation') }}
+                  .col-7
+                    .row
+                      .form-check.col-6(
+                        v-for="attr in ATTRIBUTES",
+                        :key="attr",
+                      )
+                        label.custom-control.custom-radio
+                          input.custom-control-input(type="radio", :value="attr", v-model="task.attribute")
+                          span.custom-control-indicator
+                          span.custom-control-description.attr-description(v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
 
               .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-once)
                 .svg-icon.d-inline-b(v-html="icons.destroy")
@@ -378,20 +404,12 @@
       position: relative;
 
       .tags-inline {
-        align-items: center;
-        display: flex;
-        justify-content: flex-start;
-
-        label {
-          margin: 0;
-        }
-
         .category-wrap {
           cursor: inherit;
           position: relative;
           border: 1px solid transparent;
           border-radius: 2px;
-          margin-left: 4em;
+          display: inline-block;
 
           &.active {
             border-color: $purple-500;
@@ -563,6 +581,10 @@
       .toggle-open {
         transform: rotate(180deg);
       }
+
+      .attr-description {
+        border-bottom: 1px dashed;
+      }
     }
   }
 </style>
@@ -592,6 +614,7 @@ import difficultyHardIcon from 'assets/svg/difficulty-hard.svg';
 import difficultyNormalIcon from 'assets/svg/difficulty-normal.svg';
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
+import streakIcon from 'assets/svg/streak.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import downIcon from 'assets/svg/down.svg';
@@ -624,6 +647,7 @@ export default {
         destroy: deleteIcon,
         gold: goldIcon,
         down: downIcon,
+        streak: streakIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],

@@ -70,7 +70,7 @@
       justify-content: center;
 
       .close-tags {
-        color: $red-50;
+        color: $blue-10;
         margin: 1.1em 0;
         margin-left: 2em;
         font-size: 14px;
