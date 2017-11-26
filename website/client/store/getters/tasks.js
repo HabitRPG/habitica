@@ -43,7 +43,7 @@ export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 
   // Purpose can be one of the following strings:
-  // Edit Modal: modal-bg, modal-text, modal-icon
+  // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
   // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
   // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
   return (task, purpose, dueDate) => {

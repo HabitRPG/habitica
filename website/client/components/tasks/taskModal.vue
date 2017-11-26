@@ -34,12 +34,12 @@
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
-          .option-item(@click="toggleUpDirection()", :class="task.up ? 'option-item-selected' : ''")
+          .option-item(@click="toggleUpDirection()", :class="`habit-control-${task.up ? 'enabled' : 'disabled'}`")
             .option-item-box(:class="task.up ? cssClass('bg') : ''")
               .task-control.habit-control
                 .svg-icon.positive(v-html="icons.positive", :class="task.up ? cssClass('icon') : ''")
-            .option-item-label(:class="task.down ? cssClass('text') : ''") {{ $t('positive') }}
-          .option-item(@click="toggleDownDirection()", :class="task.down ? 'option-item-selected' : ''")
+            .option-item-label(:class="task.up ? cssClass('text') : ''") {{ $t('positive') }}
+          .option-item(@click="toggleDownDirection()", :class="`habit-control-${task.down ? 'enabled' : 'disabled'}`")
             .option-item-box(:class="task.down ? cssClass('bg') : ''")
               .task-control.habit-control
                 .svg-icon.negative(v-html="icons.negative", :class="task.down ? cssClass('icon') : ''")
@@ -353,12 +353,6 @@
         margin-right: 0px;
       }
 
-      &-selected {
-        .habit-control {
-          background: $white !important;
-        }
-      }
-
       &-box {
         width: 64px;
         height: 64px;
@@ -368,18 +362,24 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        .habit-control.task-habit-disabled-control-habit {
-          color: $white !important;
-          background: $white;
-          border: solid 2px $gray-600;
-        }
       }
 
       &-label {
         color: $gray-50;
         text-align: center;
         transition-property: none;
+      }
+    }
+
+    .habit-control {
+      &-disabled {
+        .option-item-box {
+          background: $white;
+          border: 2px solid $gray-600;
+
+          .habit-control { background: $gray-300 !important; }
+          .svg-icon { color: $white !important; }
+        }
       }
     }
 

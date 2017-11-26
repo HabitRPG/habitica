@@ -98,6 +98,13 @@
     }
   }
 
+  &-disabled {
+    &-modal-habit-control {
+      border-radius: 2px;
+      border: 2px solid $gray-600;
+    }
+  }
+
   &-reward {
     background: #FFF5E5;
   }
