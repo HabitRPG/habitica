@@ -1,7 +1,7 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
     b-modal#task-modal(size="sm", @hidden="onClose()")
-      .task-modal-header(slot="modal-header", :class="[cssClass]")
+      .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
@@ -10,14 +10,14 @@
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
           input.form-control.title-input(
-            type="text", :class="[`${cssClass}-modal-input`]",
+            type="text", :class="[`${cssClass()}-modal-input`]",
             required, v-model="task.text",
             autofocus, spellcheck="true",
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
           label(v-once) {{ $t('notes') }}
-          textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
+          textarea.form-control(:class="[`${cssClass()}-modal-input`]", v-model="task.notes", rows="3")
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
@@ -34,37 +34,37 @@
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
-          .option-item(@click="toggleUpDirection()", :class="task.up === true ? 'option-item-selected' : ''")
-            .option-item-box(:class="task.up === true ? cssClass : ''")
+          .option-item(@click="toggleUpDirection()", :class="task.up ? 'option-item-selected' : ''")
+            .option-item-box(:class="task.up ? cssClass('bg') : ''")
               .task-control.habit-control
-                .svg-icon.positive(v-html="icons.positive", :class="task.up === true ? `${cssClass}-color` : ''")
-            .option-item-label(:class="task.up === true ? `${cssClass}-color` : ''") {{ $t('positive') }}
-          .option-item(@click="toggleDownDirection()", :class="task.down === true ? 'option-item-selected' : ''")
-            .option-item-box(:class="task.down === true ? cssClass : ''")
+                .svg-icon.positive(v-html="icons.positive", :class="task.up ? cssClass('icon') : ''")
+            .option-item-label(:class="task.down ? cssClass('text') : ''") {{ $t('positive') }}
+          .option-item(@click="toggleDownDirection()", :class="task.down ? 'option-item-selected' : ''")
+            .option-item-box(:class="task.down ? cssClass('bg') : ''")
               .task-control.habit-control
-                .svg-icon.negative(v-html="icons.negative", :class="task.down === true ? `${cssClass}-color` : ''")
-            .option-item-label(:class="task.down === true ? `${cssClass}-color` : ''") {{ $t('negative') }}
+                .svg-icon.negative(v-html="icons.negative", :class="task.down ? cssClass('icon') : ''")
+            .option-item-label(:class="task.down ? cssClass('text') : ''") {{ $t('negative') }}
         template(v-if="task.type !== 'reward'")
           label(v-once)
             span.float-left {{ $t('difficulty') }}
             // @TODO .svg-icon.info-icon(v-html="icons.information")
           .d-flex.justify-content-center.difficulty-options
             .option-item(:class="task.priority === 0.1 ? 'option-item-selected' : ''", @click="setDifficulty(0.1)")
-              .option-item-box(:class="task.priority === 0.1 ? cssClass : ''")
+              .option-item-box(:class="task.priority === 0.1 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
-              .option-item-label(:class="task.priority === 0.1 ? `${cssClass}-color` : ''") {{ $t('trivial') }}
+              .option-item-label(:class="task.priority === 0.1 ? cssClass('text') : ''") {{ $t('trivial') }}
             .option-item(:class="task.priority === 1 ? 'option-item-selected' : ''", @click="setDifficulty(1)")
-              .option-item-box(:class="task.priority === 1 ? cssClass : ''")
+              .option-item-box(:class="task.priority === 1 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
-              .option-item-label(:class="task.priority === 1 ? `${cssClass}-color` : ''") {{ $t('easy') }}
+              .option-item-label(:class="task.priority === 1 ? cssClass('text') : ''") {{ $t('easy') }}
             .option-item(:class="task.priority === 1.5 ? 'option-item-selected' : ''", @click="setDifficulty(1.5)")
-              .option-item-box(:class="task.priority === 1.5 ? cssClass : ''")
+              .option-item-box(:class="task.priority === 1.5 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
-              .option-item-label(:class="task.priority === 1.5 ? `${cssClass}-color` : ''") {{ $t('medium') }}
+              .option-item-label(:class="task.priority === 1.5 ? cssClass('text') : ''") {{ $t('medium') }}
             .option-item(:class="task.priority === 2 ? 'option-item-selected' : ''", @click="setDifficulty(2)")
-              .option-item-box(:class="task.priority === 2 ? cssClass : ''")
+              .option-item-box(:class="task.priority === 2 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
-              .option-item-label(:class="task.priority === 2 ? `${cssClass}-color` : ''") {{ $t('hard') }}
+              .option-item-label(:class="task.priority === 2 ? cssClass('text') : ''") {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           .form-group.row
             label.col-form-label.col-3(v-once) {{ $t('dueDate') }}
@@ -724,9 +724,6 @@ export default {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
     },
-    cssClass () {
-      return this.getTaskClasses(this.task, this.purpose === 'edit' ? 'editModal' : 'createModal');
-    },
     isUserTask () {
       return !this.challengeId && !this.groupId;
     },
@@ -785,6 +782,9 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    cssClass (suffix) {
+      return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
+    },
     closeTagsPopup () {
       this.showTagsSelect = false;
     },

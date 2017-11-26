@@ -9,21 +9,25 @@ export function getTagsFor (store) {
   };
 }
 
-function getTaskColorByValue (value) {
+function getTaskColor (task) {
+  if (task.type === 'reward') return 'purple';
+
+  const value = task.value;
+
   if (value < -20) {
-    return 'task-worst';
+    return 'worst';
   } else if (value < -10) {
-    return 'task-worse';
+    return 'worse';
   } else if (value < -1) {
-    return 'task-bad';
+    return 'bad';
   } else if (value < 1) {
-    return 'task-neutral';
+    return 'neutral';
   } else if (value < 5) {
-    return 'task-good';
+    return 'good';
   } else if (value < 10) {
-    return 'task-better';
+    return 'better';
   } else {
-    return 'task-best';
+    return 'best';
   }
 }
 
@@ -38,13 +42,32 @@ export function canDelete () {
 export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 
+  // Purpose can be one of the following strings:
+  // Edit Modal: modal-bg, modal-text, modal-icon
+  // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
   // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
   return (task, purpose, dueDate) => {
     if (!dueDate) dueDate = new Date();
     const type = task.type;
 
     switch (purpose) {
-      case 'createModal':
+      case 'edit-modal-bg':
+        return `task-${getTaskColor(task)}-modal-bg`;
+      case 'edit-modal-text':
+        return `task-${getTaskColor(task)}-modal-text`;
+      case 'edit-modal-icon':
+        return `task-${getTaskColor(task)}-modal-icon`;
+      case 'create-modal-bg':
+        return 'task-purple-modal-bg';
+      case 'create-modal-text':
+        return 'task-purple-modal-text';
+      case 'create-modal-icon':
+        return 'task-purple-modal-icon';
+      default:
+        return 'not a classe';
+    }
+
+    /*  case 'createModal':
         return 'task-purple';
       case 'editModal':
         return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
@@ -75,6 +98,6 @@ export function getTaskClasses (store) {
           return 'task-daily-todo-content-disabled';
         }
         break;
-    }
+    } */
   };
 }

@@ -1,182 +1,100 @@
-.daily-todo-control {
-
-  &:hover {
-    .svg-icon.check {
-      display: block;
-    }
-  }
-
-  .svg-icon.check {
-    display: none;
-
-    &.display-check-icon {
-      display: block;
-    }
-  }
-}
-
 .task {
-  // for editing rewards or when a task is created
-  &-purple {
-    background: $purple-300 !important;
-
-    &-color {
-      color: $purple-300 !important;
+  &-worst { // dark red
+    &-control {
+      &-bg { background: $maroon-100 !important; }
+      &-checkbox { color: $maroon-100 !important; }
     }
 
-    &-control-habit {
-      background: $purple-300;
-    }
-
-    &-modal-input {
-      color: $header-color !important;
+    &-modal {
+      &-bg { background: $maroon-100 !important; }
+      &-icon { color: $maroon-100 !important; }
+      &-text { color: $maroon-50 !important; }
     }
   }
 
-  &-worst {
-    background: $maroon-100 !important;
-
-    &-color {
-      color: darken($maroon-100, 12%) !important;
+  &-worse { // light red
+    &-control {
+      &-bg { background: $red-100 !important; }
+      &-checkbox { color: $red-100 !important; }
     }
 
-    &-control-habit {
-      background: darken($maroon-100, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $maroon-500;
-      color: $maroon-100;
-    }
-
-    &-modal-input {
-      color: $maroon-500 !important;
+    &-modal {
+      &-bg { background: $red-100 !important; }
+      &-icon { color: $red-100 !important; }
+      &-text { color: $red-10 !important; }
     }
   }
 
-  &-worse {
-    background: $red-100 !important;
-
-    &-color {
-      color: darken($red-100, 12%) !important;
+  &-bad { // orange
+    &-control {
+      &-bg { background: $orange-100 !important; }
+      &-checkbox { color: $orange-100 !important; }
     }
 
-    &-control-habit {
-      background: darken($red-100, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $red-500;
-      color: $red-100;
-    }
-
-    &-modal-input {
-      color: $red-500 !important;
+    &-modal {
+      &-bg { background: $orange-100 !important; }
+      &-icon { color: $orange-100 !important; }
+      &-text { color: #b75a1c !important; }
     }
   }
 
-  &-bad {
-    background: $orange-100 !important;
-
-    &-color {
-      color: darken($orange-100, 12%) !important;
+  &-neutral { // yellow
+    &-control {
+      &-bg { background: $yellow-50 !important; }
+      &-checkbox { color: $yellow-50 !important; }
     }
 
-    &-control-habit {
-      background: darken($orange-100, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $orange-500;
-      color: $orange-100;
-    }
-
-    &-modal-input {
-      color: $orange-500 !important;
+    &-modal {
+      &-bg { background: $yellow-50 !important; }
+      &-icon { color: $yellow-50 !important; }
+      &-text { color: #bf7d1a !important; }
     }
   }
 
-  &-neutral {
-    background: $yellow-100 !important;
-
-    &-color {
-      color: darken($yellow-100, 12%) !important;
+  &-good { // green
+    &-control {
+      &-bg { background: $green-10 !important; }
+      &-checkbox { color: $green-10 !important; }
     }
 
-    &-control-habit {
-      background: darken($yellow-100, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $yellow-500;
-      color: $yellow-100;
-    }
-
-    &-modal-input {
-      color: $yellow-500 !important;
+    &-modal {
+      &-bg { background: $green-10 !important; }
+      &-icon { color: $green-10 !important; }
+      &-text { color: #1ca372 !important; }
     }
   }
 
-  &-good {
-    background: $green-10 !important;
-
-    &-color {
-      color: darken($green-10, 12%) !important;
+  &-better { // teal
+    &-control {
+      &-bg { background: $teal-50 !important; }
+      &-checkbox { color: $teal-50 !important; }
     }
 
-    &-control-habit {
-      background: darken($green-10, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $green-500;
-      color: $green-10;
-    }
-
-    &-modal-input {
-      color: $green-500 !important;
+    &-modal {
+      &-bg { background: $teal-50 !important; }
+      &-icon { color: $teal-50 !important; }
+      &-text { color: $teal-10 !important; }
     }
   }
 
-  &-better {
-    background: $blue-50 !important;
-
-    &-color {
-      color: darken($blue-50, 12%) !important;
+  &-best { // blue
+    &-control {
+      &-bg { background: $blue-50 !important; }
+      &-checkbox { color: $blue-50 !important; }
     }
 
-    &-control-habit {
-      background: darken($blue-50, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $blue-500;
-      color: $blue-50;
-    }
-
-    &-modal-input {
-      color: $blue-500 !important;
+    &-modal {
+      &-bg { background: $blue-50 !important; }
+      &-icon { color: $blue-50 !important; }
+      &-text { color: $blue-10 !important; }
     }
   }
 
-  &-best {
-    background: $teal-50 !important;
-
-    &-color {
-      color: darken($teal-50, 12%) !important;
-    }
-
-    &-control-habit {
-      background: darken($teal-50, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $teal-500;
-      color: $teal-50;
-    }
-
-    &-modal-input {
-      color: $teal-500 !important;
+  &-purple { // purple, only used in modals
+    &-modal {
+      &-bg { background: $purple-300 !important; }
+      &-icon { color: $purple-300 !important; }
+      &-text { color: $purple-200 !important; }
     }
   }
 
@@ -232,5 +150,21 @@
 
   .negative {
     margin-top: 13px;
+  }
+}
+
+.daily-todo-control {
+  &:hover {
+    .svg-icon.check {
+      display: block;
+    }
+  }
+
+  .svg-icon.check {
+    display: none;
+
+    &.display-check-icon {
+      display: block;
+    }
   }
 }
