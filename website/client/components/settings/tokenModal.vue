@@ -22,8 +22,8 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import hello from 'hellojs';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
@@ -33,17 +33,24 @@ export default {
       password: '',
     };
   },
-  components: {
-    bModal,
-  },
   computed: {
     ...mapState({user: 'user.data'}),
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'token');
+      this.$root.$emit('bv::hide::modal', 'token');
     },
     async resetApiToken (password) {
+      if (!this.user.auth.local.username) {
+        let auth;
+        if (this.user.auth.facebook.id) {
+          auth = await hello('facebook').login({scope: 'email', display: 'none'});
+        } else if (this.user.auth.google.id) {
+          auth = await hello('google').login({scope: 'email', display: 'none'});
+        }
+        password = auth.access_token;
+      }
+
       let response = await this.$store.dispatch('user:regenerateAPIToken', {password});
       if (response.success) {
         alert(this.$t('resetComplete'));

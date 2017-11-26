@@ -2,8 +2,9 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
+import passport from 'passport';
 
-describe('POST /user/auth/reset-api-token', () => {
+describe.only('POST /user/auth/reset-api-token', () => {
   let endpoint = '/user/auth/reset-api-token';
   let user;
 
@@ -30,8 +31,8 @@ describe('POST /user/auth/reset-api-token', () => {
       });
 
       await user.sync();
-
       expect(response.apiToken).to.exist;
+      expect(user.apiToken).to.not.equal(originalApiToken);
       expect(response.apiToken).to.equal(user.apiToken);
       expect(response.apiToken).to.not.equal(originalApiToken);
     });
@@ -57,26 +58,33 @@ describe('POST /user/auth/reset-api-token', () => {
   });
 
   describe('facebook', () => {
+    before(async () => {
+      let expectedResult = {id: '123456', displayName: 'a facebook user'};
+      sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
+    });
+
     it('resets api token given valid token', async() => {
       await user.update({
-        'auth.facebook.id': 'some-fb-id',
         'auth.local': {},
+        'auth.facebook': {
+          id: '123456',
+        },
       });
       let originalApiToken = user.apiToken;
+
       let response = await user.post(endpoint, {
-        password: 'RESET',
+        password: '123456',
       });
 
-      await user.sync();
-
       expect(response.apiToken).to.exist;
+      expect(user.apiToken).to.not.equal(originalApiToken);
       expect(response.apiToken).to.equal(user.apiToken);
       expect(response.apiToken).to.not.equal(originalApiToken);
     });
 
     it('does not reset api token given invalid token', async() => {
       await user.update({
-        'auth.facebook.id': 'some-fb-id',
+        'auth.facebook.id': '123456',
         'auth.local': {},
       });
       await expect(user.post(endpoint, {
@@ -84,20 +92,25 @@ describe('POST /user/auth/reset-api-token', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('incorrectResetPhrase'),
+        message: t('wrongPassword'),
       });
     });
   });
 
   describe('google', () => {
+    before(async () => {
+      let expectedResult = {id: '123456', displayName: 'a google user'};
+      sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
+    });
+
     it('resets api token given valid token', async() => {
       await user.update({
-        'auth.google.id': 'some-gl-id',
+        'auth.google.id': '123456',
         'auth.local': {},
       });
       let originalApiToken = user.apiToken;
       let response = await user.post(endpoint, {
-        password: 'RESET',
+        password: '123456',
       });
 
       await user.sync();
@@ -109,7 +122,7 @@ describe('POST /user/auth/reset-api-token', () => {
 
     it('does not reset api token given invalid token', async() => {
       await user.update({
-        'auth.google.id': 'some-gl-id',
+        'auth.google.id': '123456',
         'auth.local': {},
       });
       await expect(user.post(endpoint, {
@@ -117,7 +130,7 @@ describe('POST /user/auth/reset-api-token', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('incorrectResetPhrase'),
+        message: t('wrongPassword'),
       });
     });
   });

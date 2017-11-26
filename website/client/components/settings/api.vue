@@ -130,7 +130,7 @@ export default {
       this.user.webhooks.splice(index, 1);
     },
     async regenerateAPIToken () {
-      this.$root.$emit('show::modal', 'token');
+      this.$root.$emit('bv::show::modal', 'token');
     },
   },
 };

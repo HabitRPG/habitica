@@ -648,7 +648,7 @@ api.updateEmail = {
  * @apiName ResetAPIToken
  * @apiGroup User
  *
- * @apiParam (Body) {String} password the user password or current API token
+ * @apiParam (Body) {String} password the user password or RESET if social auth
  *
  * @apiSuccess {String} data.apiToken The new API token
  */
@@ -659,9 +659,15 @@ api.resetAPIToken = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    let authType = 'local';
-    if ((user.auth.facebook.id || user.auth.google.id) && !user.auth.local.email)  {
-      authType = 'social';
+    let network = 'local';
+    if (!user.auth.local.email)  {
+      if (user.auth.google.id) {
+        network = 'google';
+      } else if (user.auth.facebook.id) {
+        network = 'facebook';
+      } else {
+        throw new BadRequest(res.t('unsupportedNetwork'));
+      }
     }
 
     req.checkBody('password', res.t('invalidReqParams')).notEmpty();
@@ -669,16 +675,23 @@ api.resetAPIToken = {
     if (validationErrors) throw validationErrors;
 
     let password = req.body.password;
-    if (authType === 'local') {
+    if (network === 'local') {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-    } else if (authType === 'social') {
-      if (password !== res.t('reset')) throw new NotAuthorized(res.t('incorrectResetPhrase'));
+    } else if (network === 'facebook' || network === 'google') {
+      req.checkBody('password', res.t('invalidReqParams')).notEmpty();
+
+      let accessToken = res.body.password;
+      let profile = await _passportProfile(network, accessToken);
+      let socialUser = await User.findOne({
+        [`auth.${network}.id`]: profile.id,
+      }, {_id: 1, apiToken: 1, auth: 1}).exec();
+
+      if (!socialUser) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
     user.apiToken = common.uuid();
     await user.save();
-
     return res.respond(200, { apiToken: user.apiToken });
   },
 };
