@@ -314,7 +314,9 @@ export default {
   },
   methods: {
     resetItemToBuy ($event) {
-      if (!$event) {
+      // @TODO: Do we need this? I think selecting a new item
+      // overwrites. @negue might know
+      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
         this.selectedItemToBuy = null;
       }
     },
