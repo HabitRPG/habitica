@@ -9,7 +9,12 @@
             button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
-          input.form-control.title-input(type='text', :class="[`${cssClass}-modal-input`]", required, v-model="task.text", autofocus, spellcheck='true')
+          input.form-control.title-input(
+            type="text", :class="[`${cssClass}-modal-input`]",
+            required, v-model="task.text",
+            autofocus, spellcheck="true",
+            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          )
         .form-group
           label(v-once) {{ $t('notes') }}
           textarea.form-control(:class="[`${cssClass}-modal-input`]", v-model="task.notes", rows="3")
@@ -21,7 +26,7 @@
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
-          div(v-sortable='', @onsort='sortedChecklist')
+          div(v-sortable='true', @onsort='sortedChecklist')
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
@@ -29,12 +34,12 @@
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
-          .option-item(:class="optionClass(task.up === true)", @click="task.up = !task.up")
+          .option-item(:class="optionClass(task.up === true)", @click="toggleUpDirection()")
             .option-item-box
               .task-control.habit-control(:class="controlClass.up + '-control-habit'")
                 .svg-icon.positive(v-html="icons.positive")
             .option-item-label(v-once) {{ $t('positive') }}
-          .option-item(:class="optionClass(task.down === true)", @click="task.down = !task.down")
+          .option-item(:class="optionClass(task.down === true)", @click="toggleDownDirection()")
             .option-item-box
               .task-control.habit-control(:class="controlClass.down + '-control-habit'")
                 .svg-icon.negative(v-html="icons.negative")
@@ -44,51 +49,56 @@
             span.float-left {{ $t('difficulty') }}
             // @TODO .svg-icon.info-icon(v-html="icons.information")
           .d-flex.justify-content-center
-            .option-item(:class="optionClass(task.priority === 0.1)", @click="task.priority = 0.1")
+            .option-item(:class="optionClass(task.priority === 0.1)", @click="setDifficulty(0.1)")
               .option-item-box
                 .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
               .option-item-label(v-once) {{ $t('trivial') }}
-            .option-item(:class="optionClass(task.priority === 1)", @click="task.priority = 1")
+            .option-item(:class="optionClass(task.priority === 1)", @click="setDifficulty(1)")
               .option-item-box
                 .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
               .option-item-label(v-once) {{ $t('easy') }}
-            .option-item(:class="optionClass(task.priority === 1.5)", @click="task.priority = 1.5")
+            .option-item(:class="optionClass(task.priority === 1.5)", @click="setDifficulty(1.5)")
               .option-item-box
                 .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
               .option-item-label(v-once) {{ $t('medium') }}
-            .option-item(:class="optionClass(task.priority === 2)", @click="task.priority = 2")
+            .option-item(:class="optionClass(task.priority === 2)", @click="setDifficulty(2)")
               .option-item-box
                 .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
               .option-item-label(v-once) {{ $t('hard') }}
         .option(v-if="task.type === 'todo'")
           label(v-once) {{ $t('dueDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.date",
             :clearButton='true',
             clearButtonIcon='category-select',
             :clearButtonText='$t("clear")',
-            :todayButton='true',
+            :todayButton='!challengeAccessRequired',
             todayButtonIcon='category-select',
             :todayButtonText='$t("today")',
+            :disabled-picker='challengeAccessRequired'
           )
         .option(v-if="task.type === 'daily'")
           label(v-once) {{ $t('startDate') }}
-          datepicker(
+          datepicker.d-inline-block(
             v-model="task.startDate",
             :clearButton='false',
-            :todayButton='true',
+            :todayButton='!challengeAccessRequired',
             todayButtonIcon='category-select',
             :todayButtonText='$t("today")',
+            :disabled-picker='challengeAccessRequired'
           )
         .option(v-if="task.type === 'daily'")
           .form-group
             label(v-once) {{ $t('repeats') }}
             b-dropdown(:text="$t(task.frequency)")
-              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']",
+              :key="frequency", @click="task.frequency = frequency",
+              :disabled='challengeAccessRequired',
+              :class="{active: task.frequency === frequency}")
                 | {{ $t(frequency) }}
           .form-group
             label(v-once) {{ $t('repeatEvery') }}
-            input(type="number", v-model="task.everyX", min="0", required)
+            input(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
             | {{ repeatSuffix }}
             br
           template(v-if="task.frequency === 'weekly'")
@@ -97,7 +107,7 @@
               :key="dayNumber",
             )
               label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", v-model="task.repeat[day]")
+                input.custom-control-input(type="checkbox", v-model="task.repeat[day]", :disabled='challengeAccessRequired')
                 span.custom-control-indicator
                 span.custom-control-description(v-once) {{ weekdaysMin(dayNumber) }}
           template(v-if="task.frequency === 'monthly'")
@@ -113,7 +123,7 @@
         .tags-select.option(v-if="isUserTask")
           .tags-inline
             label(v-once) {{ $t('tags') }}
-            .category-wrap(@click="showTagsSelect = !showTagsSelect", v-bind:class="{ active: showTagsSelect }")
+            .category-wrap(@click="toggleTagSelect()", v-bind:class="{ active: showTagsSelect }")
               span.category-select(v-if='task.tags && task.tags.length === 0')
                 .tags-none {{$t('none')}}
                 .dropdown-toggle
@@ -121,7 +131,7 @@
                 .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
                 .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                 .dropdown-toggle
-          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags")
+          tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
           label(v-once) {{ $t('resetStreak') }}
@@ -132,7 +142,7 @@
         .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
           .form-group
             label(v-once) {{ $t('restoreStreak') }}
-            input(type="number", v-model="task.streak", min="0", required)
+            input(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
 
         .option.group-options(v-if='groupId')
           label(v-once) Assigned To
@@ -181,9 +191,12 @@
     input, textarea {
       border: none;
       background-color: rgba(0, 0, 0, 0.16);
+      opacity: 0.64;
+      color: $white !important;
 
       &:focus {
         color: $white !important;
+        opacity: 1;
       }
     }
 
@@ -221,7 +234,7 @@
       input {
         background: $white;
         border: 1px solid $gray-500;
-        color: $gray-200;
+        color: $gray-200 !important;
 
         &:focus {
           color: $gray-50 !important;
@@ -445,9 +458,18 @@
         background-size: 10px 10px;
         background-image: url(~client/assets/svg/for-css/positive.svg);
       }
+    }
+
+    .checklist-group {
+      .destroy-icon {
+        display: none;
+      }
 
       &:hover {
-        cursor: move;
+        .destroy-icon {
+          display: inline-block;
+          color: $gray-200;
+        }
       }
     }
 
@@ -494,10 +516,7 @@
 
 <script>
 import TagsPopup from './tagsPopup';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import sortable from 'client/directives/sortable.directive';
 import clone from 'lodash/clone';
@@ -518,9 +537,6 @@ import goldIcon from 'assets/svg/gold.svg';
 export default {
   components: {
     TagsPopup,
-    bModal,
-    bDropdown,
-    bDropdownItem,
     Datepicker,
     toggleSwitch,
   },
@@ -580,22 +596,34 @@ export default {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
       getTagsFor: 'tasks:getTagsFor',
+      canDeleteTask: 'tasks:canDelete',
     }),
     ...mapState({
       user: 'user.data',
       dayMapping: 'constants.DAY_MAPPING',
     }),
+    groupAccessRequiredAndOnPersonalPage () {
+      if (!this.groupId && this.task.group && this.task.group.id) return true;
+      return false;
+    },
     checklistEnabled () {
       return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+    },
+    isChallengeTask () {
+      return Boolean(this.task.challenge && this.task.challenge.id);
+    },
+    onUserPage () {
+      return !this.challengeId && !this.groupId;
+    },
+    challengeAccessRequired () {
+      return this.onUserPage && this.isChallengeTask;
     },
     isOriginalChallengeTask () {
       let isUserChallenge = Boolean(this.task.userId);
       return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
     },
     canDelete () {
-      let isUserChallenge = Boolean(this.task.userId);
-      let activeChallenge = isUserChallenge && this.task.challenge && this.task.challenge.id && !this.task.challenge.broken;
-      return this.purpose !== 'create' && !activeChallenge;
+      return this.purpose !== 'create' && this.canDeleteTask(this.task);
     },
     title () {
       const type = this.$t(this.task.type);
@@ -665,6 +693,25 @@ export default {
   },
   methods: {
     ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    closeTagsPopup () {
+      this.showTagsSelect = false;
+    },
+    setDifficulty (level) {
+      if (this.challengeAccessRequired) return;
+      this.task.priority = level;
+    },
+    toggleUpDirection () {
+      if (this.challengeAccessRequired) return;
+      this.task.up = !this.task.up;
+    },
+    toggleDownDirection () {
+      if (this.challengeAccessRequired) return;
+      this.task.down = !this.task.down;
+    },
+    toggleTagSelect () {
+      if (this.challengeAccessRequired) return;
+      this.showTagsSelect = !this.showTagsSelect;
+    },
     sortedChecklist (data) {
       let sorting = clone(this.task.checklist);
       let movingItem = sorting[data.oldIndex];
@@ -737,16 +784,16 @@ export default {
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
       }
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
-      if (!confirm('Are you sure you want to delete this task?')) return;
+      if (!confirm(this.$t('sureDelete'))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     cancel () {
-      this.$root.$emit('hide::modal', 'task-modal');
+      this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
       this.showTagsSelect = false;

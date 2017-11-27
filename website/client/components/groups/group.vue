@@ -491,11 +491,6 @@ import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import markdownDirective from 'client/directives/markdown';
 
-import bCollapse from 'bootstrap-vue/lib/components/collapse';
-import bCard from 'bootstrap-vue/lib/components/card';
-import bToggle from 'bootstrap-vue/lib/directives/toggle';
-import bTooltip from 'bootstrap-vue/lib/components/tooltip';
-
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
 import likeIcon from 'assets/svg/like.svg';
@@ -517,9 +512,6 @@ export default {
   components: {
     membersModal,
     startQuestModal,
-    bCollapse,
-    bCard,
-    bTooltip,
     groupFormModal,
     chatMessage,
     inviteModal,
@@ -529,7 +521,6 @@ export default {
     groupGemsModal,
   },
   directives: {
-    bToggle,
     markdown: markdownDirective,
   },
   data () {
@@ -735,7 +726,7 @@ export default {
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
-      this.$root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async sendMessage () {
       if (!this.newMessage) return;
@@ -755,14 +746,14 @@ export default {
     },
     updateGuild () {
       this.$store.state.editingGroup = this.group;
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('bv::show::modal', 'guild-form');
     },
     showInviteModal () {
-      this.$root.$emit('show::modal', 'invite-modal');
+      this.$root.$emit('bv::show::modal', 'invite-modal');
     },
     async fetchGuild () {
       if (this.searchId === 'party' && !this.user.party._id) {
-        this.$root.$emit('show::modal', 'create-party-modal');
+        this.$root.$emit('bv::show::modal', 'create-party-modal');
         return;
       }
 
@@ -783,10 +774,10 @@ export default {
       }
     },
     openStartQuestModal () {
-      this.$root.$emit('show::modal', 'start-quest-modal');
+      this.$root.$emit('bv::show::modal', 'start-quest-modal');
     },
     openQuestDetails () {
-      this.$root.$emit('show::modal', 'quest-details');
+      this.$root.$emit('bv::show::modal', 'quest-details');
     },
     checkForAchievements () {
       // Checks if user's party has reached 2 players for the first time.
@@ -871,7 +862,7 @@ export default {
       });
 
       if (hasQuests) {
-        this.$root.$emit('show::modal', 'start-quest-modal');
+        this.$root.$emit('bv::show::modal', 'start-quest-modal');
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');
@@ -880,7 +871,7 @@ export default {
       let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
       this.$store.state.profileUser = heroDetails.data.data;
       this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('bv::show::modal', 'profile');
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
@@ -902,7 +893,7 @@ export default {
       this.user.party.quest = quest;
     },
     showGroupGems () {
-      this.$root.$emit('show::modal', 'group-gems-modal');
+      this.$root.$emit('bv::show::modal', 'group-gems-modal');
     },
   },
 };

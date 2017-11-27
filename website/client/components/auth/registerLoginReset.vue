@@ -4,7 +4,7 @@
     .seamless_stars_varied_opacity_repeat
 
   form#login-form(
-    v-on:submit.prevent='handleSubmit', 
+    @submit.prevent='handleSubmit', 
     @keyup.enter="handleSubmit", 
     v-if="!forgotPassword && !resetPasswordSetNewOne",
   )

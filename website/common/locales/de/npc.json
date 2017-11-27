@@ -20,11 +20,11 @@
     "sleepBullet1": "Verpasste Tägliche Aufgaben werden Dir nicht schaden",
     "sleepBullet2": "Aufgaben verlieren weder ihre Strähnen noch Farben",
     "sleepBullet3": "Bosse fügen keinen Schaden für verpasste Tägliche Aufgaben zu",
-    "sleepBullet4": "Your boss damage or collection Quest items will stay pending until check-out",
+    "sleepBullet4": "Dein ausstehender Boss-Schaden oder gefundene Sammelquest-Gegenstände werden bis zum Auschecken zurückgehalten.",
     "pauseDailies": "Schaden pausieren",
     "unpauseDailies": "Schaden wieder aktivieren",
     "staffAndModerators": "Mitarbeiter und Moderatoren",
-    "communityGuidelinesIntro": "Habitica tries to create a welcoming environment for users of all ages and backgrounds, especially in public spaces like the Tavern. If you have any questions, please consult our <a href='/static/community-guidelines' target='_blank'>Community Guidelines</a>.",
+    "communityGuidelinesIntro": "Habitica versucht, eine einladende Umgebung für Benutzer aller Alterstufen zu schaffen, vor allem an öffentlichen Plätzen wie dem Gasthaus. Wenn Du unsicher bist oder noch Fragen hast, lies bitte  unsere <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
     "acceptCommunityGuidelines": "Ich stimme zu, mich an die Community-Richtlinien zu halten",
     "daniel": "Daniel",
     "danielText": "Willkommen im Gasthaus! Setz Dich und triff die Einheimischen. Willst Du Dich ausruhen (Urlaub? Krankheit?), dann besorge ich Dir ein schönes Zimmer. Solange Du dort eingecheckt bist, werden Deine täglichen Aufgaben Dir am Ende des Tages keinen Schaden zufügen, Du kannst sie trotzdem noch abhaken.",
@@ -161,5 +161,5 @@
     "welcome4": "Vermeide schlechte Gewohnheiten, die Lebenspunkte (HP) abziehen oder Dein Avatar wird sterben!",
     "welcome5": "Jetzt kannst Du Deinen Avatar anpassen und Deine Aufgaben einrichten ...",
     "imReady": "Betrete Habitica",
-    "limitedOffer": "Verfügbar bis<%= date %>"
+    "limitedOffer": "Verfügbar bis <%= date %>"
 }

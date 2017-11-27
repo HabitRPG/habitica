@@ -21,7 +21,7 @@
     "rebirthOrb": "Telah menggunakan Batu Kelahiran untuk memulai kembali setelah mencapai Level <%= level %>.",
     "rebirthOrb100": "Telah menggunakan Batu Kelahiran untuk memulai kembali setelah mencapai Level 100 atau lebih.",
     "rebirthOrbNoLevel": "Telah menggunakan Batu Kelahiran untuk memulai kembali dari awal.",
-    "rebirthPop": "Mengembalikan karaktermu ke Level 1 dengan tetap menyimpan pencapaian, barang-barang, perlengkapan, dan tugas-tugas dengan riwayat.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Batu Kelahiran",
     "reborn": "Lahir kembali, level maksimal <%= reLevel %>",
     "confirmReborn": "Apakah kamu yakin?",

@@ -36,7 +36,7 @@
               span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
 
-      h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
+      h1.mb-4.page-header(v-once) {{ $t('timeTravelers') }}
 
       .clearfix(v-if="!closed")
         div.float-right
@@ -55,7 +55,7 @@
         v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
@@ -63,7 +63,7 @@
           :itemMargin=24,
           :type="category.identifier",
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             shopItem(
               :key="ctx.item.key",
               :item="ctx.item",
@@ -72,11 +72,11 @@
               :emptyItem="false",
               @click="selectItemToBuy(ctx.item)"
             )
-              span(slot="popoverContent", scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
 
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   v-if="ctx.item.pinType !== 'IGNORE'",
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
@@ -233,9 +233,6 @@
   import Avatar from 'client/components/avatar';
 
   import BuyModal from '../buyModal.vue';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgHourglass from 'assets/svg/hourglass.svg';
@@ -257,10 +254,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
       BuyModal,

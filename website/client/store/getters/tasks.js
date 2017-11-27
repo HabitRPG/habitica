@@ -27,6 +27,14 @@ function getTaskColorByValue (value) {
   }
 }
 
+export function canDelete () {
+  return (task) => {
+    let isUserChallenge = Boolean(task.userId);
+    let activeChallenge = isUserChallenge && task.challenge && task.challenge.id && !task.challenge.broken;
+    return !activeChallenge;
+  };
+}
+
 export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 

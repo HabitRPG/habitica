@@ -29,6 +29,7 @@
     "either": "Begge",
     "createChallenge": "Opret udfordring",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "Kassér",
     "challengeTitle": "Udfordringens navn",

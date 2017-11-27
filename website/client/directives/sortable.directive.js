@@ -14,6 +14,7 @@ let sortableReferences = {};
 
 function createSortable (el, vNode) {
   let sortableRef = Sortable.create(el, {
+    filter: '.task-dropdown', // do not make the tasks dropdown draggable or it won't work
     onSort: (evt) => {
       emit(vNode, 'onsort', {
         oldIndex: evt.oldIndex,

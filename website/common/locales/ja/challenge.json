@@ -29,6 +29,7 @@
     "either": "どちらも",
     "createChallenge": "チャレンジを作成する",
     "createChallengeAddTasks": "チャレンジのタスクを追加",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "タスクを追加",
     "discard": "処分する",
     "challengeTitle": "チャレンジのタイトル",

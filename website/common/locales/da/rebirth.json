@@ -21,7 +21,7 @@
     "rebirthOrb": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau <%= level %>.",
     "rebirthOrb100": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau 100 eller mere",
     "rebirthOrbNoLevel": "Brugte en Genfødselskugle til at starte forfra.",
-    "rebirthPop": "Genstart din karakter på Niveau 1 mens du beholder præstationer, samleobjekter, udstyr og opgaver med historik.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Genfødselskugle",
     "reborn": "Genfødt, højeste Niveau <%= reLevel %>",
     "confirmReborn": "Er du sikker?",

@@ -6,6 +6,9 @@ website/transpiled-babel/
 website/common/transpiled-babel/
 dist/
 dist-client/
+apidoc_build/
+content_cache/
+node_modules/
 
 # Not linted
 website/client-old/

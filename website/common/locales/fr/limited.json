@@ -23,8 +23,8 @@
     "turkey": "Dindon",
     "gildedTurkey": "Dinde dorée",
     "polarBearPup": "Ourson polaire",
-    "jackolantern": "Citrouille d'Halloween",
-    "ghostJackolantern": "Citrouille d'Halloween fantomatique",
+    "jackolantern": "Citrouille d'Habitoween",
+    "ghostJackolantern": "Citrouille d'Habitoween fantomatique",
     "seasonalShop": "Boutique saisonnière",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sorcière saisonnière<%= linkEnd %>",
@@ -109,7 +109,7 @@
     "summer2017SeashellSeahealerSet": "Poissoigneur du coquillage (Guérisseur)",
     "summer2017SeaDragonSet": "Dragon de mer (Voleur)",
     "fall2017HabitoweenSet": "Guerrier Habitoween (Guerrier)",
-    "fall2017MasqueradeSet": "Mage Bal Masqué (Mage)",
+    "fall2017MasqueradeSet": "Mage de mascarade (Mage)",
     "fall2017HauntedHouseSet": "Guérisseur Maison Hantée (Guérisseur)",
     "fall2017TrickOrTreatSet": "Voleur un-bonbon-ou-un-sort (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
@@ -119,5 +119,6 @@
     "dateEndJuly": "29 juillet",
     "dateEndAugust": "31 août",
     "dateEndOctober": "31 octobre",
+    "dateEndNovember": "30 novembre",
     "discountBundle": "lot"
 }

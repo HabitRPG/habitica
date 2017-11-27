@@ -41,6 +41,10 @@
   #equipgear-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 330px;
+    }
+
     .content {
       text-align: center;
     }
@@ -88,7 +92,6 @@
 
 <script>
   import { mapState } from 'client/libs/store';
-  import bModal from 'bootstrap-vue/lib/components/modal';
 
   import svgClose from 'assets/svg/close.svg';
 
@@ -97,7 +100,6 @@
 
   export default {
     components: {
-      bModal,
       Avatar,
       EquipmentAttributesGrid,
     },
@@ -144,7 +146,7 @@
         this.hideDialog();
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'equipgear-modal');
+        this.$root.$emit('bv::hide::modal', 'equipgear-modal');
       },
       memberOverrideAvatarGear (gear) {
         return {
