@@ -35,10 +35,12 @@ module.exports = function buyGear (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
   }
 
-  let gearNumber = Number(item.key.slice(-1));
-  let previousGear = item.key.replace(/[0-9]/, gearNumber - 1);
+  let itemIndex = item.index;
+  let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
+  let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
+  let checkItemTypeToIndex = itemIndex > (item.type === 'weapon' ? 0 : 1);
 
-  if (gearNumber !== 1 && !user.items.gear.owned[previousGear]) {
+  if (checkItemTypeToIndex && !hasPreviousLevelGear) {
     throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
   }
 
