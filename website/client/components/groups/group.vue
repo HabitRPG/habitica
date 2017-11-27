@@ -38,7 +38,7 @@
             button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
           .col-6
-            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
+            button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()', @keyup.ctrl.enter='sendMessage()') {{ $t('send') }}
 
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
