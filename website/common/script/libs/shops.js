@@ -154,10 +154,21 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     };
 
     let result = filter(content.gear.flat, ['klass', classType]);
+
     category.items = map(result, (e) => {
       let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
 
       return newItem;
+    });
+
+    let specialGear = filter(content.gear.flat, (gear) => {
+      return user.items.gear.owned[gear.key] === false &&
+        gear.specialClass === classType &&
+        gear.klass === 'special';
+    });
+
+    each(specialGear, (gear) => {
+      category.items.push(getItemInfo(user, 'marketGear', gear));
     });
 
     shops.checkMarketGearLocked(user, category.items);
@@ -171,7 +182,9 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let falseGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
+    return user.items.gear.owned[gear.key] === false &&
+      gear.klass !== user.stats.class &&
+      gear.klass !== 'special';
   });
 
   nonClassCategory.items = map(falseGear, (e) => {
