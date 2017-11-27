@@ -7,14 +7,14 @@
 
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
     template(v-for="(klass, item) in visualBuffs")
-      span(v-if="member.stats.buffs[item]", :class="klass")
+      span(v-if="member.stats.buffs[item] && showVisualBuffs", :class="klass")
 
     // Show flower ALL THE TIME!!!
     // See https://github.com/HabitRPG/habitica/issues/7133
     span(:class="'hair_flower_' + member.preferences.hair.flower")
 
     // Show avatar only if not currently affected by visual buff
-    template(v-if!="!member.stats.buffs.snowball && !member.stats.buffs.spookySparkles && !member.stats.buffs.shinySeed && !member.stats.buffs.seafoam")
+    template(v-if="showAvatar()")
       span(:class="'chair_' + member.preferences.chair")
       span(:class="getGearClass('back')")
       span(:class="skinClass")
@@ -111,6 +111,10 @@ export default {
     overrideTopPadding: {
       type: String,
     },
+    showVisualBuffs: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     hasClass () {
@@ -178,6 +182,14 @@ export default {
     castEnd (e) {
       if (!this.$store.state.spellOptions.castingSpell) return;
       this.$root.$emit('castEnd', this.member, 'user', e);
+    },
+    showAvatar () {
+      if (!this.showVisualBuffs)
+        return true;
+
+      let buffs = this.member.stats.buffs;
+
+      return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
     },
   },
 };

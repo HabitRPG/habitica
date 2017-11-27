@@ -18,6 +18,7 @@
         slot(name="item", :item="item")
           div(v-if="showAvatar")
             avatar(
+              :showVisualBuffs="false",
               :member="user",
               :avatarOnly="true",
               :hideClassBadge="true",
