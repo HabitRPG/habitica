@@ -631,6 +631,18 @@ export default {
       },
     };
   },
+  mounted () {
+    this.$root.$on('habitica:show-profile', (data) => {
+      if (!data.user || !data.startingPage) return;
+      // @TODO: We may be able to remove the need for store
+      this.$store.state.profileUser = data.user;
+      this.$store.state.profileOptions.startingPage = data.startingPage;
+      this.$root.$emit('bv::show::modal', 'profile');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-profile');
+  },
   computed: {
     ...mapState({
       userLoggedIn: 'user.data',
