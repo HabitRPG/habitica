@@ -1023,7 +1023,8 @@ export default {
         option.key = key;
         option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
         option.click = () => {
-          return this.equip(newKey);
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
         };
         return option;
       });
@@ -1061,7 +1062,8 @@ export default {
         option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
         option.locked = locked;
         option.click = () => {
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey);
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1306,9 +1308,8 @@ export default {
     set (settings) {
       this.$store.dispatch('user:set', settings);
     },
-    equip (key) {
-      this.$store.dispatch('common:equip', {key, type: 'equipped'});
-      this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
+    equip (key, type) {
+      this.$store.dispatch('common:equip', {key, type});
     },
     async done () {
       this.loading = true;
