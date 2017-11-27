@@ -41,14 +41,15 @@
             :item="item"
           )
 
-        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
+        .purchase-amount
           .how-many-to-buy(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
             strong {{ $t('howManyToBuy') }}
           div(v-if='item.purchaseType !== "gear"')
             .box(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
               input(type='number', min='0', v-model='selectedAmountToBuy')
-            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-            span.value(:class="getPriceClass()") {{ item.value }}
+            span(:class="{'notEnough': notEnoughCurrency}")
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+              span.value(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -351,6 +352,9 @@
         if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
         return false;
       },
+      notEnoughCurrency () {
+        return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+      }
     },
     watch: {
       item: function itemChanged () {
