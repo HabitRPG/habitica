@@ -15,7 +15,7 @@ menu-dropdown.item-notifications(:right="true")
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='(party, index) in user.invitations.parties')
+    a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: party.name}) }}
@@ -26,7 +26,7 @@ menu-dropdown.item-notifications(:right="true")
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
       a.dropdown-item(@click.stop='clearCards()')
-    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
+    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: guild.name}) }}
@@ -37,7 +37,7 @@ menu-dropdown.item-notifications(:right="true")
       @click='showProfile()')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='message in userNewMessages')
+    a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
       span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
