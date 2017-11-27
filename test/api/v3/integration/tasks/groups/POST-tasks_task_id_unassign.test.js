@@ -6,7 +6,7 @@ import {
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 
-describe.only('POST /tasks/:taskId/unassign/:memberId', () => {
+describe('POST /tasks/:taskId/unassign/:memberId', () => {
   let user, guild, member, member2, task;
 
   function findAssignedTask (memberTask) {
