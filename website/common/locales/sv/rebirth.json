@@ -21,7 +21,7 @@
     "rebirthOrb": "Använde en Återfödelsens sfär för att starta om efter att ha uppnått Nivå <%= level %>.",
     "rebirthOrb100": "Använd en Återfödelsens sfär för att starta om efter att ha uppnått Nivå 100 eller högre.",
     "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om",
-    "rebirthPop": "Starta om din karaktär vid Nivå 1 och behåll dina prestationer, samlarsaker, utrustning och uppgifter med historia.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max nivå <%= reLevel %>",
     "confirmReborn": "Är du säker?",

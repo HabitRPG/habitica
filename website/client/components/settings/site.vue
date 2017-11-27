@@ -44,10 +44,6 @@
       div
         .checkbox
           label
-            input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
-        .checkbox
-          label
             input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
             span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startAdvCollapsedPop')") {{ $t('startAdvCollapsed') }}
         .checkbox
@@ -193,7 +189,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -207,9 +202,6 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
-  },
-  directives: {
-    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -299,7 +291,7 @@ export default {
     },
     showBailey () {
       this.user.flags.newStuff = true;
-      this.$root.$emit('show::modal', 'new-stuff');
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -352,13 +344,13 @@ export default {
       updates = {};
     },
     openRestoreModal () {
-      this.$root.$emit('show::modal', 'restore');
+      this.$root.$emit('bv::show::modal', 'restore');
     },
     openResetModal () {
-      this.$root.$emit('show::modal', 'reset');
+      this.$root.$emit('bv::show::modal', 'reset');
     },
     openDeleteModal () {
-      this.$root.$emit('show::modal', 'delete');
+      this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (networkKey) {
       // @TODO: What do we use this for?

@@ -29,6 +29,7 @@
     "either": "Obojí",
     "createChallenge": "Vytvořit výzvu",
     "createChallengeAddTasks": "Přidat úkol do výzvy",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Přidat úkol",
     "discard": "Zahodit",
     "challengeTitle": "Název výzvy",

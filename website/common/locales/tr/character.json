@@ -3,8 +3,8 @@
     "profile": "Profil",
     "avatar": "Avatarı Düzenle",
     "editAvatar": "Avatarını Düzenle",
-    "noDescription": "This Habitican hasn't added a description.",
-    "noPhoto": "This Habitican hasn't added a photo.",
+    "noDescription": "Bu Habiticalı profil özeti eklememiş.",
+    "noPhoto": "Bu Habiticalı fotoğraf eklememiş ",
     "other": "Diğer",
     "fullName": "Tam Ad",
     "displayName": "Görünecek Ad",
@@ -217,5 +217,6 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "pointsAvailable": "Points Available",
-    "pts": "pts"
+    "pts": "pts",
+    "statsObjectRequired": "Stats update is required"
 }

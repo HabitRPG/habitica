@@ -6,7 +6,7 @@
 
 [//]: # (For more guidelines see https://github.com/HabitRPG/habitica/issues/2760)
 
-[//]: # (Fill out relevant information - UUID is found in Settings -> API)
+[//]: # (Fill out relevant information - UUID is found from the Habitia website at User Icon > Settings > API)
 ### General Info
   * UUID: 
   * Browser: 

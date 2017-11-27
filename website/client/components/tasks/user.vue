@@ -63,8 +63,8 @@
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
             .create-task-btn.rounded-btn(
-              v-for="type in columns", 
-              :key="type", 
+              v-for="type in columns",
+              :key="type",
               @click="createTask(type)",
               v-b-tooltip.hover.bottom="$t(type)",
             )
@@ -192,6 +192,7 @@
     padding-left: 24px;
     padding-right: 24px;
     max-width: 40vw;
+    width: 100%;
     z-index: 9999;
     background: $white;
     border-radius: 2px;
@@ -305,11 +306,6 @@ import rewardIcon from 'assets/svg/reward.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
-import bTooltipComponent from 'bootstrap-vue/lib/components/tooltip';
-
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
@@ -322,16 +318,12 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
-    bTooltip: bTooltipComponent,
     Item,
     spells,
     brokenTaskModal,
   },
   directives: {
     markdown,
-    bTooltip,
   },
   data () {
     return {
@@ -438,7 +430,7 @@ export default {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -448,7 +440,7 @@ export default {
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     cancelTaskModal () {

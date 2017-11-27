@@ -53,14 +53,10 @@ import { mapState } from 'client/libs/store';
 
 import filter from 'lodash/filter';
 import map from 'lodash/map';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 import * as Analytics from 'client/libs/analytics';
 
 export default {
-  components: {
-    bModal,
-  },
   mixins: [notifications],
   props: ['group'],
   data () {
@@ -143,7 +139,7 @@ export default {
       // } else {
       //   this.$router.push(`/groups/guilds/${this.group._id}`);
       // }
-      this.$root.$emit('hide::modal', 'invite-modal');
+      this.$root.$emit('bv::hide::modal', 'invite-modal');
       // @TODO: error?
       // _resetInvitees();
     },
