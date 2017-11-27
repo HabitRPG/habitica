@@ -89,11 +89,6 @@ export async function create (store, payload) {
   let response = await axios.post('/api/v3/groups/', payload.group);
   let newGroup = response.data.data;
 
-  // @TODO: Add party
-  if (newGroup.privacy === 'public') {
-    store.state.publicGuilds.push(newGroup);
-  }
-
   if (newGroup.leader._id === store.state.user.data._id || newGroup.privacy === 'private') {
     store.state.myGuilds.push(newGroup);
   }
@@ -111,9 +106,6 @@ export async function update (store, payload) {
   let response = await axios.put(`/api/v3/groups/${payload.group.id}`, groupDetailsToSend);
 
   let updatedGroup = response.data.data;
-
-  // @TODO: Replace old group
-  // store.state.publicGuilds.push(newGroup);
 
   return updatedGroup;
 }

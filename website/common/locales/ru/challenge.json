@@ -29,6 +29,7 @@
     "either": "Все",
     "createChallenge": "Создать испытание",
     "createChallengeAddTasks": "Добавить задание в испытание",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Добавить задачу",
     "discard": "Отменить",
     "challengeTitle": "Название испытания",

@@ -1,7 +1,7 @@
 <template lang="pug">
 router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
   .card
-    .card-block
+    .card-body
       .row
         .col-md-2.badge-column
           .shield-wrap(:class="{gold: guild.memberCount > 1000, silver: guild.memberCount > 100 && guild.memberCount < 999}")
