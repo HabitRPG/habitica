@@ -25,13 +25,22 @@ describe('POST /user/buy-gear/:key', () => {
       });
   });
 
-  it('buys the first level gear', async () => {
+  it('buys the first level weapon gear', async () => {
+    let key = 'weapon_warrior_0';
+
+    await user.post(`/user/buy-gear/${key}`);
+    await user.sync();
+
+    expect(user.items.gear.owned[key]).to.eql(true);
+  });
+
+  it('buys the first level armor gear', async () => {
     let key = 'armor_warrior_1';
 
     await user.post(`/user/buy-gear/${key}`);
     await user.sync();
 
-    expect(user.items.gear.owned.armor_warrior_1).to.eql(true);
+    expect(user.items.gear.owned[key]).to.eql(true);
   });
 
   it('tries to buy subsequent, level gear', async () => {
