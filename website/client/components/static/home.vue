@@ -22,13 +22,13 @@
                 span {{$t('signUpWithSocial', {social: 'Google'})}}
             .strike
               span {{$t('or')}}
-            .form
+            .form(@keyup.enter="register()")
               input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 3}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
               input.form-control(type='password', placeholder='Confirm Password', v-model='passwordConfirm', :class='{"input-invalid": passwordConfirmInvalid, "input-valid": passwordConfirmValid}')
               p.form-text(v-once, v-html="$t('termsAndAgreement')")
-              button.sign-up(@click='register()') {{$t('signup')}}
+              button.sign-up(@click="register()") {{$t('signup')}}
           .col-12
             .spacer.svg-icon(v-html='icons.spacer')
 
@@ -191,7 +191,7 @@
   }
 
   #intro-signup {
-    background-image: url('~client/assets/svg/for-css/confetti.svg');
+    background-image: url('~assets/svg/for-css/confetti.svg');
 
     img {
       margin: 0 auto;

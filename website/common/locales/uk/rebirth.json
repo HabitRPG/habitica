@@ -21,7 +21,7 @@
     "rebirthOrb": "Після <%= level %> рівня використано кулю переродження, щоби розпочати заново.",
     "rebirthOrb100": "Після 100+ рівня використано кулю переродження, щоби розпочати заново.",
     "rebirthOrbNoLevel": "Використано кулю переродження, щоби розпочати заново.",
-    "rebirthPop": "Restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Куля переродження",
     "reborn": "Переродження, максимальний рівень <%= reLevel %>",
     "confirmReborn": "Ви впевнені?",

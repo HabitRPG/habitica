@@ -17,8 +17,12 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-var processUsers = require('./groups/update-groups-with-group-plans');
+const processUsers = require('./users/account-transfer');
 processUsers()
-  .catch(function (err) {
-      console.log(err)
+  .then(() => {
+    process.exit();
   })
+  .catch(function (err) {
+    console.log(err);
+    process.exit();
+  });

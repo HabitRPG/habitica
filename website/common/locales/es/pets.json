@@ -18,7 +18,7 @@
     "veteranWolf": "Lobo Veterano",
     "veteranTiger": "Tigre veterano",
     "veteranLion": "León veterano",
-    "veteranBear": "Veteran Bear",
+    "veteranBear": "Oso Veterano",
     "cerberusPup": "Cachorro de Cerbero",
     "hydra": "Hidra",
     "mantisShrimp": "Mantis marina",
@@ -75,6 +75,7 @@
     "hatchAPot": "¿Eclosionar un nuevo <%= potion %> <%= egg %>?",
     "hatchedPet": "¡Echaste un nuevo <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "You hatched a new pet!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Mostrar ahora",
     "displayLater": "Mostrar más tarde",
     "petNotOwned": "No eres dueño de esta mascota.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %> ."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

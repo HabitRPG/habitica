@@ -75,6 +75,7 @@
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",
@@ -122,5 +123,5 @@
     "clickOnPetToFeed": "Clicca su un Animale per dargli <%= foodName %> e guardalo crescere!",
     "dragThisPotion": "Trascina questo <%= potionName %> su un uovo e fai nascere un nuovo animale!",
     "clickOnEggToHatch": "Clicca su un Uovo per usare la tua Pozione <%= potionName %> e far nascere un nuovo animale!",
-    "hatchDialogText": "Versa la tua Pozione <%= potionName %> sul tuo uovo di <%= eggName %>, e nascerà <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
 }

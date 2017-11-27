@@ -29,6 +29,7 @@
     "either": "Ambos",
     "createChallenge": "Criar Desafio",
     "createChallengeAddTasks": "Adicionar tarefa de desafio",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Adicionar tarefa",
     "discard": "Descartar",
     "challengeTitle": "Título do Desafio",

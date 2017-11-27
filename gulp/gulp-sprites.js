@@ -11,7 +11,7 @@ import {each} from 'lodash';
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
 
-const IMG_DIST_PATH = 'website/static/sprites/';
+const IMG_DIST_PATH = 'website/client/assets/images/sprites/';
 const CSS_DIST_PATH = 'website/client/assets/css/sprites/';
 
 function checkForSpecialTreatment (name) {
@@ -78,7 +78,7 @@ function cssVarMap (sprite) {
     };
   }
   if (sprite.name.indexOf('shirt') !== -1)
-    sprite.custom.px.offsetY = `-${ sprite.y + 30 }px`; // even more for shirts
+    sprite.custom.px.offsetY = `-${ sprite.y + 35 }px`; // even more for shirts
   if (sprite.name.indexOf('hair_base') !== -1) {
     let styleArray = sprite.name.split('_').slice(2, 3);
     if (Number(styleArray[0]) > 14)

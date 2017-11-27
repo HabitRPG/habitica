@@ -617,20 +617,7 @@ api.castSpell = {
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
       let tasks = await Tasks.Task.find({
         userId: user._id,
-        $and: [ // exclude challenge and group tasks
-          {
-            $or: [
-              {'challenge.id': {$exists: false}},
-              {'challenge.broken': {$exists: true}},
-            ],
-          },
-          {
-            $or: [
-              {'group.id': {$exists: false}},
-              {'group.broken': {$exists: true}},
-            ],
-          },
-        ],
+        ...Tasks.taskIsGroupOrChallengeQuery,
       }).exec();
 
       spell.cast(user, tasks, req);
@@ -743,95 +730,6 @@ api.sleep = {
     let sleepRes = common.ops.sleep(user);
     await user.save();
     res.respond(200, ...sleepRes);
-  },
-};
-
-/**
- * @api {post} /api/v3/user/allocate Allocate a single attribute point
- * @apiName UserAllocate
- * @apiGroup User
- *
- * @apiParam (Body) {String="str","con","int","per"} stat Query parameter - Default ='str'
- *
- * @apiParamExample {json} Example request
- * {"stat":"int"}
- *
- * @apiSuccess {Object} data Returns stats from the user profile
- *
- * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
- *
- * @apiErrorExample {json}
- *  {
- *   "success": false,
- *   "error": "NotAuthorized",
- *   "message": "You don't have enough attribute points."
- * }
- */
-api.allocate = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/allocate',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let allocateRes = common.ops.allocate(user, req);
-    await user.save();
-    res.respond(200, ...allocateRes);
-  },
-};
-
-/**
- * @api {post} /api/v3/user/allocate-now Allocate all attribute points
- * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR. Note: will return success, even if there are 0 points to allocate.
- * @apiName UserAllocateNow
- * @apiGroup User
- *
- * @apiSuccessExample {json} Success-Response:
- *  {
- *   "success": true,
- *   "data": {
- *     "hp": 50,
- *     "mp": 38,
- *     "exp": 7,
- *     "gp": 284.8637271160258,
- *     "lvl": 10,
- *     "class": "rogue",
- *     "points": 0,
- *     "str": 2,
- *     "con": 2,
- *     "int": 3,
- *     "per": 3,
- *     "buffs": {
- *       "str": 0,
- *       "int": 0,
- *       "per": 0,
- *       "con": 0,
- *       "stealth": 0,
- *       "streaks": false,
- *       "snowball": false,
- *       "spookySparkles": false,
- *       "shinySeed": false,
- *       "seafoam": false
- *     },
- *     "training": {
- *       "int": 0,
- *       "per": 0,
- *       "str": 0,
- *       "con": 0
- *     }
- *   }
- * }
- *
- * @apiSuccess {Object} data user.stats
- */
-api.allocateNow = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/allocate-now',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user);
-    await user.save();
-    res.respond(200, ...allocateNowRes);
   },
 };
 
@@ -1743,20 +1641,7 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).exec();
 
     let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
@@ -1914,20 +1799,7 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     };
     let tasks = await Tasks.Task.find(query).exec();
     let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
@@ -1971,20 +1843,7 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).select('_id type challenge group').exec();
 
     let resetRes = common.ops.reset(user, tasks);

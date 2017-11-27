@@ -18,6 +18,22 @@ let subDiscriminatorOptions = _.defaults(_.cloneDeep(discriminatorOptions), {
 });
 
 export let tasksTypes = ['habit', 'daily', 'todo', 'reward'];
+export const taskIsGroupOrChallengeQuery = {
+  $and: [ // exclude challenge and group tasks
+    {
+      $or: [
+        {'challenge.id': {$exists: false}},
+        {'challenge.broken': {$exists: true}},
+      ],
+    },
+    {
+      $or: [
+        {'group.id': {$exists: false}},
+        {'group.broken': {$exists: true}},
+      ],
+    },
+  ],
+};
 
 // Important
 // When something changes here remember to update the client side model at common/script/libs/taskDefaults
