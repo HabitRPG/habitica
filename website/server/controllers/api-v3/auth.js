@@ -648,7 +648,7 @@ api.updateEmail = {
  * @apiName ResetAPIToken
  * @apiGroup User
  *
- * @apiParam (Body) {String} password the user password or RESET if social auth
+ * @apiParam (Body) {String} password the user password or if social auth the network access_token
  *
  * @apiSuccess {String} data.apiToken The new API token
  */
@@ -679,15 +679,8 @@ api.resetAPIToken = {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     } else if (network === 'facebook' || network === 'google') {
-      req.checkBody('password', res.t('invalidReqParams')).notEmpty();
-
-      let accessToken = res.body.password;
-      let profile = await _passportProfile(network, accessToken);
-      let socialUser = await User.findOne({
-        [`auth.${network}.id`]: profile.id,
-      }, {_id: 1, apiToken: 1, auth: 1}).exec();
-
-      if (!socialUser) throw new NotAuthorized(res.t('wrongPassword'));
+      let profile = await _passportProfile(network, password);
+      if (!profile || profile.id !== user.auth[network].id) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
     user.apiToken = common.uuid();

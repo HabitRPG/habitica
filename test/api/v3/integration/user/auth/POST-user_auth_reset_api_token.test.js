@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import passport from 'passport';
 
-describe.only('POST /user/auth/reset-api-token', () => {
+describe('POST /user/auth/reset-api-token', () => {
   let endpoint = '/user/auth/reset-api-token';
   let user;
 
@@ -84,7 +84,7 @@ describe.only('POST /user/auth/reset-api-token', () => {
 
     it('does not reset api token given invalid token', async() => {
       await user.update({
-        'auth.facebook.id': '123456',
+        'auth.facebook.id': '654321',
         'auth.local': {},
       });
       await expect(user.post(endpoint, {
@@ -122,7 +122,7 @@ describe.only('POST /user/auth/reset-api-token', () => {
 
     it('does not reset api token given invalid token', async() => {
       await user.update({
-        'auth.google.id': '123456',
+        'auth.google.id': '654321',
         'auth.local': {},
       });
       await expect(user.post(endpoint, {
