@@ -199,9 +199,10 @@ export default {
     },
     async clickMember (hero) {
       let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: hero._id });
-      this.$store.state.profileUser = heroDetails.data.data;
-      this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('bv::show::modal', 'profile');
+      this.$root.$emit('habitica:show-profile', {
+        user: heroDetails.data.data,
+        startingPage: 'profile',
+      });
     },
     userLevelStyle () {
       // @TODO: implement

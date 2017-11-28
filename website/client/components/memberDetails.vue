@@ -1,6 +1,6 @@
 <template lang="pug">
 .member-details(
-  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }", 
+  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }",
   @click='showMemberModal(member)'
 )
   div(:class="{ 'col-4': !isHeader }")
@@ -174,7 +174,7 @@
       border-radius: 0px;
       height: 10px;
     }
-  } 
+  }
 </style>
 
 <script>
@@ -245,9 +245,10 @@ export default {
   methods: {
     percent,
     showMemberModal (member) {
-      this.$store.state.profileUser = member;
-      this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('bv::show::modal', 'profile');
+      this.$root.$emit('habitica:show-profile', {
+        user: member,
+        startingPage: 'profile',
+      });
     },
   },
   computed: {
