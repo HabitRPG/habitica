@@ -296,7 +296,6 @@ export default {
       const modalId = bvEvent.target.id;
 
       let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
       // Don't remove modal if hid was called from main app
       // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
@@ -308,7 +307,7 @@ export default {
 
       // Recalculate and show the last modal if there is one
       modalStackLength = this.$store.state.modalStack.length;
-      modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
@@ -334,21 +333,19 @@ export default {
     },
     customPurchase (item) {
       if (item.purchaseType === 'card') {
-        if (this.user.party._id) {
-          this.selectedSpellToBuy = item;
+        this.selectedSpellToBuy = item;
 
-          this.$root.$emit('bv::hide::modal', 'buy-modal');
-          this.$root.$emit('bv::show::modal', 'select-member-modal');
-        } else {
-          this.error(this.$t('errorNotInParty'));
-        }
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
+        this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
 
-      this.$store.dispatch('party:getMembers', {forceLoad: true});
+      if (this.user.party._id) {
+        this.$store.dispatch('party:getMembers', {forceLoad: true});
+      }
 
       this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },

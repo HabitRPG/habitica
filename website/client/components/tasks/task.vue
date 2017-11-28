@@ -135,8 +135,11 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
+    margin-right: 15px;
     line-height: 1.43;
     font-size: 14px;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-notes {
       padding-bottom: 4px;
@@ -159,6 +162,7 @@
   .dropdown-icon {
     width: 4px;
     height: 16px;
+    margin-right: 10px;
     color: $gray-100 !important;
   }
 
@@ -212,7 +216,9 @@
   .task-notes {
     color: $gray-100;
     font-style: normal;
-    padding-right: 6px;
+    padding-right: 20px;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-checklist {
       padding-bottom: 8px;
@@ -227,6 +233,7 @@
     background: $white;
     border: 1px solid transparent;
     transition-duration: 0.15;
+    min-width: 0px;
 
     &.no-right-border {
       border-right: none !important;
@@ -271,6 +278,8 @@
     min-height: 0px;
     width: 100%;
     margin-left: 8px;
+    padding-right: 20px;
+    overflow-wrap: break-word;
 
     &-done {
       color: $gray-300;
@@ -284,6 +293,7 @@
     .custom-control-description {
       margin-left: 6px;
       padding-top: 0px;
+      min-width: 0px;
     }
   }
 

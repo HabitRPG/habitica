@@ -27,8 +27,8 @@
 
     @media screen and (min-width: 1241px) {
       max-width: 978px;
-      // 16.67% is the width of the .col-2 sidebar
-      left: calc((100% + 16.67% - 978px) / 2);
+      // 236px is the width of the .standard-sidebar
+      left: calc((100% + 236px - 978px) / 2);
       right: 0%;
     }
   }

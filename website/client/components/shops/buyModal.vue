@@ -43,10 +43,10 @@
           )
 
         .purchase-amount
-          .how-many-to-buy(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
+          .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
-          div(v-if='item.purchaseType !== "gear"')
-            .box(v-if='["fortify", "gear"].indexOf(item.purchaseType) === -1')
+          div(v-if='showAmountToBuy(item)')
+            .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
@@ -287,6 +287,11 @@
 
   import moment from 'moment';
 
+  const hideAmountSelectionForPurchaseTypes = [
+    'gear', 'backgrounds', 'mystery_set', 'card',
+    'rebirth_orb', 'fortify', 'armoire',
+  ];
+
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
@@ -368,6 +373,16 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        if (this.item.currency === 'gems' &&
+          !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
+          return;
+        }
+
+        if (this.item.currency === 'hourglasses' &&
+          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+          return;
+        }
+
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
@@ -406,6 +421,13 @@
           return this.item.currency;
         } else {
           return 'gold';
+        }
+      },
+      showAmountToBuy (item) {
+        if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+          return false;
+        } else {
+          return true;
         }
       },
       getAvatarOverrides (item) {
