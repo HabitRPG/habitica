@@ -24,11 +24,12 @@
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-body
             h3.leader(
-              :class='userLevelStyle(cachedProfileData[msg.uuid])'
+              :class='userLevelStyle(msg)',
               @click="showMemberModal(msg.uuid)",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
+              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -61,11 +62,12 @@
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
         .card-body
             h3.leader(
-              :class='userLevelStyle(cachedProfileData[msg.uuid])',
+              :class='userLevelStyle(msg)',
               @click="showMemberModal(msg.uuid)",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
+              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -168,6 +170,7 @@
 
   h3 { // this is the user name
     cursor: pointer;
+    display: inline-block;
 
     .svg-icon {
       width: 10px;
