@@ -72,6 +72,7 @@ export default function () {
       tasks: asyncResourceFactory(), // user tasks
       completedTodosStatus: 'NOT_LOADED',
       party: {
+        data: asyncResourceFactory(),
         quest: {},
         members: asyncResourceFactory(),
       },

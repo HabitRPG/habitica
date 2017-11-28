@@ -243,7 +243,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({user: 'user.data', party: 'party.members.data'}),
+    ...mapState({user: 'user.data'}),
     creating () {
       return !this.workingChallenge.id;
     },
@@ -298,11 +298,11 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-      const party = this.party[0];
-      if (party._id) {
+      const party = await this.$store.dispatch('party:getParty');
+      if (party.data._id) {
         this.groups.push({
-          name: party.profile.name,
-          _id: party._id,
+          name: party.data.name,
+          _id: party.data._id,
           privacy: 'private',
         });
       }
