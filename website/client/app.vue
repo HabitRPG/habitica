@@ -333,21 +333,19 @@ export default {
     },
     customPurchase (item) {
       if (item.purchaseType === 'card') {
-        if (this.user.party._id) {
-          this.selectedSpellToBuy = item;
+        this.selectedSpellToBuy = item;
 
-          this.$root.$emit('bv::hide::modal', 'buy-modal');
-          this.$root.$emit('bv::show::modal', 'select-member-modal');
-        } else {
-          this.error(this.$t('errorNotInParty'));
-        }
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
+        this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
 
-      this.$store.dispatch('party:getMembers', {forceLoad: true});
+      if (this.user.party._id) {
+        this.$store.dispatch('party:getMembers', {forceLoad: true});
+      }
 
       this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },

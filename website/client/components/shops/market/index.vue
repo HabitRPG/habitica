@@ -506,9 +506,11 @@ export default {
           }
 
           categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
+            if (!this.viewOptions[category.identifier]) {
+              this.$set(this.viewOptions, category.identifier, {
+                selected: true,
+              });
+            }
           });
 
           return categories;
