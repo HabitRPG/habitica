@@ -22,6 +22,7 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 /**
  * @apiDefine MessageNotFound
  * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
@@ -320,7 +321,7 @@ api.flagChat = {
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
+    if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
     let update = {$set: {}};
 
     // Log user ids that have flagged the message
