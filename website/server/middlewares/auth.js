@@ -12,7 +12,7 @@ const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
-export function authWithHeaders (optional = false) {
+export function authWithHeaders (optional = false, userFieldProjection = '') {
   return function authWithHeadersHandler (req, res, next) {
     let userId = req.header('x-api-user');
     let apiToken = req.header('x-api-key');
@@ -22,10 +22,16 @@ export function authWithHeaders (optional = false) {
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
-    return User.findOne({
+    const userQuery = {
       _id: userId,
       apiToken,
-    })
+    };
+
+    let fields = '';
+    if (userFieldProjection) fields = `notifications ${userFieldProjection}`;
+    const findPromise = fields ? User.findOne(userQuery, fields) : User.findOne(userQuery);
+
+    return findPromise
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
