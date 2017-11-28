@@ -64,6 +64,7 @@ export let schema = new Schema({
   leader: {type: String, ref: 'User', validate: [validator.isUUID, 'Invalid uuid.'], required: true},
   type: {type: String, enum: ['guild', 'party'], required: true},
   privacy: {type: String, enum: ['private', 'public'], default: 'private', required: true},
+  whitelistBannedWords: Array,
   chat: Array,
   /*
   #    [{

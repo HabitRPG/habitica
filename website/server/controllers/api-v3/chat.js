@@ -13,9 +13,8 @@ import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
-import bannedWords from '../../libs/bannedWords';
+import bannedWordsCategories from '../../libs/bannedWordsCategories';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
-import { TAVERN_ID } from '../../models/group';
 import bannedSlurs from '../../libs/bannedSlurs';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -92,7 +91,7 @@ api.getChat = {
   },
 };
 
-function getBannedWordsFromText (message) {
+function getBannedWordsFromText (message, bannedWords) {
   return getMatchesByWordArray(message, bannedWords);
 }
 
@@ -171,12 +170,16 @@ api.postChat = {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
-    if (group._id === TAVERN_ID) {
-      let matchedBadWords = getBannedWordsFromText(req.body.message);
-      if (matchedBadWords.length > 0) {
-        let message = res.t('bannedWordUsed').split('.');
-        message[0] += ` (${matchedBadWords.join(', ')})`;
-        throw new BadRequest(message.join('.'));
+    let categoryKeys = Object.keys(bannedWordsCategories);
+    for (let i = 0; i < categoryKeys.length; i++) {
+      if (!group.whitelistBannedWords.includes(categoryKeys[i])) {
+        let bannedWords = bannedWordsCategories[categoryKeys[i]];
+        let matchedBadWords = getBannedWordsFromText(req.body.message, bannedWords);
+        if (matchedBadWords.length > 0) {
+          let message = res.t('bannedWordUsed').split('.');
+          message[0] += ` (${matchedBadWords.join(', ')})`;
+          throw new BadRequest(message.join('.'));
+        }
       }
     }
 
