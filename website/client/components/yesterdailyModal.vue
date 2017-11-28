@@ -78,6 +78,7 @@ export default {
   methods: {
     async close () {
       this.$root.$emit('bv::hide::modal', 'yesterdaily');
+      this.$emit('run-cron');
     },
   },
 };

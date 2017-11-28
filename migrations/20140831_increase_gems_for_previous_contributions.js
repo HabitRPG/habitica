@@ -16,7 +16,7 @@ var migrationName = '20140831_increase_gems_for_previous_contributions';
  * https://github.com/HabitRPG/habitrpg/issues/3933
  * Increase Number of Gems for Contributors
  * author: Alys (d904bd62-da08-416b-a816-ba797c9ee265)
- * 
+ *
  * Increase everyone's gems per their contribution level.
  * Originally they were given 2 gems per tier.
  * Now they are given 3 gems per tier for tiers 1,2,3
@@ -70,7 +70,7 @@ dbUsers.findEach(query, fields, function(err, user) {
     var extraGems = tier; // tiers 1,2,3
     if (tier > 3)  { extraGems = 3 + (tier - 3) * 2; }
     if (tier == 8) { extraGems = 11; }
-    extraBalance = extraGems / 4;
+    var extraBalance = extraGems / 4;
     set['balance'] = user.balance + extraBalance;
 
     // Capture current state of user:

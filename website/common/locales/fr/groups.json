@@ -350,7 +350,7 @@
     "privacySettings": "Paramètres de vie privée",
     "onlyLeaderCreatesChallenges": "Seul les responsables peuvent créer des défis",
     "privateGuild": "Guilde privée",
-    "charactersRemaining": "<%= characters %> characters remaining",
+    "charactersRemaining": "<%= characters %> caractères restants",
     "guildSummary": "Résumé",
     "guildSummaryPlaceholder": "Écrivez une courte description présentant votre guilde. Quel est le but principal de la guilde et pourquoi devrait-on la rejoindre ? Essayez d'inclure des mots-clefs pertinents dans la description pour que les Habiticiennes et Habiticiens puissent aisément la trouver lorsqu'ils font des recherches !",
     "groupDescription": "Description",

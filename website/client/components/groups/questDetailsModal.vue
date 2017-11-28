@@ -52,11 +52,10 @@
     height: 460px;
     width: 320px;
     top: 2.5em;
-    left: -22em;
+    left: -22.8em;
     z-index: -1;
     padding: 2em;
-    overflow: scroll;
-
+    overflow-y: auto;
     h3 {
       color: $white;
     }
@@ -180,7 +179,8 @@ export default {
       return quests.quests[this.group.quest.key];
     },
     members () {
-      return this.partyMembers.map(member => {
+      let partyMembers = this.partyMembers || [];
+      return partyMembers.map(member => {
         return {
           name: member.profile.name,
           accepted: this.group.quest.members[member._id],
