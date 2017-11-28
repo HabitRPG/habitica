@@ -73,7 +73,7 @@ div
       color: #bda8ff;
     }
 
-    .social-circle, .btn-donate {
+    .social-circle, .btn-contribute {
       background: #36205d;
       color: #bda8ff;
 
