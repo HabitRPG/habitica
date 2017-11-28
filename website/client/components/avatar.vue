@@ -1,4 +1,11 @@
 <template lang="pug">
+
+head
+
+  script(src='https://unpkg.com/popper.js')
+  script(src='https://unpkg.com/vue/dist/vue.js')
+  script(src='https://unpkg.com/v-tooltip')
+
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
   .character-sprites(:style='{margin: spritesMargin}')
     template(v-if="!avatarOnly")
@@ -16,22 +23,24 @@
     // Show avatar only if not currently affected by visual buff
     template(v-if!="!member.stats.buffs.snowball && !member.stats.buffs.spookySparkles && !member.stats.buffs.shinySeed && !member.stats.buffs.seafoam")
       span(:class="'chair_' + member.preferences.chair")
-      span(:class="getGearClass('back')")
+      span(v-tooltip="showEquipments", :class="getGearClass('back')")
       span(:class="skinClass")
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
       span.head_0
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
       span.head_0
-      span(:class="getGearClass('back_collar')")
-      span(:class="getGearClass('body')")
+      span(v-tooltip="showEquipments",:class="getGearClass('back_collar')")
+      span(v-tooltip="showEquipments",:class="getGearClass('body')")
       template(v-for="type in ['base', 'bangs', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
-      span(:class="getGearClass('eyewear')")
-      span(:class="getGearClass('head')")
-      span(:class="getGearClass('headAccessory')")
+      span(v-tooltip="showEquipments",:class="getGearClass('eyewear')")
+      span(v-tooltip="showEquipments",:class="getGearClass('head')")
+      span(v-tooltip="showEquipments",:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(:class="getGearClass('shield')")
-      span(:class="getGearClass('weapon')")
+      span(v-tooltip="showEquipments",:class="getGearClass('shield')")
+      span(v-tooltip="showEquipments",:class="getGearClass('weapon')")
+      
+   //Equipment includes: eyewear, headgear, headaccessory, backaccessory, armor, body accessory, main hand, off hand
 
     // Resting
     span.zzz(v-if="member.preferences.sleep")
@@ -68,9 +77,104 @@
     bottom: 0px;
     left: 0px;
   }
+
+  .tooltip {
+  display: block !important;
+  z-index: 10000;
+}
+
+.tooltip .tooltip-inner {
+  background: black;
+  color: white;
+  border-radius: 16px;
+  padding: 5px 10px 4px;
+}
+
+.tooltip .tooltip-arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+  border-color: black;
+}
+
+.tooltip[x-placement^="top"] {
+  margin-bottom: 5px;
+}
+
+.tooltip[x-placement^="top"] .tooltip-arrow {
+  border-width: 5px 5px 0 5px;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+  border-bottom-color: transparent !important;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.tooltip[x-placement^="bottom"] {
+  margin-top: 5px;
+}
+
+.tooltip[x-placement^="bottom"] .tooltip-arrow {
+  border-width: 0 5px 5px 5px;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+  border-top-color: transparent !important;
+  top: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.tooltip[x-placement^="right"] {
+  margin-left: 5px;
+}
+
+.tooltip[x-placement^="right"] .tooltip-arrow {
+  border-width: 5px 5px 5px 0;
+  border-left-color: transparent !important;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  left: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.tooltip[x-placement^="left"] {
+  margin-right: 5px;
+}
+
+.tooltip[x-placement^="left"] .tooltip-arrow {
+  border-width: 5px 0 5px 5px;
+  border-top-color: transparent !important;
+  border-right-color: transparent !important;
+  border-bottom-color: transparent !important;
+  right: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.tooltip[aria-hidden='true'] {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .15s, visibility .15s;
+}
+
+.tooltip[aria-hidden='false'] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .15s;
+}
+
 </style>
 
 <script>
+
 import ClassBadge from 'client/components/members/classBadge';
 
 export default {
@@ -179,6 +283,15 @@ export default {
       if (!this.$store.state.spellOptions.castingSpell) return;
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
+    
   },
 };
+
+  new Vue({
+    el: '#app',
+    data: {
+      showEquipments: this.user.items.gear.equipped[gearType];
+    }
+  })
+
 </script>
