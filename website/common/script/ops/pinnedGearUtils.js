@@ -3,6 +3,7 @@ import getItemInfo from '../libs/getItemInfo';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
 import isPinned from '../libs/isPinned';
+import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
 import get from 'lodash/get';
@@ -129,9 +130,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     // If path isn't passed it means an item was passed
     path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
   } else {
-    if (!item) {
-      item = get(content, path);
-    }
+    let item = getItemByPathAndType(type, path);
 
     if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure

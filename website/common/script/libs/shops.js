@@ -325,6 +325,8 @@ shops.getTimeTravelersShop = function getTimeTravelersShop (user, language) {
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
   let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
+
+  let officialPinnedItems = getOfficialPinnedItems(user);
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {
@@ -336,18 +338,10 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       for (let key in content.timeTravelStable[type]) {
         if (content.timeTravelStable[type].hasOwnProperty(key)) {
           if (!user.items[type][key]) {
-            let item = {
+            let item = getItemInfo(user, 'timeTravelersStable', {
               key,
-              text: content.timeTravelStable[type][key](language),
-              class: stable[type] + key,
               type,
-              purchaseType: type,
-              value: 1,
-              notes: '',
-              locked: false,
-              currency: 'hourglasses',
-              pinType: 'IGNORE',
-            };
+            }, officialPinnedItems, language);
             category.items.push(item);
           }
         }
