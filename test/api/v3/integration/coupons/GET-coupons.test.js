@@ -1,8 +1,8 @@
 import {
   generateUser,
-  translate as t,
   resetHabiticaDB,
 } from '../../../../helpers/api-v3-integration.helper';
+import apiMessages from '../../../../../website/server/libs/apiMessages';
 
 describe('GET /coupons/', () => {
   let user;
@@ -19,7 +19,7 @@ describe('GET /coupons/', () => {
     await expect(user.get('/coupons')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noSudoAccess'),
+      message: apiMessages('noSudoAccess'),
     });
   });
 

@@ -336,7 +336,11 @@ api.getGroups = {
     }
 
     if (req.query.search) {
-      filters.$text = { $search: req.query.search };
+      filters.$or = [];
+      const searchWords = req.query.search.split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      filters.$or.push({name: searchQuery});
+      filters.$or.push({description: searchQuery});
     }
 
     let results = await Group.getGroups({

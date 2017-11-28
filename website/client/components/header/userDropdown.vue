@@ -98,9 +98,10 @@ export default {
       this.$root.$emit('bv::show::modal', 'inbox-modal');
     },
     showProfile (startingPage) {
-      this.$store.state.profileUser = this.user;
-      this.$store.state.profileOptions.startingPage = startingPage;
-      this.$root.$emit('bv::show::modal', 'profile');
+      this.$root.$emit('habitica:show-profile', {
+        user: this.user,
+        startingPage,
+      });
     },
     showBuyGemsModal (startingPage) {
       this.$store.state.gemModalOptions.startingPage = startingPage;

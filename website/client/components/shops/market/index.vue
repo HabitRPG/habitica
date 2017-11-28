@@ -1,9 +1,8 @@
 <template lang="pug">
   .row.market
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
@@ -15,7 +14,6 @@
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ category.text }}
-
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -62,7 +60,7 @@
 
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      .clearfix
+      .clearfix(v-if="viewOptions['equipment'].selected")
         h2.float-left.mb-3
           | {{ $t('equipment') }}
 
@@ -99,7 +97,8 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
+        :noItemsLabel="$t('noGearItemsOfClass')",
+        v-if="viewOptions['equipment'].selected"
       )
         template(slot="item", slot-scope="ctx")
           shopItem(
@@ -247,7 +246,7 @@
     height: 38px; // button + margin + padding
   }
 
-  
+
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -458,6 +457,11 @@ export default {
           ];
 
           categories.push({
+            identifier: 'equipment',
+            text: this.$t('equipment'),
+          });
+
+          categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
             items: _map(_filter(this.content.cardTypes, (value) => {
@@ -502,9 +506,11 @@ export default {
           }
 
           categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
+            if (!this.viewOptions[category.identifier]) {
+              this.$set(this.viewOptions, category.identifier, {
+                selected: true,
+              });
+            }
           });
 
           return categories;
