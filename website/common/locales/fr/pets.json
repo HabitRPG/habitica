@@ -75,7 +75,7 @@
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
     "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
     "hatchedPetGeneric": "Vous avez fait éclore un nouveau familier !",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Visitez l'[écurie](/inventory/stable) pour nourrir et vous faire accompagner de vos derniers familiers !",
     "displayNow": "Afficher tout de suite",
     "displayLater": "Afficher plus tard",
     "petNotOwned": "Vous ne possédez pas ce familier.",
@@ -94,8 +94,8 @@
     "petKeyBegin": "Clé du chenil : Expérimentez à nouveau le frisson du <%= title %> !",
     "petKeyInfo": "Le frisson de la collecte de familiers vous manque ? Vous pouvez à présent les laisser partir, et redonner un sens à ces butins !",
     "petKeyInfo2": "Utilisez la clé du chenil pour ramener vos familiers et/ou montures non-issus de quêtes à zéro. (Les familiers et montures de quêtes et rares ne sont pas affectés.)",
-    "petKeyInfo3": "Il y a trois types de clés du chenil : \"Relâcher les familiers uniquement\" (4 gemmes), \"Relâcher les montures uniquement\" (4 gemmes), ou \"Relâcher les familiers et les montures\" (6 gemmes). Utiliser une clé vous permet de cumuler les succès \"Maître des bêtes\" et \"Maître des montures\". Le succès \"Triple bingo\" n'est cumulable que si vous utilisez la clé \"Relâcher les familiers et les montures\" et collectez les 90 familiers une seconde fois. Montrez au monde de quel bois les collectionneurs de légende sont faits ! Mais prenez garde, car dès lors que vous utilisez une clé et ouvrez les portes des écuries, vous ne pourrez les remplir qu'en collectant tout à nouveau...",
-    "petKeyInfo4": "Il y a trois types de clés du chenil : \"Relâcher les familiers uniquement\" (4 gemmes), \"Relâcher les montures uniquement\" (4 gemmes), ou \"Relâcher les familiers et les montures\". Utiliser une clé vous permet de cumuler les succès \"Maître des bêtes\" et \"Maître des montures\". Le succès \"Triple bingo\" n'est cumulable que si vous utilisez la clé \"Relâcher les familiers et les montures\" et collectez les 90 familiers une seconde fois. Montrez au monde de quel bois les collectionneurs de légende sont faits ! Mais prenez garde, car dès lors que vous utilisez une clé et ouvrez les portes des écuries, vous ne pourrez les remplir qu'en collectant tout à nouveau...",
+    "petKeyInfo3": "Il y a trois types de clés du chenil : \"Relâcher les familiers uniquement\" (4 gemmes), \"Relâcher les montures uniquement\" (4 gemmes), ou \"Relâcher les familiers et les montures\" (6 gemmes). Utiliser une clé vous permet de cumuler les succès \"Maître des bêtes\" et \"Maître des montures\". Le succès \"Triple bingo\" n'est cumulable que si vous utilisez la clé \"Relâcher les familiers et les montures\" et collectez les 90 familiers une seconde fois. Montrez au monde de quel bois les collectionneurs de légende sont faits ! Mais prenez garde, car dès lors que vous utilisez une clé et ouvrez les portes de l'écurie, vous ne pourrez les remplir qu'en collectant tout à nouveau...",
+    "petKeyInfo4": "Il y a trois types de clés du chenil : \"Relâcher les familiers uniquement\" (4 gemmes), \"Relâcher les montures uniquement\" (4 gemmes), ou \"Relâcher les familiers et les montures\". Utiliser une clé vous permet de cumuler les succès \"Maître des bêtes\" et \"Maître des montures\". Le succès \"Triple bingo\" n'est cumulable que si vous utilisez la clé \"Relâcher les familiers et les montures\" et collectez les 90 familiers une seconde fois. Montrez au monde de quel bois les collectionneurs de légende sont faits ! Mais prenez garde, car dès lors que vous utilisez une clé et ouvrez les portes de l'écurie, vous ne pourrez les remplir qu'en collectant tout à nouveau...",
     "petKeyPets": "Relâcher mes familiers",
     "petKeyMounts": "Relâcher mes montures",
     "petKeyBoth": "Relâcher les deux",
@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "Cliquez sur un familier à nourrir avec cette <%= foodName %> et regardez-le grandir !",
     "dragThisPotion": "Déplacez cette <%= potionName %> vers un œuf pour en faire sortir un nouveau familier !",
     "clickOnEggToHatch": "Cliquez sur un œuf à associer à votre potion d'éclosion <%= potionName %> et faites éclore un nouveau familier !",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>."
 }

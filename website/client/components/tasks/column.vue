@@ -34,11 +34,10 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    .sortable-tasks(
+    draggable(
       ref="tasksList",
-      v-sortable='activeFilters[type].label !== "scheduled"',
-      @onsort='sorted',
-      data-sortableId
+      @update='sorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
     )
       task(
         v-for="task in taskList",
@@ -245,7 +244,6 @@
 import Task from './task';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
@@ -262,6 +260,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import draggable from 'vuedraggable';
 
 export default {
   mixins: [buyMixin, notifications],
@@ -269,9 +268,7 @@ export default {
     Task,
     BuyQuestModal,
     shopItem,
-  },
-  directives: {
-    sortable,
+    draggable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {

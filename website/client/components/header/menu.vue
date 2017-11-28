@@ -46,7 +46,7 @@ div
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
+        router-link.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}

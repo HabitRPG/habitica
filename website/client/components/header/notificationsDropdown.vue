@@ -15,7 +15,7 @@ menu-dropdown.item-notifications(:right="true")
     a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
       span.glyphicon.glyphicon-gift
       span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='(party, index) in user.invitations.parties')
+    a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: party.name}) }}
@@ -26,7 +26,7 @@ menu-dropdown.item-notifications(:right="true")
       span.glyphicon.glyphicon-envelope
       span {{ $t('cardReceived') }}
       a.dropdown-item(@click.stop='clearCards()')
-    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds')
+    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
       div
         span.glyphicon.glyphicon-user
         span {{ $t('invitedTo', {name: guild.name}) }}
@@ -34,10 +34,10 @@ menu-dropdown.item-notifications(:right="true")
         button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
         button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
     a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
-      @click='go("/user/profile")')
+      @click='showProfile()')
       span.glyphicon.glyphicon-plus-sign
       span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='message in userNewMessages')
+    a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
       span(@click='navigateToGroup(message.key)')
         span.glyphicon.glyphicon-comment
         span {{message.name}}
@@ -278,6 +278,12 @@ export default {
     async questReject (partyId) {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
       this.user.party.quest = quest;
+    },
+    showProfile () {
+      this.$root.$emit('habitica:show-profile', {
+        user: this.user,
+        startingPage: 'stats',
+      });
     },
   },
 };
