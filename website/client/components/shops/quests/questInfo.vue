@@ -5,6 +5,9 @@
       div(v-for="(collect, key) of quest.collect")
         span {{ collect.count }} {{ getCollectText(collect) }}
 
+    span.col-4(v-if="quest.boss") {{ $t('bossStrength') }}
+    span.col-8(v-if="quest.boss") {{ quest.boss.str }}
+
     span.col-4 {{ $t('difficulty') }}
     span.col-8
       span.svg-icon.inline.icon-16(v-for="star of stars()", v-html="icons[star]")

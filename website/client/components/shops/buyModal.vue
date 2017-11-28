@@ -355,7 +355,7 @@
       },
       notEnoughCurrency () {
         return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
-      }
+      },
     },
     watch: {
       item: function itemChanged () {
