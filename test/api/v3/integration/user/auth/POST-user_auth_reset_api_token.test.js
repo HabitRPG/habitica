@@ -63,21 +63,23 @@ describe('POST /user/auth/reset-api-token', () => {
       sandbox.stub(passport._strategies.facebook, 'userProfile').yields(null, expectedResult);
     });
 
+    after(async () => {
+      passport._strategies.facebook.userProfile.restore();
+    });
+
     it('resets api token given valid token', async() => {
       await user.update({
+        'auth.facebook.id': '123456',
         'auth.local': {},
-        'auth.facebook': {
-          id: '123456',
-        },
       });
       let originalApiToken = user.apiToken;
-
       let response = await user.post(endpoint, {
         password: '123456',
       });
 
+      await user.sync();
+
       expect(response.apiToken).to.exist;
-      expect(user.apiToken).to.not.equal(originalApiToken);
       expect(response.apiToken).to.equal(user.apiToken);
       expect(response.apiToken).to.not.equal(originalApiToken);
     });
@@ -101,6 +103,10 @@ describe('POST /user/auth/reset-api-token', () => {
     before(async () => {
       let expectedResult = {id: '123456', displayName: 'a google user'};
       sandbox.stub(passport._strategies.google, 'userProfile').yields(null, expectedResult);
+    });
+
+    after(async () => {
+      passport._strategies.google.userProfile.restore();
     });
 
     it('resets api token given valid token', async() => {
