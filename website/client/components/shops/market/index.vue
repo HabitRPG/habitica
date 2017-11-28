@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.market
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
       .form
