@@ -113,7 +113,6 @@
     border-color: transparent;
     transition: background 0.15s ease-in;
     resize: none;
-    margin-bottom: 0px;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -124,6 +123,7 @@
       background: $white;
       border-color: $purple-500;
       color: $gray-50;
+      margin-bottom: 0px;
     }
 
     &::placeholder {
