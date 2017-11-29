@@ -4,13 +4,13 @@
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
-      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up")
-        .task-control.habit-control(:class="controlClass.up + '-control-habit'", @click="(isUser && controlClass.up !== 'task-habit-disabled') ? score('up') : null")
+      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
+        .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.positive(v-html="icons.positive")
       // Dailies and todos left side control
-      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass")
-        .task-control.daily-todo-control(:class="controlClass + '-control-daily-todo'", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
-          .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
+      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
+        .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
+          .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
       .task-content(:class="contentClass")
         .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
@@ -97,11 +97,11 @@
                 .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
       // Habits right side control
-      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down")
-        .task-control.habit-control(:class="controlClass.down + '-control-habit'", @click="(isUser && controlClass.down !== 'task-habit-disabled') ? score('down') : null")
+      .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
+        .task-control.habit-control(:class="controlClass.down.inner", @click="(isUser && task.down) ? score('down') : null")
           .svg-icon.negative(v-html="icons.negative")
       // Rewards right side control
-      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass", @click="isUser ? score('down') : null")
+      .right-control.d-flex.align-items-center.justify-content-center.reward-control(v-if="task.type === 'reward'", :class="controlClass.bg", @click="isUser ? score('down') : null")
         .svg-icon(v-html="icons.gold")
         .small-text {{task.value}}
     approval-footer(:task='task', v-if='this.task.group.id', :group='group')
@@ -588,7 +588,7 @@ export default {
       const type = this.task.type;
 
       const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
+      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate).content);
 
       if (type === 'reward' || type === 'habit') {
         classes.push('no-right-border');
