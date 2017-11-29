@@ -37,7 +37,7 @@ module.exports = function buyGear (user, req = {}, analytics) {
 
   let itemIndex = Number(item.index);
 
-  if (itemIndex === itemIndex) {
+  if (!isNaN(itemIndex)) {
     let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
     let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
     let checkIndexToType = itemIndex > (item.type === 'weapon' ? 0 : 1);
