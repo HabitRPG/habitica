@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  buy-gems-modal
+  buy-gems-modal(v-if='user')
   modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
@@ -71,7 +71,7 @@
         .row
           .col-10 {{ $t('donateText3') }}
           .col-2
-            button.btn.btn-contribute(@click="donate()", v-if="isUserLoaded")
+            button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
             .btn.btn-contribute(v-else)
