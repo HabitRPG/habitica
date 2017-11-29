@@ -177,9 +177,6 @@ api.acceptQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    user.party.quest.RSVPNeeded = false;
-    await user.save();
-
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
@@ -187,6 +184,9 @@ api.acceptQuest = {
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
+
+    user.party.quest.RSVPNeeded = false;
+    await user.save();
 
     group.markModified('quest');
     group.quest.members[user._id] = true;
@@ -236,10 +236,6 @@ api.rejectQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    user.party.quest = Group.cleanQuestProgress();
-    user.markModified('party.quest');
-    await user.save();
-
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -247,6 +243,10 @@ api.rejectQuest = {
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
+
+    user.party.quest = Group.cleanQuestProgress();
+    user.markModified('party.quest');
+    await user.save();
 
     group.quest.members[user._id] = false;
     group.markModified('quest.members');
