@@ -385,6 +385,15 @@
           .svg-icon { color: $white !important; }
         }
       }
+
+      &-enabled {
+        .option-item-box {
+          border: 2px solid transparent;
+          transition-property: none;
+
+          .habit-control { background: $white !important; }
+        }
+      }
     }
 
     .category-wrap {

@@ -45,7 +45,7 @@ export function getTaskClasses (store) {
   // Purpose can be one of the following strings:
   // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
   // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
-  // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
+  // Control: 
   return (task, purpose, dueDate) => {
     if (!dueDate) dueDate = new Date();
     const type = task.type;
@@ -67,10 +67,7 @@ export function getTaskClasses (store) {
         return 'not a classe';
     }
 
-    /*  case 'createModal':
-        return 'task-purple';
-      case 'editModal':
-        return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
+    /*  
       case 'controlCreate':
         return {
           up: task.up ? 'task-purple' : 'task-habit-disabled',
