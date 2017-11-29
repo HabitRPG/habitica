@@ -8,7 +8,7 @@
       .form-group
         label
           strong(v-once) {{$t('shortName')}} *
-        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName" :disabled="!creating")
+        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
           strong(v-once) {{$t('challengeSummary')}} *
@@ -57,9 +57,10 @@
             You do not have enough gems to create a Tavern challenge
             // @TODO if buy gems button is added, add analytics tracking to it
             // see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134
-          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeCloneTasks')}}
-          button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
-        .col-12.text-center(v-if='creating')
+          button.btn.btn-primary(v-once, v-if='creating && !cloning', @click='createChallenge()') {{$t('createChallengeAddTasks')}}
+          button.btn.btn-primary(v-once, v-if='cloning', @click='createChallenge()') {{$t('createChallengeCloneTasks')}}
+          button.btn.btn-primary(v-once, v-if='!creating && !cloning', @click='updateChallenge()') {{$t('updateChallenge')}}
+        .col-12.text-center
           p(v-once) {{$t('challengeMinimum')}}
 </template>
 

@@ -154,6 +154,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
+      if (this.user.flags.classSelected && !confirm(this.$t('changeClassConfirmCost'))) return;
       this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
     },
     clickDisableClasses () {

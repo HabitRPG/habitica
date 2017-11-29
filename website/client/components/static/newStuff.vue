@@ -4,34 +4,26 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/17/2017 - THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE
+    h2 11/29/2017 - LAST CHANCE FOR CARPET RIDER SET AND THUNDERSTORM POTIONS, GUILD AND USE CASE SPOTLIGHTS
     hr
     .media
-      .promo_turkey_day_2017.right-margin
-      .media-body.d-flex.align-self-center.flex-column
-        h3 Happy Thanksgiving!
-        p It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!
-        h3 Turkey Pets, Mounts, and Costume!
-        p For the occasion, all Habiticans have received Turkey-themed items! What items? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey pet, mount, or gear set! Check your Stable and your pinned Rewards to see what you got!
-        p Thank you for using Habitica - we really love you all <3
-        .small by Lemoness
+      .promo_potions_thunderstorm.right-margin
+      .media-body
+        h3 Last Chance for Carpet Rider Set
+        p(v-markdown='"Reminder: there are only two more days to [subscribe](/user/settings/subscription) and receive the Carpet Rider Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!"')
+        p Thanks so much for your support! You help keep Habitica running.
+        .small by Beffymaroo
+        h3 Last Chance for Thunderstorm Hatching Potions
+        p(v-markdown='"Reminder: this is the final day to [buy Thunderstorm Hatching Potions!](/shops/market) If they come back, it won\'t be until next year at the earliest, so don\'t delay!"')
+        .small by Balduranne
+        h3 Generating Interest: Guilds and Use Cases for Money Matters
+        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/11/28/generating-interest-guilds-for-money-matters/) that highlights the Guilds that can help you as work to improve your budgeting and saving habits! Check it out now to find Habitica\'s best money management communities."')
     .media
       .media-body
-        h3 November Subscriber Items Revealed!
-        p(v-markdown='"The November Subscriber Items have been revealed: the [Carpet Rider Item Set](https://habitica.com/user/settings/subscription)! You have until November 30 to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!"')
-        p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-        .small by Lemoness
-      .promo_mystery_201711.left-margin
-    h3 Android App Update
-    p There’s an exciting new update to our Android app!
-    ul
-      li We’ve smashed some pesky bugs, including the issue with task reordering!
-      li You can now view and assign attribute points (or choose auto-allocation)!
-      li We’ve added Equipment to the Market, plus the ability to change your login name and email, reset or delete your account, make changes to your profile, and access Fix Character Values.
-      li You can also request a password reset from the login screen!
-    p We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!
-    p If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!
-    .small by Viirus and piyorii
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/11/14/3908/) follows the same theme! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be working on saving and budgeting as the holiday season approaches!"')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to stay on top of Holiday Housekeeping? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog at the start of next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+      .scene_money.left-margin
     br
 </template>
 
