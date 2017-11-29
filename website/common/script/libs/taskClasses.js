@@ -14,7 +14,6 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
     return '';
   }
   let type = task.type;
-  let classes = task.type;
   let completed = task.completed;
   let value = task.value;
   let priority = task.priority;
@@ -29,7 +28,7 @@ module.exports = function taskClasses (task, filters = [], dayStart = 0, lastCro
     }
   }
 
-  classes = task.type;
+  let classes = task.type;
   if (task._editing) {
     classes += ' beingEdited';
   }

@@ -33,13 +33,21 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest', quantity}),
   };
 }
 
 async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
   let armoire = content.armoire;
+
+  buyOp(store.state.user.data, {
+    params: {
+      key: 'armoire',
+    },
+    type: 'armoire',
+    quantity,
+  });
 
   // We need the server result because Armoire has random item in the result
   let result = await axios.post('/api/v3/user/buy/armoire', {

@@ -33,7 +33,7 @@
             span.noninteractive-button.btn-danger {{ $t('canceledSubscription') }}
             i.glyphicon.glyphicon-time
             |  {{ $t('subCanceled') }} &nbsp;
-            strong {{user.purchased.plan.dateTerminated | date}}
+            strong {{dateTerminated}}
           tr(v-if='!hasCanceledSubscription'): td
             h4 {{ $t('subscribed') }}
             p(v-if='hasPlan && !hasGroupPlan') {{ $t('purchasedPlanId', purchasedPlanIdInfo) }}
@@ -143,13 +143,6 @@ export default {
       },
     };
   },
-  filters: {
-    date (value) {
-      if (!value) return '';
-      return moment(value);
-      // return moment(value).format(this.user.preferences.dateFormat); // @TODO make that work (`TypeError: this is undefined`)
-    },
-  },
   computed: {
     ...mapState({user: 'user.data', credentials: 'credentials'}),
     subscriptionBlocksOrdered () {
@@ -236,6 +229,10 @@ export default {
       return {
         amount: this.numberOfMysticHourglasses,
       };
+    },
+    dateTerminated () {
+      if (!this.user.preferences || !this.user.preferences.dateFormat) return this.user.purchased.plan.dateTerminated;
+      return moment(this.user.purchased.plan.dateTerminated).format(this.user.preferences.dateFormat.toUpperCase());
     },
     canCancelSubscription () {
       return (

@@ -16,6 +16,17 @@ let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   return accumulator;
 }, {});
 
+/**
+ * Returns the index if found
+ * @param Array array
+ * @param String path
+ */
+function pathExistsInArray (array, path) {
+  return array.findIndex(item => {
+    return item.path === path;
+  });
+}
+
 function selectGearToPin (user) {
   let changes = [];
 
@@ -32,9 +43,7 @@ function selectGearToPin (user) {
 
 
 function addPinnedGear (user, type, path) {
-  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex === -1) {
     user.pinnedItems.push({
@@ -55,9 +64,7 @@ function addPinnedGearByClass (user) {
 }
 
 function removeItemByPath (user, path) {
-  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex >= 0) {
     user.pinnedItems.splice(foundIndex, 1);
@@ -148,9 +155,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 
-  let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
-    return officialPinnedItem.path === path;
-  }) !== undefined;
+  const isOfficialPinned = pathExistsInArray(officialPinnedItems, path) !== -1;
 
   if (isOfficialPinned) {
     arrayToChange = user.unpinnedItems;
@@ -158,9 +163,16 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     arrayToChange = user.pinnedItems;
   }
 
-  const foundIndex = arrayToChange.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  if (isOfficialPinned) {
+    // if an offical item is also present in the user.pinnedItems array
+    const itemInUserItems = pathExistsInArray(user.pinnedItems, path);
+
+    if (itemInUserItems !== -1) {
+      removeItemByPath(user, path);
+    }
+  }
+
+  const foundIndex = pathExistsInArray(arrayToChange, path);
 
   if (foundIndex >= 0) {
     arrayToChange.splice(foundIndex, 1);
