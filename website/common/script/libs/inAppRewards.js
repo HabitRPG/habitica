@@ -1,5 +1,3 @@
-import content from '../content/index';
-import get from 'lodash/get';
 import getItemInfo from './getItemInfo';
 import shops from './shops';
 import getOfficialPinnedItems from './getOfficialPinnedItems';

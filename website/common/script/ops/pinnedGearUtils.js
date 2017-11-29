@@ -6,7 +6,6 @@ import isPinned from '../libs/isPinned';
 import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-import get from 'lodash/get';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
 import lodashFind from 'lodash/find';
@@ -137,7 +136,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     // If path isn't passed it means an item was passed
     path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
   } else {
-    let item = getItemByPathAndType(type, path);
+    item = getItemByPathAndType(type, path);
 
     if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure
