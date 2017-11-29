@@ -30,7 +30,7 @@
       span(:class="getGearClass('head')")
       span(:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(:class="getGearClass('shield')")
+      span(v-if="!hideShield()", :class="getGearClass('shield')")
       span(:class="getGearClass('weapon')")
 
     // Resting
@@ -174,6 +174,9 @@ export default {
       }
 
       return result;
+    },
+    hideShield () {
+      return this.overrideAvatarGear && this.overrideAvatarGear.hideShield;
     },
     castEnd (e) {
       if (!this.$store.state.spellOptions.castingSpell) return;

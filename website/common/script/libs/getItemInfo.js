@@ -30,6 +30,7 @@ function getDefaultGearProps (item, language) {
     text: item.text(language),
     notes: item.notes(language),
     type: item.type,
+    twoHanded: item.twoHanded,
     specialClass: item.specialClass,
     locked: false,
     purchaseType: 'gear',
@@ -191,7 +192,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
     case 'gear':
       // spread operator not available
       itemInfo = Object.assign(getDefaultGearProps(item, language), {
-        value: item.twoHanded ? 2 : 1,
+        value: item.value,
         currency: 'gems',
         pinType: 'gear',
       });

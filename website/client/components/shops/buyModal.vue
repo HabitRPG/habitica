@@ -430,6 +430,7 @@
           case 'gear':
             return {
               [item.type]: item.key,
+              hideShield: item.twoHanded,
             };
           case 'backgrounds':
             return {
