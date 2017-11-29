@@ -35,13 +35,16 @@ module.exports = function buyGear (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
   }
 
-  let itemIndex = item.index;
-  let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
-  let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
-  let checkIndexToType = itemIndex > (item.type === 'weapon' ? 0 : 1);
+  let itemIndex = Number(item.index);
 
-  if (checkIndexToType && !hasPreviousLevelGear) {
-    throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
+  if (itemIndex === itemIndex) {
+    let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
+    let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
+    let checkIndexToType = itemIndex > (item.type === 'weapon' ? 0 : 1);
+
+    if (checkIndexToType && !hasPreviousLevelGear) {
+      throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
+    }
   }
 
   if (user.preferences.autoEquip) {
