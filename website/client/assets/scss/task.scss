@@ -77,6 +77,7 @@
     }
   }
 
+<<<<<<< HEAD
   &-best { // blue
     &-control {
       &-bg { background: $blue-50 !important; }
@@ -95,13 +96,55 @@
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $purple-200 !important; }
+=======
+  &-better {
+    background: $teal-50;
+
+    &-color {
+      color: darken($teal-50, 12%);
+    }
+
+    &-control-habit {
+      background: darken($teal-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $teal-500;
+      color: $teal-50;
+    }
+
+    &-modal-input {
+      color: $teal-500 !important;
     }
   }
 
+  &-best {
+    background: $blue-50;
+
+    &-color {
+      color: darken($blue-50, 12%);
+    }
+
+    &-control-habit {
+      background: darken($blue-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $blue-500;
+      color: $blue-50;
+>>>>>>> develop
+    }
+  }
+
+<<<<<<< HEAD
   &-disabled {
     &-modal-habit-control {
       border-radius: 2px;
       border: 2px solid $gray-600;
+=======
+    &-modal-input {
+      color: $blue-500 !important;
+>>>>>>> develop
     }
   }
 

@@ -169,7 +169,7 @@ export default {
       this.amazonPayments.gift = data.gift;
       this.amazonPayments.type = data.type;
 
-      this.$root.$emit('bv::show::modal', 'amazon-payment');
+      this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
