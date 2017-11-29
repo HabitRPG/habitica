@@ -449,7 +449,6 @@
 
     .small-text {
       margin-top: 4px;
-      color: $yellow-10;
       font-style: initial;
       font-weight: bold;
     }

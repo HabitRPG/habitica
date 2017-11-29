@@ -2,7 +2,7 @@
   &-worst { // dark red
     &-control {
       &-bg { background: $maroon-100 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
       &-checkbox { color: $maroon-100 !important; }
     }
 
@@ -16,7 +16,7 @@
   &-worse { // light red
     &-control {
       &-bg { background: $red-100 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
       &-checkbox { color: $red-100 !important; }
     }
 
@@ -30,7 +30,7 @@
   &-bad { // orange
     &-control {
       &-bg { background: $orange-100 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: $orange-10 !important; }
       &-checkbox { color: $orange-100 !important; }
     }
 
@@ -44,13 +44,13 @@
   &-neutral { // yellow
     &-control {
       &-bg { background: $yellow-100 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: $yellow-10 !important; }
       &-checkbox { color: $yellow-100 !important; }
     }
 
     &-modal {
-      &-bg { background: $yellow-50 !important; }
-      &-icon { color: $yellow-50 !important; }
+      &-bg { background: $yellow-100 !important; }
+      &-icon { color: $yellow-100 !important; }
       &-text { color: #bf7d1a !important; }
     }
   }
@@ -58,7 +58,7 @@
   &-good { // green
     &-control {
       &-bg { background: $green-10 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
       &-checkbox { color: $green-10 !important; }
     }
 
@@ -72,7 +72,7 @@
   &-better { // teal
     &-control {
       &-bg { background: $teal-50 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
       &-checkbox { color: $teal-50 !important; }
     }
 
@@ -85,14 +85,14 @@
 
   &-best { // blue
     &-control {
-      &-bg { background: $blue-50 !important; }
-      &-inner { background: rgba(26, 24, 29, 0.24) !important; }
-      &-checkbox { color: $blue-50 !important; }
+      &-bg { background: $blue-100 !important; }
+      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-checkbox { color: $blue-100 !important; }
     }
 
     &-modal {
-      &-bg { background: $blue-50 !important; }
-      &-icon { color: $blue-50 !important; }
+      &-bg { background: $blue-100 !important; }
+      &-icon { color: $blue-100 !important; }
       &-text { color: $blue-10 !important; }
     }
   }
@@ -107,7 +107,10 @@
 
   &-reward {
     &-control {
-      &-bg { background: rgba(255, 217, 160, 0.32) !important; }
+      &-bg { 
+        background: #FFF5E5 !important;
+        .small-text { color: $yellow-10 !important; }
+      }
     }
   }
 
