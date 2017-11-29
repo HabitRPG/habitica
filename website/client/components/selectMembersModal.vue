@@ -43,6 +43,10 @@ div
     }
 
     h3 {
+      color: #4e4a57;
+    }
+
+    span {
       color: #878190;
     }
 
