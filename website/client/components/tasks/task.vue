@@ -435,6 +435,7 @@
   .daily-todo-control {
     margin-top: 16px;
     border-radius: 2px;
+    margin-left: -1px;
   }
 
   .reward-control {

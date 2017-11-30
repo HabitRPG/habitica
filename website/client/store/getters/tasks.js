@@ -83,7 +83,7 @@ export function getTaskClasses (store) {
           return {
             bg: `task-${color}-control-bg`,
             checkbox: `task-${color}-control-checkbox`,
-            inner: `task-${color}-control-inner`,
+            inner: `task-${color}-control-inner-daily-todo`,
           };
         } else if (type === 'reward') {
           return {

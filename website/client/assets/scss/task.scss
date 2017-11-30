@@ -5,9 +5,11 @@
         background: $maroon-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $maroon-500 !important; }
       &-checkbox { color: $maroon-100 !important; }
     }
 
@@ -28,9 +30,11 @@
         background: $red-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $red-500 !important; }
       &-checkbox { color: $red-100 !important; }
     }
 
@@ -51,9 +55,11 @@
         background: $orange-100 !important;
         &:hover {
           .habit-control { background: #b75a1c !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(183, 90, 28, 0.4) !important; }
+      &-inner-daily-todo { background: $orange-500 !important; }
       &-checkbox { color: $orange-100 !important; }
     }
 
@@ -62,6 +68,7 @@
         background: $orange-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-icon { color: $orange-100 !important; }
@@ -79,9 +86,11 @@
         background: $yellow-100 !important;
         &:hover {
           .habit-control { background: #bf7d1a !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(183, 90, 28, 0.32) !important; }
+      &-inner-daily-todo { background: $yellow-500 !important; }
       &-checkbox { color: $yellow-100 !important; }
     }
 
@@ -102,9 +111,11 @@
         background: $green-10 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #77f4c7 !important; }
       &-checkbox { color: $green-10 !important; }
     }
 
@@ -125,9 +136,11 @@
         background: $teal-50 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #8dedf6 !important; }
       &-checkbox { color: $teal-50 !important; }
     }
 
@@ -148,9 +161,11 @@
         background: $blue-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $blue-500 !important; }
       &-checkbox { color: $blue-100 !important; }
     }
 
@@ -159,8 +174,8 @@
       &-icon { color: $blue-100 !important; }
       &-text { color: $blue-10 !important; }
       &-option-disabled:hover {
-        .svg-icon { color: !important; }
-        .option-item-label { color: !important; }
+        .svg-icon { color: $blue-50 !important; }
+        .option-item-label { color: $blue-10 !important; }
       }
     }
   }
@@ -171,8 +186,8 @@
       &-icon { color: $purple-300 !important; }
       &-text { color: $purple-200 !important; }
       &-option-disabled:hover {
-        .svg-icon { color: !important; }
-        .option-item-label { color: !important; }
+        .svg-icon { color: $purple-300 !important; }
+        .option-item-label { color: $purple-200 !important; }
       }
     }
   }
@@ -201,9 +216,14 @@
 
     &-daily-todo {    
       &-control {
-        &-bg { background: $gray-500 !important; }
-        &-inner { background: $gray-400 !important; }
-        &-checkbox { color: $gray-200 !important; }
+        &-bg { 
+          background: $gray-400 !important;
+          &:hover {
+            .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+          }      
+        }
+        &-inner { background: $gray-500 !important; }
+        &-checkbox { color: $gray-400 !important; }
         &-content {
           background: $gray-600;
 
