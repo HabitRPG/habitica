@@ -175,6 +175,8 @@ export default {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
       if (!confirm(this.$t('sureCancelSub'))) return;
 
+      this.loading = true;
+
       let group;
       if (config && config.group) {
         group = config.group;
@@ -203,6 +205,9 @@ export default {
 
       let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
       await axios.get(cancelUrl);
+
+      this.loading = false;
+
       //  Success
       alert(this.$t('paypalCanceled'));
       this.$router.push('/');
