@@ -58,12 +58,16 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-text`;
       case 'edit-modal-icon':
         return `task-${color}-modal-icon`;
+      case 'edit-modal-option-disabled':
+        return `task-${color}-modal-option-disabled`;
       case 'create-modal-bg':
         return 'task-purple-modal-bg';
       case 'create-modal-text':
         return 'task-purple-modal-text';
       case 'create-modal-icon':
         return 'task-purple-modal-icon';
+      case 'create-modal-option-disabled':
+        return 'task-purple-modal-option-disabled';
 
       case 'control':
         if (type === 'todo' || type === 'daily') {

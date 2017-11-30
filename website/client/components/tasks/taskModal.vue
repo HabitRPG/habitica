@@ -10,14 +10,14 @@
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
           input.form-control.title-input(
-            type="text", :class="[`${cssClass()}-modal-input`]",
+            type="text",
             required, v-model="task.text",
             autofocus, spellcheck="true",
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
           label(v-once) {{ $t('notes') }}
-          textarea.form-control(:class="[`${cssClass()}-modal-input`]", v-model="task.notes", rows="3")
+          textarea.form-control(v-model="task.notes", rows="3")
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
@@ -53,19 +53,19 @@
             span.float-left {{ $t('difficulty') }}
             // @TODO .svg-icon.info-icon(v-html="icons.information")
           .d-flex.justify-content-center.difficulty-options
-            .option-item(:class="task.priority === 0.1 ? 'option-item-selected' : ''", @click="setDifficulty(0.1)")
+            .option-item(:class="task.priority === 0.1 ? 'option-item-selected' : cssClass('option-disabled')", @click="setDifficulty(0.1)")
               .option-item-box(:class="task.priority === 0.1 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-trivial-icon(v-html="icons.difficultyTrivial")
               .option-item-label(:class="task.priority === 0.1 ? cssClass('text') : ''") {{ $t('trivial') }}
-            .option-item(:class="task.priority === 1 ? 'option-item-selected' : ''", @click="setDifficulty(1)")
+            .option-item(:class="task.priority === 1 ? 'option-item-selected' : cssClass('option-disabled')", @click="setDifficulty(1)")
               .option-item-box(:class="task.priority === 1 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-normal-icon(v-html="icons.difficultyNormal")
               .option-item-label(:class="task.priority === 1 ? cssClass('text') : ''") {{ $t('easy') }}
-            .option-item(:class="task.priority === 1.5 ? 'option-item-selected' : ''", @click="setDifficulty(1.5)")
+            .option-item(:class="task.priority === 1.5 ? 'option-item-selected' : cssClass('option-disabled')", @click="setDifficulty(1.5)")
               .option-item-box(:class="task.priority === 1.5 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-medium-icon(v-html="icons.difficultyMedium")
               .option-item-label(:class="task.priority === 1.5 ? cssClass('text') : ''") {{ $t('medium') }}
-            .option-item(:class="task.priority === 2 ? 'option-item-selected' : ''", @click="setDifficulty(2)")
+            .option-item(:class="task.priority === 2 ? 'option-item-selected' : cssClass('option-disabled')", @click="setDifficulty(2)")
               .option-item-box(:class="task.priority === 2 ? cssClass('bg') : ''")
                 .svg-icon.difficulty-hard-icon(v-html="icons.difficultyHard")
               .option-item-label(:class="task.priority === 2 ? cssClass('text') : ''") {{ $t('hard') }}
@@ -255,13 +255,18 @@
 
     input, textarea {
       border: none;
-      background-color: rgba(26, 24, 29, 0.24);
+      background-color: rgba(0, 0, 0, 0.24);
       color: rgba($white, 0.64) !important;
+      transition-property: border-color, box-shadow, color, background;
 
-      &:focus {
+      &:focus, &:active {
         color: $white !important;
-        background-color: rgba(26, 24, 29, 0.48);
+        background-color: rgba(0, 0, 0, 0.40);
         box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.24);
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.40);
       }
     }
 

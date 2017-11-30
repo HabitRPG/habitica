@@ -10,6 +10,10 @@
       &-bg { background: $maroon-100 !important; }
       &-icon { color: $maroon-100 !important; }
       &-text { color: $maroon-50 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $maroon-100 !important; }
+        .option-item-label { color: $maroon-50 !important; }
+      }
     }
   }
 
@@ -24,6 +28,10 @@
       &-bg { background: $red-100 !important; }
       &-icon { color: $red-100 !important; }
       &-text { color: $red-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $red-100 !important; }
+        .option-item-label { color: $red-10 !important; }
+      }
     }
   }
 
@@ -38,6 +46,10 @@
       &-bg { background: $orange-100 !important; }
       &-icon { color: $orange-100 !important; }
       &-text { color: #b75a1c !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $orange-100 !important; }
+        .option-item-label { color: #b75a1c !important; }
+      }
     }
   }
 
@@ -52,6 +64,10 @@
       &-bg { background: $yellow-100 !important; }
       &-icon { color: $yellow-100 !important; }
       &-text { color: #bf7d1a !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $yellow-100 !important; }
+        .option-item-label { color: #bf7d1a !important; }
+      }
     }
   }
 
@@ -66,6 +82,10 @@
       &-bg { background: $green-10 !important; }
       &-icon { color: $green-10 !important; }
       &-text { color: #1ca372 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $green-10 !important; }
+        .option-item-label { color: #1ca372 !important; }
+      }
     }
   }
 
@@ -80,6 +100,10 @@
       &-bg { background: $teal-50 !important; }
       &-icon { color: $teal-50 !important; }
       &-text { color: $teal-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $teal-50 !important; }
+        .option-item-label { color: $teal-10 !important; }
+      }
     }
   }
 
@@ -94,6 +118,10 @@
       &-bg { background: $blue-100 !important; }
       &-icon { color: $blue-100 !important; }
       &-text { color: $blue-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: !important; }
+        .option-item-label { color: !important; }
+      }
     }
   }
 
@@ -102,6 +130,10 @@
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $purple-200 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: !important; }
+        .option-item-label { color: !important; }
+      }
     }
   }
 
