@@ -184,6 +184,16 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  @media (min-width: 1300px) {
+    .standard-page {
+      max-width: none;
+    }
+
+    .sidebar {
+      max-width: 430px !important;
+    }
+  }
+
   h1 {
     color: $purple-200;
   }
