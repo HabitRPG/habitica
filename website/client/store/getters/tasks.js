@@ -92,10 +92,10 @@ export function getTaskClasses (store) {
         } else if (type === 'habit') {
           return {
             up: task.up ?
-              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner`} :
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
               { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
             down: task.down ?
-              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner`} :
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
               { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
           };
         }

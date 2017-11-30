@@ -1,8 +1,13 @@
 .task {
   &-worst { // dark red
     &-control {
-      &-bg { background: $maroon-100 !important; }
-      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-bg { 
+        background: $maroon-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-checkbox { color: $maroon-100 !important; }
     }
 
@@ -19,8 +24,13 @@
 
   &-worse { // light red
     &-control {
-      &-bg { background: $red-100 !important; }
-      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-bg { 
+        background: $red-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-checkbox { color: $red-100 !important; }
     }
 
@@ -37,13 +47,23 @@
 
   &-bad { // orange
     &-control {
-      &-bg { background: $orange-100 !important; }
-      &-inner { background: $orange-10 !important; }
+      &-bg { 
+        background: $orange-100 !important;
+        &:hover {
+          .habit-control { background: #b75a1c !important; }
+        }
+      }
+      &-inner-habit { background: rgba(183, 90, 28, 0.4) !important; }
       &-checkbox { color: $orange-100 !important; }
     }
 
     &-modal {
-      &-bg { background: $orange-100 !important; }
+      &-bg { 
+        background: $orange-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
       &-icon { color: $orange-100 !important; }
       &-text { color: #b75a1c !important; }
       &-option-disabled:hover {
@@ -55,8 +75,13 @@
 
   &-neutral { // yellow
     &-control {
-      &-bg { background: $yellow-100 !important; }
-      &-inner { background: $yellow-10 !important; }
+      &-bg { 
+        background: $yellow-100 !important;
+        &:hover {
+          .habit-control { background: #bf7d1a !important; }
+        }
+      }
+      &-inner-habit { background: rgba(183, 90, 28, 0.32) !important; }
       &-checkbox { color: $yellow-100 !important; }
     }
 
@@ -73,8 +98,13 @@
 
   &-good { // green
     &-control {
-      &-bg { background: $green-10 !important; }
-      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-bg { 
+        background: $green-10 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-checkbox { color: $green-10 !important; }
     }
 
@@ -91,8 +121,13 @@
 
   &-better { // teal
     &-control {
-      &-bg { background: $teal-50 !important; }
-      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-bg { 
+        background: $teal-50 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-checkbox { color: $teal-50 !important; }
     }
 
@@ -109,8 +144,13 @@
 
   &-best { // blue
     &-control {
-      &-bg { background: $blue-100 !important; }
-      &-inner { background: rgba(0, 0, 0, 0.12) !important; }
+      &-bg { 
+        background: $blue-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-checkbox { color: $blue-100 !important; }
     }
 
@@ -149,10 +189,10 @@
   &-disabled {
     &-habit {    
       &-control {
-        &-bg { background: $gray-700; }
+        &-bg { background: $gray-600; }
         &-inner {
-          color: rgba(0, 0, 0, 0.12) !important;
-          border: 1px solid rgba(0, 0, 0, 0.12);
+          color: rgba(26, 24, 29, 0.12) !important;
+          border: 1px solid rgba(26, 24, 29, 0.12);
         }
       }
     }
