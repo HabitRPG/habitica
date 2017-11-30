@@ -56,7 +56,7 @@ function updateTasks (tasks) {
 
   return Promise.all(taskPromises)
   .then(function () {
-    processtasks(lasttask._id);
+    processTasks(lasttask._id);
   });
 }
 
