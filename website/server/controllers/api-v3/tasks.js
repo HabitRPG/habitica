@@ -262,7 +262,7 @@ api.createChallengeTasks = {
 api.getUserTasks = {
   method: 'GET',
   url: '/tasks/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(false, '_id preferences tasksOrder')],
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
@@ -517,7 +517,7 @@ api.updateTask = {
 api.scoreTask = {
   method: 'POST',
   url: '/tasks/:taskId/score/:direction',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders(false, '_id stats profile preferences tasksOrder _ABtests webhooks party guilds')],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
 
