@@ -180,8 +180,10 @@
   &-reward {
     &-control {
       &-bg { 
-        background: #FFF5E5 !important;
+        background: rgba(255, 217, 160, 0.32) !important;
         .small-text { color: $yellow-10 !important; }
+
+        &:hover { background: rgba(255, 217, 160, 0.48) !important; }
       }
     }
   }
