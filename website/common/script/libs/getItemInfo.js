@@ -192,7 +192,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
     case 'gear':
       // spread operator not available
       itemInfo = Object.assign(getDefaultGearProps(item, language), {
-        value: item.value,
+        value: item.twoHanded ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
       });
