@@ -1,14 +1,14 @@
 <template lang="pug">
   div.row
-    span.col-4(v-if="quest.collect") {{ $t('collect') }}
+    span.col-4(v-if="quest.collect") {{ $t('collect') + ':' }}
     span.col-8(v-if="quest.collect")
       div(v-for="(collect, key) of quest.collect")
         span {{ collect.count }} {{ getCollectText(collect) }}
 
-    span.col-4(v-if="quest.boss") {{ $t('bossStrength') }}
-    span.col-8(v-if="quest.boss") {{ quest.boss.str }}
+    span.col-4(v-if="quest.boss") {{ $t('bossHP') + ':' }}
+    span.col-8(v-if="quest.boss") {{ quest.boss.hp }}
 
-    span.col-4 {{ $t('difficulty') }}
+    span.col-4 {{ $t('difficulty') + ':' }}
     span.col-8
       span.svg-icon.inline.icon-16(v-for="star of stars()", v-html="icons[star]")
 
@@ -26,7 +26,7 @@
   }
 
   .col-8 {
-    text-align: right;
+    text-align: left;
   }
 
   .col-8:not(:last-child) {
