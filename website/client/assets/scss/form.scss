@@ -2,6 +2,20 @@
   padding-left: 1.5rem;
 }
 
+label small {
+  font-size: 12px;
+  line-height: 1.33;
+
+  a {
+    color: $white;
+
+    &:hover, &:active {
+      text-decoration: underline;
+      color: $white;
+    }
+  }
+}
+
 // Inputs and texteares
 
 input, textarea, input.form-control, textarea.form-control {
