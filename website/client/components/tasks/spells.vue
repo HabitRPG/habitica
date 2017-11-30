@@ -12,7 +12,7 @@ div(v-if='user.stats.lvl > 10')
   drawer(
     :title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", 
+    v-mousePosition="30",
     @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
     @toggled='drawerToggled'
@@ -69,6 +69,7 @@ div(v-if='user.stats.lvl > 10')
     .details {
       text-align: left;
       padding-top: .5em;
+      padding-right: .1em;
 
       .img {
         display: inline-block;
@@ -129,6 +130,7 @@ div(v-if='user.stats.lvl > 10')
 
       .title {
         font-weight: bold;
+        margin-bottom: .2em;
       }
     }
 
