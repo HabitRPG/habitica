@@ -752,7 +752,6 @@ export default {
         let curVal = this.user.profile[key];
         if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
-          this.$set(this.userLoggedIn.profile, key, value);
           this.$set(this.user.profile, key, value);
         }
       });
