@@ -176,7 +176,7 @@
                   .row
                     button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
-        .option.group-options
+        .option.group-options(v-if='groupId')
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
