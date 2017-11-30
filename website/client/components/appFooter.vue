@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  buy-gems-modal(v-if='user')
   modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
@@ -70,7 +71,10 @@
         .row
           .col-10 {{ $t('donateText3') }}
           .col-2
-            .btn.btn-contribute
+            button.btn.btn-contribute(@click="donate()", v-if="user")
+              .svg-icon.heart(v-html="icons.heart")
+              .text {{ $t('companyDonate') }}
+            .btn.btn-contribute(v-else)
               a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
                 .svg-icon.heart(v-html="icons.heart")
                 .text {{ $t('companyContribute') }}
@@ -369,7 +373,7 @@ export default {
         eventAction: 'click',
         eventLabel: 'Gems > Donate',
       });
-      this.$root.$emit('bv::show::modal', 'buy-gems');
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };
