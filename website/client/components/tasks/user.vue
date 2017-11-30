@@ -410,7 +410,7 @@ export default {
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
-      if (this.newTag) this.addTag();
+      if (this.newTag) this.addTag(null, 'tags');
 
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;
