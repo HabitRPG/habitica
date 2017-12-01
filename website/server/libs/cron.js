@@ -103,6 +103,16 @@ function removeTerminatedSubscription (user) {
   user.markModified('purchased.plan');
 }
 
+function ageHabits (tasksByType) {
+  tasksByType.habits.forEach((task) => {
+    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
+    // move singleton Habits towards yellow.
+    if (task.up === false || task.down === false) {
+      task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
+    }
+  });
+}
+
 function resetHabitCounters (user, tasksByType, now, daysMissed) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
@@ -157,6 +167,7 @@ function performSleepTasks (user, tasksByType, now, daysMissed) {
   });
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
+  ageHabits(tasksByType);
 }
 
 function trackCronAnalytics (analytics, user, _progress, options) {
@@ -381,14 +392,7 @@ export function cron (options = {}) {
   });
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
-
-  tasksByType.habits.forEach((task) => {
-    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
-    // move singleton Habits towards yellow.
-    if (task.up === false || task.down === false) {
-      task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
-    }
-  });
+  ageHabits(tasksByType);
 
   // Finished tallying
   user.history.todos.push({date: now, value: todoTally});
