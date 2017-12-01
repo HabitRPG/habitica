@@ -306,12 +306,12 @@ api.approveTask = {
 
     // Get task direction
     const firstManagerNotifications = managers[0].notifications;
-    const notificationIndex =  findIndex(firstManagerNotifications, (notification) => {
+    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
       return notification.data.taskId === task._id;
     });
     let direction = 'up';
-    if (firstManagerNotifications[notificationIndex]) {
-      direction = firstManagerNotifications[notificationIndex].direction;
+    if (firstManagerNotifications[firstNotificationIndex]) {
+      direction = firstManagerNotifications[firstNotificationIndex].direction;
     }
 
     // Remove old notifications
