@@ -113,6 +113,20 @@ function ageHabits (tasksByType) {
   });
 }
 
+function ageTodos (user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally) {
+  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
+    scoreTask({
+      task,
+      user,
+      direction: 'down',
+      cron: true,
+      times: multiDaysCountAsOneDay ? 1 : daysMissed,
+    });
+
+    todoTally += task.value;
+  });
+}
+
 function resetHabitCounters (user, tasksByType, now, daysMissed) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
@@ -277,6 +291,7 @@ export function cron (options = {}) {
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
     performSleepTasks(user, tasksByType, now, daysMissed);
+    ageTodos(user, tasksByType, true, daysMissed, 0);
     trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
@@ -288,17 +303,7 @@ export function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
-    scoreTask({
-      task,
-      user,
-      direction: 'down',
-      cron: true,
-      times: multiDaysCountAsOneDay ? 1 : daysMissed,
-    });
-
-    todoTally += task.value;
-  });
+  ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally);
 
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
