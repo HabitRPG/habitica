@@ -407,10 +407,13 @@ export default {
       this.newTag = null;
     },
     removeTag (index, key) {
+      const tagId = this.tagsSnap[key][index].id;
+      const indexInSelected = this.selectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
-      if (this.newTag) this.addTag();
+      if (this.newTag) this.addTag(null, 'tags');
 
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;
