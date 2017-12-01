@@ -311,6 +311,8 @@ export default {
   },
   methods: {
     checkUserAchievements () {
+      if (this.user.needsCron) return;
+
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
