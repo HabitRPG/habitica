@@ -186,7 +186,7 @@
 
   @media (min-width: 1300px) {
     .standard-page {
-      max-width: none;
+      max-width: 80%;
     }
 
     .sidebar {
