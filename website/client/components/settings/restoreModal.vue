@@ -85,6 +85,10 @@ export default {
         return;
       }
 
+      const userChangedLevel = this.restoreValues.stats.lvl !== this.user.stats.lvl;
+      const userDidNotChangeExp = this.restoreValues.stats.exp === this.user.stats.exp;
+      if (userChangedLevel && userDidNotChangeExp) this.restoreValues.stats.exp = 0;
+
       this.user.stats = clone(this.restoreValues.stats);
       this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 

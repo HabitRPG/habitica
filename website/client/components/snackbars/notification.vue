@@ -4,6 +4,12 @@ transition(name="fade")
     .row(v-if='notification.type === "error"')
       .text.col-12
         div(v-html='notification.text')
+    .row(v-if='notification.type === "streak"')
+      .text.col-7.offset-1
+        div {{message}}
+      .icon.col-4
+        div.svg-icon(v-html="icons.gold")
+        div(v-html='notification.text')
     .row(v-if='["hp", "gp", "xp", "mp"].indexOf(notification.type) !== -1')
       .text.col-7.offset-1
         div
@@ -145,6 +151,7 @@ export default {
       if (this.notification.type === 'mp') localeKey += 'Mana';
       if (this.notification.type === 'xp') localeKey += 'Experience';
       if (this.notification.type === 'gp') localeKey += 'Gold';
+      if (this.notification.type === 'streak') localeKey = 'streakCoins';
       return this.$t(localeKey);
       // This requires eight translatable strings, but that gives the translators the most flexibility for matching gender/number and for using idioms for lost/spent/used/gained.
     },
