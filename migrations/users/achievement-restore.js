@@ -8,7 +8,7 @@ const authorUuid = ''; //... own data is done
 import Bluebird from 'bluebird';
 
 const monk = require('monk');
-const connectionString = 'mongodb://localhost/current-habit';
+const connectionString = 'mongodb://localhost/new-habit';
 const Users = monk(connectionString).get('users', { castIds: false });
 
 const monkOld = require('monk');
@@ -31,14 +31,16 @@ function getAchievementUpdate (newUser, oldUser) {
   }
 
   // challenges
+  if (!newAchievements.challenges) newAchievements.challenges = [];
+  if (!oldAchievements.challenges) oldAchievements.challenges = [];
   achievementsUpdate.challenges = newAchievements.challenges.concat(oldAchievements.challenges);
 
   // Quests
+  if (!achievementsUpdate.quests) achievementsUpdate.quests = {};
   for (let index in oldAchievements.quests) {
     if (!achievementsUpdate.quests[index]) {
       achievementsUpdate.quests[index] = oldAchievements.quests[index];
-    }
-    else {
+    } else {
       achievementsUpdate.quests[index] += oldAchievements.quests[index];
     }
   }
@@ -79,10 +81,13 @@ module.exports = async function achievementRestore () {
     const oldUser = await UsersOld.findOne({_id: userId}, 'achievements');
     const newUser = await Users.findOne({_id: userId}, 'achievements');
     const achievementUpdate = getAchievementUpdate(newUser, oldUser);
-    Users.update{_id: userId}, {
-      $set: {
-        'achievements': achievementUpdate,
-      },
-    });
+    await Users.update(
+      {_id: userId},
+      {
+        $set: {
+          'achievements': achievementUpdate,
+        },
+      });
+    console.log(`Updated ${userId}`);
   }
 };
