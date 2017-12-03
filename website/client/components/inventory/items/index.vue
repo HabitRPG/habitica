@@ -54,6 +54,7 @@
             @itemDragOver="onDragOver($event, context.item)",
             @itemDropped="onDrop($event, context.item)",
             @itemDragLeave="onDragLeave()",
+            @itemDragStart="onDragStart($event, context.item)",
 
             @click="onEggClicked($event, context.item)",
           )
@@ -129,6 +130,18 @@
 
   hatchedPetDialog()
 
+  div.eggInfo(ref="draggingEggInfo")
+    div(v-if="currentDraggingEgg != null")
+      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
+      div.popover
+        div.popover-content {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
+
+  div.eggInfo.mouse(ref="clickEggInfo", v-if="eggClickMode")
+    div(v-if="currentDraggingEgg != null")
+      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
+      div.popover
+        div.popover-content {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
+
   div.hatchingPotionInfo(ref="draggingPotionInfo")
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
@@ -149,7 +162,7 @@
 </template>
 
 <style lang="scss" scoped>
-  .hatchingPotionInfo {
+  .eggInfo, .hatchingPotionInfo {
     position: absolute;
     left: -500px;
 
@@ -242,6 +255,8 @@ export default {
       groups,
       sortBy: 'quantity', // or 'AZ'
 
+      currentDraggingEgg: null,
+      eggClickMode: false,
       currentDraggingPotion: null,
       potionClickMode: false,
       cardOptions: {
@@ -373,18 +388,38 @@ export default {
     onDragLeave () {
     },
     onEggClicked ($event, egg) {
-      if (this.currentDraggingPotion === null) {
+      if (this.currentDraggingPotion !== null) {
+        if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
+          this.hatchPet(this.currentDraggingPotion, egg);
+        }
+
+        this.currentDraggingPotion = null;
+        this.potionClickMode = false;
         return;
       }
 
-      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
-        this.hatchPet(this.currentDraggingPotion, egg);
-      }
+      if (this.currentDraggingEgg === null || this.currentDraggingEgg !== egg) {
+        this.currentDraggingEgg = egg;
+        this.eggClickMode = true;
 
-      this.currentDraggingPotion = null;
-      this.potionClickMode = false;
+        this.$nextTick(() => {
+          this.mouseMoved(lastMouseMoveEvent);
+        });
+      } else {
+        this.currentDraggingEgg = null;
+        this.eggClickMode = false;
+      }
     },
     onPotionClicked ($event, potion) {
+      if (this.currentDraggingEgg !== null) {
+        if (this.isHatchable(potion, this.currentDraggingEgg.key)) {
+          this.hatchPet(potion, this.currentDraggingEgg);
+        }
+
+        this.currentDraggingEgg = null;
+        this.eggClickMode = false;
+        return;
+      }
       if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
@@ -437,6 +472,10 @@ export default {
         // dragging potioninfo is 180px wide (90 would be centered)
         this.$refs.clickPotionInfo.style.left = `${$event.x - 70}px`;
         this.$refs.clickPotionInfo.style.top = `${$event.y}px`;
+      } else if (this.eggClickMode) {
+         // dragging eggInfo is 180px wide (90 would be centered)
+        this.$refs.clickEggInfo.style.left = `${$event.x - 70}px`;
+        this.$refs.clickEggInfo.style.top = `${$event.y}px`;
       } else {
         lastMouseMoveEvent = $event;
       }
