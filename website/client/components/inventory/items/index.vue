@@ -48,6 +48,8 @@
             :item="context.item",
             :key="context.item.key",
             :itemContentClass="context.item.class",
+            :showPopover="currentDraggingEgg == null",
+            :active="currentDraggingEgg == context.item",
             :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
             v-drag.drop.hatch="context.item.key",
 
@@ -82,6 +84,7 @@
             :itemContentClass="context.item.class",
             :showPopover="currentDraggingPotion == null",
             :active="currentDraggingPotion == context.item",
+            :highlightBorder="isHatchable(context.item.key, currentDraggingEgg)",
             v-drag.hatch="context.item.key",
 
             @itemDragEnd="onDragEnd($event, context.item)",
