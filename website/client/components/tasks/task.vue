@@ -162,7 +162,7 @@
   .dropdown-icon {
     width: 4px;
     height: 16px;
-    margin-right: 10px;
+    margin-right: 0px;
     color: $gray-100 !important;
   }
 

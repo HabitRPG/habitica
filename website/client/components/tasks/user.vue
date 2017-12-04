@@ -18,7 +18,7 @@
             :class="{active: selectedTags.length > 0}",
           )
             .svg-icon.filter-icon.mr-2(v-html="icons.filter")
-            span(v-once) {{ $t('filter') }}
+            span(v-once) {{ $t('tags') }}
         .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
           .tags-category.d-flex(
             v-for="tagsType in tagsByType",

@@ -53,6 +53,7 @@
     &-control {
       &-bg { 
         background: $orange-100 !important;
+
         &:hover {
           .habit-control { background: #b75a1c !important; }
           .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
@@ -66,15 +67,23 @@
     &-modal {
       &-bg { 
         background: $orange-100 !important;
-        &:hover {
-          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+
+        .form-control {
+          background: rgba(183, 90, 28, 0.4) !important;
+
+          &:focus, &:active, &:hover {
+            background-color: #b75a1c !important;
+          }
         }
       }
       &-icon { color: $orange-100 !important; }
       &-text { color: #b75a1c !important; }
       &-option-disabled:hover {
         .svg-icon { color: $orange-100 !important; }
+        .option-item-label { color: #b75a1c !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $orange-100 !important; }
         .option-item-label { color: #b75a1c !important; }
       }
     }
@@ -95,7 +104,17 @@
     }
 
     &-modal {
-      &-bg { background: $yellow-100 !important; }
+      &-bg { 
+        background: $yellow-100 !important;
+
+        .form-control {
+          background: rgba(183, 90, 28, 0.4) !important;
+
+          &:focus, &:active, &:hover {
+            background-color: #bf7d1a !important;
+          }
+        }
+      }
       &-icon { color: $yellow-100 !important; }
       &-text { color: #bf7d1a !important; }
       &-option-disabled:hover {

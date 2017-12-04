@@ -42,12 +42,12 @@
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
-          .option-item(@click="toggleUpDirection()", :class="`habit-control-${task.up ? 'enabled' : 'disabled'}`")
+          .option-item.habit-control(@click="toggleUpDirection()", :class="task.up ? 'habit-control-enabled' : cssClass('habit-control-disabled')")
             .option-item-box(:class="task.up ? cssClass('bg') : ''")
               .task-control.habit-control
                 .svg-icon.positive(v-html="icons.positive", :class="task.up ? cssClass('icon') : ''")
             .option-item-label(:class="task.up ? cssClass('text') : ''") {{ $t('positive') }}
-          .option-item(@click="toggleDownDirection()", :class="`habit-control-${task.down ? 'enabled' : 'disabled'}`")
+          .option-item.habit-control(@click="toggleDownDirection()", :class="task.down ? 'habit-control-enabled' : cssClass('habit-control-disabled')")
             .option-item-box(:class="task.down ? cssClass('bg') : ''")
               .task-control.habit-control
                 .svg-icon.negative(v-html="icons.negative", :class="task.down ? cssClass('icon') : ''")
@@ -254,17 +254,16 @@
 
     input, textarea {
       border: none;
-      background-color: rgba(0, 0, 0, 0.24);
+      background: rgba(0, 0, 0, 0.24);
       color: rgba($white, 0.64) !important;
       transition-property: border-color, box-shadow, color, background;
 
       &:focus, &:active {
         color: $white !important;
-        background-color: rgba(0, 0, 0, 0.40);
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.24);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.32);
       }
 
-      &:hover {
+      &:focus, &:active, &:hover {
         background-color: rgba(0, 0, 0, 0.40);
       }
     }
@@ -380,14 +379,12 @@
     }
 
     .habit-control {
-      &-disabled {
-        .option-item-box {
-          background: $white;
-          border: 2px solid $gray-600;
+      .option-item-box {
+        background: $white;
+        border: 2px solid $gray-600;
 
-          .habit-control { background: $gray-300 !important; }
-          .svg-icon { color: $white !important; }
-        }
+        .habit-control { background: $gray-300; }
+        .svg-icon { color: $white; }
       }
 
       &-enabled {
