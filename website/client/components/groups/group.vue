@@ -186,7 +186,7 @@
 
   @media (min-width: 1300px) {
     .standard-page {
-      max-width: 80%;
+      max-width: calc(100% - 430px);
     }
 
     .sidebar {
