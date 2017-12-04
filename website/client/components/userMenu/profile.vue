@@ -8,9 +8,12 @@ div
         button.btn.btn-secondary(@click='openSendGemsModal()')
           .svg-icon.gift-icon(v-html="icons.gift")
         button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-        :tooltip="$t('unblock')",
-        @click="blockUser()", tooltip-placement='right')
+          :tooltip="$t('unblock')",
+          @click="blockUser()", tooltip-placement='right')
           .svg-icon.remove-icon(v-html="icons.remove")
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
+          .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
           member-details(:member="user")
@@ -303,7 +306,7 @@ div
     button {
       width: 40px;
       height: 40px;
-      padding: .8em;
+      padding: .7em;
       margin-right: .5em;
     }
   }
@@ -314,10 +317,11 @@ div
 
   .gift-icon {
     width: 14px;
+    padding: 0px 0px 0px 1px;
   }
 
   .remove-icon{
-    width: 16px;
+    width: 15.5px;
   }
 
   .positive-icon{
@@ -595,8 +599,8 @@ export default {
       icons: Object.freeze({
         message,
         gift,
-        remove,
         positive,
+        remove,
         dots,
       }),
       userIdToMessage: '',
