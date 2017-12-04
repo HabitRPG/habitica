@@ -568,10 +568,14 @@ export default {
             let approvedTasks = [];
             for (let i = 0; i < scoreTaskNotification.length; i++) {
               // Array with all approved tasks
+              const scoreData = scoreTaskNotification[i].data;
+              let direction = 'up';
+              if (scoreData.direction) direction = scoreData.direction;
+
               approvedTasks.push({
                 params: {
-                  task: scoreTaskNotification[i].data.scoreTask,
-                  direction: 'up',
+                  task: scoreData.scoreTask,
+                  direction,
                 },
               });
 
