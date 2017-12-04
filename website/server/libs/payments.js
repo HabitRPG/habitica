@@ -235,7 +235,7 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
   await Promise.all(promises);
 };
 
-api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = false) {
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGroups = user.guilds.toObject();
@@ -256,9 +256,7 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
 
   if (userGroupPlans.length === 0)  {
     let leader = await User.findById(group.leader).exec();
-    const email = userWasRemoved ? 'group-member-removed' : 'group-member-cancel';
-
-    txnEmail(user, email, [
+    txnEmail(user, 'group-member-cancel', [
       {name: 'LEADER', content: leader.profile.name},
       {name: 'GROUP_NAME', content: group.name},
     ]);
