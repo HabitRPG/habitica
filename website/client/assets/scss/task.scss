@@ -21,6 +21,10 @@
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
       }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $maroon-100 !important; }
+        .option-item-label { color: $maroon-50 !important; }
+      }
     }
   }
 
@@ -44,6 +48,10 @@
       &-text { color: $red-10 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $red-100 !important; }
+        .option-item-label { color: $red-10 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
       }
     }
@@ -121,6 +129,10 @@
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
       }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $yellow-100 !important; }
+        .option-item-label { color: #bf7d1a !important; }
+      }
     }
   }
 
@@ -144,6 +156,10 @@
       &-text { color: #1ca372 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $green-10 !important; }
+        .option-item-label { color: #1ca372 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
       }
     }
@@ -171,6 +187,10 @@
         .svg-icon { color: $teal-50 !important; }
         .option-item-label { color: $teal-10 !important; }
       }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $teal-50 !important; }
+        .option-item-label { color: $teal-10 !important; }
+      }
     }
   }
 
@@ -196,6 +216,10 @@
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
       }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $blue-50 !important; }
+        .option-item-label { color: $blue-10 !important; }
+      }
     }
   }
 
@@ -206,6 +230,10 @@
       &-text { color: $purple-200 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $purple-300 !important; }
+        .option-item-label { color: $purple-200 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }
       }
     }
