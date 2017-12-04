@@ -3,9 +3,9 @@ div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     div(slot='modal-header')
       .profile-actions
-        button.btn.btn-secondary(@click='sendMessage()')
+        button.btn.btn-secondary(:title="$t('sendMessage')", @click='sendMessage()', v-b-tooltip.hover.left="")
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(@click='openSendGemsModal()')
+        button.btn.btn-secondary(:title="$t('sendGems')", @click='openSendGemsModal()', v-b-tooltip.hover.bottom="")
           .svg-icon.gift-icon(v-html="icons.gift")
         button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
           :title="$t('block')",
