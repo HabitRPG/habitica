@@ -86,6 +86,11 @@ export async function createTasks (req, res, options = {}) {
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
+    // Attempt to round priority
+    if (newTask.priority && Number.parseFloat(newTask.priority) !== NaN) {
+      newTask.priority = Number((newTask.priority).toFixed(1));
+    }
+
     if (challenge) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
