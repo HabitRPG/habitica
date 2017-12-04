@@ -68,7 +68,7 @@
 
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription', @click='cancelSubscription()') {{ $t('cancelSub') }}
+          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
           small(v-if='!canCancelSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
@@ -118,6 +118,7 @@ export default {
   mixins: [paymentsMixin],
   data () {
     return {
+      loading: false,
       gemCostTranslation: {
         gemCost: planGemLimits.convRate,
         gemLimit: planGemLimits.convRate,

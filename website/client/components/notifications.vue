@@ -247,7 +247,7 @@ export default {
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        this.text(`+ ${this.coins(bonus)} ${this.$t('streakCoins')}`);
+        this.streak(`+ ${this.coins(bonus)}`);
         delete this.user._tmp.streakBonus;
       }
     },
@@ -311,6 +311,8 @@ export default {
   },
   methods: {
     checkUserAchievements () {
+      if (this.user.needsCron) return;
+
       // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
