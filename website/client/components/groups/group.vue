@@ -712,7 +712,6 @@ export default {
       this._updateCarretPosition(eventUpdate);
     }, 250),
     _updateCarretPosition (eventUpdate) {
-      
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },
