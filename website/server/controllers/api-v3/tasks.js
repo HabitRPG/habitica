@@ -569,6 +569,7 @@ api.scoreTask = {
           }, manager.preferences.language),
           groupId: group._id,
           taskId: task._id,
+          direction,
         });
         managerPromises.push(manager.save());
       });
