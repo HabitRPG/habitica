@@ -8,11 +8,11 @@ div
         button.btn.btn-secondary(@click='openSendGemsModal()')
           .svg-icon.gift-icon(v-html="icons.gift")
         button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-          :tooltip="$t('unblock')",
-          @click="blockUser()", tooltip-placement='right')
+          :title="$t('block')",
+          @click="blockUser()", v-b-tooltip.hover.right="")
           .svg-icon.remove-icon(v-html="icons.remove")
         button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
+          :title="$t('unblock')", @click="unblockUser()", v-b-tooltip.hover.right="")
           .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
@@ -321,7 +321,7 @@ div
   }
 
   .remove-icon{
-    width: 15.5px;
+    width: 14px;
   }
 
   .positive-icon{
