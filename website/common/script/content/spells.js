@@ -1,6 +1,6 @@
 import t from './translation';
 import each from 'lodash/each';
-import { NotAuthorized, BadRequest } from '../libs/errors';
+import { NotAuthorized } from '../libs/errors';
 import statsComputed from '../libs/statsComputed';
 import crit from '../fns/crit';
 import updateStats from '../fns/updateStats';
