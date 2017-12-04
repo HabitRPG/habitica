@@ -125,6 +125,8 @@ function ageTodos (user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTa
 
     todoTally += task.value;
   });
+
+  return todoTally;
 }
 
 function resetHabitCounters (user, tasksByType, now, daysMissed) {
@@ -303,7 +305,7 @@ export function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally);
+  todoTally = ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally);
 
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
