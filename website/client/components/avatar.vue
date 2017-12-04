@@ -30,8 +30,8 @@
       span(:class="getGearClass('head')")
       span(:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(v-if="!hideShield()", :class="getGearClass('shield')")
-      span(v-if="!hideWeapon()", :class="getGearClass('weapon')")
+      span(v-if="showShield()", :class="getGearClass('shield')")
+      span(v-if="showWeapon()", :class="getGearClass('weapon')")
 
     // Resting
     span.zzz(v-if="member.preferences.sleep")
@@ -175,11 +175,11 @@ export default {
 
       return result;
     },
-    hideShield () {
-      return this.overrideAvatarGear && this.overrideAvatarGear.hideShield;
+    showShield () {
+      return !(this.overrideAvatarGear && this.overrideAvatarGear.hideShield);
     },
-    hideWeapon () {
-      return this.overrideAvatarGear && !this.overrideAvatarGear.weapon && this.overrideAvatarGear.isEquippedTwoHanded;
+    showWeapon () {
+      return !(this.overrideAvatarGear && !this.overrideAvatarGear.weapon && this.overrideAvatarGear.isEquippedTwoHanded);
     },
     castEnd (e) {
       if (!this.$store.state.spellOptions.castingSpell) return;
