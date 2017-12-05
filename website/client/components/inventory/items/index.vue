@@ -50,7 +50,7 @@
             :itemContentClass="context.item.class",
             :showPopover="currentDraggingEgg == null",
             :active="currentDraggingEgg == context.item",
-            :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
+            :highlightBorder="isHatchable(currentDraggingPotion, context.item)",
             v-drag.drop.hatch="context.item.key",
 
             @itemDragOver="onDragOver($event, context.item)",
@@ -83,7 +83,7 @@
             :itemContentClass="context.item.class",
             :showPopover="currentDraggingPotion == null",
             :active="currentDraggingPotion == context.item",
-            :highlightBorder="isHatchable(context.item.key, currentDraggingEgg)",
+            :highlightBorder="isHatchable(context.item, currentDraggingEgg)",
             v-drag.hatch="context.item.key",
 
             @itemDragEnd="onDragEnd($event, context.item)",
@@ -369,19 +369,19 @@ export default {
 
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
-    isHatchable (potion, eggKey) {
-      if (potion === null)
+    isHatchable (potion, egg) {
+      if (potion === null || egg === null)
         return false;
 
-      let petKey = `${eggKey}-${potion.key}`;
+      let petKey = `${egg.key}-${potion.key}`;
 
       if (!this.content.petInfo[petKey])
         return false;
 
-      return !this.userHasPet(potion.key, eggKey);
+      return !this.userHasPet(potion.key, egg.key);
     },
     onDragOver ($event, egg) {
-      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
+      if (this.isHatchable(this.currentDraggingPotion, egg)) {
         $event.dropable = false;
       }
     },
@@ -392,7 +392,7 @@ export default {
     },
     onEggClicked ($event, egg) {
       if (this.currentDraggingPotion !== null) {
-        if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
+        if (this.isHatchable(this.currentDraggingPotion, egg)) {
           this.hatchPet(this.currentDraggingPotion, egg);
         }
 
@@ -415,7 +415,7 @@ export default {
     },
     onPotionClicked ($event, potion) {
       if (this.currentDraggingEgg !== null) {
-        if (this.isHatchable(potion, this.currentDraggingEgg.key)) {
+        if (this.isHatchable(potion, this.currentDraggingEgg)) {
           this.hatchPet(potion, this.currentDraggingEgg);
         }
 
