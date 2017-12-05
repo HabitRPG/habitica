@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "カードの種類が不明です。",
     "invalidCoupon": "無効なクーポン コードです。",
     "couponUsed": "すでに使われたクーポン コードです。",
-    "noSudoAccess": "sudo アクセス権がありません。",
     "couponCodeRequired": "クーポン コードが必要です。",
     "eventRequired": "\"req.params.event\" が必要です。",
     "countRequired": "\"req.query.count\" が必要です。",

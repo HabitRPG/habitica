@@ -78,6 +78,7 @@
     "mustLvlQuest": "עליכם להיות בדרגה <%= level %> כדי לקנות את ההרפתקה הזו!",
     "mustInviteFriend": "כדי לזכות בהרפתקה הזו, הזמינו חברים לחבורה שלכם. להזמין מישהו עכשיו?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "האם אתם בטוחים שברצונכם לבטל את ההרפתקה? כל ההסכמות להשתתפות יאבדו, ובעלי ההרפתקה ישמרו בעלות על המגילה.",
     "sureAbort": "האם אתם בטוחים שברצונכם לבטל את ההרפתקה הזו? היא תבוטל עבור כל החבורה שלכם, וההתקדמות שלכם תאבד. המגילה תוחזר לבעלי ההרפתקה.",
     "doubleSureAbort": "האם אתם באמת באמת בטוחים? כל החבורה שלכם עלולה לשנוא אתכם לנצח!",

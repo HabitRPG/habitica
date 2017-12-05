@@ -30,7 +30,7 @@
         h3(v-once) {{ $t('chat') }}
 
         .row.new-message-row
-          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition')
+          textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
 
         .row
@@ -186,7 +186,7 @@
 
   @media (min-width: 1300px) {
     .standard-page {
-      max-width: 80%;
+      max-width: calc(100% - 430px);
     }
 
     .sidebar {
@@ -726,11 +726,6 @@ export default {
       this._updateCarretPosition(eventUpdate);
     }, 250),
     _updateCarretPosition (eventUpdate) {
-      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
-        this.sendMessage();
-        return;
-      }
-
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },

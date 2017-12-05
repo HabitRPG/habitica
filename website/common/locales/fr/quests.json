@@ -78,6 +78,7 @@
     "mustLvlQuest": "Vous devez être au niveau <%= level %> pour acheter cette quête !",
     "mustInviteFriend": "Pour gagner cette quête, invitez un ami dans votre équipe. Voulez-vous inviter quelqu'un maintenant ?",
     "unlockByQuesting": "Pour débloquer cette quête, complétez <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Confirmez-vous vouloir annuler cette quête ? Toutes les invitations acceptées seront perdues. Le responsable de quête reprendra possession du parchemin de quête.",
     "sureAbort": "Confirmez-vous vouloir abandonner cette mission ? Elle sera abandonnée pour tous les membres de votre groupe et toute la progression sera perdue. Le responsable de quête reprendra possession du parchemin de quête.",
     "doubleSureAbort": "Confirmez-vous absolument ? Assurez-vous qu'ils ne vont pas vous détester pour le reste de votre vie !",

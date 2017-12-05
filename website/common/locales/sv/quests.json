@@ -78,6 +78,7 @@
     "mustLvlQuest": "Du måste vara level <%= level %> för att köpa detta uppdrag!",
     "mustInviteFriend": "För att förtjäna det här uppdraget, bjud in en vän till ditt sällskap. Vill du bjuda in någon nu?",
     "unlockByQuesting": "För att låsa upp detta uppdrag, slutför <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Är du säker på att du vill avbryta uppdraget? Alla accepterade inbjudningar kommer att gå förlorade. Uppdragsägaren får behålla uppdragsskriftrullen.",
     "sureAbort": "Är du säker att du vill avbryta detta uppdrag? Det kommer att avbrytas för alla i ditt sällskap och alla framsteg kommer att förloras. Uppdragsrullen kommer att återvända till uppdragsägaren.",
     "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!",

@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Ukendt korttype.",
     "invalidCoupon": "Ugyldig kuponkode.",
     "couponUsed": "Kuponkode allerede i brug.",
-    "noSudoAccess": "Du har ikke sudo-adgang.",
     "couponCodeRequired": "Kuponkode påkrævet.",
     "eventRequired": "\"req.params.event\" påkrævet.",
     "countRequired": "\"req.query.count\" påkrævet.",

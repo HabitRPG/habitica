@@ -78,6 +78,7 @@
     "mustLvlQuest": "Morate dotići <%= level %>. nivo da biste kupili ovu misiju.",
     "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Jeste li sigurni da želite da otkažete ovu misiju? Svi pozivi biće otkazani. Vlasnik misije zadržaće svitak sa misijom.",
     "sureAbort": "Jeste li sigurni da želite da prekinete ovu misiju? Misija će biti prekinuta za celu družinu i sva dostignuća biće izgubljena. Vlasnik misije zadržaće svitak sa misijom.",
     "doubleSureAbort": "Jeste li sigurni da ste sigurni? Ne radite nešto zbog čega ćete se kajati.",

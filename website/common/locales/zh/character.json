@@ -163,6 +163,7 @@
     "dieText": "你掉了一级，失去所有的金币，和随机的一件装备。起来吧，Habit世界的居民，再接再厉！远离那些坏习惯、注意完成每日任务、并在快支撑不住的时候使用生命药水免于死亡！",
     "sureReset": "你确定吗？这将会重置你的角色职业和已分配的属性点（它们会被返还并让你重新分配），这将会消耗3个宝石。",
     "purchaseFor": "花费<%= cost %>宝石购买？",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "魔法值不足。",
     "invalidTarget": "无效的目标。",
     "youCast": "你使用了<%= spell %>。",

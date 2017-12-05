@@ -71,7 +71,7 @@
     "dueDate": "Biteceği Tarih",
     "remaining": "Aktif",
     "complete": "Tamamlanmış",
-    "complete2": "Complete",
+    "complete2": "Tamamlanan",
     "dated": "Vadeli",
     "today": "Bugün",
     "dueIn": "Due <%= dueIn %>",
@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Zarar vermeden önce bu Günlük İşin yapılmadığını onayla",
     "yesterDailiesDescription": "Bu ayar uygulanıyorsa, avatarına zarar verme hesaplamasından önce Günlük İşi yapıp yapmadığını Habitica soracaktır. Bu, kasıtsız olarak hasar görmelerine karşı seni koruyabilir.",
     "repeatDayError": "Lütfen haftanın en az bir gününün seçili olduğundan emin ol.",
-    "searchTasks": "Search titles and descriptions..."
+    "searchTasks": "Search titles and descriptions...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }
