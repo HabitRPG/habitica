@@ -299,11 +299,12 @@ export default {
   methods: {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-      const party = await this.$store.dispatch('party:getParty');
-      if (party.data._id) {
+      await this.$store.dispatch('party:getParty');
+      const party = this.$store.state.party.data.data;
+      if (party._id) {
         this.groups.push({
-          name: party.data.name,
-          _id: party.data._id,
+          name: party.name,
+          _id: party._id,
           privacy: 'private',
         });
       }
