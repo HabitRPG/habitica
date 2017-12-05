@@ -598,11 +598,17 @@
           return;
         }
 
+        let partyInvite = '';
+        if (this.$route.query && this.$route.query.p) {
+          partyInvite = this.$route.query.p;
+        }
+
         await this.$store.dispatch('auth:register', {
           username: this.username,
           email: this.email,
           password: this.password,
           passwordConfirm: this.passwordConfirm,
+          partyInvite,
         });
 
         let redirectTo;
