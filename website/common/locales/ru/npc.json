@@ -88,7 +88,7 @@
     "plusOneGem": "+1 самоцвет",
     "typeNotSellable": "Тип не продается. Он должен быть одним из следующих: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Ключ не найден для  user.items <%= type %>",
-    "userItemsNotEnough": "Не найдено предметов для  user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Требуется строка пути",
     "unlocked": "Предметы были разблокированы",
     "alreadyUnlocked": "Полный набор уже открыт.",

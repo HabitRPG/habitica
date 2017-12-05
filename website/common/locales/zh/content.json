@@ -160,7 +160,7 @@
     "questEggHippoAdjective": "一只快乐的",
     "questEggYarnText": "毛线",
     "questEggYarnMountText": "飞毯",
-    "questEggYarnAdjective": "woolen",
+    "questEggYarnAdjective": "羊绒的",
     "eggNotes": "将一瓶孵化药水倒在这个宠物蛋上，你就能孵化出一只<%= eggAdjective(locale) %><%= eggText(locale) %>。",
     "hatchingPotionBase": "普通",
     "hatchingPotionWhite": "白色",

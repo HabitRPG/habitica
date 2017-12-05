@@ -88,7 +88,7 @@
     "plusOneGem": "+ 1 ジェム",
     "typeNotSellable": "その種類は売れません。<%= acceptedTypes %> のうちのいずれか 1 つでなくてはいけません。",
     "userItemsKeyNotFound": "user.Items <%= type %> の中には、キーが見つかりません",
-    "userItemsNotEnough": "user.items <%= type %> に十分な数のアイテムがありません",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "パス文字列が必要",
     "unlocked": "アイテムがアンロックされました",
     "alreadyUnlocked": "フルセットはすでにアンロックされています",

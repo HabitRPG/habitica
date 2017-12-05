@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Ismeretlen kártyatípus",
     "invalidCoupon": "Érvénytelen kuponkód",
     "couponUsed": "A kupon kódot már használták.",
-    "noSudoAccess": "Nincs admin hozzáférésed.",
     "couponCodeRequired": "A kupon kód szükséges.",
     "eventRequired": "\"req.params.event\" szükséged.",
     "countRequired": "\"req.query.count\" szükséges",

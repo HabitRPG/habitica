@@ -78,6 +78,7 @@
     "mustLvlQuest": "Ye must be level <%= level %> t' buy this adventure!",
     "mustInviteFriend": "To earn this quest, invite a friend t' yer Crew. Invite someone now?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Be ye sure ye want to cancel 'tis quest? All invitation acceptances gunna be lost. th' quest owner gunna retain possession 'o th' quest scroll.",
     "sureAbort": "Be ye sure ye want to abort 'tis mission? It gunna abort it fer all ye crew members an' all progress gunna be lost. th' quest scroll gunna be returned to th' quest owner.",
     "doubleSureAbort": "Arrr ye double sure? Make sure they won't hate ye forever!",

@@ -32,7 +32,6 @@
 </style>
 
 <script>
-
   import QuestInfo from './questInfo.vue';
 
   export default {

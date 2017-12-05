@@ -78,6 +78,7 @@
     "mustLvlQuest": "Du musst Level <%= level %> sein um dieses Quest zu erwerben!",
     "mustInviteFriend": "Um diese Quest freizuschalten musst Du einen Freund in Deine Gruppe einladen. Willst Du jetzt jemanden einladen?",
     "unlockByQuesting": "Um diese Quest freizuschalten musst Du erst <%= title %> abschließen.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Bist Du sicher, dass Du diese Quest abbrechen willst? Alle akzeptierten Einladungen werden verloren gehen. Der Quest-Besitzer wird die Questschriftrolle zurück bekommen.",
     "sureAbort": "Bist Du sicher, dass Du diese Mission abbrechen willst? Das wird sie für alle in Deiner Gruppe abbrechen und jeder Fortschritt wird verloren gehen. Die Questschriftrolle wird dem Quest-Besitzer zurückgegeben.",
     "doubleSureAbort": "Bist Du wirklich, wirklich sicher? Sei ganz sicher, dass sie Dich nicht für immer hassen werden!",

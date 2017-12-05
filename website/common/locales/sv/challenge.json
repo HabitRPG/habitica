@@ -29,7 +29,7 @@
     "either": "Vilket som",
     "createChallenge": "Skapa utmaning",
     "createChallengeAddTasks": "Lägg till Utmaningsuppgifter",
-    "createChallengeCloneTasks": "Clone Challenge Tasks",
+    "createChallengeCloneTasks": "Klona Utmaningsuppgifter",
     "addTaskToChallenge": "Lägg till Uppgift",
     "discard": "Kasta bort",
     "challengeTitle": "Titel på utmaning",
@@ -127,5 +127,6 @@
     "locationRequired": "Plats av utmaning krävs ('Lägg till')",
     "categoiresRequired": "En eller mer kategorier måste vara valda",
     "viewProgressOf": "Visa Framsteg Av",
-    "selectMember": "Välj Medlem"
+    "selectMember": "Välj Medlem",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

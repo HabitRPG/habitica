@@ -17,6 +17,7 @@
           :withBackground="true",
           :overrideAvatarGear="memberOverrideAvatarGear(item)",
           :spritesMargin='"0px auto auto -1px"',
+          :showVisualBuffs="false",
         )
 
         h4.title {{ itemText }}

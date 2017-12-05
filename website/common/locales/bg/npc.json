@@ -88,7 +88,7 @@
     "plusOneGem": "+1 диамант",
     "typeNotSellable": "Този тип не може да се продава. Трябва да бъде един от следните: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Ключът не е намерен за user.items <%= type %>",
-    "userItemsNotEnough": "Не са открити достатъчно предмети за user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Низът за път е задължителен",
     "unlocked": "Предметите бяха отключени",
     "alreadyUnlocked": "Пълният комплект вече е отключен.",

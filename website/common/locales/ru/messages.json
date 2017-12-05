@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Вы уже отправили жалобу на это сообщение.",
     "messageGroupChatNotFound": "Сообщение не найдено!",
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Упс, похоже, что вы отправляете слишком много сообщений! Подождите минуту и повторите попытку. В чате таверны отображается только 200 сообщений за раз, поэтому страна Хабитика поощряет размещение более длинных, более продуманных сообщений и объединенных ответов. Не могу дождаться, чтобы услышать, что вы на это скажете. :)",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",

@@ -127,5 +127,6 @@
     "locationRequired": "Требуется местонахождение испытания ('Добавить')",
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
     "viewProgressOf": "Показать прогресс",
-    "selectMember": "Выбрать учасника"
+    "selectMember": "Выбрать учасника",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

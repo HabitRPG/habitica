@@ -21,7 +21,7 @@
     "rebirthOrb": "A utilisé un Orbe de Renaissance pour recommencer à zéro après avoir atteint le niveau  <%= level %>.",
     "rebirthOrb100": "A utilisé un Orbe de Renaissance pour recommencer à zéro après avoir atteint le niveau 100 ou plus.",
     "rebirthOrbNoLevel": "A utilisé un Orbe de Renaissance pour recommencer à zéro.",
-    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthPop": "Recommencez instantanément votre personnage au niveau 1 tout en conservant vos succès, vos objets, votre équipement et l'historique de vos tâches. Cela prendra effet immédiatement.",
     "rebirthName": "Orbe de Renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
     "confirmReborn": "Confirmez-vous ?",
