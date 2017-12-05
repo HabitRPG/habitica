@@ -3,18 +3,18 @@ div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     div(slot='modal-header')
       .profile-actions
-        button.btn.btn-secondary(@click='sendMessage()')
+        button.btn.btn-secondary(:title="$t('sendMessage')", @click='sendMessage()', v-b-tooltip.hover.left="")
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
-          @click="blockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-plus
-          | {{$t('block')}}
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-ban-circle
-          | {{$t('unblock')}}
-        button.btn.btn-secondary(@click='openSendGemsModal()')
+        button.btn.btn-secondary(:title="$t('sendMessage')", @click='openSendGemsModal()', v-b-tooltip.hover.bottom="")
           .svg-icon.gift-icon(v-html="icons.gift")
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
+          :title="$t('block')",
+          @click="blockUser()", v-b-tooltip.hover.right="")
+          .svg-icon.remove-icon(v-html="icons.remove")
+        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          :title="$t('unblock')",
+          @click="unblockUser()", v-b-tooltip.hover.right="")
+          .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
           member-details(:member="user")
@@ -307,7 +307,7 @@ div
     button {
       width: 40px;
       height: 40px;
-      padding: .8em;
+      padding: .7em;
       margin-right: .5em;
     }
   }
@@ -317,6 +317,15 @@ div
   }
 
   .gift-icon {
+    width: 14px;
+    padding: 0px 0px 0px 1px;
+  }
+
+  .remove-icon {
+    width:16px;
+  }
+
+  .positive-icon {
     width: 14px;
   }
 
@@ -573,6 +582,8 @@ const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
 import message from 'assets/svg/message.svg';
 import gift from 'assets/svg/gift.svg';
+import remove from 'assets/svg/remove.svg';
+import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
 
 export default {
@@ -588,6 +599,8 @@ export default {
     return {
       icons: Object.freeze({
         message,
+        remove,
+        positive,
         gift,
         dots,
       }),
