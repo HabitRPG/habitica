@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Вече сте докладвали това съобщение",
     "messageGroupChatNotFound": "Съобщението не е намерено!",
     "messageGroupChatAdminClearFlagCount": "Само администратор може да изчисти броя на докладванията!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Опа! Изглежда публикувате твърде много съобщения. Моля, изчакайте малко и опитайте отново. Чатът в кръчмата може да показва най-много 200 съобщения, така че съветваме потребителите да публикуват по-дълги и добре обмислени съобщения, както и да обединяват отговорите си. Скоро ще можете да пишете отново! :)",
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",

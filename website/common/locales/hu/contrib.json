@@ -32,7 +32,7 @@
     "contribModal": "Király vagy, <%= name %>! Mostantól te egy <%= level %> szintű közreműködő vagy, amiért segítetted a Habitica-t. Nézd meg",
     "contribLink": "milyen díjakat szereztél a közreműködésedért!",
     "contribName": "Közreműködő",
-    "contribText": "Hozzájárult a Habiticához (kóddal, tervezéssel, grafikával, jogi tanácsadással, dokumentációval, stb.-vel) Szeretnéd ezt a jelvényt? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Olvass tovább.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Tovább",
     "kickstartName": "Kickstarter Támogató - $<%= key %> Szint",
     "kickstartText": "Támogatta a Kickstarter projektet!",

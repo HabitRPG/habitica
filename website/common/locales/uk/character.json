@@ -163,6 +163,7 @@
     "dieText": "Ви втратили один рівень, усе Ваше золото та випадковий предмет спорядження. Підводьтеся та спробуйте ще раз! Приборкайте шкідливі звички, будьте старанними у виконанні щоденних завдань і тримайтеся від Смерті подалі, використовуючи еліксир здоров'я, якщо відчуваєте слабкість!",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Придбати за <%= cost %> самоцвітів?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Недостатньо мани.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "Ви наклали <%= spell %>.",

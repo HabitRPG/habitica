@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, kamu keren banget! Sekarang kamu tingkat <%= level %> kontributor karena telah membantu Habitica. Lihat",
     "contribLink": "hadiah apa yang kamu dapatkan dari kontribusimu!",
     "contribName": "Kontributor",
-    "contribText": "Telah berkontribusi kepada Habitica (kode, desain, seni pixel, nasihat hukum, dokumen, dll). Ingin lencana seperti ini? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Baca lebih lanjut.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Baca selanjutnya",
     "kickstartName": "Pendukung Kickstarter - $<%= key %> Tingkat",
     "kickstartText": "Mendukung Proyek Kickstarter",

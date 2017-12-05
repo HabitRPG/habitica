@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Ya has denunciado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, ¡parece que estás publicando demasiados mensajes! Espera un minuto y vuelve a intentarlo. El chat de la Taberna solo puede con 200 mensajes a la vez, por lo que Habitica recomienda publicar mensajes más largos y meditados, así como respuestas unificadas. No podemos esperar a oir lo que tienes que decir. :)",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> operación no encontrada",

@@ -78,6 +78,7 @@
     "mustLvlQuest": "你需要先達到第<%= level %>級才能購買這個任務！",
     "mustInviteFriend": "你必須邀請朋友到你的對物才能開始任務。開始邀請了嗎?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "你是否確定要放棄這個任務？將會失去所有接受的邀請。任務擁有者將保留原有的任務捲軸。",
     "sureAbort": "你是否確定要放棄這個任務？這樣做會讓你的所有隊員都退出這個任務，並且消除所有進度。任務捲軸將會回到任務擁有者手上。",
     "doubleSureAbort": "你真的真的要這樣做嗎？要確保他們不會一輩子討厭你喲！",

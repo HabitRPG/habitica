@@ -78,6 +78,7 @@
     "mustLvlQuest": "Aby sis mohl koupit tuto výpravu, musíš být na úrovni <%= level %> !",
     "mustInviteFriend": "Aby sis zasloužil tuto Výpravu, musíš pozvat někoho do své Družiny. Pozveš někoho hned?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Jsi si jistý, že chceš skončit výpravu? Všechny pozvánky budou ztraceny. Svitek bude navrácen svému majiteli.",
     "sureAbort": "Jsi si jistý, že chceš ukončit výpravu? Bude ukončena pro všechny v družině a všechen pokrok bude ztracen. Svitek bude navrácen svému majiteli.",
     "doubleSureAbort": "Jsi si určitě jistý? Ujisti se, že tě pak ostatní nebudou do smrti nenávidět!",

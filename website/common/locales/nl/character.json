@@ -163,6 +163,7 @@
     "dieText": "Je hebt een niveau, al je goud, en een willekeurig onderdeel van je uitrusting verloren. Herrijs, Habiteer, en probeer het opnieuw! Bedwing die slechte gewoontes, let erop je dagelijkse taken bij te houden en houd de dood van je af met een gezondheidsdrankje als je wankelt!",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Kopen voor <%= cost %> edelstenen?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Niet genoeg mana.",
     "invalidTarget": "Je kan daar geen vaardigheid op uitspreken.",
     "youCast": "Je hebt <%= spell %> uitgesproken.",

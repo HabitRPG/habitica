@@ -29,7 +29,7 @@
     "either": "Ambos",
     "createChallenge": "Criar Desafio",
     "createChallengeAddTasks": "Adicionar tarefa de desafio",
-    "createChallengeCloneTasks": "Clone Challenge Tasks",
+    "createChallengeCloneTasks": "Clonar Tarefas do Desafio",
     "addTaskToChallenge": "Adicionar tarefa",
     "discard": "Descartar",
     "challengeTitle": "Título do Desafio",
@@ -127,5 +127,6 @@
     "locationRequired": "A localização do desafio é necessária ('Adicionar a')",
     "categoiresRequired": "Uma ou mais categorias devem ser selecionadas",
     "viewProgressOf": "Ver Progresso De",
-    "selectMember": "Selecione um Membro"
+    "selectMember": "Selecione um Membro",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

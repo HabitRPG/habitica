@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, seni mükemmel insan! Habitica'ya katkılarından ötürü artık <%= level %>. kademede bir katılımcısın. İşte",
     "contribLink": "katılımından dolayı kazandığın ödüller!",
     "contribName": "Katılımcı",
-    "contribText": "Habitica'ya (yazılım, tasarım, pixel art, yasal destek, dökümanlar, vb.) katkıda bulunmuştur. Bu rozeti istiyor musun? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Daha fazla bilgi için burayı incele.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Devamını Oku",
     "kickstartName": "Kickstarter Sponsoru - $<%= key %> Kademesi",
     "kickstartText": "Kickstarter Projesini Destekledi",

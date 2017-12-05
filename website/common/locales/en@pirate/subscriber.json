@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Unknown card type.",
     "invalidCoupon": "Invalid coupon code.",
     "couponUsed": "Coupon code already used.",
-    "noSudoAccess": "Ye don't have sudo access.",
     "couponCodeRequired": "Th' coupon code be required.",
     "eventRequired": "\"req.params.event\" is required.",
     "countRequired": "\"req.query.count\" is required.",

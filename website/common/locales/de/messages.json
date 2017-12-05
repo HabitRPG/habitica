@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Du hast diese Nachricht bereits gemeldet",
     "messageGroupChatNotFound": "Nachricht wurde nicht gefunden!",
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, es sieht so aus als ob du zu viele Nachrichten schreibst! Bitte warte eine Minute und versuche es erneut. Das Gasthaus kann nur 200 Nachrichten gleichzeitig beinhalten und deshalb ermutigt Habitica längere, mehr durchdachte Nachrichten und hilfreiche Antworten zu schreiben. Wir können es kaum erwarten zu hören, was du zu sagen hast. :)",
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
