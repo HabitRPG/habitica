@@ -102,7 +102,7 @@
                 | {{ $t(frequency) }}
           .form-group
             label(v-once) {{ $t('repeatEvery') }}
-            input(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
+            input(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
             | {{ repeatSuffix }}
             br
           template(v-if="task.frequency === 'weekly'")
