@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Confirme que esta Tarefa Diária não foi terminada antes de aplicar dano",
     "yesterDailiesDescription": "Se esta configuração for ativada, Habitica irá perguntar-lhe se quer deixar a Tarefa Diária por completar antes de calcular e aplicar dano ao seu avatar. Isto pode protegê-lo contra dano não intencional.",
     "repeatDayError": "Por favor confirme que tem pelo menos um dia da semana escolhido.",
-    "searchTasks": "Search titles and descriptions..."
+    "searchTasks": "Search titles and descriptions...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

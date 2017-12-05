@@ -127,5 +127,6 @@
     "locationRequired": "Kihívás helyének kiválasztása szükséges ('Hozzáadás')",
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
     "viewProgressOf": "Haladás megtekintése",
-    "selectMember": "Tag kiválasztása"
+    "selectMember": "Tag kiválasztása",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

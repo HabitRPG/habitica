@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Nieznany typ karty.",
     "invalidCoupon": "Nieprawidłowy kod kuponu",
     "couponUsed": "Kod promocyjny został wcześniej wykorzystany",
-    "noSudoAccess": "Nie masz dostępu administratora.",
     "couponCodeRequired": "Kod promocyjny jest wymagany.",
     "eventRequired": "\"req.params.event\" jest wymagane.",
     "countRequired": "\"req.params.event\" jest wymagane.",

@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Onbekend kaarttype.",
     "invalidCoupon": "Ongeldige couponcode.",
     "couponUsed": "Couponcode is al in gebruik",
-    "noSudoAccess": "Je hebt geen sudo-toegang.",
     "couponCodeRequired": "De couponcode is vereist.",
     "eventRequired": "\"req.params.event\" is vereist.",
     "countRequired": "\"req.query.count\" is vereist.",

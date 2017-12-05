@@ -127,5 +127,6 @@
     "locationRequired": "Le lieu du défi est requis ('Ajouter à')",
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
     "viewProgressOf": "Voir la progression de",
-    "selectMember": "Choisir un membre"
+    "selectMember": "Choisir un membre",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

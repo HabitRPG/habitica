@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>，你是个了不起的人！你现在是帮助 Habitica的 <%= level %>级的贡献者。详情见",
     "contribLink": "你拿到了什么奖品！",
     "contribName": "贡献者",
-    "contribText": "为Habitica做了贡献（像代码、设计、像素艺术和法律咨询等等）。想要这个徽章？ <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>来阅读更多相关吧~.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "阅读更多",
     "kickstartName": "Kickstarter<%= key %>级赞助者",
     "kickstartText": "支持了Kickstarter项目",

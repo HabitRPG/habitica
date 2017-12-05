@@ -163,6 +163,7 @@
     "dieText": "איבדת דרגה, את כל הזהב שלך, ופריט ציוד ראנדומאלי. קום, שחקן, ונסה שוב! השתלט על ההרגלים הרעים, היה דרוך בעשיית המטלות היומיות, והתרחק ממוות באמצעות שיקוי בריאות, במידה ותצטרך.",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "לרכוש בתמורה ל <%= cost %> אבני חן?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "אין לך מספיק מאנה.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "הטלת <%= spell %>.",

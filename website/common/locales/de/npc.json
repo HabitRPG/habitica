@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Edelstein",
     "typeNotSellable": "Typ ist nicht verkäuflich. Dieser muss einer der Folgenden sein: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Schlüssel für user.items <%= type %> nicht gefunden",
-    "userItemsNotEnough": "Nicht genügend Gegenstände für user.items <%= type %> gefunden",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Pfad ist erforderlich",
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
