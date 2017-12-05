@@ -7,7 +7,6 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
     b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
       .container-fluid.purple-gradient
         .gemfall
@@ -344,7 +343,6 @@
   import markdown from 'client/directives/markdown';
   import planGemLimits from 'common/script/libs/planGemLimits';
   import paymentsMixin from 'client/mixins/payments';
-  import amazonPaymentsModal from './amazonModal';
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
@@ -360,7 +358,6 @@
     mixins: [paymentsMixin],
     components: {
       planGemLimits,
-      amazonPaymentsModal,
     },
     computed: {
       ...mapState({user: 'user.data'}),

@@ -569,6 +569,7 @@ api.scoreTask = {
           }, manager.preferences.language),
           groupId: group._id,
           taskId: task._id,
+          direction,
         });
         managerPromises.push(manager.save());
       });
@@ -587,19 +588,20 @@ api.scoreTask = {
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
+    let taskOrderPromise;
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
         // @TODO: mongoose's push and pull should be atomic and help with
         // our concurrency issues. If not, we need to use this update $pull and $push
-        // await user.update({
-        //   $pull: { 'tasksOrder.todos': task._id },
-        // }).exec();
-        user.tasksOrder.todos.pull(task._id);
+        taskOrderPromise = user.update({
+          $pull: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.pull(task._id);
       } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
-        // await user.update({
-        //   $push: { 'tasksOrder.todos': task._id },
-        // }).exec();
-        user.tasksOrder.todos.push(task._id);
+        taskOrderPromise = user.update({
+          $push: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.push(task._id);
       }
     }
 
@@ -617,10 +619,12 @@ api.scoreTask = {
       user.markModified('_ABtests');
     }
 
-    let results = await Bluebird.all([
+    let promises = [
       user.save(),
       task.save(),
-    ]);
+    ];
+    if (taskOrderPromise) promises.push(taskOrderPromise);
+    let results = await Bluebird.all(promises);
 
     let savedUser = results[0];
 

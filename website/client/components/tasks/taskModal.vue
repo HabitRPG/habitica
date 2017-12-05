@@ -712,7 +712,6 @@ export default {
       this.task.down = !this.task.down;
     },
     toggleTagSelect () {
-      if (this.challengeAccessRequired) return;
       this.showTagsSelect = !this.showTagsSelect;
     },
     sortedChecklist (data) {

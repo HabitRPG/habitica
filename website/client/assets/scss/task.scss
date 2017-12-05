@@ -139,27 +139,6 @@
   }
 
   &-better {
-    background: $blue-50;
-
-    &-color {
-      color: darken($blue-50, 12%);
-    }
-
-    &-control-habit {
-      background: darken($blue-50, 12%);
-    }
-
-    &-control-daily-todo {
-      background: $blue-500;
-      color: $blue-50;
-    }
-
-    &-modal-input {
-      color: $blue-500 !important;
-    }
-  }
-
-  &-best {
     background: $teal-50;
 
     &-color {
@@ -177,6 +156,27 @@
 
     &-modal-input {
       color: $teal-500 !important;
+    }
+  }
+
+  &-best {
+    background: $blue-50;
+
+    &-color {
+      color: darken($blue-50, 12%);
+    }
+
+    &-control-habit {
+      background: darken($blue-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $blue-500;
+      color: $blue-50;
+    }
+
+    &-modal-input {
+      color: $blue-500 !important;
     }
   }
 
