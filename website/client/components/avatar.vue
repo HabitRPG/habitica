@@ -187,6 +187,11 @@ export default {
     hideGear (gearType) {
       if (gearType === 'weapon') {
         let equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
+
+        if (!equippedWeapon) {
+          return false;
+        }
+
         let equippedIsTwoHanded = this.flatGear[equippedWeapon].twoHanded;
         let hasOverrideShield = this.overrideAvatarGear && this.overrideAvatarGear.shield;
 
