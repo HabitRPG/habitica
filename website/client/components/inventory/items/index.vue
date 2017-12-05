@@ -56,7 +56,6 @@
             @itemDragOver="onDragOver($event, context.item)",
             @itemDropped="onDrop($event, context.item)",
             @itemDragLeave="onDragLeave()",
-            @itemDragStart="onDragStart($event, context.item)",
 
             @click="onEggClicked($event, context.item)",
           )
@@ -361,6 +360,7 @@ export default {
       this.currentDraggingPotion = null;
     },
     onDragStart ($event, potion) {
+      // Dragging needs to be added for egg items
       this.currentDraggingPotion = potion;
 
       let itemRef = this.$refs.draggingPotionInfo;
