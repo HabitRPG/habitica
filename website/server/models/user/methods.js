@@ -18,7 +18,6 @@ import paypalPayments from '../../libs/paypalPayments';
 
 const daysSince = common.daysSince;
 
-
 schema.methods.isSubscribed = function isSubscribed () {
   let now = new Date();
   let plan = this.purchased.plan;

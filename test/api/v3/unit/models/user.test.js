@@ -323,4 +323,29 @@ describe('User Model', () => {
       expect(user.achievements.beastMaster).to.not.equal(true);
     });
   });
+
+  context.only('days missed', () => {
+    let user;
+
+    beforeEach(() => {
+      user = new User();
+    });
+
+    it.only('should not cron early when going back a timezone', () => {
+      const yesterday = moment('2017-12-05T00:00:00.000-05:00'); // 11 pm on 4 Texas
+      const timezoneOffset = yesterday.zone();
+      user.lastCron = yesterday;
+      user.preferences.timezoneOffset = timezoneOffset;
+
+      const today = moment('2017-12-06T00:00:00.000-05:00'); // 11 pm on 4 Texas
+      const req = {};
+      req.header = () => {
+        return timezoneOffset + 60;
+      };
+
+      const {daysMissed} = user.daysUserHasMissed(today, req);
+
+      expect(daysMissed).to.eql(0);
+    });
+  });
 });
