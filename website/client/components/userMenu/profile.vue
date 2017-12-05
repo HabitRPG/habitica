@@ -3,17 +3,15 @@ div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     div(slot='modal-header')
       .profile-actions
-        button.btn.btn-secondary(:title="$t('sendMessage')", @click='sendMessage()', v-b-tooltip.hover.left="")
+        button.btn.btn-secondary.message-icon(@click='sendMessage()', v-b-tooltip.hover.left="$t('sendMessage')")
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(:title="$t('sendMessage')", @click='openSendGemsModal()', v-b-tooltip.hover.bottom="")
+        button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
           .svg-icon.gift-icon(v-html="icons.gift")
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
-          :title="$t('block')",
-          @click="blockUser()", v-b-tooltip.hover.right="")
+        button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
+          @click="blockUser()", v-b-tooltip.hover.right="$t('block')")
           .svg-icon.remove-icon(v-html="icons.remove")
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-          :title="$t('unblock')",
-          @click="unblockUser()", v-b-tooltip.hover.right="")
+        button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
           .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
@@ -312,21 +310,26 @@ div
     }
   }
 
+
   .message-icon {
     width: 16px;
+    color: #686274;
   }
 
   .gift-icon {
     width: 14px;
-    padding: 0px 0px 0px 1px;
+    padding: 0 0 0 1px;
+    color: #686274;
   }
 
   .remove-icon {
     width:16px;
+    color: #686274;
   }
 
   .positive-icon {
     width: 14px;
+    color: #686274;
   }
 
   .pet-mount-row {
