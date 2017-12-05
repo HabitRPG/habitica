@@ -710,16 +710,15 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
 
 async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) {
   query._id = userId;
-  return await User.update(query, updates).exec()
-    .then((raw) => {
-      return raw;
-    }).catch((err) => {
-      if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry);
-      } else {
-        throw err;
-      }
-    });
+  try {
+    return await User.update(query, updates).exec();
+  } catch (err) {
+    if (numTry < MAX_UPDATE_RETRIES) {
+      return _updateUserWithRetries(userId, updates, ++numTry);
+    } else {
+      throw err;
+    }
+  }
 }
 
 // Participants: Grant rewards & achievements, finish quest.
