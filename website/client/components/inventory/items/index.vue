@@ -186,6 +186,7 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
     }
   }
 </style>
