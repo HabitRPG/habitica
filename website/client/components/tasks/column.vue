@@ -34,11 +34,10 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    .sortable-tasks(
+    draggable(
       ref="tasksList",
-      v-sortable='activeFilters[type].label !== "scheduled"',
-      @onsort='sorted',
-      data-sortableId
+      @update='sorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
     )
       task(
         v-for="task in taskList",
@@ -64,7 +63,6 @@
               @click.prevent.stop="togglePinned(ctx.item)"
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
 </template>
 
 <style lang="scss" scoped>
@@ -81,9 +79,20 @@
 
 
   .reward-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @supports (display: grid) {
+      display: grid;
+      grid-column-gap: 16px;
+      grid-row-gap: 4px;
+      grid-template-columns: repeat(auto-fill, 94px);
+    }
+
+    @supports not (display: grid) {
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+      margin: 0 16px 4px 0;
+      }
+    }
   }
 
   .tasks-list {
@@ -235,7 +244,6 @@
 import Task from './task';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
@@ -252,6 +260,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import draggable from 'vuedraggable';
 
 export default {
   mixins: [buyMixin, notifications],
@@ -259,9 +268,7 @@ export default {
     Task,
     BuyQuestModal,
     shopItem,
-  },
-  directives: {
-    sortable,
+    draggable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
@@ -334,6 +341,16 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    onUserPage () {
+      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+        this.types.reward.filters = [];
+      }
+
+      return onUserPage;
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filter = this.activeFilters[this.type];
@@ -399,6 +416,7 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
@@ -434,9 +452,12 @@ export default {
       deep: true,
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
+      if (!this.dailyDueDefaultView) return;
+      this.activateFilter('daily', this.types.daily.filters[1]);
+    },
+    quickAddFocused (newValue) {
+      if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
+      if (!newValue) this.quickAddRows = 1;
     },
   },
   mounted () {
@@ -526,6 +547,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
+
       this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {

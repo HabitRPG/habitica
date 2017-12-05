@@ -17,7 +17,7 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
                 p.summary(v-if='guild.summary') {{guild.summary.substr(0, MAX_SUMMARY_SIZE_FOR_GUILDS)}}
                 p.summary(v-else) {{ guild.name }}
             .col-md-2.cta-container
-              button.btn.btn-danger(v-if='isMember && displayLeave' @click='leave()', v-once) {{ $t('leave') }}
+              button.btn.btn-danger(v-if='isMember && displayLeave' @click.prevent='leave()', v-once) {{ $t('leave') }}
               button.btn.btn-success(v-if='!isMember'  @click='join()', v-once) {{ $t('join') }}
               div.item-with-icon.gem-bank(v-if='displayGemBank')
                 .svg-icon.gem(v-html="icons.gem")
@@ -175,7 +175,7 @@ export default {
     },
     async leave () {
       // @TODO: ask about challenges when we add challenges
-      await this.$store.dispatch('guilds:leave', {guildId: this.guild._id, type: 'myGuilds'});
+      await this.$store.dispatch('guilds:leave', {groupId: this.guild._id, type: 'myGuilds'});
     },
     async reject (invitationToReject) {
       // @TODO: This needs to be in the notifications where users will now accept invites

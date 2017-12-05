@@ -1,5 +1,6 @@
 <template lang="pug">
 #app(:class='{"casting-spell": castingSpell}')
+  amazon-payments-modal
   snackbars
   router-view(v-if="!isUserLoggedIn || isStaticPage")
   template(v-else)
@@ -82,6 +83,7 @@ import BuyModal from './components/shops/buyModal.vue';
 import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
+import amazonPaymentsModal from 'client/components/payments/amazonModal';
 
 export default {
   mixins: [notifications],
@@ -94,6 +96,7 @@ export default {
     snackbars,
     BuyModal,
     SelectMembersModal,
+    amazonPaymentsModal,
   },
   data () {
     return {
@@ -296,7 +299,6 @@ export default {
       const modalId = bvEvent.target.id;
 
       let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
       // Don't remove modal if hid was called from main app
       // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
@@ -308,13 +310,15 @@ export default {
 
       // Recalculate and show the last modal if there is one
       modalStackLength = this.$store.state.modalStack.length;
-      modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
   methods: {
     resetItemToBuy ($event) {
-      if (!$event) {
+      // @TODO: Do we need this? I think selecting a new item
+      // overwrites. @negue might know
+      if (!$event && this.selectedItemToBuy.purchaseType !== 'card') {
         this.selectedItemToBuy = null;
       }
     },
@@ -332,21 +336,19 @@ export default {
     },
     customPurchase (item) {
       if (item.purchaseType === 'card') {
-        if (this.user.party._id) {
-          this.selectedSpellToBuy = item;
+        this.selectedSpellToBuy = item;
 
-          this.$root.$emit('bv::hide::modal', 'buy-modal');
-          this.$root.$emit('bv::show::modal', 'select-member-modal');
-        } else {
-          this.error(this.$t('errorNotInParty'));
-        }
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
+        this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
       this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
       this.selectedSpellToBuy = null;
 
-      this.$store.dispatch('party:getMembers', {forceLoad: true});
+      if (this.user.party._id) {
+        this.$store.dispatch('party:getMembers', {forceLoad: true});
+      }
 
       this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },

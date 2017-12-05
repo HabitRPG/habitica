@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "点击一个宠物，将<%= foodName %>喂给它们并看着它们成长！",
     "dragThisPotion": "把<%= potionName %>拖到到一个宠物蛋上来孵化一个新宠物！",
     "clickOnEggToHatch": "点击一个宠物蛋，使用你的<%= potionName %>孵化药水来孵化一个新的宠物！",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "将您的<%= potionName %>孵化药水倒在您的<%= eggName %>蛋上，它将孵化成一个<%= petName %>。"
 }

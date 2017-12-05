@@ -33,13 +33,21 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest', quantity}),
   };
 }
 
 async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
   let armoire = content.armoire;
+
+  buyOp(store.state.user.data, {
+    params: {
+      key: 'armoire',
+    },
+    type: 'armoire',
+    quantity,
+  });
 
   // We need the server result because Armoire has random item in the result
   let result = await axios.post('/api/v3/user/buy/armoire', {
@@ -126,9 +134,13 @@ export async function genericPurchase (store, params) {
       await buyArmoire(store, params);
       return;
     case 'fortify': {
-      let rerollResult = rerollOp(store.state.user.data);
+      let rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
 
-      axios.post('/api/v3/user/reroll');
+      await axios.post('/api/v3/user/reroll');
+      await Promise.all([
+        store.dispatch('user:fetch', {forceLoad: true}),
+        store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
 
       return rerollResult;
     }

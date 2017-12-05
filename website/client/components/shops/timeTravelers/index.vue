@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar(v-if="!closed")
+    .standard-sidebar.d-none.d-sm-block(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -333,7 +333,7 @@
               currency: 'hourglasses',
               key: c.identifier,
               class: `shop_set_mystery_${c.identifier}`,
-              purchaseType: 'set_mystery',
+              purchaseType: 'mystery_set',
             };
           }),
         };

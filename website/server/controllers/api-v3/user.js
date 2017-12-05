@@ -395,7 +395,7 @@ api.deleteUser = {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', {magicWord: 'DELETE'}));
     }
 
     let feedback = req.body.feedback;
@@ -1572,7 +1572,7 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
-    let unlockRes = common.ops.unlock(user, req);
+    let unlockRes = common.ops.unlock(user, req, res.analytics);
     await user.save();
     res.respond(200, ...unlockRes);
   },

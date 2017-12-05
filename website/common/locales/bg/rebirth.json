@@ -21,7 +21,7 @@
     "rebirthOrb": "Използвал(а) Кълбо на прераждане, за да започне отново след достигане на ниво <%= level %>.",
     "rebirthOrb100": "Използвал(а) Кълбо на прераждане, за да започне отново след достигане на ниво 100 или по-високо.",
     "rebirthOrbNoLevel": "Използвал(а) Кълбо на прераждане, за да започне отново.",
-    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthPop": "Рестартиране на героя Ви от ниво 1, запазвайки постиженията, събраните предмети, екипировката и задачите с тяхната история. Това ще бъде извършено на момента.",
     "rebirthName": "Кълбо за прераждане",
     "reborn": "Прероден(а), максимално ниво: <%= reLevel %>",
     "confirmReborn": "Наистина ли искате това?",

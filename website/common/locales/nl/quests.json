@@ -77,7 +77,7 @@
     "mustLevel": "Je moet niveau <%= level %> zijn om deze queeste te starten.",
     "mustLvlQuest": "Je moet niveau <%= level %> zijn om deze queeste te kunnen kopen!",
     "mustInviteFriend": "Om deze queeste te ontvangen moet je een vriend uitnodigen in je groep.  Wil je nu iemand uitnodigen?",
-    "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "unlockByQuesting": "Om deze queeste vrij te spelen moet je eerst <%= title %> voltooien.",
     "sureCancel": "Weet je zeker dat je deze queeste af wilt breken? Alle geaccepteerde uitnodigingen gaan verloren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie wordt afgebroken voor iedereen in jouw groep; alle vorderingen gaan verloren. De queeste-perkamentrol wordt teruggegeven aan de eigenaar van de queeste.",
     "doubleSureAbort": "Weet je het echt heel zeker? Zorg ervoor dat ze niet voor altijd een hekel aan je krijgen!",
@@ -118,5 +118,5 @@
     "createAccountQuest": "Je hebt deze queeste verdiend toen je je aanmeldde voor Habitica! Als een van je vrienden zich aanmeldt krijgt deze er ook een.",
     "questBundles": "Afgeprijsde queestebundels",
     "buyQuestBundle": "Koop queestebundel",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Kun je geen queeste vinden om mee te beginnen? Bekijk de queestenwinkel op de markt om nieuwe uitgaven te ontdekken!"
 }

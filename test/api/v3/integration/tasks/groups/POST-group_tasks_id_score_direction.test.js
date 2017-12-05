@@ -41,8 +41,9 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
+    const direction = 'up';
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+    await expect(member.post(`/tasks/${syncedTask._id}/score/${direction}`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -58,6 +59,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
+      direction,
     }, 'cs')); // This test only works if we have the notification translated
     expect(user.notifications[1].data.groupId).to.equal(guild._id);
 
@@ -71,8 +73,9 @@ describe('POST /tasks/:id/score/:direction', () => {
     });
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
+    const direction = 'up';
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+    await expect(member.post(`/tasks/${syncedTask._id}/score/${direction}`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -88,6 +91,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
+      direction,
     }));
     expect(user.notifications[1].data.groupId).to.equal(guild._id);
 
@@ -97,6 +101,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       user: member.auth.local.username,
       taskName: updatedTask.text,
       taskId: updatedTask._id,
+      direction,
     }));
     expect(member2.notifications[0].data.groupId).to.equal(guild._id);
   });

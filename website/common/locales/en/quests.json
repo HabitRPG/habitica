@@ -78,6 +78,7 @@
   "mustLvlQuest": "You must be level <%= level %> to buy this quest!",
   "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
   "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+  "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
   "sureCancel": "Are you sure you want to cancel this quest? All invitation acceptances will be lost. The quest owner will retain possession of the quest scroll.",
   "sureAbort": "Are you sure you want to abort this mission? It will abort it for everyone in your party and all progress will be lost. The quest scroll will be returned to the quest owner.",
   "doubleSureAbort": "Are you double sure? Make sure they won't hate you forever!",

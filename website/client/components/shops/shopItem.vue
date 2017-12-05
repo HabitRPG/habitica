@@ -225,7 +225,8 @@ div
         }
       },
       limitedString () {
-        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+        return this.item.owned === false ? '' :
+          this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
       },
     },
     methods: {

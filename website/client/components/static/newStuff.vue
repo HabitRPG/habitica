@@ -4,23 +4,26 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/14/2017 - NEW PET QUEST, BEHIND THE SCENES, AND FEATURED WIKI ARTICLE
+    h2 11/29/2017 - LAST CHANCE FOR CARPET RIDER SET AND THUNDERSTORM POTIONS, GUILD AND USE CASE SPOTLIGHTS
     hr
-    h3 New Pet Quest: A Tangled Yarn
-    p(v-markdown='"Wayward yarn from unfinished craft projects is spreading confusion through the Taskan countryside! Can you wrap up this tangled mess? Get the latest pet quest, [A Tangled Yarn](/shops/quests), and earn some woolen Yarn pets by completing your real-life tasks."')
     .media
+      .promo_potions_thunderstorm.right-margin
       .media-body
-        .small by SabreCat, Faelwyn the Rising Phoenix, Bartelmy, Arcosine, stefalupagus, khdarkwolf, JinjooHat, basekick, Hacheiseiko, TheMushroomKing and Vampitch
-        h3 Behind the Scenes: Tips for Burnout Prevention and Recovery from the Habitica Team!
-        p(v-markdown='"There\'s a new [Behind the Scenes post](https://habitica.wordpress.com/2017/11/14/behind-the-scenes-tips-for-burnout-prevention-and-recovery-from-the-habitica-team/) on the Habitica blog in which the team shares their tips for preventing burnout and bouncing back when it happens! Check it out for great ideas for self-care and recuperation!"')
+        h3 Last Chance for Carpet Rider Set
+        p(v-markdown='"Reminder: there are only two more days to [subscribe](/user/settings/subscription) and receive the Carpet Rider Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!"')
+        p Thanks so much for your support! You help keep Habitica running.
         .small by Beffymaroo
-      .quest_burnout
+        h3 Last Chance for Thunderstorm Hatching Potions
+        p(v-markdown='"Reminder: this is the final day to [buy Thunderstorm Hatching Potions!](/shops/market) If they come back, it won\'t be until next year at the earliest, so don\'t delay!"')
+        .small by Balduranne
+        h3 Generating Interest: Guilds and Use Cases for Money Matters
+        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/11/28/generating-interest-guilds-for-money-matters/) that highlights the Guilds that can help you as work to improve your budgeting and saving habits! Check it out now to find Habitica\'s best money management communities."')
     .media
-      .scene_habit_cycle
       .media-body
-        h3 Blog Post: The Habit Loop
-        p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2017/11/08/the-habit-loop/) is about The Habit Loop! We hope that it will help you as you work on building better, stronger, and healthier Habits. Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com/), and [Facebook](https://www.facebook.com/Habitica/)."')
-        .small by Beffymaroo and the Wiki Wizards
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/11/14/3908/) follows the same theme! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be working on saving and budgeting as the holiday season approaches!"')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to stay on top of Holiday Housekeeping? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog at the start of next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+      .scene_money.left-margin
     br
 </template>
 

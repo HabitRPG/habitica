@@ -177,6 +177,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair6',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -538,12 +539,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     padding-bottom: 2em;
   }
 
-  .option.locked {
-    border-radius: 2px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-  }
-
   .option.hide {
     display: none !important;
   }
@@ -554,8 +549,17 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     padding: .5em;
     height: 90px;
     width: 90px;
-    margin-bottom: .5em;
-    margin-right: .5em;
+    margin: 1em .5em .5em 0;
+    border: 4px solid $gray-700;
+    border-radius: 4px;
+
+    &.locked {
+      border: none;
+      border-radius: 2px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      margin-top: 0;
+    }
 
     .sprite.customize-option {
       margin: 0 auto;
@@ -587,9 +591,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   .option.active {
-    border: 4px solid $purple-200;
-    border-radius: 4px;
-    margin-top: 1em;
+    border-color: $purple-200;
   }
 
   .option:hover {
@@ -1023,7 +1025,8 @@ export default {
         option.key = key;
         option.active = this.user.preferences.costume ? this.user.items.gear.costume.eyewear === newKey : this.user.items.gear.equipped.eyewear === newKey;
         option.click = () => {
-          return this.equip(newKey);
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return this.equip(newKey, type);
         };
         return option;
       });
@@ -1061,7 +1064,8 @@ export default {
         option.active = this.user.preferences.costume ? this.user.items.gear.costume.headAccessory === newKey : this.user.items.gear.equipped.headAccessory === newKey;
         option.locked = locked;
         option.click = () => {
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey);
+          let type = this.user.preferences.costume ? 'costume' : 'equipped';
+          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1306,9 +1310,8 @@ export default {
     set (settings) {
       this.$store.dispatch('user:set', settings);
     },
-    equip (key) {
-      this.$store.dispatch('common:equip', {key, type: 'equipped'});
-      this.user.items.gear.equipped[key] = !this.user.items.gear.equipped[key];
+    equip (key, type) {
+      this.$store.dispatch('common:equip', {key, type});
     },
     async done () {
       this.loading = true;

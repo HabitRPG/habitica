@@ -138,6 +138,8 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     if (itemOwned === false) {
       gear.locked = false;
     }
+
+    gear.owned = itemOwned;
   }
 };
 

@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "冰霜冻结了你的任务。你所有任务的连击数不会在今天之后归零！",
     "spellWizardFrostAlreadyCast": "你已经在今天施放过这个法术。你的连击数被冻结，没必要再次施放。",
     "spellWarriorSmashText": "致命一击",
-    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
+    "spellWarriorSmashNotes": "你全力击中了一项任务。该任务的蓝色值将更深/红色值将更浅，与此同时你对怪物们造成额外伤害！点击一项任务来释放法术。(法术强度与力量值有关)",
     "spellWarriorDefensiveStanceText": "防御姿态",
     "spellWarriorDefensiveStanceNotes": "你准备好接受来自自己任务的猛攻了。你获得体质上的增益！(法术强度与未增益的体质值有关)",
     "spellWarriorValorousPresenceText": "悍勇现身",

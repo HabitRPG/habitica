@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.seasonal
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -383,7 +383,9 @@
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
           this.featuredGearBought = true;
-          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          if (seasonal.categories.length > 0) {
+            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          }
         }
 
         return seasonal;

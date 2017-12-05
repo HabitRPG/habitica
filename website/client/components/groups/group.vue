@@ -123,7 +123,7 @@
                     .col-6
                       span.float-left
                         | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
-                    .col-6
+                    .col-6(v-if='userIsOnQuest')
                       // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
                       span.float-right {{parseFloat(user.party.quest.progress.up).toFixed(1) || 0}} pending damage
                 .row.rage-bar-row(v-if='questData.boss.rage')
@@ -183,6 +183,16 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  @media (min-width: 1300px) {
+    .standard-page {
+      max-width: calc(100% - 430px);
+    }
+
+    .sidebar {
+      max-width: 430px !important;
+    }
+  }
 
   h1 {
     color: $purple-200;
@@ -559,6 +569,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    userIsOnQuest () {
+      if (!this.group.quest || !this.group.quest.members) return false;
+      return Boolean(this.group.quest.members[this.user._id]);
+    },
     acceptedCount () {
       let count = 0;
 
@@ -869,9 +883,10 @@ export default {
     },
     async showMemberProfile (leader) {
       let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
-      this.$store.state.profileUser = heroDetails.data.data;
-      this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('bv::show::modal', 'profile');
+      this.$root.$emit('habitica:show-profile', {
+        user: heroDetails.data.data,
+        startingPage: 'profile',
+      });
     },
     async questAbort () {
       if (!confirm(this.$t('sureAbort'))) return;
