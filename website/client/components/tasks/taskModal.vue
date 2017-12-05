@@ -21,7 +21,7 @@
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
-          input(type="number", v-model="task.value", required, min="0")
+          input(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
           .svg-icon.gold(v-html="icons.gold")
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
