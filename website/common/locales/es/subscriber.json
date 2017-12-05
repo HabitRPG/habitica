@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Tipo de tarjeta desconocido.",
     "invalidCoupon": "El código del cupón no es válido.",
     "couponUsed": "El código del cupón ya ha sido usado.",
-    "noSudoAccess": "No tienes acceso \"sudo\".",
     "couponCodeRequired": "El código del cupón es necesario.",
     "eventRequired": "\"req.params.event\" es obligatorio.",
     "countRequired": "\"req.query.count\" es obligatorio.",

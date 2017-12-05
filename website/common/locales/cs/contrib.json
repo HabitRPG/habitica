@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, ty úžasná osobo! Nyní jsi za pomoc programu Habitica na úrovni přispěvatele <%= name %> . Podívej se",
     "contribLink": "jaké ceny jsi za svou pomoc získal!",
     "contribName": "Přispěvatel",
-    "contribText": "Pomohl programu Habitica (programování, design, pixel art, právní pomoc, dokumentace, atd.). Chceš toto ocenění? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Přečti si víc.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Číst dál",
     "kickstartName": "Podporovatel z Kickstarteru úrovně - $<%= key %>",
     "kickstartText": "Podpořil projekt na Kickstarteru",

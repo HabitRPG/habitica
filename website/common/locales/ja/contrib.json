@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>、あなたは素晴らしい人です!　Habitica へのご支援を表し、<%= level %> 段の貢献者とします。",
     "contribLink": "どんな景品が当たったか覗いてみてね！",
     "contribName": "貢献者",
-    "contribText": "(例えばプログラム、デザイン、ドット絵、法的アドバイス、文章などで)Habiticaに貢献した証です。このバッジがほしいですか？<a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>こちらを参照して下さい。</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "続きを読む",
     "kickstartName": "Kickstarter での資金協力 - $<%= key %> 段",
     "kickstartText": "Kickstarter プロジェクトでの資金提供",

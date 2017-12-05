@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Kamu telah melaporkan pesan ini",
     "messageGroupChatNotFound": "Pesan tidak ditemukan!",
     "messageGroupChatAdminClearFlagCount": "Hanya admin yang bisa menghapus jumlah tanda!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, sepertinya kamu mengirim terlalu banyak pesan! Cobalah tunggu beberapa menit dan coba lagi. Ruang obrolan Kedai Minuman hanya dapat menampung 200 pesan sekaligus, jadi Habitica menyarankan agar kamu mengirim pesan yang lebih panjang dan terpikir matang serta balasan yang membantu. Kami tak sabar menunggu apa yang ingin kamu katakan. :)",
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",

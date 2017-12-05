@@ -38,7 +38,7 @@ describe('shared.ops.addTask', () => {
     expect(habit.counterDown).to.equal(0);
   });
 
-  it('adds an habtit when type is invalid', () => {
+  it('adds a habit when type is invalid', () => {
     let habit = addTask(user, {
       body: {
         type: 'invalid',

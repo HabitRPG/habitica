@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Již jsi tento příspěvek nahlásil",
     "messageGroupChatNotFound": "Zpráva nenalezena!",
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, vypadá to, že posíláš moc zpráv! Počkej prosím minutku a zkus to znovu. Chat v Krčmě může mít jenom 200 zpráv v jeden čas, takže Habitica podporuje posílání delších, více promyšlených zpráv a odpovědí. Nemůžeme se dočkat, až se s námi podělíš o tom, co máš na srdci. :)",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",

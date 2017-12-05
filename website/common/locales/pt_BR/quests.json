@@ -78,6 +78,7 @@
     "mustLvlQuest": "Você precisa ser nível <%= level %> para comprar essa missão!",
     "mustInviteFriend": "Para ganhar esta missão, convide um amigo para seu Grupo. Convidar alguém agora?",
     "unlockByQuesting": "Para desbloquear esta missão, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Você tem certeza que deseja cancelar esta missão? Todos os convites aceitos serão desfeitos. O dono da missão manterá a posse do pergaminho de missão.",
     "sureAbort": "Você tem certeza que deseja abortar esta missão? Ela abortará para todos em seu grupo e todo progresso será perdido. O pergaminho de missão retornará para o dono da missão.",
     "doubleSureAbort": "Tem certeza mesmo? Certifique-se de que eles não o detestarão para sempre!",

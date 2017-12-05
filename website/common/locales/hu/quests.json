@@ -78,6 +78,7 @@
     "mustLvlQuest": "<%= level %> szintűnek kell lenned, hogy megvehesd ezt a küldetést.",
     "mustInviteFriend": "Ahhoz, hogy elnyerd ezt a küldetést, hívj meg egy barátot a csapatodba. Meghívsz most valakit?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Biztosan meg akarod szakítani ezt a küldetést? Minden meghívási beleegyezés el fog veszni. A küldetés tulajdonosa megtartja a küldetés tekercset.",
     "sureAbort": "Biztosan el akarod hagyni ezt a küldetést? Ez meg fogja szakítani mindenkinek a csapatodban, és minden haladás el fog veszni. A küldetés tekercs vissza fog kerülni a küldetés tulajdonosához.",
     "doubleSureAbort": "Tuti biztos vagy benne? Győződj meg róla, hogy nem fognak a többiek utálni!",

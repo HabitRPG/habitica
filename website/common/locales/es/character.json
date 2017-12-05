@@ -163,6 +163,7 @@
     "dieText": "Has perdido un Nivel, todo tu Oro y una pieza de equipamiento al azar. ¡Levántate Habiteer e inténtalo otra vez! ¡Ataca esos Hábitos negativos, mantente atento para cumplir las tareas Diarias y mantén a la muerte a raya con una Poción de Salud cuando falles!",
     "sureReset": "¿Estás seguro? Esto reiniciará tu tipo de personaje y los puntos asignados (los recuperarás todos para reasignarlos), y cuesta 3 Gemas.",
     "purchaseFor": "¿Comprar por  <%= cost %> Gemas?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "No hay suficiente Maná.",
     "invalidTarget": "No puedes lanzar una habilidad a eso.",
     "youCast": "Lanzas <%= spell %>.",

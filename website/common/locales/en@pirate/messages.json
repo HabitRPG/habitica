@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Ye be reportin' this message already",
     "messageGroupChatNotFound": "Message not found! ",
     "messageGroupChatAdminClearFlagCount": "Only an admin be able to clear the flag count!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Shiver me timbers, looks like ye be postin' too many messages! Please wait a minute an' try again. Th' Pub chat only holds 200 messages at a time, so Habitica encourages postin' long'r, more thoughtful messages and consolidatin' replies. Can't wait t' hear wha' ye have t' say. :)",
     "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
     "messageUserOperationNotFound": "<%= operation %> operation not be here",
