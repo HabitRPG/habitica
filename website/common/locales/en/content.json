@@ -286,6 +286,7 @@
 
   "foodSaddleText": "Saddle",
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
+  "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
 
   "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
 }
