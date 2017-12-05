@@ -91,6 +91,10 @@ module.exports = function unlock (user, req = {}, analytics) {
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `preferences.${key}`, value, Object);
     } else {
+      if (path.indexOf('gear.') !== -1) {
+        // Using Object so path[1] won't create an array but an object {path: {1: value}}
+        setWith(user, path, true, Object);
+      }
       // Using Object so path[1] won't create an array but an object {path: {1: value}}
       setWith(user, `purchased.${path}`, true, Object);
 
