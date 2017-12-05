@@ -41,6 +41,13 @@ describe('shops', () => {
           level: 7,
           critical: true,
         },
+        items: {
+          gear: {
+            owned: {
+              weapon_armoire_basicCrossbow: true, // eslint-disable-line camelcase
+            },
+          },
+        },
       });
 
       let gearCategories = shared.shops.getMarketGearCategories(contributor);
@@ -50,6 +57,7 @@ describe('shops', () => {
       expect(specialCategory.items.find((item) => item.key === 'head_special_1'));
       expect(specialCategory.items.find((item) => item.key === 'shield_special_1'));
       expect(specialCategory.items.find((item) => item.key === 'weapon_special_critical'));
+      expect(specialCategory.items.find((item) => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
     });
   });
 
