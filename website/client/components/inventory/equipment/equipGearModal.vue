@@ -151,8 +151,6 @@
       memberOverrideAvatarGear (gear) {
         return {
           [gear.type]: gear.key,
-          hideShield: gear.twoHanded,
-          isEquippedTwoHanded: this.content.gear.flat[this.user.items.gear.equipped.weapon].twoHanded,
         };
       },
     },

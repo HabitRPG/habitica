@@ -30,8 +30,8 @@
       span(:class="getGearClass('head')")
       span(:class="getGearClass('headAccessory')")
       span(:class="'hair_flower_' + member.preferences.hair.flower")
-      span(v-if="showShield()", :class="getGearClass('shield')")
-      span(v-if="showWeapon()", :class="getGearClass('weapon')")
+      span(v-if="!hideGear('shield')", :class="getGearClass('shield')")
+      span(v-if="!hideGear('weapon')", :class="getGearClass('weapon')")
 
     // Resting
     span.zzz(v-if="member.preferences.sleep")
@@ -71,6 +71,8 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import ClassBadge from 'client/components/members/classBadge';
 
 export default {
@@ -113,6 +115,9 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      flatGear: 'content.gear.flat',
+    }),
     hasClass () {
       return this.$store.getters['members:hasClass'](this.member);
     },
@@ -175,11 +180,19 @@ export default {
 
       return result;
     },
-    showShield () {
-      return !(this.overrideAvatarGear && this.overrideAvatarGear.hideShield);
-    },
-    showWeapon () {
-      return !(this.overrideAvatarGear && !this.overrideAvatarGear.weapon && this.overrideAvatarGear.isEquippedTwoHanded);
+    hideGear (gearType) {
+      if (gearType === 'weapon') {
+        let equippedWeapon = this.member.items.gear[this.costumeClass][gearType];
+        let equippedIsTwoHanded = this.flatGear[equippedWeapon].twoHanded;
+        let hasOverrideShield = this.overrideAvatarGear && this.overrideAvatarGear.shield;
+
+        return equippedIsTwoHanded && hasOverrideShield;
+      } else if (gearType === 'shield') {
+        let overrideWeapon = this.overrideAvatarGear && this.overrideAvatarGear.weapon;
+        let overrideIsTwoHanded = overrideWeapon && this.flatGear[overrideWeapon].twoHanded;
+
+        return overrideIsTwoHanded;
+      }
     },
     castEnd (e) {
       if (!this.$store.state.spellOptions.castingSpell) return;

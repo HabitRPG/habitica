@@ -314,10 +314,7 @@
       };
     },
     computed: {
-      ...mapState({
-        content: 'content',
-        user: 'user.data',
-      }),
+      ...mapState({user: 'user.data'}),
       showAvatar () {
         return ['backgrounds', 'gear', 'mystery_set'].includes(this.item.purchaseType);
       },
@@ -433,8 +430,6 @@
           case 'gear':
             return {
               [item.type]: item.key,
-              hideShield: item.twoHanded,
-              isEquippedTwoHanded: this.content.gear.flat[this.user.items.gear.equipped.weapon].twoHanded,
             };
           case 'backgrounds':
             return {

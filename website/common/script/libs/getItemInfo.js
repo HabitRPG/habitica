@@ -30,7 +30,6 @@ function getDefaultGearProps (item, language) {
     text: item.text(language),
     notes: item.notes(language),
     type: item.type,
-    twoHanded: item.twoHanded,
     specialClass: item.specialClass,
     locked: false,
     purchaseType: 'gear',
