@@ -8,7 +8,6 @@
     span.col-4 {{ $t('difficulty') }}
     span.col-8
       span.svg-icon.inline.icon-16(v-for="star of stars()", v-html="icons[star]")
-
 </template>
 <style lang="scss" scoped>
 
