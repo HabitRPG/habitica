@@ -28,7 +28,9 @@ describe('POST /user/sleep', () => {
     sandbox.spy(analytics, 'track');
 
     await user.post('/user/sleep');
+    await user.sync();
     expect(analytics.track).to.be.calledOnce;
+    expect(analytics.track).to.be.calledWith('sleep', sandbox.match.has('status', user.preferences.sleep));
 
     sandbox.restore();
   });
