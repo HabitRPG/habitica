@@ -241,6 +241,17 @@ export default {
       if (!group.quest.active) return false; // quest is pending, not started
       return group.quest.members[userid];
     },
+    acceptedCount () {
+      let count = 0;
+
+      if (!this.group || !this.group.quest) return count;
+
+      for (let uuid in this.group.quest.members) {
+        if (this.group.quest.members[uuid]) count += 1;
+      }
+
+      return count;
+    },
   },
   methods: {
     toggle () {

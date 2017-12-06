@@ -392,17 +392,6 @@ export default {
       if (!this.group.quest || !this.group.quest.members) return false;
       return Boolean(this.group.quest.members[this.user._id]);
     },
-    acceptedCount () {
-      let count = 0;
-
-      if (!this.group || !this.group.quest) return count;
-
-      for (let uuid in this.group.quest.members) {
-        if (this.group.quest.members[uuid]) count += 1;
-      }
-
-      return count;
-    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
