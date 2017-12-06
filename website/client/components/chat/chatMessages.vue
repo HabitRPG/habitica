@@ -334,12 +334,12 @@ export default {
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
+      this.loadProfileCache();
       return this.chat;
     },
   },
   watch: {
-    messages (oldValue, newValue) {
-      if (newValue.length === oldValue.length) return;
+    messages () {
       this.loadProfileCache();
     },
   },
@@ -378,12 +378,17 @@ export default {
       this._loadProfileCache(screenPosition);
     }, 1000),
     async _loadProfileCache (screenPosition) {
+      if (this.loading) return;
+      this.loading = true;
+
       let promises = [];
+      const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
 
       // @TODO: write an explination
-      if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
+      // @TODO: Remove this after enough messages are cached
+      if (!noProfilesLoaded && screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
         this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else if (screenPosition) {
+      } else if (!noProfilesLoaded && screenPosition) {
         return;
       }
 
@@ -420,6 +425,8 @@ export default {
           this.$set(this.cachedProfileData, uuid, {rejected: true});
         }
       }
+
+      this.loading = false;
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
