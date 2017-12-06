@@ -390,6 +390,11 @@ export default {
       let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
+
+        if (message.userStyles) {
+          this.$set(this.cachedProfileData, uuid, message.userStyles);
+        }
+
         if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           aboutToCache[uuid] = {};

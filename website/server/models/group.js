@@ -465,8 +465,30 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
+function setUserStyles (newMessage, user) {
+  let userStyles = {};
+  userStyles.items = {gear: {}};
+  let userCopy = user.toObject();
+  userStyles.items.gear = Object.assign({}, userCopy.items.gear);
+  userStyles.items.currentMount = userCopy.items.currentMount;
+  userStyles.items.currentPet = userCopy.items.currentPet;
+  userStyles.preferences = {};
+  if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
+  userStyles.preferences.hair = userCopy.preferences.hair;
+  userStyles.preferences.skin = userCopy.preferences.skin;
+  userStyles.preferences.shirt = userCopy.preferences.shirt;
+  userStyles.preferences.chair = userCopy.preferences.chair;
+  userStyles.preferences.size = userCopy.preferences.size;
+  userStyles.preferences.chair = userCopy.preferences.chair;
+  userStyles.preferences.background = userCopy.preferences.background;
+  userStyles.stats = userCopy.stats;
+  newMessage.userStyles = userStyles;
+}
+
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
+
+  setUserStyles(newMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes

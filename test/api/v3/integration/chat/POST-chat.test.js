@@ -1,5 +1,6 @@
 import {
   createAndPopulateGroup,
+  generateUser,
   translate as t,
   sleep,
   server,
@@ -361,6 +362,30 @@ describe('POST /chat', () => {
     let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
 
     expect(message.message.id).to.exist;
+  });
+
+  it('creates a chat with user styles', async () => {
+    const mount = 'test-mount';
+    const pet = 'test-pet';
+    const style = 'test-style';
+    user = await generateUser({
+      'items.currentMount': mount,
+      'items.currentPet': pet,
+      'preferences.style': style,
+    });
+    await user.sync();
+
+    const message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.currentMount).to.eql(user.items.currentMount);
+    expect(message.message.userStyles.items.currentPet).to.eql(user.items.currentPet);
+    expect(message.message.userStyles.preferences.style).to.eql(user.preferences.style);
+    expect(message.message.userStyles.preferences.hair).to.eql(user.preferences.hair);
+    expect(message.message.userStyles.preferences.skin).to.eql(user.preferences.skin);
+    expect(message.message.userStyles.preferences.shirt).to.eql(user.preferences.shirt);
+    expect(message.message.userStyles.preferences.chair).to.eql(user.preferences.chair);
+    expect(message.message.userStyles.preferences.background).to.eql(user.preferences.background);
   });
 
   it('sends group chat received webhooks', async () => {
