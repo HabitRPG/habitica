@@ -40,5 +40,6 @@ describe('POST /challenges/:challengeId/clone', () => {
 
     expect(cloneChallengeResponse.clonedTasks[0].text).to.eql(challengeTask.text);
     expect(cloneChallengeResponse.clonedTasks[0]._id).to.not.eql(challengeTask._id);
+    expect(cloneChallengeResponse.clonedTasks[0].challenge.id).to.eql(cloneChallengeResponse.clonedChallenge._id);
   });
 });

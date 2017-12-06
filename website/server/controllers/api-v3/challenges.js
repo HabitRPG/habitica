@@ -777,7 +777,7 @@ api.cloneChallenge = {
       body: tasksToClone,
     };
 
-    const clonedTasks = await createTasks(taskRequest, res, {user, savedChal});
+    const clonedTasks = await createTasks(taskRequest, res, {user, challenge: savedChal});
 
     res.respond(200, {clonedTasks, clonedChallenge: savedChal});
   },
