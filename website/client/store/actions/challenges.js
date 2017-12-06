@@ -10,6 +10,13 @@ export async function createChallenge (store, payload) {
   return newChallenge;
 }
 
+export async function cloneChallenge (store, payload) {
+  const response = await axios.post(`/api/v3/challenges/${payload.cloningChallengeId}/clone`, payload.challenge);
+  const newChallenge = response.data.data.clonedChallenge;
+  store.state.user.data.challenges.push(newChallenge._id);
+  return newChallenge;
+}
+
 export async function joinChallenge (store, payload) {
   let response = await axios.post(`/api/v3/challenges/${payload.challengeId}/join`);
 

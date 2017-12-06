@@ -139,7 +139,7 @@ import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHAL
 import { mapState } from 'client/libs/store';
 
 export default {
-  props: ['groupId', 'cloning'],
+  props: ['groupId'],
   directives: {
     markdown: markdownDirective,
   },
@@ -225,6 +225,8 @@ export default {
         shortName: '',
         todos: [],
       },
+      cloning: false,
+      cloningChallengeId: '',
       showCategorySelect: false,
       categoryOptions,
       categoriesHashByKey,
@@ -248,6 +250,17 @@ export default {
     });
 
     this.setUpWorkingChallenge();
+
+    this.$root.$on('habitica:clone-challenge', (data) => {
+      if (!data.challenge) return;
+      this.cloning = true;
+      this.cloningChallengeId = data.challenge._id;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:clone-challenge');
   },
   watch: {
     user () {
@@ -269,7 +282,6 @@ export default {
       if (this.creating) {
         return this.$t('createChallenge');
       }
-
       return this.$t('editingChallenge');
     },
     charactersRemaining () {
@@ -384,14 +396,22 @@ export default {
       let challengeDetails = clone(this.workingChallenge);
       challengeDetails.categories = serverCategories;
 
-      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
+      let challenge;
+      if (this.cloning) {
+        challenge = await this.$store.dispatch('challenges:cloneChallenge', {
+          challenge: challengeDetails,
+          cloningChallengeId: this.cloningChallengeId,
+        });
+        this.cloningChallengeId = '';
+      } else {
+        challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
+      }
+
       // @TODO: When to remove from guild instead?
       this.user.balance -= this.workingChallenge.prize / 4;
 
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
-
-      if (this.cloning) this.$store.state.challengeOptions.cloning = true;
 
       this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
