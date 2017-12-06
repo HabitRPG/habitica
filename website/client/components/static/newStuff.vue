@@ -16,7 +16,7 @@
         p(v-markdown='"The next Take This Challenge has launched, [It\'s Dangerous to Go Alone!](https://habitica.com/challenges/5f70ce5b-2d82-4114-8e44-ca65615aae62), with a focus on maintaining offline relationships. Be sure to check it out to earn additional pieces of the Take This armor set!"')
         p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
       .promo_armoire_backgrounds_201712.left-margin
-    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'Notice Me, Senpai!\': grand prize winner M T, and runners-up Trompadour, Eule, mizuki_F, PhiaFox, and Dragon. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t collected all the pieces already. It is located in your Rewards column. Enjoy!"')
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'Notice Me, Senpai!\': grand prize winner M L, and runners-up Trompadour, Eule, mizuki_F, PhiaFox, and Dragon. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t collected all the pieces already. It is located in your Rewards column. Enjoy!"')
     .small by Doctor B, the Take This team, Lemoness, and SabreCat
     br
 </template>
