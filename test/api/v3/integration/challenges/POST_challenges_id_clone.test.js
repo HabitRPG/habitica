@@ -1,9 +1,7 @@
 import {
   generateUser,
   generateGroup,
-  translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges/:challengeId/clone', () => {
   it('clones a challenge', async () => {

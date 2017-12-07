@@ -20,7 +20,6 @@ import {
 import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
 import csvStringify from '../../libs/csvStringify';
-import common from '../../../common';
 import {
   createTasks,
 } from '../../libs/taskManager';
@@ -734,6 +733,23 @@ api.selectChallengeWinner = {
   },
 };
 
+function cleanUpTask (task) {
+  let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
+
+  // Copy checklists but reset to uncomplete and assign new id
+  if (!cleansedTask.checklist) cleansedTask.checklist = [];
+  cleansedTask.checklist.forEach((item) => {
+    item.completed = false;
+    item.id = uuid();
+  });
+
+  if (cleansedTask.type !== 'reward') {
+    delete cleansedTask.value;
+  }
+
+  return cleansedTask;
+}
+
 /**
  * @api {post} /api/v3/challenges/:challengeId/clone Clone a challenge
  * @apiName CloneChallenge
@@ -768,9 +784,9 @@ api.cloneChallenge = {
     }).exec();
 
     const tasksToClone = challengeTasks.map(task => {
-      let clonedTask = cloneDeep(task);
+      let clonedTask = cloneDeep(task.toObject());
       let omittedTask = cleanUpTask(clonedTask);
-      return clonedTask;
+      return omittedTask;
     });
 
     const taskRequest = {
@@ -782,22 +798,5 @@ api.cloneChallenge = {
     res.respond(200, {clonedTasks, clonedChallenge: savedChal});
   },
 };
-
-function cleanUpTask (task) {
-  let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
-
-  // Copy checklists but reset to uncomplete and assign new id
-  if (!cleansedTask.checklist) cleansedTask.checklist = [];
-  cleansedTask.checklist.forEach((item) => {
-    item.completed = false;
-    item.id = uuid();
-  });
-
-  if (cleansedTask.type !== 'reward') {
-    delete cleansedTask.value;
-  }
-
-  return cleansedTask;
-}
 
 module.exports = api;
