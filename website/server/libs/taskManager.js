@@ -87,8 +87,8 @@ export async function createTasks (req, res, options = {}) {
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
     // Attempt to round priority
-    if (newTask.priority && Number.parseFloat(newTask.priority) !== NaN) {
-      newTask.priority = Number((newTask.priority).toFixed(1));
+    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
+      newTask.priority = Number(newTask.priority.toFixed(1));
     }
 
     if (challenge) {
