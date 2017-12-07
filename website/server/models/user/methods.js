@@ -314,6 +314,6 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   });
 };
 
-schema.methods.isAdmin = async function isAdmin () {
-  return this.backer && this.backer.admin;
+schema.methods.isAdmin = function isAdmin () {
+  return this.contributor && this.contributor.admin;
 };
