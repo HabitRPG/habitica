@@ -17,7 +17,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/account-transfer');
+const processUsers = require('./users/achievement-restore');
 processUsers()
   .then(() => {
     process.exit();
