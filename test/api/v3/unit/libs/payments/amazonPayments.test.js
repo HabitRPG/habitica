@@ -4,13 +4,14 @@ import uuid from 'uuid';
 
 import {
   generateGroup,
-} from '../../../../helpers/api-unit.helper.js';
-import { model as User } from '../../../../../website/server/models/user';
-import { model as Group } from '../../../../../website/server/models/group';
-import { model as Coupon } from '../../../../../website/server/models/coupon';
-import amzLib from '../../../../../website/server/libs/amazonPayments';
-import payments from '../../../../../website/server/libs/payments';
-import common from '../../../../../website/common';
+} from '../../../../../helpers/api-unit.helper.js';
+import { model as User } from '../../../../../../website/server/models/user';
+import { model as Group } from '../../../../../../website/server/models/group';
+import { model as Coupon } from '../../../../../../website/server/models/coupon';
+import amzLib from '../../../../../../website/server/libs/amazonPayments';
+import payments from '../../../../../../website/server/libs/payments';
+import common from '../../../../../../website/common';
+import { createNonLeaderGroupMember } from './paymentHelpers';
 
 const i18n = common.i18n;
 
@@ -28,7 +29,7 @@ describe('Amazon Payments', () => {
     let paymentCreateSubscritionStub;
     let amount = 5;
 
-    function expectAmazonStubs () {
+    function expectOrderReferenceSpy () {
       expect(setOrderReferenceDetailsSpy).to.be.calledOnce;
       expect(setOrderReferenceDetailsSpy).to.be.calledWith({
         AmazonOrderReferenceId: orderReferenceId,
@@ -44,10 +45,9 @@ describe('Amazon Payments', () => {
           },
         },
       });
+    }
 
-      expect(confirmOrderReferenceSpy).to.be.calledOnce;
-      expect(confirmOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
-
+    function expectAuthorizeSpy () {
       expect(authorizeSpy).to.be.calledOnce;
       expect(authorizeSpy).to.be.calledWith({
         AmazonOrderReferenceId: orderReferenceId,
@@ -60,6 +60,15 @@ describe('Amazon Payments', () => {
         TransactionTimeout: 0,
         CaptureNow: true,
       });
+    }
+
+    function expectAmazonStubs () {
+      expectOrderReferenceSpy();
+
+      expect(confirmOrderReferenceSpy).to.be.calledOnce;
+      expect(confirmOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
+
+      expectAuthorizeSpy();
 
       expect(closeOrderReferenceSpy).to.be.calledOnce;
       expect(closeOrderReferenceSpy).to.be.calledWith({ AmazonOrderReferenceId: orderReferenceId });
@@ -602,9 +611,7 @@ describe('Amazon Payments', () => {
     });
 
     it('should throw an error if user is not group leader', async () => {
-      let nonLeader = new User();
-      nonLeader.guilds.push(group._id);
-      await nonLeader.save();
+      let nonLeader = await createNonLeaderGroupMember(group);
 
       await expect(amzLib.cancelSubscription({user: nonLeader, groupId: group._id}))
         .to.eventually.be.rejected.and.to.eql({

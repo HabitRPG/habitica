@@ -3,14 +3,15 @@ import nconf from 'nconf';
 import moment from 'moment';
 import cc from 'coupon-code';
 
-import payments from '../../../../../website/server/libs/payments';
-import paypalPayments from '../../../../../website/server/libs/paypalPayments';
+import payments from '../../../../../../website/server/libs/payments';
+import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
 import {
   generateGroup,
-} from '../../../../helpers/api-unit.helper.js';
-import { model as User } from '../../../../../website/server/models/user';
-import { model as Coupon } from '../../../../../website/server/models/coupon';
-import common from '../../../../../website/common';
+} from '../../../../../helpers/api-unit.helper.js';
+import { model as User } from '../../../../../../website/server/models/user';
+import { model as Coupon } from '../../../../../../website/server/models/coupon';
+import common from '../../../../../../website/common';
+import { createNonLeaderGroupMember } from './paymentHelpers';
 
 const BASE_URL = nconf.get('BASE_URL');
 const i18n = common.i18n;
@@ -452,9 +453,7 @@ describe('Paypal Payments', ()  => {
     });
 
     it('should throw an error if user is not group leader', async () => {
-      let nonLeader = new User();
-      nonLeader.guilds.push(group._id);
-      await nonLeader.save();
+      let nonLeader = await createNonLeaderGroupMember(group);
 
       await expect(paypalPayments.subscribeCancel({user: nonLeader, groupId: group._id}))
         .to.eventually.be.rejected.and.to.eql({
