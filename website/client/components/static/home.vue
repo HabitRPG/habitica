@@ -598,9 +598,9 @@
           return;
         }
 
-        let partyInvite = '';
-        if (this.$route.query && this.$route.query.p) {
-          partyInvite = this.$route.query.p;
+        let groupInvite = '';
+        if (this.$route.query && this.$route.query.groupInvite) {
+          groupInvite = this.$route.query.groupInvite;
         }
 
         await this.$store.dispatch('auth:register', {
@@ -608,7 +608,7 @@
           email: this.email,
           password: this.password,
           passwordConfirm: this.passwordConfirm,
-          partyInvite,
+          groupInvite,
         });
 
         let redirectTo;
