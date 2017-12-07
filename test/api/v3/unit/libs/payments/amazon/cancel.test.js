@@ -25,6 +25,37 @@ describe('Amazon Payments - Cancel Subscription', () => {
     });
   }
 
+  function expectAmazonCancelSubscriptionSpy (groupId, lastBillingDate) {
+    expect(paymentCancelSubscriptionSpy).to.be.calledWith({
+      user,
+      groupId,
+      nextBill: moment(lastBillingDate).add({ days: subscriptionLength }),
+      paymentMethod: amzLib.constants.PAYMENT_METHOD,
+      headers,
+      cancellationReason: undefined,
+    });
+  }
+
+  function expectAmazonCancelUserSubscriptionSpy () {
+    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
+    expectAmazonCancelSubscriptionSpy(undefined, user.purchased.plan.lastBillingDate);
+  }
+
+  function expectAmazonCancelGroupSubscriptionSpy (groupId) {
+    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
+    expectAmazonCancelSubscriptionSpy(groupId, group.purchased.plan.lastBillingDate);
+  }
+
+  function expectBillingAggreementDetailSpy () {
+    getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
+      .returnsPromise()
+      .resolves({
+        BillingAgreementDetails: {
+          BillingAgreementStatus: {State: 'Open'},
+        },
+      });
+  }
+
   beforeEach(async () => {
     user = new User();
     user.profile.name = 'sender';
@@ -80,27 +111,13 @@ describe('Amazon Payments - Cancel Subscription', () => {
 
     await amzLib.cancelSubscription({user, headers});
 
-    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
-    expect(paymentCancelSubscriptionSpy).to.be.calledWith({
-      user,
-      groupId: undefined,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      headers,
-      cancellationReason: undefined,
-    });
+    expectAmazonCancelUserSubscriptionSpy();
     expectAmazonStubs();
   });
 
   it('should close a user subscription if amazon not closed', async () => {
     amzLib.getBillingAgreementDetails.restore();
-    getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
-      .returnsPromise()
-      .resolves({
-        BillingAgreementDetails: {
-          BillingAgreementStatus: {State: 'Open'},
-        },
-      });
+    expectBillingAggreementDetailSpy();
     let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').returnsPromise().resolves({});
     billingAgreementId = user.purchased.plan.customerId;
 
@@ -111,15 +128,7 @@ describe('Amazon Payments - Cancel Subscription', () => {
     expect(closeBillingAgreementSpy).to.be.calledWith({
       AmazonBillingAgreementId: billingAgreementId,
     });
-    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
-    expect(paymentCancelSubscriptionSpy).to.be.calledWith({
-      user,
-      groupId: undefined,
-      nextBill: moment(user.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      headers,
-      cancellationReason: undefined,
-    });
+    expectAmazonCancelUserSubscriptionSpy();
     amzLib.closeBillingAgreement.restore();
   });
 
@@ -148,27 +157,13 @@ describe('Amazon Payments - Cancel Subscription', () => {
 
     await amzLib.cancelSubscription({user, groupId: group._id, headers});
 
-    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
-    expect(paymentCancelSubscriptionSpy).to.be.calledWith({
-      user,
-      groupId: group._id,
-      nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      headers,
-      cancellationReason: undefined,
-    });
+    expectAmazonCancelGroupSubscriptionSpy(group._id);
     expectAmazonStubs();
   });
 
   it('should close a group subscription if amazon not closed', async () => {
     amzLib.getBillingAgreementDetails.restore();
-    getBillingAgreementDetailsSpy = sinon.stub(amzLib, 'getBillingAgreementDetails')
-      .returnsPromise()
-      .resolves({
-        BillingAgreementDetails: {
-          BillingAgreementStatus: {State: 'Open'},
-        },
-      });
+    expectBillingAggreementDetailSpy();
     let closeBillingAgreementSpy = sinon.stub(amzLib, 'closeBillingAgreement').returnsPromise().resolves({});
     billingAgreementId = group.purchased.plan.customerId;
 
@@ -179,15 +174,7 @@ describe('Amazon Payments - Cancel Subscription', () => {
     expect(closeBillingAgreementSpy).to.be.calledWith({
       AmazonBillingAgreementId: billingAgreementId,
     });
-    expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
-    expect(paymentCancelSubscriptionSpy).to.be.calledWith({
-      user,
-      groupId: group._id,
-      nextBill: moment(group.purchased.plan.lastBillingDate).add({ days: subscriptionLength }),
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      headers,
-      cancellationReason: undefined,
-    });
+    expectAmazonCancelGroupSubscriptionSpy(group._id);
     amzLib.closeBillingAgreement.restore();
   });
 });

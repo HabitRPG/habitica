@@ -16,7 +16,7 @@ describe('Amazon Payments - Subscribe', () => {
   let user, group, amount, billingAgreementId, sub, coupon, groupId, headers;
   let amazonSetBillingAgreementDetailsSpy;
   let amazonConfirmBillingAgreementSpy;
-  let amazongAuthorizeOnBillingAgreementSpy;
+  let amazonAuthorizeOnBillingAgreementSpy;
   let createSubSpy;
 
   beforeEach(async () => {
@@ -51,8 +51,8 @@ describe('Amazon Payments - Subscribe', () => {
     amazonConfirmBillingAgreementSpy = sinon.stub(amzLib, 'confirmBillingAgreement');
     amazonConfirmBillingAgreementSpy.returnsPromise().resolves({});
 
-    amazongAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
-    amazongAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
+    amazonAuthorizeOnBillingAgreementSpy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
+    amazonAuthorizeOnBillingAgreementSpy.returnsPromise().resolves({});
 
     createSubSpy = sinon.stub(payments, 'createSubscription');
     createSubSpy.returnsPromise().resolves({});
@@ -67,6 +67,53 @@ describe('Amazon Payments - Subscribe', () => {
     payments.createSubscription.restore();
     common.uuid.restore();
   });
+
+  function expectAmazonAuthorizeBillingAgreementSpy () {
+    expect(amazonAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
+    expect(amazonAuthorizeOnBillingAgreementSpy).to.be.calledWith({
+      AmazonBillingAgreementId: billingAgreementId,
+      AuthorizationReferenceId: common.uuid().substring(0, 32),
+      AuthorizationAmount: {
+        CurrencyCode: amzLib.constants.CURRENCY_CODE,
+        Amount: amount,
+      },
+      SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+      TransactionTimeout: 0,
+      CaptureNow: true,
+      SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
+      SellerOrderAttributes: {
+        SellerOrderId: common.uuid(),
+        StoreName: amzLib.constants.STORE_NAME,
+      },
+    });
+  }
+
+  function expectAmazonSetBillingAgreementDetailsSpy () {
+    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
+    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
+      AmazonBillingAgreementId: billingAgreementId,
+      BillingAgreementAttributes: {
+        SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+        SellerBillingAgreementAttributes: {
+          SellerBillingAgreementId: common.uuid(),
+          StoreName: amzLib.constants.STORE_NAME,
+          CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
+        },
+      },
+    });
+  }
+
+  function expectCreateSpy () {
+    expect(createSubSpy).to.be.calledOnce;
+    expect(createSubSpy).to.be.calledWith({
+      user,
+      customerId: billingAgreementId,
+      paymentMethod: amzLib.constants.PAYMENT_METHOD,
+      sub,
+      headers,
+      groupId,
+    });
+  }
 
   it('should throw an error if we are missing a subscription', async () => {
     await expect(amzLib.subscribe({
@@ -163,15 +210,7 @@ describe('Amazon Payments - Subscribe', () => {
       headers,
     });
 
-    expect(createSubSpy).to.be.calledOnce;
-    expect(createSubSpy).to.be.calledWith({
-      user,
-      customerId: billingAgreementId,
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      sub,
-      headers,
-      groupId,
-    });
+    expectCreateSpy();
 
     cc.validate.restore();
   });
@@ -186,51 +225,16 @@ describe('Amazon Payments - Subscribe', () => {
       headers,
     });
 
-    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
-    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
-      AmazonBillingAgreementId: billingAgreementId,
-      BillingAgreementAttributes: {
-        SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
-        SellerBillingAgreementAttributes: {
-          SellerBillingAgreementId: common.uuid(),
-          StoreName: amzLib.constants.STORE_NAME,
-          CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
-        },
-      },
-    });
+    expectAmazonSetBillingAgreementDetailsSpy();
 
     expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
     expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
       AmazonBillingAgreementId: billingAgreementId,
     });
 
-    expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
-    expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
-      AmazonBillingAgreementId: billingAgreementId,
-      AuthorizationReferenceId: common.uuid().substring(0, 32),
-      AuthorizationAmount: {
-        CurrencyCode: amzLib.constants.CURRENCY_CODE,
-        Amount: amount,
-      },
-      SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
-      TransactionTimeout: 0,
-      CaptureNow: true,
-      SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
-      SellerOrderAttributes: {
-        SellerOrderId: common.uuid(),
-        StoreName: amzLib.constants.STORE_NAME,
-      },
-    });
+    expectAmazonAuthorizeBillingAgreementSpy();
 
-    expect(createSubSpy).to.be.calledOnce;
-    expect(createSubSpy).to.be.calledWith({
-      user,
-      customerId: billingAgreementId,
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      sub,
-      headers,
-      groupId,
-    });
+    expectCreateSpy();
   });
 
   it('subscribes with amazon with price to existing users', async () => {
@@ -252,50 +256,12 @@ describe('Amazon Payments - Subscribe', () => {
       headers,
     });
 
-    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledOnce;
-    expect(amazonSetBillingAgreementDetailsSpy).to.be.calledWith({
-      AmazonBillingAgreementId: billingAgreementId,
-      BillingAgreementAttributes: {
-        SellerNote: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
-        SellerBillingAgreementAttributes: {
-          SellerBillingAgreementId: common.uuid(),
-          StoreName: amzLib.constants.STORE_NAME,
-          CustomInformation: amzLib.constants.SELLER_NOTE_SUBSCRIPTION,
-        },
-      },
-    });
-
+    expectAmazonSetBillingAgreementDetailsSpy();
     expect(amazonConfirmBillingAgreementSpy).to.be.calledOnce;
     expect(amazonConfirmBillingAgreementSpy).to.be.calledWith({
       AmazonBillingAgreementId: billingAgreementId,
     });
-
-    expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledOnce;
-    expect(amazongAuthorizeOnBillingAgreementSpy).to.be.calledWith({
-      AmazonBillingAgreementId: billingAgreementId,
-      AuthorizationReferenceId: common.uuid().substring(0, 32),
-      AuthorizationAmount: {
-        CurrencyCode: amzLib.constants.CURRENCY_CODE,
-        Amount: amount,
-      },
-      SellerAuthorizationNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
-      TransactionTimeout: 0,
-      CaptureNow: true,
-      SellerNote: amzLib.constants.SELLER_NOTE_ATHORIZATION_SUBSCRIPTION,
-      SellerOrderAttributes: {
-        SellerOrderId: common.uuid(),
-        StoreName: amzLib.constants.STORE_NAME,
-      },
-    });
-
-    expect(createSubSpy).to.be.calledOnce;
-    expect(createSubSpy).to.be.calledWith({
-      user,
-      customerId: billingAgreementId,
-      paymentMethod: amzLib.constants.PAYMENT_METHOD,
-      sub,
-      headers,
-      groupId,
-    });
+    expectAmazonAuthorizeBillingAgreementSpy();
+    expectCreateSpy();
   });
 });
