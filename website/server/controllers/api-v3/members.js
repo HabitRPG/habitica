@@ -476,7 +476,7 @@ api.sendPrivateMessage = {
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
     let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-    console.log(sender.isAdmin())
+
     if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, { receiverMsg: message });
