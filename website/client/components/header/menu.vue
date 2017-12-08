@@ -103,7 +103,7 @@ div
     }
 
     .nav-item .nav-link {
-      font-size: 14px;
+      font-size: 14px !important;
       padding: 16px 12px !important;
     }
   }
