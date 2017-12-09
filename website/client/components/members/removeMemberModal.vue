@@ -10,7 +10,7 @@
         v-model='removeMessage')
     .modal-footer
       button.pull-left.btn.btn-danger(@click='confirmRemoveMember()') {{ $t('yesRemove') }}
-      button.btn.btn-default(@click='close()') {{ $t('cancel') }}
+      button.btn.btn-secondary(@click='close()') {{ $t('cancel') }}
 </template>
 
 <style scoped>

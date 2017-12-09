@@ -10,7 +10,7 @@
           .form-group
             input.form-control(type='text', v-model='heroID', :placeholder="$t('UUID')")
           .form-group
-            button.btn.btn-default(@click='loadHero(heroID)')
+            button.btn.btn-secondary(@click='loadHero(heroID)')
               | {{ $t('loadUser') }}
 
       .row

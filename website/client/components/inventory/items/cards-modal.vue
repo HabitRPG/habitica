@@ -10,7 +10,7 @@
         div(v-markdown='cardMessage')
     .modal-footer
       small.pull-left {{ $t(cardType + 'CardExplanation')}}
-      button.btn.btn-default(@click='readCard()') {{ $t('ok') }}
+      button.btn.btn-secondary(@click='readCard()') {{ $t('ok') }}
 </template>
 
 <style scoped>

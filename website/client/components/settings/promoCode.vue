@@ -17,7 +17,7 @@
           input.form-control(type='number', v-model='codes.count', placeholder="Number of codes to generate (eg, 250)")
         .form-group
           button.btn.btn-primary(type='submit', @click='generateCodes(codes)') {{ $t('generate') }}
-          a.btn.btn-default(:href='getCodesUrl') {{ $t('getCodes') }}
+          a.btn.btn-secondary(:href='getCodesUrl') {{ $t('getCodes') }}
 </template>
 
 <script>

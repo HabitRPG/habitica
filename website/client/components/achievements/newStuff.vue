@@ -9,7 +9,7 @@
       new-stuff
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
-      button.btn.btn-default(@click='close()') {{ this.$t('cool') }}
+      button.btn.btn-secondary(@click='close()') {{ this.$t('cool') }}
       button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
 </template>
 

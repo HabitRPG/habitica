@@ -39,8 +39,8 @@
           tr(ng-repeat='drop in getQuestOwnerRewards(quest)')
             td {{drop.text()}}
     .modal-footer
-      button.btn.btn-default(ng-click='questHold = true; $close()') {{ $t('askLater') }}
-      button.btn.btn-default(ng-click='questReject(); $close()') {{ $t('reject') }}
+      button.btn.btn-secondary(ng-click='questHold = true; $close()') {{ $t('askLater') }}
+      button.btn.btn-secondary(ng-click='questReject(); $close()') {{ $t('reject') }}
       button.btn.btn-primary(ng-click='questAccept(); $close()') {{ $t('accept') }}
 </template>
 
