@@ -31,17 +31,12 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   methods: {
     ready () {
       // Guide.goto("intro",0)'
       this.$router.push('/avatar');
-      this.$root.$emit('hide::modal', 'welcome');
+      this.$root.$emit('bv::hide::modal', 'welcome');
     },
   },
 };

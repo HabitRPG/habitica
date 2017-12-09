@@ -22,13 +22,14 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
-              :class='userLevelStyle(cachedProfileData[msg.uuid])'
+              :class='userLevelStyle(msg)',
               @click="showMemberModal(msg.uuid)",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
+              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -41,7 +42,7 @@
                 .svg-icon(v-html="icons.copy")
                 | {{$t('copyAsTodo')}}
                 // @TODO make copyAsTodo work in the inbox
-            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted', @click='report(msg)')
+            span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
               .svg-icon(v-html="icons.report")
               | {{$t('report')}}
               // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
@@ -59,13 +60,14 @@
         .mentioned-icon(v-if='isUserMentioned(msg)')
         .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
         .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-        .card-block
+        .card-body
             h3.leader(
-              :class='userLevelStyle(cachedProfileData[msg.uuid])',
+              :class='userLevelStyle(msg)',
               @click="showMemberModal(msg.uuid)",
+              v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${cachedProfileData[msg.uuid].contributor.level}`]", v-if='cachedProfileData[msg.uuid] && cachedProfileData[msg.uuid].contributor && cachedProfileData[msg.uuid].contributor.level')
+              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -168,6 +170,7 @@
 
   h3 { // this is the user name
     cursor: pointer;
+    display: inline-block;
 
     .svg-icon {
       width: 10px;
@@ -246,6 +249,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from 'client/libs/store';
 import debounce from 'lodash/debounce';
+import escapeRegExp from 'lodash/escapeRegExp';
 import markdownDirective from 'client/directives/markdown';
 import Avatar from '../avatar';
 import styleHelper from 'client/mixins/styleHelper';
@@ -352,7 +356,8 @@ export default {
       let messagetext = message.text.toLowerCase();
       let username = user.profile.name;
       let mentioned = messagetext.indexOf(username.toLowerCase());
-      let pattern = `${username}([^\w]|$){1}`;
+      let escapedUsername = escapeRegExp(username);
+      let pattern = `@${escapedUsername}([^\w]|$){1}`;
 
       if (mentioned === -1) return message.highlight;
 
@@ -447,13 +452,13 @@ export default {
     },
     copyAsTodo (message) {
       this.copyingMessage = message;
-      this.$root.$emit('show::modal', 'copyAsTodo');
+      this.$root.$emit('bv::show::modal', 'copyAsTodo');
     },
     async report (message) {
       this.$store.state.flagChatOptions.message = message;
       this.$store.state.flagChatOptions.groupId = this.groupId;
 
-      this.$root.$emit('show::modal', 'report-flag');
+      this.$root.$emit('bv::show::modal', 'report-flag');
     },
     async remove (message, index) {
       if (!confirm(this.$t('areYouSureDeleteMessage'))) return;
@@ -476,10 +481,10 @@ export default {
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {
-        // @TODO move to action or anyway move from here because it's super duplicate
-        this.$store.state.profileUser = profile;
-        this.$store.state.profileOptions.startingPage = 'profile';
-        this.$root.$emit('show::modal', 'profile');
+        this.$root.$emit('habitica:show-profile', {
+          user: profile,
+          startingPage: 'profile',
+        });
       }
     },
   },

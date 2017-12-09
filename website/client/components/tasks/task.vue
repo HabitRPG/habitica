@@ -13,23 +13,58 @@
           .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed}")
       // Task title, description and icons
       .task-content(:class="contentClass")
-        .task-clickable-area(@click="edit($event, task)")
-          h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-          .task-notes.small-text(v-markdown="task.notes")
+        .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
+          .d-flex.justify-content-between
+            h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
+            menu-dropdown.task-dropdown(
+              v-if="isUser && !isRunningYesterdailies",
+              :right="task.type === 'reward'",
+              ref="taskDropdown"
+            )
+              div(slot="dropdown-toggle", draggable=false)
+                .svg-icon.dropdown-icon(v-html="icons.menu")
+              div(slot="dropdown-content", draggable=false)
+                .dropdown-item.edit-task-item(ref="editTaskItem")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.edit-icon(v-html="icons.edit")
+                    span.text {{ $t('edit') }}
+                .dropdown-item(@click="moveToTop")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.push-to-top(v-html="icons.top")
+                    span.text {{ $t('taskToTop') }}
+                .dropdown-item(@click="moveToBottom")
+                  span.dropdown-icon-item
+                    span.svg-icon.inline.push-to-bottom(v-html="icons.bottom")
+                    span.text {{ $t('taskToBottom') }}
+                .dropdown-item(@click="destroy", v-if="canDelete(task)")
+                  span.dropdown-icon-item.delete-task-item
+                    span.svg-icon.inline.delete(v-html="icons.delete")
+                    span.text {{ $t('delete') }}
+
+          .task-notes.small-text(
+            v-markdown="task.notes",
+            :class="{'has-checklist': task.notes && hasChecklist}",
+          )
         .checklist(v-if="canViewchecklist")
           .d-inline-flex
             .collapse-checklist.d-flex.align-items-center.expand-toggle(
               v-if="isUser",
               @click="collapseChecklist(task)",
               :class="{open: !task.collapseChecklist}",
+              v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist ? 'expand': 'collapse'}Checklist`)",
             )
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
           label.custom-control.custom-checkbox.checklist-item(
-            v-if='!castingSpell && !task.collapseChecklist',
+            v-if='!task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
-            input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+            input.custom-control-input(
+              type="checkbox",
+              :checked="item.completed",
+              @change="toggleChecklistItem(item)",
+              :disabled="castingSpell",
+            )
             span.custom-control-indicator
             span.custom-control-description(v-markdown='item.text')
         .icons.small-text.d-flex.align-items-center
@@ -49,13 +84,15 @@
               .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
-            b-popover.tags-popover.no-span-margin(
+            #tags-popover
+            b-popover(
               v-if="hasTags",
               :target="`tags-icon-${task._id}`",
               triggers="hover",
               placement="bottom",
+              container="tags-popover",
             )
-              .d-flex.align-items-center
+              .d-flex.align-items-center.tags-container
                 .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
                 .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
@@ -70,7 +107,7 @@
     approval-footer(:task='task', v-if='this.task.group.id', :group='group')
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
   .task {
@@ -78,14 +115,13 @@
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: transparent;
     border-radius: 2px;
-    z-index: 9;
     position: relative;
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
 
       .left-control, .right-control, .task-content {
-        border-color: $purple-500;
+        border-color: $purple-400;
       }
     }
   }
@@ -99,32 +135,119 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
+    margin-right: 15px;
+    line-height: 1.43;
+    font-size: 14px;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-notes {
-      padding-bottom: 0px;
+      padding-bottom: 4px;
+    }
+  }
+
+  .task-clickable-area {
+    padding: 7px 8px;
+    padding-bottom: 0px;
+
+    &-user {
+      padding-right: 0px;
+    }
+  }
+
+  .task-title + .task-dropdown /deep/ .dropdown-menu {
+    margin-top: 2px !important;
+  }
+
+  .dropdown-icon {
+    width: 4px;
+    height: 16px;
+    margin-right: 10px;
+    color: $gray-100 !important;
+  }
+
+  .task /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 0;
+    padding: 0 8px;
+    transition: opacity 0.15s ease-in;
+  }
+
+  .task:hover /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 1;
+  }
+
+  .task-clickable-area /deep/ .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
+    opacity: 1;
+
+    .svg-icon {
+      color: $purple-400 !important;
+    }
+  }
+
+  .task-clickable-area /deep/ .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
+    color: $purple-400 !important;
+  }
+
+  .task-dropdown {
+    max-height: 16px;
+  }
+
+  .task-dropdown /deep/ .dropdown-menu {
+    .dropdown-item {
+      cursor: pointer !important;
+      transition: none;
+
+      * {
+        transition: none;
+      }
+
+      &:hover {
+        color: $purple-300;
+
+        .svg-icon.push-to-top, .svg-icon.push-to-bottom {
+          * {
+            stroke: $purple-300;
+          }
+        }
+      }
     }
   }
 
   .task-notes {
     color: $gray-100;
     font-style: normal;
+    padding-right: 20px;
+    min-width: 0px;
+    overflow-wrap: break-word;
+
+    &.has-checklist {
+      padding-bottom: 8px;
+    }
   }
 
   .task-content {
-    padding: 8px;
+    padding-top: 0px;
+    padding-bottom: 7px;
     flex-grow: 1;
     cursor: pointer;
     background: $white;
     border: 1px solid transparent;
+    transition-duration: 0.15;
+    min-width: 0px;
 
     &.no-right-border {
       border-right: none !important;
+    }
+
+    &.reward-content {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
     }
   }
 
   .checklist {
     margin-bottom: 2px;
-    margin-top: 8px;
+    margin-top: -3px;
   }
 
   .collapse-checklist {
@@ -154,6 +277,9 @@
     margin-bottom: 10px;
     min-height: 0px;
     width: 100%;
+    margin-left: 8px;
+    padding-right: 20px;
+    overflow-wrap: break-word;
 
     &-done {
       color: $gray-300;
@@ -167,7 +293,12 @@
     .custom-control-description {
       margin-left: 6px;
       padding-top: 0px;
+      min-width: 0px;
     }
+  }
+
+  .icons, .checklist {
+    padding: 0 8px;
   }
 
   .icons {
@@ -188,13 +319,37 @@
     margin-left: 4px;
   }
 
-  .no-span-margin span {
-    margin-left: 0px !important;
-  }
-
   .svg-icon.streak {
     width: 11.6px;
     height: 7.1px;
+  }
+
+  .delete-task-item {
+    color: $red-10;
+  }
+
+  .edit-task-item span.text {
+    margin-left: -3px;
+  }
+
+  .svg-icon.edit-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .svg-icon.push-to-top, .svg-icon.push-to-bottom {
+    width: 10px;
+    height: 11px;
+    margin-left: 3px;
+
+    svg {
+      stroke: $purple-300;
+    }
+  }
+
+  .svg-icon.delete {
+    width: 14px;
+    height: 16px;
   }
 
   .tags.svg-icon, .calendar.svg-icon {
@@ -235,6 +390,12 @@
     flex-shrink: 0;
   }
 
+  .left-control, .right-control, .task-control {
+    transition-duration: 0.15s;
+    transition-property: border-color, background, color;
+    transition-timing-function: ease-in;
+  }
+
   .left-control {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -244,6 +405,8 @@
 
     & + .task-content {
       border-left: none;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
     }
   }
 
@@ -291,34 +454,37 @@
       font-weight: bold;
     }
   }
+
+  #tags-popover /deep/ {
+    .tags-container {
+      flex-wrap: wrap;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tags-popover-title {
+      margin-right: 4px;
+      display: block;
+      float: left;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tag-label {
+      display: block;
+      float: left;
+      margin-left: 4px;
+      border-radius: 100px;
+      background-color: $gray-50;
+      padding: 4px 10px;
+      color: $gray-300;
+      white-space: nowrap;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
 </style>
 
-<style lang="scss">
-  // not working as scoped css
-  @import '~client/assets/scss/colors.scss';
-
-  .tags-popover {
-    // TODO fix padding, see https://github.com/bootstrap-vue/bootstrap-vue/issues/559#issuecomment-311150335
-    white-space: nowrap;
-  }
-
-  .tags-popover-title {
-    margin-right: 4px;
-    display: block;
-    float: left;
-  }
-
-  .tag-label {
-    display: block;
-    float: left;
-    margin-left: 4px;
-    border-radius: 100px;
-    background-color: $gray-50;
-    padding: 4px 10px;
-    color: $gray-300;
-    white-space: nowrap;
-  }
-</style>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'client/libs/store';
@@ -336,19 +502,24 @@ import calendarIcon from 'assets/svg/calendar.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
+import editIcon from 'assets/svg/edit.svg';
+import topIcon from 'assets/svg/top.svg';
+import bottomIcon from 'assets/svg/bottom.svg';
+import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
-import bPopover from 'bootstrap-vue/lib/components/popover';
+import menuIcon from 'assets/svg/menu.svg';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
+import MenuDropdown from '../ui/customMenuDropdown';
 
 export default {
   mixins: [notifications],
   components: {
-    bPopover,
     approvalFooter,
     approvalHeader,
+    MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
@@ -366,6 +537,11 @@ export default {
         tags: tagsIcon,
         check: checkIcon,
         checklist: checklistIcon,
+        delete: deleteIcon,
+        edit: editIcon,
+        top: topIcon,
+        bottom: bottomIcon,
+        menu: menuIcon,
       }),
     };
   },
@@ -373,15 +549,19 @@ export default {
     ...mapState({
       user: 'user.data',
       castingSpell: 'spellOptions.castingSpell',
+      isRunningYesterdailies: 'isRunningYesterdailies',
     }),
     ...mapGetters({
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
+      canDelete: 'tasks:canDelete',
     }),
+    hasChecklist () {
+      return this.task.checklist && this.task.checklist.length > 0;
+    },
     canViewchecklist () {
-      let hasChecklist = this.task.checklist && this.task.checklist.length > 0;
       let userIsTaskUser = this.task.userId ? this.task.userId === this.user._id : true;
-      return hasChecklist && userIsTaskUser;
+      return this.hasChecklist && userIsTaskUser;
     },
     checklistProgress () {
       const totalItems = this.task.checklist.length;
@@ -405,11 +585,19 @@ export default {
       return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
+      const type = this.task.type;
+
       const classes = [];
       classes.push(this.getTaskClasses(this.task, 'content', this.dueDate));
-      if (this.task.type === 'reward' || this.task.type === 'habit') {
+
+      if (type === 'reward' || type === 'habit') {
         classes.push('no-right-border');
       }
+
+      if (type === 'reward') {
+        classes.push('reward-content');
+      }
+
       return classes;
     },
     showStreak () {
@@ -417,12 +605,22 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
+    timeTillDue () {
+      // this.task && is necessary to make sure the computed property updates correctly
+      const endOfToday = moment().endOf('day');
+      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
+
+      return moment.duration(endOfDueDate.diff(endOfToday));
+    },
     isDueOverdue () {
-      return moment().diff(this.task.date, 'days') >= 0;
+      return this.timeTillDue.asDays() <= 0;
     },
     dueIn () {
-      const dueIn = moment().to(this.task.date);
-      return this.$t('dueIn', {dueIn});
+      const dueIn = this.timeTillDue.asDays() === 0 ?
+        this.$t('today') :
+        this.timeTillDue.humanize(true);
+
+      return this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
@@ -432,6 +630,7 @@ export default {
     ...mapActions({
       scoreChecklistItem: 'tasks:scoreChecklistItem',
       collapseChecklist: 'tasks:collapseChecklist',
+      destroyTask: 'tasks:destroy',
     }),
     toggleChecklistItem (item) {
       if (this.castingSpell) return;
@@ -439,14 +638,32 @@ export default {
       this.scoreChecklistItem({taskId: this.task._id, itemId: item.id});
     },
     edit (e, task) {
+      if (this.isRunningYesterdailies) return;
+
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      if (target.tagName === 'A') { // Link
-        return;
-      } else if (!this.$store.state.spellOptions.castingSpell) {
+      if (target.tagName === 'A') return; // clicked on a link
+
+      const isDropdown = this.$refs.taskDropdown && this.$refs.taskDropdown.$el.contains(target);
+      const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
+
+      if (isDropdown && !isEditAction) return;
+
+      if (!this.$store.state.spellOptions.castingSpell) {
         this.$emit('editTask', task);
       }
+    },
+    moveToTop () {
+      this.$emit('moveTo', this.task, 'top');
+    },
+    moveToBottom () {
+      this.$emit('moveTo', this.task, 'bottom');
+    },
+    destroy () {
+      if (!confirm(this.$t('sureDelete'))) return;
+      this.destroyTask(this.task);
+      this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
       this.$root.$emit('castEnd', task, 'task', e);
@@ -553,8 +770,8 @@ export default {
       }
     },
     handleBrokenTask (task) {
-      this.$store.state.brokenChallengeTask = task;
-      this.$root.$emit('show::modal', 'broken-task-modal');
+      if (this.$store.state.isRunningYesterdailies) return;
+      this.$root.$emit('handle-broken-task', task);
     },
   },
 };

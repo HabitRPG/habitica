@@ -1,5 +1,5 @@
 <template lang="pug">
-.col-2.standard-sidebar.hidden-xs-down
+.standard-sidebar.d-none.d-sm-block
   .form-group
     input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
 
@@ -83,19 +83,19 @@ export default {
         },
         {
           label: 'mental_health',
-          key: 'mental_health ',
+          key: 'mental_health',
         },
         {
           label: 'getting_organized',
-          key: 'getting_organized ',
+          key: 'getting_organized',
         },
         {
           label: 'self_improvement',
-          key: 'self_improvement ',
+          key: 'self_improvement',
         },
         {
           label: 'spirituality',
-          key: 'spirituality ',
+          key: 'spirituality',
         },
         {
           label: 'time_management',

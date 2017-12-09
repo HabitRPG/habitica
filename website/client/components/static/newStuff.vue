@@ -4,24 +4,20 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 10/24/2017 - OCTOBER SUBSCRIBER ITEMS, BATCH BUYING, COSTUME CONTEST REMINDER, AND GUILD SPOTLIGHT
+    h2 12/5/2017 - ARMOIRE ITEMS, BACKGROUNDS, AND TAKE THIS CHALLENGE
     hr
     .media
       .media-body
-        h3 October Subscriber Item Set Revealed!
-        p(v-markdown='"The October Subscriber Item Set has been revealed: [the Imperious Imp Item Set](/user/settings/subscription)! You only have seven days to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!"')
-      .promo_mystery_201710
-    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-    .small by Lemoness
-    h3 Batch Buying
-    p We've added the ability to buy multiple quests, potions, eggs, food items, and saddles at once! Plus, if you're a subscriber, you can also buy multiple gems with gold. Batch buying is available in the shops as well as through your pinned Rewards. We hope this makes buying rewards and items even more motivating!
-    .small by TheHollidayInn and Apollo
-    h3 Community Costume Challenge Reminder
-    p(v-markdown='"There\'s just one week left to enter and complete the [Community Costume Challenge!](/challenges/76c69212-4f33-4198-81a8-ffeb51b16b8c) If you\'d like, you can also share your entry with fellow Habiticans on social media by using the hashtag #HabitoweenCostume. Join in the fun now for a chance to win the coveted Costume Contestant Badge!"')
-    .scene_positivity.center-block
-    h3 Guild Spotlight: Gatherings of Good Cheer
-    p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/10/24/gatherings-of-good-cheer-guilds-for-cultivating-positivity/) that highlights the Guilds that can help you as you work toward a more optimistic outlook! Check it out now to find Habitica\'s best communities for Cultivating Positivity."')
-    .small by Beffymaroo
+        h3 December Backgrounds and Armoire Items!
+        p We’ve added three new backgrounds to the Background Shop! Now your avatar can admire a Starry Winter Night, bask in the wonder of a Toymaker's Workshop, and glide along a Cross-Country Ski Trail. You can find them under User Icon > Backgrounds!
+        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Lamp-Lighter Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        .small by Vampitch, AnnDeLune, CitrineSun, and Hachiseiko
+        h3 Take This Challenge for December
+        p(v-markdown='"The next Take This Challenge has launched, [It\'s Dangerous to Go Alone!](https://habitica.com/challenges/5f70ce5b-2d82-4114-8e44-ca65615aae62), with a focus on maintaining offline relationships. Be sure to check it out to earn additional pieces of the Take This armor set!"')
+        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+      .promo_armoire_backgrounds_201712.left-margin
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'Notice Me, Senpai!\': grand prize winner M T, and runners-up Trompadour, Eule, mizuki_F, PhiaFox, and Dragon. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t collected all the pieces already. It is located in your Rewards column. Enjoy!"')
+    .small by Doctor B, the Take This team, Lemoness, and SabreCat
     br
 </template>
 

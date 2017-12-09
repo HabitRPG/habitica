@@ -21,7 +21,7 @@
     "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%= level %>.",
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello 100+.",
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
-    "rebirthPop": "Fai ripartire il tuo personaggio dal Livello 1 mantenendo medaglie, oggetti, equipaggiamento, attività e cronologia delle attività.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Sfera della Rinascita",
     "reborn": "Rinascita, livello massimo <%= reLevel %>",
     "confirmReborn": "Sei sicuro/a?",

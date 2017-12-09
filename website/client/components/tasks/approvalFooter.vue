@@ -2,10 +2,10 @@
 div
   approval-modal(:task='task')
   .claim-bottom-message.col-12
-    .task-unclaimed(v-if='!approvalRequested && !multipleApprovalsRequested')
-      | {{ message }}
-      a(@click='claim()', v-if='!userIsAssigned') Claim
-      a(@click='unassign()', v-if='userIsAssigned') Remove Claim
+    .task-unclaimed.d-flex.justify-content-between(v-if='!approvalRequested && !multipleApprovalsRequested')
+      span {{ message }}
+      a.text-right(@click='claim()', v-if='!userIsAssigned') Claim
+      a.text-right(@click='unassign()', v-if='userIsAssigned') Remove Claim
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') Approve Task
@@ -15,10 +15,20 @@ div
       a(@click='showRequests()') View Requests
 </template>
 
-<style scoped>
-  .task-unclaimed a {
-    float: right;
+<style lang="scss", scoped>
+.claim-bottom-message {
+  z-index: 9;
+}
+
+.task-unclaimed {
+  span {
+    margin-right: 0.25rem;
   }
+
+  a {
+    display: inline-block;
+  }
+}
 </style>
 
 <script>
@@ -53,15 +63,15 @@ export default {
       }
 
       if (assignedUsersLength === 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsersNames[0]}`;
+        return this.$t('assignedToUser', {userName: assignedUsersNames[0]});
       } else if (assignedUsersLength > 1 && !this.userIsAssigned) {
-        return `Assigned to ${assignedUsersLength} members`;
+        return this.$t('assignedToMembers', {userCount: assignedUsersLength});
       } else if (assignedUsersLength > 1 && this.userIsAssigned) {
-        return `Assigned to you and ${assignedUsersLength} members`;
+        return this.$t('assignedToYouAndMembers', {userCount: assignedUsersLength});
       } else if (this.userIsAssigned) {
-        return 'You are assigned to this task';
+        return this.$t('youAreAssigned');
       } else if (assignedUsersLength === 0) {
-        return 'This task is unassigned';
+        return this.$t('taskIsUnassigned');
       }
     },
     approvalRequested () {
@@ -72,27 +82,39 @@ export default {
     },
   },
   methods: {
-    claim () {
-      if (!confirm('Are you sure you want to claim this task?')) return;
+    async claim () {
+      if (!confirm(this.$t('confirmClaim'))) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:assignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       this.task.group.assignedUsers.push(this.user._id);
-      // @TODO: Reload user tasks?
     },
-    unassign () {
-      if (!confirm('Are you sure you want to unclaim this task?')) return;
+    async unassign () {
+      if (!confirm(this.$t('confirmUnClaim'))) return;
+
+      let taskId = this.task._id;
+      // If we are on the user task
+      if (this.task.userId) {
+        taskId = this.task.group.taskId;
+      }
+
       this.$store.dispatch('tasks:unassignTask', {
-        taskId: this.task._id,
+        taskId,
         userId: this.user._id,
       });
       let index = this.task.group.assignedUsers.indexOf(this.user._id);
       this.task.group.assignedUsers.splice(index, 1);
-      // @TODO: Reload user tasks?
     },
     approve () {
-      if (!confirm('Are you sure you want to approve this task?')) return;
+      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:unassignTask', {
         taskId: this.task._id,
@@ -105,7 +127,7 @@ export default {
 
     },
     showRequests () {
-      this.$root.$emit('show::modal', 'approval-modal');
+      this.$root.$emit('bv::show::modal', 'approval-modal');
     },
   },
 };

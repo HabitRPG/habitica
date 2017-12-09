@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "Eu concordo em cumprir com as Diretrizes da Comunidade",
-    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
+    "tavernCommunityGuidelinesPlaceholder": "Lembrete amigável: esta sala de chat é para todas as idades, por isso mantenha o conteúdo e linguagem apropriadas! Consulte as Diretrizes de Comunidade na barra lateral se tiver perguntas.",
     "commGuideHeadingWelcome": "Bem-vindo ao Habitica!",
     "commGuidePara001": "Saudações, aventureiro! Bem-vindo à Habitica, a terra da produtividade, vida saudável e um ocasional grifo furioso. Nós temos uma alegre comunidade cheia de pessoas prestativas ajudando umas às outras em seus caminhos para o auto-aperfeiçoamento.",
     "commGuidePara002": "Para ajudar a manter toda a gente segura, felizes e produtivos na comunidade, nós temos algumas diretrizes. Nós elaboramos-las cuidadosamente para torná-las tão amigáveis e fáceis de entender o quanto possível. Por favor, leia-as com atenção.",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>Um Comportamento Solidário.</strong> Habiticanos se animam com as vitórias dos outros e se confortam em tempos difíceis. Nós damos força, nos apoiamos e aprendemos uns com os outros. Em equipes, fazemos isso com nossos feitiços; em salas de conversa, fazemos isso com palavras gentis e solidárias.",
     "commGuideList01D": "<strong>Uma Conduta Respeitosa.</strong> Todos nós temos experiências diferentes, diferentes conjuntos de habilidades e diferentes opiniões. Isso é parte do que torna nossa comunidade tão maravilhosa! Habiticanos respeitam essas diferenças e as celebram. Fique por aqui e em breve você terá amigos de todos os tipos.",
     "commGuideHeadingMeet": "Conheça a Equipe e os Moderadores! ",
-    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
+    "commGuidePara006": "Habitica tem alguns cavaleiros-errantes infatigáveis que juntam forças com os membros de equipe para mantes a comunidade calma, contente e livre de trolls. Cada um tem um domínio específico, mas poderão ser chamados para servir noutras esferas sociais. A Equipa e Mods irão colocar prefixos em anúncios oficiais com as palavras \"Mod Talk\" ou \"Mod Had On\".",
     "commGuidePara007": "A Equipe tem etiquetas roxas marcadas com coroas. O título deles é \"Heroico\".",
     "commGuidePara008": "Moderadores tem etiquetas azul escuro marcadas com estrelas. O título deles é \"Guardião\". A única exceção é Bailey, que, sendo uma NPC, tem uma etiqueta preta e verde marcada com uma estrela.",
     "commGuidePara009": "Os atuais Membros da Equipe são (da esquerda para a direita):",
@@ -90,7 +90,7 @@
     "commGuideList04H": "Certificar-se que o conteúdo da wiki é relevante para todo o site do Habitica e não relativo  a uma única guilda ou grupo (tais informações podem ser movidas para os fóruns)",
     "commGuidePara049": "As seguintes pessoas são os atuais administradores da wiki:",
     "commGuidePara049A": "Os seguintes moderadores poder efetuar modificações de emergência em situações onde um moderador é necessário e os administradores acima não estão disponíveis:",
-    "commGuidePara018": "Wiki Administrators Emeritus are:",
+    "commGuidePara018": "Os Administradores Emeritus da Wiki são:",
     "commGuideHeadingInfractionsEtc": "Infrações, Consequências e Restauração",
     "commGuideHeadingInfractions": "Infrações",
     "commGuidePara050": "Em sua imensa maioria, Habiticanos auxiliam uns aos outros, são respeitosos, e trabalham para manter toda a comunidade divertida e amigável. Contudo, de vez em quando, algo que um Habiticano faz pode violar uma das diretrizes acima. Quando isso ocorre, os Mods tomarão as medidas que considerarem necessárias para manter Habitica segura e confortável para todos.",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "para enviar arte em pixel.",
     "commGuideLink08": "O Trello de Missões",
     "commGuideLink08description": "para enviar roteiros de missões.",
-    "lastUpdated": "Last updated:"
+    "lastUpdated": "Atualizado pela última vez em:"
 }

@@ -107,8 +107,8 @@
     "achievementDilatory": "Dilatorys Befriare",
     "achievementDilatoryText": "Hjälpte till att besegra Dilatorys Fruktade Drake sommaren 2014. ",
     "costumeContest": "Maskeraddeltagare",
-    "costumeContestText": "Deltog i Habitoweens Maskeradtävling. Se en del av bidragen på <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>HabitRPG-bloggen</a>!",
-    "costumeContestTextPlural": "Deltog i <%= count %> Habitoween Utklädnadstävlingar. Se några av artiklarna <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>på Habiticas blogg</a>!",
+    "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the awesome entries at blog.habitrpg.com!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "- Medlem sedan",
     "lastLoggedIn": "- Senast inloggad",
     "notPorted": "Denna funktion är inte flyttad från orginalhemsidan ännu.",
@@ -274,6 +274,6 @@
     "emptyMessagesLine2": "Skicka ett meddelande för att starta en konversation!",
     "letsgo": "Låt Oss Gå!",
     "selected": "Valda",
-    "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
+    "howManyToBuy": "Hur många vill du köpa?",
+    "habiticaHasUpdated": "Det finns en ny Habitica uppdatering. Ladda om sidan för att få den senaste versionen!"
 }

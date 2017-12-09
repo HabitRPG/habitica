@@ -107,8 +107,8 @@
     "achievementDilatory": "Retter von Dilatory",
     "achievementDilatoryText": "Hat bei der Sommer-Strandparty 2014 dabei geholfen, den Schreckensdrachen von Dilatory zu besiegen!",
     "costumeContest": "Kostümwettbewerbsteilnehmer",
-    "costumeContestText": "Hat am Habitoween-Kostümwettbewerb teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
-    "costumeContestTextPlural": "Hat an <%= count %> Habitoween-Kostümwettbewerben teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
+    "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the awesome entries at blog.habitrpg.com!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "- Mitglied seit",
     "lastLoggedIn": "- Zuletzt eingeloggt",
     "notPorted": "Dieses Feature wurde noch nicht von der ursprünglichen Seite portiert.",
@@ -274,6 +274,6 @@
     "emptyMessagesLine2": "Beginne eine Unterhaltung, indem Du eine Nachricht verschickst!",
     "letsgo": "Auf geht's!",
     "selected": "Ausgewählt",
-    "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new version of Habitica. Would you like to refresh to get the latest updates?"
+    "howManyToBuy": "Wie viele möchtest Du kaufen?",
+    "habiticaHasUpdated": "Es gibt ein Update von Habitica. Aktualisiere, um die neueste Version zu bekommen!"
 }

@@ -29,6 +29,7 @@
     "either": "Les deux",
     "createChallenge": "Créer un défi",
     "createChallengeAddTasks": "Ajouter une tâche de défi",
+    "createChallengeCloneTasks": "Dupliquer les tâches de défi",
     "addTaskToChallenge": "Ajouter une tâche",
     "discard": "Supprimer",
     "challengeTitle": "Titre du défi",
@@ -90,7 +91,7 @@
     "joinedChallenge": "A rejoint un défi",
     "joinedChallengeText": "Cet utilisateur s'est mis à l'épreuve en rejoignant un défi !",
     "myChallenges": "Mes défis",
-    "findChallenges": "Découvrez des défis",
+    "findChallenges": "Découvrir des défis",
     "noChallengeTitle": "Vous n'avez aucun défi.",
     "challengeDescription1": "Les défis sont des événements communautaires dans lesquels les joueurs s'affrontent et gagnent des prix en complétant une série de tâches spécifiques.",
     "challengeDescription2": "Trouvez des défis recommandés sur la base de vos centres d'intérêt, parcourez la liste des défis publics d'Habitica, ou créez vos propres défis.",
@@ -126,5 +127,6 @@
     "locationRequired": "Le lieu du défi est requis ('Ajouter à')",
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
     "viewProgressOf": "Voir la progression de",
-    "selectMember": "Choisir un membre"
+    "selectMember": "Choisir un membre",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

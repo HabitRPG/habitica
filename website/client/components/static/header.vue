@@ -1,5 +1,5 @@
 <template lang="pug">
-  nav.navbar.navbar-inverse.fixed-top.navbar-toggleable-sm
+  nav.navbar.navbar-inverse.fixed-top.navbar-expand-sm
     .navbar-header
       router-link.nav-item(:to='!isUserLoggedIn ? "/static/home" : "/"')
         .logo.svg-icon(v-html='icons.logo')

@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "你已经举报过此信息。",
     "messageGroupChatNotFound": "找不到消息。",
     "messageGroupChatAdminClearFlagCount": "只有管理员可以去除计数！",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "嚯呀，看上去你发布太多信息了！请稍等一下再试一次。酒馆的聊天记录一次只能保存200条，所以Habitica鼓励更长的发帖间隔时间、更考虑周到的消息和更全面的回复。迫不及待想知道你要说什么。：）",
     "messageUserOperationProtected": "路径 `<%= operation %>`因受到保护未保存。",
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",

@@ -628,6 +628,43 @@ describe('POST /tasks/user', () => {
       });
     });
 
+    it('returns an error if everyX is a non int', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: 2.5,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
+    it('returns an error if everyX is negative', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: -1,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
+    it('returns an error if everyX is above 9999', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: 10000,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
+
     it('can create checklists', async () => {
       let task = await user.post('/tasks/user', {
         text: 'test daily',

@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, du fantastiske person! Du er nu trin <%= level %> bidragyder fordi du hjalp Habitica. Se",
     "contribLink": "hvilke præmier du har fået for dit bidrag!",
     "contribName": "Bidragsyder",
-    "contribText": "Har bidraget til Habitica (kode, design, pixelkunst, juridisk rådgivning, dokumenter osv.). Vil du have dette emblem? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Læs mere her.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Læs mere",
     "kickstartName": "Kickstarterstøtte - $<%= key %> trin",
     "kickstartText": "Støttede Kickstarterprojektet",

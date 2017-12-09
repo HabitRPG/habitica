@@ -9,7 +9,7 @@
     "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
     "spellWizardFrostAlreadyCast": "今天你已經用了「極寒霜凍」技能，不需要再用一次了！",
     "spellWarriorSmashText": "致命一擊",
-    "spellWarriorSmashNotes": "You make a task more blue/less red to deal extra damage to Bosses! (Based on: STR)",
+    "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "防禦姿態",
     "spellWarriorDefensiveStanceNotes": "You crouch low and gain a buff to Constitution! (Based on: Unbuffed CON)",
     "spellWarriorValorousPresenceText": "英勇現身",

@@ -28,7 +28,7 @@
     "seasonalShop": "Seizoenswinkel",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seizoenstovenares<%= linkEnd %>",
-    "seasonalShopClosedText": "The Seasonal Shop is currently closed!! It’s only open during Habitica’s four Grand Galas.",
+    "seasonalShopClosedText": "De seizoenswinkel is momenteel gesloten!! Hij is alleen open tijdens Habitica's vier Grote Gala's.",
     "seasonalShopText": "Happy Spring Fling!! Would you like to buy some rare items? They’ll only be available until April 30th!",
     "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? They’ll only be available until July 31st!",
     "seasonalShopFallText": "Happy Fall Festival!! Would you like to buy some rare items? They’ll only be available until October 31st!",
@@ -118,6 +118,7 @@
     "dateEndJune": "14 juni",
     "dateEndJuly": "29 juli",
     "dateEndAugust": "31 augustus",
-    "dateEndOctober": "October 31",
+    "dateEndOctober": "31 oktober",
+    "dateEndNovember": "30 november",
     "discountBundle": "bundel"
 }
