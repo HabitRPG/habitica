@@ -358,9 +358,11 @@ describe('POST /chat', () => {
   });
 
   it('creates a chat', async () => {
-    let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const newMessage = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const groupMessages = await user.get(`/groups/${groupWithChat._id}/chat`);
 
-    expect(message.message.id).to.exist;
+    expect(newMessage.message.id).to.exist;
+    expect(groupMessages[0].id).to.exist;
   });
 
   it('sends group chat received webhooks', async () => {

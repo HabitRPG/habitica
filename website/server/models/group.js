@@ -7,6 +7,7 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import { model as Chat } from './chat';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -467,6 +468,9 @@ export function chatDefaults (msg, user) {
 
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
+  let newChatMessage = new Chat();
+  newChatMessage = Object.assign(newChatMessage, newMessage);
+  newChatMessage.groupId = this._id;
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
@@ -489,7 +493,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
-    return;
+    return newChatMessage;
   }
 
   // Kick off chat notifications in the background.
@@ -514,7 +518,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
   }
 
-  return newMessage;
+  return newChatMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {

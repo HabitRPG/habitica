@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
+import { model as Chat } from '../../models/chat';
 import {
   BadRequest,
   NotFound,
@@ -86,8 +87,12 @@ api.getChat = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'chat'});
+    const groupId = req.params.groupId;
+    let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
+    group.chat = groupChat.concat(group.chat);
 
     res.respond(200, Group.toJSONCleanChat(group, user).chat);
   },
@@ -183,6 +188,9 @@ api.postChat = {
       }
     }
 
+    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
+    group.chat = groupChat.concat(group.chat);
+
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
@@ -190,12 +198,12 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    let newChatMessage = group.sendChat(req.body.message, user);
+    const newChatMessage = group.sendChat(req.body.message, user);
 
-    let toSave = [group.save()];
+    let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
-      user.party.lastMessageSeen = group.chat[0].id;
+      user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
 
@@ -211,7 +219,7 @@ api.postChat = {
     if (chatUpdated) {
       res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {
-      res.respond(200, {message: savedGroup.chat[0]});
+      res.respond(200, {message: newChatMessage});
     }
 
     group.sendGroupChatReceivedWebhooks(newChatMessage);
