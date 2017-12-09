@@ -112,7 +112,7 @@ div
     #nav_collapse {
       margin-top: 0.6em;
       flex-direction: row !important;
-      height: 500px;
+      max-height: 650px;
       overflow: auto;
     }
 
