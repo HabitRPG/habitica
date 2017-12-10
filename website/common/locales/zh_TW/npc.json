@@ -88,7 +88,7 @@
     "plusOneGem": "+1 寶石",
     "typeNotSellable": "這種東西不能賣。一定要是包含在<%= acceptedTypes %>裡的才能。",
     "userItemsKeyNotFound": "Key not found for user.items <%= type %>",
-    "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Path string is required",
     "unlocked": "物品解鎖",
     "alreadyUnlocked": "Full set already unlocked.",

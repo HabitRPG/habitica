@@ -127,5 +127,6 @@
     "locationRequired": "Мястото на предизвикателството е задължително („Добавяне в“)",
     "categoiresRequired": "Задължително е да бъде избрана поне една категория",
     "viewProgressOf": "Преглед на напредъка на",
-    "selectMember": "Изберете член"
+    "selectMember": "Изберете член",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

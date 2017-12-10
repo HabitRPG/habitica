@@ -78,6 +78,7 @@
     "mustLvlQuest": "你需要达到第<%= level %>级才能买这个任务！",
     "mustInviteFriend": "要完成这个任务，你需要邀请一个朋友加入你的队伍。现在就发出邀请吗？",
     "unlockByQuesting": "为了解锁这个任务，请先完成<%= title %>。",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "你是否确定要放弃这个探索任务？这将会失去所有已接受的邀请。探索任务拥有者将拿回探索任务卷轴。",
     "sureAbort": "你是否确定要放弃这个任务？这样做会让你的所有队员都退出这个任务，并且消除所有进度。任务卷轴将会回到任务拥有者手上。",
     "doubleSureAbort": "你真的真的要这样做吗？要确保他们不会讨厌你一辈子哟！",

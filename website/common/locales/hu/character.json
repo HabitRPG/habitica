@@ -163,6 +163,7 @@
     "dieText": "Elvesztettél egy szintet, minden aranyad és egy véletlenszerű tárgyat. Kelj fel, kalandor és próbálkozz újra! Zabolázd meg azokat a fránya rossz szokásokat, figyelj a napi feladatokra és tartsd magadtól távol a halált egy gyógyitallal!",
     "sureReset": "Biztos vagy benne? Ezzel visszaállítod a kasztodat és a kiosztott pontjaidat (mindet visszakapod, hogy újra kioszthasd őket) a kiindulási állapotra. Ez 3 drágakőbe kerül.",
     "purchaseFor": "Megveszed <%= cost %>  drágakőért?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Nincs elég mana.",
     "invalidTarget": "Erre nem varázsolhatsz.",
     "youCast": "Egy <%= spell %>-t varázsoltál.",

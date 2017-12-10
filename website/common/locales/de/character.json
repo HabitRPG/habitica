@@ -163,6 +163,7 @@
     "dieText": "Du hast ein Level, Dein gesamtes Gold und einen zufälliges Teil Deiner Ausrüstung verloren. Erhebe Dich, Habiticaner, und versuche es erneut! Gebiete diesen schlechten Gewohnheiten Einhalt, sei gewissenhaft bei der Erfüllung Deiner täglichen Aufgaben und halte Dir den Tod mit Heiltränken vom Leib, wenn Du einmal straucheln solltest!",
     "sureReset": "Bist Du sicher? Dies wird Deine Klasse und Attributpunkte zurücksetzen (Du erhältst alle Punkte zurück, um sie neu zuzuweisen). Es kostet 3 Edelsteine.",
     "purchaseFor": "Für <%= cost %> Edelsteine erwerben?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Nicht genug Mana.",
     "invalidTarget": "Du kannst Deine Fähigkeit hierauf nicht anwenden.",
     "youCast": "Du verwendest <%= spell %>.",

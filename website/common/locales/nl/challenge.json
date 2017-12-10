@@ -127,5 +127,6 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "Er moeten één of meerdere categorieën zijn geselecteerd",
     "viewProgressOf": "Bekijk vooruitgang van",
-    "selectMember": "Lid selecteren"
+    "selectMember": "Lid selecteren",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

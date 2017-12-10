@@ -163,6 +163,7 @@
     "dieText": "Você perdeu um nível, todo seu Ouro, e uma peça aleatória de Equipamento. Erga-se, Habiteer, e tente novamente! Acabe com esses Hábitos negativos, esteja atento a realização de suas Tarefas Diárias, e afaste a morte com uma Poção de Vida caso vacilar!",
     "sureReset": "Tem a certeza? Isto irá reinicializar a classe da sua personagem bem como pontos de atributos (irá recebê-los de volta para redistribuir) ao custo de 3 Gemas.",
     "purchaseFor": "Comprar por <%= cost %> Gemas?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Mana insuficiente.",
     "invalidTarget": "Não pode lançar uma habilidade nisso.",
     "youCast": "Você conjurou <%= spell %>.",

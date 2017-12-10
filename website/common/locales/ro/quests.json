@@ -78,6 +78,7 @@
     "mustLvlQuest": "Trebuie să ai nivelul <%= level %> ca să cumperi această aventură!",
     "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Ești sigur că vrei să anulezi această aventură? Toate invitațiile acceptate vor fi pierdute. Posesorul aventurii va păstra răvașul aventurii.",
     "sureAbort": "Ești sigur că vrei să abandonezi această misiune? Ea va fi abandonată pentru toți din echipa ta și tot progresul va fi pierdut.",
     "doubleSureAbort": "Ești sigur sigur ? Asigură-te că nu te vor urî pentru totdeauna!",

@@ -62,7 +62,7 @@
     "day": "Giorno",
     "days": "Giorni",
     "restoreStreak": "Ripristina Serie",
-    "resetStreak": "Reset Seire",
+    "resetStreak": "Reset serie",
     "todo": "Cosa Da Fare",
     "todos": "Cose Da Fare",
     "newTodo": "Nuova Cosa Da Fare",
@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Conferma che questa Daily non era stata completata prima di applicare il danno",
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
-    "searchTasks": "Cerca titoli e descrizioni..."
+    "searchTasks": "Cerca titoli e descrizioni...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Confirm that this Daily wasn't done before applying damage",
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
     "repeatDayError": "Tjek venligst at du har mindst en ugedag valgt.",
-    "searchTasks": "Search titles and descriptions..."
+    "searchTasks": "Search titles and descriptions...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

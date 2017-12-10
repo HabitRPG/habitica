@@ -78,6 +78,7 @@
     "mustLvlQuest": "Du skal være niveau <%= level %> for at købe denne quest!",
     "mustInviteFriend": "For at få denne quest skal du invitere en ven til din gruppe. Vil du invitere nogen nu?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Er du sikker på at du vil afbryde denne quest? Alle invitation-accepter vil gå tabt. Quest-lederen vil beholde quest-skriftrullen.",
     "sureAbort": "Er du sikker på at du vil afbryde missionen? Det vil afbryde den for alle i gruppen og al fremskridt vil gå tabt. Quest-skriftrullen vil blive returneret til quest-lederen.",
     "doubleSureAbort": "Er du helt sikker? Tjek lige at de ikke vil hade dig for evigt!",
