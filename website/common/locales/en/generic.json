@@ -142,7 +142,10 @@
   "audioTheme_arashiTheme": "Arashi's Theme",
   "audioTheme_maflTheme": "MAFL Theme",
   "audioTheme_pizildenTheme": "Pizilden's Theme",
+<<<<<<< HEAD
   "audioTheme_farvoidTheme": "Farvoid Theme",
+=======
+>>>>>>> develop
   "askQuestion": "Ask a Question",
   "reportBug": "Report a Bug",
   "HabiticaWiki": "The Habitica Wiki",

@@ -41,7 +41,7 @@
     "hatchingPotion": "Schlüpfelixier",
     "noHatchingPotions": "Du hast im Moment keine Schlüpfelixiere.",
     "inventoryText": "Klicke auf ein Ei um die anwendbaren Elixiere grün hervorgehoben zu sehen. Klicke dann auf ein hervorgehobenes Elixier, um Dein Haustier auszubrüten. Falls kein Elixier hervorgehoben wird, klicke auf das Ei um es abzuwählen und klicke diesmal zuerst auf das Elixier, um die Eier hervorzuheben. Du kannst überflüssige Gegenstände auch an Alexander den Händler verkaufen.",
-    "haveHatchablePet": "Du hast ein <%= potion %>Schlüpfelixier und <%= egg %>Ei um dieses Haustier auszubrüten! <b>klicke</b> auf den Pfotenabdruck, damit es schlüpft.",
+    "haveHatchablePet": "Du hast ein <%= potion %> Schlüpfelixier und ein <%= egg %>-Ei, um dieses Haustier auszubrüten! <b>Klicke</b> auf den Pfotenabdruck, damit es schlüpft.",
     "quickInventory": "Schnell-Inventar",
     "foodText": "Futter",
     "food": "Futter und magische Sättel",
@@ -75,7 +75,7 @@
     "hatchAPot": "Willst Du ein <%= potion %> <%= egg %> ausbrüten?",
     "hatchedPet": "Du hast ein neues <%= potion %> <%= egg %> ausgebrütet!",
     "hatchedPetGeneric": "Du hast ein neues Haustier ausgebrütet!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Schau im [Stall](/inventory/stable) vorbei, um Dein neuestes Haustier auszurüsten oder zu füttern!",
     "displayNow": "Jetzt anzeigen",
     "displayLater": "Später anzeigen",
     "petNotOwned": "Du besitzt dieses Haustier nicht.",
@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "Klicke auf ein Haustier um ihm <%= foodName %> zu füttern und sieh, wie es wächst!",
     "dragThisPotion": "Ziehe dieses <%= potionName %> zu einem Ei und brüte ein neues Haustier aus!",
     "clickOnEggToHatch": "Klicke auf ein Ei um Dein <%= potionName %> Schlüpfelixier zu nutzen und ein neues Haustier auszubrüten!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Gieße Dein <%= potionName %> Schlüpfelixier auf Dein <%= eggName %>-Ei und es wird ein <%= petName %> daraus schlüpfen."
 }

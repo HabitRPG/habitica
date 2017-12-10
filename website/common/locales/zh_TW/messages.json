@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "你已經舉報了這個留言。",
     "messageGroupChatNotFound": "找不到留言 !",
     "messageGroupChatAdminClearFlagCount": "只有管理員才可以把標記計數清除！",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "唉呀，看來您發布了太多訊息！請稍等一分鐘並重新嘗試。酒館聊天一次只能容納 200 個訊息，因此 Habitica 鼓勵發布較長而經過考慮的訊息以及有效的回覆。期待看到您想表達的想法。:)",
     "messageUserOperationProtected": "路徑`<%= operation %>`沒有保留，因為它是一個受保護的路徑。",
     "messageUserOperationNotFound": "<%= operation %> 找不到行動",

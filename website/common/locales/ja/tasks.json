@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "この日課が未完了のときは、ダメージを確定する前に確認する",
     "yesterDailiesDescription": "この設定が適用されていると、Habiticaはあなたのアバターに与えるダメージを確定する前に、未完了になっている日課があなたの意思によるものか質問します。こうすることで、意図せぬダメージからあなたを守ることができます。",
     "repeatDayError": "曜日を最低1つは選択してください。",
-    "searchTasks": "Search titles and descriptions..."
+    "searchTasks": "Search titles and descriptions...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

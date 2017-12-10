@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "סוג כרטיס לא ידוע.",
     "invalidCoupon": "קופון לא תקין.",
     "couponUsed": "הקופון כבר נוצל.",
-    "noSudoAccess": "אין לכם גישת מפעיל מערכת.",
     "couponCodeRequired": "יש להשתמש בקופון.",
     "eventRequired": "נדרש למלא \"req.params.event\".",
     "countRequired": "נדרש למלא \"req.query.count\".",

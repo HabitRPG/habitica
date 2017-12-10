@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Bilinmeyen kart tipi.",
     "invalidCoupon": "Geçersiz kupon kodu.",
     "couponUsed": "Kupon kodu önceden kullanılmış.",
-    "noSudoAccess": "Sudo erişimin bulunmuyor.",
     "couponCodeRequired": "Kupon kodu gerekli.",
     "eventRequired": "\"req.params.event\" gerekli.",
     "countRequired": "\"req.query.count\" gerekli.",

@@ -46,7 +46,11 @@ api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 
+<<<<<<< HEAD
 api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme'];
+=======
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'pizildenTheme', 'maflTheme'];
+>>>>>>> develop
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -353,6 +357,7 @@ api.food = {
     canBuy () {
       return true;
     },
+    sellWarningNote: t('foodSaddleSellWarningNote'),
     text: t('foodSaddleText'),
     value: 5,
     notes: t('foodSaddleNotes'),

@@ -867,7 +867,7 @@
         }
 
         if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key}`;
+          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.isHatchable()) {

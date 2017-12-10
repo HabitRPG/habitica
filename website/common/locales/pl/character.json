@@ -163,6 +163,7 @@
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
     "sureReset": "Na pewno? Ta opcja zresetuje klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego przydzielenia) oraz kosztuje 3 Klejnoty.",
     "purchaseFor": "Kupić za <%= cost %> klejnoty?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nie możesz rzucić na to zaklęcia",
     "youCast": "Rzucasz <%= spell %>.",

@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, você é demais! Agora você é nível <%= level %> de contribuidor(a) por ajudar o Habitica. Veja",
     "contribLink": "os prêmios que você ganhou por sua contribuição!",
     "contribName": "Contribuidores",
-    "contribText": "Contribuiu para Habitica (código, design, pixel art, aconselhamento jurídico, documentação, etc). Quer este medalha? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'> Leia mais. </a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Saber Mais",
     "kickstartName": "Apoiador do Kickstarter - Nível $<%= key %>",
     "kickstartText": "Apoiou o Projeto do Kickstarter",

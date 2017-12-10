@@ -167,7 +167,6 @@
     "cardTypeNotAllowed": "Neznámý typ karty.",
     "invalidCoupon": "Neplatný kód kupónu.",
     "couponUsed": "Kód kupónu byl již použit.",
-    "noSudoAccess": "Nemáte přístup sudo.",
     "couponCodeRequired": "Je požadován kód kupónu.",
     "eventRequired": "je požadováno „req.params.event\".",
     "countRequired": "je požadováno „req.query.count\".",

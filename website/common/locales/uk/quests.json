@@ -78,6 +78,7 @@
     "mustLvlQuest": "Досягніть <%= level %> рівня, аби придбати цей квест!",
     "mustInviteFriend": "To earn this quest, invite a friend to your Party. Invite someone now?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Ви впевнені, що хочете скасувати цей квест? Прогрес буде втрачено. Власник квесту збереже собі квестовий сувій.",
     "sureAbort": "Ви впевнені, що хочете скасувати виконання місії? Це скасує її для кожного члена вашого гурту, увесь прогрес буде втрачено. Квестовий сувій повернеться до власника квесту.",
     "doubleSureAbort": "Ви точно-точно впевнені? Подумайте, чи не зненавидять вони Вас назавжди!",

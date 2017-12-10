@@ -78,6 +78,7 @@
     "mustLvlQuest": "Ak si chceš kúpiť tento quest, musíš mať aspoň <%= level %>. level.",
     "mustInviteFriend": "Aby si získal túto výpravu, pozvi priateľa do tvojej družiny. Chceš niekoho pozvať hneď?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Si si istý, že chceš zrušiť túto výpravu? Všetky prijaté pozvania sa stratia. Vlastník výpravy získa naspäť zvitok.",
     "sureAbort": "Si si istý, že chceš ukončiť misiu? Zruší sa všetkým v družine a stratíte všetky svoje pokroky. Zvitok s výpravou sa vráti naspäť jeho vlastníkovi.",
     "doubleSureAbort": "Si si naozaj istý? Uisti sa, že ťa potom nebudú naveky neznášať!",

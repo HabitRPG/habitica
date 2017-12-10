@@ -88,7 +88,7 @@
     "plusOneGem": "+1 drahokam",
     "typeNotSellable": "Tento typ nie je predajný. Musí to byť jeden z nasledujúcich <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Kľúč nebol nájdený pre user.items <%= type %>",
-    "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Cesta stringu je vyžadovaná",
     "unlocked": "Predmety boli odomknuté",
     "alreadyUnlocked": "Plný set už je odomknutý.",
