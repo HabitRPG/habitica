@@ -570,7 +570,11 @@ api.exportChallengeCsv = {
         index++;
       }
 
-      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
+      // Occasional error does not completely remove user data after they leave a challenge, resulting in export code failing.
+      // Code checks for user data before executing. See more at https://github.com/HabitRPG/habitica/issues/8350
+      if (resArray[index]) {
+        resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
+      }
     });
 
     // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
