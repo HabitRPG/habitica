@@ -12,7 +12,7 @@ import nconf from 'nconf';
 
 const ENDPOINT = '/user/auth/update-email';
 
-describe.only('PUT /user/auth/update-email', () => {
+describe('PUT /user/auth/update-email', () => {
   let newEmail = 'SOmE-nEw-emAIl_2@example.net';
   let oldPassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
@@ -52,7 +52,7 @@ describe.only('PUT /user/auth/update-email', () => {
       });
     });
 
-    it.only('changes email if new email and existing password are provided', async () => {
+    it('changes email if new email and existing password are provided', async () => {
       let lowerCaseNewEmail = newEmail.toLowerCase();
       let response = await user.put(ENDPOINT, {
         newEmail,
