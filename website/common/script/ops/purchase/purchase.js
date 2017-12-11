@@ -1,18 +1,18 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import forEach from 'lodash/forEach';
-import splitWhitespace from '../libs/splitWhitespace';
-import planGemLimits from '../libs/planGemLimits';
+import splitWhitespace from '../../libs/splitWhitespace';
+import planGemLimits from '../../libs/planGemLimits';
 import {
   NotFound,
   NotAuthorized,
   BadRequest,
-} from '../libs/errors';
+} from '../../libs/errors';
 
-import { removeItemByPath } from './pinnedGearUtils';
-import getItemInfo from '../libs/getItemInfo';
+import { removeItemByPath } from '../pinnedGearUtils';
+import getItemInfo from '../../libs/getItemInfo';
 
 function buyGems (user, analytics, req, key) {
   let convRate = planGemLimits.convRate;

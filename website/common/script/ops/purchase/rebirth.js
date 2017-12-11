@@ -1,12 +1,12 @@
-import i18n from '../i18n';
+import i18n from '../../i18n';
 import each from 'lodash/each';
-import { capByLevel } from '../statHelpers';
-import { MAX_LEVEL } from '../constants';
+import { capByLevel } from '../../statHelpers';
+import { MAX_LEVEL } from '../../constants';
 import {
   NotAuthorized,
-} from '../libs/errors';
-import equip from './equip';
-import { removePinnedGearByClass } from './pinnedGearUtils';
+} from '../../libs/errors';
+import equip from '../equip';
+import { removePinnedGearByClass } from '../pinnedGearUtils';
 
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];

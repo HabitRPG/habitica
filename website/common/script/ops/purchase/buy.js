@@ -1,8 +1,8 @@
-import i18n from '../i18n';
+import i18n from '../../i18n';
 import get from 'lodash/get';
 import {
   BadRequest,
-} from '../libs/errors';
+} from '../../libs/errors';
 import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
 import buyGear from './buyGear';

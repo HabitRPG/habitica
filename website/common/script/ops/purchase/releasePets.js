@@ -1,8 +1,8 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import {
   NotAuthorized,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {

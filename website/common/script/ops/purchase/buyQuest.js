@@ -1,10 +1,10 @@
-import i18n from '../i18n';
-import content from '../content/index';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../libs/errors';
+} from '../../libs/errors';
 import get from 'lodash/get';
 
 // buy a quest with gold

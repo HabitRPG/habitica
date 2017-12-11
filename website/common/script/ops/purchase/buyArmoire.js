@@ -1,14 +1,14 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
-import count from '../count';
-import splitWhitespace from '../libs/splitWhitespace';
+import count from '../../count';
+import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,
-} from '../libs/errors';
-import randomVal from '../libs/randomVal';
+} from '../../libs/errors';
+import randomVal from '../../libs/randomVal';
 
 // TODO this is only used on the server
 // move out of common?

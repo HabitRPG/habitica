@@ -3,7 +3,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyMysterySet from '../../../../website/common/script/ops/buyMysterySet';
+import buyMysterySet from '../../../../website/common/script/ops/purchase/buyMysterySet';
 import {
   NotAuthorized,
   NotFound,

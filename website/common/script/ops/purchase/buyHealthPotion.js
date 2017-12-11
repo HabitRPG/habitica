@@ -1,8 +1,8 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import {
   NotAuthorized,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function buyHealthPotion (user, req = {}, analytics) {
   let item = content.potion;

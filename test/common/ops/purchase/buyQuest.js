@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyQuest from '../../../../website/common/script/ops/buyQuest';
+import buyQuest from '../../../../website/common/script/ops/purchase/buyQuest';
 import {
   NotAuthorized,
   NotFound,

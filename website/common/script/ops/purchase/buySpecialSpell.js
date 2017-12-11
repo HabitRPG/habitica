@@ -1,13 +1,13 @@
-import i18n from '../i18n';
-import content from '../content/index';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
-import splitWhitespace from '../libs/splitWhitespace';
+import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function buySpecialSpell (user, req = {}) {
   let key = get(req, 'params.key');

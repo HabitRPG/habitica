@@ -2,7 +2,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buy from '../../../../website/common/script/ops/buy';
+import buy from '../../../../website/common/script/ops/buy/purchase';
 import {
   BadRequest,
 } from '../../../../website/common/script/libs/errors';

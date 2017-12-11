@@ -1,14 +1,14 @@
-import purchase from '../../../website/common/script/ops/purchase';
-import planGemLimits from '../../../website/common/script/libs/planGemLimits';
+import purchase from '../../../../website/common/script/ops/purchase/purchase';
+import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../../website/common/script/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../helpers/common.helper';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 

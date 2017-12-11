@@ -1,17 +1,17 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
-import splitWhitespace from '../libs/splitWhitespace';
+import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../libs/errors';
-import handleTwoHanded from '../fns/handleTwoHanded';
-import ultimateGear from '../fns/ultimateGear';
+} from '../../libs/errors';
+import handleTwoHanded from '../../fns/handleTwoHanded';
+import ultimateGear from '../../fns/ultimateGear';
 
-import { removePinnedGearAddPossibleNewOnes } from './pinnedGearUtils';
+import { removePinnedGearAddPossibleNewOnes } from '../pinnedGearUtils';
 
 module.exports = function buyGear (user, req = {}, analytics) {
   let key = get(req, 'params.key');

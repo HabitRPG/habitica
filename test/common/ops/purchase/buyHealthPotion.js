@@ -2,7 +2,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyHealthPotion from '../../../../website/common/script/ops/buyHealthPotion';
+import buyHealthPotion from '../../../../website/common/script/ops/buy/buyHealthPotion';
 import {
   NotAuthorized,
 } from '../../../../website/common/script/libs/errors';

@@ -1,12 +1,12 @@
-import releaseBoth from '../../../website/common/script/ops/releaseBoth';
-import content from '../../../website/common/script/content/index';
-import i18n from '../../../website/common/script/i18n';
+import releaseBoth from '../../../../website/common/script/ops/buy/releaseBoth';
+import content from '../../../../website/common/script/content/index';
+import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
+} from '../../../../website/common/script/libs/errors';
 
 describe('shared.ops.releaseBoth', () => {
   let user;

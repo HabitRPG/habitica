@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import count from '../../../../website/common/script/count';
-import buyArmoire from '../../../../website/common/script/ops/buyArmoire';
+import buyArmoire from '../../../../website/common/script/ops/purchase/buyArmoire';
 import randomVal from '../../../../website/common/script/libs/randomVal';
 import content from '../../../../website/common/script/content/index';
 import {

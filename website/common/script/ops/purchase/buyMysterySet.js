@@ -1,12 +1,12 @@
-import i18n from '../i18n';
-import content from '../content/index';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import get from 'lodash/get';
 import each from 'lodash/each';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function buyMysterySet (user, req = {}, analytics) {
   let key = get(req, 'params.key');
