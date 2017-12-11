@@ -1,20 +1,10 @@
 /* eslint-disable camelcase */
-import nconf from 'nconf';
-import moment from 'moment';
-import cc from 'coupon-code';
-
 import payments from '../../../../../../../website/server/libs/payments';
 import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
 import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
-import { model as Coupon } from '../../../../../../../website/server/models/coupon';
-import common from '../../../../../../../website/common';
-import { createNonLeaderGroupMember } from '../paymentHelpers';
-
-const BASE_URL = nconf.get('BASE_URL');
-const i18n = common.i18n;
 
 describe('ipn', () => {
   const subKey = 'basic_3mo';

@@ -1,12 +1,9 @@
 import stripeModule from 'stripe';
-import cc from 'coupon-code';
 
 import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
-import { model as Group } from '../../../../../../../website/server/models/group';
-import { model as Coupon } from '../../../../../../../website/server/models/coupon';
 import stripePayments from '../../../../../../../website/server/libs/stripePayments';
 import payments from '../../../../../../../website/server/libs/payments';
 import common from '../../../../../../../website/common';
@@ -17,7 +14,6 @@ import moment from 'moment';
 const i18n = common.i18n;
 
 describe('Stripe - Webhooks', () => {
-  const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
 
   describe('all events', () => {
