@@ -12,8 +12,8 @@ import nconf from 'nconf';
 
 const ENDPOINT = '/user/auth/update-email';
 
-describe('PUT /user/auth/update-email', () => {
-  let newEmail = 'some-new-email_2@example.net';
+describe.only('PUT /user/auth/update-email', () => {
+  let newEmail = 'SOmE-nEw-emAIl_2@example.net';
   let oldPassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
   context('Local Authenticaion User', async () => {
@@ -52,15 +52,16 @@ describe('PUT /user/auth/update-email', () => {
       });
     });
 
-    it('changes email if new email and existing password are provided', async () => {
+    it.only('changes email if new email and existing password are provided', async () => {
+      let lowerCaseNewEmail = newEmail.toLowerCase();
       let response = await user.put(ENDPOINT, {
         newEmail,
         password: oldPassword,
       });
-      expect(response).to.eql({ email: 'some-new-email_2@example.net' });
+      expect(response.email).to.eql(lowerCaseNewEmail);
 
       await user.sync();
-      expect(user.auth.local.email).to.eql(newEmail);
+      expect(user.auth.local.email).to.eql(lowerCaseNewEmail);
     });
 
     it('rejects if email is already taken', async () => {
