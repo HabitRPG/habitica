@@ -3,8 +3,8 @@
     .modal-body
       h2 {{ $t('confirmKeepChallengeTasks') }}
       div
-        button.btn.btn-primary(@click='leaveChallenge("keep")') {{ $t('keepIt') }}
-        button.btn.btn-danger(@click='leaveChallenge("remove-all")') {{ $t('removeIt') }}
+        button.btn.btn-primary(@click='leaveChallenge("keep")') {{ $t('keepThem') }}
+        button.btn.btn-danger(@click='leaveChallenge("remove-all")') {{ $t('removeThem') }}
 </template>
 
 <style scoped>
