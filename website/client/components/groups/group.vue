@@ -105,7 +105,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
+      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
 </template>
 
 <style lang="scss" scoped>
