@@ -24,7 +24,7 @@ import {
   createTasks,
 } from '../../libs/taskManager';
 
-const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
+const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 let api = {};
 
@@ -755,7 +755,7 @@ function cleanUpTask (task) {
  * @apiName CloneChallenge
  * @apiGroup Challenge
  *
- * @apiParam (Path) {UUID} challengeId The _id for the challenge to close with a winner
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
  *
  * @apiSuccess {Object} challenge The cloned challenge
  *
@@ -780,7 +780,7 @@ api.cloneChallenge = {
 
     const challengeTasks = await Tasks.Task.find({
       'challenge.id': challengeToClone._id,
-      userId: {$exists: true},
+      userId: {$exists: false},
     }).exec();
 
     const tasksToClone = challengeTasks.map(task => {
