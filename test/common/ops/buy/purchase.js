@@ -1,4 +1,4 @@
-import purchase from '../../../../website/common/script/ops/purchase/purchase';
+import purchase from '../../../../website/common/script/ops/buy/purchase';
 import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,

@@ -4,7 +4,7 @@ import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyGear from '../../../../website/common/script/ops/purchase/buyGear';
+import buyGear from '../../../../website/common/script/ops/buy/buyGear';
 import shared from '../../../../website/common/script';
 import {
   NotAuthorized,

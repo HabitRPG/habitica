@@ -1,4 +1,4 @@
-import buySpecialSpell from '../../../../website/common/script/ops/purchase/buySpecialSpell';
+import buySpecialSpell from '../../../../website/common/script/ops/buy/buySpecialSpell';
 import {
   BadRequest,
   NotFound,

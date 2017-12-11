@@ -1,4 +1,4 @@
-import rebirth from '../../../../website/common/script/ops/purchase/rebirth';
+import rebirth from '../../../../website/common/script/ops/buy/rebirth';
 import i18n from '../../../../website/common/script/i18n';
 import { MAX_LEVEL } from '../../../../website/common/script/constants';
 import {
