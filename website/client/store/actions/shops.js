@@ -5,7 +5,7 @@ import purchaseOp from 'common/script/ops/buy/purchaseWithSpell';
 import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
-import rerollOp from 'common/script/ops/buy/reroll';
+import rerollOp from 'common/script/ops/reroll';
 import { getDropClass } from 'client/libs/notifications';
 
 // @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change

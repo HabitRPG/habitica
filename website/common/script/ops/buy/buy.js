@@ -10,6 +10,7 @@ import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
+import hourglassPurchase from './hourglassPurchase';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -23,6 +24,7 @@ module.exports = function buy (user, req = {}, analytics) {
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes
   let type = get(req, 'type');
+  if (!type) type = get(req, 'params.type');
   if (!type) type = key;
 
   // @TODO: For now, builk purchasing is here, but we should probably have a parent vendor
@@ -54,7 +56,10 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'gems':
       buyRes = purchaseOp(user, req, analytics);
       break;
-
+    case 'pets':
+    case 'mounts':
+      buyRes = hourglassPurchase(user, req, analytics);
+      break;
   }
 
   // TODO: Move bulk purchase inside buyQuest/buySpecialSpell

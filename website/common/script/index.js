@@ -141,20 +141,11 @@ import allocateNow from './ops/stats/allocateNow';
 import allocate from './ops/stats/allocate';
 import allocateBulk from './ops/stats/allocateBulk';
 import buy from './ops/buy/buy';
-import buyGear from './ops/buy/buyGear';
-import buyHealthPotion from './ops/buy/buyHealthPotion';
-import buyArmoire from './ops/buy/buyArmoire';
-import buyMysterySet from './ops/buy/buyMysterySet';
-import buyQuest from './ops/buy/buyQuest';
-import buySpecialSpell from './ops/buy/buySpecialSpell';
 import hatch from './ops/hatch';
 import feed from './ops/feed';
 import equip from './ops/equip';
 import changeClass from './ops/changeClass';
 import disableClasses from './ops/disableClasses';
-import purchase from './ops/buy/purchase';
-import purchaseWithSpell from './ops/buy/purchaseWithSpell';
-import purchaseHourglass from './ops/buy/hourglassPurchase';
 import readCard from './ops/readCard';
 import openMysteryItem from './ops/openMysteryItem';
 import releasePets from './ops/releasePets';
@@ -179,21 +170,12 @@ api.ops = {
   allocate,
   allocateBulk,
   buy,
-  buyGear,
-  buyHealthPotion,
-  buyArmoire,
-  buyMysterySet,
-  buySpecialSpell,
-  buyQuest,
   allocateNow,
   hatch,
   feed,
   equip,
   changeClass,
   disableClasses,
-  purchase,
-  purchaseWithSpell,
-  purchaseHourglass,
   readCard,
   openMysteryItem,
   releasePets,
@@ -287,18 +269,10 @@ api.wrap = function wrapUser (user, main = true) {
       deletePM: partial(importedOps.deletePM, user),
       blockUser: partial(importedOps.blockUser, user),
       feed: partial(importedOps.feed, user),
-      buySpecialSpell: partial(importedOps.buySpecialSpell, user),
-      purchase: partial(importedOps.purchase, user),
       releasePets: partial(importedOps.releasePets, user),
       releaseMounts: partial(importedOps.releaseMounts, user),
       releaseBoth: partial(importedOps.releaseBoth, user),
       buy: partial(importedOps.buy, user),
-      buyHealthPotion: partial(importedOps.buyHealthPotion, user),
-      buyArmoire: partial(importedOps.buyArmoire, user),
-      buyGear: partial(importedOps.buyGear, user),
-      buyQuest: partial(importedOps.buyQuest, user),
-      buyMysterySet: partial(importedOps.buyMysterySet, user),
-      hourglassPurchase: partial(importedOps.hourglassPurchase, user),
       sell: partial(importedOps.sell, user),
       equip: partial(importedOps.equip, user),
       hatch: partial(importedOps.hatch, user),
