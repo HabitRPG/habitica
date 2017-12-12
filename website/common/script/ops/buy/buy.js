@@ -54,6 +54,7 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'gems':
       buyRes = purchaseOp(user, req, analytics);
       break;
+
   }
 
   // TODO: Move bulk purchase inside buyQuest/buySpecialSpell

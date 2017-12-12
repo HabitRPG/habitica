@@ -1,16 +1,16 @@
-import rebirth from '../../../../website/common/script/ops/buy/rebirth';
-import i18n from '../../../../website/common/script/i18n';
-import { MAX_LEVEL } from '../../../../website/common/script/constants';
+import rebirth from '../../../website/common/script/ops/rebirth';
+import i18n from '../../../website/common/script/i18n';
+import { MAX_LEVEL } from '../../../website/common/script/constants';
 import {
   generateUser,
   generateHabit,
   generateDaily,
   generateTodo,
   generateReward,
-} from '../../../helpers/common.helper';
+} from '../../helpers/common.helper';
 import {
   NotAuthorized,
-} from '../../../../website/common/script/libs/errors';
+} from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.rebirth', () => {
   let user;

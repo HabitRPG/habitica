@@ -1,9 +1,9 @@
-import content from '../../content/index';
-import i18n from '../../i18n';
+import content from '../content/index';
+import i18n from '../i18n';
 import {
   NotAuthorized,
-} from '../../libs/errors';
-import splitWhitespace from '../../libs/splitWhitespace';
+} from '../libs/errors';
+import splitWhitespace from '../libs/splitWhitespace';
 import pick from 'lodash/pick';
 
 module.exports = function releaseBoth (user, req = {}, analytics) {
