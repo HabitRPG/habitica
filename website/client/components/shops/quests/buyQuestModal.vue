@@ -18,20 +18,23 @@
       div.inner-content
         questDialogContent(:item="item")
 
-        div
+        .purchase-amount
+          .how-many-to-buy
+            strong {{ $t('howManyToBuy') }}
+          .box
+            input(type='number', min='0', v-model='selectedAmountToBuy')
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
         button.btn.btn-primary(
           @click="purchaseGems()",
-          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value)"
+          v-if="priceType === 'gems' && !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)"
         ) {{ $t('purchaseGems') }}
-
 
         button.btn.btn-primary(
           @click="buyItem()",
           v-else,
-          :class="{'notEnough': !this.enoughCurrency(priceType, item.value)}"
+          :class="{'notEnough': !this.enoughCurrency(priceType, item.value * selectedAmountToBuy)}"
         ) {{ $t('buyNow') }}
 
     div.right-sidebar(v-if="item.drop")
@@ -52,9 +55,13 @@
   #buy-quest-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      margin-top: 8%;
+      width: 448px;
+    }
+
     .content {
       text-align: center;
-      max-height: 80vh;
       overflow-y: scroll;
     }
 
@@ -167,13 +174,42 @@
       pointer-events: none;
       opacity: 0.55;
     }
+
+    .purchase-amount {
+      margin-top: 24px;
+
+      .how-many-to-buy {
+        margin-bottom: 16px;
+      }
+
+      .box {
+        display: inline-block;
+        width: 74px;
+        height: 40px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        margin-right: 24px;
+
+        input {
+          width: 100%;
+          border: none;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+          visibility: hidden;
+          display: none !important;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
   }
 </style>
 
 <script>
   import {mapState} from 'client/libs/store';
-
-  import bModal from 'bootstrap-vue/lib/components/modal';
 
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
@@ -193,7 +229,6 @@
   export default {
     mixins: [currencyMixin, notifications, buyMixin],
     components: {
-      bModal,
       BalanceInfo,
       QuestInfo,
       questDialogDrops,
@@ -210,6 +245,7 @@
         }),
 
         isPinned: false,
+        selectedAmountToBuy: 1,
       };
     },
     watch: {
@@ -238,10 +274,11 @@
     },
     methods: {
       onChange ($event) {
+        this.selectedAmountToBuy = 1;
         this.$emit('change', $event);
       },
       buyItem () {
-        this.makeGenericPurchase(this.item, 'buyQuestModal');
+        this.makeGenericPurchase(this.item, 'buyQuestModal', this.selectedAmountToBuy);
         this.purchased(this.item.text);
         this.hideDialog();
       },
@@ -253,7 +290,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-quest-modal');
       },
       getDropIcon (drop) {
         switch (drop.type) {
@@ -289,7 +326,7 @@
       },
 
       purchaseGems () {
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
     },
     props: {

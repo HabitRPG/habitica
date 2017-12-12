@@ -64,7 +64,7 @@
     "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
     "all": "Alle",
     "none": "Keine",
-    "more": "<%= count %> more",
+    "more": "<%= count %> mehr",
     "and": "und",
     "loginSuccess": "Anmeldung erfolgreich!",
     "youSure": "Bist Du sicher?",
@@ -107,8 +107,8 @@
     "achievementDilatory": "Retter von Dilatory",
     "achievementDilatoryText": "Hat bei der Sommer-Strandparty 2014 dabei geholfen, den Schreckensdrachen von Dilatory zu besiegen!",
     "costumeContest": "Kostümwettbewerbsteilnehmer",
-    "costumeContestText": "Hat am Habitoween-Kostümwettbewerb teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
-    "costumeContestTextPlural": "Hat an <%= count %> Habitoween-Kostümwettbewerben teilgenommen. Schau einige Einträge <a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>im Habitica-Blog</a> an!",
+    "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the awesome entries at blog.habitrpg.com!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "- Mitglied seit",
     "lastLoggedIn": "- Zuletzt eingeloggt",
     "notPorted": "Dieses Feature wurde noch nicht von der ursprünglichen Seite portiert.",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
     "emptyMessagesLine2": "Beginne eine Unterhaltung, indem Du eine Nachricht verschickst!",
     "letsgo": "Auf geht's!",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "howManyToBuy": "Wie viele möchtest Du kaufen?",
+    "habiticaHasUpdated": "Es gibt ein Update von Habitica. Aktualisiere, um die neueste Version zu bekommen!"
 }

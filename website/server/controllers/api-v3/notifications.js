@@ -37,7 +37,10 @@ api.readNotification = {
     }
 
     user.notifications.splice(index, 1);
-    await user.save();
+
+    await user.update({
+      $pull: { notifications: { id: req.params.notificationId } },
+    }).exec();
 
     res.respond(200, user.notifications);
   },
@@ -77,7 +80,9 @@ api.readNotifications = {
       user.notifications.splice(index, 1);
     }
 
-    await user.save();
+    await user.update({
+      $pull: { notifications: { id: { $in: notifications } } },
+    }).exec();
 
     res.respond(200, user.notifications);
   },

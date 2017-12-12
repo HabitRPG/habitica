@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.seasonal
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -40,6 +40,10 @@
               span.rectangle
               span.text(v-once) {{ $t('featuredset', { name: seasonal.featured.text }) }}
               span.rectangle
+            div.featured-label.with-border(v-else)
+              span.rectangle
+              span.text(v-once) {{ $t('featuredItems') }}
+              span.rectangle
 
             div.items.margin-center
               shopItem(
@@ -53,10 +57,10 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
+      h1.mb-4.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('classArmor') }}
 
         div.float-right
@@ -93,7 +97,7 @@
                 :showEventBadge="false",
                 @click="itemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -264,6 +268,11 @@
   }
 </style>
 
+<style scoped>
+  .margin-center {
+    margin: 0 auto;
+  }
+</style>
 
 <script>
   import {mapState} from 'client/libs/store';
@@ -276,10 +285,6 @@
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
-
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
@@ -311,10 +316,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
     },
@@ -382,7 +383,9 @@
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
           this.featuredGearBought = true;
-          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          if (seasonal.categories.length > 0) {
+            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          }
         }
 
         return seasonal;
@@ -493,12 +496,6 @@
       },
       itemSelected (item) {
         if (item.locked) return;
-
-        if (this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
     },

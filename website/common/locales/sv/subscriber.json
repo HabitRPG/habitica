@@ -134,6 +134,8 @@
     "mysterySet201707": "Gelémantiker Set",
     "mysterySet201708": "Lavakrigare Set",
     "mysterySet201709": "Trolldomstudent Set",
+    "mysterySet201710": "Befallande Imp-set",
+    "mysterySet201711": "Matt-ryttare Set",
     "mysterySet301404": "Steampunk Standard Set",
     "mysterySet301405": "Steampunk Tillbehör Set",
     "mysterySet301703": "Påfågel Steampunk Set",
@@ -165,7 +167,6 @@
     "cardTypeNotAllowed": "Okänd kort-typ.",
     "invalidCoupon": "Ogiltig kupong kod.",
     "couponUsed": "Kupongkoden är redan använd.",
-    "noSudoAccess": "Du har inte sudo tillgång.",
     "couponCodeRequired": "Kupongkoden krävs.",
     "eventRequired": "\"req.params.event\" krävs.",
     "countRequired": "\"req.query.count\" krävs.",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "För att se dina prenumerationsdetaljer och avbryta, förnya, eller ändra din prenumeration, var god gå till <a href='/user/settings/subscription'>Användarikon &gt; Inställningar &gt; Prenumeration</a>.",
     "purchaseAll": "Köp Alla",
     "gemsPurchaseNote": "Prenumeranter kan köpa diamanter för guld i Marknaden! För enkel tillgång kan du också nåla fast diamanter till din Belöningskolumn.",
-    "gemsRemaining": "resterande diamanter"
+    "gemsRemaining": "resterande diamanter",
+    "notEnoughGemsToBuy": "Du kan inte köpa den mängden diamanter."
 }

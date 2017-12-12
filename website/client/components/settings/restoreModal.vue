@@ -50,12 +50,7 @@
 import clone from 'lodash/clone';
 import { mapState } from 'client/libs/store';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       restoreValues: {
@@ -81,7 +76,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
     restore () {
       if (this.restoreValues.stats.lvl < 1) {
@@ -90,20 +85,24 @@ export default {
         return;
       }
 
+      const userChangedLevel = this.restoreValues.stats.lvl !== this.user.stats.lvl;
+      const userDidNotChangeExp = this.restoreValues.stats.exp === this.user.stats.exp;
+      if (userChangedLevel && userDidNotChangeExp) this.restoreValues.stats.exp = 0;
+
       this.user.stats = clone(this.restoreValues.stats);
       this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
 
       let settings = {
-        'stats.hp': this.restoreValues.stats.hp,
-        'stats.exp': this.restoreValues.stats.exp,
-        'stats.gp': this.restoreValues.stats.gp,
-        'stats.lvl': this.restoreValues.stats.lvl,
-        'stats.mp': this.restoreValues.stats.mp,
-        'achievements.streak': this.restoreValues.achievements.streak,
+        'stats.hp': Number(this.restoreValues.stats.hp),
+        'stats.exp': Number(this.restoreValues.stats.exp),
+        'stats.gp': Number(this.restoreValues.stats.gp),
+        'stats.lvl': Number(this.restoreValues.stats.lvl),
+        'stats.mp': Number(this.restoreValues.stats.mp),
+        'achievements.streak': Number(this.restoreValues.achievements.streak),
       };
 
       this.$store.dispatch('user:set', settings);
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
   },
 };

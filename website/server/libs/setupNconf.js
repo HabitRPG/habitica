@@ -1,5 +1,6 @@
-import nconf from 'nconf';
-import { join, resolve } from 'path';
+// require allows import from webpack
+const nconf = require('nconf');
+const { join, resolve } = require('path');
 
 const PATH_TO_CONFIG = join(resolve(__dirname, '../../../config.json'));
 

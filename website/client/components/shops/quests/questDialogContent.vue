@@ -19,7 +19,6 @@
   }
 
   .text {
-    max-height: 220px;
     margin-bottom: 8px;
     overflow-y: scroll;
     text-overflow: ellipsis;
@@ -33,7 +32,6 @@
 </style>
 
 <script>
-
   import QuestInfo from './questInfo.vue';
 
   export default {

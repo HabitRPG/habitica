@@ -219,6 +219,10 @@
   "questEggHippoMountText": "Hippo",
   "questEggHippoAdjective": "a happy",
 
+  "questEggYarnText": "Yarn",
+  "questEggYarnMountText": "Flying Carpet",
+  "questEggYarnAdjective": "woolen",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -282,6 +286,7 @@
 
   "foodSaddleText": "Saddle",
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
+  "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
 
   "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
 }

@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, ye awesome person! Ye now be a tier <%= level %> contributor for helpin' Habitica. See",
     "contribLink": "what treasure ya earned fer yer contribution!",
     "contribName": "Contributor",
-    "contribText": "Has contribut'd t' Habitica (code, design, pixel art, legal advice, docs, etc). Ye wantin' t'is medal? <a href='http://habitica.wikia.com/wiki/Contributing_to_Habitica' target='_blank'>Read more.</a>",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Read More",
     "kickstartName": "Kickstarter Backer - $<%= key %> Rank",
     "kickstartText": "Backed th' Kickstarter Project",

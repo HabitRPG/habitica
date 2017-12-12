@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Ai raportat deja acest mesaj.",
     "messageGroupChatNotFound": "Mesajul nu a fost găsit!",
     "messageGroupChatAdminClearFlagCount": "Doar un administrator poate curăța numărul de atenționări!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageUserOperationProtected": "calea `<%= operation %>` nu a fost salvată pentru că este protejată",
     "messageUserOperationNotFound": "nu a fost găsită operațiunea <%= operation %>",

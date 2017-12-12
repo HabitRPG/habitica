@@ -78,6 +78,7 @@
     "mustLvlQuest": "¡Debes haber alcanzado por lo menos el nivel <%= level %> para poder comprar esta misión!",
     "mustInviteFriend": "Para obtener esta misión, invita a un amigo a tu Equipo. ¿Quieres invitar a alguien ahora?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "¿Estás seguro de que quieres cancelar esta misión? Todas las invitaciones aceptadas se perderán. El organizador de la misión se quedará con el pergamino de misión.",
     "sureAbort": "¿Estás seguro de que quieres abortar esta misión? Esto la abortará para todos en tu equipo y todo el progreso se perderá. El pergamino de misión será regresado al organizador de la misión.",
     "doubleSureAbort": "¿Estás totalmente seguro? ¡Asegúrate de que no te odiarán eternamente!",

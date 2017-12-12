@@ -134,6 +134,8 @@
     "mysterySet201707": "Zestaw Meduzomanty",
     "mysterySet201708": "Zestaw lawowego wojownika",
     "mysterySet201709": "Zestaw ucznia magii",
+    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201711": "Carpet Rider Set",
     "mysterySet301404": "Standardowy zestaw steampunkowy",
     "mysterySet301405": "Zestaw steampunkowych akcesoriów",
     "mysterySet301703": "Zestaw steampunkowego pawia",
@@ -165,7 +167,6 @@
     "cardTypeNotAllowed": "Nieznany typ karty.",
     "invalidCoupon": "Nieprawidłowy kod kuponu",
     "couponUsed": "Kod promocyjny został wcześniej wykorzystany",
-    "noSudoAccess": "Nie masz dostępu administratora.",
     "couponCodeRequired": "Kod promocyjny jest wymagany.",
     "eventRequired": "\"req.params.event\" jest wymagane.",
     "countRequired": "\"req.params.event\" jest wymagane.",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase All",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsRemaining": "gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

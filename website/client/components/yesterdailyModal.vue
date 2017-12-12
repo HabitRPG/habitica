@@ -12,11 +12,11 @@
       p.call-to-action.text-center {{ $t('checkOffYesterDailies') }}
       .tasks-list
         task(
-          v-for='task in tasksByType["daily"]',
-          :key='task.id',
-          :task='task',
-          :isUser='true',
-          :dueDate='dueDate',
+          v-for="task in tasksByType.daily",
+          :key="task.id",
+          :task="task",
+          :isUser="true",
+          :dueDate="dueDate",
         )
       .start-day.text-center
         button.btn.btn-primary(@click='close()') {{ $t('yesterDailiesCallToAction') }}
@@ -53,13 +53,11 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import Task from './tasks/task';
 
 export default {
   props: ['yesterDailies'],
   components: {
-    bModal,
     Task,
   },
   data () {
@@ -79,7 +77,8 @@ export default {
   },
   methods: {
     async close () {
-      this.$root.$emit('hide::modal', 'yesterdaily');
+      this.$root.$emit('bv::hide::modal', 'yesterdaily');
+      this.$emit('run-cron');
     },
   },
 };

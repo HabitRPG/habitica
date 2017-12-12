@@ -1,7 +1,6 @@
 
 @import '~client/assets/scss/colors.scss';
 
-
 @mixin centeredModal() {
   display: flex;
   justify-content: center;
@@ -13,6 +12,8 @@
 }
 
 .modal-dialog {
+  width: auto;
+
   .title {
     min-height: 24px;
     margin-top: 24px;

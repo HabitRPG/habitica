@@ -138,6 +138,7 @@ describe('shared.ops.purchase', () => {
       user.balance = userGemAmount;
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
+      user.purchased.plan.customerId = 'customer-id';
     });
 
     it('purchases gems', () => {
@@ -224,6 +225,58 @@ describe('shared.ops.purchase', () => {
       expect(user.balance).to.equal(startingBalance - price);
 
       clock.restore();
+    });
+  });
+
+  context('bulk purchase', () => {
+    let userGemAmount = 10;
+
+    beforeEach(() => {
+      user.balance = userGemAmount;
+      user.stats.gp = goldPoints;
+      user.purchased.plan.gemsBought = 0;
+      user.purchased.plan.customerId = 'customer-id';
+    });
+
+    it('errors when user does not have enough gems', (done) => {
+      user.balance = 1;
+      let type = 'eggs';
+      let key = 'TigerCub';
+
+      try {
+        purchase(user, {
+          params: {type, key},
+          quantity: 2,
+        });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notEnoughGems'));
+        done();
+      }
+    });
+
+    it('makes bulk purchases of gems', () => {
+      let [, message] = purchase(user, {
+        params: {type: 'gems', key: 'gem'},
+        quantity: 2,
+      });
+
+      expect(message).to.equal(i18n.t('plusOneGem'));
+      expect(user.balance).to.equal(userGemAmount + 0.50);
+      expect(user.purchased.plan.gemsBought).to.equal(2);
+      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
+    });
+
+    it('makes bulk purchases of eggs', () => {
+      let type = 'eggs';
+      let key = 'TigerCub';
+
+      purchase(user, {
+        params: {type, key},
+        quantity: 2,
+      });
+
+      expect(user.items[type][key]).to.equal(2);
     });
   });
 });

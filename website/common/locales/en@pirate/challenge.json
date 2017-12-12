@@ -29,6 +29,7 @@
     "either": "Either",
     "createChallenge": "Create Challenge",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "Discard",
     "challengeTitle": "Challenge Title",
@@ -126,5 +127,6 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

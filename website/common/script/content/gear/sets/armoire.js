@@ -297,6 +297,33 @@ let armor = {
     set: 'candlestickMaker',
     canOwn: ownsItem('armor_armoire_candlestickMakerOutfit'),
   },
+  wovenRobes: {
+    text: t('armorArmoireWovenRobesText'),
+    notes: t('armorArmoireWovenRobesNotes', { con: 8, int: 9 }),
+    value: 100,
+    con: 8,
+    int: 9,
+    set: 'weaver',
+    canOwn: ownsItem('armor_armoire_wovenRobes'),
+  },
+  lamplightersGreatcoat: {
+    text: t('armorArmoireLamplightersGreatcoatText'),
+    notes: t('armorArmoireLamplightersGreatcoatNotes', { per: 14 }),
+    value: 100,
+    per: 14,
+    set: 'lamplighter',
+    canOwn: ownsItem('armor_armoire_lamplightersGreatcoat'),
+  },
+};
+
+let body = {
+  cozyScarf: {
+    text: t('bodyArmoireCozyScarfText'),
+    notes: t('bodyArmoireCozyScarfNotes'),
+    value: 100,
+    set: 'lamplighter',
+    canOwn: ownsItem('body_armoire_cozyScarf'),
+  },
 };
 
 let eyewear = {
@@ -639,6 +666,14 @@ let head = {
     set: 'candlestickMaker',
     canOwn: ownsItem('head_armoire_candlestickMakerHat'),
   },
+  lamplightersTopHat: {
+    text: t('headArmoireLamplightersTopHatText'),
+    notes: t('headArmoireLamplightersTopHatNotes', { con: 14 }),
+    value: 100,
+    con: 14,
+    set: 'lamplighter',
+    canOwn: ownsItem('head_armoire_lamplightersTopHat'),
+  },
 };
 
 let shield = {
@@ -790,6 +825,15 @@ let shield = {
     str: 12,
     set: 'candlestickMaker',
     canOwn: ownsItem('shield_armoire_handmadeCandlestick'),
+  },
+  weaversShuttle: {
+    text: t('shieldArmoireWeaversShuttleText'),
+    notes: t('shieldArmoireWeaversShuttleNotes', { int: 8, per: 9 }),
+    value: 100,
+    per: 9,
+    int: 8,
+    set: 'weaver',
+    canOwn: ownsItem('shield_armoire_weaversShuttle'),
   },
 };
 
@@ -1037,10 +1081,29 @@ let weapon = {
     set: 'farrier',
     canOwn: ownsItem('weapon_armoire_hoofClippers'),
   },
+  weaversComb: {
+    text: t('weaponArmoireWeaversCombText'),
+    notes: t('weaponArmoireWeaversCombNotes', { per: 8, str: 9 }),
+    value: 100,
+    per: 8,
+    str: 9,
+    set: 'weaver',
+    canOwn: ownsItem('weapon_armoire_weaversComb'),
+  },
+  lamplighter: {
+    text: t('weaponArmoireLamplighterText'),
+    notes: t('weaponArmoireLamplighterNotes', { per: 6, con: 8 }),
+    value: 100,
+    per: 6,
+    con: 8,
+    set: 'lamplighter',
+    canOwn: ownsItem('weapon_armoire_lamplighter'),
+  },
 };
 
 let armoireSet = {
   armor,
+  body,
   eyewear,
   head,
   headAccessory,

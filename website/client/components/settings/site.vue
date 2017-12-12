@@ -44,10 +44,6 @@
       div
         .checkbox
           label
-            input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
-        .checkbox
-          label
             input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
             span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startAdvCollapsedPop')") {{ $t('startAdvCollapsed') }}
         .checkbox
@@ -115,7 +111,8 @@
         div
           ul.list-inline
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
-              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialLogin(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
+              // @TODO this is broken
+              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
@@ -192,7 +189,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -206,9 +202,6 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
-  },
-  directives: {
-    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -298,7 +291,7 @@ export default {
     },
     showBailey () {
       this.user.flags.newStuff = true;
-      this.$root.$emit('show::modal', 'new-stuff');
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -348,16 +341,15 @@ export default {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
       alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
-      updates = {};
     },
     openRestoreModal () {
-      this.$root.$emit('show::modal', 'restore');
+      this.$root.$emit('bv::show::modal', 'restore');
     },
     openResetModal () {
-      this.$root.$emit('show::modal', 'reset');
+      this.$root.$emit('bv::show::modal', 'reset');
     },
     openDeleteModal () {
-      this.$root.$emit('show::modal', 'delete');
+      this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (networkKey) {
       // @TODO: What do we use this for?
@@ -377,7 +369,7 @@ export default {
         auth,
       });
 
-      this.$router.go('/tasks');
+      window.location.href = '/';
     },
     async changeClassForUser (confirmationNeeded) {
       if (confirmationNeeded && !confirm(this.$t('changeClassConfirmCost'))) return;

@@ -1,3 +1,5 @@
+import packageInfo from '../../../package.json';
+
 module.exports = function responseHandler (req, res, next) {
   // Only used for successful responses
   res.respond = function respond (status = 200, data = {}, message) {
@@ -14,6 +16,8 @@ module.exports = function responseHandler (req, res, next) {
       response.notifications = user.notifications.map(notification => notification.toJSON());
       response.userV = user._v;
     }
+
+    response.appVersion = packageInfo.version;
 
     res.status(status).json(response);
   };

@@ -1,5 +1,4 @@
 {
-
   "messageLostItem": "Your <%= itemText %> broke.",
   "messageTaskNotFound": "Task not found.",
   "messageDuplicateTaskID": "A task with that ID already exists.",
@@ -31,6 +30,7 @@
 
   "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
   "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+  "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
   "messageHealthAlreadyMax": "You already have maximum health.",
   "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
 
@@ -58,6 +58,7 @@
   "messageGroupChatFlagAlreadyReported": "You have already reported this message",
   "messageGroupChatNotFound": "Message not found!",
   "messageGroupChatAdminClearFlagCount": "Only an admin can clear the flag count!",
+  "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
   "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
 
   "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
