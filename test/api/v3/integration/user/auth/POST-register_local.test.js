@@ -290,7 +290,7 @@ describe('POST /user/auth/local/register', () => {
 
     it('sanitizes email params to a lowercase string before creating the user', async () => {
       let username = generateRandomUserName();
-      let email = 'ISANEmAiL@GMAIL.coM';
+      let email = 'ISANEmAiL@ExAmPle.coM';
       let password = 'password';
 
       let user = await api.post('/user/auth/local/register', {
