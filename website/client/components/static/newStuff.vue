@@ -4,20 +4,16 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/5/2017 - ARMOIRE ITEMS, BACKGROUNDS, AND TAKE THIS CHALLENGE
+    h2 12/12/2017 - BATTLE FOR THE NET: HELP PROTECT HABITICA
     hr
-    .media
-      .media-body
-        h3 December Backgrounds and Armoire Items!
-        p We’ve added three new backgrounds to the Background Shop! Now your avatar can admire a Starry Winter Night, bask in the wonder of a Toymaker's Workshop, and glide along a Cross-Country Ski Trail. You can find them under User Icon > Backgrounds!
-        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Lamp-Lighter Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
-        .small by Vampitch, AnnDeLune, CitrineSun, and Hachiseiko
-        h3 Take This Challenge for December
-        p(v-markdown='"The next Take This Challenge has launched, [It\'s Dangerous to Go Alone!](https://habitica.com/challenges/5f70ce5b-2d82-4114-8e44-ca65615aae62), with a focus on maintaining offline relationships. Be sure to check it out to earn additional pieces of the Take This armor set!"')
-        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
-      .promo_armoire_backgrounds_201712.left-margin
-    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'Notice Me, Senpai!\': grand prize winner M T, and runners-up Trompadour, Eule, mizuki_F, PhiaFox, and Dragon. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set) if they hadn\'t collected all the pieces already. It is located in your Rewards column. Enjoy!"')
-    .small by Doctor B, the Take This team, Lemoness, and SabreCat
+    .scene_bug.center-block
+    p What would you do if you couldn't access your favorite websites, including Habitica, without paying an exorbitant amount to your internet service provider? In the United States, where Habitica is based, that is now a very real danger.
+    p The USA's Federal Communications Commission (FCC) is about to vote on its plan to kill net neutrality, which will let internet service providers charge extra fees, throttle internet speeds, and block access to websites like this one. This could kill a small company like Habitica.
+    p.strong Congress can stop them, but only if US citizens flood them with calls right now, asking them to defend net neutrality by stopping the FCC's vote BEFORE December 14th. Help keep Habitica free to access for everybody!
+    p(v-markdown='"**US Habiticans can call Congress using the phone numbers found [here](https://www.callmycongress.com). You can also learn more at https://www.battleforthenet.com.** Non-US Habiticans can still help us by spreading the word."')
+    p Thank you for helping protect Habitica.
+    p Warmly,
+    p Vicky, Leslie, Sabe, Phillip, Matteo, Keith, and Beth
     br
 </template>
 
