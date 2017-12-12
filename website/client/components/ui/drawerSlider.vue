@@ -129,14 +129,12 @@
 
         if (firstSlice.length === itemsPerPage) {
           return firstSlice;
-        } else if (items.length > itemsPerPage) {
+        } else {
           let getRemainderItems = Math.abs(itemsPerPage - firstSlice.length);
           let secondSlice = items.slice(0, getRemainderItems);
 
           return firstSlice.concat(secondSlice);
         }
-
-        return items;
       },
       dividerMargins () {
         return {
