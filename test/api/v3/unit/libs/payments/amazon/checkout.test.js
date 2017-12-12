@@ -98,13 +98,16 @@ describe('Amazon Payments - Checkout', () => {
     common.uuid.restore();
   });
 
-  function expectBuyGemsStub (paymentMethod) {
+  function expectBuyGemsStub (paymentMethod, gift) {
     expect(paymentBuyGemsStub).to.be.calledOnce;
-    expect(paymentBuyGemsStub).to.be.calledWith({
+
+    let expectedArgs = {
       user,
       paymentMethod,
       headers,
-    });
+    };
+    if (gift) expectedArgs.gift = gift;
+    expect(paymentBuyGemsStub).to.be.calledWith(expectedArgs);
   }
 
   it('should purchase gems', async () => {
@@ -159,7 +162,7 @@ describe('Amazon Payments - Checkout', () => {
     amount = 16 / 4;
     await amzLib.checkout({gift, user, orderReferenceId, headers});
 
-    expectBuyGemsStub(amzLib.constants.PAYMENT_METHOD_GIFT);
+    expectBuyGemsStub(amzLib.constants.PAYMENT_METHOD_GIFT, gift);
     expectAmazonStubs();
   });
 
