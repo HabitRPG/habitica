@@ -733,6 +733,9 @@ api.sleep = {
   },
 };
 
+const buySpecialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
+
 /**
  * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
@@ -770,14 +773,15 @@ api.buy = {
     let user = res.locals.user;
 
     let buyRes;
-    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
-    if (specialKeys.indexOf(req.params.key) !== -1) {
+    if (buySpecialKeys.indexOf(type) !== -1) {
       type = 'special';
     }
-    req.type = type;
+
+    if (buyKnownKeys.indexOf(type) === -1) {
+      type = 'marketGear';
+    }
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
     if (req.body.type) req.type = req.body.type;

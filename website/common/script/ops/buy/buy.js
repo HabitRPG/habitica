@@ -9,6 +9,7 @@ import buyGear from './buyGear';
 import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
+import purchaseOp from './purchase';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -31,19 +32,36 @@ module.exports = function buy (user, req = {}, analytics) {
 
   let buyRes;
 
-  for (let i = 0; i < quantity; i += 1) {
-    if (type === 'potion') {
-      buyRes = buyHealthPotion(user, req, analytics);
-    } else if (type === 'armoire') {
+  switch (type) {
+    case 'armoire':
       buyRes = buyArmoire(user, req, analytics);
-    } else if (type === 'mystery') {
+      break;
+    case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
-    } else if (type === 'quest') {
+      break;
+    case 'potion':
+      buyRes = buyHealthPotion(user, req, analytics);
+      break;
+    case 'marketGear':
+      buyRes = buyGear(user, req, analytics);
+      break;
+    case 'eggs':
+    case 'hatchingPotions':
+    case 'food':
+    case 'quests':
+    case 'gear':
+    case 'bundles':
+    case 'gems':
+      buyRes = purchaseOp(user, req, analytics);
+      break;
+  }
+
+  // TODO: Move bulk purchase inside buyQuest/buySpecialSpell
+  for (let i = 0; i < quantity; i += 1) {
+    if (type === 'quest') {
       buyRes = buyQuest(user, req, analytics);
     } else if (type === 'special') {
       buyRes = buySpecialSpell(user, req, analytics);
-    } else {
-      buyRes = buyGear(user, req, analytics);
     }
   }
 
