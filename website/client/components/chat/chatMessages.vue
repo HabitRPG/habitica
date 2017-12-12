@@ -29,7 +29,7 @@
               v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
+              .svg-icon(v-html="getTierIcon(msg)", v-if='showShowTierStyle(msg)')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -67,7 +67,7 @@
               v-b-tooltip.hover.top="('contributor' in msg) ? msg.contributor.text : ''",
             )
               | {{msg.user}}
-              .svg-icon(v-html="icons[`tier${msg.contributor.level}`]", v-if='msg.contributor && msg.contributor.level')
+              .svg-icon(v-html="getTierIcon(msg)", v-if='showShowTierStyle(msg)')
             p.time {{msg.timestamp | timeAgo}}
             .text(v-markdown='msg.text')
             hr
@@ -103,50 +103,7 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  // @TODO: Move this to an scss
-  .tier1 {
-    color: #c42870;
-  }
-
-  .tier2 {
-    color: #b01515;
-  }
-
-  .tier3 {
-    color: #d70e14;
-  }
-
-  .tier4 {
-    color: #c24d00;
-  }
-
-  .tier5 {
-    color: #9e650f;
-  }
-
-  .tier6 {
-    color: #2b8363;
-  }
-
-  .tier7 {
-    color: #167e87;
-  }
-
-  .tier8 {
-    color: #277eab;
-  }
-
-  .tier9 {
-    color: #6133b4;
-  }
-
-  .tier10 {
-    color: #77f4c7;
-    fill: #77f4c7;
-    stroke: #005737;
-  }
-  // End of tier colors
+  @import '~client/assets/scss/tiers.scss';
 
   .leader {
     margin-bottom: 0;
@@ -271,7 +228,7 @@ import tier6 from 'assets/svg/tier-6.svg';
 import tier7 from 'assets/svg/tier-7.svg';
 import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
-import tier10 from 'assets/svg/tier-npc.svg';
+import tierNPC from 'assets/svg/tier-npc.svg';
 
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
@@ -310,7 +267,7 @@ export default {
         tier7,
         tier8,
         tier9,
-        tier10,
+        tierNPC,
       }),
       copyingMessage: {},
       currentDayDividerDisplay: moment().day(),
@@ -486,6 +443,18 @@ export default {
           startingPage: 'profile',
         });
       }
+    },
+    showShowTierStyle (message) {
+      const isContributor = Boolean(message.contributor && message.contributor.level);
+      const isNPC = Boolean(message.backer && message.backer.npc);
+      return isContributor || isNPC;
+    },
+    getTierIcon (message) {
+      const isNPC = Boolean(message.backer && message.backer.npc);
+      if (isNPC) {
+        return this.icons.tierNPC;
+      }
+      return this.icons[`tier${message.contributor.level}`];
     },
   },
 };
