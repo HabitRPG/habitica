@@ -375,8 +375,11 @@ describe('POST /chat', () => {
     });
 
     const message = await backer.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const messageBackerInfo = message.message.backer;
 
-    expect(message.message.backerInfo).to.eql(backerInfo);
+    expect(messageBackerInfo.npc).to.equal(backerInfo.npc);
+    expect(messageBackerInfo.tier).to.equal(backerInfo.tier);
+    expect(messageBackerInfo.tokensApplied).to.equal(backerInfo.tokensApplied);
   });
 
   it('sends group chat received webhooks', async () => {
