@@ -1,12 +1,18 @@
 .promo_armoire_backgrounds_201712 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: 0px -352px;
   width: 141px;
   height: 441px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px 0px;
+  background-position: -142px -352px;
   width: 114px;
   height: 87px;
+}
+.scene_bug {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 477px;
+  height: 351px;
 }
