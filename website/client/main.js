@@ -3,7 +3,6 @@
 require('babel-polyfill');
 
 import Vue from 'vue';
-import Meta from 'vue-meta';
 import AppComponent from './app';
 import {
   setup as setupAnalytics,
@@ -32,7 +31,6 @@ Vue.config.productionTip = IS_PRODUCTION;
 Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
 Vue.use(BootstrapVue);
-Vue.use(Meta);
 
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
