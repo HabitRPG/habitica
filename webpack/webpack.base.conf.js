@@ -11,7 +11,7 @@ const IS_PROD = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
   entry: {
-    app: './website/client/main.js',
+    app: ['babel-polyfill', './website/client/main.js'],
   },
   output: {
     path: config.build.assetsRoot,
