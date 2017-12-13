@@ -28,7 +28,7 @@
     "phoenix": "Phoenix",
     "magicalBee": "Lebah Ajaib",
     "royalPurpleJackalope": "Jackalope Ungu Kerajaan",
-    "invisibleAether": "Eter Tembus Pandang",
+    "invisibleAether": "Aether Tembus Pandang",
     "rarePetPop1": "Klik tapak emas untuk mengetahui lebih lanjut bagaimana kamu bisa mendapatkan peliharaan langka ini dengan berkontribusi ke Habitica!",
     "rarePetPop2": "Cara Mendapatkan Peliharaan ini!",
     "potion": "Ramuan <%= potionType %>",
@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "Klik seekor Peliharaan untuk memberinya makan <%= foodName %> dan lihat ia bertumbuh!",
     "dragThisPotion": "Tarik <%= potionName %> ini ke sebuah Telur dan tetaskan peliharaan baru!",
     "clickOnEggToHatch": "Klik sebuah Telur untuk menggunakan ramuan penetas <%= potionName %>-mu dan tetaskan peliharaan baru!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>."
 }

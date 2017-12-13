@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Permata",
     "typeNotSellable": "Tipe tidak dapat dijual. Harus salah satu dari <%= acceptedTypes %> berikut",
     "userItemsKeyNotFound": "Kunci tidak ditemukan untuk user.items <%= type %>",
-    "userItemsNotEnough": "Kamu tidak mempunyai cukup <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Path string dibutuhkan",
     "unlocked": "Item telah dibuka",
     "alreadyUnlocked": "Set lengkap telah dibuka.",

@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Bu mesajı zaten bildirdin.",
     "messageGroupChatNotFound": "Mesaj bulunamadı!",
     "messageGroupChatAdminClearFlagCount": "İşaret sayısını yalnızca bir admin silebilir!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Eyvah, çok fazla mesaj yayınlıyorsun! Lütfen bir dakika bekleyip tekrar dene. Taverna sohbeti aynı anda yalnızca 200 ileti tutar, bu nedenle Habitica daha uzun, daha düşünceli ileti göndermeyi ve yanıtları derlemeyi önerir. Neler söyleyeceğini merakla bekliyoruz. :)",
     "messageUserOperationProtected": "`<%= operation %>` korumalı bir yol olduğu için kaydedilemedi.",
     "messageUserOperationNotFound": "<%= operation %> operasyonu bulunamadı",

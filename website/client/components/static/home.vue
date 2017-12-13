@@ -598,11 +598,17 @@
           return;
         }
 
+        let groupInvite = '';
+        if (this.$route.query && this.$route.query.groupInvite) {
+          groupInvite = this.$route.query.groupInvite;
+        }
+
         await this.$store.dispatch('auth:register', {
           username: this.username,
           email: this.email,
           password: this.password,
           passwordConfirm: this.passwordConfirm,
+          groupInvite,
         });
 
         let redirectTo;

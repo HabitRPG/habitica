@@ -7,6 +7,7 @@ import AppComponent from './app';
 import {
   setup as setupAnalytics,
 } from 'client/libs/analytics';
+import { setUpLogging } from 'client/libs/logging';
 import router from './router';
 import getStore from './store';
 import StoreModule from './libs/store';
@@ -32,6 +33,7 @@ Vue.use(i18n, {i18nData: window && window['habitica-i18n']});
 Vue.use(StoreModule);
 Vue.use(BootstrapVue);
 
+setUpLogging();
 setupAnalytics(); // just create queues for analytics, no scripts loaded at this time
 const store = getStore();
 

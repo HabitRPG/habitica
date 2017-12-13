@@ -78,6 +78,7 @@
     "mustLvlQuest": "Kamu harus mencapai level <%= level %> untuk membeli misi ini!",
     "mustInviteFriend": "Untuk mendapatkan misi ini, undang seorang teman ke dalam Party-mu. Undang teman sekarang?",
     "unlockByQuesting": "Untuk membuka misi ini, selesaikan <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Apakah kamu yakin ingin membatalkan misi ini? Semua undangan yang diterima akan dihapus. Pemilik misi tidak akan kehilangan gulungan misi.",
     "sureAbort": "Apakah kamu yakin ingin membatalkan misi ini? Semua yang bergabung dari party juga ikut batal dan semua perkembangan akan hilang. Gulungan misi akan dikembalikan kepada pemiliknya.",
     "doubleSureAbort": "Apakah kamu super yakin? Pastikan bahwa mereka nggak akan membenci kamu selamanya!",

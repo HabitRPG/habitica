@@ -25,7 +25,7 @@
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
-          input(type="number", v-model="task.value", required, min="0")
+          input(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
           .svg-icon.gold(v-html="icons.gold")
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
@@ -110,7 +110,7 @@
           .form-group
             label(v-once) {{ $t('repeatEvery') }}
             .input-group
-              input.form-control(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
+              input.form-control(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
               .input-group-addon {{ repeatSuffix }}
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
@@ -814,7 +814,6 @@ export default {
       this.task.down = !this.task.down;
     },
     toggleTagSelect () {
-      if (this.challengeAccessRequired) return;
       this.showTagsSelect = !this.showTagsSelect;
     },
     sortedChecklist (data) {

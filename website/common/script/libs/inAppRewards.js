@@ -1,9 +1,8 @@
-import content from '../content/index';
-import get from 'lodash/get';
 import getItemInfo from './getItemInfo';
 import shops from './shops';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
+import getItemByPathAndType from './getItemByPathAndType';
 
 module.exports = function getPinnedItems (user) {
   let officialPinnedItems = getOfficialPinnedItems(user);
@@ -16,7 +15,9 @@ module.exports = function getPinnedItems (user) {
   const pinnedItems = officialPinnedItemsNotUnpinned.concat(user.pinnedItems);
 
   let items = pinnedItems.map(({type, path}) => {
-    return getItemInfo(user, type, get(content, path), officialPinnedItems);
+    let item = getItemByPathAndType(type, path);
+
+    return getItemInfo(user, type, item, officialPinnedItems);
   });
 
   shops.checkMarketGearLocked(user, items);

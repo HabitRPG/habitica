@@ -4,26 +4,16 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/29/2017 - LAST CHANCE FOR CARPET RIDER SET AND THUNDERSTORM POTIONS, GUILD AND USE CASE SPOTLIGHTS
+    h2 12/12/2017 - BATTLE FOR THE NET: HELP PROTECT HABITICA
     hr
-    .media
-      .promo_potions_thunderstorm.right-margin
-      .media-body
-        h3 Last Chance for Carpet Rider Set
-        p(v-markdown='"Reminder: there are only two more days to [subscribe](/user/settings/subscription) and receive the Carpet Rider Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!"')
-        p Thanks so much for your support! You help keep Habitica running.
-        .small by Beffymaroo
-        h3 Last Chance for Thunderstorm Hatching Potions
-        p(v-markdown='"Reminder: this is the final day to [buy Thunderstorm Hatching Potions!](/shops/market) If they come back, it won\'t be until next year at the earliest, so don\'t delay!"')
-        .small by Balduranne
-        h3 Generating Interest: Guilds and Use Cases for Money Matters
-        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/11/28/generating-interest-guilds-for-money-matters/) that highlights the Guilds that can help you as work to improve your budgeting and saving habits! Check it out now to find Habitica\'s best money management communities."')
-    .media
-      .media-body
-        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/11/14/3908/) follows the same theme! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be working on saving and budgeting as the holiday season approaches!"')
-        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to stay on top of Holiday Housekeeping? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog at the start of next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-        .small by Beffymaroo
-      .scene_money.left-margin
+    .scene_bug.center-block
+    p What would you do if you couldn't access your favorite websites, including Habitica, without paying an exorbitant amount to your internet service provider? In the United States, where Habitica is based, that is now a very real danger.
+    p The USA's Federal Communications Commission (FCC) is about to vote on its plan to kill net neutrality, which will let internet service providers charge extra fees, throttle internet speeds, and block access to websites like this one. This could kill a small company like Habitica.
+    p.strong Congress can stop them, but only if US citizens flood them with calls right now, asking them to defend net neutrality by stopping the FCC's vote BEFORE December 14th. Help keep Habitica free to access for everybody!
+    p(v-markdown='"**US Habiticans can call Congress using the phone numbers found [here](https://www.callmycongress.com). You can also learn more at https://www.battleforthenet.com.** Non-US Habiticans can still help us by spreading the word."')
+    p Thank you for helping protect Habitica.
+    p Warmly,
+    p Vicky, Leslie, Sabe, Phillip, Matteo, Keith, and Beth
     br
 </template>
 

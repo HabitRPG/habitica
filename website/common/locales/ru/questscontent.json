@@ -349,7 +349,7 @@
     "questArmadilloDropArmadilloEgg": "Броненосец (яйцо)",
     "questArmadilloUnlockText": "Позволяет покупать на рынке броненосца в яйце",
     "questCowText": "Корова-муутант",
-    "questCowNotes": "Этим длинным и жарким днем на Тренировочных Фермах вы думаете только о том, чтобы напиться воды и немного поспать. Уже задремав, вы слышите внезапный крик @Soloana: \"Убегайте, все убегайте! Призовая корова МУУтировала! <br><br>@eevachu сглотнул: \"Должно быть, ее заразили наши плохие привычки\". <br><br> \"Скорее! Давайте сделаем что-то, пока дойные коровы не муутировали тоже\", — сказал @Feralem Tau. <br><br>Теперь вы узнали достаточно, и теперь — никакого сна! Настало время взять эти плохие привычки под контроль!",
+    "questCowNotes": "It’s been a long, hot day at Sparring Farms, and there is nothing more you want than a long sip of water and some sleep. You're standing there daydreaming when @Soloana suddenly screams, \"Everyone run! The prize cow has mootated!\"<br><br>@eevachu gulps. \"It must be our bad habits that infected it.\"<br><br>\"Quick!\" @Feralem Tau says. \"Let’s do something before the udder cows mootate, too.\"<br><br>You’ve herd enough. No more daydreaming -- it's time to get those bad habits under control!",
     "questCowCompletion": "Вы выдоили из своих полезных привычек все, что можно, и корова вновь приобрела свой изначальный вид. Она смотрит на вас своими красивыми карими глазами и подталкивает носом три яйца.<br><br>@fuzzytrees смеется и вручает вам яйца: \"Если в них есть телята, то они, возможно, все еще муутированы! Но я уверен, что вы будете держаться своих хороших привычек, когда будете растить их!\".",
     "questCowBoss": "Корова-муутант",
     "questCowDropCowEgg": "Корова (яйцо)",

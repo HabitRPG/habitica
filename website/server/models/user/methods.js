@@ -313,3 +313,7 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
     return g.isSubscribed();
   });
 };
+
+schema.methods.isAdmin = function isAdmin () {
+  return this.contributor && this.contributor.admin;
+};

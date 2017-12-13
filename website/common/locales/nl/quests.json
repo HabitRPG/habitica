@@ -78,6 +78,7 @@
     "mustLvlQuest": "Je moet niveau <%= level %> zijn om deze queeste te kunnen kopen!",
     "mustInviteFriend": "Om deze queeste te ontvangen moet je een vriend uitnodigen in je groep.  Wil je nu iemand uitnodigen?",
     "unlockByQuesting": "Om deze queeste vrij te spelen moet je eerst <%= title %> voltooien.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Weet je zeker dat je deze queeste af wilt breken? Alle geaccepteerde uitnodigingen gaan verloren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie wordt afgebroken voor iedereen in jouw groep; alle vorderingen gaan verloren. De queeste-perkamentrol wordt teruggegeven aan de eigenaar van de queeste.",
     "doubleSureAbort": "Weet je het echt heel zeker? Zorg ervoor dat ze niet voor altijd een hekel aan je krijgen!",
