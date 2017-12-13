@@ -118,6 +118,7 @@
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
+    "vue-meta": "^1.4.0",
     "vue-mugen-scroll": "^0.2.1",
     "vue-router": "^3.0.0",
     "vue-style-loader": "^3.0.0",

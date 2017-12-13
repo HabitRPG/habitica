@@ -98,6 +98,19 @@ export default {
     SelectMembersModal,
     amazonPaymentsModal,
   },
+  metaInfo: {
+    title: 'Habitica - Gamify Your Life',
+    meta: [
+      {
+        name: 'description',
+        content: 'Habitica is a free habit and productivity app that treats your real life like a game. Habitica can help you achieve your goals to become healthy and happy.',
+      },
+      {
+        name: 'keywords',
+        content: 'Habits, Goals, Todo, Gamification,  Health, Fitness, School, Work',
+      },
+    ],
+  },
   data () {
     return {
       selectedItemToBuy: null,
