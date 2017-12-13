@@ -15,7 +15,7 @@ describe('subscribe', () => {
 
   beforeEach(() => {
     approvalHerf = 'approvalHerf-test';
-    sub = common.content.subscriptionBlocks[subKey];
+    sub = Object.assign({}, common.content.subscriptionBlocks[subKey]);
 
     paypalBillingAgreementCreateStub = sinon.stub(paypalPayments, 'paypalBillingAgreementCreate')
       .returnsPromise().resolves({
