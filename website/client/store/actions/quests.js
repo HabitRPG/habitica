@@ -8,7 +8,7 @@ export async function sendAction (store, payload) {
   // @TODO: Maybe move this to server
   let partyData = {
     partyID: store.state.user.data.party._id,
-    partySize: store.state.party.members.data.length,
+    partySize: store.state.partyMembers.data.length,
   };
 
   if (store.state.party && store.state.party.data) {

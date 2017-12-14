@@ -126,7 +126,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'user:data',
-      partyMembers: 'party:members',
+      partyMembers: 'partyMembers',
     }),
 
     showHeader () {

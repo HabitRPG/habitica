@@ -301,7 +301,7 @@ export default {
     async shown () {
       this.groups = await this.$store.dispatch('guilds:getMyGuilds');
       await this.$store.dispatch('party:getParty');
-      const party = this.$store.state.party.data.data;
+      const party = this.$store.state.party.data;
       if (party._id) {
         this.groups.push({
           name: party.name,

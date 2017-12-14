@@ -543,7 +543,7 @@ export default {
 
       if (this.isParty) {
         await this.$store.dispatch('party:getParty');
-        this.group = this.$store.state.party.data.data;
+        this.group = this.$store.state.party.data;
         this.checkForAchievements();
       } else {
         const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
