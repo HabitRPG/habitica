@@ -302,6 +302,17 @@ describe('POST /tasks/user', () => {
 
       expect(task.alias).to.eql('a_alias012');
     });
+
+    // This is a special case for iOS requests
+    it('will round a priority (difficulty)', async () => {
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+        priority: 0.10000000000005,
+      });
+
+      expect(task.priority).to.eql(0.1);
+    });
   });
 
   context('habits', () => {
@@ -627,6 +638,43 @@ describe('POST /tasks/user', () => {
         message: 'daily validation failed',
       });
     });
+
+    it('returns an error if everyX is a non int', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: 2.5,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
+    it('returns an error if everyX is negative', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: -1,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
+    it('returns an error if everyX is above 9999', async () => {
+      await expect(user.post('/tasks/user', {
+        text: 'test daily',
+        type: 'daily',
+        everyX: 10000,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'daily validation failed',
+      });
+    });
+
 
     it('can create checklists', async () => {
       let task = await user.post('/tasks/user', {

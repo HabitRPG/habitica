@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Już zgłosiłeś tę wiadomość.",
     "messageGroupChatNotFound": "Nie znaleziono wiadomości!",
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, zdaje się, że wysyłasz zbyt wiele wiadomości! Poczekaj minutę i spróbuj ponownie. Pogaduszki w Karczmie mieszczą równocześnie tylko 200 wiadomości, więc Habitica zaleca wysyłanie dłuższych i bardziej przemyślanych wiadomości oraz łączenie odpowiedzi. Nie możemy się doczekać żeby usłyszeć co masz do powiedzenia. :)",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",

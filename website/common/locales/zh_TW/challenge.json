@@ -127,5 +127,6 @@
     "locationRequired": "必須填寫挑戰所在位置 (「新增至」)",
     "categoiresRequired": "必須選擇一種以上的類別",
     "viewProgressOf": "查看進度",
-    "selectMember": "選擇成員"
+    "selectMember": "選擇成員",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

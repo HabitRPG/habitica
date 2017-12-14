@@ -78,6 +78,7 @@
     "mustLvlQuest": "Bu görevi satın almak için <%= level %>. seviye olmalısın!",
     "mustInviteFriend": "Bu görevi kazanmak için Takımına bir arkadaşını davet etmelisin. Şimdi davet etmek ister misin?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Bu görevi iptal etmek istediğine emin misin? Kabul edilen tüm davetiyeler yok olacak. Görev sahibi, görev parşömenine sahip olmaya devam edecektir.",
     "sureAbort": "Bu görevi yarıda kesmek istediğine emin misin? Bu seçenek, görevi tüm takım üyeleri için iptal edecek ve tüm ilerleme kaybolacak. Görev parşömeni, görev sahibine iade edilecek.",
     "doubleSureAbort": "Son kararın mı? Senden sonsuza kadar nefret etmeyeceklerinden emin ol!",

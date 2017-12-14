@@ -18,6 +18,7 @@
         slot(name="item", :item="item")
           div(v-if="showAvatar")
             avatar(
+              :showVisualBuffs="false",
               :member="user",
               :avatarOnly="true",
               :hideClassBadge="true",
@@ -41,14 +42,15 @@
             :item="item"
           )
 
-        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
+        .purchase-amount
           .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
             .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
-            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-            span.value(:class="getPriceClass()") {{ item.value }}
+            span(:class="{'notEnough': notEnoughCurrency}")
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+              span.value(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -355,6 +357,9 @@
       attemptingToPurchaseMoreGemsThanAreLeft () {
         if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
         return false;
+      },
+      notEnoughCurrency () {
+        return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
       },
     },
     watch: {

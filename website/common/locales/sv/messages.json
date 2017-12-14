@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Du har redan rapporterat det här meddelandet",
     "messageGroupChatNotFound": "Meddelandet hittades inte!",
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Hoppsan, det ser ut som att du har postat för många meddelanden! Var vänlig vänta en minut och försök igen. Värdshuschatten kan bara visa 200 meddelanden åt gången, så Habitica uppmuntrar längre, mer genomtänkta meddelanden och sammanslagning av svar. Vi kan inte vänta på att få höra vad du har att säga. :)",
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
     "messageUserOperationNotFound": "<%= operation %> operationen hittades inte",

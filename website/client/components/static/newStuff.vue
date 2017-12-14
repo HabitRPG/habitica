@@ -4,26 +4,11 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/29/2017 - LAST CHANCE FOR CARPET RIDER SET AND THUNDERSTORM POTIONS, GUILD AND USE CASE SPOTLIGHTS
+    h2 12/13/2017 - BLOG POST: THE HABITICA PLANNER
     hr
-    .media
-      .promo_potions_thunderstorm.right-margin
-      .media-body
-        h3 Last Chance for Carpet Rider Set
-        p(v-markdown='"Reminder: there are only two more days to [subscribe](/user/settings/subscription) and receive the Carpet Rider Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!"')
-        p Thanks so much for your support! You help keep Habitica running.
-        .small by Beffymaroo
-        h3 Last Chance for Thunderstorm Hatching Potions
-        p(v-markdown='"Reminder: this is the final day to [buy Thunderstorm Hatching Potions!](/shops/market) If they come back, it won\'t be until next year at the earliest, so don\'t delay!"')
-        .small by Balduranne
-        h3 Generating Interest: Guilds and Use Cases for Money Matters
-        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2017/11/28/generating-interest-guilds-for-money-matters/) that highlights the Guilds that can help you as work to improve your budgeting and saving habits! Check it out now to find Habitica\'s best money management communities."')
-    .media
-      .media-body
-        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2017/11/14/3908/) follows the same theme! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](https://habitica.com/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be working on saving and budgeting as the holiday season approaches!"')
-        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to stay on top of Holiday Housekeeping? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog at the start of next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-        .small by Beffymaroo
-      .scene_money.left-margin
+    p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2017/12/13/the-habitica-planner/) is about the Habitica Planner! We hope that it will help you as you find new ways to use Habitica for your task-management needs! Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com), and [Facebook](https://facebook.com/habitica)."')
+    .small by Beffymaroo and the Wiki Wizards
+    .scene_calendar.center-block
     br
 </template>
 

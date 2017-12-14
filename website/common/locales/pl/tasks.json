@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Zanim otrzymasz obrażenia potwierdź, że \"Codzienne\" nie zostało wykonany",
     "yesterDailiesDescription": "Jeśli ta opcja jest zaznaczona, Habitica zapyta cię, czy chcesz zostawić Codzienne jako niewykonane zanim zada ci obrażenia. To może ochronić cie przed niezamierzonymi obrażeniami.",
     "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany.",
-    "searchTasks": "Szukaj po tytule lub opisie..."
+    "searchTasks": "Szukaj po tytule lub opisie...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }
