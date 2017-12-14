@@ -2,11 +2,15 @@
 menu-dropdown.item-notifications(:right="true")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
-      message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
+      message-count(v-if='notifications.length > 0', :count="notifications.length", :top="true")
       .svg-icon.notifications(v-html="icons.notifications")
-  div(slot="dropdown-content")
-    .dropdown-item.dropdown-separated
-      h4(v-once) {{ $t('notifications') }}
+  div(slot="dropdown-content", @click.stop="")
+    .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center
+      .d-flex.align-items-center
+        h4.dropdown-title(v-once) {{ $t('notifications') }}
+        div
+          span.badge.badge-pill.badge-default {{ notifications.length }}
+      a.small-link.standard-link(@click="dismissAll") Dismiss all
     .dropdown-item.dropdown-separated(v-for="notification in notifications")
       span {{ notification }}
     //
@@ -52,8 +56,18 @@ menu-dropdown.item-notifications(:right="true")
 </template>
 
 <style lang='scss' scoped>
+@import '~client/assets/scss/colors.scss';
+
 .dropdown-item {
+  width: 378px;
+  max-width: 100%;
   padding: 16px 24px;
+}
+
+.dropdown-title {
+  margin-bottom: 0px;
+  margin-right: 8px;
+  line-height: 1.5;
 }
 
 /*.clear-button {
@@ -91,6 +105,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    notifications () {
+      return [];
+    },
+    /*
     party () {
       return {name: ''};
       // return this.user.party;
@@ -137,8 +155,13 @@ export default {
 
       return count;
     },
+    */
   },
   methods: {
+    dismissAll () {
+      // TODO
+    },
+    /*
     // @TODO: I hate this function, we can do better with a hashmap
     /*selectNotificationValue (mysteryValue, invitationValue, cardValue,
       unallocatedValue, messageValue, noneValue, groupApprovalRequested, groupApproved) {
@@ -165,7 +188,7 @@ export default {
       } else {
         return noneValue;
       }
-    },*/
+    },
     hasQuestProgress () {
       let user = this.user;
       if (user.party.quest) {
@@ -206,7 +229,7 @@ export default {
     clearCards () {
       this.$store.dispatch('chat:clearCards');
     },
-    /*iconClasses () {
+    iconClasses () {
       return this.selectNotificationValue(
         'glyphicon-gift',
         'glyphicon-user',
@@ -217,10 +240,10 @@ export default {
         'glyphicon-question-sign',
         'glyphicon-ok-sign'
       );
-    },*/
-    /*hasNoNotifications () {
+    },
+    hasNoNotifications () {
       return this.selectNotificationValue(false, false, false, false, false, true, false, false);
-    },*/
+    },
     viewGroupApprovalNotification (notification) {
       this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
         return groupNotif.id !== notification.id;
@@ -292,6 +315,7 @@ export default {
         startingPage: 'stats',
       });
     },
+    */
   },
 };
 </script>
