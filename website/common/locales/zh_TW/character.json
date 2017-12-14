@@ -163,6 +163,7 @@
     "dieText": "你已經失去了一個等級，你所有的金幣，和隨機一件裝備。起來，Habit公民，然後再試一次！遏制這些負面的習慣，慎加的完成每日任務，並當你虛弱時持有讓死亡敬而遠之的治療藥水！",
     "sureReset": "確定嗎？這將重置您的角色職業以及已分配的屬性點數 ( 將回到未分配的狀態 )，並花費 3 個寶石。",
     "purchaseFor": "花費 <%= cost %> 顆寶石嗎？",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "魔力不足。",
     "invalidTarget": "無法在此目標施展法術。",
     "youCast": "你施放了 <%= spell %>。",

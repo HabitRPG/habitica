@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Hai già segnalato questo messaggio.",
     "messageGroupChatNotFound": "Messaggio non trovato!",
     "messageGroupChatAdminClearFlagCount": "Solo un amministratore può azzerare il conteggio flag!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ops, sembra che tu stia pubblicando troppi messaggi! Per favore, aspetta un minuto e poi prova di nuovo. La chat della Taverna contiene solo 200 messaggi contemporaneamente, quindi Habitica incoraggia l'uso di messaggi più lunghi e ragionati e di risposte unificate in un unico messaggio. Non vediamo l'ora di sentire quello che devi dire. :)",
     "messageUserOperationProtected": "Il percorso `<%= operation %>` non è stato salvato, perchè è un percorso protetto.",
     "messageUserOperationNotFound": "Operazione <%= operation %> non trovata",

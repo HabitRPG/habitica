@@ -163,6 +163,7 @@
     "dieText": "Vous avez perdu un niveau, tout votre or et une pièce d'équipement aléatoire. Relevez-vous, membre d'Habitica, et essayez encore ! Mettez un frein à ces habitudes négatives, complétez vos tâches Quotidiennes avec vigilance et tenez la mort à distance avec une potion de santé si vous fléchissez !",
     "sureReset": "Confirmez-vous ? Ceci réinitialisera la classe de votre personnage ainsi que vos points alloués (vous les récupérerez tous pour les ré-allouer), et vous coûtera 3 gemmes.",
     "purchaseFor": "Acheter pour <%= cost %> gemmes ?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Pas assez de mana.",
     "invalidTarget": "Vous ne pouvez pas utiliser une compétence là-dessus.",
     "youCast": "Vous avez lancé <%= spell %>.",

@@ -88,7 +88,7 @@
     "plusOneGem": "+1 ædelsten",
     "typeNotSellable": "Type kan ikke sælges. Skal være en af følgende <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Nøgle ikke fundet for user.items <%= type %>",
-    "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Path string er påkrævet",
     "unlocked": "Genstande er blevet låst op",
     "alreadyUnlocked": "Fuldt sæt er allerede låst op for.",

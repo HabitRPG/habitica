@@ -316,6 +316,22 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
       };
       break;
     }
+    case 'timeTravelersStable': {
+      itemInfo = {
+        key: item.key,
+        purchaseType: item.type,
+        class: `shop_${item.type}_${item.key}`,
+        text: content.timeTravelStable[item.type][item.key](language),
+        notes: '',
+        value: 1,
+
+        locked: false,
+        currency: 'hourglasses',
+        path: `timeTravelStable.${item.type}.${item.key}`,
+        pinType: 'timeTravelersStable',
+      };
+      break;
+    }
   }
 
   if (itemInfo) {

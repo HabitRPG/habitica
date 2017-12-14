@@ -52,6 +52,7 @@
     "messageGroupChatFlagAlreadyReported": "Vous avez déjà signalé ce message.",
     "messageGroupChatNotFound": "Message introuvable !",
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Oups, on dirait que vous postez trop de messages ! Merci d'attendre une minute et d'essayer de nouveau. Le fil de discussion de la taverne ne pouvant contenir que 200 messages, Habitica vous encourage à poster des messages plus longs et plus réfléchis, et à répondre en un seul bloc plutôt qu'en plusieurs petits messages. Nous avons hâte d'entendre ce que vous avez à dire. :)",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",

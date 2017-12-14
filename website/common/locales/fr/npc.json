@@ -88,7 +88,7 @@
     "plusOneGem": "+1 gemme",
     "typeNotSellable": "Type n'est pas vendable. Il doit faire partie des types suivants <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Clé non trouvée pour user.items <%= type %>",
-    "userItemsNotEnough": "Pas assez d'objets trouvés pour user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "La chaîne de chemin d'accès est requise",
     "unlocked": "Les objets ont été débloqués.",
     "alreadyUnlocked": "Ensemble complet déjà débloqué.",

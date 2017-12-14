@@ -163,6 +163,7 @@
     "dieText": "Stratil si level, všetko zlato a náhodný kus výstroja. Povstaň, Habitier, a skús to znovu! Drž na uzde svoje zlé návyky, buď dôsledný v plnení svojich denných úloh a, ak ochabneš, drž sa od smrti ďaleko pomocou elixíru zdravia.",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Kúpiť za <%= cost %> drahokamov?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Nedostatok many.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "Použil si <%= spell %>.",
