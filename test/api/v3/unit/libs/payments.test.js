@@ -191,8 +191,16 @@ describe('payments/index', () => {
         await api.createSubscription(data);
         let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
-        expect(user.sendMessage).to.be.calledOnce;
+        expect(user.sendMessage).to.be.calledTwice;
         expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
+      });
+
+      it('sends a private message about the promotion', async () => {
+        await api.createSubscription(data);
+        let msg = '\`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!\`';
+
+        expect(user.sendMessage).to.be.calledTwice;
+        expect(user.sendMessage).to.be.calledWith(user, { senderMsg: msg });
       });
 
       it('sends an email about the gift', async () => {
@@ -228,6 +236,16 @@ describe('payments/index', () => {
             'user-agent': '',
           },
         });
+      });
+
+      it('echoes bought subscription to purchasing user per holiday promo', async () => {
+        await api.createSubscription(data);
+
+        expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+        expect(user.purchased.plan.customerId).to.eql('Gift');
+        expect(user.purchased.plan.dateTerminated).to.exist;
+        expect(user.purchased.plan.dateUpdated).to.exist;
+        expect(user.purchased.plan.dateCreated).to.exist;
       });
     });
 
