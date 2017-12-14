@@ -5,53 +5,60 @@ menu-dropdown.item-notifications(:right="true")
       message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
       .svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
-    h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
-    h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
-    a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
-      div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
-      div
-        button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
-        button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
-    a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
-      span.glyphicon.glyphicon-gift
-      span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
-      div
-        span.glyphicon.glyphicon-user
-        span {{ $t('invitedTo', {name: party.name}) }}
-      div
-        button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
-        button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
-    a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
-      span.glyphicon.glyphicon-envelope
-      span {{ $t('cardReceived') }}
-      a.dropdown-item(@click.stop='clearCards()')
-    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
-      div
-        span.glyphicon.glyphicon-user
-        span {{ $t('invitedTo', {name: guild.name}) }}
-      div
-        button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
-        button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
-    a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
-      @click='showProfile()')
-      span.glyphicon.glyphicon-plus-sign
-      span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
-      span(@click='navigateToGroup(message.key)')
-        span.glyphicon.glyphicon-comment
-        span {{message.name}}
-      span.clear-button(@click.stop='clearMessages(message.key)') Clear
-    a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
-      span(:class="groupApprovalNotificationIcon(notification)")
-      span {{notification.data.message}}
-      span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
+    .dropdown-item.dropdown-separated
+      h4(v-once) {{ $t('notifications') }}
+    .dropdown-item.dropdown-separated(v-for="notification in notifications")
+      span {{ notification }}
+    //
+      a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
+        div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
+        div
+          button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
+          button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
+      a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
+        span.glyphicon.glyphicon-gift
+        span {{ $t('newSubscriberItem') }}
+      a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
+        div
+          span.glyphicon.glyphicon-user
+          span {{ $t('invitedTo', {name: party.name}) }}
+        div
+          button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
+          button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
+      a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
+        span.glyphicon.glyphicon-envelope
+        span {{ $t('cardReceived') }}
+        a.dropdown-item(@click.stop='clearCards()')
+      a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
+        div
+          span.glyphicon.glyphicon-user
+          span {{ $t('invitedTo', {name: guild.name}) }}
+        div
+          button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
+          button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
+      a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
+        @click='showProfile()')
+        span.glyphicon.glyphicon-plus-sign
+        span {{ $t('haveUnallocated', {points: user.stats.points}) }}
+      a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
+        span(@click='navigateToGroup(message.key)')
+          span.glyphicon.glyphicon-comment
+          span {{message.name}}
+        span.clear-button(@click.stop='clearMessages(message.key)') Clear
+      a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
+        span(:class="groupApprovalNotificationIcon(notification)")
+        span {{notification.data.message}}
+        span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
 </template>
 
 <style lang='scss' scoped>
-.clear-button {
-  margin-left: .5em;
+.dropdown-item {
+  padding: 16px 24px;
 }
+
+/*.clear-button {
+  margin-left: .5em;
+}*/
 </style>
 
 <script>
@@ -133,7 +140,7 @@ export default {
   },
   methods: {
     // @TODO: I hate this function, we can do better with a hashmap
-    selectNotificationValue (mysteryValue, invitationValue, cardValue,
+    /*selectNotificationValue (mysteryValue, invitationValue, cardValue,
       unallocatedValue, messageValue, noneValue, groupApprovalRequested, groupApproved) {
       let user = this.user;
 
@@ -158,7 +165,7 @@ export default {
       } else {
         return noneValue;
       }
-    },
+    },*/
     hasQuestProgress () {
       let user = this.user;
       if (user.party.quest) {
@@ -199,7 +206,7 @@ export default {
     clearCards () {
       this.$store.dispatch('chat:clearCards');
     },
-    iconClasses () {
+    /*iconClasses () {
       return this.selectNotificationValue(
         'glyphicon-gift',
         'glyphicon-user',
@@ -210,10 +217,10 @@ export default {
         'glyphicon-question-sign',
         'glyphicon-ok-sign'
       );
-    },
-    hasNoNotifications () {
+    },*/
+    /*hasNoNotifications () {
       return this.selectNotificationValue(false, false, false, false, false, true, false, false);
-    },
+    },*/
     viewGroupApprovalNotification (notification) {
       this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
         return groupNotif.id !== notification.id;

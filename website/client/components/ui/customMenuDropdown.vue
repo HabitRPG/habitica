@@ -43,7 +43,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   &.open {
     .dropdown-menu {
       display: block;
-      margin-top: 16px;
+      margin-top: 8px;
     }
   }
 }
