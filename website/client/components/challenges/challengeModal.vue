@@ -332,6 +332,8 @@ export default {
       if (!this.challenge) return;
 
       this.workingChallenge = Object.assign({}, this.workingChallenge, this.challenge);
+      // @TODO: Should we use a separate field? I think the API expects `group` but it is confusing
+      this.workingChallenge.group = this.workingChallenge.group._id;
       this.workingChallenge.categories = [];
 
       if (this.challenge.categories) {
