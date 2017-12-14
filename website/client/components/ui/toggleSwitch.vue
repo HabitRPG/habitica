@@ -1,6 +1,11 @@
 <template lang="pug">
 .clearfix.toggle-switch-container
   .float-left.toggle-switch-description {{ label }}
+  .float-left.svg-icon.inline.icon-16(
+    v-if="infoId",
+    v-html="icons[info]",
+    :id="infoId",
+  )
   .toggle-switch.float-left
     input.toggle-switch-checkbox(
       type='checkbox', :id="id",
@@ -99,11 +104,16 @@
 </style>
 
 <script>
+import infoIcon from 'assets/svg/information.svg';
+
 export default {
   data () {
     return {
-      // A value is required for the required for the for and id attributes
+      // A value is required for the for and id attributes
       id: Math.random(),
+      icons: Object.freeze({
+        info: infoIcon,
+      }),
     };
   },
   model: {
@@ -121,6 +131,10 @@ export default {
     checked: {
       type: Boolean,
       default: false,
+    },
+    infoId: {
+      type: String,
+      default: '',
     },
   },
   computed: {

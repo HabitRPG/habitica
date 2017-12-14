@@ -35,6 +35,31 @@
           b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
           b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
 
+    .clearfix
+      b-btn-group.float-left
+        b-btn(
+          @click="costume = false",
+            :variant="{'primary': costume, 'secondary': !costume}",
+        ) {{ $t('battleGear') }}
+        b-btn(
+          @click="costume = true",
+          :variant="{'primary': !costume, 'secondary': costume}",
+        ) {{ $t('costume') }}
+      .float-right
+        toggle-switch(
+          :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
+          :checked="user.preferences[drawerPreference]",
+          @change="changeDrawerPreference",
+          infoId="costumePrefToggleSwitch"
+        )
+            
+        b-popover(
+          target="costumePrefToggleSwitch"
+          triggers="hover",
+          placement="top"
+        )
+          .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
+
     drawer(
       :title="$t('equipment')",
       :errorMessage="(costume && !user.preferences.costume) ? $t('costumeDisabled') : null",
@@ -54,19 +79,6 @@
                 @click="costume = true",
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
-
-            toggle-switch#costumePrefToggleSwitch.float-right(
-              :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
-              :checked="user.preferences[drawerPreference]",
-              @change="changeDrawerPreference",
-            )
-
-            b-popover(
-              target="costumePrefToggleSwitch"
-              triggers="hover",
-              placement="top"
-            )
-              .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
         item.pointer(
           v-for="(label, group) in gearTypesToStrings",
