@@ -64,7 +64,10 @@ function textContainsBannedSlur (message) {
 
 async function getGroupChat (group) {
   const groupChat = await Chat.find({groupId: group._id}).limit(200).sort('-timestamp').exec();
+
+  // @TODO: Concat old chat to keep continuity of chat stored on group object
   const concatedGroupChat = groupChat.concat(group.chat);
+
   group.chat = concatedGroupChat.reduce((previous, current) => {
     const foundMessage = previous.find(message => {
       return message._id === current._id;
