@@ -7,7 +7,6 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
     b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
       .container-fluid.purple-gradient
         .gemfall
@@ -340,12 +339,10 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
   import planGemLimits from 'common/script/libs/planGemLimits';
   import paymentsMixin from 'client/mixins/payments';
-  import amazonPaymentsModal from './amazonModal';
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
@@ -360,9 +357,7 @@
   export default {
     mixins: [paymentsMixin],
     components: {
-      bModal,
       planGemLimits,
-      amazonPaymentsModal,
     },
     computed: {
       ...mapState({user: 'user.data'}),
@@ -400,7 +395,7 @@
     },
     methods: {
       close () {
-        this.$root.$emit('hide::modal', 'buy-gems');
+        this.$root.$emit('bv::hide::modal', 'buy-gems');
       },
     },
     watch: {

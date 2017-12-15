@@ -413,7 +413,7 @@ export function cron (options = {}) {
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
   // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
-  preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
+  preenUserHistory(user, tasksByType);
 
   if (perfect && atLeastOneDailyDue) {
     user.achievements.perfect++;
@@ -446,7 +446,6 @@ export function cron (options = {}) {
 
   // First remove a possible previous cron notification
   // we don't want to flood the users with many cron notifications at once
-
   let oldCronNotif = user.notifications.toObject().find((notif, index) => {
     if (notif.type === 'CRON') {
       user.notifications.splice(index, 1);

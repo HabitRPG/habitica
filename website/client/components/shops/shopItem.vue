@@ -39,7 +39,6 @@ div
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
       div(v-if="item.event") {{ limitedString }}
-
 </template>
 
 <style lang="scss" scoped>
@@ -151,7 +150,6 @@ div
 </style>
 
 <script>
-  import bPopover from 'bootstrap-vue/lib/components/popover';
   import uuid from 'uuid';
 
   import svgGem from 'assets/svg/gem.svg';
@@ -170,7 +168,6 @@ div
 
   export default {
     components: {
-      bPopover,
       EquipmentAttributesPopover,
       QuestInfo,
     },
@@ -227,7 +224,8 @@ div
         }
       },
       limitedString () {
-        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+        return this.item.owned === false ? '' :
+          this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
       },
     },
     methods: {

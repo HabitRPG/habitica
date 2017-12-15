@@ -21,7 +21,7 @@
   .tags-popup {
     padding-left: 24px;
     padding-right: 24px;
-    max-width: 593px;
+    width: 593px;
     z-index: 9999;
     background: $white;
     border-radius: 2px;

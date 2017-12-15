@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Drágakő",
     "typeNotSellable": "Ez a Típus nem eladható. Válassz a <%= acceptedTypes %>-ok közül.",
     "userItemsKeyNotFound": "Kulcsszó nem található a user.items <%= type %>-hoz.",
-    "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Útvonal címe szükséges.",
     "unlocked": "Új tárgyak elérhetőek",
     "alreadyUnlocked": "A teljes szett már elérhető.",

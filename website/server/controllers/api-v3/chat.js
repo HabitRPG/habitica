@@ -14,14 +14,15 @@ import pusher from '../../libs/pusher';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
+import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
-import { TAVERN_ID } from '../../models/group';
 import bannedSlurs from '../../libs/bannedSlurs';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
 
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 /**
  * @apiDefine MessageNotFound
  * @apiError (404) {NotFound} MessageNotFound The specified message could not be found.
@@ -171,9 +172,11 @@ api.postChat = {
       throw new NotAuthorized(res.t('chatPrivilegesRevoked'));
     }
 
-    if (group._id === TAVERN_ID) {
+    // prevent banned words being posted, except in private guilds/parties and in certain public guilds with specific topics
+    if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
+        // @TODO replace this split mechanism with something that works properly in translations
         let message = res.t('bannedWordUsed').split('.');
         message[0] += ` (${matchedBadWords.join(', ')})`;
         throw new BadRequest(message.join('.'));
@@ -318,7 +321,7 @@ api.flagChat = {
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
+    if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
     let update = {$set: {}};
 
     // Log user ids that have flagged the message

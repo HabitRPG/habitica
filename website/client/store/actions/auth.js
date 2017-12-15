@@ -5,6 +5,9 @@ const LOCALSTORAGE_SOCIAL_AUTH_KEY = 'hello'; // Used by hello.js for social aut
 
 export async function register (store, params) {
   let url = '/api/v3/user/auth/local/register';
+
+  if (params.groupInvite) url += `?groupInvite=${params.groupInvite}`;
+
   let result = await axios.post(url, {
     username: params.username,
     email: params.email,

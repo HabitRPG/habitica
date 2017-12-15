@@ -159,10 +159,10 @@ export default {
         this.$store.state.memberModalOptions.groupId = this.user.party._id;
         // @TODO: do we need to fetch party?
         // this.$store.state.memberModalOptions.group = this.$store.state.party;
-        this.$root.$emit('show::modal', 'members-modal');
+        this.$root.$emit('bv::show::modal', 'members-modal');
         return;
       }
-      this.$root.$emit('show::modal', 'create-party-modal');
+      this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
     setPartyMembersWidth ($event) {
       if (this.currentWidth !== $event.width) {

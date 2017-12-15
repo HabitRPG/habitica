@@ -39,7 +39,7 @@ function findUsers(gt){
       console.log('User: ', countUsers, user._id);
 
       var update = {
-        $set: {};
+        $set: {}
       };
 
       if(user.auth && user.auth.local) {

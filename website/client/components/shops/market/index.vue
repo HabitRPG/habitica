@@ -1,9 +1,8 @@
 <template lang="pug">
   .row.market
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
@@ -15,7 +14,6 @@
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ category.text }}
-
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -60,10 +58,10 @@
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-      h1.mb-0.page-header(v-once) {{ $t('market') }}
+      h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      .clearfix
-        h2.float-left
+      .clearfix(v-if="viewOptions['equipment'].selected")
+        h2.float-left.mb-3
           | {{ $t('equipment') }}
 
         div.float-right
@@ -99,7 +97,8 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
+        :noItemsLabel="$t('noGearItemsOfClass')",
+        v-if="viewOptions['equipment'].selected"
       )
         template(slot="item", slot-scope="ctx")
           shopItem(
@@ -118,7 +117,7 @@
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('items') }}
 
         div.float-right
@@ -247,37 +246,7 @@
     height: 38px; // button + margin + padding
   }
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
 
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -379,10 +348,6 @@
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgPin from 'assets/svg/pin.svg';
   import svgGem from 'assets/svg/gem.svg';
   import svgInformation from 'assets/svg/information.svg';
@@ -426,10 +391,6 @@ export default {
       DrawerHeaderTabs,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       SellModal,
       EquipmentAttributesGrid,
@@ -496,6 +457,11 @@ export default {
           ];
 
           categories.push({
+            identifier: 'equipment',
+            text: this.$t('equipment'),
+          });
+
+          categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
             items: _map(_filter(this.content.cardTypes, (value) => {
@@ -540,9 +506,11 @@ export default {
           }
 
           categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
+            if (!this.viewOptions[category.identifier]) {
+              this.$set(this.viewOptions, category.identifier, {
+                selected: true,
+              });
+            }
           });
 
           return categories;

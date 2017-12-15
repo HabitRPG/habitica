@@ -1,5 +1,6 @@
 import axios from 'axios';
 import buyOp from 'common/script/ops/buy';
+import content from 'common/script/content/index';
 import purchaseOp from 'common/script/ops/purchaseWithSpell';
 import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
@@ -32,37 +33,30 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest', quantity}),
   };
 }
 
 async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
+  let armoire = content.armoire;
 
-  let buyResult = buyOp(store.state.user.data, {
-    params: {
-      key: 'armoire',
-    },
-    type: 'armoire',
-    quantity,
-  });
-
-  // We need the server result because armoir has random item in the result
+  // We need the server result because Armoire has random item in the result
   let result = await axios.post('/api/v3/user/buy/armoire', {
     type: 'armoire',
     quantity,
   });
-  buyResult = result.data.data;
+  let buyResult = result.data.data;
 
   if (buyResult) {
     const resData = buyResult;
     const item = resData.armoire;
 
     const isExperience = item.type === 'experience';
-
     if (item.type === 'gear') {
       store.state.user.data.items.gear.owned[item.dropKey] = true;
     }
+    store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
     store.dispatch('snackbars:add', {
@@ -124,9 +118,13 @@ export async function genericPurchase (store, params) {
       await buyArmoire(store, params);
       return;
     case 'fortify': {
-      let rerollResult = rerollOp(store.state.user.data);
+      let rerollResult = rerollOp(store.state.user.data, store.state.tasks.data);
 
-      axios.post('/api/v3/user/reroll');
+      await axios.post('/api/v3/user/reroll');
+      await Promise.all([
+        store.dispatch('user:fetch', {forceLoad: true}),
+        store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+      ]);
 
       return rerollResult;
     }

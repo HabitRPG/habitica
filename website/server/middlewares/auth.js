@@ -5,14 +5,27 @@ import {
   model as User,
 } from '../models/user';
 import nconf from 'nconf';
+import url from 'url';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+
+function getUserFields (userFieldProjection, req) {
+  if (userFieldProjection) return `notifications ${userFieldProjection}`;
+
+  const urlPath = url.parse(req.url).pathname;
+  if (!req.query.userFields || urlPath !== '/user') return '';
+
+  const userFieldOptions = req.query.userFields.split(',');
+  if (userFieldOptions.length === 0) return '';
+
+  return `notifications ${userFieldOptions.join(' ')}`;
+}
 
 // Strins won't be translated here because getUserLanguage has not run yet
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
-export function authWithHeaders (optional = false) {
+export function authWithHeaders (optional = false, userFieldProjection = '') {
   return function authWithHeadersHandler (req, res, next) {
     let userId = req.header('x-api-user');
     let apiToken = req.header('x-api-key');
@@ -22,10 +35,15 @@ export function authWithHeaders (optional = false) {
       return next(new NotAuthorized(res.t('missingAuthHeaders')));
     }
 
-    return User.findOne({
+    const userQuery = {
       _id: userId,
       apiToken,
-    })
+    };
+
+    const fields = getUserFields(userFieldProjection, req);
+    const findPromise = fields ? User.findOne(userQuery, fields) : User.findOne(userQuery);
+
+    return findPromise
     .exec()
     .then((user) => {
       if (!user) throw new NotAuthorized(res.t('invalidCredentials'));

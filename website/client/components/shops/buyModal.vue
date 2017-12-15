@@ -18,6 +18,7 @@
         slot(name="item", :item="item")
           div(v-if="showAvatar")
             avatar(
+              :showVisualBuffs="false",
               :member="user",
               :avatarOnly="true",
               :hideClassBadge="true",
@@ -41,14 +42,15 @@
             :item="item"
           )
 
-        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+        .purchase-amount
+          .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
-          div(v-if='item.purchaseType !== "gear"')
+          div(v-if='showAmountToBuy(item)')
             .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
-            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-            span.value(:class="getPriceClass()") {{ item.value }}
+            span(:class="{'notEnough': notEnoughCurrency}")
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+              span.value(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -89,6 +91,10 @@
 
   #buy-modal {
     @include centeredModal();
+
+    .modal-dialog {
+      width: 330px;
+    }
 
     .avatar {
       cursor: default;
@@ -254,9 +260,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -284,12 +287,14 @@
 
   import moment from 'moment';
 
+  const hideAmountSelectionForPurchaseTypes = [
+    'gear', 'backgrounds', 'mystery_set', 'card',
+    'rebirth_orb', 'fortify', 'armoire',
+  ];
+
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
-      bModal,
-      bDropdown,
-      bDropdownItem,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,
@@ -353,6 +358,9 @@
         if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
         return false;
       },
+      notEnoughCurrency () {
+        return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+      },
     },
     watch: {
       item: function itemChanged () {
@@ -365,6 +373,16 @@
         this.$emit('change', $event);
       },
       buyItem () {
+        if (this.item.currency === 'gems' &&
+          !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
+          return;
+        }
+
+        if (this.item.currency === 'hourglasses' &&
+          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+          return;
+        }
+
         if (this.item.cast) {
           this.castStart(this.item);
         } else if (this.genericPurchase) {
@@ -384,7 +402,7 @@
             eventLabel: 'Gems > Rebirth',
           });
         }
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
       togglePinned () {
         this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
@@ -394,7 +412,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
       },
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {
@@ -403,6 +421,13 @@
           return this.item.currency;
         } else {
           return 'gold';
+        }
+      },
+      showAmountToBuy (item) {
+        if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+          return false;
+        } else {
+          return true;
         }
       },
       getAvatarOverrides (item) {

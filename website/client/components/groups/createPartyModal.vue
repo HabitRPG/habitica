@@ -139,8 +139,6 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import copyIcon from 'assets/svg/copy.svg';
 import greyBadgeIcon from 'assets/svg/grey-badge.svg';
 import qrCodeIcon from 'assets/svg/qrCode.svg';
@@ -148,9 +146,6 @@ import facebookIcon from 'assets/svg/facebook.svg';
 import twitterIcon from 'assets/svg/twitter.svg';
 
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       icons: Object.freeze({
@@ -190,7 +185,7 @@ export default {
         partySize: 1,
       });
 
-      this.$root.$emit('hide::modal', 'create-party-modal');
+      this.$root.$emit('bv::hide::modal', 'create-party-modal');
       this.$router.push('/party');
     },
   },

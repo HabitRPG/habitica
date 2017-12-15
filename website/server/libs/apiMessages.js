@@ -10,6 +10,7 @@ const messages = {
   guildsPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
   groupIdRequired: 'req.params.groupId must contain a groupId.',
   managerIdRequired: 'req.body.managerId must contain a user ID.',
+  noSudoAccess: 'You don\'t have sudo access',
 };
 
 export default function (msgKey, vars = {}) {

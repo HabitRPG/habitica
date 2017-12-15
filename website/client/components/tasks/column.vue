@@ -34,11 +34,10 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    .sortable-tasks(
-      ref="tasksList", 
-      v-sortable='activeFilters[type].label !== "scheduled"', 
-      @onsort='sorted', 
-      data-sortableId
+    draggable(
+      ref="tasksList",
+      @update='sorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
     )
       task(
         v-for="task in taskList",
@@ -58,10 +57,17 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
 
   .tasks-column {
     min-height: 556px;
@@ -71,10 +77,22 @@
     margin-top: 16px;
   }
 
+
   .reward-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @supports (display: grid) {
+      display: grid;
+      grid-column-gap: 16px;
+      grid-row-gap: 4px;
+      grid-template-columns: repeat(auto-fill, 94px);
+    }
+
+    @supports not (display: grid) {
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+      margin: 0 16px 4px 0;
+      }
+    }
   }
 
   .tasks-list {
@@ -226,34 +244,31 @@
 import Task from './task';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import bModal from 'bootstrap-vue/lib/components/modal';
-
-import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
+import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import draggable from 'vuedraggable';
 
 export default {
-  mixins: [buyMixin],
+  mixins: [buyMixin, notifications],
   components: {
     Task,
     BuyQuestModal,
-    bModal,
     shopItem,
-  },
-  directives: {
-    sortable,
+    draggable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
@@ -298,6 +313,7 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
+      pin: svgPin,
     });
 
     let activeFilters = {};
@@ -325,6 +341,16 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    onUserPage () {
+      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+        this.types.reward.filters = [];
+      }
+
+      return onUserPage;
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filter = this.activeFilters[this.type];
@@ -390,6 +416,7 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
@@ -425,9 +452,12 @@ export default {
       deep: true,
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
+      if (!this.dailyDueDefaultView) return;
+      this.activateFilter('daily', this.types.daily.filters[1]);
+    },
+    quickAddFocused (newValue) {
+      if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
+      if (!newValue) this.quickAddRows = 1;
     },
   },
   mounted () {
@@ -444,20 +474,32 @@ export default {
     }),
     async sorted (data) {
       const filteredList = this.taskList;
-      const taskIdToMove = filteredList[data.oldIndex]._id;
+      const taskToMove = filteredList[data.oldIndex];
+      const taskIdToMove = taskToMove._id;
+      let originTasks = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.tasks[`${this.type}s`].findIndex(taskId => taskId === taskIdToReplace);
-      let newOrder = await this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: newIndexOnServer,
-      });
-      this.user.tasksOrder[`${this.type}s`] = newOrder;
+      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+
+      let newOrder;
+      if (taskToMove.group.id) {
+        newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      } else {
+        newOrder = await this.$store.dispatch('tasks:move', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      }
+      if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      const deleted = this.tasks[`${this.type}s`].splice(data.oldIndex, 1);
-      this.tasks[`${this.type}s`].splice(data.newIndex, 0, deleted[0]);
+      const deleted = originTasks.splice(data.oldIndex, 1);
+      originTasks.splice(data.newIndex, 0, deleted[0]);
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
@@ -505,6 +547,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
+
       this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {
@@ -576,7 +619,7 @@ export default {
 
       if (rewardItem.purchaseType === 'quests') {
         this.selectedItemToBuy = rewardItem;
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
         return;
       }
 
@@ -587,6 +630,15 @@ export default {
     resetItemToBuy ($event) {
       if (!$event) {
         this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.text(this.$t('unpinnedItem', {item: item.text}));
+        }
+      } catch (e) {
+        this.error(e.message);
       }
     },
   },

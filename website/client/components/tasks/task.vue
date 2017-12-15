@@ -56,10 +56,15 @@
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
           label.custom-control.custom-checkbox.checklist-item(
-            v-if='!castingSpell && !task.collapseChecklist',
+            v-if='!task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
-            input.custom-control-input(type="checkbox", :checked="item.completed", @change="toggleChecklistItem(item)")
+            input.custom-control-input(
+              type="checkbox",
+              :checked="item.completed",
+              @change="toggleChecklistItem(item)",
+              :disabled="castingSpell",
+            )
             span.custom-control-indicator
             span.custom-control-description(v-markdown='item.text')
         .icons.small-text.d-flex.align-items-center
@@ -79,13 +84,15 @@
               .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
-            b-popover.tags-popover.no-span-margin(
+            #tags-popover
+            b-popover(
               v-if="hasTags",
               :target="`tags-icon-${task._id}`",
               triggers="hover",
               placement="bottom",
+              container="tags-popover",
             )
-              .d-flex.align-items-center
+              .d-flex.align-items-center.tags-container
                 .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
                 .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
@@ -128,8 +135,11 @@
     color: $gray-10;
     font-weight: normal;
     margin-bottom: 0px;
+    margin-right: 15px;
     line-height: 1.43;
     font-size: 14px;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-notes {
       padding-bottom: 4px;
@@ -152,6 +162,7 @@
   .dropdown-icon {
     width: 4px;
     height: 16px;
+    margin-right: 10px;
     color: $gray-100 !important;
   }
 
@@ -205,7 +216,9 @@
   .task-notes {
     color: $gray-100;
     font-style: normal;
-    padding-right: 6px;
+    padding-right: 20px;
+    min-width: 0px;
+    overflow-wrap: break-word;
 
     &.has-checklist {
       padding-bottom: 8px;
@@ -220,6 +233,7 @@
     background: $white;
     border: 1px solid transparent;
     transition-duration: 0.15;
+    min-width: 0px;
 
     &.no-right-border {
       border-right: none !important;
@@ -264,6 +278,8 @@
     min-height: 0px;
     width: 100%;
     margin-left: 8px;
+    padding-right: 20px;
+    overflow-wrap: break-word;
 
     &-done {
       color: $gray-300;
@@ -277,6 +293,7 @@
     .custom-control-description {
       margin-left: 6px;
       padding-top: 0px;
+      min-width: 0px;
     }
   }
 
@@ -300,10 +317,6 @@
 
   .icons span {
     margin-left: 4px;
-  }
-
-  .no-span-margin span {
-    margin-left: 0px !important;
   }
 
   .svg-icon.streak {
@@ -441,34 +454,37 @@
       font-weight: bold;
     }
   }
+
+  #tags-popover /deep/ {
+    .tags-container {
+      flex-wrap: wrap;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tags-popover-title {
+      margin-right: 4px;
+      display: block;
+      float: left;
+      margin-top: -3px;
+      margin-bottom: -3px;
+    }
+
+    .tag-label {
+      display: block;
+      float: left;
+      margin-left: 4px;
+      border-radius: 100px;
+      background-color: $gray-50;
+      padding: 4px 10px;
+      color: $gray-300;
+      white-space: nowrap;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
 </style>
 
-<style lang="scss">
-  // not working as scoped css
-  @import '~client/assets/scss/colors.scss';
-
-  .tags-popover {
-    // TODO fix padding, see https://github.com/bootstrap-vue/bootstrap-vue/issues/559#issuecomment-311150335
-    white-space: nowrap;
-  }
-
-  .tags-popover-title {
-    margin-right: 4px;
-    display: block;
-    float: left;
-  }
-
-  .tag-label {
-    display: block;
-    float: left;
-    margin-left: 4px;
-    border-radius: 100px;
-    background-color: $gray-50;
-    padding: 4px 10px;
-    color: $gray-300;
-    white-space: nowrap;
-  }
-</style>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'client/libs/store';
@@ -477,7 +493,6 @@ import axios from 'axios';
 import scoreTask from 'common/script/ops/scoreTask';
 import Vue from 'vue';
 import * as Analytics from 'client/libs/analytics';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import negativeIcon from 'assets/svg/negative.svg';
@@ -493,7 +508,6 @@ import bottomIcon from 'assets/svg/bottom.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import checklistIcon from 'assets/svg/checklist.svg';
 import menuIcon from 'assets/svg/menu.svg';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import markdownDirective from 'client/directives/markdown';
 import notifications from 'client/mixins/notifications';
 import approvalHeader from './approvalHeader';
@@ -503,14 +517,12 @@ import MenuDropdown from '../ui/customMenuDropdown';
 export default {
   mixins: [notifications],
   components: {
-    bPopover,
     approvalFooter,
     approvalHeader,
     MenuDropdown,
   },
   directives: {
     markdown: markdownDirective,
-    bTooltip,
   },
   props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
@@ -593,12 +605,22 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
+    timeTillDue () {
+      // this.task && is necessary to make sure the computed property updates correctly
+      const endOfToday = moment().endOf('day');
+      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
+
+      return moment.duration(endOfDueDate.diff(endOfToday));
+    },
     isDueOverdue () {
-      return moment().diff(this.task.date, 'days') >= 0;
+      return this.timeTillDue.asDays() <= 0;
     },
     dueIn () {
-      const dueIn = moment().to(this.task.date);
-      return this.$t('dueIn', {dueIn});
+      const dueIn = this.timeTillDue.asDays() === 0 ?
+        this.$t('today') :
+        this.timeTillDue.humanize(true);
+
+      return this.$t('dueIn', { dueIn });
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;

@@ -95,7 +95,7 @@
   "plusOneGem": "+1 Gem",
   "typeNotSellable": "Type is not sellable. Must be one of the following <%= acceptedTypes %>",
   "userItemsKeyNotFound": "Key not found for user.items <%= type %>",
-  "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+  "userItemsNotEnough": "You do not have enough <%= type %>",
   "pathRequired": "Path string is required",
   "unlocked": "Items have been unlocked",
   "alreadyUnlocked": "Full set already unlocked.",

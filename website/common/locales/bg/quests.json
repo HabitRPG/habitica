@@ -78,6 +78,7 @@
     "mustLvlQuest": "Трябва да бъдете ниво <%= level %>, за да купите тази мисия!",
     "mustInviteFriend": "За да получите тази мисия, поканете приятел в група. Искате ли да поканите някого сега?",
     "unlockByQuesting": "За да отключите тази мисия, първо завършете <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Наистина ли искате да прекратите мисията? Всички приети покани ще бъдат загубени. Притежателят на мисията ще си запази свитъка ѝ.",
     "sureAbort": "Наистина ли искате да прекратите мисията? Тя ще бъде прекратена за всекиго в групата, а напредъкът по нея ще бъде загубен. Свитъкът с мисията ще бъде върнат на притежателя си.",
     "doubleSureAbort": "Наистина ли искате това? Дано приятелите Ви не се ядосат!",

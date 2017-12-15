@@ -3,18 +3,16 @@ div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
     div(slot='modal-header')
       .profile-actions
-        button.btn.btn-secondary(@click='sendMessage()')
+        button.btn.btn-secondary.message-icon(@click='sendMessage()', v-b-tooltip.hover.left="$t('sendMessage')")
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
-          @click="blockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-plus
-          | {{$t('block')}}
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-ban-circle
-          | {{$t('unblock')}}
-        button.btn.btn-secondary(@click='openSendGemsModal()')
+        button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
           .svg-icon.gift-icon(v-html="icons.gift")
+        button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
+          @click="blockUser()", v-b-tooltip.hover.right="$t('block')")
+          .svg-icon.remove-icon(v-html="icons.remove")
+        button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
+          .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
           member-details(:member="user")
@@ -110,13 +108,13 @@ div
       hr.col-12
       .row
         .col-6(v-if='user.achievements.challenges')
-          .achievement-icon.achievement-alien
+          .achievement-icon.achievement-karaoke
           h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
             span(v-markdown='chal')
             hr
         .col-6(v-if='user.achievements.quests')
-          .achievement-icon.achievement-karaoke
+          .achievement-icon.achievement-alien
           h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }} ({{ value }})
@@ -307,17 +305,31 @@ div
     button {
       width: 40px;
       height: 40px;
-      padding: .8em;
+      padding: .7em;
       margin-right: .5em;
     }
   }
 
+
   .message-icon {
     width: 16px;
+    color: #686274;
   }
 
   .gift-icon {
     width: 14px;
+    padding: 0 0 0 1px;
+    color: #686274;
+  }
+
+  .remove-icon {
+    width:16px;
+    color: #686274;
+  }
+
+  .positive-icon {
+    width: 14px;
+    color: #686274;
   }
 
   .pet-mount-row {
@@ -551,7 +563,6 @@ div
 <script>
 import moment from 'moment';
 import axios from 'axios';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
@@ -562,7 +573,6 @@ import autoAllocate from '../../../common/script/fns/autoAllocate';
 import allocate from  '../../../common/script/ops/stats/allocate';
 
 import MemberDetails from '../memberDetails';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import sendGemsModal from 'client/components/payments/sendGemsModal';
 import markdown from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -575,6 +585,8 @@ const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
 import message from 'assets/svg/message.svg';
 import gift from 'assets/svg/gift.svg';
+import remove from 'assets/svg/remove.svg';
+import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
 
 export default {
@@ -582,16 +594,16 @@ export default {
     markdown,
   },
   components: {
-    bModal,
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
-    bPopover,
   },
   data () {
     return {
       icons: Object.freeze({
         message,
+        remove,
+        positive,
         gift,
         dots,
       }),
@@ -634,6 +646,18 @@ export default {
         per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
       },
     };
+  },
+  mounted () {
+    this.$root.$on('habitica:show-profile', (data) => {
+      if (!data.user || !data.startingPage) return;
+      // @TODO: We may be able to remove the need for store
+      this.$store.state.profileUser = data.user;
+      this.$store.state.profileOptions.startingPage = data.startingPage;
+      this.$root.$emit('bv::show::modal', 'profile');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-profile');
   },
   computed: {
     ...mapState({
@@ -744,7 +768,6 @@ export default {
         let curVal = this.user.profile[key];
         if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
-          this.$set(this.userLoggedIn.profile, key, value);
           this.$set(this.user.profile, key, value);
         }
       });
@@ -818,7 +841,7 @@ export default {
     },
     openSendGemsModal () {
       this.userReceivingGems = this.user;
-      this.$root.$emit('show::modal', 'send-gems');
+      this.$root.$emit('bv::show::modal', 'send-gems');
     },
   },
 };

@@ -33,14 +33,10 @@
 
 <script>
 import { mapActions } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
 import notifications from 'client/mixins/notifications';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
-  },
   data () {
     return {
       brokenChallengeTask: {},
@@ -49,7 +45,7 @@ export default {
   created () {
     this.$root.$on('handle-broken-task', (task) => {
       this.brokenChallengeTask = Object.assign({}, task);
-      this.$root.$emit('show::modal', 'broken-task-modal');
+      this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
   removed () {
@@ -90,7 +86,7 @@ export default {
     },
     close () {
       this.$store.state.brokenChallengeTask = {};
-      this.$root.$emit('hide::modal', 'broken-task-modal');
+      this.$root.$emit('bv::hide::modal', 'broken-task-modal');
     },
   },
 };

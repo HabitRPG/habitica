@@ -51,7 +51,6 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import Avatar from '../avatar';
 import {loginIncentives} from '../../../common/script/content/index';
@@ -59,7 +58,6 @@ import {loginIncentives} from '../../../common/script/content/index';
 export default {
   components: {
     Avatar,
-    bModal,
   },
   props: ['data'],
   data () {
@@ -79,7 +77,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'login-incentives');
+      this.$root.$emit('bv::hide::modal', 'login-incentives');
     },
   },
 };

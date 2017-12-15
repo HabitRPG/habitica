@@ -50,12 +50,7 @@
 import clone from 'lodash/clone';
 import { mapState } from 'client/libs/store';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       restoreValues: {
@@ -81,7 +76,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
     restore () {
       if (this.restoreValues.stats.lvl < 1) {
@@ -89,6 +84,10 @@ export default {
         // Notification.error(env.t('invalidLevel'), true);
         return;
       }
+
+      const userChangedLevel = this.restoreValues.stats.lvl !== this.user.stats.lvl;
+      const userDidNotChangeExp = this.restoreValues.stats.exp === this.user.stats.exp;
+      if (userChangedLevel && userDidNotChangeExp) this.restoreValues.stats.exp = 0;
 
       this.user.stats = clone(this.restoreValues.stats);
       this.user.achievements.streak = clone(this.restoreValues.achievements.streak);
@@ -103,7 +102,7 @@ export default {
       };
 
       this.$store.dispatch('user:set', settings);
-      this.$root.$emit('hide::modal', 'restore');
+      this.$root.$emit('bv::hide::modal', 'restore');
     },
   },
 };
