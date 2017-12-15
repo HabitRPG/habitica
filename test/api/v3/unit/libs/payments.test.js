@@ -195,14 +195,6 @@ describe('payments/index', () => {
         expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
-      it('sends a private message about the promotion', async () => {
-        await api.createSubscription(data);
-        let msg = '\`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!\`';
-
-        expect(user.sendMessage).to.be.calledTwice;
-        expect(user.sendMessage).to.be.calledWith(user, { senderMsg: msg });
-      });
-
       it('sends an email about the gift', async () => {
         await api.createSubscription(data);
 
@@ -238,14 +230,75 @@ describe('payments/index', () => {
         });
       });
 
-      it('echoes bought subscription to purchasing user per holiday promo', async () => {
-        await api.createSubscription(data);
+      context('Winter 2017-18 Gift-1-Get-1 Promotion', async () => {
+        it('creates a gift subscription for purchaser and recipient if none exist', async () => {
+          await api.createSubscription(data);
 
-        expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
-        expect(user.purchased.plan.customerId).to.eql('Gift');
-        expect(user.purchased.plan.dateTerminated).to.exist;
-        expect(user.purchased.plan.dateUpdated).to.exist;
-        expect(user.purchased.plan.dateCreated).to.exist;
+          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(user.purchased.plan.customerId).to.eql('Gift');
+          expect(user.purchased.plan.dateTerminated).to.exist;
+          expect(user.purchased.plan.dateUpdated).to.exist;
+          expect(user.purchased.plan.dateCreated).to.exist;
+
+          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(recipient.purchased.plan.customerId).to.eql('Gift');
+          expect(recipient.purchased.plan.dateTerminated).to.exist;
+          expect(recipient.purchased.plan.dateUpdated).to.exist;
+          expect(recipient.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscription for purchaser and creates a gift subscription for recipient without sub', async () => {
+          user.purchased.plan = plan;
+
+          expect(user.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.extraMonths).to.eql(3);
+
+          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(recipient.purchased.plan.customerId).to.eql('Gift');
+          expect(recipient.purchased.plan.dateTerminated).to.exist;
+          expect(recipient.purchased.plan.dateUpdated).to.exist;
+          expect(recipient.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscription for recipient and creates a gift subscription for purchaser without sub', async () => {
+          recipient.purchased.plan = plan;
+
+          expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(recipient.purchased.plan.extraMonths).to.eql(3);
+
+          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(user.purchased.plan.customerId).to.eql('Gift');
+          expect(user.purchased.plan.dateTerminated).to.exist;
+          expect(user.purchased.plan.dateUpdated).to.exist;
+          expect(user.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscriptions for purchaser and recipient', async () => {
+          user.purchased.plan = plan;
+          recipient.purchased.plan = plan;
+
+          expect(user.purchased.plan.extraMonths).to.eql(0);
+          expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.extraMonths).to.eql(3);
+          expect(recipient.purchased.plan.extraMonths).to.eql(3);
+        });
+
+        it('sends a private message about the promotion', async () => {
+          await api.createSubscription(data);
+          let msg = '\`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!\`';
+
+          expect(user.sendMessage).to.be.calledTwice;
+          expect(user.sendMessage).to.be.calledWith(user, { senderMsg: msg });
+        });
       });
     });
 
