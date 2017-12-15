@@ -62,6 +62,18 @@ function textContainsBannedSlur (message) {
   return bannedSlursMatched.length > 0;
 }
 
+async function getGroupChat (group) {
+  const groupChat = await Chat.find({groupId: group._id}).limit(200).sort('-timestamp').exec();
+  const concatedGroupChat = groupChat.concat(group.chat);
+  group.chat = concatedGroupChat.reduce((previous, current) => {
+    const foundMessage = previous.find(message => {
+      return message._id === current._id;
+    });
+    if (!foundMessage) previous.push(current);
+    return previous;
+  }, []);
+}
+
 /**
  * @api {get} /api/v3/groups/:groupId/chat Get chat messages from a group
  * @apiName GetChat
@@ -91,8 +103,7 @@ api.getChat = {
     let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
-    group.chat = groupChat.concat(group.chat);
+    await getGroupChat(group);
 
     res.respond(200, Group.toJSONCleanChat(group, user).chat);
   },
@@ -188,8 +199,7 @@ api.postChat = {
       }
     }
 
-    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
-    group.chat = groupChat.concat(group.chat);
+    await getGroupChat(group);
 
     let lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
@@ -539,8 +549,7 @@ api.deleteChat = {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 
-    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
-    group.chat = groupChat.concat(group.chat);
+    await getGroupChat(group);
 
     let lastClientMsg = req.query.previousMsg;
     let chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
