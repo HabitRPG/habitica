@@ -71,11 +71,9 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     });
 
     it('returns the update chat when previous message parameter is passed and the chat is updated', async () => {
-      await expect(user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}?previousMsg=${message.id}`))
-        .eventually
-        .is.an('array')
-        .to.include(message)
-        .to.be.lengthOf(1);
+      let deleteResult = await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}?previousMsg=${message.id}`);
+
+      expect(deleteResult[0].id).to.eql(message.id);
     });
   });
 });
