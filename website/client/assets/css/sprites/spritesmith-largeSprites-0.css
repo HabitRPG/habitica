@@ -1,12 +1,30 @@
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -437px 0px;
+  background-position: -741px -442px;
   width: 114px;
   height: 87px;
 }
-.scene_calendar {
+.promo_winter_quests {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -741px 0px;
+  width: 141px;
+  height: 441px;
+}
+.promo_winter_retreat {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
+  width: 740px;
+  height: 309px;
+}
+.promo_winter_subscriptions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -437px -310px;
+  width: 237px;
+  height: 150px;
+}
+.scene_calendar {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -310px;
   width: 436px;
   height: 368px;
 }
