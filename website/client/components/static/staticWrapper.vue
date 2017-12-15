@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  static-header(v-if='showContentWrap', :class='{"home-header": $route.name === "home"}')
+  static-header(v-if='showContentWrap', :class='{"home-header": ["home", "front"].indexOf($route.name) !== -1}')
 
   .static-wrapper
     router-view
