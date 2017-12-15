@@ -236,6 +236,12 @@ schema.statics.getGroup = async function getGroup (options = {}) {
     await user.save();
   }
 
+  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
+  if (group) {
+    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
+    group.chat = groupChat.concat(group.chat);
+  }
+
   return group;
 };
 

@@ -9,6 +9,8 @@ const schema = new mongoose.Schema({
   uuid: String,
   id: String,
   groupId: {type: String, ref: 'Group'},
+  flags: {type: mongoose.Schema.Types.Mixed},
+  flagCount: {type: Number, default: 0},
 });
 
 schema.plugin(baseModel, {

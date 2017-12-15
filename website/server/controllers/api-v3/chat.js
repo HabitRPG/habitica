@@ -326,18 +326,16 @@ api.flagChat = {
       optionalMembership: user.contributor.admin,
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
-    let message = _.find(group.chat, {id: req.params.chatId});
 
+    let message = await Chat.findOne({id: req.params.chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
-    let update = {$set: {}};
 
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[user._id] = true;
-    update.$set[`chat.$.flags.${user._id}`] = true;
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
@@ -347,12 +345,8 @@ api.flagChat = {
     } else {
       message.flagCount++;
     }
-    update.$set['chat.$.flagCount'] = message.flagCount;
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
+    await message.save();
 
     let reporterEmailContent = getUserInfo(user, ['email']).email;
     let authorEmail = await getAuthorEmailFromMessage(message);
