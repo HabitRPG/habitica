@@ -59,7 +59,7 @@ api.getNews = {
         <p>If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!</p>
         <div class="small">by Viirus and piyorii</div><br/>
       </div>
-      `
+      `,
     });
   },
 };
