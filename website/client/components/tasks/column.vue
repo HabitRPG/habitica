@@ -37,7 +37,7 @@
     .task-items
       draggable(
         ref="tasksList",
-        @update='sorted',
+        @update='taskSorted',
         :options='{disabled: activeFilters[type].label === "scheduled"}',
       )
         task(
@@ -52,7 +52,7 @@
       .reward-items
         draggable(
           ref="rewardsList",
-          @update='todoCallback',
+          @update='rewardSorted',
         )
           shopItem(
             v-for="reward in inAppRewards",
@@ -473,7 +473,7 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    async sorted (data) {
+    async taskSorted (data) {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
@@ -516,6 +516,9 @@ export default {
         position: newPosition,
       });
       this.user.tasksOrder[`${this.type}s`] = newOrder;
+    },
+    async rewardSorted () {
+      console.log( 'sortedCallback' );
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
