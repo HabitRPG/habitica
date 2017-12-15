@@ -118,6 +118,7 @@
     "giftedSubscription": "Skänkt prenumeration",
     "giftedSubscriptionInfo": "<%= name %> har skickat dig <%= months %> månader av prenumeration",
     "giftedSubscriptionFull": "Hej <%= username %>, <%= sender %> har skickat dig <%= monthCount %> månader av prenumeration",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Inbjuden till sällskap",
     "invitedGuild": "Inbjuden till gille",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",
