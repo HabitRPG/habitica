@@ -7,7 +7,6 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
-import _ from 'lodash';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
@@ -212,7 +211,6 @@ api.postChat = {
     }
 
     const newChatMessage = group.sendChat(req.body.message, user);
-
     let toSave = [newChatMessage.save()];
 
     if (group.type === 'party') {
@@ -435,15 +433,11 @@ api.clearChatFlags = {
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: chatId});
+    let message = await Chat.findOne({id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     message.flagCount = 0;
-
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      {$set: {'chat.$.flagCount': message.flagCount}}
-    ).exec();
+    await message.save();
 
     let adminEmailContent = getUserInfo(user, ['email']).email;
     let authorEmail = getAuthorEmailFromMessage(message);

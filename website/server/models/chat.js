@@ -9,9 +9,11 @@ const schema = new mongoose.Schema({
   uuid: String,
   id: String,
   groupId: {type: String, ref: 'Group'},
-  flags: {type: mongoose.Schema.Types.Mixed},
+  flags: {type: mongoose.Schema.Types.Mixed, default: {}},
   flagCount: {type: Number, default: 0},
   likes: {type: mongoose.Schema.Types.Mixed},
+}, {
+  minimize: false, // Allow for empty flags to be saved
 });
 
 schema.plugin(baseModel, {
