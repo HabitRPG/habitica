@@ -289,18 +289,18 @@ export function cron (options = {}) {
   user.loginIncentives++;
   awardLoginIncentives(user);
 
+  // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
+  // When site-wide difficulty settings are introduced, this can be a user preference option.
+  let multiDaysCountAsOneDay = true;
+
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
     performSleepTasks(user, tasksByType, now, daysMissed);
-    ageTodos(user, tasksByType, true, daysMissed, 0);
+    ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, 0);
     trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
-
-  let multiDaysCountAsOneDay = true;
-  // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
-  // When site-wide difficulty settings are introduced, this can be a user preference option.
 
   // Tally each task
   let todoTally = 0;

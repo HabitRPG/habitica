@@ -14,7 +14,7 @@ describe('habits', () => {
         local: {
           username: 'username',
           lowerCaseUsername: 'username',
-          email: 'email@email.email',
+          email: 'email@example.com',
           salt: 'salt',
           hashed_password: 'hashed_password', // eslint-disable-line camelcase
         },
