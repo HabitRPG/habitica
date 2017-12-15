@@ -34,35 +34,40 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    draggable(
-      ref="tasksList",
-      @update='sorted',
-      :options='{disabled: activeFilters[type].label === "scheduled"}',
-    )
-      task(
-        v-for="task in taskList",
-        :key="task.id", :task="task",
-        :isUser="isUser",
-        @editTask="editTask",
-        @moveTo="moveTo",
-        :group='group',
+    .task-items
+      draggable(
+        ref="taskItems",
+        @update='sorted',
+        :options='{disabled: activeFilters[type].label === "scheduled"}',
       )
+        task(
+          v-for="task in taskList",
+          :key="task.id", :task="task",
+          :isUser="isUser",
+          @editTask="editTask",
+          @moveTo="moveTo",
+          :group='group',
+        )
     template(v-if="hasRewardsList")
       .reward-items
-        shopItem(
-          v-for="reward in inAppRewards",
-          :item="reward",
-          :key="reward.key",
-          :highlightBorder="reward.isSuggested",
-          @click="openBuyDialog(reward)",
-          :popoverPosition="'left'"
+        draggable(
+          ref="rewardItems",
+          @update='todoCallback',
         )
-          template(slot="itemBadge", slot-scope="ctx")
-            span.badge.badge-pill.badge-item.badge-svg(
-              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
-              @click.prevent.stop="togglePinned(ctx.item)"
-            )
-              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+          shopItem(
+            v-for="reward in inAppRewards",
+            :item="reward",
+            :key="reward.key",
+            :highlightBorder="reward.isSuggested",
+            @click="openBuyDialog(reward)",
+            :popoverPosition="'left'"
+          )
+            template(slot="itemBadge", slot-scope="ctx")
+              span.badge.badge-pill.badge-item.badge-svg(
+                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+                @click.prevent.stop="togglePinned(ctx.item)"
+              )
+                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 </template>
 
 <style lang="scss" scoped>
