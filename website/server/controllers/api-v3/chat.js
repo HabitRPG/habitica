@@ -260,22 +260,16 @@ api.likeChat = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: req.params.chatId});
+    let message = await Chat.findOne({id: req.params.chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-    // TODO correct this error type
+    // @TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
 
-    let update = {$set: {}};
-
     if (!message.likes) message.likes = {};
-
     message.likes[user._id] = !message.likes[user._id];
-    update.$set[`chat.$.likes.${user._id}`] = message.likes[user._id];
+    message.markModified('likes');
+    await message.save();
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
     res.respond(200, message); // TODO what if the message is flagged and shouldn't be returned?
   },
 };
@@ -336,6 +330,7 @@ api.flagChat = {
     // TODO fix error type
     if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[user._id] = true;
+    message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;

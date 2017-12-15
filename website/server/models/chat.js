@@ -11,6 +11,7 @@ const schema = new mongoose.Schema({
   groupId: {type: String, ref: 'Group'},
   flags: {type: mongoose.Schema.Types.Mixed},
   flagCount: {type: Number, default: 0},
+  likes: {type: mongoose.Schema.Types.Mixed},
 });
 
 schema.plugin(baseModel, {
