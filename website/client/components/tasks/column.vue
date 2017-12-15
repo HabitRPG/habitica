@@ -36,7 +36,7 @@
       .small-text {{$t(`${type}sDesc`)}}
     .task-items
       draggable(
-        ref="taskItems",
+        ref="tasksList",
         @update='sorted',
         :options='{disabled: activeFilters[type].label === "scheduled"}',
       )
@@ -51,7 +51,7 @@
     template(v-if="hasRewardsList")
       .reward-items
         draggable(
-          ref="rewardItems",
+          ref="rewardsList",
           @update='todoCallback',
         )
           shopItem(
