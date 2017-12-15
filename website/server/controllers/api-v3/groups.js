@@ -336,11 +336,7 @@ api.getGroups = {
     }
 
     if (req.query.search) {
-      filters.$or = [];
-      const searchWords = req.query.search.split(' ').join('|');
-      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
-      filters.$or.push({name: searchQuery});
-      filters.$or.push({description: searchQuery});
+      filters.$text = { $search: req.query.search };
     }
 
     let results = await Group.getGroups({
@@ -571,12 +567,12 @@ api.joinGroup = {
 
     if (group.memberCount === 0) group.leader = user._id; // If new user is only member -> set as leader
 
+    group.memberCount += 1;
+
     if (group.hasNotCancelled())  {
       await payments.addSubToGroupUser(user, group);
       await group.updateGroupPlan();
     }
-
-    group.memberCount += 1;
 
     let promises = [group.save(), user.save()];
 
@@ -759,19 +755,12 @@ api.leaveGroup = {
     }
 
     await group.leave(user, req.query.keep, req.body.keepChallenges);
-    if (group.hasNotCancelled()) await group.updateGroupPlan(true);
+
+    if (group.hasNotCancelled())  await group.updateGroupPlan(true);
+
     _removeMessagesFromMember(user, group._id);
+
     await user.save();
-
-    if (group.type !== 'party') {
-      let guildIndex = user.guilds.indexOf(group._id);
-      user.guilds.splice(guildIndex, 1);
-    }
-
-    let isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
-    if (!isMemberOfGroupPlan) {
-      await payments.cancelGroupSubscriptionForUser(user, group);
-    }
 
     res.respond(200, {});
   },
@@ -861,7 +850,7 @@ api.removeGroupMember = {
       group.memberCount -= 1;
       if (group.hasNotCancelled())  {
         await group.updateGroupPlan(true);
-        await payments.cancelGroupSubscriptionForUser(member, group, true);
+        await payments.cancelGroupSubscriptionForUser(member, group);
       }
 
       if (group.quest && group.quest.leader === member._id) {
@@ -904,7 +893,7 @@ api.removeGroupMember = {
       throw new NotFound(res.t('groupMemberNotFound'));
     }
 
-    let message = req.query.message || req.body.message;
+    let message = req.query.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
     await Bluebird.all([
@@ -926,10 +915,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
   if (group.type === 'guild') {
     if (_.includes(userToInvite.guilds, group._id)) {
-      throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
@@ -938,14 +927,14 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   } else if (group.type === 'party') {
     // Do not add to invitations.parties array if the user is already invited to that party
     if (_.find(userToInvite.invitations.parties, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
