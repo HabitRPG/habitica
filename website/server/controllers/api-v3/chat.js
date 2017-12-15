@@ -543,20 +543,20 @@ api.deleteChat = {
     let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = _.find(group.chat, {id: chatId});
+    let message = await Chat.findOne({id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.contributor.admin) {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 
+    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
+    group.chat = groupChat.concat(group.chat);
+
     let lastClientMsg = req.query.previousMsg;
     let chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
-    await Group.update(
-      {_id: group._id},
-      {$pull: {chat: {id: chatId}}}
-    ).exec();
+    await Chat.remove({_id: message._id}).exec();
 
     if (chatUpdated) {
       let chatRes = Group.toJSONCleanChat(group, user).chat;

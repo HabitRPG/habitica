@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import baseModel from '../libs/baseModel';
 
 const schema = new mongoose.Schema({
   timestamp: Date,
@@ -8,6 +9,11 @@ const schema = new mongoose.Schema({
   uuid: String,
   id: String,
   groupId: {type: String, ref: 'Group'},
+});
+
+schema.plugin(baseModel, {
+  noSet: ['_id'],
+  timestamps: true,
 });
 
 export const model = mongoose.model('Chat', schema);
