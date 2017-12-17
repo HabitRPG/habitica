@@ -58,21 +58,23 @@ describe('User Model', () => {
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({});
+      expect(userToJSON.notifications[0].seen).to.eql(false);
     });
 
-    it('can add notifications with data', () => {
+    it('can add notifications with data and already marked as seen', () => {
       let user = new User();
 
-      user.addNotification('CRON', {field: 1});
+      user.addNotification('CRON', {field: 1}, true);
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
+      expect(userToJSON.notifications[0].seen).to.eql(true);
     });
 
     context('static push method', () => {
@@ -86,7 +88,7 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
       });
@@ -96,6 +98,7 @@ describe('User Model', () => {
         await user.save();
 
         expect(User.pushNotification({_id: user._id}, 'BAD_TYPE')).to.eventually.be.rejected;
+        expect(User.pushNotification({_id: user._id}, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
       });
 
       it('adds notifications without data for all given users via static method', async() => {
@@ -109,41 +112,45 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
+        expect(userToJSON.notifications[0].seen).to.eql(false);
 
         user = await User.findOne({_id: otherUser._id}).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
+        expect(userToJSON.notifications[0].seen).to.eql(false);
       });
 
-      it('adds notifications with data for all given users via static method', async() => {
+      it('adds notifications with data and seen status for all given users via static method', async() => {
         let user = new User();
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1});
+        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1}, true);
 
         user = await User.findOne({_id: user._id}).exec();
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].seen).to.eql(true);
 
         user = await User.findOne({_id: otherUser._id}).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].seen).to.eql(true);
       });
     });
   });

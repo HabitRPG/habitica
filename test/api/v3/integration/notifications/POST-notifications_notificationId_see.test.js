@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /notifications/read', () => {
+describe('POST /notifications/:notificationId/see', () => {
   let user;
 
   before(async () => {
@@ -14,21 +14,18 @@ describe('POST /notifications/read', () => {
   it('errors when notification is not found', async () => {
     let dummyId = generateUUID();
 
-    await expect(user.post('/notifications/read', {
-      notificationIds: [dummyId],
-    })).to.eventually.be.rejected.and.eql({
+    await expect(user.post(`/notifications/${dummyId}/see`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
       message: t('messageNotificationNotFound'),
     });
   });
 
-  it('removes multiple notifications', async () => {
+  it('mark a notification as seen', async () => {
     expect(user.notifications.length).to.equal(0);
 
     const id = generateUUID();
     const id2 = generateUUID();
-    const id3 = generateUUID();
 
     await user.update({
       notifications: [{
@@ -39,28 +36,24 @@ describe('POST /notifications/read', () => {
         id: id2,
         type: 'LOGIN_INCENTIVE',
         data: {},
-      }, {
-        id: id3,
-        type: 'CRON',
-        data: {},
       }],
     });
 
-    await user.sync();
-    expect(user.notifications.length).to.equal(3);
+    const userObj = await user.get('/user'); // so we can check that defaults have been applied
+    expect(userObj.notifications.length).to.equal(2);
+    expect(userObj.notifications[0].seen).to.equal(false);
 
-    const res = await user.post('/notifications/read', {
-      notificationIds: [id, id3],
+    const res = await user.post(`/notifications/${id}/see`);
+    expect(res).to.deep.equal({
+      id,
+      type: 'DROPS_ENABLED',
+      data: {},
+      seen: true,
     });
 
-    expect(res).to.deep.equal([{
-      id: id2,
-      type: 'LOGIN_INCENTIVE',
-      data: {},
-    }]);
-
     await user.sync();
-    expect(user.notifications.length).to.equal(1);
-    expect(user.notifications[0].id).to.equal(id2);
+    expect(user.notifications.length).to.equal(2);
+    expect(user.notifications[0].id).to.equal(id);
+    expect(user.notifications[0].seen).to.equal(true);
   });
 });
