@@ -106,6 +106,7 @@ describe('response middleware', () => {
           type: notification.type,
           id: notification.id,
           data: {},
+          seen: false,
         },
       ],
       userV: res.locals.user._v,

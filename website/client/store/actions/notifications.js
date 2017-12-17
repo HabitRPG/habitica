@@ -13,3 +13,17 @@ export async function readNotifications (store, payload) {
   });
   return response.data.data;
 }
+
+export async function seeNotification (store, payload) {
+  let url = `api/v3/notifications/${payload.notificationId}/see`;
+  let response = await axios.post(url);
+  return response.data.data;
+}
+
+export async function seeNotifications (store, payload) {
+  let url = 'api/v3/notifications/see';
+  let response = await axios.post(url, {
+    notificationIds: payload.notificationIds,
+  });
+  return response.data.data;
+}

@@ -1,5 +1,5 @@
 <template lang="pug">
-menu-dropdown.item-notifications(:right="true")
+menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(v-if='notifications.length > 0', :count="notifications.length", :top="true")
@@ -80,7 +80,7 @@ import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 
-import { mapState } from 'client/libs/store';
+import { mapState, mapActions } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
@@ -101,6 +101,7 @@ export default {
         notifications: notificationsIcon,
       }),
       quests,
+      openStatus: undefined,
     };
   },
   computed: {
@@ -111,7 +112,7 @@ export default {
     // The notification count includes unseen notifications + actionable ones
     notificationsCount () {
       return this.notifications.reduce((count, notification) => {
-        if (notification.seen === false || this.isActionable(notification)) count++; 
+        if (notification.seen === false || this.isActionable(notification)) count++;
       }, 0);
     },
     /*
@@ -164,8 +165,41 @@ export default {
     */
   },
   methods: {
+    ...mapActions({
+      readNotification: 'notifications:readNotification',
+      readNotifications: 'notifications:readNotifications',
+      seeNotifications: 'notifications:readNotifications',
+    }),
+    handleOpenStatusChange (openStatus) {
+      const wasJustClosed = !openStatus;
+      this.openStatus = openStatus === true ? 1 : 0;
+
+      if (wasJustClosed) this.markAllAsSeen();
+    },
+    markAllAsSeen () {
+      const idsToSee = this.notifications.map(notification => {
+        // We check explicitly for seen === false && notification.id because some
+        // notification don't follow the standard and don't have an id or a seen property
+        // (all those not stored in user.notifications)
+        if (notification.seen === false && notification.id) {
+          return notification.id;
+        }
+      });
+
+      if (idsToSee.length > 0) this.seeNotifications({notificationIds: idsToSee});
+    },
     dismissAll () {
-      // TODO
+      const idsToRead = this.notifications.map(notification => {
+        // We check explicitly for notification.id because some
+        // notification don't follow the standard and don't have an id
+        // (all those not stored in user.notifications)
+        if (notification.id) {
+          return notification.id;
+        }
+      });
+      this.openStatus = 0;
+
+      if (idsToRead.length > 0) this.readNotifications({notificationIds: idsToRead});
     },
     isActionable () {
       // TODO
