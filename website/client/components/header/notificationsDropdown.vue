@@ -193,7 +193,7 @@ export default {
         // We check explicitly for notification.id because some
         // notification don't follow the standard and don't have an id
         // (all those not stored in user.notifications)
-        if (notification.id) {
+        if (notification.id && !this.isActionable(notification)) {
           return notification.id;
         }
       });
