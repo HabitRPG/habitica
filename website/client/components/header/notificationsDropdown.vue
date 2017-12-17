@@ -171,10 +171,10 @@ export default {
       seeNotifications: 'notifications:readNotifications',
     }),
     handleOpenStatusChange (openStatus) {
-      const wasJustClosed = !openStatus;
       this.openStatus = openStatus === true ? 1 : 0;
 
-      if (wasJustClosed) this.markAllAsSeen();
+      // Mark notifications as seen when the menu is opened
+      if (openStatus) this.markAllAsSeen();
     },
     markAllAsSeen () {
       const idsToSee = this.notifications.map(notification => {
