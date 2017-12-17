@@ -49,10 +49,9 @@ api.readNotification = {
 };
 
 /**
- * @api {post} /api/v3/notifications Mark notifications as read
+ * @api {post} /api/v3/notifications/read Mark multiple notifications as read
  * @apiName ReadNotifications
  * @apiGroup Notification
- *
  *
  * @apiSuccess {Object} data user.notifications
  */
@@ -136,5 +135,43 @@ api.seeNotification = {
   },
 };
 
+/**
+ * @api {post} /api/v3/notifications/see Mark multiple notifications as seen
+ * @apiName SeeNotifications
+ * @apiGroup Notification
+ *
+ * @apiSuccess {Object} data user.notifications
+ */
+api.seeNotifications = {
+  method: 'POST',
+  url: '/notifications/see',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkBody('notificationIds', res.t('notificationsRequired')).notEmpty();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let notificationsIds = req.body.notificationIds;
+
+    for (let notificationId of notificationsIds) {
+      let notification = _.find(user.notifications, {
+        id: notificationId,
+      });
+
+      if (!notification) {
+        throw new NotFound(res.t('messageNotificationNotFound'));
+      }
+
+      notification.seen = true;
+    }
+
+    await user.save();
+
+    res.respond(200, user.notifications);
+  },
+};
 
 module.exports = api;

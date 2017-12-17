@@ -9,7 +9,7 @@ menu-dropdown.item-notifications(:right="true")
       .d-flex.align-items-center
         h4.dropdown-title(v-once) {{ $t('notifications') }}
         div
-          span.badge.badge-pill.badge-default {{ notifications.length }}
+          span.badge.badge-pill.badge-default {{ notificationsCount }}
       a.small-link.standard-link(@click="dismissAll") Dismiss all
     .dropdown-item.dropdown-separated(v-for="notification in notifications")
       span {{ notification }}
@@ -108,6 +108,12 @@ export default {
     notifications () {
       return [];
     },
+    // The notification count includes unseen notifications + actionable ones
+    notificationsCount () {
+      return this.notifications.reduce((count, notification) => {
+        if (notification.seen === false || this.isActionable(notification)) count++; 
+      }, 0);
+    },
     /*
     party () {
       return {name: ''};
@@ -160,6 +166,10 @@ export default {
   methods: {
     dismissAll () {
       // TODO
+    },
+    isActionable () {
+      // TODO
+      return false;
     },
     /*
     // @TODO: I hate this function, we can do better with a hashmap
