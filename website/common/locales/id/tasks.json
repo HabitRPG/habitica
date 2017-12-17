@@ -38,8 +38,8 @@
     "taskAliasPopoverWarning": "PERINGATAN: Mengganti nilai ini akan memutuskan integrasi pihak ketiga yang bergantung kepada nama alias tugas.",
     "difficulty": "Tingkat kesulitan",
     "difficultyHelpTitle": "Seberapa sulit pekerjaan ini?",
-    "difficultyHelpContent": "Lebih sulit sebuah tugas, lebih banyak Pengalaman dan Koin Emas yang tersedia setelah kamu menyelesaikannya. Tapi itu bakal lebih menyakitkan jika kamu melewatkannya atau jika itu adalah sebuah kebiasaan buruk!",
-    "trivial": "Sangat Mudah",
+    "difficultyHelpContent": "Semakin sulit sebuah tugas, semakin banyak Pengalaman dan Koin Emas yang kamu dapatkan ketika kamu menyelesaikannya... tapi semakin menyakitkan pula jika kamu melewatkannya atau jika itu adalah sebuah kebiasaan buruk!",
+    "trivial": "Trivial",
     "easy": "Mudah",
     "medium": "Sedang",
     "hard": "Susah",
@@ -203,5 +203,5 @@
     "yesterDailiesDescription": "Jika pengaturan ini dipilih, Habitica akan bertanya kepadamu jika kamu memang tidak selesai sebelum avatar kamu mendapat damage. Ini dapat melindungimu dari damage yang tidak disengaja.",
     "repeatDayError": "Pastikan bahwa setidaknya ada satu hari dari minggu itu dipilih.",
     "searchTasks": "Cari judul dan deskripsi...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Sesi kamu sudah usang. Silahkan muat ulang laman atau tekan sync"
 }

@@ -118,6 +118,7 @@
     "giftedSubscription": "捐助有礼",
     "giftedSubscriptionInfo": "<%= name %> 送给你 <%= months %> 个月的捐助",
     "giftedSubscriptionFull": "你好 <%= username %>，<%= sender %> 赠送给你 <%= monthCount %> 个月的订阅者！",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "队伍邀请",
     "invitedGuild": "公会邀请",
     "importantAnnouncements": "提醒：别忘记来签到完成任务并得到奖励！",
