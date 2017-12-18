@@ -489,6 +489,7 @@ function setUserStyles (newMessage, user) {
     userStyles.preferences.size = userCopy.preferences.size;
     userStyles.preferences.chair = userCopy.preferences.chair;
     userStyles.preferences.background = userCopy.preferences.background;
+    userStyles.preferences.costume = userCopy.preferences.costume;
   }
 
   userStyles.stats = userCopy.stats;
