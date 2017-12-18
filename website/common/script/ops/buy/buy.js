@@ -27,11 +27,6 @@ module.exports = function buy (user, req = {}, analytics) {
   if (!type) type = get(req, 'params.type');
   if (!type) type = key;
 
-  // @TODO: For now, builk purchasing is here, but we should probably have a parent vendor
-  // class that calls the factory and handles larger operations. If there is more than just bulk
-  let quantity = 1;
-  if (req.quantity) quantity = req.quantity;
-
   let buyRes;
 
   switch (type) {

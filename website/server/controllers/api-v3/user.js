@@ -778,11 +778,11 @@ api.buy = {
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
-      type = 'special';
+      req.type = 'special';
     }
 
     if (buyKnownKeys.indexOf(type) === -1) {
-      type = 'marketGear';
+      req.type = 'marketGear';
     }
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
