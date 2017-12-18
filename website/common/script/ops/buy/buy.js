@@ -42,12 +42,8 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyMysterySet(user, req, analytics);
       break;
     case 'potion':
-      // TODO: Move bulk purchase inside buyHealthPotion
-      for (let i = 0; i < quantity; i += 1) {
-        buyRes = buyHealthPotion(user, req, analytics);
-      }
+      buyRes = buyHealthPotion(user, req, analytics);
       break;
-
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
