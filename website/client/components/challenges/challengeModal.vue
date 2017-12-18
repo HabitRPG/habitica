@@ -409,8 +409,23 @@ export default {
         challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
       }
 
-      // @TODO: When to remove from guild instead?
-      this.user.balance -= this.workingChallenge.prize / 4;
+      // Update Group Prize
+      let challengeGroup = this.groups.find(group => {
+        return group._id === this.workingChallenge.group;
+      });
+
+      // @TODO: Share with server
+      const prizeCost = this.workingChallenge.prize / 4;
+      if (challengeGroup && challengeGroup.balance > 0 && challengeGroup.balance > prizeCost) {
+        // Group pays for all of prize
+      } else if (challengeGroup && challengeGroup.balance > 0) {
+        // User pays remainder of prize cost after group
+        let remainder = prizeCost - challengeGroup.balance;
+        this.user.balance -= remainder;
+      } else {
+        // User pays for all of prize
+        this.user.balance -= prizeCost;
+      }
 
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
