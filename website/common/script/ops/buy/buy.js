@@ -61,10 +61,7 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyQuest(user, req, analytics);
       break;
     case 'special':
-      // TODO: Move bulk purchase inside buySpecialSpell
-      for (let i = 0; i < quantity; i += 1) {
-        buyRes = buySpecialSpell(user, req, analytics);
-      }
+      buyRes = buySpecialSpell(user, req, analytics);
       break;
     default:
       buyRes = buyGear(user, req, analytics);
