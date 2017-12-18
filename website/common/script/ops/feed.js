@@ -62,7 +62,7 @@ module.exports = function feed (user, req = {}) {
   } else {
     let messageParams = {
       egg: pet.text(req.language),
-      foodText: food.text(req.language),
+      foodText: food.textThe(req.language),
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {

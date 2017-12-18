@@ -77,8 +77,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     armoireResp = {
       type: 'food',
       dropKey: drop.key,
-      dropArticle: drop.article,
-      dropText: drop.text(req.language),
+      dropText: drop.textA(req.language),
     };
   } else {
     let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
