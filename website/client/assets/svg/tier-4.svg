@@ -1,1 +1,9 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><defs></defs><title>Tier 4</title><g id="Tavern"><g id="Tavern_New-User---Desktop-HD" data-name="Tavern/New-User---Desktop-HD"><g id="Group-2"><g id="Tier-4"><polygon id="path-1" class="cls-1" points="5 0 10 10 0 10 5 0"/><path class="cls-2" d="M5,1.12L0.81,9.5H9.19Z"/></g></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10" height="10" viewBox="0 0 10 10">
+    <defs>
+        <path id="a" d="M275 1591l5 10h-10z"/>
+    </defs>
+    <g fill="#FF944C" fill-rule="evenodd" transform="translate(-270 -1591)">
+        <use xlink:href="#a"/>
+        <path stroke="#34313A" stroke-opacity=".12" d="M275 1592.118l-4.191 8.382h8.382l-4.191-8.382z"/>
+    </g>
+</svg>
