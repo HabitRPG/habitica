@@ -58,10 +58,7 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = hourglassPurchase(user, req, analytics);
       break;
     case 'quest':
-      // TODO: Move bulk purchase inside buyQuest
-      for (let i = 0; i < quantity; i += 1) {
-        buyRes = buyQuest(user, req, analytics);
-      }
+      buyRes = buyQuest(user, req, analytics);
       break;
     case 'special':
       // TODO: Move bulk purchase inside buySpecialSpell
