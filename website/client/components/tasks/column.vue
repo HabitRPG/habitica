@@ -34,20 +34,19 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    .task-items
-      draggable(
-        ref="tasksList",
-        @update='taskSorted',
-        :options='{disabled: activeFilters[type].label === "scheduled"}',
+    draggable(
+      ref="tasksList",
+      @update='taskSorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
+    )
+      task(
+        v-for="task in taskList",
+        :key="task.id", :task="task",
+        :isUser="isUser",
+        @editTask="editTask",
+        @moveTo="moveTo",
+        :group='group',
       )
-        task(
-          v-for="task in taskList",
-          :key="task.id", :task="task",
-          :isUser="isUser",
-          @editTask="editTask",
-          @moveTo="moveTo",
-          :group='group',
-        )
     template(v-if="hasRewardsList")
       .reward-items
         draggable(
