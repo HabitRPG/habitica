@@ -122,6 +122,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  winterQuests: {
+    key: 'winterQuests',
+    text: t('winterQuestsText'),
+    notes: t('winterQuestsNotes'),
+    bundleKeys: [
+      'evilsanta',
+      'evilsanta2',
+      'penguin',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-12-14', '2018-01-01');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

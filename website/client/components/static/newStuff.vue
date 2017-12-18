@@ -4,16 +4,28 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/12/2017 - BATTLE FOR THE NET: HELP PROTECT HABITICA
+    h2 12/15/2017 - NEW PET QUEST BUNDLE, GIFT-1-GET-1 SUBSCRIPTIONS, AND BEHIND THE SCENES BLOG
     hr
-    .scene_bug.center-block
-    p What would you do if you couldn't access your favorite websites, including Habitica, without paying an exorbitant amount to your internet service provider? In the United States, where Habitica is based, that is now a very real danger.
-    p The USA's Federal Communications Commission (FCC) is about to vote on its plan to kill net neutrality, which will let internet service providers charge extra fees, throttle internet speeds, and block access to websites like this one. This could kill a small company like Habitica.
-    p.strong Congress can stop them, but only if US citizens flood them with calls right now, asking them to defend net neutrality by stopping the FCC's vote BEFORE December 14th. Help keep Habitica free to access for everybody!
-    p(v-markdown='"**US Habiticans can call Congress using the phone numbers found [here](https://www.callmycongress.com). You can also learn more at https://www.battleforthenet.com.** Non-US Habiticans can still help us by spreading the word."')
-    p Thank you for helping protect Habitica.
-    p Warmly,
-    p Vicky, Leslie, Sabe, Phillip, Matteo, Keith, and Beth
+    h3 New Discounted Pet Quest Bundle: Winter Quests
+    .media
+      .media-body
+        p(v-markdown='"If you are looking to add some cold weather friends to your Habitica stable, you\'re in luck! From now until December 31, you can purchase the Winter Quest Bundle and receive the Trapper Santa, Find the Cub, and Penguin quests, all for only 7 Gems! That\'s a discount of 5 Gems from the price of purchasing them separately. Check it out in the [Quest Shop](/shops/quests) today!"')
+        .small by Lemoness and SabreCat
+        .small Art by UncommonCriminal, Shaner, Eevachu, Pandoro, melynnrose, Breadstrings, Rattify, and PainterProphet
+        .small Writing by Lefnire, Leephon, and Daniel the Bard
+        .media
+          .promo_winter_subscriptions.left-margin
+          .media-body
+            h3 Gift a Subscription and Get One Free!
+            p In honor of the season of giving--and due to popular demand!--we're bringing back a very special promotion for the next month only. Now when you gift somebody a subscription, you get the same subscription for yourself for free!
+        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
+      .promo_winter_quests
+    p The special promotion will only run until January 12th, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
+    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
+    .small by SabreCat and Lemoness
+    h3 Behind the Scenes: Habitica's Winter Staff Retreat
+    p(v-markdown='"There\'s a new [Behind the Scenes post on the Habitica blog](https://habitica.wordpress.com/2017/12/14/behind-the-scenes-habiticas-winter-staff-retreat/) about our recent Staff Retreat. Check out some great photos and anecdotes from the trip, and learn a little more about the Habitica Team!"')
+    .promo_winter_retreat.center-block
     br
 </template>
 
