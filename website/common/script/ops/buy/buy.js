@@ -42,11 +42,12 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buyMysterySet(user, req, analytics);
       break;
     case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+      // TODO: Move bulk purchase inside buyHealthPotion
+      for (let i = 0; i < quantity; i += 1) {
+        buyRes = buyHealthPotion(user, req, analytics);
+      }
       break;
-    case 'marketGear':
-      buyRes = buyGear(user, req, analytics);
-      break;
+
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
@@ -60,15 +61,21 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
-  }
-
-  // TODO: Move bulk purchase inside buyQuest/buySpecialSpell
-  for (let i = 0; i < quantity; i += 1) {
-    if (type === 'quest') {
-      buyRes = buyQuest(user, req, analytics);
-    } else if (type === 'special') {
-      buyRes = buySpecialSpell(user, req, analytics);
-    }
+    case 'quest':
+      // TODO: Move bulk purchase inside buyQuest
+      for (let i = 0; i < quantity; i += 1) {
+        buyRes = buyQuest(user, req, analytics);
+      }
+      break;
+    case 'special':
+      // TODO: Move bulk purchase inside buySpecialSpell
+      for (let i = 0; i < quantity; i += 1) {
+        buyRes = buySpecialSpell(user, req, analytics);
+      }
+      break;
+    default:
+      buyRes = buyGear(user, req, analytics);
+      break;
   }
 
   return buyRes;
