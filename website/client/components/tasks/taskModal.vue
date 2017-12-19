@@ -513,8 +513,12 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
   .gold {
     width: 3.3125em;
+    background-color: transparent;
+    /*background-color: rgba(0, 0, 0, 0);*/
+    border-color: $gray-500;
   }
 </style>
 
