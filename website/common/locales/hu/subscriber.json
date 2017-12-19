@@ -134,6 +134,8 @@
     "mysterySet201707": "Medúzaidéző szett",
     "mysterySet201708": "Láva harcos szett",
     "mysterySet201709": "Varázslótanonc szett ",
+    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201711": "Carpet Rider Set",
     "mysterySet301404": "Alap steampunk szett",
     "mysterySet301405": "Steampunk kiegészítő szett",
     "mysterySet301703": "Steampunk páva szett",
@@ -165,7 +167,6 @@
     "cardTypeNotAllowed": "Ismeretlen kártyatípus",
     "invalidCoupon": "Érvénytelen kuponkód",
     "couponUsed": "A kupon kódot már használták.",
-    "noSudoAccess": "Nincs admin hozzáférésed.",
     "couponCodeRequired": "A kupon kód szükséges.",
     "eventRequired": "\"req.params.event\" szükséged.",
     "countRequired": "\"req.query.count\" szükséges",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Összes megvásárlása",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "drágakő maradt"
+    "gemsRemaining": "drágakő maradt",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

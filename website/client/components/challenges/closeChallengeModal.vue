@@ -10,10 +10,7 @@ div
       .col-12
         strong(v-once) {{$t('selectChallengeWinnersDescription')}}
       .col-12
-        b-dropdown.create-dropdown(:text="winnerText")
-          input.form-control(type='text', v-model='searchTerm')
-          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
-            | {{ member.profile.name }}
+        member-search-dropdown(:text='winnerText', :members='members', :challengeId='challengeId', @member-selected='selectMember')
       .col-12
         button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
       .col-12
@@ -74,32 +71,17 @@ div
 </style>
 
 <script>
-import debounce from 'lodash/debounce';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
+import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 
 export default {
   props: ['challengeId', 'members'],
   components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
+    memberSearchDropdown,
   },
   data () {
     return {
       winner: {},
-      searchTerm: '',
-      memberResults: [],
     };
-  },
-  watch: {
-    searchTerm: debounce(function searchTerm (newSearch) {
-      this.searchChallengeMember(newSearch);
-    }, 500),
-    members () {
-      this.memberResults = this.members;
-    },
   },
   computed: {
     winnerText () {
@@ -108,12 +90,6 @@ export default {
     },
   },
   methods: {
-    async searchChallengeMember (search) {
-      this.memberResults = await this.$store.dispatch('members:getChallengeMembers', {
-        challengeId: this.challengeId,
-        searchTerm: search,
-      });
-    },
     selectMember (member) {
       this.winner = member;
     },

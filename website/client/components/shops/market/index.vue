@@ -1,9 +1,8 @@
 <template lang="pug">
   .row.market
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
@@ -15,7 +14,6 @@
               input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
               span.custom-control-indicator
               span.custom-control-description(v-once) {{ category.text }}
-
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -53,17 +51,17 @@
                 :popoverPosition="'top'",
                 @click="featuredItemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
                   )
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-      h1.mb-0.page-header(v-once) {{ $t('market') }}
+      h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      .clearfix
-        h2.float-left
+      .clearfix(v-if="viewOptions['equipment'].selected")
+        h2.float-left.mb-3
           | {{ $t('equipment') }}
 
         div.float-right
@@ -99,9 +97,10 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
+        :noItemsLabel="$t('noGearItemsOfClass')",
+        v-if="viewOptions['equipment'].selected"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           shopItem(
             :key="ctx.item.key",
             :item="ctx.item",
@@ -110,7 +109,7 @@
             @click="gearSelected(ctx.item)"
           )
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -118,7 +117,7 @@
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
       .clearfix
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('items') }}
 
         div.float-right
@@ -151,13 +150,13 @@
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
                 :show="userItems[item.purchaseType][item.key] != 0",
                 :count="userItems[item.purchaseType][item.key] || 0"
               )
-              .gems-left(v-if='item.key === "gem"')
+              .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
 
               span.badge.badge-pill.badge-item.badge-svg(
@@ -196,14 +195,14 @@
           :itemWidth=94,
           :itemMargin=24,
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             item(
               :item="ctx.item",
               :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
               popoverPosition="top",
               @click="selectedItemToSell = ctx.item"
             )
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 countBadge(
                   :show="true",
                   :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -218,13 +217,13 @@
         :text="selectedItemToSell != null ? getItemName(selectedDrawerItemType, selectedItemToSell) : ''",
         @change="resetItemToSell($event)"
       )
-        template(slot="item", scope="ctx")
+        template(slot="item", slot-scope="ctx")
           item.flat(
             :item="ctx.item",
             :itemContentClass="getItemClass(selectedDrawerItemType, ctx.item.key)",
             :showPopover="false"
           )
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 :show="true",
                 :count="userItems[drawerTabs[selectedDrawerTab].contentType][ctx.item.key] || 0"
@@ -247,37 +246,7 @@
     height: 38px; // button + margin + padding
   }
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
 
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -355,18 +324,9 @@
 
   }
 
-  .gems-left {
-    position: absolute;
+  .market .gems-left {
     right: -.5em;
     top: -.5em;
-    color: $white;
-    background: $purple-200;
-    padding: .15em;
-    text-align: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px 0 rgba($black, 0.12);
   }
 </style>
 
@@ -387,10 +347,6 @@
   import SellModal from './sellModal.vue';
   import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
-
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgGem from 'assets/svg/gem.svg';
@@ -435,10 +391,6 @@ export default {
       DrawerHeaderTabs,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       SellModal,
       EquipmentAttributesGrid,
@@ -505,6 +457,11 @@ export default {
           ];
 
           categories.push({
+            identifier: 'equipment',
+            text: this.$t('equipment'),
+          });
+
+          categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
             items: _map(_filter(this.content.cardTypes, (value) => {
@@ -549,9 +506,11 @@ export default {
           }
 
           categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
+            if (!this.viewOptions[category.identifier]) {
+              this.$set(this.viewOptions, category.identifier, {
+                selected: true,
+              });
+            }
           });
 
           return categories;
@@ -739,11 +698,6 @@ export default {
         }
       },
       itemSelected (item) {
-        if (item.purchaseType !== 'gear' && this.$store.state.recentlyPurchased[item.key]) {
-          this.makeGenericPurchase(item);
-          return;
-        }
-
         this.$root.$emit('buyModal::showItem', item);
       },
       featuredItemSelected (item) {

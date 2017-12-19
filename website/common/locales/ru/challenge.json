@@ -29,6 +29,7 @@
     "either": "Все",
     "createChallenge": "Создать испытание",
     "createChallengeAddTasks": "Добавить задание в испытание",
+    "createChallengeCloneTasks": "Клонировать задания испытания",
     "addTaskToChallenge": "Добавить задачу",
     "discard": "Отменить",
     "challengeTitle": "Название испытания",
@@ -126,5 +127,6 @@
     "locationRequired": "Требуется местонахождение испытания ('Добавить')",
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
     "viewProgressOf": "Показать прогресс",
-    "selectMember": "Выбрать учасника"
+    "selectMember": "Выбрать учасника",
+    "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?"
 }

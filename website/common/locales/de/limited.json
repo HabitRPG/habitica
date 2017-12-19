@@ -108,10 +108,10 @@
     "summer2017WhirlpoolMageSet": "Whirlpool-Magier (Magier)",
     "summer2017SeashellSeahealerSet": "Muschel-Meeresheiler (Heiler)",
     "summer2017SeaDragonSet": "Seedrache (Schurke)",
-    "fall2017HabitoweenSet": "Habitoween Krieger",
-    "fall2017MasqueradeSet": "Maskerade Magier",
-    "fall2017HauntedHouseSet": "Geisterhaus Heiler",
-    "fall2017TrickOrTreatSet": "Süßes-oder-Saures Schurke",
+    "fall2017HabitoweenSet": "Habitoween-Krieger (Krieger)",
+    "fall2017MasqueradeSet": "Maskerade-Magier (Magier)",
+    "fall2017HauntedHouseSet": "Geisterhaus-Heiler (Heiler)",
+    "fall2017TrickOrTreatSet": "Süßes-oder-Saures-Schurke (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
     "dateEndApril": "19. April",
     "dateEndMay": "17. Mai",
@@ -119,5 +119,9 @@
     "dateEndJuly": "29. Juli",
     "dateEndAugust": "31. August",
     "dateEndOctober": "31. Oktober",
-    "discountBundle": "Paket"
+    "dateEndNovember": "30. November",
+    "discountBundle": "Paket",
+    "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
+    "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3"
 }

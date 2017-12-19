@@ -27,8 +27,8 @@
 
     @media screen and (min-width: 1241px) {
       max-width: 978px;
-      // 16.67% is the width of the .col-2 sidebar
-      left: calc((100% + 16.67% - 978px) / 2);
+      // 236px is the width of the .standard-sidebar
+      left: calc((100% + 236px - 978px) / 2);
       right: 0%;
     }
   }
@@ -105,8 +105,6 @@
 
   .drawer-slider {
     padding: 12px 0 0 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
     white-space: nowrap;
     position: relative;
 
@@ -179,7 +177,7 @@ export default {
       standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
     },
     toggle () {
-      this.open = !this.open;
+      this.open = !this.isOpen;
       this.$emit('toggled', this.open);
     },
   },

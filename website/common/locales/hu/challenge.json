@@ -29,6 +29,7 @@
     "either": "Bármelyik",
     "createChallenge": "Kihívás létrehozása",
     "createChallengeAddTasks": "Kihíváshoz tartozó feladat hozzáadása",
+    "createChallengeCloneTasks": "Kihíváshoz tartozó feladatok másolása",
     "addTaskToChallenge": "Feladat hozzáadása",
     "discard": "Elvet",
     "challengeTitle": "Kihívás címe",
@@ -126,5 +127,6 @@
     "locationRequired": "Kihívás helyének kiválasztása szükséges ('Hozzáadás')",
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
     "viewProgressOf": "Haladás megtekintése",
-    "selectMember": "Tag kiválasztása"
+    "selectMember": "Tag kiválasztása",
+    "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?"
 }

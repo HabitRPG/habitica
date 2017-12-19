@@ -1,10 +1,9 @@
 import gulp from 'gulp';
-import runSequence from 'run-sequence';
 import babel from 'gulp-babel';
 import webpackProductionBuild from '../webpack/build';
 
 gulp.task('build', () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
     gulp.start('build:prod');
   }
 });
@@ -24,15 +23,15 @@ gulp.task('build:common', () => {
 gulp.task('build:server', ['build:src', 'build:common']);
 
 // Client Production Build
-gulp.task('build:client', ['bootstrap'], (done) => {
+gulp.task('build:client', (done) => {
   webpackProductionBuild((err, output) => {
     if (err) return done(err);
-    console.log(output);
+    console.log(output); // eslint-disable-line no-console
   });
 });
 
 gulp.task('build:prod', [
-  'build:server', 
+  'build:server',
   'build:client',
   'apidoc',
 ]);

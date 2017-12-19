@@ -21,7 +21,7 @@
     "rebirthOrb": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível",
     "rebirthOrb100": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível 100 ou mais.",
     "rebirthOrbNoLevel": "Usou um Orbe do Renascimento para recomeçar depois de alcançar Nível",
-    "rebirthPop": "Reinicie seu personagem no Nível 1 enquanto mantém conquistas, colecionáveis, equipamentos e tarefas com o histórico.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
     "rebirthName": "Orbe do Renascimento",
     "reborn": "Renascido, nível máximo: <%= reLevel %>",
     "confirmReborn": "Tem certeza?",

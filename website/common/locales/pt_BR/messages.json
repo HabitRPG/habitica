@@ -52,10 +52,11 @@
     "messageGroupChatFlagAlreadyReported": "Você já reportou essa mensagem.",
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",
+    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ops, parece que você está postando mensagens demais! Por favor aguarde um minuto e tente novamente. O chat da Taverna só suporta 200 mensagens por vez, então a Habitica recomenda postar mensagens longas e mais profundas e respostas consolidadoras. Mal posso esperar para ouvir o que você tem a dizer. :)",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade."
 }

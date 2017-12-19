@@ -4,6 +4,7 @@ import {
   generateNext,
 } from '../../../../helpers/api-unit.helper';
 import responseMiddleware from '../../../../../website/server/middlewares/response';
+import packageInfo from '../../../../../package.json';
 
 describe('response middleware', () => {
   let res, req, next;
@@ -34,6 +35,7 @@ describe('response middleware', () => {
       data: {field: 1},
       notifications: [],
       userV: res.locals.user._v,
+      appVersion: packageInfo.version,
     });
   });
 
@@ -51,6 +53,7 @@ describe('response middleware', () => {
       message: 'hello',
       notifications: [],
       userV: res.locals.user._v,
+      appVersion: packageInfo.version,
     });
   });
 
@@ -67,6 +70,7 @@ describe('response middleware', () => {
       data: {field: 1},
       notifications: [],
       userV: res.locals.user._v,
+      appVersion: packageInfo.version,
     });
   });
 
@@ -81,6 +85,7 @@ describe('response middleware', () => {
       data: {field: 1},
       notifications: [],
       userV: 0,
+      appVersion: packageInfo.version,
     });
   });
 
@@ -104,6 +109,7 @@ describe('response middleware', () => {
         },
       ],
       userV: res.locals.user._v,
+      appVersion: packageInfo.version,
     });
   });
 });

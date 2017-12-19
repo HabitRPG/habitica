@@ -134,6 +134,8 @@
     "mysterySet201707": "Jellymancer Set",
     "mysterySet201708": "Lava Warrior Set",
     "mysterySet201709": "Sorcery Student Set",
+    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201711": "Carpet Rider Set",
     "mysterySet301404": "Standardní steampunkový set",
     "mysterySet301405": "Set steampunkových doplňků",
     "mysterySet301703": "Peacock Steampunk Set",
@@ -165,7 +167,6 @@
     "cardTypeNotAllowed": "Neznámý typ karty.",
     "invalidCoupon": "Neplatný kód kupónu.",
     "couponUsed": "Kód kupónu byl již použit.",
-    "noSudoAccess": "Nemáte přístup sudo.",
     "couponCodeRequired": "Je požadován kód kupónu.",
     "eventRequired": "je požadováno „req.params.event\".",
     "countRequired": "je požadováno „req.query.count\".",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase All",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsRemaining": "gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

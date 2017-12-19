@@ -536,6 +536,14 @@ api.scoreTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
+    if (task.type === 'daily' || task.type === 'todo') {
+      if (task.completed && direction === 'up') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      } else if (!task.completed && direction === 'down') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      }
+    }
+
     if (task.group.approval.required && !task.group.approval.approved) {
       if (task.group.approval.requested) {
         throw new NotAuthorized(res.t('taskRequiresApproval'));
@@ -561,6 +569,7 @@ api.scoreTask = {
           }, manager.preferences.language),
           groupId: group._id,
           taskId: task._id,
+          direction,
         });
         managerPromises.push(manager.save());
       });
@@ -579,14 +588,20 @@ api.scoreTask = {
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
+    let taskOrderPromise;
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
-        removeFromArray(user.tasksOrder.todos, task._id);
-      } else if (wasCompleted && !task.completed) {
-        let hasTask = removeFromArray(user.tasksOrder.todos, task._id);
-        if (!hasTask) {
-          user.tasksOrder.todos.push(task._id);
-        } // If for some reason it hadn't been removed previously don't do anything
+        // @TODO: mongoose's push and pull should be atomic and help with
+        // our concurrency issues. If not, we need to use this update $pull and $push
+        taskOrderPromise = user.update({
+          $pull: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.pull(task._id);
+      } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
+        taskOrderPromise = user.update({
+          $push: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.push(task._id);
       }
     }
 
@@ -607,10 +622,12 @@ api.scoreTask = {
     if (!user.achievements.checked) user.achievements.checked = 0;
     user.achievements.checked += direction === 'up' ? 1 : -1;
 
-    let results = await Bluebird.all([
+    let promises = [
       user.save(),
       task.save(),
-    ]);
+    ];
+    if (taskOrderPromise) promises.push(taskOrderPromise);
+    let results = await Bluebird.all(promises);
 
     let savedUser = results[0];
 
@@ -688,11 +705,28 @@ api.moveTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
-    let order = user.tasksOrder[`${task.type}s`];
 
+    // In memory updates
+    let order = user.tasksOrder[`${task.type}s`];
     moveTask(order, task._id, to);
 
-    await user.save();
+    // Server updates
+    // @TODO: maybe bulk op?
+    let pullQuery = { $pull: {} };
+    pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
+    await user.update(pullQuery).exec();
+
+    // Handle push to bottom
+    let position = to;
+    if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
+
+    let updateQuery = { $push: {} };
+    updateQuery.$push[`tasksOrder.${task.type}s`] = {
+      $each: [task._id],
+      $position: position,
+    };
+    await user.update(updateQuery).exec();
+
     res.respond(200, order);
   },
 };
@@ -1248,7 +1282,12 @@ api.deleteTask = {
 
     if (task.type !== 'todo' || !task.completed) {
       removeFromArray((challenge || user).tasksOrder[`${task.type}s`], taskId);
-      await Bluebird.all([(challenge || user).save(), task.remove()]);
+
+      let pullQuery = {$pull: {}};
+      pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
+      let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+
+      await Bluebird.all([taskOrderUpdate, task.remove()]);
     } else {
       await task.remove();
     }

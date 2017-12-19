@@ -1,6 +1,7 @@
 <template lang="pug">
 .row
   challenge-modal(:cloning='cloning' v-on:updatedChallenge='updatedChallenge')
+  leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
 
@@ -32,9 +33,7 @@
       .col-7.offset-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
-        b-dropdown.create-dropdown(text="Select a Participant")
-          b-dropdown-item(v-for="member in members", :key="member._id", @click="openMemberProgressModal(member._id)")
-            | {{ member.profile.name }}
+        member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -49,7 +48,6 @@
             v-on:taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
-
     .row
       task-column.col-12.col-sm-6(
         v-for="column in columns",
@@ -177,20 +175,21 @@
 const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'date', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
 import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
+import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
 import markdownDirective from 'client/directives/markdown';
 import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
+import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
+import leaveChallengeModal from './leaveChallengeModal';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -200,17 +199,18 @@ import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   props: ['challengeId'],
+  mixins: [challengeMemberSearchMixin],
   directives: {
     markdown: markdownDirective,
   },
   components: {
     closeChallengeModal,
+    leaveChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
+    memberSearchDropdown,
     TaskColumn: Column,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {
@@ -235,6 +235,8 @@ export default {
       workingTask: {},
       taskFormPurpose: 'create',
       progressMemberId: '',
+      searchTerm: '',
+      memberResults: [],
     };
   },
   computed: {
@@ -325,7 +327,7 @@ export default {
       this.workingTask = this.editingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -334,7 +336,7 @@ export default {
       this.workingTask = this.creatingTask;
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     cancelTaskModal () {
@@ -361,7 +363,7 @@ export default {
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
       this.$store.state.memberModalOptions.viewingMembers = this.members;
-      this.$root.$emit('show::modal', 'members-modal');
+      this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
@@ -369,36 +371,24 @@ export default {
       await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
     },
     async leaveChallenge () {
-      let keepChallenge = confirm('Do you want to keep challenge tasks?');
-      let keep = 'keep-all';
-      if (!keepChallenge) keep = 'remove-all';
-
-      let index = findIndex(this.user.challenges, (challengeId) => {
-        return challengeId === this.searchId;
-      });
-      this.user.challenges.splice(index, 1);
-      await this.$store.dispatch('challenges:leaveChallenge', {
-        challengeId: this.searchId,
-        keep,
-      });
-      await this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true});
+      this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
     },
     closeChallenge () {
-      this.$root.$emit('show::modal', 'close-challenge-modal');
+      this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {
       // @TODO: set working challenge
       this.cloning = false;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     // @TODO: view members
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
     },
-    openMemberProgressModal (memberId) {
-      this.progressMemberId = memberId;
-      this.$root.$emit('show::modal', 'challenge-member-modal');
+    openMemberProgressModal (member) {
+      this.progressMemberId = member._id;
+      this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     },
     async exportChallengeCsv () {
       // let response = await this.$store.dispatch('challenges:exportChallengeCsv', {
@@ -410,7 +400,7 @@ export default {
       this.cloning = true;
       this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
   },
 };

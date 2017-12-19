@@ -55,6 +55,7 @@ export default function () {
     actions,
     getters,
     state: {
+      serverAppVersion: '',
       title: 'Habitica',
       isUserLoggedIn,
       isUserLoaded: false, // Means the user and the user's tasks are ready
@@ -81,7 +82,6 @@ export default function () {
         'time-travelers': asyncResourceFactory(),
       },
       myGuilds: [],
-      publicGuilds: [],
       groupFormOptions: {
         creatingParty: false,
         groupId: '',
@@ -132,11 +132,10 @@ export default function () {
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
-      brokenChallengeTask: {},
       equipmentDrawerOpen: true,
-      recentlyPurchased: {},
       groupPlans: [],
       groupNotifications: [],
+      isRunningYesterdailies: false,
     },
   });
 

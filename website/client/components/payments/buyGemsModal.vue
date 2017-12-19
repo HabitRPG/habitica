@@ -7,7 +7,6 @@
       .col-md-8.align-self-center
         p=text
   div(v-if='user')
-    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
     b-modal(:hide-footer='true', :hide-header='true', :id='"buy-gems"', size='lg')
       .container-fluid.purple-gradient
         .gemfall
@@ -150,11 +149,11 @@
                   p.benefits(v-markdown='$t("earnGemsMonthly", {cap:45})')
                   p.benefits(v-markdown='$t("receiveMysticHourglasses", {amount:4})')
                   button.btn.btn-primary(@click='subscriptionPlan = "basic_12mo"') {{ subscriptionPlan === "basic_12mo" ? $t('selected') : $t('select') }}
-            .row.text-center
+            .row.text-center(v-if='subscriptionPlan')
               h2.mx-auto.text-payment {{ $t('choosePaymentMethod') }}
             .row.text-center
               a.mx-auto {{ $t('haveCouponCode') }}
-            .card-deck
+            .card-deck(v-if='subscriptionPlan')
               .card.text-center.payment-method
                 .card-body(@click='showStripe({subscription: subscriptionPlan})')
                   .mx-auto(v-html='icons.creditCard', style='"height: 56px; width: 159px; margin-top: 1em;"')
@@ -340,12 +339,10 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
   import planGemLimits from 'common/script/libs/planGemLimits';
   import paymentsMixin from 'client/mixins/payments';
-  import amazonPaymentsModal from './amazonModal';
 
   import checkIcon from 'assets/svg/check.svg';
   import creditCard from 'assets/svg/credit-card.svg';
@@ -360,9 +357,7 @@
   export default {
     mixins: [paymentsMixin],
     components: {
-      bModal,
       planGemLimits,
-      amazonPaymentsModal,
     },
     computed: {
       ...mapState({user: 'user.data'}),
@@ -400,7 +395,7 @@
     },
     methods: {
       close () {
-        this.$root.$emit('hide::modal', 'buy-gems');
+        this.$root.$emit('bv::hide::modal', 'buy-gems');
       },
     },
     watch: {

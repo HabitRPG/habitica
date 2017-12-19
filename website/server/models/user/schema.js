@@ -14,7 +14,7 @@ import {
 
 const Schema = mongoose.Schema;
 
-const INVALID_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
+const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
 // User schema definition
 let schema = new Schema({
@@ -41,11 +41,11 @@ let schema = new Schema({
           validator (email) {
             let lowercaseEmail = email.toLowerCase();
 
-            return INVALID_DOMAINS.every((domain) => {
+            return RESTRICTED_EMAIL_DOMAINS.every((domain) => {
               return !lowercaseEmail.endsWith(`@${domain}`);
             });
           },
-          message: shared.i18n.t('invalidEmailDomain', { domains: INVALID_DOMAINS.join(', ')}),
+          message: shared.i18n.t('invalidEmailDomain', { domains: RESTRICTED_EMAIL_DOMAINS.join(', ')}),
         }],
       },
       username: {
@@ -201,6 +201,7 @@ let schema = new Schema({
         items: {type: Boolean, default: false},
         mounts: {type: Boolean, default: false},
         inbox: {type: Boolean, default: false},
+        stats: {type: Boolean, default: false},
       },
       ios: {
         addTask: {type: Boolean, default: false},
@@ -252,7 +253,7 @@ let schema = new Schema({
     gear: {
       owned: _.transform(shared.content.gear.flat, (m, v) => {
         m[v.key] = {type: Boolean};
-        if (v.key.match(/[armor|head|shield]_warrior_0/) || v.gearSet === 'glasses') {
+        if (v.key.match(/(armor|head|shield)_warrior_0/) || v.gearSet === 'glasses') {
           m[v.key].default = true;
         }
       }),
@@ -454,7 +455,6 @@ let schema = new Schema({
     disableClasses: {type: Boolean, default: false},
     newTaskEdit: {type: Boolean, default: false},
     dailyDueDefaultView: {type: Boolean, default: false},
-    tagsCollapsed: {type: Boolean, default: false},
     advancedCollapsed: {type: Boolean, default: false},
     toolbarCollapsed: {type: Boolean, default: false},
     reverseChatOrder: {type: Boolean, default: false},

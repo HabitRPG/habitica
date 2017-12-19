@@ -107,8 +107,8 @@
     "achievementDilatory": "サキノバシティーの救世主",
     "achievementDilatoryText": "2014年夏のスプラッシュイベントで「サキノバシティーのドレッド・ドラゴン」打倒に協力しました!",
     "costumeContest": "衣装コンテスト",
-    "costumeContestText": "Habitween （Habitica ハロウィン）の衣装コンテストに出場しました。一部のエントリーは、<a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>Habitica ブログ</a>でご覧いただけます!",
-    "costumeContestTextPlural": "<%= count %> 回Habitween （Habitica ハロウィン）の衣装コンテストに出場しました。エントリーの一部は、<a href='http://blog.habitrpg.com/tagged/cosplay' target='_blank'>Habitica ブログ</a>でご覧いただけます!",
+    "costumeContestText": "Participated in the Habitoween Costume Contest. See some of the awesome entries at blog.habitrpg.com!",
+    "costumeContestTextPlural": "Participated in <%= count %> Habitoween Costume Contests. See some of the awesome entries at blog.habitrpg.com!",
     "memberSince": "メンバー登録日",
     "lastLoggedIn": "- 最後のログイン",
     "notPorted": "この機能はオリジナルサイトからまだ移植されていません",
@@ -273,5 +273,7 @@
     "emptyMessagesLine1": "メッセージはありません",
     "emptyMessagesLine2": "メッセージを送って会話を始めましょう！",
     "letsgo": "Let's Go!",
-    "selected": "選択中"
+    "selected": "選択中",
+    "howManyToBuy": "How many would you like to buy?",
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

@@ -134,6 +134,8 @@
     "mysterySet201707": "Jellymancer Set",
     "mysterySet201708": "Lava Warrior Set",
     "mysterySet201709": "Sorcery Student Set",
+    "mysterySet201710": "Imperious Imp Set",
+    "mysterySet201711": "Carpet Rider Set",
     "mysterySet301404": "Steampunk Standardsæt",
     "mysterySet301405": "Steampunk Tilbehørssæt",
     "mysterySet301703": "Påfugle-Steampunk-sæt",
@@ -165,7 +167,6 @@
     "cardTypeNotAllowed": "Ukendt korttype.",
     "invalidCoupon": "Ugyldig kuponkode.",
     "couponUsed": "Kuponkode allerede i brug.",
-    "noSudoAccess": "Du har ikke sudo-adgang.",
     "couponCodeRequired": "Kuponkode påkrævet.",
     "eventRequired": "\"req.params.event\" påkrævet.",
     "countRequired": "\"req.query.count\" påkrævet.",
@@ -201,5 +202,6 @@
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase All",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining"
+    "gemsRemaining": "gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
 }

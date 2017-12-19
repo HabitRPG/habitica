@@ -3,9 +3,9 @@ import getItemInfo from '../libs/getItemInfo';
 import { BadRequest } from '../libs/errors';
 import i18n from '../i18n';
 import isPinned from '../libs/isPinned';
+import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-import get from 'lodash/get';
 import each from 'lodash/each';
 import sortBy from 'lodash/sortBy';
 import lodashFind from 'lodash/find';
@@ -15,6 +15,17 @@ let sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   accumulator[val] = key;
   return accumulator;
 }, {});
+
+/**
+ * Returns the index if found
+ * @param Array array
+ * @param String path
+ */
+function pathExistsInArray (array, path) {
+  return array.findIndex(item => {
+    return item.path === path;
+  });
+}
 
 function selectGearToPin (user) {
   let changes = [];
@@ -32,9 +43,7 @@ function selectGearToPin (user) {
 
 
 function addPinnedGear (user, type, path) {
-  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex === -1) {
     user.pinnedItems.push({
@@ -55,9 +64,7 @@ function addPinnedGearByClass (user) {
 }
 
 function removeItemByPath (user, path) {
-  const foundIndex = user.pinnedItems.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  const foundIndex = pathExistsInArray(user.pinnedItems, path);
 
   if (foundIndex >= 0) {
     user.pinnedItems.splice(foundIndex, 1);
@@ -129,9 +136,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     // If path isn't passed it means an item was passed
     path = getItemInfo(user, type, item, officialPinnedItems, req.language).path;
   } else {
-    if (!item) {
-      item = get(content, path);
-    }
+    item = getItemByPathAndType(type, path);
 
     if (!item && PATHS_WITHOUT_ITEM.indexOf(path) === -1) {
       // path not exists in our content structure
@@ -148,9 +153,7 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
   }
 
-  let isOfficialPinned = officialPinnedItems.find(officialPinnedItem => {
-    return officialPinnedItem.path === path;
-  }) !== undefined;
+  const isOfficialPinned = pathExistsInArray(officialPinnedItems, path) !== -1;
 
   if (isOfficialPinned) {
     arrayToChange = user.unpinnedItems;
@@ -158,9 +161,16 @@ function togglePinnedItem (user, {item, type, path}, req = {}) {
     arrayToChange = user.pinnedItems;
   }
 
-  const foundIndex = arrayToChange.findIndex(pinnedItem => {
-    return pinnedItem.path === path;
-  });
+  if (isOfficialPinned) {
+    // if an offical item is also present in the user.pinnedItems array
+    const itemInUserItems = pathExistsInArray(user.pinnedItems, path);
+
+    if (itemInUserItems !== -1) {
+      removeItemByPath(user, path);
+    }
+  }
+
+  const foundIndex = pathExistsInArray(arrayToChange, path);
 
   if (foundIndex >= 0) {
     arrayToChange.splice(foundIndex, 1);

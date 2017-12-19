@@ -141,6 +141,16 @@ describe('DELETE /tasks/:id', () => {
       });
     });
 
-    it('removes a task from user.tasksOrder'); // TODO
+    it('removes a task from user.tasksOrder', async () => {
+      let task = await user.post('/tasks/user', {
+        text: 'test habit',
+        type: 'habit',
+      });
+
+      await user.del(`/tasks/${task._id}`);
+      await user.sync();
+
+      expect(user.tasksOrder.habits.indexOf(task._id)).to.eql(-1);
+    });
   });
 });

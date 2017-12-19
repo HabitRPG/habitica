@@ -25,13 +25,9 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import markdownDirective from 'client/directives/markdown';
 
 export default {
-  components: {
-    bModal,
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -51,7 +47,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'copyAsTodo');
+      this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
     saveTodo () {
       // let newTask = {
@@ -63,7 +59,7 @@ export default {
       //  @TODO: Add after tasks: User.addTask({body:newTask});
       // @TODO: Notification.text(window.env.t('messageAddedAsToDo'));
 
-      this.$root.$emit('hide::modal', 'copyAsTodo');
+      this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
   },
 };

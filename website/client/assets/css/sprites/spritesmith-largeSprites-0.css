@@ -1,6 +1,30 @@
-.scene_positivity {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
+.promo_take_this {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -741px -442px;
+  width: 114px;
+  height: 87px;
+}
+.promo_winter_quests {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -741px 0px;
+  width: 141px;
+  height: 441px;
+}
+.promo_winter_retreat {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 531px;
-  height: 243px;
+  width: 740px;
+  height: 309px;
+}
+.promo_winter_subscriptions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -437px -310px;
+  width: 237px;
+  height: 150px;
+}
+.scene_calendar {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -310px;
+  width: 436px;
+  height: 368px;
 }

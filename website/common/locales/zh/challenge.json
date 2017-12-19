@@ -29,6 +29,7 @@
     "either": "都显示",
     "createChallenge": "创建一个挑战",
     "createChallengeAddTasks": "新增挑戰任務",
+    "createChallengeCloneTasks": "複製挑戰任務",
     "addTaskToChallenge": "新增任務",
     "discard": "取消",
     "challengeTitle": "挑战标题",
@@ -126,5 +127,6 @@
     "locationRequired": "请选择在哪里发起挑战(‘挑战发起至’)",
     "categoiresRequired": "至少选择一个类别",
     "viewProgressOf": "查看参与者的任务状况",
-    "selectMember": "选择成员"
+    "selectMember": "选择成员",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

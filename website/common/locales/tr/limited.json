@@ -88,10 +88,10 @@
     "grandMalkinSet": "Görkemli Pisirbaz (Büyücü)",
     "cleverDogSet": "Akıllı Köpek (Düzenbaz)",
     "braveMouseSet": "Cesur Fare (Savaşçı)",
-    "summer2016SharkWarriorSet": "Köpek Balığı Savaşçısı (Savaşçı)",
-    "summer2016DolphinMageSet": "Yunus Büyücüsü (Büyücü)",
-    "summer2016SeahorseHealerSet": "Denizatı Şifacısı (Şifacı)",
-    "summer2016EelSet": "Yılan Balığı Düzenbazı (Düzenbaz)",
+    "summer2016SharkWarriorSet": "Köpek Balığı Savaşçı'sı (Savaşçı)",
+    "summer2016DolphinMageSet": "Yunus Büyücü'sü (Büyücü)",
+    "summer2016SeahorseHealerSet": "Denizatı Şifacı'sı (Şifacı)",
+    "summer2016EelSet": "Yılan Balığı Düzenbaz'ı (Düzenbaz)",
     "fall2016SwampThingSet": "Bataklık Canavarı (Savaşçı)",
     "fall2016WickedSorcererSet": "Hiddetli Büyücü (Büyücü)",
     "fall2016GorgonHealerSet": "Gorgon Şifacı (Şifacı)",
@@ -119,5 +119,9 @@
     "dateEndJuly": "29 Temmuz",
     "dateEndAugust": "31 Ağustos",
     "dateEndOctober": "October 31",
-    "discountBundle": "paket"
+    "dateEndNovember": "November 30",
+    "discountBundle": "paket",
+    "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
+    "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
+    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3"
 }
