@@ -11,9 +11,15 @@ import {
 
 describe('user.ops.hourglassPurchase', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser();
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -126,11 +132,12 @@ describe('user.ops.hourglassPurchase', () => {
     it('buys a pet', () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      let [, message] = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
+      let [, message] = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}}, analytics);
 
       expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.pets).to.eql({'MantisShrimp-Base': 5});
+      expect(analytics.track).to.be.calledOnce;
     });
 
     it('buys a mount', () => {

@@ -3,6 +3,7 @@ import {
 } from '../../../helpers/common.helper';
 import buyQuest from '../../../../website/common/script/ops/buy/buyQuest';
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../../../website/common/script/libs/errors';
@@ -10,9 +11,15 @@ import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buyQuest', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser();
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('buys a Quest scroll', () => {
@@ -21,11 +28,12 @@ describe('shared.ops.buyQuest', () => {
       params: {
         key: 'dilatoryDistress1',
       },
-    });
+    }, analytics);
     expect(user.items.quests).to.eql({
       dilatoryDistress1: 1,
     });
     expect(user.stats.gp).to.equal(5);
+    expect(analytics.track).to.be.calledOnce;
   });
 
   it('does not buy Quests without enough Gold', (done) => {
@@ -75,6 +83,16 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
+      done();
+    }
+  });
+
+  it('returns error when key is not provided', (done) => {
+    try {
+      buyQuest(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('missingKeyParam'));
       done();
     }
   });

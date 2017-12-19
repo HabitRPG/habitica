@@ -12,10 +12,6 @@ module.exports = function buyHealthPotion (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
   }
 
-  if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
-  }
-
   if (user.stats.hp >= 50) {
     throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
   }
