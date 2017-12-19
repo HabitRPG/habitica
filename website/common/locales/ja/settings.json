@@ -118,6 +118,7 @@
     "giftedSubscription": "贈られた寄付(有料利用)",
     "giftedSubscriptionInfo": "<%= name %> から <%= months %> カ月分の寄付（有料）利用のプレゼントが届きました!",
     "giftedSubscriptionFull": "こんにちは、<%= userName %>。<%= sender %> から <%= monthCount %> カ月分の寄付（有料）利用のプレゼントが届きました!",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "パーティへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
     "importantAnnouncements": "タスクの完了し、賞を受けるために、チェックインを通知します。",

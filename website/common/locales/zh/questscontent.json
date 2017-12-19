@@ -549,5 +549,7 @@
     "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
     "questYarnBoss": "The Dread Yarnghetti",
     "questYarnDropYarnEgg": "毛线(宠物蛋)",
-    "questYarnUnlockText": "解锁毛线蛋购买功能"
+    "questYarnUnlockText": "解锁毛线蛋购买功能",
+    "winterQuestsText": "Winter Quest Bundle",
+    "winterQuestsNotes": "Contains 'Trapper Santa', 'Find the Cub', and 'The Fowl Frost'. Available until December 31."
 }
