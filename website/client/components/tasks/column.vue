@@ -519,7 +519,13 @@ export default {
     async rewardSorted (data) {
       const rewardsList = this.inAppRewards;
       const rewardToMove = rewardsList[data.oldIndex];
-      const rewardKeyToMove = rewardToMove.key;
+
+      // The UUID for these items is not stored with inAppRewards for some reason, but it is easy enough to look up from the user object.
+      let pinnedItems = this.user.pinnedItems;
+      let rewardPinnedToMove = pinnedItems.find(item => {
+        return item.path === rewardToMove.path;
+      });
+      let rewardIdToMove = rewardPinnedToMove._id;
 
       // Server
       const newIndexOnServer = data.newIndex;
@@ -527,7 +533,7 @@ export default {
       // TODO - implement this action
 
       let newOrder = await this.$store.dispatch('tasks:movePinnedItem', {
-        rewardKey: rewardKeyToMove,
+        rewardId: rewardIdToMove,
         position: newIndexOnServer,
       });
       // this.user.pinnedItems = newOrder;

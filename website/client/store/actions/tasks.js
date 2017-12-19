@@ -220,7 +220,7 @@ export async function move (store, payload) {
 }
 
 export async function movePinnedItem (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/pinned-items/${payload.rewardKey}/move/to/${payload.position}`);
+  let response = await axios.post(`/api/v3/tasks/pinned-items/${payload.rewardId}/move/to/${payload.position}`);
   return response.data.data;
 }
 

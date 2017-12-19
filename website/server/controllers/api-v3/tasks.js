@@ -726,14 +726,15 @@ api.moveTask = {
 
 // TODO - under construction >>
 // TODO - needs unit test
+// TODO there isn't a top or bottom so we shouldn't check for that...
 // TODO - update api comment example... i am not sure at the moment what that is
 
 /**
- * @api {post} /api/v3/tasks/pinned-items/:rewardKey/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @api {post} /api/v3/tasks/pinned-items/:rewardId/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
  * @apiName MovePinnedItem
  * @apiGroup Task
  *
- * @apiParam (Path) {String} rewardKey The unique item key for the pinned item
+ * @apiParam (Path) {String} rewardId The unique item UUID for the pinned item
  * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new pinned items order.
@@ -745,30 +746,25 @@ api.moveTask = {
  */
 api.movePinnedItem = {
   method: 'POST',
-  url: '/tasks/pinned-items/:rewardKey/move/to/:position',
+  url: '/tasks/pinned-items/:rewardId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('rewardKey', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('rewardId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
-    let rewardKey = req.params.rewardKey;
+    let rewardId = req.params.rewardId;
     let position = Number(req.params.position);
     let pinnedItems = user.pinnedItems;
 
-    // TODO - get pinned items from user like this:
+    // In memory updates
 
-    // let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
-    //
-    // if (!task) throw new NotFound(res.t('taskNotFound'));
-    // if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
-
-    // find the task, splice it out, then push the new one in
-
-    let currentIndex = user.pinnedItems.findIndex(item => item.key === rewardKey);
+    // user.pinnedItems contain items with ids defined as UUID objects,
+    // to compare with our API call we will cast it into a string
+    let currentIndex = user.pinnedItems.findIndex(item => item._id.toString() === rewardId );
     let currentPinnedItem = user.pinnedItems[currentIndex];
 
     // remove the item
@@ -781,9 +777,9 @@ api.movePinnedItem = {
       pinnedItems.splice(position, 0, currentPinnedItem);
     }
 
-    console.log( pinnedItems );
+    console.log( "STUFF: " );
+    console.log( currentIndex );
 
-    // In memory updates
     // let order = user.pinnedItems;
     // moveTask(order, rewardKey, to);
 
