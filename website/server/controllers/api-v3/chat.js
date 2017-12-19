@@ -17,6 +17,7 @@ import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
+import { getGroupChat } from '../../libs/chat/group-chat';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -59,21 +60,6 @@ async function getAuthorEmailFromMessage (message) {
 function textContainsBannedSlur (message) {
   let bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
   return bannedSlursMatched.length > 0;
-}
-
-async function getGroupChat (group) {
-  const groupChat = await Chat.find({groupId: group._id}).limit(200).sort('-timestamp').exec();
-
-  // @TODO: Concat old chat to keep continuity of chat stored on group object
-  const concatedGroupChat = groupChat.concat(group.chat);
-
-  group.chat = concatedGroupChat.reduce((previous, current) => {
-    const foundMessage = previous.find(message => {
-      return message._id === current._id;
-    });
-    if (!foundMessage) previous.push(current);
-    return previous;
-  }, []);
 }
 
 /**

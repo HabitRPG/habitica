@@ -32,6 +32,7 @@ import {
 } from './subscriptionPlan';
 import amazonPayments from '../libs/amazonPayments';
 import stripePayments from '../libs/stripePayments';
+import { getGroupChat } from '../libs/chat/group-chat';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -237,9 +238,9 @@ schema.statics.getGroup = async function getGroup (options = {}) {
   }
 
   // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
-  if (group) {
-    const groupChat = await Chat.find({groupId}).limit(200).sort('-timestamp').exec();
-    group.chat = groupChat.concat(group.chat);
+  // Also only return chat if requested, eventually we don't want to return chat here
+  if (group && group.chat) {
+    await getGroupChat(group);
   }
 
   return group;
