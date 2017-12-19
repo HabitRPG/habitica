@@ -118,6 +118,7 @@
     "giftedSubscription": "Подписка в подарок",
     "giftedSubscriptionInfo": "<%= name %> дарит вам <%= months %> месяцев подписки",
     "giftedSubscriptionFull": "Привет <%= username %>, <%= sender %> подарил вам  <%= monthCount %> месяцев подписки!",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Приглашен в команду",
     "invitedGuild": "Приглашен в гильдию",
     "importantAnnouncements": "Напоминания о ежедневном входе для выполнения заданий и получения призов",

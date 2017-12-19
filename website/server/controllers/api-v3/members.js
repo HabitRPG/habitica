@@ -246,6 +246,10 @@ function _getMembersForItem (type) {
           addComputedStats = true;
         }
       }
+
+      if (req.query.search) {
+        query['profile.name'] = {$regex: req.query.search};
+      }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;

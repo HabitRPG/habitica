@@ -10,10 +10,7 @@ div
       .col-12
         strong(v-once) {{$t('selectChallengeWinnersDescription')}}
       .col-12
-        b-dropdown.create-dropdown(:text="winnerText")
-          input.form-control(type='text', v-model='searchTerm')
-          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
-            | {{ member.profile.name }}
+        member-search-dropdown(:text='winnerText', :members='members', :challengeId='challengeId', @member-selected='selectMember')
       .col-12
         button.btn.btn-primary(v-once, @click='closeChallenge') {{$t('awardWinners')}}
       .col-12
@@ -74,16 +71,16 @@ div
 </style>
 
 <script>
-import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
+import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 
 export default {
   props: ['challengeId', 'members'],
-  mixins: [challengeMemberSearchMixin],
+  components: {
+    memberSearchDropdown,
+  },
   data () {
     return {
       winner: {},
-      searchTerm: '',
-      memberResults: [],
     };
   },
   computed: {
