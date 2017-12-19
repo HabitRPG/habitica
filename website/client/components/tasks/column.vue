@@ -526,11 +526,11 @@ export default {
 
       // TODO - implement this action
 
-      // let newOrder = await this.$store.dispatch('tasks:moveInAppReward', {
-      //   rewardKey: rewardKeyToMove,
-      //   position: newIndexOnServer,
-      // });
-      // this.user.pinnedItems = newOrder;
+      let newOrder = await this.$store.dispatch('tasks:movePinnedItem', {
+        rewardKey: rewardKeyToMove,
+        position: newIndexOnServer,
+      });
+      this.user.pinnedItems = newOrder;
 
       // Client
       // TODO - is this even necessary? I just took it from the tasks action above.
