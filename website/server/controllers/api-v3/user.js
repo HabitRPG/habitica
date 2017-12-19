@@ -779,9 +779,7 @@ api.buy = {
     let type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
       req.type = 'special';
-    }
-
-    if (buyKnownKeys.indexOf(type) === -1) {
+    } else if (buyKnownKeys.indexOf(type) === -1) {
       req.type = 'marketGear';
     }
 
