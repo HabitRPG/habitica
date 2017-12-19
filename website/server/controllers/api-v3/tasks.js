@@ -724,6 +724,92 @@ api.moveTask = {
   },
 };
 
+// TODO - under construction >>
+// TODO - needs unit test
+// TODO - update api comment example... i am not sure at the moment what that is
+
+/**
+ * @api {post} /api/v3/tasks/pinned-items/:rewardKey/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @apiName MovePinnedItem
+ * @apiGroup Task
+ *
+ * @apiParam (Path) {String} rewardKey The unique item key for the pinned item
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new pinned items order.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b","2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],"notifications":[]}
+ *
+ * @apiUse TaskNotFound
+ */
+api.movePinnedItem = {
+  method: 'POST',
+  url: '/tasks/pinned-items/:rewardKey/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('rewardKey', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let rewardKey = req.params.rewardKey;
+    let position = Number(req.params.position);
+    let pinnedItems = user.pinnedItems;
+
+    // TODO - get pinned items from user like this:
+
+    // let task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    //
+    // if (!task) throw new NotFound(res.t('taskNotFound'));
+    // if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
+
+    // find the task, splice it out, then push the new one in
+
+    let currentIndex = user.pinnedItems.findIndex(item => item.key === rewardKey);
+    let currentPinnedItem = user.pinnedItems[currentIndex];
+
+    // remove the item
+    pinnedItems.splice(currentIndex, 1);
+
+    // reinsert the item in position (or just at the end)
+    if (position === -1) {
+      pinnedItems.push(currentPinnedItem);
+    } else {
+      pinnedItems.splice(position, 0, currentPinnedItem);
+    }
+
+    console.log( pinnedItems );
+
+    // In memory updates
+    // let order = user.pinnedItems;
+    // moveTask(order, rewardKey, to);
+
+    // Server updates
+    // @TODO: maybe bulk op?
+    // let pullQuery = { $pull: {} };
+    // pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
+    // await user.update(pullQuery).exec();
+    //
+    // // Handle push to bottom
+    // let position = to;
+    // if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
+    //
+    // let updateQuery = { $push: {} };
+    // updateQuery.$push[`tasksOrder.${task.type}s`] = {
+    //   $each: [task._id],
+    //   $position: position,
+    // };
+    // await user.update(updateQuery).exec();
+
+    res.respond(200, pinnedItems);
+  },
+};
+
+// TODO - << under construction
+
 /**
  * @api {post} /api/v3/tasks/:taskId/checklist Add an item to the task's checklist
  * @apiName AddChecklistItem

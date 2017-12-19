@@ -530,7 +530,8 @@ export default {
         rewardKey: rewardKeyToMove,
         position: newIndexOnServer,
       });
-      this.user.pinnedItems = newOrder;
+      // this.user.pinnedItems = newOrder;
+      console.log( this.user.pinnedItems );
 
       // Client
       // TODO - is this even necessary? I just took it from the tasks action above.
