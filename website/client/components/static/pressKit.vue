@@ -9,12 +9,12 @@
       h2 {{ $t('pk' + category) }}
       div(v-if='Array.isArray(images)')
         div(v-for='img in images')
-          img.img-fluid.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${img}.png`")
+          img.img-fluid.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${img}`")
       div(v-else)
         div(v-for='(images, secondaryCategory) in images')
           h3 {{ $t('pk' + secondaryCategory) }}
           div(v-for='img in images')
-            img.img-fluid.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${secondaryCategory}/${img}.png`")
+            img.img-fluid.img-rendering-auto.press-img(:src="`/static/presskit/${category}/${secondaryCategory}/${img}`")
 
     h1 {{ $t('FAQ') }}
     
@@ -39,46 +39,52 @@
         PRESS_ENQUIRY_EMAIL,
         imgs: {
           Promo: [
-            'Promo',
-            'Promo - Thin',
+            'Promo.png',
+            'Promo - Thin.png',
           ],
           Logo: [
-            'Icon with Text',
-            'Habitica Gryphon',
-            'iOS',
-            'Android',
+            'Icon with Text.png',
+            'Icon.png',
+            'Text.png',
+            'Habitica Gryphon.png',
+            'iOS.png',
+            'Android.png',
           ],
           Boss: [
-            'Basi-List',
-            'Stagnant Dishes',
-            'SnackLess Monster',
-            'Laundromancer',
-            'Necro-Vice',
-            'Battling the Ghost Stag',
-            'Dread Drag\'on of Dilatory',
+            'Basi-List.png',
+            'Stagnant Dishes.png',
+            'SnackLess Monster.png',
+            'Laundromancer.png',
+            'Necro-Vice.png',
+            'Battling the Ghost Stag.png',
+            'Dread Drag\'on of Dilatory.png',
           ],
           Samples: {
             Website: [
-              'Tasks Page',
-              'Equipment',
-              'Market',
-              'Guilds',
-              'Challenges',
+              'CheckInIncentives.png',
+              'Inventory.png',
+              'Equipment.png',
+              'Market.png',
+              'Market2.png',
+              'Tavern.png',
+              'Guilds.png',
+              'Challenges.png',
             ],
             iOS: [
-              'Tasks Page',
-              'Level Up',
-              'Pets',
-              'Party',
-              'Boss',
+              'Tasks Page.png',
+              'Level Up.png',
+              'Market.png',
+              'Party.png',
+              'Boss.png',
             ],
             Android: [
-              'User',
-              'Tasks Page',
-              'Reward',
-              'Level Up',
-              'Tavern',
-              'Party',
+              'Login.png',
+              'User.png',
+              'Tasks Page.png',
+              'Add Tasks.png',
+              'Stats.png',
+              'Shops.png',
+              'Party.png',
             ],
           },
         },
