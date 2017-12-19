@@ -516,8 +516,27 @@ export default {
       });
       this.user.tasksOrder[`${this.type}s`] = newOrder;
     },
-    async rewardSorted () {
-      console.log( 'sortedCallback' );
+    async rewardSorted (data) {
+      const rewardsList = this.inAppRewards;
+      const rewardToMove = rewardsList[data.oldIndex];
+      const rewardKeyToMove = rewardToMove.key;
+
+      // Server
+      const newIndexOnServer = data.newIndex;
+
+      // TODO - implement this action
+
+      // let newOrder = await this.$store.dispatch('tasks:moveInAppReward', {
+      //   rewardKey: rewardKeyToMove,
+      //   position: newIndexOnServer,
+      // });
+      // this.user.pinnedItems = newOrder;
+
+      // Client
+      // TODO - is this even necessary? I just took it from the tasks action above.
+      // TODO - TEST please!
+      const deleted = this.inAppRewards.splice(data.oldIndex, 1);
+      this.inAppRewards.splice(data.newIndex, 0, deleted[0]);
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
