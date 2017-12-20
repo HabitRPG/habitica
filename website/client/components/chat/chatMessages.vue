@@ -12,8 +12,8 @@
     .row(v-if='user._id !== msg.uuid')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
-          :member="cachedProfileData[msg.uuid]",
+          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+          :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
@@ -93,8 +93,8 @@
               | + {{ likeCount(msg) }}
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
-          :member="cachedProfileData[msg.uuid]",
+          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+          :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
