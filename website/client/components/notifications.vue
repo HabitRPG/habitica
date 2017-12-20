@@ -502,12 +502,6 @@ export default {
               if (notification.data.mp) this.mp(notification.data.mp);
             }
             break;
-          case 'GROUP_TASK_APPROVAL':
-            markAsRead = false;
-            break;
-          case 'GROUP_TASK_APPROVED':
-            markAsRead = false;
-            break;
           case 'SCORED_TASK':
             // Search if it is a read notification
             for (let i = 0; i < this.alreadyReadNotification.length; i++) {
@@ -538,7 +532,7 @@ export default {
               // modalScope.data = notification.data;
               // this.openModal('generic', {scope: modalScope});
             } else {
-              markAsRead = false; // If the notification is not implemented, skip it
+              markAsRead = false; // If the notification here is not implemented, skip it
             }
             break;
         }
