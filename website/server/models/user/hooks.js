@@ -247,6 +247,28 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // this.items.pets['JackOLantern-Base'] = 5;
   }
 
+  // Manage unallocated stats points notifications
+  if (this.isSelected('stats') && this.isSelected('notifications')) {
+    const pointsToAllocate = this.stats.points;
+
+    const existingNotificationIndex = this.notifications.findIndex(notification => {
+      return notification.type === 'UNALLOCATED_STATS_POINTS';
+    });
+
+    const existingNotification = existingNotificationIndex !== -1 ? this.notifications[existingNotificationIndex] : null;
+
+    // The notification has not the up to date number of points to allocate,
+    // remove it
+    if (existingNotification && existingNotification.data.points !== pointsToAllocate) {
+      this.notifications.splice(existingNotificationIndex, 1);
+    }
+
+    // If there are points to allocate, add a new notifications
+    if (pointsToAllocate > 0) {
+      this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
+    }
+  }
+
   // Enable weekly recap emails for old users who sign in
   if (this.flags.lastWeeklyRecapDiscriminator) {
     // Enable weekly recap emails in 24 hours

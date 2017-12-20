@@ -329,6 +329,65 @@ describe('User Model', () => {
       user = await user.save();
       expect(user.achievements.beastMaster).to.not.equal(true);
     });
+
+    context('manage unallocated stats points notifications', () => {
+      it('doesn\'t add a notification if there are no points to allocate', async () => {
+        let user = new User();
+        user = await user.save(); // necessary for user.isSelected to work correctly
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 0;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
+      });
+
+      it('removes a notification if there are no more points to allocate', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 0;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount - 1);
+      });
+
+      it('adds a notification if there are points to allocate', async () => {
+        let user = new User();
+        user = await user.save(); // necessary for user.isSelected to work correctly
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 9;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(9);
+      });
+
+      it('adds a notification if the points to allocate have changed', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        const oldNotificationsCount = user.notifications.length;
+        const oldNotificationsUUID = user.notifications[0].id;
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(9);
+
+        user.stats.points = 11;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(11);
+        expect(user.notifications[0].id).to.not.equal(oldNotificationsUUID);
+      });
+    });
   });
 
   context('days missed', () => {
