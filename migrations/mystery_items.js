@@ -1,10 +1,23 @@
+var UserNotification = require('../website/server/models/userNotification')
+
 var _id = '';
+
+var items = ['armor_mystery_201711','body_mystery_201711'];
+
 var update = {
   $addToSet: {
     'purchased.plan.mysteryItems':{
-      $each:['armor_mystery_201711','body_mystery_201711']
+      $each: items,
     }
-  }
+  },
+  $push: {
+    notifications: (new UserNotification({
+      type: 'NEW_MYSTERY_ITEMS',
+      data: {
+        items: items,
+      },
+    })).toJSON(),
+  },
 };
 
 /*var update = {

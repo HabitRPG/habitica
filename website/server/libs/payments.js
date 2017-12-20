@@ -33,6 +33,8 @@ api.constants = {
 };
 
 function revealMysteryItems (user) {
+  const pushedItems = [];
+
   _.each(shared.content.gear.flat, function findMysteryItems (item) {
     if (
       item.klass === 'mystery' &&
@@ -42,8 +44,11 @@ function revealMysteryItems (user) {
         user.purchased.plan.mysteryItems.indexOf(item.key) === -1
       ) {
       user.purchased.plan.mysteryItems.push(item.key);
+      pushedItems.push(item.key);
     }
   });
+
+  user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
 }
 
 function _dateDiff (earlyDate, lateDate) {
