@@ -155,7 +155,16 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       text: getClassName(classType, language),
     };
 
-    let result = filter(content.gear.flat, ['klass', classType]);
+    let result = filter(content.gear.flat, function findClassGear (gearItem) {
+      if (gearItem.klass === classType) return true;
+      let classShift = {
+        items: user.items,
+        stats: {
+          class: classType,
+        },
+      };
+      if (gearItem.specialClass === classType) return gearItem.canOwn(classShift);
+    });
 
     category.items = map(result, (e) => {
       let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
