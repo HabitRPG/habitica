@@ -522,20 +522,11 @@ export default {
 
       // Server
       let newOrder = await this.$store.dispatch('user:movePinnedItem', {
-        type: rewardToMove.pinType,
+        type: rewardToMove.pinType, // user.pinnedItems uses pinType data under the type field
         path: rewardToMove.path,
         position: data.newIndex,
       });
       this.user.pinnedItems = newOrder;
-
-      // TODO - type and pinType have been conflated at some point, some pinned
-      // items have a type (like armor), and others don't like quests. I assure
-      // you that for this we want pinType, but this will be indexed under type
-      // under this.user.pinnedItems
-
-      // Client - update view
-      const deleted = this.inAppRewards.splice(data.oldIndex, 1);
-      this.inAppRewards.splice(data.newIndex, 0, deleted[0]);
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed

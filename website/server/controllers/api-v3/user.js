@@ -1995,7 +1995,6 @@ api.movePinnedItem = {
     }
 
     await user.save();
-
     let userJson = user.toJSON();
 
     res.respond(200, userJson.pinnedItems);
