@@ -29,7 +29,7 @@
     "messageFoundQuest": "Znalazłeś misję: \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ten element wyposażenia został zakupiony, ale już go nie posiadasz. Możesz kupić go ponownie w sekcji nagród na stronie z zadaniami.",
     "messageAlreadyOwnGear": "Już posiadasz ten przedmiot. Przejdź do strony z wyposażeniem, aby zacząć go używać.",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
+    "previousGearNotOwned": "Musisz zakupić wyposażenie niższego poziomu przed zakupem tego.",
     "messageHealthAlreadyMax": "Już masz maksymalny poziom zdrowia.",
     "messageHealthAlreadyMin": "O nie! Skończyły ci sie punkty życia, więc jest już za późno, aby kupić eliksir uzdrawiający, ale nie martw się - możesz się odrodzić!",
     "armoireEquipment": "<%= image %> Znalazłeś część rzadkiego wyposażenia w Zaczarowanej Szafie: <%= dropText %>! Fantastycznie!",

@@ -118,7 +118,7 @@
     "giftedSubscription": "Podarowane abonamenty",
     "giftedSubscriptionInfo": "<%= name %> podarował Ci <%= months %> miesięczną subskrypcję ",
     "giftedSubscriptionFull": "Hej <%= username %>, <%= sender %> podarował Ci <%= monthCount %> miesięcy subskrypcji!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
+    "giftedSubscriptionWinterPromo": "Cześć <%= username %>, otrzymałeś <%= monthCount %> miesięcy subskrybcji w ramach naszej promocji świątecznego rozdawania prezentów!",
     "invitedParty": "Zaproszony do Drużyny",
     "invitedGuild": "Zaproszony do Gildii",
     "importantAnnouncements": "Przypomnienia o meldowaniu, aby wykonywać zadania i otrzymywać nagrody.",
