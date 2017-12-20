@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "Kupidó",
     "hatchingPotionShimmer": "Vibráló",
     "hatchingPotionFairy": "Tündér",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",
@@ -218,5 +219,6 @@
     "foodCandyRed": "Fahéjas cukorka",
     "foodSaddleText": "Nyereg",
     "foodSaddleNotes": "Azonnal hátassá változtatja egy háziállatodat.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon."
 }

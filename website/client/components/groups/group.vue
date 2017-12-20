@@ -380,10 +380,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    userIsOnQuest () {
-      if (!this.group.quest || !this.group.quest.members) return false;
-      return Boolean(this.group.quest.members[this.user._id]);
-    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },

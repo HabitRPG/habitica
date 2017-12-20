@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "Embark",
-    "bossHP": "Boss Health",
+    "bossHP": "Boss HP",
     "bossStrength": "Strength",
     "rage": "Rage",
     "collect": "Plunder",

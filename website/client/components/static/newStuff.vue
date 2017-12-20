@@ -4,16 +4,32 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/12/2017 - BATTLE FOR THE NET: HELP PROTECT HABITICA
+    h2 12/19/2017 - WINTER WONDERLAND BEGINS! WINTER CLASS OUTFITS, SEASONAL SHOP, NPC DECORATIONS, AND MAGIC HATCHING POTIONS
     hr
-    .scene_bug.center-block
-    p What would you do if you couldn't access your favorite websites, including Habitica, without paying an exorbitant amount to your internet service provider? In the United States, where Habitica is based, that is now a very real danger.
-    p The USA's Federal Communications Commission (FCC) is about to vote on its plan to kill net neutrality, which will let internet service providers charge extra fees, throttle internet speeds, and block access to websites like this one. This could kill a small company like Habitica.
-    p.strong Congress can stop them, but only if US citizens flood them with calls right now, asking them to defend net neutrality by stopping the FCC's vote BEFORE December 14th. Help keep Habitica free to access for everybody!
-    p(v-markdown='"**US Habiticans can call Congress using the phone numbers found [here](https://www.callmycongress.com). You can also learn more at https://www.battleforthenet.com.** Non-US Habiticans can still help us by spreading the word."')
-    p Thank you for helping protect Habitica.
-    p Warmly,
-    p Vicky, Leslie, Sabe, Phillip, Matteo, Keith, and Beth
+    p A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting down over Habit City. The Winter Wonderland event has begun!
+    .media
+      .promo_winter_wonderland_2018.right-margin.bottom-margin
+      .media-body
+        h3 Winter Class Outfits
+        p From now until January 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Confetti Mage, a Mistletoe Healer, a Reindeer Rogue, or a Gift-Wrapped Warrior! You'd better get productive to earn enough gold before they disappear. Good luck!
+        .small by AnnDeLune, Vikte, weeWitch, Katy133, and Beffymaroo
+        .media
+          .media-body
+            h3 Seasonal Shop is Open!
+            p(v-markdown='"The [Seasonal Shop](https://habitica.com/shops/seasonal) has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous winter outfits, now available for gems instead of gold. Plus, there will be more fun things in the shop as the event progresses.The Seasonal Shop will only be open until January 31st, so don\'t wait!"')
+            .small by SabreCat and Lemoness
+          .promo_winter_seasonal_shop.left-margin
+        .media
+          .media-body
+            h3 NPC Costumes
+            p Looks like the NPCs are really getting in to the cheery winter mood around the site. Who wouldn't? After all, there's plenty more celebration to come....
+            .small by Lemoness
+          .promo_winter_tavern.left-margin
+    h3 Starry Night and Holly Hatching Potions
+    p(v-markdown='"There\'s a new pet breed in town! Between now and January 31st, you can buy Holly Hatching Potions and brand-new Starry Night Hatching Potions from [the Market](https://habitica.com/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.)"')
+    p After they're gone, it will be at least a year before the Starry Night and Peppermint Hatching Potions are available again, so be sure to get them now!
+    .small by Vampitch, JinjooHat, Lemoness, and SabreCat
+    .promo_starry_potions.center-block
     br
 </template>
 
@@ -29,6 +45,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

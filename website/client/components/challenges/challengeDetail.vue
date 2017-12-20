@@ -33,10 +33,7 @@
       .col-7.offset-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
-        b-dropdown.create-dropdown(text="Select a Participant")
-          input.form-control(type='text', v-model='searchTerm')
-          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="openMemberProgressModal(member._id)")
-            | {{ member.profile.name }}
+        member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -51,7 +48,6 @@
             v-on:taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
-
     .row
       task-column.col-12.col-sm-6(
         v-for="column in columns",
@@ -185,6 +181,7 @@ import omit from 'lodash/omit';
 import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
+import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -211,6 +208,7 @@ export default {
     leaveChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
+    memberSearchDropdown,
     TaskColumn: Column,
     TaskModal,
   },
@@ -388,8 +386,8 @@ export default {
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
     },
-    openMemberProgressModal (memberId) {
-      this.progressMemberId = memberId;
+    openMemberProgressModal (member) {
+      this.progressMemberId = member._id;
       this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     },
     async exportChallengeCsv () {
