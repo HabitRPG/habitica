@@ -27,7 +27,7 @@
           .promo_winter_tavern.left-margin
     h3 Starry Night and Holly Hatching Potions
     p(v-markdown='"There\'s a new pet breed in town! Between now and January 31st, you can buy Holly Hatching Potions and brand-new Starry Night Hatching Potions from [the Market](https://habitica.com/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.)"')
-    p After they're gone, it will be at least a year before the Starry Night and Peppermint Hatching Potions are available again, so be sure to get them now!
+    p After they're gone, it will be at least a year before the Starry Night and Holly Hatching Potions are available again, so be sure to get them now!
     .small by Vampitch, JinjooHat, Lemoness, and SabreCat
     .promo_starry_potions.center-block
     br
