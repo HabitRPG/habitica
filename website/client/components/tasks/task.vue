@@ -81,7 +81,7 @@
                 span.m-0(v-if="task.down") -{{task.counterDown}}
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
               .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken')
-              .svg-icon.challenge.broken(v-html="icons.challenge", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
+              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
             #tags-popover
@@ -500,6 +500,7 @@ import goldIcon from 'assets/svg/gold.svg';
 import streakIcon from 'assets/svg/streak.svg';
 import calendarIcon from 'assets/svg/calendar.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
+import brokenChallengeIcon from 'assets/svg/broken-megaphone.svg';
 import tagsIcon from 'assets/svg/tags.svg';
 import checkIcon from 'assets/svg/check.svg';
 import editIcon from 'assets/svg/edit.svg';
@@ -534,6 +535,7 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         challenge: challengeIcon,
+        brokenChallengeIcon,
         tags: tagsIcon,
         check: checkIcon,
         checklist: checklistIcon,
