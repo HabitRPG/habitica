@@ -16,5 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "habitrpg"
   config.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
   config.vm.usable_port_range = (3000..3050)
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+  config.vm.usable_port_range = (8080..8130)
   config.vm.provision :shell, :path => "vagrant_scripts/vagrant.sh"
 end
