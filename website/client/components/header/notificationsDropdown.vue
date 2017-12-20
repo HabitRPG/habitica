@@ -103,7 +103,10 @@ export default {
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
       ],
-      rawNotificationsOrder: [ // not used directly see the computed property notificationsOrder
+      // A list of notifications handled by this component,
+      // listed in the order they should appear in the notifications panel.
+      // NOTE: Those not listed here won't be shown in the notification panel!
+      handledNotification: [
         'BAILEY', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
@@ -118,7 +121,7 @@ export default {
       // Returns a map of NOTIFICATION_TYPE -> POSITION
       const orderMap = {};
 
-      this.rawNotificationsOrder.forEach((type, index) => {
+      this.handledNotification.forEach((type, index) => {
         orderMap[type] = index;
       });
 
@@ -169,16 +172,19 @@ export default {
         });
       }
 
-      // Push the notifications stored in user.notifications
-      notifications.push(...this.user.notifications);
-
-      // Sort notifications
       const orderMap = this.notificationsOrder;
 
+      // Push the notifications stored in user.notifications
+      // skipping those not defined in the handledNotification object
+      notifications.push(...this.user.notifications.filter(({type}) => {
+        return orderMap[type] !== undefined;
+      }));
+
+      // Sort notifications
+
       notifications.sort((a, b) => { // a and b are notifications
-        // Infinity if the notification priority isn't specified
-        const aOrder = orderMap[a.type] || Infinity;
-        const bOrder = orderMap[b.type] || Infinity;
+        const aOrder = orderMap[a.type];
+        const bOrder = orderMap[b.type];
 
         if (aOrder === bOrder) return 0; // Same position
         if (aOrder > bOrder) return -1; // b is higher
