@@ -530,18 +530,13 @@ export default {
       // Server
       const newIndexOnServer = data.newIndex;
 
-      // TODO - implement this action
-
       let newOrder = await this.$store.dispatch('tasks:movePinnedItem', {
         rewardId: rewardIdToMove,
         position: newIndexOnServer,
       });
-      // this.user.pinnedItems = newOrder;
-      console.log( this.user.pinnedItems );
+      this.user.pinnedItems = newOrder;
 
-      // Client
-      // TODO - is this even necessary? I just took it from the tasks action above.
-      // TODO - TEST please!
+      // Client - update view
       const deleted = this.inAppRewards.splice(data.oldIndex, 1);
       this.inAppRewards.splice(data.newIndex, 0, deleted[0]);
     },
