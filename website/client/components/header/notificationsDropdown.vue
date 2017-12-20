@@ -2,7 +2,7 @@
 menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
-      message-count(v-if='notifications.length > 0', :count="notifications.length", :top="true")
+      message-count(v-if='notificationsTopBadgeCount > 0', :count="notificationsTopBadgeCount", :top="true")
       .svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content", @click.stop="")
     .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center
@@ -128,6 +128,20 @@ export default {
       // Convert the notifications not stored in user.notifications
       const notifications = [];
 
+      // New groups messages
+      // @TODO: For some reason data becomes corrupted. We should fix this on the server
+      const userNewMessages = this.user.newMessages;
+      Object.keys(userNewMessages).map(groupId => {
+        const message = userNewMessages[groupId];
+
+        if (message && message.name && message.value) {
+          notifications.push({
+            type: 'NEW_GROUP_MESSAGE',
+            data: { name: message.name, groupId },
+          });
+        }
+      });
+
       // Parties invitations
       notifications.push(...this.user.invitations.parties.map(partyInvitation => {
         return {
@@ -143,6 +157,17 @@ export default {
           data: guildInvitation,
         };
       }));
+
+      // Quest invitation
+      if (this.user.party.quest.RSVPNeeded === true) {
+        notifications.push({
+          type: 'QUEST_INVITATION',
+          data: {
+            quest: this.user.party.quest.key,
+            partyId: this.user.party._id,
+          },
+        });
+      }
 
       // Push the notifications stored in user.notifications
       notifications.push(...this.user.notifications);
@@ -162,25 +187,17 @@ export default {
 
       return notifications;
     },
-    // The notification count includes unseen notifications + actionable ones
-    notificationsCount () {
+    // The notification top badge includes unseen notifications + actionable ones
+    notificationsTopBadgeCount () {
       return this.notifications.reduce((count, notification) => {
         if (notification.seen === false || this.isActionable(notification)) count++;
       }, 0);
     },
-    /*
-    userNewMessages () {
-      // @TODO: For some reason data becomes corrupted. We should fix this on the server
-      let userNewMessages = [];
-      for (let key in this.user.newMessages) {
-        let message = this.user.newMessages[key];
-        if (message && message.name && message.value) {
-          message.key = key;
-          userNewMessages.push(message);
-        }
-      }
-      return userNewMessages;
+    // The total number of notification, shown inside the dropdown
+    notificationsCount () {
+      return this.notifications.length;
     },
+    /*
     notificationsCount () {
       let count = 0;
 
