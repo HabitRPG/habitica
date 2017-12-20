@@ -203,5 +203,5 @@
     "yesterDailiesDescription": "如果应用此设置，Habitica在计算并对您的角色造成损害之前会询问您是否打算确定这项每日任务未完成。 这可以保护您免受意外伤害。",
     "repeatDayError": "请在一周中至少选择一天",
     "searchTasks": "搜索标题和描述说明...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "你的会期已过期。请刷新或同步。"
 }

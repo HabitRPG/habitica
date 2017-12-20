@@ -29,6 +29,7 @@
     "messageFoundQuest": "Hai trovato la missione \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Hai già acquistato questo oggetto in passato, ma al momento non lo possiedi. Puoi comprarlo di nuovo nella colonna delle Ricompense, nella pagina delle attività.",
     "messageAlreadyOwnGear": "Possiedi già questo oggetto. Equipaggialo andando in Inventario > Equipaggiamento.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Hai già la salute massima.",
     "messageHealthAlreadyMin": "Oh no! Hai già finito la tua Salute, quindi è troppo tardi comprare una Pozione della Salute, ma non preoccuparti - puoi resuscitare!",
     "armoireEquipment": "<%= image %> Hai trovato dell'equipaggiamento raro nello Scrigno: <%= dropText %>! Fantastico!",

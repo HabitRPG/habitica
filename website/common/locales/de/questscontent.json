@@ -549,5 +549,7 @@
     "questYarnCompletion": "Mit einem kraftlosen Wischer eines Nadel-durchlöcherten Zipfels und einem schwachen Brüllen entwirrt sich das Grauenhafte Wollgräuel schließlich zu einem Haufen Wollknäuel. <br><br>\"Pass gut auf diese Wolle auf\", sagt der Ladenbesitzer @JinjooHat, und drückt Dir die Knäuel in die Hände. \"Wenn Du sie fütterst und richtig pflegst, wachsen sie zu neuen und aufregenden Projekten heran, die Dein Herz höher fliegen lassen könnten…\"",
     "questYarnBoss": "Das Grauenhafte Wollgräuel",
     "questYarnDropYarnEgg": "Wollknäuel (Ei)",
-    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz"
+    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz",
+    "winterQuestsText": "\"Winter\" Quest-Paket",
+    "winterQuestsNotes": "Beinhaltet 'Wildernder Weihnachtswichtel', 'Finde das Jungtier' und 'Der Federvieh-Frost'. Verfügbar bis zum 31. Dezember."
 }

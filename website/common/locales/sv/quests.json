@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> uppdragsobjekt hittade",
     "questDamage": "+ <%= val %> skada gjord till Boss",
     "begin": "Starta",
-    "bossHP": "Bossens Hälsa",
+    "bossHP": "Boss HP",
     "bossStrength": "Bossstyrka",
     "rage": "Vrede",
     "collect": "Samla",

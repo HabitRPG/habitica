@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> przedmiotów misji znalezionych",
     "questDamage": "+ <%= val %> obrażeń dla bossa",
     "begin": "Rozpocznij",
-    "bossHP": "Zdrowie Bossa",
+    "bossHP": "Boss HP",
     "bossStrength": "Siła bossa",
     "rage": "Furia",
     "collect": "Zebrać",

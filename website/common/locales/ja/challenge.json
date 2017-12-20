@@ -101,9 +101,9 @@
     "addTask": "タスクを追加",
     "editChallenge": "チャレンジを編集",
     "challengeDescription": "チャレンジの説明",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
+    "selectChallengeWinnersDescription": "チャレンジ参加者の中から優勝者を選ぶ",
     "awardWinners": "Award Winners",
-    "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
+    "doYouWantedToDeleteChallenge": "このチャレンジを削除しますか？",
     "deleteChallenge": "チャレンジを削除する",
     "challengeNamePlaceholder": "チャレンジの名前は何ですか？",
     "challengeSummary": "概要",
@@ -128,5 +128,6 @@
     "categoiresRequired": "1つ以上のカテゴリーを選択する必要があります",
     "viewProgressOf": "View Progress Of",
     "selectMember": "Select Member",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

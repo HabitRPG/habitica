@@ -29,6 +29,7 @@
     "messageFoundQuest": "¡Has encontrado la misión \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Compraste este equipo en el pasado, pero no lo tienes actualmente. Puedes comprarlo de nuevo en la columna de recompensas de la página de tareas.",
     "messageAlreadyOwnGear": "Ya posees este objeto. Para equiparlo has de ir a la página de equipo.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Ya tienes el máximo de salud.",
     "messageHealthAlreadyMin": "¡Oh no! Ya has perdido completamente tu salud, por lo que es demasiado tarde para comprar una poción, pero no te preocupes - ¡puedes resucitar!",
     "armoireEquipment": "<%= image %> Has encontrado un objeto de equipamiento raro en  el armario: <%= dropText %>! ¡Genial!",
