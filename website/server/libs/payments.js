@@ -434,6 +434,7 @@ api.createSubscription = async function createSubscription (data) {
             key: data.gift.subscription.key,
           },
         },
+        paymentMethod: data.paymentMethod,
         promo: 'Winter',
       };
       await this.createSubscription(promoData);
