@@ -399,9 +399,16 @@ spells.special = {
       }
 
       if (!target.items.special.nyeReceived) target.items.special.nyeReceived = [];
-      target.items.special.nyeReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.nyeReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'nyeReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -427,9 +434,16 @@ spells.special = {
       }
 
       if (!target.items.special.valentineReceived) target.items.special.valentineReceived = [];
-      target.items.special.valentineReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.valentineReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'valentineReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -454,9 +468,16 @@ spells.special = {
       }
 
       if (!target.items.special.greetingReceived) target.items.special.greetingReceived = [];
-      target.items.special.greetingReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.greetingReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'greetingReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -482,9 +503,16 @@ spells.special = {
       }
 
       if (!target.items.special.thankyouReceived) target.items.special.thankyouReceived = [];
-      target.items.special.thankyouReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.thankyouReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'thankyouReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -510,9 +538,16 @@ spells.special = {
       }
 
       if (!target.items.special.birthdayReceived) target.items.special.birthdayReceived = [];
-      target.items.special.birthdayReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.birthdayReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'birthdayReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -538,9 +573,16 @@ spells.special = {
       }
 
       if (!target.items.special.congratsReceived) target.items.special.congratsReceived = [];
-      target.items.special.congratsReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.congratsReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'congratsReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -566,9 +608,16 @@ spells.special = {
       }
 
       if (!target.items.special.getwellReceived) target.items.special.getwellReceived = [];
-      target.items.special.getwellReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.getwellReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'getwellReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -594,9 +643,16 @@ spells.special = {
       }
 
       if (!target.items.special.goodluckReceived) target.items.special.goodluckReceived = [];
-      target.items.special.goodluckReceived.push(user.profile.name);
+      const senderName = user.profile.name;
+      target.items.special.goodluckReceived.push(senderName);
 
-      if (!target.flags) target.flags = {};
+      if (user.addNotification) user.addNotification('CARD_RECEIVED', {
+        type: 'goodluckReceived',
+        from: {
+          id: user._id,
+          name: senderName,
+        },
+      });
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
