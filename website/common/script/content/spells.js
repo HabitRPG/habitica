@@ -403,7 +403,7 @@ spells.special = {
       target.items.special.nyeReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'nyeReceived',
+        card: 'nyeReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -438,7 +438,7 @@ spells.special = {
       target.items.special.valentineReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'valentineReceived',
+        card: 'valentineReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -472,7 +472,7 @@ spells.special = {
       target.items.special.greetingReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'greetingReceived',
+        card: 'greetingReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -507,7 +507,7 @@ spells.special = {
       target.items.special.thankyouReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'thankyouReceived',
+        card: 'thankyouReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -542,7 +542,7 @@ spells.special = {
       target.items.special.birthdayReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'birthdayReceived',
+        card: 'birthdayReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -577,7 +577,7 @@ spells.special = {
       target.items.special.congratsReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'congratsReceived',
+        card: 'congratsReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -612,7 +612,7 @@ spells.special = {
       target.items.special.getwellReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'getwellReceived',
+        card: 'getwellReceived',
         from: {
           id: user._id,
           name: senderName,
@@ -647,7 +647,7 @@ spells.special = {
       target.items.special.goodluckReceived.push(senderName);
 
       if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        type: 'goodluckReceived',
+        card: 'goodluckReceived',
         from: {
           id: user._id,
           name: senderName,
