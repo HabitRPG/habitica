@@ -653,6 +653,7 @@ api.castSpell = {
             })
             // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
             // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+            // and we need target.notifications to add the notification for the received card
             .exec();
 
           partyMembers.unshift(user);
