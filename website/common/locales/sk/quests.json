@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> škody spôsobenej bossovi",
     "begin": "Začať",
-    "bossHP": "Bossove zdravie",
+    "bossHP": "Boss HP",
     "bossStrength": "Sila bossa",
     "rage": "Zúrivosť",
     "collect": "Zbierať",

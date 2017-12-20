@@ -37,7 +37,7 @@
     "questCollection": "Намерени предмети от мисия: + <%= val %>",
     "questDamage": "Щети за главатаря: + <%= val %>",
     "begin": "Започване",
-    "bossHP": "Здраве на главатаря",
+    "bossHP": "Boss HP",
     "bossStrength": "Сила на главатаря",
     "rage": "Ярост",
     "collect": "Събиране",

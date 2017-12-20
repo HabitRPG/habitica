@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> artículos de misión encontrados",
     "questDamage": "+ <%= val %> de daño al jefe",
     "begin": "Comenzar",
-    "bossHP": "Salud del Jefe",
+    "bossHP": "Boss HP",
     "bossStrength": "Fuerza del Jefe",
     "rage": "Furia",
     "collect": "Recoger",

@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "İptal edilmiş bir pakete sahip olan bir gruba katılmak üzeresin. Bedava aboneliğe sahip OLMAYACAKSIN. ",
     "cannotChangeLeaderWithActiveGroupPlan": "Grubun aktif paketi varken lideri değiştiremezsin. ",
     "leaderCannotLeaveGroupWithActiveGroup": "Grubun aktif paketi varken lider gruptan ayrılamaz",
-    "youHaveGroupPlan": "Grup Paketi olan bir grubun üyesi olduğun için bedava aboneliğe sahipsin. Bu grup paketi olmayan bir grupa geçince bitecektir. Kalan aylık abonelik kredilerin grup paketinden sonra devreye girecektir. ",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
     "cancelGroupSub": "Grup Paketini İptal Et",
     "confirmCancelGroupPlan": "Grup paketini iptal edip üyrelerin bedava abonelikleri dahil bütün faydaları iptal etmek istediğinden emin misin?",
     "canceledGroupPlan": "İptal Edilmiş Grup Paketi",
@@ -408,5 +408,6 @@
     "groupBilling": "Group Billing",
     "wouldYouParticipate": "Would you like to participate?",
     "managerAdded": "Manager added successfully",
-    "managerRemoved": "Manager removed successfully"
+    "managerRemoved": "Manager removed successfully",
+    "leaderChanged": "Leader has been changed"
 }

@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Du är på väg att gå med i en grupp med en avslutad plan. Du kommer INTE att få en gratis prenumeration.",
     "cannotChangeLeaderWithActiveGroupPlan": "Du kan inte ändra gruppledaren medans gruppen har en aktiv plan.",
     "leaderCannotLeaveGroupWithActiveGroup": "En ledare kan inte lämna en grupp medans gruppen har en aktiv plan",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
     "cancelGroupSub": "Avbryt Grupp-plan",
     "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
     "canceledGroupPlan": "Avbröt Grupp-plan",
@@ -408,5 +408,6 @@
     "groupBilling": "Gruppfakturering",
     "wouldYouParticipate": "Vill du vara med och delta?",
     "managerAdded": "Direktör lades till",
-    "managerRemoved": "Direktör togs bort"
+    "managerRemoved": "Direktör togs bort",
+    "leaderChanged": "Leader has been changed"
 }

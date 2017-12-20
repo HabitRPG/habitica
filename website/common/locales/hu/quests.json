@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> küldetéshez szükséges tárgy megszerezve",
     "questDamage": "+ <%= val %> sebzés a főellenség ellen",
     "begin": "Indít",
-    "bossHP": "Főellenség életereje",
+    "bossHP": "Boss HP",
     "bossStrength": "Főellenség ereje",
     "rage": "Harag",
     "collect": "Gyűjts be",
