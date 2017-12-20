@@ -38,6 +38,7 @@
       ref="tasksList",
       @update='taskSorted',
       :options='{disabled: activeFilters[type].label === "scheduled"}',
+      class="sortable-tasks"
     )
       task(
         v-for="task in taskList",
@@ -48,25 +49,25 @@
         :group='group',
       )
     template(v-if="hasRewardsList")
-      .reward-items
-        draggable(
-          ref="rewardsList",
-          @update='rewardSorted',
+      draggable(
+        ref="rewardsList",
+        @update="rewardSorted",
+        class="reward-items",
+      )
+        shopItem(
+          v-for="reward in inAppRewards",
+          :item="reward",
+          :key="reward.key",
+          :highlightBorder="reward.isSuggested",
+          @click="openBuyDialog(reward)",
+          :popoverPosition="'left'"
         )
-          shopItem(
-            v-for="reward in inAppRewards",
-            :item="reward",
-            :key="reward.key",
-            :highlightBorder="reward.isSuggested",
-            @click="openBuyDialog(reward)",
-            :popoverPosition="'left'"
-          )
-            template(slot="itemBadge", slot-scope="ctx")
-              span.badge.badge-pill.badge-item.badge-svg(
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
-                @click.prevent.stop="togglePinned(ctx.item)"
-              )
-                span.svg-icon.inline.icon-12.color(v-html="icons.pin")
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 </template>
 
 <style lang="scss" scoped>
