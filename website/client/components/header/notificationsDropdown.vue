@@ -70,18 +70,20 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
   line-height: 1.5;
 }
 
-/*.clear-button {
+/* TODO .clear-button {
   margin-left: .5em;
 }*/
 </style>
 
 <script>
+/* TODO
 import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 
-import { mapState, mapActions } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
+*/
+import { mapState, mapActions } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
