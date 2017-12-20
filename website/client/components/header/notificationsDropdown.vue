@@ -92,9 +92,6 @@ export default {
     MenuDropdown,
     MessageCount,
   },
-  directives: {
-    // bTooltip,
-  },
   data () {
     return {
       icons: Object.freeze({
@@ -102,12 +99,68 @@ export default {
       }),
       quests,
       openStatus: undefined,
+      actionableNotifications: [
+        'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
+        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
+      ],
+      rawNotificationsOrder: [ // not used directly see the computed property notificationsOrder
+        'BAILEY', 'GROUP_TASK_NEEDS_WORK',
+        'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
+        'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
+        'UNALLOCATED_STATS_POINTS', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
+        'NEW_INBOX_MESSAGE', 'NEW_GROUP_MESSAGE',
+      ],
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    notificationsOrder () {
+      // Returns a map of NOTIFICATION_TYPE -> POSITION
+      const orderMap = {};
+
+      this.rawNotificationsOrder.forEach((type, index) => {
+        orderMap[type] = index;
+      });
+
+      return orderMap;
+    },
     notifications () {
-      return [];
+      // Convert the notifications not stored in user.notifications
+      const notifications = [];
+
+      // Parties invitations
+      notifications.push(...this.user.invitations.parties.map(partyInvitation => {
+        return {
+          type: 'PARTY_INVITATION',
+          data: partyInvitation,
+        };
+      }));
+
+      // Guilds invitations
+      notifications.push(...this.user.invitations.guilds.map(guildInvitation => {
+        return {
+          type: 'GUILD_INVITATION',
+          data: guildInvitation,
+        };
+      }));
+
+      // Push the notifications stored in user.notifications
+      notifications.push(...this.user.notifications);
+
+      // Sort notifications
+      const orderMap = this.notificationsOrder;
+
+      notifications.sort((a, b) => { // a and b are notifications
+        // Infinity if the notification priority isn't specified
+        const aOrder = orderMap[a.type] || Infinity;
+        const bOrder = orderMap[b.type] || Infinity;
+
+        if (aOrder === bOrder) return 0; // Same position
+        if (aOrder > bOrder) return -1; // b is higher
+        if (aOrder < bOrder) return 1; // a is higher
+      });
+
+      return notifications;
     },
     // The notification count includes unseen notifications + actionable ones
     notificationsCount () {
@@ -116,10 +169,6 @@ export default {
       }, 0);
     },
     /*
-    party () {
-      return {name: ''};
-      // return this.user.party;
-    },
     userNewMessages () {
       // @TODO: For some reason data becomes corrupted. We should fix this on the server
       let userNewMessages = [];
@@ -131,9 +180,6 @@ export default {
         }
       }
       return userNewMessages;
-    },
-    groupNotifications () {
-      return this.$store.state.groupNotifications;
     },
     notificationsCount () {
       let count = 0;
@@ -201,9 +247,8 @@ export default {
 
       if (idsToRead.length > 0) this.readNotifications({notificationIds: idsToRead});
     },
-    isActionable () {
-      // TODO
-      return false;
+    isActionable (notification) {
+      return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
     /*
     // @TODO: I hate this function, we can do better with a hashmap

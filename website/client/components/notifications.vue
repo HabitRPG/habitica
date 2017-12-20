@@ -419,9 +419,6 @@ export default {
       this.scheduleNextCron();
       this.handleUserNotifications(this.user.notifications);
     },
-    transferGroupNotification (notification) {
-      this.$store.state.groupNotifications.push(notification);
-    },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
 
@@ -433,8 +430,6 @@ export default {
 
       let notificationsToRead = [];
       let scoreTaskNotification = [];
-
-      this.$store.state.groupNotifications = []; // Flush group notifictions
 
       after.forEach((notification) => {
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
@@ -508,11 +503,9 @@ export default {
             }
             break;
           case 'GROUP_TASK_APPROVAL':
-            this.transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'GROUP_TASK_APPROVED':
-            this.transferGroupNotification(notification);
             markAsRead = false;
             break;
           case 'SCORED_TASK':
