@@ -1939,4 +1939,69 @@ api.togglePinnedItem = {
   },
 };
 
+// TODO - under construction >>
+// TODO - needs unit test
+// TODO there isn't a top or bottom so we shouldn't check for that...
+// TODO - update api comment example... i am not sure at the moment what that is
+// TODO - these documentations are all wrong, update the comments!
+
+/**
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @apiName MovePinnedItem
+ * @apiGroup Task
+ *
+ * @apiParam (Path) {String} rewardId The unique item UUID for the pinned item
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new pinned items order.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b","2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],"notifications":[]}
+ *
+ * @apiUse TaskNotFound
+ */
+api.movePinnedItem = {
+  method: 'POST',
+  url: '/user/move-pinned-item/:type/:path/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('type', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('path', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let type = req.params.type;
+    let path = req.params.path;
+    let position = Number(req.params.position);
+
+    // In memory updates
+
+    // user.pinnedItems contain items with ids defined as UUID objects,
+    // to compare with our API call we will cast it into a string
+    let currentIndex = user.pinnedItems.findIndex(item => item.path === path );
+    let currentPinnedItem = user.pinnedItems[currentIndex];
+
+    // remove the item
+    user.pinnedItems.splice(currentIndex, 1);
+
+    // reinsert the item in position (or just at the end)
+    if (position === -1) {
+      user.pinnedItems.push(currentPinnedItem);
+    } else {
+      user.pinnedItems.splice(position, 0, currentPinnedItem);
+    }
+
+    await user.save();
+
+    let userJson = user.toJSON();
+
+    res.respond(200, userJson.pinnedItems);
+  },
+};
+
+// TODO - << under construction
+
 module.exports = api;

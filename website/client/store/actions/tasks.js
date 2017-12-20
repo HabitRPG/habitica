@@ -219,11 +219,6 @@ export async function move (store, payload) {
   return response.data.data;
 }
 
-export async function movePinnedItem (store, payload) {
-  let response = await axios.post(`/api/v3/tasks/pinned-items/${payload.rewardId}/move/to/${payload.position}`);
-  return response.data.data;
-}
-
 export async function moveGroupTask (store, payload) {
   let response = await axios.post(`/api/v3/group-tasks/${payload.taskId}/move/to/${payload.position}`);
   return response.data.data;

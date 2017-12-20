@@ -520,21 +520,18 @@ export default {
       const rewardsList = this.inAppRewards;
       const rewardToMove = rewardsList[data.oldIndex];
 
-      // The UUID for these items is not stored with inAppRewards for some reason, but it is easy enough to look up from the user object.
-      let pinnedItems = this.user.pinnedItems;
-      let rewardPinnedToMove = pinnedItems.find(item => {
-        return item.path === rewardToMove.path;
-      });
-      let rewardIdToMove = rewardPinnedToMove._id;
-
       // Server
-      const newIndexOnServer = data.newIndex;
-
-      let newOrder = await this.$store.dispatch('tasks:movePinnedItem', {
-        rewardId: rewardIdToMove,
-        position: newIndexOnServer,
+      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+        type: rewardToMove.pinType,
+        path: rewardToMove.path,
+        position: data.newIndex,
       });
       this.user.pinnedItems = newOrder;
+
+      // TODO - type and pinType have been conflated at some point, some pinned
+      // items have a type (like armor), and others don't like quests. I assure
+      // you that for this we want pinType, but this will be indexed under type
+      // under this.user.pinnedItems
 
       // Client - update view
       const deleted = this.inAppRewards.splice(data.oldIndex, 1);
