@@ -1,6 +1,6 @@
 {
     "challenge": "Sfida",
-    "challengeDetails": "Le sfide sono eventi della Community nelle quali i giocatori competono per aggiudicarsi dei premi completando un gruppo di attività correlate.",
+    "challengeDetails": "Le sfide sono eventi della comunità nei quali i giocatori competono per aggiudicarsi dei premi, completando un gruppo di attività correlate.",
     "brokenChaLink": "Collegamento ad una sfida mancante",
     "brokenTask": "Collegamento ad una sfida mancante: questa attività era parte di una sfida, ma è stata rimossa dalla stessa. Cosa vorresti farne?",
     "keepIt": "Tienila",
@@ -128,6 +128,6 @@
     "categoiresRequired": "Una o più categorie devono essere selezionate",
     "viewProgressOf": "Vedi i progressi di",
     "selectMember": "Seleziona Partecipante",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-    "selectParticipant": "Select a Participant"
+    "confirmKeepChallengeTasks": "Vuoi tenere le attività della sfida?",
+    "selectParticipant": "Seleziona un partecipante"
 }
