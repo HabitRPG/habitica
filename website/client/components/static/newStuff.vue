@@ -4,28 +4,32 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/15/2017 - NEW PET QUEST BUNDLE, GIFT-1-GET-1 SUBSCRIPTIONS, AND BEHIND THE SCENES BLOG
+    h2 12/19/2017 - WINTER WONDERLAND BEGINS! WINTER CLASS OUTFITS, SEASONAL SHOP, NPC DECORATIONS, AND MAGIC HATCHING POTIONS
     hr
-    h3 New Discounted Pet Quest Bundle: Winter Quests
+    p A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting down over Habit City. The Winter Wonderland event has begun!
     .media
+      .promo_winter_wonderland_2018.right-margin.bottom-margin
       .media-body
-        p(v-markdown='"If you are looking to add some cold weather friends to your Habitica stable, you\'re in luck! From now until December 31, you can purchase the Winter Quest Bundle and receive the Trapper Santa, Find the Cub, and Penguin quests, all for only 7 Gems! That\'s a discount of 5 Gems from the price of purchasing them separately. Check it out in the [Quest Shop](/shops/quests) today!"')
-        .small by Lemoness and SabreCat
-        .small Art by UncommonCriminal, Shaner, Eevachu, Pandoro, melynnrose, Breadstrings, Rattify, and PainterProphet
-        .small Writing by Lefnire, Leephon, and Daniel the Bard
+        h3 Winter Class Outfits
+        p From now until January 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Confetti Mage, a Mistletoe Healer, a Reindeer Rogue, or a Gift-Wrapped Warrior! You'd better get productive to earn enough gold before they disappear. Good luck!
+        .small by AnnDeLune, Vikte, weeWitch, Katy133, and Beffymaroo
         .media
-          .promo_winter_subscriptions.left-margin
           .media-body
-            h3 Gift a Subscription and Get One Free!
-            p In honor of the season of giving--and due to popular demand!--we're bringing back a very special promotion for the next month only. Now when you gift somebody a subscription, you get the same subscription for yourself for free!
-        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
-      .promo_winter_quests
-    p The special promotion will only run until January 12th, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
-    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
-    .small by SabreCat and Lemoness
-    h3 Behind the Scenes: Habitica's Winter Staff Retreat
-    p(v-markdown='"There\'s a new [Behind the Scenes post on the Habitica blog](https://habitica.wordpress.com/2017/12/14/behind-the-scenes-habiticas-winter-staff-retreat/) about our recent Staff Retreat. Check out some great photos and anecdotes from the trip, and learn a little more about the Habitica Team!"')
-    .promo_winter_retreat.center-block
+            h3 Seasonal Shop is Open!
+            p(v-markdown='"The [Seasonal Shop](https://habitica.com/shops/seasonal) has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous winter outfits, now available for gems instead of gold. Plus, there will be more fun things in the shop as the event progresses.The Seasonal Shop will only be open until January 31st, so don\'t wait!"')
+            .small by SabreCat and Lemoness
+          .promo_winter_seasonal_shop.left-margin
+        .media
+          .media-body
+            h3 NPC Costumes
+            p Looks like the NPCs are really getting in to the cheery winter mood around the site. Who wouldn't? After all, there's plenty more celebration to come....
+            .small by Lemoness
+          .promo_winter_tavern.left-margin
+    h3 Starry Night and Holly Hatching Potions
+    p(v-markdown='"There\'s a new pet breed in town! Between now and January 31st, you can buy Holly Hatching Potions and brand-new Starry Night Hatching Potions from [the Market](https://habitica.com/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.)"')
+    p After they're gone, it will be at least a year before the Starry Night and Peppermint Hatching Potions are available again, so be sure to get them now!
+    .small by Vampitch, JinjooHat, Lemoness, and SabreCat
+    .promo_starry_potions.center-block
     br
 </template>
 
@@ -41,6 +45,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

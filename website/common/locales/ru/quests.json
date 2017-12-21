@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> предмета(ов) собрано для квеста",
     "questDamage": "+ <%= val %> урона по боссу",
     "begin": "Начать",
-    "bossHP": "Здоровье босса",
+    "bossHP": "Boss HP",
     "bossStrength": "Сила босса",
     "rage": "Ярость",
     "collect": "Собрать",

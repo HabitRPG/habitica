@@ -128,5 +128,6 @@
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
     "viewProgressOf": "Показать прогресс",
     "selectMember": "Выбрать учасника",
-    "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?"
+    "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?",
+    "selectParticipant": "Select a Participant"
 }

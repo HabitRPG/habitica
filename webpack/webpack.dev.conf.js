@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach((name) => {
-  baseWebpackConfig.entry[name] = ['./webpack/dev-client'].concat(baseWebpackConfig.entry[name]);
+  baseWebpackConfig.entry[name] = baseWebpackConfig.entry[name].concat('./webpack/dev-client');
 });
 
 module.exports = merge(baseWebpackConfig, {

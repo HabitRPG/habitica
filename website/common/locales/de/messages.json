@@ -29,6 +29,7 @@
     "messageFoundQuest": "Du hast die Quest \"<%= questText %>\" gefunden!",
     "messageAlreadyPurchasedGear": "Du hast diesen Gegenstand in der Vergangenheit bereits gekauft, besitzt ihn aktuell aber nicht mehr. Du kannst ihn in der Spalte \"Belohnungen\" Deiner Aufgabenseite erneut kaufen.",
     "messageAlreadyOwnGear": "Du besitzt diesen Gegenstand schon. Gehe zur Ausrüstungsseite um ihn anzulegen.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Du hast schon alle Lebenspunkte.",
     "messageHealthAlreadyMin": "Oh nein! Du hast bereits alle Lebenspunkte verloren - jetzt ist es zu spät, um noch einen Heiltrank zu kaufen! Aber keine Sorge, Du kannst Dich wiederbeleben.",
     "armoireEquipment": "<%= image %> Du hast ein Stück seltener Ausrüstung im verzauberten Schrank gefunden: <%= dropText %>! Großartig!",

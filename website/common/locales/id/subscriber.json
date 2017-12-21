@@ -40,6 +40,7 @@
     "cancelSub": "Batalkan Langganan",
     "cancelSubInfoGoogle": "Silakan pergi ke bagian \"Akun\" > \"Berlangganan\" di aplikasi Google Play Store untuk batal berlangganan atau untuk melihat tanggal penghentian langgananmu jika kamu sudah membatalkannya. Layar ini tidak dapat menampilkan apakah kamu sudah batal berlangganan atau belum.",
     "cancelSubInfoApple": "Silakan ikuti <a href=\"https://support.apple.com/en-us/HT202039\">instruksi resmi dari Apple</a> untuk batal berlangganan atau untuk melihat tanggal berhenti berlangganan jika kamu sudah membatalkannya. Layar ini tidak dapat menampilkan apakah kamu sudah batal berlangganan atau belum.",
+    "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer in the Group. If you are the Group leader and want to cancel the entire Group Plan, you can do that from the group's \"Payment Details\" tab.",
     "canceledSubscription": "Langganan Batal",
     "cancelingSubscription": "Membatalkan langganan",
     "adminSub": "Berlangganan Administrator",

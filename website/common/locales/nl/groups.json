@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Je staat op het punt lid te worden van een groep met een geannuleerd plan. Je zult GEEN gratis abonnement ontvangen.",
     "cannotChangeLeaderWithActiveGroupPlan": "Je kunt de leider niet veranderen zolang de groep een actief plan heeft.",
     "leaderCannotLeaveGroupWithActiveGroup": "Een leider kan een groep niet verlaten zolang de groep een actief plan heeft",
-    "youHaveGroupPlan": "Je hebt een gratis abonnement omdat je lid bent van een groep met een groepsplan. Dit eindigt wanneer je niet langer in de groep zit die een groepsplan heeft.. Elke maand van extra abonnementskrediet die je hebt zal toegepast worden aan het einde van het groepsplan.",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
     "cancelGroupSub": "Annuleer groepsplan",
     "confirmCancelGroupPlan": "Weet je zeker dat je het groepsplan wilt annuleren en de voordelen van alle leden wilt verwijderen, inclusief hun gratis abonnementen?",
     "canceledGroupPlan": "Geannuleerd groepsplan",
@@ -408,5 +408,6 @@
     "groupBilling": "Groepsfacturering",
     "wouldYouParticipate": "Wil je deelnemen?",
     "managerAdded": "Manager succesvol toegevoegd",
-    "managerRemoved": "Manager succesvol verwijderd"
+    "managerRemoved": "Manager succesvol verwijderd",
+    "leaderChanged": "Leader has been changed"
 }
