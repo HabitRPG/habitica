@@ -49,6 +49,10 @@ div
       margin-bottom: 1em;
     }
 
+    .row {
+      width: 100%;
+    }
+
     h2 {
       color: #fff;
       font-size: 32px;

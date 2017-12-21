@@ -118,7 +118,7 @@
     "giftedSubscription": "Langganan yang dihadiahkan",
     "giftedSubscriptionInfo": "<%= name %> menghadiahimu <%= months %> bulan berlangganan",
     "giftedSubscriptionFull": "Halo <%= username %>, <%= sender %> telah mengirimimu <%= monthCount %> bulan berlangganan!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
+    "giftedSubscriptionWinterPromo": "Halo <%= username %>, kamu mendapat <%= monthCount %> bulan langganan sebagai bagian dari promosi memberi hadiah liburan kami!",
     "invitedParty": "Diundang ke dalam Party",
     "invitedGuild": "Diundang ke dalam Guild",
     "importantAnnouncements": "Pengingat untuk masuk untuk menyelesaikan tugas dan menerima hadiah",

@@ -128,5 +128,6 @@
     "categoiresRequired": "Una o più categorie devono essere selezionate",
     "viewProgressOf": "Vedi i progressi di",
     "selectMember": "Seleziona Partecipante",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

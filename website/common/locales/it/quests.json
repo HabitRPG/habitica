@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> oggetto/i missione trovati",
     "questDamage": "+ <%= val %> danno al boss",
     "begin": "Inizia",
-    "bossHP": "Salute del Boss",
+    "bossHP": "Boss HP",
     "bossStrength": "Forza del Boss",
     "rage": "Furia",
     "collect": "Raccogli",

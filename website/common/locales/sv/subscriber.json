@@ -40,6 +40,7 @@
     "cancelSub": "Avbryt Abonnemang",
     "cancelSubInfoGoogle": "Var god gå till sektionen \"Konto\" > \"Prenumerationer\"  i google Play Store appen för att avbryta din prenumeration eller för att se din prenumerations avslutningsdatum om du redan har avbrytit den. Denna skärm kan inte visa dig om din prenumeration har avbrutits eller inte.",
     "cancelSubInfoApple": "Var god följ <a href=\"https://support.apple.com/en-us/HT202039\">Apple's officiella instruktioner</a> för att avbrtya din prenumeration eller för att se din prenumerations avslutningsdatum om du redan har avbrytit den. Denna skärm kan inte visa dig om din prenumeration har avbrutits eller inte.",
+    "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer in the Group. If you are the Group leader and want to cancel the entire Group Plan, you can do that from the group's \"Payment Details\" tab.",
     "canceledSubscription": "Avbruten Prenumeration",
     "cancelingSubscription": "Avbryta prenumerationen",
     "adminSub": "Administratör-abonnemang.",
