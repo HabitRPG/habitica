@@ -4,32 +4,24 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/19/2017 - WINTER WONDERLAND BEGINS! WINTER CLASS OUTFITS, SEASONAL SHOP, NPC DECORATIONS, AND MAGIC HATCHING POTIONS
+    h2 12/21/2017 - DECEMBER SUBSCRIBER ITEMS, NEW YEAR'S RESOLUTION GUILD AND CHALLENGE, AND HELPFUL HOLIDAY BLOG POSTS
     hr
-    p A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting down over Habit City. The Winter Wonderland event has begun!
+    .promo_mystery_201712.center-block
+    h3 December Subscriber Items Revealed!
+    p(v-markdown='"The December Subscriber Item Set has been revealed: [the Candlemancer Item Set](https://habitica.com/#/options/settings/subscription)! You only have 11 days to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and click Inventory>Items to claim your gear!"')
+    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
+    .small by Beffymaroo
+    h3 New Year's Resolution Guild and Official Challenge
+    p(v-markdown='"Get a start on 2018 with extra accountability! The Habitica team has launched our official [New Year\'s Resolution Guild](/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99), which we\'ve designed to be a social hub that will provide support, encouragement, tips, and tricks throughout the entire year. Plus, each month we\'ll be running a special official Challenge designed to help you build resolutions that are destined for success and then stick with them as the year progresses. You can find the first one [here](/challenges/35999b79-ae6a-4f16-9557-b4923498e837)! It has a 15 gem prize, which will be awarded to five lucky winners on February 1st."')
+    p We hope that you enjoy our new series of official Challenges!
+    .small by beffymaroo, Lemoness, and SabreCat
     .media
-      .promo_winter_wonderland_2018.right-margin.bottom-margin
+      .scene_winter_cleaning.right-margin
       .media-body
-        h3 Winter Class Outfits
-        p From now until January 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Confetti Mage, a Mistletoe Healer, a Reindeer Rogue, or a Gift-Wrapped Warrior! You'd better get productive to earn enough gold before they disappear. Good luck!
-        .small by AnnDeLune, Vikte, weeWitch, Katy133, and Beffymaroo
-        .media
-          .media-body
-            h3 Seasonal Shop is Open!
-            p(v-markdown='"The [Seasonal Shop](https://habitica.com/shops/seasonal) has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous winter outfits, now available for gems instead of gold. Plus, there will be more fun things in the shop as the event progresses.The Seasonal Shop will only be open until January 31st, so don\'t wait!"')
-            .small by SabreCat and Lemoness
-          .promo_winter_seasonal_shop.left-margin
-        .media
-          .media-body
-            h3 NPC Costumes
-            p Looks like the NPCs are really getting in to the cheery winter mood around the site. Who wouldn't? After all, there's plenty more celebration to come....
-            .small by Lemoness
-          .promo_winter_tavern.left-margin
-    h3 Starry Night and Holly Hatching Potions
-    p(v-markdown='"There\'s a new pet breed in town! Between now and January 31st, you can buy Holly Hatching Potions and brand-new Starry Night Hatching Potions from [the Market](https://habitica.com/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.)"')
-    p After they're gone, it will be at least a year before the Starry Night and Peppermint Hatching Potions are available again, so be sure to get them now!
-    .small by Vampitch, JinjooHat, Lemoness, and SabreCat
-    .promo_starry_potions.center-block
+        h3 Use Case and Guild Spotlights: Holiday Housekeeping
+        p(v-markdown='"This month\'s blog theme is Holiday Housekeeping! Visit our [Use Case Spotlight](https://habitica.wordpress.com/2017/12/18/use-case-spotlight-holiday-housekeeping/) to get suggestions on preparing for holiday festivities, then check out the [Guild Spotlight](https://habitica.wordpress.com/2017/12/20/its-most-wonderful-and-busy-time-of-the-year-guilds-to-help-with-holiday-tasks/) to find communities to support you as you put those ideas into action!"')
+        p We're collecting user submissions for the next spotlight! How do you use Habitica to Set Realistic Goals? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
     br
 </template>
 

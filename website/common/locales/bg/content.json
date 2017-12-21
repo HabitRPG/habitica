@@ -184,7 +184,7 @@
     "hatchingPotionCupid": "Купидонов цвят",
     "hatchingPotionShimmer": "Блещукащ цвят",
     "hatchingPotionFairy": "Фейски цвят",
-    "hatchingPotionStarryNight": "Starry Night",
+    "hatchingPotionStarryNight": "Звездна нощ",
     "hatchingPotionNotes": "Излейте това върху яйце и от него ще се излюпи любимец с(ъс) <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Не може да се използва върху яйца за любимци от мисии.",
     "foodMeat": "Месо",
@@ -219,6 +219,6 @@
     "foodCandyRed": "Канелен бонбон",
     "foodSaddleText": "Седло",
     "foodSaddleNotes": "Моментално превръща един от любимците Ви в превоз.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
+    "foodSaddleSellWarningNote": "Хей! Това е доста полезен предмет! Знаете ли как да използвате седло за любимците си?",
     "foodNotes": "Нахранете домашен любимец с това и той може да порасне и да се превърне в превоз."
 }
