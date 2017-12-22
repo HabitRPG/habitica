@@ -4,10 +4,9 @@
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
-
-  .col-8.standard-page
+  .col-12.col-md-8.standard-page
     .row
-      .col-8
+      .col-12.col-md-8
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
@@ -20,7 +19,7 @@
           // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
-      .col-4
+      .col-12.col-md-4
         .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
@@ -30,7 +29,7 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
-      .col-7.offset-5
+      .col-12.col-md-7.offset-md-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
         member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
@@ -56,7 +55,7 @@
         :taskListOverride='tasksByType[column]',
         v-on:editTask="editTask",
         v-if='tasksByType[column].length > 0')
-  .col-4.sidebar.standard-page
+  .col-12.col-md-4.sidebar.standard-page
     .acitons
       div(v-if='canJoin')
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
