@@ -146,6 +146,7 @@
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
+      height: 28px;
       margin: 0 auto;
       display: inline-block;
       vertical-align: bottom;

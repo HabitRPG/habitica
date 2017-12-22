@@ -1,3 +1,9 @@
+.promo_mystery_201712 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -679px;
+  width: 279px;
+  height: 147px;
+}
 .promo_starry_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -679px;
@@ -24,13 +30,13 @@
 }
 .promo_winter_seasonal_shop {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -437px -461px;
+  background-position: -437px -536px;
   width: 162px;
   height: 138px;
 }
 .promo_winter_subscriptions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -437px -310px;
+  background-position: 0px -827px;
   width: 237px;
   height: 150px;
 }
@@ -51,4 +57,10 @@
   background-position: 0px -310px;
   width: 436px;
   height: 368px;
+}
+.scene_winter_cleaning {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -437px -310px;
+  width: 276px;
+  height: 225px;
 }

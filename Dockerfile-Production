@@ -20,7 +20,7 @@ RUN npm install -g gulp mocha
 # Clone Habitica repo and install dependencies
 RUN mkdir -p /usr/src/habitrpg
 WORKDIR /usr/src/habitrpg
-RUN git clone --branch v4.14.2 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
+RUN git clone --branch v4.15.3 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
 RUN npm install
 RUN gulp build:prod --force
 

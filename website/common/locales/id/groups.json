@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Kamu akan bergabung ke grup dengan rencana yang dibatalkan. Kamu TIDAK akan menerima gratis berlangganan.",
     "cannotChangeLeaderWithActiveGroupPlan": "Kamu tidak bisa mengganti ketua saat grup memiliki rencana yang sedang aktif.",
     "leaderCannotLeaveGroupWithActiveGroup": "Ketua tidak bisa meninggalkan grup saat grup memiliki rencana yang sedang aktif",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "Kamu memiliki gratis berlangganan karena kamu adalah anggota dari grup yang memiliki Rencana Grup. Langganan akan berakhir saat kamu tidak lagi berada dalam grup yang memiliki rencana grup. Setiap bulan ekstra dari kredit langganan yang kamu punya akan diaplikasikan di akhir Rencana Grup.",
     "cancelGroupSub": "Batalkan Rencana Grup",
     "confirmCancelGroupPlan": "Kamu yakin ingin membatalkan rencana grup dan menghapus seluruh keuntungannya dari semua anggota, termasuk gratis berlangganan?",
     "canceledGroupPlan": "Rencana Grup Dibatalkan",
@@ -409,5 +409,5 @@
     "wouldYouParticipate": "Apakah kamu mau berpartisipasi?",
     "managerAdded": "Manajer berhasil ditambahkan",
     "managerRemoved": "Manajer berhasil dikeluarkan",
-    "leaderChanged": "Leader has been changed"
+    "leaderChanged": "Pemimpin telah diganti"
 }

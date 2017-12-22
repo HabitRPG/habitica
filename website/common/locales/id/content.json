@@ -184,7 +184,7 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Berkilau",
     "hatchingPotionFairy": "Peri",
-    "hatchingPotionStarryNight": "Starry Night",
+    "hatchingPotionStarryNight": "Malam Berbintang",
     "hatchingPotionNotes": "Berikan ini kepada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan kepada telur peliharaan yang didapat dari misi.",
     "foodMeat": "Daging",
@@ -219,6 +219,6 @@
     "foodCandyRed": "Permen Kayu Manis",
     "foodSaddleText": "Pelana",
     "foodSaddleNotes": "Membuat peliharaanmu langsung bisa ditunggangi.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
+    "foodSaddleSellWarningNote": "Hei! Ini adalah item yang lumayan berguna! Apakah kamu familiar dengan cara menggunakan sebuah Pelana untuk peliharaanmu?",
     "foodNotes": "Beri makan peliharaanmu agar tumbuh menjadi tunggangan yang kuat."
 }

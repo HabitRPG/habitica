@@ -431,9 +431,17 @@ api.createSubscription = async function createSubscription (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // If sending to a user other than yourself, don't push notify, and get bonus sub for self per holiday promo
-      let promoData = data;
-      promoData.gift.member = data.user;
-      promoData.promo = 'Winter';
+      let promoData = {
+        user: data.user,
+        gift: {
+          member: data.user,
+          subscription: {
+            key: data.gift.subscription.key,
+          },
+        },
+        paymentMethod: data.paymentMethod,
+        promo: 'Winter',
+      };
       await this.createSubscription(promoData);
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {

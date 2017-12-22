@@ -34,7 +34,7 @@
     "messageHealthAlreadyMin": "Oh no! Hai già finito la tua Salute, quindi è troppo tardi comprare una Pozione della Salute, ma non preoccuparti - puoi resuscitare!",
     "armoireEquipment": "<%= image %> Hai trovato dell'equipaggiamento raro nello Scrigno: <%= dropText %>! Fantastico!",
     "armoireFood": "<%= image %> Frughi nello Scrigno e trovi <%= dropArticle %><%= dropText %>. Cosa ci fa qui dentro?",
-    "armoireExp": "Fai a botte con lo Scrigno e ottieni Esperienza. Prendi questo!",
+    "armoireExp": "Fai a botte con lo Scrigno e ottieni dell'Esperienza. Prendi questo!",
     "messageInsufficientGems": "Non hai abbastanza gemme!",
     "messageAuthPasswordMustMatch": ":password e :confirmPassword non corrispondono",
     "messageAuthCredentialsRequired": "sono necessari :username, :email, :password, :confirmPassword",
@@ -59,5 +59,5 @@
     "messageUserOperationNotFound": "Operazione <%= operation %> non trovata",
     "messageNotificationNotFound": "Notifica non trovata.",
     "notificationsRequired": "Sono necessari gli id delle notifiche.",
-    "beginningOfConversation": "Stai iniziando una conversazione con <%= userName %>. Ricorda di scrivere con gentilezza e rispetto, e segui le Linee guida della community!"
+    "beginningOfConversation": "Stai iniziando una conversazione con <%= userName %>. Ricorda di scrivere con gentilezza e rispetto, seguendo le Linee guida della community!"
 }
