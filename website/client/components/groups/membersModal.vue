@@ -340,7 +340,7 @@ export default {
       } else {
         this.getMembers();
       }
-    }
+    },
   },
   methods: {
     sendMessage (member) {
@@ -349,12 +349,12 @@ export default {
         userName: member.profile.name,
       });
     },
-    async searchMembers(searchTerm = '') {
+    async searchMembers (searchTerm = '') {
       this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({
         challengeId: this.challengeId,
         groupId: this.groupId,
         searchTerm,
-        includeAllPublicFields: true
+        includeAllPublicFields: true,
       });
     },
     async getMembers () {
@@ -365,10 +365,8 @@ export default {
           groupId,
           includeAllPublicFields: true,
         });
-
         this.invites = invites;
       }
-
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
@@ -437,7 +435,7 @@ export default {
           challengeId: this.challengeId,
           groupId: this.groupId,
           lastMemberId: lastMember._id,
-          includeAllPublicFields: true
+          includeAllPublicFields: true,
       });
 
       this.members = this.members.concat(newMembers);

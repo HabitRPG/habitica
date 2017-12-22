@@ -300,12 +300,11 @@ export default {
      *
      * @param {Object}  payload     Used for modifying requests for members
      */
-    async loadMembers(payload = null) {
+    async loadMembers (payload = null) {
       // Remove unnecessary data
       if (payload && payload.groupId) {
         delete payload.groupId;
       }
-      
       return await this.$store.dispatch('members:getChallengeMembers', payload);
     },
 

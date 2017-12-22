@@ -468,13 +468,11 @@ export default {
         // Load invites
       }
       await this.fetchGuild();
-
       // Fetch group members on load
-      this.members = await this.loadMembers({ 
+      this.members = await this.loadMembers({
         groupId: this.group._id,
-        includeAllPublicFields: true
+        includeAllPublicFields: true,
       });
-
       this.$root.$on('updatedGroup', group => {
         let updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
@@ -487,7 +485,7 @@ export default {
      *
      * @param {Object}  payload     Used for modifying requests for members
      */
-    async loadMembers(payload = null) {
+    async loadMembers (payload = null) {
       // Remove unnecessary data
       if (payload && payload.challengeId) {
         delete payload.challengeId;
