@@ -2,7 +2,7 @@
 menu-dropdown.item-user(:right="true")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('user')")
-      .svg-icon.user(v-html="icons.user")
+      .top-menu-icon.svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}

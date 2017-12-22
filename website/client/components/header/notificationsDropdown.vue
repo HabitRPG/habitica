@@ -3,7 +3,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(v-if='notificationsTopBadgeCount > 0', :count="notificationsTopBadgeCount", :top="true")
-      .svg-icon.notifications(v-html="icons.notifications")
+      .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content", @click.stop="")
     .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center
       .d-flex.align-items-center
@@ -11,8 +11,11 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         div
           span.badge.badge-pill.badge-default {{ notificationsCount }}
       a.small-link.standard-link(@click="dismissAll") {{ $t('dismissAll') }}
-    .dropdown-item.dropdown-separated(v-for="notification in notifications")
-      span {{ notification }}
+    notification-item(
+      v-for="notification in notifications",
+      :notification="notification",
+      :can-remove="!isActionable(notification)",
+    )
     //
       a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
         div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
@@ -59,8 +62,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
 @import '~client/assets/scss/colors.scss';
 
 .dropdown-item {
-  width: 378px;
-  max-width: 100%;
   padding: 16px 24px;
 }
 
@@ -69,10 +70,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
   margin-right: 8px;
   line-height: 1.5;
 }
-
-/* TODO .clear-button {
-  margin-left: .5em;
-}*/
 </style>
 
 <script>
@@ -83,16 +80,20 @@ import map from 'lodash/map';
 
 import * as Analytics from 'client/libs/analytics';
 */
+
+import { v4 as uuid } from 'uuid';
 import { mapState, mapActions } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
+import NotificationItem from './notificationItem';
 
 export default {
   components: {
     MenuDropdown,
     MessageCount,
+    NotificationItem,
   },
   data () {
     return {
@@ -183,7 +184,6 @@ export default {
       }));
 
       // Sort notifications
-
       notifications.sort((a, b) => { // a and b are notifications
         const aOrder = orderMap[a.type];
         const bOrder = orderMap[b.type];
@@ -250,33 +250,6 @@ export default {
       return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
     /*
-    // @TODO: I hate this function, we can do better with a hashmap
-    /*selectNotificationValue (mysteryValue, invitationValue, cardValue,
-      unallocatedValue, messageValue, noneValue, groupApprovalRequested, groupApproved) {
-      let user = this.user;
-
-      if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
-        return mysteryValue;
-      } else if (user.invitations.parties && user.invitations.parties.length > 0 || user.invitations.guilds && user.invitations.guilds.length > 0) {
-        return invitationValue;
-      } else if (user.flags.cardReceived) {
-        return cardValue;
-      } else if (user.flags.classSelected && !(user.preferences && user.preferences.disableClasses) && user.stats.points) {
-        return unallocatedValue;
-      } else if (!isEmpty(user.newMessages)) {
-        return messageValue;
-      } else if (!isEmpty(this.groupNotifications)) {
-        let groupNotificationTypes = map(this.groupNotifications, 'type');
-        if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
-          return groupApprovalRequested;
-        } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
-          return groupApproved;
-        }
-        return noneValue;
-      } else {
-        return noneValue;
-      }
-    },
     hasQuestProgress () {
       let user = this.user;
       if (user.party.quest) {
@@ -316,21 +289,6 @@ export default {
     },
     clearCards () {
       this.$store.dispatch('chat:clearCards');
-    },
-    iconClasses () {
-      return this.selectNotificationValue(
-        'glyphicon-gift',
-        'glyphicon-user',
-        'glyphicon-envelope',
-        'glyphicon-plus-sign',
-        'glyphicon-comment',
-        'glyphicon-comment inactive',
-        'glyphicon-question-sign',
-        'glyphicon-ok-sign'
-      );
-    },
-    hasNoNotifications () {
-      return this.selectNotificationValue(false, false, false, false, false, true, false, false);
     },
     viewGroupApprovalNotification (notification) {
       this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
