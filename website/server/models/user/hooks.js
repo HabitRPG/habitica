@@ -256,15 +256,16 @@ schema.pre('save', true, function preSaveUser (next, done) {
     });
 
     const existingNotification = existingNotificationIndex !== -1 ? this.notifications[existingNotificationIndex] : null;
+    const outdatedNotification = !existingNotification || existingNotification.data.points !== pointsToAllocate;
 
     // The notification has not the up to date number of points to allocate,
     // remove it
-    if (existingNotification && existingNotification.data.points !== pointsToAllocate) {
+    if (existingNotification && outdatedNotification) {
       this.notifications.splice(existingNotificationIndex, 1);
     }
 
-    // If there are points to allocate, add a new notifications
-    if (pointsToAllocate > 0) {
+    // If there are points to allocate and the notification is outdated, add a new notifications
+    if (pointsToAllocate > 0 && outdatedNotification) {
       this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
     }
   }

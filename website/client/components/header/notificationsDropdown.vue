@@ -10,7 +10,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         h4.dropdown-title(v-once) {{ $t('notifications') }}
         div
           span.badge.badge-pill.badge-default {{ notificationsCount }}
-      a.small-link.standard-link(@click="dismissAll") Dismiss all
+      a.small-link.standard-link(@click="dismissAll") {{ $t('dismissAll') }}
     .dropdown-item.dropdown-separated(v-for="notification in notifications")
       span {{ notification }}
     //
@@ -108,7 +108,7 @@ export default {
       // A list of notifications handled by this component,
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
-      handledNotification: [
+      handledNotifications: [
         'BAILEY', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
@@ -123,7 +123,7 @@ export default {
       // Returns a map of NOTIFICATION_TYPE -> POSITION
       const orderMap = {};
 
-      this.handledNotification.forEach((type, index) => {
+      this.handledNotifications.forEach((type, index) => {
         orderMap[type] = index;
       });
 
@@ -177,7 +177,7 @@ export default {
       const orderMap = this.notificationsOrder;
 
       // Push the notifications stored in user.notifications
-      // skipping those not defined in the handledNotification object
+      // skipping those not defined in the handledNotifications object
       notifications.push(...this.user.notifications.filter(({type}) => {
         return orderMap[type] !== undefined;
       }));
@@ -198,48 +198,22 @@ export default {
     // The notification top badge includes unseen notifications + actionable ones
     notificationsTopBadgeCount () {
       return this.notifications.reduce((count, notification) => {
-        if (notification.seen === false || this.isActionable(notification)) count++;
+        if (notification.seen === false || this.isActionable(notification)) {
+          count++;
+        }
+        return count;
       }, 0);
     },
     // The total number of notification, shown inside the dropdown
     notificationsCount () {
       return this.notifications.length;
     },
-    /*
-    notificationsCount () {
-      let count = 0;
-
-      if (this.user.invitations.parties) {
-        count += this.user.invitations.parties.length;
-      }
-
-      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
-        count++;
-      }
-
-      if (this.user.invitations.guilds) {
-        count += this.user.invitations.guilds.length;
-      }
-
-      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
-        count += this.user.stats.points > 0 ? 1 : 0;
-      }
-
-      if (this.userNewMessages) {
-        count += Object.keys(this.userNewMessages).length;
-      }
-
-      count += this.groupNotifications.length;
-
-      return count;
-    },
-    */
   },
   methods: {
     ...mapActions({
       readNotification: 'notifications:readNotification',
       readNotifications: 'notifications:readNotifications',
-      seeNotifications: 'notifications:readNotifications',
+      seeNotifications: 'notifications:seeNotifications',
     }),
     handleOpenStatusChange (openStatus) {
       this.openStatus = openStatus === true ? 1 : 0;
@@ -255,7 +229,7 @@ export default {
         if (notification.seen === false && notification.id) {
           return notification.id;
         }
-      });
+      }).filter(id => Boolean(id));
 
       if (idsToSee.length > 0) this.seeNotifications({notificationIds: idsToSee});
     },
@@ -267,7 +241,7 @@ export default {
         if (notification.id && !this.isActionable(notification)) {
           return notification.id;
         }
-      });
+      }).filter(id => Boolean(id));
       this.openStatus = 0;
 
       if (idsToRead.length > 0) this.readNotifications({notificationIds: idsToRead});
