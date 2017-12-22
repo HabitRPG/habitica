@@ -439,6 +439,14 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
+
+    // Reset chat
+    this.newMessage = '';
+    this.coords = {
+      TOP: 0,
+      LEFT: 0,
+    };
+
     next();
   },
   watch: {
