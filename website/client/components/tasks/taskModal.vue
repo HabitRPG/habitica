@@ -21,7 +21,7 @@
       .task-modal-content
         .option.form-group.row(v-if="task.type === 'reward'")
           label.col-sm-2.col-form-label(v-once) {{ $t('cost') }}
-          .input-group.col-sm-10
+          .input-group.col-sm-9.margin-left-1em
             .input-group-addon.svg-icon.gold(v-html="icons.gold")
             input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
         .option(v-if="checklistEnabled")
@@ -514,6 +514,12 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  /* To add 1em left margin to reward section -> cost input */
+  .margin-left-1em {
+    margin-left: 1em;
+  }
+
   .gold {
     width: 3.3125em;
     background-color: transparent;
