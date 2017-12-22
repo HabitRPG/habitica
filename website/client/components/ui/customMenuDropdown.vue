@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     _clickOutListener (e) {
-      if (!this.$el.contains(e.target) && this.isDropdownOpen) {
+      if (!this.$el.contains(e.target) && this.isOpen) {
         this.toggleDropdown();
       }
     },
