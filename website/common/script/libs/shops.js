@@ -163,7 +163,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
           class: classType,
         },
       };
-      if (gearItem.specialClass === classType) return gearItem.canOwn(classShift);
+      if (gearItem.specialClass === classType && user.items.gear.owned[gearItem.key] !== false) return gearItem.canOwn(classShift);
     });
 
     category.items = map(result, (e) => {
@@ -193,9 +193,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let falseGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false &&
-      gear.klass !== user.stats.class &&
-      gear.klass !== 'special';
+    return user.items.gear.owned[gear.key] === false && (gear.klass === 'special' && !gear.specialClass || gear.key.indexOf('mystery') !== -1);
   });
 
   nonClassCategory.items = map(falseGear, (e) => {
