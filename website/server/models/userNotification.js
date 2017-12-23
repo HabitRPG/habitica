@@ -25,6 +25,7 @@ const NOTIFICATION_TYPES = [
   'CARD_RECEIVED',
   'NEW_MYSTERY_ITEMS',
   'UNALLOCATED_STATS_POINTS',
+  'NEW_INBOX_MESSAGE',
 ];
 
 const Schema = mongoose.Schema;

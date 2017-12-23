@@ -102,10 +102,28 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   let sender = this;
   let senderMsg = options.senderMsg || options.receiverMsg;
 
-  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  const newMessage = common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
+
+  let excerpt;
+
+  if (!options.receiverMsg) {
+    excerpt = '';
+  } else if (options.receiverMsg.length < 100) {
+    excerpt = options.receiverMsg;
+  } else {
+    excerpt = `${options.receiverMsg.substring(0, 100)}...`;
+  }
+  userToReceiveMessage.addNotification('NEW_INBOX_MESSAGE', {
+    sender: {
+      id: sender._id,
+      name: sender.profile.name,
+    },
+    excerpt,
+    messageId: newMessage.id,
+  });
 
   common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');

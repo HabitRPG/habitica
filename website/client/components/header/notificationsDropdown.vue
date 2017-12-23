@@ -81,7 +81,6 @@ import map from 'lodash/map';
 import * as Analytics from 'client/libs/analytics';
 */
 
-import { v4 as uuid } from 'uuid';
 import { mapState, mapActions } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
