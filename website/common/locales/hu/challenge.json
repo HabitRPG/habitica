@@ -128,5 +128,6 @@
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
     "viewProgressOf": "Haladás megtekintése",
     "selectMember": "Tag kiválasztása",
-    "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?"
+    "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?",
+    "selectParticipant": "Select a Participant"
 }

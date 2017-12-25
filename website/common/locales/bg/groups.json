@@ -408,5 +408,6 @@
     "groupBilling": "Таксуване на групата",
     "wouldYouParticipate": "Искате ли да участвате?",
     "managerAdded": "Управителят е добавен успешно",
-    "managerRemoved": "Управителят е премахнат успешно."
+    "managerRemoved": "Управителят е премахнат успешно.",
+    "leaderChanged": "Водачът беше сменен"
 }

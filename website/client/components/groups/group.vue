@@ -146,6 +146,7 @@
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
+      height: 28px;
       margin: 0 auto;
       display: inline-block;
       vertical-align: bottom;
@@ -388,10 +389,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    userIsOnQuest () {
-      if (!this.group.quest || !this.group.quest.members) return false;
-      return Boolean(this.group.quest.members[this.user._id]);
-    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },

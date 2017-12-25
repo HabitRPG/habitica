@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
-    div(slot='modal-header')
+    .header(slot='modal-header')
       .profile-actions
         button.btn.btn-secondary.message-icon(@click='sendMessage()', v-b-tooltip.hover.left="$t('sendMessage')")
           .svg-icon.message-icon(v-html="icons.message")
@@ -293,10 +293,22 @@ div
       background: #f9f9f9;
     }
   }
+
+  .message-icon svg {
+    height: 16px;
+  }
+
+  .gift-icon svg {
+    height: 14px;
+  }
 </style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .header {
+    width: 100%;
+  }
 
   .profile-actions {
     float: right;

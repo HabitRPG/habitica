@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Vous êtes sur le point de rejoindre un groupe dont l'abonnement a été annulé. Vous ne recevrez PAS d'abonnement gratuit.",
     "cannotChangeLeaderWithActiveGroupPlan": "Vous ne pouvez pas changer le responsable d'un groupe avec un abonnement actif.",
     "leaderCannotLeaveGroupWithActiveGroup": "Un responsable ne peut pas quitter un groupe avec un abonnement actif",
-    "youHaveGroupPlan": "Vous bénéficiez d'un abonnement gratuit, car vous êtes membre d'un groupe inscrit à une Offre de groupe. Cet abonnement gratuit prendra fin quand vous n'appartiendrez plus à ce groupe. À la fin de cette offre de groupe, tous les mois d'inscription supplémentaires crédités commenceront à être utilisés.",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
     "cancelGroupSub": "Résilier l'Offre de groupe",
     "confirmCancelGroupPlan": "Confirmez-vous vouloir résilier l'Offre de groupe et retirer les avantages à tous ces membres, y compris leurs abonnements gratuits ?",
     "canceledGroupPlan": "Offre de groupe annulée",
@@ -408,5 +408,6 @@
     "groupBilling": "Facturation du groupe",
     "wouldYouParticipate": "Voulez-vous participer ?",
     "managerAdded": "Gestionnaire ajouté avec succès",
-    "managerRemoved": "Gestionnaire retiré avec succès"
+    "managerRemoved": "Gestionnaire retiré avec succès",
+    "leaderChanged": "Leader has been changed"
 }

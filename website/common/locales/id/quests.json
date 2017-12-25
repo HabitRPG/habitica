@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> item misi telah ditemukan",
     "questDamage": "+ <%= val %> damage kepada boss",
     "begin": "Mulai",
-    "bossHP": "Nyawa Boss",
+    "bossHP": "HP Boss",
     "bossStrength": "Kekuatan Boss",
     "rage": "Kemarahan",
     "collect": "Kumpulkan",
