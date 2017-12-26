@@ -330,7 +330,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInvitedToGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
+        message: t('userAlreadyInvitedToGroup', { userId: userToInivite._id, username: userToInivite.profile.name}),
       });
     });
 
