@@ -109,7 +109,7 @@ export default {
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
-        'BAILEY', 'GROUP_TASK_NEEDS_WORK',
+        'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'UNALLOCATED_STATS_POINTS', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',

@@ -9,7 +9,7 @@
       new-stuff
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
-      button.btn.btn-secondary(@click='close()') {{ this.$t('tellMeLater') }}
+      button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
       button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
 </template>
 
@@ -47,12 +47,14 @@
       this.$root.$off('bv::show::modal');
     },
     methods: {
-      close () {
+      tellMeLater () {
+        this.user.flags.newStuff = true;
+        this.$store.dispatch('user:newStuffLater');
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
         this.$store.dispatch('user:set', {'flags.newStuff': false});
-        this.close();
+        this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
     },
   };
