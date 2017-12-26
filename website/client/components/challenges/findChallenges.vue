@@ -2,8 +2,7 @@
 .row
   challenge-modal(v-on:createChallenge='challengeCreated')
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
-
-  .col-10.standard-page
+  .col-12.col-md-10.standard-page
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('findChallenges')}}
