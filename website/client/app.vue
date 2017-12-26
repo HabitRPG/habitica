@@ -225,7 +225,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data.message,
+          text: error.response.data,
           type: 'error',
           timeout: true,
         });
