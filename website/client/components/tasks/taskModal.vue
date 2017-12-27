@@ -514,6 +514,12 @@
       width: 57px;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .option-item {
+      margin-right: 12px !important;
+    }
+  }
 </style>
 
 <style lang="scss" scoped>

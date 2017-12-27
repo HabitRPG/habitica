@@ -7,11 +7,11 @@
   group-gems-modal
   .col-12.col-sm-8.standard-page
     .row
-      .col-6.title-details
+      .col-12.col-md-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
         span.leader.float-left(v-if='group.leader.profile', @click='showMemberProfile(group.leader)') : {{group.leader.profile.name}}
-      .col-6
+      .col-12.col-md-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
