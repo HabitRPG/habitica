@@ -708,21 +708,24 @@ api.moveTask = {
     moveTask(order, task._id, to);
 
     // Server updates
-    // @TODO: maybe bulk op?
-    let pullQuery = { $pull: {} };
-    pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
-    await user.update(pullQuery).exec();
+    let updateQuery = { $pull: {}, $push: {} };
+
+    updateQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
 
     // Handle push to bottom
     let position = to;
     if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
 
-    let updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
       $each: [task._id],
       $position: position,
     };
     await user.update(updateQuery).exec();
+
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v++;
 
     res.respond(200, order);
   },
@@ -1283,6 +1286,11 @@ api.deleteTask = {
       let pullQuery = {$pull: {}};
       pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
       let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+
+      // Update the user version field manually,
+      // it cannot be updated in the pre update hook
+      // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+      if (!challenge) user._v++;
 
       await Bluebird.all([taskOrderUpdate, task.remove()]);
     } else {

@@ -63,6 +63,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
 
 .dropdown-item {
   padding: 16px 24px;
+  width: 378px;
 }
 
 .dropdown-title {

@@ -298,4 +298,5 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
 schema.pre('update', function preUpdateUser () {
   this.update({}, {$inc: {_v: 1}});
+  console.log(this.getUpdate());
 });
