@@ -426,7 +426,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInAParty'{ userId: userToInvite._id, username: userToInvite.profile.name}),
+        message: t('userAlreadyInAParty', { userId: userToInvite._id, username: userToInvite.profile.name}),
       });
     });
 
