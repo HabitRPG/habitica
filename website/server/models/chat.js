@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
   user: String,
   text: String,
   contributor: {type: mongoose.Schema.Types.Mixed},
+  backer: {type: mongoose.Schema.Types.Mixed},
   uuid: String,
   id: String,
   groupId: {type: String, ref: 'Group'},
