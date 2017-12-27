@@ -69,8 +69,8 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-10 {{ $t('donateText3') }}
-          .col-2
+          .col-12.col-md-10 {{ $t('donateText3') }}
+          .col-12.col-md-2
             button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
@@ -82,7 +82,7 @@
       .col-12
         hr
     .row
-      .col-5
+      .col-12.col-md-5
         | © 2017 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
@@ -102,9 +102,9 @@
             a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-secondary(@click="makeAdmin()") Make Admin
             a.btn.btn-secondary(@click="openModifyInventoryModal()") Modify Inventory
-      .col-2.text-center
+      .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
-      .col-5.text-right
+      .col-12.col-md-5.text-right
         template(v-if="!isExpandedFooter")
           span
             a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
