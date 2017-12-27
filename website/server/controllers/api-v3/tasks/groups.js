@@ -351,7 +351,7 @@ api.approveTask = {
  * @api {post} /api/v3/tasks/:taskId/needs-work/:userId Group task needs more work
  * @apiDescription Mark an assigned group task as needeing more work before it can be approved
  * @apiVersion 3.0.0
- * @apiName NeedsWorkTask
+ * @apiName TaskNeedsWork
  * @apiGroup Task
  *
  * @apiParam (Path) {UUID} taskId The id of the task that is the original group task
@@ -359,7 +359,7 @@ api.approveTask = {
  *
  * @apiSuccess task The task that needs more work
  */
-api.approveTask = {
+api.taskNeedsWork = {
   method: 'POST',
   url: '/tasks/:taskId/needs-work/:userId',
   middlewares: [authWithHeaders()],
