@@ -302,17 +302,6 @@ describe('POST /tasks/user', () => {
 
       expect(task.alias).to.eql('a_alias012');
     });
-
-    // This is a special case for iOS requests
-    it('will round a priority (difficulty)', async () => {
-      let task = await user.post('/tasks/user', {
-        text: 'test habit',
-        type: 'habit',
-        priority: 0.10000000000005,
-      });
-
-      expect(task.priority).to.eql(0.1);
-    });
   });
 
   context('habits', () => {

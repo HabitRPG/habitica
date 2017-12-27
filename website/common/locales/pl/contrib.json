@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, jesteś niesamowity! Zdobywasz <%= level %> poziom pomocnika za wsparcie przy rozwijaniu Habitica. Zobacz",
     "contribLink": "jakie nagrody uzyskałeś za swój wkład!",
     "contribName": "Pomocnik",
-    "contribText": "Przyczynił się do rozwoju Habitica poprzez kod, grafikę, muzykę, pisanie lub poprzez inne metody. Aby dowiedzieć się więcej dołącz do gildii Aspiring Legends!",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Dowiedz się więcej",
     "kickstartName": "Wspieracz z Kickstartera - ranga <%= key %>$",
     "kickstartText": "Wspomógł projekt na Kickstarterze",

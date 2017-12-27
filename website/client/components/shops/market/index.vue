@@ -61,10 +61,10 @@
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
       .clearfix(v-if="viewOptions['equipment'].selected")
-        h2.float-left.mb-3.filters-title
+        h2.float-left.mb-3
           | {{ $t('equipment') }}
 
-        .filters.float-right
+        div.float-right
           span.dropdown-label {{ $t('class') }}
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
@@ -327,20 +327,6 @@
   .market .gems-left {
     right: -.5em;
     top: -.5em;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .featuredItems .content {
-      display: none !important;
-    }
-
-    .filters, .filters-title {
-      float: none;
-      button {
-        margin-right: 4em;
-        margin-bottom: 1em;
-      }
-    }
   }
 </style>
 

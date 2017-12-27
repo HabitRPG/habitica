@@ -118,7 +118,6 @@
     "giftedSubscription": "Gifted Subscription",
     "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "giftedSubscriptionFull": "Hello <%= username %>, <%= sender %> has sent you <%= monthCount %> months of subscription!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Invited To Party",
     "invitedGuild": "Invited To Guild",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",

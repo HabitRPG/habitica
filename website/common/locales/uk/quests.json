@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "Почати",
-    "bossHP": "Boss HP",
+    "bossHP": "Здоров'я боса",
     "bossStrength": "Сила Боса",
     "rage": "Rage",
     "collect": "Collect",

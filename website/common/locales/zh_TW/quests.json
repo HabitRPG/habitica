@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> 個任務道具被找到。",
     "questDamage": "+ <%= val %> 點傷害給魔王。",
     "begin": "開始",
-    "bossHP": "Boss HP",
+    "bossHP": "魔王的生命值",
     "bossStrength": "魔王的力量",
     "rage": "憤怒值",
     "collect": "收集",

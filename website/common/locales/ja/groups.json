@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "あなたはプランが中止されたグループに参加しようとしています。無料の寄付者特典を得ることはできません。",
     "cannotChangeLeaderWithActiveGroupPlan": "グループにアクティブなプランがある間はリーダーを変更できません。",
     "leaderCannotLeaveGroupWithActiveGroup": "リーダーはアクティブなプランを持つグループから脱退することはできません。",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "あなたはグループプランに加入しているグループのメンバーなので、寄付の特典を無料で得ることができます。これはグループプランに加入しているグループから脱退しない限り続きます。あなたの寄付の継続月数は、グループプランの終了から反映されます。",
     "cancelGroupSub": "グループプランを中止",
     "confirmCancelGroupPlan": "本当にグループプランを中止し、メンバー全員から無料の寄付者特典を含むすべての特典を削除しますか？",
     "canceledGroupPlan": "キャンセルされたグループプラン",
@@ -408,6 +408,5 @@
     "groupBilling": "Group Billing",
     "wouldYouParticipate": "Would you like to participate?",
     "managerAdded": "Manager added successfully",
-    "managerRemoved": "Manager removed successfully",
-    "leaderChanged": "Leader has been changed"
+    "managerRemoved": "Manager removed successfully"
 }

@@ -27,13 +27,4 @@ describe('GET /user', () => {
     expect(returnedUser.auth.local.salt).to.not.exist;
     expect(returnedUser.apiToken).to.not.exist;
   });
-
-  it('returns only user properties requested', async () => {
-    let returnedUser = await user.get('/user?userFields=achievements,items.mounts');
-
-    expect(returnedUser._id).to.equal(user._id);
-    expect(returnedUser.achievements).to.exist;
-    expect(returnedUser.items.mounts).to.exist;
-    expect(returnedUser.stats).to.not.exist;
-  });
 });

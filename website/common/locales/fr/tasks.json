@@ -203,5 +203,5 @@
     "yesterDailiesDescription": "Si ce paramètre est activé, Habitica vous demandera, avant de calculer les dommages à appliquer à votre avatar, si vous avez intentionnellement laissé cette quotidienne comme non-faite. Cela peut vous protéger de dommages involontaires.",
     "repeatDayError": "Merci de vérifier que vous avez au moins un jour de la semaine de sélectionné.",
     "searchTasks": "Rechercher dans les titres et les descriptions",
-    "sessionOutdated": "Votre session a expiré. Veuillez actualiser la page ou la synchroniser."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

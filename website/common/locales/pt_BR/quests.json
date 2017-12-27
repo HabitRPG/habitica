@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> item(ns) de missão encontrado(s) ",
     "questDamage": "+ <%= val %> de dano no Chefão",
     "begin": "Começar",
-    "bossHP": "Boss HP",
+    "bossHP": "Vida do Chefão",
     "bossStrength": "Força do Chefão",
     "rage": "Fúria",
     "collect": "Coletar",

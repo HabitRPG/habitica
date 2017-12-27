@@ -88,7 +88,7 @@
     "plusOneGem": "+1 宝石",
     "typeNotSellable": "Type不出售。必须是<%= acceptedTypes %>其中之一。",
     "userItemsKeyNotFound": "user.items <%= type %>找不到Key ",
-    "userItemsNotEnough": "你没有足够的<%= type %>。",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "需要Path string",
     "unlocked": "物品已经解锁",
     "alreadyUnlocked": "全套已经解锁",

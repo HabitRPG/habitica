@@ -246,10 +246,6 @@ function _getMembersForItem (type) {
           addComputedStats = true;
         }
       }
-
-      if (req.query.search) {
-        query['profile.name'] = {$regex: req.query.search};
-      }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
@@ -480,8 +476,7 @@ api.sendPrivateMessage = {
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
     let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-
-    if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
+    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, { receiverMsg: message });
 

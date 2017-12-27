@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> Questgegenstände gefunden",
     "questDamage": "+ <%= val %> Schaden gegen den Boss",
     "begin": "Beginnen",
-    "bossHP": "Boss HP",
+    "bossHP": "Boss-Lebenspunkte",
     "bossStrength": "Boss-Stärke",
     "rage": "Raserei",
     "collect": "Sammle",

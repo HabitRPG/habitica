@@ -118,7 +118,6 @@
     "giftedSubscription": "Ti viene regalato un abbonamento",
     "giftedSubscriptionInfo": "<%= name %> ti ha regalato un abbonamento di <%= months %> mesi",
     "giftedSubscriptionFull": "Ciao <%= username %>, <%= sender %> ti ha inviato <%= monthCount %> mesi di abbonamento!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Ricevuto invito a unirti ad una squadra",
     "invitedGuild": "Ricevuto invito da una Gilda",
     "importantAnnouncements": "Promemoria per l'accesso, per completare attività e ricevere premi",

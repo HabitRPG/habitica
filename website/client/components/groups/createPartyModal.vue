@@ -57,7 +57,6 @@ b-modal#create-party-modal(title="Empty", size='lg', hide-footer=true)
   .header-wrap {
     padding: 0;
     color: #4e4a57;
-    width: 100%;
 
     .quest_screen {
       background-image: url('~client/assets/images/quest_screen.png');

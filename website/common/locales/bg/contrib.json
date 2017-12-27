@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, Вие сте невероятен човек! Вече сте сътрудник ниво <%= level %>, заради приноса си към Хабитика. Вижте",
     "contribLink": "какви награди получихте за помощта си!",
     "contribName": "Сътрудник",
-    "contribText": "Допринесъл/ла към Хабитика с код, художествен дизайн, музика, текстове или по друг начин. За да научите повече, присъединете се към гилдията на Амбициозните легенди (Aspiring Legends)!",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Прочетете повече",
     "kickstartName": "Подкрепил(а) кампанията в Kickstarter — ниво <%= key %> $",
     "kickstartText": "Подкрепил кампанията в Kickstarter",

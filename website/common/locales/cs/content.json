@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "oblačný",
     "hatchingPotionShimmer": "třpytivý",
     "hatchingPotionFairy": "pohádkový",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Nalij ho na vejce a vylíhne se ti <%= potText(locale) %> mazlíček.",
     "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav.",
     "foodMeat": "Maso",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Skořicové cukrátko",
     "foodSaddleText": "Sedlo",
     "foodSaddleNotes": "Okamžitě zkrotí jednoho z tvých mazlíčků, aby sis ho mohl osedlat.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Nakrm tímto mazlíčka, aby z něj vyrostlo pořádné zvíře."
 }

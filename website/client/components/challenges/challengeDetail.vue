@@ -4,9 +4,10 @@
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
-  .col-12.col-md-8.standard-page
+
+  .col-8.standard-page
     .row
-      .col-12.col-md-8
+      .col-8
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
@@ -19,7 +20,7 @@
           // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
-      .col-12.col-md-4
+      .col-4
         .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
@@ -29,10 +30,13 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
-      .col-12.col-md-7.offset-md-5
+      .col-7.offset-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
-        member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
+        b-dropdown.create-dropdown(text="Select a Participant")
+          input.form-control(type='text', v-model='searchTerm')
+          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="openMemberProgressModal(member._id)")
+            | {{ member.profile.name }}
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -47,6 +51,7 @@
             v-on:taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
+
     .row
       task-column.col-12.col-sm-6(
         v-for="column in columns",
@@ -55,7 +60,7 @@
         :taskListOverride='tasksByType[column]',
         v-on:editTask="editTask",
         v-if='tasksByType[column].length > 0')
-  .col-12.col-md-4.sidebar.standard-page
+  .col-4.sidebar.standard-page
     .acitons
       div(v-if='canJoin')
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
@@ -180,7 +185,6 @@ import omit from 'lodash/omit';
 import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
-import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -207,7 +211,6 @@ export default {
     leaveChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
-    memberSearchDropdown,
     TaskColumn: Column,
     TaskModal,
   },
@@ -385,8 +388,8 @@ export default {
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
     },
-    openMemberProgressModal (member) {
-      this.progressMemberId = member._id;
+    openMemberProgressModal (memberId) {
+      this.progressMemberId = memberId;
       this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     },
     async exportChallengeCsv () {

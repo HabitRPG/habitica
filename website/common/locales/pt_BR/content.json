@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Cintilante",
     "hatchingPotionFairy": "Fada",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões.",
     "foodMeat": "Carne",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Bala de Canela",
     "foodSaddleText": "Sela",
     "foodSaddleNotes": "Evolui um de seus mascotes para uma montaria.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Dê esta comida a um mascote e ele se tornará uma brava montaria."
 }

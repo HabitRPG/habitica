@@ -112,10 +112,6 @@
     "fall2017MasqueradeSet": "Masquerade Mage (Mage)",
     "fall2017HauntedHouseSet": "Haunted House Healer (Healer)",
     "fall2017TrickOrTreatSet": "Trick or Treat Rogue (Rogue)",
-    "winter2018ConfettiSet": "Confetti Mage (Mage)",
-    "winter2018GiftWrappedSet": "Gift-Wrapped Warrior (Warrior)",
-    "winter2018MistletoeSet": "Mistletoe Healer (Healer)",
-    "winter2018ReindeerSet": "Reindeer Rogue (Rogue)",
     "eventAvailability": "Disponible para compra hasta el <%= date(locale) %>.",
     "dateEndApril": "19 de Abril",
     "dateEndMay": "17 de Mayo",
@@ -124,9 +120,5 @@
     "dateEndAugust": "August 31",
     "dateEndOctober": "October 31",
     "dateEndNovember": "November 30",
-    "dateEndJanuary": "January 31",
-    "discountBundle": "bundle",
-    "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
-    "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
-    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3"
+    "discountBundle": "bundle"
 }

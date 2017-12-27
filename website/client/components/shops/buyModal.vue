@@ -374,7 +374,7 @@
       },
       buyItem () {
         if (this.item.currency === 'gems' &&
-          !confirm(this.$t('purchaseFor', { cost: this.item.value * this.selectedAmountToBuy }))) {
+          !confirm(this.$t('purchaseFor', { cost: this.item.value }))) {
           return;
         }
 

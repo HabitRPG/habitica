@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> hledaný předmět nalezen",
     "questDamage": "+ <%= val %> poškození bossovi",
     "begin": "Začít",
-    "bossHP": "Boss HP",
+    "bossHP": "Zdraví příšery",
     "bossStrength": "Síla příšery",
     "rage": "Zuřivost",
     "collect": "Sbírat",

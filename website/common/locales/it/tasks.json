@@ -6,7 +6,7 @@
     "addsingle": "Aggiungi singola",
     "addATask": "Aggiungi una <%= type %>",
     "editATask": "Modifica una <%= type %>",
-    "createTask": "Crea una <%= type %>",
+    "createTask": "Crea <%= type %>",
     "addTaskToUser": "Aggiungi attività",
     "scheduled": "Pianificate",
     "theseAreYourTasks": "Queste sono le tue <%= taskType %>",
@@ -15,8 +15,8 @@
     "newHabit": "Nuova abitudine",
     "newHabitBulk": "Nuove abitudini (una per riga)",
     "habitsDesc": "Abitudini non hanno una programmazione rigida. Puoi completarle più volte al giorno.",
-    "positive": "Positiva",
-    "negative": "Negativa",
+    "positive": "Positive",
+    "negative": "Negative",
     "yellowred": "Deboli",
     "greenblue": "Forti",
     "edit": "Modifica",
@@ -203,5 +203,5 @@
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
     "searchTasks": "Cerca titoli e descrizioni...",
-    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }
