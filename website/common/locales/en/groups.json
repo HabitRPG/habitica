@@ -265,6 +265,7 @@
   "claim": "Claim",
   "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
   "yourTaskHasBeenApproved": "Your task \"<%= taskText %>\" has been approved",
+  "taskNeedsWork": "Your task \"<%= taskText %>\" has been marked as needing more work",
   "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
   "approve": "Approve",
   "approvalTitle": "<%= userName %> has completed <%= type %>: \"<%= text %>\"",
