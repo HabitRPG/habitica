@@ -5,8 +5,21 @@ import {
   model as User,
 } from '../models/user';
 import nconf from 'nconf';
+import url from 'url';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+
+function getUserFields (userFieldProjection, req) {
+  if (userFieldProjection) return `notifications ${userFieldProjection}`;
+
+  const urlPath = url.parse(req.url).pathname;
+  if (!req.query.userFields || urlPath !== '/user') return '';
+
+  const userFieldOptions = req.query.userFields.split(',');
+  if (userFieldOptions.length === 0) return '';
+
+  return `notifications ${userFieldOptions.join(' ')}`;
+}
 
 // Strins won't be translated here because getUserLanguage has not run yet
 
@@ -27,8 +40,7 @@ export function authWithHeaders (optional = false, userFieldProjection = '') {
       apiToken,
     };
 
-    let fields = '';
-    if (userFieldProjection) fields = `notifications ${userFieldProjection}`;
+    const fields = getUserFields(userFieldProjection, req);
     const findPromise = fields ? User.findOne(userQuery, fields) : User.findOne(userQuery);
 
     return findPromise

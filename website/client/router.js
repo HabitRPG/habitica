@@ -258,6 +258,7 @@ const router = new VueRouter({
         { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
+        { name: 'front', path: 'front', component: HomePage, meta: {requiresLogin: false} },
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
         { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},

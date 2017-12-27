@@ -118,6 +118,7 @@
     "giftedSubscription": "禮物用訂閱",
     "giftedSubscriptionInfo": "<%= name %> 贈送你 <%= months %> 月的訂閱。",
     "giftedSubscriptionFull": "Hello <%= username %>, <%= sender %> has sent you <%= monthCount %> months of subscription!",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "邀請至隊伍",
     "invitedGuild": "受邀至公會",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",

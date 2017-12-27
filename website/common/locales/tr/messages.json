@@ -29,6 +29,7 @@
     "messageFoundQuest": "\"<%= questText %>\" görevinin parşömenini buldun!",
     "messageAlreadyPurchasedGear": "Bu ekipmanı daha önce satın aldın ama şu anda sahip değilsin. İşler sayfasındaki ödüller sütunundan tekrar satın alabilirsin.",
     "messageAlreadyOwnGear": "Bu eşyaya zaten sahipsin. Ekipman sayfasına giderek kuşanabilirsin.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Zaten maksimum sağlığa sahipsin.",
     "messageHealthAlreadyMin": "Oh hayır! Sağlığını yitirdin, ve sağlık iksiri satın almak için artık çok geç, ama endişelenmeyin - kendinizi canlandırabilirsiniz!",
     "armoireEquipment": "<%= image %> Efsunlu Gardıropta nadide bir ekipman buldun: <%= dropText %>! Muhteşem!",

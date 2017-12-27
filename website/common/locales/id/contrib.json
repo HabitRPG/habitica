@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, kamu keren banget! Sekarang kamu tingkat <%= level %> kontributor karena telah membantu Habitica. Lihat",
     "contribLink": "hadiah apa yang kamu dapatkan dari kontribusimu!",
     "contribName": "Kontributor",
-    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
+    "contribText": "Telah berkontribusi kepada Habitica, entah melalui kode, desain, musik, tulisan, atau cara lain. Untuk mengetahui lebih lanjut, bergabunglah dengan Guild Aspiring Legends!",
     "readMore": "Baca selanjutnya",
     "kickstartName": "Pendukung Kickstarter - $<%= key %> Tingkat",
     "kickstartText": "Mendukung Proyek Kickstarter",

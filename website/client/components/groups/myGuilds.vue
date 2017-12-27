@@ -60,6 +60,12 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .no-guilds-wrapper {
+      width: 100% !important;
+    }
+  }
 </style>
 
 <script>

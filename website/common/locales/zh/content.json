@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "丘比特",
     "hatchingPotionShimmer": "微光",
     "hatchingPotionFairy": "仙女",
+    "hatchingPotionStarryNight": "星夜",
     "hatchingPotionNotes": "把它倒在宠物蛋上可以孵化出一只<%= potText(locale) %>宠物。",
     "premiumPotionAddlNotes": "无法在任务奖励宠物蛋上使用",
     "foodMeat": "肉",
@@ -218,5 +219,6 @@
     "foodCandyRed": "肉桂糖",
     "foodSaddleText": "鞍",
     "foodSaddleNotes": "即时把你的一只宠物变成坐骑。",
+    "foodSaddleSellWarningNote": "嗨! 這是個有用的用品啊! 你知道怎样去把鞍用在你的寵物上嗎?",
     "foodNotes": "喂给宠物吃就会慢慢地长成健壮的坐骑。"
 }
