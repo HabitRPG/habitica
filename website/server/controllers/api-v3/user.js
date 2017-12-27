@@ -1976,7 +1976,7 @@ api.movePinnedItem = {
 
     // user.pinnedItems contain items with ids defined as UUID objects,
     // to compare with our API call we will cast it into a string
-    let currentIndex = user.pinnedItems.findIndex(item => item.path === path );
+    let currentIndex = user.pinnedItems.findIndex(item => item.path === path);
     let currentPinnedItem = user.pinnedItems[currentIndex];
 
     // remove the item
