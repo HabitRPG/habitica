@@ -523,7 +523,6 @@ export default {
 
       // Server
       let newOrder = await this.$store.dispatch('user:movePinnedItem', {
-        type: rewardToMove.pinType, // user.pinnedItems uses pinType data under the type field
         path: rewardToMove.path,
         position: data.newIndex,
       });

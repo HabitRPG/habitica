@@ -1944,7 +1944,6 @@ api.togglePinnedItem = {
  * @apiName MovePinnedItem
  * @apiGroup User
  *
- * @apiParam (Path) {String} type is the type of reward used int he shop
  * @apiParam (Path) {String} path The unique item path used for pinning
  * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
  *
@@ -1957,10 +1956,9 @@ api.togglePinnedItem = {
  */
 api.movePinnedItem = {
   method: 'POST',
-  url: '/user/move-pinned-item/:type/:path/move/to/:position',
+  url: '/user/move-pinned-item/:path/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('type', res.t('taskIdRequired')).notEmpty();
     req.checkParams('path', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
@@ -1968,7 +1966,6 @@ api.movePinnedItem = {
     if (validationErrors) throw validationErrors;
 
     let user = res.locals.user;
-    let type = req.params.type;
     let path = req.params.path;
     let position = Number(req.params.position);
 

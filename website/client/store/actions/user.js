@@ -107,7 +107,7 @@ export function togglePinnedItem (store, params) {
 }
 
 export async function movePinnedItem (store, params) {
-  let response = await axios.post(`/api/v3/user/move-pinned-item/${params.type}/${params.path}/move/to/${params.position}`);
+  let response = await axios.post(`/api/v3/user/move-pinned-item/${params.path}/move/to/${params.position}`);
   return response.data.data;
 }
 
