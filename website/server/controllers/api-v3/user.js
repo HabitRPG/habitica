@@ -1939,24 +1939,19 @@ api.togglePinnedItem = {
   },
 };
 
-// TODO - under construction >>
-// TODO - needs unit test
-// TODO there isn't a top or bottom so we shouldn't check for that...
-// TODO - update api comment example... i am not sure at the moment what that is
-// TODO - these documentations are all wrong, update the comments!
-
 /**
  * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
  * @apiName MovePinnedItem
- * @apiGroup Task
+ * @apiGroup User
  *
- * @apiParam (Path) {String} rewardId The unique item UUID for the pinned item
+ * @apiParam (Path) {String} type is the type of reward used int he shop
+ * @apiParam (Path) {String} path The unique item path used for pinning
  * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
  *
  * @apiSuccess {Array} data The new pinned items order.
  *
  * @apiSuccessExample {json}
- * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b","2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],"notifications":[]}
+ * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests","_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
  *
  * @apiUse TaskNotFound
  */
@@ -2000,7 +1995,5 @@ api.movePinnedItem = {
     res.respond(200, userJson.pinnedItems);
   },
 };
-
-// TODO - << under construction
 
 module.exports = api;
