@@ -4,14 +4,17 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
     div(v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(v-if='notificationsTopBadgeCount > 0', :count="notificationsTopBadgeCount", :top="true")
       .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
-  div(slot="dropdown-content", @click.stop="")
-    .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center
+  div(slot="dropdown-content")
+    .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center(
+      @click.stop=""
+    )
       .d-flex.align-items-center
         h4.dropdown-title(v-once) {{ $t('notifications') }}
         div
           span.badge.badge-pill.badge-default {{ notificationsCount }}
       a.small-link.standard-link(@click="dismissAll") {{ $t('dismissAll') }}
-    notification-item(
+    component(
+      :is="notification.type",
       v-for="notification in notifications",
       :notification="notification",
       :can-remove="!isActionable(notification)",
@@ -87,13 +90,32 @@ import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
-import NotificationItem from './notificationItem';
+
+// Notifications
+import NEW_STUFF from './notifications/newStuff';
+import GROUP_TASK_NEEDS_WORK from './notifications/groupTaskNeedsWork';
+import GUILD_INVITATION from './notifications/guildInvitation';
+import PARTY_INVITATION from './notifications/partyInvitation';
+import CHALLENGE_INVITATION from './notifications/challengeInvitation';
+import QUEST_INVITATION from './notifications/questInvitation';
+import GROUP_TASK_APPROVAL from './notifications/groupTaskApproval';
+import GROUP_TASK_APPROVED from './notifications/groupTaskApproved';
+import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
+import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
+import CARD_RECEIVED from './notifications/cardReceived';
+import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
+import NEW_GROUP_MESSAGE from './notifications/newGroupMessage';
 
 export default {
   components: {
     MenuDropdown,
     MessageCount,
-    NotificationItem,
+    // One component for each type
+    NEW_STUFF, GROUP_TASK_NEEDS_WORK,
+    GUILD_INVITATION, PARTY_INVITATION, CHALLENGE_INVITATION,
+    QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED,
+    UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
+    NEW_INBOX_MESSAGE, NEW_GROUP_MESSAGE,
   },
   data () {
     return {
@@ -211,7 +233,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      readNotification: 'notifications:readNotification',
       readNotifications: 'notifications:readNotifications',
       seeNotifications: 'notifications:seeNotifications',
     }),
@@ -354,12 +375,6 @@ export default {
     async questReject (partyId) {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
       this.user.party.quest = quest;
-    },
-    showProfile () {
-      this.$root.$emit('habitica:show-profile', {
-        user: this.user,
-        startingPage: 'stats',
-      });
     },
     */
   },

@@ -1,0 +1,87 @@
+<template lang="pug">
+.notification.dropdown-item.dropdown-separated.d-flex.justify-content-between(
+  @click="$emit('click')"
+)
+  .notification-icon.d-flex.justify-content-center.align-items-center(v-if="hasIcon")
+    slot(name="icon")
+  .notification-content
+    slot(name="content")
+  .notification-remove.svg-icon(
+    v-if="canRemove", 
+    v-html="icons.close", 
+    @click.stop="readNotification({notificationId: notification.id})",
+  )
+</template>
+
+<style lang="scss"> // Not scoped because the classes could be used in i18n strings
+@import '~client/assets/scss/colors.scss';
+
+.notification-bold-blue {
+  font-weight: bold;
+  color: $blue-10;
+}
+</style>
+
+<style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
+
+.notification {
+  width: 378px;
+  max-width: 100%;
+  padding: 9px 24px 10px 24px;
+  overflow: hidden;
+
+  &:active, &:hover {
+    color: inherit;
+  }
+}
+
+.notification-icon {
+  height: 31px;
+  width: 32px;
+  margin-right: 16px;
+}
+
+.notification-content {
+  // total distance from notification top and bottom edges are 15 and 16 pixels
+  margin-top: 6px;
+  margin-bottom: 6px;
+
+  flex-grow: 1;
+  white-space: normal;
+
+  font-size: 14px;
+  line-height: 1.43;
+  color: $gray-50;
+}
+
+.notification-remove {
+  // total distance from the notification top edge is 20 pixels
+  margin-top: 11px;
+
+  width: 10px;
+  height: 10px;
+  margin-left: 16px;
+}
+</style>
+
+<script>
+import closeIcon from 'assets/svg/close.svg';
+import { mapActions } from 'client/libs/store';
+
+export default {
+  props: ['notification', 'canRemove', 'hasIcon'],
+  data () {
+    return {
+      icons: Object.freeze({
+        close: closeIcon,
+      }),
+    };
+  },
+  methods: {
+    ...mapActions({
+      readNotification: 'notifications:readNotification',
+    }),
+  },
+};
+</script>

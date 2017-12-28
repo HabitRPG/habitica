@@ -131,7 +131,6 @@
   "invalidClass":"Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
   "levelPopover": "Each level earns you one point to assign to an attribute of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
   "unallocated": "Unallocated Attribute Points",
-  "haveUnallocated": "You have <%= points %> unallocated Attribute Point(s)",
   "autoAllocation": "Automatic Allocation",
   "autoAllocationPop": "Places points into attributes according to your preferences, when you level up.",
   "evenAllocation": "Distribute attribute points evenly",
