@@ -163,6 +163,7 @@
     "dieText": "Ye've lost a Level, all ye Doubloons, 'n a random piece 'o Equipment. Arise, Habiteer, 'n give a go' again! Curb them negative Habits, be vigilant in completion 'o Dailies, 'n hold Davy Jones' locker at arm's length wit' a Health Potion if ye falter!",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Purchase fer <%= cost %> Sapphires?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Not enough mana.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "Ye cast <%= spell %>.",

@@ -8,9 +8,7 @@
       .form-group(v-if='workingGroup.id && members.length > 0')
         label
           strong(v-once) {{$t('guildOrPartyLeader')}} *
-        select.form-control(v-model="workingGroup.newLeader")
-          option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
-
+        group-member-search-dropdown(:text="currentLeader", :members='members', :groupId='workingGroup.id', @member-selected='selectNewLeader')
       .form-group
         label
           strong(v-once) {{$t('privacySettings')}} *
@@ -170,6 +168,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import groupMemberSearchDropdown from 'client/components/members/groupMemberSearchDropdown';
 import markdownDirective from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
@@ -185,6 +184,7 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 export default {
   components: {
     toggleSwitch,
+    groupMemberSearchDropdown,
   },
   directives: {
     markdown: markdownDirective,
@@ -307,16 +307,12 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
-    potentialLeaders () {
-      let leaders = [{ _id: this.user._id, name: this.user.profile.name }];
-      // @TODO consider pushing all recent posters to the top of the list if they are guild members - more likely to be the ones the leader wants to see (and then ignore them in the while below)
-      let i = 0;
-      while (this.members[i]) {
-        let memb = this.members[i];
-        i++;
-        if (memb._id !== this.user._id) leaders.push({_id: memb._id, name: memb.profile.name});
-      }
-      return leaders;
+    currentLeader () {
+      const currentLeader = this.members.find(member => {
+        return member._id === this.workingGroup.newLeader;
+      });
+      const currentLeaderName = currentLeader.profile ? currentLeader.profile.name : '';
+      return currentLeaderName;
     },
   },
   watch: {
@@ -356,6 +352,9 @@ export default {
     },
   },
   methods: {
+    selectNewLeader (member) {
+      this.workingGroup.newLeader = member._id;
+    },
     async getMembers () {
       if (!this.workingGroup.id) return;
       let members = await this.$store.dispatch('members:getGroupMembers', {

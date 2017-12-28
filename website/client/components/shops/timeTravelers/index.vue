@@ -310,15 +310,6 @@
           return c.identifier === 'mounts' || c.identifier === 'pets';
         });
 
-        normalGroups.map((group) => {
-          group.items = group.items.map((item) => {
-            return {
-              ...item,
-              class: `shop_${group.identifier}_${item.key}`,
-            };
-          });
-        });
-
         let setGroups = _filter(apiCategories, (c) => {
           return c.identifier !== 'mounts' && c.identifier !== 'pets';
         });

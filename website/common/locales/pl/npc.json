@@ -88,7 +88,7 @@
     "plusOneGem": "+1 klejnot",
     "typeNotSellable": "Gatunek nie jest na sprzedaż. Musi być jednym z <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Klawisz nie został znaleziony dla user.items <%= type %>",
-    "userItemsNotEnough": "Nie wystarczająca ilość <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Ścieżka jest wymagana",
     "unlocked": "Przedmioty zostały odblokowane",
     "alreadyUnlocked": "Pełen zestaw jest już odblokowany.",

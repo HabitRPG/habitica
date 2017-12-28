@@ -1,5 +1,6 @@
 import {
   createAndPopulateGroup,
+  generateUser,
   translate as t,
   sleep,
   server,
@@ -361,6 +362,24 @@ describe('POST /chat', () => {
     let message = await user.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
 
     expect(message.message.id).to.exist;
+  });
+
+  it('adds backer info to chat', async () => {
+    const backerInfo = {
+      npc: 'Town Crier',
+      tier: 800,
+      tokensApplied: true,
+    };
+    const backer = await generateUser({
+      backer: backerInfo,
+    });
+
+    const message = await backer.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const messageBackerInfo = message.message.backer;
+
+    expect(messageBackerInfo.npc).to.equal(backerInfo.npc);
+    expect(messageBackerInfo.tier).to.equal(backerInfo.tier);
+    expect(messageBackerInfo.tokensApplied).to.equal(backerInfo.tokensApplied);
   });
 
   it('sends group chat received webhooks', async () => {

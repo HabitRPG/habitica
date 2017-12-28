@@ -127,5 +127,7 @@
     "locationRequired": "Zuordnung des Wettbewerbs ist erforderlich (Füge hinzu)",
     "categoiresRequired": "Eine oder mehr Kategorien müssen ausgewählt sein",
     "viewProgressOf": "Fortschritt Ansehen Von",
-    "selectMember": "Ein Mitglied Auswählen"
+    "selectMember": "Ein Mitglied Auswählen",
+    "confirmKeepChallengeTasks": "Möchtest Du die Wettbewerbsaufgaben behalten?",
+    "selectParticipant": "Select a Participant"
 }

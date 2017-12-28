@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Skimmer",
     "hatchingPotionFairy": "Älva",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Häll den här på ett ägg, så kläcks det som ett <%= potText(locale) %> husdjur.",
     "premiumPotionAddlNotes": "Kan ej användas på ägg till uppdragshusdjur",
     "foodMeat": "Kött",
@@ -218,5 +219,6 @@
     "foodCandyRed": "Kanelgodis",
     "foodSaddleText": "Sadel",
     "foodSaddleNotes": "Gör direkt ett av dina husdjur till springare.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Mata det här till ett djur så kanske det växer upp till en stadig springare."
 }

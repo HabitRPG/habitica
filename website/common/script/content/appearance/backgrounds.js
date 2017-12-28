@@ -591,6 +591,20 @@ let backgrounds = {
       notes: t('backgroundTornadoNotes'),
     },
   },
+  backgrounds122017: {
+    crosscountry_ski_trail: {
+      text: t('backgroundCrosscountrySkiTrailText'),
+      notes: t('backgroundCrosscountrySkiTrailNotes'),
+    },
+    starry_winter_night: {
+      text: t('backgroundStarryWinterNightText'),
+      notes: t('backgroundStarryWinterNightNotes'),
+    },
+    toymakers_workshop: {
+      text: t('backgroundToymakersWorkshopText'),
+      notes: t('backgroundToymakersWorkshopNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

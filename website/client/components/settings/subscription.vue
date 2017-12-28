@@ -69,7 +69,7 @@
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
           .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
-          small(v-if='!canCancelSubscription', v-html='getCancelSubInfo()')
+          small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
@@ -90,6 +90,11 @@
           li {{ $t('giftSubscriptionText2') }}
           li {{ $t('giftSubscriptionText3') }}
         h4 {{ $t('giftSubscriptionText4') }}
+      .col-6
+        h2 {{ $t('winterPromoGiftHeader') }}
+        p {{ $t('winterPromoGiftDetails1') }}
+        p {{ $t('winterPromoGiftDetails2') }}
+
 </template>
 
 <style scoped>
@@ -260,8 +265,9 @@ export default {
       subs.google_6mo.discount = false;
     },
     getCancelSubInfo () {
-      // @TODO: String 'cancelSubInfoGroup Plan' not found. ?
-      return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
+      let payMethod = this.user.purchased.plan.paymentMethod || '';
+      if (payMethod === 'Group Plan') payMethod = 'GroupPlan';
+      return this.$t(`cancelSubInfo${payMethod}`);
     },
   },
 };

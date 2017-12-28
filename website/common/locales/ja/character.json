@@ -163,6 +163,7 @@
     "dieText": "レベルが1下がり、すべてのゴールドといくつかの装備品を失ってしまいました。Habitica の民よ、復活せよ!　悪い習慣をひかえ、日課をこなすことに気を配り、つまずいても体力回復の薬を使って、死の手が届かぬよう、もちこたえましょう!",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "<%= cost %> ジェムで購入しますか?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "マナが足りません。",
     "invalidTarget": "その対象にスキルを唱えることはできません。",
     "youCast": "<%= spell %>をかけました。",

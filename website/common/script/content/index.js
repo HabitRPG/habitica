@@ -46,7 +46,7 @@ api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 
-api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme'];
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'pizildenTheme', 'maflTheme'];
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
@@ -118,6 +118,21 @@ api.bundles = {
     ],
     canBuy () {
       return moment().isBetween('2017-10-10', '2017-11-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  winterQuests: {
+    key: 'winterQuests',
+    text: t('winterQuestsText'),
+    notes: t('winterQuestsNotes'),
+    bundleKeys: [
+      'evilsanta',
+      'evilsanta2',
+      'penguin',
+    ],
+    canBuy () {
+      return moment().isBetween('2017-12-14', '2018-01-01');
     },
     type: 'quests',
     value: 7,
@@ -353,6 +368,7 @@ api.food = {
     canBuy () {
       return true;
     },
+    sellWarningNote: t('foodSaddleSellWarningNote'),
     text: t('foodSaddleText'),
     value: 5,
     notes: t('foodSaddleNotes'),

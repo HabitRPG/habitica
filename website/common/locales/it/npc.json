@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Gemma",
     "typeNotSellable": "L'oggetto non è in vendita. deve essere uno dei seguenti <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Non trovata la chiave per user.items <%= type %>",
-    "userItemsNotEnough": "Non sono stati trovati abbastanza oggetti per user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "È richiesta la stringa guida",
     "unlocked": "Sono disponibili nuovi oggetti",
     "alreadyUnlocked": "Set completo già sbloccato.",
