@@ -54,10 +54,12 @@ div
             .row.boss-details
                 .col-6
                   span.float-left
-                    | {{parseFloat(group.quest.progress.hp).toFixed(2)}} / {{parseFloat(questData.boss.hp).toFixed(2)}}
+                    | {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
+                    // current boss hp uses ceil so you don't underestimate damage needed to end quest
                 .col-6(v-if='userIsOnQuest')
-                  // @TODO: Why do we not sync quset progress on the group doc? Each user could have different progress
-                  span.float-right {{parseFloat(user.party.quest.progress.up).toFixed(1) || 0}} pending damage
+                  // @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.
+                  span.float-right {{ Math.floor(parseFloat(user.party.quest.progress.up) * 10) / 10 }} {{ $t('pendingDamage') }}
+                  // player's pending damage uses floor so you don't overestimate damage you've already done
             .row.rage-bar-row(v-if='questData.boss.rage')
               .col-12
                 .grey-progress-bar
