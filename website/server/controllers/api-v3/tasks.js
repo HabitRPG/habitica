@@ -708,14 +708,16 @@ api.moveTask = {
     moveTask(order, task._id, to);
 
     // Server updates
-    let updateQuery = { $pull: {}, $push: {} };
-
-    updateQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
+    // Cannot send $pull and $push on same field in one single op
+    let pullQuery = { $pull: {} };
+    pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
+    await user.update(pullQuery).exec();
 
     // Handle push to bottom
     let position = to;
     if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
 
+    let updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
       $each: [task._id],
       $position: position,
