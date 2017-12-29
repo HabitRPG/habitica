@@ -210,7 +210,7 @@ export default {
       if (error.response.status >= 400) {
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
           this.$store.dispatch('auth:logout');
         }
 
