@@ -196,9 +196,22 @@ spells.rogue = {
     lvl: 14,
     target: 'self',
     notes: t('spellRogueStealthNotes'),
-    cast (user) {
-      if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55));
+    cast(user) {
+      let type = 0;
+      switch (type) {
+        case 0: //current
+          if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
+            user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, user.tasksOrder.dailys.length * 0.64, 55));
+          break;
+        case 1: //TNychka's response
+          if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
+            user.stats.buffs.stealth += Math.ceil(diminishingReturns(user._statsComputed.per, (user.tasksOrder.dailys.length * 0.5) - user.stats.buffs.stealth, 55));
+          break;
+        case 2: //my idea- stealth calculates on cron, for the most accurate usage of the number of due dailies
+          if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
+            user.stats.buffs.stealth++;
+          break;
+      }
     },
   },
 };
