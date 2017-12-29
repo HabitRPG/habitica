@@ -25,9 +25,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         div
           button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
           button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
-      a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
-        span.glyphicon.glyphicon-gift
-        span {{ $t('newSubscriberItem') }}
       a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
         div
           span.glyphicon.glyphicon-user
