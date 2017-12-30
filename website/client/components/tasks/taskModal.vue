@@ -146,7 +146,7 @@
         .option(v-if="task.type === 'daily' && isUserTask && purpose === 'edit'")
           .form-group
             label(v-once) {{ $t('restoreStreak') }}
-            input(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
+            input(type="number", v-model="task.streak", min="0", required)
 
         .option.group-options(v-if='groupId')
           label(v-once) Assigned To
