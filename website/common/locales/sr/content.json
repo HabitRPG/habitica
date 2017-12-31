@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Pospite ovo po jajetu, i iz njega će se izleći <%= potText(locale)  %> ljubimac.",
     "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
     "foodMeat": "Meso",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Cimet bombona",
     "foodSaddleText": "Sedlo",
     "foodSaddleNotes": "Pretvara Vašeg ljubimca u životinju za jahanje.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Hranite svog ljubimca, i on će izrasti u snažnog trkača."
 }

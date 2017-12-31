@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Toarnă aceasta pe un ou și va ecloza ca un companion <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Neutilizabil pe ouă de companioni obținute din expediții.",
     "foodMeat": "Carne",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Bomboană cu scorțișoară",
     "foodSaddleText": "Șa",
     "foodSaddleNotes": "Transformă instantaneu un companion într-un animal de călărit.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Hrănește cu asta un companion și e posibil să crească cât să-l poți călări"
 }

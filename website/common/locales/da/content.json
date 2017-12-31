@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Glimmer",
     "hatchingPotionFairy": "Fe",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Hæld på et æg, og det vil udklække til et <%= potText(locale) %> kæledyr.",
     "premiumPotionAddlNotes": "Kan ikke bruges på quest-æg.",
     "foodMeat": "Kød",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Kanelslik",
     "foodSaddleText": "Sadel",
     "foodSaddleNotes": "Gør øjeblikkeligt et af dine kæledyr til et ridedyr.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Giv dette til et kæledyr, så kan det vokse sig til en stolt ganger."
 }

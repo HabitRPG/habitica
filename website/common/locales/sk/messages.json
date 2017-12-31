@@ -29,7 +29,6 @@
     "messageFoundQuest": "Našiel si zvitok s popisom výpravy: \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tento výstroj si si kúpil v minulosti, ale momentálne ho nevlastníš. Môžeš si ho kúpiť znovu v stĺpci s odmenami na stránke s úlohami.",
     "messageAlreadyOwnGear": "Tento predmet už vlastníš. Vyzbroj sa ním na stránke s výstrojom. ",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Už máš maximum zdravia.",
     "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Našiel si časť vzácneho výstroja v skrini: <%= dropText %>! Úžasné!",

@@ -47,6 +47,7 @@ function sanitizeOptions (o) {
   }
 
   let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
+
   // return a new object, we don't want to add "now" to user object
   return {
     dayStart,

@@ -29,7 +29,6 @@
     "messageFoundQuest": "Ai găsit aventura \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Ai cumpărat acest echipament în trecut, dar momentan nu-l deții. Poți să-l cumperi din nou în coloana de răsplăți pe pagina cu sarcini.",
     "messageAlreadyOwnGear": "Deja deții acest articol. Echipează-l la pagina de echipamente.",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "You already have maximum health.",
     "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> Ai găsit o piesă rară de echipament în șifonier: <%= dropText %>! Grozav!",

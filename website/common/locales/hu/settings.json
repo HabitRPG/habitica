@@ -118,7 +118,6 @@
     "giftedSubscription": "Előfizetés ajándékozva",
     "giftedSubscriptionInfo": "<%= name %><%= months %>havi előfizetéssel ajándékozott meg",
     "giftedSubscriptionFull": "Üdv <%= username %>, <%= sender %><%= monthCount %>havi előfizetést küldött neked!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Meghívva egy csapatba",
     "invitedGuild": "Meghívva egy céhbe",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",

@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Resplandeciente",
     "hatchingPotionFairy": "Hada",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
     "foodMeat": "Carne",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Caramelo de canela",
     "foodSaddleText": "Silla de Montar",
     "foodSaddleNotes": "Convierte instantáneamente una de tus mascotas en una montura.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Dale esto a una mascota y puede convertirse en una robusta montura."
 }

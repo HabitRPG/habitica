@@ -555,7 +555,7 @@ api.exportChallengeCsv = {
         'challenge.id': challengeId,
         userId: {$exists: true},
       }).sort({userId: 1, text: 1})
-        .select('userId type text value notes streak')
+        .select('userId type text value notes')
         .lean().exec(),
     ]);
 
@@ -570,9 +570,7 @@ api.exportChallengeCsv = {
         index++;
       }
 
-      const streak = task.streak || 0;
-
-      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes, streak);
+      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
     });
 
     // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
@@ -580,7 +578,7 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
-    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes'));
 
     res.set({
       'Content-Type': 'text/csv',

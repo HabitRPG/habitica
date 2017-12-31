@@ -29,7 +29,6 @@
     "messageFoundQuest": "Du hittade uppdraget \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Du har köpt den här utrustning förrut, men äger den inte just nu. Du kan köpa den igen i belönings-kolumnen på uppgifts-sidan.",
     "messageAlreadyOwnGear": "Du äger redan det här föremålet. Utrusta dig med den genom att gå till utrustningssidan.",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Du har redan maximal hälsa.",
     "messageHealthAlreadyMin": "Åh nej! Din hälsa har redan tagit slut, så det är försent att köpa en Hälsodryck. Men oroa dig inte - du kan återuppliva dig själv!",
     "armoireEquipment": "<%= image %> Du hittade en bit sällsynt utrustning i vapenskåpet:  <%= dropText %>! Grymt!",

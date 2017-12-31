@@ -29,7 +29,6 @@
     "messageFoundQuest": "Našel jsi výpravu \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Tohle vybavení jsi si koupil už v minulosti, ale momentálně ho nevlastníš. Můžeš si ho koupit znovu ve sloupečku odměnu na stránce s úkoly.",
     "messageAlreadyOwnGear": "Tento předmět už máš. Vybav se jím na stránce s Vybavením.",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Už teď máš plné zdraví.",
     "messageHealthAlreadyMin": "Ach ne! Už nemáš žádné životy, takže je pozdě si kupovat lektvar života, ale neboj se - můžeš se oživit!",
     "armoireEquipment": "<%= image %> V almaře jsi našel kus vzácného vybavení ve Zbrojnici: <%= dropText %>! Skvělé!",

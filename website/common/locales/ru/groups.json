@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Вы собираетесь присоединиться к группе с отмененным групповым тарифом. Вы НЕ получите бесплатную подписку.",
     "cannotChangeLeaderWithActiveGroupPlan": "Вы не можете поменять лидера, пока ваш групповой тариф активен",
     "leaderCannotLeaveGroupWithActiveGroup": "Лидер не может покинуть группу, пока группа имеет активный групповой тариф",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "Вы получили бесплатную подписку, став участником группы с групповым тарифом. Подписка закончится, когда вы перестанете быть участником этой группы. Все время предварительно оплаченной подписки вернется по истечении группового тарифа.",
     "cancelGroupSub": "Отменить групповой тариф",
     "confirmCancelGroupPlan": "Вы уверены, что хотите отказаться от группового тарифа и снять его бонусы со всех членов группы, включая их право бесплатной подписки?",
     "canceledGroupPlan": "Групповой тариф отменен",
@@ -408,6 +408,5 @@
     "groupBilling": "Счёт группы",
     "wouldYouParticipate": "Хотите ли вы поучаствовать?",
     "managerAdded": "Менеджер успешно добавлен",
-    "managerRemoved": "Менеджер успешно удалён",
-    "leaderChanged": "Leader has been changed"
+    "managerRemoved": "Менеджер успешно удалён"
 }

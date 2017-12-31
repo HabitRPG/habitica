@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> 個のクエスト アイテムを発見",
     "questDamage": "+ <%= val %> のボスへのダメージ",
     "begin": "はじめる",
-    "bossHP": "Boss HP",
+    "bossHP": "ボスの体力",
     "bossStrength": "ボスの強さ",
     "rage": "激怒",
     "collect": "獲得",

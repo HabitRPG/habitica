@@ -58,7 +58,7 @@
     "questSpiderBoss": "Edderkop",
     "questSpiderDropSpiderEgg": "Edderkop (Æg)",
     "questSpiderUnlockText": "Åbner for køb af Edderkoppeæg på Markedet",
-    "questGroupVice": "Skyggedragen Last",
+    "questGroupVice": "Vice the Shadow Wyrm",
     "questVice1Text": "Last, del 1: Befri dig selv fra Dragens indflydelse.",
     "questVice1Notes": "<p>De siger at der lurer en frygtelig ondskab i grotterne under Habitica-bjerget. Et monster, hvis blotte tilstedeværelse knækker viljen hos landets stærke helte, og fylder dem med dårlige vaner og dovenskab! Bæstet er en enorm drage med enorme kræfter og består af skygger: Last, den forræderiske Skyggedrage. Modige Habitikanere, rejs jer og overvind dette forfærdelige bæst en gang for alle, men kun hvis I tror I kan klare jer imod dens enorm kræfte . </p><h3>Last, del 1: </h3><p>Hvordan skulle I kunne bekæmpe uhyret hvis I allerede er i dets magt? Lad jer ikke drukne i laster og dovenskab. Kæmp for at modarbejde dragens mørke indflydelse og befri jer for hans greb i jer!</p>",
     "questVice1Boss": "Lasts Skygge",
@@ -69,7 +69,7 @@
     "questVice2DropVice3Quest": "Last, del 3 (Skriftrulle)",
     "questVice3Text": "Last, Del 3: Last Vågner",
     "questVice3Notes": "Efter en svær tur finder gruppen Lasts hule. Det kæmpestore monster glor på jeres gruppe med afsky. En skygge hvirvler omkring jer, en stemme hvisker i dit hoved, \"Flere fjollede Habitikanere, der prøver at stoppe mig? Hvor nuttet. Det ville have været klogere, hvis I ikke var kommet.\" Den skællede gigant kaster hovedet tilbage og gør klar til at angribe. Dette er jeres chance! Kæmp med alt I har, og bekæmp Last én gang for alle!",
-    "questVice3Completion": "Skyggerne fortager sig og en skarp stilhed falder over grotten. Utroligt, I har gjort det! I har besejret Last! Du og dit hold kan endelig drage et lettelsens suk. Nyd jeres sejr, modige Habitører, men brug de ting, I har lært i jeres kamp mod Last, og drag fremad. Der er stadig vaner at opbygge og potentielt større fjender at overvinde! ",
+    "questVice3Completion": "The shadows dissipate from the cavern and a steely silence falls. My word, you've done it! You have defeated Vice! You and your party may finally breathe a sigh of relief. Enjoy your victory, brave Habiteers, but take the lessons you've learned from battling Vice and move forward. There are still Habits to be done and potentially worse evils to conquer!",
     "questVice3Boss": "Skyggedragen Last",
     "questVice3DropWeaponSpecial2": "Stephen Webers Drageskaft",
     "questVice3DropDragonEgg": "Drage (Æg)",
@@ -89,7 +89,7 @@
     "questMoonstone3Boss": "Nekro-Last",
     "questMoonstone3DropRottenMeat": "Råddent Kød (Mad)",
     "questMoonstone3DropZombiePotion": "Zombie Udrugningseliksir",
-    "questGroupGoldenknight": "Den Gyldne Ridder",
+    "questGroupGoldenknight": "The Golden Knight",
     "questGoldenknight1Text": "Den Gyldne Ridder, Del 1: Et Alvorsord",
     "questGoldenknight1Notes": "Den Gyldne Ridder har været efter de stakkels Habitikanere. Har du ikke fuldført alle dine Daglige? Har du udført en minus-vane? Hun vil finde enhver grund til at fortælle dig hvordan du bør følge hendes eksempel. Hun er et skinnende eksempel på en perfekt Habitikaner, og du er ikke andet end en fiasko. Det er faktisk ikke særlig sødt gjort! Alle laver fejl. De skal ikke møde sådan en negativ attitude på grund af det. Måske er det på tide, at du samler nogle vidneudsagn fra sårede Habitikanere og tager et alvorsord med Den Gyldne Ridder!",
     "questGoldenknight1CollectTestimony": "Vidneudsagn",
@@ -549,7 +549,5 @@
     "questYarnCompletion": "With a feeble swipe of a pin-riddled appendage and a weak roar, the Dread Yarnghetti finally unravels into a pile of yarn balls.<br><br>\"Take care of this yarn,\" shopkeeper @JinjooHat says, handing them to you. \"If you feed them and care for them properly, they'll grow into new and exciting projects that just might make your heart take flight…\"",
     "questYarnBoss": "The Dread Yarnghetti",
     "questYarnDropYarnEgg": "Yarn (Egg)",
-    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market",
-    "winterQuestsText": "Winter Quest Bundle",
-    "winterQuestsNotes": "Contains 'Trapper Santa', 'Find the Cub', and 'The Fowl Frost'. Available until December 31."
+    "questYarnUnlockText": "Unlocks purchasable Yarn eggs in the Market"
 }

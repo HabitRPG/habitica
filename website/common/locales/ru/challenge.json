@@ -12,7 +12,7 @@
     "unsubChallenge": "Разорвана связь с испытанием: это задание было частью испытания, которое вы покинули. Что делать с заданиями, входившими в это испытание?",
     "challengeWinner": "Победитель следующих испытаний",
     "challenges": "Испытания",
-    "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Испытания</a>",
+    "challengesLink": "<a href='http://ru.habitica.wikia.com/wiki/Испытания' target='_blank'>Испытания</a>",
     "noChallenges": "Пока нет доступных испытаний, посетите",
     "toCreate": "для создания нового.",
     "selectWinner": "Выбрать победителя и закрыть испытание:",
@@ -29,7 +29,7 @@
     "either": "Все",
     "createChallenge": "Создать испытание",
     "createChallengeAddTasks": "Добавить задание в испытание",
-    "createChallengeCloneTasks": "Клонировать задания испытания",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Добавить задачу",
     "discard": "Отменить",
     "challengeTitle": "Название испытания",
@@ -128,6 +128,5 @@
     "categoiresRequired": "Должна быть выбрана как минимум одна категория",
     "viewProgressOf": "Показать прогресс",
     "selectMember": "Выбрать учасника",
-    "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?",
-    "selectParticipant": "Выбрать участника"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

@@ -319,18 +319,18 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('guild invites', () => {
     it('returns an error when invited user is already invited to the group', async () => {
-      let userToInivite = await generateUser();
+      let userToInvite = await generateUser();
       await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInivite._id],
+        uuids: [userToInvite._id],
       });
 
       await expect(inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToInivite._id],
+        uuids: [userToInvite._id],
       }))
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInvitedToGroup'),
+        message: t('userAlreadyInvitedToGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
       });
     });
 
@@ -347,7 +347,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInGroup'),
+        message: t('userAlreadyInGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
       });
     });
 
@@ -407,7 +407,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyPendingInvitation'),
+        message: t('userAlreadyPendingInvitation', { userId: userToInvite._id, username: userToInvite.profile.name}),
       });
     });
 
@@ -426,7 +426,7 @@ describe('Post /groups/:groupId/invite', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInAParty'),
+        message: t('userAlreadyInAParty', { userId: userToInvite._id, username: userToInvite.profile.name}),
       });
     });
 

@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Flikkering",
     "hatchingPotionFairy": "Fee",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Giet dit over een ei, en er zal een <%= potText(locale) %> dierlijke metgezel uitkomen.",
     "premiumPotionAddlNotes": "Niet te gebruiken op eieren van queeste-huisdieren.",
     "foodMeat": "Vlees",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Kaneelsnoep",
     "foodSaddleText": "Zadel",
     "foodSaddleNotes": "Laat één van je dieren direct opgroeien tot een rijdier.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Voer dit aan een huisdier om het op te laten groeien tot een robuust ros."
 }

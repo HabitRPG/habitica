@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, vous êtes une personne géniale ! Vous êtes maintenant un contributeur d'échelon <%= level %> pour avoir aidé Habitica. Allez voir",
     "contribLink": "quelles récompenses vous avez gagnées grâce à votre contribution !",
     "contribName": "Contributeur",
-    "contribText": "A contribué au développement d'Habitica, soit en code, dessin, pixel art, musique, écriture, ou d'autres méthodes. Pour apprendre davantage, joignez le guilde des légendes aspirant! ",
+    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
     "readMore": "Plus d'informations",
     "kickstartName": "Soutien Kickstarter - Palier <%= key %>$",
     "kickstartText": "A soutenu le projet Kickstarter",

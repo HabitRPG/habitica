@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest-genstand(e) fundet",
     "questDamage": "+ <%= val %> skade til boss",
     "begin": "Begynd",
-    "bossHP": "Boss HP",
+    "bossHP": "Boss Liv",
     "bossStrength": "Boss-styrke",
     "rage": "Vrede",
     "collect": "Saml",

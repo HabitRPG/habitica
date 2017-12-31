@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Eros",
     "hatchingPotionShimmer": "Parıltılı",
     "hatchingPotionFairy": "Peri",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Bunu yumurtanın üstüne döktüğünde <%= potText(locale) %> türünde bir hayvan çıkacak.",
     "premiumPotionAddlNotes": "Görev yumurtalarıyla kullanılamaz.",
     "foodMeat": "Et",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Tarçınlı Şeker",
     "foodSaddleText": "Eyer",
     "foodSaddleNotes": "Hayvanlarından birini anında bir bineğe dönüştürür.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Bunu bir hayvana yedirdiğinde, kuvvetli bir bineğe dönüşebilir."
 }

@@ -29,7 +29,6 @@
     "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
     "messageAlreadyPurchasedGear": "以前にこの装備を購入しましたが、いまはもっていません。タスク ページの「ごほうび」からもう一度買えます。",
     "messageAlreadyOwnGear": "このアイテムをすでに持っています。所持品のページに行って装備して下さい。",
-    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "体力はすでに最大です。",
     "messageHealthAlreadyMin": "ああ、なんてこと！　すでに体力が尽きているので、今から体力回復の薬を買っても仕方ありません。でも心配しないでください ー あなたは復活できます！",
     "armoireEquipment": "<%= image %>宝箱に貴重な装備を見つけました : <%= dropText %>! 素晴らしい!",

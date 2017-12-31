@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "Está prestes a juntar-se a um grupo cujo plano está cancelado. Não receberá uma subscrição gratuita.",
     "cannotChangeLeaderWithActiveGroupPlan": "Não pode mudar o líder do grupo enquanto este tiver um plano ativo.",
     "leaderCannotLeaveGroupWithActiveGroup": "Um líder não pode sair do grupo enquanto este tem um plano ativo.",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "Tem uma subscrição gratuita porque é membro de um grupo que tem um Plano de Grupo. Isto terminará quando deixar de fazer parte desse mesmo grupo. Quaisquer meses de crédito extra de subscrição que tenha será aplicado no final do plano de grupo.",
     "cancelGroupSub": "Cancelar Plano de Grupo",
     "confirmCancelGroupPlan": "Tem a certeza que quer cancelar o plano de grupo e remover os benefícios associados a todos os membros, incluindo as suas subscrições gratuitas?",
     "canceledGroupPlan": "Plano de Grupo Cancelado",
@@ -408,6 +408,5 @@
     "groupBilling": "Group Billing",
     "wouldYouParticipate": "Would you like to participate?",
     "managerAdded": "Manager added successfully",
-    "managerRemoved": "Manager removed successfully",
-    "leaderChanged": "Leader has been changed"
+    "managerRemoved": "Manager removed successfully"
 }

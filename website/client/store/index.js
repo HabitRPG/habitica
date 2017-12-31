@@ -91,6 +91,10 @@ export default function () {
         startingPage: '',
         subPage: '',
       },
+      flagChatOptions: {
+        message: {},
+        groupId: '',
+      },
       challengeOptions: {
         cloning: false,
         tasksToClone: {},

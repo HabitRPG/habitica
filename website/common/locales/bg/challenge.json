@@ -128,6 +128,5 @@
     "categoiresRequired": "Задължително е да бъде избрана поне една категория",
     "viewProgressOf": "Преглед на напредъка на",
     "selectMember": "Изберете член",
-    "confirmKeepChallengeTasks": "Искате ли да задържите задачите от предизвикателството?",
-    "selectParticipant": "Изберете участник"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
 }

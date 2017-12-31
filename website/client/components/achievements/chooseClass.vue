@@ -163,30 +163,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_special_winter2018Rogue',
-          head: 'head_special_winter2018Rogue',
-          shield: 'shield_special_winter2018Rogue',
-          weapon: 'weapon_special_winter2018Rogue',
+          armor: 'armor_rogue_5',
+          head: 'head_rogue_5',
+          shield: 'shield_rogue_6',
+          weapon: 'weapon_rogue_6',
         };
       } else if (heroClass === 'wizard') {
         return {
-          armor: 'armor_special_winter2018Mage',
-          head: 'head_special_winter2018Mage',
-          weapon: 'weapon_special_winter2018Mage',
+          armor: 'armor_wizard_5',
+          head: 'head_wizard_5',
+          weapon: 'weapon_wizard_6',
         };
       } else if (heroClass === 'healer') {
         return {
-          armor: 'armor_special_winter2018Healer',
-          head: 'head_special_winter2018Healer',
-          shield: 'shield_special_winter2018Healer',
-          weapon: 'weapon_special_winter2018Healer',
+          armor: 'armor_healer_5',
+          head: 'head_healer_5',
+          shield: 'shield_healer_5',
+          weapon: 'weapon_healer_6',
         };
       } else {
         return {
-          armor: 'armor_special_winter2018Warrior',
-          head: 'head_special_winter2018Warrior',
-          shield: 'shield_special_winter2018Warrior',
-          weapon: 'weapon_special_winter2018Warrior',
+          head: 'head_warrior_5',
+          weapon: 'weapon_warrior_6',
+          shield: 'shield_warrior_5',
+          armor: 'armor_warrior_5',
         };
       }
     },

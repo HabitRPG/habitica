@@ -6,15 +6,9 @@ let apiV3Prefix = '/api/v3';
 
 export async function getGroupMembers (store, payload) {
   let url = `${apiV3Prefix}/groups/${payload.groupId}/members`;
-
   if (payload.includeAllPublicFields) {
     url += '?includeAllPublicFields=true';
   }
-
-  if (payload.searchTerm) {
-    url += `?search=${payload.searchTerm}`;
-  }
-
   let response = await axios.get(url);
   return response.data.data;
 }

@@ -540,7 +540,7 @@ api.updatePassword = {
 
 /**
  * @api {post} /api/v3/user/reset-password Reset password
- * @apiDescription Send the user an email to let them reset their password
+ * @apiDescription Reset the user password
  * @apiName ResetPassword
  * @apiGroup User
  *

@@ -9,7 +9,7 @@
   )
   .col-12
     .row.tasks-navigation
-      .col-12.col-md-4.offset-md-4
+      .col-4.offset-4
         .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
@@ -286,13 +286,6 @@
       .btn-filters-secondary {
         color: $gray-300;
       }
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    .filter-panel {
-      max-width: none;
-      left: 0px;
     }
   }
 </style>

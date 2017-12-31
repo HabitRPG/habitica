@@ -184,7 +184,6 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
-    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Vylej tento elixír na vajíčko a vyliahne sa z neho <%= potText(locale) %> zvieratko.",
     "premiumPotionAddlNotes": "Nedá sa použiť na vajíčka zvieratiek z výprav.",
     "foodMeat": "Mäso",
@@ -219,6 +218,5 @@
     "foodCandyRed": "Škoricový cukrík",
     "foodSaddleText": "Sedlo",
     "foodSaddleNotes": "Ihneď vychová z tvojho zvieratka tátoša.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Nakŕm touto pochúťkou svoje zvieratko, aby z neho vyrástol zdatný tátoš."
 }

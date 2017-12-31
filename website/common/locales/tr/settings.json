@@ -118,7 +118,6 @@
     "giftedSubscription": "Hediye Edilen Abonelik",
     "giftedSubscriptionInfo": "<%= name %> sana <%= months %> aylık bir abonelik hediye etti",
     "giftedSubscriptionFull": "Merhaba <%= username %>, <%= sender %> sana <%= monthCount %> aylık bir abonelik gönderdi!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Takıma Davet Edildin",
     "invitedGuild": "Loncaya Davet Edildin",
     "importantAnnouncements": "Tamamlanmış işleri işaretlemen ve ödüller kazanman için hatırlatmalar",
