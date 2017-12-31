@@ -900,6 +900,8 @@
     "headSpecialFall2017MageNotes": "Quando compari con questo cappello piumato, lascerai tutti a domandarsi l'identità di quel magico sconosciuto nella stanza! Aumenta la Percezione di <%= per %>. Edizione limitata, autunno 2017.",
     "headSpecialFall2017HealerText": "Elmo della Casa Infestata",
     "headSpecialFall2017HealerNotes": "Invita spiriti spaventosi e creature amichevoli a cercare i tuoi poteri da guaritore in questo elmo! Aumenta l'Intelligenza di <%= int %>. Edizione limitata, autunno 2017.",
+    "headSpecialNye2017Text": "Fanciful Party Hat",
+    "headSpecialNye2017Notes": "You've received a Fanciful Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2018RogueText": "Reindeer Helm",
     "headSpecialWinter2018RogueNotes": "The perfect holiday disguise, with a built-in headlight! Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
     "headSpecialWinter2018WarriorText": "Giftbox Helm",

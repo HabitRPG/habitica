@@ -900,6 +900,8 @@
     "headSpecialFall2017MageNotes": "Когда вы появитесь в этой шляпе с пером, все будут гадать, кто же этот маг-незнакомец в комнате! Увеличивает восприятие на <%= per %>. Ограниченный выпуск осени 2017.",
     "headSpecialFall2017HealerText": "Шлем из дома с привидениями",
     "headSpecialFall2017HealerNotes": "Пригласите зловещих призраков и дружественных существ найти ваши целительные силы в этом шлеме! Увеличивает интеллект на <%= int %>. Ограниченный выпуск осени 2017.",
+    "headSpecialNye2017Text": "Fanciful Party Hat",
+    "headSpecialNye2017Notes": "You've received a Fanciful Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2018RogueText": "Reindeer Helm",
     "headSpecialWinter2018RogueNotes": "The perfect holiday disguise, with a built-in headlight! Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
     "headSpecialWinter2018WarriorText": "Giftbox Helm",
