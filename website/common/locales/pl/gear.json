@@ -900,6 +900,8 @@
     "headSpecialFall2017MageNotes": "When you appear in this feathery hat, everyone will be left guessing the identity of the magical stranger in the room! Increases Perception by <%= per %>. Limited Edition 2017 Autumn Gear.",
     "headSpecialFall2017HealerText": "Nawiedzony Dom Hełm",
     "headSpecialFall2017HealerNotes": "Invite spooky spirits and friendly creatures to seek your healing powers in this helm! Increases Intelligence by <%= int %>. Limited Edition 2017 Autumn Gear.",
+    "headSpecialNye2017Text": "Fanciful Party Hat",
+    "headSpecialNye2017Notes": "You've received a Fanciful Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2018RogueText": "Reindeer Helm",
     "headSpecialWinter2018RogueNotes": "The perfect holiday disguise, with a built-in headlight! Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
     "headSpecialWinter2018WarriorText": "Giftbox Helm",
