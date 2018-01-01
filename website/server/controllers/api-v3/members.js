@@ -29,11 +29,67 @@ let api = {};
  * @apiName GetMember
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} memberId The member's id
+ * @apiParam {UUID} memberId The member's id
  *
  * @apiSuccess {Object} data The member object
  *
- * @apiUse UserNotFound
+ * @apiSuccess (Object) data.inbox Basic information about person's inbox
+ * @apiSuccess (Object) data.stats Includes current stats and buffs
+ * @apiSuccess (Object) data.profile Includes name
+ * @apiSuccess (Object) data.preferences Includes info about appearance and public prefs
+ * @apiSuccess (Object) data.party Includes basic info about current party and quests
+ * @apiSuccess (Object) data.items Basic inventory information includes quests, food, potions, eggs, gear, special items
+ * @apiSuccess (Object) data.achievements Lists current achievements
+ * @apiSuccess (Object) data.auth Includes latest timestamps
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *  "success": true,
+ *  "data": {
+ *    "_id": "99999999-9999-9999-9999-8f14c101aeff",
+ *    "inbox": {
+ *      "optOut": false
+ *    },
+ *    "stats": {
+ *    ---INCLUDES STATS AND BUFFS---
+ *    },
+ *    "profile": {
+ *      "name": "Ezra"
+ *    },
+ *    "preferences": {
+ *      ---INCLUDES INFO ABOUT APPEARANCE AND PUBLIC PREFS---
+ *    },
+ *    "party": {
+ *      "_id": "12345678-0987-abcd-82a6-837c81db4c1e",
+ *      "quest": {
+ *        "RSVPNeeded": false,
+ *        "progress": {}
+ *      },
+ *    },
+ *    "items": {
+ *      "lastDrop": {
+ *        "count": 0,
+ *        "date": "2017-01-15T02:41:35.009Z"
+ *      },
+ *        ----INCLUDES QUESTS, FOOD, POTIONS, EGGS, GEAR, CARDS, SPECIAL ITEMS (E.G. SNOWBALLS)----
+ *      }
+ *    },
+ *    "achievements": {
+ *      "partyUp": true,
+ *      "habitBirthdays": 2,
+ *    },
+ *    "auth": {
+ *      "timestamps": {
+ *        "loggedin": "2017-03-05T12:30:54.545Z",
+ *        "created": "2017-01-12T03:30:11.842Z"
+ *      }
+ *    },
+ *    "id": "99999999-9999-9999-9999-8f14c101aeff"
+ *  }
+ * }
+ *)
+ * @apiError (400) {BadRequest} InvalidReuesParameters "Member" must be a valid UUID.
+ * @apiError (404) {NotFound} NotFound User with id "__ID SPECIFIED_" not found.
  */
 api.getMember = {
   method: 'GET',
@@ -301,13 +357,26 @@ function _getMembersForItem (type) {
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
+ * @apiParam {UUID} groupId The group id
+ * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam {boolean} includeAllPublicFields Query parameter available only when fetching a party. If === `true` then all public fields for members will be returned (like when making a request for a single member)
  *
- * @apiSuccess {Array} data An array of members, sorted by _id
- * @apiUse ChallengeNotFound
- * @apiUse GroupNotFound
+ * @apiSuccess {array} data An array of members, sorted by _id
+ *
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "_id": "00000001-1111-9999-9000-111111111111",
+ *       "profile": {
+ *         "name": "Jiminy"
+ *       },
+ *       "id": "00000001-1111-9999-9000-111111111111"
+ *     },
+ *  }
+ *
+ * @apiError (404) {NotFound} NotFound Group not found or you don't have access.
  */
 api.getMembersForGroup = {
   method: 'GET',
@@ -322,13 +391,26 @@ api.getMembersForGroup = {
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
+ * @apiParam {UUID} groupId The group id
+ * @apiParam {UUID} lastId Query parameter to specify the last invite returned in a previous request to this route and get the next batch of results
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
- * @apiUse ChallengeNotFound
- * @apiUse GroupNotFound
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "_id": "99f3cb9d-4af8-4ca4-9b82-6b2a6bf59b7a",
+ *       "profile": {
+ *         "name": "DoomSmoocher"
+ *       },
+ *       "id": "99f3cb9d-4af8-4ca4-9b82-6b2a6bf59b7a"
+ *     }
+ *   ]
+ * }
+ *
+ * @apiError (404) {NotFound} NotFound Group not found or you don't have access.
  */
 api.getInvitesForGroup = {
   method: 'GET',
@@ -347,13 +429,13 @@ api.getInvitesForGroup = {
  * @apiName GetMembersForChallenge
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} challengeId The challenge id
- * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
- * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
-
- * @apiSuccess {Array} data An array of members, sorted by _id
+ * @apiParam {UUID} challengeId The challenge id
+ * @apiParam {UUID} lastId Query parameter to specify the last member returned in a previous request to this route and get the next batch of results
+ * @apiParam {String} includeAllMembers BETA Query parameter - If 'true' all challenge members are returned
  *
- * @apiUse ChallengeNotFound
+ * @apiSuccess {array} data An array of members, sorted by _id
+ *
+ * @apiError (404) {NotFound} NotFound Group not found or you don't have access.
  * @apiUse GroupNotFound
  */
 api.getMembersForChallenge = {
@@ -368,13 +450,54 @@ api.getMembersForChallenge = {
  * @apiName GetChallengeMemberProgress
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} challengeId The challenge _id
- * @apiParam (Path) {UUID} memberId The member _id
+ * @apiParam {UUID} challengeId The challenge _id
+ * @apiParam {UUID} member The member _id
  *
  * @apiSuccess {Object} data Return an object with member _id, profile.name and a tasks object with the challenge tasks for the member
  *
- * @apiUse ChallengeNotFound
- * @apiUse UserNotFound
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "data": {
+ *     "_id": "b0413351-405f-416f-8787-947ec1c85199",
+ *     "profile": {"name": "MadPink"},
+ *     "tasks": [
+ *       {
+ *         "_id": "9cd37426-0604-48c3-a950-894a6e72c156",
+ *       "text": "Make sure the place where you sleep is quiet, dark, and cool.",
+ *         "updatedAt": "2017-06-17T17:44:15.916Z",
+ *         "createdAt": "2017-06-17T17:44:15.916Z",
+ *         "reminders": [],
+ *         "group": {
+ *           "approval": {
+ *             "requested": false,
+ *             "approved": false,
+ *             "required": false
+ *           },
+ *           "assignedUsers": []
+ *         },
+ *         "challenge": {
+ *           "taskId": "6d3758b1-071b-4bfa-acd6-755147a7b5f6",
+ *           "id": "4db6bd82-b829-4bf2-bad2-535c14424a3d",
+ *           "shortName": "Take This June 2017"
+ *         },
+ *         "attribute": "str",
+ *         "priority": 1,
+ *         "value": 0,
+ *         "notes": "",
+ *         "type": "todo",
+ *         "checklist": [],
+ *         "collapseChecklist": false,
+ *         "completed": false,
+ *       },
+ *         "startDate": "2016-09-01T05:00:00.000Z",
+ *         "everyX": 1,
+ *         "frequency": "weekly",
+ *         "id": "b207a15e-8bfd-4aa7-9e64-1ba89699da06"
+ *       }
+ *     ]
+ *   }
+ *
+ * @apiError (404) {NotFound} NotFound Challenge not found or you don't have access.
  */
 api.getChallengeMemberProgress = {
   method: 'GET',
@@ -461,7 +584,9 @@ api.getObjectionsToInteraction = {
  *
  * @apiSuccess {Object} data An empty Object
  *
- * @apiUse UserNotFound
+ * @apiError (400) {BadRequest} InvalidRequestParameters A message is required.
+ * @apiError (400) {BadRequest} InvalidRequestParameters A UserID is required.
+ * @apiError (404) {NotFound} userNotFound User not found
  */
 api.sendPrivateMessage = {
   method: 'POST',
@@ -508,17 +633,19 @@ api.sendPrivateMessage = {
 };
 
 /**
- * @api {post} /api/v3/members/transfer-gems Send a gem gift to a member
+ * @api {posts} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiName TransferGems
  * @apiGroup Member
  *
- * @apiParam (Body) {String} message The message
- * @apiParam (Body) {UUID} toUserId The toUser _id
- * @apiParam (Body) {Integer} gemAmount The number of gems to send
+ * @apiParam {String} [message] Body parameter The message to user
+ * @apiParam {UUID} toUserId Body parameter The toUser _id
+ * @apiParam {Integer} gemAmount Body parameter The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
  *
- * @apiUse UserNotFound
+ * @apiError (400) {InvalidRequest} GemAmount A number of gems is required. (Returned if gem value is empty)
+ * @apiError (401) {NotAuthorized} NotEnoughGems Amount must be within 1 and your current number of gems.
+ * @apiError (404) {NotFound} userNotFound User not found
  */
 api.transferGems = {
   method: 'POST',
