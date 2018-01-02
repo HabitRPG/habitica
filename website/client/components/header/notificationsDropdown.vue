@@ -297,7 +297,7 @@ export default {
       }
       return questInfo;
     },
-    clearMessages (key) {
+    clearMessages (key) { TODO DO NOT DELETE YET
       this.$store.dispatch('chat:markChatSeen', {groupId: key});
       this.$delete(this.user.newMessages, key);
     },
@@ -316,17 +316,6 @@ export default {
       } else if (notification.type === 'GROUP_TASK_APPROVED') {
         return 'glyphicon glyphicon-ok-sign';
       }
-    },
-    go (path) {
-      this.$router.push(path);
-    },
-    navigateToGroup (key) {
-      if (key === this.party._id || key === this.user.party._id) {
-        this.go('/party');
-        return;
-      }
-
-      this.$router.push({ name: 'guild', params: { groupId: key }});
     },
     async reject (group) {
       await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});

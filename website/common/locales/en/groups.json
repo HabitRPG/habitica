@@ -61,7 +61,7 @@
   "partyLoading3": "Your party is gathering. Please wait...",
   "partyLoading4": "Your party is materializing. Please wait...",
   "systemMessage": "System Message",
-  "newMsg": "New message in \"<%= name %>\"",
+  "newMsg": "There are new posts in the <span class=\"notification-bold-blue\"><%= name %></span>",
   "chat": "Chat",
   "sendChat": "Send Chat",
   "toolTipMsg": "Fetch Recent Messages",
