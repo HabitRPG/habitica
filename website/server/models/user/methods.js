@@ -114,7 +114,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   } else if (options.receiverMsg.length < 100) {
     excerpt = options.receiverMsg;
   } else {
-    excerpt = `${options.receiverMsg.substring(0, 100)}...`;
+    excerpt = options.receiverMsg.substring(0, 100);
   }
   userToReceiveMessage.addNotification('NEW_INBOX_MESSAGE', {
     sender: {

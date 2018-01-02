@@ -32,10 +32,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         div
           button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
           button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
-      a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
-        span.glyphicon.glyphicon-envelope
-        span {{ $t('cardReceived') }}
-        a.dropdown-item(@click.stop='clearCards()')
       a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
         div
           span.glyphicon.glyphicon-user
@@ -43,10 +39,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         div
           button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
           button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
-      a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
-        @click='showProfile()')
-        span.glyphicon.glyphicon-plus-sign
-        span {{ $t('haveUnallocated', {points: user.stats.points}) }}
       a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
         span(@click='navigateToGroup(message.key)')
           span.glyphicon.glyphicon-comment
@@ -198,8 +190,12 @@ export default {
 
       // Push the notifications stored in user.notifications
       // skipping those not defined in the handledNotifications object
-      notifications.push(...this.user.notifications.filter(({type}) => {
-        return orderMap[type] !== undefined;
+      notifications.push(...this.user.notifications.filter(notification => {
+        if (notification.type === 'UNALLOCATED_STATS_POINTS') {
+          if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return false;
+        }
+
+        return orderMap[notification.type] !== undefined;
       }));
 
       // Sort notifications

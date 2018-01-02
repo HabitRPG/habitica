@@ -15,6 +15,22 @@
 
 <style lang="scss"> // Not scoped because the classes could be used in i18n strings
 @import '~client/assets/scss/colors.scss';
+.notification-small {
+  font-size: 12px;
+  line-height: 1.33;
+  color: $gray-200;
+}
+
+.notification-ellipses {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.notification-bold {
+  font-weight: bold;
+}
 
 .notification-bold-blue {
   font-weight: bold;
@@ -53,6 +69,8 @@
   font-size: 14px;
   line-height: 1.43;
   color: $gray-50;
+
+  max-width: calc(100% - 26px); // to make space for the close icon
 }
 
 .notification-remove {
