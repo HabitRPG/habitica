@@ -4,6 +4,24 @@
   width: 279px;
   height: 147px;
 }
+.promo_nye_card {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -600px -536px;
+  width: 117px;
+  height: 123px;
+}
+.promo_nye_seasonal_shop {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -704px -679px;
+  width: 162px;
+  height: 138px;
+}
+.promo_snowball {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -741px -589px;
+  width: 48px;
+  height: 51px;
+}
 .promo_starry_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -679px;

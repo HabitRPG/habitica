@@ -1567,7 +1567,7 @@ api.userSell = {
  *
  * @apiErrorExample {json}
  * {"success":false,"error":"BadRequest","message":"Path string is required"}
- 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
+ * {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',

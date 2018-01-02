@@ -4,24 +4,31 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/21/2017 - DECEMBER SUBSCRIBER ITEMS, NEW YEAR'S RESOLUTION GUILD AND CHALLENGE, AND HELPFUL HOLIDAY BLOG POSTS
+    h2 12/30/2017 - NEW YEAR'S EVE CELEBRATION! PARTY HATS, NEW YEAR'S CARDS, SNOWBALLS, AND LAST CHANCE FOR CANDLEMANCER ITEM SET
     hr
-    .promo_mystery_201712.center-block
-    h3 December Subscriber Items Revealed!
-    p(v-markdown='"The December Subscriber Item Set has been revealed: [the Candlemancer Item Set](https://habitica.com/#/options/settings/subscription)! You only have 11 days to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and click Inventory>Items to claim your gear!"')
-    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-    .small by Beffymaroo
-    h3 New Year's Resolution Guild and Official Challenge
-    p(v-markdown='"Get a start on 2018 with extra accountability! The Habitica team has launched our official [New Year\'s Resolution Guild](/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99), which we\'ve designed to be a social hub that will provide support, encouragement, tips, and tricks throughout the entire year. Plus, each month we\'ll be running a special official Challenge designed to help you build resolutions that are destined for success and then stick with them as the year progresses. You can find the first one [here](/challenges/35999b79-ae6a-4f16-9557-b4923498e837)! It has a 15 gem prize, which will be awarded to five lucky winners on February 1st."')
-    p We hope that you enjoy our new series of official Challenges!
-    .small by beffymaroo, Lemoness, and SabreCat
     .media
-      .scene_winter_cleaning.right-margin
       .media-body
-        h3 Use Case and Guild Spotlights: Holiday Housekeeping
-        p(v-markdown='"This month\'s blog theme is Holiday Housekeeping! Visit our [Use Case Spotlight](https://habitica.wordpress.com/2017/12/18/use-case-spotlight-holiday-housekeeping/) to get suggestions on preparing for holiday festivities, then check out the [Guild Spotlight](https://habitica.wordpress.com/2017/12/20/its-most-wonderful-and-busy-time-of-the-year-guilds-to-help-with-holiday-tasks/) to find communities to support you as you put those ideas into action!"')
-        p We're collecting user submissions for the next spotlight! How do you use Habitica to Set Realistic Goals? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-        .small by Beffymaroo
+        h3 Party Hats!
+        p In honor of the new year, some free Party Hats are available in your Rewards! Each year you celebrate New Year's with Habitica, you unlock a new hat. Enjoy, and stay tuned for the matching robes in late January during our annual Habitica Birthday Bash!
+        .small by Lemoness, Beffymaroo, and SabreCat
+      .promo_nye_seasonal_shop.left-margin
+    .media
+      .promo_nye_card.right-margin
+      .media-body
+        h3 New Year's Cards (Until Jan 1st Only!)
+        p(v-markdown='"Until January 1st only, the [Market](/shops/market) is stocking New Year\'s Cards! Now you can send cards to your friends (and yourself) to wish them a Happy Habit New Year. All senders and recipients will receive the Auld Acquaintance badge!"')
+    .small by Lemoness and SabreCat
+    .media
+      .media-body
+        h3 Snowballs
+        p(v-markdown='"The [Seasonal Shop](/shops/seasonal) is stocking Snowballs for gold! Throw them at your friends to have an exciting effect. If you get hit with a snowball, you earn the Annoying Friends badge. The results of being hit with a Snowball will last until the end of your day, but you can also reverse them early by buying Salt from the Rewards column. Snowballs are available until January 31st."')
+        .small by Shaner and Lemoness
+      .promo_snowball.left-margin
+    h3 Last Chance for Candlemancer Armor
+    p(v-markdown='"Reminder: the 31st is the final day to [subscribe](/user/settings/subscription) and receive the Candlemancer Armor Set! Subscribing also lets you buy gems for gold, nets you our exclusive Jackalope Pet, and has tons of other great perks! Don\'t forget we\'re also running our Gift-One-Get-One subscription deal right now, so it\'s the perfect time to try out a subscription with a friend or family member!"')
+    p Thanks so much for your support! You help keep Habitica running.
+    .small by Beffymaroo
+    .promo_mystery_201712.center-block
     br
 </template>
 

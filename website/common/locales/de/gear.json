@@ -900,6 +900,8 @@
     "headSpecialFall2017MageNotes": "Wenn du mit diesem federigen Kopfschmuck erscheinst, wird jeder über die Identität des zauberhaften Unbekannten im Raum rätseln! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2017 Herbstausrüstung.",
     "headSpecialFall2017HealerText": "Spukhaus-Helm",
     "headSpecialFall2017HealerNotes": "Lade spukende Geister und gutgesinnte Kreaturen dazu ein Deine heilenden Kräfte in diesem Helm aufzusuchen! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2017 Herbstausrüstung.",
+    "headSpecialNye2017Text": "Fanciful Party Hat",
+    "headSpecialNye2017Notes": "You've received a Fanciful Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2018RogueText": "Reindeer Helm",
     "headSpecialWinter2018RogueNotes": "The perfect holiday disguise, with a built-in headlight! Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
     "headSpecialWinter2018WarriorText": "Giftbox Helm",

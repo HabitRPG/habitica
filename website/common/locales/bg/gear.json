@@ -900,6 +900,8 @@
     "headSpecialFall2017MageNotes": "Когато се появите с тази перната шапка, всички ще се чудят кой е вълшебният странник в стаята! Увеличава усета с <%= per %>. Ограничена серия: Есенна екипировка 2017 г.",
     "headSpecialFall2017HealerText": "Прокълнат къщен шлем",
     "headSpecialFall2017HealerNotes": "Поканете зловещи духове и приветливи същества, и заедно проучете лечебните Ви сили с този шлем!. Увеличава интелигентността с <%= int %>. Ограничена серия: Есенна екипировка 2017 г.",
+    "headSpecialNye2017Text": "Fanciful Party Hat",
+    "headSpecialNye2017Notes": "You've received a Fanciful Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
     "headSpecialWinter2018RogueText": "Еленски шлем",
     "headSpecialWinter2018RogueNotes": "Перфектната празнична маскировка, с вградена лампа! Увеличава усета с <%= per %>. Ограничена серия: Зимна екипировка 2017-2018 г.",
     "headSpecialWinter2018WarriorText": "Шлем-подарък",
