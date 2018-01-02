@@ -12,7 +12,7 @@ import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
-import ChatReporter from '../../libs/chatReporting/chatReporter';
+import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
@@ -283,12 +283,50 @@ api.likeChat = {
  * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
  * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
  */
-api.flagChat = {
+api.flagGroupChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const chatReporter = new ChatReporter(req, res);
+    const chatReporter = chatReporterFactory('Group', req, res);
+    const message = await chatReporter.flag();
+    res.respond(200, message);
+  },
+};
+
+// @TODO:
+/**
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
+ * @apiDescription A message will be hidden from chat if two or more users flag a message. It will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
+ * @apiName FlagChat
+ * @apiGroup Chat
+ *
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message id
+ *
+ * @apiSuccess {Object} data The flagged chat message
+ * @apiSuccess {UUID} data.id The id of the message
+ * @apiSuccess {String} data.text The text of the message
+ * @apiSuccess {Number} data.timestamp The timestamp of the message in milliseconds
+ * @apiSuccess {Object} data.likes The likes of the message
+ * @apiSuccess {Object} data.flags The flags of the message
+ * @apiSuccess {Number} data.flagCount The number of flags the message has
+ * @apiSuccess {UUID} data.uuid The user id of the author of the message
+ * @apiSuccess {String} data.user The username of the author of the message
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
+ * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
+ */
+api.flagChat = {
+  method: 'POST',
+  url: '/chat/:chatId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const chatReporter = chatReporterFactory('Inbox', req, res);
     const message = await chatReporter.flag();
     res.respond(200, message);
   },

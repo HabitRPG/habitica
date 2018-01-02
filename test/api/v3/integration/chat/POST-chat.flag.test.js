@@ -147,4 +147,39 @@ describe('POST /chat/:chatId/flag', () => {
       expect(auMessageToCheck).to.not.exist;
     });
   });
+
+  context('Flags an inbox chat', () => {
+    let user;
+
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+
+    it('Flags a chat', async () => {
+      const messageToSend = 'messageToSend';
+      const receiver = await generateUser();
+
+      await user.post('/members/send-private-message', {
+        message: messageToSend,
+        toUserId: receiver._id,
+      });
+
+      const updatedReceiver = await receiver.get('/user');
+      const sendersMessageInReceiversInbox = find(updatedReceiver.inbox.messages, (message) => {
+        return message.uuid === user._id && message.text === messageToSend;
+      });
+
+      const flagResult = await receiver.post(`/chat/${sendersMessageInReceiversInbox.id}/flag`);
+      expect(flagResult.flags[receiver._id]).to.equal(true);
+      expect(flagResult.flagCount).to.equal(1);
+
+      const updatedReceiverAfterFlag = await receiver.get('/user');
+      const receiversInboxAfterFlag = _.find(updatedReceiverAfterFlag.inbox.messages, (message) => {
+        return message.uuid === user._id && message.text === messageToSend;
+      });
+
+      expect(receiversInboxAfterFlag.flags[receiver._id]).to.equal(true);
+      expect(receiversInboxAfterFlag.flagCount).to.equal(1);
+    });
+  });
 });
