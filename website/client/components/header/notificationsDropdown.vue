@@ -305,9 +305,6 @@ export default {
       this.$store.dispatch('chat:markChatSeen', {groupId: key});
       this.$delete(this.user.newMessages, key);
     },
-    clearCards () {
-      this.$store.dispatch('chat:clearCards');
-    },
     viewGroupApprovalNotification (notification) {
       this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
         return groupNotif.id !== notification.id;
