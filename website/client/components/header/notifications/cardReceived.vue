@@ -5,8 +5,8 @@ base-notification(
   :notification="notification",
   @click="action"
 )
-  div(slot="content", v-html="$t('newSubscriberItem')")
-  .svg-icon(slot="icon", v-html="icons.mysteryItems")
+  div(slot="content", v-html="$t('cardReceived', {card: cardString})")
+  .svg-icon(slot="icon", v-html="icons.card")
 </template>
 
 <style lang="scss" scoped>
@@ -18,19 +18,24 @@ base-notification(
 
 <script>
 import BaseNotification from './base';
-import mysteryItemsIcon from 'assets/svg/sparkles.svg';
+import cardIcon from 'assets/svg/sparkles.svg';
 
 export default {
   props: ['notification', 'canRemove'],
+  components: {
+    BaseNotification,
+  },
   data () {
     return {
       icons: Object.freeze({
-        mysteryItems: mysteryItemsIcon,
+        mysteryItems: cardIcon,
       }),
     };
   },
-  components: {
-    BaseNotification,
+  computed: {
+    cardString () {
+      return `${this.notification.data.card}Card`;
+    },
   },
   methods: {
     action () {

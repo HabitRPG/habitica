@@ -169,6 +169,7 @@
   "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
   "checkOutProgress": "Check out my progress in Habitica!",
   "cards": "Cards",
+  "cardReceived": "You received a <%= card %>",
   "greetingCard": "Greeting Card",
   "greetingCardExplanation": "You both receive the Cheery Chum achievement!",
   "greetingCardNotes": "Send a greeting card to a party member.",
