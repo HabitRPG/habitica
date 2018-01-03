@@ -102,10 +102,12 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   let sender = this;
   let senderMsg = options.senderMsg || options.receiverMsg;
 
-  const newMessage = common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
+  common.refPush(userToReceiveMessage.inbox.messages, chatDefaults(options.receiverMsg, sender));
   userToReceiveMessage.inbox.newMessages++;
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
+
+  /* @TODO disabled until mobile is ready
 
   let excerpt;
 
@@ -124,6 +126,8 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
     excerpt,
     messageId: newMessage.id,
   });
+
+  */
 
   common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
