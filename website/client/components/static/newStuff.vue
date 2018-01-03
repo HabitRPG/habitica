@@ -4,32 +4,23 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/30/2017 - NEW YEAR'S EVE CELEBRATION! PARTY HATS, NEW YEAR'S CARDS, SNOWBALLS, AND LAST CHANCE FOR CANDLEMANCER ITEM SET
+    h2 1/2/2018 - JANUARY BACKGROUNDS AND ARMOIRE ITEMS, AND NEW TAKE THIS CHALLENGE
     hr
     .media
       .media-body
-        h3 Party Hats!
-        p In honor of the new year, some free Party Hats are available in your Rewards! Each year you celebrate New Year's with Habitica, you unlock a new hat. Enjoy, and stay tuned for the matching robes in late January during our annual Habitica Birthday Bash!
-        .small by Lemoness, Beffymaroo, and SabreCat
-      .promo_nye_seasonal_shop.left-margin
-    .media
-      .promo_nye_card.right-margin
-      .media-body
-        h3 New Year's Cards (Until Jan 1st Only!)
-        p(v-markdown='"Until January 1st only, the [Market](/shops/market) is stocking New Year\'s Cards! Now you can send cards to your friends (and yourself) to wish them a Happy Habit New Year. All senders and recipients will receive the Auld Acquaintance badge!"')
-    .small by Lemoness and SabreCat
-    .media
-      .media-body
-        h3 Snowballs
-        p(v-markdown='"The [Seasonal Shop](/shops/seasonal) is stocking Snowballs for gold! Throw them at your friends to have an exciting effect. If you get hit with a snowball, you earn the Annoying Friends badge. The results of being hit with a Snowball will last until the end of your day, but you can also reverse them early by buying Salt from the Rewards column. Snowballs are available until January 31st."')
-        .small by Shaner and Lemoness
-      .promo_snowball.left-margin
-    h3 Last Chance for Candlemancer Armor
-    p(v-markdown='"Reminder: the 31st is the final day to [subscribe](/user/settings/subscription) and receive the Candlemancer Armor Set! Subscribing also lets you buy gems for gold, nets you our exclusive Jackalope Pet, and has tons of other great perks! Don\'t forget we\'re also running our Gift-One-Get-One subscription deal right now, so it\'s the perfect time to try out a subscription with a friend or family member!"')
-    p Thanks so much for your support! You help keep Habitica running.
-    .small by Beffymaroo
-    .promo_mystery_201712.center-block
-    br
+        h3 January Backgrounds and Armoire Items!
+        p We’ve added three new backgrounds to the Background Shop! Now your avatar can drive a Sleigh, bask in the wintery glow of Auroras, and fly over Icy Steppes! Check them out under User Icon > Backgrounds!
+        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Coach Driver Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        .small by Katy133, weeWitch, denissa, Reesachan, Nummycakes, and Beffymaroo
+        .media
+          .promo_take_this.right-margin
+          .media-body
+            h3 New Take This Challenge!
+            p(v-markdown='"The next Take This Challenge has launched, [Check Your HP!](/challenges/d9722bfb-f8f1-4801-9b40-2aa34ea85105), with a focus on monitoring your mood. Be sure to check it out to earn additional pieces of the Take This armor set and a chance at Gems!"')
+        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+      .promo_armoire_bgs_201801.left-margin
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'It\'s Dangerous to Go Alone!\': grand prize winner Acoustikarl, and runners-up Ximena18, Sunbeams90, Castrón, Adara McCLain, and Emily Torrey. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set), if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
+      .small by Doctor B, the Take This team, Lemoness, and SabreCat
 </template>
 
 <style lang='scss' scoped>
