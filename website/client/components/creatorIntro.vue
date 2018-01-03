@@ -33,7 +33,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
         .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
-          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+          .menu-item(@click='changeTopPage("backgrounds", "2018")')
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
@@ -250,13 +250,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
       .row.sub-menu.col-10.offset-1
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
+          strong(v-once) 2018
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
           strong(v-once) 2017
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
           strong(v-once) 2016
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
           strong(v-once) 2015
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
         .row(v-for='set in sets', v-if='activeSubPage === key')
@@ -1229,6 +1231,7 @@ export default {
         2015: [],
         2016: [],
         2017: [],
+        2018: [],
       };
 
       // Hack to force update for now until we restructure the data
