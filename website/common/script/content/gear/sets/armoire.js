@@ -314,6 +314,14 @@ let armor = {
     set: 'lamplighter',
     canOwn: ownsItem('armor_armoire_lamplightersGreatcoat'),
   },
+  coachDriverLivery: {
+    text: t('armorArmoireCoachDriverLiveryText'),
+    notes: t('armorArmoireCoachDriverLiveryNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('armor_armoire_coachDriverLivery'),
+  },
 };
 
 let body = {
@@ -673,6 +681,14 @@ let head = {
     con: 14,
     set: 'lamplighter',
     canOwn: ownsItem('head_armoire_lamplightersTopHat'),
+  },
+  coachDriversHat: {
+    text: t('headArmoireCoachDriversHatText'),
+    notes: t('headArmoireCoachDriversHatNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('head_armoire_coachDriversHat'),
   },
 };
 
@@ -1098,6 +1114,15 @@ let weapon = {
     con: 8,
     set: 'lamplighter',
     canOwn: ownsItem('weapon_armoire_lamplighter'),
+  },
+  coachDriversWhip: {
+    text: t('weaponArmoireCoachDriversWhipText'),
+    notes: t('weaponArmoireCoachDriversWhipNotes', { str: 6, int: 8 }),
+    value: 100,
+    str: 6,
+    int: 8,
+    set: 'coachDriver',
+    canOwn: ownsItem('weapon_armoire_coachDriversWhip'),
   },
 };
 
