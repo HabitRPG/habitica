@@ -391,6 +391,20 @@ describe('Group Model', () => {
           expect(party.quest.progress.collect.soapBars).to.eq(5);
         });
 
+        it('does not drop an item if not need when on a collection quest', async () => {
+          party.quest.key = 'dilatoryDistress1';
+          party.quest.active = false;
+          await party.startQuest(questLeader);
+          party.quest.progress.collect.fireCoral = 20;
+          await party.save();
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          expect(party.quest.progress.collect.fireCoral).to.eq(20);
+        });
+
         it('sends a chat message about progress', async () => {
           await Group.processQuestProgress(participatingMember, progress);
 

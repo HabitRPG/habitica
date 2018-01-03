@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Drahokam",
     "typeNotSellable": "Nelze prodat. Lze prodat pouze <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Klíč nenalezen v user.items <%= type %>",
-    "userItemsNotEnough": "Nenalezen dostatek předmětů pro user.items<%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Je požadována cesta k vláknu",
     "unlocked": "Předměty byly odemčeny",
     "alreadyUnlocked": "Celý set je již odemčen.",

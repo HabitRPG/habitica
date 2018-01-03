@@ -21,7 +21,7 @@
     "rebirthOrb": "Использован шар возрождения, чтобы начать заново после достижения уровня <%= level %>.",
     "rebirthOrb100": "Использован шар возрождения, чтобы начать заново после достижения уровня 100 или выше.",
     "rebirthOrbNoLevel": "Использован шар возрождения, чтобы начать заново.",
-    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthPop": "Начните заново с персонажем 1 уровня, сохранив достижения, коллекционные предметы, снаряжение и задания с историей. Действие вступит в силу немедленно.",
     "rebirthName": "Шар возрождения",
     "reborn": "Возрождение, макс. уровень <%= reLevel %>",
     "confirmReborn": "Вы уверены?",

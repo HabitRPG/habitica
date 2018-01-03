@@ -88,7 +88,7 @@
     "plusOneGem": "+1 אבני חן",
     "typeNotSellable": "הסוג אינו ניתן למכירה. חייב להיות אחד מהבאים: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "מפתח לא נמצא ברשותך",
-    "userItemsNotEnough": "Not enough items found for user.items <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "שורת הנתיב נדרשת",
     "unlocked": "חפצים שוחררו",
     "alreadyUnlocked": "סט מלא כבר נפתח.",

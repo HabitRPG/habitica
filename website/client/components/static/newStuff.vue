@@ -4,35 +4,23 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/17/2017 - THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE
+    h2 1/2/2018 - JANUARY BACKGROUNDS AND ARMOIRE ITEMS, AND NEW TAKE THIS CHALLENGE
     hr
     .media
-      .promo_turkey_day_2017.right-margin
-      .media-body.d-flex.align-self-center.flex-column
-        h3 Happy Thanksgiving!
-        p It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!
-        h3 Turkey Pets, Mounts, and Costume!
-        p For the occasion, all Habiticans have received Turkey-themed items! What items? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey pet, mount, or gear set! Check your Stable and your pinned Rewards to see what you got!
-        p Thank you for using Habitica - we really love you all <3
-        .small by Lemoness
-    .media
       .media-body
-        h3 November Subscriber Items Revealed!
-        p(v-markdown='"The November Subscriber Items have been revealed: the [Carpet Rider Item Set](https://habitica.com/user/settings/subscription)! You have until November 30 to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!"')
-        p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-        .small by Lemoness
-      .promo_mystery_201711.left-margin
-    h3 Android App Update
-    p There’s an exciting new update to our Android app!
-    ul
-      li We’ve smashed some pesky bugs, including the issue with task reordering!
-      li You can now view and assign attribute points (or choose auto-allocation)!
-      li We’ve added Equipment to the Market, plus the ability to change your login name and email, reset or delete your account, make changes to your profile, and access Fix Character Values.
-      li You can also request a password reset from the login screen!
-    p We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!
-    p If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!
-    .small by Viirus and piyorii
-    br
+        h3 January Backgrounds and Armoire Items!
+        p We’ve added three new backgrounds to the Background Shop! Now your avatar can drive a Sleigh, bask in the wintery glow of Auroras, and fly over Icy Steppes! Check them out under User Icon > Backgrounds!
+        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Coach Driver Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        .small by Katy133, weeWitch, denissa, Reesachan, Nummycakes, and Beffymaroo
+        .media
+          .promo_take_this.right-margin
+          .media-body
+            h3 New Take This Challenge!
+            p(v-markdown='"The next Take This Challenge has launched, [Check Your HP!](/challenges/d9722bfb-f8f1-4801-9b40-2aa34ea85105), with a focus on monitoring your mood. Be sure to check it out to earn additional pieces of the Take This armor set and a chance at Gems!"')
+        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+      .promo_armoire_bgs_201801.left-margin
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'It\'s Dangerous to Go Alone!\': grand prize winner Acoustikarl, and runners-up Ximena18, Sunbeams90, Castrón, Adara McCLain, and Emily Torrey. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set), if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
+      .small by Doctor B, the Take This team, Lemoness, and SabreCat
 </template>
 
 <style lang='scss' scoped>
@@ -47,6 +35,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

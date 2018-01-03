@@ -39,7 +39,6 @@ div
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
       div(v-if="item.event") {{ limitedString }}
-
 </template>
 
 <style lang="scss" scoped>

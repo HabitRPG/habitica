@@ -5,7 +5,6 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
       :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'",
       @click='gift.type = "gems"'
     )
-      // @TODO the panel does not exists in Bootstrap 4
       h3.panel-heading.clearfix
         .float-right
           span(v-if='gift.gems.fromBalance') {{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}
@@ -32,11 +31,17 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
     )
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
-        .form-group
-          .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
-            label
-              input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
-              | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+        .row
+          .col-md-4
+            .form-group
+              .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
+                label
+                  input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
+                  | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+          .col-md-8
+            h4 {{ $t('winterPromoGiftHeader') }}
+            p {{ $t('winterPromoGiftDetails1') }}
+            p {{ $t('winterPromoGiftDetails2') }}
 
     textarea.form-control(rows='3', v-model='gift.message', :placeholder="$t('sendGiftMessagePlaceholder')")
     //include ../formatting-help
@@ -51,26 +56,26 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
 </template>
 
 <style lang="scss">
-.panel {
-  margin-bottom: 4px;
+  .panel {
+    margin-bottom: 4px;
 
-  &.transparent {
+    &.transparent {
+      .panel-body {
+        opacity: 0.7;
+      }
+    }
+
+    .panel-heading {
+      margin-top: 8px;
+      margin-bottom: 5px;
+    }
+
     .panel-body {
-      opacity: 0.7;
+      padding: 8px;
+      border-radius: 2px;
+      border: 1px solid #C3C0C7;
     }
   }
-
-  .panel-heading {
-    margin-top: 8px;
-    margin-bottom: 5px;
-  }
-
-  .panel-body {
-    padding: 8px;
-    border-radius: 2px;
-    border: 1px solid #C3C0C7;
-  }
-}
 </style>
 
 <script>

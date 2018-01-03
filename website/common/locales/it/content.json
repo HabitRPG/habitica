@@ -158,9 +158,9 @@
     "questEggHippoText": "Ippopotamo",
     "questEggHippoMountText": "Ippopotamo",
     "questEggHippoAdjective": "un felice",
-    "questEggYarnText": "Yarn",
-    "questEggYarnMountText": "Flying Carpet",
-    "questEggYarnAdjective": "woolen",
+    "questEggYarnText": "Gomitolo",
+    "questEggYarnMountText": "Tappeto Volante",
+    "questEggYarnAdjective": "un lanoso",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",
@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Scintillante",
     "hatchingPotionFairy": "Fatato",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Versa questa pozione su un uovo, e nascerà un animale <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
     "foodMeat": "Carne",
@@ -218,5 +219,6 @@
     "foodCandyRed": "Caramella alla Cannella",
     "foodSaddleText": "Sella",
     "foodSaddleNotes": "Rende immediatamente cavalcabile uno dei tuoi animali.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Dai questo ad un animale e potrà diventare un possente destriero."
 }

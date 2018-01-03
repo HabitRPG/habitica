@@ -874,8 +874,17 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   let quest = questScrolls[group.quest.key];
   let itemsFound = {};
 
+  const possibleItemKeys = Object.keys(quest.collect).filter((key) => {
+    return group.quest.progress.collect[key] !== quest.collect[key].count;
+  });
+
+  const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
+    accumulator[possibleItemKeys[index]] = quest.collect[current];
+    return accumulator;
+  }, {});
+
   _.times(progress.collectedItems, () => {
-    let item = shared.randomVal(quest.collect, {key: true});
+    let item = shared.randomVal(possibleItemsToCollect, {key: true});
 
     if (!itemsFound[item]) {
       itemsFound[item] = 0;

@@ -460,6 +460,10 @@ export default {
       if (!this.dailyDueDefaultView) return;
       this.activateFilter('daily', this.types.daily.filters[1]);
     },
+    quickAddFocused (newValue) {
+      if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
+      if (!newValue) this.quickAddRows = 1;
+    },
   },
   mounted () {
     this.setColumnBackgroundVisibility();

@@ -247,6 +247,7 @@
   "hatchingPotionCupid": "Cupid",
   "hatchingPotionShimmer": "Shimmer",
   "hatchingPotionFairy": "Fairy",
+  "hatchingPotionStarryNight": "Starry Night",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
@@ -286,6 +287,7 @@
 
   "foodSaddleText": "Saddle",
   "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
+  "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
 
   "foodNotes": "Feed this to a pet and it may grow into a sturdy steed."
 }

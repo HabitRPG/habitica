@@ -9,7 +9,7 @@
   )
   .col-12
     .row.tasks-navigation
-      .col-4.offset-4
+      .col-12.col-md-4.offset-md-4
         .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
@@ -288,6 +288,13 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .filter-panel {
+      max-width: none;
+      left: 0px;
+    }
+  }
 </style>
 
 <script>
@@ -407,10 +414,13 @@ export default {
       this.newTag = null;
     },
     removeTag (index, key) {
+      const tagId = this.tagsSnap[key][index].id;
+      const indexInSelected = this.selectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
-      if (this.newTag) this.addTag();
+      if (this.newTag) this.addTag(null, 'tags');
 
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;

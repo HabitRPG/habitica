@@ -10,7 +10,7 @@
         h3(v-once) {{ $t('tavernChat') }}
 
         .row
-          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition')
+          textarea(:placeholder="$t('tavernCommunityGuidelinesPlaceholder')", v-model='newMessage', :class='{"user-entry": newMessage}', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
 
         .row
@@ -532,11 +532,6 @@ export default {
       this._updateCarretPosition(eventUpdate);
     }, 250),
     _updateCarretPosition (eventUpdate) {
-      if (eventUpdate.metaKey && eventUpdate.keyCode === 13) {
-        this.sendMessage();
-        return;
-      }
-
       let text = eventUpdate.target;
       this.getCoord(eventUpdate, text);
     },

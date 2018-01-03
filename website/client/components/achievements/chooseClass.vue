@@ -154,6 +154,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
+      if (this.user.flags.classSelected && !confirm(this.$t('changeClassConfirmCost'))) return;
       this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
     },
     clickDisableClasses () {
@@ -162,30 +163,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_rogue_5',
-          head: 'head_rogue_5',
-          shield: 'shield_rogue_6',
-          weapon: 'weapon_rogue_6',
+          armor: 'armor_special_winter2018Rogue',
+          head: 'head_special_winter2018Rogue',
+          shield: 'shield_special_winter2018Rogue',
+          weapon: 'weapon_special_winter2018Rogue',
         };
       } else if (heroClass === 'wizard') {
         return {
-          armor: 'armor_wizard_5',
-          head: 'head_wizard_5',
-          weapon: 'weapon_wizard_6',
+          armor: 'armor_special_winter2018Mage',
+          head: 'head_special_winter2018Mage',
+          weapon: 'weapon_special_winter2018Mage',
         };
       } else if (heroClass === 'healer') {
         return {
-          armor: 'armor_healer_5',
-          head: 'head_healer_5',
-          shield: 'shield_healer_5',
-          weapon: 'weapon_healer_6',
+          armor: 'armor_special_winter2018Healer',
+          head: 'head_special_winter2018Healer',
+          shield: 'shield_special_winter2018Healer',
+          weapon: 'weapon_special_winter2018Healer',
         };
       } else {
         return {
-          head: 'head_warrior_5',
-          weapon: 'weapon_warrior_6',
-          shield: 'shield_warrior_5',
-          armor: 'armor_warrior_5',
+          armor: 'armor_special_winter2018Warrior',
+          head: 'head_special_winter2018Warrior',
+          shield: 'shield_special_winter2018Warrior',
+          weapon: 'weapon_special_winter2018Warrior',
         };
       }
     },

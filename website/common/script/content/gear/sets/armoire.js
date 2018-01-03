@@ -306,6 +306,32 @@ let armor = {
     set: 'weaver',
     canOwn: ownsItem('armor_armoire_wovenRobes'),
   },
+  lamplightersGreatcoat: {
+    text: t('armorArmoireLamplightersGreatcoatText'),
+    notes: t('armorArmoireLamplightersGreatcoatNotes', { per: 14 }),
+    value: 100,
+    per: 14,
+    set: 'lamplighter',
+    canOwn: ownsItem('armor_armoire_lamplightersGreatcoat'),
+  },
+  coachDriverLivery: {
+    text: t('armorArmoireCoachDriverLiveryText'),
+    notes: t('armorArmoireCoachDriverLiveryNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('armor_armoire_coachDriverLivery'),
+  },
+};
+
+let body = {
+  cozyScarf: {
+    text: t('bodyArmoireCozyScarfText'),
+    notes: t('bodyArmoireCozyScarfNotes'),
+    value: 100,
+    set: 'lamplighter',
+    canOwn: ownsItem('body_armoire_cozyScarf'),
+  },
 };
 
 let eyewear = {
@@ -647,6 +673,22 @@ let head = {
     per: 6,
     set: 'candlestickMaker',
     canOwn: ownsItem('head_armoire_candlestickMakerHat'),
+  },
+  lamplightersTopHat: {
+    text: t('headArmoireLamplightersTopHatText'),
+    notes: t('headArmoireLamplightersTopHatNotes', { con: 14 }),
+    value: 100,
+    con: 14,
+    set: 'lamplighter',
+    canOwn: ownsItem('head_armoire_lamplightersTopHat'),
+  },
+  coachDriversHat: {
+    text: t('headArmoireCoachDriversHatText'),
+    notes: t('headArmoireCoachDriversHatNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('head_armoire_coachDriversHat'),
   },
 };
 
@@ -1064,10 +1106,29 @@ let weapon = {
     set: 'weaver',
     canOwn: ownsItem('weapon_armoire_weaversComb'),
   },
+  lamplighter: {
+    text: t('weaponArmoireLamplighterText'),
+    notes: t('weaponArmoireLamplighterNotes', { per: 6, con: 8 }),
+    value: 100,
+    per: 6,
+    con: 8,
+    set: 'lamplighter',
+    canOwn: ownsItem('weapon_armoire_lamplighter'),
+  },
+  coachDriversWhip: {
+    text: t('weaponArmoireCoachDriversWhipText'),
+    notes: t('weaponArmoireCoachDriversWhipNotes', { str: 6, int: 8 }),
+    value: 100,
+    str: 6,
+    int: 8,
+    set: 'coachDriver',
+    canOwn: ownsItem('weapon_armoire_coachDriversWhip'),
+  },
 };
 
 let armoireSet = {
   armor,
+  body,
   eyewear,
   head,
   headAccessory,

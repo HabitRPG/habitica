@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Edelsteen",
     "typeNotSellable": "Type is niet te verkopen. Het moet een van de volgende zijn <%= acceptedTypes %>.",
     "userItemsKeyNotFound": "Sleutel is niet gevonden voor user.items <%= type %>",
-    "userItemsNotEnough": "Je hebt niet genoeg <%= type %>",
+    "userItemsNotEnough": "You do not have enough <%= type %>",
     "pathRequired": "Padstring is noodzakelijk.",
     "unlocked": "Voorwerpen zijn ontgrendeld",
     "alreadyUnlocked": "Volledige set is al ontgrendeld.",

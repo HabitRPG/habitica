@@ -21,7 +21,7 @@
       .task-modal-content
         .option(v-if="task.type === 'reward'")
           label(v-once) {{ $t('cost') }}
-          input(type="number", v-model="task.value", required, min="0")
+          input(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
           .svg-icon.gold(v-html="icons.gold")
         .option(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
@@ -102,7 +102,7 @@
                 | {{ $t(frequency) }}
           .form-group
             label(v-once) {{ $t('repeatEvery') }}
-            input(type="number", v-model="task.everyX", min="0", required, :disabled='challengeAccessRequired')
+            input(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
             | {{ repeatSuffix }}
             br
           template(v-if="task.frequency === 'weekly'")
@@ -492,8 +492,13 @@
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       margin-top: 50px;
+      width: 100%;
 
-
+      span {
+        display: block;
+        margin: 0 auto;
+        width: 50px;
+      }
 
       .delete-task-btn {
         color: $red-50;
@@ -507,6 +512,12 @@
     .weekday-check {
       margin-left: 0px;
       width: 57px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .option-item {
+      margin-right: 12px !important;
     }
   }
 </style>
@@ -712,7 +723,6 @@ export default {
       this.task.down = !this.task.down;
     },
     toggleTagSelect () {
-      if (this.challengeAccessRequired) return;
       this.showTagsSelect = !this.showTagsSelect;
     },
     sortedChecklist (data) {

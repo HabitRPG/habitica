@@ -155,11 +155,31 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       text: getClassName(classType, language),
     };
 
-    let result = filter(content.gear.flat, ['klass', classType]);
+    let result = filter(content.gear.flat, function findClassGear (gearItem) {
+      if (gearItem.klass === classType) return true;
+      let classShift = {
+        items: user.items,
+        stats: {
+          class: classType,
+        },
+      };
+      if (gearItem.specialClass === classType && user.items.gear.owned[gearItem.key] !== false) return gearItem.canOwn(classShift);
+    });
+
     category.items = map(result, (e) => {
       let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
 
       return newItem;
+    });
+
+    let specialGear = filter(content.gear.flat, (gear) => {
+      return user.items.gear.owned[gear.key] === false &&
+        gear.specialClass === classType &&
+        gear.klass === 'special';
+    });
+
+    each(specialGear, (gear) => {
+      category.items.push(getItemInfo(user, 'marketGear', gear));
     });
 
     shops.checkMarketGearLocked(user, category.items);
@@ -173,7 +193,10 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let falseGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
+    return user.items.gear.owned[gear.key] === false &&
+      (gear.klass === 'special' && !gear.specialClass ||
+       gear.key.indexOf('mystery') !== -1 ||
+       gear.key.indexOf('armoire') !== -1);
   });
 
   nonClassCategory.items = map(falseGear, (e) => {
@@ -314,6 +337,8 @@ shops.getTimeTravelersShop = function getTimeTravelersShop (user, language) {
 shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, language) {
   let categories = [];
   let stable = {pets: 'Pet-', mounts: 'Mount_Icon_'};
+
+  let officialPinnedItems = getOfficialPinnedItems(user);
   for (let type in stable) {
     if (stable.hasOwnProperty(type)) {
       let category = {
@@ -325,18 +350,10 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
       for (let key in content.timeTravelStable[type]) {
         if (content.timeTravelStable[type].hasOwnProperty(key)) {
           if (!user.items[type][key]) {
-            let item = {
+            let item = getItemInfo(user, 'timeTravelersStable', {
               key,
-              text: content.timeTravelStable[type][key](language),
-              class: stable[type] + key,
               type,
-              purchaseType: type,
-              value: 1,
-              notes: '',
-              locked: false,
-              currency: 'hourglasses',
-              pinType: 'IGNORE',
-            };
+            }, officialPinnedItems, language);
             category.items.push(item);
           }
         }
