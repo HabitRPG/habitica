@@ -28,6 +28,7 @@ const NOTIFICATION_TYPES = [
   'UNALLOCATED_STATS_POINTS',
   'NEW_INBOX_MESSAGE',
   'NEW_STUFF',
+  'NEW_CHAT_MESSAGE',
 ];
 
 const Schema = mongoose.Schema;

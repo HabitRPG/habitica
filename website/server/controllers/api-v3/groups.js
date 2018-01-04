@@ -701,6 +701,14 @@ function _removeMessagesFromMember (member, groupId) {
     delete member.newMessages[groupId];
     member.markModified('newMessages');
   }
+
+  member.notifications = member.notifications.filter(n => {
+    if (n.type === 'NEW_CHAT_MESSAGE' && n.data.groupId === groupId) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 /**
