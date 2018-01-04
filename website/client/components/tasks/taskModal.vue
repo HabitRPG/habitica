@@ -23,11 +23,16 @@
 
           textarea.form-control(v-model="task.notes", rows="3")
       .task-modal-content
-        .option(v-if="task.type === 'reward'")
-          label(v-once) {{ $t('cost') }}
-          input(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
-          .svg-icon.gold(v-html="icons.gold")
-        .option(v-if="checklistEnabled")
+        .option.mt-0(v-if="task.type === 'reward'")
+          .form-group
+            label(v-once) {{ $t('cost') }}
+            .input-group
+              .input-group-prepend
+                span.input-group-text
+                  .svg-icon.gold(v-html="icons.gold")
+              input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
+            
+        .option.mt-0(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
           draggable(
@@ -185,7 +190,7 @@
               @change="updateRequiresApproval"
             )
 
-        .advanced-settings
+        .advanced-settings(v-if="task.type !== 'reward' || purpose !== 'create'")
           .d-flex.justify-content-between.align-items-center
             h3 {{ $t('advancedSettings') }}
             .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -218,7 +223,7 @@
                       :disabled="challengeAccessRequired", v-if="task.down",
                     )
 
-              .option(v-if="isUserTask")
+              .option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
                   label(v-once) {{ $t('attributeAllocation') }}
                   .row
@@ -346,6 +351,10 @@
       margin-bottom: 12px;
       margin-top: 12px;
       position: relative;
+
+      label {
+        margin-bottom: 8px;
+      }
     }
 
     .difficulty-options .option-item-selected .svg-icon {
