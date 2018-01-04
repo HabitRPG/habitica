@@ -393,7 +393,14 @@ export default {
       }
     },
     async memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+
+      // Subtract gold for cards
+      if (this.selectedSpellToBuy.pinType === 'card') {
+        const newUserGp = castResult.data.data.user.stats.gp;
+        this.$store.state.user.data.stats.gp = newUserGp;
+      }
+
       this.selectedSpellToBuy = null;
 
       if (this.user.party._id) {

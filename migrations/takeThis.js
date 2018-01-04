@@ -1,4 +1,4 @@
-var migrationName = '20170502_takeThis.js'; // Update per month
+var migrationName = '20180102_takeThis.js'; // Update per month
 var authorName = 'Sabe'; // in case script author needs to know when their ...
 var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
@@ -7,14 +7,14 @@ var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
  */
 
 var monk = require('monk');
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+var connectionString = 'mongodb://sabrecat:z8e8jyRA8CTofMQ@ds013393-a0.mlab.com:13393/habitica?auto_reconnect=true';
 var dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers(lastId) {
   // specify a query to limit the affected users (empty for all users):
   var query = {
     'migration':{$ne:migrationName},
-    'challenges':{$in:['69999331-d4ea-45a0-8c3f-f725d22b56c8']} // Update per month
+    'challenges':{$in:['5f70ce5b-2d82-4114-8e44-ca65615aae62']} // Update per month
   };
 
   if (lastId) {

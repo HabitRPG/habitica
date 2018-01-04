@@ -17,12 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/achievement-restore');
-processUsers()
-  .then(() => {
-    process.exit();
-  })
-  .catch(function (err) {
-    console.log(err);
-    process.exit();
-  });
+const processUsers = require('./takeThis');
+processUsers();

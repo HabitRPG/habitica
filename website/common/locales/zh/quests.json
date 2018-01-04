@@ -37,7 +37,7 @@
     "questCollection": "即将寻找到+<%= val %>个任务探索物品",
     "questDamage": "即将对Boss造成+<%= val %>点伤害",
     "begin": "开始",
-    "bossHP": "Boss HP",
+    "bossHP": "Boss 的血量",
     "bossStrength": "Boss的力量",
     "rage": "愤怒值",
     "collect": "收集",

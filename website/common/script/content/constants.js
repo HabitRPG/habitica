@@ -58,6 +58,12 @@ export const SEASONAL_SETS = {
     'winter2017WinterWolfSet',
     'winter2017SugarPlumSet',
     'winter2017FrostyRogueSet',
+
+    // winter 2018
+    'winter2018ConfettiSet',
+    'winter2018GiftWrappedSet',
+    'winter2018MistletoeSet',
+    'winter2018ReindeerSet',
   ],
 };
 
