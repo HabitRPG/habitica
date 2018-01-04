@@ -34,20 +34,19 @@
                   .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
                     .inline-edit-input-group.tag-edit-item.input-group
                       input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                      span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
+                      .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
                         .svg-icon.destroy-icon(v-html="icons.destroy")
                   .col-6(v-if="tagsType.key === 'tags'")
                     input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
                 template(v-else)
                   .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                    label.custom-control.custom-checkbox
+                    .custom-control.custom-checkbox
                       input.custom-control-input(
                         type="checkbox",
                         :checked="isTagSelected(tag)",
-                        @change="toggleTag(tag)",
+                        @change="toggleTag(tag)", :id="`tag-${tag.id}`"
                       )
-                      span.custom-control-indicator
-                      span.custom-control-description(v-markdown='tag.name')
+                      label.custom-control-label(v-markdown='tag.name', :for="`tag-${tag.id}`")
 
           .filter-panel-footer.clearfix
             template(v-if="editingTags === true")
@@ -228,7 +227,7 @@
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
 
-      &:focus, &:focus ~ .input-group-btn {
+      &:focus, &:focus ~ .input-group-append {
         border-color: $purple-500 !important;
       }
     }
@@ -244,7 +243,8 @@
     }
 
     .tag-edit-item {
-      .input-group-btn {
+      .input-group-append {
+        background: $white;
         border-bottom: 1px solid $gray-500 !important;
 
         &:focus {
@@ -261,7 +261,7 @@
       }
     }
 
-    .custom-control-description {
+    .custom-control-label {
       margin-left: 10px;
     }
 

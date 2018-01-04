@@ -28,8 +28,7 @@
             label(v-once) {{ $t('cost') }}
             .input-group
               .input-group-prepend
-                span.input-group-text
-                  .svg-icon.gold(v-html="icons.gold")
+                .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
             
         .option.mt-0(v-if="checklistEnabled")
@@ -43,7 +42,7 @@
             .inline-edit-input-group.checklist-group.input-group(v-for="(item, $index) in checklist")
               span.grippy
               input.inline-edit-input.checklist-item.form-control(type="text", v-model="item.text")
-              span.input-group-btn(@click="removeChecklistItem($index)")
+              span.input-group-append(@click="removeChecklistItem($index)")
                 .svg-icon.destroy-icon(v-html="icons.destroy")
           input.inline-edit-input.checklist-item.form-control(type="text", :placeholder="$t('newChecklistItem')", @keydown.enter="addChecklistItem($event)", v-model="newChecklistItem")
         .d-flex.justify-content-center(v-if="task.type === 'habit'")
@@ -116,25 +115,23 @@
             label(v-once) {{ $t('repeatEvery') }}
             .input-group
               input.form-control(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
-              .input-group-addon {{ repeatSuffix }}
+              .input-group-append
+                span.input-group-text {{ repeatSuffix }}
           template(v-if="task.frequency === 'weekly'")
             .form-check-inline.weekday-check(
               v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
               :key="dayNumber",
             )
-              label.custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", v-model="task.repeat[day]", :disabled='challengeAccessRequired')
-                span.custom-control-indicator
-                span.custom-control-description(v-once) {{ weekdaysMin(dayNumber) }}
+              .custom-control.custom-checkbox
+                input.custom-control-input(type="checkbox", v-model="task.repeat[day]", :disabled='challengeAccessRequired', :id="`weekday-${dayNumber}`")
+                label.custom-control-label(v-once, :for="`weekday-${dayNumber}`") {{ weekdaysMin(dayNumber) }}
           template(v-if="task.frequency === 'monthly'")
-            label.custom-control.custom-radio
-              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth")
-              span.custom-control-indicator
-              span.custom-control-description {{ $t('dayOfMonth') }}
-            label.custom-control.custom-radio
-              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek")
-              span.custom-control-indicator
-              span.custom-control-description {{ $t('dayOfWeek') }}
+            .custom-control.custom-radio
+              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
+              label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
+            .custom-control.custom-radio
+              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek")
+              label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
           .tags-inline.form-group.row
@@ -173,10 +170,9 @@
                       v-for="member in members",
                       :key="member._id",
                     )
-                      label.custom-control.custom-checkbox
-                        input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)')
-                        span.custom-control-indicator
-                        span.custom-control-description(v-once) {{ member.profile.name }}
+                      .custom-control.custom-checkbox
+                        input.custom-control-input(type="checkbox", :value="member._id", v-model="assignedMembers", @change='toggleAssignment(member._id)', :id="`assigned-${member._id}`")
+                        label.custom-control-label(v-once, :for="`assigned-${member._id}`") {{ member.profile.name }}
 
                   .row
                     button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
@@ -201,7 +197,7 @@
                 .form-group
                   label(v-once) {{ $t('restoreStreak') }}
                   .input-group
-                    .input-group-addon.streak-addon
+                    .input-group-prepend.streak-addon
                       .svg-icon(v-html="icons.streak")
                     input.form-control(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
 
@@ -209,14 +205,14 @@
                 .form-group
                   label(v-once) {{ $t('restoreStreak') }}
                   .input-group
-                    .input-group-addon.positive-addon
+                    .input-group-prepend.positive-addon
                       .svg-icon(v-html="icons.positive")
                     input.form-control(
                       type="number", v-model="task.counterUp", min="0", required, 
                       :disabled="challengeAccessRequired", v-if="task.up",
                     )
                   .input-group
-                    .input-group-addon.negative-addon
+                    .input-group-prepend.negative-addon
                       .svg-icon(v-html="icons.negative")
                     input.form-control(
                       type="number", v-model="task.counterDown", min="0", required, 
@@ -232,9 +228,8 @@
                       :key="attr",
                     )
                       label.custom-control.custom-radio
-                        input.custom-control-input(type="radio", :value="attr", v-model="task.attribute")
-                        span.custom-control-indicator
-                        span.custom-control-description.attr-description(v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
+                        input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
+                        label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
 
               .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-once)
                 .svg-icon.d-inline-b(v-html="icons.destroy")

@@ -55,7 +55,7 @@
             )
               .svg-icon(v-html="icons.checklist")
               span {{ checklistProgress }}
-          label.custom-control.custom-checkbox.checklist-item(
+          .custom-control.custom-checkbox.checklist-item(
             v-if='!task.collapseChecklist',
             v-for="item in task.checklist", :class="{'checklist-item-done': item.completed}",
           )
@@ -64,9 +64,9 @@
               :checked="item.completed",
               @change="toggleChecklistItem(item)",
               :disabled="castingSpell",
+              :id="`checklist-${item.id}`"
             )
-            span.custom-control-indicator
-            span.custom-control-description(v-markdown='item.text')
+            label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
             .svg-icon.calendar(v-html="icons.calendar")
@@ -286,11 +286,11 @@
       text-decoration: line-through;
     }
 
-    .custom-control-indicator {
+    .custom-control-label::before {
       margin-top: -2px;
     }
 
-    .custom-control-description {
+    .custom-control-label {
       margin-left: 6px;
       padding-top: 0px;
       min-width: 0px;
