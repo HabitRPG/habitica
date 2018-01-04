@@ -203,5 +203,5 @@
     "yesterDailiesDescription": "Se essa opção for selecionada, o Habitica vai te perguntar se você realmente quer deixar a Diária desmarcada antes de calcular e aplicar dano ao seu personagem. Isso pode te proteger de receber dano não intencional.",
     "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado.",
     "searchTasks": "Pesquise em títulos e descrições...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Sua sessão com o navegador está desatualizada. Por favor, atualize a página ou clique em sincronizar."
 }

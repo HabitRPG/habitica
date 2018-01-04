@@ -605,6 +605,20 @@ let backgrounds = {
       notes: t('backgroundToymakersWorkshopNotes'),
     },
   },
+  backgrounds012018: {
+    aurora: {
+      text: t('backgroundAuroraText'),
+      notes: t('backgroundAuroraNotes'),
+    },
+    driving_a_sleigh: {
+      text: t('backgroundDrivingASleighText'),
+      notes: t('backgroundDrivingASleighNotes'),
+    },
+    flying_over_icy_steppes: {
+      text: t('backgroundFlyingOverIcySteppesText'),
+      notes: t('backgroundFlyingOverIcySteppesNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
