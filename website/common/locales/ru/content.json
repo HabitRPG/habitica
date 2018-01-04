@@ -184,7 +184,7 @@
     "hatchingPotionCupid": "Амурный",
     "hatchingPotionShimmer": "Мерцающий",
     "hatchingPotionFairy": "Сказочный",
-    "hatchingPotionStarryNight": "Starry Night",
+    "hatchingPotionStarryNight": "Ночной",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
     "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
     "foodMeat": "Мясо",
@@ -219,6 +219,6 @@
     "foodCandyRed": "Коричная конфета",
     "foodSaddleText": "Седло",
     "foodSaddleNotes": "Моментально делает одного из питомцев скакуном.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
+    "foodSaddleSellWarningNote": "Эй! Это довольно полезная вещь! Знаете ли вы, как пользоваться седлом?",
     "foodNotes": "Кормите этим питомца, и он может вырасти выносливым скакуном."
 }

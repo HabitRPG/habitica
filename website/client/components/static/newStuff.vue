@@ -4,33 +4,23 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/19/2017 - WINTER WONDERLAND BEGINS! WINTER CLASS OUTFITS, SEASONAL SHOP, NPC DECORATIONS, AND MAGIC HATCHING POTIONS
+    h2 1/2/2018 - JANUARY BACKGROUNDS AND ARMOIRE ITEMS, AND NEW TAKE THIS CHALLENGE
     hr
-    p A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting down over Habit City. The Winter Wonderland event has begun!
     .media
-      .promo_winter_wonderland_2018.right-margin.bottom-margin
       .media-body
-        h3 Winter Class Outfits
-        p From now until January 31st, limited edition outfits are available in the Rewards column. Depending on your class, you can be a Confetti Mage, a Mistletoe Healer, a Reindeer Rogue, or a Gift-Wrapped Warrior! You'd better get productive to earn enough gold before they disappear. Good luck!
-        .small by AnnDeLune, Vikte, weeWitch, Katy133, and Beffymaroo
+        h3 January Backgrounds and Armoire Items!
+        p We’ve added three new backgrounds to the Background Shop! Now your avatar can drive a Sleigh, bask in the wintery glow of Auroras, and fly over Icy Steppes! Check them out under User Icon > Backgrounds!
+        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Coach Driver Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        .small by Katy133, weeWitch, denissa, Reesachan, Nummycakes, and Beffymaroo
         .media
+          .promo_take_this.right-margin
           .media-body
-            h3 Seasonal Shop is Open!
-            p(v-markdown='"The [Seasonal Shop](https://habitica.com/shops/seasonal) has opened! The Seasonal Sorceress is stocking the seasonal edition versions of previous winter outfits, now available for gems instead of gold. Plus, there will be more fun things in the shop as the event progresses.The Seasonal Shop will only be open until January 31st, so don\'t wait!"')
-            .small by SabreCat and Lemoness
-          .promo_winter_seasonal_shop.left-margin
-        .media
-          .media-body
-            h3 NPC Costumes
-            p Looks like the NPCs are really getting in to the cheery winter mood around the site. Who wouldn't? After all, there's plenty more celebration to come....
-            .small by Lemoness
-          .promo_winter_tavern.left-margin
-    h3 Starry Night and Holly Hatching Potions
-    p(v-markdown='"There\'s a new pet breed in town! Between now and January 31st, you can buy Holly Hatching Potions and brand-new Starry Night Hatching Potions from [the Market](https://habitica.com/shops/market) and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.)"')
-    p After they're gone, it will be at least a year before the Starry Night and Peppermint Hatching Potions are available again, so be sure to get them now!
-    .small by Vampitch, JinjooHat, Lemoness, and SabreCat
-    .promo_starry_potions.center-block
-    br
+            h3 New Take This Challenge!
+            p(v-markdown='"The next Take This Challenge has launched, [Check Your HP!](/challenges/d9722bfb-f8f1-4801-9b40-2aa34ea85105), with a focus on monitoring your mood. Be sure to check it out to earn additional pieces of the Take This armor set and a chance at Gems!"')
+        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
+      .promo_armoire_bgs_201801.left-margin
+    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'It\'s Dangerous to Go Alone!\': grand prize winner Acoustikarl, and runners-up Ximena18, Sunbeams90, Castrón, Adara McCLain, and Emily Torrey. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set), if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
+      .small by Doctor B, the Take This team, Lemoness, and SabreCat
 </template>
 
 <style lang='scss' scoped>

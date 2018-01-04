@@ -155,7 +155,16 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       text: getClassName(classType, language),
     };
 
-    let result = filter(content.gear.flat, ['klass', classType]);
+    let result = filter(content.gear.flat, function findClassGear (gearItem) {
+      if (gearItem.klass === classType) return true;
+      let classShift = {
+        items: user.items,
+        stats: {
+          class: classType,
+        },
+      };
+      if (gearItem.specialClass === classType && user.items.gear.owned[gearItem.key] !== false) return gearItem.canOwn(classShift);
+    });
 
     category.items = map(result, (e) => {
       let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
@@ -185,8 +194,9 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
 
   let falseGear = filter(content.gear.flat, (gear) => {
     return user.items.gear.owned[gear.key] === false &&
-      gear.klass !== user.stats.class &&
-      gear.klass !== 'special';
+      (gear.klass === 'special' && !gear.specialClass ||
+       gear.key.indexOf('mystery') !== -1 ||
+       gear.key.indexOf('armoire') !== -1);
   });
 
   nonClassCategory.items = map(falseGear, (e) => {

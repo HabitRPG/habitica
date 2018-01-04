@@ -314,7 +314,7 @@
     "aboutToJoinCancelledGroupPlan": "你将要加入的小组即将取消当前的订购方式。您将无法享受免费的订购。",
     "cannotChangeLeaderWithActiveGroupPlan": "该小组当前正在完成任务，你无法更改它的队长。",
     "leaderCannotLeaveGroupWithActiveGroup": "该小组当前正在完成任务，你作为队长不能离开小组。",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "因為你的小组擁有小组計畫, 所以你現在就有免費的訂閱. 如果你離開了小组, 你的訂閱便會被取消. 你購買的訂閱會加在小组計畫後.",
     "cancelGroupSub": "取消团队套餐",
     "confirmCancelGroupPlan": "你确定要取消组内订购计划，并取消所有成员的免费订购的权利吗？",
     "canceledGroupPlan": "已取消的团队套餐",
@@ -409,5 +409,5 @@
     "wouldYouParticipate": "你希望参加吗？",
     "managerAdded": "成功添加管理员",
     "managerRemoved": "成功移除管理员",
-    "leaderChanged": "Leader has been changed"
+    "leaderChanged": "首領被改變了"
 }
