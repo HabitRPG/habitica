@@ -492,8 +492,13 @@
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       margin-top: 50px;
+      width: 100%;
 
-
+      span {
+        display: block;
+        margin: 0 auto;
+        width: 50px;
+      }
 
       .delete-task-btn {
         color: $red-50;
@@ -507,6 +512,12 @@
     .weekday-check {
       margin-left: 0px;
       width: 57px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .option-item {
+      margin-right: 12px !important;
     }
   }
 </style>
