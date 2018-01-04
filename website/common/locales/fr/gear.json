@@ -540,7 +540,7 @@
     "armorSpecialFall2017HealerNotes": "Votre cœur est une porte ouverte. Et vos épaules sont des tuiles ! Augmente la constitution de <%= con %>. Équipement d'automne 2017 en édition limitée.",
     "armorSpecialWinter2018RogueText": "Costume de renne",
     "armorSpecialWinter2018RogueNotes": "You look so cute and fuzzy, who could suspect you are after holiday loot? Increases Perception by <%= per %>. Limited Edition 2017-2018 Winter Gear.",
-    "armorSpecialWinter2018WarriorText": "Wrapping Paper Armor",
+    "armorSpecialWinter2018WarriorText": "Armure en papier cadeau",
     "armorSpecialWinter2018WarriorNotes": "Don't let the papery feel of this armor fool you. It's nearly impossible to rip! Increases Constitution by <%= con %>. Limited Edition 2017-2018 Winter Gear.",
     "armorSpecialWinter2018MageText": "Smoking brillant",
     "armorSpecialWinter2018MageNotes": "The ultimate in magical formalwear. Increases Intelligence by <%= int %>. Limited Edition 2017-2018 Winter Gear.",
