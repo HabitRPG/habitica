@@ -413,5 +413,6 @@
   "groupBilling": "Group Billing",
   "wouldYouParticipate": "Would you like to participate?",
   "managerAdded": "Manager added successfully",
-  "managerRemoved": "Manager removed successfully"
+  "managerRemoved": "Manager removed successfully",
+  "leaderChanged": "Leader has been changed"
 }

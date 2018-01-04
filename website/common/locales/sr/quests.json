@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "Polazak",
-    "bossHP": "Zdravlje bosa",
+    "bossHP": "Boss HP",
     "bossStrength": "Snaga Bosa",
     "rage": "Bes",
     "collect": "Sakupiti",

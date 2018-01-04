@@ -118,6 +118,7 @@
     "giftedSubscription": "Geschonken abonnement",
     "giftedSubscriptionInfo": "<%= name%> heeft je een abonnement van <%= months %> maanden cadeau gedaan",
     "giftedSubscriptionFull": "Hallo <%= username %>, <%= sender %> heeft je een abonnement van <%= monthCount %> maanden gestuurd!",
+    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Uitgenodigd voor groep",
     "invitedGuild": "Uitgenodigd voor gilde",
     "importantAnnouncements": "Herinnering om in te checken om taken te voltooien en prijzen te ontvangen.",
