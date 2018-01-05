@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "キューピッドの",
     "hatchingPotionShimmer": "きらきらの",
     "hatchingPotionFairy": "フェアリーの",
+    "hatchingPotionStarryNight": "星降る夜の",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",
@@ -218,5 +219,6 @@
     "foodCandyRed": "シナモンキャンディー",
     "foodSaddleText": "くら",
     "foodSaddleNotes": "ペットの 1 匹をすぐに乗騎に成長させます。",
+    "foodSaddleSellWarningNote": "ちょっと待って！　これはとっても役に立つアイテムだよ！　ペットにくらを使う方法は知ってるかな？",
     "foodNotes": "これをペットにあげて、丈夫に育てましょう。"
 }

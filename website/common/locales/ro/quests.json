@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "Începe",
-    "bossHP": "Sănătatea Monstrului",
+    "bossHP": "Boss HP",
     "bossStrength": "Boss Strength",
     "rage": "Rage",
     "collect": "Collect",

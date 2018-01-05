@@ -69,8 +69,8 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-10 {{ $t('donateText3') }}
-          .col-2
+          .col-12.col-md-10 {{ $t('donateText3') }}
+          .col-12.col-md-2
             button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
@@ -82,29 +82,29 @@
       .col-12
         hr
     .row
-      .col-5
+      .col-12.col-md-5
         | © 2017 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
-            a.btn.btn-secondary(@click="setHealthLow()") Health = 1
-            a.btn.btn-secondary(@click="addMissedDay(1)") +1 Missed Day
-            a.btn.btn-secondary(@click="addMissedDay(2)") +2 Missed Days
-            a.btn.btn-secondary(@click="addMissedDay(8)") +8 Missed Days
-            a.btn.btn-secondary(@click="addMissedDay(32)") +32 Missed Days
-            a.btn.btn-secondary(@click="addTenGems()") +10 Gems
-            a.btn.btn-secondary(@click="addHourglass()") +1 Mystic Hourglass
-            a.btn.btn-secondary(@click="addGold()") +500GP
-            a.btn.btn-secondary(@click="plusTenHealth()") + 10HP
-            a.btn.btn-secondary(@click="addMana()") +MP
-            a.btn.btn-secondary(@click="addLevelsAndGold()") +Exp +GP +MP
-            a.btn.btn-secondary(@click="addOneLevel()") +1 Level
-            a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
-            a.btn.btn-secondary(@click="makeAdmin()") Make Admin
-            a.btn.btn-secondary(@click="openModifyInventoryModal()") Modify Inventory
-      .col-2.text-center
+            a.btn.btn-default(@click="setHealthLow()") Health = 1
+            a.btn.btn-default(@click="addMissedDay(1)") +1 Missed Day
+            a.btn.btn-default(@click="addMissedDay(2)") +2 Missed Days
+            a.btn.btn-default(@click="addMissedDay(8)") +8 Missed Days
+            a.btn.btn-default(@click="addMissedDay(32)") +32 Missed Days
+            a.btn.btn-default(@click="addTenGems()") +10 Gems
+            a.btn.btn-default(@click="addHourglass()") +1 Mystic Hourglass
+            a.btn.btn-default(@click="addGold()") +500GP
+            a.btn.btn-default(@click="plusTenHealth()") + 10HP
+            a.btn.btn-default(@click="addMana()") +MP
+            a.btn.btn-default(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-default(@click="addOneLevel()") +1 Level
+            a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-default(@click="makeAdmin()") Make Admin
+            a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
+      .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
-      .col-5.text-right
+      .col-12.col-md-5.text-right
         template(v-if="!isExpandedFooter")
           span
             a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}

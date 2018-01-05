@@ -1,12 +1,24 @@
-.promo_armoire_backgrounds_201712 {
+.promo_armoire_bgs_201801 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: 0px -369px;
   width: 141px;
   height: 441px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px 0px;
+  background-position: -142px -595px;
   width: 114px;
   height: 87px;
+}
+.scene_calendar {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 436px;
+  height: 368px;
+}
+.scene_winter_cleaning {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -142px -369px;
+  width: 276px;
+  height: 225px;
 }

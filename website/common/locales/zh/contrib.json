@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "在聊天社区你看到的用户名称上的颜色代表一个用户的贡献者等级。等级越高，证明他对Habitica的艺术，代码，社区或其他的贡献越多！",
+    "playerTiersDesc": "在聊天社区你看到的用户名称上的颜色代表一个用户的贡献者等级。等级越高，就证明他对Habitica的艺术，代码，社区或其他的贡献越多！",
     "tier1": "等级1(朋友)",
     "tier2": "等级2(朋友)",
     "tier3": "等级3(精英)",
@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>，你是个了不起的人！你现在是帮助 Habitica的 <%= level %>级的贡献者。详情见",
     "contribLink": "你拿到了什么奖品！",
     "contribName": "贡献者",
-    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
+    "contribText": "为Habitica在代码，艺术，音乐，写作或其他的方面作出了贡献。想知道更多请参加这个公会-- 有抱负的传奇人物!",
     "readMore": "阅读更多",
     "kickstartName": "Kickstarter<%= key %>级赞助者",
     "kickstartText": "支持了Kickstarter项目",

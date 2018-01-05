@@ -184,6 +184,7 @@
     "hatchingPotionCupid": "朱鹭色",
     "hatchingPotionShimmer": "閃爍",
     "hatchingPotionFairy": "仙女",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "把它倒在寵物蛋上可以孵化出一隻<%= potText(locale) %>寵物。",
     "premiumPotionAddlNotes": "不能夠在任務寵物蛋上使用。",
     "foodMeat": "肉",
@@ -218,5 +219,6 @@
     "foodCandyRed": "肉桂糖果",
     "foodSaddleText": "鞍",
     "foodSaddleNotes": "立即把你的一隻寵物變成坐騎。",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "寵物吃了它，就會慢慢地長成強壯的坐騎。"
 }

@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "התחל",
-    "bossHP": "בריאות האויב",
+    "bossHP": "Boss HP",
     "bossStrength": "עוצמת האויב",
     "rage": "זעם",
     "collect": "לאסוף",
