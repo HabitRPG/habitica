@@ -56,7 +56,7 @@ div
     }
   }
 
-  .introjs-button:hover, .introjs-button:active {
+  .introjs-button:hover, .introjs-button:active, .introjs-button:focus {
     background-image: none;
     background-color: #4f2a93 !important;
     color: #fff;

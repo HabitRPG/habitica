@@ -46,11 +46,7 @@ api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
 
-<<<<<<< HEAD
-api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'lunasolTheme'];
-=======
-api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'pizildenTheme', 'maflTheme'];
->>>>>>> develop
+api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'lunasolTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme'];
 
 api.mystery = timeTravelers.mystery;
 api.timeTravelerStore = timeTravelers.timeTravelerStore;
