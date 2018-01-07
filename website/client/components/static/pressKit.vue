@@ -28,8 +28,6 @@
 </template>
 
 <script>
-  import bCollapse from 'bootstrap-vue/lib/components/collapse';
-  import bToggle from 'bootstrap-vue/lib/directives/toggle';
   // @TODO: EMAILS.PRESS_ENQUIRY_EMAIL
   const PRESS_ENQUIRY_EMAIL = 'admin@habitica.com';
 
@@ -123,12 +121,6 @@
           },
         ],
       };
-    },
-    components: {
-      bCollapse,
-    },
-    directives: {
-      bToggle,
     },
   };
 </script>
