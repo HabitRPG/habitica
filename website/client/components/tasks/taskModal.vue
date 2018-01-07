@@ -59,7 +59,7 @@
         template(v-if="task.type !== 'reward'")
           label(v-once)
             span.float-left {{ $t('difficulty') }}
-            // @TODO .svg-icon.info-icon(v-html="icons.information")
+            .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop="$t('difficultyHelp')")
           .d-flex.justify-content-center.difficulty-options
             .option-item(:class="task.priority === 0.1 ? 'option-item-selected' : cssClass('option-disabled')", @click="setDifficulty(0.1)")
               .option-item-box(:class="task.priority === 0.1 ? cssClass('bg') : ''")
@@ -225,15 +225,13 @@
 
               .option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
-                  label(v-once) {{ $t('attributeAllocation') }}
-                  .row
-                    .form-check.col-6(
-                      v-for="attr in ATTRIBUTES",
-                      :key="attr",
-                    )
-                      label.custom-control.custom-radio
-                        input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
-                        label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
+                  label(v-once) 
+                    span.float-left {{ $t('attributeAllocation') }}
+                    .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
+                  .attributes
+                    .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
+                      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
+                      label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
 
               .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
                 .svg-icon.d-inline-b(v-html="icons.destroy")
@@ -499,6 +497,14 @@
 
     .checklist-group {
       border-top: 1px solid $gray-500;
+
+      .input-group-append {
+        background: inherit;
+      }
+
+      .checklist-item {
+        padding-left: 12px;
+      }
     }
 
     // From: https://codepen.io/zachariab/pen/wkrbc
@@ -605,6 +611,10 @@
       h3 {
         color: $gray-10;
         margin-bottom: 0px;
+      }
+
+      .attributes .custom-control {
+        margin-right: 40px;
       }
 
       .toggle-open {
