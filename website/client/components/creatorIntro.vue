@@ -1043,7 +1043,6 @@ export default {
       return own;
     },
     animalEars () {
-      // @TODO: This is not like other purchase items
       // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.animalEarsKeys;
@@ -1058,7 +1057,7 @@ export default {
         option.locked = locked;
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
+          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });
