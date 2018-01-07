@@ -303,6 +303,7 @@
       text-align: center;
       padding: 1em;
       margin-bottom: 1em;
+      font-weight: bold;
     }
 
     .tier1 {
