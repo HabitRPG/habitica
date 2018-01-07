@@ -27,7 +27,7 @@
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
-              .input-group-prepend
+              .input-group-prepend.input-group-icon
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
             
@@ -82,11 +82,10 @@
             label(v-once) {{ $t('dueDate') }}
             datepicker(
               v-model="task.date",
+              :calendarIcon="icons.calendar",
               :clearButton='true',
-              clearButtonIcon='category-select',
               :clearButtonText='$t("clear")',
               :todayButton='!challengeAccessRequired',
-              todayButtonIcon='category-select',
               :todayButtonText='$t("today")',
               :disabled-picker='challengeAccessRequired'
             )
@@ -95,43 +94,45 @@
             label(v-once) {{ $t('startDate') }}
             datepicker(
               v-model="task.startDate",
-              :clearButton='false',
-              :todayButton='!challengeAccessRequired',
-              todayButtonIcon='category-select',
-              :todayButtonText='$t("today")',
-              :disabled-picker='challengeAccessRequired'
+              :calendarIcon="icons.calendar",
+              :clearButton="false",
+              :todayButton="!challengeAccessRequired",
+              :todayButtonText="$t('today')",
+              :disabled-picker="challengeAccessRequired"
             )
         .option(v-if="task.type === 'daily'")
-          .form-group.row
-            label.col-12(v-once) {{ $t('repeats') }}
-            .col-12
-              b-dropdown(:text="$t(task.frequency)")
-                b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']",
-                :key="frequency", @click="task.frequency = frequency",
-                :disabled='challengeAccessRequired',
-                :class="{active: task.frequency === frequency}")
-                  | {{ $t(frequency) }}
+          .form-group
+            label(v-once) {{ $t('repeats') }}
+            b-dropdown.inline-dropdown(:text="$t(task.frequency)")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']",
+              :key="frequency", @click="task.frequency = frequency",
+              :disabled='challengeAccessRequired',
+              :class="{active: task.frequency === frequency}")
+                | {{ $t(frequency) }}
           .form-group
             label(v-once) {{ $t('repeatEvery') }}
             .input-group
               input.form-control(type="number", v-model="task.everyX", min="0", max="9999", required, :disabled='challengeAccessRequired')
-              .input-group-append
-                span.input-group-text {{ repeatSuffix }}
+              .input-group-append.input-group-text {{ repeatSuffix }}
           template(v-if="task.frequency === 'weekly'")
-            .form-check-inline.weekday-check(
-              v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
-              :key="dayNumber",
-            )
-              .custom-control.custom-checkbox
-                input.custom-control-input(type="checkbox", v-model="task.repeat[day]", :disabled='challengeAccessRequired', :id="`weekday-${dayNumber}`")
-                label.custom-control-label(v-once, :for="`weekday-${dayNumber}`") {{ weekdaysMin(dayNumber) }}
+            .form-group
+              label.d-block(v-once) {{ $t('repeatOn') }}
+              .form-check-inline.weekday-check.mr-0(
+                v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']",
+                :key="dayNumber",
+              )
+                .custom-control.custom-checkbox.custom-control-inline
+                  input.custom-control-input(type="checkbox", v-model="task.repeat[day]", :disabled='challengeAccessRequired', :id="`weekday-${dayNumber}`")
+                  label.custom-control-label(v-once, :for="`weekday-${dayNumber}`") {{ weekdaysMin(dayNumber) }}
           template(v-if="task.frequency === 'monthly'")
-            .custom-control.custom-radio
-              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
-              label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
-            .custom-control.custom-radio
-              input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek")
-              label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
+            label.d-block(v-once) {{ $t('repeatOn') }}
+            .form-radion-inline.mr-0
+              .custom-control.custom-radio.custom-control-inline
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
+                label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
+              .custom-control.custom-radio.custom-control-inline
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek")
+                label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
           .tags-inline.form-group.row
@@ -148,12 +149,11 @@
           tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
         .option(v-if="task.type === 'habit'")
-          .form-group.row
-            label.col-12(v-once) {{ $t('resetStreak') }}
-            .col-12
-              b-dropdown.streak-dropdown(:text="$t(task.frequency)")
-                b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
-                  | {{ $t(frequency) }}
+          .form-group
+            label(v-once) {{ $t('resetStreak') }}
+            b-dropdown.inline-dropdown.streak-dropdown(:text="$t(task.frequency)")
+              b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
+                | {{ $t(frequency) }}
 
         .option.group-options(v-if='groupId')
           .form-group.row
@@ -208,20 +208,23 @@
               .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
                 .form-group
                   label(v-once) {{ $t('restoreStreak') }}
-                  .input-group
-                    .input-group-prepend.positive-addon
-                      .svg-icon(v-html="icons.positive")
-                    input.form-control(
-                      type="number", v-model="task.counterUp", min="0", required, 
-                      :disabled="challengeAccessRequired", v-if="task.up",
-                    )
-                  .input-group
-                    .input-group-prepend.negative-addon
-                      .svg-icon(v-html="icons.negative")
-                    input.form-control(
-                      type="number", v-model="task.counterDown", min="0", required, 
-                      :disabled="challengeAccessRequired", v-if="task.down",
-                    )
+                  .row
+                    .col-6(v-if="task.up")
+                      .input-group
+                        .input-group-prepend.positive-addon.input-group-icon
+                          .svg-icon(v-html="icons.positive")
+                        input.form-control(
+                          type="number", v-model="task.counterUp", min="0", required, 
+                          :disabled="challengeAccessRequired",
+                        )
+                    .col-6(v-if="task.down")
+                      .input-group
+                        .input-group-prepend.negative-addon.input-group-icon
+                          .svg-icon(v-html="icons.negative")
+                        input.form-control(
+                          type="number", v-model="task.counterDown", min="0", required, 
+                          :disabled="challengeAccessRequired",
+                        )
 
               .option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
@@ -303,7 +306,7 @@
 
       input {
         background: $white;
-        border: 1px solid $gray-500;
+        border: 1px solid $gray-400;
         color: $gray-200 !important;
 
         &:focus {
@@ -662,6 +665,7 @@ import streakIcon from 'assets/svg/streak.svg';
 import deleteIcon from 'assets/svg/delete.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import downIcon from 'assets/svg/down.svg';
+import calendarIcon from 'assets/svg/calendar.svg';
 
 export default {
   components: {
@@ -690,6 +694,7 @@ export default {
         gold: goldIcon,
         down: downIcon,
         streak: streakIcon,
+        calendar: calendarIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       members: [],

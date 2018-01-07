@@ -74,6 +74,21 @@ input, textarea, input.form-control, textarea.form-control {
     color: $gray-300;
     border-radius: 2px;
 
+    &.input-group-text {
+      font-size: 14px;
+      line-height: 1.43;
+      color: rgba($gray-100, 0.64);
+      padding: 10px 24px;
+      border: none;
+    }
+
+    &.input-group-icon {
+      border: solid 1px $gray-400;
+      border-right: none;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
     &.streak-addon .svg-icon {
       width: 11.6px;
       height: 7.1px;
@@ -82,11 +97,13 @@ input, textarea, input.form-control, textarea.form-control {
     &.positive-addon .svg-icon {
       width: 10px;
       height: 10px;
+      margin: 14px 14px;
     }
 
     &.negative-addon .svg-icon {
       width: 10px;
       height: 2px;
+      margin: 18px 14px;
     }
   }
 

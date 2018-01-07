@@ -70,3 +70,22 @@
     vertical-align: middle;
   }
 }
+
+.inline-dropdown {
+  width: 100%;
+
+  .dropdown-toggle {
+    width: 100% !important;
+    text-align: left;
+  }
+
+  .dropdown-toggle::after {
+    position: absolute;
+    right: 16px;
+    top: 17px;
+  }
+
+  .dropdown-menu.show {
+    width: 100% !important;
+  }
+}
