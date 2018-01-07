@@ -186,7 +186,11 @@
               @change="updateRequiresApproval"
             )
 
-        .advanced-settings(v-if="task.type !== 'reward' || purpose !== 'create'")
+        .reward-delete.delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="task.type === 'reward' && purpose !== 'create'")
+          .svg-icon.d-inline-b(v-html="icons.destroy")
+          span {{ $t('deleteTask') }}
+
+        .advanced-settings(v-if="task.type !== 'reward'")
           .d-flex.justify-content-between.align-items-center
             h3 {{ $t('advancedSettings') }}
             .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -231,7 +235,7 @@
                         input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
                         label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
 
-              .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-once)
+              .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
                 .svg-icon.d-inline-b(v-html="icons.destroy")
                 span {{ $t('deleteTask') }}
 
@@ -404,6 +408,7 @@
     .category-wrap {
       cursor: pointer;
       margin-top: 0px;
+      width: 100%;
     }
 
     .category-box {
@@ -549,6 +554,11 @@
       }
     }
 
+    .reward-delete {
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+
     .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
 
@@ -617,8 +627,7 @@
 <style lang="scss" scoped>
   .gold {
     width: 24px;
-    margin-left: 5em;
-    margin-top: -2.4em;
+    margin: 0 7px;
   }
 </style>
 
