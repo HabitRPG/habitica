@@ -151,7 +151,7 @@
         .option(v-if="task.type === 'habit'")
           .form-group
             label(v-once) {{ $t('resetStreak') }}
-            b-dropdown.inline-dropdown.streak-dropdown(:text="$t(task.frequency)")
+            b-dropdown.inline-dropdown(:text="$t(task.frequency)")
               b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
                 | {{ $t(frequency) }}
 
@@ -201,7 +201,7 @@
                 .form-group
                   label(v-once) {{ $t('restoreStreak') }}
                   .input-group
-                    .input-group-prepend.streak-addon
+                    .input-group-prepend.streak-addon.input-group-icon
                       .svg-icon(v-html="icons.streak")
                     input.form-control(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
 
@@ -489,13 +489,8 @@
 
       .tags-popup {
         position: absolute;
-        top: 3.5em;
-        left: 6.2em;
+        top: 100%;
       }
-    }
-
-    .streak-dropdown {
-      margin-left: .5em;
     }
 
     .checklist-group {
