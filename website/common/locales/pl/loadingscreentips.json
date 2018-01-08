@@ -1,7 +1,7 @@
 {
   "tipTitle": "Wskazówka #<%= tipNumber %>",
   "tip1": "Sprawdzaj zadania na bieżąco w aplikacjach mobilnych Habitiki.",
-  "tip2": "Click any equipment to see a preview, or equip it instantly by clicking the star in its upper-left corner!",
+  "tip2": "Naciśnij na część wyposażenia lub załóż ją natychmiastowo naciskając na gwiazdkę znajdującą się w lewym górnym rogu.",
   "tip3": "Używaj emoji, by łatwiej rozróżniać zadania.",
   "tip4": "Użyj znaku # przed nazwą zadania, żeby ją powiększyć!",
   "tip5": "It’s best to use skills that cause buffs in the morning so they last longer.",
