@@ -8,9 +8,9 @@
   .notifications {
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 65px;
     width: 350px;
-    z-index: 99999;
+    z-index: 999;
   }
 </style>
 

@@ -56,7 +56,7 @@ div
     }
   }
 
-  .introjs-button:hover, .introjs-button:active {
+  .introjs-button:hover, .introjs-button:active, .introjs-button:focus {
     background-image: none;
     background-color: #4f2a93 !important;
     color: #fff;
@@ -265,9 +265,6 @@ export default {
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
     },
-    userAchievements () {
-      this.playSound('Achievement_Unlocked');
-    },
     armoireEmpty (after, before) {
       if (after === before || after === false) return;
       this.$root.$emit('bv::show::modal', 'armoire-empty');
@@ -275,6 +272,7 @@ export default {
     questCompleted () {
       if (!this.questCompleted) return;
       this.$root.$emit('bv::show::modal', 'quest-completed');
+      this.playSound('Achievement_Unlocked');
     },
     invitedToQuest (after) {
       if (after !== true) return;
@@ -321,10 +319,12 @@ export default {
 
       if (this.questCompleted) {
         this.$root.$emit('bv::show::modal', 'quest-completed');
+        this.playSound('Achievement_Unlocked');
       }
 
       if (this.userClassSelect) {
         this.$root.$emit('bv::show::modal', 'choose-class');
+        this.playSound('Achievement_Unlocked');
       }
     },
     showLevelUpNotifications (newlevel) {
