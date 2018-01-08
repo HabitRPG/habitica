@@ -32,7 +32,7 @@
     "contribModal": "<%= name %>, du fantastiska person! Du är nu en nivå <%= level %> medhjälpare för att ha hjälpt Habitica. Se",
     "contribLink": "vilka priser du har förtjänat för din insats!",
     "contribName": "Medarbetare",
-    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
+    "contribText": "Har bidragit till Habitica, antingen genom kod, konst, musik, skrivning, eller andra metoder. För att lära mer om detta, gå med i Blivande Legender gillet!",
     "readMore": "Läs Mer",
     "kickstartName": "Kickstarterstödjare - $<%= key %>-nivån",
     "kickstartText": "Stödde Kickstarter-projektet",

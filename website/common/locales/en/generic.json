@@ -1,4 +1,4 @@
-﻿{
+{
   "languageName": "English",
   "stringNotFound": "String '<%= string %>' not found.",
   "titleIndex": "Habitica | Your Life The Role Playing Game",
@@ -37,7 +37,7 @@
 
   "expandToolbar": "Expand Toolbar",
   "collapseToolbar": "Collapse Toolbar",
-  "markdownBlurb": "Habitica uses markdown for message formatting. See the <a href='http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet' target='_blank'>Markdown Cheat Sheet</a> for more info.",
+  "markdownHelpLink": "Markdown formatting help",
   "showFormattingHelp": "Show formatting help",
   "hideFormattingHelp": "Hide formatting help",
   "youType": "You type:",
@@ -142,6 +142,7 @@
   "audioTheme_arashiTheme": "Arashi's Theme",
   "audioTheme_maflTheme": "MAFL Theme",
   "audioTheme_pizildenTheme": "Pizilden's Theme",
+  "audioTheme_farvoidTheme": "Farvoid Theme",
   "askQuestion": "Ask a Question",
   "reportBug": "Report a Bug",
   "HabiticaWiki": "The Habitica Wiki",

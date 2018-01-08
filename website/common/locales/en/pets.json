@@ -123,5 +123,18 @@
   "clickOnPetToFeed": "Click on a Pet to feed <%= foodName %> and watch it grow!",
   "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
   "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
-  "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+  "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
+  "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+  "releasePetsConfirm": "Are you sure you want to purchase Keys to the Pets?",
+  "releasePetsSuccess": "Keys to the Pets purchased successfully!",
+  "releaseMountsConfirm": "Are you sure you want to purchase Keys to the Pets?",
+  "releaseMountsSuccess": "Keys to the Pets purchased successfully!",
+  "releaseBothConfirm": "Are you sure you want to purchase Keys to the Kennels?",
+  "releaseBothSuccess": "Keys to the Kennels purchased successfully!",
+  "keyToPets": "Keys to the Pets",
+  "keyToPetsDesc": "Release all standard pets so you can collect them again. (Quest pets and rare pets are not affected.)",
+  "keyToMounts": "Keys to the Mounts",
+  "keyToMountsDesc": "Release all standard mounts so you can collect them again. (Quest mounts and rare mounts are not affected.)",
+  "keyToBoth": "Keys to the Kennel",
+  "keyToBothDesc": "Release all standard pets and mounts so you can collect them again. (Quest pets/mounts and rare pets/mounts are not affected.)"
 }

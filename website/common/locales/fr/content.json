@@ -184,7 +184,7 @@
     "hatchingPotionCupid": "cupidon",
     "hatchingPotionShimmer": "scintillant",
     "hatchingPotionFairy": "féerique",
-    "hatchingPotionStarryNight": "Starry Night",
+    "hatchingPotionStarryNight": "Nuit étoilée",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Côtelette",

@@ -36,12 +36,12 @@
             :key="group.key",
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(type="checkbox",
-                :value='group.key',
+                :value="group.key",
+                :id="group.key",
                  v-model="workingChallenge.categories")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(group.label) }}
+              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
       // @TODO: Implement in V2 .form-group
         label

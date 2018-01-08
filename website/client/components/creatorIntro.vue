@@ -292,41 +292,34 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .section.row
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('work') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#work(type="checkbox", value='work', v-model='taskCategories')
+            label.custom-control-label(v-once, for="work") {{ $t('work') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='exercise', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('exercise') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#excercise(type="checkbox", value='exercise', v-model='taskCategories')
+            label.custom-control-label(v-once, for="excercise") {{ $t('exercise') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='health_wellness', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('health_wellness') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#health_wellness(type="checkbox", value='health_wellness', v-model='taskCategories')
+            label.custom-control-label(v-once, for="health_wellness") {{ $t('health_wellness') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('school') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#school(type="checkbox", value='school', v-model='taskCategories')
+            label.custom-control-label(v-once, for="school") {{ $t('school') }}
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('chores') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#chores(type="checkbox", value='chores', v-model='taskCategories')
+            label.custom-control-label(v-once, for="chores") {{ $t('chores') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='creativity', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('creativity') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#creativity(type="checkbox", value='creativity', v-model='taskCategories')
+            label.custom-control-label(v-once, for="creativity") {{ $t('creativity') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='self_care', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('self_care') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
+            label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
     .col-12
@@ -1050,7 +1043,6 @@ export default {
       return own;
     },
     animalEars () {
-      // @TODO: This is not like other purchase items
       // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.animalEarsKeys;
@@ -1065,7 +1057,7 @@ export default {
         option.locked = locked;
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
+          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });

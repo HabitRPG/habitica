@@ -1,6 +1,6 @@
 {
     "iAcceptCommunityGuidelines": "コミュニティガイドラインに従うことに同意します",
-    "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
+    "tavernCommunityGuidelinesPlaceholder": "利用の注意: これは全年齢対応のチャットです。ですので気持ちのよい言葉と態度を心がけましょう！質問がある場合は、サイドバーのコミュニティガイドラインをで助言を求めましょう。",
     "commGuideHeadingWelcome": "Habiticaへようこそ!",
     "commGuidePara001": "冒険者みんなこんにちは！豊かな土地、健康な生活と時折暴れまわるグリフォンのいるHabiticaへようこそ。ここには、お互い支えあって自己改善する人でいっぱいの元気なコミュニティーがあります。",
     "commGuidePara002": "誰もが、コミュニティーで安全で幸せな、そして実りの多い状態を保つために、いくつかのガイドラインがあります。フレンドリーな文章で読みやすくなるように考えて作りました。じっくり読んでください。",
@@ -13,7 +13,7 @@
     "commGuideList01C": "<strong>支え合う姿勢。</strong>Habitica人は互いの勝利のために応援しあい、苦しい時は、互いを元気付けます。互いに力を貸し、互いに支えあって、互いに学びます。パーティでは、お互いの呪文で助け合い、チャットルームでは、親切で支えとなる言葉を掛け合っています。",
     "commGuideList01D": "<strong>敬うマナー.</strong>私達には異なる背景、異なる技術、そして異なる意見があります。それが私たちのコミュニティーをとても素晴らしいものにしてくれます！Habitica人は、これらの違いを尊重し、それらを賛美します。ここにいれば、あなたはすぐに様々な背景や職業を持つ友達ができるでしょう。",
     "commGuideHeadingMeet": "スタッフとモデレーターに会おう！",
-    "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres. Staff and Mods will often precede official statements with the words \"Mod Talk\" or \"Mod Hat On\".",
+    "commGuidePara006": "Habiticaには、コミュニティを静かに保ち、満足させ、騒ぎをなくす作業をスタッフとともにしてくれている義侠の士がいます。彼らは各々のドメインを所持していますが、しばしばその立場を表明する必要があります。このような場合、スタッフやモデレータの公式な発言の前に\"Mod Talk\", \"Mod Hat On\"といった記述が追加されます。",
     "commGuidePara007": "スタッフは王冠のマークが付いた紫色のタグがあります。彼らの肩書は「Heroic」です。",
     "commGuidePara008": "モデレーターは星印が付いた濃青色のタグが付いています。彼らの肩書は「Guardian」です。唯一例外のBaileyは、NPCとして、星印が付いた黒と緑のタグがあります。",
     "commGuidePara009": "現在のスタッフメンバーは次のとおりです(左から右へ)：",
@@ -90,7 +90,7 @@
     "commGuideList04H": "wikiコンテンツはHabiticaのサイト全体に関係しており、特定のギルドやパーティに関係していないようにすること（そのような情報をフォーラムに移動できます）",
     "commGuidePara049": "以下の人々は現在のwiki管理者です:",
     "commGuidePara049A": "以下のモデレーターは、上記の管理者が不在の時、モデレーターが必要とされる事態において緊急の編集を行うことができます:",
-    "commGuidePara018": "Wiki Administrators Emeritus are:",
+    "commGuidePara018": "Wiki管理の名誉退職者:",
     "commGuideHeadingInfractionsEtc": "違反行為、罰、回復",
     "commGuideHeadingInfractions": "違反行為",
     "commGuidePara050": "圧倒的にHabiticanはお互いに助け合い、敬意を表し、全てのコミュニティを楽しく親しくするよう働いています。しかしながら、長い間に一度だけ、ガイドラインのひとつに違反することがあります。それがおこると、モデレーターはHabiticaを全ての人にとって安全で快適に維持するために必要と考えるどんな対応でも行うでしょう。",
@@ -184,5 +184,5 @@
     "commGuideLink07description": "ピクセルアートの提出。",
     "commGuideLink08": "クエストTrello",
     "commGuideLink08description": "クエストライティングの提出。",
-    "lastUpdated": "Last updated:"
+    "lastUpdated": "最終更新:"
 }

@@ -247,10 +247,6 @@
     }
   }
 
-  .toggle-up .svg-icon, .toggle-down .svg-icon {
-    width: 25px;
-  }
-
   span.action {
     font-size: 14px;
     line-height: 1.33;
@@ -284,10 +280,6 @@
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
     padding-bottom: 1em;
-  }
-
-  .toggle-up, .toggle-down {
-    cursor: pointer;
   }
 
   .hr {
@@ -439,6 +431,14 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
+
+    // Reset chat
+    this.newMessage = '';
+    this.coords = {
+      TOP: 0,
+      LEFT: 0,
+    };
+
     next();
   },
   watch: {
