@@ -130,5 +130,11 @@
   "releaseMountsConfirm": "Are you sure you want to purchase Keys to the Pets?",
   "releaseMountsSuccess": "Keys to the Pets purchased successfully!",
   "releaseBothConfirm": "Are you sure you want to purchase Keys to the Kennels?",
-  "releaseBothSuccess": "Keys to the Kennels purchased successfully!"
+  "releaseBothSuccess": "Keys to the Kennels purchased successfully!",
+  "keyToPets": "Keys to the Pets",
+  "keyToPetsDesc": "Release all standard pets so you can collect them again. (Quest pets and rare pets are not affected.)",
+  "keyToMounts": "Keys to the Mounts",
+  "keyToMountsDesc": "Release all standard mounts so you can collect them again. (Quest mounts and rare mounts are not affected.)",
+  "keyToBoth": "Keys to the Kennel",
+  "keyToBothDesc": "Release all standard pets and mounts so you can collect them again. (Quest pets/mounts and rare pets/mounts are not affected.)"
 }

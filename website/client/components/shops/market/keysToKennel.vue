@@ -77,8 +77,8 @@ export default {
     return {
       keysToPets: {
         key: 'keyToPets',
-        text: 'keyToPets',
-        notes: 'keyToPets',
+        text: this.$t('keyToPets'),
+        notes: this.$t('keyToPetsDesc'),
         value: 4,
         currency: 'gems',
         class: 'key_to_pets',
@@ -97,8 +97,8 @@ export default {
       },
       keysToMounts: {
         key: 'keysToMounts',
-        text: 'keysToMounts',
-        notes: 'keysToMounts',
+        text: this.$t('keysToMounts'),
+        notes: this.$t('keysToMountsDesc'),
         value: 4,
         currency: 'gems',
         class: 'key_to_mounts',
@@ -117,8 +117,8 @@ export default {
       },
       keysToBoth: {
         key: 'keysToBoth',
-        text: 'keysToBoth',
-        notes: 'keysToBoth',
+        text: this.$t('keysToBoth'),
+        notes: this.$t('keysToBothDesc'),
         value: 6,
         currency: 'gems',
         class: 'key_to_both',
