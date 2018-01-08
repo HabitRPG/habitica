@@ -126,7 +126,7 @@
                   label.custom-control-label(v-once, :for="`weekday-${dayNumber}`") {{ weekdaysMin(dayNumber) }}
           template(v-if="task.frequency === 'monthly'")
             label.d-block(v-once) {{ $t('repeatOn') }}
-            .form-radion-inline.mr-0
+            .form-radio
               .custom-control.custom-radio.custom-control-inline
                 input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
                 label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
