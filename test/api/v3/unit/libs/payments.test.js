@@ -163,6 +163,14 @@ describe('payments/index', () => {
         expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
       });
 
+      it('sets plan.dateUpdated if it did exist but the user has a corrupt plan', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
       it('sets plan.dateCreated if it did not previously exist', async () => {
         expect(recipient.purchased.plan.dateCreated).to.not.exist;
 
