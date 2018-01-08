@@ -153,6 +153,16 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateUpdated if it did exist but the user has cancelled', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.customerId = 'testing';
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
       it('sets plan.dateCreated if it did not previously exist', async () => {
         expect(recipient.purchased.plan.dateCreated).to.not.exist;
 
