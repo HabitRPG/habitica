@@ -91,9 +91,8 @@ api.getChat = {
     let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    await getGroupChat(group);
-
-    res.respond(200, Group.toJSONCleanChat(group, user).chat);
+    const groupChat = await Group.toJSONCleanChat(group, user);
+    res.respond(200, groupChat.chat);
   },
 };
 
@@ -187,9 +186,8 @@ api.postChat = {
       }
     }
 
-    await getGroupChat(group);
-
-    let lastClientMsg = req.query.previousMsg;
+    const chatRes = await Group.toJSONCleanChat(group, user);
+    const lastClientMsg = req.query.previousMsg;
     chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
     if (group.checkChatSpam(user)) {
@@ -204,17 +202,17 @@ api.postChat = {
       toSave.push(user.save());
     }
 
-    let [savedGroup] = await Bluebird.all(toSave);
+    await Bluebird.all(toSave);
 
     // real-time chat is only enabled for private groups (for now only for parties)
-    if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
+    if (group.privacy === 'private' && group.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+      pusher.trigger(`presence-group-${group._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {
-      res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
+      res.respond(200, {chat: chatRes.chat});
     } else {
       res.respond(200, {message: newChatMessage});
     }
@@ -532,17 +530,15 @@ api.deleteChat = {
       throw new NotAuthorized(res.t('onlyCreatorOrAdminCanDeleteChat'));
     }
 
-    await getGroupChat(group);
-
-    let lastClientMsg = req.query.previousMsg;
-    let chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
+    const chatRes = await Group.toJSONCleanChat(group, user);
+    const lastClientMsg = req.query.previousMsg;
+    const chatUpdated = lastClientMsg && group.chat && group.chat[0] && group.chat[0].id !== lastClientMsg ? true : false;
 
     await Chat.remove({_id: message._id}).exec();
 
     if (chatUpdated) {
-      let chatRes = Group.toJSONCleanChat(group, user).chat;
-      removeFromArray(chatRes, {id: chatId});
-      res.respond(200, chatRes);
+      removeFromArray(chatRes.chat, {id: chatId});
+      res.respond(200, chatRes.chat);
     } else {
       res.respond(200, {});
     }

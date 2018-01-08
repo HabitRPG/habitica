@@ -1,5 +1,6 @@
 import { model as Chat } from '../../models/chat';
 
+// @TODO: Don't use this method when the group can be saved.
 export async function getGroupChat (group) {
   const groupChat = await Chat.find({groupId: group._id}).limit(200).sort('-timestamp').exec();
 

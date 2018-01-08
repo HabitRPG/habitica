@@ -237,12 +237,6 @@ schema.statics.getGroup = async function getGroup (options = {}) {
     await user.save();
   }
 
-  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
-  // Also only return chat if requested, eventually we don't want to return chat here
-  if (group && group.chat) {
-    await getGroupChat(group);
-  }
-
   return group;
 };
 
@@ -328,7 +322,13 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
+  // Also only return chat if requested, eventually we don't want to return chat here
+  if (group && group.chat) {
+    await getGroupChat(group);
+  }
+
   let toJSON = group.toJSON();
 
   if (!user.contributor.admin) {

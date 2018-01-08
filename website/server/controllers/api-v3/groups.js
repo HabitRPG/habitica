@@ -391,7 +391,7 @@ api.getGroup = {
       throw new NotFound(res.t('groupNotFound'));
     }
 
-    let groupJson = Group.toJSONCleanChat(group, user);
+    let groupJson = await Group.toJSONCleanChat(group, user);
 
     if (groupJson.leader === user._id) {
       groupJson.purchased.plan = group.purchased.plan.toObject();
