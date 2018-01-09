@@ -239,6 +239,7 @@ export default {
           user: message.user,
           uuid: message.uuid,
           id: message.id,
+          flags: message.flags,
         };
 
         if (message.sent) {

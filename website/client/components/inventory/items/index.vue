@@ -12,10 +12,9 @@
           v-for="group in groups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="group.selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t(group.key) }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="group.selected", :id="group.key")
+            label.custom-control-label(v-once, :for="group.key") {{ $t(group.key) }}
   .standard-page
     .clearfix
       h1.float-left.mb-4.page-header(v-once) {{ $t('items') }}

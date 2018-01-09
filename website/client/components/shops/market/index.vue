@@ -10,10 +10,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -149,7 +148,6 @@
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
-
             template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -158,13 +156,13 @@
               )
               .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
-
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+          //keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -350,6 +348,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
@@ -399,6 +398,7 @@ export default {
     mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
+      KeysToKennel,
       Item,
       CountBadge,
       Drawer,
