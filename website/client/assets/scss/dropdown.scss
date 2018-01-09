@@ -17,6 +17,7 @@
   border-top: 6px solid;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
+  vertical-align: 0;
 }
 
 .dropdown-menu {
@@ -76,5 +77,24 @@
 
   .text {
     vertical-align: middle;
+  }
+}
+
+.inline-dropdown {
+  width: 100%;
+
+  .dropdown-toggle {
+    width: 100% !important;
+    text-align: left;
+  }
+
+  .dropdown-toggle::after {
+    position: absolute;
+    right: 16px;
+    top: 17px;
+  }
+
+  .dropdown-menu.show {
+    width: 100% !important;
   }
 }

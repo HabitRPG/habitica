@@ -12,10 +12,9 @@
           v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ group.label }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="group.key")
+            label.custom-control-label(v-once, :for="group.key") {{ group.label }}
 
   .standard-page
     .clearfix

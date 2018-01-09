@@ -247,10 +247,6 @@
     }
   }
 
-  .toggle-up .svg-icon, .toggle-down .svg-icon {
-    width: 25px;
-  }
-
   span.action {
     font-size: 14px;
     line-height: 1.33;
@@ -284,10 +280,6 @@
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
     padding-bottom: 1em;
-  }
-
-  .toggle-up, .toggle-down {
-    cursor: pointer;
   }
 
   .hr {
