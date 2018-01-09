@@ -286,7 +286,7 @@
       text-decoration: line-through;
     }
 
-    .custom-control-label::before {
+    .custom-control-label::before, .custom-control-label::after {
       margin-top: -2px;
     }
 
