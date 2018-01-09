@@ -6,31 +6,22 @@ base-notification(
   @click="action"
 )
   div(slot="content", v-html="$t('newSubscriberItem')")
-  .svg-icon(slot="icon", v-html="icons.mysteryItems")
+  div(slot="icon", :class="mysteryClass")
 </template>
-
-<style lang="scss" scoped>
-.svg-icon {
-  width: 28px;
-  height: 28px;
-}
-</style>
 
 <script>
 import BaseNotification from './base';
-import mysteryItemsIcon from 'assets/svg/sparkles.svg';
+import moment from 'moment';
 
 export default {
   props: ['notification', 'canRemove'],
-  data () {
-    return {
-      icons: Object.freeze({
-        mysteryItems: mysteryItemsIcon,
-      }),
-    };
-  },
   components: {
     BaseNotification,
+  },
+  computed: {
+    mysteryClass () {
+      return `notif_inventory_present_${moment().format('MM')}`;
+    },
   },
   methods: {
     action () {
