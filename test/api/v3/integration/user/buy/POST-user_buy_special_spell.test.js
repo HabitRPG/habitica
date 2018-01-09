@@ -43,7 +43,6 @@ describe('POST /user/buy-special-spell/:key', () => {
 
   it('returns an error if user does not have enough gold', async () => {
     let key = 'thankyou';
-    let item = content.special[key];
 
     await user.update({
       'stats.gp': 5,
