@@ -348,7 +348,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
-  import KeysToKennel from './KeysToKennel';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
