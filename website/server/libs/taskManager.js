@@ -45,6 +45,7 @@ export function setNextDue (task, user, dueDateOption) {
   let optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
