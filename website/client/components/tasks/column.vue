@@ -26,6 +26,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
+    clear-completed-todos(v-if="activeFilters[type].label === 'complete2'")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -243,6 +244,7 @@
 
 <script>
 import Task from './task';
+import ClearCompletedTodos from './clearCompletedTodos';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
 import buyMixin from 'client/mixins/buy';
@@ -267,6 +269,7 @@ export default {
   mixins: [buyMixin, notifications],
   components: {
     Task,
+    ClearCompletedTodos,
     BuyQuestModal,
     shopItem,
     draggable,
