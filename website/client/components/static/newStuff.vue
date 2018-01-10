@@ -4,19 +4,32 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/4/2018 - WINTERY AVATAR CUSTOMIZATIONS AND NEW AUDIO THEMES
+    h2 1/10/2018 - iOS APP STORE FEATURE, NEW PET QUEST, AND LAST CHANCE FOR BUY-1-GET-1 GIFT SUBSCRIPTIONS
     hr
     .media
       .media-body
-        h3 Wintery Skins and Hair Colors!
-        p The Seasonal Edition Wintery Hair Colors are now available for purchase via the User Menu under "Edit Avatar"! Now you can dye your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.
-        p Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.
-        p Both of these Seasonal Edition customization sets will only be available to purchase until January 31st, after which they'll be gone until next year, so be sure to swoop them up now!
-        .small by Lemoness and tricksy.fox
-        h3 New Audio Themes!
-        p(v-markdown='"There are two new audio themes available in [site settings](/user/settings/site): Pizilden\'s Theme and the MAFL Theme! Check them out to bring fresh sounds to your Habitica experience."')
-        .small by Pizilden and MAFL
-      .promo_winter_customizations.left-margin
+        h3 Habitica App Store Feature!
+        p(v-markdown='"We\'re honored to be featured as the App of the Day in the iOS App Store! [Check out our story here](https://itunes.apple.com/us/story/id1328100123)."')
+        p Also, get excited because we're releasing an update to the Habitica iOS App in the very near future that includes a number of highly requested features! We'll be announcing this update very soon, so keep an eye out for it!
+        .small by Viirus and piyorii
+      .promo_itunes_appday.left-margin
+    .media
+      .quest_pterodactyl.right-margin
+      .media-body
+        h3 New Pet Quest: The Pterror-Dactyl!
+        p(v-markdown='"A hike along the Stoïkalm Cliffs turns terrifying when a Pterror-dactyl hones in on undone Dailies and negative Habits! Can you defeat this reptilian menace with your productivity? Get the latest pet quest, [The Pterror-dactyl](/shops/quests), and earn some trusting Pterodactyl pets by completing your real-life tasks."')
+        .small by SabreCat, Lemoness, and Beffymaroo
+        .small Written by FrenchKey
+        .small Art by Lilith of Alfheim, Vampitch, Procyon P, GeraldThePixel, Edge, stefalupagus, Katy133, Willow the Witty
+    .media
+      .media-body
+        h3 Last Chance to Gift a Subscription and Get One Free!
+        p Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!
+        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
+      .promo_bogo.left-margin
+    p The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
+    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
+    .small by SabreCat and Lemoness
 </template>
 
 <style lang='scss' scoped>
