@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true', v-if='user')
+  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true')
     .modal-header
       h4(v-html="$t('abuseFlagModalHeading', reportData)")
     .modal-body
@@ -49,7 +49,7 @@ export default {
   },
   created () {
     this.$root.$on('habitica::report-chat', data => {
-      if (!data.message) return;
+      if (!data.message || !data.groupId) return;
       this.abuseObject = data.message;
       this.groupId = data.groupId;
       this.$root.$emit('bv::show::modal', 'report-flag');
@@ -64,17 +64,10 @@ export default {
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');
-
-      if (!this.groupId) {
-        await this.$store.dispatch('chat:flagInbox', {
-          chatId: this.abuseObject.id,
-        });
-      } else {
-        await this.$store.dispatch('chat:flag', {
-          groupId: this.groupId,
-          chatId: this.abuseObject.id,
-        });
-      }
+      await this.$store.dispatch('chat:flag', {
+        groupId: this.groupId,
+        chatId: this.abuseObject.id,
+      });
 
       this.close();
     },

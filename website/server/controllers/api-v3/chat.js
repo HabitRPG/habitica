@@ -11,8 +11,6 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
-import { getAuthorEmailFromMessage } from '../../libs/chat';
-import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
 import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
@@ -41,6 +39,22 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
  */
 
 let api = {};
+
+async function getAuthorEmailFromMessage (message) {
+  let authorId = message.uuid;
+
+  if (authorId === 'system') {
+    return 'system';
+  }
+
+  let author = await User.findOne({_id: authorId}, {auth: 1}).exec();
+
+  if (author) {
+    return getUserInfo(author, ['email']).email;
+  } else {
+    return 'Author Account Deleted';
+  }
+}
 
 function textContainsBannedSlur (message) {
   let bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
@@ -140,7 +154,7 @@ api.postChat = {
         {name: 'GROUP_URL', content: groupUrl},
       ];
 
-      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
+      sendTxn(FLAG_REPORT_EMAILS, 'slurreporttomods', report);
 
       // Slack the mods
       slack.sendSlurNotification({
@@ -187,11 +201,11 @@ api.postChat = {
 
     let [savedGroup] = await Bluebird.all(toSave);
 
-    // real-time chat is only enabled for private groups (for now only for parties)
+    // realtime chat is only enabled for private groups (for now only for parties)
     if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+      pusher.trigger(`presencegroup${savedGroup._id}`, 'newchat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {
@@ -284,7 +298,7 @@ api.likeChat = {
  * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
  * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
  */
-api.flagGroupChat = {
+api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
   middlewares: [authWithHeaders()],
@@ -362,44 +376,6 @@ api.flagGroupChat = {
       message,
     });
 
-    res.respond(200, message);
-  },
-};
-
-// @TODO:
-/**
- * @api {post} /api/v3/groups/:groupId/chat/:chatId/flag Flag a group chat message
- * @apiDescription A message will be hidden from chat if two or more users flag a message. It will be hidden immediately if a moderator flags the message. An email is sent to the moderators about every flagged message.
- * @apiName FlagChat
- * @apiGroup Chat
- *
- * @apiParam (Path) {UUID} groupId The group id ('party' for the user party and 'habitrpg' for tavern are accepted)
- * @apiParam (Path) {UUID} chatId The chat message id
- *
- * @apiSuccess {Object} data The flagged chat message
- * @apiSuccess {UUID} data.id The id of the message
- * @apiSuccess {String} data.text The text of the message
- * @apiSuccess {Number} data.timestamp The timestamp of the message in milliseconds
- * @apiSuccess {Object} data.likes The likes of the message
- * @apiSuccess {Object} data.flags The flags of the message
- * @apiSuccess {Number} data.flagCount The number of flags the message has
- * @apiSuccess {UUID} data.uuid The user id of the author of the message
- * @apiSuccess {String} data.user The username of the author of the message
- *
- * @apiUse GroupNotFound
- * @apiUse MessageNotFound
- * @apiUse GroupIdRequired
- * @apiUse ChatIdRequired
- * @apiError (404) {NotFound} AlreadyFlagged Chat messages cannot be flagged more than once by a user
- * @apiError (404) {NotFound} messageGroupChatFlagAlreadyReported The message has already been flagged
- */
-api.flagChat = {
-  method: 'POST',
-  url: '/chat/:chatId/flag',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    const chatReporter = chatReporterFactory('Inbox', req, res);
-    const message = await chatReporter.flag();
     res.respond(200, message);
   },
 };

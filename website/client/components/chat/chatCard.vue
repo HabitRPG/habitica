@@ -3,7 +3,6 @@ div
   .mentioned-icon(v-if='isUserMentioned')
   .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
   .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-  .flag-message(v-if='msg.flags && msg.flags[user._id]') {{$t('youFlaggedThisMessage')}}
   .card-body
       h3.leader(
         :class='userLevelStyle(msg)',
@@ -24,7 +23,7 @@ div
           .svg-icon(v-html="icons.copy")
           | {{$t('copyAsTodo')}}
           // @TODO make copyAsTodo work in the inbox
-      span.action(v-if='user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
+      span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
         .svg-icon(v-html="icons.report")
         | {{$t('report')}}
         // @TODO make flagging/reporting work in the inbox. NOTE: it must work even if the communityGuidelines are not accepted and it MUST work for messages that you have SENT as well as received. -- Alys
@@ -50,7 +49,7 @@ div
     top: -.5em;
   }
 
-  .message-hidden, .flag-message {
+  .message-hidden {
     margin-left: 1.5em;
     margin-top: 1em;
     color: red;
