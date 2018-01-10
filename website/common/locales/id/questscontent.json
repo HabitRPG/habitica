@@ -143,7 +143,7 @@
     "questAtom2Drop": "Sang Laundromancer (Gulungan)",
     "questAtom3Text": "Serangan Mundane, Bagian 3: Sang Laundromancer",
     "questAtom3Notes": "Dengan tangisan yang memekakkan telinga, lima tipe keju yang berbeda meleleh keluar dari mulutnya, monster SnackLess hancur berkeping-keping. \"BERANI-BERANINYA KAU!\" Jerit sebuah suara dari bawah air. Sosok berjubah biru bangkit dari air, membawa sebuah sikat toilet ajaib. Baju-baju kotor mulai mengambang di permukaan danau. \"Akulah Laundromancer!\" Jeritnya. \"Kalian punya keberanian juga - mencuci baju-baju kotorku yang indah, membunuh peliharaanku, dan masuk ke wilayahku dengan baju kalian yang bersih. Bersiaplah menerima kemarahan dari sihir anti-baju bersih milikku!\"",
-    "questAtom3Completion": "Laundromancer yang jahat udah dikalahkan! Baju yang bersih berjatuhan di sekelilingmu. Sekarang semuanya terlihat lebih baik. Sat kamu mengamati baju-baju itu, ada kilatan logam yang terlihat di matamu, dan kamu melihat helm yang menarik. Pemilik aslinya tidak diketahui, tapi saat kamu mengenakannya, kamu merasakan kehadiran pemiliknya yang dermawan. Sayang sekali mereka tidak menjahit nama mereka di benda itu,",
+    "questAtom3Completion": "Laundromancer yang jahat sudah dikalahkan! Baju yang bersih berjatuhan di sekelilingmu. Sekarang semuanya terlihat lebih baik. Saat kamu mengamati baju-baju itu, matamu menangkap sebuah kilatan logam, dan kamu melihat helm yang menarik. Pemilik aslinya tidak diketahui, tapi saat kamu mengenakannya, kamu merasakan kehadiran pemiliknya yang dermawan. Sayang sekali mereka tidak menjahit nama mereka di benda itu.",
     "questAtom3Boss": "Laundromancer",
     "questAtom3DropPotion": "Ramuan Penetas Biasa",
     "questOwlText": "Burung Hantu Malam",
@@ -551,5 +551,11 @@
     "questYarnDropYarnEgg": "Benang Rajut (Telur)",
     "questYarnUnlockText": "Dapatkan telur Benang Rajut yang dapat dibeli di Pasar",
     "winterQuestsText": "Bundel Misi Musim Dingin",
-    "winterQuestsNotes": "Berisi 'Trapper Santa', 'Temukan Anak Beruang Kutub', dan 'Sang Burung Musim Dingin'. Tersedia hingga 31 Desember."
+    "winterQuestsNotes": "Berisi 'Trapper Santa', 'Temukan Anak Beruang Kutub', dan 'Sang Burung Musim Dingin'. Tersedia hingga 31 Desember.",
+    "questPterodactylText": "The Pterror-dactyl",
+    "questPterodactylNotes": "You're taking a stroll along the peaceful Stoïkalm Cliffs when an evil screech rends the air. You turn to find a hideous creature flying towards you and are overcome by a powerful terror. As you turn to flee, @Lilith of Alfheim grabs you. \"Don't panic! It's just a Pterror-dactyl.\"<br><br>@Procyon P nods. \"They nest nearby, but they're attracted to the scent of negative Habits and undone Dailies.\"<br><br>\"Don't worry,\" @Katy133 says. \"We just need to be extra productive to defeat it!\" You are filled with a renewed sense of purpose and turn to face your foe.",
+    "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
+    "questPterodactylBoss": "Pterror-dactyl",
+    "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
+    "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market"
 }
