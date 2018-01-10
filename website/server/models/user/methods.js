@@ -19,9 +19,8 @@ import paypalPayments from '../../libs/paypalPayments';
 const daysSince = common.daysSince;
 
 schema.methods.isSubscribed = function isSubscribed () {
-  let now = new Date();
-  let plan = this.purchased.plan;
-
+  const now = new Date();
+  const plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 

@@ -4,23 +4,32 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/2/2018 - JANUARY BACKGROUNDS AND ARMOIRE ITEMS, AND NEW TAKE THIS CHALLENGE
+    h2 1/10/2018 - iOS APP STORE FEATURE, NEW PET QUEST, AND LAST CHANCE FOR BUY-1-GET-1 GIFT SUBSCRIPTIONS
     hr
     .media
       .media-body
-        h3 January Backgrounds and Armoire Items!
-        p We’ve added three new backgrounds to the Background Shop! Now your avatar can drive a Sleigh, bask in the wintery glow of Auroras, and fly over Icy Steppes! Check them out under User Icon > Backgrounds!
-        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Coach Driver Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
-        .small by Katy133, weeWitch, denissa, Reesachan, Nummycakes, and Beffymaroo
-        .media
-          .promo_take_this.right-margin
-          .media-body
-            h3 New Take This Challenge!
-            p(v-markdown='"The next Take This Challenge has launched, [Check Your HP!](/challenges/d9722bfb-f8f1-4801-9b40-2aa34ea85105), with a focus on monitoring your mood. Be sure to check it out to earn additional pieces of the Take This armor set and a chance at Gems!"')
-        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
-      .promo_armoire_bgs_201801.left-margin
-    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'It\'s Dangerous to Go Alone!\': grand prize winner Acoustikarl, and runners-up Ximena18, Sunbeams90, Castrón, Adara McCLain, and Emily Torrey. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set), if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
-      .small by Doctor B, the Take This team, Lemoness, and SabreCat
+        h3 Habitica App Store Feature!
+        p(v-markdown='"We\'re honored to be featured as the App of the Day in the iOS App Store! [Check out our story here](https://itunes.apple.com/us/story/id1328100123)."')
+        p Also, get excited because we're releasing an update to the Habitica iOS App in the very near future that includes a number of highly requested features! We'll be announcing this update very soon, so keep an eye out for it!
+        .small by Viirus and piyorii
+      .promo_itunes_appday.left-margin
+    .media
+      .quest_pterodactyl.right-margin
+      .media-body
+        h3 New Pet Quest: The Pterror-Dactyl!
+        p(v-markdown='"A hike along the Stoïkalm Cliffs turns terrifying when a Pterror-dactyl hones in on undone Dailies and negative Habits! Can you defeat this reptilian menace with your productivity? Get the latest pet quest, [The Pterror-dactyl](/shops/quests), and earn some trusting Pterodactyl pets by completing your real-life tasks."')
+        .small by SabreCat, Lemoness, and Beffymaroo
+        .small Written by FrenchKey
+        .small Art by Lilith of Alfheim, Vampitch, Procyon P, GeraldThePixel, Edge, stefalupagus, Katy133, Willow the Witty
+    .media
+      .media-body
+        h3 Last Chance to Gift a Subscription and Get One Free!
+        p Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!
+        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
+      .promo_bogo.left-margin
+    p The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
+    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
+    .small by SabreCat and Lemoness
 </template>
 
 <style lang='scss' scoped>

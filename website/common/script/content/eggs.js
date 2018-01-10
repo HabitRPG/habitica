@@ -338,6 +338,12 @@ let quests = {
     adjective: t('questEggYarnAdjective'),
     canBuy: hasQuestAchievementFunction('yarn'),
   },
+  Pterodactyl: {
+    text: t('questEggPterodactylText'),
+    mountText: t('questEggPterodactylMountText'),
+    adjective: t('questEggPterodactylAdjective'),
+    canBuy: hasQuestAchievementFunction('pterodactyl'),
+  },
 };
 
 applyEggDefaults(drops, {
