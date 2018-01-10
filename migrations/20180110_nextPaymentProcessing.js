@@ -50,6 +50,7 @@ function updateUsers (users) {
 }
 
 function updateUser (user) {
+  count++;
 
   var set = {
     'purchased.plan.nextPaymentProcessing': new Date(user.purchased.plan.nextPaymentProcessing),
