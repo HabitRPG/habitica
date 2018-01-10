@@ -1,9 +1,5 @@
-var migrationName = '20180110_nextPaymentProcessing.js';
-var authorName = 'paglias'; // in case script author needs to know when their ...
-var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
-
 /*
- * Convert purchased.plan.nextPaymentProcessing from a double to a date field
+ * Convert purchased.plan.nextPaymentProcessing from a double to a date field for Apple subscribers
  */
 
 var monk = require('monk');
