@@ -310,12 +310,19 @@
     "backgroundMidnightCastleText": "Castello di mezzanotte",
     "backgroundMidnightCastleNotes": "Passeggiata nei pressi del Castello di mezzanotte",
     "backgroundTornadoText": "Tornado",
-    "backgroundTornadoNotes": "Vola attraverso un Tornado",
-    "backgrounds122017": "SET 43: Released December 2017",
+    "backgroundTornadoNotes": "Vola attraverso un Tornado.",
+    "backgrounds122017": "SERIE 43: Dicembre 2017",
     "backgroundCrosscountrySkiTrailText": "Cross-Country Ski Trail",
     "backgroundCrosscountrySkiTrailNotes": "Glide along a Cross-Country Ski Trail.",
     "backgroundStarryWinterNightText": "Starry Winter Night",
     "backgroundStarryWinterNightNotes": "Admire a Starry Winter Night.",
-    "backgroundToymakersWorkshopText": "Toymaker's Workshop",
-    "backgroundToymakersWorkshopNotes": "Bask in the wonder of a Toymaker's Workshop."
+    "backgroundToymakersWorkshopText": "Laboratorio del giocattolaio",
+    "backgroundToymakersWorkshopNotes": "Bask in the wonder of a Toymaker's Workshop.",
+    "backgrounds012018": "SERIE 44: Gennaio 2018",
+    "backgroundAuroraText": "Aurora",
+    "backgroundAuroraNotes": "Bask in the wintry glow of an Aurora.",
+    "backgroundDrivingASleighText": "Slitta",
+    "backgroundDrivingASleighNotes": "Guida una slitta sui campi ricoperti di neve.",
+    "backgroundFlyingOverIcySteppesText": "Icy Steppes",
+    "backgroundFlyingOverIcySteppesNotes": "Fly over Icy Steppes."
 }

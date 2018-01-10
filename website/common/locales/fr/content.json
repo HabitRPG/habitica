@@ -161,6 +161,9 @@
     "questEggYarnText": "Laine",
     "questEggYarnMountText": "Tapis volant",
     "questEggYarnAdjective": "laineux",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Trouvez une potion d’éclosion à verser sur cet œuf et il en sortira <%= eggAdjective(locale) %> bébé <%= eggText(locale) %>.",
     "hatchingPotionBase": "de base",
     "hatchingPotionWhite": "des neiges",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "cupidon",
     "hatchingPotionShimmer": "scintillant",
     "hatchingPotionFairy": "féerique",
+    "hatchingPotionStarryNight": "Nuit étoilée",
     "hatchingPotionNotes": "Versez-la sur un œuf et il en sortira un familier <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "N'est pas utilisable sur les œufs de quête.",
     "foodMeat": "Côtelette",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Friandise à la cannelle",
     "foodSaddleText": "Selle",
     "foodSaddleNotes": "Transforme directement l'un de vos familiers en monture.",
+    "foodSaddleSellWarningNote": "Hé ! Cet objet est super utile ! Savez-vous comment utiliser une selle sur vos familiers ?",
     "foodNotes": "Donnez-la à un de vos familiers, et il pourrait bien grandir en un robuste destrier."
 }

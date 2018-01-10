@@ -9,6 +9,7 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
+    report-flag-modal
     amazon-payments-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
@@ -47,6 +48,10 @@ div
       margin: 0 auto;
       width: 70.9px;
       margin-bottom: 1em;
+    }
+
+    .row {
+      width: 100%;
     }
 
     h2 {
@@ -114,6 +119,7 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import reportFlagModal from 'client/components/chat/reportFlagModal';
 
 export default {
   mixins: [notifications],
@@ -127,6 +133,7 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    reportFlagModal,
   },
   data () {
     return {
@@ -389,7 +396,14 @@ export default {
       }
     },
     async memberSelected (member) {
-      this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
+
+      // Subtract gold for cards
+      if (this.selectedSpellToBuy.pinType === 'card') {
+        const newUserGp = castResult.data.data.user.stats.gp;
+        this.$store.state.user.data.stats.gp = newUserGp;
+      }
+
       this.selectedSpellToBuy = null;
 
       if (this.user.party._id) {

@@ -307,7 +307,7 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
@@ -426,9 +426,17 @@ api.createSubscription = async function createSubscription (data) {
     }
 
     if (data.gift.member._id !== data.user._id) { // If sending to a user other than yourself, don't push notify, and get bonus sub for self per holiday promo
-      let promoData = data;
-      promoData.gift.member = data.user;
-      promoData.promo = 'Winter';
+      let promoData = {
+        user: data.user,
+        gift: {
+          member: data.user,
+          subscription: {
+            key: data.gift.subscription.key,
+          },
+        },
+        paymentMethod: data.paymentMethod,
+        promo: 'Winter',
+      };
       await this.createSubscription(promoData);
 
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {

@@ -29,6 +29,7 @@
     "messageFoundQuest": "你找到了新任務《<%= questText %>》！",
     "messageAlreadyPurchasedGear": " 你曾經買過這個裝備，但是現在沒有了。你可在獎勵欄裡重買一次。",
     "messageAlreadyOwnGear": "你已經有這個了物品。到裝備頁裡裝備它吧。",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "你的生命力已經是最大值。",
     "messageHealthAlreadyMin": "喔不！您沒有生命值了，購買治療藥水已經來不及了。但別擔心，您還可以復活！",
     "armoireEquipment": "<%= image %> 你在神祕寶箱裡找到稀有的裝備 <%= dropText %>！好棒！",

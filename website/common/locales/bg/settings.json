@@ -118,7 +118,7 @@
     "giftedSubscription": "Подарък — абонамент",
     "giftedSubscriptionInfo": "<%= name %> Ви подари <%= months %> месец(а) абонамент",
     "giftedSubscriptionFull": "Здравейте <%= username %>, <%= sender %> Ви изпрати <%= monthCount %> месец(а) абонамент!",
-    "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
+    "giftedSubscriptionWinterPromo": "Здравейте, <%= username %>, Вие получихте <%= monthCount %> месец(а) абонамент като част от нашата промоция за подаряване на подаръци за празниците!",
     "invitedParty": "Покана в група",
     "invitedGuild": "Покана в гилдия",
     "importantAnnouncements": "Напомняния да влезете, за да завършите задачите си и да получите награди",

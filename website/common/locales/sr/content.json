@@ -161,6 +161,9 @@
     "questEggYarnText": "Yarn",
     "questEggYarnMountText": "Flying Carpet",
     "questEggYarnAdjective": "woolen",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Običan",
     "hatchingPotionWhite": "Beli",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Pospite ovo po jajetu, i iz njega će se izleći <%= potText(locale)  %> ljubimac.",
     "premiumPotionAddlNotes": "Not usable on quest pet eggs.",
     "foodMeat": "Meso",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Cimet bombona",
     "foodSaddleText": "Sedlo",
     "foodSaddleNotes": "Pretvara Vašeg ljubimca u životinju za jahanje.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Hranite svog ljubimca, i on će izrasti u snažnog trkača."
 }

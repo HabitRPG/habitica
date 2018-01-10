@@ -4,29 +4,32 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/15/2017 - NEW PET QUEST BUNDLE, GIFT-1-GET-1 SUBSCRIPTIONS, AND BEHIND THE SCENES BLOG
+    h2 1/10/2018 - iOS APP STORE FEATURE, NEW PET QUEST, AND LAST CHANCE FOR BUY-1-GET-1 GIFT SUBSCRIPTIONS
     hr
-    h3 New Discounted Pet Quest Bundle: Winter Quests
     .media
       .media-body
-        p(v-markdown='"If you are looking to add some cold weather friends to your Habitica stable, you\'re in luck! From now until December 31, you can purchase the Winter Quest Bundle and receive the Trapper Santa, Find the Cub, and Penguin quests, all for only 7 Gems! That\'s a discount of 5 Gems from the price of purchasing them separately. Check it out in the [Quest Shop](/shops/quests) today!"')
-        .small by Lemoness and SabreCat
-        .small Art by UncommonCriminal, Shaner, Eevachu, Pandoro, melynnrose, Breadstrings, Rattify, and PainterProphet
-        .small Writing by Lefnire, Leephon, and Daniel the Bard
-        .media
-          .promo_winter_subscriptions.left-margin
-          .media-body
-            h3 Gift a Subscription and Get One Free!
-            p In honor of the season of giving--and due to popular demand!--we're bringing back a very special promotion for the next month only. Now when you gift somebody a subscription, you get the same subscription for yourself for free!
+        h3 Habitica App Store Feature!
+        p(v-markdown='"We\'re honored to be featured as the App of the Day in the iOS App Store! [Check out our story here](https://itunes.apple.com/us/story/id1328100123)."')
+        p Also, get excited because we're releasing an update to the Habitica iOS App in the very near future that includes a number of highly requested features! We'll be announcing this update very soon, so keep an eye out for it!
+        .small by Viirus and piyorii
+      .promo_itunes_appday.left-margin
+    .media
+      .quest_pterodactyl.right-margin
+      .media-body
+        h3 New Pet Quest: The Pterror-Dactyl!
+        p(v-markdown='"A hike along the Stoïkalm Cliffs turns terrifying when a Pterror-dactyl hones in on undone Dailies and negative Habits! Can you defeat this reptilian menace with your productivity? Get the latest pet quest, [The Pterror-dactyl](/shops/quests), and earn some trusting Pterodactyl pets by completing your real-life tasks."')
+        .small by SabreCat, Lemoness, and Beffymaroo
+        .small Written by FrenchKey
+        .small Art by Lilith of Alfheim, Vampitch, Procyon P, GeraldThePixel, Edge, stefalupagus, Katy133, Willow the Witty
+    .media
+      .media-body
+        h3 Last Chance to Gift a Subscription and Get One Free!
+        p Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!
         p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
-      .promo_winter_quests
-    p The special promotion will only run until January 12th, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
+      .promo_bogo.left-margin
+    p The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
     p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
     .small by SabreCat and Lemoness
-    h3 Behind the Scenes: Habitica's Winter Staff Retreat
-    p(v-markdown='"There\'s a new [Behind the Scenes post on the Habitica blog](https://habitica.wordpress.com/2017/12/14/behind-the-scenes-habiticas-winter-staff-retreat/) about our recent Staff Retreat. Check out some great photos and anecdotes from the trip, and learn a little more about the Habitica Team!"')
-    .promo_winter_retreat.center-block
-    br
 </template>
 
 <style lang='scss' scoped>
@@ -41,6 +44,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

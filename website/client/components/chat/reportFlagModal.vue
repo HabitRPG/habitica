@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true')
+  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true', v-if='user')
     .modal-header
       h4(v-html="$t('abuseFlagModalHeading', reportData)")
     .modal-body
@@ -33,12 +33,6 @@ export default {
         name: `<span class='text-danger'>${reportMessage}</span>`,
       };
     },
-    abuseObject () {
-      return this.$store.state.flagChatOptions.message;
-    },
-    groupId () {
-      return this.$store.state.flagChatOptions.groupId;
-    },
   },
   data () {
     let abuseFlagModalBody = {
@@ -49,7 +43,20 @@ export default {
 
     return {
       abuseFlagModalBody,
+      abuseObject: '',
+      groupId: '',
     };
+  },
+  created () {
+    this.$root.$on('habitica::report-chat', data => {
+      if (!data.message) return;
+      this.abuseObject = data.message;
+      this.groupId = data.groupId;
+      this.$root.$emit('bv::show::modal', 'report-flag');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::report-chat');
   },
   methods: {
     close () {
@@ -57,10 +64,18 @@ export default {
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');
-      await this.$store.dispatch('chat:flag', {
-        groupId: this.groupId,
-        chatId: this.abuseObject.id,
-      });
+
+      if (!this.groupId) {
+        await this.$store.dispatch('chat:flagInbox', {
+          chatId: this.abuseObject.id,
+        });
+      } else {
+        await this.$store.dispatch('chat:flag', {
+          groupId: this.groupId,
+          chatId: this.abuseObject.id,
+        });
+      }
+
       this.close();
     },
     async clearFlagCount () {
