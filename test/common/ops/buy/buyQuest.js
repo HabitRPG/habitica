@@ -70,6 +70,22 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
+  it('does not buy the Mystery of the Masterclassers', (done) => {
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'lostMasterclasser1',
+        },
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('questUnlockLostMasterclasser'));
+      expect(user.items.quests).to.eql({});
+      done();
+    }
+  });
+
+
   it('does not buy Gem-premium Quests', (done) => {
     user.stats.gp = 9999;
     try {
