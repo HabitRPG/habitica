@@ -1,6 +1,5 @@
 <template lang="pug">
   b-modal#new-stuff(
-    v-if='user.flags.newStuff',
     size='lg',
     :hide-header='true',
     :hide-footer='true',
@@ -48,7 +47,6 @@
     },
     methods: {
       tellMeLater () {
-        this.user.flags.newStuff = true;
         this.$store.dispatch('user:newStuffLater');
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },

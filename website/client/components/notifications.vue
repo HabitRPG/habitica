@@ -185,7 +185,6 @@ export default {
     // https://stackoverflow.com/questions/42133894/vue-js-how-to-properly-watch-for-nested-properties/42134176#42134176
     ...mapState({
       user: 'user.data',
-      baileyShouldShow: 'user.data.flags.newStuff',
       userHp: 'user.data.stats.hp',
       userExp: 'user.data.stats.exp',
       userGp: 'user.data.stats.gp',
@@ -204,10 +203,6 @@ export default {
     },
   },
   watch: {
-    baileyShouldShow () {
-      if (this.user.needsCron) return;
-      this.$root.$emit('bv::show::modal', 'new-stuff');
-    },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');

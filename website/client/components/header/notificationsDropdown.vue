@@ -204,8 +204,8 @@ export default {
         const bOrder = orderMap[b.type];
 
         if (aOrder === bOrder) return 0; // Same position
-        if (aOrder > bOrder) return -1; // b is higher
-        if (aOrder < bOrder) return 1; // a is higher
+        if (aOrder > bOrder) return 1; // b is higher
+        if (aOrder < bOrder) return -1; // a is higher
       });
 
       return notifications;

@@ -6,11 +6,12 @@
     slot(name="icon")
   .notification-content
     slot(name="content")
-  .notification-remove.svg-icon(
-    v-if="canRemove", 
-    v-html="icons.close", 
-    @click.stop="readNotification({notificationId: notification.id})",
-  )
+  .notification-remove
+    .svg-icon(
+      v-if="canRemove", 
+      v-html="icons.close", 
+      @click.stop="readNotification({notificationId: notification.id})",
+    )
 </template>
 
 <style lang="scss"> // Not scoped because the classes could be used in i18n strings
@@ -36,6 +37,11 @@
   font-weight: bold;
   color: $blue-10;
 }
+
+.notification-bold-purple {
+  font-weight: bold;
+  color: $purple-300;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -53,8 +59,6 @@
 }
 
 .notification-icon {
-  height: 31px;
-  width: 32px;
   margin-right: 16px;
 }
 
@@ -80,6 +84,11 @@
   width: 10px;
   height: 10px;
   margin-left: 16px;
+
+  .svg-icon {
+    width: 10px;
+    height: 10px;
+  }
 }
 </style>
 

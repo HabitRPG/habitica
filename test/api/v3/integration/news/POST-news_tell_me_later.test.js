@@ -28,4 +28,14 @@ describe('POST /news/tell-me-later', () => {
     expect(notification.seen).to.equal(true);
     expect(notification.data.title).to.be.a.string;
   });
+
+  it('never adds two notifications', async () => {
+    const initialNotifications = user.notifications.length;
+
+    await user.post('/news/tell-me-later');
+    await user.post('/news/tell-me-later');
+    await user.sync();
+
+    expect(user.notifications.length).to.equal(initialNotifications + 1);
+  });
 });
