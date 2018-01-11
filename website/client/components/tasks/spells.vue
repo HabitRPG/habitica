@@ -236,9 +236,7 @@ export default {
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
         notes = this.$t('spellRogueStealthMaxedOut');
       } else if (skill.key === 'surge') {
-        notes = this.$t('spellNoEthOnMage'), {
-          originalText: notes,
-        }
+        notes = this.$t('spellWizardNoEthOnMage');
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,
