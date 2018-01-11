@@ -609,20 +609,6 @@ export default {
       this.$store.state.upgradingGroup = this.group;
       this.$router.push('/group-plans');
     },
-    // @TODO: Move to notificatin component
-    async leaveOldPartyAndJoinNewParty () {
-      let newPartyName = 'where does this come from';
-      if (!confirm(`Are you sure you want to delete your party and join${newPartyName}?`)) return;
-
-      let keepChallenges = 'remain-in-challenges';
-      await this.$store.dispatch('guilds:leave', {
-        groupId: this.group._id,
-        keep: false,
-        keepChallenges,
-      });
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'party'});
-    },
     clickStartQuest () {
       Analytics.track({
         hitType: 'event',

@@ -15,6 +15,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       a.small-link.standard-link(@click="dismissAll") {{ $t('dismissAll') }}
     component(
       :is="notification.type",
+      :key="notification.id",
       v-for="notification in notifications",
       :notification="notification",
       :can-remove="!isActionable(notification)",
@@ -131,25 +132,13 @@ export default {
       // Convert the notifications not stored in user.notifications
       const notifications = [];
 
-      // New groups messages
-      // @TODO: For some reason data becomes corrupted. We should fix this on the server
-      const userNewMessages = this.user.newMessages;
-      Object.keys(userNewMessages).map(groupId => {
-        const message = userNewMessages[groupId];
-
-        if (message && message.name && message.value) {
-          notifications.push({
-            type: 'NEW_GROUP_MESSAGE',
-            data: { name: message.name, groupId },
-          });
-        }
-      });
-
       // Parties invitations
       notifications.push(...this.user.invitations.parties.map(partyInvitation => {
         return {
           type: 'PARTY_INVITATION',
           data: partyInvitation,
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-party-invitation-${partyInvitation.id}`,
         };
       }));
 
@@ -158,6 +147,8 @@ export default {
         return {
           type: 'GUILD_INVITATION',
           data: guildInvitation,
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-guild-invitation-${guildInvitation.id}`,
         };
       }));
 
@@ -169,6 +160,8 @@ export default {
             quest: this.user.party.quest.key,
             partyId: this.user.party._id,
           },
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-quest-invitation-${this.user.party._id}`,
         });
       }
 
@@ -223,10 +216,10 @@ export default {
     },
     markAllAsSeen () {
       const idsToSee = this.notifications.map(notification => {
-        // We check explicitly for seen === false && notification.id because some
-        // notification don't follow the standard and don't have an id or a seen property
+        // We check explicitly for notification.id not starting with `custom-` because some
+        // notification don't follow the standard
         // (all those not stored in user.notifications)
-        if (notification.seen === false && notification.id) {
+        if (notification.seen === false && notification.id && notification.id.indexOf('custom-') !== 0) {
           return notification.id;
         }
       }).filter(id => Boolean(id));
@@ -235,10 +228,10 @@ export default {
     },
     dismissAll () {
       const idsToRead = this.notifications.map(notification => {
-        // We check explicitly for notification.id because some
-        // notification don't follow the standard and don't have an id
+        // We check explicitly for notification.id not starting with `custom-` because some
+        // notification don't follow the standard
         // (all those not stored in user.notifications)
-        if (notification.id && !this.isActionable(notification)) {
+        if (!this.isActionable(notification) && notification.id.indexOf('custom-') !== 0) {
           return notification.id;
         }
       }).filter(id => Boolean(id));
