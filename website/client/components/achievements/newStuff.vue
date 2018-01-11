@@ -5,7 +5,7 @@
     :hide-footer='true',
   )
     .modal-body
-      new-stuff
+      div(v-html='html')
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
       button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
@@ -21,11 +21,17 @@
 </style>
 
 <script>
+  import axios from 'axios';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
   import newStuff from 'client/components/static/newStuff';
 
   export default {
+    data () {
+      return {
+        html: '',
+      };
+    },
     components: {
       newStuff,
     },
@@ -38,8 +44,8 @@
     mounted () {
       this.$root.$on('bv::show::modal', async (modalId) => {
         if (modalId !== 'new-stuff') return;
-        // Request the lastest news, but not locally incase they don't refresh
-        // let response = await axios.get('/static/new-stuff');
+        let response = await axios.get('/api/v3/news');
+        this.html = response.data.html;
       });
     },
     destroyed () {
