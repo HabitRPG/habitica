@@ -524,13 +524,18 @@ export default {
     async rewardSorted (data) {
       const rewardsList = this.inAppRewards;
       const rewardToMove = rewardsList[data.oldIndex];
+      console.log(this.user);
+
+      // TODO - call is broken so let's disable this until we fix backend
 
       // Server
-      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
-        path: rewardToMove.path,
-        position: data.newIndex,
-      });
-      this.user.pinnedItems = newOrder;
+      // let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+      //   path: rewardToMove.path,
+      //   position: data.newIndex,
+      // });
+
+      // TODO Update this.user.pinnedItemsOrder instead
+      // this.user.pinnedItems = newOrder;
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
