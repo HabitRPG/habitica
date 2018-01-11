@@ -13,7 +13,6 @@ base-notification(
 
 <script>
 import BaseNotification from './base';
-import * as Analytics from 'client/libs/analytics';
 import { mapState } from 'client/libs/store';
 
 export default {
@@ -31,21 +30,12 @@ export default {
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-
-      // @TODO mutation to store data should only happen through actions
-      this.user.invitations.parties.splice(index, 1);
-
-      Analytics.updateUser({partyID: group.id});
      
-      this.user.party._id = group.id;
       this.$router.push('/party');
-
-      // @TODO: check for party , type: 'myGuilds'
-      await this.$store.dispatch('guilds:join', {guildId: group.id});
+      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'party'});
     },
     async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id});
-      // @TODO: User.sync();
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'party'});
     },
   },
 };

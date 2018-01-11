@@ -24,24 +24,18 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
-    async accept (group, index, type) {
+    async accept () {
       const group = this.notification.data;
 
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
 
-      this.user.invitations.guilds.splice(index, 1);
-
-      this.user.guilds.push(group.id);
       this.$router.push(`/groups/guild/${group.id}`);
-
-      // @TODO: check for party , type: 'myGuilds'
-      await this.$store.dispatch('guilds:join', {guildId: group.id});
+      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
     },
-    async reject (group) {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id});
-      // @TODO: User.sync();
+    async reject () {
+      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'guild'});
     },
 
   },

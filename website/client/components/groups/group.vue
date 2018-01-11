@@ -573,8 +573,7 @@ export default {
       if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
-      this.user.guilds.push(this.group._id);
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'guild'});
     },
     clickLeave () {
       Analytics.track({
@@ -622,7 +621,7 @@ export default {
         keepChallenges,
       });
 
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'party'});
     },
     clickStartQuest () {
       Analytics.track({
