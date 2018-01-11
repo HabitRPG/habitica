@@ -5,7 +5,7 @@ import {
 describe('POST /news/tell-me-later', () => {
   let user;
 
-  before(async () => {
+  beforeEach(async () => {
     user = await generateUser({
       'flags.newStuff': true,
     });
@@ -34,6 +34,7 @@ describe('POST /news/tell-me-later', () => {
 
     await user.post('/news/tell-me-later');
     await user.post('/news/tell-me-later');
+
     await user.sync();
 
     expect(user.notifications.length).to.equal(initialNotifications + 1);
