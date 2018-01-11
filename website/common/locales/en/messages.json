@@ -66,6 +66,5 @@
   "messageNotificationNotFound": "Notification not found.",
 
   "notificationsRequired": "Notification ids are required.",
-  "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
-  "youFlaggedThisMessage": "You have reported this message to moderators. They will contact you about the issue soon."
+  "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }
