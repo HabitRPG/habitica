@@ -154,7 +154,7 @@ api.postChat = {
         {name: 'GROUP_URL', content: groupUrl},
       ];
 
-      sendTxn(FLAG_REPORT_EMAILS, 'slurreporttomods', report);
+      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
 
       // Slack the mods
       slack.sendSlurNotification({
