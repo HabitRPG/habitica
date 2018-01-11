@@ -30,7 +30,7 @@ export default {
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-     
+
       this.$router.push('/party');
       await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'party'});
     },

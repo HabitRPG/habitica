@@ -130,7 +130,6 @@ import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import markdown from 'client/directives/markdown';
-import findIndex from 'lodash/findIndex';
 import gemIcon from 'assets/svg/gem.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-large.svg';
 import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-large.svg';

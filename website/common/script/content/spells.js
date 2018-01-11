@@ -460,12 +460,10 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.greeting) user.achievements.greeting = 0;
-        console.log(user.achievements.greeting, user.achievements.greeting++)
         user.achievements.greeting++;
       } else {
         each([user, target], (u) => {
           if (!u.achievements.greeting) u.achievements.greeting = 0;
-          console.log(u.achievements.greeting);
           u.achievements.greeting++;
         });
       }
