@@ -24,16 +24,12 @@
   import axios from 'axios';
   import { mapState } from 'client/libs/store';
   import markdown from 'client/directives/markdown';
-  import newStuff from 'client/components/static/newStuff';
 
   export default {
     data () {
       return {
         html: '',
       };
-    },
-    components: {
-      newStuff,
     },
     computed: {
       ...mapState({user: 'user.data'}),
