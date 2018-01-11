@@ -62,6 +62,14 @@
   margin-right: 16px;
 }
 
+.notifications-buttons {
+  margin-top: 12px;
+
+  .btn {
+    margin-right: 8px;
+  }
+}
+
 .notification-content {
   // total distance from notification top and bottom edges are 15 and 16 pixels
   margin-top: 6px;

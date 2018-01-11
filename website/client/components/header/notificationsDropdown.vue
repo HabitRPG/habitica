@@ -25,20 +25,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
         div
           button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
           button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
-      a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
-        div
-          span.glyphicon.glyphicon-user
-          span {{ $t('invitedTo', {name: party.name}) }}
-        div
-          button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
-          button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
-      a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
-        div
-          span.glyphicon.glyphicon-user
-          span {{ $t('invitedTo', {name: guild.name}) }}
-        div
-          button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
-          button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
       a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
         span(@click='navigateToGroup(message.key)')
           span.glyphicon.glyphicon-comment
@@ -316,36 +302,6 @@ export default {
       } else if (notification.type === 'GROUP_TASK_APPROVED') {
         return 'glyphicon glyphicon-ok-sign';
       }
-    },
-    async reject (group) {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
-      // @TODO: User.sync();
-    },
-    async accept (group, index, type) {
-      if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
-        return;
-      }
-
-      if (type === 'party') {
-        // @TODO: pretty sure mutability is wrong. Need to check React docs
-        // @TODO mutation to store data should only happen through actions
-        this.user.invitations.parties.splice(index, 1);
-
-        Analytics.updateUser({partyID: group.id});
-      } else {
-        this.user.invitations.guilds.splice(index, 1);
-      }
-
-      if (type === 'party') {
-        this.user.party._id = group.id;
-        this.$router.push('/party');
-      } else {
-        this.user.guilds.push(group.id);
-        this.$router.push(`/groups/guild/${group.id}`);
-      }
-
-      // @TODO: check for party , type: 'myGuilds'
-      await this.$store.dispatch('guilds:join', {guildId: group.id});
     },
     async questAccept (partyId) {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
