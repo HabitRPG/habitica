@@ -203,7 +203,7 @@
                   .input-group
                     .input-group-prepend.streak-addon.input-group-icon
                       .svg-icon(v-html="icons.streak")
-                    input.form-control(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
+                    input.form-control(type="number", v-model="task.streak", min="0", required)
 
               .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
                 .form-group
