@@ -25,7 +25,7 @@ function trueRandom () {
   return Math.random();
 }
 
-module.exports = function randomDrop (user, options, req = {}) {
+module.exports = function randomDrop (user, options, req = {}, analytics) {
   let acceptableDrops;
   let drop;
   let dropMultiplier;
@@ -110,6 +110,16 @@ module.exports = function randomDrop (user, options, req = {}) {
         dropText: drop.text(req.language),
         dropNotes: drop.notes(req.language),
       }, req.language);
+    }
+
+    if (analytics) {
+      analytics.track('acquire item', {
+        uuid: user._id,
+        itemKey: drop.key,
+        acquireMethod: 'Drop',
+        category: 'behavior',
+        headers: req.headers,
+      });
     }
 
     user._tmp.drop = drop;
