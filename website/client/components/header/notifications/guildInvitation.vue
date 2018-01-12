@@ -3,9 +3,10 @@ base-notification(
   :can-remove="canRemove",
   :has-icon="false",
   :notification="notification",
+  @click="action",
 )
   div(slot="content")
-    div(v-html="$t('invitedToGuild', {guild: notification.data.name})")
+    div(v-html="$t('invitedToPrivateGuild', {guild: notification.data.name})")
     .notifications-buttons
       .btn.btn-small.btn-success(@click.stop="accept") {{ $t('accept') }}
       .btn.btn-small.btn-danger(@click.stop="reject") {{ $t('reject') }}
@@ -22,8 +23,26 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    isPublicGuild () {
+      if (this.notification.data.publicGuild === true) return true;
+      return false;
+    },
+    textString () {
+      const guild = this.notification.data.name;
+
+      if (this.isPublicGuild) {
+        return this.$t('invitedToPublicGuild', {guild});
+      } else {
+        return this.$t('invitedToPrivateGuild', {guild});
+      }
+    },
   },
   methods: {
+    action () {
+      const groupId = this.notification.data.id;
+
+      this.$router.push({ name: 'guild', params: { groupId } });
+    },
     async accept () {
       const group = this.notification.data;
 
