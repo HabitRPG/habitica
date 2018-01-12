@@ -340,7 +340,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
-      'tags._id': challenge._id,
+      'tags.id': challenge._id,
     }, {
       $set: {'tags.$.challenge': false},
       $pull: {challenges: challenge._id},
