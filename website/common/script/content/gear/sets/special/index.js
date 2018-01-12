@@ -1886,6 +1886,12 @@ let head = {
     value: 60,
     int: 7,
   },
+  nye2017: {
+    text: t('headSpecialNye2017Text'),
+    notes: t('headSpecialNye2017Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2017'),
+  },
   winter2018Rogue: {
     event: EVENTS.winter2018,
     specialClass: 'rogue',

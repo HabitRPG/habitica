@@ -3,7 +3,7 @@
     size='md', :hide-footer="true")
     .modal-body.text-center
       .quest(:class='`quest_${user.party.quest.completed}`')
-      p(v-html='questData.completion()')
+      p(v-if='questData.completion && typeof questData.completion === "function"', v-html='questData.completion()')
       .quest-rewards.text-center
         h3 {{ $t('youReceived') }}
         questDialogDrops(:item="questData")

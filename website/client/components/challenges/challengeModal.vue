@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#challenge-modal(:title="title", size='lg')
+  b-modal#challenge-modal(:title="title", size='lg', @shown="shown")
     .form
       .form-group
         label
@@ -36,12 +36,12 @@
             :key="group.key",
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(type="checkbox",
-                :value='group.key',
+                :value="group.key",
+                :id="group.key",
                  v-model="workingChallenge.categories")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(group.label) }}
+              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
       // @TODO: Implement in V2 .form-group
         label
@@ -232,24 +232,7 @@ export default {
       groups: [],
     };
   },
-  async mounted () {
-    this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-    if (this.user.party._id) {
-      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
-      this.groups.push({
-        name: party.name,
-        _id: party._id,
-        privacy: 'private',
-      });
-    }
-
-    this.groups.push({
-      name: this.$t('publicChallengesTitle'),
-      _id: TAVERN_ID,
-    });
-
-    this.setUpWorkingChallenge();
-  },
+  async mounted () {},
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;
@@ -315,6 +298,25 @@ export default {
     },
   },
   methods: {
+    async shown () {
+      this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+      await this.$store.dispatch('party:getParty');
+      const party = this.$store.state.party.data;
+      if (party._id) {
+        this.groups.push({
+          name: party.name,
+          _id: party._id,
+          privacy: 'private',
+        });
+      }
+
+      this.groups.push({
+        name: this.$t('publicChallengesTitle'),
+        _id: TAVERN_ID,
+      });
+
+      this.setUpWorkingChallenge();
+    },
     setUpWorkingChallenge () {
       this.resetWorkingChallenge();
 

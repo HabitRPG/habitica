@@ -90,11 +90,6 @@
           li {{ $t('giftSubscriptionText2') }}
           li {{ $t('giftSubscriptionText3') }}
         h4 {{ $t('giftSubscriptionText4') }}
-      .col-6
-        h2 {{ $t('winterPromoGiftHeader') }}
-        p {{ $t('winterPromoGiftDetails1') }}
-        p {{ $t('winterPromoGiftDetails2') }}
-
 </template>
 
 <style scoped>
@@ -157,7 +152,7 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
