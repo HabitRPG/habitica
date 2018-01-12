@@ -71,10 +71,8 @@ export default function () {
       browserTimezoneOffset,
       tasks: asyncResourceFactory(), // user tasks
       completedTodosStatus: 'NOT_LOADED',
-      party: {
-        quest: {},
-        members: asyncResourceFactory(),
-      },
+      party: asyncResourceFactory(),
+      partyMembers: asyncResourceFactory(),
       shops: {
         market: asyncResourceFactory(),
         quests: asyncResourceFactory(),

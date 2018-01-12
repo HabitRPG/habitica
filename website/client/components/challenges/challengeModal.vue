@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#challenge-modal(:title="title", size='lg')
+  b-modal#challenge-modal(:title="title", size='lg', @shown="shown")
     .form
       .form-group
         label
@@ -232,24 +232,7 @@ export default {
       groups: [],
     };
   },
-  async mounted () {
-    this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-    if (this.user.party._id) {
-      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
-      this.groups.push({
-        name: party.name,
-        _id: party._id,
-        privacy: 'private',
-      });
-    }
-
-    this.groups.push({
-      name: this.$t('publicChallengesTitle'),
-      _id: TAVERN_ID,
-    });
-
-    this.setUpWorkingChallenge();
-  },
+  async mounted () {},
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;
@@ -315,6 +298,25 @@ export default {
     },
   },
   methods: {
+    async shown () {
+      this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+      await this.$store.dispatch('party:getParty');
+      const party = this.$store.state.party.data;
+      if (party._id) {
+        this.groups.push({
+          name: party.name,
+          _id: party._id,
+          privacy: 'private',
+        });
+      }
+
+      this.groups.push({
+        name: this.$t('publicChallengesTitle'),
+        _id: TAVERN_ID,
+      });
+
+      this.setUpWorkingChallenge();
+    },
     setUpWorkingChallenge () {
       this.resetWorkingChallenge();
 

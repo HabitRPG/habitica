@@ -97,8 +97,8 @@ export default {
       },
       keysToMounts: {
         key: 'keysToMounts',
-        text: this.$t('keysToMounts'),
-        notes: this.$t('keysToMountsDesc'),
+        text: this.$t('keyToMounts'),
+        notes: this.$t('keyToMountsDesc'),
         value: 4,
         currency: 'gems',
         class: 'key_to_mounts',
@@ -117,8 +117,8 @@ export default {
       },
       keysToBoth: {
         key: 'keysToBoth',
-        text: this.$t('keysToBoth'),
-        notes: this.$t('keysToBothDesc'),
+        text: this.$t('keyToBoth'),
+        notes: this.$t('keyToBothDesc'),
         value: 6,
         currency: 'gems',
         class: 'key_to_both',

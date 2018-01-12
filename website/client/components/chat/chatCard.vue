@@ -3,7 +3,6 @@ div
   .mentioned-icon(v-if='isUserMentioned')
   .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
   .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
-  .flag-message(v-if='msg.flags && msg.flags[user._id]') {{$t('youFlaggedThisMessage')}}
   .card-body
       h3.leader(
         :class='userLevelStyle(msg)',
@@ -50,7 +49,7 @@ div
     top: -.5em;
   }
 
-  .message-hidden, .flag-message {
+  .message-hidden {
     margin-left: 1.5em;
     margin-top: 1em;
     color: red;

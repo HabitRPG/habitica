@@ -17,5 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./takeThis');
+const processUsers = require('./tasks/tasks-set-everyX');
 processUsers();

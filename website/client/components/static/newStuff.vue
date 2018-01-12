@@ -4,23 +4,19 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/2/2018 - JANUARY BACKGROUNDS AND ARMOIRE ITEMS, AND NEW TAKE THIS CHALLENGE
-    hr
+    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
     .media
+      .scene_task_list.right-margin
       .media-body
-        h3 January Backgrounds and Armoire Items!
-        p We’ve added three new backgrounds to the Background Shop! Now your avatar can drive a Sleigh, bask in the wintery glow of Auroras, and fly over Icy Steppes! Check them out under User Icon > Backgrounds!
-        p Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Coach Driver Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
-        .small by Katy133, weeWitch, denissa, Reesachan, Nummycakes, and Beffymaroo
-        .media
-          .promo_take_this.right-margin
-          .media-body
-            h3 New Take This Challenge!
-            p(v-markdown='"The next Take This Challenge has launched, [Check Your HP!](/challenges/d9722bfb-f8f1-4801-9b40-2aa34ea85105), with a focus on monitoring your mood. Be sure to check it out to earn additional pieces of the Take This armor set and a chance at Gems!"')
-        p(v-markdown='"[Take This](http://www.takethis.org/) is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness."')
-      .promo_armoire_bgs_201801.left-margin
-    p(v-markdown='"Congratulations to the winners of the last Take This Challenge, \'It\'s Dangerous to Go Alone!\': grand prize winner Acoustikarl, and runners-up Ximena18, Sunbeams90, Castrón, Adara McCLain, and Emily Torrey. Plus, all participants in that Challenge have received a piece of the [Take This item set](http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set), if they hadn\'t completed the set already. It is located in your Rewards column. Enjoy!"')
-      .small by Doctor B, the Take This team, Lemoness, and SabreCat
+        h3 Use Case Spotlight: Setting Realistic Goals
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+    h3 Behind the Scenes: Lady Glaciate
+    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
+    .small by Lemoness
+    .scene_lady_glaciate.center-block
+    hr
 </template>
 
 <style lang='scss' scoped>

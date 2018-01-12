@@ -3035,6 +3035,38 @@ let quests = {
       unlock: t('questYarnUnlockText'),
     },
   },
+  pterodactyl: {
+    text: t('questPterodactylText'),
+    notes: t('questPterodactylNotes'),
+    completion: t('questPterodactylCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questPterodactylBoss'),
+      hp: 1000,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        },
+      ],
+      gp: 67,
+      exp: 650,
+      unlock: t('questPterodactylUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
