@@ -538,16 +538,14 @@ export default {
         return;
       }
 
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-
       if (this.isParty) {
-        this.$store.state.party.data = group;
+        await this.$store.dispatch('party:getParty');
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
-        return;
+      } else {
+        const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+        this.$set(this, 'group', group);
       }
-
-      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {

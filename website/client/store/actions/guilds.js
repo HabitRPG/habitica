@@ -38,12 +38,11 @@ export async function getMyGuilds (store) {
 
 export async function getGroup (store, payload) {
   let response = await axios.get(`/api/v3/groups/${payload.groupId}`);
-
   // @TODO: should we store the active group for modifying?
   // let guilds = response.data.data;
   // store.state.myGuilds = guilds;
 
-  // @TODO: Populate wiht members, challenges, and invites
+  // @TODO: Populate with members, challenges, and invites
 
   return response.data.data;
 }
