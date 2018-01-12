@@ -88,7 +88,7 @@
     "plusOneGem": "+1 Gema",
     "typeNotSellable": "El tipo no se puede vender. Debe ser uno de los siguientes: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "no se encontró una llave para los objetos del usuario <%= type %>",
-    "userItemsNotEnough": "You do not have enough <%= type %>",
+    "userItemsNotEnough": "No tienes suficientes <%= type %>",
     "pathRequired": "Una cadena de camino es requerida. ",
     "unlocked": "Se han desbloqueado objetos. ",
     "alreadyUnlocked": "El conjunto ya se ha desbloqueado por completo. ",

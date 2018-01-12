@@ -1,42 +1,24 @@
-.promo_armoire_bgs_201801 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -369px;
-  width: 141px;
-  height: 441px;
-}
-.promo_bogo {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -419px -369px;
-  width: 237px;
-  height: 150px;
-}
-.promo_itunes_appday {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -437px 0px;
-  width: 238px;
-  height: 290px;
-}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -676px -442px;
+  background-position: -382px -148px;
   width: 114px;
   height: 87px;
 }
 .promo_winter_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -676px 0px;
+  background-position: 0px 0px;
   width: 140px;
   height: 441px;
 }
-.scene_calendar {
+.scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 436px;
-  height: 368px;
+  background-position: -382px 0px;
+  width: 282px;
+  height: 147px;
 }
-.scene_winter_cleaning {
+.scene_task_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -369px;
-  width: 276px;
-  height: 225px;
+  background-position: -141px 0px;
+  width: 240px;
+  height: 195px;
 }
