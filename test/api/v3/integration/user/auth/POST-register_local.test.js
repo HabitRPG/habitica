@@ -37,6 +37,22 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
+    it('remove spaces from username', async () => {
+      let username = ' usernamewithspaces ';
+      let email = 'test@example.com';
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.auth.local.username).to.eql(username.trim());
+      expect(user.profile.name).to.eql(username.trim());
+    });
+
     context('provides default tags and tasks', async () => {
       it('for a generic API consumer', async () => {
         let username = generateRandomUserName();
