@@ -128,5 +128,6 @@
     "categoiresRequired": "En eller mer kategorier måste vara valda",
     "viewProgressOf": "Visa Framsteg Av",
     "selectMember": "Välj Medlem",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Vill du behålla utmaningsuppgifterna?",
+    "selectParticipant": "Välj en Deltagare"
 }

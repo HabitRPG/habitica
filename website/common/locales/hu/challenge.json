@@ -88,7 +88,7 @@
     "userAlreadyInChallenge": "A felhasználó már részt vesz ebben a kihívásban.",
     "cantOnlyUnlinkChalTask": "Csak a érvénytelen, kihívásokhoz kapcsolódó feladatokat lehet törölni.",
     "shortNameTooShort": "Egy címke nevének legalább 3 betűből kell állnia.",
-    "joinedChallenge": "Csatlakozotál egy kihíváshoz",
+    "joinedChallenge": "Csatlakoztál egy kihíváshoz",
     "joinedChallengeText": "Ez a felhasználó próbára tette magát azzal, hogy csatlakozott egy kihíváshoz!",
     "myChallenges": "Saját kihívásaim",
     "findChallenges": "Kihívások böngészése",
@@ -128,5 +128,6 @@
     "categoiresRequired": "Egy vagy több katergória kiválasztás kötelező",
     "viewProgressOf": "Haladás megtekintése",
     "selectMember": "Tag kiválasztása",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?",
+    "selectParticipant": "Válassz ki egy résztvevőt"
 }

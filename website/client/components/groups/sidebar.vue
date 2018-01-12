@@ -11,30 +11,27 @@
         v-for="group in categoryOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group
       h3 Role
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group
       h3 Guild Size
       .form-check(
         v-for="group in guildSizeOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="guildSizeFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="guildSizeFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
 </template>
 
 <script>

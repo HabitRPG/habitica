@@ -4,12 +4,19 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/13/2017 - BLOG POST: THE HABITICA PLANNER
+    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
+    .media
+      .scene_task_list.right-margin
+      .media-body
+        h3 Use Case Spotlight: Setting Realistic Goals
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+    h3 Behind the Scenes: Lady Glaciate
+    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
+    .small by Lemoness
+    .scene_lady_glaciate.center-block
     hr
-    p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2017/12/13/the-habitica-planner/) is about the Habitica Planner! We hope that it will help you as you find new ways to use Habitica for your task-management needs! Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com), and [Facebook](https://facebook.com/habitica)."')
-    .small by Beffymaroo and the Wiki Wizards
-    .scene_calendar.center-block
-    br
 </template>
 
 <style lang='scss' scoped>
@@ -24,6 +31,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

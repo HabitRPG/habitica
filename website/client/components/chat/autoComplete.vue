@@ -57,10 +57,19 @@ export default {
       this.currentSearchPosition = newText.length - 1;
     },
     chat () {
+      this.resetDefaults();
       this.grabUserNames();
     },
   },
   methods: {
+    resetDefaults () {
+      // Mounted is not called when switching between group pages because they have the
+      // the same parent component. So, reset the data
+      this.currentSearch = '';
+      this.searchActive = false;
+      this.currentSearchPosition = 0;
+      this.tmpSelections = [];
+    },
     grabUserNames () {
       let usersThatMessage = groupBy(this.chat, 'user');
       for (let userName in usersThatMessage) {

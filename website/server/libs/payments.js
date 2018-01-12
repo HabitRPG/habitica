@@ -307,7 +307,7 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {

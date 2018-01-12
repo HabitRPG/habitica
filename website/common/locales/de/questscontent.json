@@ -549,5 +549,13 @@
     "questYarnCompletion": "Mit einem kraftlosen Wischer eines Nadel-durchlöcherten Zipfels und einem schwachen Brüllen entwirrt sich das Grauenhafte Wollgräuel schließlich zu einem Haufen Wollknäuel. <br><br>\"Pass gut auf diese Wolle auf\", sagt der Ladenbesitzer @JinjooHat, und drückt Dir die Knäuel in die Hände. \"Wenn Du sie fütterst und richtig pflegst, wachsen sie zu neuen und aufregenden Projekten heran, die Dein Herz höher fliegen lassen könnten…\"",
     "questYarnBoss": "Das Grauenhafte Wollgräuel",
     "questYarnDropYarnEgg": "Wollknäuel (Ei)",
-    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz"
+    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz",
+    "winterQuestsText": "\"Winter\" Quest-Paket",
+    "winterQuestsNotes": "Beinhaltet 'Wildernder Weihnachtswichtel', 'Finde das Jungtier' und 'Der Federvieh-Frost'. Verfügbar bis zum 31. Dezember.",
+    "questPterodactylText": "The Pterror-dactyl",
+    "questPterodactylNotes": "You're taking a stroll along the peaceful Stoïkalm Cliffs when an evil screech rends the air. You turn to find a hideous creature flying towards you and are overcome by a powerful terror. As you turn to flee, @Lilith of Alfheim grabs you. \"Don't panic! It's just a Pterror-dactyl.\"<br><br>@Procyon P nods. \"They nest nearby, but they're attracted to the scent of negative Habits and undone Dailies.\"<br><br>\"Don't worry,\" @Katy133 says. \"We just need to be extra productive to defeat it!\" You are filled with a renewed sense of purpose and turn to face your foe.",
+    "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
+    "questPterodactylBoss": "Pterror-dactyl",
+    "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
+    "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market"
 }

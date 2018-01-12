@@ -161,6 +161,9 @@
     "questEggYarnText": "Yarn",
     "questEggYarnMountText": "Flying Carpet",
     "questEggYarnAdjective": "woolen",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "מצא שיקוי הבקעה לשפוך על ביצה זו, והיא תהפוך ל<%= eggText(locale) %> <%= eggAdjective(locale) %>.",
     "hatchingPotionBase": "רגיל",
     "hatchingPotionWhite": "לבן",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "מזוג שיקוי זה על ביצה, והיא תבקע כ: <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "לא ניתן לשימוש על ביצי הרפתקאות.",
     "foodMeat": "בשר",
@@ -218,5 +222,6 @@
     "foodCandyRed": "סוכריית קינמון",
     "foodSaddleText": "אוכף",
     "foodSaddleNotes": "הופך חיית מחמד לחיית רכיבה בין רגע!",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "האכל בזה את חיות המחמד שלך והן יגדלו לחיות רכיבה חסונות."
 }

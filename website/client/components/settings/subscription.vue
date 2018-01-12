@@ -152,7 +152,7 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
