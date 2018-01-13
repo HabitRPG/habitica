@@ -66,14 +66,19 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
+    const taskText = syncedTask.text;
+    const managerName = user.profile.name;
+
+    expect(notification.data.message).to.equal(t('needsWork', {taskText, managerName}));
+
     expect(notification.data.task.id).to.equal(syncedTask._id);
-    expect(notification.data.task.text).to.equal(syncedTask.text);
+    expect(notification.data.task.text).to.equal(taskText);
 
     expect(notification.data.group.id).to.equal(syncedTask.group.id);
     expect(notification.data.group.name).to.equal(guild.name);
 
     expect(notification.data.manager.id).to.equal(user._id);
-    expect(notification.data.manager.name).to.equal(user.profile.name);
+    expect(notification.data.manager.name).to.equal(managerName);
   });
 
   it('allows a manager to mark a task as needing work', async () => {
@@ -95,14 +100,19 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
 
+    const taskText = syncedTask.text;
+    const managerName = member2.profile.name;
+
+    expect(notification.data.message).to.equal(t('needsWork', {taskText, managerName}));
+
     expect(notification.data.task.id).to.equal(syncedTask._id);
-    expect(notification.data.task.text).to.equal(syncedTask.text);
+    expect(notification.data.task.text).to.equal(taskText);
 
     expect(notification.data.group.id).to.equal(syncedTask.group.id);
     expect(notification.data.group.name).to.equal(guild.name);
 
     expect(notification.data.manager.id).to.equal(member2._id);
-    expect(notification.data.manager.name).to.equal(member2.profile.name);
+    expect(notification.data.manager.name).to.equal(managerName);
   });
 
   it('prevents marking a task as needing work if it was already approved', async () => {

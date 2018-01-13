@@ -265,7 +265,7 @@
   "claim": "Claim",
   "removeClaim": "Remove Claim",
   "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
-  "yourTaskHasBeenApproved": "Your task \"<%= taskText %>\" has been approved",
+  "yourTaskHasBeenApproved": "Your task <span class=\"notification-green\"><%= taskText %></span> has been approved.",
   "taskNeedsWork": "<span class=\"notification-bold\"><%= managerName %></span> marked <span class=\"notification-bold\"><%= taskText %></span> as needing additional work.",
   "userHasRequestedTaskApproval": "<%= user %> has requested task approval for <%= taskName %>",
   "approve": "Approve",

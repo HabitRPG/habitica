@@ -5,7 +5,7 @@ base-notification(
   :notification="notification",
   @click="action"
 )
-  .notification-yellow(slot="content", v-html="notificationString")
+  .notification-yellow(slot="content", v-html="notification.data.message")
 </template>
 
 <script>
@@ -16,17 +16,9 @@ export default {
   components: {
     BaseNotification,
   },
-  computed: {
-    notificationString () {
-      const taskText = this.notification.data.task.text;
-      const managerName = this.notification.data.manager.name;
-
-      return this.$t('taskNeedsWork', {taskText, managerName});
-    }
-  },
   methods: {
     action () {
-      const groupId = this.notification.data.groupId;
+      const groupId = this.notification.data.group.id;
       this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId }});
     },
   },

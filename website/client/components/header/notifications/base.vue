@@ -46,6 +46,10 @@
 .notification-yellow {
   color: #bf7d1a;
 }
+
+.notification-green {
+  color: #1CA372;
+}
 </style>
 
 <style lang="scss" scoped>

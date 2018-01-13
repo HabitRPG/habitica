@@ -394,10 +394,16 @@ api.taskNeedsWork = {
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
 
+    const taskText = task.text;
+    const managerName = user.profile.name;
+
+    const message = res.t('taskNeedsWork', {taskText, managerName}, assignedUser.preferences.language);
+
     assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
+      message,
       task: {
         id: task._id,
-        text: task.text,
+        text: taskText,
       },
       group: {
         id: group._id,
@@ -405,7 +411,7 @@ api.taskNeedsWork = {
       },
       manager: {
         id: user._id,
-        name: user.profile.name,
+        name: managerName,
       },
     });
 
