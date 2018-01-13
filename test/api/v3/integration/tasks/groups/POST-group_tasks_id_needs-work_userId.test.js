@@ -65,9 +65,15 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(member.notifications.length).to.equal(initialNotifications + 1);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
-    expect(notification.data.message).to.equal(t('taskNeedsWork', {taskText: task.text}));
-    expect(notification.data.taskId).to.equal(syncedTask._id);
-    expect(notification.data.groupId).to.equal(syncedTask.group.id);
+
+    expect(notification.data.task.id).to.equal(syncedTask._id);
+    expect(notification.data.task.text).to.equal(syncedTask.text);
+
+    expect(notification.data.group.id).to.equal(syncedTask.group.id);
+    expect(notification.data.group.name).to.equal(guild.name);
+
+    expect(notification.data.manager.id).to.equal(user._id);
+    expect(notification.data.manager.name).to.equal(user.profile.name);
   });
 
   it('allows a manager to mark a task as needing work', async () => {
@@ -88,9 +94,15 @@ describe('POST /tasks/:id/needs-work/:userId', () => {
     expect(member.notifications.length).to.equal(initialNotifications + 1);
     const notification = member.notifications[member.notifications.length - 1];
     expect(notification.type).to.equal('GROUP_TASK_NEEDS_WORK');
-    expect(notification.data.message).to.equal(t('taskNeedsWork', {taskText: task.text}));
-    expect(notification.data.taskId).to.equal(syncedTask._id);
-    expect(notification.data.groupId).to.equal(syncedTask.group.id);
+
+    expect(notification.data.task.id).to.equal(syncedTask._id);
+    expect(notification.data.task.text).to.equal(syncedTask.text);
+
+    expect(notification.data.group.id).to.equal(syncedTask.group.id);
+    expect(notification.data.group.name).to.equal(guild.name);
+
+    expect(notification.data.manager.id).to.equal(member2._id);
+    expect(notification.data.manager.name).to.equal(member2.profile.name);
   });
 
   it('prevents marking a task as needing work if it was already approved', async () => {

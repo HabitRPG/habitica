@@ -395,9 +395,18 @@ api.taskNeedsWork = {
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
 
     assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
-      taskId: task._id,
-      groupId: group._id,
-      message: res.t('taskNeedsWork', {taskText: task.text}),
+      task: {
+        id: task._id,
+        text: task.text,
+      },
+      group: {
+        id: group._id,
+        name: group.name,
+      },
+      manager: {
+        id: user._id,
+        name: user.profile.name,
+      },
     });
 
     await assignedUser.save();

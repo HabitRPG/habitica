@@ -5,7 +5,9 @@
         .col-8
           strong {{approval.userId.profile.name}}
         .col-2
-          button.btn.btn-primary(@click='approve(index)') Approve
+          button.btn.btn-primary(@click='approve(index)') {{ $t('approve') }}
+        .col-2
+          button.btn.btn-secondary(@click='needsWork(index)') {{ $t('needsWork') }}
     .modal-footer
       button.btn.btn-secondary(@click='close()') {{$t('close')}}
 </template>
@@ -30,6 +32,9 @@ export default {
       });
       this.task.group.assignedUsers.splice(index, 1);
       this.task.approvals.splice(index, 1);
+    },
+    needsWork (index) {
+      // @TODO
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'approval-modal');

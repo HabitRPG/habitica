@@ -42,6 +42,10 @@
   font-weight: bold;
   color: $purple-300;
 }
+
+.notification-yellow {
+  color: #bf7d1a;
+}
 </style>
 
 <style lang="scss" scoped>
