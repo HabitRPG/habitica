@@ -111,31 +111,31 @@
             ul.tier-list
               li.tier1(v-once)
                | {{ $t('tier1') }}
-               .svg-icon(v-html="icons.tier1")
+               .svg-icon.tier1-icon(v-html="icons.tier1")
               li.tier2(v-once)
                 | {{ $t('tier2') }}
-                .svg-icon(v-html="icons.tier2")
+                .svg-icon.tier2-icon(v-html="icons.tier2")
               li.tier3(v-once)
                 | {{ $t('tier3') }}
-                .svg-icon(v-html="icons.tier3")
+                .svg-icon.tier3-icon(v-html="icons.tier3")
               li.tier4(v-once)
                 | {{ $t('tier4') }}
-                .svg-icon(v-html="icons.tier4")
+                .svg-icon.tier4-icon(v-html="icons.tier4")
               li.tier5(v-once)
                 | {{ $t('tier5') }}
-                .svg-icon(v-html="icons.tier5")
+                .svg-icon.tier5-icon(v-html="icons.tier5")
               li.tier6(v-once)
                 | {{ $t('tier6') }}
-                .svg-icon(v-html="icons.tier6")
+                .svg-icon.tier6-icon(v-html="icons.tier6")
               li.tier7(v-once)
                 | {{ $t('tier7') }}
-                .svg-icon(v-html="icons.tier7")
+                .svg-icon.tier7-icon(v-html="icons.tier7")
               li.moderator(v-once)
                 | {{ $t('tierModerator') }}
-                .svg-icon(v-html="icons.tierMod")
+                .svg-icon.mod-icon(v-html="icons.tierMod")
               li.staff(v-once)
                 | {{ $t('tierStaff') }}
-                .svg-icon(v-html="icons.tierStaff")
+                .svg-icon.staff-icon(v-html="icons.tierStaff")
               li.npc(v-once)
                 | {{ $t('tierNPC') }}
                 .svg-icon.npc-icon(v-html="icons.tierNPC")
@@ -243,20 +243,37 @@
     margin-top: 1em;
   }
 
+  .svg-icon {
+    width: 10px;
+    display: inline-block;
+    margin-left: .5em;
+  }
+
+  .tier1-icon, .tier2-icon {
+    width: 11px;
+  }
+
+  .tier5-icon, .tier6-icon {
+    width: 8px;
+  }
+
+  .tier7-icon {
+    width: 12px;
+  }
+
+  .mod-icon {
+    width: 13px;
+  }
+
   .npc-icon {
-    fill: #77f4c7;
-    stroke: #005737;
+    width: 8px;
   }
 
   .staff {
     margin-bottom: 1em;
 
     .staff-icon  {
-      fill: #9a62ff;
-    }
-
-    .mod-icon {
-      fill: #277eab;
+      width: 11px;
     }
 
     .title {
@@ -264,12 +281,6 @@
       font-weight: bold;
       display: inline-block;
     }
-  }
-
-  .svg-icon {
-    width: 10px;
-    display: inline-block;
-    margin-left: .5em;
   }
 
   .tier-list {
@@ -284,6 +295,7 @@
       text-align: center;
       padding: 1em;
       margin-bottom: 1em;
+      font-weight: bold;
     }
 
     .tier1 {

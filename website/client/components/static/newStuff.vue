@@ -4,32 +4,19 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/10/2018 - iOS APP STORE FEATURE, NEW PET QUEST, AND LAST CHANCE FOR BUY-1-GET-1 GIFT SUBSCRIPTIONS
+    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
+    .media
+      .scene_task_list.right-margin
+      .media-body
+        h3 Use Case Spotlight: Setting Realistic Goals
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+    h3 Behind the Scenes: Lady Glaciate
+    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
+    .small by Lemoness
+    .scene_lady_glaciate.center-block
     hr
-    .media
-      .media-body
-        h3 Habitica App Store Feature!
-        p(v-markdown='"We\'re honored to be featured as the App of the Day in the iOS App Store! [Check out our story here](https://itunes.apple.com/us/story/id1328100123)."')
-        p Also, get excited because we're releasing an update to the Habitica iOS App in the very near future that includes a number of highly requested features! We'll be announcing this update very soon, so keep an eye out for it!
-        .small by Viirus and piyorii
-      .promo_itunes_appday.left-margin
-    .media
-      .quest_pterodactyl.right-margin
-      .media-body
-        h3 New Pet Quest: The Pterror-Dactyl!
-        p(v-markdown='"A hike along the Stoïkalm Cliffs turns terrifying when a Pterror-dactyl hones in on undone Dailies and negative Habits! Can you defeat this reptilian menace with your productivity? Get the latest pet quest, [The Pterror-dactyl](/shops/quests), and earn some trusting Pterodactyl pets by completing your real-life tasks."')
-        .small by SabreCat, Lemoness, and Beffymaroo
-        .small Written by FrenchKey
-        .small Art by Lilith of Alfheim, Vampitch, Procyon P, GeraldThePixel, Edge, stefalupagus, Katy133, Willow the Witty
-    .media
-      .media-body
-        h3 Last Chance to Gift a Subscription and Get One Free!
-        p Tomorrow is your last chance to take advantage of our promotion where if you gift somebody a subscription, you get the same subscription for yourself for free!
-        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
-      .promo_bogo.left-margin
-    p The special promotion will only run until tomorrow, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
-    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
-    .small by SabreCat and Lemoness
 </template>
 
 <style lang='scss' scoped>

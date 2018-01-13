@@ -191,9 +191,9 @@
           span {{ $t('deleteTask') }}
 
         .advanced-settings(v-if="task.type !== 'reward'")
-          .d-flex.justify-content-between.align-items-center
+          .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
             h3 {{ $t('advancedSettings') }}
-            .toggle-up(@click = "showAdvancedOptions = !showAdvancedOptions")
+            .toggle-up
               .svg-icon(v-html="icons.down", :class="{'toggle-open': showAdvancedOptions}")
           b-collapse#advancedOptionsCollapse(v-model="showAdvancedOptions")
             .advanced-settings-body
@@ -203,7 +203,7 @@
                   .input-group
                     .input-group-prepend.streak-addon.input-group-icon
                       .svg-icon(v-html="icons.streak")
-                    input.form-control(type="number", v-model="task.streak", min="0", required, :disabled='challengeAccessRequired')
+                    input.form-control(type="number", v-model="task.streak", min="0", required)
 
               .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
                 .form-group
@@ -214,16 +214,14 @@
                         .input-group-prepend.positive-addon.input-group-icon
                           .svg-icon(v-html="icons.positive")
                         input.form-control(
-                          type="number", v-model="task.counterUp", min="0", required, 
-                          :disabled="challengeAccessRequired",
+                          type="number", v-model="task.counterUp", min="0", required,
                         )
                     .col-6(v-if="task.down")
                       .input-group
                         .input-group-prepend.negative-addon.input-group-icon
                           .svg-icon(v-html="icons.negative")
                         input.form-control(
-                          type="number", v-model="task.counterDown", min="0", required, 
-                          :disabled="challengeAccessRequired",
+                          type="number", v-model="task.counterDown", min="0", required,
                         )
 
               .option(v-if="isUserTask && task.type !== 'reward'")
@@ -601,6 +599,10 @@
       margin-left: -23px;
       margin-right: -23px;
       padding: 16px 24px;
+
+      &-toggle {
+        cursor: pointer;
+      }
 
       &-body {
         margin-top: 17px;

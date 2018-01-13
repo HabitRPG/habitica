@@ -31,17 +31,11 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
     )
       h3.panel-heading {{ $t('subscription') }}
       .panel-body
-        .row
-          .col-md-4
-            .form-group
-              .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
-                label
-                  input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
-                  | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
-          .col-md-8
-            h4 {{ $t('winterPromoGiftHeader') }}
-            p {{ $t('winterPromoGiftDetails1') }}
-            p {{ $t('winterPromoGiftDetails2') }}
+        .form-group
+          .radio(v-for='block in subscriptionBlocks', v-if="block.target !== 'group' && block.canSubscribe === true")
+            label
+              input(type="radio", name="subRadio", :value="block.key", v-model='gift.subscription.key')
+              | {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
 
     textarea.form-control(rows='3', v-model='gift.message', :placeholder="$t('sendGiftMessagePlaceholder')")
     //include ../formatting-help
