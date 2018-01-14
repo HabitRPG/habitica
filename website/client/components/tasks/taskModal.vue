@@ -151,7 +151,7 @@
         .option(v-if="task.type === 'habit'")
           .form-group
             label(v-once) {{ $t('resetStreak') }}
-            b-dropdown.inline-dropdown(:text="$t(task.frequency)")
+            b-dropdown.inline-dropdown(:text="$t(task.frequency)", :disabled='challengeAccessRequired')
               b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
                 | {{ $t(frequency) }}
 
@@ -205,7 +205,7 @@
                       .svg-icon(v-html="icons.streak")
                     input.form-control(type="number", v-model="task.streak", min="0", required)
 
-              .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down) && !challengeAccessRequired")
+              .option(v-if="task.type === 'habit' && isUserTask && purpose === 'edit' && (task.up || task.down)")
                 .form-group
                   label(v-once) {{ $t('restoreStreak') }}
                   .row
