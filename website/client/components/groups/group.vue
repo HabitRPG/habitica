@@ -599,10 +599,14 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
-        this.$store.state.party.members = [];
+        this.$store.state.partyMembers = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
+
+      if (this.isParty) {
+        this.$router.push({name: 'tasks'});
+      }
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
