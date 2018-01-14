@@ -243,10 +243,10 @@
 
 <script>
 import Task from './task';
-import sortBy from 'lodash/sortBy';
+// import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
 import buyMixin from 'client/mixins/buy';
-import { mapState, mapActions } from 'client/libs/store';
+import { mapState, mapActions, mapGetters } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
@@ -278,33 +278,33 @@ export default {
       habit: {
         label: 'habits',
         filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'yellowred', filter: t => t.value < 1}, // weak
-          {label: 'greenblue', filter: t => t.value >= 1}, // strong
+          {label: 'all', default: true},
+          {label: 'yellowred'}, // weak
+          {label: 'greenblue'}, // strong
         ],
       },
       daily: {
         label: 'dailies',
         filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'due', filter: t => !t.completed && shouldDo(new Date(), t, this.userPreferences)},
-          {label: 'notDue', filter: t => t.completed || !shouldDo(new Date(), t, this.userPreferences)},
+          {label: 'all', default: true},
+          {label: 'due'},
+          {label: 'notDue'},
         ],
       },
       todo: {
         label: 'todos',
         filters: [
-          {label: 'remaining', filter: t => !t.completed, default: true}, // active
-          {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
-          {label: 'complete2', filter: t => t.completed},
+          {label: 'remaining', default: true}, // active
+          {label: 'scheduled'},
+          {label: 'complete2'},
         ],
       },
       reward: {
         label: 'rewards',
         filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'custom', filter: () => true}, // all rewards made by the user
-          {label: 'wishlist', filter: () => false}, // not user tasks
+          {label: 'all', default: true},
+          {label: 'custom'}, // all rewards made by the user
+          {label: 'wishlist'}, // not user tasks
         ],
       },
     });
@@ -342,6 +342,9 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    ...mapGetters({
+      getTaskList: 'tasks:getTaskList',
+    }),
     onUserPage () {
       let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
 
@@ -354,26 +357,33 @@ export default {
     },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      const filter = this.activeFilters[this.type];
+      // const filter = this.activeFilters[this.type];
 
-      let taskList = this.tasks[`${this.type}s`];
-      if (this.taskListOverride) taskList = this.taskListOverride;
+      // let taskList = this.tasks[`${this.type}s`];
+      // if (this.taskListOverride) taskList = this.taskListOverride;
 
-      if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
-        let taskListSorted = this.$store.dispatch('tasks:order', [
-          taskList,
-          this.user.tasksOrder,
-        ]);
+      // if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
+      //   let taskListSorted = this.$store.dispatch('tasks:order', [
+      //     taskList,
+      //     this.user.tasksOrder,
+      //   ]);
 
-        taskList = taskListSorted[`${this.type}s`];
-      }
+      //   taskList = taskListSorted[`${this.type}s`];
+      // }
 
-      if (filter.sort) {
-        taskList = sortBy(taskList, filter.sort);
-      }
+      // if (filter.sort) {
+      //   taskList = sortBy(taskList, filter.sort);
+      // }
 
-      return taskList.filter(t => {
-        return this.filterTask(t);
+      // return taskList.filter(t => {
+      //   return this.filterTask(t);
+      // });
+
+      return this.getTaskList({
+        type: this.type,
+        filter: this.activeFilters[this.type],
+        tags: this.selectedTags,
+        search: this.searchText,
       });
     },
     inAppRewards () {
@@ -545,6 +555,7 @@ export default {
       this.$emit('editTask', task);
     },
     activateFilter (type, filter) {
+      // Needs a separate API call as this data may not reside in store
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }

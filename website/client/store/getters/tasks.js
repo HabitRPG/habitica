@@ -109,3 +109,57 @@ export function getTaskClasses (store) {
     }
   };
 }
+
+// Task filter data
+// @TODO find a better way to represent this data
+const taskFilters = {
+  habit: {
+    label: 'habits',
+    filters: {
+      all: () => true,
+      yellowred: t => t.value < 1, // weak
+      greenblue: t => t.value >= 1, // strong
+    },
+  },
+  daily: {
+    label: 'dailies',
+    filters: {
+      all: () => true,
+      due: t => !t.completed && shouldDo(new Date(), t, this.userPreferences),
+      notDue: t => t.completed || !shouldDo(new Date(), t, this.userPreferences),
+    },
+  },
+  todo: {
+    label: 'todos',
+    filters: {
+      remaining: t => !t.completed, // active
+      scheduled: t => !t.completed && t.date, sort: t => t.date,
+      complete2: t => t.completed,
+    },
+  },
+  reward: {
+    label: 'rewards',
+    filters: {
+      all: () => true,
+      custom: () => true, // all rewards made by the user
+      wishlist: () => false, // not user tasks
+    },
+  },
+};
+
+export function getTaskList (store) {
+  return ({type, filter = {}, tagList = [], searchText = null}) => {
+    let requestedTasks = store.state.tasks.data[`${type}s`];
+    if (filter !== {}) {
+      requestedTasks = requestedTasks.filter(taskFilters[type].filters[filter.label]);
+    }
+
+    // if (tagList.length > 0) { }
+    // if (searchText) { }
+
+    // eslint-disable-next-line no-console
+    console.log('task:getters:getTaskList', type, filter, tagList, searchText, requestedTasks);
+
+    return requestedTasks;
+  };
+}
