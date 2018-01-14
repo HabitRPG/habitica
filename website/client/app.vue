@@ -408,6 +408,7 @@ export default {
       if (this.selectedSpellToBuy.pinType === 'card') {
         const newUserGp = castResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
+        this.text(this.$t('sentCardToUser', { userName: member.profile.name }));
       }
 
       this.selectedSpellToBuy = null;
