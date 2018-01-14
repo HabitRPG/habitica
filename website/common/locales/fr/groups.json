@@ -240,7 +240,7 @@
     "youAreAssigned": "Vous êtes attribués à cette tâche",
     "taskIsUnassigned": "Cette tâche n'est pas attribué",
     "confirmClaim": "Êtes-vous sûr de vouloir réclamer cette tâche?",
-    "confirmUnClaim": "Are you sure you want to unclaim this task?",
+    "confirmUnClaim": "Voulez-vous ne plus réclamer cette tâche ?",
     "confirmApproval": "Êtes-vous sûr de vouloir approuver cette tâche?",
     "userRequestsApproval": "<%= userName %> demande une approbation",
     "userCountRequestsApproval": "<%= userCount %> demandent une approbation",
@@ -408,5 +408,6 @@
     "groupBilling": "Facturation du groupe",
     "wouldYouParticipate": "Voulez-vous participer ?",
     "managerAdded": "Gestionnaire ajouté avec succès",
-    "managerRemoved": "Gestionnaire retiré avec succès"
+    "managerRemoved": "Gestionnaire retiré avec succès",
+    "leaderChanged": "Le responsable a été changé"
 }

@@ -4,29 +4,19 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 12/15/2017 - NEW PET QUEST BUNDLE, GIFT-1-GET-1 SUBSCRIPTIONS, AND BEHIND THE SCENES BLOG
-    hr
-    h3 New Discounted Pet Quest Bundle: Winter Quests
+    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
     .media
+      .scene_task_list.right-margin
       .media-body
-        p(v-markdown='"If you are looking to add some cold weather friends to your Habitica stable, you\'re in luck! From now until December 31, you can purchase the Winter Quest Bundle and receive the Trapper Santa, Find the Cub, and Penguin quests, all for only 7 Gems! That\'s a discount of 5 Gems from the price of purchasing them separately. Check it out in the [Quest Shop](/shops/quests) today!"')
-        .small by Lemoness and SabreCat
-        .small Art by UncommonCriminal, Shaner, Eevachu, Pandoro, melynnrose, Breadstrings, Rattify, and PainterProphet
-        .small Writing by Lefnire, Leephon, and Daniel the Bard
-        .media
-          .promo_winter_subscriptions.left-margin
-          .media-body
-            h3 Gift a Subscription and Get One Free!
-            p In honor of the season of giving--and due to popular demand!--we're bringing back a very special promotion for the next month only. Now when you gift somebody a subscription, you get the same subscription for yourself for free!
-        p Subscribers get tons of perks every month, including exclusive items, the ability to buy gems with gold, a cute exclusive Jackalope Pet, and increased data history. Plus, it helps keep Habitica running :) To gift a subscription to someone, just open their profile and click on the present icon in the upper right.
-      .promo_winter_quests
-    p The special promotion will only run until January 12th, so if you've been curious about trying out a subscription, now's the time! Make a friend happy and use all your new gems to go questing together.
-    p Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3
-    .small by SabreCat and Lemoness
-    h3 Behind the Scenes: Habitica's Winter Staff Retreat
-    p(v-markdown='"There\'s a new [Behind the Scenes post on the Habitica blog](https://habitica.wordpress.com/2017/12/14/behind-the-scenes-habiticas-winter-staff-retreat/) about our recent Staff Retreat. Check out some great photos and anecdotes from the trip, and learn a little more about the Habitica Team!"')
-    .promo_winter_retreat.center-block
-    br
+        h3 Use Case Spotlight: Setting Realistic Goals
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+    h3 Behind the Scenes: Lady Glaciate
+    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
+    .small by Lemoness
+    .scene_lady_glaciate.center-block
+    hr
 </template>
 
 <style lang='scss' scoped>
@@ -41,6 +31,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

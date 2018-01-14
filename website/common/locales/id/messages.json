@@ -29,6 +29,7 @@
     "messageFoundQuest": "Kamu menemukan misi \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "Kamu pernah membeli perlengkapan ini, tetapi sekarang tidak memilikinya. Kamu bisa membelinya lagi di kolom hadiah dalam halaman tugas.",
     "messageAlreadyOwnGear": "Kamu sudah memiliki item ini. Kamu bisa memakainya dengan pergi ke halaman perlengkapan.",
+    "previousGearNotOwned": "Kamu perlu membeli perlengkapan yang berlevel lebih rendah dari yang ini.",
     "messageHealthAlreadyMax": "Kamu sudah punya nyawa maksimum.",
     "messageHealthAlreadyMin": "Oh tidak! Kamu sudah kehabisan nyawa, jadi sudah telat untuk membeli ramuan kesehatan, tetapi jangan khawatir - kamu bisa bangkit lagi!",
     "armoireEquipment": "<%= image %> Kamu menemukan bagian dari perlengkapan yang langka di Armoire: <%= dropText %>! Keren!",

@@ -7,11 +7,11 @@
   group-gems-modal
   .col-12.col-sm-8.standard-page
     .row
-      .col-6.title-details
+      .col-12.col-md-6.title-details
         h1 {{group.name}}
         strong.float-left(v-once) {{$t('groupLeader')}}
         span.leader.float-left(v-if='group.leader.profile', @click='showMemberProfile(group.leader)') : {{group.leader.profile.name}}
-      .col-6
+      .col-12.col-md-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
             .item-with-icon(@click="showMemberModal()")
@@ -146,6 +146,7 @@
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
+      height: 28px;
       margin: 0 auto;
       display: inline-block;
       vertical-align: bottom;
@@ -246,10 +247,6 @@
     }
   }
 
-  .toggle-up .svg-icon, .toggle-down .svg-icon {
-    width: 25px;
-  }
-
   span.action {
     font-size: 14px;
     line-height: 1.33;
@@ -283,10 +280,6 @@
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
     padding-bottom: 1em;
-  }
-
-  .toggle-up, .toggle-down {
-    cursor: pointer;
   }
 
   .hr {
@@ -388,10 +381,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    userIsOnQuest () {
-      if (!this.group.quest || !this.group.quest.members) return false;
-      return Boolean(this.group.quest.members[this.user._id]);
-    },
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
@@ -442,6 +431,14 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
+
+    // Reset chat
+    this.newMessage = '';
+    this.coords = {
+      TOP: 0,
+      LEFT: 0,
+    };
+
     next();
   },
   watch: {
@@ -541,16 +538,14 @@ export default {
         return;
       }
 
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-
       if (this.isParty) {
-        this.$store.state.party.data = group;
+        await this.$store.dispatch('party:getParty');
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
-        return;
+      } else {
+        const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+        this.$set(this, 'group', group);
       }
-
-      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {

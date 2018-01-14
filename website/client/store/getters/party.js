@@ -1,3 +1,3 @@
 export function members (store) {
-  return store.state.party.members.data;
+  return store.state.partyMembers.data;
 }

@@ -75,17 +75,17 @@ div
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
 
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1305px) {
     .nav-link {
       padding: .8em 1em !important;
+    }
+
+    .navbar-header {
+      margin-right: 5px !important;
     }
   }
 
   @media only screen and (max-width: 1200px) {
-    .navbar-header {
-      margin-right: 24px !important;
-    }
-
     .gryphon {
       background-image: url('~assets/images/melior@3x.png');
       width: 30px;
