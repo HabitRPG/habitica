@@ -264,7 +264,6 @@ api.food = {
     textA: t('foodMeatA'),
     textThe: t('foodMeatThe'),
     target: 'Base',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -275,7 +274,6 @@ api.food = {
     textA: t('foodMilkA'),
     textThe: t('foodMilkThe'),
     target: 'White',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -286,7 +284,6 @@ api.food = {
     textA: t('foodPotatoeA'),
     textThe: t('foodPotatoeThe'),
     target: 'Desert',
-    article: 'a ',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -297,7 +294,6 @@ api.food = {
     textA: t('foodStrawberryA'),
     textThe: t('foodStrawberryThe'),
     target: 'Red',
-    article: 'a ',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -308,7 +304,6 @@ api.food = {
     textA: t('foodChocolateA'),
     textThe: t('foodChocolateThe'),
     target: 'Shade',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -319,7 +314,6 @@ api.food = {
     textA: t('foodFishA'),
     textThe: t('foodFishThe'),
     target: 'Skeleton',
-    article: 'a ',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -330,7 +324,6 @@ api.food = {
     textA: t('foodRottenMeatA'),
     textThe: t('foodRottenMeatThe'),
     target: 'Zombie',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -341,7 +334,6 @@ api.food = {
     textA: t('foodCottonCandyPinkA'),
     textThe: t('foodCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -352,7 +344,6 @@ api.food = {
     textA: t('foodCottonCandyBlueA'),
     textThe: t('foodCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -363,7 +354,6 @@ api.food = {
     textA: t('foodHoneyA'),
     textThe: t('foodHoneyThe'),
     target: 'Golden',
-    article: '',
     canBuy () {
       return canBuyNormalFood;
     },
@@ -381,7 +371,6 @@ api.food = {
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
     target: 'Skeleton',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -392,7 +381,6 @@ api.food = {
     textA: t('foodCakeBaseA'),
     textThe: t('foodCakeBaseThe'),
     target: 'Base',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -403,7 +391,6 @@ api.food = {
     textA: t('foodCakeCottonCandyBlueA'),
     textThe: t('foodCakeCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -414,7 +401,6 @@ api.food = {
     textA: t('foodCakeCottonCandyPinkA'),
     textThe: t('foodCakeCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -425,7 +411,6 @@ api.food = {
     textA: t('foodCakeShadeA'),
     textThe: t('foodCakeShadeThe'),
     target: 'Shade',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -436,7 +421,6 @@ api.food = {
     textA: t('foodCakeWhiteA'),
     textThe: t('foodCakeWhiteThe'),
     target: 'White',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -447,7 +431,6 @@ api.food = {
     textA: t('foodCakeGoldenA'),
     textThe: t('foodCakeGoldenThe'),
     target: 'Golden',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -458,7 +441,6 @@ api.food = {
     textA: t('foodCakeZombieA'),
     textThe: t('foodCakeZombieThe'),
     target: 'Zombie',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -469,7 +451,6 @@ api.food = {
     textA: t('foodCakeDesertA'),
     textThe: t('foodCakeDesertThe'),
     target: 'Desert',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -480,7 +461,6 @@ api.food = {
     textA: t('foodCakeRedA'),
     textThe: t('foodCakeRedThe'),
     target: 'Red',
-    article: '',
     canBuy () {
       return canBuyCakeFood;
     },
@@ -491,7 +471,6 @@ api.food = {
     textA: t('foodCandySkeletonA'),
     textThe: t('foodCandySkeletonThe'),
     target: 'Skeleton',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -502,7 +481,6 @@ api.food = {
     textA: t('foodCandyBaseA'),
     textThe: t('foodCandyBaseThe'),
     target: 'Base',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -513,7 +491,6 @@ api.food = {
     textA: t('foodCandyCottonCandyBlueA'),
     textThe: t('foodCandyCottonCandyBlueThe'),
     target: 'CottonCandyBlue',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -524,7 +501,6 @@ api.food = {
     textA: t('foodCandyCottonCandyPinkA'),
     textThe: t('foodCandyCottonCandyPinkThe'),
     target: 'CottonCandyPink',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -535,7 +511,6 @@ api.food = {
     textA: t('foodCandyShadeA'),
     textThe: t('foodCandyShadeThe'),
     target: 'Shade',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -546,7 +521,6 @@ api.food = {
     textA: t('foodCandyWhiteA'),
     textThe: t('foodCandyWhiteThe'),
     target: 'White',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -557,7 +531,6 @@ api.food = {
     textA: t('foodCandyGoldenA'),
     textThe: t('foodCandyGoldenThe'),
     target: 'Golden',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -568,7 +541,6 @@ api.food = {
     textA: t('foodCandyZombieA'),
     textThe: t('foodCandyZombieThe'),
     target: 'Zombie',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -579,7 +551,6 @@ api.food = {
     textA: t('foodCandyDesertA'),
     textThe: t('foodCandyDesertThe'),
     target: 'Desert',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },
@@ -590,7 +561,6 @@ api.food = {
     textA: t('foodCandyRedA'),
     textThe: t('foodCandyRedThe'),
     target: 'Red',
-    article: '',
     canBuy () {
       return canBuyCandyFood;
     },

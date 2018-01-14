@@ -71,7 +71,6 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
 
     message = i18n.t('armoireFood', {
       image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,
-      dropArticle: drop.article,
       dropText: drop.text(req.language),
     }, req.language);
     armoireResp = {
