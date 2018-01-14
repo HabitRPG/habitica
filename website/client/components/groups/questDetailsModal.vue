@@ -173,7 +173,7 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      partyMembers: 'partyMembers.data',
+      partyMembers: 'party:members',
     }),
     questData () {
       return quests.quests[this.group.quest.key];
