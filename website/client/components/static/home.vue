@@ -37,7 +37,7 @@
         .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
       .container
         .row
-          .col-12.col-sm-6.col-md-6.col-lg-6.offset-3.text-center
+          .col-12.col-sm-6.col-md-6.col-lg-6.offset-sm-3.text-center
             h2 {{$t('gamifyYourLife')}}
             p.section-main {{$t('aboutHabitica')}}
         .row
@@ -502,6 +502,19 @@
       opacity: .5;
     }
   }
+
+
+  @media only screen and (max-width: 768px) {
+    #call-to-action .btn-primary {
+      width: 95%;
+    }
+
+    #call-to-action .featured .svg-icon {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: .5em;
+    }
+  }
 </style>
 
 <script>
@@ -598,11 +611,17 @@
           return;
         }
 
+        let groupInvite = '';
+        if (this.$route.query && this.$route.query.groupInvite) {
+          groupInvite = this.$route.query.groupInvite;
+        }
+
         await this.$store.dispatch('auth:register', {
           username: this.username,
           email: this.email,
           password: this.password,
           passwordConfirm: this.passwordConfirm,
+          groupInvite,
         });
 
         let redirectTo;

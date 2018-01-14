@@ -75,7 +75,7 @@
     "hatchAPot": "Wykluć <%= potion %><%= egg %>?",
     "hatchedPet": "Wyklułeś <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "Wyklułeś nowego Chowańca!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Odwiedź [stajnię] (/inventory/stable), żeby nakarmić i wyposażyć swojego nowego zwierzaka!",
     "displayNow": "Wyświetl teraz",
     "displayLater": "Wyświetl później",
     "petNotOwned": "Nie posiadasz tego chowańca.",
@@ -123,5 +123,5 @@
     "clickOnPetToFeed": "Kliknij na Chowańca, aby nakarmić go <%= foodName %> i patrz jak rośnie!",
     "dragThisPotion": "Przeciągnij ten <%= potionName %> na jajo i wykluj nowego Chowańca!",
     "clickOnEggToHatch": "Kliknij na jajo, aby użyć <%= potionName %> eliksir wyklucia i wykluć nowego Chowańca!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje isę z niego <%= petName %>."
 }

@@ -161,6 +161,9 @@
     "questEggYarnText": "Yarn",
     "questEggYarnMountText": "Flying Carpet",
     "questEggYarnAdjective": "woolen",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Encuentra una poción de eclosión para verter sobre este huevo y se convertirá en <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Blanco",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Brillo",
     "hatchingPotionFairy": "Hadas",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Caramelo de Canela",
     "foodSaddleText": "Silla de Montar",
     "foodSaddleNotes": "Convierte instantáneamente a una de tus mascotas en una montura.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Dale esto a una mascota y podrá convertirse en un corcel robusto."
 }

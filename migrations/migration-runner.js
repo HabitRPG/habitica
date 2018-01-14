@@ -17,12 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./users/account-transfer');
-processUsers()
-  .then(() => {
-    process.exit();
-  })
-  .catch(function (err) {
-    console.log(err);
-    process.exit();
-  });
+const processUsers = require('./tasks/tasks-set-everyX');
+processUsers();

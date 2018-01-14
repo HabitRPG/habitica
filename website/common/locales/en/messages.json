@@ -30,6 +30,7 @@
 
   "messageAlreadyPurchasedGear": "You purchased this gear in the past, but do not currently own it. You can buy it again in the rewards column on the tasks page.",
   "messageAlreadyOwnGear": "You already own this item. Equip it by going to the equipment page.",
+  "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
   "messageHealthAlreadyMax": "You already have maximum health.",
   "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
 

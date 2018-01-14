@@ -4,35 +4,19 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 11/17/2017 - THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE
-    hr
+    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
     .media
-      .promo_turkey_day_2017.right-margin
-      .media-body.d-flex.align-self-center.flex-column
-        h3 Happy Thanksgiving!
-        p It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!
-        h3 Turkey Pets, Mounts, and Costume!
-        p For the occasion, all Habiticans have received Turkey-themed items! What items? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey pet, mount, or gear set! Check your Stable and your pinned Rewards to see what you got!
-        p Thank you for using Habitica - we really love you all <3
-        .small by Lemoness
-    .media
+      .scene_task_list.right-margin
       .media-body
-        h3 November Subscriber Items Revealed!
-        p(v-markdown='"The November Subscriber Items have been revealed: the [Carpet Rider Item Set](https://habitica.com/user/settings/subscription)! You have until November 30 to receive the item set when you subscribe. If you\'re already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!"')
-        p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-        .small by Lemoness
-      .promo_mystery_201711.left-margin
-    h3 Android App Update
-    p There’s an exciting new update to our Android app!
-    ul
-      li We’ve smashed some pesky bugs, including the issue with task reordering!
-      li You can now view and assign attribute points (or choose auto-allocation)!
-      li We’ve added Equipment to the Market, plus the ability to change your login name and email, reset or delete your account, make changes to your profile, and access Fix Character Values.
-      li You can also request a password reset from the login screen!
-    p We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!
-    p If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!
-    .small by Viirus and piyorii
-    br
+        h3 Use Case Spotlight: Setting Realistic Goals
+        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
+        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        .small by Beffymaroo
+    h3 Behind the Scenes: Lady Glaciate
+    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
+    .small by Lemoness
+    .scene_lady_glaciate.center-block
+    hr
 </template>
 
 <style lang='scss' scoped>
@@ -47,6 +31,10 @@
 
   .right-margin {
     margin-right: 1em;
+  }
+
+  .bottom-margin {
+    margin-bottom: 1em;
   }
 
   .small {

@@ -299,20 +299,22 @@ api.approveTask = {
     task.group.approval.approvingUser = user._id;
     task.group.approval.approved = true;
 
-    assignedUser.addNotification('GROUP_TASK_APPROVED', {
-      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
-      groupId: group._id,
-    });
-
-    assignedUser.addNotification('SCORED_TASK', {
-      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
-      scoreTask: task,
-    });
-
-    let managerIds = Object.keys(group.managers);
+    // Get Managers
+    const managerIds = Object.keys(group.managers);
     managerIds.push(group.leader);
-    let managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+    const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
 
+    // Get task direction
+    const firstManagerNotifications = managers[0].notifications;
+    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
+      return notification.data.taskId === task._id;
+    });
+    let direction = 'up';
+    if (firstManagerNotifications[firstNotificationIndex]) {
+      direction = firstManagerNotifications[firstNotificationIndex].direction;
+    }
+
+    // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
       let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
@@ -323,6 +325,18 @@ api.approveTask = {
         manager.notifications.splice(notificationIndex, 1);
         managerPromises.push(manager.save());
       }
+    });
+
+    // Add new notifications to user
+    assignedUser.addNotification('GROUP_TASK_APPROVED', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      groupId: group._id,
+    });
+
+    assignedUser.addNotification('SCORED_TASK', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      scoreTask: task,
+      direction,
     });
 
     managerPromises.push(task.save());

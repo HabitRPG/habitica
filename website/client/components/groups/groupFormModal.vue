@@ -8,17 +8,14 @@
       .form-group(v-if='workingGroup.id && members.length > 0')
         label
           strong(v-once) {{$t('guildOrPartyLeader')}} *
-        select.form-control(v-model="workingGroup.newLeader")
-          option(v-for='potentialLeader in potentialLeaders', :value="potentialLeader._id") {{ potentialLeader.name }}
-
+        group-member-search-dropdown(:text="currentLeader", :members='members', :groupId='workingGroup.id', @member-selected='selectNewLeader')
       .form-group
         label
           strong(v-once) {{$t('privacySettings')}} *
         br
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
+        .custom-control.custom-checkbox
+          input.custom-control-input#onlyLeaderCreatesChallenges(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
+          label.custom-control-label(v-once, for="onlyLeaderCreatesChallenges") {{ $t('onlyLeaderCreatesChallenges') }}
           #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
@@ -27,18 +24,16 @@
           )
 
         // br
-        // @TODO Implement in V2 label.custom-control.custom-checkbox
+        // @TODO Implement in V2 .custom-control.custom-checkbox
           input.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+          label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
           // "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
           // @TODO discuss the impact of this with moderators before implementing
 
         br
-        label.custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
-          input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('privateGuild') }}
+        .custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
+          input.custom-control-input#privateGuild(type="checkbox", v-model="workingGroup.privateGuild")
+          label.custom-control-label(v-once, for="privateGuild") {{ $t('privateGuild') }}
           #groupPrivateDescription2.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
@@ -47,10 +42,9 @@
           )
 
         // br
-        // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
+        // @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')
           input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
+          label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
           // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
 
       .form-group(v-if='!isParty')
@@ -82,10 +76,9 @@
             :key="group.key",
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value="group.key", v-model="workingGroup.categories")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(group.label) }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(:id="group.key", type="checkbox", :value="group.key", v-model="workingGroup.categories")
+              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
         // @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -170,6 +163,7 @@
 <script>
 import { mapState } from 'client/libs/store';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
+import groupMemberSearchDropdown from 'client/components/members/groupMemberSearchDropdown';
 import markdownDirective from 'client/directives/markdown';
 import gemIcon from 'assets/svg/gem.svg';
 import informationIcon from 'assets/svg/information.svg';
@@ -185,6 +179,7 @@ import { MAX_SUMMARY_SIZE_FOR_GUILDS } from '../../../common/script/constants';
 export default {
   components: {
     toggleSwitch,
+    groupMemberSearchDropdown,
   },
   directives: {
     markdown: markdownDirective,
@@ -307,16 +302,12 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
-    potentialLeaders () {
-      let leaders = [{ _id: this.user._id, name: this.user.profile.name }];
-      // @TODO consider pushing all recent posters to the top of the list if they are guild members - more likely to be the ones the leader wants to see (and then ignore them in the while below)
-      let i = 0;
-      while (this.members[i]) {
-        let memb = this.members[i];
-        i++;
-        if (memb._id !== this.user._id) leaders.push({_id: memb._id, name: memb.profile.name});
-      }
-      return leaders;
+    currentLeader () {
+      const currentLeader = this.members.find(member => {
+        return member._id === this.workingGroup.newLeader;
+      });
+      const currentLeaderName = currentLeader.profile ? currentLeader.profile.name : '';
+      return currentLeaderName;
     },
   },
   watch: {
@@ -356,6 +347,9 @@ export default {
     },
   },
   methods: {
+    selectNewLeader (member) {
+      this.workingGroup.newLeader = member._id;
+    },
     async getMembers () {
       if (!this.workingGroup.id) return;
       let members = await this.$store.dispatch('members:getGroupMembers', {

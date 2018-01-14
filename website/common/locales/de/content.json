@@ -159,8 +159,11 @@
     "questEggHippoMountText": "Nilpferd",
     "questEggHippoAdjective": "ein glückliches",
     "questEggYarnText": "Wollknäuel",
-    "questEggYarnMountText": "Fliegender Teppich",
+    "questEggYarnMountText": "Fliegendes Teppichwesen",
     "questEggYarnAdjective": "wolliges",
+    "questEggPterodactylText": "Pterodactylus",
+    "questEggPterodactylMountText": "Pterodactylus",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Finde ein Schlüpfelixier, das Du über dieses Ei gießen kannst, damit ein <%= eggAdjective(locale) %> <%= eggText(locale) %> schlüpfen kann.",
     "hatchingPotionBase": "Normales",
     "hatchingPotionWhite": "Weißes",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Amors",
     "hatchingPotionShimmer": "Schimmerndes",
     "hatchingPotionFairy": "Feenhaftes",
+    "hatchingPotionStarryNight": "Sternenklare Nacht",
     "hatchingPotionNotes": "Gieße dies über ein Ei und es wird ein <%= potText(locale) %> Haustier daraus schlüpfen.",
     "premiumPotionAddlNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
     "foodMeat": "Fleisch",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Zimtbonbon",
     "foodSaddleText": "Magischer Sattel",
     "foodSaddleNotes": "Lässt eines Deiner Haustiere augenblicklich zum Reittier heranwachsen.",
+    "foodSaddleSellWarningNote": "Hey! Das ist ein sehr nützlicher Gegenstand! Bist Du vertraut damit, wie Du den Sattel mit Deinen Haustieren nutzt?",
     "foodNotes": "Verfüttere das an ein Haustier und es wächst bald zu einem kräftigen Reittier heran."
 }

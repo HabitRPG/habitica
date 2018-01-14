@@ -18,11 +18,9 @@ import paypalPayments from '../../libs/paypalPayments';
 
 const daysSince = common.daysSince;
 
-
 schema.methods.isSubscribed = function isSubscribed () {
-  let now = new Date();
-  let plan = this.purchased.plan;
-
+  const now = new Date();
+  const plan = this.purchased.plan;
   return plan && plan.customerId && (!plan.dateTerminated || moment(plan.dateTerminated).isAfter(now));
 };
 
@@ -215,6 +213,12 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   let daysMissed = daysSince(this.lastCron, defaults({now}, this.preferences));
 
   if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
+    // Give the user extra time based on the difference in timezones
+    if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
+      const differenceBetweenTimezonesInMinutes = timezoneOffsetFromUserPrefs - timezoneOffsetAtLastCron;
+      now = moment(now).subtract(differenceBetweenTimezonesInMinutes, 'minutes');
+    }
+
     // Since cron last ran, the user's timezone has changed.
     // How many days have we missed using the old timezone:
     let daysMissedNewZone = daysMissed;
@@ -312,4 +316,8 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   return groups.every(g => {
     return g.isSubscribed();
   });
+};
+
+schema.methods.isAdmin = function isAdmin () {
+  return this.contributor && this.contributor.admin;
 };

@@ -112,6 +112,10 @@
     "fall2017MasqueradeSet": "Maskerade-Magier (Magier)",
     "fall2017HauntedHouseSet": "Geisterhaus-Heiler (Heiler)",
     "fall2017TrickOrTreatSet": "Süßes-oder-Saures-Schurke (Schurke)",
+    "winter2018ConfettiSet": "Konfettimagier (Magier)",
+    "winter2018GiftWrappedSet": "Geschenkpapierverpackter Krieger (Krieger)",
+    "winter2018MistletoeSet": "Mistelzweigheiler (Heiler)",
+    "winter2018ReindeerSet": "Rentier-Schurke (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
     "dateEndApril": "19. April",
     "dateEndMay": "17. Mai",
@@ -120,5 +124,9 @@
     "dateEndAugust": "31. August",
     "dateEndOctober": "31. Oktober",
     "dateEndNovember": "30. November",
-    "discountBundle": "Paket"
+    "dateEndJanuary": "31. Januar",
+    "discountBundle": "Paket",
+    "winterPromoGiftHeader": "Schenke ein Abonnement und bekomme ein weiteres umsonst! ",
+    "winterPromoGiftDetails1": "Wenn Du bis 12. Januar jemandem ein Abonnement schenkst, bekommst Du das geiche Abonnement für Dich selbst umsonst!",
+    "winterPromoGiftDetails2": "Bitte bedenke, dass das geschenkte Abonnement, falls Du oder Deine beschenkte Person bereits über ein sich wiederholendes Abonnement verfügen, erst dann startet, wenn das alte Abonnement gekündigt wird oder ausläuft. Herzlichen Dank für Deine Unterstützung! <3"
 }

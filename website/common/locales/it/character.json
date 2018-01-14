@@ -163,6 +163,7 @@
     "dieText": "Hai perso un livello, tutto il tuo oro, e un pezzo casuale dell'equipaggiamento. Risorgi, Habiteer, e provaci ancora! Metti un freno alle cattive abitudini, sii attento al completamento delle Daily, e tieni la morte a debita distanza con una Pozione di Salute se stai vacillando!",
     "sureReset": "Sei sicuro/a? Questo resetterà la Classe e i punti allocati del tuo personaggio (ti verranno restituiti per poter essere ri-allocati), e ti costerà 3 gemme.",
     "purchaseFor": "Comprare per <%= cost %> Gemme?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Non hai abbastanza Mana.",
     "invalidTarget": "Non puoi usare un'abilità su quello.",
     "youCast": "Hai usato l'abilità <%= spell %>.",

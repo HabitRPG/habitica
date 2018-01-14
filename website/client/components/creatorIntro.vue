@@ -33,7 +33,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
         .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
-          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+          .menu-item(@click='changeTopPage("backgrounds", "2018")')
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
@@ -177,6 +177,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
               span 5
             button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
+          .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair6',
             :class='{active: option.active, locked: option.locked}')
             .base.sprite.customize-option(:class="`hair_mustache_${option.key}_${user.preferences.hair.color}`", @click='option.click')
@@ -249,13 +250,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
       .row.sub-menu.col-10.offset-1
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
+          strong(v-once) 2018
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
           strong(v-once) 2017
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
           strong(v-once) 2016
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
           strong(v-once) 2015
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
         .row(v-for='set in sets', v-if='activeSubPage === key')
@@ -291,41 +294,34 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .section.row
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('work') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#work(type="checkbox", value='work', v-model='taskCategories')
+            label.custom-control-label(v-once, for="work") {{ $t('work') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='exercise', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('exercise') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#excercise(type="checkbox", value='exercise', v-model='taskCategories')
+            label.custom-control-label(v-once, for="excercise") {{ $t('exercise') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='health_wellness', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('health_wellness') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#health_wellness(type="checkbox", value='health_wellness', v-model='taskCategories')
+            label.custom-control-label(v-once, for="health_wellness") {{ $t('health_wellness') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('school') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#school(type="checkbox", value='school', v-model='taskCategories')
+            label.custom-control-label(v-once, for="school") {{ $t('school') }}
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('chores') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#chores(type="checkbox", value='chores', v-model='taskCategories')
+            label.custom-control-label(v-once, for="chores") {{ $t('chores') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='creativity', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('creativity') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#creativity(type="checkbox", value='creativity', v-model='taskCategories')
+            label.custom-control-label(v-once, for="creativity") {{ $t('creativity') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='self_care', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('self_care') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
+            label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
     .col-12
@@ -1049,7 +1045,6 @@ export default {
       return own;
     },
     animalEars () {
-      // @TODO: This is not like other purchase items
       // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.animalEarsKeys;
@@ -1064,7 +1059,7 @@ export default {
         option.locked = locked;
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
+          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1228,6 +1223,7 @@ export default {
         2015: [],
         2016: [],
         2017: [],
+        2018: [],
       };
 
       // Hack to force update for now until we restructure the data

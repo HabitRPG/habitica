@@ -161,6 +161,9 @@
     "questEggYarnText": "Przędza",
     "questEggYarnMountText": "Latający Dywan",
     "questEggYarnAdjective": "wełniany",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Znajdź eliksir wyklucia i wylej go na to jajo, a wykluje się z niego <%= eggAdjective(locale) %> <%= eggText(locale) %>. ",
     "hatchingPotionBase": "Zwyczajny",
     "hatchingPotionWhite": "Biały",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Migoczący",
     "hatchingPotionFairy": "Bajeczny",
+    "hatchingPotionStarryNight": "Gwiezdna Noc",
     "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%=potText(locale)%>.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Cynamonowy cukierek",
     "foodSaddleText": "Siodło",
     "foodSaddleNotes": "Natychmiastowo zmienia jednego z Twoich chowańców w wierzchowca.",
+    "foodSaddleSellWarningNote": "Hej! To całkiem użyteczny przedmiot! Czy jesteś zaznajomiony z tym, jak używać siodła wraz z twoimi chowańcami?",
     "foodNotes": "Nakarm tym chowańca, a wyrośnie z niego wytrzymały wierzchowiec."
 }

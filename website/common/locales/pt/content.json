@@ -161,6 +161,9 @@
     "questEggYarnText": "Fio de Lã",
     "questEggYarnMountText": "Tapete Voador",
     "questEggYarnAdjective": "lanudo",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Ache uma poção de eclosão para usar nesse ovo e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Cúpido",
     "hatchingPotionShimmer": "Cintilante",
     "hatchingPotionFairy": "Fada",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Utilize isto num ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável nos ovos de mascote de missão.",
     "foodMeat": "Carne",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Bala de Canela",
     "foodSaddleText": "Sela",
     "foodSaddleNotes": "Eleve instantaneamente um dos seus mascotes para uma montada.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Alimente um mascote com isto e ele poderá transformar-se num corcel forte."
 }

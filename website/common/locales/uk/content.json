@@ -161,6 +161,9 @@
     "questEggYarnText": "Yarn",
     "questEggYarnMountText": "Flying Carpet",
     "questEggYarnAdjective": "woolen",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "trusting",
     "eggNotes": "Вилийте на це яйце інкубаційне зілля, і з нього вилупиться <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Простий",
     "hatchingPotionWhite": "Білий",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Купідонний",
     "hatchingPotionShimmer": "Shimmer",
     "hatchingPotionFairy": "Fairy",
+    "hatchingPotionStarryNight": "Starry Night",
     "hatchingPotionNotes": "Вилийте це на яйце, і з нього вилупиться улюбленець<%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Неможливо використати на квестових яйцях з улюбленцями.",
     "foodMeat": "М'ясо",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Коричневий цукерок",
     "foodSaddleText": "Сідло",
     "foodSaddleNotes": "Миттєво перетворює улюбленця на скакуна.",
+    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "Нагодуйте цим улюбленця, аби з нього виріс гідний скакун."
 }

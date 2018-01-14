@@ -1,7 +1,5 @@
 <template lang="pug">
   .standard-page
-    amazon-payments-modal(:amazon-payments-prop='amazonPayments')
-
     h1 {{ $t('subscription') }}
     .row
       .col-6
@@ -70,8 +68,8 @@
 
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
-          .btn.btn-sm.btn-danger(v-if='canCancelSubscription', @click='cancelSubscription()') {{ $t('cancelSub') }}
-          small(v-if='!canCancelSubscription', v-html='getCancelSubInfo()')
+          .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
+          small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
@@ -82,9 +80,8 @@
               a.purchase(:href='paypalPurchaseLink', :disabled='!subscription.key', target='_blank')
                 img(src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png', :alt="$t('paypal')")
             .col-md-4
-              a.btn.btn-secondary.purchase(@click="amazonPaymentsInit({type: 'subscription', subscription:subscription.key, coupon:subscription.coupon})")
+              a.btn.btn-secondary.purchase(@click="payWithAmazon()")
                 img(src='https://payments.amazon.com/gp/cba/button', :alt="$t('amazonPayments')")
-
     .row
       .col-6
         h2 {{ $t('giftSubscription') }}
@@ -115,16 +112,13 @@ import { mapState } from 'client/libs/store';
 
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
-import amazonPaymentsModal from '../payments/amazonModal';
 import paymentsMixin from '../../mixins/payments';
 
 export default {
   mixins: [paymentsMixin],
-  components: {
-    amazonPaymentsModal,
-  },
   data () {
     return {
+      loading: false,
       gemCostTranslation: {
         gemCost: planGemLimits.convRate,
         gemLimit: planGemLimits.convRate,
@@ -132,6 +126,7 @@ export default {
       subscription: {
         key: 'basic_earned',
       },
+      // @TODO: Remove the need for this or move it to mixin
       amazonPayments: {},
       paymentMethods: {
         AMAZON_PAYMENTS: 'Amazon Payments',
@@ -157,7 +152,7 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
@@ -244,6 +239,13 @@ export default {
     },
   },
   methods: {
+    payWithAmazon () {
+      this.amazonPaymentsInit({
+        type: 'subscription',
+        subscription: this.subscription.key,
+        coupon: this.subscription.coupon,
+      });
+    },
     async applyCoupon (coupon) {
       let response = await axios.get(`/api/v3/coupons/validate/${coupon}`);
 
@@ -258,8 +260,9 @@ export default {
       subs.google_6mo.discount = false;
     },
     getCancelSubInfo () {
-      // @TODO: String 'cancelSubInfoGroup Plan' not found. ?
-      return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
+      let payMethod = this.user.purchased.plan.paymentMethod || '';
+      if (payMethod === 'Group Plan') payMethod = 'GroupPlan';
+      return this.$t(`cancelSubInfo${payMethod}`);
     },
   },
 };

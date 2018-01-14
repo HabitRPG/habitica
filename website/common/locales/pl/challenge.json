@@ -127,5 +127,7 @@
     "locationRequired": "Lokalizacja Wyzwania jest wymagana (\"Dodaj do\")",
     "categoiresRequired": "Co najmniej jedna kategoria musi zostać wybrana",
     "viewProgressOf": "Zobacz postęp",
-    "selectMember": "Wybierz Członka"
+    "selectMember": "Wybierz Członka",
+    "confirmKeepChallengeTasks": "Czy chcesz zachować zadania z wyzwania?",
+    "selectParticipant": "Wybierz Uczestnika"
 }

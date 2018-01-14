@@ -1,7 +1,6 @@
 <template lang="pug">
 // @TODO: Move to group plans folder
 div
-  amazon-payments-modal(:amazon-payments-prop='amazonPayments')
   div
     .header
       h1.text-center Need more for your Group?
@@ -78,7 +77,7 @@ div
             div Each Additional
             div Member
 
-  b-modal#group-plan-modal(title="Empty", size='md', hide-footer=true)
+  b-modal#group-plan-modal(title="Select Payment", size='md', hide-footer=true)
     .col-12(v-if='activePage === PAGES.CREATE_GROUP')
       .form-group
         label.control-label(for='new-group-name') Name
@@ -98,7 +97,7 @@ div
             input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
             | {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
-        button.btn.btn-default.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
+        button.btn.btn-secondary.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
       .form-group
         button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
     .col-12(v-if='activePage === PAGES.PAY')
@@ -200,6 +199,9 @@ div
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 2em;
     text-align: center;
+    display: inline-block !important;
+    vertical-align: bottom;
+    margin-right: 1em;
 
     img {
       margin: 0 auto;
@@ -321,7 +323,6 @@ div
 
 <script>
 import paymentsMixin from '../../mixins/payments';
-import amazonPaymentsModal from '../payments/amazonModal';
 import { mapState } from 'client/libs/store';
 import group from 'assets/svg/group.svg';
 import amazonpay from 'assets/svg/amazonpay.svg';
@@ -329,9 +330,6 @@ import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
   mixins: [paymentsMixin],
-  components: {
-    amazonPaymentsModal,
-  },
   data () {
     return {
       amazonPayments: {},
@@ -405,6 +403,7 @@ export default {
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
         this.showStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
+        paymentData.type = 'subscription';
         this.amazonPaymentsInit(paymentData);
       }
     },
