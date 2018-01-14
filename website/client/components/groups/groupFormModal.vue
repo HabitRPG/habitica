@@ -107,6 +107,10 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  .custom-control-input {
+    z-index: 1 !important;
+  }
+
   .svg-icon {
     width: 16px;
   }
