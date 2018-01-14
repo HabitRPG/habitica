@@ -539,7 +539,7 @@ export default {
       }
 
       if (this.isParty) {
-        await this.$store.dispatch('party:getParty');
+        await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
       } else {
