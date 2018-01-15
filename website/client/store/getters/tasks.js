@@ -1,5 +1,8 @@
 import { shouldDo } from 'common/script/cron';
 
+import isEmpty from 'lodash/isEmpty';
+import sortBy from 'lodash/sortBy';
+
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
   return (task) => {
@@ -111,54 +114,85 @@ export function getTaskClasses (store) {
 }
 
 // Task filter data
-// @TODO find a better way to represent this data
+// @TODO find a way to include user preferences w.r.t sort and defaults
 const taskFilters = {
   habit: {
-    label: 'habits',
-    filters: {
-      all: () => true,
-      yellowred: t => t.value < 1, // weak
-      greenblue: t => t.value >= 1, // strong
-    },
+    filters: [
+      { label: 'all', filterFn: () => true },
+      { label: 'yellowred', filterFn: t => t.value < 1 }, // weak
+      { label: 'greenblue', filterFn: t => t.value >= 1 }, // strong
+    ],
   },
   daily: {
-    label: 'dailies',
-    filters: {
-      all: () => true,
-      due: t => !t.completed && shouldDo(new Date(), t, this.userPreferences),
-      notDue: t => t.completed || !shouldDo(new Date(), t, this.userPreferences),
-    },
+    filters: [
+      { label: 'all', filterFn: () => true },
+      { label: 'due', filterFn: t => !t.completed && shouldDo(new Date(), t, this.userPreferences) },
+      { label: 'notDue', filterFn: t => t.completed || !shouldDo(new Date(), t, this.userPreferences) },
+    ],
   },
   todo: {
-    label: 'todos',
-    filters: {
-      remaining: t => !t.completed, // active
-      scheduled: t => !t.completed && t.date, sort: t => t.date,
-      complete2: t => t.completed,
-    },
+    filters: [
+      { label: 'remaining', filterFn: t => !t.completed }, // active
+      { label: 'scheduled', filterFn: t => !t.completed && t.date, sort: t => t.date },
+      { label: 'complete2', filterFn: t => t.completed },
+    ],
   },
   reward: {
-    label: 'rewards',
-    filters: {
-      all: () => true,
-      custom: () => true, // all rewards made by the user
-      wishlist: () => false, // not user tasks
-    },
+    filters: [
+      { label: 'all', filterFn: () => true },
+      { label: 'custom', filterFn: () => true }, // all rewards made by the user
+      { label: 'wishlist', filterFn: () => false }, // not user tasks
+    ],
   },
 };
 
+// @TODO: sort task list based on used preferences
 export function getTaskList (store) {
-  return ({type, filter = {}, tagList = [], searchText = null}) => {
-    let requestedTasks = store.state.tasks.data[`${type}s`];
-    if (filter !== {}) {
-      requestedTasks = requestedTasks.filter(taskFilters[type].filters[filter.label]);
+  return ({ type, filterType = {}, tagList = [], searchText = null, override = [] }) => {
+    // get requested tasks
+    // check if task list has been passed as override props
+    // assumption: type will always be passed as param
+    let requestedTasks = isEmpty(override) ?
+      store.state.tasks.data[`${type}s`] :
+      override;
+
+    // filter requested tasks by filter type
+    if (!isEmpty(filterType)) {
+      let [selectedFilter] = taskFilters[type].filters.filter(f => f.label === filterType.label);
+      // @TODO find a way (probably thru currying) to implicitly pass user preference data to task filters
+      requestedTasks = requestedTasks.filter(selectedFilter.filterFn);
+      if (selectedFilter.sort) {
+        requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
+      }
     }
 
-    // if (tagList.length > 0) { }
-    // if (searchText) { }
+    // fitler requested tasks by tags
+    if (!isEmpty(tagList)) {
+      requestedTasks = requestedTasks.filter(
+        task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
+      );
+    }
+
+    // filter requested tasks by search text
+    if (!isEmpty(searchText)) {
+      // to ensure broadest case insensitive search matching
+      let searchTextLowerCase = searchText.toLowerCase();
+      requestedTasks = requestedTasks.filter(
+        task => {
+          // eslint rule disabled for block to allow nested binary expression
+          /* eslint-disable no-extra-parens */
+          return (
+            (!isEmpty(task.text) && task.text.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+            (!isEmpty(task.note) && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+            (!isEmpty(task.checklist) && task.checklist.length > 0 &&
+              task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
+          );
+          /* eslint-enable no-extra-parens */
+        });
+    }
 
     // eslint-disable-next-line no-console
-    console.log('task:getters:getTaskList', type, filter, tagList, searchText, requestedTasks);
+    // console.log('task:getters:getTaskList', requestedTasks);
 
     return requestedTasks;
   };

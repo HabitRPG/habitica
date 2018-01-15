@@ -338,7 +338,7 @@ export default {
   },
   computed: {
     ...mapState({
-      tasks: 'tasks.data',
+      // tasks: 'tasks.data',
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
@@ -357,33 +357,16 @@ export default {
     },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      // const filter = this.activeFilters[this.type];
 
-      // let taskList = this.tasks[`${this.type}s`];
-      // if (this.taskListOverride) taskList = this.taskListOverride;
-
-      // if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
-      //   let taskListSorted = this.$store.dispatch('tasks:order', [
-      //     taskList,
-      //     this.user.tasksOrder,
-      //   ]);
-
-      //   taskList = taskListSorted[`${this.type}s`];
-      // }
-
-      // if (filter.sort) {
-      //   taskList = sortBy(taskList, filter.sort);
-      // }
-
-      // return taskList.filter(t => {
-      //   return this.filterTask(t);
-      // });
+      // eslint-disable-next-line no-console
+      // console.log('column.vue', this.selectedTags, this.searchText);
 
       return this.getTaskList({
         type: this.type,
-        filter: this.activeFilters[this.type],
-        tags: this.selectedTags,
-        search: this.searchText,
+        filterType: this.activeFilters[this.type],
+        tagList: this.selectedTags,
+        searchText: this.searchText,
+        override: this.taskListOverride,
       });
     },
     inAppRewards () {
@@ -421,7 +404,7 @@ export default {
         if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
       }
 
-      return this.tasks[`${this.type}s`].length === 0;
+      return this.taskList.length === 0;
     },
     dailyDueDefaultView () {
       if (this.user.preferences.dailyDueDefaultView) {
@@ -487,7 +470,7 @@ export default {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
-      let originTasks = this.tasks[`${this.type}s`];
+      let originTasks = this.taskList;
       if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
@@ -514,7 +497,7 @@ export default {
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
-      const list = this.tasks[`${this.type}s`];
+      const list = this.taskList;
 
       const oldPosition = list.findIndex(t => t._id === taskIdToMove);
       const moved = list.splice(oldPosition, 1);
@@ -588,36 +571,36 @@ export default {
         }
       });
     },
-    filterTask (task) {
-      // View
-      if (!this.activeFilters[task.type].filter(task)) return false;
+    // filterTask (task) {
+    //   // View
+    //   if (!this.activeFilters[task.type].filter(task)) return false;
 
-      // Tags
-      const selectedTags = this.selectedTags;
+    //   // Tags
+    //   const selectedTags = this.selectedTags;
 
-      if (selectedTags && selectedTags.length > 0) {
-        const hasAllSelectedTag = selectedTags.every(tagId => {
-          return task.tags.indexOf(tagId) !== -1;
-        });
+    //   if (selectedTags && selectedTags.length > 0) {
+    //     const hasAllSelectedTag = selectedTags.every(tagId => {
+    //       return task.tags.indexOf(tagId) !== -1;
+    //     });
 
-        if (!hasAllSelectedTag) return false;
-      }
+    //     if (!hasAllSelectedTag) return false;
+    //   }
 
-      // Text
-      const searchText = this.searchText;
+    //   // Text
+    //   const searchText = this.searchText;
 
-      if (!searchText) return true;
-      if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
-      if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
+    //   if (!searchText) return true;
+    //   if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
+    //   if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
 
-      if (task.checklist && task.checklist.length) {
-        const checklistItemIndex = task.checklist.findIndex(({text}) => {
-          return text.toLowerCase().indexOf(searchText) !== -1;
-        });
+    //   if (task.checklist && task.checklist.length) {
+    //     const checklistItemIndex = task.checklist.findIndex(({text}) => {
+    //       return text.toLowerCase().indexOf(searchText) !== -1;
+    //     });
 
-        return checklistItemIndex !== -1;
-      }
-    },
+    //     return checklistItemIndex !== -1;
+    //   }
+    // },
     openBuyDialog (rewardItem) {
       if (rewardItem.locked) return;
 
