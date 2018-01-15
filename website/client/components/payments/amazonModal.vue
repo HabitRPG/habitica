@@ -7,8 +7,8 @@
                         style="width: 400px; height: 140px;")
     .modal-footer
       .text-center
-        .btn.btn-primary(v-if="amazonPaymentsCanCheckout",
-          @click="amazonCheckOut()") {{ $t('checkout') }}
+        button.btn.btn-primary(v-if="amazonPaymentsCanCheckout",
+          @click="amazonCheckOut()", :disabled='!amazonButtonEnabled') {{ $t('checkout') }}
 </template>
 
 <style scoped>
@@ -164,6 +164,7 @@ export default {
             onReady: (consent) => {
               let getConsent = consent.getConsentStatus;
               this.$set(this.amazonPayments, 'recurringConsent', getConsent ? Boolean(getConsent()) : false);
+              this.$set(this, 'amazonButtonEnabled', true);
             },
             onConsent: (consent) => {
               this.$set(this.amazonPayments, 'recurringConsent', Boolean(consent.getConsentStatus()));
@@ -190,6 +191,7 @@ export default {
         });
 
         if (response.status < 400) {
+          this.$set(this, 'amazonButtonEnabled', true);
           this.reset();
           // @TODO: What are we syncing?
           window.location.reload(true);
@@ -216,10 +218,13 @@ export default {
 
         let responseStatus = response.status;
         if (responseStatus >= 400) {
+          this.$set(this, 'amazonButtonEnabled', true);
           alert(`Error: ${response.message}`);
           // @TODO: do we need this? this.amazonPaymentsreset();
           return;
         }
+
+        this.$root.$emit('bv::hide::modal', 'amazon-payment');
 
         let newGroup = response.data.data;
         if (newGroup && newGroup._id) {
