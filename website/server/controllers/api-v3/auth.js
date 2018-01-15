@@ -115,6 +115,7 @@ api.registerLocal = {
     // Get the lowercase version of username to check that we do not have duplicates
     // So we can search for it in the database and then reject the choosen username if 1 or more results are found
     email = email.toLowerCase();
+    username = username.trim();
     let lowerCaseUsername = username.toLowerCase();
 
     // Search for duplicates using lowercase version of username
