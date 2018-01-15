@@ -10,7 +10,10 @@ div
     .popover-content-text {{ itemNotes }}
     .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr")
       span.popover-content-attr-key {{ `${$t(attr)}: ` }}
-      span.popover-content-attr-val {{ `+${item[attr]}` }}
+      span.popover-content-attr-val
+        | {{ `+${item[attr]}`  }}
+        span(v-if="user.stats.class === item.klass || user.stats.class === item.specialClass")
+          | {{ `+${(item[attr]*0.5)}` }}
 </template>
 
 <script>
@@ -25,6 +28,7 @@ div
     computed: {
       ...mapState({
         ATTRIBUTES: 'constants.ATTRIBUTES',
+        user: 'user.data',
       }),
       itemText () {
         if (this.item.text instanceof Function) {
