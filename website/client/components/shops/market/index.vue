@@ -162,7 +162,7 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-          keys-to-kennel(v-if='category.identifier === "special"')
+          //keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 

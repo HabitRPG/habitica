@@ -9,7 +9,6 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    report-flag-modal
     amazon-payments-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
@@ -119,7 +118,6 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
-import reportFlagModal from 'client/components/chat/reportFlagModal';
 
 export default {
   mixins: [notifications],
@@ -133,7 +131,6 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
-    reportFlagModal,
   },
   data () {
     return {
@@ -210,7 +207,7 @@ export default {
       if (error.response.status >= 400) {
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
           this.$store.dispatch('auth:logout');
         }
 
@@ -225,7 +222,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data.message,
+          text: error.response.data,
           type: 'error',
           timeout: true,
         });

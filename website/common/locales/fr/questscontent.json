@@ -551,5 +551,11 @@
     "questYarnDropYarnEgg": "Pelote (Œuf)",
     "questYarnUnlockText": "Déverrouille l'achat d’œufs de pelote au marché",
     "winterQuestsText": "Lot de quêtes hivernales",
-    "winterQuestsNotes": "Contient \"Trappeur Noël\", \"Trouvez l'ourson\" et \"Le gorfou glacé\". Disponible jusqu'au 31 décembre."
+    "winterQuestsNotes": "Contient \"Trappeur Noël\", \"Trouvez l'ourson\" et \"Le gorfou glacé\". Disponible jusqu'au 31 décembre.",
+    "questPterodactylText": "Le Pterreur-dactyle",
+    "questPterodactylNotes": "Vous vous promenez le long des paisibles falaises de Stoïkalm lorsqu'un crissement maléfique déchire l'air. Vous vous tournez pour trouver une créature hideuse qui vole vers vous et êtes submergé par une terreur puissante. Alors que vous vous tournez pour fuir, @Lilith d'Alfheim vous attrape. \"Ne paniquez pas, c'est juste un Pterreur-dactyl.\" <br><br> @Procyon P acquiesce. «Ils nichent à proximité, mais ils sont attirés par l'odeur des Habitudes négatives et des Journalières non réalisées.» <br><br> «Ne vous inquiétez pas», dit @Katy133. \"Nous avons juste besoin d'être très productif pour le vaincre!\" Vous êtes remplis d'une détermination renouvelée et vous vous tournez pour faire face à votre ennemi.",
+    "questPterodactylCompletion": "Avec un dernier cri, le Pterreur-dactyl dégringole du flanc de la falaise. Vous vous précipitez pour le voir s'envoler dans les steppes lointaines. «Ouf, je suis content que ce soit fini», dis-tu. \"Moi aussi\", répond @GeraldThePixel. \"Mais regarde, il a laissé quelques oeufs pour nous.\" @Edge vous donne trois oeufs, et vous promettez de les élever dans la tranquillité, entouré par des Habitudes positives et des Journalières bleues.",
+    "questPterodactylBoss": "Pterreur-dactyle",
+    "questPterodactylDropPterodactylEgg": "Ptérodactyle (Œuf)",
+    "questPterodactylUnlockText": "Déverrouille l'achat d’œufs de ptérodactyle au marché"
 }

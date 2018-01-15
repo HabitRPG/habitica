@@ -180,12 +180,12 @@
     "consecutiveMonths": "Meses consecutivos:",
     "gemCapExtra": "Extra del tope de gemas:",
     "mysticHourglasses": "Relojes de Arena Místicos:",
-    "mysticHourglassesTooltip": "Mystic Hourglasses",
+    "mysticHourglassesTooltip": "Relojes de Arena Místicos",
     "paypal": "PayPal",
     "amazonPayments": "Amazon Payments",
     "timezone": "Zona horaria",
     "timezoneUTC": "Habitica utiliza la zona horaria de tu PC, la cual es <strong><%= utc %></strong>",
     "timezoneInfo": "If that time zone is wrong, first reload this page using your browser's reload or refresh button to ensure that Habitica has the most recent information. If it is still wrong, adjust the time zone on your PC and then reload this page again.<br><br> <strong>If you use Habitica on other PCs or mobile devices, the time zone must be the same on them all.</strong> If your Dailies have been resetting at the wrong time, repeat this check on all other PCs and on a browser on your mobile devices.",
     "push": "Empuja",
-    "about": "About"
+    "about": "Acerca de"
 }
