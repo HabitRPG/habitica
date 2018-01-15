@@ -34,7 +34,12 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     needsWork (index) {
-      // @TODO
+      let userIdNeedsMoreWork = this.task.group.assignedUsers[index];
+      this.$store.dispatch('tasks:needsWork', {
+        taskId: this.task._id,
+        userId: userIdNeedsMoreWork,
+      });
+      this.task.approvals.splice(index, 1);
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'approval-modal');

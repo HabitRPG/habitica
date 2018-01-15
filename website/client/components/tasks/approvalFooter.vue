@@ -124,7 +124,12 @@ export default {
       this.task.approvals.splice(0, 1);
     },
     needsWork () {
-      // @TODO
+      let userIdNeedsMoreWork = this.task.group.assignedUsers[0];
+      this.$store.dispatch('tasks:needsWork', {
+        taskId: this.task._id,
+        userId: userIdNeedsMoreWork,
+      });
+      this.task.approvals.splice(0, 1);
     },
     showRequests () {
       this.$root.$emit('bv::show::modal', 'approval-modal');

@@ -307,7 +307,7 @@ api.approveTask = {
     // Get task direction
     const firstManagerNotifications = managers[0].notifications;
     const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
-      return notification.data.taskId === task._id;
+      return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
     });
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
@@ -317,8 +317,8 @@ api.approveTask = {
     // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
-      let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id;
+      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
+        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {
@@ -393,6 +393,31 @@ api.taskNeedsWork = {
 
     if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
     if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
+    if (!task.group.approval.requested) {
+      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
+    }
+
+    // Get Managers
+    const managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+    const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+    const promises = [];
+
+    // Remove old notifications
+    managers.forEach((manager) => {
+      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
+        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      });
+
+      if (notificationIndex !== -1) {
+        manager.notifications.splice(notificationIndex, 1);
+        promises.push(manager.save());
+      }
+    });
+
+    task.group.approval.requested = false;
+    task.group.approval.requestedDate = undefined;
 
     const taskText = task.text;
     const managerName = user.profile.name;
@@ -415,7 +440,7 @@ api.taskNeedsWork = {
       },
     });
 
-    await assignedUser.save();
+    await Promise.all([...promises, assignedUser.save(), task.save()]);
 
     res.respond(200, task);
   },
