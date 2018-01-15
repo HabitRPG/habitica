@@ -124,7 +124,7 @@
     }
 
     .category-box {
-      top: -120px !important;
+      top: 20em !important;
       z-index: 10;
     }
   }

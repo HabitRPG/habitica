@@ -78,7 +78,8 @@ export async function leave (store, payload) {
     store.state.myGuilds.splice(guildIndex, 1);
   } else if (payload.type === 'party') {
     store.state.user.data.party._id = null;
-    store.state.party = {};
+    store.state.party.data = {};
+    store.state.party.status = 'NOT_LOADED';
   }
 
   return response.data.data;

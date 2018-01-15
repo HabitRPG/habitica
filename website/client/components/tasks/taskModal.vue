@@ -16,9 +16,9 @@
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
-          label.d-flex.align-items-center.justify-content-between(v-once) 
+          label.d-flex.align-items-center.justify-content-between(v-once)
             span {{ $t('notes') }}
-            small(v-once) 
+            small(v-once)
               a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
@@ -30,7 +30,7 @@
               .input-group-prepend.input-group-icon
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
-            
+
         .option.mt-0(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
@@ -151,7 +151,7 @@
         .option(v-if="task.type === 'habit'")
           .form-group
             label(v-once) {{ $t('resetStreak') }}
-            b-dropdown.inline-dropdown(:text="$t(task.frequency)")
+            b-dropdown.inline-dropdown(:text="$t(task.frequency)", :disabled='challengeAccessRequired')
               b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
                 | {{ $t(frequency) }}
 
@@ -226,7 +226,7 @@
 
               .option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
-                  label(v-once) 
+                  label(v-once)
                     span.float-left {{ $t('attributeAllocation') }}
                     .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
                   .attributes
