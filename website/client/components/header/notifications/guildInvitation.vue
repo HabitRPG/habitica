@@ -6,10 +6,10 @@ base-notification(
   @click="action",
 )
   div(slot="content")
-    div(v-html="$t('invitedToPrivateGuild', {guild: notification.data.name})")
+    div(v-html="textString")
     .notifications-buttons
-      .btn.btn-small.btn-success(@click.stop="accept") {{ $t('accept') }}
-      .btn.btn-small.btn-danger(@click.stop="reject") {{ $t('reject') }}
+      .btn.btn-small.btn-success(@click.stop="accept()") {{ $t('accept') }}
+      .btn.btn-small.btn-danger(@click.stop="reject()") {{ $t('reject') }}
 </template>
 
 <script>
@@ -39,11 +39,13 @@ export default {
   },
   methods: {
     action () {
+      if (!this.isPublicGuild) return;
+
       const groupId = this.notification.data.id;
 
       this.$router.push({ name: 'guild', params: { groupId } });
     },
-    async accept () {
+    accept () {
       const group = this.notification.data;
 
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
@@ -51,10 +53,10 @@ export default {
       }
 
       this.$router.push(`/groups/guild/${group.id}`);
-      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
+      this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
     },
-    async reject () {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'guild'});
+    reject () {
+      this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'guild'});
     },
 
   },

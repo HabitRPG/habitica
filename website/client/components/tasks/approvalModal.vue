@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#approval-modal(title="Approve Task", size='md', :hide-footer="true")
+  b-modal#approval-modal(:title="$t('approveTask')", size='md', :hide-footer="true")
     .modal-body
       .row.approval(v-for='(approval, index) in task.approvals')
         .col-8
@@ -24,9 +24,9 @@ export default {
   props: ['task'],
   methods: {
     approve (index) {
-      if (!confirm('Are you sure you want to approve this task?')) return;
+      if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[index];
-      this.$store.dispatch('tasks:unassignTask', {
+      this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,
         userId: userIdToApprove,
       });
@@ -34,6 +34,7 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     needsWork (index) {
+      if (!confirm(this.$t('confirmNeedsWork'))) return;
       let userIdNeedsMoreWork = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

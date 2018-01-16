@@ -116,7 +116,7 @@ export default {
     approve () {
       if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
-      this.$store.dispatch('tasks:unassignTask', {
+      this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,
         userId: userIdToApprove,
       });
@@ -124,6 +124,7 @@ export default {
       this.task.approvals.splice(0, 1);
     },
     needsWork () {
+      if (!confirm(this.$t('confirmNeedsWork'))) return;
       let userIdNeedsMoreWork = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

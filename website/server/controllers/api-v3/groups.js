@@ -1277,7 +1277,9 @@ api.removeGroupManager = {
 
     let manager = await User.findById(managerId, 'notifications').exec();
     let newNotifications = manager.notifications.filter((notification) => {
-      return notification.type !== 'GROUP_TASK_APPROVAL';
+      const isGroupTaskNotification = notification.type.indexOf('GROUP_TASK_') === 0;
+
+      return !isGroupTaskNotification;
     });
     manager.notifications = newNotifications;
     manager.markModified('notifications');
