@@ -1,6 +1,5 @@
 <template lang="pug">
   b-modal#new-stuff(
-    v-if='user.flags.newStuff',
     size='lg',
     :hide-header='true',
     :hide-footer='true',
@@ -51,8 +50,11 @@
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
-        this.$store.dispatch('user:set', {'flags.newStuff': false});
-        this.close();
+        if (this.user.flags.newStuff) {
+          this.$store.dispatch('user:set', {'flags.newStuff': false});
+        } else {
+          this.close();
+        }
       },
     },
   };

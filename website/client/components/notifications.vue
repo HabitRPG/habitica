@@ -211,7 +211,11 @@ export default {
   watch: {
     baileyShouldShow () {
       if (this.user.needsCron) return;
-      this.$root.$emit('bv::show::modal', 'new-stuff');
+      if (this.user.flags.newStuff) {
+        this.$root.$emit('bv::show::modal', 'new-stuff');
+      } else {
+        this.$root.$emit('bv::hide::modal', 'new-stuff');
+      }
     },
     userHp (after, before) {
       if (after <= 0) {
