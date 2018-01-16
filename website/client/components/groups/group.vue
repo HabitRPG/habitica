@@ -485,13 +485,13 @@ export default {
      *
      * @param {Object}  payload     Used for modifying requests for members
      */
-    async loadMembers (payload = null) {
+    loadMembers (payload = null) {
       // Remove unnecessary data
       if (payload && payload.challengeId) {
         delete payload.challengeId;
       }
 
-      return await this.$store.dispatch('members:getGroupMembers', payload);
+      return this.$store.dispatch('members:getGroupMembers', payload);
     },
 
     // @TODO: abstract autocomplete
