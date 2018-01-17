@@ -3,7 +3,7 @@ base-notification(
   :can-remove="canRemove",
   :has-icon="false",
   :notification="notification",
-  @click="action"
+  @click="action",
 )
   .notification-green(slot="content", v-html="notification.data.message")
 </template>
