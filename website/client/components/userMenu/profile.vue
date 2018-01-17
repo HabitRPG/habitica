@@ -1,40 +1,38 @@
 <template lang="pug">
 div
   b-modal#profile(title="Profile", size='lg', :hide-footer="true")
-    div(slot='modal-header')
+    .header(slot='modal-header')
       .profile-actions
-        button.btn.btn-secondary(@click='sendMessage()')
+        button.btn.btn-secondary.message-icon(@click='sendMessage()', v-b-tooltip.hover.left="$t('sendMessage')")
           .svg-icon.message-icon(v-html="icons.message")
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1', :tooltip="$t('unblock')",
-          @click="blockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-plus
-          | {{$t('block')}}
-        button.btn.btn-secondary(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
-          :tooltip="$t('unblock')", @click="unblockUser()", tooltip-placement='right')
-          span.glyphicon.glyphicon-ban-circle
-          | {{$t('unblock')}}
-        button.btn.btn-secondary(@click='openSendGemsModal()')
+        button.btn.btn-secondary.gift-icon(@click='openSendGemsModal()', v-b-tooltip.hover.bottom="$t('sendGems')")
           .svg-icon.gift-icon(v-html="icons.gift")
+        button.btn.btn-secondary.remove-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1',
+          @click="blockUser()", v-b-tooltip.hover.right="$t('block')")
+          .svg-icon.remove-icon(v-html="icons.remove")
+        button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
+          @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
+          .svg-icon.positive-icon(v-html="icons.positive")
       .row
         .col-12
           member-details(:member="user")
     .row
-      .col-6.offset-3.text-center.nav
+      .col-12.col-md-6.offset-md-3.text-center.nav
         .nav-item(@click='selectPage("profile")', :class="{active: selectedPage === 'profile'}") {{ $t('profile') }}
         .nav-item(@click='selectPage("stats")', :class="{active: selectedPage === 'stats'}") {{ $t('stats') }}
         .nav-item(@click='selectPage("achievements")', :class="{active: selectedPage === 'achievements'}") {{ $t('achievements') }}
     #userProfile.standard-page(v-show='selectedPage === "profile"', v-if='user.profile')
       .row
-        .col-8
+        .col-12.col-md-8
           .header
             h1 {{user.profile.name}}
             h4
               strong {{ $t('userId') }}:
               | {{user._id}}
-        .col-4
+        .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
       .row(v-if='!editing')
-        .col-8
+        .col-12.col-md-8
           .about
             h2 {{ $t('about') }}
             p(v-if='user.profile.blurb', v-markdown='user.profile.blurb')
@@ -44,7 +42,7 @@ div
             img.img-rendering-auto(v-if='user.profile.imageUrl', :src='user.profile.imageUrl')
             p(v-else) {{ $t('noPhoto') }}
 
-        .col-4
+        .col-12.col-md-4
           .info
             h2 {{ $t('info') }}
             div
@@ -95,7 +93,7 @@ div
     #achievements.standard-page.container(v-show='selectedPage === "achievements"', v-if='user.achievements')
       .row(v-for='(category, key) in achievements')
         h2.col-12.text-center {{ $t(key+'Achievs') }}
-        .col-3.text-center(v-for='(achievement, key) in category.achievements')
+        .col-12.col-md-3.text-center(v-for='(achievement, key) in category.achievements')
           .box.achievement-container(:id='key + "-achievement"', :class='{"achievement-unearned": !achievement.earned}')
             b-popover(
               :target="'#' + key + '-achievement'",
@@ -109,103 +107,103 @@ div
             .achievement.achievement-unearned(class='achievement-unearned2x', v-if='!achievement.earned')
       hr.col-12
       .row
-        .col-6(v-if='user.achievements.challenges')
+        .col-12.col-md-6(v-if='user.achievements.challenges')
           .achievement-icon.achievement-karaoke
           h2.text-center {{$t('challengesWon')}}
           div(v-for='chal in user.achievements.challenges')
             span(v-markdown='chal')
             hr
-        .col-6(v-if='user.achievements.quests')
+        .col-12.col-md-6(v-if='user.achievements.quests')
           .achievement-icon.achievement-alien
           h2.text-center {{$t('questsCompleted')}}
           div(v-for='(value, key) in user.achievements.quests')
             span {{ content.quests[key].text() }} ({{ value }})
     #stats.standard-page(v-show='selectedPage === "stats"', v-if='user.preferences')
       .row
-        .col-6
+        .col-12.col-md-6
           h2.text-center {{$t('equipment')}}
           .well
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.eyewear}`")
               h3 {{$t('eyewear')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.head}`")
               h3 {{$t('headgearCapitalized')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.headAccessory}`")
               h3 {{$t('headAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.back && equippedItems.back.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.back}`")
               h3 {{$t('backAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.armor}`")
               h3 {{$t('armorCapitalized')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.body && equippedItems.body.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.body}`")
               h3 {{$t('bodyAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.weapon}`")
               h3 {{$t('mainHand')}}
-            .col-4.item-wrapper
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${equippedItems.shield}`")
               h3 {{$t('offHand')}}
-        .col-6
+        .col-12.col-md-6
           h2.text-center {{$t('costume')}}
           .well
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.eyewear}`")
               h3 {{$t('eyewear')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.head}`")
               h3 {{$t('headgearCapitalized')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.headAccessory}`")
               h3 {{$t('headAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.back && costumeItems.back.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.back}`")
               h3 {{$t('backAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.armor}`")
               h3 {{$t('armorCapitalized')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.body && costumeItems.body.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.body}`")
               h3 {{$t('bodyAccess')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.weapon}`")
               h3 {{$t('mainHand')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: user.preferences.background}', style="overflow:hidden")
                 div(:class="'icon_background_' + user.preferences.background")
               h3 {{$t('background')}}
-            .col-4.item-wrapper
+            .col-12.col-md-4.item-wrapper
               .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
                 div(:class="`shop_${costumeItems.shield}`")
               h3 {{$t('offHand')}}
       .row.pet-mount-row
-        .col-6
+        .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
           .well.pet-mount-well
             .row.col-12
-              .col-4
+              .col-12.col-md-4
                 .box(:class='{white: user.items.currentPet}')
                   .pet(:class="`Pet-${user.items.currentPet}`")
-              .col-8
+              .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
                 div
@@ -214,14 +212,14 @@ div
                 div
                   strong {{ $t('beastMasterProgress') }}:
                   | {{ beastMasterProgress(user.items.pets) }}
-        .col-6
+        .col-12.col-md-6
           h2.text-center(v-once) {{ $t('mounts') }}
           .well.pet-mount-well
             .row.col-12
-              .col-4
+              .col-12.col-md-4
                 .box(:class='{white: user.items.currentMount}')
                   .mount(:class="`Mount_Icon_${user.items.currentMount}`")
-              .col-8
+              .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentMount, 'mount') }}
                 div
@@ -233,14 +231,14 @@ div
       #attributes.row
         hr.col-12
         h2.col-12 {{$t('attributes')}}
-        .col-6(v-for="(statInfo, stat) in stats")
+        .col-12.col-md-6(v-for="(statInfo, stat) in stats")
           .row.col-12.stats-column
-            .col-4.attribute-label
+            .col-12.col-md-4.attribute-label
               span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
                 :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
               .stat-title(:class='stat') {{ $t(statInfo.title) }}
               strong.number {{ statsComputed[stat] }}
-            .col-6
+            .col-12.col-md-6
               ul.bonus-stats
                 li
                   strong {{$t('level')}}:
@@ -259,26 +257,26 @@ div
                   | {{user.stats.buffs[stat]}}
       #allocation(v-if='user._id === userLoggedIn._id')
         .row.title-row
-          .col-6
+          .col-12.col-md-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
             h3(v-if='user.stats.points || userLevel100Plus')
               | {{$t('pointsAvailable')}}
               .counter.badge(v-if='user.stats.points || userLevel100Plus')
                 | {{user.stats.points}}&nbsp;
-          .col-6
+          .col-12.col-md-6
             .float-right
               toggle-switch(:label="$t('autoAllocation')",
                 v-model='user.preferences.automaticAllocation',
                 @change='userset({"preferences.automaticAllocation": Boolean(user.preferences.automaticAllocation), "preferences.allocationMode": "taskbased"})')
 
         .row
-          .col-3(v-for='(statInfo, stat) in allocateStatsList')
+          .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
             .box.white.row.col-12
               .col-12
                 div(:class='stat') {{ $t(stats[stat].title) }}
                 .number {{ user.stats[stat] }}
                 .points {{$t('pts')}}
-              .col-4
+              .col-12.col-md-4
                 .up(v-if='user.stats.points', @click='allocate(stat)')
   send-gems-modal(:userReceivingGems='userReceivingGems')
 </template>
@@ -295,10 +293,22 @@ div
       background: #f9f9f9;
     }
   }
+
+  .message-icon svg {
+    height: 16px;
+  }
+
+  .gift-icon svg {
+    height: 14px;
+  }
 </style>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .header {
+    width: 100%;
+  }
 
   .profile-actions {
     float: right;
@@ -307,17 +317,30 @@ div
     button {
       width: 40px;
       height: 40px;
-      padding: .8em;
+      padding: .7em;
       margin-right: .5em;
     }
   }
 
   .message-icon {
     width: 16px;
+    color: #686274;
   }
 
   .gift-icon {
     width: 14px;
+    padding: 0 0 0 1px;
+    color: #686274;
+  }
+
+  .remove-icon {
+    width:16px;
+    color: #686274;
+  }
+
+  .positive-icon {
+    width: 14px;
+    color: #686274;
   }
 
   .pet-mount-row {
@@ -331,6 +354,10 @@ div
 
   .mount {
     margin-top: -0.2em !important;
+  }
+
+  .photo img {
+    width: 100%;
   }
 
   .header {
@@ -573,6 +600,8 @@ const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
 import message from 'assets/svg/message.svg';
 import gift from 'assets/svg/gift.svg';
+import remove from 'assets/svg/remove.svg';
+import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
 
 export default {
@@ -588,6 +617,8 @@ export default {
     return {
       icons: Object.freeze({
         message,
+        remove,
+        positive,
         gift,
         dots,
       }),
@@ -630,6 +661,18 @@ export default {
         per: { title: 'allocatePer', popover: 'perText', allocatepop: 'allocatePerPop' },
       },
     };
+  },
+  mounted () {
+    this.$root.$on('habitica:show-profile', (data) => {
+      if (!data.user || !data.startingPage) return;
+      // @TODO: We may be able to remove the need for store
+      this.$store.state.profileUser = data.user;
+      this.$store.state.profileOptions.startingPage = data.startingPage;
+      this.$root.$emit('bv::show::modal', 'profile');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:show-profile');
   },
   computed: {
     ...mapState({
@@ -740,7 +783,6 @@ export default {
         let curVal = this.user.profile[key];
         if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
-          this.$set(this.userLoggedIn.profile, key, value);
           this.$set(this.user.profile, key, value);
         }
       });

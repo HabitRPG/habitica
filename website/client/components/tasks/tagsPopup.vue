@@ -6,10 +6,9 @@
     .tags-list.container
       .row
         .col-4(v-for="tag in tags")
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags")
-            span.custom-control-indicator
-            span.custom-control-description(:title='tag.name') {{tag.name}}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags", :id="`tag-${tag.id}`")
+            label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`") {{tag.name}}
   .tags-footer
     span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
     span.close-tags(@click="close()") {{$t("close")}}
@@ -53,7 +52,7 @@
     }
 
     .tags-list {
-      .custom-control-description {
+      .custom-control-label {
         color: $gray-50 !important;
         font-weight: normal;
         overflow: hidden;
@@ -70,7 +69,7 @@
       justify-content: center;
 
       .close-tags {
-        color: $red-50;
+        color: $blue-10;
         margin: 1.1em 0;
         margin-left: 2em;
         font-size: 14px;

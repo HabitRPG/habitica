@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Bekräfta att denna Dagliga Uppgiften inte var gjord innan applicering av skada",
     "yesterDailiesDescription": "Om denna inställning är aktiverad kommer Habitica att fråga dig om du menade att lämna en Daglig Uppgift ogjord innan den applicerar skada till din karaktär. Detta kan skydda dig från oavsiktlig skada.",
     "repeatDayError": "Var vänlig och garantera att du har åtminstone valt en dag av veckan.",
-    "searchTasks": "Sök igenom titlar och beskrivningar..."
+    "searchTasks": "Sök igenom titlar och beskrivningar...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

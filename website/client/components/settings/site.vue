@@ -341,7 +341,6 @@ export default {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
       alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
-      updates = {};
     },
     openRestoreModal () {
       this.$root.$emit('bv::show::modal', 'restore');

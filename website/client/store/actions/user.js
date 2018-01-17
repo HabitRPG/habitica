@@ -81,6 +81,8 @@ export async function changeClass (store, params) {
   const user = store.state.user.data;
 
   changeClassOp(user, params);
+  user.flags.classSelected = true;
+
   let response = await axios.post(`/api/v3/user/change-class?class=${params.query.class}`);
   return response.data.data;
 }
@@ -108,6 +110,7 @@ export function togglePinnedItem (store, params) {
 
 export function castSpell (store, params) {
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
+
   if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
 
   return axios.post(spellUrl);

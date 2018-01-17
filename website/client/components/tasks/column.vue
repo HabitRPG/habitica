@@ -34,11 +34,10 @@
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
       h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
       .small-text {{$t(`${type}sDesc`)}}
-    .sortable-tasks(
+    draggable.sortable-tasks(
       ref="tasksList",
-      v-sortable='activeFilters[type].label !== "scheduled"',
-      @onsort='sorted',
-      data-sortableId
+      @update='sorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
     )
       task(
         v-for="task in taskList",
@@ -80,9 +79,21 @@
 
 
   .reward-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @supports (display: grid) {
+      display: grid;
+      justify-content: center;
+      grid-column-gap: 16px;
+      grid-row-gap: 4px;
+      grid-template-columns: repeat(auto-fill, 94px);
+    }
+
+    @supports not (display: grid) {
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+        margin: 0 16px 4px 0;
+      }
+    }
   }
 
   .tasks-list {
@@ -98,12 +109,11 @@
     border-radius: 2px;
     background-color: rgba($black, 0.06);
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
     padding: 12px 16px;
     border-color: transparent;
     transition: background 0.15s ease-in;
     resize: none;
-    margin-bottom: 0px;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -114,6 +124,7 @@
       background: $white;
       border-color: $purple-500;
       color: $gray-50;
+      margin-bottom: 0px;
     }
 
     &::placeholder {
@@ -234,7 +245,6 @@
 import Task from './task';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
@@ -251,6 +261,7 @@ import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import draggable from 'vuedraggable';
 
 export default {
   mixins: [buyMixin, notifications],
@@ -258,9 +269,7 @@ export default {
     Task,
     BuyQuestModal,
     shopItem,
-  },
-  directives: {
-    sortable,
+    draggable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
@@ -447,6 +456,10 @@ export default {
       if (!this.dailyDueDefaultView) return;
       this.activateFilter('daily', this.types.daily.filters[1]);
     },
+    quickAddFocused (newValue) {
+      if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
+      if (!newValue) this.quickAddRows = 1;
+    },
   },
   mounted () {
     this.setColumnBackgroundVisibility();
@@ -546,7 +559,7 @@ export default {
 
         const tasksWrapperHeight = tasksWrapperEl.offsetHeight;
         const quickAddHeight = this.$refs.quickAdd ? this.$refs.quickAdd.offsetHeight : 0;
-        const tasksListHeight = this.$refs.tasksList.offsetHeight;
+        const tasksListHeight = this.$refs.tasksList.$el.offsetHeight;
 
         let combinedTasksHeights = tasksListHeight + quickAddHeight;
 

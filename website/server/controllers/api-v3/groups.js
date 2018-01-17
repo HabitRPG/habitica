@@ -336,7 +336,11 @@ api.getGroups = {
     }
 
     if (req.query.search) {
-      filters.$text = { $search: req.query.search };
+      filters.$or = [];
+      const searchWords = req.query.search.split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      filters.$or.push({name: searchQuery});
+      filters.$or.push({description: searchQuery});
     }
 
     let results = await Group.getGroups({
@@ -857,7 +861,7 @@ api.removeGroupMember = {
       group.memberCount -= 1;
       if (group.hasNotCancelled())  {
         await group.updateGroupPlan(true);
-        await payments.cancelGroupSubscriptionForUser(member, group);
+        await payments.cancelGroupSubscriptionForUser(member, group, true);
       }
 
       if (group.quest && group.quest.leader === member._id) {
@@ -900,7 +904,7 @@ api.removeGroupMember = {
       throw new NotFound(res.t('groupMemberNotFound'));
     }
 
-    let message = req.query.message;
+    let message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
     await Bluebird.all([

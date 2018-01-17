@@ -52,7 +52,7 @@ export default {
       }));
     },
     streak (val) {
-      this.notify(`${this.$t('streaks')}: ${val}`, 'streak', 'glyphicon glyphicon-repeat');
+      this.notify(`${val}`, 'streak');
     },
     text (val, onClick) {
       if (!val) return;

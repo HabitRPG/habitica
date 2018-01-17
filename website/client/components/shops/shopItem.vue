@@ -39,7 +39,6 @@ div
         .popover-content-text(v-if="showNotes", v-once) {{ item.notes }}
 
       div(v-if="item.event") {{ limitedString }}
-
 </template>
 
 <style lang="scss" scoped>
@@ -225,7 +224,8 @@ div
         }
       },
       limitedString () {
-        return this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
+        return this.item.owned === false ? '' :
+          this.$t('limitedOffer', {date: moment(seasonalShopConfig.dateRange.end).format('LL')});
       },
     },
     methods: {

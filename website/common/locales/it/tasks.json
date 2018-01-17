@@ -6,7 +6,7 @@
     "addsingle": "Aggiungi singola",
     "addATask": "Aggiungi una <%= type %>",
     "editATask": "Modifica una <%= type %>",
-    "createTask": "Crea <%= type %>",
+    "createTask": "Crea una <%= type %>",
     "addTaskToUser": "Aggiungi attività",
     "scheduled": "Pianificate",
     "theseAreYourTasks": "Queste sono le tue <%= taskType %>",
@@ -15,8 +15,8 @@
     "newHabit": "Nuova abitudine",
     "newHabitBulk": "Nuove abitudini (una per riga)",
     "habitsDesc": "Abitudini non hanno una programmazione rigida. Puoi completarle più volte al giorno.",
-    "positive": "Positive",
-    "negative": "Negative",
+    "positive": "Positiva",
+    "negative": "Negativa",
     "yellowred": "Deboli",
     "greenblue": "Forti",
     "edit": "Modifica",
@@ -62,7 +62,7 @@
     "day": "Giorno",
     "days": "Giorni",
     "restoreStreak": "Ripristina Serie",
-    "resetStreak": "Reset Seire",
+    "resetStreak": "Reset serie",
     "todo": "Cosa Da Fare",
     "todos": "Cose Da Fare",
     "newTodo": "Nuova Cosa Da Fare",
@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Conferma che questa Daily non era stata completata prima di applicare il danno",
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
-    "searchTasks": "Cerca titoli e descrizioni..."
+    "searchTasks": "Cerca titoli e descrizioni...",
+    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza."
 }

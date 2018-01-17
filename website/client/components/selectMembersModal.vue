@@ -42,6 +42,14 @@ div
       color: #4f2a93;
     }
 
+    h3 {
+      color: #4e4a57;
+    }
+
+    span {
+      color: #878190;
+    }
+
     .actions {
       padding-top: 5em;
 
@@ -92,6 +100,8 @@ import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
 
+import { mapState } from 'client/libs/store';
+
 export default {
   props: ['group', 'hideBadge', 'item'],
   components: {
@@ -129,11 +139,12 @@ export default {
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     sortedMembers () {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
 
-      sortedMembers = sortBy(this.members, [(member) => {
+      sortBy(this.members, [(member) => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
           return member.contributor.level;
@@ -172,6 +183,10 @@ export default {
 
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.viewingMembers;
+      }
+
+      if (this.members.length === 0 && !this.groupId) {
+        this.members = [this.user];
       }
     },
     close () {

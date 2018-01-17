@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar(v-if="!closed")
+    .standard-sidebar.d-none.d-sm-block(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -11,10 +11,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -310,15 +309,6 @@
           return c.identifier === 'mounts' || c.identifier === 'pets';
         });
 
-        normalGroups.map((group) => {
-          group.items = group.items.map((item) => {
-            return {
-              ...item,
-              class: `shop_${group.identifier}_${item.key}`,
-            };
-          });
-        });
-
         let setGroups = _filter(apiCategories, (c) => {
           return c.identifier !== 'mounts' && c.identifier !== 'pets';
         });
@@ -333,7 +323,7 @@
               currency: 'hourglasses',
               key: c.identifier,
               class: `shop_set_mystery_${c.identifier}`,
-              purchaseType: 'set_mystery',
+              purchaseType: 'mystery_set',
             };
           }),
         };

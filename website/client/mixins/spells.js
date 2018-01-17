@@ -30,7 +30,7 @@ export default {
           return;
         }
 
-        let party = this.$store.state.party.members;
+        let party = this.$store.state.partyMembers;
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
         this.castEnd(party, spell.target);

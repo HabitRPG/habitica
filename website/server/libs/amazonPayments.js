@@ -157,7 +157,7 @@ api.checkout = async function checkout (options = {}) {
 
   if (gift) {
     if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
-    gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
+    gift.member = await User.findById(gift.uuid).exec();
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
   }

@@ -80,11 +80,13 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
-    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
-    userToJSON.needsCron = false;
-    if (daysMissed > 0) userToJSON.needsCron = true;
+    if (!req.query.userFields) {
+      let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+      userToJSON.needsCron = false;
+      if (daysMissed > 0) userToJSON.needsCron = true;
+      user.addComputedStatsToJSONObj(userToJSON.stats);
+    }
 
-    user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
 };
@@ -395,7 +397,7 @@ api.deleteUser = {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', {magicWord: 'DELETE'}));
     }
 
     let feedback = req.body.feedback;
@@ -1564,7 +1566,7 @@ api.userSell = {
  *
  * @apiErrorExample {json}
  * {"success":false,"error":"BadRequest","message":"Path string is required"}
- 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
+ * {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',
@@ -1572,7 +1574,7 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
-    let unlockRes = common.ops.unlock(user, req);
+    let unlockRes = common.ops.unlock(user, req, res.analytics);
     await user.save();
     res.respond(200, ...unlockRes);
   },

@@ -235,7 +235,7 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
   await Promise.all(promises);
 };
 
-api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = false) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGroups = user.guilds.toObject();
@@ -256,7 +256,9 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
 
   if (userGroupPlans.length === 0)  {
     let leader = await User.findById(group.leader).exec();
-    txnEmail(user, 'group-member-cancel', [
+    const email = userWasRemoved ? 'group-member-removed' : 'group-member-cancel';
+
+    txnEmail(user, email, [
       {name: 'LEADER', content: leader.profile.name},
       {name: 'GROUP_NAME', content: group.name},
     ]);
@@ -305,7 +307,7 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {

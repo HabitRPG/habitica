@@ -258,6 +258,7 @@ const router = new VueRouter({
         { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
         { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
         { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
+        { name: 'front', path: 'front', component: HomePage, meta: {requiresLogin: false} },
         { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
         { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
         { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
@@ -313,6 +314,32 @@ router.beforeEach(function routerGuard (to, from, next) {
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
     return next({name: 'tasks'});
+  }
+
+  // Redirect old guild urls
+  if (to.hash.indexOf('#/options/groups/guilds/') !== -1) {
+    const splits = to.hash.split('/');
+    const guildId = splits[4];
+
+    return next({
+      name: 'guild',
+      params: {
+        groupId: guildId,
+      },
+    });
+  }
+
+  // Redirect old challenge urls
+  if (to.hash.indexOf('#/options/groups/challenges/') !== -1) {
+    const splits = to.hash.split('/');
+    const challengeId = splits[4];
+
+    return next({
+      name: 'challenge',
+      params: {
+        challengeId,
+      },
+    });
   }
 
   Analytics.track({

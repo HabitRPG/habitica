@@ -1,7 +1,7 @@
 <template lang="pug">
   .container-fluid
     .row
-      .col-md-6.offset-3
+      .col-12.col-md-6.offset-md-3
         h1 {{ $t('frequentlyAskedQuestions') }}
         .faq-question(v-for='(heading, index) in headings')
           h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
@@ -13,6 +13,12 @@
 <style lang='scss' scoped>
   .faq-question {
     margin-bottom: 1em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .container-fluid {
+      margin: auto;
+    }
   }
 </style>
 
