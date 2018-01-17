@@ -229,12 +229,12 @@
                     .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
                       input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
                       label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
-        .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
+        .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create' && !challengeAccessRequired")
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
       .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
-        span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
 
@@ -552,8 +552,6 @@
     }
 
     .delete-task-btn, .cancel-task-btn {
-      margin-top: 32px;
-      margin-bottom: 8px;
       cursor: pointer;
 
       &:hover, &:focus, &:active {
@@ -562,6 +560,8 @@
     }
 
     .delete-task-btn {
+      margin-top: 32px;
+      margin-bottom: 8px;
       color: $red-50;
 
       .svg-icon {
