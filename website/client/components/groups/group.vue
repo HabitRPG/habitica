@@ -539,7 +539,7 @@ export default {
       }
 
       if (this.isParty) {
-        await this.$store.dispatch('party:getParty');
+        await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
       } else {
@@ -598,10 +598,14 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
-        this.$store.state.party.members = [];
+        this.$store.state.partyMembers = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
+
+      if (this.isParty) {
+        this.$router.push({name: 'tasks'});
+      }
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
