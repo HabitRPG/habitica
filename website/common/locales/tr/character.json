@@ -163,6 +163,7 @@
     "dieText": "Bir Seviyeni, bütün Altınını ve rastgele bir ekipmanını kaybettin. Yüksel, Habiticalı, ve tekrar dene! Kötü alışkanlıklarını frenle, Günlük İşlerin tamamlanmasında uyanık ol ve eğer sendelersen bir Sağlık İksiri ile ölümü kendinden uzak tut!",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "<%= cost %> Elmas karşılığında satın alınsın mı?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Yetersiz mana.",
     "invalidTarget": "Onun üzerinde yetenek kullanamazsın. ",
     "youCast": "<%= spell %> uyguladın.",

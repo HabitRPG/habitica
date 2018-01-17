@@ -237,6 +237,7 @@
   "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
   "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
   "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+  "assignedTo": "Assigned To",
   "assignedToUser": "Assigned to  <%= userName %>",
   "assignedToMembers": "Assigned to <%= userCount %> members",
   "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",
@@ -319,7 +320,7 @@
   "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
   "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
   "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
-  "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a group plan. Any months of extra subscription credit you have will be applied at the end of the group plan.",
+  "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
   "cancelGroupSub": "Cancel Group Plan",
   "confirmCancelGroupPlan": "Are you sure you want to cancel the group plan and remove its benefits from all members, including their free subscriptions?",
   "canceledGroupPlan": "Canceled Group Plan",
@@ -413,5 +414,6 @@
   "groupBilling": "Group Billing",
   "wouldYouParticipate": "Would you like to participate?",
   "managerAdded": "Manager added successfully",
-  "managerRemoved": "Manager removed successfully"
+  "managerRemoved": "Manager removed successfully",
+  "leaderChanged": "Leader has been changed"
 }

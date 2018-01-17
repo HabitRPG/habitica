@@ -202,5 +202,6 @@
     "yesterDailiesOptionTitle": "Confirma que esta Tarea Diaria no ha sido realizada antes de aplicar el daño",
     "yesterDailiesDescription": "Si esta opción es aplicada, Habitica te preguntará si de verdad querías dejar la Tarea Diaria sin marcar antes de calcular y aplicar el daño a tu personaje. Esto puede protegerte de daño no intencionado.",
     "repeatDayError": "Por favor, asegúrate de que seleccionas al menos un día de la semana.",
-    "searchTasks": "Buscar títulos y descripciones..."
+    "searchTasks": "Buscar títulos y descripciones...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync."
 }

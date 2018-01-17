@@ -41,7 +41,7 @@
     "hatchingPotion": "pozione di schiusura",
     "noHatchingPotions": "Non hai nessuna pozione di schiusura.",
     "inventoryText": "Clicca su un uovo per vedere le pozioni utilizzabili (che verranno evidenziate in verde) e scegline una con cui far comparire il tuo animale. Se nessuna pozione viene evidenziata, clicca di nuovo sull'uovo per deselezionarlo, e questa volta clicca prima su una pozione, in modo da evidenziare le uova su cui poterla utilizzare. Se lo desideri, puoi anche vendere gli oggetti che ti avanzano ad Alexander il Mercante.",
-    "haveHatchablePet": "Hai una Pozione <%= potion %> e un uovo di <%= egg %> per far nascere questo animale! <b>Clicca</b> l'orma per far schiudere l'uovo.",
+    "haveHatchablePet": "Hai una Pozione <%= potion %> e un uovo di <%= egg %> per far nascere questo animale! <b>Clicca</b> sull'orma per far schiudere l'uovo.",
     "quickInventory": "Inventario veloce",
     "foodText": "cibo",
     "food": "Cibo e Selle",
@@ -75,7 +75,7 @@
     "hatchAPot": "Vuoi far nascere <%= potion %><%= egg %>?",
     "hatchedPet": "È nato un <%= egg %> <%= potion %>!",
     "hatchedPetGeneric": "Hai fatto nascere un nuovo animale!",
-    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
+    "hatchedPetHowToUse": "Vai alla [Scuderia](/inventory/stable) per nutrire ed equipaggiare il tuo nuovo animale!",
     "displayNow": "Mostra ora",
     "displayLater": "Mostra più tardi",
     "petNotOwned": "Non possiedi questo animale.",
@@ -110,7 +110,7 @@
     "welcomeStable": "Benvenuto nella Scuderia!",
     "welcomeStableText": "Io sono Matt, il Domatore di Bestie. Iniziando dal livello 3 puoi far nascere degli Animali dalle Uova utilizzando le Pozioni che trovi! Quando fai schiudere un Animale dal tuo Inventario, apparirà qui! Clicca sull'immagine dell'Animale per aggiungerlo al tuo avatar. Nutrili qui con il Civo che trovi dopo il livello 3 e cresceranno in potenti Cavalcature.",
     "petLikeToEat": "Cosa piace mangiare al mio animale?",
-    "petLikeToEatText": "Pets will grow no matter what you feed them, but they'll grow faster if you feed them the one food that they like best. Experiment to find out the pattern, or see the answers here: <br/> <a href=\"http://habitica.wikia.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.wikia.com/wiki/Food_Preferences</a>",
+    "petLikeToEatText": "Gli animali cresceranno indipendentemente da cosa gli dai da mangiare, ma cresceranno più velocemente mangiando il loro cibo preferito. Sperimenta per trovare un pattern, oppure leggi la risposta qui: <br/><a href=\"http://habitica.wikia.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.wikia.com/wiki/Food_Preferences</a>",
     "filterByStandard": "Base",
     "filterByMagicPotion": "Pozione Magica",
     "filterByQuest": "Missione",
@@ -121,7 +121,7 @@
     "foodTitle": "Cibo",
     "dragThisFood": "Trascina questo <%= foodName %> su un Animale e guardalo crescere!",
     "clickOnPetToFeed": "Clicca su un Animale per dargli <%= foodName %> e guardalo crescere!",
-    "dragThisPotion": "Trascina questo <%= potionName %> su un uovo e fai nascere un nuovo animale!",
+    "dragThisPotion": "Trascina questo <%= potionName %> su un Uovo e fai nascere un nuovo animale!",
     "clickOnEggToHatch": "Clicca su un Uovo per usare la tua Pozione <%= potionName %> e far nascere un nuovo animale!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Versa la tua Pozione <%= potionName %> sul tuo uovo di <%= eggName %>, e nascerà <%= petName %>."
 }

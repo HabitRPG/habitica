@@ -29,6 +29,7 @@
     "messageFoundQuest": "\"<%= questText %>\" のクエストを見つけました!",
     "messageAlreadyPurchasedGear": "以前にこの装備を購入しましたが、いまはもっていません。タスク ページの「ごほうび」からもう一度買えます。",
     "messageAlreadyOwnGear": "このアイテムをすでに持っています。所持品のページに行って装備して下さい。",
+    "previousGearNotOwned": "この装備を手に入れるには、先に下のレベルの装備を買う必要があります。",
     "messageHealthAlreadyMax": "体力はすでに最大です。",
     "messageHealthAlreadyMin": "ああ、なんてこと！　すでに体力が尽きているので、今から体力回復の薬を買っても仕方ありません。でも心配しないでください ー あなたは復活できます！",
     "armoireEquipment": "<%= image %>宝箱に貴重な装備を見つけました : <%= dropText %>! 素晴らしい!",
@@ -52,10 +53,11 @@
     "messageGroupChatFlagAlreadyReported": "このメッセージは報告済みです。",
     "messageGroupChatNotFound": "メッセージが見つかりません!",
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
+    "messageCannotFlagSystemMessages": "システムメッセージを報告することはできません。このメッセージに関してコミュニティガイドラインの違反を報告する必要がある場合は、スクリーンショットと説明をLemoness（<%= communityManagerEmail %>）にメールで送ってください。",
     "messageGroupChatSpam": "おおっと!たくさんのメッセージを投稿しすぎたようです!少しだけ待ってから再度お試しください。キャンプ場では200個のメッセージまでしか一度に表示されませんので,Habiticaでは熟慮と吟味がなされた返信を奨励しています。あなたが言いかけたことを楽しみにしています。:)",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
     "messageNotificationNotFound": "通知はありません。",
     "notificationsRequired": "通知 ID が必要です。",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！"
 }

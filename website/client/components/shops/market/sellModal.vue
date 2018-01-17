@@ -7,9 +7,16 @@
     div.close
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
-    div.content(v-if="item != null")
+    div.content(v-if="item")
 
-      div.inner-content
+      div.inner-content(v-if="item.sellWarningNote")
+        slot(name="item", :item="item")
+
+        h4.title {{ text ? text : item.text() }}
+        div.text {{ item.sellWarningNote() }}
+        br
+
+      div.inner-content(v-else)
         slot(name="item", :item="item")
 
         h4.title {{ text ? text : item.text() }}

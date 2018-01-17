@@ -80,11 +80,13 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
-    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
-    userToJSON.needsCron = false;
-    if (daysMissed > 0) userToJSON.needsCron = true;
+    if (!req.query.userFields) {
+      let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+      userToJSON.needsCron = false;
+      if (daysMissed > 0) userToJSON.needsCron = true;
+      user.addComputedStatsToJSONObj(userToJSON.stats);
+    }
 
-    user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
 };
@@ -1564,7 +1566,7 @@ api.userSell = {
  *
  * @apiErrorExample {json}
  * {"success":false,"error":"BadRequest","message":"Path string is required"}
- 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
+ * {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',

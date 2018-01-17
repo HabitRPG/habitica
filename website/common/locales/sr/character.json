@@ -163,6 +163,7 @@
     "dieText": "Izgubili ste jedan nivo, svo zlato, i nasumično odabrani predmet. Vratite se u život i pokušajte ponovo. Oslobodite se loših Navika, redovno obavljajte Svakodnevne zadatke, i održavajte zdravlje iznad nule da biste izbegli smrt.",
     "sureReset": "Are you sure? This will reset your character's class and allocated points (you'll get them all back to re-allocate), and costs 3 Gems.",
     "purchaseFor": "Kupiti za <%= cost %> Dragulja?",
+    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Nedovoljno mane.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "Bacili ste <%= spell %>.",

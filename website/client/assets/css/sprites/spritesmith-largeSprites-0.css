@@ -1,42 +1,24 @@
-.promo_mystery_201711 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -499px -202px;
-  width: 141px;
-  height: 294px;
-}
-.promo_potions_thunderstorm {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -842px 0px;
-  width: 141px;
-  height: 441px;
-}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -641px -202px;
+  background-position: -382px -148px;
   width: 114px;
   height: 87px;
 }
-.promo_turkey_day_2017 {
-  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -515px;
-  width: 141px;
-  height: 441px;
-}
-.scene_guilds {
+.promo_winter_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 498px;
-  height: 249px;
+  width: 140px;
+  height: 441px;
 }
-.scene_habit_cycle {
+.scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -250px;
-  width: 302px;
-  height: 264px;
+  background-position: -382px 0px;
+  width: 282px;
+  height: 147px;
 }
-.scene_money {
+.scene_task_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -499px 0px;
-  width: 342px;
-  height: 201px;
+  background-position: -141px 0px;
+  width: 240px;
+  height: 195px;
 }

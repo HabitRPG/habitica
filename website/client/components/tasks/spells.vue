@@ -103,6 +103,7 @@ div(v-if='user.stats.lvl > 10')
 
       .svg-icon {
         width: 16px;
+        height: 16px;
         margin-right: .2em;
       }
     }

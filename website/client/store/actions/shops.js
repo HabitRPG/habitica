@@ -41,14 +41,6 @@ async function buyArmoire (store, params) {
   const quantity = params.quantity || 1;
   let armoire = content.armoire;
 
-  buyOp(store.state.user.data, {
-    params: {
-      key: 'armoire',
-    },
-    type: 'armoire',
-    quantity,
-  });
-
   // We need the server result because Armoire has random item in the result
   let result = await axios.post('/api/v3/user/buy/armoire', {
     type: 'armoire',
@@ -61,20 +53,12 @@ async function buyArmoire (store, params) {
     const item = resData.armoire;
 
     const isExperience = item.type === 'experience';
-
     if (item.type === 'gear') {
       store.state.user.data.items.gear.owned[item.dropKey] = true;
     }
+    store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
-    store.dispatch('snackbars:add', {
-      title: '',
-      text: `- ${armoire.value}`,
-      type: 'gp',
-      icon: '',
-      sign: '-',
-      timeout: true,
-    });
     store.dispatch('snackbars:add', {
       title: '',
       text: isExperience ? item.value : item.dropText,

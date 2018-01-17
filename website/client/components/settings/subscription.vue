@@ -69,7 +69,7 @@
         div(v-if='hasSubscription')
           .btn.btn-primary(v-if='canEditCardDetails', @click='showStripeEdit()') {{ $t('subUpdateCard') }}
           .btn.btn-sm.btn-danger(v-if='canCancelSubscription && !loading', @click='cancelSubscription()') {{ $t('cancelSub') }}
-          small(v-if='!canCancelSubscription', v-html='getCancelSubInfo()')
+          small(v-if='!canCancelSubscription && !hasCanceledSubscription', v-html='getCancelSubInfo()')
 
         .subscribe-pay(v-if='!hasSubscription || hasCanceledSubscription')
           h3 {{ $t('subscribeUsing') }}
@@ -113,9 +113,10 @@ import { mapState } from 'client/libs/store';
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
+import notificationsMixin from '../../mixins/notifications';
 
 export default {
-  mixins: [paymentsMixin],
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       loading: false,
@@ -152,7 +153,7 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
@@ -247,21 +248,17 @@ export default {
       });
     },
     async applyCoupon (coupon) {
-      let response = await axios.get(`/api/v3/coupons/validate/${coupon}`);
+      const response = await axios.post(`/api/v3/coupons/validate/${coupon}`);
 
-      if (!response.data.valid) {
-        //  Notification.error(env.t('invalidCoupon'), true);
-        return;
-      }
+      if (!response.data.data.valid) return;
 
-      //  Notification.text("Coupon applied!");
-      let subs = subscriptionBlocks;
-      subs.basic_6mo.discount = true;
-      subs.google_6mo.discount = false;
+      this.text('Coupon applied!');
+      this.subscription.key = 'google_6mo';
     },
     getCancelSubInfo () {
-      // @TODO: String 'cancelSubInfoGroup Plan' not found. ?
-      return this.$t(`cancelSubInfo${this.user.purchased.plan.paymentMethod}`);
+      let payMethod = this.user.purchased.plan.paymentMethod || '';
+      if (payMethod === 'Group Plan') payMethod = 'GroupPlan';
+      return this.$t(`cancelSubInfo${payMethod}`);
     },
   },
 };
