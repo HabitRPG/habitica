@@ -421,9 +421,11 @@ export default {
 
       // @TODO: Share with server
       const prizeCost = this.workingChallenge.prize / 4;
-      if (challengeGroup && challengeGroup.leader._id === this.user._id && challengeGroup.balance > 0 && challengeGroup.balance > prizeCost) {
+      const challengeGroupLeader = challengeGroup.leader ? challengeGroup.leader._id : '';
+      const userIsLeader = challengeGroupLeader === this.user._id;
+      if (challengeGroup && userIsLeader && challengeGroup.balance > 0 && challengeGroup.balance > prizeCost) {
         // Group pays for all of prize
-      } else if (challengeGroup && challengeGroup.leader._id === this.user._id && challengeGroup.balance > 0) {
+      } else if (challengeGroup && userIsLeader && challengeGroup.balance > 0) {
         // User pays remainder of prize cost after group
         let remainder = prizeCost - challengeGroup.balance;
         this.user.balance -= remainder;
