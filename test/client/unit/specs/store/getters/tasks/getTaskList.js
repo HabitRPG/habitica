@@ -1,10 +1,22 @@
 import generateStore from 'client/store';
 
-describe('Store Getters for Tasks', () => {
+/* eslint-disable no-exclusive-tests */
+
+describe.only('Store Getters for Tasks', () => {
   let store, habits, dailys, todos, rewards;
 
   beforeEach(() => {
     store = generateStore();
+    // Get user preference data and user tasks order data
+    store.state.user.data = {
+      preferences: {},
+      tasksOrder: {
+        habits: [],
+        dailys: [],
+        todos: [],
+        rewards: [],
+      },
+    };
   });
 
   describe('Unfiltered Task List', () => {
@@ -225,3 +237,5 @@ describe('Store Getters for Tasks', () => {
     });
   });
 });
+
+/* eslint-enable no-exclusive-tests */

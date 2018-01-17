@@ -1,5 +1,8 @@
 import { shouldDo } from 'common/script/cron';
 
+// Library / Utility function
+import orderTasks from 'client/libs/store/helpers/orderTasks.js';
+
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 
@@ -126,8 +129,8 @@ const taskFilters = {
   daily: {
     filters: [
       { label: 'all', filterFn: () => true },
-      { label: 'due', filterFn: t => !t.completed && shouldDo(new Date(), t, this.userPreferences) },
-      { label: 'notDue', filterFn: t => t.completed || !shouldDo(new Date(), t, this.userPreferences) },
+      { label: 'due', filterFn: userPrefs => t => !t.completed && shouldDo(new Date(), t, userPrefs) },
+      { label: 'notDue', filterFn: userPrefs => t => t.completed || !shouldDo(new Date(), t, userPrefs) },
     ],
   },
   todo: {
@@ -156,10 +159,23 @@ export function getTaskList (store) {
       store.state.tasks.data[`${type}s`] :
       override;
 
+    let userPreferences = store.state.user.data.preferences || {};
+    let taskOrderForType = store.state.user.data.tasksOrder[type] || [];
+
+    // order tasks based on user set task order
+    // Still needs unit test for this..
+    if (requestedTasks.length > 0 && ['scheduled', 'due'].indexOf(filterType.label) === -1) {
+      requestedTasks = orderTasks(requestedTasks, taskOrderForType);
+    }
+
     // filter requested tasks by filter type
     if (!isEmpty(filterType)) {
       let [selectedFilter] = taskFilters[type].filters.filter(f => f.label === filterType.label);
       // @TODO find a way (probably thru currying) to implicitly pass user preference data to task filters
+      if (type === 'daily' && (filterType.label === 'due' || filterType.label === 'notDue')) {
+        selectedFilter = selectedFilter(userPreferences);
+      }
+
       requestedTasks = requestedTasks.filter(selectedFilter.filterFn);
       if (selectedFilter.sort) {
         requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
