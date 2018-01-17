@@ -4,6 +4,9 @@ let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
 const LAST_ANNOUNCEMENT_TITLE = 'THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE';
+const worldDmg = { // @TODO
+  bailey: false,
+};
 
 /**
  * @api {get} /api/v3/news Get latest Bailey announcement
@@ -18,13 +21,15 @@ api.getNews = {
   method: 'GET',
   url: '/news',
   async handler (req, res) {
+    const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
+
     res.status(200).send({
       html: `
-      <div>
+      <div class="bailey">
         <div class="media">
-            <div class="align-self-center right-margin" :class="baileyClass"></div>
+            <div class="align-self-center mr-3 ${baileyClass}"></div>
             <div class="media-body">
-                <h1 class="align-self-center" v-markdown="$t(&quot;newStuff&quot;)"></h1>
+                <h1 class="align-self-center markdown">${res.t('newStuff')}</h1>
             </div>
         </div>
         <h2>11/17/2017 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
@@ -39,18 +44,18 @@ api.getNews = {
                     your Stable and your pinned Rewards to see what you got!</p>
                 <p>Thank you for using Habitica - we really love you all
                     <3</p>
-                        <div class="small">by Lemoness</div>
+                        <div class="small mb-3">by Lemoness</div>
             </div>
         </div>
         <div class="media">
             <div class="media-body">
                 <h3>November Subscriber Items Revealed!</h3>
-                <p v-markdown="&quot;The November Subscriber Items have been revealed: the [Carpet Rider Item Set](https://habitica.com/user/settings/subscription)! You have until November 30 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory &gt; Items to claim your gear!&quot;"></p>
+                <p class="markdown">The November Subscriber Items have been revealed: the <a href="https://habitica.com/user/settings/subscription" target="_blank">Carpet Rider Item Set</a>! You have until November 30 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory &gt; Items to claim your gear!&quot;"></p>
                 <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions
                     let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-                <div class="small">by Lemoness</div>
+                <div class="small mb-3">by Lemoness</div>
             </div>
-            <div class="promo_mystery_201711 left-margin"></div>
+            <div class="promo_mystery_201711 left-margin ml-3"></div>
         </div>
         <h3>Android App Update</h3>
         <p>There’s an exciting new update to our Android app!</p>
@@ -62,7 +67,7 @@ api.getNews = {
         </ul>
         <p>We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!</p>
         <p>If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!</p>
-        <div class="small">by Viirus and piyorii</div><br/>
+        <div class="small mb-3">by Viirus and piyorii</div><br/>
       </div>
       `,
     });
