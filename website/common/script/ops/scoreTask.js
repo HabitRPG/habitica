@@ -8,6 +8,7 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
+import moment from 'moment';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -243,11 +244,32 @@ module.exports = function scoreTask (options = {}, req = {}) {
           if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
         }
         task.completed = true;
+
+        // Save history entry for daily
+        task.history = task.history || [];
+        let historyEntry = {
+          date: Number(new Date()),
+          value: task.value
+        };
+        task.history.push(historyEntry);
+
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
         task.streak -= 1;
         task.completed = false;
+
+        // Delete history entry when daily unchecked
+        if(task.history || task.history.length > 0) {
+          task.history.forEach((history, index) => {
+            let history_date = moment(history.date);
+            let today = moment(Number(new Date()));
+            if(history_date.startOf('day').isSame(today.startOf('day'))) {
+              task.history.splice(index, 1);
+            }
+          });
+        }
+
       }
     }
   } else if (task.type === 'todo') {

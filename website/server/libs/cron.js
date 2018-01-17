@@ -361,10 +361,6 @@ export function cron (options = {}) {
       }
     }
 
-    task.history.push({
-      date: Number(new Date()),
-      value: task.value,
-    });
     task.completed = false;
 
     setIsDueNextDue(task, user, now);
