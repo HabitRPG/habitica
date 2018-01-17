@@ -231,7 +231,7 @@
                     .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
                   .attributes
                     .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
-                      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
+                      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="user.preferences.allocationMode !== 'taskbased'")
                       label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
 
               .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
