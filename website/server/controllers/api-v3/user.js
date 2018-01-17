@@ -1971,27 +1971,46 @@ api.movePinnedItem = {
     let path = req.params.path;
     let position = Number(req.params.position);
 
-    // In memory updates
+    // TODO - update inAppRewards to use pinnedItemsOrder to return the correct
+    // sorted rewards every time for every call
 
-    // user.pinnedItems contain items with ids defined as UUID objects,
-    // to compare with our API call we will cast it into a string
-    let currentIndex = user.pinnedItems.findIndex(item => item.path === path);
-    let currentPinnedItem = user.pinnedItems[currentIndex];
+    let currentPinnedItems = common.inAppRewards(user);
 
-    // remove the item
-    user.pinnedItems.splice(currentIndex, 1);
+    // TODO - clean up these plan comments when we have it all filled out
+    // If array is initialized
+    // Just move the idexes in the array order
+    if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
+      // Case 1: there are now less pinned items
+      //   - A season has ended and getOfficialPinnedItems doesn't return anything
+      //   - Someone unpinned something. This shouldn't get here.
+      // case 2: there are now more pinned items
+      //   - A season has begun and getOfficialPinnedItems now returns stuff
+      //   - somone has pinned something additionally in the shop
+      //   In either case we need a function to bring them in line
+      //
+      //   But for now so we can get this running and tested if they don't match remove all ordering =D
+
+      user.pinnedItemsOrder = currentPinnedItems.map( item => item.path );
+    }
+
+    // Adjust the order
+    let currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
+    let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
+
+    // Remove the one we will move
+    user.pinnedItemsOrder.splice(currentIndex, 1);
 
     // reinsert the item in position (or just at the end)
     if (position === -1) {
-      user.pinnedItems.push(currentPinnedItem);
+      user.pinnedItemsOrder.push(currentPinnedItem);
     } else {
-      user.pinnedItems.splice(position, 0, currentPinnedItem);
+      user.pinnedItemsOrder.splice(position, 0, currentPinnedItemPath);
     }
 
     await user.save();
     let userJson = user.toJSON();
 
-    res.respond(200, userJson.pinnedItems);
+    res.respond(200, userJson.pinnedItemsOrder);
   },
 };
 
