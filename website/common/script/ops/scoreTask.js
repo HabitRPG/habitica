@@ -249,10 +249,9 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.history = task.history || [];
         let historyEntry = {
           date: Number(new Date()),
-          value: task.value
+          value: task.value,
         };
         task.history.push(historyEntry);
-
       } else if (direction === 'down') {
         // Remove a streak achievement if streak was a multiple of 21 and the daily was undone
         if (task.streak % 21 === 0) user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
@@ -260,16 +259,15 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = false;
 
         // Delete history entry when daily unchecked
-        if(task.history || task.history.length > 0) {
-          task.history.forEach((history, index) => {
-            let history_date = moment(history.date);
+        if (task.history || task.history.length > 0) {
+          task.history.forEach((entry, index) => {
+            let historyDate = moment(entry.date);
             let today = moment(Number(new Date()));
-            if(history_date.startOf('day').isSame(today.startOf('day'))) {
+            if (historyDate.startOf('day').isSame(today.startOf('day'))) {
               task.history.splice(index, 1);
             }
           });
         }
-
       }
     }
   } else if (task.type === 'todo') {
