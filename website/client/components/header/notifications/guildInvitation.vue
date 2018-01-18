@@ -45,14 +45,14 @@ export default {
 
       this.$router.push({ name: 'guild', params: { groupId } });
     },
-    accept () {
+    async accept () {
       const group = this.notification.data;
 
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
 
-      this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
+      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'guild'});
       this.$router.push({ name: 'guild', params: { groupId: group.id } });
     },
     reject () {

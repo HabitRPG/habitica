@@ -24,15 +24,15 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
-    accept () {
+    async accept () {
       const group = this.notification.data;
 
       if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
 
+      await this.$store.dispatch('guilds:join', {groupId: group.id, type: 'party'});
       this.$router.push('/party');
-      this.$store.dispatch('guilds:join', {groupId: group.id, type: 'party'});
     },
     reject () {
       this.$store.dispatch('guilds:rejectInvite', {groupId: this.notification.data.id, type: 'party'});

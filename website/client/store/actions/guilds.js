@@ -59,13 +59,13 @@ export async function join (store, payload) {
 
   if (type === 'guild') {
     const invitationI = invitations.guilds.findIndex(i => i.id === groupId);
-    if (invitationI) invitations.guilds.splice(invitationI, 1);
+    if (invitationI !== -1) invitations.guilds.splice(invitationI, 1);
 
     user.guilds.push(groupId);
     store.state.myGuilds.push(response.data.data);
   } else if (type === 'party') {
     const invitationI = invitations.parties.findIndex(i => i.id === groupId);
-    if (invitationI) invitations.parties.splice(invitationI, 1);
+    if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
 
     user.party._id = groupId;
 
