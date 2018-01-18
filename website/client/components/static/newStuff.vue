@@ -4,18 +4,21 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
+    h2 1/18/2018 - iOS UPDATE AND WIKI WEDNESDAY
     .media
-      .scene_task_list.right-margin
+      .promo_ios.right-margin
       .media-body
-        h3 Use Case Spotlight: Setting Realistic Goals
-        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
-        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
-        .small by Beffymaroo
-    h3 Behind the Scenes: Lady Glaciate
-    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
-    .small by Lemoness
-    .scene_lady_glaciate.center-block
+        h3 iOS App Update!
+        p(v-markdown='"We\'ve released a [new iOS update!](https://itunes.apple.com/us/app/habitica-gamified-taskmanager/id994882113?mt=8) In this update, we\'ve added new features including the ability to allocate stat points, fix character values, and make account changes from within the app. We\'ve also smashed a number of pesky bugs, including the issues with inbox messaging, crashes when opening subscriber gear, and even the notorious task-ordering bug!"')
+        p We hope you enjoy the update. Be sure to download it now for a better Habitica experience!
+        p If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out! Old reviews get hidden with each update, but if you go to the review section you can re-post them again with a single tap.
+        .small by Viirus and piyorii
+    .media
+      .media-body
+        h3 Blog Post: S.M.A.R.T. Goal Setting
+        p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2018/01/17/smart-goal-setting/) is about the SMART goal setting method! We hope that it will help you as strive to set achievable goals for the new year and beyond. Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com), and [Facebook](https://facebook.com/habitica)."')
+        .small by Beffymaroo and the Wiki Wizards
+      .scene_setting_up_todos
     hr
 </template>
 
