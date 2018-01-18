@@ -6,8 +6,8 @@
       span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
 
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
-    template(v-for="(klass, item) in visualBuffs")
-      span(v-if="member.stats.buffs[item] && showVisualBuffs", :class="klass")
+    template(v-for="(klass, item) in visualBuffs()")
+      span(v-if="buffs[item]", :class="klass")
 
     // Show flower ALL THE TIME!!!
     // See https://github.com/HabitRPG/habitica/issues/7133
@@ -72,6 +72,7 @@
 
 <script>
 import { mapState } from 'client/libs/store';
+import Vue from 'vue';
 
 import ClassBadge from 'client/components/members/classBadge';
 
@@ -157,14 +158,6 @@ export default {
 
       return '';
     },
-    visualBuffs () {
-      return {
-        snowball: 'snowman',
-        spookySparkles: 'ghost',
-        shinySeed: `avatar_floral_${this.member.stats.class}`,
-        seafoam: 'seafoam_star',
-      };
-    },
     skinClass () {
       let baseClass = `skin_${this.member.preferences.skin}`;
 
@@ -207,14 +200,37 @@ export default {
       if (!this.$store.state.spellOptions.castingSpell) return;
       this.$root.$emit('castEnd', this.member, 'user', e);
     },
+    visualBuffs () {
+      return {
+        snowball: 'snowman',
+        spookySparkles: 'ghost',
+        shinySeed: `avatar_floral_${this.member.stats.class}`,
+        seafoam: 'seafoam_star',
+      };
+    },
     showAvatar () {
       if (!this.showVisualBuffs)
         return true;
 
-      let buffs = this.member.stats.buffs;
+      let buffs = this.buffs;
 
       return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
     },
+  },
+  data () {
+    return {
+      buffs: {}
+    }
+  },
+  mounted () {
+    // watch gets called, but its the same values
+    this.$watch('member.stats.buffs', (newVal, oldVal) => {
+      console.info(newVal.spookySparkles, oldVal.spookySparkles);
+      Vue.set(this, 'buffs', newVal);
+      console.info('buffs', this.buffs, newVal, oldVal);
+    });
+
+    this.$set(this, 'buffs', this.member.stats.buffs);
   },
 };
 </script>

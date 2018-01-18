@@ -5,7 +5,8 @@ import axios from 'axios';
 import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
 import changeClassOp from 'common/script/ops/changeClass';
 import disableClassesOp from 'common/script/ops/disableClasses';
-
+import spells from 'common/script/content/spells';
+import Vue from 'vue';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -109,11 +110,33 @@ export function togglePinnedItem (store, params) {
 }
 
 export function castSpell (store, params) {
+  const user = store.state.user.data;
+
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
   if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
 
-  return axios.post(spellUrl);
+  let spellId = params.key;
+
+  let klass = spells.special[spellId] ? 'special' : user.stats.class;
+  let spell = spells[klass][spellId];
+
+  if (spell.target === 'self') {
+    spell.cast(user, null, {params});
+    console.info('CAST ON SELF');
+  } else if (spell.target === 'user') {
+    let userList = store.state.partyMembers.data || [user];
+
+    for(let member of userList) {
+      if (member.id === params.targetId) {
+        spell.cast(user, member, {params});
+        // buff changed the stats.buffs property
+        console.info('CAST ON USER', member, member.stats.buffs);
+      }
+    }
+  }
+
+  //return axios.post(spellUrl);
 }
 
 export function openMysteryItem () {
