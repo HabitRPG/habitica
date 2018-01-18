@@ -4,7 +4,7 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/18/2018 - iOS UPDATE AND WIKI WEDNESDAY
+    h2 1/18/2018 - iOS UPDATE, WIKI WEDNESDAY, AND NEW AUDIO THEMES
     .media
       .promo_ios.right-margin
       .media-body
@@ -19,6 +19,9 @@
         p(v-markdown='"This month\'s [featured Wiki article](https://habitica.wordpress.com/2018/01/17/smart-goal-setting/) is about the SMART goal setting method! We hope that it will help you as strive to set achievable goals for the new year and beyond. Be sure to check it out, and let us know what you think by reaching out on [Twitter](https://twitter.com/habitica), [Tumblr](http://blog.habitrpg.com), and [Facebook](https://facebook.com/habitica)."')
         .small by Beffymaroo and the Wiki Wizards
       .scene_setting_up_todos
+    h3 New Audio Themes!
+    p(v-markdown='"There are three new audio themes available in [site settings](/user/settings/site): the Farvoid Theme, SpacePenguin\'s Theme, and the Lunasol Theme! Check them out to bring fresh sounds to your Habitica experience."')
+    .small by Airu, SpacePenguin95, Pizilden, and Accio Books!
     hr
 </template>
 
