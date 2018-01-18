@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     action () {
-      this.$router.push('inventory/items');
+      this.$router.push({name: 'items'});
     },
   },
 };
