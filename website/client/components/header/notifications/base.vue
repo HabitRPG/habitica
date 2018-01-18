@@ -1,6 +1,6 @@
 <template lang="pug">
 .notification.dropdown-item.dropdown-separated.d-flex.justify-content-between(
-  @click="$emit('click')"
+  @click="clicked"
 )
   .notification-icon.d-flex.justify-content-center.align-items-center(v-if="hasIcon")
     slot(name="icon")
@@ -113,7 +113,7 @@ import closeIcon from 'assets/svg/close.svg';
 import { mapActions } from 'client/libs/store';
 
 export default {
-  props: ['notification', 'canRemove', 'hasIcon'],
+  props: ['notification', 'canRemove', 'hasIcon', 'readAfterClick'],
   data () {
     return {
       icons: Object.freeze({
@@ -125,6 +125,13 @@ export default {
     ...mapActions({
       readNotification: 'notifications:readNotification',
     }),
+    clicked () {
+      if (this.readAfterClick === true) {
+        this.readNotification({notificationId: this.notification.id});
+      }
+
+      this.$emit('click');
+    },
   },
 };
 </script>

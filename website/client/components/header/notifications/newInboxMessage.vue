@@ -3,6 +3,7 @@ base-notification(
   :can-remove="canRemove",
   :has-icon="false",
   :notification="notification",
+  :read-after-click="true",
   @click="action"
 )
   div(slot="content")

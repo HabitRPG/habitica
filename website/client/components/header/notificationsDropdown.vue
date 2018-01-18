@@ -20,21 +20,6 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       :notification="notification",
       :can-remove="!isActionable(notification)",
     )
-    //
-      a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
-        div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
-        div
-          button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
-          button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
-      a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
-        span(@click='navigateToGroup(message.key)')
-          span.glyphicon.glyphicon-comment
-          span {{message.name}}
-        span.clear-button(@click.stop='clearMessages(message.key)') Clear
-      a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
-        span(:class="groupApprovalNotificationIcon(notification)")
-        span {{notification.data.message}}
-        span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
 </template>
 
 <style lang='scss' scoped>
