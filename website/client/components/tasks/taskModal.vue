@@ -220,7 +220,7 @@
                           type="number", v-model="task.counterDown", min="0", required,
                         )
 
-              .option(v-if="isUserTask && task.type !== 'reward'")
+              //.option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
                   label(v-once)
                     span.float-left {{ $t('attributeAllocation') }}
