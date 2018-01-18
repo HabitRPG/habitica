@@ -5,8 +5,6 @@ import axios from 'axios';
 import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinnedGearUtils';
 import changeClassOp from 'common/script/ops/changeClass';
 import disableClassesOp from 'common/script/ops/disableClasses';
-import spells from 'common/script/content/spells';
-import Vue from 'vue';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -110,15 +108,11 @@ export function togglePinnedItem (store, params) {
 }
 
 export function castSpell (store, params) {
-  const user = store.state.user.data;
-
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
   if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
 
-
-
-  //return axios.post(spellUrl);
+  return axios.post(spellUrl);
 }
 
 export function openMysteryItem () {

@@ -3,7 +3,7 @@ import isArray from 'lodash/isArray';
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
   methods: {
-    castStart (spell, member) {
+    async castStart (spell, member) {
       if (this.$store.state.spellOptions.castingSpell) {
         this.castCancel();
         return;
@@ -46,7 +46,13 @@ export default {
         });
         return this.castEnd(tasks, spell.target);
       } else if (spell.target === 'user') {
-        return this.castEnd(member, spell.target);
+        let result = await this.castEnd(member, spell.target);
+
+        if (member.id === this.user.id) {
+          this.$set(this.$store.state.user.data, 'stats', member.stats);
+        }
+
+        return result;
       }
     },
     async castEnd (target, type) {
