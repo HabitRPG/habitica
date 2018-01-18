@@ -29,9 +29,9 @@
                         type="checkbox",
                         :checked="isTagSelected(tag)",
                         @change="toggleTag(tag)",
-                        :id="`tag-${tagIndex}`",
+                        :id="`tag-${tagsType.key}-${tagIndex}`",
                       )
-                      label.custom-control-label(:for="`tag-${tagIndex}`") {{ tag.name }}
+                      label.custom-control-label(:for="`tag-${tagsType.key}-${tagIndex}`") {{ tag.name }}
 
           .filter-panel-footer.clearfix
             template(v-if="editingTags === true")
