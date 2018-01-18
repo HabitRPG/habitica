@@ -1971,25 +1971,12 @@ api.movePinnedItem = {
     let path = req.params.path;
     let position = Number(req.params.position);
 
-    // TODO - update inAppRewards to use pinnedItemsOrder to return the correct
-    // sorted rewards every time for every call
-
+    // If something has been added or removed from the inAppRewards, we need
+    // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
+    // Uses the current pinnedItemsOrder to return these in the right order,
+    // the new reset array will be in the right order before we do the swap
     let currentPinnedItems = common.inAppRewards(user);
-
-    // TODO - clean up these plan comments when we have it all filled out
-    // If array is initialized
-    // Just move the idexes in the array order
     if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
-      // Case 1: there are now less pinned items
-      //   - A season has ended and getOfficialPinnedItems doesn't return anything
-      //   - Someone unpinned something. This shouldn't get here.
-      // case 2: there are now more pinned items
-      //   - A season has begun and getOfficialPinnedItems now returns stuff
-      //   - somone has pinned something additionally in the shop
-      //   In either case we need a function to bring them in line
-      //
-      //   But for now so we can get this running and tested if they don't match remove all ordering =D
-
       user.pinnedItemsOrder = currentPinnedItems.map( item => item.path );
     }
 
