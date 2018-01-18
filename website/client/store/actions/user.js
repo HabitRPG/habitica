@@ -116,25 +116,7 @@ export function castSpell (store, params) {
 
   if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
 
-  let spellId = params.key;
 
-  let klass = spells.special[spellId] ? 'special' : user.stats.class;
-  let spell = spells[klass][spellId];
-
-  if (spell.target === 'self') {
-    spell.cast(user, null, {params});
-    console.info('CAST ON SELF');
-  } else if (spell.target === 'user') {
-    let userList = store.state.partyMembers.data || [user];
-
-    for(let member of userList) {
-      if (member.id === params.targetId) {
-        spell.cast(user, member, {params});
-        // buff changed the stats.buffs property
-        console.info('CAST ON USER', member, member.stats.buffs);
-      }
-    }
-  }
 
   //return axios.post(spellUrl);
 }

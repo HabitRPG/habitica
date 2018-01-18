@@ -158,7 +158,6 @@ import i18n from 'common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 
-
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
 const sortGearTypeMap = {

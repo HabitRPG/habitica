@@ -219,8 +219,8 @@ export default {
   },
   data () {
     return {
-      buffs: {}
-    }
+      buffs: {},
+    };
   },
   mounted () {
     // watch gets called, but its the same values
