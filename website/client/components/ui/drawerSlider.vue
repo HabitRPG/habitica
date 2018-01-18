@@ -4,13 +4,13 @@
   )
     div.slider-button-area.left-button(
       v-if="scrollButtonsVisible",
-      @mousedown.left="shiftLeft"
+      @mousedown.left="shiftRight"
     )
       a.slider-button
         .svg-icon(v-html="icons.previous")
     div.slider-button-area.right-button(
       v-if="scrollButtonsVisible",
-      @mousedown.left="shiftRight"
+      @mousedown.left="shiftLeft"
     )
       a.slider-button
         .svg-icon(v-html="icons.next")
@@ -127,7 +127,7 @@
         let itemsPerPage = this.itemsPerPage();
         let firstSlice = items.slice(pointer, pointer + itemsPerPage);
 
-        if (firstSlice.length === itemsPerPage) {
+        if (firstSlice.length === itemsPerPage || items.length < itemsPerPage ) {
           return firstSlice;
         } else {
           let getRemainderItems = itemsPerPage - firstSlice.length;
