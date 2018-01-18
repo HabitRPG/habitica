@@ -127,7 +127,7 @@
         let itemsPerPage = this.itemsPerPage();
         let firstSlice = items.slice(pointer, pointer + itemsPerPage);
 
-        if (firstSlice.length === itemsPerPage || items.length < itemsPerPage ) {
+        if (firstSlice.length === itemsPerPage || items.length < itemsPerPage) {
           return firstSlice;
         } else {
           let getRemainderItems = itemsPerPage - firstSlice.length;
