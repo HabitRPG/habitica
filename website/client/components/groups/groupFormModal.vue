@@ -13,10 +13,9 @@
         label
           strong(v-once) {{$t('privacySettings')}} *
         br
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('onlyLeaderCreatesChallenges') }}
+        .custom-control.custom-checkbox
+          input.custom-control-input#onlyLeaderCreatesChallenges(type="checkbox", v-model="workingGroup.onlyLeaderCreatesChallenges")
+          label.custom-control-label(v-once, for="onlyLeaderCreatesChallenges") {{ $t('onlyLeaderCreatesChallenges') }}
           #groupPrivateDescription1.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
@@ -25,18 +24,16 @@
           )
 
         // br
-        // @TODO Implement in V2 label.custom-control.custom-checkbox
+        // @TODO Implement in V2 .custom-control.custom-checkbox
           input.custom-control-input(type="checkbox", v-model="workingGroup.guildLeaderCantBeMessaged")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('guildLeaderCantBeMessaged') }}
+          label.custom-control-label(v-once) {{ $t('guildLeaderCantBeMessaged') }}
           // "guildLeaderCantBeMessaged": "Leader can not be messaged directly",
           // @TODO discuss the impact of this with moderators before implementing
 
         br
-        label.custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
-          input.custom-control-input(type="checkbox", v-model="workingGroup.privateGuild")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('privateGuild') }}
+        .custom-control.custom-checkbox(v-if='!isParty && !this.workingGroup.id')
+          input.custom-control-input#privateGuild(type="checkbox", v-model="workingGroup.privateGuild")
+          label.custom-control-label(v-once, for="privateGuild") {{ $t('privateGuild') }}
           #groupPrivateDescription2.icon(:title="$t('privateDescription')")
             .svg-icon(v-html='icons.information')
           b-tooltip(
@@ -45,10 +42,9 @@
           )
 
         // br
-        // @TODO: Implement in v2 label.custom-control.custom-checkbox(v-if='!creatingParty')
+        // @TODO: Implement in v2 .custom-control.custom-checkbox(v-if='!creatingParty')
           input.custom-control-input(type="checkbox", v-model="workingGroup.allowGuildInvitationsFromNonMembers")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
+          label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') }}
           // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
 
       .form-group(v-if='!isParty')
@@ -80,10 +76,9 @@
             :key="group.key",
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", :value="group.key", v-model="workingGroup.categories")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(group.label) }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(:id="`category-${group.key}`", type="checkbox", :value="group.key", v-model="workingGroup.categories")
+              label.custom-control-label(v-once, :for="`category-${group.key}`") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
         // @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -111,6 +106,10 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .custom-control-input {
+    z-index: 1 !important;
+  }
 
   .svg-icon {
     width: 16px;

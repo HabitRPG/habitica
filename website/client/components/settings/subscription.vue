@@ -90,11 +90,6 @@
           li {{ $t('giftSubscriptionText2') }}
           li {{ $t('giftSubscriptionText3') }}
         h4 {{ $t('giftSubscriptionText4') }}
-      .col-6
-        h2 {{ $t('winterPromoGiftHeader') }}
-        p {{ $t('winterPromoGiftDetails1') }}
-        p {{ $t('winterPromoGiftDetails2') }}
-
 </template>
 
 <style scoped>
@@ -118,9 +113,10 @@ import { mapState } from 'client/libs/store';
 import subscriptionBlocks from '../../../common/script/content/subscriptionBlocks';
 import planGemLimits from '../../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
+import notificationsMixin from '../../mixins/notifications';
 
 export default {
-  mixins: [paymentsMixin],
+  mixins: [paymentsMixin, notificationsMixin],
   data () {
     return {
       loading: false,
@@ -157,7 +153,7 @@ export default {
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
-        console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
+        // console.log(this.subscriptionBlocks[this.user.purchased.plan.planId]); // eslint-disable-line
         return {
           price: 0,
           months: 0,
@@ -252,17 +248,12 @@ export default {
       });
     },
     async applyCoupon (coupon) {
-      let response = await axios.get(`/api/v3/coupons/validate/${coupon}`);
+      const response = await axios.post(`/api/v3/coupons/validate/${coupon}`);
 
-      if (!response.data.valid) {
-        //  Notification.error(env.t('invalidCoupon'), true);
-        return;
-      }
+      if (!response.data.data.valid) return;
 
-      //  Notification.text("Coupon applied!");
-      let subs = subscriptionBlocks;
-      subs.basic_6mo.discount = true;
-      subs.google_6mo.discount = false;
+      this.text('Coupon applied!');
+      this.subscription.key = 'google_6mo';
     },
     getCancelSubInfo () {
       let payMethod = this.user.purchased.plan.paymentMethod || '';

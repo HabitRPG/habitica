@@ -68,6 +68,7 @@ export default {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
       });
+
       this.close();
     },
     async clearFlagCount () {

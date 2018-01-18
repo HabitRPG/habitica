@@ -14,7 +14,7 @@ import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import cwait from 'cwait';
-import { syncableAttrs } from '../libs/taskManager';
+import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 
@@ -145,6 +145,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       matchingTask.challenge = {taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
+      setNextDue(matchingTask, user);
     } else {
       _.merge(matchingTask, syncableAttrs(chalTask));
       // Make sure the task is in user.tasksOrder
@@ -340,7 +341,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
-      'tags._id': challenge._id,
+      'tags.id': challenge._id,
     }, {
       $set: {'tags.$.challenge': false},
       $pull: {challenges: challenge._id},

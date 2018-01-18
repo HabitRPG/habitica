@@ -3,7 +3,7 @@
   .row.tasks-navigation
     .col-4
       h1 Group's Tasks
-    // @TODO: Abstract to component?
+    // @TODO: Abstract to component!
     .col-4
       .input-group
         input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
@@ -18,20 +18,20 @@
                   .col-6(v-for="(tag, tagIndex) in tagsSnap")
                     .inline-edit-input-group.tag-edit-item.input-group
                       input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
-                      span.input-group-btn(@click="removeTag(tagIndex)")
+                      .input-group-append(@click="removeTag(tagIndex)")
                         .svg-icon.destroy-icon(v-html="icons.destroy")
                   .col-6
                     input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
                 template(v-else)
                   .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                    label.custom-control.custom-checkbox
+                    .custom-control.custom-checkbox
                       input.custom-control-input(
                         type="checkbox",
                         :checked="isTagSelected(tag)",
                         @change="toggleTag(tag)",
+                        :id="`tag-${tagsType.key}-${tagIndex}`",
                       )
-                      span.custom-control-indicator
-                      span.custom-control-description {{ tag.name }}
+                      label.custom-control-label(:for="`tag-${tagsType.key}-${tagIndex}`") {{ tag.name }}
 
           .filter-panel-footer.clearfix
             template(v-if="editingTags === true")
@@ -44,7 +44,7 @@
               .float-right
                 a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
                 a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-        span.input-group-btn
+        span.input-group-append
           button.btn.btn-secondary.filter-button(
             type="button",
             @click="toggleFilterPanel()",
@@ -173,7 +173,7 @@
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
 
-      &:focus, &:focus ~ .input-group-btn {
+      &:focus, &:focus ~ .input-group-append {
         border-color: $purple-500 !important;
       }
     }
@@ -188,7 +188,7 @@
       background-image: url(~client/assets/svg/for-css/positive.svg);
     }
 
-    .tag-edit-item .input-group-btn {
+    .tag-edit-item .input-group-append {
       border-bottom: 1px solid $gray-500 !important;
 
       &:focus {
@@ -196,7 +196,7 @@
       }
     }
 
-    .custom-control-description {
+    .custom-control-label {
       margin-left: 10px;
     }
 

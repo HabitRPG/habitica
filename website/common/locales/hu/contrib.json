@@ -32,7 +32,7 @@
     "contribModal": "Király vagy, <%= name %>! Mostantól te egy <%= level %> szintű közreműködő vagy, amiért segítetted a Habitica-t. Nézd meg",
     "contribLink": "milyen díjakat szereztél a közreműködésedért!",
     "contribName": "Közreműködő",
-    "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
+    "contribText": "Hozzájárult a Habiticához kóddal, grafikával, zenével, szöveggel, vagy más dologgal. Hogy többet megtudj erről, csatlakozz az \"Aspiring Legends Guild\" nevű céhhez!",
     "readMore": "Tovább",
     "kickstartName": "Kickstarter Támogató - $<%= key %> Szint",
     "kickstartText": "Támogatta a Kickstarter projektet!",

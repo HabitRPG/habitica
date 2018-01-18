@@ -247,10 +247,6 @@
     }
   }
 
-  .toggle-up .svg-icon, .toggle-down .svg-icon {
-    width: 25px;
-  }
-
   span.action {
     font-size: 14px;
     line-height: 1.33;
@@ -284,10 +280,6 @@
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
     padding-bottom: 1em;
-  }
-
-  .toggle-up, .toggle-down {
-    cursor: pointer;
   }
 
   .hr {
@@ -546,16 +538,14 @@ export default {
         return;
       }
 
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-
       if (this.isParty) {
-        this.$store.state.party.data = group;
+        await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
-        return;
+      } else {
+        const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+        this.$set(this, 'group', group);
       }
-
-      this.$set(this, 'group', group);
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -609,10 +599,14 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
-        this.$store.state.party.members = [];
+        this.$store.state.partyMembers = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
+
+      if (this.isParty) {
+        this.$router.push({name: 'tasks'});
+      }
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
