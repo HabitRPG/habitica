@@ -526,8 +526,6 @@ export default {
       const rewardsList = this.inAppRewards;
       const rewardToMove = rewardsList[data.oldIndex];
 
-      console.log(rewardsList);
-
       let newOrder = await this.$store.dispatch('user:movePinnedItem', {
         path: rewardToMove.path,
         position: data.newIndex,

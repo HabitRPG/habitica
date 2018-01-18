@@ -1977,7 +1977,7 @@ api.movePinnedItem = {
     // the new reset array will be in the right order before we do the swap
     let currentPinnedItems = common.inAppRewards(user);
     if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
-      user.pinnedItemsOrder = currentPinnedItems.map( item => item.path );
+      user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
     }
 
     // Adjust the order
@@ -1989,7 +1989,7 @@ api.movePinnedItem = {
 
     // reinsert the item in position (or just at the end)
     if (position === -1) {
-      user.pinnedItemsOrder.push(currentPinnedItem);
+      user.pinnedItemsOrder.push(currentPinnedItemPath);
     } else {
       user.pinnedItemsOrder.splice(position, 0, currentPinnedItemPath);
     }
