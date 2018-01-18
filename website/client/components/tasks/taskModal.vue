@@ -186,10 +186,6 @@
               @change="updateRequiresApproval"
             )
 
-        .reward-delete.delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="task.type === 'reward' && purpose !== 'create'")
-          .svg-icon.d-inline-b(v-html="icons.destroy")
-          span {{ $t('deleteTask') }}
-
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
             h3 {{ $t('advancedSettings') }}
@@ -233,13 +229,12 @@
                     .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
                       input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
                       label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
-
-              .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
-                .svg-icon.d-inline-b(v-html="icons.destroy")
-                span {{ $t('deleteTask') }}
+        .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create' && !challengeAccessRequired")
+          .svg-icon.d-inline-b(v-html="icons.destroy")
+          span {{ $t('deleteTask') }}
 
       .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
-        span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
 
@@ -556,11 +551,6 @@
       }
     }
 
-    .reward-delete {
-      margin-top: 32px;
-      margin-bottom: 8px;
-    }
-
     .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
 
@@ -570,6 +560,8 @@
     }
 
     .delete-task-btn {
+      margin-top: 32px;
+      margin-bottom: 8px;
       color: $red-50;
 
       .svg-icon {
@@ -599,6 +591,7 @@
       margin-left: -23px;
       margin-right: -23px;
       padding: 16px 24px;
+      margin-bottom: -8px;
 
       &-toggle {
         cursor: pointer;
