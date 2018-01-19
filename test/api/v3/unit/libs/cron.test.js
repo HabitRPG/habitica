@@ -465,9 +465,9 @@ describe('cron', () => {
       expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
-    it('should add history', () => {		
-      cron({user, tasksByType, daysMissed, analytics});		
-      expect(tasksByType.dailys[0].history).to.be.lengthOf(1);		
+    it('should add history', () => {
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(tasksByType.dailys[0].history).to.be.lengthOf(1);
     });
 
     it('should set tasks completed to false', () => {

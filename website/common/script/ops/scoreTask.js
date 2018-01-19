@@ -8,7 +8,6 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
-import moment from 'moment';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
