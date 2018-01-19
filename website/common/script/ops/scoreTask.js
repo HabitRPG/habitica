@@ -260,13 +260,7 @@ module.exports = function scoreTask (options = {}, req = {}) {
 
         // Delete history entry when daily unchecked
         if (task.history || task.history.length > 0) {
-          task.history.forEach((entry, index) => {
-            let historyDate = moment(entry.date);
-            let today = moment(Number(new Date()));
-            if (historyDate.startOf('day').isSame(today.startOf('day'))) {
-              task.history.splice(index, 1);
-            }
-          });
+          task.history.splice(-1, 1);
         }
       }
     }
