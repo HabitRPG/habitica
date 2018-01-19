@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "没有权利删除这个消息！",
     "onlyGroupLeaderCanEditTasks": "你没有管理任务的权限",
     "onlyGroupTasksCanBeAssigned": "只有小组任务可以被分配",
+    "assignedTo": "Assigned To",
     "assignedToUser": "已被分配给<%= userName %>",
     "assignedToMembers": "已被分配给<%= userCount %>個会员",
     "assignedToYouAndMembers": "已被分配给你和<%= userCount %>個会员",
