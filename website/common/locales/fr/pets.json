@@ -89,6 +89,18 @@
     "rideLater": "Monter plus tard",
     "petName": "bébé <%= egg(locale) %> <%= potion(locale) %>",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
+    "keyToPets": "Key to the Pet Kennels",
+    "keyToPetsDesc": "Release all standard Pets so you can collect them again. (Quest Pets and rare Pets are not affected.)",
+    "keyToMounts": "Key to the Mount Kennels",
+    "keyToMountsDesc": "Release all standard Mounts so you can collect them again. (Quest Mounts and rare Mounts are not affected.)",
+    "keyToBoth": "Master Keys to the Kennels",
+    "keyToBothDesc": "Release all standard Pets and Mounts so you can collect them again. (Quest Pets/Mounts and rare Pets/Mounts are not affected.)",
+    "releasePetsConfirm": "Are you sure you want to release your standard Pets?",
+    "releasePetsSuccess": "Your standard Pets have been released!",
+    "releaseMountsConfirm": "Are you sure you want to release your standard Mounts?",
+    "releaseMountsSuccess": "Your standard Mounts have been released!",
+    "releaseBothConfirm": "Are you sure you want to release your standard Pets and Mounts?",
+    "releaseBothSuccess": "Your standard Pets and Mounts have been released!",
     "petKeyName": "Clé du chenil",
     "petKeyPop": "Rendez la liberté à vos familiers, laissez-les démarrer leur propre aventure, et redécouvrez le frisson du Maître des bêtes !",
     "petKeyBegin": "Clé du chenil : Expérimentez à nouveau le frisson du <%= title %> !",
@@ -123,5 +135,6 @@
     "clickOnPetToFeed": "Cliquez sur un familier à nourrir avec cette <%= foodName %> et regardez-le grandir !",
     "dragThisPotion": "Déplacez cette <%= potionName %> vers un œuf pour en faire sortir un nouveau familier !",
     "clickOnEggToHatch": "Cliquez sur un œuf à associer à votre potion d'éclosion <%= potionName %> et faites éclore un nouveau familier !",
-    "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>."
+    "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>.",
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
 }

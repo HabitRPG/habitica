@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Нямате право да изтриете това съобщение!",
     "onlyGroupLeaderCanEditTasks": "Нямате право да управлявате задачите!",
     "onlyGroupTasksCanBeAssigned": "Само групови задачи могат да бъдат зададени",
+    "assignedTo": "Assigned To",
     "assignedToUser": "Назначена на <%= userName %>",
     "assignedToMembers": "Назначена на <%= userCount %> членове",
     "assignedToYouAndMembers": "Назначена на Вас и още <%= userCount %> членове",
