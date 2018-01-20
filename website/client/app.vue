@@ -14,10 +14,17 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
         template(v-if="isUserLoaded")
+          div.resting-banner(v-if="showRestingBanner")
+            span.content
+              span.label {{ $t('innCheckOutBanner') }}
+              span.separator |
+              span.resume {{ $t('resumeDamage') }}
+            div.closepadding(@click="hideBanner()")
+              span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
           notifications-display
-          app-menu
+          app-menu(:class='{"restingInn": showRestingBanner}')
           .container-fluid
-            app-header
+            app-header(:class='{"restingInn": showRestingBanner}')
             buyModal(
               :item="selectedItemToBuy || {}",
               :withPin="true",
@@ -90,7 +97,7 @@ div
   }
 </style>
 
-<style>
+<style lang='scss'>
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
     overflow-y: scroll !important;
@@ -104,6 +111,61 @@ div
   /* Push progress bar above modals */
   #nprogress .bar {
     z-index: 1041;
+  }
+
+  .restingInn {
+    .navbar {
+      top: 40px;
+    }
+
+    #app-header {
+      margin-top: 96px !important;
+    }
+
+  }
+
+  .resting-banner {
+    width: 100%;
+    height: 40px;
+    background-color: #2995cd;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+
+    .content {
+      height: 24px;
+      font-family: Roboto;
+      font-size: 14px;
+      line-height: 1.71;
+      text-align: center;
+      color: #ffffff;
+
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      span svg path {
+        stroke: #A9DCF6;
+      }
+    }
+
+    .separator {
+      color: #50b5e9;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 </style>
 
@@ -124,6 +186,8 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 
+import svgClose from 'assets/svg/close.svg';
+
 export default {
   mixins: [notifications],
   name: 'app',
@@ -139,6 +203,9 @@ export default {
   },
   data () {
     return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -148,6 +215,7 @@ export default {
       },
       loading: true,
       currentTipNumber: 0,
+      bannerHidden: false,
     };
   },
   computed: {
@@ -167,6 +235,9 @@ export default {
       this.currentTipNumber = tipNumber;
 
       return this.$t(`tip${tipNumber}`);
+    },
+    showRestingBanner () {
+      return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
   created () {
@@ -416,6 +487,9 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
+    },
+    hideBanner () {
+      this.bannerHidden = true;
     },
   },
 };
