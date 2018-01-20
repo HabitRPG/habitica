@@ -497,11 +497,12 @@ api.seenChat = {
 
     update.$pull.notifications = {
       type: 'NEW_CHAT_MESSAGE',
-      'data.groupId': groupId,
+      'data.group.id': groupId,
     };
 
+    // Remove from response
     user.notifications = user.notifications.filter(n => {
-      if (n.type === 'NEW_CHAT_MESSAGE' && n.data.groupId === groupId) {
+      if (n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId) {
         return false;
       }
 

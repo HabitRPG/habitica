@@ -457,6 +457,7 @@ function _cleanChecklist (task) {
  * Contributor information
  * Special items
  * Webhooks
+ * Notifications
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks

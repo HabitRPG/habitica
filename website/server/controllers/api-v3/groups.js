@@ -703,7 +703,7 @@ function _removeMessagesFromMember (member, groupId) {
   }
 
   member.notifications = member.notifications.filter(n => {
-    if (n.type === 'NEW_CHAT_MESSAGE' && n.data.groupId === groupId) {
+    if (n.type === 'NEW_CHAT_MESSAGE' && n.data.group &&  n.data.group.id === groupId) {
       return false;
     }
 

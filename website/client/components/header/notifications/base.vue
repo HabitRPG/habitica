@@ -10,7 +10,7 @@
     .svg-icon(
       v-if="canRemove", 
       v-html="icons.close", 
-      @click.stop="readNotification({notificationId: notification.id})",
+      @click.stop="remove",
     )
 </template>
 
@@ -110,7 +110,7 @@
 
 <script>
 import closeIcon from 'assets/svg/close.svg';
-import { mapActions } from 'client/libs/store';
+import { mapActions, mapState } from 'client/libs/store';
 
 export default {
   props: ['notification', 'canRemove', 'hasIcon', 'readAfterClick'],
@@ -120,6 +120,9 @@ export default {
         close: closeIcon,
       }),
     };
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
   },
   methods: {
     ...mapActions({
@@ -131,6 +134,17 @@ export default {
       }
 
       this.$emit('click');
+    },
+    remove () {
+      if (this.notification.type === 'NEW_CHAT_MESSAGE') {
+        const groupId = this.notification.data.group.id;
+        this.$store.dispatch('chat:markChatSeen', {groupId});
+        if (this.user.newMessages[groupId]) {
+          this.$delete(this.user.newMessages, groupId);
+        }
+      } else {
+        this.readNotification({notificationId: this.notification.id});
+      }
     },
   },
 };

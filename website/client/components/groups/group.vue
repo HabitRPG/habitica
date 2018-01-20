@@ -420,13 +420,15 @@ export default {
     },
   },
   mounted () {
+    if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-
     this.load();
 
-    if (this.user.newMessages[this.searchId]) {
-      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
-      this.$delete(this.user.newMessages, this.searchId);
+    const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
+
+    if (this.user.newMessages[groupId]) {
+      this.$store.dispatch('chat:markChatSeen', {groupId});
+      this.$delete(this.user.newMessages, groupId);
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -458,12 +460,6 @@ export default {
       this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
     },
     load () {
-      if (this.isParty) {
-        this.searchId = 'party';
-        // @TODO: Set up from old client. Decide what we need and what we don't
-        // Check Desktop notifs
-        // Load invites
-      }
       this.fetchGuild();
 
       this.$root.$on('updatedGroup', group => {

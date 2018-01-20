@@ -65,7 +65,7 @@ import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
 import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
 import CARD_RECEIVED from './notifications/cardReceived';
 import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
-import NEW_GROUP_MESSAGE from './notifications/newGroupMessage';
+import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 
 export default {
   components: {
@@ -76,7 +76,7 @@ export default {
     GUILD_INVITATION, PARTY_INVITATION, CHALLENGE_INVITATION,
     QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED,
     UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
-    NEW_INBOX_MESSAGE, NEW_GROUP_MESSAGE,
+    NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
   },
   data () {
     return {
@@ -97,7 +97,7 @@ export default {
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'UNALLOCATED_STATS_POINTS', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
-        'NEW_INBOX_MESSAGE', 'NEW_GROUP_MESSAGE',
+        'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE',
       ],
     };
   },
@@ -227,69 +227,6 @@ export default {
     isActionable (notification) {
       return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
-    /*
-    hasQuestProgress () {
-      let user = this.user;
-      if (user.party.quest) {
-        let userQuest = quests[user.party.quest.key];
-
-        if (!userQuest) {
-          return false;
-        }
-        if (userQuest.boss && user.party.quest.progress.up > 0) {
-          return true;
-        }
-        if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
-          return true;
-        }
-      }
-      return false;
-    },
-    getQuestInfo () {
-      let user = this.user;
-      let questInfo = {};
-      if (user.party.quest) {
-        let userQuest = quests[user.party.quest.key];
-
-        questInfo.title = userQuest.text();
-
-        if (userQuest.boss) {
-          questInfo.body =  this.$t('questTaskDamage', { damage: user.party.quest.progress.up.toFixed(1) });
-        } else if (userQuest.collect) {
-          questInfo.body = this.$t('questTaskCollection', { items: user.party.quest.progress.collectedItems });
-        }
-      }
-      return questInfo;
-    },
-    clearMessages (key) { TODO DO NOT DELETE YET
-      this.$store.dispatch('chat:markChatSeen', {groupId: key});
-      this.$delete(this.user.newMessages, key);
-    },
-    viewGroupApprovalNotification (notification) {
-      this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
-        return groupNotif.id !== notification.id;
-      });
-
-      axios.post('/api/v3/notifications/read', {
-        notificationIds: [notification.id],
-      });
-    },
-    groupApprovalNotificationIcon (notification) {
-      if (notification.type === 'GROUP_TASK_APPROVAL') {
-        return 'glyphicon glyphicon-question-sign';
-      } else if (notification.type === 'GROUP_TASK_APPROVED') {
-        return 'glyphicon glyphicon-ok-sign';
-      }
-    },
-    async questAccept (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
-      this.user.party.quest = quest;
-    },
-    async questReject (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
-      this.user.party.quest = quest;
-    },
-    */
   },
 };
 </script>
