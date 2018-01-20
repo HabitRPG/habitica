@@ -18,7 +18,7 @@ div
             span.content
               span.label {{ $t('innCheckOutBanner') }}
               span.separator |
-              span.resume {{ $t('resumeDamage') }}
+              span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
             div.closepadding(@click="hideBanner()")
               span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
           notifications-display
@@ -490,6 +490,9 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+    },
+    resumeDamage () {
+      this.$store.dispatch('user:sleep');
     },
   },
 };

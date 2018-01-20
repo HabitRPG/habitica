@@ -546,7 +546,6 @@ export default {
       this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
     },
     toggleSleep () {
-      this.user.preferences.sleep = !this.user.preferences.sleep;
       this.$store.dispatch('user:sleep');
     },
     async sendMessage () {

@@ -57,7 +57,11 @@ export async function set (store, changes) {
   // .catch((err) => console.error('set', err));
 }
 
-export async function sleep () {
+export async function sleep (store) {
+  const user = store.state.user.data;
+
+  user.preferences.sleep = !user.preferences.sleep;
+
   let response = await axios.post('/api/v3/user/sleep');
   return response.data.data;
 }
