@@ -6,6 +6,8 @@ services:
 cache:
   directories:
     - 'node_modules'
+before_install:
+  - npm install -g npm@5
 before_script:
   - npm run test:build
   - cp config.json.example config.json
