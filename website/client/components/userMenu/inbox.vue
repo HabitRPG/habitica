@@ -284,6 +284,7 @@ export default {
       this.$set(this, 'activeChat', activeChat);
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
@@ -315,6 +316,7 @@ export default {
       this.newMessage = '';
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
