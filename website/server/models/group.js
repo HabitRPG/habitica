@@ -521,7 +521,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
       notifications: new UserNotification({
         type: 'NEW_CHAT_MESSAGE',
         data: { group: { id: this._id, name: this.name } },
-      }),
+      }).toObject(),
     },
   };
 

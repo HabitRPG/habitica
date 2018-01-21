@@ -167,7 +167,7 @@ schema.statics.pushNotification = async function pushNotification (query, type, 
   if (validationResult) {
     throw validationResult;
   }
-  await this.update(query, {$push: {notifications: newNotification}}, {multi: true}).exec();
+  await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
