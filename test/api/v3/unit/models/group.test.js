@@ -16,7 +16,7 @@ import * as email from '../../../../../website/server/libs/email';
 import { TAVERN_ID } from '../../../../../website/common/script/';
 import shared from '../../../../../website/common';
 
-describe.only('Group Model', () => {
+describe('Group Model', () => {
   let party, questLeader, participatingMember, nonParticipatingMember, undecidedMember;
 
   beforeEach(async () => {

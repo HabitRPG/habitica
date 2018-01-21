@@ -7,7 +7,7 @@ base-notification(
   :read-after-click="false",
   @click="action"
 )
-  div(slot="content", v-html="$t('newMsg', {name: notification.data.group.name})")
+  div(slot="content", v-html="string")
 </template>
 
 <script>
@@ -21,17 +21,25 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    groupId () {
+      return this.notification.data.group.id;
+    },
+    isParty () {
+      return this.groupId === this.user.party._id;
+    },
+    string () {
+      const stringKey = this.isParty ? 'newMsgParty' : 'newMsgGuild';
+      return this.$t(stringKey, {name: this.notification.data.group.name});
+    },
   },
   methods: {
     action () {
-      const groupId = this.notification.data.group.id;
-
-      if (groupId === this.user.party._id) {
+      if (this.isParty) {
         this.$router.push({ name: 'party' });
         return;
       }
 
-      this.$router.push({ name: 'guild', params: { groupId }});
+      this.$router.push({ name: 'guild', params: { groupId: this.groupId }});
     },
   },
 };
