@@ -90,10 +90,11 @@ export default {
           if (!confirm(this.$t('releasePetsConfirm'))) return;
           try {
             releasePets(this.user);
+            this.text(this.$t('releasePetsSuccess'));
+            this.$router.push({name: 'stable'});
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releasePetsSuccess'));
         },
       },
       keysToMounts: {
