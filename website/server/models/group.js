@@ -511,7 +511,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
       notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
     },
   };
-  User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec();
 
   // Then add the new notification
   const lastSeenUpdateAddNew = {
@@ -525,7 +524,10 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
       }),
     },
   };
-  User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
+
+  User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
+    User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
+  });
 
   // If the message being sent is a system message (not gone through the api.postChat controller)
   // then notify Pusher about it (only parties for now)
