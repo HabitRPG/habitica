@@ -80,7 +80,7 @@
     "passport-facebook": "^2.0.0",
     "passport-google-oauth20": "1.0.0",
     "paypal-ipn": "3.0.0",
-    "paypal-rest-sdk": "^1.7.1",
+    "paypal-rest-sdk": "^1.8.1",
     "popper.js": "^1.13.0",
     "postcss-easy-import": "^2.0.0",
     "ps-tree": "^1.0.0",
