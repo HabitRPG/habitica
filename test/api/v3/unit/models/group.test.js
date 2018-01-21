@@ -1007,7 +1007,7 @@ describe('Group Model', () => {
       it('updates users about new messages in party', () => {
         party.sendChat('message');
 
-        expect(User.update).to.be.calledTwice;
+        expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: '' },
@@ -1021,7 +1021,7 @@ describe('Group Model', () => {
 
         group.sendChat('message');
 
-        expect(User.update).to.be.calledTwice;
+        expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
           guilds: group._id,
           _id: { $ne: '' },
@@ -1031,7 +1031,7 @@ describe('Group Model', () => {
       it('does not send update to user that sent the message', () => {
         party.sendChat('message', {_id: 'user-id', profile: { name: 'user' }});
 
-        expect(User.update).to.be.calledTwice;
+        expect(User.update).to.be.calledOnce;
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: 'user-id' },
