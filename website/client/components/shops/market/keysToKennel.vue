@@ -14,7 +14,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releaseMounts()",
-    v-if='this.user.achievements.mountMaster'
+    v-if='userHasAllMounts'
   )
   shopItem(
     :key="keysToBoth.key",
@@ -22,7 +22,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releaseBoth()",
-    v-if='this.user.achievements.mountMaster'
+    v-if='userHasAllPets && userHasAllMounts'
   )
 </template>
 
@@ -111,10 +111,11 @@ export default {
           if (!confirm(this.$t('releaseMountsConfirm'))) return;
           try {
             releaseMounts(this.user);
+            this.text(this.$t('releaseMountsSuccess'));
+            this.$router.push({name: 'stable'});
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releaseMountsSuccess'));
         },
       },
       keysToBoth: {
@@ -131,10 +132,11 @@ export default {
           if (!confirm(this.$t('releaseBothConfirm'))) return;
           try {
             releaseBoth(this.user);
+            this.text(this.$t('releaseBothSuccess'));
+            this.$router.push({name: 'stable'});
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releaseBothSuccess'));
         },
       },
     };
@@ -143,6 +145,9 @@ export default {
     ...mapState({user: 'user.data'}),
     userHasAllPets () {
       return count.beastMasterProgress(this.user.items.pets) === 90;
+    },
+    userHasAllMounts () {
+      return count.mountMasterProgress(this.user.items.mounts) === 90;
     },
   },
   methods: {
