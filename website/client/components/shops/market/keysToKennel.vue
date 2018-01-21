@@ -6,7 +6,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releasePets()",
-    v-if='this.user.achievements.beastMaster'
+    v-if='userHasAllPets || this.user.achievements.beastMaster'
   )
   shopItem(
     :key="keysToMounts.key",
@@ -64,6 +64,7 @@ import ShopItem from '../shopItem';
 import releasePets from 'common/script/ops/releasePets';
 import releaseMounts from 'common/script/ops/releaseMounts';
 import releaseBoth from 'common/script/ops/releaseBoth';
+import count from 'common/script/count';
 
 import notifications from 'client/mixins/notifications';
 
@@ -139,6 +140,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    userHasAllPets () {
+      return count.beastMasterProgress(this.user.items.pets) === 90;
+    },
   },
   methods: {
     releasePets () {
