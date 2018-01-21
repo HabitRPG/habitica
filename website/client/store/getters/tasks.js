@@ -1,7 +1,7 @@
 import { shouldDo } from 'common/script/cron';
 
 // Library / Utility function
-import orderTasks from 'client/libs/store/helpers/orderTasks.js';
+import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
 
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
@@ -149,23 +149,33 @@ const taskFilters = {
   },
 };
 
+// Returns all list for given task type
+export function getUnfilteredTaskList ({state}) {
+  return (type) => state.tasks.data[`${type}s`];
+}
+
+// Returns filtered, sorted, ordered, tag filtered, and search filtered task list
 // @TODO: sort task list based on used preferences
-export function getTaskList (store) {
-  return ({ type, filterType = {}, tagList = [], searchText = null, override = [] }) => {
+export function getTaskList ({state, getters}) {
+  return ({ type,
+            filterType = {},
+            tagList = [],
+            searchText = null,
+            override = []}) => {
     // get requested tasks
     // check if task list has been passed as override props
     // assumption: type will always be passed as param
     let requestedTasks = isEmpty(override) ?
-      store.state.tasks.data[`${type}s`] :
+      getters['tasks:getUnfilteredTaskList'](type) :
       override;
 
-    let userPreferences = store.state.user.data.preferences || {};
-    let taskOrderForType = store.state.user.data.tasksOrder[type] || [];
+    let userPreferences = state.user.data.preferences || {};
+    let taskOrderForType = state.user.data.tasksOrder[type] || [];
 
     // order tasks based on user set task order
     // Still needs unit test for this..
     if (requestedTasks.length > 0 && ['scheduled', 'due'].indexOf(filterType.label) === -1) {
-      requestedTasks = orderTasks(requestedTasks, taskOrderForType);
+      requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
     }
 
     // filter requested tasks by filter type
@@ -173,7 +183,10 @@ export function getTaskList (store) {
       let [selectedFilter] = taskFilters[type].filters.filter(f => f.label === filterType.label);
       // @TODO find a way (probably thru currying) to implicitly pass user preference data to task filters
       if (type === 'daily' && (filterType.label === 'due' || filterType.label === 'notDue')) {
-        selectedFilter = selectedFilter(userPreferences);
+        selectedFilter = {
+          ...selectedFilter,
+          filterFn: selectedFilter.filterFn(userPreferences),
+        };
       }
 
       requestedTasks = requestedTasks.filter(selectedFilter.filterFn);
@@ -207,8 +220,8 @@ export function getTaskList (store) {
         });
     }
 
-    // eslint-disable-next-line no-console
-    // console.log('task:getters:getTaskList', requestedTasks);
+    // // eslint-disable-next-line no-console
+    // console.log('task:getters:getTaskList', getters, getters);
 
     return requestedTasks;
   };

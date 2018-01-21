@@ -344,6 +344,7 @@ export default {
     }),
     ...mapGetters({
       getTaskList: 'tasks:getTaskList',
+      getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
     }),
     onUserPage () {
       let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
@@ -470,7 +471,7 @@ export default {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
-      let originTasks = this.taskList;
+      let originTasks = this.getUnfilteredTaskList(this.type);
       if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
@@ -497,7 +498,7 @@ export default {
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
-      const list = this.taskList;
+      const list = this.getUnfilteredTaskList(this.type);
 
       const oldPosition = list.findIndex(t => t._id === taskIdToMove);
       const moved = list.splice(oldPosition, 1);

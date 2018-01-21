@@ -1,5 +1,11 @@
 import generateStore from 'client/store';
 
+// helper functions
+import shuffle from 'lodash/shuffle';
+
+// Library / Utility Function
+import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
+
 /* eslint-disable no-exclusive-tests */
 
 describe.only('Store Getters for Tasks', () => {
@@ -238,4 +244,43 @@ describe.only('Store Getters for Tasks', () => {
   });
 });
 
+// describe.only('Store Order Helper for Tasks', () => {
+//   let store, habits;
+//   // dailys, todos, rewards;
+
+//   beforeEach(() => {
+//     store = generateStore();
+//     // Get user preference data and user tasks order data
+//     store.state.user.data = {
+//       preferences: {},
+//       tasksOrder: {
+//         habits: [],
+//         dailys: [],
+//         todos: [],
+//         rewards: [],
+//       },
+//     };
+//   });
+
+//   describe('Task ordering for single task type', () => {
+//     beforeEach(() => {
+//       habits = [
+//         {id: 1},
+//         {id: 2},
+//         {id: 3},
+//         {id: 4},
+//         {id: 5},
+//       ];
+//     });
+
+//     it('should return tasks by original order', () => {
+//       let shuffledTasks = shuffle(habits);
+
+//       console.log(shuffledTasks, orderSingleTypeTasks(shuffledTasks, habits));
+//     });
+//   });
+// });
+
+
 /* eslint-enable no-exclusive-tests */
+
