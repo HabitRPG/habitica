@@ -2,6 +2,7 @@ import {
   generateUser,
   createAndPopulateGroup,
   translate as t,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 import * as email from '../../../../../website/server/libs/email';
 
@@ -188,6 +189,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     it('removes new messages from a member who is removed', async () => {
       await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some message' });
+      await sleep(0.5);
       await removedMember.sync();
 
       expect(removedMember.notifications.find(n => {
