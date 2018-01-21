@@ -559,7 +559,7 @@ api.exportChallengeCsv = {
         .lean().exec(),
     ]);
 
-    const resArray = members.map(member => [member._id, member.profile.name]);
+    let resArray = members.map(member => [member._id, member.profile.name]);
 
     let lastUserId;
     let index = -1;
@@ -579,7 +579,17 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
+
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+
+    // Remove lines for users without tasks info
+    resArray = resArray.filter((line) => {
+      if (line.length === 2) { // only user data ([id, profile name]), no task data
+        return false;
+      }
+
+      return true;
+    });
 
     res.set({
       'Content-Type': 'text/csv',
