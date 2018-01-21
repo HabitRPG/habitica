@@ -34,12 +34,10 @@ div
         }
       },
       itemNotes () {
-        const twoHandedText = this.item.twoHanded ? this.$t('twoHandedItem') : '';
-
         if (this.item.notes instanceof Function) {
-          return `${this.item.notes()} ${twoHandedText}`;
+          return this.item.notes();
         } else {
-          return `${this.item.notes} ${twoHandedText}`;
+          return this.item.notes;
         }
       },
     },

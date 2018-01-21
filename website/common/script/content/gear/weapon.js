@@ -1,3 +1,5 @@
+import t from '../translation';
+
 import {weapon as baseWeapon} from './sets/base';
 
 import {weapon as healerWeapon} from './sets/healer';
@@ -21,5 +23,17 @@ let weapon = {
   mystery: mysteryWeapon,
   armoire: armoireWeapon,
 };
+
+// Add Two Handed message to all weapons
+for (let key in weapon) {
+  const set = weapon[key];
+  for (let weaponKey in set) {
+    const item = set[weaponKey];
+    item.notes = (lang) => {
+      const twoHandedText = item.twoHanded ? t('twoHandedItem')(lang) : '';
+      return `${t('armorHealer2Notes', { con: 9 })(lang)} ${twoHandedText}`;
+    };
+  }
+}
 
 module.exports = weapon;
