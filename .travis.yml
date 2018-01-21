@@ -3,21 +3,18 @@ node_js:
   - '8'
 services:
   - mongodb
-before_install:
-  - $CXX --version
-  - npm install -g npm@5
-install:
-  - npm install &> npm.install.log || (cat npm.install.log; false)
+cache:
+  directories:
+    - 'node_modules'
 before_script:
   - npm run test:build
   - cp config.json.example config.json
-  - sleep 15
+  - sleep 5
 script:
   - npm run $TEST
   - if [ $COVERAGE ]; then ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js; fi
 env:
   global:
-    - CXX=g++-4.8
     - DISABLE_REQUEST_LOGGING=true
   matrix:
     - TEST="lint"
