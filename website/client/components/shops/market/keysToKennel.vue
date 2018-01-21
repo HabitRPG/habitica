@@ -6,7 +6,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releasePets()",
-    v-if='userHasAllPets || this.user.achievements.beastMaster'
+    v-if='userHasAllPets'
   )
   shopItem(
     :key="keysToMounts.key",
