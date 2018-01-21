@@ -31,9 +31,8 @@
         button.btn.btn-primary(@click="equipItem()") {{ $t(isEquipped ? 'unequip' : 'equip') }}
 
     div.clearfix(slot="modal-footer")
-
-
 </template>
+
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
