@@ -58,6 +58,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 import { mapState } from 'client/libs/store';
 import ShopItem from '../shopItem';
 
@@ -90,6 +91,7 @@ export default {
           if (!confirm(this.$t('releasePetsConfirm'))) return;
           try {
             releasePets(this.user);
+            axios.post('/api/v3/user/release-pets');
             this.text(this.$t('releasePetsSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
@@ -111,6 +113,7 @@ export default {
           if (!confirm(this.$t('releaseMountsConfirm'))) return;
           try {
             releaseMounts(this.user);
+            axios.post('/api/v3/user/release-mounts');
             this.text(this.$t('releaseMountsSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
@@ -132,6 +135,7 @@ export default {
           if (!confirm(this.$t('releaseBothConfirm'))) return;
           try {
             releaseBoth(this.user);
+            axios.post('/api/v3/user/release-both');
             this.text(this.$t('releaseBothSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
