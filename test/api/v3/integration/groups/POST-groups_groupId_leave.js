@@ -72,11 +72,17 @@ describe('POST /groups/:groupId/leave', () => {
 
         await leader.sync();
 
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.exist;
         expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
 
         await leader.post(`/groups/${groupToLeave._id}/leave`);
         await leader.sync();
 
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.not.exist;
         expect(leader.newMessages[groupToLeave._id]).to.be.empty;
       });
 

@@ -190,11 +190,17 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some message' });
       await removedMember.sync();
 
+      expect(removedMember.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
+      })).to.exist;
       expect(removedMember.newMessages[party._id]).to.not.be.empty;
 
       await partyLeader.post(`/groups/${party._id}/removeMember/${removedMember._id}`);
       await removedMember.sync();
 
+      expect(removedMember.notifications.find(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
+      })).to.not.exist;
       expect(removedMember.newMessages[party._id]).to.be.empty;
     });
 
