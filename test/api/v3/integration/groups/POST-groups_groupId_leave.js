@@ -13,7 +13,7 @@ import {
 import { model as User } from '../../../../../website/server/models/user';
 import * as payments from '../../../../../website/server/libs/payments';
 
-describe.only('POST /groups/:groupId/leave', () => {
+describe('POST /groups/:groupId/leave', () => {
   let typesOfGroups = {
     'public guild': { type: 'guild', privacy: 'public' },
     'private guild': { type: 'guild', privacy: 'private' },
