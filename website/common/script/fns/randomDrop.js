@@ -113,7 +113,7 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
     }
 
     if (analytics) {
-      analytics.track('acquire item', {
+      analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
         acquireMethod: 'Drop',
