@@ -8,7 +8,7 @@ import generateStore from 'client/store';
 
 /* eslint-disable no-exclusive-tests */
 
-describe.only('Store Getters for Tasks', () => {
+describe('Store Getters for Tasks', () => {
   let store, habits, dailys, todos, rewards;
 
   beforeEach(() => {
