@@ -41,6 +41,9 @@
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
           div.col-4
             button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+        .row(v-if='showNoNotificationsMessage')
+          .col-12.no-notifications
+            | {{$t('groupNoNotifications')}}
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -289,6 +292,17 @@
     text-align: center;
     margin: 2em 0;
   }
+
+  .no-notifications {
+    border-radius: 4px;
+    border: solid 1px $orange-10;
+    padding: 1em;
+    margin-top: 3em;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: $orange-50;
+  }
 </style>
 
 <script>
@@ -417,6 +431,9 @@ export default {
     hasChallenges () {
       if (!this.group.challenges) return false;
       return this.group.challenges.length === 0;
+    },
+    showNoNotificationsMessage () {
+      return this.group.memberCount > 5000;
     },
   },
   mounted () {

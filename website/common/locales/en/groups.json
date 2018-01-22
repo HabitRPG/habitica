@@ -415,5 +415,6 @@
   "wouldYouParticipate": "Would you like to participate?",
   "managerAdded": "Manager added successfully",
   "managerRemoved": "Manager removed successfully",
-  "leaderChanged": "Leader has been changed"
+  "leaderChanged": "Leader has been changed",
+  "groupNoNotifications": "This Guild does not have notifications due to member size. Be sure to check back often for replies to your messages!"
 }
