@@ -156,18 +156,15 @@ export function getUnfilteredTaskList ({state}) {
 
 // Returns filtered, sorted, ordered, tag filtered, and search filtered task list
 // @TODO: sort task list based on used preferences
-export function getTaskList ({state, getters}) {
-  return ({ type,
-            filterType = {},
-            tagList = [],
-            searchText = null,
-            override = []}) => {
+export function getFilteredTaskList ({state, getters}) {
+  return ({
+    type,
+    filterType = {},
+  }) => {
     // get requested tasks
     // check if task list has been passed as override props
     // assumption: type will always be passed as param
-    let requestedTasks = isEmpty(override) ?
-      getters['tasks:getUnfilteredTaskList'](type) :
-      override;
+    let requestedTasks = getters['tasks:getUnfilteredTaskList'](type);
 
     let userPreferences = state.user.data.preferences || {};
     let taskOrderForType = state.user.data.tasksOrder[type] || [];
@@ -194,32 +191,6 @@ export function getTaskList ({state, getters}) {
         requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
       }
     }
-
-    // fitler requested tasks by tags
-    if (!isEmpty(tagList)) {
-      requestedTasks = requestedTasks.filter(
-        task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
-      );
-    }
-
-    // filter requested tasks by search text
-    if (!isEmpty(searchText)) {
-      // to ensure broadest case insensitive search matching
-      let searchTextLowerCase = searchText.toLowerCase();
-      requestedTasks = requestedTasks.filter(
-        task => {
-          // eslint rule disabled for block to allow nested binary expression
-          /* eslint-disable no-extra-parens */
-          return (
-            (!isEmpty(task.text) && task.text.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
-            (!isEmpty(task.note) && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
-            (!isEmpty(task.checklist) && task.checklist.length > 0 &&
-              task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
-          );
-          /* eslint-enable no-extra-parens */
-        });
-    }
-
     // // eslint-disable-next-line no-console
     // console.log('task:getters:getTaskList', getters, getters);
 

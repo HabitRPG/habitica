@@ -245,6 +245,7 @@
 import Task from './task';
 // import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
+import isEmpty from 'lodash/isEmpty';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions, mapGetters } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
@@ -343,7 +344,7 @@ export default {
       userPreferences: 'user.data.preferences',
     }),
     ...mapGetters({
-      getTaskList: 'tasks:getTaskList',
+      getFilteredTaskList: 'tasks:getFilteredTaskList',
       getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
     }),
     onUserPage () {
@@ -359,16 +360,17 @@ export default {
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
 
-      // eslint-disable-next-line no-console
-      // console.log('column.vue', this.selectedTags, this.searchText);
+      let filteredTaskList = isEmpty(this.taskListOverride) ?
+        this.getFilteredTaskList({
+          type: this.type,
+          filterType: this.activeFilters[this.type],
+        }) :
+        this.taskListOverride;
 
-      return this.getTaskList({
-        type: this.type,
-        filterType: this.activeFilters[this.type],
-        tagList: this.selectedTags,
-        searchText: this.searchText,
-        override: this.taskListOverride,
-      });
+      let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
+      let searchedList = this.filterBySearchText(taggedList, this.searchText);
+
+      return searchedList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -572,36 +574,37 @@ export default {
         }
       });
     },
-    // filterTask (task) {
-    //   // View
-    //   if (!this.activeFilters[task.type].filter(task)) return false;
-
-    //   // Tags
-    //   const selectedTags = this.selectedTags;
-
-    //   if (selectedTags && selectedTags.length > 0) {
-    //     const hasAllSelectedTag = selectedTags.every(tagId => {
-    //       return task.tags.indexOf(tagId) !== -1;
-    //     });
-
-    //     if (!hasAllSelectedTag) return false;
-    //   }
-
-    //   // Text
-    //   const searchText = this.searchText;
-
-    //   if (!searchText) return true;
-    //   if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
-    //   if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
-
-    //   if (task.checklist && task.checklist.length) {
-    //     const checklistItemIndex = task.checklist.findIndex(({text}) => {
-    //       return text.toLowerCase().indexOf(searchText) !== -1;
-    //     });
-
-    //     return checklistItemIndex !== -1;
-    //   }
-    // },
+    filterByTagList (taskList, tagList = []) {
+      let filteredTaskList = taskList;
+      // fitler requested tasks by tags
+      if (!isEmpty(tagList)) {
+        filteredTaskList = taskList.filter(
+          task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
+        );
+      }
+      return filteredTaskList;
+    },
+    filterBySearchText (taskList, searchText = '') {
+      let filteredTaskList = taskList;
+      // filter requested tasks by search text
+      if (!isEmpty(searchText)) {
+        // to ensure broadest case insensitive search matching
+        let searchTextLowerCase = searchText.toLowerCase();
+        filteredTaskList = taskList.filter(
+          task => {
+            // eslint rule disabled for block to allow nested binary expression
+            /* eslint-disable no-extra-parens */
+            return (
+              (!isEmpty(task.text) && task.text.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (!isEmpty(task.note) && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (!isEmpty(task.checklist) && task.checklist.length > 0 &&
+                task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
+            );
+            /* eslint-enable no-extra-parens */
+          });
+      }
+      return filteredTaskList;
+    },
     openBuyDialog (rewardItem) {
       if (rewardItem.locked) return;
 
