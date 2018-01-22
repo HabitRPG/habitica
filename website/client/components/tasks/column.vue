@@ -467,6 +467,17 @@ export default {
     this.$root.$on('buyModal::boughtItem', () => {
       this.forceRefresh = new Date();
     });
+
+    if (this.type !== 'todo') return;
+    this.$root.$on('habitica::resync-requested', () => {
+      if (this.activeFilters.todo.label !== 'complete2') return;
+      this.loadCompletedTodos(true);
+    });
+  },
+  destroyed () {
+    this.$root.$off('buyModal::boughtItem');
+    if (this.type !== 'todo') return;
+    this.$root.$off('habitica::resync-requested');
   },
   methods: {
     ...mapActions({
