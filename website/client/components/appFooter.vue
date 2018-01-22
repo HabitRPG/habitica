@@ -149,11 +149,6 @@
         color: #c3c0c7;
       }
     }
-
-    & > .row {
-      margin-left: 12px;
-      margin-right: 12px;
-    }
   }
 
   h3 {
