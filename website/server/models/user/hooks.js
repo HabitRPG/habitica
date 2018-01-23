@@ -251,22 +251,36 @@ schema.pre('save', true, function preSaveUser (next, done) {
   if (this.isSelected('stats') && this.isSelected('notifications')) {
     const pointsToAllocate = this.stats.points;
 
-    const existingNotificationIndex = this.notifications.findIndex(notification => {
+    // Sometimes there can be more than 1 notification
+    const existingNotifications = this.notifications.filter(notification => {
       return notification.type === 'UNALLOCATED_STATS_POINTS';
     });
 
-    const existingNotification = existingNotificationIndex !== -1 ? this.notifications[existingNotificationIndex] : null;
-    const outdatedNotification = !existingNotification || existingNotification.data.points !== pointsToAllocate;
+    const existingNotificationsLength = existingNotifications.length;
+    // Take the most recent notification
+    const lastExistingNotification = existingNotificationsLength > 0 ? existingNotifications[existingNotificationsLength - 1] : null;
+    // Decide if it's outdated or not
+    const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
 
-    // The notification has not the up to date number of points to allocate,
-    // remove it
-    if (existingNotification && outdatedNotification) {
-      this.notifications.splice(existingNotificationIndex, 1);
-    }
+    // If the notification is outdated, remove all the existing notifications, otherwise all of them except the last
+    let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
     if (pointsToAllocate > 0 && outdatedNotification) {
       this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
+    }
+
+    // Remove the outdated notifications
+    if (notificationsToRemove > 0) {
+      let notificationsRemoved = 0;
+
+      this.notifications = this.notifications.filter(notification => {
+        if (notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
+        if (notificationsRemoved === notificationsToRemove) return true;
+
+        notificationsRemoved++;
+        return false;
+      });
     }
   }
 
