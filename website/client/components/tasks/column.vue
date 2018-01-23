@@ -274,7 +274,7 @@ export default {
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
-    // @TODO refactor this so that filter functions aren't in data
+    // @TODO refactor types to filter names and active filter to active filter name
     const types = Object.freeze({
       habit: {
         label: 'habits',
@@ -339,13 +339,13 @@ export default {
   },
   computed: {
     ...mapState({
-      // tasks: 'tasks.data',
       user: 'user.data',
-      userPreferences: 'user.data.preferences',
     }),
     ...mapGetters({
       getFilteredTaskList: 'tasks:getFilteredTaskList',
       getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
+      getUserPreferences: 'user:preferences',
+      getUserBuffs: 'user:buffs',
     }),
     onUserPage () {
       let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
@@ -386,7 +386,7 @@ export default {
       };
 
       for (let key in seasonalSkills) {
-        if (this.user.stats.buffs[key]) {
+        if (this.getUserBuffs(key)) {
           let debuff = seasonalSkills[key];
           let item = Object.assign({}, spells.special[debuff]);
           item.text = item.text();
@@ -410,11 +410,11 @@ export default {
       return this.taskList.length === 0;
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
+      if (this.getUserPreferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
 
-      return this.user.preferences.dailyDueDefaultView;
+      return this.getUserPreferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
@@ -433,7 +433,7 @@ export default {
           return this.taskList.length;
         } else if (activeFilter === 'all') {
           return this.taskList.reduce((count, t) => {
-            return !t.completed && shouldDo(new Date(), t, this.userPreferences) ? count + 1 : count;
+            return !t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count;
           }, 0);
         }
       }

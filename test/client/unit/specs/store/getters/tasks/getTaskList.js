@@ -66,6 +66,7 @@ describe('Store Getters for Tasks', () => {
     });
   });
 
+  // @TODO add task filter check for rewards and dailys
   describe('Task Filters', () => {
     beforeEach(() => {
       habits = [
@@ -89,7 +90,7 @@ describe('Store Getters for Tasks', () => {
     it('should return weak habits', () => {
       let returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
-        filterType: { label: 'yellowred' },
+        filterType: 'yellowred',
       });
 
       expect(returnedTasks[0]).to.eq(habits[0]);
@@ -98,7 +99,7 @@ describe('Store Getters for Tasks', () => {
     it('should return strong habits', () => {
       let returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'habit',
-        filterType: { label: 'greenblue' },
+        filterType: 'greenblue',
       });
 
       expect(returnedTasks[0]).to.eq(habits[1]);
@@ -107,7 +108,7 @@ describe('Store Getters for Tasks', () => {
     it('should return scheduled todos', () => {
       let returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
-        filterType: { label: 'scheduled' },
+        filterType: 'scheduled',
       });
 
       expect(returnedTasks[0]).to.eq(todos[0]);
@@ -116,51 +117,13 @@ describe('Store Getters for Tasks', () => {
     it('should return completed todos', () => {
       let returnedTasks = store.getters['tasks:getFilteredTaskList']({
         type: 'todo',
-        filterType: { label: 'complete2' },
+        filterType: 'complete2',
       });
 
       expect(returnedTasks[0]).to.eq(todos[1]);
     });
   });
 });
-
-// describe.only('Store Order Helper for Tasks', () => {
-//   let store, habits;
-//   // dailys, todos, rewards;
-
-//   beforeEach(() => {
-//     store = generateStore();
-//     // Get user preference data and user tasks order data
-//     store.state.user.data = {
-//       preferences: {},
-//       tasksOrder: {
-//         habits: [],
-//         dailys: [],
-//         todos: [],
-//         rewards: [],
-//       },
-//     };
-//   });
-
-//   describe('Task ordering for single task type', () => {
-//     beforeEach(() => {
-//       habits = [
-//         {id: 1},
-//         {id: 2},
-//         {id: 3},
-//         {id: 4},
-//         {id: 5},
-//       ];
-//     });
-
-//     it('should return tasks by original order', () => {
-//       let shuffledTasks = shuffle(habits);
-
-//       console.log(shuffledTasks, orderSingleTypeTasks(shuffledTasks, habits));
-//     });
-//   });
-// });
-
 
 /* eslint-enable no-exclusive-tests */
 
