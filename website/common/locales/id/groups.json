@@ -234,7 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Tidak berhak untuk menghapus pesan ini!",
     "onlyGroupLeaderCanEditTasks": "Tidak berhak untuk mengatur tugas!",
     "onlyGroupTasksCanBeAssigned": "Hanya tugas grup yang bisa ditentukan",
-    "assignedTo": "Assigned To",
+    "assignedTo": "Ditugaskan kepada",
     "assignedToUser": "Ditugaskan kepada <%= userName %>",
     "assignedToMembers": "Ditugaskan kepada <%= userCount %> anggota",
     "assignedToYouAndMembers": "Ditugaskan kepadamu dan <%= userCount %> anggota",
