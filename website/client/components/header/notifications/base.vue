@@ -2,7 +2,10 @@
 .notification.dropdown-item.dropdown-separated.d-flex.justify-content-between(
   @click="clicked"
 )
-  .notification-icon.d-flex.justify-content-center.align-items-center(v-if="hasIcon")
+  .notification-icon.d-flex.justify-content-center.align-items-center(
+    v-if="hasIcon",
+    :class="{'is-not-bailey': isNotBailey}",
+  )
     slot(name="icon")
   .notification-content
     slot(name="content")
@@ -68,6 +71,11 @@
 
 .notification-icon {
   margin-right: 16px;
+
+  &.is-not-bailey {
+    width: 31px;
+    height: 32px;
+  }
 }
 
 .notifications-buttons {
@@ -123,6 +131,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    isNotBailey () {
+      return this.notification.type !== 'NEW_STUFF';
+    },
   },
   methods: {
     ...mapActions({

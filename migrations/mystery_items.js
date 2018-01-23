@@ -1,4 +1,4 @@
-var UserNotification = require('../website/server/models/userNotification')
+var UserNotification = require('../website/server/models/userNotification').model
 
 var _id = '';
 
