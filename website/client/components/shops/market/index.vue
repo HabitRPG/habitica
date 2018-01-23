@@ -359,7 +359,7 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';

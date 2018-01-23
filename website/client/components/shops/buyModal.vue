@@ -277,7 +277,7 @@
 
   import { mapState } from 'client/libs/store';
 
-  import EquipmentAttributesGrid from './market/equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';

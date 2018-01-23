@@ -23,7 +23,7 @@
         h4.title {{ itemText }}
         div.text(v-html="itemNotes")
 
-        equipmentAttributesGrid.bordered(
+        attributesGrid.bordered(
           :item="item",
           v-if="attributesGridVisible"
         )
@@ -61,9 +61,41 @@
 
     .bordered {
       border-radius: 2px;
-      background-color: #f9f9f9;
-      margin-bottom: 24px;
-      padding: 24px 24px 10px;
+      background-color: #e1e0e3;
+
+      margin: 10px 0 24px;
+
+      .popover-content-attr {
+        background-color: #f4f4f4;
+      }
+
+
+      .popover-content-attr-cell {
+        &.key {
+          color: #c3c0c7;
+
+          &.hasValue {
+            color: #4e4a57;
+          }
+        }
+
+        &.label {
+          color: #c3c0c7;
+
+          &.hasValue {
+            color: #878190;
+          }
+        }
+
+        &.label.value {
+
+          &.green {
+            color: $green-10;
+
+          }
+        }
+      }
+
     }
 
     .avatar {
@@ -97,12 +129,12 @@
   import svgClose from 'assets/svg/close.svg';
 
   import Avatar from 'client/components/avatar';
-  import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
+  import attributesGrid from 'client/components/inventory/equipment/attributesGrid.vue';
 
   export default {
     components: {
       Avatar,
-      EquipmentAttributesGrid,
+      attributesGrid,
     },
     data () {
       return {
