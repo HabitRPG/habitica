@@ -285,6 +285,8 @@
   "invalidLoginCredentialsLong": "Uh-oh - your email address / login name or password is incorrect.\n- Make sure they are typed correctly. Your login name and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
   "invalidCredentials": "There is no account that uses those credentials.",
   "accountSuspended": "Account has been suspended, please contact <%= communityManagerEmail %> with your User ID \"<%= userId %>\" for assistance.",
+  "accountSuspendedTitle": "Account has been suspended",
+  "accountSuspendedBody": "This account, Profile Name <%= profileName %>, User ID \"<%= userId %>\", has been blocked for breaking the [Community Guidelines](https://habitica.com/static/community-guidelines) or [Terms of Service](https://habitica.com/static/terms). For details or to ask to be unblocked, please email Lemoness at <%= communityManagerEmail %> or ask your parent or guardian to email her. Please copy your Profile Name and User ID into the email.",
   "unsupportedNetwork": "This network is not currently supported.",
   "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
   "onlySocialAttachLocal": "Local authentication can be added to only a social account.",

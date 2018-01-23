@@ -9,6 +9,7 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
+    banned-account-modal
     amazon-payments-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
@@ -123,6 +124,9 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import bannedAccountModal from 'client/components/bannedAccountModal';
+
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   mixins: [notifications],
@@ -136,6 +140,7 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    bannedAccountModal,
   },
   data () {
     return {
@@ -210,6 +215,8 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        this.checkForBannedUser(error);
+
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(error.response.data) !== -1) {
@@ -227,7 +234,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: error.response.data.message || error.response.data,
           type: 'error',
           timeout: true,
         });
@@ -370,6 +377,19 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
+    checkForBannedUser (error) {
+      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const errorMessage = error.response.data.message;
+      const bannedMessage = this.$t('accountSuspended', {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: parseSettings.auth.apiId,
+      });
+
+      if (errorMessage !== bannedMessage) return;
+
+      this.$root.$emit('bv::show::modal', 'banned-account');
+    },
     resetItemToBuy ($event) {
       // @TODO: Do we need this? I think selecting a new item
       // overwrites. @negue might know
