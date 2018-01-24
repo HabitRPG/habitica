@@ -35,7 +35,6 @@
       }),
     },
     methods: {
-
       hasSumValue (attr) {
         return this.stats.sum[attr] > 0;
       },
@@ -45,6 +44,6 @@
       hasClassBonus (attr) {
         return this.stats.classBonus[attr] > 0;
       },
-    }
+    },
   };
 </script>
