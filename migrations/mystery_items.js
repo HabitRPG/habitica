@@ -2,7 +2,7 @@ var UserNotification = require('../website/server/models/userNotification').mode
 
 var _id = '';
 
-var items = ['armor_mystery_201712','head_mystery_201712'];
+var items = ['back_mystery_201801','headAccessory_mystery_201801']
 
 var update = {
   $addToSet: {
