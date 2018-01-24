@@ -1,11 +1,21 @@
 import {
+  getTypeLabel,
   getFilterLabels,
-  getActiveFilterFunction,
+  getActiveFilter,
 } from 'client/libs/store/helpers/filterTasks.js';
 
 /* eslint-disable no-exclusive-tests */
 
 describe.only('Filter Category for Tasks', () => {
+  describe('getTypeLabel', () => {
+    it('should return correct task type labels', () => {
+      expect(getTypeLabel('habit')).to.eq('habits');
+      expect(getTypeLabel('daily')).to.eq('dailies');
+      expect(getTypeLabel('todo')).to.eq('todos');
+      expect(getTypeLabel('reward')).to.eq('rewards');
+    });
+  });
+
   describe('getFilterLabels', () => {
     let habit, daily, todo, reward;
     beforeEach(() => {
@@ -15,45 +25,45 @@ describe.only('Filter Category for Tasks', () => {
       reward = ['all', 'custom', 'wishlist'];
     });
 
-    it('should return all habit filter labels', () => {
+    it('should return all task type filter labels by type', () => {
+      // habits
       getFilterLabels('habit').forEach((item, i) => {
         expect(item).to.eq(habit[i]);
       });
-    });
-
-    it('should return all daily filter labels', () => {
+      // dailys
       getFilterLabels('daily').forEach((item, i) => {
         expect(item).to.eq(daily[i]);
       });
-    });
-
-    it('should return all todo filter labels', () => {
+      // todos
       getFilterLabels('todo').forEach((item, i) => {
         expect(item).to.eq(todo[i]);
       });
-    });
-
-    it('should return all reward filter labels', () => {
+      // rewards
       getFilterLabels('reward').forEach((item, i) => {
         expect(item).to.eq(reward[i]);
       });
     });
   });
 
-  describe('getActiveFilterFunction', () => {
+  describe('getActiveFilter', () => {
     it('should return single function by default', () => {
-      expect(getActiveFilterFunction('habit')).to.be.a('function');
-      expect(getActiveFilterFunction('habit')).to.not.be.an('array');
+      let activeFilter = getActiveFilter('habit');
+      expect(activeFilter).to.be.an('object');
+      expect(activeFilter).to.have.all.keys('label', 'filterFn', 'default');
+      expect(activeFilter.default).to.be.true;
     });
 
     it('should return single function for given filter type', () => {
-      expect(getActiveFilterFunction('habit', 'yellowred')).to.be.a('function');
-      expect(getActiveFilterFunction('habit', 'yellowred')).to.not.be.an('array');
+      let activeFilterLabel = 'yellowred';
+      let activeFilter = getActiveFilter('habit', activeFilterLabel);
+      expect(activeFilter).to.be.an('object');
+      expect(activeFilter).to.have.all.keys('label', 'filterFn');
+      expect(activeFilter.label).to.eq(activeFilterLabel);
     });
 
     it('should return default function for wrong filter type', () => {
-      let defaultFunction = getActiveFilterFunction('habit');
-      let errorToDefaultFunction = getActiveFilterFunction('habit', 'thisFilterDoesNotExist');
+      let defaultFunction = getActiveFilter('habit');
+      let errorToDefaultFunction = getActiveFilter('habit', 'thisFilterDoesNotExist');
       expect(errorToDefaultFunction).to.eq(defaultFunction);
     });
   });

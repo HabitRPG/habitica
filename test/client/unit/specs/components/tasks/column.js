@@ -3,7 +3,7 @@ import TaskColumn from 'client/components/tasks/column.vue';
 
 /* eslint-disable no-exclusive-tests */
 
-describe('Task Column Component', () => {
+describe.only('Task Column Component', () => {
   let vm, Ctor, tasks;
 
   describe('Task Filtering', () => {

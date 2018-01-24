@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 // @TODO find a way to include user preferences w.r.t sort and defaults
 const taskFilters = {
   habit: {
+    label: 'habits',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
       { label: 'yellowred', filterFn: t => t.value < 1 }, // weak
@@ -13,6 +14,7 @@ const taskFilters = {
     ],
   },
   daily: {
+    label: 'dailies',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
       { label: 'due', filterFn: userPrefs => t => !t.completed && shouldDo(new Date(), t, userPrefs) },
@@ -20,6 +22,7 @@ const taskFilters = {
     ],
   },
   todo: {
+    label: 'todos',
     filters: [
       { label: 'remaining', filterFn: t => !t.completed, default: true }, // active
       { label: 'scheduled', filterFn: t => !t.completed && t.date, sort: t => t.date },
@@ -27,6 +30,7 @@ const taskFilters = {
     ],
   },
   reward: {
+    label: 'rewards',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
       { label: 'custom', filterFn: () => true }, // all rewards made by the user
@@ -34,6 +38,12 @@ const taskFilters = {
     ],
   },
 };
+
+function typeLabel (filterList) {
+  return (type) => filterList[type].label;
+}
+
+const getTypeLabel = typeLabel(taskFilters);
 
 function filterLabel (filterList) {
   return (type) => {
@@ -47,26 +57,27 @@ function filterLabel (filterList) {
 
 const getFilterLabels = filterLabel(taskFilters);
 
-function activeFilterFunction (filterList) {
+function activeFilter (filterList) {
   return (type, filterType = '') => {
     let filterListByType = filterList[type].filters;
     if (isEmpty(filterType)) {
-      return filterListByType.find(f => f.default === true).filterFn;
+      return filterListByType.find(f => f.default === true);
     } else {
       // check if filter type is available, else send default filter
       let filterFunction = filterListByType.find(f => f.label === filterType);
       if (isEmpty(filterFunction)) {
-        return filterListByType.find(f => f.default === true).filterFn;
+        return filterListByType.find(f => f.default === true);
       } else {
-        return filterFunction.filterFn;
+        return filterFunction;
       }
     }
   };
 }
 
-const getActiveFilterFunction = activeFilterFunction(taskFilters);
+const getActiveFilter = activeFilter(taskFilters);
 
 export {
+  getTypeLabel,
   getFilterLabels,
-  getActiveFilterFunction,
+  getActiveFilter,
 };

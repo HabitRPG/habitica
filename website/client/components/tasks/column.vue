@@ -8,14 +8,14 @@
     v-if='type === "reward"')
   .d-flex
     h2.tasks-column-title
-      | {{ $t(types[type].label) }}
+      | {{ $t(typeLabel) }}
       .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
-        v-for="filter in types[type].filters",
-        :class="{active: activeFilters[type].label === filter.label}",
+        v-for="filter in typeFilters",
+        :class="{active: activeFilter.label === filter}",
         @click="activateFilter(type, filter)",
-      ) {{ $t(filter.label) }}
+      ) {{ $t(filter) }}
   .tasks-list(ref="tasksWrapper")
     textarea.quick-add(
       :rows="quickAddRows",
@@ -32,12 +32,12 @@
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(typeLabel)})}}
       .small-text {{$t(`${type}sDesc`)}}
     draggable.sortable-tasks(
       ref="tasksList",
       @update='sorted',
-      :options='{disabled: activeFilters[type].label === "scheduled"}',
+      :options='{disabled: activeFilter.label === "scheduled"}',
     )
       task(
         v-for="task in taskList",
@@ -257,6 +257,12 @@ import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import {
+  getTypeLabel,
+  getFilterLabels,
+  getActiveFilter,
+} from 'client/libs/store/helpers/filterTasks.js';
+
 import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
@@ -275,40 +281,40 @@ export default {
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
     // @TODO refactor types to filter names and active filter to active filter name
-    const types = Object.freeze({
-      habit: {
-        label: 'habits',
-        filters: [
-          {label: 'all', default: true},
-          {label: 'yellowred'}, // weak
-          {label: 'greenblue'}, // strong
-        ],
-      },
-      daily: {
-        label: 'dailies',
-        filters: [
-          {label: 'all', default: true},
-          {label: 'due'},
-          {label: 'notDue'},
-        ],
-      },
-      todo: {
-        label: 'todos',
-        filters: [
-          {label: 'remaining', default: true}, // active
-          {label: 'scheduled'},
-          {label: 'complete2'},
-        ],
-      },
-      reward: {
-        label: 'rewards',
-        filters: [
-          {label: 'all', default: true},
-          {label: 'custom'}, // all rewards made by the user
-          {label: 'wishlist'}, // not user tasks
-        ],
-      },
-    });
+    // const types = Object.freeze({
+    //   habit: {
+    //     label: 'habits',
+    //     filters: [
+    //       {label: 'all', default: true},
+    //       {label: 'yellowred'}, // weak
+    //       {label: 'greenblue'}, // strong
+    //     ],
+    //   },
+    //   daily: {
+    //     label: 'dailies',
+    //     filters: [
+    //       {label: 'all', default: true},
+    //       {label: 'due'},
+    //       {label: 'notDue'},
+    //     ],
+    //   },
+    //   todo: {
+    //     label: 'todos',
+    //     filters: [
+    //       {label: 'remaining', default: true}, // active
+    //       {label: 'scheduled'},
+    //       {label: 'complete2'},
+    //     ],
+    //   },
+    //   reward: {
+    //     label: 'rewards',
+    //     filters: [
+    //       {label: 'all', default: true},
+    //       {label: 'custom'}, // all rewards made by the user
+    //       {label: 'wishlist'}, // not user tasks
+    //     ],
+    //   },
+    // });
 
     const icons = Object.freeze({
       habit: habitIcon,
@@ -318,14 +324,23 @@ export default {
       pin: svgPin,
     });
 
-    let activeFilters = {};
-    for (let type in types) {
-      activeFilters[type] = types[type].filters.find(f => f.default === true);
-    }
+    // let activeFilters = {};
+    // for (let type in types) {
+    //   activeFilters[type] = types[type].filters.find(f => f.default === true);
+    // }
+
+    let typeLabel = getTypeLabel(this.type);
+    let typeFilters = getFilterLabels(this.type);
+    let activeFilter = getActiveFilter(this.type);
 
     return {
-      types,
-      activeFilters,
+      // types,
+      // activeFilters,
+
+      typeLabel,
+      typeFilters,
+      activeFilter,
+
       icons,
       openedCompletedTodos: false,
 
@@ -347,28 +362,32 @@ export default {
       getUserPreferences: 'user:preferences',
       getUserBuffs: 'user:buffs',
     }),
-    onUserPage () {
-      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+    // Temporarily commented till definitely known if onUserPage() is needed or not
+    // onUserPage () {
+    //   let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
 
-      if (!onUserPage) {
-        this.activateFilter('daily', this.types.daily.filters[0]);
-        this.types.reward.filters = [];
-      }
+    //   if (!onUserPage) {
+    //     this.activateFilter('daily', this.types.daily.filters[0]);
+    //     this.types.reward.filters = [];
+    //   }
 
-      return onUserPage;
-    },
+    //   return onUserPage;
+    // },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
 
       let filteredTaskList = isEmpty(this.taskListOverride) ?
         this.getFilteredTaskList({
           type: this.type,
-          filterType: this.activeFilters[this.type],
+          filterType: this.activeFilter.label,
         }) :
         this.taskListOverride;
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
+
+      // eslint-disable-next-line no-console
+      console.log(this.typeLabel, this.typeFilters, this.activeFilter);
 
       return searchedList;
     },
@@ -399,7 +418,7 @@ export default {
       return rewards;
     },
     hasRewardsList () {
-      return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
+      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
     },
     initialColumnDescription () {
       // Show the column description in the middle only if there are no elements (tasks or in app items)
@@ -411,7 +430,7 @@ export default {
     },
     dailyDueDefaultView () {
       if (this.getUserPreferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
+        this.activateFilter('daily', 'due');
       }
 
       return this.getUserPreferences.dailyDueDefaultView;
@@ -424,14 +443,12 @@ export default {
       // 0 means the badge will not be shown
       // It is shown for the all and due views of dailies
       // and for the active and scheduled views of todos.
-      if (this.type === 'todo') {
-        if (this.activeFilters.todo.label !== 'complete2') return this.taskList.length;
+      if (this.type === 'todo' && this.activeFilter.label !== 'complete2') {
+        return this.taskList.length;
       } else if (this.type === 'daily') {
-        const activeFilter = this.activeFilters.daily.label;
-
-        if (activeFilter === 'due') {
+        if (this.activeFilter.label === 'due') {
           return this.taskList.length;
-        } else if (activeFilter === 'all') {
+        } else if (this.activeFilter.label === 'all') {
           return this.taskList.reduce((count, t) => {
             return !t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count;
           }, 0);
@@ -450,7 +467,7 @@ export default {
     },
     dailyDueDefaultView () {
       if (!this.dailyDueDefaultView) return;
-      this.activateFilter('daily', this.types.daily.filters[1]);
+      this.activateFilter('daily', 'due');
     },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
@@ -540,13 +557,14 @@ export default {
     editTask (task) {
       this.$emit('editTask', task);
     },
-    activateFilter (type, filter) {
+    activateFilter (type, filter = '') {
       // Needs a separate API call as this data may not reside in store
-      if (type === 'todo' && filter.label === 'complete2') {
+      if (type === 'todo' && filter === 'complete2') {
         this.loadCompletedTodos();
       }
 
-      this.activeFilters[type] = filter;
+      // this.activeFilters[type] = filter;
+      this.activeFilter = getActiveFilter(type, filter);
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
