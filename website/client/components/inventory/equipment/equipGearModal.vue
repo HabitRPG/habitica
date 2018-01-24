@@ -65,6 +65,10 @@
 
       margin: 10px 0 24px;
 
+      .group-content {
+        padding: 8px 17px;
+      }
+
       .popover-content-attr {
         background-color: #f4f4f4;
       }
