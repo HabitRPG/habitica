@@ -178,7 +178,6 @@
     "karma-webpack": "^2.0.2",
     "lcov-result-merger": "^1.0.2",
     "mocha": "^3.2.0",
-    "mongoskin": "~2.1.0",
     "monk": "^4.0.0",
     "nightwatch": "^0.9.12",
     "phantomjs-prebuilt": "^2.1.12",
