@@ -37,7 +37,7 @@
         div.text(v-html="itemNotes")
 
         slot(name="additionalInfo", :item="item")
-          equipmentAttributesGrid.bordered(
+          equipmentAttributesGrid.attributesGrid(
             v-if="showAttributesGrid",
             :item="item"
           )
@@ -50,7 +50,7 @@
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-              span.value(:class="getPriceClass()") {{ item.value }}
+              span.cost(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -162,7 +162,7 @@
       vertical-align: middle;
     }
 
-    .value {
+    .cost {
       width: 28px;
       height: 32px;
       font-family: Roboto;
@@ -248,8 +248,12 @@
       }
     }
 
-    .bordered {
+    .attributesGrid {
       margin-top: 8px;
+      border-radius: 2px;
+      background-color: #e1e0e3;
+
+      margin: 10px 0 24px;
     }
 
     .gems-left {

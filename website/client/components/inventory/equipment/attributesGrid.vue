@@ -10,10 +10,127 @@
         span.popover-content-attr-cell.label(:class="{'hasValue': hasClassBonus(attr) }") {{ `${stats.classBonus[attr]}` }}
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
 
+
+  .attributes-group {
+    // unless we have a way to give a popover an id or class, it needs expand the attributes area
+    margin: -13px -17px;
+    display:flex;
+    flex-wrap: wrap;
+  }
+
+  .popover-content-attr {
+    font-weight: bold;
+    width: calc(50% - 1px);
+    background-color: #4e4a57;
+
+    &:nth-of-type(even) {
+      margin-left: 1px;
+      width: 50%;
+    }
+
+    &:nth-child(1), &:nth-child(2) {
+      margin-bottom: 1px;
+    }
+  }
+
+  .group-content {
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding: 4px 12px;
+    width: 100%;
+  }
+
+  .popover-content-attr-cell {
+    width: 50%;
+    text-align: left;
+
+    font-family: Roboto;
+
+    &:nth-of-type(even) {
+      text-align: right;
+    }
+
+    &.key {
+      color: $white;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.33;
+    }
+
+    &.label {
+      font-size: 10px;
+      line-height: 1.2;
+      color: #a5a1ac;
+    }
+
+    &.label.bold {
+      font-weight: bold;
+    }
+
+    &.label.value {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.33;
+      text-align: right;
+
+      &.green {
+        color: $green-10;
+
+        &:before {
+          content: '+';
+        }
+      }
+    }
+  }
+
+  .modal-body {
+
+    .group-content {
+      padding: 8px 17px;
+    }
+
+    .popover-content-attr {
+      background-color: #f4f4f4;
+    }
+
+
+    .popover-content-attr-cell {
+      &.key {
+        color: #c3c0c7;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.25;
+
+        &.hasValue {
+          color: #4e4a57;
+        }
+      }
+
+      &.label {
+        color: #c3c0c7;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.33;
+
+        &.hasValue {
+          color: #878190;
+        }
+      }
+
+      &.label.value {
+
+        &.green {
+          color: $green-10;
+
+        }
+      }
+    }
+
+  }
 </style>
 
 <script>

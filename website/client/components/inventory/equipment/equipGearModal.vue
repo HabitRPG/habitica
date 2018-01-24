@@ -27,7 +27,7 @@
           span.svg-icon.inline.icon-24(v-html="icons[itemClass]")
           span.className(:class="itemClass") {{ getClassName(itemClass) }}
 
-        attributesGrid.bordered(
+        attributesGrid.attributesGrid(
           :item="item",
           v-if="attributesGridVisible"
         )
@@ -97,47 +97,11 @@
       color: #1f6ea2;
     }
 
-    .bordered {
+    .attributesGrid {
       border-radius: 2px;
       background-color: #e1e0e3;
 
       margin: 10px 0 24px;
-
-      .group-content {
-        padding: 8px 17px;
-      }
-
-      .popover-content-attr {
-        background-color: #f4f4f4;
-      }
-
-
-      .popover-content-attr-cell {
-        &.key {
-          color: #c3c0c7;
-
-          &.hasValue {
-            color: #4e4a57;
-          }
-        }
-
-        &.label {
-          color: #c3c0c7;
-
-          &.hasValue {
-            color: #878190;
-          }
-        }
-
-        &.label.value {
-
-          &.green {
-            color: $green-10;
-
-          }
-        }
-      }
-
     }
 
     .avatar {
