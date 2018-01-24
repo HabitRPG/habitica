@@ -23,6 +23,10 @@
         h4.title {{ itemText }}
         div.text(v-html="itemNotes")
 
+        span.classTag(v-if="showClassTag")
+          span.svg-icon.inline.icon-24(v-html="icons[itemClass]")
+          span.className(:class="itemClass") {{ getClassName(itemClass) }}
+
         attributesGrid.bordered(
           :item="item",
           v-if="attributesGridVisible"
@@ -57,6 +61,40 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
+    }
+
+    .classTag {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .className {
+      height: 24px;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: condensed;
+      line-height: 1.5;
+      text-align: left;
+      margin-left: 8px;
+    }
+
+    .healer {
+      color: #cf8229;
+    }
+
+    .rogue {
+      color: #4f2a93;
+    }
+
+    .warrior {
+      color: #b01515;
+    }
+
+    .wizard {
+      color: #1f6ea2;
     }
 
     .bordered {
@@ -131,6 +169,10 @@
   import { mapState } from 'client/libs/store';
 
   import svgClose from 'assets/svg/close.svg';
+  import svgWarrior from 'assets/svg/warrior.svg';
+  import svgWizard from 'assets/svg/wizard.svg';
+  import svgRogue from 'assets/svg/rogue.svg';
+  import svgHealer from 'assets/svg/healer.svg';
 
   import Avatar from 'client/components/avatar';
   import attributesGrid from 'client/components/inventory/equipment/attributesGrid.vue';
@@ -144,6 +186,10 @@
       return {
         icons: Object.freeze({
           close: svgClose,
+          warrior: svgWarrior,
+          wizard: svgWizard,
+          rogue: svgRogue,
+          healer: svgHealer,
         }),
       };
     },
@@ -152,6 +198,9 @@
         content: 'content',
         user: 'user.data',
       }),
+      showClassTag () {
+        return ['warrior', 'wizard', 'rogue', 'healer'].includes(this.itemClass);
+      },
       itemText () {
         if (this.item.text instanceof Function) {
           return this.item.text();
@@ -165,6 +214,9 @@
         } else {
           return this.item.notes;
         }
+      },
+      itemClass () {
+        return this.item.klass || this.item.specialClass;
       },
       attributesGridVisible () {
         if (this.costumeMode) {
@@ -189,6 +241,13 @@
         return {
           [gear.type]: gear.key,
         };
+      },
+      getClassName (classType) {
+        if (classType === 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
       },
     },
     props: {
