@@ -173,6 +173,7 @@ export default {
           }).bind('AmazonPayRecurring');
         };
       } else {
+        this.$set(this, 'amazonButtonEnabled', true);
         walletParams.amazonOrderReferenceId = this.amazonPayments.orderReferenceId;
       }
 
@@ -185,21 +186,21 @@ export default {
       // @TODO: A gift should not read the same as buying gems for yourself.
       if (this.amazonPayments.type === 'single') {
         let url = '/amazon/checkout';
-        let response = await axios.post(url, {
-          orderReferenceId: this.amazonPayments.orderReferenceId,
-          gift: this.amazonPayments.gift,
-        });
 
-        if (response.status < 400) {
+        try {
+          await axios.post(url, {
+            orderReferenceId: this.amazonPayments.orderReferenceId,
+            gift: this.amazonPayments.gift,
+          });
+
           this.$set(this, 'amazonButtonEnabled', true);
           this.reset();
           // @TODO: What are we syncing?
           window.location.reload(true);
-          return;
+        } catch (e) {
+          this.$set(this, 'amazonButtonEnabled', true);
+          this.amazonPaymentsreset();
         }
-
-        alert(response.message);
-        this.amazonPaymentsreset();
       } else if (this.amazonPayments.type === 'subscription') {
         let url = '/amazon/subscribe';
 
@@ -207,40 +208,37 @@ export default {
           url = '/api/v3/groups/create-plan';
         }
 
-        let response = await axios.post(url, {
-          billingAgreementId: this.amazonPayments.billingAgreementId,
-          subscription: this.amazonPayments.subscription,
-          coupon: this.amazonPayments.coupon,
-          groupId: this.amazonPayments.groupId,
-          groupToCreate: this.amazonPayments.groupToCreate,
-          paymentType: 'Amazon',
-        });
+        try {
+          const response = await axios.post(url, {
+            billingAgreementId: this.amazonPayments.billingAgreementId,
+            subscription: this.amazonPayments.subscription,
+            coupon: this.amazonPayments.coupon,
+            groupId: this.amazonPayments.groupId,
+            groupToCreate: this.amazonPayments.groupToCreate,
+            paymentType: 'Amazon',
+          });
 
-        let responseStatus = response.status;
-        if (responseStatus >= 400) {
+          this.$root.$emit('bv::hide::modal', 'amazon-payment');
+
+          let newGroup = response.data.data;
+          if (newGroup && newGroup._id) {
+            // @TODO: Just append? or $emit?
+            this.$router.push(`/group-plans/${newGroup._id}/task-information`);
+            this.user.guilds.push(newGroup._id);
+            return;
+          }
+
+          if (this.amazonPayments.groupId) {
+            this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
+            return;
+          }
+
+          window.location.reload(true);
+          this.reset();
+        } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
-          alert(`Error: ${response.message}`);
           // @TODO: do we need this? this.amazonPaymentsreset();
-          return;
         }
-
-        this.$root.$emit('bv::hide::modal', 'amazon-payment');
-
-        let newGroup = response.data.data;
-        if (newGroup && newGroup._id) {
-          // @TODO: Just append? or $emit?
-          this.$router.push(`/group-plans/${newGroup._id}/task-information`);
-          this.user.guilds.push(newGroup._id);
-          return;
-        }
-
-        if (this.amazonPayments.groupId) {
-          this.$router.push(`/group-plans/${this.amazonPayments.groupId}/task-information`);
-          return;
-        }
-
-        window.location.reload(true);
-        this.reset();
       }
     },
     amazonOnPaymentSelect () {
