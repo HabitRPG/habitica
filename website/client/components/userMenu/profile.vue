@@ -357,7 +357,7 @@ div
   }
 
   .photo img {
-    width: 100%;
+    max-width: 100%;
   }
 
   .header {
