@@ -125,16 +125,14 @@ export default {
   data () {
     return {
       expandedMember: null,
-
       currentWidth: 0,
     };
   },
   computed: {
     ...mapGetters({
       user: 'user:data',
-      partyMembers: 'partyMembers',
+      partyMembers: 'party:members',
     }),
-
     showHeader () {
       if (this.$store.state.hideHeader) return false;
       return true;
@@ -176,8 +174,10 @@ export default {
       }
     },
   },
-  created () {
-    if (this.user.party && this.user.party._id) this.getPartyMembers();
+  async created () {
+    if (this.user.party && this.user.party._id) {
+      await this.getPartyMembers(true);
+    }
   },
 };
 </script>

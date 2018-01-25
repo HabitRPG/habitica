@@ -1,24 +1,42 @@
+.promo_ios {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 325px;
+  height: 336px;
+}
+.promo_mystery_201801 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -326px 0px;
+  width: 376px;
+  height: 196px;
+}
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -382px -148px;
+  background-position: -326px -197px;
   width: 114px;
   height: 87px;
 }
 .promo_winter_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: 0px -337px;
   width: 140px;
   height: 441px;
 }
 .scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -382px 0px;
+  background-position: -141px -533px;
   width: 282px;
   height: 147px;
 }
+.scene_setting_up_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -141px -337px;
+  width: 240px;
+  height: 195px;
+}
 .scene_task_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -141px 0px;
+  background-position: -382px -337px;
   width: 240px;
   height: 195px;
 }

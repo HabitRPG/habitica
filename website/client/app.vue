@@ -100,6 +100,11 @@ div
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
   }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1041;
+  }
 </style>
 
 <script>

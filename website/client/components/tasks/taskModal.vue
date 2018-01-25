@@ -16,9 +16,9 @@
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
-          label.d-flex.align-items-center.justify-content-between(v-once) 
+          label.d-flex.align-items-center.justify-content-between(v-once)
             span {{ $t('notes') }}
-            small(v-once) 
+            small(v-once)
               a(target="_blank", href="http://habitica.wikia.com/wiki/Markdown_Cheat_Sheet") {{ $t('markdownHelpLink') }}
 
           textarea.form-control(v-model="task.notes", rows="3")
@@ -27,10 +27,10 @@
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
-              .input-group-prepend.input-group-icon
+              .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
-            
+
         .option.mt-0(v-if="checklistEnabled")
           label(v-once) {{ $t('checklist') }}
           br
@@ -151,7 +151,7 @@
         .option(v-if="task.type === 'habit'")
           .form-group
             label(v-once) {{ $t('resetStreak') }}
-            b-dropdown.inline-dropdown(:text="$t(task.frequency)")
+            b-dropdown.inline-dropdown(:text="$t(task.frequency)", :disabled='challengeAccessRequired')
               b-dropdown-item(v-for="frequency in ['daily', 'weekly', 'monthly']", :key="frequency", @click="task.frequency = frequency", :class="{active: task.frequency === frequency}")
                 | {{ $t(frequency) }}
 
@@ -185,10 +185,6 @@
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
-
-        .reward-delete.delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="task.type === 'reward' && purpose !== 'create'")
-          .svg-icon.d-inline-b(v-html="icons.destroy")
-          span {{ $t('deleteTask') }}
 
         .advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
@@ -224,22 +220,21 @@
                           type="number", v-model="task.counterDown", min="0", required,
                         )
 
-              .option(v-if="isUserTask && task.type !== 'reward'")
+              //.option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
-                  label(v-once) 
+                  label(v-once)
                     span.float-left {{ $t('attributeAllocation') }}
                     .svg-icon.info-icon(v-html="icons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
                   .attributes
                     .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
-                      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute")
+                      input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="user.preferences.allocationMode !== 'taskbased'")
                       label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
-
-              .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create'")
-                .svg-icon.d-inline-b(v-html="icons.destroy")
-                span {{ $t('deleteTask') }}
+        .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create' && !challengeAccessRequired")
+          .svg-icon.d-inline-b(v-html="icons.destroy")
+          span {{ $t('deleteTask') }}
 
       .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
-        span.cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
+        .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
         button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
 
@@ -556,11 +551,6 @@
       }
     }
 
-    .reward-delete {
-      margin-top: 32px;
-      margin-bottom: 8px;
-    }
-
     .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
 
@@ -570,6 +560,8 @@
     }
 
     .delete-task-btn {
+      margin-top: 32px;
+      margin-bottom: 8px;
       color: $red-50;
 
       .svg-icon {
@@ -599,6 +591,7 @@
       margin-left: -23px;
       margin-right: -23px;
       padding: 16px 24px;
+      margin-bottom: -8px;
 
       &-toggle {
         cursor: pointer;

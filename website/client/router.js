@@ -316,6 +316,32 @@ router.beforeEach(function routerGuard (to, from, next) {
     return next({name: 'tasks'});
   }
 
+  // Redirect old guild urls
+  if (to.hash.indexOf('#/options/groups/guilds/') !== -1) {
+    const splits = to.hash.split('/');
+    const guildId = splits[4];
+
+    return next({
+      name: 'guild',
+      params: {
+        groupId: guildId,
+      },
+    });
+  }
+
+  // Redirect old challenge urls
+  if (to.hash.indexOf('#/options/groups/challenges/') !== -1) {
+    const splits = to.hash.split('/');
+    const challengeId = splits[4];
+
+    return next({
+      name: 'challenge',
+      params: {
+        challengeId,
+      },
+    });
+  }
+
   Analytics.track({
     hitType: 'pageview',
     eventCategory: 'navigation',

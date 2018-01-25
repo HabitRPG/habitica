@@ -4,18 +4,25 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/12/2018 - HABITICA BLOGS: USE CASE SPOTLIGHT AND BEHIND THE SCENES
+    h2 1/23/2018 - JANUARY SUBSCRIBER ITEMS, RESOLUTION PLOT-LINE, AND GUILDS FOR GOALS
+    hr
+    h3 January Subscriber Items Revealed!
+    p(v-markdown='"The January Subscriber Item has been revealed: the Frost Sprite Item Set! You only have until January 31 to receive the item set when you [subscribe](/settings/subscription). If you\'re already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!"')
+    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
+    .small by Beffymaroo
+    .promo_mystery_201801.center-block
+    h3 Resolution Plot-Line: An Overheard Conversation
+    p As you stride through the streets of Habit City, you overhear a worried conference of whispers. Curious, you peek in to Productivity Plaza and discover Lemoness and Beffymaroo in solemn conversation.
+    p "On one hand, there's always the risk of discouragement when the eagerness of a fresh New Year's resolution gives way to everyday difficulties," Lemoness is saying. "But that just doesn't seem to match these reports. Habiticans who were making real progress are abruptly giving up all their goals overnight."
+    p "I agree," says Beffymaroo. "And look at these maps -- all the reports are happening in the exact same neighborhoods."
+    p "Clustered discouragement, cropping up all over the city?" Lemoness shakes her head. "I won't tempt fate by calling it a coincidence. It's time to investigate."
+    p Without further ado, both of them hurry away. What a strange conversation to overhear! Perhaps we'll learn more about this later....
     .media
-      .scene_task_list.right-margin
       .media-body
-        h3 Use Case Spotlight: Setting Realistic Goals
-        p(v-markdown='"This month\'s [Use Case Spotlight](https://habitica.wordpress.com/2018/01/09/use-case-spotlight-setting-realistic-goals/) is about Setting Realistic Goals! It features a number of great suggestions submitted by Habiticans in the [Use Case Spotlights Guild](/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6). We hope it helps any of you who might be making resolutions or setting new goals for 2018."')
-        p Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to help manage and improve your Interpersonal Relationships? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!
+        h3 New Goals for the New Year: Guilds for Setting (and Keeping) Realistic Goals
+        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2018/01/23/new-goals-for-the-new-year-guilds-for-setting-and-keeping-realistic-goals/) that highlights the Guilds that can help you as set new goals for 2018 and strive to stay on track! Check it out now to find Habitica\'s best goal-setting communities."')
         .small by Beffymaroo
-    h3 Behind the Scenes: Lady Glaciate
-    p(v-markdown='"Have you ever wanted to know more about Lady Glaciate, the Master of Warriors? [Today\'s blog post](https://habitica.wordpress.com/2018/01/12/behind-the-scenes-lady-glaciate/) features a spotlight on the tough and determined guardian of the Stoïkalm Steppes! Check it out now to learn about her rise to power, her interests and hobbies, and to hear her take on the rumors about her relationship with the Master of Rogues, the April Fool!"')
-    .small by Lemoness
-    .scene_lady_glaciate.center-block
+      .scene_task_list.left-margin
     hr
 </template>
 

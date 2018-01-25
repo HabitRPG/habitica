@@ -413,7 +413,10 @@ api.getChallengeMemberProgress = {
     // manually call toJSON with minimize: true so empty paths aren't returned
     let response = member.toJSON({minimize: true});
     delete response.challenges;
-    response.tasks = chalTasks.map(chalTask => chalTask.toJSON({minimize: true}));
+    response.tasks = chalTasks.map(chalTask => {
+      chalTask.checklist = []; // Clear checklists as they are private
+      return chalTask.toJSON({minimize: true});
+    });
     res.respond(200, response);
   },
 };
