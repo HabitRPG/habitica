@@ -65,8 +65,7 @@ api.createGroupTasks = {
         hitType: 'event',
         category: 'behavior',
         taskType: task.type,
-        group: true,
-        challenge: false,
+        groupID: group._id,
       });
     });
   },

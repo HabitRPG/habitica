@@ -174,8 +174,6 @@ api.createUserTasks = {
           hitType: 'event',
           category: 'behavior',
           taskType: task.type,
-          group: false,
-          challenge: false,
         });
       }
 
@@ -261,8 +259,7 @@ api.createChallengeTasks = {
         hitType: 'event',
         category: 'behavior',
         taskType: task.type,
-        group: false,
-        challenge: true,
+        challengeID: challenge._id,
       });
     });
   },
