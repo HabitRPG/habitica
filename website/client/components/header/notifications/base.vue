@@ -9,11 +9,10 @@
     slot(name="icon")
   .notification-content
     slot(name="content")
-  .notification-remove
+  .notification-remove(@click.stop="canRemove ? remove() : null",)
     .svg-icon(
       v-if="canRemove", 
-      v-html="icons.close", 
-      @click.stop="remove",
+      v-html="icons.close",
     )
 </template>
 
@@ -61,7 +60,7 @@
 .notification {
   width: 378px;
   max-width: 100%;
-  padding: 9px 24px 10px 24px;
+  padding: 9px 20px 10px 24px;
   overflow: hidden;
 
   &:active, &:hover {
@@ -103,11 +102,12 @@
 
 .notification-remove {
   // total distance from the notification top edge is 20 pixels
-  margin-top: 11px;
+  margin-top: 7px;
 
-  width: 10px;
-  height: 10px;
-  margin-left: 16px;
+  width: 18px;
+  height: 18px;
+  margin-left: 12px;
+  padding: 4px;
 
   .svg-icon {
     width: 10px;
