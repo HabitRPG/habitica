@@ -135,10 +135,10 @@ export async function rejectInvite (store, payload) {
 
   if (type === 'guild') {
     const invitationI = invitations.guilds.findIndex(i => i.id === groupId);
-    if (invitationI) invitations.guilds.splice(invitationI, 1);
+    if (invitationI !== -1) invitations.guilds.splice(invitationI, 1);
   } else if (type === 'party') {
     const invitationI = invitations.parties.findIndex(i => i.id === groupId);
-    if (invitationI) invitations.parties.splice(invitationI, 1);
+    if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
   }
 
   return response;
