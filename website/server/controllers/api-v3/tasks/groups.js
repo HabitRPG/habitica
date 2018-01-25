@@ -60,7 +60,7 @@ api.createGroupTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
-      res.analytics.track('create task', {
+      res.analytics.track('task create', {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',

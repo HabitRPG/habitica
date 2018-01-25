@@ -169,7 +169,7 @@ api.createUserTasks = {
     tasks.forEach((task) => {
       // Track when new users (first 7 days) create tasks
       if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
-        res.analytics.track('create task', {
+        res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
           category: 'behavior',
@@ -256,7 +256,7 @@ api.createChallengeTasks = {
     if (challenge) challenge.addTasks(tasks);
 
     tasks.forEach((task) => {
-      res.analytics.track('create task', {
+      res.analytics.track('task create', {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
@@ -680,7 +680,7 @@ api.scoreTask = {
 
     // Track when new users (first 7 days) score tasks
     if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
-      res.analytics.track('score task', {
+      res.analytics.track('task score', {
         uuid: user._id,
         hitType: 'event',
         category: 'behavior',
