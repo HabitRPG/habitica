@@ -39,9 +39,13 @@ export default {
       return result;
     },
     getClassBonus (item) {
-      let itemStats = this.getItemStats(item);
       let result = emptyStats();
 
+      if (!item) {
+        return result;
+      }
+
+      let itemStats = this.getItemStats(item);
 
       let userClass = this.user.stats.class;
       if (userClass === item.klass || userClass === item.specialClass) {

@@ -17,7 +17,7 @@
 
   .attributes-group {
     // unless we have a way to give a popover an id or class, it needs expand the attributes area
-    margin: -13px -17px;
+    margin: -13px -16px;
     display:flex;
     flex-wrap: wrap;
   }
@@ -29,7 +29,6 @@
 
     &:nth-of-type(even) {
       margin-left: 1px;
-      width: 50%;
     }
 
     &:nth-child(1), &:nth-child(2) {
@@ -95,8 +94,12 @@
 
     .popover-content-attr {
       background-color: #f4f4f4;
-    }
 
+      &:nth-of-type(even) {
+        margin-left: 1px;
+        width: 50%;
+      }
+    }
 
     .popover-content-attr-cell {
       &.key {
