@@ -354,7 +354,9 @@ export default {
     },
     hatchPet (potion, egg) {
       this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
-      this.$root.$emit('hatchedPet::open', createAnimal(egg, potion, 'pet', this.content, this.user.items));
+      const newPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
+      if (this.user.preferences.suppressModals.hatchPet) return;
+      this.$root.$emit('hatchedPet::open', newPet);
     },
     onDragEnd () {
       this.currentDraggingPotion = null;
