@@ -1,7 +1,7 @@
 const UserNotification = require('../website/server/models/userNotification').model;
 const content = require('../website/common/script/content/index');
 
-const migrationName = '20180125_migrations.js';
+const migrationName = '20180125_migrations-v2';
 const authorName = 'paglias'; // in case script author needs to know when their ...
 const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
@@ -61,17 +61,20 @@ function updateUser (user) {
   // NEW_CHAT_MESSAGE
   Object.keys(user.newMessages).forEach(groupId => {
     const existingNotif = user.newMessages[groupId];
-    const newNotif = new UserNotification({
-      type: 'NEW_CHAT_MESSAGE',
-      data: {
-        group: {
-          id: groupId,
-          name: existingNotif.name,
-        },
-      },
-    }).toJSON();
 
-    notifications.push(newNotif);
+    if (existingNotif) {
+      const newNotif = new UserNotification({
+        type: 'NEW_CHAT_MESSAGE',
+        data: {
+          group: {
+            id: groupId,
+            name: existingNotif.name,
+          },
+        },
+      }).toJSON();
+
+      notifications.push(newNotif);
+    }
   });
 
   dbUsers.update({_id: user._id}, {
