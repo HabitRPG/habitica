@@ -182,7 +182,10 @@ async function _addTaskFn (challenge, tasks, memberId) {
     let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName};
     userTask.userId = memberId;
-    userTask.notes = chalTask.notes; // We want to sync the notes when the task is first added to the challenge
+
+    // We want to sync the notes and tags when the task is first added to the challenge
+    userTask.notes = chalTask.notes;
+    userTask.tags.push(challenge._id);
 
     let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
     if (!tasksOrderList) {

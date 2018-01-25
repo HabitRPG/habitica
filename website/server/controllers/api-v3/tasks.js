@@ -23,6 +23,7 @@ import common from '../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
+import moment from 'moment';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -166,6 +167,16 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
+      // Track when new users (first 7 days) create tasks
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+        res.analytics.track('task create', {
+          uuid: user._id,
+          hitType: 'event',
+          category: 'behavior',
+          taskType: task.type,
+        });
+      }
+
       taskActivityWebhook.send(user.webhooks, {
         type: 'created',
         task,
@@ -241,6 +252,16 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
+
+    tasks.forEach((task) => {
+      res.analytics.track('task create', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        challengeID: challenge._id,
+      });
+    });
   },
 };
 
@@ -584,7 +605,7 @@ api.scoreTask = {
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -654,16 +675,16 @@ api.scoreTask = {
       }
     }
 
-    /*
-     * TODO: enable score task analytics if desired
-    res.analytics.track('score task', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      direction
-    });
-    */
+    // Track when new users (first 7 days) score tasks
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      res.analytics.track('task score', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        direction,
+      });
+    }
   },
 };
 

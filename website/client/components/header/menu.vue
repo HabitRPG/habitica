@@ -331,6 +331,7 @@ export default {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
     sync () {
+      this.$root.$emit('habitica::resync-requested');
       return Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
