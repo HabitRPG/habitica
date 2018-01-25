@@ -308,6 +308,12 @@ export function cron (options = {}) {
         atLeastOneDailyDue = shouldDo(thatDay.toDate(), task, user.preferences);
       }
     } else {
+      // add history entry when task was not completed
+      task.history.push({
+        date: Number(new Date()),
+        value: task.value,
+      });
+
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
@@ -361,12 +367,7 @@ export function cron (options = {}) {
       }
     }
 
-    task.history.push({
-      date: Number(new Date()),
-      value: task.value,
-    });
     task.completed = false;
-
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
