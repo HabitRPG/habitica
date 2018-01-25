@@ -257,6 +257,14 @@ api.createChallenge = {
       privacy: group.privacy,
     };
 
+    res.analytics.track('create challenge', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
+
     res.respond(201, response);
   },
 };
@@ -314,6 +322,14 @@ api.joinChallenge = {
     };
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
+
+    res.analytics.track('join challenge', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
 
     res.respond(200, response);
   },
