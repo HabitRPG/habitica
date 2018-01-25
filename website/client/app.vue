@@ -210,9 +210,10 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        let errorMessage = error.response.data.hasOwnProperty('message') ? error.response.data.message : error.response.data;
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
+        if (invalidUserMessage.indexOf(errorMessage) !== -1) {
           this.$store.dispatch('auth:logout');
         }
 
@@ -227,7 +228,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
