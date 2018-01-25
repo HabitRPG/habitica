@@ -760,7 +760,7 @@ api.selectChallengeWinner = {
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
 
-    res.analytics.track('challenge award', {
+    res.analytics.track('challenge close', {
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
