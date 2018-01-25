@@ -44,6 +44,32 @@ describe('POST /group', () => {
         },
       });
     });
+
+    it('sets summary to challenges name when not supplied', async () => {
+      const name = 'Test Group';
+      const group = await user.post('/groups', {
+        name,
+        type: 'guild',
+      });
+
+      const updatedGroup = await user.get(`/groups/${group._id}`);
+
+      expect(updatedGroup.summary).to.eql(name);
+    });
+
+    it('sets summary to challenges', async () => {
+      const name = 'Test Group';
+      const summary = 'Test Summary';
+      const group = await user.post('/groups', {
+        name,
+        type: 'guild',
+        summary,
+      });
+
+      const updatedGroup = await user.get(`/groups/${group._id}`);
+
+      expect(updatedGroup.summary).to.eql(summary);
+    });
   });
 
   context('Guilds', () => {
