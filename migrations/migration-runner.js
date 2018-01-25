@@ -17,5 +17,5 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require('./tasks/tasks-set-everyX');
+const processUsers = require('./20180125_notifications.js');
 processUsers();

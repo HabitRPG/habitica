@@ -74,7 +74,10 @@ function updateUser (user) {
     notifications.push(newNotif);
   });
 
-  dbUsers.update({_id: user._id}, {$push: {notifications: { $each: notifications } }});
+  dbUsers.update({_id: user._id}, {
+    $push: {notifications: { $each: notifications } },
+    $set: {migration: migrationName},
+  });
 
   if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
   if (user._id === authorUuid) console.warn(`${authorName  } processed`);
@@ -120,7 +123,7 @@ function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   const query = {
     migration: {$ne: migrationName},
-    'auth.timestamps.loggedin': {$gt: new Date('2018-01-24')},
+    'auth.timestamps.loggedin': {$gt: new Date('2010-01-24')},
   };
 
   if (lastId) {
