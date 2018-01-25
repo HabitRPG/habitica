@@ -12,7 +12,7 @@ function markNotificationAsRead (user, cardType) {
   const indexToRemove = user.notifications.findIndex(notification => {
     if (
       notification.type === 'CARD_RECEIVED' &&
-      notification.data.card === `${cardType}Received`
+      notification.data.card === cardType
     ) return true;
   });
 

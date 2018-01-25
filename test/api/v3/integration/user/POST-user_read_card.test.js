@@ -28,7 +28,7 @@ describe('POST /user/read-card/:cardType', () => {
       'flags.cardReceived': true,
       notifications: [{
         type: 'CARD_RECEIVED',
-        data: {card: `${cardType}Received`},
+        data: {card: cardType},
       }],
     });
 

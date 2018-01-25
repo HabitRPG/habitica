@@ -41,7 +41,7 @@ describe('shared.ops.readCard', () => {
   it('reads a card', () => {
     user.notifications.push({
       type: 'CARD_RECEIVED',
-      data: {card: `${cardType}Received`},
+      data: {card: cardType},
     });
     const initialNotificationNuber = user.notifications.length;
 
