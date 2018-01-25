@@ -1,5 +1,7 @@
 {
     "clearCompleted": "Zmaž hotové",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "Tvojich naposledy splnených 30 úloh je ukázaných tu. Staršie splnené úlohy si môžeš pozrieť: Dáta > Nástroj na zobrazenie dát alebo Dáta > Export dát > Používateľské dáta.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple Tasks, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
