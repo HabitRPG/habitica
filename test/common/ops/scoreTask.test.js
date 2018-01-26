@@ -123,7 +123,7 @@ describe('shared.ops.scoreTask', () => {
     expect(task.streak).to.eql(2);
   });
 
-  describe.only('verifies that 21-day streak achievements are given/removed correctly', () => {
+  describe('verifies that 21-day streak achievements are given/removed correctly', () => {
     let initialStreakCount = 20; // 1 before the streak achievement is awarded
     beforeEach(() => {
       ref = beforeAfter();
