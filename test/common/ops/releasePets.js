@@ -35,6 +35,19 @@ describe('shared.ops.releasePets', () => {
     }
   });
 
+  it('returns an error when user does not have all pets', (done) => {
+    const petKeys = Object.keys(user.items.pets);
+    delete user.items.pets[petKeys[0]];
+
+    try {
+      releasePets(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('notEnoughPets'));
+      done();
+    }
+  });
+
   it('releases pets', () => {
     let message = releasePets(user)[1];
 
