@@ -83,7 +83,7 @@
         hr
     .row
       .col-12.col-md-5
-        | © 2017 Habitica. All rights reserved.
+        | © 2018 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
