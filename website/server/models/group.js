@@ -473,7 +473,10 @@ function setUserStyles (newMessage, user) {
   if (user.toObject) userCopy = user.toObject();
 
   if (userCopy.items) {
-    userStyles.items.gear = Object.assign({}, userCopy.items.gear);
+    userStyles.items.gear = {};
+    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
+    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
+
     userStyles.items.currentMount = userCopy.items.currentMount;
     userStyles.items.currentPet = userCopy.items.currentPet;
   }
