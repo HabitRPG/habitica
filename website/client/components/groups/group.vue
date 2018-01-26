@@ -38,9 +38,9 @@
           .col-6
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
-          div.col-4
-            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+          div.col.col-sm-12.col-xl-8(v-once, v-html="$t('communityGuidelinesIntro')")
+          div.col-md-auto.col-md-12.col-xl-4
+            button.btn.btn-info.btn-follow-guidelines(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -236,10 +236,15 @@
       position: absolute;
       top: 0;
       height: 150px;
-      padding-top: 3em;
       margin-top: 2.3em;
       width: 100%;
       border-radius: 4px;
+      align-items: center;
+      justify-content: center;
+
+      .btn-follow-guidelines {
+        white-space: pre-line;
+      }
     }
 
     .new-message-row {
