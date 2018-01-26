@@ -329,9 +329,9 @@ export default {
     //   activeFilters[type] = types[type].filters.find(f => f.default === true);
     // }
 
-    let typeLabel = getTypeLabel(this.type);
-    let typeFilters = getFilterLabels(this.type);
-    let activeFilter = getActiveFilter(this.type);
+    let typeLabel = '';
+    let typeFilters = [];
+    let activeFilter = {};
 
     return {
       // types,
@@ -351,6 +351,17 @@ export default {
 
       selectedItemToBuy: {},
     };
+  },
+  created () {
+    this.typeLabel = getTypeLabel(this.type);
+    this.typeFilters = getFilterLabels(this.type);
+    // set default filter for task column
+    this.activateFilter(this.type);
+    // eslint-disable-next-line no-console
+    console.log('Column Created:',
+      getTypeLabel(this.type),
+      getFilterLabels(this.type),
+      getActiveFilter(this.type));
   },
   computed: {
     ...mapState({
@@ -385,9 +396,6 @@ export default {
 
       let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
       let searchedList = this.filterBySearchText(taggedList, this.searchText);
-
-      // eslint-disable-next-line no-console
-      console.log(this.typeLabel, this.typeFilters, this.activeFilter);
 
       return searchedList;
     },
@@ -429,11 +437,10 @@ export default {
       return this.taskList.length === 0;
     },
     dailyDueDefaultView () {
-      if (this.getUserPreferences.dailyDueDefaultView) {
-        this.activateFilter('daily', 'due');
+      if (this.user.preferences.dailyDueDefaultView) {
+        this.activateFilter('daily', this.typeFilters[1]);
       }
-
-      return this.getUserPreferences.dailyDueDefaultView;
+      return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
@@ -467,7 +474,7 @@ export default {
     },
     dailyDueDefaultView () {
       if (!this.dailyDueDefaultView) return;
-      this.activateFilter('daily', 'due');
+      this.activateFilter('daily', this.typeFilters[1]);
     },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
