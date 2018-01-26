@@ -41,6 +41,22 @@ describe('shared.ops.releaseBoth', () => {
     }
   });
 
+  it('returns an error when user does not have all pets', (done) => {
+    const petKeys = Object.keys(user.items.pets);
+    delete user.items.pets[petKeys[0]];
+
+    const mountKeys = Object.keys(user.items.mounts);
+    delete user.items.mounts[mountKeys[0]];
+
+    try {
+      releaseBoth(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('notEnoughPetsMounts'));
+      done();
+    }
+  });
+
   it('grants triad bingo with gems', () => {
     let message = releaseBoth(user)[1];
 

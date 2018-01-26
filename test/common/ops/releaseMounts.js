@@ -35,6 +35,19 @@ describe('shared.ops.releaseMounts', () => {
     }
   });
 
+  it('returns an error when user does not have all pets', (done) => {
+    const mountsKeys = Object.keys(user.items.mounts);
+    delete user.items.mounts[mountsKeys[0]];
+
+    try {
+      releaseMounts(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('notEnoughMounts'));
+      done();
+    }
+  });
+
   it('releases mounts', () => {
     let message = releaseMounts(user)[1];
 
