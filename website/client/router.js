@@ -293,6 +293,7 @@ router.beforeEach(function routerGuard (to, from, next) {
     // Pass the requested page as a query parameter to redirect later.
 
     const redirectTo = to.path === '/' ? 'home' : 'login';
+    console.log(redirectTo)
     return next({
       name: redirectTo,
       query: redirectTo === 'login' ? {
