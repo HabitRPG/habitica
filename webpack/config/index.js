@@ -58,10 +58,10 @@ module.exports = {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
-      '/logout': {
-        target: DEV_BASE_URL,
-        changeOrigin: true,
-      },
+    //   '/logout': {
+    //     target: DEV_BASE_URL,
+    //     changeOrigin: true,
+    //   },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
