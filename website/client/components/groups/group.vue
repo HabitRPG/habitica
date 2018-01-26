@@ -19,7 +19,7 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div(v-once) {{ $t('memberList') }}
+              div.member-list(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
             .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
@@ -31,11 +31,11 @@
         .row.new-message-row
           textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-        .row
-          .col-6
+        .row.chat-actions
+          .col-6.chat-receive-actions
             button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6
+          .col-6.chat-send-actions
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         .row.community-guidelines(v-if='!communityGuidelinesAccepted')
           div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
@@ -46,8 +46,7 @@
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
-      .col-6
-      .col-6
+      .col-12
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
@@ -146,7 +145,7 @@
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
-      height: 28px;
+      height: auto;
       margin: 0 auto;
       display: inline-block;
       vertical-align: bottom;
@@ -157,6 +156,10 @@
       font-size: 22px;
       font-weight: bold;
     }
+
+    .member-list {
+      margin-top: .5em;
+    }
   }
 
   .item-with-icon:hover {
@@ -166,6 +169,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
+    padding-top: 2.8em;
   }
 
   .card {
@@ -244,6 +248,26 @@
 
     .new-message-row {
       position: relative;
+    }
+
+    .chat-actions {
+      margin-top: 1em;
+
+      .chat-receive-actions {
+        padding-left: 0;
+
+        button {
+          margin-bottom: 1em;
+
+          &:not(:last-child) {
+            margin-right: 1em;
+          }
+        }
+      }
+
+      .chat-send-actions {
+        padding-right: 0;
+      }
     }
   }
 
