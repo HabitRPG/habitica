@@ -15,7 +15,8 @@ import * as Tasks from '../../../../website/server/models/task';
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
 export async function generateUser (update = {}) {
-  let username = generateUUID();
+  let username = (date.now() + generateUUID()).substring(0,19);
+  // username must be no more than 20 characters, only letters and digits
   let password = 'password';
   let email = `${username}@example.com`;
 
