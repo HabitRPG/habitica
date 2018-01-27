@@ -125,7 +125,7 @@
         width: 74px;
         height: 40px;
         border-radius: 2px;
-        background-color: #ffffff;
+        background-color: $white;
         box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
         margin-right: 24px;
 
@@ -144,15 +144,6 @@
       }
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
-    }
-
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
@@ -165,7 +156,6 @@
     .cost {
       width: 28px;
       height: 32px;
-      font-family: Roboto;
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
@@ -173,15 +163,15 @@
       vertical-align: middle;
 
       &.gems {
-        color: $green-10;
+        color: $gems-color;
       }
 
       &.gold {
-        color: $yellow-10
+        color: $gold-color;
       }
 
       &.hourglasses {
-        color: $blue-10;
+        color: $hourglass-color;
       }
     }
 
@@ -229,7 +219,7 @@
 
     .limitedTime {
       height: 32px;
-      background-color: #6133b4;
+      background-color: $purple-300;
       width: calc(100% + 30px);
       margin: 0 -15px; // the modal content has its own padding
 
@@ -251,7 +241,7 @@
     .attributesGrid {
       margin-top: 8px;
       border-radius: 2px;
-      background-color: #e1e0e3;
+      background-color: $gray-500;
 
       margin: 10px 0 24px;
     }

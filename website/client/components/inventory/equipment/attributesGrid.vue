@@ -16,8 +16,9 @@
 
 
   .attributes-group {
+    border-radius: 4px;
     // unless we have a way to give a popover an id or class, it needs expand the attributes area
-    margin: -13px -16px;
+    margin: -12px -16px;
     display:flex;
     flex-wrap: wrap;
   }
@@ -25,7 +26,7 @@
   .popover-content-attr {
     font-weight: bold;
     width: calc(50% - 1px);
-    background-color: #4e4a57;
+    background-color: $gray-50;
 
     &:nth-of-type(even) {
       margin-left: 1px;
@@ -47,8 +48,6 @@
     width: 50%;
     text-align: left;
 
-    font-family: Roboto;
-
     &:nth-of-type(even) {
       text-align: right;
     }
@@ -63,7 +62,7 @@
     &.label {
       font-size: 10px;
       line-height: 1.2;
-      color: #a5a1ac;
+      color: $gray-300;
     }
 
     &.label.bold {
@@ -103,24 +102,24 @@
 
     .popover-content-attr-cell {
       &.key {
-        color: #c3c0c7;
+        color: $gray-400;
         font-size: 16px;
         font-weight: bold;
         line-height: 1.25;
 
         &.hasValue {
-          color: #4e4a57;
+          color: $gray-50;
         }
       }
 
       &.label {
-        color: #c3c0c7;
+        color: $gray-400;
         font-size: 12px;
         font-weight: bold;
         line-height: 1.33;
 
         &.hasValue {
-          color: #878190;
+          color: $gray-200;
         }
       }
 

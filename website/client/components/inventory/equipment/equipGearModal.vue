@@ -25,7 +25,7 @@
 
         span.classTag(v-if="showClassTag")
           span.svg-icon.inline.icon-24(v-html="icons[itemClass]")
-          span.className(:class="itemClass") {{ getClassName(itemClass) }}
+          span.className.textCondensed(:class="itemClass") {{ getClassName(itemClass) }}
 
         attributesGrid.attributesGrid(
           :item="item",
@@ -72,34 +72,30 @@
 
     .className {
       height: 24px;
-      font-family: Roboto;
       font-size: 16px;
-      font-weight: bold;
-      font-stretch: condensed;
       line-height: 1.5;
       text-align: left;
       margin-left: 8px;
     }
 
     .healer {
-      color: #cf8229;
+      color: $healer-color;
     }
 
     .rogue {
-      color: #4f2a93;
+      color: $rogue-color;
     }
 
     .warrior {
-      color: #b01515;
+      color: $warrior-color;
     }
 
     .wizard {
-      color: #1f6ea2;
+      color: $wizard-color;
     }
 
     .attributesGrid {
-      border-radius: 2px;
-      background-color: #e1e0e3;
+      background-color: $gray-500;
 
       margin: 10px 0 24px;
     }
@@ -111,15 +107,6 @@
       .character-sprites span {
         left: 25px;
       }
-    }
-
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
     }
 
     button.btn.btn-primary {
@@ -163,7 +150,7 @@
         user: 'user.data',
       }),
       showClassTag () {
-        return ['warrior', 'wizard', 'rogue', 'healer'].includes(this.itemClass);
+        return this.content.classes.includes(this.itemClass);
       },
       itemText () {
         if (this.item.text instanceof Function) {
