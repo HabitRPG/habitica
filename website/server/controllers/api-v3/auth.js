@@ -25,6 +25,8 @@ import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const USERNAME_LENGTH_MIN = 1;
+const USERNAME_LENGTH_MAX = 20;
 
 let api = {};
 
@@ -101,7 +103,12 @@ api.registerLocal = {
         notEmpty: {errorMessage: res.t('missingEmail')},
         isEmail: {errorMessage: res.t('notAnEmail')},
       },
-      username: {notEmpty: {errorMessage: res.t('missingUsername')}},
+      username: {
+        notEmpty: {errorMessage: res.t('missingUsername')},
+        isByteLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('passwordConfirmationMatch')},
+        isAlphanumeric: {options: ['en-US'], errorMessage: res.t('passwordConfirmationMatch')},
+        // the isAlphanumeric locale is NOT localised because we want to enforce literally a-z and 0-9
+      },
       password: {
         notEmpty: {errorMessage: res.t('missingPassword')},
         equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
