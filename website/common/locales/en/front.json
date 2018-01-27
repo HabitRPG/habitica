@@ -276,7 +276,7 @@
   "newEmailRequired": "Missing new email address.",
   "usernameTaken": "Login Name already taken.",
   "usernameWrongLength": "Login Name must be between 1 and 20 characters long.",
-  "usernameBadCharacters": "Login Name must contain only letters a to z and numbers 0 to 9.",
+  "usernameBadCharacters": "Login Name must contain only letters a to z, numbers 0 to 9, and hyphens.",
   "passwordConfirmationMatch": "Password confirmation doesn't match password.",
   "invalidLoginCredentials": "Incorrect username and/or email and/or password.",
   "passwordResetPage": "Reset Password",

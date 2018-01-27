@@ -84,7 +84,7 @@ function hasBackupAuth (user, networkToRemove) {
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-20 characters, containing only a-z and 0-9.
+ * @apiParam (Body) {String} username Login name of the new user. Must be 1-20 characters, containing only a-z, 0-9, and hyphens (-).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
@@ -107,8 +107,7 @@ api.registerLocal = {
         notEmpty: {errorMessage: res.t('missingUsername')},
         isByteLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
         // TODO use the constants in the error message
-        isAlphanumeric: {options: ['en-US'], errorMessage: res.t('usernameBadCharacters')},
-        // the isAlphanumeric locale is NOT localised because we want to enforce literally a-z and 0-9
+        matches: {options: /^[-a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
       },
       password: {
         notEmpty: {errorMessage: res.t('missingPassword')},
