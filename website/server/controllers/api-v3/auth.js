@@ -26,7 +26,7 @@ const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const USERNAME_LENGTH_MIN = 1;
-const USERNAME_LENGTH_MAX = 20;
+const USERNAME_LENGTH_MAX = 36;
 
 let api = {};
 
@@ -84,7 +84,7 @@ function hasBackupAuth (user, networkToRemove) {
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-20 characters, containing only a-z, 0-9, and hyphens (-).
+ * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, and hyphens (-).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
