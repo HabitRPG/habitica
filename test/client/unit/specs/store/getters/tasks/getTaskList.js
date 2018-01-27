@@ -1,14 +1,6 @@
 import generateStore from 'client/store';
 
-// helper functions
-// import shuffle from 'lodash/shuffle';
-
-// Library / Utility Function
-// import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
-
-/* eslint-disable no-exclusive-tests */
-
-describe.only('Store Getters for Tasks', () => {
+describe('Store Getters for Tasks', () => {
   let store, habits, dailys, todos, rewards;
 
   beforeEach(() => {
@@ -124,6 +116,3 @@ describe.only('Store Getters for Tasks', () => {
     });
   });
 });
-
-/* eslint-enable no-exclusive-tests */
-

@@ -4,9 +4,7 @@ import {
   getActiveFilter,
 } from 'client/libs/store/helpers/filterTasks.js';
 
-/* eslint-disable no-exclusive-tests */
-
-describe.only('Filter Category for Tasks', () => {
+describe('Filter Category for Tasks', () => {
   describe('getTypeLabel', () => {
     it('should return correct task type labels', () => {
       expect(getTypeLabel('habit')).to.eq('habits');
@@ -68,5 +66,3 @@ describe.only('Filter Category for Tasks', () => {
     });
   });
 });
-
-/* eslint-enable no-exclusive-tests */

@@ -5,8 +5,6 @@ import {
 
 import shuffle from 'lodash/shuffle';
 
-/* eslint-disable no-exclusive-tests */
-
 describe('Task Order Helper Function', () => {
   let tasks, shuffledTasks, taskOrderList;
   beforeEach(() => {
@@ -43,5 +41,3 @@ describe('Task Order Helper Function', () => {
     });
   });
 });
-
-/* eslint-enable no-exclusive-tests */

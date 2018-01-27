@@ -1,15 +1,20 @@
-import Vue from 'vue';
+// VueJS produces following warnings if the corresponding imports are not used
+// [Vue warn]: You are using the runtime-only build of Vue where the template option is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
+import Vue from 'vue/dist/vue';
+
 import TaskColumn from 'client/components/tasks/column.vue';
 
-/* eslint-disable no-exclusive-tests */
-
-describe.only('Task Column Component', () => {
+describe('Task Column Component', () => {
   let vm, Ctor, tasks;
 
   describe('Task Filtering', () => {
     beforeEach(() => {
       Ctor = Vue.extend(TaskColumn);
-      vm = new Ctor().$mount();
+      vm = new Ctor({
+        propsData: {
+          type: 'habit',
+        },
+      }).$mount();
     });
 
     describe('by Tags', () => {
@@ -89,19 +94,19 @@ describe.only('Task Column Component', () => {
         });
       });
 
-      it('should return tasks with search term in title: case insensitive', () => {
+      it('should return tasks with search term in title /i', () => {
         ['Title', 'TITLE', 'title', 'tItLe'].forEach((term) => {
           expect(vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[2]);
         });
       });
 
-      it('should return tasks with search term in note: case insensitive', () => {
+      it('should return tasks with search term in note /i', () => {
         ['Note', 'NOTE', 'note', 'nOtE'].forEach((term) => {
           expect(vm.filterBySearchText(tasks, term)[0]).to.eq(tasks[3]);
         });
       });
 
-      it('should return tasks with search term in checklist title: case inse', () => {
+      it('should return tasks with search term in checklist title /i', () => {
         ['Check', 'CHECK', 'check', 'cHeCK'].forEach((term) => {
           let returnedTasks = vm.filterBySearchText(tasks, term);
 
@@ -120,5 +125,3 @@ describe.only('Task Column Component', () => {
     });
   });
 });
-
-/* eslint-enable no-exclusive-tests */

@@ -280,42 +280,6 @@ export default {
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
-    // @TODO refactor types to filter names and active filter to active filter name
-    // const types = Object.freeze({
-    //   habit: {
-    //     label: 'habits',
-    //     filters: [
-    //       {label: 'all', default: true},
-    //       {label: 'yellowred'}, // weak
-    //       {label: 'greenblue'}, // strong
-    //     ],
-    //   },
-    //   daily: {
-    //     label: 'dailies',
-    //     filters: [
-    //       {label: 'all', default: true},
-    //       {label: 'due'},
-    //       {label: 'notDue'},
-    //     ],
-    //   },
-    //   todo: {
-    //     label: 'todos',
-    //     filters: [
-    //       {label: 'remaining', default: true}, // active
-    //       {label: 'scheduled'},
-    //       {label: 'complete2'},
-    //     ],
-    //   },
-    //   reward: {
-    //     label: 'rewards',
-    //     filters: [
-    //       {label: 'all', default: true},
-    //       {label: 'custom'}, // all rewards made by the user
-    //       {label: 'wishlist'}, // not user tasks
-    //     ],
-    //   },
-    // });
-
     const icons = Object.freeze({
       habit: habitIcon,
       daily: dailyIcon,
@@ -324,19 +288,11 @@ export default {
       pin: svgPin,
     });
 
-    // let activeFilters = {};
-    // for (let type in types) {
-    //   activeFilters[type] = types[type].filters.find(f => f.default === true);
-    // }
-
     let typeLabel = '';
     let typeFilters = [];
     let activeFilter = {};
 
     return {
-      // types,
-      // activeFilters,
-
       typeLabel,
       typeFilters,
       activeFilter,
@@ -353,15 +309,12 @@ export default {
     };
   },
   created () {
+    // Set Task Column Label
     this.typeLabel = getTypeLabel(this.type);
+    // Get Category Filter Labels
     this.typeFilters = getFilterLabels(this.type);
-    // set default filter for task column
+    // Set default filter for task column
     this.activateFilter(this.type);
-    // eslint-disable-next-line no-console
-    console.log('Column Created:',
-      getTypeLabel(this.type),
-      getFilterLabels(this.type),
-      getActiveFilter(this.type));
   },
   computed: {
     ...mapState({
@@ -437,7 +390,7 @@ export default {
       return this.taskList.length === 0;
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
+      if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.typeFilters[1]);
       }
       return this.user.preferences.dailyDueDefaultView;
@@ -474,7 +427,9 @@ export default {
     },
     dailyDueDefaultView () {
       if (!this.dailyDueDefaultView) return;
-      this.activateFilter('daily', this.typeFilters[1]);
+      if (this.type === 'daily' && this.dailyDueDefaultView) {
+        this.activateFilter('daily', this.typeFilters[1]);
+      }
     },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
