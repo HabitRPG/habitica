@@ -8,11 +8,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 
-module.exports = function buyMysterySet (user, req = {}, analytics, _window) {
-  if (typeof window !== 'undefined') {
-    _window = window;
-  }
-
+module.exports = function buyMysterySet (user, req = {}, analytics) {
   let key = get(req, 'params.key');
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
@@ -27,8 +23,8 @@ module.exports = function buyMysterySet (user, req = {}, analytics, _window) {
     throw new NotFound(i18n.t('mysterySetNotFound', req.language));
   }
 
-  if (typeof _window !== 'undefined' && !req.noConfirm && _window.confirm) { // TODO move to client
-    if (!_window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
+  if (!req.noConfirm && window.confirm) { // TODO move to client
+    if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
   }
 
   each(mysterySet.items, item => {

@@ -14,7 +14,7 @@ import i18n from '../../../../website/common/script/i18n';
 describe('shared.ops.buyMysterySet', () => {
   let user;
   let analytics = {track () {}};
-  let window = {confirm () {}};
+  global.window = {confirm () {}};
 
   beforeEach(() => {
     user = generateUser({
@@ -27,12 +27,12 @@ describe('shared.ops.buyMysterySet', () => {
       },
     });
     sinon.stub(analytics, 'track');
-    sinon.stub(window, 'confirm', () => true);
+    sinon.stub(global.window, 'confirm', () => true);
   });
 
   afterEach(() => {
     analytics.track.restore();
-    window.confirm.restore();
+    global.window.confirm.restore();
   });
 
   context('Mystery Sets', () => {
@@ -81,10 +81,11 @@ describe('shared.ops.buyMysterySet', () => {
 
     context('successful purchases', () => {
       it('does not buy without confirmation', () => {
+        global.window.confirm.restore();
+        sinon.stub(global.window, 'confirm', () => false);
+
         user.purchased.plan.consecutive.trinkets = 1;
-        buyMysterySet(user, {params: {key: '301404'}}, analytics, {confirm: () => {
-          return false;
-        }});
+        buyMysterySet(user, {params: {key: '301404'}}, analytics);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
         expect(user.items.gear.owned).not.to.have.property('weapon_mystery_301404');
@@ -92,7 +93,7 @@ describe('shared.ops.buyMysterySet', () => {
 
       it('buys Steampunk Accessories Set', () => {
         user.purchased.plan.consecutive.trinkets = 1;
-        buyMysterySet(user, {params: {key: '301404'}}, analytics, window);
+        buyMysterySet(user, {params: {key: '301404'}}, analytics);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
@@ -101,7 +102,7 @@ describe('shared.ops.buyMysterySet', () => {
         expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
         expect(analytics.track).to.be.called;
-        expect(window.confirm).to.be.called;
+        expect(global.window.confirm).to.be.called;
       });
     });
   });
