@@ -49,6 +49,8 @@ div
 </template>
 
 <style lang='scss' scoped>
+  @import '~client/assets/scss/colors.scss';
+
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
@@ -61,7 +63,7 @@ div
     }
 
     h2 {
-      color: #fff;
+      color: $white;
       font-size: 32px;
       font-weight: bold;
     }
@@ -80,10 +82,10 @@ div
 
   .notification {
     border-radius: 1000px;
-    background-color: #24cc8f;
+    background-color: $green-10;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: .5em 1em;
-    color: #fff;
+    color: $white;
     margin-top: .5em;
     margin-bottom: .5em;
   }
@@ -98,6 +100,8 @@ div
 </style>
 
 <style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
     overflow-y: scroll !important;
@@ -105,7 +109,7 @@ div
 
   .modal-backdrop.show {
     opacity: 1 !important;
-    background-color: rgba(67, 40, 116, 0.9) !important;
+    background-color: $purple-100 !important;
   }
 
   /* Push progress bar above modals */
@@ -127,7 +131,7 @@ div
   .resting-banner {
     width: 100%;
     height: 40px;
-    background-color: #2995cd;
+    background-color: $blue-10;
     position: fixed;
     top: 0;
     z-index: 1030;
@@ -135,11 +139,9 @@ div
 
     .content {
       height: 24px;
-      font-family: Roboto;
-      font-size: 14px;
       line-height: 1.71;
       text-align: center;
-      color: #ffffff;
+      color: $white;
 
       margin: auto;
     }
@@ -153,12 +155,12 @@ div
       cursor: pointer;
 
       span svg path {
-        stroke: #A9DCF6;
+        stroke: $blue-500;
       }
     }
 
     .separator {
-      color: #50b5e9;
+      color: $blue-100;
       margin: 0px 15px;
     }
 
