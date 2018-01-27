@@ -173,6 +173,7 @@
   "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
   "checkOutProgress": "Check out my progress in Habitica!",
   "cards": "Cards",
+  "sentCardToUser": "You sent a card to <%= profileName %>",
   "cardReceived": "Received a card!",
   "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
   "greetingCard": "Greeting Card",
