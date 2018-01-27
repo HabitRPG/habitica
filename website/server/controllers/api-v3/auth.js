@@ -105,8 +105,9 @@ api.registerLocal = {
       },
       username: {
         notEmpty: {errorMessage: res.t('missingUsername')},
-        isByteLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('passwordConfirmationMatch')},
-        isAlphanumeric: {options: ['en-US'], errorMessage: res.t('passwordConfirmationMatch')},
+        isByteLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
+        // TODO use the constants in the error message
+        isAlphanumeric: {options: ['en-US'], errorMessage: res.t('usernameBadCharacters')},
         // the isAlphanumeric locale is NOT localised because we want to enforce literally a-z and 0-9
       },
       password: {
