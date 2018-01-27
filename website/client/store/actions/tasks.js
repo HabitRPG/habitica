@@ -50,6 +50,14 @@ export async function fetchCompletedTodos (store, forceLoad = false) {
   }
 }
 
+export async function clearCompletedTodos (store) {
+  await axios.post('/api/v3/tasks/clearCompletedTodos');
+  store.state.tasks.data.todos = store.state.tasks.data.todos.filter(task => {
+    return !task.completed;
+  });
+}
+
+
 export function order (store, [rawTasks, tasksOrder]) {
   const tasks = {
     habits: [],

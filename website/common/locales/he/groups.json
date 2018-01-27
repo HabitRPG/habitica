@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "אין לך הרשאה למחוק את ההודעה הזאת!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
+    "assignedTo": "Assigned To",
     "assignedToUser": "Assigned to  <%= userName %>",
     "assignedToMembers": "Assigned to <%= userCount %> members",
     "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",

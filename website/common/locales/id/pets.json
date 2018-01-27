@@ -89,6 +89,18 @@
     "rideLater": "Tunggangi Nanti",
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
+    "keyToPets": "Kunci Kandang Peliharaan",
+    "keyToPetsDesc": "Lepaskan semua Peliharaan standar sehingga kamu bisa mengumpulkannya lagi. (Peliharaan Misi dan Peliharaan langka tidak terpengaruh.)",
+    "keyToMounts": "Kunci Kandang Tunggangan",
+    "keyToMountsDesc": "Lepaskan semua Tunggangan standar sehingga kamu bisa mengumpulkannya lagi. (Tunggangan Misi dan Tunggangan langka tidak terpengaruh.)",
+    "keyToBoth": "Kunci Master Kandang",
+    "keyToBothDesc": "Lepaskan semua Peliharaan dan Tunggangan standar sehingga kamu bisa mengumpulkannya lagi. (Peliharaan/Tunggangan Misi dan Peliharaan/Tunggangan langka tidak terpengaruh.)",
+    "releasePetsConfirm": "Apakah kamu yakin ingin melepaskan Peliharaan standar-mu?",
+    "releasePetsSuccess": "Peliharaan standar-mu telah dilepas!",
+    "releaseMountsConfirm": "Apakah kamu yakin ingin melepaskan Tunggangan standar-mu?",
+    "releaseMountsSuccess": "Tunggangan standar-mu telah dilepas!",
+    "releaseBothConfirm": "Apakah kamu yakin ingin melepas Peliharaan dan Tunggangan standar-mu?",
+    "releaseBothSuccess": "Peliharaan dan Tunggangan telah dilepas!",
     "petKeyName": "Kunci Kandang",
     "petKeyPop": "Bebaskan semua peliharaanmu, biarkan mereka berpetualang, dan beri dirimu kesempatan untuk mulai berburu lagi!",
     "petKeyBegin": "Kunci Kandang: Rasakan <%= title %> Sekali Lagi!",
@@ -123,5 +135,6 @@
     "clickOnPetToFeed": "Klik seekor Peliharaan untuk memberinya makan <%= foodName %> dan lihat ia bertumbuh!",
     "dragThisPotion": "Tarik <%= potionName %> ini ke sebuah Telur dan tetaskan peliharaan baru!",
     "clickOnEggToHatch": "Klik sebuah Telur untuk menggunakan ramuan penetas <%= potionName %>-mu dan tetaskan peliharaan baru!",
-    "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>."
+    "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>.",
+    "clickOnPotionToHatch": "Klik sebuah ramuan penetas untuk menggunakannya pada telur <%= eggName %>-mu dan tetaskan peliharaan baru!"
 }

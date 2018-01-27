@@ -322,7 +322,6 @@ div
     }
   }
 
-
   .message-icon {
     width: 16px;
     color: #686274;
@@ -355,6 +354,10 @@ div
 
   .mount {
     margin-top: -0.2em !important;
+  }
+
+  .photo img {
+    max-width: 100%;
   }
 
   .header {

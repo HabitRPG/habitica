@@ -100,6 +100,11 @@ div
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
   }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1041;
+  }
 </style>
 
 <script>
@@ -207,7 +212,7 @@ export default {
       if (error.response.status >= 400) {
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
           this.$store.dispatch('auth:logout');
         }
 
@@ -222,7 +227,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data.message,
+          text: error.response.data,
           type: 'error',
           timeout: true,
         });
