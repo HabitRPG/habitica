@@ -37,7 +37,8 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
-    it('remove spaces from username', async () => {
+    xit('remove spaces from username', async () => {
+      // TODO can probably delete this test now
       let username = ' usernamewithspaces ';
       let email = 'test@example.com';
       let password = 'password';
