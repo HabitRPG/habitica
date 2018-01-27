@@ -149,7 +149,10 @@ describe('GET /challenges/:challengeId/members', () => {
 
     let usersToGenerate = [];
     for (let i = 0; i < 3; i++) {
-      usersToGenerate.push(generateUser({challenges: [challenge._id]}));
+      usersToGenerate.push(generateUser({
+        challenges: [challenge._id],
+        'profile.name': `${i}profilename`,
+      }));
     }
     let generatedUsers = await Promise.all(usersToGenerate);
     let profileNames = generatedUsers.map(generatedUser => generatedUser.profile.name);
