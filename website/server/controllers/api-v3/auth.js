@@ -78,11 +78,11 @@ function hasBackupAuth (user, networkToRemove) {
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
- * @apiDescription Register a new user with email, username and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Username of the new user
+ * @apiParam (Body) {String} username Login name of the new user. Must be 1-20 characters, containing only a-z and 0-9.
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
