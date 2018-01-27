@@ -58,6 +58,54 @@ describe('POST /user/auth/local/register', () => {
       expect(user.profile.name).to.eql(username.trim());
     });
 
+    context('validates username', () => {
+      const email = 'test@example.com';
+      const password = 'password';
+
+      it('requires to username to be less than 20', async () => {
+        const username = (Date.now() + uuid()).substring(0, 21);
+
+        await expect(api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        })).to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+      });
+
+      it('rejects chracters not in [-_a-zA-Z0-9]', async () => {
+        const username = 'a-zA_Z09*';
+
+        await expect(api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        })).to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+      });
+
+      it('allows only [-_a-zA-Z0-9] characters', async () => {
+        const username = 'a-zA_Z09';
+
+        const user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.auth.local.username).to.eql(username);
+      });
+    });
+
     context('provides default tags and tasks', async () => {
       it('for a generic API consumer', async () => {
         let username = generateRandomUserName();
