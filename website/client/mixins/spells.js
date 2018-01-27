@@ -82,9 +82,7 @@ export default {
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
       let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
-      let msg = this.$t('youCast', {
-        spell: spellText,
-      });
+      let msg = '';
 
       switch (type) {
         case 'task':
@@ -101,6 +99,11 @@ export default {
           break;
         case 'party':
           msg = this.$t('youCastParty', {
+            spell: spellText,
+          });
+          break;
+        default:
+          msg = this.$t('youCast', {
             spell: spellText,
           });
           break;
