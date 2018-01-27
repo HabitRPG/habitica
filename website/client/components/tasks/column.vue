@@ -243,7 +243,6 @@
 
 <script>
 import Task from './task';
-// import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import buyMixin from 'client/mixins/buy';
