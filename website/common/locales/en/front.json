@@ -298,6 +298,7 @@
   "signUpWithSocial": "Sign up with <%= social %>",
   "loginWithSocial": "Log in with <%= social %>",
   "confirmPassword": "Confirm Password",
+  "usernameLimitations": "Login Name must be 1 to 20 characters long, containing only letters a to z, or numbers 0 to 9, or hyphens, or underscores.",
   "usernamePlaceholder": "e.g., HabitRabbit",
   "emailPlaceholder": "e.g., rabbit@example.com",
   "passwordPlaceholder": "e.g., ******************",
