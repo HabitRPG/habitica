@@ -37,10 +37,7 @@
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
           .col-6
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col.col-sm-12.col-xl-8(v-once, v-html="$t('communityGuidelinesIntro')")
-          div.col-md-auto.col-md-12.col-xl-4
-            button.btn.btn-info.btn-follow-guidelines(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+        community-guidelines
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
@@ -229,24 +226,6 @@
   .chat-row {
     margin-top: 2em;
 
-    .community-guidelines {
-      background-color: rgba(135, 129, 144, 0.84);
-      padding: 1em;
-      color: $white;
-      position: absolute;
-      top: 0;
-      height: 150px;
-      margin-top: 2.3em;
-      width: 100%;
-      border-radius: 4px;
-      align-items: center;
-      justify-content: center;
-
-      .btn-follow-guidelines {
-        white-space: pre-line;
-      }
-    }
-
     .new-message-row {
       position: relative;
     }
@@ -316,6 +295,7 @@ import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
+import communityGuidelines from './communityGuidelines';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -346,6 +326,7 @@ export default {
     questDetailsModal,
     groupGemsModal,
     questSidebarSection,
+    communityGuidelines,
   },
   directives: {
     markdown: markdownDirective,
@@ -386,9 +367,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    communityGuidelinesAccepted () {
-      return this.user.flags.communityGuidelinesAccepted;
-    },
     partyStore () {
       return this.$store.state.party;
     },
@@ -459,9 +437,6 @@ export default {
     },
   },
   methods: {
-    acceptCommunityGuidelines () {
-      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
-    },
     load () {
       if (this.isParty) {
         this.searchId = 'party';
