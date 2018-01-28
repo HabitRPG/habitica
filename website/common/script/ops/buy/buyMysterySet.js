@@ -23,10 +23,6 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
     throw new NotFound(i18n.t('mysterySetNotFound', req.language));
   }
 
-  if (!req.noConfirm && window.confirm) { // TODO move to client
-    if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
-  }
-
   each(mysterySet.items, item => {
     user.items.gear.owned[item.key] = true;
     if (analytics) {

@@ -82,7 +82,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, noConfirm: true, type: 'mystery'});
+  let opResult = buyOp(user, {params, type: 'mystery'});
 
   return {
     result: opResult,
