@@ -223,6 +223,8 @@ api.createChallenge = {
 
     if (!req.body.summary) {
       req.body.summary = req.body.name;
+    } else {
+      req.body.summary = req.body.summary.substring(0, Challenge.MAX_SUMMARY_SIZE_FOR_CHALLENGES);
     }
     req.body.leader = user._id;
     req.body.official = user.contributor.admin && req.body.official ? true : false;
