@@ -20,7 +20,7 @@
           div(v-markdown='text', target='_blank')
 
     .modal-footer
-      button.btn.btn-default(@click='close()') {{ $t('close') }}
+      button.btn.btn-secondary(@click='close()') {{ $t('close') }}
       button.btn.btn-primary(@click='saveTodo()') {{ $t('submit') }}
 </template>
 

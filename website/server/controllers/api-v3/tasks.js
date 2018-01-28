@@ -23,6 +23,7 @@ import common from '../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
+import moment from 'moment';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -166,6 +167,16 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
+      // Track when new users (first 7 days) create tasks
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+        res.analytics.track('task create', {
+          uuid: user._id,
+          hitType: 'event',
+          category: 'behavior',
+          taskType: task.type,
+        });
+      }
+
       taskActivityWebhook.send(user.webhooks, {
         type: 'created',
         task,
@@ -241,6 +252,16 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
+
+    tasks.forEach((task) => {
+      res.analytics.track('task create', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        challengeID: challenge._id,
+      });
+    });
   },
 };
 
@@ -536,6 +557,14 @@ api.scoreTask = {
 
     if (!task) throw new NotFound(res.t('taskNotFound'));
 
+    if (task.type === 'daily' || task.type === 'todo') {
+      if (task.completed && direction === 'up') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      } else if (!task.completed && direction === 'down') {
+        throw new NotAuthorized(res.t('sessionOutdated'));
+      }
+    }
+
     if (task.group.approval.required && !task.group.approval.approved) {
       if (task.group.approval.requested) {
         throw new NotAuthorized(res.t('taskRequiresApproval'));
@@ -561,6 +590,7 @@ api.scoreTask = {
           }, manager.preferences.language),
           groupId: group._id,
           taskId: task._id,
+          direction,
         });
         managerPromises.push(manager.save());
       });
@@ -575,23 +605,24 @@ api.scoreTask = {
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') user.fns.randomDrop({task, delta}, req);
+    if (direction === 'up') user.fns.randomDrop({task, delta}, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
+    let taskOrderPromise;
     if (task.type === 'todo') {
       if (!wasCompleted && task.completed) {
         // @TODO: mongoose's push and pull should be atomic and help with
         // our concurrency issues. If not, we need to use this update $pull and $push
-        // await user.update({
-        //   $pull: { 'tasksOrder.todos': task._id },
-        // }).exec();
-        user.tasksOrder.todos.pull(task._id);
+        taskOrderPromise = user.update({
+          $pull: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.pull(task._id);
       } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
-        // await user.update({
-        //   $push: { 'tasksOrder.todos': task._id },
-        // }).exec();
-        user.tasksOrder.todos.push(task._id);
+        taskOrderPromise = user.update({
+          $push: { 'tasksOrder.todos': task._id },
+        }).exec();
+        // user.tasksOrder.todos.push(task._id);
       }
     }
 
@@ -609,10 +640,12 @@ api.scoreTask = {
       user.markModified('_ABtests');
     }
 
-    let results = await Bluebird.all([
+    let promises = [
       user.save(),
       task.save(),
-    ]);
+    ];
+    if (taskOrderPromise) promises.push(taskOrderPromise);
+    let results = await Bluebird.all(promises);
 
     let savedUser = results[0];
 
@@ -642,16 +675,16 @@ api.scoreTask = {
       }
     }
 
-    /*
-     * TODO: enable score task analytics if desired
-    res.analytics.track('score task', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      direction
-    });
-    */
+    // Track when new users (first 7 days) score tasks
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      res.analytics.track('task score', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        direction,
+      });
+    }
   },
 };
 

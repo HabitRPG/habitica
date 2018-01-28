@@ -58,6 +58,16 @@ api.createGroupTasks = {
     let tasks = await createTasks(req, res, {user, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    tasks.forEach((task) => {
+      res.analytics.track('task create', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        groupID: group._id,
+      });
+    });
   },
 };
 
@@ -243,7 +253,7 @@ api.unassignTask = {
     let group = await Group.getGroup({user, groupId: task.group.id, fields});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     await group.unlinkTask(task, assignedUser);
 
@@ -299,20 +309,22 @@ api.approveTask = {
     task.group.approval.approvingUser = user._id;
     task.group.approval.approved = true;
 
-    assignedUser.addNotification('GROUP_TASK_APPROVED', {
-      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
-      groupId: group._id,
-    });
-
-    assignedUser.addNotification('SCORED_TASK', {
-      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
-      scoreTask: task,
-    });
-
-    let managerIds = Object.keys(group.managers);
+    // Get Managers
+    const managerIds = Object.keys(group.managers);
     managerIds.push(group.leader);
-    let managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+    const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
 
+    // Get task direction
+    const firstManagerNotifications = managers[0].notifications;
+    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
+      return notification.data.taskId === task._id;
+    });
+    let direction = 'up';
+    if (firstManagerNotifications[firstNotificationIndex]) {
+      direction = firstManagerNotifications[firstNotificationIndex].direction;
+    }
+
+    // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
       let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
@@ -323,6 +335,18 @@ api.approveTask = {
         manager.notifications.splice(notificationIndex, 1);
         managerPromises.push(manager.save());
       }
+    });
+
+    // Add new notifications to user
+    assignedUser.addNotification('GROUP_TASK_APPROVED', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      groupId: group._id,
+    });
+
+    assignedUser.addNotification('SCORED_TASK', {
+      message: res.t('yourTaskHasBeenApproved', {taskText: task.text}),
+      scoreTask: task,
+      direction,
     });
 
     managerPromises.push(task.save());

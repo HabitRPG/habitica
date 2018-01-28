@@ -18,6 +18,7 @@ import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 
+const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -200,11 +201,11 @@ api.postChat = {
 
     let [savedGroup] = await Bluebird.all(toSave);
 
-    // real-time chat is only enabled for private groups (for now only for parties)
+    // realtime chat is only enabled for private groups (for now only for parties)
     if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients
-      pusher.trigger(`presence-group-${savedGroup._id}`, 'new-chat', newChatMessage, req.body.pusherSocketId);
+      pusher.trigger(`presencegroup${savedGroup._id}`, 'newchat', newChatMessage, req.body.pusherSocketId);
     }
 
     if (chatUpdated) {
@@ -304,7 +305,6 @@ api.flagChat = {
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
-
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
@@ -320,7 +320,7 @@ api.flagChat = {
     let message = _.find(group.chat, {id: req.params.chatId});
 
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-
+    if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
     let update = {$set: {}};
 
     // Log user ids that have flagged the message

@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  buy-gems-modal(v-if="isUserLoaded")
+  buy-gems-modal(v-if='user')
   modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
@@ -69,16 +69,20 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-10 {{ $t('donateText3') }}
-          .col-2
-            button.btn.btn-donate(@click="donate()")
+          .col-12.col-md-10 {{ $t('donateText3') }}
+          .col-12.col-md-2
+            button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
+            .btn.btn-contribute(v-else)
+              a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
+                .svg-icon.heart(v-html="icons.heart")
+                .text {{ $t('companyContribute') }}
     .row
       .col-12
         hr
     .row
-      .col-5
+      .col-12.col-md-5
         | © 2017 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
@@ -98,9 +102,9 @@
             a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
             a.btn.btn-default(@click="makeAdmin()") Make Admin
             a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
-      .col-2.text-center
+      .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
-      .col-5.text-right
+      .col-12.col-md-5.text-right
         template(v-if="!isExpandedFooter")
           span
             a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
@@ -211,7 +215,7 @@
     padding: 2em;
   }
 
-  .btn-donate {
+  .btn-contribute {
     background: #c3c0c7;
     box-shadow: none;
     border-radius: 4px;
@@ -369,7 +373,7 @@ export default {
         eventAction: 'click',
         eventLabel: 'Gems > Donate',
       });
-      this.$root.$emit('bv::show::modal', 'buy-gems');
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };

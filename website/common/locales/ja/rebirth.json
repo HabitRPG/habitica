@@ -21,7 +21,7 @@
     "rebirthOrb": "レベル <%= level %> で「転生のオーブ」を使い、再スタートしました",
     "rebirthOrb100": "レベル100以上に達成したので「転生のオーブ」を使って再スタートしました",
     "rebirthOrbNoLevel": "「転生のオーブ」を使い、再スタートしました",
-    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthPop": "あなたのキャラクターを「即座に」レベル１から再スタートさせます。実績と収集したアイテム、装備、タスクとその履歴は残ります。【注意】この効果は購入ボタンを押すとすぐに発動します！",
     "rebirthName": "転生のオーブ",
     "reborn": "転生しました、最大レベル<%= reLevel %>",
     "confirmReborn": "本当によろしいですか？",

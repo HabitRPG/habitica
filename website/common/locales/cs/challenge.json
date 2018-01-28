@@ -101,8 +101,8 @@
     "addTask": "Přidat úkol",
     "editChallenge": "Upravit výzvu",
     "challengeDescription": "Popis výzvy",
-    "selectChallengeWinnersDescription": "Výber výherce z účastníků výzvy",
-    "awardWinners": "Odměn výherce",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Chceš odstranit tuto výzvu",
     "deleteChallenge": "Odstranit výzvu",
     "challengeNamePlaceholder": "Jak se jmenuje tvoje výzva?",
@@ -111,7 +111,7 @@
     "challengeDescriptionPlaceholder": "Use this section to go into more detail about everything that Challenge participants should know about your Challenge.",
     "challengeGuild": "Add to",
     "challengeMinimum": "Minimum 1 Gem for public Challenges (helps prevent spam, it really does).",
-    "participantsTitle": "Participants",
+    "participantsTitle": "účastníci",
     "shortName": "Short Name",
     "shortNamePlaceholder": "What short tag should be used to identify your Challenge?",
     "updateChallenge": "Update Challenge",
@@ -127,5 +127,7 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

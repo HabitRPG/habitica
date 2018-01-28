@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#challenge-modal(:title="title", size='lg')
+  b-modal#challenge-modal(:title="title", size='lg', @shown="shown")
     .form
       .form-group
         label
@@ -8,7 +8,7 @@
       .form-group
         label
           strong(v-once) {{$t('shortName')}} *
-        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName" :disabled="!creating")
+        b-form-input(type="text", :placeholder="$t('shortNamePlaceholder')", v-model="workingChallenge.shortName")
       .form-group
         label
           strong(v-once) {{$t('challengeSummary')}} *
@@ -36,12 +36,12 @@
             :key="group.key",
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(type="checkbox",
-                :value='group.key',
+                :value="group.key",
+                :id="group.key",
                  v-model="workingChallenge.categories")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ $t(group.label) }}
+              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
       // @TODO: Implement in V2 .form-group
         label
@@ -57,9 +57,10 @@
             You do not have enough gems to create a Tavern challenge
             // @TODO if buy gems button is added, add analytics tracking to it
             // see https://github.com/HabitRPG/habitica/blob/develop/website/views/options/social/challenges.jade#L134
-          button.btn.btn-primary(v-once, v-if='creating', @click='createChallenge()') {{$t('createChallengeCloneTasks')}}
-          button.btn.btn-primary(v-once, v-if='!creating', @click='updateChallenge()') {{$t('updateChallenge')}}
-        .col-12.text-center(v-if='creating')
+          button.btn.btn-primary(v-if='creating && !cloning', @click='createChallenge()', :disabled='loading') {{$t('createChallengeAddTasks')}}
+          button.btn.btn-primary(v-once, v-if='cloning', @click='createChallenge()', :disabled='loading') {{$t('createChallengeCloneTasks')}}
+          button.btn.btn-primary(v-once, v-if='!creating && !cloning', @click='updateChallenge()') {{$t('updateChallenge')}}
+        .col-12.text-center
           p(v-once) {{$t('challengeMinimum')}}
 </template>
 
@@ -123,7 +124,7 @@
     }
 
     .category-box {
-      top: -120px !important;
+      top: 20em !important;
       z-index: 10;
     }
   }
@@ -227,27 +228,11 @@ export default {
       showCategorySelect: false,
       categoryOptions,
       categoriesHashByKey,
+      loading: false,
       groups: [],
     };
   },
-  async mounted () {
-    this.groups = await this.$store.dispatch('guilds:getMyGuilds');
-    if (this.user.party._id) {
-      let party = await this.$store.dispatch('guilds:getGroup', {groupId: 'party'});
-      this.groups.push({
-        name: party.name,
-        _id: party._id,
-        privacy: 'private',
-      });
-    }
-
-    this.groups.push({
-      name: this.$t('publicChallengesTitle'),
-      _id: TAVERN_ID,
-    });
-
-    this.setUpWorkingChallenge();
-  },
+  async mounted () {},
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;
@@ -313,6 +298,25 @@ export default {
     },
   },
   methods: {
+    async shown () {
+      this.groups = await this.$store.dispatch('guilds:getMyGuilds');
+      await this.$store.dispatch('party:getParty');
+      const party = this.$store.state.party.data;
+      if (party._id) {
+        this.groups.push({
+          name: party.name,
+          _id: party._id,
+          privacy: 'private',
+        });
+      }
+
+      this.groups.push({
+        name: this.$t('publicChallengesTitle'),
+        _id: TAVERN_ID,
+      });
+
+      this.setUpWorkingChallenge();
+    },
     setUpWorkingChallenge () {
       this.resetWorkingChallenge();
 
@@ -353,6 +357,7 @@ export default {
       this.$store.state.workingChallenge = {};
     },
     async createChallenge () {
+      this.loading = true;
       // @TODO: improve error handling, add it to updateChallenge, make errors translatable. Suggestion: `<% fieldName %> is required` where possible, where `fieldName` is inserted as the translatable string that's used for the field header.
       let errors = [];
 
@@ -366,6 +371,7 @@ export default {
 
       if (errors.length > 0) {
         alert(errors.join('\n'));
+        this.loading = false;
         return;
       }
 

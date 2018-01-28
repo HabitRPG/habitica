@@ -127,7 +127,7 @@
     "questEggTurtleAdjective": "penuh damai",
     "questEggArmadilloText": "Armadilo",
     "questEggArmadilloMountText": "Armadilo",
-    "questEggArmadilloAdjective": "berlapis baja",
+    "questEggArmadilloAdjective": "berbaju zirah",
     "questEggCowText": "Sapi",
     "questEggCowMountText": "Sapi",
     "questEggCowAdjective": "melenguh",
@@ -161,6 +161,9 @@
     "questEggYarnText": "Benang",
     "questEggYarnMountText": "Karpet Terbang",
     "questEggYarnAdjective": "wol",
+    "questEggPterodactylText": "Pterodaktil",
+    "questEggPterodactylMountText": "Pterodaktil",
+    "questEggPterodactylAdjective": "penuh kepercayaan",
     "eggNotes": "Gunakan ramuan penetas kepada telur ini, dan ia akan menetas menjadi <%= eggText(locale) %> yang <%= eggAdjective(locale) %>;",
     "hatchingPotionBase": "Biasa",
     "hatchingPotionWhite": "Putih",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Cupid",
     "hatchingPotionShimmer": "Berkilau",
     "hatchingPotionFairy": "Peri",
+    "hatchingPotionStarryNight": "Malam Berbintang",
     "hatchingPotionNotes": "Berikan ini kepada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan kepada telur peliharaan yang didapat dari misi.",
     "foodMeat": "Daging",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Permen Kayu Manis",
     "foodSaddleText": "Pelana",
     "foodSaddleNotes": "Membuat peliharaanmu langsung bisa ditunggangi.",
+    "foodSaddleSellWarningNote": "Hei! Ini adalah item yang lumayan berguna! Apakah kamu familiar dengan cara menggunakan sebuah Pelana untuk peliharaanmu?",
     "foodNotes": "Beri makan peliharaanmu agar tumbuh menjadi tunggangan yang kuat."
 }

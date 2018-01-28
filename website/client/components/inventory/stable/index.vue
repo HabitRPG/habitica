@@ -1,7 +1,7 @@
 <template lang="pug">
   // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar.col-3.hidden-xs-down
+    .standard-sidebar.d-none.d-sm-block
       div
         #npmMattStable.npc_matt
         b-popover(
@@ -23,28 +23,28 @@
             v-for="petGroup in petGroups",
             :key="petGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[petGroup.key].selected",
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
+                :disabled="viewOptions[petGroup.key].animalCount == 0",
+                :id="petGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ petGroup.label }}
+              label.custom-control-label(v-once, :for="petGroup.key") {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
             :key="mountGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[mountGroup.key].selected",
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                :disabled="viewOptions[mountGroup.key].animalCount == 0",
+                :id="mountGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ mountGroup.label }}
+              label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
           h3.float-left Hide Missing
@@ -54,7 +54,7 @@
             @change="updateHideMissing"
           )
 
-    .standard-page.col-12.col-sm-9
+    .standard-page
       .clearfix
         h1.float-left.mb-4.page-header(v-once) {{ $t('stable') }}
 
@@ -186,6 +186,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="context")
             foodItem(
@@ -867,7 +868,7 @@
         }
 
         if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key}`;
+          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.isHatchable()) {

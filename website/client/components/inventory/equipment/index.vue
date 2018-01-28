@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .standard-sidebar
+  .standard-sidebar.d-none.d-sm-block
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -12,10 +12,9 @@
           v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ group.label }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="group.key")
+            label.custom-control-label(v-once, :for="group.key") {{ group.label }}
 
   .standard-page
     .clearfix
@@ -227,7 +226,7 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   mounted () {
@@ -255,7 +254,7 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
+      return sortBy === 'sortByName' ? _sortBy(items, sortGearTypeMap[sortBy]) : _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
     },
     drawerToggled (newState) {
       this.$store.state.equipmentDrawerOpen = newState;

@@ -257,6 +257,16 @@ api.createChallenge = {
       privacy: group.privacy,
     };
 
+    res.analytics.track('challenge create', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: response._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
+
     res.respond(201, response);
   },
 };
@@ -315,6 +325,16 @@ api.joinChallenge = {
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
+    res.analytics.track('challenge join', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
+
     res.respond(200, response);
   },
 };
@@ -351,6 +371,17 @@ api.leaveChallenge = {
 
     // Unlink challenge's tasks from user's tasks and save the challenge
     await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+
+    res.analytics.track('challenge leave', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -555,7 +586,7 @@ api.exportChallengeCsv = {
         'challenge.id': challengeId,
         userId: {$exists: true},
       }).sort({userId: 1, text: 1})
-        .select('userId type text value notes')
+        .select('userId type text value notes streak')
         .lean().exec(),
     ]);
 
@@ -570,7 +601,9 @@ api.exportChallengeCsv = {
         index++;
       }
 
-      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes);
+      const streak = task.streak || 0;
+
+      resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes, streak);
     });
 
     // The first row is going to be UUID name Task Value Notes repeated n times for the n challenge tasks
@@ -578,7 +611,7 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
-    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes'));
+    _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
 
     res.set({
       'Content-Type': 'text/csv',
@@ -677,6 +710,17 @@ api.deleteChallenge = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
+
+    res.analytics.track('challenge delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -715,6 +759,18 @@ api.selectChallengeWinner = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
+
+    res.analytics.track('challenge close', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      challengeWinnerID: winner._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };

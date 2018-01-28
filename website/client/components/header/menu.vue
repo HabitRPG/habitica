@@ -3,15 +3,14 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-md(type="dark")
+  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-lg(type="dark")
     .navbar-header
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-md-block.d-none.d-xl-none
       .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
-
     b-nav-toggle(target='nav_collapse')
-    b-collapse#nav_collapse.collapse.navbar-collapse(is-nav)
-      ul.navbar-nav.mr-auto
+    b-collapse#nav_collapse.collapse.navbar-collapse.justify-content-between.flex-wrap(is-nav)
+      .ul.navbar-nav
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
           a.nav-link(v-once) {{ $t('tasks') }}
         router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
@@ -46,7 +45,7 @@ div
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        router-link.nav-item.dropdown(tag="li", to="/help", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
+        router-link.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
           a.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
@@ -56,7 +55,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-      .d-flex.align-items-center
+      .user-menu.d-flex.align-items-center
         .item-with-icon(v-if="userHourglasses > 0")
           .svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
@@ -76,17 +75,17 @@ div
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/utils.scss';
 
-  @media only screen and (max-width: 1280px) {
+  @media only screen and (max-width: 1305px) {
     .nav-link {
       padding: .8em 1em !important;
+    }
+
+    .navbar-header {
+      margin-right: 5px !important;
     }
   }
 
   @media only screen and (max-width: 1200px) {
-    .navbar-header {
-      margin-right: 0px;
-    }
-
     .gryphon {
       background-image: url('~assets/images/melior@3x.png');
       width: 30px;
@@ -98,18 +97,45 @@ div
     }
 
     .svg-icon.gryphon.d-sm-block {
-
       position: absolute;
       left: calc(50% - 30px);
       top: 1em;
+    }
+
+    .nav-item .nav-link {
+      font-size: 14px !important;
+      padding: 16px 12px !important;
     }
   }
 
   @media only screen and (max-width: 990px) {
     #nav_collapse {
       margin-top: 0.6em;
-      background-color: $purple-200;
+      flex-direction: row !important;
+      max-height: 650px;
+      overflow: auto;
     }
+
+    .navbar-nav {
+      width: 100%;
+      background: $purple-100;
+    }
+
+    .user-menu {
+      flex-direction: column !important;
+      align-items: left !important;
+      background: $purple-100;
+      width: 100%;
+
+      .item-with-icon {
+        width: 100%;
+        padding-bottom: 1em;
+      }
+    }
+  }
+
+  #nav_collapse {
+    display: flex;
   }
 
   nav.navbar {
@@ -135,7 +161,7 @@ div
       color: $white !important;
       font-weight: bold;
       line-height: 1.5;
-      padding: 16px 24px;
+      padding: 16px 20px;
       transition: none;
     }
 
@@ -305,6 +331,7 @@ export default {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
     sync () {
+      this.$root.$emit('habitica::resync-requested');
       return Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),

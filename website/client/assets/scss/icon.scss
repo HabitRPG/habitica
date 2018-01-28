@@ -31,3 +31,11 @@
 .inline {
   display: inline-block;
 }
+
+.toggle-up, .toggle-down {
+  cursor: pointer;
+
+  .svg-icon {
+    width: 20px;
+  }
+}

@@ -29,7 +29,7 @@
     "either": "Ambos",
     "createChallenge": "Criar Desafio",
     "createChallengeAddTasks": "Adicionar tarefa de desafio",
-    "createChallengeCloneTasks": "Clone Challenge Tasks",
+    "createChallengeCloneTasks": "Clonar Tarefas do Desafio",
     "addTaskToChallenge": "Adicionar tarefa",
     "discard": "Descartar",
     "challengeTitle": "Título do Desafio",
@@ -101,8 +101,8 @@
     "addTask": "Adicionar tarefa",
     "editChallenge": "Editar o desafio",
     "challengeDescription": "Descrição do desafio",
-    "selectChallengeWinnersDescription": "Selecionar os vencedores participantes do desafio",
-    "awardWinners": "Premiar Vencedores",
+    "selectChallengeWinnersDescription": "Selecione um vencedor dos participantes do desafio.",
+    "awardWinners": "Vencedor do desafio",
     "doYouWantedToDeleteChallenge": "Você deseja deletar este desafio?",
     "deleteChallenge": "Deletar Desafio",
     "challengeNamePlaceholder": "Qual é o nome do seu desafio?",
@@ -127,5 +127,7 @@
     "locationRequired": "A localização do desafio é necessária ('Adicionar a')",
     "categoiresRequired": "Uma ou mais categorias devem ser selecionadas",
     "viewProgressOf": "Ver Progresso De",
-    "selectMember": "Selecione um Membro"
+    "selectMember": "Selecione um Membro",
+    "confirmKeepChallengeTasks": "Deseja manter as tarefas do desafio?",
+    "selectParticipant": "Selecione um Participante"
 }

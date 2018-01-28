@@ -11,8 +11,11 @@ export default {
     profile,
   },
   mounted () {
-    this.$store.state.profileUser = {};
-    this.$root.$emit('bv::show::modal', 'profile');
+    // @TODO: Do we need this page?
+    this.$root.$emit('habitica:show-profile', {
+      user: {},
+      startingPage: 'profile',
+    });
   },
 };
 </script>

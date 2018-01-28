@@ -29,7 +29,7 @@
     "either": "Yang mana saja",
     "createChallenge": "Buat Tantangan",
     "createChallengeAddTasks": "Tambahkan Tugas Tantangan",
-    "createChallengeCloneTasks": "Clone Challenge Tasks",
+    "createChallengeCloneTasks": "Duplikat Tugas Tantangan",
     "addTaskToChallenge": "Tambahkan Tugas",
     "discard": "Buang",
     "challengeTitle": "Judul Tantangan",
@@ -102,7 +102,7 @@
     "editChallenge": "Edit Tantangan",
     "challengeDescription": "Deskripsi Tantangan",
     "selectChallengeWinnersDescription": "Pilih pemenang dari peserta Tantangan",
-    "awardWinners": "Pemenang Penghargaan",
+    "awardWinners": "Hadiahi Pemenang",
     "doYouWantedToDeleteChallenge": "Apakah anda mau menghapus Tantangan ini?",
     "deleteChallenge": "Hapus Tantangan",
     "challengeNamePlaceholder": "Apa nama Tantangan anda?",
@@ -127,5 +127,7 @@
     "locationRequired": "Lokasi tantangan diperlukan ('Tambahkan ke')",
     "categoiresRequired": "Satu atau lebih kategori harus dipilih",
     "viewProgressOf": "Lihat Progress Dari",
-    "selectMember": "Pilih Anggota"
+    "selectMember": "Pilih Anggota",
+    "confirmKeepChallengeTasks": "Apakah kamu mau menyimpan tugas dari tantangan ini?",
+    "selectParticipant": "Pilih Seorang Peserta"
 }

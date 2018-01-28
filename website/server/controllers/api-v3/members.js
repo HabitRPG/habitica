@@ -246,6 +246,10 @@ function _getMembersForItem (type) {
           addComputedStats = true;
         }
       }
+
+      if (req.query.search) {
+        query['profile.name'] = {$regex: req.query.search};
+      }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
         query['invitations.guilds.id'] = group._id;
@@ -409,7 +413,10 @@ api.getChallengeMemberProgress = {
     // manually call toJSON with minimize: true so empty paths aren't returned
     let response = member.toJSON({minimize: true});
     delete response.challenges;
-    response.tasks = chalTasks.map(chalTask => chalTask.toJSON({minimize: true}));
+    response.tasks = chalTasks.map(chalTask => {
+      chalTask.checklist = []; // Clear checklists as they are private
+      return chalTask.toJSON({minimize: true});
+    });
     res.respond(200, response);
   },
 };
@@ -476,7 +483,8 @@ api.sendPrivateMessage = {
     if (!receiver) throw new NotFound(res.t('userNotFound'));
 
     let objections = sender.getObjectionsToInteraction('send-private-message', receiver);
-    if (objections.length > 0) throw new NotAuthorized(res.t(objections[0]));
+
+    if (objections.length > 0 && !sender.isAdmin()) throw new NotAuthorized(res.t(objections[0]));
 
     await sender.sendMessage(receiver, { receiverMsg: message });
 

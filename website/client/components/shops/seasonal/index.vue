@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.seasonal
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -11,10 +11,9 @@
             v-for="category in filterCategories",
             :key="category.key",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.value }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -77,7 +76,7 @@
       div(
         v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
       )
-        h3.classgroup
+        h3.classgroup(v-if='categoryGroup !== "spells"')
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 

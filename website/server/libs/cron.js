@@ -301,10 +301,6 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
-    // Only check one day back
-    let dailiesDaysMissed = daysMissed;
-    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
-
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -315,7 +311,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < dailiesDaysMissed; i++) {
+      for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
@@ -325,8 +321,8 @@ export function cron (options = {}) {
             user.stats.buffs.stealth--;
             EvadeTask++;
           }
-          if (multiDaysCountAsOneDay) break;
         }
+        if (multiDaysCountAsOneDay) break;
       }
 
       if (scheduleMisses > EvadeTask) {
@@ -413,7 +409,7 @@ export function cron (options = {}) {
   // preen user history so that it doesn't become a performance problem
   // also for subscribed users but differently
   // TODO also do while resting in the inn. Note that later we'll be allowing the value/color of tasks to change while sleeping (https://github.com/HabitRPG/habitica/issues/5232), so the code in performSleepTasks() might be best merged back into here for that. Perhaps wait until then to do preen history for sleeping users.
-  preenUserHistory(user, tasksByType, user.preferences.timezoneOffset);
+  preenUserHistory(user, tasksByType);
 
   if (perfect && atLeastOneDailyDue) {
     user.achievements.perfect++;

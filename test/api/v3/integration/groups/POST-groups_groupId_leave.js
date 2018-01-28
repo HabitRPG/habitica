@@ -10,6 +10,8 @@ import { v4 as generateUUID } from 'uuid';
 import {
   each,
 } from 'lodash';
+import { model as User } from '../../../../../website/server/models/user';
+import * as payments from '../../../../../website/server/libs/payments';
 
 describe('POST /groups/:groupId/leave', () => {
   let typesOfGroups = {
@@ -262,6 +264,47 @@ describe('POST /groups/:groupId/leave', () => {
       await userWithNonExistentParty.sync();
 
       expect(userWithNonExistentParty.party).to.eql({});
+    });
+  });
+
+  context('Leaving a group plan', () => {
+    it('cancels the free subscription', async () => {
+      // Create group
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Private Guild',
+          type: 'guild',
+        },
+        members: 1,
+      });
+
+      let leader = groupLeader;
+      let member = members[0];
+      let userWithFreePlan = await User.findById(leader._id).exec();
+
+      // Create subscription
+      let paymentData = {
+        user: userWithFreePlan,
+        groupId: group._id,
+        sub: {
+          key: 'basic_3mo',
+        },
+        customerId: 'customer-id',
+        paymentMethod: 'Payment Method',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
+      };
+      await payments.createSubscription(paymentData);
+      await member.sync();
+      expect(member.purchased.plan.planId).to.equal('group_plan_auto');
+      expect(member.purchased.plan.dateTerminated).to.not.exist;
+
+      // Leave
+      await member.post(`/groups/${group._id}/leave`);
+      await member.sync();
+      expect(member.purchased.plan.dateTerminated).to.exist;
     });
   });
 });
