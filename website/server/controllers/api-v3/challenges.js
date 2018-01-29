@@ -592,13 +592,12 @@ api.exportChallengeCsv = {
 
     let resArray = members.map(member => [member._id, member.profile.name]);
 
-    // We assume every user in the challenge as at least some data so we can say that members[0] tasks will be at tasks [0]
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
-      if (task.userId !== lastUserId) {
-        lastUserId = task.userId;
+      while (task.userId !== lastUserId) {
         index++;
+        lastUserId = resArray[index][0]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;
@@ -611,7 +610,17 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
+
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+
+    // Remove lines for users without tasks info
+    resArray = resArray.filter((line) => {
+      if (line.length === 2) { // only user data ([id, profile name]), no task data
+        return false;
+      }
+
+      return true;
+    });
 
     res.set({
       'Content-Type': 'text/csv',
