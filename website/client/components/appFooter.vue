@@ -10,7 +10,7 @@
         h3
           a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
       .col-12.col-md-2
-        h3 Company
+        h3 {{ $t('footerCompany') }}
         ul
           li
            router-link(to='/static/features') {{ $t('companyAbout') }}
@@ -29,7 +29,7 @@
           li
            router-link(to='/static/contact') {{ $t('contactUs') }}
       .col-12.col-md-2
-        h3 Community
+        h3 {{ $t('footerCommunity') }}
         ul
           li
             a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
@@ -50,7 +50,7 @@
       .col-12.col-md-6
         .row
           .col-6
-            h3 Developers
+            h3 {{ $t('footerDevs') }}
             ul
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
