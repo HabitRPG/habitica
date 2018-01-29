@@ -51,7 +51,7 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next) {
+schema.pre('init', function ensureSummaryIsFetched () {
   const chal = this;
 
   // The Vue website makes the summary be mandatory for all new challenges, but the
@@ -62,7 +62,7 @@ schema.pre('init', function ensureSummaryIsFetched (next) {
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
-  next();
+  //next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)

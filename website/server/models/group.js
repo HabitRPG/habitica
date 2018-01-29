@@ -139,7 +139,7 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next) {
+schema.pre('init', function ensureSummaryIsFetched () {
   const group = this;
 
   // The Vue website makes the summary be mandatory for all new groups, but the
@@ -152,7 +152,7 @@ schema.pre('init', function ensureSummaryIsFetched (next) {
   if (!group.summary) {
     group.summary = group.name ? group.name.substring(0, MAX_SUMMARY_SIZE_FOR_GUILDS) : ' ';
   }
-  next();
+  //next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
