@@ -108,7 +108,7 @@
     "vue-style-loader": "^3.0.0",
     "vue-template-compiler": "^2.5.2",
     "vuedraggable": "^2.15.0",
-    "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#af96f357a746463dc0461ddf5c2c13b7a4e1f484",
+    "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
     "webpack": "^2.2.1",
     "webpack-merge": "^4.0.0",
     "winston": "^2.1.0",
