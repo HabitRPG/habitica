@@ -7,7 +7,6 @@ import * as Tasks from './task';
 import { model as User } from './user';
 import {
   model as Group,
-  TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
@@ -297,8 +296,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Delete the challenge
   await this.model('Challenge').remove({_id: challenge._id}).exec();
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+  // Refund the leader if the challenge is deleted (no winner chosen)
+  if (brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 
