@@ -729,7 +729,7 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepRes = common.ops.sleep(user);
+    let sleepRes = common.ops.sleep(user, req, res.analytics);
     await user.save();
     res.respond(200, ...sleepRes);
   },
@@ -787,7 +787,6 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-
     buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
