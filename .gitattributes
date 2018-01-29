@@ -1,0 +1,21 @@
+*.css text
+*.html text
+*.js text
+*.json text
+*.md text
+*.sh text
+*.scss text
+*.svg text
+*.txt text
+*.vue text
+*.yml text
+
+*.gif binary
+*.ico binary
+*.mp3 binary
+*.mp4 binary
+*.ogg binary
+*.png binary
+*.zip binary
+
+* text eol=lf
