@@ -172,7 +172,6 @@ describe('shared.ops.scoreTask', () => {
       scoreTask({ user: ref.afterUser, task: task2, direction: 'down' });
       expect(ref.afterUser.achievements.streak).to.equal(1);
     });
-
   });
 
   describe('scores', () => {
