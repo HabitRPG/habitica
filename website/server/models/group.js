@@ -152,7 +152,6 @@ schema.pre('init', function ensureSummaryIsFetched () {
   if (!group.summary) {
     group.summary = group.name ? group.name.substring(0, MAX_SUMMARY_SIZE_FOR_GUILDS) : ' ';
   }
-  //next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)

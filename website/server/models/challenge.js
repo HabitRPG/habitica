@@ -61,7 +61,6 @@ schema.pre('init', function ensureSummaryIsFetched () {
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
-  //next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
