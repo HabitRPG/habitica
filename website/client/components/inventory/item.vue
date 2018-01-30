@@ -1,7 +1,7 @@
 <template lang="pug">
 div(v-if="emptyItem")
   .item-wrapper
-    .item.item-empty
+    .item.item-empty.pet-slot
       .item-content
     span.item-label(v-if="label") {{ label }}
 div(v-else)
