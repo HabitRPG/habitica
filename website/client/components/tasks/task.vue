@@ -84,17 +84,16 @@
               .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
-            #tags-popover
             b-popover(
               v-if="hasTags",
               :target="`tags-icon-${task._id}`",
               triggers="hover",
               placement="bottom",
-              container="tags-popover",
             )
-              .d-flex.align-items-center.tags-container
-                .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
-                .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
+              .tags-popover
+                .d-flex.align-items-center.tags-container
+                  .tags-popover-title(v-once) {{ `${$t('tags')}:` }}
+                  .tag-label(v-for="tag in getTagsFor(task)") {{tag}}
 
       // Habits right side control
       .right-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.down.bg")
@@ -455,7 +454,7 @@
     }
   }
 
-  #tags-popover /deep/ {
+  .tags-popover /deep/ {
     .tags-container {
       flex-wrap: wrap;
       margin-top: -3px;
