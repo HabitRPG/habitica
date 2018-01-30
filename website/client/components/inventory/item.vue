@@ -6,7 +6,7 @@ div(v-if="emptyItem")
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper(@click="click", :id="itemId")
-    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }")
+    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }").pet-slot
       slot(name="itemBadge", :item="item")
       span.item-content(
         :class="itemContentClass"
@@ -23,7 +23,7 @@ div(v-else)
 </template>
 
 <style scoped>
-  .item {
+  .pet-slot {
     margin: 0 2px;
   }
 </style>
