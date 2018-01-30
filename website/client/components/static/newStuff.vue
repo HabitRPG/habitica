@@ -4,25 +4,35 @@
       .align-self-center.right-margin(:class='baileyClass')
       .media-body
         h1.align-self-center(v-markdown='$t("newStuff")')
-    h2 1/23/2018 - JANUARY SUBSCRIBER ITEMS, RESOLUTION PLOT-LINE, AND GUILDS FOR GOALS
+    h2 1/30/2018 - HABITICA BIRTHDAY CELEBRATION, LAST CHANCE FOR WINTER WONDERLAND ITEMS, AND CONTINUED RESOLUTION PLOT-LINE
     hr
-    h3 January Subscriber Items Revealed!
-    p(v-markdown='"The January Subscriber Item has been revealed: the Frost Sprite Item Set! You only have until January 31 to receive the item set when you [subscribe](/settings/subscription). If you\'re already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!"')
-    p Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.
-    .small by Beffymaroo
-    .promo_mystery_201801.center-block
-    h3 Resolution Plot-Line: An Overheard Conversation
-    p As you stride through the streets of Habit City, you overhear a worried conference of whispers. Curious, you peek in to Productivity Plaza and discover Lemoness and Beffymaroo in solemn conversation.
-    p "On one hand, there's always the risk of discouragement when the eagerness of a fresh New Year's resolution gives way to everyday difficulties," Lemoness is saying. "But that just doesn't seem to match these reports. Habiticans who were making real progress are abruptly giving up all their goals overnight."
-    p "I agree," says Beffymaroo. "And look at these maps -- all the reports are happening in the exact same neighborhoods."
-    p "Clustered discouragement, cropping up all over the city?" Lemoness shakes her head. "I won't tempt fate by calling it a coincidence. It's time to investigate."
-    p Without further ado, both of them hurry away. What a strange conversation to overhear! Perhaps we'll learn more about this later....
+    .promo_habit_birthday_2018.center-block
+    h3 Habitica Birthday Party!
+    p January 31st is Habitica's Birthday! Thank you so much for being a part of our community - it means a lot.
+    p Now come join us and the NPCs as we celebrate!
+    h4 Cake for Everybody!
+    p(v-markdown='"In honor of the festivities, everyone has been awarded an assortment of yummy cake to feed to your pets! Plus, for the next two days [Alexander the Merchant](/shops/market) is selling cake in his shop, and cake will sometimes drop when you complete your tasks. Cake works just like normal pet food, but if you want to know what type of pet likes each slice, [the wiki has spoilers](http://habitica.wikia.com/wiki/Food)."')
+    h4 Party Robes
+    p There are Party Robes available for free in the Rewards column! Don them with pride.
+    h4 Birthday Bash Achievement
+    p In honor of Habitica's birthday, everyone has been awarded the Habitica Birthday Bash achievement! This achievement stacks for each Birthday Bash you celebrate with us.
     .media
       .media-body
-        h3 New Goals for the New Year: Guilds for Setting (and Keeping) Realistic Goals
-        p(v-markdown='"There\'s a new [Guild Spotlight on the blog](https://habitica.wordpress.com/2018/01/23/new-goals-for-the-new-year-guilds-for-setting-and-keeping-realistic-goals/) that highlights the Guilds that can help you as set new goals for 2018 and strive to stay on track! Check it out now to find Habitica\'s best goal-setting communities."')
+        h3 Last Chance for Frost Sprite Set
+        p(v-markdown='"Reminder: this is the final day to [subscribe](/user/settings/subscription) and receive the Frost Sprite Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!"')
+        p Thanks so much for your support! You help keep Habitica running.
         .small by Beffymaroo
-      .scene_task_list.left-margin
+        h3 Last Chance for Starry Night and Holly Hatching Potions
+        p(v-markdown='"Reminder: this is the final day to [buy Starry Night and Holly Hatching Potions!](/shops/market) If they come back, it won\'t be until next year at the earliest, so don\'t delay!"')
+        .small by Vampitch, JinjooHat, Lemoness, and SabreCat
+        h3 Resolution Plot-Line: Broken Buildings
+        p Lemoness, SabreCat, and Beffymaroo call an important meeting to address the rumors that are flying about this strange outbreak of Habiticans who are suddenly losing all faith in their ability to complete their New Year's Resolutions.
+        p “Thank you all for coming,” Lemoness says. “I'm afraid that we have some very serious news to share, but we ask that you remain calm.”
+      .promo_starry_potions.left-margin
+    p “While it's natural to feel a little disheartened as the end of January approaches,” Beffymaroo says, “these sudden outbreaks appear to have some strange magical origin. We're still investigating the exact cause, but we do know that the buildings where the affected Habiticans live often seem to sustain some damage immediately before the attack.”
+    p SabreCat clears his throat. “For this reason, we strongly encourage everyone to stay away from broken-down structures, and if you feel any strange tremors or hear odd sounds, please report them immediately.”
+    p(v-markdown='"“Stay safe, Habiticans.” Lemoness flashes her best comforting smile. “And remember that if your New Year\'s Resolution goals seem daunting, you can always seek support in the [New Year\'s Resolution Guild](https://habitica.com/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99).”"')
+    p How mysterious! Hopefully they'll get to the bottom of this soon.
     hr
 </template>
 
