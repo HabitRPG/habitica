@@ -413,10 +413,14 @@ describe('payments/index', () => {
       });
     });
 
-    context('Mystery Items', () => {
+    context.only('Mystery Items', () => {
       it('awards mystery items when within the timeframe for a mystery item', async () => {
+        await user.save();
+        console.log('aa')
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
+        await user.save();
+        console.log('bb')
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         await api.createSubscription(data);
