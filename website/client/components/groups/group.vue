@@ -430,13 +430,6 @@ export default {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
     this.load();
-
-    const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
-
-    if (this.user.newMessages[groupId]) {
-      this.$store.dispatch('chat:markChatSeen', {groupId});
-      this.$delete(this.user.newMessages, groupId);
-    }
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
@@ -546,6 +539,19 @@ export default {
         const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
         this.$set(this, 'group', group);
       }
+
+      const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
+      if (this.hasUnreadMessages(groupId)) {
+        this.$store.dispatch('chat:markChatSeen', {groupId});
+        this.$delete(this.user.newMessages, groupId);
+      }
+    },
+    hasUnreadMessages (groupId) {
+      if (this.user.newMessages[groupId]) return true;
+
+      return this.user.notifications.some(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
+      });
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {

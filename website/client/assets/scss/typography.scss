@@ -24,6 +24,12 @@ a, a:not([href]):not([tabindex]) {
     &:hover, &:active, &:focus {
       text-decoration: underline;
     }
+
+    &[disabled="disabled"] {
+      color: $gray-300;
+      text-decoration: none;
+      cursor: default;
+    }
   }
 
   &.small-link {

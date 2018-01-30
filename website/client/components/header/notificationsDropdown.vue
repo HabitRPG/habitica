@@ -2,17 +2,19 @@
 menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
-      message-count(v-if='notificationsTopBadgeCount > 0', :count="notificationsTopBadgeCount", :top="true")
+      message-count(
+        v-if='notificationsCount > 0', 
+        :count="notificationsCount", 
+        :top="true", 
+        :gray="!hasUnseenNotifications",
+      )
       .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
     .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center(
       @click.stop=""
     )
-      .d-flex.align-items-center
-        h4.dropdown-title(v-once) {{ $t('notifications') }}
-        div
-          span.badge.badge-pill.badge-default {{ notificationsCount }}
-      a.small-link.standard-link(@click="dismissAll") {{ $t('dismissAll') }}
+      h4.dropdown-title(v-once) {{ $t('notifications') }}
+      a.small-link.standard-link(@click="dismissAll", :disabled="notificationsCount === 0") {{ $t('dismissAll') }}
     component(
       :is="notification.type",
       :key="notification.id",
@@ -20,6 +22,13 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       :notification="notification",
       :can-remove="!isActionable(notification)",
     )
+    .dropdown-item.dropdown-separated.d-flex.justify-content-center.dropdown-inactive.no-notifications.flex-column(
+      v-if="notificationsCount === 0"
+    )
+      .svg-icon(v-html="icons.success")
+      h2 You're all caught up!
+      p The notification fairies give you a raucous round of applause! Well done!
+
 </template>
 
 <style lang='scss' scoped>
@@ -35,22 +44,39 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
   margin-right: 8px;
   line-height: 1.5;
 }
+
+.no-notifications {
+  h2, p {
+    text-align: center;
+    color: $gray-200 !important;
+  }
+
+  h2 {
+    margin-top: 24px;
+  }
+
+  p {
+    white-space: normal;
+    margin-bottom: 43px;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .svg-icon {
+    margin: 0 auto;
+    width: 256px;
+    height: 104px;
+  }
+}
 </style>
 
 <script>
-/* TODO
-import axios from 'axios';
-import isEmpty from 'lodash/isEmpty';
-import map from 'lodash/map';
-
-import * as Analytics from 'client/libs/analytics';
-*/
-
 import { mapState, mapActions } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
+import successImage from 'assets/svg/success.svg';
 
 // Notifications
 import NEW_STUFF from './notifications/newStuff';
@@ -82,6 +108,7 @@ export default {
     return {
       icons: Object.freeze({
         notifications: notificationsIcon,
+        success: successImage,
       }),
       quests,
       openStatus: undefined,
@@ -96,8 +123,8 @@ export default {
         'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
-        'UNALLOCATED_STATS_POINTS', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
-        'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE',
+        'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
+        'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
       ],
     };
   },
@@ -174,18 +201,14 @@ export default {
 
       return notifications;
     },
-    // The notification top badge includes unseen notifications + actionable ones
-    notificationsTopBadgeCount () {
-      return this.notifications.reduce((count, notification) => {
-        if (notification.seen === false || this.isActionable(notification)) {
-          count++;
-        }
-        return count;
-      }, 0);
-    },
     // The total number of notification, shown inside the dropdown
     notificationsCount () {
       return this.notifications.length;
+    },
+    hasUnseenNotifications () {
+      return this.notifications.some((notification) => {
+        return notification.seen === false ? true : false;
+      });
     },
   },
   methods: {
