@@ -266,10 +266,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
-    console.log('aaaa', pointsToAllocate, outdatedNotification);
     if (pointsToAllocate > 0 && outdatedNotification) {
       this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
-      console.log(this.notifications[this.notifications.length - 1]);
     }
 
     // Remove the outdated notifications
