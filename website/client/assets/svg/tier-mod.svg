@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewBox="0 -1 12 12">
-    <defs>
-        <path id="a" d="M305.5 1823.88l-3.82 1.879.605-4.215-2.967-3.053 4.195-.725L305.5 1814l1.987 3.766 4.195.725-2.967 3.053.606 4.215z"/>
-    </defs>
-    <g fill="#2995CD" fill-rule="evenodd" transform="translate(-299 -1814)">
-        <use xlink:href="#a"/>
-        <path stroke="#34313A" stroke-opacity=".12" d="M308.69 1824.892l-.505-3.52 2.478-2.55-3.504-.606-1.659-3.145-1.66 3.145-3.503.607 2.478 2.55-.506 3.519 3.191-1.57 3.19 1.57z"/>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewBox="0 -1 12 12"><defs><path id="a" d="M305.5 1823.88l-3.82 1.879.605-4.215-2.967-3.053 4.195-.725L305.5 1814l1.987 3.766 4.195.725-2.967 3.053.606 4.215z"/></defs><g fill="#2995CD" fill-rule="evenodd" transform="translate(-299 -1814)"><use xlink:href="#a"/><path stroke="#34313A" stroke-opacity=".12" d="M308.69 1824.892l-.505-3.52 2.478-2.55-3.504-.606-1.659-3.145-1.66 3.145-3.503.607 2.478 2.55-.506 3.519 3.191-1.57 3.19 1.57z"/></g></svg>
