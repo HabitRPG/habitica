@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'THANKSGIVING IN HABITICA, NOVEMBER SUBSCRIBER ITEMS, AND ANDROID UPDATE';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY SUBSCRIBER ITEMS, RESOLUTION PLOT-LINE, AND GUILDS FOR GOALS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -29,45 +29,43 @@ api.getNews = {
         <div class="media">
             <div class="align-self-center mr-3 ${baileyClass}"></div>
             <div class="media-body">
-                <h1 class="align-self-center markdown">${res.t('newStuff')}</h1>
+                <h1 class="align-self-center">${res.t('newStuff')}</h1>
             </div>
         </div>
-        <h2>11/17/2017 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>1/23/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
+
+        <h3>January Subscriber Items Revealed!</h3>
+        <p class="markdown">The January Subscriber Item has been revealed: the Frost Sprite Item Set! You only have until January 31 to receive the item set when you
+         <a href="/settings/subscription" target="_blank">subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory &gt; 
+         Equipment to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! 
+        There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. 
+        Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small">by Beffymaroo</div>
+
+        <div class="promo_mystery_201801 center-block"></div>
+
+        <h3>Resolution Plot-Line: An Overheard Conversation</h3>
+        <p>As you stride through the streets of Habit City, you overhear a worried conference of whispers. Curious, you peek in to Productivity Plaza and discover Lemoness and Beffymaroo in solemn conversation.</p>
+        <p>"On one hand, there's always the risk of discouragement when the eagerness of a fresh New Year's resolution gives way to everyday difficulties," Lemoness is saying. "But that just doesn't seem to match these reports. 
+        Habiticans who were making real progress are abruptly giving up all their goals overnight."</p>
+        <p>"I agree," says Beffymaroo. "And look at these maps -- all the reports are happening in the exact same neighborhoods."</p>
+
+        <p>"Clustered discouragement, cropping up all over the city?" Lemoness shakes her head. "I won't tempt fate by calling it a coincidence. It's time to investigate."</p>
+        <p>Without further ado, both of them hurry away. What a strange conversation to overhear! Perhaps we'll learn more about this later....</p>
+
         <div class="media">
-            <div class="promo_turkey_day_2017 right-margin"></div>
-            <div class="media-body d-flex align-self-center flex-column">
-                <h3>Happy Thanksgiving!</h3>
-                <p>It's Thanksgiving in Habitica! On this day Habiticans celebrate by spending time with loved ones, giving thanks, and riding their glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the occasion!</p>
-                <h3>Turkey Pets, Mounts, and Costume!</h3>
-                <p>For the occasion, all Habiticans have received Turkey-themed items! What items? It all depends on how many Habitica Thanksgivings you've celebrated with us. Each Thanksgiving, you'll get a new and exciting Turkey pet, mount, or gear set! Check
-                    your Stable and your pinned Rewards to see what you got!</p>
-                <p>Thank you for using Habitica - we really love you all
-                    <3</p>
-                        <div class="small mb-3">by Lemoness</div>
-            </div>
+          <div class="media-body">
+            <h3>New Goals for the New Year: Guilds for Setting (and Keeping) Realistic Goals</h3>
+            <p class="markdown">
+            <p>There's a new <a href="https://habitica.wordpress.com/2018/01/23/new-goals-for-the-new-year-guilds-for-setting-and-keeping-realistic-goals/" target="_blank">Guild Spotlight on the blog</a> that highlights the Guilds that can help you as set new goals for 2018 and strive to stay on track! Check it out now to find Habitica's best goal-setting communities.</p>
+            </p>
+            <div class="small">by Beffymaroo</div>
+          </div>
+          <div class="scene_task_list left-margin"></div>
         </div>
-        <div class="media">
-            <div class="media-body">
-                <h3>November Subscriber Items Revealed!</h3>
-                <p class="markdown">The November Subscriber Items have been revealed: the <a href="https://habitica.com/user/settings/subscription" target="_blank">Carpet Rider Item Set</a>! You have until November 30 to receive the item set when you subscribe. If you're already an active subscriber, reload the site and then head to Inventory &gt; Items to claim your gear!&quot;"></p>
-                <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions
-                    let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-                <div class="small mb-3">by Lemoness</div>
-            </div>
-            <div class="promo_mystery_201711 left-margin ml-3"></div>
-        </div>
-        <h3>Android App Update</h3>
-        <p>There’s an exciting new update to our Android app!</p>
-        <ul>
-            <li>We’ve smashed some pesky bugs, including the issue with task reordering!</li>
-            <li>You can now view and assign attribute points (or choose auto-allocation)!</li>
-            <li>We’ve added Equipment to the Market, plus the ability to change your login name and email, reset or delete your account, make changes to your profile, and access Fix Character Values.</li>
-            <li>You can also request a password reset from the login screen!</li>
-        </ul>
-        <p>We hope this makes your Habitica experience even better. Be sure to download the update now for a better Habitica experience!</p>
-        <p>If you like the improvements that we’ve been making to our app, please consider reviewing this new version. It really helps us out!</p>
-        <div class="small mb-3">by Viirus and piyorii</div><br/>
+        <hr>
       </div>
       `,
     });
