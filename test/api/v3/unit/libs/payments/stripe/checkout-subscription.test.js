@@ -73,7 +73,7 @@ describe('checkout with subscription', () => {
   });
 
   afterEach(function () {
-    sinon.restore(stripe.subscriptions.update);
+    stripe.subscriptions.update.restore();
     stripe.customers.create.restore();
     payments.createSubscription.restore();
   });
