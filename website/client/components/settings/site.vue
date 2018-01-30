@@ -118,6 +118,7 @@
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
+            p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group

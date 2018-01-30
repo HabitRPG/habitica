@@ -1,5 +1,7 @@
 {
     "clearCompleted": "Supprimer les tâches accomplies",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "Vos 30 tâches à faire terminées les plus récentes sont montrées ici. Vous pouvez consulter les tâches plus anciennes depuis Données > Outil d'affichage des données ou Données > Exporter les données > Données utilisateur.",
     "deleteToDosExplanation": "Si vous cliquez sur le bouton ci-dessous, toutes vos tâches À Faire complétées et archivées seront supprimées définitivement, à l'exception des tâches de défis actifs et des offres de groupe. Exportez-les d'abord si vous souhaitez en garder une trace.",
     "addMultipleTip": "<strong>Astuce :</strong> Pour ajouter plusieurs Tâches, séparez-les par des sauts de ligne (Shift + Entrée) puis tapez \"Entrée\".",
