@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Hapus yang Telah Selesai",
-    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
-    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
+    "clearCompletedDescription": "To-do yang telah diselesaikan akan dihapus setelah 30 hari untuk para non-pelanggan dan 90 hari untuk para pelanggan.",
+    "clearCompletedConfirm": "Apakah kamu yakin ingin menghapus semua to-do yang telah diselesaikan?",
     "lotOfToDos": "30 To-Do terakhir yang kamu selesaikan ditampilkan di sini. Kamu dapat melihat To-Do lama yang telah kamu selesaikan dari Data > Data Display Tool atau Data > Ekspor Data > Data Pengguna.",
     "deleteToDosExplanation": "Jika kamu menekan tombol di bawah, semua To-Do yang sudah kamu selesaikan dan To-Do di arsip akan dihapus secara permanen, kecuali To-Do dari tantangan yang aktif dan Rencana Grup. Silakan ekspor terlebih dahulu jika kamu mau menyimpan catatan mengenai tugasmu.",
     "addMultipleTip": "<strong>Tips:</strong> Untuk menambahkan beberapa Tugas sekaligus, pisahkan baris masing-masing tugas (Shift + Enter) lalu tekan \"Enter.\"",
