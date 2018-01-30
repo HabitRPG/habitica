@@ -29,7 +29,7 @@ api.getNews = {
         <div class="media">
             <div class="align-self-center mr-3 ${baileyClass}"></div>
             <div class="media-body">
-                <h1 class="align-self-center">${res.t('newStuff')}</h1>
+                <h1 class="align-self-center markdown">${res.t('newStuff')}</h1>
             </div>
         </div>
         <h2>1/23/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
