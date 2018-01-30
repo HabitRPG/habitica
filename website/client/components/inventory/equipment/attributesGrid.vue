@@ -4,9 +4,9 @@
       .group-content
         span.popover-content-attr-cell.key(:class="{'hasValue': hasSumValue(attr) }") {{ `${$t(attr)}: ` }}
         span.popover-content-attr-cell.label.value(:class="{'green': hasSumValue(attr) }") {{ `${stats.sum[attr]}` }}
-        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasGearValue(attr) }") Gear:
+        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasGearValue(attr) }") {{ $t('gear') }}:
         span.popover-content-attr-cell.label(:class="{'hasValue': hasGearValue(attr) }") {{ stats.gear[attr] }}
-        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasClassBonus(attr) }") Bonus:
+        span.popover-content-attr-cell.label.bold(:class="{'hasValue': hasClassBonus(attr) }") {{ $t('classEquipBonus') }}:
         span.popover-content-attr-cell.label(:class="{'hasValue': hasClassBonus(attr) }") {{ `${stats.classBonus[attr]}` }}
 </template>
 
@@ -45,11 +45,12 @@
   }
 
   .popover-content-attr-cell {
-    width: 50%;
+    width: 70%;
     text-align: left;
 
     &:nth-of-type(even) {
       text-align: right;
+      width: 30%;
     }
 
     &.key {
