@@ -3,7 +3,7 @@ div
   .item-wrapper(@click="click()", :id="itemId")
     .item(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
-    )
+    ).pet-slot
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")
@@ -26,6 +26,10 @@ div
     position: absolute;
     bottom: 4px;
     left: calc((100% - 62px) / 2);
+  }
+
+  .pet-slot {
+    margin: 0 2px;
   }
 
   .pet-progress-bar {

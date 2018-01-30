@@ -1,12 +1,12 @@
 <template lang="pug">
 div(v-if="emptyItem")
   .item-wrapper
-    .item.item-empty.pet-slot
+    .item.item-empty
       .item-content
     span.item-label(v-if="label") {{ label }}
 div(v-else)
   .item-wrapper(@click="click", :id="itemId")
-    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }").pet-slot
+    .item(:class="{'item-active': active, 'highlight-border':highlightBorder }")
       slot(name="itemBadge", :item="item")
       span.item-content(
         :class="itemContentClass"
@@ -22,10 +22,7 @@ div(v-else)
     slot(name="popoverContent", :item="item")
 </template>
 
-<style scoped>
-  .pet-slot {
-    margin: 0 2px;
-  }
+<style>
 </style>
 
 <script>
