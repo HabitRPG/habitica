@@ -255,7 +255,7 @@ div
                 li
                   strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
-      #allocation(v-if='user._id === userLoggedIn._id')
+      #allocation(v-if='user._id === userLoggedIn._id && user.flags.classSelected && !user.preferences.disableClasses')
         .row.title-row
           .col-12.col-md-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -322,7 +322,6 @@ div
     }
   }
 
-
   .message-icon {
     width: 16px;
     color: #686274;
@@ -355,6 +354,10 @@ div
 
   .mount {
     margin-top: -0.2em !important;
+  }
+
+  .photo img {
+    max-width: 100%;
   }
 
   .header {

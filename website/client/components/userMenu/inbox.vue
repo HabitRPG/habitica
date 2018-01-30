@@ -30,7 +30,7 @@
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
-            div {{conversation.lastMessageText.substring(0, 30)}}
+            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -239,7 +239,6 @@ export default {
           user: message.user,
           uuid: message.uuid,
           id: message.id,
-          flags: message.flags,
         };
 
         if (message.sent) {
@@ -285,6 +284,7 @@ export default {
       this.$set(this, 'activeChat', activeChat);
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
@@ -316,6 +316,7 @@ export default {
       this.newMessage = '';
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });

@@ -174,5 +174,27 @@ describe('shared.ops.buyGear', () => {
         done();
       }
     });
+
+    it('does not buyGear equipment if user does not own prior item in sequence', (done) => {
+      user.stats.gp = 200;
+
+      try {
+        buyGear(user, {params: {key: 'armor_warrior_2'}});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('previousGearNotOwned'));
+        expect(user.items.gear.owned).to.not.have.property('armor_warrior_2');
+        done();
+      }
+    });
+
+    it('does buyGear equipment if item is a numbered special item user qualifies for', () => {
+      user.stats.gp = 200;
+      user.items.gear.owned.head_special_2 = false;
+
+      buyGear(user, {params: {key: 'head_special_2'}});
+
+      expect(user.items.gear.owned).to.have.property('head_special_2', true);
+    });
   });
 });

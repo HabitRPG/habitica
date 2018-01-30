@@ -101,19 +101,21 @@ describe('POST /challenges/:challengeId/join', () => {
     });
 
     it('syncs challenge tasks to joining user', async () => {
-      let taskText = 'A challenge task text';
-
+      const taskText = 'A challenge task text';
       await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
-        {type: 'habit', text: taskText},
+        {type: 'daily', text: taskText},
       ]);
 
       await authorizedUser.post(`/challenges/${challenge._id}/join`);
-      let tasks = await authorizedUser.get('/tasks/user');
-      let tasksTexts = tasks.map((task) => {
-        return task.text;
+
+      const tasks = await authorizedUser.get('/tasks/user');
+      const syncedTask = tasks.find((task) => {
+        return task.text === taskText;
       });
 
-      expect(tasksTexts).to.include(taskText);
+      expect(syncedTask.text).to.eql(taskText);
+      expect(syncedTask.isDue).to.exist;
+      expect(syncedTask.nextDue).to.exist;
     });
 
     it('adds challenge tag to user tags', async () => {

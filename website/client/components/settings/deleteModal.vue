@@ -24,7 +24,7 @@
           .col-md-6
             input.form-control(type='text', v-model='password')
       .modal-footer
-        button.btn.btn-default(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-secondary(@click='close()') {{ $t('neverMind') }}
         button.btn.btn-danger(:disabled='!password', @click='deleteAccount()') {{ $t('deleteDo') }}
 </template>
 

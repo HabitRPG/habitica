@@ -101,8 +101,8 @@
     "addTask": "Adicionar Tarefa",
     "editChallenge": "Editar Desafio",
     "challengeDescription": "Descrição do Desafio",
-    "selectChallengeWinnersDescription": "Selecione vencedores de entre os participantes do Desafio",
-    "awardWinners": "Vencedores",
+    "selectChallengeWinnersDescription": "Seleccione um vencedor entre os participantes do Desafio",
+    "awardWinners": "Vencedor do Prémio",
     "doYouWantedToDeleteChallenge": "Quer apagar este desafio?",
     "deleteChallenge": "Apagar Desafio",
     "challengeNamePlaceholder": "Qual é o nome do seu Desafio?",
@@ -128,6 +128,6 @@
     "categoiresRequired": "Uma ou mais categorias devem ser escolhidas",
     "viewProgressOf": "Ver o Progresso de",
     "selectMember": "Escolher Membro",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-    "selectParticipant": "Select a Participant"
+    "confirmKeepChallengeTasks": "Deseja manter as tarefas do desafio?",
+    "selectParticipant": "Escolha um Participante"
 }

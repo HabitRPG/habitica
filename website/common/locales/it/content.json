@@ -161,9 +161,9 @@
     "questEggYarnText": "Gomitolo",
     "questEggYarnMountText": "Tappeto Volante",
     "questEggYarnAdjective": "un lanoso",
-    "questEggPterodactylText": "Pterodactyl",
-    "questEggPterodactylMountText": "Pterodactyl",
-    "questEggPterodactylAdjective": "trusting",
+    "questEggPterodactylText": "Pterodattilo",
+    "questEggPterodactylMountText": "Pterodattilo",
+    "questEggPterodactylAdjective": "un fiducioso",
     "eggNotes": "Trova una pozione per far schiudere questo uovo, e nascerà <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Base",
     "hatchingPotionWhite": "Bianco",
@@ -222,6 +222,6 @@
     "foodCandyRed": "Caramella alla Cannella",
     "foodSaddleText": "Sella",
     "foodSaddleNotes": "Rende immediatamente cavalcabile uno dei tuoi animali.",
-    "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
+    "foodSaddleSellWarningNote": "Ehi! Questo è uno strumento piuttosto utile! Sai come usare una Sella con i tuoi animali?",
     "foodNotes": "Dai questo ad un animale e potrà diventare un possente destriero."
 }

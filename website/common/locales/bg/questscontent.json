@@ -552,10 +552,10 @@
     "questYarnUnlockText": "Отключва възможността за купуване на яйца на прежда от пазара.",
     "winterQuestsText": "Пакет зимни мисии",
     "winterQuestsNotes": "Съдържа: „Ловджията Дядо Коледа“, „Търсенето на мечето“ и „Пернатият мраз“. Наличен до 31 декември.",
-    "questPterodactylText": "The Pterror-dactyl",
-    "questPterodactylNotes": "You're taking a stroll along the peaceful Stoïkalm Cliffs when an evil screech rends the air. You turn to find a hideous creature flying towards you and are overcome by a powerful terror. As you turn to flee, @Lilith of Alfheim grabs you. \"Don't panic! It's just a Pterror-dactyl.\"<br><br>@Procyon P nods. \"They nest nearby, but they're attracted to the scent of negative Habits and undone Dailies.\"<br><br>\"Don't worry,\" @Katy133 says. \"We just need to be extra productive to defeat it!\" You are filled with a renewed sense of purpose and turn to face your foe.",
-    "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
-    "questPterodactylBoss": "Pterror-dactyl",
-    "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
-    "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market"
+    "questPterodactylText": "Птерор-дактилът",
+    "questPterodactylNotes": "Разхождаш се безцелно из Споколандските планини, когато ужасяващ пронизителен крясък те измъква от състоянието на блаженство. Обръщаш се и виждаш как към теб лети отвратително чудовище, и мигновено те обзема ужасяващо чувство. Докато се обръщаш с намерението да си плюеш на петите, @Lilith of Alfheim те хваща. „Без паника! Това е просто един Птерор-дактил!“<br><br>@Procyon P кима — „Имат гнездо наоколо, но ги привлича миризмата на отрицателни навици и незавършени ежедневни задачи.“<br><br>„Не се притеснявай“ — казва @Katy133, — „просто трябва да бъдем още по-продуктивни, за даго победим!“ Изпълваш се с ново чувство за цел и се обръщаш към нападателя.",
+    "questPterodactylCompletion": "След един последен писък Птерор-дактилът се хвърля от ръба на скалата. Втурваш се към ръба, за да видиш как изчезва над далечните степи. „Уф, радвам се, че това свърши“ — казваш. „Аз също“ — отговаря ти @GeraldThePixel. — „Но виж! Оставил е няколко яйца за нас.“ @Edge ти подава три яйца и ти ги поемаш спокойно, заобиколен от ореола на положителните навици и сините ежедневни задачи.",
+    "questPterodactylBoss": "Птерор-дактил",
+    "questPterodactylDropPterodactylEgg": "Птеродактил (яйце)",
+    "questPterodactylUnlockText": "Отключва възможността за купуване на яйца на птеродактил от пазара."
 }

@@ -64,42 +64,6 @@ function sendFlagNotification ({
   });
 }
 
-function sendInboxFlagNotification ({
-  authorEmail,
-  flagger,
-  message,
-}) {
-  if (!SLACK_FLAGGING_URL) {
-    return;
-  }
-  let titleLink;
-  let authorName;
-  let title = `Flag in ${flagger.profile.name}'s Inbox'`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
-
-  if (!message.user && message.uuid === 'system') {
-    authorName = 'System Message';
-  } else {
-    authorName = `${message.user} - ${authorEmail} - ${message.uuid}`;
-  }
-
-  flagSlack.send({
-    text,
-    attachments: [{
-      fallback: 'Flag Message',
-      color: 'danger',
-      author_name: authorName,
-      title,
-      title_link: titleLink,
-      text: message.text,
-      footer: `<${SLACK_FLAGGING_FOOTER_LINK}?chatId=${message.id}|Flag this message>`,
-      mrkdwn_in: [
-        'text',
-      ],
-    }],
-  });
-}
-
 function sendSubscriptionNotification ({
   buyer,
   recipient,
@@ -113,7 +77,7 @@ function sendSubscriptionNotification ({
   let text;
   let timestamp = new Date();
   if (recipient.id) {
-    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {
@@ -173,5 +137,5 @@ function sendSlurNotification ({
 }
 
 module.exports = {
-  sendFlagNotification, sendSubscriptionNotification, sendSlurNotification, sendInboxFlagNotification,
+  sendFlagNotification, sendSubscriptionNotification, sendSlurNotification,
 };

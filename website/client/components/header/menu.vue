@@ -144,6 +144,7 @@ div
     padding-right: 12.5px;
     height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
+    z-index: 1042; // To stay above snakbar notifications and modals
   }
 
   .navbar-header {
@@ -331,6 +332,7 @@ export default {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
     sync () {
+      this.$root.$emit('habitica::resync-requested');
       return Promise.all([
         this.$store.dispatch('user:fetch', {forceLoad: true}),
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
