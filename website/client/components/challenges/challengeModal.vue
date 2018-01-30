@@ -138,7 +138,7 @@ import { TAVERN_ID, MIN_SHORTNAME_SIZE_FOR_CHALLENGES, MAX_SUMMARY_SIZE_FOR_CHAL
 import { mapState } from 'client/libs/store';
 
 export default {
-  props: ['groupId', 'cloning'],
+  props: ['groupId'],
   directives: {
     markdown: markdownDirective,
   },
@@ -224,6 +224,8 @@ export default {
         shortName: '',
         todos: [],
       },
+      cloning: false,
+      cloningChallengeId: '',
       showCategorySelect: false,
       categoryOptions,
       categoriesHashByKey,
@@ -231,7 +233,18 @@ export default {
       groups: [],
     };
   },
-  async mounted () {},
+  mounted () {
+    this.$root.$on('habitica:clone-challenge', (data) => {
+      if (!data.challenge) return;
+      this.cloning = true;
+      this.cloningChallengeId = data.challenge._id;
+      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, data.challenge);
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica:clone-challenge');
+  },
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;
@@ -252,7 +265,6 @@ export default {
       if (this.creating) {
         return this.$t('createChallenge');
       }
-
       return this.$t('editingChallenge');
     },
     charactersRemaining () {
@@ -322,6 +334,8 @@ export default {
       if (!this.challenge) return;
 
       this.workingChallenge = Object.assign({}, this.workingChallenge, this.challenge);
+      // @TODO: Should we use a separate field? I think the API expects `group` but it is confusing
+      this.workingChallenge.group = this.workingChallenge.group._id;
       this.workingChallenge.categories = [];
 
       if (this.challenge.categories) {
@@ -388,14 +402,39 @@ export default {
       let challengeDetails = clone(this.workingChallenge);
       challengeDetails.categories = serverCategories;
 
-      let challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
-      // @TODO: When to remove from guild instead?
-      this.user.balance -= this.workingChallenge.prize / 4;
+      let challenge;
+      if (this.cloning) {
+        challenge = await this.$store.dispatch('challenges:cloneChallenge', {
+          challenge: challengeDetails,
+          cloningChallengeId: this.cloningChallengeId,
+        });
+        this.cloningChallengeId = '';
+      } else {
+        challenge = await this.$store.dispatch('challenges:createChallenge', {challenge: challengeDetails});
+      }
+
+      // Update Group Prize
+      let challengeGroup = this.groups.find(group => {
+        return group._id === this.workingChallenge.group;
+      });
+
+      // @TODO: Share with server
+      const prizeCost = this.workingChallenge.prize / 4;
+      const challengeGroupLeader = challengeGroup.leader && challengeGroup.leader._id ? challengeGroup.leader._id : challengeGroup.leader;
+      const userIsLeader = challengeGroupLeader === this.user._id;
+      if (challengeGroup && userIsLeader && challengeGroup.balance > 0 && challengeGroup.balance >= prizeCost) {
+        // Group pays for all of prize
+      } else if (challengeGroup && userIsLeader && challengeGroup.balance > 0) {
+        // User pays remainder of prize cost after group
+        let remainder = prizeCost - challengeGroup.balance;
+        this.user.balance -= remainder;
+      } else {
+        // User pays for all of prize
+        this.user.balance -= prizeCost;
+      }
 
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
-
-      if (this.cloning) this.$store.state.challengeOptions.cloning = true;
 
       this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
