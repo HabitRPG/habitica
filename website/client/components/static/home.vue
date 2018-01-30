@@ -23,6 +23,7 @@
             .strike
               span {{$t('or')}}
             .form(@keyup.enter="register()")
+              p.form-text {{$t('usernameLimitations')}}
               input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 3}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
