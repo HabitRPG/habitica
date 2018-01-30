@@ -1,5 +1,7 @@
 {
     "clearCompleted": "ניקוי מטלות שבוצעו",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "30 המשימות האחרונות מוצגות כאן. אתם יכולים לראות משימות מושלמות ישנות יותר ב מידע > כלי-הצגת-מידע או מידע > ייצוא-מידע > מידע-משתמש.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple Tasks, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",

@@ -1,5 +1,7 @@
 {
     "clearCompleted": "Törlés kész",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "A legutolsó 30 befejezett feladatod látható itt. A többi befejezett feladatot az Adat > Adat kimutató eszköz vagy az Adat > Adatok exportálása > Felhasználói adatok menü alatt találod meg.",
     "deleteToDosExplanation": "Ha a lenti gombra kattintasz az összes eddigi elvégzett feladat valamint archivált feladat véglegesen törölve lesz,  kivéve feladatok akítv kihívásokból és csoportos tervekből. Először exportáld őket, ha szeretnéd őket megőrizni.",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple Tasks, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",

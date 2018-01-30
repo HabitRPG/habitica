@@ -1,5 +1,7 @@
 {
     "clearCompleted": "Șterge pe cele completate",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple Tasks, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
