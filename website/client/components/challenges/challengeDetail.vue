@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  challenge-modal(:cloning='cloning' v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
@@ -220,7 +220,6 @@ export default {
         memberIcon,
         calendarIcon,
       }),
-      cloning: false,
       challenge: {},
       members: [],
       tasksByType: {
@@ -261,10 +260,6 @@ export default {
   async beforeRouteUpdate (to, from, next) {
     this.searchId = to.params.challengeId;
     await this.loadChallenge();
-
-    if (this.$store.state.challengeOptions.cloning) {
-      this.cloneTasks(this.$store.state.challengeOptions.tasksToClone);
-    }
     next();
   },
   methods: {
@@ -283,28 +278,6 @@ export default {
       }
 
       return cleansedTask;
-    },
-    cloneTasks (tasksToClone) {
-      let clonedTasks = [];
-
-      for (let key in tasksToClone) {
-        let tasksSection = tasksToClone[key];
-        tasksSection.forEach(task => {
-          let clonedTask = cloneDeep(task);
-          clonedTask = this.cleanUpTask(clonedTask);
-          clonedTask = taskDefaults(clonedTask);
-          this.tasksByType[task.type].push(clonedTask);
-          clonedTasks.push(clonedTask);
-        });
-      }
-
-      this.$store.dispatch('tasks:createChallengeTasks', {
-        challengeId: this.searchId,
-        tasks: clonedTasks,
-      });
-
-      this.$store.state.challengeOptions.cloning = false;
-      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
@@ -377,7 +350,6 @@ export default {
     },
     edit () {
       // @TODO: set working challenge
-      this.cloning = false;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
@@ -396,10 +368,9 @@ export default {
       window.location = `/api/v3/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {
-      this.cloning = true;
-      this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
-      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:clone-challenge', {
+        challenge: this.challenge,
+      });
     },
   },
 };

@@ -1,5 +1,7 @@
 {
     "clearCompleted": "Eliminar Concluídos",
+    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedConfirm": "Are you sure you want to clear your completed todos?",
     "lotOfToDos": "Os seus 30 Afazeres mais recentes são mostrados aqui. Pode ver os afazeres concluídos mais antigos de Dados > Ferramenta de Exibição de Dados ou Dados > Exportar Dados > Dados do Utilizador.",
     "deleteToDosExplanation": "Se carregar no botão abaixo, todos os seus Afazeres completos e arquivados serão permanentemente apagados, excepto Afazeres pertencentes a desafios correntemente ativos ou Planos de Grupo. Exporte-os primeiro se quiser manter um registo dos mesmos.",
     "addMultipleTip": "<strong>Dica:</strong> Para adicionar multiplas Tarefas, separe cada uma usando um intervalo de linha (Shift + Enter) e depois carregue em \"Enter.\"",

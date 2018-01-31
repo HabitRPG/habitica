@@ -22,7 +22,7 @@ describe('pushNotifications', () => {
 
     sandbox.stub(nconf, 'get').returns('true-key');
 
-    sandbox.stub(gcmLib.Sender.prototype, 'send', fcmSendSpy);
+    sandbox.stub(gcmLib.Sender.prototype, 'send').callsFake(fcmSendSpy);
 
     sandbox.stub(pushNotify, 'apn').returns({
       on: () => null,

@@ -23,6 +23,7 @@ import common from '../../../common';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
+import moment from 'moment';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -166,6 +167,16 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach((task) => {
+      // Track when new users (first 7 days) create tasks
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+        res.analytics.track('task create', {
+          uuid: user._id,
+          hitType: 'event',
+          category: 'behavior',
+          taskType: task.type,
+        });
+      }
+
       taskActivityWebhook.send(user.webhooks, {
         type: 'created',
         task,
@@ -241,6 +252,16 @@ api.createChallengeTasks = {
 
     // If adding tasks to a challenge -> sync users
     if (challenge) challenge.addTasks(tasks);
+
+    tasks.forEach((task) => {
+      res.analytics.track('task create', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        challengeID: challenge._id,
+      });
+    });
   },
 };
 
@@ -568,7 +589,9 @@ api.scoreTask = {
             taskName: task.text,
           }, manager.preferences.language),
           groupId: group._id,
-          taskId: task._id,
+          taskId: task._id, // user task id, used to match the notification when the task is approved
+          userId: user._id,
+          groupTaskId: task.group.id, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
@@ -654,16 +677,16 @@ api.scoreTask = {
       }
     }
 
-    /*
-     * TODO: enable score task analytics if desired
-    res.analytics.track('score task', {
-      uuid: user._id,
-      hitType: 'event',
-      category: 'behavior',
-      taskType: task.type,
-      direction
-    });
-    */
+    // Track when new users (first 7 days) score tasks
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      res.analytics.track('task score', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        direction,
+      });
+    }
   },
 };
 
@@ -708,7 +731,7 @@ api.moveTask = {
     moveTask(order, task._id, to);
 
     // Server updates
-    // @TODO: maybe bulk op?
+    // Cannot send $pull and $push on same field in one single op
     let pullQuery = { $pull: {} };
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
     await user.update(pullQuery).exec();
@@ -723,6 +746,11 @@ api.moveTask = {
       $position: position,
     };
     await user.update(updateQuery).exec();
+
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v++;
 
     res.respond(200, order);
   },
@@ -1283,6 +1311,11 @@ api.deleteTask = {
       let pullQuery = {$pull: {}};
       pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
       let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+
+      // Update the user version field manually,
+      // it cannot be updated in the pre update hook
+      // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+      if (!challenge) user._v++;
 
       await Bluebird.all([taskOrderUpdate, task.remove()]);
     } else {

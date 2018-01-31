@@ -39,10 +39,17 @@ describe('shared.ops.readCard', () => {
   });
 
   it('reads a card', () => {
+    user.notifications.push({
+      type: 'CARD_RECEIVED',
+      data: {card: cardType},
+    });
+    const initialNotificationNuber = user.notifications.length;
+
     let [, message] = readCard(user, {params: {cardType: 'greeting'}});
 
     expect(message).to.equal(i18n.t('readCard', {cardType}));
     expect(user.items.special[`${cardType}Received`]).to.be.empty;
     expect(user.flags.cardReceived).to.be.false;
+    expect(user.notifications.length).to.equal(initialNotificationNuber - 1);
   });
 });

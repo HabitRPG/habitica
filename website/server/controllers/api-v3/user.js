@@ -457,6 +457,7 @@ function _cleanChecklist (task) {
  * Contributor information
  * Special items
  * Webhooks
+ * Notifications
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
@@ -486,6 +487,7 @@ api.getUserAnonymized = {
     delete user.items.special.valentineReceived;
     delete user.webhooks;
     delete user.achievements.challenges;
+    delete user.notifications;
 
     _.forEach(user.inbox.messages, (msg) => {
       msg.text = 'inbox message text';
@@ -653,6 +655,7 @@ api.castSpell = {
             })
             // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
             // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+            // and we need target.notifications to add the notification for the received card
             .exec();
 
           partyMembers.unshift(user);
@@ -729,7 +732,7 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepRes = common.ops.sleep(user);
+    let sleepRes = common.ops.sleep(user, req, res.analytics);
     await user.save();
     res.respond(200, ...sleepRes);
   },
@@ -787,7 +790,6 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-
     buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();

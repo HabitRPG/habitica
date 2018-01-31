@@ -21,6 +21,7 @@
                 :hideClassBadge='true',
                 :spritesMargin='"1.8em 1.5em"',
                 :overrideTopPadding='"0px"',
+                :showVisualBuffs='false',
                 :class='selectionBox(selectedClass, heroClass)',
               )
         br
