@@ -7,7 +7,7 @@
     "messageFoodNotFound": ":comida não encontrada em user.items.food",
     "messageNotAvailable": "De momento este item não está disponível para compra.",
     "messageCannotFeedPet": "Não é possível alimentar este mascote.",
-    "messageAlreadyMount": "Já possui essa montada. Tente alimentar outro mascote.",
+    "messageAlreadyMount": "Já possui essa montaria. Tente alimentar outro mascote.",
     "messageEvolve": "Você domou <%= egg %>, vamos dar um passeio.",
     "messageLikesFood": "<%= egg %> gostou muito de <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> comeu <%= foodText %>, mas parece não gostar muito.",
