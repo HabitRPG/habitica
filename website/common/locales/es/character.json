@@ -60,7 +60,7 @@
     "winteryColors": "Colores invernales",
     "equipment": "Equipamiento",
     "equipmentBonus": "Equipamiento",
-    "equipmentBonusText": "Stat bonuses provided by your equipped battle gear. See the Equipment tab under Inventory to select your battle gear.",
+    "equipmentBonusText": "Bonus de atributo añadidos por tu equipo de combate. Mira en la pestaña de equipamiento del inventario para escoger tu equipo de combate.",
     "classBonusText": "Su clase (Guerrero, si no has desbloqueado o seleccionado otra clase) aprovecha mejor su propio equipamiento mejor que el equipamiento de las otras clases. El equipamiento que lleves puesto y corresponda a tu clase actual aumentará en un 50 % los puntos al atributo que aporte. ",
     "classEquipBonus": "Bonus de clase",
     "battleGear": "Equipo de batalla",
