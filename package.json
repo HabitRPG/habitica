@@ -67,7 +67,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.13.0",
     "moment-recur": "git://github.com/habitrpg/moment-recur.git#f147ef27bbc26ca67638385f3db4a44084c76626",
-    "mongoose": "~4.8.6",
+    "mongoose": "^4.8.6",
     "mongoose-id-autoinc": "~2013.7.14-4",
     "morgan": "^1.7.0",
     "nconf": "~0.8.2",

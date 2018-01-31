@@ -13,15 +13,20 @@ describe('POST /user/open-mystery-item', () => {
   beforeEach(async () => {
     user = await generateUser({
       'purchased.plan.mysteryItems': [mysteryItemKey],
+      notifications: [
+        {type: 'NEW_MYSTERY_ITEMS', data: { items: [mysteryItemKey] }},
+      ],
     });
   });
 
   // More tests in common code unit tests
 
   it('opens a mystery item', async () => {
+    expect(user.notifications.length).to.equal(1);
     let response = await user.post('/user/open-mystery-item');
     await user.sync();
 
+    expect(user.notifications.length).to.equal(0);
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
     expect(response.message).to.equal(t('mysteryItemOpened'));
     expect(response.data.key).to.eql(mysteryItemKey);

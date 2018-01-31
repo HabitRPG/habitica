@@ -420,11 +420,16 @@ describe('payments/index', () => {
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
+        const oldNotificationsCount = user.notifications.length;
+
         await api.createSubscription(data);
 
+        expect(user.notifications.find(n => n.type === 'NEW_MYSTERY_ITEMS')).to.not.be.undefined;
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(2);
         expect(user.purchased.plan.mysteryItems).to.include('armor_mystery_201605');
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
+        expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
+        expect(user.notifications[0].type).to.equal('NEW_MYSTERY_ITEMS');
 
         fakeClock.restore();
       });
