@@ -174,16 +174,10 @@ export default {
       }
     },
   },
-<<<<<<< HEAD
-  async created () {
-    if (this.user.party && this.user.party._id) {
-      await this.getPartyMembers(true);
-=======
   created () {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
       this.getPartyMembers();
->>>>>>> db6e15ff7... Fixing party view in header section
     }
   },
 };
