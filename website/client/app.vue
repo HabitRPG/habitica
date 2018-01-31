@@ -364,6 +364,13 @@ export default {
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
+  destroyed () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
+  },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');

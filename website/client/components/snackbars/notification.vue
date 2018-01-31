@@ -135,10 +135,13 @@ export default {
     if (timeout) {
       let delay = this.notification.delay || 1500;
       delay += this.$store.state.notificationStore.length * 1000;
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.show = false;
       }, delay);
     }
+  },
+  destroyed () {
+    clearTimeout(this.timer);
   },
   watch: {
     show () {

@@ -49,7 +49,7 @@ export default {
     });
   },
   removed () {
-    this.$root.$remove('handle-broken-task');
+    this.$root.$off('handle-broken-task');
   },
   methods: {
     ...mapActions({

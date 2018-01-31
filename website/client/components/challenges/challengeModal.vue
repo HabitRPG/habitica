@@ -232,7 +232,6 @@ export default {
       groups: [],
     };
   },
-  async mounted () {},
   watch: {
     user () {
       if (!this.challenge) this.workingChallenge.leader = this.user._id;

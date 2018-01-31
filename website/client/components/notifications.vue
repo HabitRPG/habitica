@@ -301,11 +301,17 @@ export default {
       this.runYesterDailies();
 
       // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
+      document.addEventListener('mousemove', this.checkNextCron);
+      document.addEventListener('touchstart', this.checkNextCron);
+      document.addEventListener('mousedown', this.checkNextCron);
+      document.addEventListener('keydown', this.checkNextCron);
     });
+  },
+  destroyed () {
+    document.removeEventListener('mousemove', this.checkNextCron);
+    document.removeEventListener('touchstart', this.checkNextCron);
+    document.removeEventListener('mousedown', this.checkNextCron);
+    document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
     checkUserAchievements () {
