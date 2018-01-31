@@ -41,9 +41,30 @@
     background-color: inherit;
   }
 
-  &:active, &:hover, &.active {
-    background-color: rgba(#d5c8ff, 0.32);
+  &:active, &:hover {
+    background-color: rgba($suggested-item-color, 0.32);
     color: $purple-200;
+  }
+
+  &.active {
+    background-color: inherit;
+    color: $purple-200;
+    
+    &:active, &:hover, &:focus {
+      background-color: rgba($suggested-item-color, 0.32);
+    }
+    
+    &:after {
+      content: "";
+      background-image: url(~client/assets/svg/for-css/checkbox-purple.svg);
+      background-size: 13px 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      width: 13px;
+      height: 10px;
+      padding-left: 40px;
+    }
   }
 }
 
