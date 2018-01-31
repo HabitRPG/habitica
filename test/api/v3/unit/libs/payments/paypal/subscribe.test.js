@@ -58,7 +58,7 @@ describe('subscribe', () => {
     cc.validate.restore();
   });
 
-  it('subscribes with amazon with a coupon', async () => {
+  it('subscribes with paypal with a coupon', async () => {
     sub.discount = 40;
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
