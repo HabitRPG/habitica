@@ -137,6 +137,8 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  user.items.gear.owned.armor_special_birthday = true;
+  user.items.gear.equipped.body = 'armor_special_birthday';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
