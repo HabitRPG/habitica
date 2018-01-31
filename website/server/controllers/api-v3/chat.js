@@ -489,8 +489,30 @@ api.seenChat = {
     // let group = await Group.getGroup({user, groupId});
     // if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let update = {$unset: {}};
+    let update = {
+      $unset: {},
+      $pull: {},
+    };
     update.$unset[`newMessages.${groupId}`] = true;
+
+    update.$pull.notifications = {
+      type: 'NEW_CHAT_MESSAGE',
+      'data.group.id': groupId,
+    };
+
+    // Remove from response
+    user.notifications = user.notifications.filter(n => {
+      if (n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId) {
+        return false;
+      }
+
+      return true;
+    });
+
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v++;
 
     await User.update({_id: user._id}, update).exec();
     res.respond(200, {});

@@ -98,6 +98,7 @@ describe('POST /members/send-private-message', () => {
 
   it('sends a private message to a user', async () => {
     let receiver = await generateUser();
+    // const initialNotifications = receiver.notifications.length;
 
     await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
@@ -115,8 +116,42 @@ describe('POST /members/send-private-message', () => {
       return message.uuid === receiver._id && message.text === messageToSend;
     });
 
+    // @TODO waiting for mobile support
+    // expect(updatedReceiver.notifications.length).to.equal(initialNotifications + 1);
+    // const notification = updatedReceiver.notifications[updatedReceiver.notifications.length - 1];
+
+    // expect(notification.type).to.equal('NEW_INBOX_MESSAGE');
+    // expect(notification.data.messageId).to.equal(sendersMessageInReceiversInbox.id);
+    // expect(notification.data.excerpt).to.equal(messageToSend);
+    // expect(notification.data.sender.id).to.equal(updatedSender._id);
+    // expect(notification.data.sender.name).to.equal(updatedSender.profile.name);
+
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;
+  });
+
+  // @TODO waiting for mobile support
+  xit('creates a notification with an excerpt if the message is too long', async () => {
+    let receiver = await generateUser();
+    let longerMessageToSend = 'A very long message, that for sure exceeds the limit of 100 chars for the excerpt that we set to 100 chars';
+    let messageExcerpt = `${longerMessageToSend.substring(0, 100)}...`;
+
+    await userToSendMessage.post('/members/send-private-message', {
+      message: longerMessageToSend,
+      toUserId: receiver._id,
+    });
+
+    let updatedReceiver = await receiver.get('/user');
+
+    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
+      return message.uuid === userToSendMessage._id && message.text === longerMessageToSend;
+    });
+
+    const notification = updatedReceiver.notifications[updatedReceiver.notifications.length - 1];
+
+    expect(notification.type).to.equal('NEW_INBOX_MESSAGE');
+    expect(notification.data.messageId).to.equal(sendersMessageInReceiversInbox.id);
+    expect(notification.data.excerpt).to.equal(messageExcerpt);
   });
 
   it('allows admin to send when sender has blocked the admin', async () => {

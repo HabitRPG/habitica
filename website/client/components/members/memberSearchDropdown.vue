@@ -1,5 +1,5 @@
 <template lang="pug">
-b-dropdown.create-dropdown(:text="text")
+b-dropdown.create-dropdown(:text="text", no-flip)
   input.form-control(type='text', v-model='searchTerm')
   b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="selectMember(member)")
     | {{ member.profile.name }}
@@ -32,6 +32,11 @@ export default {
       searchTerm: '',
       memberResults: [],
     };
+  },
+  watch: {
+    memberResults () {
+      if (this.memberResults.length > 10) this.memberResults.length = 10;
+    },
   },
   methods: {
     selectMember (member) {

@@ -7,7 +7,6 @@ import * as Tasks from './task';
 import { model as User } from './user';
 import {
   model as Group,
-  TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
@@ -182,7 +181,10 @@ async function _addTaskFn (challenge, tasks, memberId) {
     let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName};
     userTask.userId = memberId;
-    userTask.notes = chalTask.notes; // We want to sync the notes when the task is first added to the challenge
+
+    // We want to sync the notes and tags when the task is first added to the challenge
+    userTask.notes = chalTask.notes;
+    userTask.tags.push(challenge._id);
 
     let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
     if (!tasksOrderList) {
@@ -294,8 +296,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Delete the challenge
   await this.model('Challenge').remove({_id: challenge._id}).exec();
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+  // Refund the leader if the challenge is deleted (no winner chosen)
+  if (brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 
@@ -341,7 +343,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
-      'tags._id': challenge._id,
+      'tags.id': challenge._id,
     }, {
       $set: {'tags.$.challenge': false},
       $pull: {challenges: challenge._id},

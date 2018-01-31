@@ -77,8 +77,8 @@
             v-if='group.key !== "habitica_official" || user.contributor.admin'
           )
             .custom-control.custom-checkbox
-              input.custom-control-input(:id="group.key", type="checkbox", :value="group.key", v-model="workingGroup.categories")
-              label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
+              input.custom-control-input(:id="`category-${group.key}`", type="checkbox", :value="group.key", v-model="workingGroup.categories")
+              label.custom-control-label(v-once, :for="`category-${group.key}`") {{ $t(group.label) }}
           button.btn.btn-primary(@click.prevent="toggleCategorySelect") {{$t('close')}}
         // @TODO: need categories only for PUBLIC GUILDS, not for tavern, private guilds, or party
 
@@ -106,6 +106,10 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
+
+  .custom-control-input {
+    z-index: 1 !important;
+  }
 
   .svg-icon {
     width: 16px;

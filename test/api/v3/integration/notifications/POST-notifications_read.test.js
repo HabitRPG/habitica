@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('POST /notifications/:notificationId/read', () => {
+describe('POST /notifications/read', () => {
   let user;
 
   before(async () => {
@@ -57,6 +57,7 @@ describe('POST /notifications/:notificationId/read', () => {
       id: id2,
       type: 'LOGIN_INCENTIVE',
       data: {},
+      seen: false,
     }]);
 
     await user.sync();

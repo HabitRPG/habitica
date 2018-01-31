@@ -35,7 +35,10 @@ describe('Stripe - Webhooks', () => {
       const error = new Error(`Missing handler for Stripe webhook ${eventType}`);
       await stripePayments.handleWebhooks({requestBody: event}, stripe);
       expect(logger.error).to.have.been.called.once;
-      expect(logger.error).to.have.been.calledWith(error, {event: eventRetrieved});
+
+      const calledWith = logger.error.getCall(0).args;
+      expect(calledWith[0].message).to.equal(error.message);
+      expect(calledWith[1].event).to.equal(eventRetrieved);
     });
 
     it('retrieves and validates the event from Stripe', async () => {

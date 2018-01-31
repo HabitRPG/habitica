@@ -10,7 +10,7 @@
     right: 10px;
     top: 65px;
     width: 350px;
-    z-index: 999;
+    z-index: 1041; // 1041 is above modal backgrounds
   }
 </style>
 

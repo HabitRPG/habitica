@@ -8,7 +8,10 @@ describe('preenHistory', () => {
 
   beforeEach(() => {
     // Replace system clocks so we can get predictable results
-    clock = sinon.useFakeTimers(Number(moment('2013-10-20').zone(0).startOf('day').toDate()), 'Date');
+    clock = sinon.useFakeTimers({
+      now: Number(moment('2013-10-20').zone(0).startOf('day').toDate()),
+      toFake: ['Date'],
+    });
   });
   afterEach(() => {
     return clock.restore();

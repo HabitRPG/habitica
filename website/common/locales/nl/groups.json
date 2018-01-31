@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Niet gemachtigd om dit bericht te verwijderen!",
     "onlyGroupLeaderCanEditTasks": "Niet gemachtigd om taken te beheren!",
     "onlyGroupTasksCanBeAssigned": "Enkel groepstaken kunnen toegewezen worden.",
+    "assignedTo": "Assigned To",
     "assignedToUser": "Assigned to  <%= userName %>",
     "assignedToMembers": "Assigned to <%= userCount %> members",
     "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",

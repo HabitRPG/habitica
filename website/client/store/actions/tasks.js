@@ -50,6 +50,14 @@ export async function fetchCompletedTodos (store, forceLoad = false) {
   }
 }
 
+export async function clearCompletedTodos (store) {
+  await axios.post('/api/v3/tasks/clearCompletedTodos');
+  store.state.tasks.data.todos = store.state.tasks.data.todos.filter(task => {
+    return !task.completed;
+  });
+}
+
+
 export function order (store, [rawTasks, tasksOrder]) {
   const tasks = {
     habits: [],
@@ -180,6 +188,11 @@ export async function assignTask (store, payload) {
 
 export async function unassignTask (store, payload) {
   let response = await axios.post(`/api/v3/tasks/${payload.taskId}/unassign/${payload.userId}`);
+  return response.data.data;
+}
+
+export async function needsWork (store, payload) {
+  let response = await axios.post(`/api/v3/tasks/${payload.taskId}/needs-work/${payload.userId}`);
   return response.data.data;
 }
 

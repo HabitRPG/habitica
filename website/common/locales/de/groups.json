@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Löschen der Nachricht nicht erlaubt!",
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Team-Aufgaben können verteilt werden",
+    "assignedTo": "Assigned To",
     "assignedToUser": "<%= userName %> zugewiesen",
     "assignedToMembers": "<%= userCount %> Mitgliedern zugewiesen",
     "assignedToYouAndMembers": "Dir und <%= userCount %> Mitgliedern zugewiesen",

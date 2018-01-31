@@ -134,7 +134,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState, mapGetters } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 
 import copyIcon from 'assets/svg/copy.svg';
@@ -173,7 +173,9 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      partyMembers: 'partyMembers.data',
+    }),
+    ...mapGetters({
+      partyMembers: 'party:members',
     }),
     questData () {
       return quests.quests[this.group.quest.key];

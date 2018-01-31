@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "このメッセージを削除する権限がありません。",
     "onlyGroupLeaderCanEditTasks": "タスクを管理する権限がありません。",
     "onlyGroupTasksCanBeAssigned": "グループのタスクのみ、割り当てできます",
+    "assignedTo": "Assigned To",
     "assignedToUser": "Assigned to  <%= userName %>",
     "assignedToMembers": "Assigned to <%= userCount %> members",
     "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",

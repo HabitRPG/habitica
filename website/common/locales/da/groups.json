@@ -234,6 +234,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Ikke bemyndiget til at slette denne besked!",
     "onlyGroupLeaderCanEditTasks": "Ikke bemyndiget til at håndtere opgaver!",
     "onlyGroupTasksCanBeAssigned": "Kun gruppe opgaver kan blive tildelt",
+    "assignedTo": "Assigned To",
     "assignedToUser": "Assigned to  <%= userName %>",
     "assignedToMembers": "Assigned to <%= userCount %> members",
     "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",
