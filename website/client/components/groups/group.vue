@@ -542,8 +542,11 @@ export default {
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
       if (this.hasUnreadMessages(groupId)) {
-        this.$store.dispatch('chat:markChatSeen', {groupId});
-        this.$delete(this.user.newMessages, groupId);
+        // Delay by 1sec to make sure it returns after other requests that don't have the notification marked as read
+        setTimeout(() => {
+          this.$store.dispatch('chat:markChatSeen', {groupId});
+          this.$delete(this.user.newMessages, groupId);
+        }, 1000);
       }
     },
     hasUnreadMessages (groupId) {
