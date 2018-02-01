@@ -6,6 +6,10 @@ import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import rerollOp from 'common/script/ops/reroll';
+import releasePetsOp from 'common/script/ops/releasePets';
+import releaseMountsOp from 'common/script/ops/releaseMounts';
+import releaseBothOp from 'common/script/ops/releaseBoth';
+
 import { getDropClass } from 'client/libs/notifications';
 
 // @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change
@@ -154,4 +158,19 @@ export function sellItems (store, params) {
   const user = store.state.user.data;
   sellOp(user, {params, query: {amount: params.amount}});
   axios.post(`/api/v3/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
+}
+
+export function releasePets (store, params) {
+  releasePetsOp(params.user);
+  axios.post('/api/v3/user/release-pets');
+}
+
+export function releaseMounts (store, params) {
+  releaseMountsOp(params.user);
+  axios.post('/api/v3/user/release-mounts');
+}
+
+export function releaseBoth (store, params) {
+  releaseBothOp(params.user);
+  axios.post('/api/v3/user/release-both');
 }

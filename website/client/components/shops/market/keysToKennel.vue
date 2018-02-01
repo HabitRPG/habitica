@@ -58,13 +58,9 @@
 </style>
 
 <script>
-import axios from 'axios';
 import { mapState } from 'client/libs/store';
 import ShopItem from '../shopItem';
 
-import releasePets from 'common/script/ops/releasePets';
-import releaseMounts from 'common/script/ops/releaseMounts';
-import releaseBoth from 'common/script/ops/releaseBoth';
 import count from 'common/script/count';
 
 import notifications from 'client/mixins/notifications';
@@ -90,8 +86,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releasePetsConfirm'))) return;
           try {
-            releasePets(this.user);
-            axios.post('/api/v3/user/release-pets');
+            this.$store.dispatch('shops:releasePets', {user: this.user});
             this.text(this.$t('releasePetsSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
@@ -112,8 +107,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseMountsConfirm'))) return;
           try {
-            releaseMounts(this.user);
-            axios.post('/api/v3/user/release-mounts');
+            this.$store.dispatch('shops:releaseMounts', {user: this.user});
             this.text(this.$t('releaseMountsSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
@@ -134,8 +128,7 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseBothConfirm'))) return;
           try {
-            releaseBoth(this.user);
-            axios.post('/api/v3/user/release-both');
+            this.$store.dispatch('shops:releaseBoth', {user: this.user});
             this.text(this.$t('releaseBothSuccess'));
             this.$router.push({name: 'stable'});
           } catch (err) {
