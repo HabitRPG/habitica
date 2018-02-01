@@ -140,7 +140,7 @@ export default {
       }, delay);
     }
   },
-  destroyed () {
+  beforeDestroy () {
     clearTimeout(this.timer);
   },
   watch: {

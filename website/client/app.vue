@@ -364,7 +364,7 @@ export default {
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('playSound');
     this.$root.$off('bv::modal::hidden');
     this.$root.$off('bv::show::modal');

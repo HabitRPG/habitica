@@ -307,7 +307,7 @@ export default {
       document.addEventListener('keydown', this.checkNextCron);
     });
   },
-  destroyed () {
+  beforeDestroy () {
     document.removeEventListener('mousemove', this.checkNextCron);
     document.removeEventListener('touchstart', this.checkNextCron);
     document.removeEventListener('mousedown', this.checkNextCron);

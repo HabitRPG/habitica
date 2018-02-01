@@ -388,7 +388,7 @@
         this.backgroundUpdate = new Date();
       });
     },
-    destroyed () {
+    beforeDestroy () {
       this.$root.$off('buyModal::boughtItem');
     },
   };

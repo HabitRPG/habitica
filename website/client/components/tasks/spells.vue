@@ -200,7 +200,7 @@ export default {
       this.$store.state.spellOptions.spellDrawOpen = false;
     }
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('castEnd');
     document.removeEventListener('keyup', this.handleKeyUp);
   },

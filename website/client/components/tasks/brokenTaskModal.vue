@@ -48,7 +48,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
-  removed () {
+  beforeDestroy () {
     this.$root.$off('handle-broken-task');
   },
   methods: {
