@@ -621,7 +621,7 @@ api.updateEmail = {
     if (validationErrors) throw validationErrors;
 
     let emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.newEmail.toLowerCase()
+      'auth.local.email': req.body.newEmail.toLowerCase(),
     }).select({_id: 1}).lean().exec();
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
