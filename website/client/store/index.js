@@ -128,7 +128,6 @@ export default function () {
       modalStack: [],
       equipmentDrawerOpen: true,
       groupPlans: [],
-      groupNotifications: [],
       isRunningYesterdailies: false,
     },
   });

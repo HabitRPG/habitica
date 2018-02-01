@@ -37,7 +37,7 @@
     "questCollection": "+ <%= val %> görev eşyası bulundu",
     "questDamage": "+ <%= val %> canavara verilecek hasar",
     "begin": "Başla",
-    "bossHP": "Boss HP",
+    "bossHP": "Canavarın Sağlığı",
     "bossStrength": "Canavarın Gücü",
     "rage": "Öfke",
     "collect": "Topla",

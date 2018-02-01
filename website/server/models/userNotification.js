@@ -44,6 +44,8 @@ export let schema = new Schema({
   data: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
+  // A field to mark the notification as seen without deleting it, optional use
+  seen: {type: Boolean, required: true, default: () => false},
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

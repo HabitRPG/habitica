@@ -108,7 +108,7 @@
     "paymentMethods": "Comprar usando",
     "classGear": "Equipamento da Classe",
     "classGearText": "Parabéns por ter escolhido uma classe! Eu adicionei sua nova arma básica no seu inventário. Dê uma olhada abaixo para equipá-lo!",
-    "classStats": "These are your class's Stats; they affect the game-play. Each time you level up, you get one Point to allocate to a particular Stat. Hover over each Stat for more information.",
+    "classStats": "Estes são seus Atributos de Classe; eles afetam o modo de jogar. Cada vez que você sobe um nível você ganha um Ponto para distribuir para uma Atributo em particular. Passe o mouse sobre um Atributo para mais informações.",
     "autoAllocate": "Distribuição Automática",
     "autoAllocateText": "If 'Automatic Allocation' is selected, your avatar gains Stats automatically based on your tasks' Stats, which you can find in <strong>TASK > Edit > Advanced Settings > Stat Allocation</strong>. Eg, if you hit the gym often, and your 'Gym' Daily is set to 'Strength', you'll gain Strength automatically.",
     "spells": "Habilidades",

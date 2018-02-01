@@ -137,6 +137,8 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  user.items.gear.owned.armor_special_birthday = true; // eslint-disable-line camelcase
+  user.items.gear.equipped.body = 'armor_special_birthday';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -245,6 +247,43 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // automatically granted an item during a certain time period:
     // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
     // this.items.pets['JackOLantern-Base'] = 5;
+  }
+
+  // Manage unallocated stats points notifications
+  if (this.isSelected('stats') && this.isSelected('notifications')) {
+    const pointsToAllocate = this.stats.points;
+
+    // Sometimes there can be more than 1 notification
+    const existingNotifications = this.notifications.filter(notification => {
+      return notification.type === 'UNALLOCATED_STATS_POINTS';
+    });
+
+    const existingNotificationsLength = existingNotifications.length;
+    // Take the most recent notification
+    const lastExistingNotification = existingNotificationsLength > 0 ? existingNotifications[existingNotificationsLength - 1] : null;
+    // Decide if it's outdated or not
+    const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
+
+    // If the notification is outdated, remove all the existing notifications, otherwise all of them except the last
+    let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
+
+    // If there are points to allocate and the notification is outdated, add a new notifications
+    if (pointsToAllocate > 0 && outdatedNotification) {
+      this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
+    }
+
+    // Remove the outdated notifications
+    if (notificationsToRemove > 0) {
+      let notificationsRemoved = 0;
+
+      this.notifications = this.notifications.filter(notification => {
+        if (notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
+        if (notificationsRemoved === notificationsToRemove) return true;
+
+        notificationsRemoved++;
+        return false;
+      });
+    }
   }
 
   // Enable weekly recap emails for old users who sign in

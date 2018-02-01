@@ -144,7 +144,7 @@ describe('checkout with subscription', () => {
     cc.validate.restore();
   });
 
-  it('subscribes with amazon with a coupon', async () => {
+  it('subscribes with stripe with a coupon', async () => {
     sub.discount = 40;
     sub.key = 'google_6mo';
     coupon = 'example-coupon';

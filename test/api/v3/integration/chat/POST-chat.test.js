@@ -426,6 +426,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+    })).to.exist;
   });
 
   it('notifies other users of new messages for a party', async () => {
@@ -443,6 +446,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
+    })).to.exist;
   });
 
   context('Spam prevention', () => {
