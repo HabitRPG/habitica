@@ -433,7 +433,7 @@ export default {
       return this.group.challenges.length === 0;
     },
     showNoNotificationsMessage () {
-      return this.group.memberCount > 5000;
+      return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
     },
   },
   mounted () {
