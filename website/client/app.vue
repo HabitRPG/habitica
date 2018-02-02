@@ -103,7 +103,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043; /* Must stay above nav bar */
   }
 </style>
 
