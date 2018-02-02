@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import autoinc  from 'mongoose-id-autoinc';
 import logger  from '../website/server/libs/logger';
 import nconf    from 'nconf';
 import repl     from 'repl';
@@ -28,15 +27,13 @@ let improveRepl = (context) => {
     replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
     server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
   };
-  autoinc.init(
-    mongoose.connect(
-      nconf.get('NODE_DB_URI'),
-      mongooseOptions,
-      (err) => {
-        if (err) throw err;
-        logger.info('Connected with Mongoose');
-      }
-    )
+  mongoose.connect(
+    nconf.get('NODE_DB_URI'),
+    mongooseOptions,
+    (err) => {
+      if (err) throw err;
+      logger.info('Connected with Mongoose');
+    }
   );
 };
 
