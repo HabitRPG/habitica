@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import _ from 'lodash';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -30,8 +29,8 @@ api.readNotification = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let index = _.findIndex(user.notifications, {
-      id: req.params.notificationId,
+    const index = user.notifications.findIndex(n => {
+      return n.id === req.params.notificationId;
     });
 
     if (index === -1) {
@@ -72,10 +71,10 @@ api.readNotifications = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let notifications = req.body.notificationIds;
-    for (let notification of notifications) {
-      let index = _.findIndex(user.notifications, {
-        id: notification,
+    let notificationsIds = req.body.notificationIds;
+    for (let notificationId of notificationsIds) {
+      const index = user.notifications.findIndex(n => {
+        return n.id === notificationId;
       });
 
       if (index === -1) {
@@ -86,7 +85,7 @@ api.readNotifications = {
     }
 
     await user.update({
-      $pull: { notifications: { id: { $in: notifications } } },
+      $pull: { notifications: { id: { $in: notificationsIds } } },
     }).exec();
 
     // Update the user version field manually,
@@ -122,8 +121,8 @@ api.seeNotification = {
 
     const notificationId = req.params.notificationId;
 
-    let notification = _.find(user.notifications, {
-      id: notificationId,
+    const notification = user.notifications.find(n => {
+      return n.id === notificationId;
     });
 
     if (!notification) {
@@ -172,8 +171,8 @@ api.seeNotifications = {
     let notificationsIds = req.body.notificationIds;
 
     for (let notificationId of notificationsIds) {
-      let notification = _.find(user.notifications, {
-        id: notificationId,
+      const notification = user.notifications.find(n => {
+        return n.id === notificationId;
       });
 
       if (!notification) {
