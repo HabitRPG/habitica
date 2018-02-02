@@ -736,7 +736,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) 
       return raw;
     }).catch((err) => {
       if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry, query);
+        return _updateUserWithRetries(userId, updates, ++numTry);
       } else {
         throw err;
       }
