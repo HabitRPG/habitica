@@ -151,7 +151,7 @@ describe('errorHandler', () => {
     expect(res.json).to.be.calledWith({
       success: false,
       error: 'BadRequest',
-      message: 'User validation failed.',
+      message: 'User validation failed',
       errors: [
         { path: 'auth.local.email', message: 'Invalid email.', value: 'not an email' },
       ],
