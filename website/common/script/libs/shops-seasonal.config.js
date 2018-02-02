@@ -11,10 +11,6 @@ module.exports = {
   ],
 
   pinnedSets: {
-    warrior: 'winter2018GiftWrappedSet',
-    wizard: 'winter2018ConfettiSet',
-    rogue: 'winter2018ReindeerSet',
-    healer: 'winter2018MistletoeSet',
   },
 
   availableSpells: [
