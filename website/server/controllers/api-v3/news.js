@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BIRTHDAY CELEBRATION, LAST CHANCE FOR WINTER WONDERLAND ITEMS, AND CONTINUED RESOLUTION PLOT-LINE';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS, OFFICIAL CHALLENGES, AND FIXES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -27,66 +27,46 @@ api.getNews = {
       html: `
       <div class="bailey">
         <div class="media">
-            <div class="align-self-center mr-3 ${baileyClass}"></div>
-            <div class="media-body">
-                <h1 class="align-self-center markdown">${res.t('newStuff')}</h1>
+          <div class="media-body">
+            <div class="media">
+              <div class="align-self-center mr-3 ${baileyClass}"></div>
+              <div class="media-body">
+                <h1 class="align-self-center">${res.t('newStuff')}</h1>
+              </div>
             </div>
+            <h2>2/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <hr/>
+            <h3>February Backgrounds and Armoire Items!</h3>
+            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can dally in a Rose Garden, explore a Magical Museum, and play in Chessboard Land. Check them out under the User Icon > Backgrounds!</p>
+            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the King of Diamonds Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+            <div class="small mb-3">by AnnDeLune, weeWitch, Katy133, RandomGryffindor, and Chimera Liani</div>
+          </div>
+          <div class="promo_armoire_backgrounds_201802 m1-3 mb-3"></div>
         </div>
-        <h2>1/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
-        <hr/>
-
-        <div class="promo_habit_birthday_2018 center-block"></div>
-
-        <h3>Habitica Birthday Party!</h3>
-        <p>January 31st is Habitica's Birthday! Thank you so much for being a part of our community - it means a lot.</p>
-        <p>Now come join us and the NPCs as we celebrate!</p>
-
-        <h4>Cake for Everybody!</h4>
-        <p>In honor of the festivities, everyone has been awarded an assortment of yummy cake to feed to your pets! Plus, for the next two days 
-        <a href="/shops/market" target="_blank" rel="noopener">Alexander the Merchant</a> 
-        is selling cake in his shop, and cake will sometimes drop when you complete your tasks. Cake works just like normal pet food, 
-        but if you want to know what type of pet likes each slice, <a href="http://habitica.wikia.com/wiki/Food" target="_blank" rel="noopener">the wiki has spoilers</a>.
-        </p>
-
-        <h4>Party Robes</h4>
-        <p>There are Party Robes available for free in the Rewards column! Don them with pride.</p>
-
-        <h4>Birthday Bash Achievement</h4>
-        <p>In honor of Habitica's birthday, everyone has been awarded the Habitica Birthday Bash achievement! This achievement stacks for each Birthday Bash you celebrate with us.</p>
-
 
         <div class="media">
+          <div class="scene_yesterdailies_repeatables mr-3"></div>
           <div class="media-body">
-            <h3>Last Chance for Frost Sprite Set</h3>
-            <p class="markdown">Reminder: this is the final day to <a href="/user/settings/subscription" target="_blank" rel="noopener">subscribe</a> 
-            and receive the Frost Sprite Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
-
-            <h3>Last Chance for Starry Night and Holly Hatching Potions</h3>
-            <p class="markdown">Reminder: this is the final day to <a href="/shops/market" target="_blank" rel="noopener">buy Starry Night and Holly Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
-            <div class="small mb-3">by Vampitch, JinjooHat, Lemoness, and SabreCat</div>
-
-            <h3>Resolution Plot-Line: Broken Buildings</h3>
-            <p>Lemoness, SabreCat, and Beffymaroo call an important meeting to address the rumors that are flying about this strange outbreak of Habiticans who are suddenly losing all faith in their ability to complete their New Year's Resolutions.</p>
-            <p>“Thank you all for coming,” Lemoness says. “I'm afraid that we have some very serious news to share, but we ask that you remain calm.”</p>
+            <h3>February 2018 Resolution Success Challenge and Take This Challenge</h3>
+            <p>The Habitica team has launched a special official Challenge series hosted in the <a href="/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99">Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href="/challenges/2836b401-a11d-4fe9-a75f-77c1e9d31ba4">Hone your Weapons</a>, we're focusing on making sure the goals you've set this year are specific and achievable! It has a 15 Gem prize, which will be awarded to five lucky winners on March 1st.</p>
           </div>
-          <div class="promo_starry_potions ml-3"></div>
         </div>
+        <p>Congratulations to the winners of January's Challenge: upsidedawn, Cristalias, feistyturtle, Yachiie, and Stijn Verwijmeren!</p>
+        <div class="media">
+          <div class="media-body">
+            <p>The next Take This Challenge has also launched, <a href="/challenges/75a06666-b0c0-4fec-b612-ef5bebe74bfb">Cast of Characters!</a>, with a focus on imagining one's positive and negative feelings as characters in a story. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+            <p><a href="http://www.takethis.org" target="_blank">Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+          </div>
+          <div class="promo_take_this ml-3"></div>
+        </div>
+        <p>Congratulations to the winners of the last Take This Challenge, 'Check Your HP!': grand prize winner PoNyasha, and runners-up -ᏲᎾ-, Kat Thompson, 𝒮𝔲𝔠𝔥𝔢𝔯𝔪𝔞𝔲𝔰 🐭, Cal_Fizz, and redfeather! Plus, all participants in that Challenge have received a piece of the <a href="http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set" target="_blank">Take This item set</a> if they hadn't completed the set already. Armor pieces are located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
+        <h3>Updates and Fixes</h3>
+        <p>We've made a number of fixes, most prominently a bunch of fixes for notifications so that they direct you to the correct place when clicked and disappear after that!</p>
+        <p>We've also fixed the issue where some Habiticans were seeing old announcements from Bailey rather than the latest ones, and we've added a way for Group Plan managers to note when an assigned task needs further work from the assignee.</p>
+        <p>We hope these fixes improve your Habitica experience!</p>
+        <div class="small mb-3">by Paglias, TheHollidayInn, and Apollo</div>
 
-        <p>“While it's natural to feel a little disheartened as the end of January approaches,” Beffymaroo says, “these sudden outbreaks appear to have some strange magical origin. 
-        We're still investigating the exact cause, but we do know that the buildings where the affected Habiticans live often seem to sustain some damage immediately before the attack.”</p>
-
-        <p>SabreCat clears his throat. “For this reason, we strongly encourage everyone to stay away from broken-down structures, and if you feel any strange tremors or hear odd sounds, 
-        please report them immediately.”</p>
-
-        <p class="markdown">“Stay safe, Habiticans.” Lemoness flashes her best comforting smile. 
-        “And remember that if your New Year's Resolution goals seem daunting, you can always seek support in the 
-        <a href="https://habitica.com/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99" target="_blank" rel="noopener">New Year's Resolution Guild</a>.”</p>
-
-        <p>How mysterious! Hopefully they'll get to the bottom of this soon.</p>
-
-        <hr>
       </div>
       `,
     });
