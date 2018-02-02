@@ -1,5 +1,6 @@
 import nconf from 'nconf';
 import logger from './logger';
+import autoinc from 'mongoose-id-autoinc';
 import mongoose from 'mongoose';
 import Bluebird from 'bluebird';
 
@@ -18,8 +19,10 @@ if (MAINTENANCE_MODE !== 'true') {
 
   const NODE_DB_URI = nconf.get('IS_TEST') ? nconf.get('TEST_DB_URI') : nconf.get('NODE_DB_URI');
 
-  mongoose.connect(NODE_DB_URI, mongooseOptions, (err) => {
+  let db = mongoose.connect(NODE_DB_URI, mongooseOptions, (err) => {
     if (err) throw err;
     logger.info('Connected with Mongoose.');
   });
+
+  autoinc.init(db);
 }

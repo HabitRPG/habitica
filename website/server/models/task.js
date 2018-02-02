@@ -54,23 +54,6 @@ export let TaskSchema = new Schema({
         return !validator.isUUID(val);
       },
       msg: 'Task short names cannot be uuids.',
-    }, {
-      validator (alias) {
-        return new Promise((resolve, reject) => {
-          Task.findOne({ // eslint-disable-line no-use-before-define
-            _id: { $ne: this._id },
-            userId: this.userId,
-            alias,
-          }).exec().then((task) => {
-            let aliasAvailable = !task;
-
-            return aliasAvailable ? resolve() : reject();
-          }).catch(() => {
-            reject();
-          });
-        });
-      },
-      msg: 'Task alias already used on another task.',
     }],
   },
   tags: [{
@@ -209,6 +192,20 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 };
 
 export let Task = mongoose.model('Task', TaskSchema);
+
+Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
+  Task.findOne({
+    _id: { $ne: this._id },
+    userId: this.userId,
+    alias,
+  }).exec().then((task) => {
+    let aliasAvailable = !task;
+
+    respond(aliasAvailable);
+  }).catch(() => {
+    respond(false);
+  });
+}, 'Task alias already used on another task.');
 
 // habits and dailies shared fields
 let habitDailySchema = () => {

@@ -131,7 +131,7 @@ describe('errorHandler', () => {
   });
 
   it('handle Mongoose Validation errors', () => {
-    let error = new Error('User validation failed');
+    let error = new Error('User validation failed.');
     error.name = 'ValidationError';
 
     error.errors = {
@@ -151,7 +151,7 @@ describe('errorHandler', () => {
     expect(res.json).to.be.calledWith({
       success: false,
       error: 'BadRequest',
-      message: 'User validation failed',
+      message: 'User validation failed.',
       errors: [
         { path: 'auth.local.email', message: 'Invalid email.', value: 'not an email' },
       ],
