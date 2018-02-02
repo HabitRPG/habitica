@@ -45,7 +45,7 @@ describe('POST /group', () => {
       });
     });
 
-    it('sets summary to challenges name when not supplied', async () => {
+    it('sets summary to groups name when not supplied', async () => {
       const name = 'Test Group';
       const group = await user.post('/groups', {
         name,
@@ -57,7 +57,7 @@ describe('POST /group', () => {
       expect(updatedGroup.summary).to.eql(name);
     });
 
-    it('sets summary to challenges', async () => {
+    it('sets summary to groups', async () => {
       const name = 'Test Group';
       const summary = 'Test Summary';
       const group = await user.post('/groups', {
