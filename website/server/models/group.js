@@ -140,9 +140,7 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.pre('init', function ensureSummaryIsFetched () {
-  const group = this;
-
+schema.pre('init', function ensureSummaryIsFetched (group) {
   // The Vue website makes the summary be mandatory for all new groups, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any guild without a summary is fetched from the database, this code
