@@ -29,11 +29,14 @@ describe('shared.ops.openMysteryItem', () => {
     let mysteryItemKey = 'eyewear_special_summerRogue';
 
     user.purchased.plan.mysteryItems = [mysteryItemKey];
+    user.notifications.push({type: 'NEW_MYSTERY_ITEMS', data: {items: [mysteryItemKey]}});
+    expect(user.notifications.length).to.equal(1);
 
     let [data, message] = openMysteryItem(user);
 
     expect(user.items.gear.owned[mysteryItemKey]).to.be.true;
     expect(message).to.equal(i18n.t('mysteryItemOpened'));
     expect(data).to.eql(content.gear.flat[mysteryItemKey]);
+    expect(user.notifications.length).to.equal(0);
   });
 });

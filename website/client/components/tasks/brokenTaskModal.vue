@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   b-modal#broken-task-modal(title="Broken Challenge", size='sm', :hide-footer="true")
     .modal-body(v-if='brokenChallengeTask && brokenChallengeTask.challenge')
       div(v-if='brokenChallengeTask.challenge.broken === "TASK_DELETED" || brokenChallengeTask.challenge.broken === "CHALLENGE_TASK_NOT_FOUND"')
@@ -48,8 +48,8 @@ export default {
       this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
-  removed () {
-    this.$root.$remove('handle-broken-task');
+  beforeDestroy () {
+    this.$root.$off('handle-broken-task');
   },
   methods: {
     ...mapActions({
@@ -59,7 +59,7 @@ export default {
     }),
     async unlink (keepOption) {
       if (keepOption.indexOf('-all') !== -1) {
-        this.unlinkAllTasks({
+        await this.unlinkAllTasks({
           challengeId: this.brokenChallengeTask.challenge.id,
           keep: keepOption,
         });

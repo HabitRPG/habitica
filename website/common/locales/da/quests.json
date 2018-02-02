@@ -25,6 +25,7 @@
     "questInvitation": "Quest-invitation:",
     "questInvitationTitle": "Quest-invitation",
     "questInvitationInfo": "Invitation til Questen <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Spørg Senere",
     "questLater": "Udfør Questen senere",
     "buyQuest": "Køb Quest",

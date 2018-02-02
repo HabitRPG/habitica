@@ -192,16 +192,17 @@ export default {
       this.castEnd(target, type, $event);
     });
 
-    document.addEventListener('keyup', keyEvent => {
-      if (keyEvent.keyCode !== 27) return;
-      this.castCancel();
-    });
+    document.addEventListener('keyup', this.handleKeyUp);
 
     // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
     const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
     if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {
       this.$store.state.spellOptions.spellDrawOpen = false;
     }
+  },
+  beforeDestroy () {
+    this.$root.$off('castEnd');
+    document.removeEventListener('keyup', this.handleKeyUp);
   },
   computed: {
     ...mapState({user: 'user.data'}),
@@ -210,6 +211,10 @@ export default {
     },
   },
   methods: {
+    handleKeyUp (keyEvent) {
+      if (keyEvent.keyCode !== 27) return;
+      this.castCancel();
+    },
     drawerToggled (newState) {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 

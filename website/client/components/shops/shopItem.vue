@@ -28,7 +28,7 @@ div
   )
     slot(name="popoverContent", :item="item")
       equipmentAttributesPopover(
-        v-if="item.purchaseType==='gear'",
+        v-if="item.purchaseType === 'gear'",
         :item="item"
       )
       div.questPopover(v-else-if="item.purchaseType === 'quests'")

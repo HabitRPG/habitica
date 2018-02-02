@@ -45,6 +45,15 @@
     background-color: rgba(#d5c8ff, 0.32);
     color: $purple-200;
   }
+
+  &.dropdown-inactive {
+    cursor: default;
+    
+    &:active, &:hover, &.active {
+      background-color: inherit;
+      color: inherit;
+    }
+  }
 }
 
 .dropdown + .dropdown {

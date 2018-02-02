@@ -1,15 +1,13 @@
 <template lang="pug">
-  div.slider-root(
-    v-bind:class="{'scrollButtonsVisible': scrollButtonsVisible}",
-  )
+  div.slider-root
     div.slider-button-area.left-button(
-      v-if="scrollButtonsVisible",
+      v-if="scrollButtonsVisible()",
       @mousedown.left="shiftRight"
     )
       a.slider-button
         .svg-icon(v-html="icons.previous")
     div.slider-button-area.right-button(
-      v-if="scrollButtonsVisible",
+      v-if="scrollButtonsVisible()",
       @mousedown.left="shiftLeft"
     )
       a.slider-button
@@ -169,12 +167,11 @@
       shouldAddVerticalLine (item) {
         return this.items[this.itemsPerPage() - 1] === item && this.pointer !== 5;
       },
+      scrollButtonsVisible () {
+        return this.items.length > this.itemsPerPage();
+      },
     },
     props: {
-      scrollButtonsVisible: {
-        type: Boolean,
-        default: true,
-      },
       items: {
         type: Array,
       },

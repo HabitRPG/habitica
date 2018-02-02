@@ -27,7 +27,7 @@
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
-              .input-group-prepend.input-group-icon
+              .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
 
@@ -220,7 +220,7 @@
                           type="number", v-model="task.counterDown", min="0", required,
                         )
 
-              .option(v-if="isUserTask && task.type !== 'reward'")
+              //.option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
                   label(v-once)
                     span.float-left {{ $t('attributeAllocation') }}

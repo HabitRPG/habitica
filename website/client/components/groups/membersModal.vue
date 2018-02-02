@@ -36,7 +36,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='promoteToLeader(member)', v-if='isLeader || isAdmin')
+            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowPromoteToLeader')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
@@ -286,6 +286,9 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    shouldShowPromoteToLeader () {
+      return !this.challengeId && (this.isLeader || this.isAdmin);
+    },
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
