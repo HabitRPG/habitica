@@ -52,6 +52,8 @@
       draggable(
         ref="rewardsList",
         @update="rewardSorted",
+        @start="rewardDragStart",
+        @end="rewardDragEnd",
         class="reward-items",
       )
         shopItem(
@@ -59,6 +61,7 @@
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
+          :showPopover="showPopovers"
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
@@ -337,6 +340,7 @@ export default {
       quickAddText: '',
       quickAddFocused: false,
       quickAddRows: 1,
+      showPopovers: true,
 
       selectedItemToBuy: {},
     };
@@ -531,6 +535,13 @@ export default {
         position: data.newIndex,
       });
       this.user.pinnedItemsOrder = newOrder;
+    },
+    rewardDragStart () {
+      // We need to stop popovers from interfering with our dragging
+      this.showPopovers = false;
+    },
+    rewardDragEnd () {
+      this.showPopovers = true;
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
