@@ -31,6 +31,7 @@ import {
 } from './subscriptionPlan';
 import amazonPayments from '../libs/amazonPayments';
 import stripePayments from '../libs/stripePayments';
+import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -493,10 +494,8 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   }
 
   // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {
-    [`newMessages.${this._id}`]: {name: this.name, value: true},
-  }};
-  let query = {};
+
+  const query = {};
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -506,7 +505,29 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   query._id = { $ne: user ? user._id : ''};
 
-  User.update(query, lastSeenUpdate, {multi: true}).exec();
+  // First remove the old notification (if it exists)
+  const lastSeenUpdateRemoveOld = {
+    $pull: {
+      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
+    },
+  };
+
+  // Then add the new notification
+  const lastSeenUpdateAddNew = {
+    $set: { // old notification, supported until mobile is updated and we release api v4
+      [`newMessages.${this._id}`]: {name: this.name, value: true},
+    },
+    $push: {
+      notifications: new UserNotification({
+        type: 'NEW_CHAT_MESSAGE',
+        data: { group: { id: this._id, name: this.name } },
+      }).toObject(),
+    },
+  };
+
+  User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
+    User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
+  });
 
   // If the message being sent is a system message (not gone through the api.postChat controller)
   // then notify Pusher about it (only parties for now)

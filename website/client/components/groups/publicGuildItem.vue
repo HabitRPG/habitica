@@ -130,7 +130,6 @@ import moment from 'moment';
 import { mapState } from 'client/libs/store';
 import groupUtilities from 'client/mixins/groupsUtilities';
 import markdown from 'client/directives/markdown';
-import findIndex from 'lodash/findIndex';
 import gemIcon from 'assets/svg/gem.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-large.svg';
 import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-large.svg';
@@ -171,19 +170,11 @@ export default {
       if (this.guild.cancelledPlan && !confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {guildId: this.guild._id, type: 'myGuilds'});
+      await this.$store.dispatch('guilds:join', {groupId: this.guild._id, type: 'guild'});
     },
     async leave () {
       // @TODO: ask about challenges when we add challenges
       await this.$store.dispatch('guilds:leave', {groupId: this.guild._id, type: 'myGuilds'});
-    },
-    async reject (invitationToReject) {
-      // @TODO: This needs to be in the notifications where users will now accept invites
-      let index = findIndex(this.user.invitations.guilds, function findInviteIndex (invite) {
-        return invite.id === invitationToReject.id;
-      });
-      this.user.invitations.guilds = this.user.invitations.guilds.splice(0, index);
-      await this.$store.dispatch('guilds:rejectInvite', {guildId: invitationToReject.id});
     },
   },
 };

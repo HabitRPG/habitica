@@ -25,6 +25,7 @@ describe('GET /user/anonymized', () => {
       'achievements.challenges': 'some',
       'inbox.messages': [{ text: 'some text' }],
       tags: [{ name: 'some name', challenge: 'some challenge' }],
+      notifications: [],
     });
 
     await generateHabit({ userId: user._id });
@@ -65,6 +66,7 @@ describe('GET /user/anonymized', () => {
     expect(returnedUser.stats.toNextLevel).to.eql(common.tnl(user.stats.lvl));
     expect(returnedUser.stats.maxMP).to.eql(30); // TODO why 30?
     expect(returnedUser.newMessages).to.not.exist;
+    expect(returnedUser.notifications).to.not.exist;
     expect(returnedUser.profile).to.not.exist;
     expect(returnedUser.purchased.plan).to.not.exist;
     expect(returnedUser.contributor).to.not.exist;
