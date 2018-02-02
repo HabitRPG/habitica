@@ -25,6 +25,7 @@
     "questInvitation": "任務邀請：",
     "questInvitationTitle": "任務邀請",
     "questInvitationInfo": "<%= quest %> 的邀請",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "稍後再問",
     "questLater": "等會再進行仼務",
     "buyQuest": "購買任務",
