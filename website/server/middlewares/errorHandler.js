@@ -39,7 +39,9 @@ module.exports = function errorHandler (err, req, res, next) { // eslint-disable
 
   // Handle mongoose validation errors
   if (err.name === 'ValidationError') {
-    responseErr = new BadRequest(err.message); // TODO standard message? translate?
+    // Use error._message instead of error.message because it includes too many info
+    // and our tests expect simpler messages
+    responseErr = new BadRequest(err._message); // TODO standard message? translate?
     responseErr.errors = map(err.errors, (mongooseErr) => {
       return {
         message: mongooseErr.message,
