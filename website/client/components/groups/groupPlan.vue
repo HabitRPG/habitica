@@ -86,16 +86,13 @@ div
         label(for='new-group-description') {{ $t('description') }}
         textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('description')", v-model='newGroup.description')
       .form-group(v-if='type === "guild"')
-        .radio
-          label
-            input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-            | {{ $t('inviteOnly') }}
-
+        .custom-control.custom-radio
+          input.custom-control-input(type="radio", name="new-group-privacy", value="private", v-model="newGroup.privacy")
+          label.custom-control-label {{ $t('inviteOnly') }}
       .form-group
-        .checkbox
-          label
-            input(type='checkbox', v-model='newGroup.leaderOnly.challenges')
-            | {{ $t('leaderOnlyChallenges') }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", v-model="newGroup.leaderOnly.challenges" :id="_uid")
+          label.custom-control-label(:for="_uid") {{ $t('leaderOnlyChallenges') }}
       .form-group(v-if='type === "party"')
         button.btn.btn-secondary.form-control(@click='createGroup()', :value="$t('createGroupPlan')")
       .form-group
