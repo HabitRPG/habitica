@@ -131,7 +131,7 @@ describe('errorHandler', () => {
   });
 
   it('handle Mongoose Validation errors', () => {
-    let error = new Error('User validation failed.');
+    let error = new Error('User validation failed');
     error.name = 'ValidationError';
 
     error.errors = {
