@@ -38,14 +38,22 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
-    required: true,
+    // required: true, // @TODO: Add these back once we figure out the issue with notifications
   },
-  type: {type: String, required: true, enum: NOTIFICATION_TYPES},
+  type: {
+    type: String,
+    // required: true,
+    enum: NOTIFICATION_TYPES,
+  },
   data: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
   // A field to mark the notification as seen without deleting it, optional use
-  seen: {type: Boolean, required: true, default: () => false},
+  seen: {
+    type: Boolean,
+    // required: true,
+    default: () => false,
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
