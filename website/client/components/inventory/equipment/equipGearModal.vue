@@ -32,6 +32,7 @@
 
     div.clearfix(slot="modal-footer")
 </template>
+
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
