@@ -25,6 +25,7 @@
     "questInvitation": "Pozvánka na výpravu:",
     "questInvitationTitle": "Pozvánka na Výpravu",
     "questInvitationInfo": "Pozvánka na Výpravu <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Zeptej se později",
     "questLater": "Začít Výpravu později",
     "buyQuest": "Kup Výpravu",

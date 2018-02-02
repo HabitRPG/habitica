@@ -21,7 +21,7 @@
     "rebirthOrb": "Използвал(а) Кълбо на прераждане, за да започне отново след достигане на ниво <%= level %>.",
     "rebirthOrb100": "Използвал(а) Кълбо на прераждане, за да започне отново след достигане на ниво 100 или по-високо.",
     "rebirthOrbNoLevel": "Използвал(а) Кълбо на прераждане, за да започне отново.",
-    "rebirthPop": "Рестартиране на героя Ви от ниво 1, запазвайки постиженията, събраните предмети, екипировката и задачите с тяхната история. Това ще бъде извършено на момента.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Кълбо за прераждане",
     "reborn": "Прероден(а), максимално ниво: <%= reLevel %>",
     "confirmReborn": "Наистина ли искате това?",

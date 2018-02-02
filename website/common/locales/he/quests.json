@@ -25,6 +25,7 @@
     "questInvitation": "הזמנה להרפתקה:",
     "questInvitationTitle": "הזמנה להרפתקה",
     "questInvitationInfo": "הזמנה להרפתקה <%= quest %> ",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "שאלו אחר כך",
     "questLater": "צאו להרפתקה מאוחר יותר",
     "buyQuest": "קנו הרפתקה",

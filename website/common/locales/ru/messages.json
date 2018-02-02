@@ -59,5 +59,6 @@
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",
     "notificationsRequired": "Необходим идентификатор оповещений.",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!"
 }

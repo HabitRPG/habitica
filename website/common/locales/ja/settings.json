@@ -70,8 +70,8 @@
     "APIv3": "API v3",
     "APIText": "サードパーティのアプリケーションで使用する際にこちらをコピーしてください。しかし、APIトークンはパスワードのようなもので、公開しないでください。ユーザーIDを求められる場合はありますが、GitHub など他人から見える場所には、APIトークンは絶対に投稿しないでください。",
     "APIToken": "API トークン ( これはあなたのパスワードです。 上記の注意をよく読んでください! )",
-    "showAPIToken": "Show API Token",
-    "hideAPIToken": "Hide API Token",
+    "showAPIToken": "APIトークンを表示する",
+    "hideAPIToken": "APIトークンを非表示にする",
     "APITokenWarning": "新しいAPI トークンが必要な場合 (例 : 誤って共有・公開してしまった) は、 <%= hrefTechAssistanceEmail %> あてに、ユーザーID と現在のトークンを書き添えて、Eメールを送ってください。一度リセットした後は、Webサイトとモバイルアプリをログアウトする、またお使いのあらゆる Habitica ツールに新しいトークンを指定するといった再認証作業が必要です。 ",
     "thirdPartyApps": "サードパーティー アプリ",
     "dataToolDesc": "あなたの Habitica のアカウントから、タスク、所持品、スキルの統計といった正確な情報を表示するWeb ページです。",
@@ -180,12 +180,12 @@
     "consecutiveMonths": "継続月数 : ",
     "gemCapExtra": "追加のジェム購入権 : ",
     "mysticHourglasses": "神秘の砂時計 : ",
-    "mysticHourglassesTooltip": "Mystic Hourglasses",
+    "mysticHourglassesTooltip": "神秘の砂時計",
     "paypal": "PayPal",
     "amazonPayments": "Amazon ペイメント",
     "timezone": "タイム ゾーン",
     "timezoneUTC": "Habitica はお使いのPCに設定されたタイム ゾーンを利用します。現在の設定 : <strong><%= utc %></strong>",
     "timezoneInfo": "タイムゾーンの設定が間違っているなら、このページをブラウザのリロード ( 再読み込み ) またはリフレッシュ ( 更新 ) ボタンで、Habitica を最新の状態にしてください。それでもまだ間違っているなら、PC のタイムゾーンを調整し、再度このページをリロード ( 再読み込み ) してください<br><br><strong>もし、別のPCやモバイル機器でも Habitica を使っているなら、すべてを同じタイムゾーンに設定しなくてはなりません。</strong> もし日課がも違った時間にリセットされたら、これまでのチェックを別のすべてのPCとモバイル機器の Web ブラウザでくり返してください。",
     "push": "プッシュ",
-    "about": "About"
+    "about": "Habitica について"
 }
