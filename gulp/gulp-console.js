@@ -26,6 +26,7 @@ let improveRepl = (context) => {
   const mongooseOptions = !isProd ? {} : {
     keepAlive: 1,
     connectTimeoutMS: 30000,
+    useMongoClient: true,
   };
   mongoose.connect(
     nconf.get('NODE_DB_URI'),
