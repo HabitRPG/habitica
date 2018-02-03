@@ -322,13 +322,13 @@ describe('Post /groups/:groupId/invite', () => {
 
   describe('guild invites', () => {
     it('returns an error when invited user is already invited to the group', async () => {
-      let userToinvite = await generateUser();
+      let userToInvite = await generateUser();
       await inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToinvite._id],
+        uuids: [userToInvite._id],
       });
 
       await expect(inviter.post(`/groups/${group._id}/invite`, {
-        uuids: [userToinvite._id],
+        uuids: [userToInvite._id],
       }))
       .to.eventually.be.rejected.and.eql({
         code: 401,
