@@ -46,7 +46,7 @@ b-modal#send-gems(:title="title", :hide-footer="true", size='lg')
       button.btn.btn-primary(@click='showStripe({gift, uuid: userReceivingGems._id})') {{ $t('card') }}
       button.btn.btn-warning(@click='openPaypalGift({gift: gift, giftedTo: userReceivingGems._id})') PayPal
       button.btn.btn-success(@click="amazonPaymentsInit({type: 'single', gift, giftedTo: userReceivingGems._id})") Amazon Payments
-    button.btn.btn-default(@click='close()') {{$t('cancel')}}
+    button.btn.btn-secondary(@click='close()') {{$t('cancel')}}
 </template>
 
 <style lang="scss">

@@ -701,6 +701,14 @@ function _removeMessagesFromMember (member, groupId) {
     delete member.newMessages[groupId];
     member.markModified('newMessages');
   }
+
+  member.notifications = member.notifications.filter(n => {
+    if (n.type === 'NEW_CHAT_MESSAGE' && n.data.group &&  n.data.group.id === groupId) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 /**
@@ -917,6 +925,7 @@ api.removeGroupMember = {
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
   let userToInvite = await User.findById(uuid).exec();
+  const publicGuild = group.type === 'guild' && group.privacy === 'public';
 
   if (!userToInvite) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
@@ -932,7 +941,12 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
       throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
 
-    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    let guildInvite = {
+      id: group._id,
+      name: group.name,
+      inviter: inviter._id,
+      publicGuild,
+    };
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
@@ -985,7 +999,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
         title: group.name,
         message: res.t(identifier),
         identifier,
-        payload: {groupID: group._id},
+        payload: {groupID: group._id, publicGuild},
       }
     );
   }
@@ -1022,6 +1036,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
+      publicGuild: group.type === 'guild' && group.privacy === 'public',
       sentAt: Date.now(), // so we can let it expire
       cancelledPlan,
     });
@@ -1262,7 +1277,9 @@ api.removeGroupManager = {
 
     let manager = await User.findById(managerId, 'notifications').exec();
     let newNotifications = manager.notifications.filter((notification) => {
-      return notification.type !== 'GROUP_TASK_APPROVAL';
+      const isGroupTaskNotification = notification.type.indexOf('GROUP_TASK_') === 0;
+
+      return !isGroupTaskNotification;
     });
     manager.notifications = newNotifications;
     manager.markModified('notifications');

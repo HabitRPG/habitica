@@ -10,10 +10,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -61,10 +60,10 @@
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
       .clearfix(v-if="viewOptions['equipment'].selected")
-        h2.float-left.mb-3
+        h2.float-left.mb-3.filters-title
           | {{ $t('equipment') }}
 
-        div.float-right
+        .filters.float-right
           span.dropdown-label {{ $t('class') }}
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
@@ -149,7 +148,6 @@
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
-
             template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -158,13 +156,13 @@
               )
               .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
-
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+          //keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -194,6 +192,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="ctx")
             item(
@@ -328,6 +327,20 @@
     right: -.5em;
     top: -.5em;
   }
+
+  @media only screen and (max-width: 768px) {
+    .featuredItems .content {
+      display: none !important;
+    }
+
+    .filters, .filters-title {
+      float: none;
+      button {
+        margin-right: 4em;
+        margin-bottom: 1em;
+      }
+    }
+  }
 </style>
 
 
@@ -335,6 +348,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
@@ -384,6 +398,7 @@ export default {
     mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
+      KeysToKennel,
       Item,
       CountBadge,
       Drawer,

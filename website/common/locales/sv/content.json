@@ -161,6 +161,9 @@
     "questEggYarnText": "Garn",
     "questEggYarnMountText": "Flygande Matta",
     "questEggYarnAdjective": "ylle",
+    "questEggPterodactylText": "Pterodactyl",
+    "questEggPterodactylMountText": "Pterodactyl",
+    "questEggPterodactylAdjective": "tillitsfull",
     "eggNotes": "Hitta en kläckningsdryck och häll på det här ägget så kommer det kläckas till <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Skimmer",
     "hatchingPotionFairy": "Älva",
+    "hatchingPotionStarryNight": "Stjärnklar Natt",
     "hatchingPotionNotes": "Häll den här på ett ägg, så kläcks det som ett <%= potText(locale) %> husdjur.",
     "premiumPotionAddlNotes": "Kan ej användas på ägg till uppdragshusdjur",
     "foodMeat": "Kött",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Kanelgodis",
     "foodSaddleText": "Sadel",
     "foodSaddleNotes": "Gör direkt ett av dina husdjur till springare.",
+    "foodSaddleSellWarningNote": "Hallå! Detta är ett ganska användbart föremål! Är du bekant med hur man använder en Sadel på dina Husdjur?",
     "foodNotes": "Mata det här till ett djur så kanske det växer upp till en stadig springare."
 }

@@ -21,6 +21,7 @@
                 :hideClassBadge='true',
                 :spritesMargin='"1.8em 1.5em"',
                 :overrideTopPadding='"0px"',
+                :showVisualBuffs='false',
                 :class='selectionBox(selectedClass, heroClass)',
               )
         br
@@ -183,10 +184,10 @@ export default {
         };
       } else {
         return {
-          head: 'head_warrior_5',
-          weapon: 'weapon_warrior_6',
-          shield: 'shield_warrior_5',
           armor: 'armor_warrior_5',
+          head: 'head_warrior_5',
+          shield: 'shield_warrior_5',
+          weapon: 'weapon_warrior_6',
         };
       }
     },

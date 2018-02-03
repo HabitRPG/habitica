@@ -29,6 +29,7 @@
     "messageFoundQuest": "Je hebt de queeste \"<%= questText %>\" gevonden!",
     "messageAlreadyPurchasedGear": "Je hebt dit stuk uitrusting in het verleden al eens gekocht, maar hebt het nu niet in je bezit. Je kunt het opnieuw aanschaffen in de beloningenkolom op de Takenpagina.",
     "messageAlreadyOwnGear": "Je hebt dit uitrustingsstuk al. Je kunt het aantrekken op de uitrustingspagina.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Je hebt de maximale gezondheid al.",
     "messageHealthAlreadyMin": "Oh nee! Je gezondheidspunten zijn al op, dus het is te laat om nog een gezondheidsdrankje te kopen, maar geen zorgen - je kan jezelf tot leven wekken!",
     "armoireEquipment": "<%= image %> Je hebt een zeldzaam uitrustingsstuk gevonden in het kabinet: <%= dropText %>! Super!",
@@ -58,5 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"
 }

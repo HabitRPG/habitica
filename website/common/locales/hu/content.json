@@ -161,6 +161,9 @@
     "questEggYarnText": "Fonal",
     "questEggYarnMountText": "Repülő szőnyeg",
     "questEggYarnAdjective": "gyapjú",
+    "questEggPterodactylText": "Pterodactylus",
+    "questEggPterodactylMountText": "Pterodactylus",
+    "questEggPterodactylAdjective": "derülátó",
     "eggNotes": "Találj egy keltetőfőzetet ehez a tojáshoz, hogy kikeljen belőle egy <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Alap",
     "hatchingPotionWhite": "Fehér",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "Kupidó",
     "hatchingPotionShimmer": "Vibráló",
     "hatchingPotionFairy": "Tündér",
+    "hatchingPotionStarryNight": "Csillagos éjszaka",
     "hatchingPotionNotes": "Öntsd ezt egy tojásra, és egy <%= potText(locale) %> háziállat fog belőle kikelni.",
     "premiumPotionAddlNotes": "Nem használható küldetésben szerzett tojásokhoz.",
     "foodMeat": "Hús",
@@ -218,5 +222,6 @@
     "foodCandyRed": "Fahéjas cukorka",
     "foodSaddleText": "Nyereg",
     "foodSaddleNotes": "Azonnal hátassá változtatja egy háziállatodat.",
+    "foodSaddleSellWarningNote": "Hey! Ez aztán egy igazán hasznos tárgy! Tudod hogyan kell használni a nyerget a háziállataiddal?",
     "foodNotes": "Etesd meg ezt egy háziállattal, hogy életerős hátassá váljon."
 }

@@ -11,7 +11,7 @@ div
     .view-party.d-flex.align-items-center(
       v-if="user.party && user.party._id && partyMembers && partyMembers.length > 1",
     )
-      button.btn.btn-primary(@click='openPartyModal()') {{ $t('viewParty') }}
+      button.btn.btn-primary.view-party-button(@click='openPartyModal()') {{ $t('viewParty') }}
     .party-members.d-flex(
       v-if="partyMembers && partyMembers.length > 1",
       v-resize="1500",
@@ -98,6 +98,12 @@ div
       margin-top: 16px;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .view-party-button {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -119,7 +125,6 @@ export default {
   data () {
     return {
       expandedMember: null,
-
       currentWidth: 0,
     };
   },
@@ -128,7 +133,6 @@ export default {
       user: 'user:data',
       partyMembers: 'party:members',
     }),
-
     showHeader () {
       if (this.$store.state.hideHeader) return false;
       return true;
@@ -170,8 +174,10 @@ export default {
       }
     },
   },
-  created () {
-    if (this.user.party && this.user.party._id) this.getPartyMembers();
+  async created () {
+    if (this.user.party && this.user.party._id) {
+      await this.getPartyMembers(true);
+    }
   },
 };
 </script>

@@ -6,8 +6,8 @@
     "keepIt": "Behoud hem",
     "removeIt": "Verwijder hem",
     "brokenChallenge": "Gebroken uitdagingslink: deze taak was onderdeel van een uitdaging, maar de uitdaging (of groep) is verwijderd. Wat wil je doen met de bijbehorende taken?",
-    "keepThem": "Behoud ze",
-    "removeThem": "Verwijder ze",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "Deze uitdaging is voltooid en de winnaar was <span class='badge'><%= user %></span>! Wat wil je doen met de bijbehorende taken?",
     "unsubChallenge": "Gebroken uitdagingslink: deze taak was onderdeel van een uitdaging, maar jij hebt je teruggetrokken uit de uitdaging. Wat wil je doen met de bijbehorende taken?",
     "challengeWinner": "Heeft de volgende uitdagingen gewonnen",
@@ -101,8 +101,8 @@
     "addTask": "Taak toevoegen",
     "editChallenge": "Uitdagingen bewerken",
     "challengeDescription": "Beschrijving van de uitdaging",
-    "selectChallengeWinnersDescription": "Selecteer winnaars van de uitdagingsdeelnemers",
-    "awardWinners": "Winnaars toewijzen",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Wil je deze uitdaging verwijderen?",
     "deleteChallenge": "Uitdaging verwijderen",
     "challengeNamePlaceholder": "Wat is de naam van je uitdaging?",
@@ -128,5 +128,6 @@
     "categoiresRequired": "Er moeten één of meerdere categorieën zijn geselecteerd",
     "viewProgressOf": "Bekijk vooruitgang van",
     "selectMember": "Lid selecteren",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

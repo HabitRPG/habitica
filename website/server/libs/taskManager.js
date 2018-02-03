@@ -45,6 +45,7 @@ export function setNextDue (task, user, dueDateOption) {
   let optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
@@ -85,6 +86,11 @@ export async function createTasks (req, res, options = {}) {
 
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
+
+    // Attempt to round priority
+    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
+      newTask.priority = Number(newTask.priority.toFixed(1));
+    }
 
     if (challenge) {
       newTask.challenge.id = challenge.id;

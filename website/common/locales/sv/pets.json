@@ -89,6 +89,18 @@
     "rideLater": "Rid Senare",
     "petName": "<%= potion(locale) %><%= egg(locale) %>",
     "mountName": "<%= potion(locale) %><%= mount(locale) %>",
+    "keyToPets": "Key to the Pet Kennels",
+    "keyToPetsDesc": "Release all standard Pets so you can collect them again. (Quest Pets and rare Pets are not affected.)",
+    "keyToMounts": "Key to the Mount Kennels",
+    "keyToMountsDesc": "Release all standard Mounts so you can collect them again. (Quest Mounts and rare Mounts are not affected.)",
+    "keyToBoth": "Master Keys to the Kennels",
+    "keyToBothDesc": "Release all standard Pets and Mounts so you can collect them again. (Quest Pets/Mounts and rare Pets/Mounts are not affected.)",
+    "releasePetsConfirm": "Are you sure you want to release your standard Pets?",
+    "releasePetsSuccess": "Your standard Pets have been released!",
+    "releaseMountsConfirm": "Are you sure you want to release your standard Mounts?",
+    "releaseMountsSuccess": "Your standard Mounts have been released!",
+    "releaseBothConfirm": "Are you sure you want to release your standard Pets and Mounts?",
+    "releaseBothSuccess": "Your standard Pets and Mounts have been released!",
     "petKeyName": "Nyckel till Hundgårdarna",
     "petKeyPop": "Låt dina husdjur ströva fritt, släpp lös dem så att de kan ge sig ut på egna äventyr, och unna dig upplevelsen att bli Bestmästare en gång till!",
     "petKeyBegin": "Nyckel till hundgårdarna: Upplev <%=title %> återigen!",
@@ -123,5 +135,6 @@
     "clickOnPetToFeed": "Klicka på ett Husdjur för att mata den med <%= foodName %> och se den växa!",
     "dragThisPotion": "Dra denna <%= potionName %> till ett Ägg för att kläcka ett nytt husdjur!",
     "clickOnEggToHatch": "Klicka på ett Ägg för att använda din <%= potionName %> kläckningsdryck och kläck ett nytt husdjur!",
-    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>."
+    "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-  #front
+  #front.static-view
     noscript.banner {{ $t('jsDisabledHeadingFull') }}
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
@@ -23,6 +23,7 @@
             .strike
               span {{$t('or')}}
             .form(@keyup.enter="register()")
+              p.form-text {{$t('usernameLimitations')}}
               input.form-control(type='text', placeholder='Login Name', v-model='username', :class='{"input-valid": username.length > 3}')
               input.form-control(type='email', placeholder='Email', v-model='email', :class='{"input-invalid": emailInvalid, "input-valid": emailValid}')
               input.form-control(type='password', placeholder='Password', v-model='password', :class='{"input-valid": password.length > 3}')
@@ -37,7 +38,7 @@
         .pixel-horizontal.svg-icon(v-html='icons.pixelHorizontal')
       .container
         .row
-          .col-12.col-sm-6.col-md-6.col-lg-6.offset-3.text-center
+          .col-12.col-sm-6.col-md-6.col-lg-6.offset-sm-3.text-center
             h2 {{$t('gamifyYourLife')}}
             p.section-main {{$t('aboutHabitica')}}
         .row
@@ -117,8 +118,12 @@
         .seamless_stars_varied_opacity_repeat
 </template>
 
+<style lang='scss'>
+@import '~client/assets/scss/static.scss';
+</style>
+
 <style lang="scss" scoped>
-  @import '~client/assets/scss/static.scss';
+@import '~client/assets/scss/colors.scss';
 
   #front {
     .form-text a {
@@ -502,6 +507,19 @@
       opacity: .5;
     }
   }
+
+
+  @media only screen and (max-width: 768px) {
+    #call-to-action .btn-primary {
+      width: 95%;
+    }
+
+    #call-to-action .featured .svg-icon {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: .5em;
+    }
+  }
 </style>
 
 <script>
@@ -599,6 +617,10 @@
         }
 
         let groupInvite = '';
+        if (this.$route.query && this.$route.query.p) {
+          groupInvite = this.$route.query.p;
+        }
+
         if (this.$route.query && this.$route.query.groupInvite) {
           groupInvite = this.$route.query.groupInvite;
         }

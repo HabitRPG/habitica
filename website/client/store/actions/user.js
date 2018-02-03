@@ -110,6 +110,7 @@ export function togglePinnedItem (store, params) {
 
 export function castSpell (store, params) {
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
+
   if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
 
   return axios.post(spellUrl);
@@ -117,6 +118,10 @@ export function castSpell (store, params) {
 
 export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
+}
+
+export function newStuffLater () {
+  return axios.post('/api/v3/news/tell-me-later');
 }
 
 export async function rebirth () {

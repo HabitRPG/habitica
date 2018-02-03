@@ -208,6 +208,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    userIsOnQuest () {
+      if (!this.group.quest || !this.group.quest.members) return false;
+      return Boolean(this.group.quest.members[this.user._id]);
+    },
     onPendingQuest () {
       return Boolean(this.group.quest.key) && !this.group.quest.active;
     },
