@@ -24,8 +24,8 @@ let improveRepl = (context) => {
 
   const isProd = nconf.get('NODE_ENV') === 'production';
   const mongooseOptions = !isProd ? {} : {
-    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
   };
   mongoose.connect(
     nconf.get('NODE_DB_URI'),
