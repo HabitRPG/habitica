@@ -10,7 +10,6 @@ if (MAINTENANCE_MODE !== 'true') {
   const mongooseOptions = !IS_PROD ? {} : {
     keepAlive: 120,
     connectTimeoutMS: 30000,
-    useMongoClient: true,
   };
 
   const NODE_DB_URI = nconf.get('IS_TEST') ? nconf.get('TEST_DB_URI') : nconf.get('NODE_DB_URI');
