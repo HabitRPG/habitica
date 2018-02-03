@@ -112,7 +112,7 @@
     "webpack": "^2.2.1",
     "webpack-merge": "^4.0.0",
     "winston": "^2.1.0",
-    "winston-loggly-bulk": "^1.4.2",
+    "winston-loggly-bulk": "^2.0.2",
     "xml2js": "^0.4.4"
   },
   "private": true,
