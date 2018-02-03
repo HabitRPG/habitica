@@ -617,6 +617,10 @@
         }
 
         let groupInvite = '';
+        if (this.$route.query && this.$route.query.p) {
+          groupInvite = this.$route.query.p;
+        }
+
         if (this.$route.query && this.$route.query.groupInvite) {
           groupInvite = this.$route.query.groupInvite;
         }
