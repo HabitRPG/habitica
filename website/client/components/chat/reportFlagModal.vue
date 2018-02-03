@@ -33,12 +33,6 @@ export default {
         name: `<span class='text-danger'>${reportMessage}</span>`,
       };
     },
-    abuseObject () {
-      return this.$store.state.flagChatOptions.message;
-    },
-    groupId () {
-      return this.$store.state.flagChatOptions.groupId;
-    },
   },
   data () {
     let abuseFlagModalBody = {
@@ -49,7 +43,20 @@ export default {
 
     return {
       abuseFlagModalBody,
+      abuseObject: '',
+      groupId: '',
     };
+  },
+  created () {
+    this.$root.$on('habitica::report-chat', data => {
+      if (!data.message || !data.groupId) return;
+      this.abuseObject = data.message;
+      this.groupId = data.groupId;
+      this.$root.$emit('bv::show::modal', 'report-flag');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::report-chat');
   },
   methods: {
     close () {
@@ -61,6 +68,7 @@ export default {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
       });
+
       this.close();
     },
     async clearFlagCount () {

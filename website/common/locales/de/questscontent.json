@@ -105,7 +105,7 @@
     "questGoldenknight3DropHoney": "Honig (Futter)",
     "questGoldenknight3DropGoldenPotion": "Goldenes Schlüpfelixier",
     "questGoldenknight3DropWeapon": "Mustaines Meilenstein-matschender Morgenstern (Zweithand-Waffe)",
-    "questGroupEarnable": "Earnable Quests",
+    "questGroupEarnable": "Verdienbare Quests",
     "questBasilistText": "Der Basi-List",
     "questBasilistNotes": "Da ist ein Aufruhr auf dem Marktplatz - es sieht ganz so aus, als ob man lieber in die andere Richtung rennen sollte. Da Du aber ein mutiger Abenteurer bist, rennst Du stattdessen darauf zu und entdeckst einen Basi-List, der sich aus einem Haufen unerledigter Aufgaben geformt hat! Alle umstehenden Habiticaner sind aus Angst vor der Länge des Basi-Lists gelähmt und können nicht anfangen zu arbeiten. Von irgendwo in der Nähe hörst Du @Arcosine schreien: \"Schnell! Erledige Deine To-Dos und täglichen Aufgaben, um dem Monster die Zähne zu entfernen, bevor sich jemand am Papier schneidet!\" Greife schnell an, Abenteurer, und hake etwas ab - aber Vorsicht! Wenn Du irgendwelche täglichen Aufgaben nicht erledigst, wird der Basi-List Dich und Deine Gruppe angreifen!",
     "questBasilistCompletion": "Der Basi-List ist in Papierschnitzel zerfallen, die sanft in Regenbogenfarben schimmern. \"Puh!\" sagt @Arcosine. \"Gut, dass ihr gerade hier wart!\" Du fühlst Dich erfahrener als vorher und sammelst ein paar verstreute Goldstücke zwischen den Papierstücken auf.",
@@ -549,5 +549,13 @@
     "questYarnCompletion": "Mit einem kraftlosen Wischer eines Nadel-durchlöcherten Zipfels und einem schwachen Brüllen entwirrt sich das Grauenhafte Wollgräuel schließlich zu einem Haufen Wollknäuel. <br><br>\"Pass gut auf diese Wolle auf\", sagt der Ladenbesitzer @JinjooHat, und drückt Dir die Knäuel in die Hände. \"Wenn Du sie fütterst und richtig pflegst, wachsen sie zu neuen und aufregenden Projekten heran, die Dein Herz höher fliegen lassen könnten…\"",
     "questYarnBoss": "Das Grauenhafte Wollgräuel",
     "questYarnDropYarnEgg": "Wollknäuel (Ei)",
-    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz"
+    "questYarnUnlockText": "Ermöglicht den Kauf von Wollknäueleiern auf dem Marktplatz",
+    "winterQuestsText": "\"Winter\" Quest-Paket",
+    "winterQuestsNotes": "Beinhaltet 'Wildernder Weihnachtswichtel', 'Finde das Jungtier' und 'Der Federvieh-Frost'. Verfügbar bis zum 31. Dezember.",
+    "questPterodactylText": "Der Pterror-Dactylus",
+    "questPterodactylNotes": "Du machst einen Spaziergang entlang der friedlichen Stoistillen Klippen, als ein böses Kreischen die Luft zerreißt. Du drehst Dich um, siehst eine schreckliche Kreatur auf Dich zufliegen und wirst von einem mächtigen Schrecken überwältigt. Als Du Dich zur Flucht wendest, packt Dich @Lilith of Alfheim. \"Keine Panik! Es ist nur ein Pterror-dactylus.\"<br><br>@Procyon P nickt. \"Sie nisten in der Nähe, aber sie fühlen sich angezogen vom Geruch negativer Gewohnheiten und unerledigter Dailies.\"<br><br>Keine Sorge\", sagt @Katy133. \"Wir müssen nur besonders produktiv sein, um es zu besiegen!\" Du bist erfüllt von einem erneuerten Sinn für Zielstrebigkeit und wendest Dich Deinem Feind zu.",
+    "questPterodactylCompletion": "Mit einem letzten Kreischen stürzt der Pterror-Dactylus über die Klippe. Du rennst nach vorn, um zu sehen, wie er über die entfernten Steppen hinwegfliegt. \"Puh, ich bin froh, dass das vorbei ist\", sagst du. \"Ich auch\", antwortet @GeraldThePixel. \"Aber seht doch! Er hat ein paar Eier für uns zurückgelassen.\" @Edge gibt Dir drei Eier, und Du gelobst, sie in Gelassenheit aufzuziehen, umgeben von positiven Gewohnheiten und blauen Dailies.",
+    "questPterodactylBoss": "Pterror-Dactylus",
+    "questPterodactylDropPterodactylEgg": "Pterodactylus (Ei)",
+    "questPterodactylUnlockText": "Ermöglicht den Kauf von Pterodactyluseiern auf dem Marktplatz"
 }

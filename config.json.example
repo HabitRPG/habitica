@@ -22,6 +22,8 @@
     "CRON_SEMI_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
+    "SESSION_SECRET_KEY": "1234567891234567891234567891234567891234567891234567891234567891",
+    "SESSION_SECRET_IV": "12345678912345678912345678912345",
     "ADMIN_EMAIL": "you@example.com",
     "SMTP_USER":"user@example.com",
     "SMTP_PASS":"password",
@@ -71,6 +73,7 @@
     },
     "IAP_GOOGLE_KEYDIR": "/path/to/google/public/key/dir/",
     "LOGGLY_TOKEN": "token",
+    "LOGGLY_CLIENT_TOKEN": "token",
     "LOGGLY_ACCOUNT": "account",
     "PUSH_CONFIGS": {
         "GCM_SERVER_API_KEY": "",

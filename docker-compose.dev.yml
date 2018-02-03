@@ -1,3 +1,10 @@
-web:
-  volumes:
-    - '.:/usr/src/habitrpg'
+version: "3"
+services:
+
+  client:
+    volumes:
+      - '.:/usr/src/habitrpg'
+
+  server:
+    volumes:
+      - '.:/usr/src/habitrpg'

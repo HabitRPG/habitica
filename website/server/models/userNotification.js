@@ -14,6 +14,7 @@ const NOTIFICATION_TYPES = [
   'CRON',
   'GROUP_TASK_APPROVAL',
   'GROUP_TASK_APPROVED',
+  'GROUP_TASK_NEEDS_WORK',
   'LOGIN_INCENTIVE',
   'GROUP_INVITE_ACCEPTED',
   'SCORED_TASK',
@@ -22,6 +23,12 @@ const NOTIFICATION_TYPES = [
   'GUILD_JOINED_ACHIEVEMENT',
   'CHALLENGE_JOINED_ACHIEVEMENT',
   'INVITED_FRIEND_ACHIEVEMENT',
+  'CARD_RECEIVED',
+  'NEW_MYSTERY_ITEMS',
+  'UNALLOCATED_STATS_POINTS',
+  'NEW_INBOX_MESSAGE',
+  'NEW_STUFF',
+  'NEW_CHAT_MESSAGE',
 ];
 
 const Schema = mongoose.Schema;
@@ -31,12 +38,22 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
-    required: true,
+    // required: true, // @TODO: Add these back once we figure out the issue with notifications
   },
-  type: {type: String, required: true, enum: NOTIFICATION_TYPES},
+  type: {
+    type: String,
+    // required: true,
+    enum: NOTIFICATION_TYPES,
+  },
   data: {type: Schema.Types.Mixed, default: () => {
     return {};
   }},
+  // A field to mark the notification as seen without deleting it, optional use
+  seen: {
+    type: Boolean,
+    // required: true,
+    default: () => false,
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

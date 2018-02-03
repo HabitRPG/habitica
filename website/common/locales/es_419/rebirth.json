@@ -21,7 +21,7 @@
     "rebirthOrb": "Ha utilizado una esfera de renacimiento para empezar de nuevo luego de alcanzar el nivel <%= level %>.",
     "rebirthOrb100": "Ha usado una Esfera de renacimiento para volver a empezar al alcanzar el nivel 100 o más.",
     "rebirthOrbNoLevel": "Ha utilizado una esfera de renacimiento para comenzar de nuevo.",
-    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
     "confirmReborn": "¿Estás seguro?",

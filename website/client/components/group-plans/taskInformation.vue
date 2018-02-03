@@ -1,37 +1,37 @@
 <template lang="pug">
 .standard-page
   .row.tasks-navigation
-    .col-4
+    .col-12.col-md-4
       h1 Group's Tasks
-    // @TODO: Abstract to component?
-    .col-4
+    // @TODO: Abstract to component!
+    .col-12.col-md-4
       .input-group
         input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
         .filter-panel(v-if="isFilterPanelOpen")
-          .tags-category.d-flex(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
-            .tags-header
+          .tags-category(v-for="tagsType in tagsByType", v-if="tagsType.tags.length > 0", :key="tagsType.key")
+            .tags-header.col-12
               strong(v-once) {{ $t(tagsType.key) }}
               a.d-block(v-if="tagsType.key === 'tags' && !editingTags", @click="editTags()") {{ $t('editTags2') }}
-            .tags-list.container
+            .tags-list.container.col-12
               .row(:class="{'no-gutters': !editingTags}")
                 template(v-if="editingTags && tagsType.key === 'tags'")
-                  .col-6(v-for="(tag, tagIndex) in tagsSnap")
+                  .col-12.col-md-6(v-for="(tag, tagIndex) in tagsSnap")
                     .inline-edit-input-group.tag-edit-item.input-group
                       input.tag-edit-input.inline-edit-input.form-control(type="text", :value="tag.name")
-                      span.input-group-btn(@click="removeTag(tagIndex)")
+                      .input-group-append(@click="removeTag(tagIndex)")
                         .svg-icon.destroy-icon(v-html="icons.destroy")
-                  .col-6
+                  .col-12.col-md-6
                     input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event)", v-model="newTag")
                 template(v-else)
-                  .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                    label.custom-control.custom-checkbox
+                  .col-12.col-md-6(v-for="(tag, tagIndex) in tagsType.tags")
+                    .custom-control.custom-checkbox
                       input.custom-control-input(
                         type="checkbox",
                         :checked="isTagSelected(tag)",
                         @change="toggleTag(tag)",
+                        :id="`tag-${tagsType.key}-${tagIndex}`",
                       )
-                      span.custom-control-indicator
-                      span.custom-control-description {{ tag.name }}
+                      label.custom-control-label(:for="`tag-${tagsType.key}-${tagIndex}`") {{ tag.name }}
 
           .filter-panel-footer.clearfix
             template(v-if="editingTags === true")
@@ -44,7 +44,7 @@
               .float-right
                 a.mr-3.btn-filters-primary(@click="applyFilters()", v-once) {{ $t('applyFilters') }}
                 a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-        span.input-group-btn
+        span.input-group-append
           button.btn.btn-secondary.filter-button(
             type="button",
             @click="toggleFilterPanel()",
@@ -53,7 +53,7 @@
             .d-flex.align-items-center
               span(v-once) {{ $t('filter') }}
               .svg-icon.filter-icon(v-html="icons.filter")
-    #create-dropdown.col-1.offset-3
+    #create-dropdown.col-12.col-md-1.offset-md-3
       b-dropdown(:right="true", :variant="'success'")
         div(slot="button-content")
           .svg-icon.positive(v-html="icons.positive")
@@ -138,6 +138,7 @@
     padding-left: 24px;
     padding-right: 24px;
     max-width: 40vw;
+    width: 100%;
     z-index: 9999;
     background: $white;
     border-radius: 2px;
@@ -173,7 +174,7 @@
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
 
-      &:focus, &:focus ~ .input-group-btn {
+      &:focus, &:focus ~ .input-group-append {
         border-color: $purple-500 !important;
       }
     }
@@ -188,7 +189,7 @@
       background-image: url(~client/assets/svg/for-css/positive.svg);
     }
 
-    .tag-edit-item .input-group-btn {
+    .tag-edit-item .input-group-append {
       border-bottom: 1px solid $gray-500 !important;
 
       &:focus {
@@ -196,7 +197,7 @@
       }
     }
 
-    .custom-control-description {
+    .custom-control-label {
       margin-left: 10px;
     }
 

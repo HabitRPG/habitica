@@ -95,13 +95,23 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
     expect(memberProgress.tasks[0].challenge.taskId).to.equal(chalTasks[0]._id);
   });
 
-  it('returns the tasks without the tags', async () => {
+  it('returns the tasks without the tags and checklist', async () => {
     let group = await generateGroup(user, {type: 'party', name: generateUUID()});
     let challenge = await generateChallenge(user, group);
     let taskText = 'Test Text';
-    await user.post(`/tasks/challenge/${challenge._id}`, [{type: 'habit', text: taskText}]);
+    await user.post(`/tasks/challenge/${challenge._id}`, [{
+      type: 'todo',
+      text: taskText,
+      checklist: [
+        {
+          _id: 123,
+          text: 'test',
+        },
+      ],
+    }]);
 
     let memberProgress = await user.get(`/challenges/${challenge._id}/members/${user._id}`);
     expect(memberProgress.tasks[0]).not.to.have.key('tags');
+    expect(memberProgress.tasks[0].checklist).to.eql([]);
   });
 });

@@ -161,6 +161,9 @@
     "questEggYarnText": "毛糸",
     "questEggYarnMountText": "空飛ぶカーペット",
     "questEggYarnAdjective": "ウールの",
+    "questEggPterodactylText": "翼竜",
+    "questEggPterodactylMountText": "翼竜",
+    "questEggPterodactylAdjective": "疑うことを知らない",
     "eggNotes": "たまごがえしの薬を見つけて、たまごにかけると、<%= eggAdjective(locale) %> <%= eggText(locale) %>が生まれます。",
     "hatchingPotionBase": "普通の",
     "hatchingPotionWhite": "白い",
@@ -184,6 +187,7 @@
     "hatchingPotionCupid": "キューピッドの",
     "hatchingPotionShimmer": "きらきらの",
     "hatchingPotionFairy": "フェアリーの",
+    "hatchingPotionStarryNight": "星降る夜の",
     "hatchingPotionNotes": "これをたまごにかけると、<%= potText(locale) %> ペットが生まれます。",
     "premiumPotionAddlNotes": "クエスト ペットのたまごには使えません。",
     "foodMeat": "肉",
@@ -218,5 +222,6 @@
     "foodCandyRed": "シナモンキャンディー",
     "foodSaddleText": "くら",
     "foodSaddleNotes": "ペットの 1 匹をすぐに乗騎に成長させます。",
+    "foodSaddleSellWarningNote": "ちょっと待って！　これはとっても役に立つアイテムだよ！　ペットにくらを使う方法は知ってるかな？",
     "foodNotes": "これをペットにあげて、丈夫に育てましょう。"
 }

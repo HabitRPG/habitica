@@ -223,6 +223,10 @@
   "questEggYarnMountText": "Flying Carpet",
   "questEggYarnAdjective": "woolen",
 
+  "questEggPterodactylText": "Pterodactyl",
+  "questEggPterodactylMountText": "Pterodactyl",
+  "questEggPterodactylAdjective": "trusting",
+
   "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
@@ -247,6 +251,7 @@
   "hatchingPotionCupid": "Cupid",
   "hatchingPotionShimmer": "Shimmer",
   "hatchingPotionFairy": "Fairy",
+  "hatchingPotionStarryNight": "Starry Night",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs.",

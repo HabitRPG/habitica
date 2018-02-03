@@ -225,6 +225,11 @@ api.deleteTag = {
       $pull: { tags: { id: tagFound.id } },
     }).exec();
 
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v++;
+
     // Remove from all the tasks TODO test
     await Tasks.Task.update({
       userId: user._id,

@@ -6,8 +6,8 @@
     "keepIt": "Păstreaz-o",
     "removeIt": "Elimin-o",
     "brokenChallenge": "Legătură întreruptă către provocare: această sarcină a fost o parte a unei provocări, dar provocarea (sau grupul) a fost șters. Ce dorești să faci cu sarcinile rămase?",
-    "keepThem": "Păstrează-le",
-    "removeThem": "Elimină-le",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "Acest țel a fost îndeplinit, iar câștigătorul a fost <span class=\"badge\"><%= user %></span>! Ce vrei să faci cu sarcinile rămase?",
     "unsubChallenge": "Legătură stricată către provocare: acest țel a făcut parte dintr-o provocare, dar te-ai dezabonat de la provocare. Ce vrei să faci cu țelurile rămase?",
     "challengeWinner": "A câștigat următoarele provocări:",
@@ -101,8 +101,8 @@
     "addTask": "Add Task",
     "editChallenge": "Edit Challenge",
     "challengeDescription": "Challenge Description",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
-    "awardWinners": "Award Winners",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
     "deleteChallenge": "Delete Challenge",
     "challengeNamePlaceholder": "What is your Challenge name?",
@@ -128,5 +128,6 @@
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
     "selectMember": "Select Member",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

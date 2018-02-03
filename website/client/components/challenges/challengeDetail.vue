@@ -1,13 +1,12 @@
 <template lang="pug">
 .row
-  challenge-modal(:cloning='cloning' v-on:updatedChallenge='updatedChallenge')
+  challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
-
-  .col-8.standard-page
+  .col-12.col-md-8.standard-page
     .row
-      .col-8
+      .col-12.col-md-8
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
@@ -20,7 +19,7 @@
           // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
-      .col-4
+      .col-12.col-md-4
         .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
@@ -30,13 +29,10 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
-      .col-7.offset-5
+      .col-12.col-md-7.offset-md-5
         span.view-progress
           strong {{ $t('viewProgressOf') }}
-        b-dropdown.create-dropdown(text="Select a Participant")
-          input.form-control(type='text', v-model='searchTerm')
-          b-dropdown-item(v-for="member in memberResults", :key="member._id", @click="openMemberProgressModal(member._id)")
-            | {{ member.profile.name }}
+        member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -51,7 +47,6 @@
             v-on:taskEdited='taskEdited',
             @taskDestroyed='taskDestroyed'
           )
-
     .row
       task-column.col-12.col-sm-6(
         v-for="column in columns",
@@ -60,7 +55,7 @@
         :taskListOverride='tasksByType[column]',
         v-on:editTask="editTask",
         v-if='tasksByType[column].length > 0')
-  .col-4.sidebar.standard-page
+  .col-12.col-md-4.sidebar.standard-page
     .acitons
       div(v-if='canJoin')
         button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
@@ -185,6 +180,7 @@ import omit from 'lodash/omit';
 import uuid from 'uuid';
 
 import { mapState } from 'client/libs/store';
+import memberSearchDropdown from 'client/components/members/memberSearchDropdown';
 import closeChallengeModal from './closeChallengeModal';
 import Column from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -211,6 +207,7 @@ export default {
     leaveChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
+    memberSearchDropdown,
     TaskColumn: Column,
     TaskModal,
   },
@@ -223,7 +220,6 @@ export default {
         memberIcon,
         calendarIcon,
       }),
-      cloning: false,
       challenge: {},
       members: [],
       tasksByType: {
@@ -264,10 +260,6 @@ export default {
   async beforeRouteUpdate (to, from, next) {
     this.searchId = to.params.challengeId;
     await this.loadChallenge();
-
-    if (this.$store.state.challengeOptions.cloning) {
-      this.cloneTasks(this.$store.state.challengeOptions.tasksToClone);
-    }
     next();
   },
   methods: {
@@ -286,28 +278,6 @@ export default {
       }
 
       return cleansedTask;
-    },
-    cloneTasks (tasksToClone) {
-      let clonedTasks = [];
-
-      for (let key in tasksToClone) {
-        let tasksSection = tasksToClone[key];
-        tasksSection.forEach(task => {
-          let clonedTask = cloneDeep(task);
-          clonedTask = this.cleanUpTask(clonedTask);
-          clonedTask = taskDefaults(clonedTask);
-          this.tasksByType[task.type].push(clonedTask);
-          clonedTasks.push(clonedTask);
-        });
-      }
-
-      this.$store.dispatch('tasks:createChallengeTasks', {
-        challengeId: this.searchId,
-        tasks: clonedTasks,
-      });
-
-      this.$store.state.challengeOptions.cloning = false;
-      this.$store.state.challengeOptions.tasksToClone = [];
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
@@ -380,7 +350,6 @@ export default {
     },
     edit () {
       // @TODO: set working challenge
-      this.cloning = false;
       this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
@@ -388,8 +357,8 @@ export default {
     updatedChallenge (eventData) {
       Object.assign(this.challenge, eventData.challenge);
     },
-    openMemberProgressModal (memberId) {
-      this.progressMemberId = memberId;
+    openMemberProgressModal (member) {
+      this.progressMemberId = member._id;
       this.$root.$emit('bv::show::modal', 'challenge-member-modal');
     },
     async exportChallengeCsv () {
@@ -399,10 +368,9 @@ export default {
       window.location = `/api/v3/challenges/${this.searchId}/export/csv`;
     },
     cloneChallenge () {
-      this.cloning = true;
-      this.$store.state.challengeOptions.tasksToClone = this.tasksByType;
-      this.$store.state.challengeOptions.workingChallenge = Object.assign({}, this.$store.state.challengeOptions.workingChallenge, this.challenge);
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:clone-challenge', {
+        challenge: this.challenge,
+      });
     },
   },
 };

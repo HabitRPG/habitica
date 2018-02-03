@@ -29,6 +29,7 @@
     "messageFoundQuest": "מצאת את ההרפתקה \"<%= questText %>\"!",
     "messageAlreadyPurchasedGear": "רכשתם את החפץ הזה בעבר, אך כעת הוא לא ברשותכם. תוכלו לרכוש אותו שוב בעמודת הפרסים בדף המשימות.",
     "messageAlreadyOwnGear": "כבר יש לכם את החפץ הזה. הצטיידו בו בדף הציוד.",
+    "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "כבר יש לכם את הבריאות המקסימלית.",
     "messageHealthAlreadyMin": "Oh no! You have already run out of health so it's too late to buy a health potion, but don't worry - you can revive!",
     "armoireEquipment": "<%= image %> מצאתם ציוד נדיר בארמואר: <%= dropText %>! מגניב!",
@@ -58,5 +59,6 @@
     "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה",
     "messageNotificationNotFound": "התראה לא נמצאה.",
     "notificationsRequired": "Notification ids are required.",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

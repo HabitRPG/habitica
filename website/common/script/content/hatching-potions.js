@@ -112,13 +112,19 @@ let premium = {
     value: 2,
     text: t('hatchingPotionHolly'),
     limited: true,
-    _season: 'winter',
+    _season: 'January',
   },
   Peppermint: {
     value: 2,
     text: t('hatchingPotionPeppermint'),
     limited: true,
     _season: 'winter',
+  },
+  StarryNight: {
+    value: 2,
+    text: t('hatchingPotionStarryNight'),
+    limited: true,
+    _season: 'January',
   },
 };
 

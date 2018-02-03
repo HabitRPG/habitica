@@ -72,7 +72,7 @@ describe('GET /groups/:groupId/members', () => {
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
-      'backer', 'contributor', 'auth', 'items', 'inbox',
+      'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives',
     ]);
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
@@ -93,7 +93,7 @@ describe('GET /groups/:groupId/members', () => {
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
-      'backer', 'contributor', 'auth', 'items', 'inbox',
+      'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives',
     ]);
     expect(Object.keys(memberRes.auth)).to.eql(['timestamps']);
     expect(Object.keys(memberRes.preferences).sort()).to.eql([
@@ -160,5 +160,20 @@ describe('GET /groups/:groupId/members', () => {
 
     let resIds = res.concat(res2).map(member => member._id);
     expect(resIds).to.eql(expectedIds.sort());
+  });
+
+  it('searches members', async () => {
+    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+
+    let usersToGenerate = [];
+    for (let i = 0; i < 2; i++) {
+      usersToGenerate.push(generateUser({party: {_id: group._id}}));
+    }
+    const usersCreated = await Promise.all(usersToGenerate);
+    const userToSearch = usersCreated[0].profile.name;
+
+    let res = await user.get(`/groups/party/members?search=${userToSearch}`);
+    expect(res.length).to.equal(1);
+    expect(res[0].profile.name).to.equal(userToSearch);
   });
 });

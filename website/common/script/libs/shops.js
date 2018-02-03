@@ -106,9 +106,7 @@ function getClassName (classType, language) {
 
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   let result = filter(items, ['pinType', 'marketGear']);
-
   let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
-
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -155,12 +153,19 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       text: getClassName(classType, language),
     };
 
-    let result = filter(content.gear.flat, ['klass', classType]);
+    let result = filter(content.gear.flat, function findClassGear (gearItem) {
+      if (gearItem.klass === classType) return true;
+      let classShift = {
+        items: user.items,
+        stats: {
+          class: classType,
+        },
+      };
+      if (gearItem.specialClass === classType && user.items.gear.owned[gearItem.key] !== false) return gearItem.canOwn(classShift);
+    });
 
     category.items = map(result, (e) => {
-      let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
-
-      return newItem;
+      return getItemInfo(user, 'marketGear', e, officialPinnedItems);
     });
 
     let specialGear = filter(content.gear.flat, (gear) => {
@@ -174,7 +179,6 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     });
 
     shops.checkMarketGearLocked(user, category.items);
-
     categories.push(category);
   }
 
@@ -184,19 +188,20 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   };
 
   let falseGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false &&
-      gear.klass !== user.stats.class &&
-      gear.klass !== 'special';
+    let prevOwnedFalseGear = user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
+    let specialNonClassGear = !user.items.gear.owned[gear.key] &&
+                              content.classes.indexOf(gear.klass) < 0 &&
+                              content.classes.indexOf(gear.specialClass) < 0 &&
+                              (gear.canOwn && gear.canOwn(user));
+    return  prevOwnedFalseGear || specialNonClassGear;
   });
 
   nonClassCategory.items = map(falseGear, (e) => {
-    let newItem = getItemInfo(user, 'marketGear', e);
-
-    return newItem;
+    return getItemInfo(user, 'marketGear', e);
   });
 
+  shops.checkMarketGearLocked(user, nonClassCategory.items);
   categories.push(nonClassCategory);
-
   return categories;
 };
 
