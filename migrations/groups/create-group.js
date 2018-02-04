@@ -1,5 +1,3 @@
-import Bluebird from 'bluebird';
-
 import { model as Group } from '../../website/server/models/group';
 import { model as User } from '../../website/server/models/user';
 
@@ -16,7 +14,7 @@ async function createGroup (name, privacy, type, leaderId) {
     group.leader = user._id;
     user.guilds.push(group._id);
 
-    return Bluebird.all([group.save(), user.save()]);
+    return Promise.all([group.save(), user.save()]);
 };
 
 module.exports = async function groupCreator () {

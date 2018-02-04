@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../../middlewares/auth';
-import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -205,7 +204,7 @@ api.assignTask = {
     let promises = [];
     promises.push(group.syncTask(task, assignedUser));
     promises.push(group.save());
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     res.respond(200, task);
   },
@@ -350,7 +349,7 @@ api.approveTask = {
 
     managerPromises.push(task.save());
     managerPromises.push(assignedUser.save());
-    await Bluebird.all(managerPromises);
+    await Promise.all(managerPromises);
 
     res.respond(200, task);
   },

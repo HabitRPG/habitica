@@ -11,7 +11,6 @@
  * pm'ed each user asking if they would like their tasks reset to the previous day
  ***************************************/
 
-global.Promise = require('bluebird');
 const MongoClient = require('mongodb').MongoClient;
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');

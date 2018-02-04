@@ -16,9 +16,7 @@ console.log('Starting migrations/api_v3/challengesMembers.js.');
 // https://github.com/lodash/lodash/wiki/Changelog#v400
 
 require('babel-register');
-require('babel-polyfill');
 
-var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
@@ -36,8 +34,6 @@ var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
-
-mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // To be defined later when MongoClient connects
 var mongoDbOldInstance;
@@ -110,7 +106,7 @@ function processChallenges (afterId) {
 
     console.log(`Migrating members of ${oldChallenges.length} challenges.`);
 
-    return Bluebird.all(promises);
+    return Promise.all(promises);
   })
   .then(function () {
     processedChallenges += oldChallenges.length;
@@ -126,7 +122,7 @@ function processChallenges (afterId) {
 }
 
 // Connect to the databases
-Bluebird.all([
+Promise.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

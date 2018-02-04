@@ -12,7 +12,6 @@
  * <userid>@example.com
  ***************************************/
 
-global.Promise = require('bluebird');
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');
 const Timer = require('./utils/timer');

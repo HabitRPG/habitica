@@ -11,7 +11,6 @@ const connectionString = '';
 const Users = monk(connectionString).get('users', { castIds: false });
 
 import uniq from 'lodash/uniq';
-import Bluebird from 'bluebird';
 
 
 module.exports = async function accountTransfer () {

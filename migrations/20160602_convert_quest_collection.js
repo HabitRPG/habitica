@@ -12,7 +12,6 @@
  * from an object to a number, hence this migration.
  ***************************************/
 
-global.Promise = require('bluebird');
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');
 const Timer = require('./utils/timer');
