@@ -502,7 +502,7 @@ api.seenChat = {
 
     // Remove from response
     user.notifications = user.notifications.filter(n => {
-      if (n && n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId) {
+      if (n && n.type === 'NEW_CHAT_MESSAGE' && n.data && n.data.group && n.data.group.id === groupId) {
         return false;
       }
 
