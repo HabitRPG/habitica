@@ -2,7 +2,6 @@
 import request from 'request';
 import nconf from 'nconf';
 import nodemailer from 'nodemailer';
-import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
 import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
@@ -11,7 +10,7 @@ function defer () {
   let resolve;
   let reject;
 
-  let promise = new Bluebird((resolveParam, rejectParam) => {
+  let promise = new Promise((resolveParam, rejectParam) => {
     resolve = resolveParam;
     reject = rejectParam;
   });

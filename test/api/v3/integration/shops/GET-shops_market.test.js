@@ -2,7 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import Bluebird from 'bluebird';
 
 describe('GET /shops/market', () => {
   let user;
@@ -42,10 +41,10 @@ describe('GET /shops/market', () => {
       return array;
     }, []);
 
-    let results = await Bluebird.each(items, (item) => {
+    let results = await Promise.all(items.map((item) => {
       let { purchaseType, key } = item;
       return user.post(`/user/purchase/${purchaseType}/${key}`);
-    });
+    }));
 
     expect(results.length).to.be.greaterThan(0);
     results.forEach((item) => {

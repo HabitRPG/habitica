@@ -21,7 +21,6 @@ var challengesLive = monk2(liveConnectString).get('challenges', { castIds: false
 var tasksLive = monk2(liveConnectString).get('tasks', { castIds: false });
 
 import uniq from 'lodash/uniq';
-import Bluebird from 'bluebird';
 
 // Variabls for updating
 let userIds = [
@@ -49,7 +48,7 @@ async function processUsers () {
       let userPromise = usersTest.update({'_id': user._id}, user, {upsert:true});
       userPromises.push(userPromise);
     }).then(() => {
-      return Bluebird.all(userPromises);
+      return Promise.all(userPromises);
     })
     .then(() => {
       console.log("Done User");
@@ -64,7 +63,7 @@ function processGroups () {
       let promise = groupsTest.update({_id: group._id}, group, {upsert:true});
       promises.push(promise);
     }).then(() => {
-      return Bluebird.all(promises);
+      return Promise.all(promises);
     })
     .then(() => {
       console.log("Done Group");
@@ -79,7 +78,7 @@ function processChallenges () {
       let promise = challengesTest.update({_id: challenge._id}, challenge, {upsert:true});
       promises.push(promise);
     }).then(() => {
-      return Bluebird.all(promises);
+      return Promise.all(promises);
     })
     .then(() => {
       console.log("Done Challenge");
@@ -94,7 +93,7 @@ function processTasks () {
       let promise = tasksTest.update({_id: task._id}, task, {upsert:true});
       promises.push(promise);
     }).then(() => {
-      return Bluebird.all(promises);
+      return Promise.all(promises);
     })
     .then(() => {
       console.log("Done Tasks");

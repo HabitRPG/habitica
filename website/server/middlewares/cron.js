@@ -1,6 +1,5 @@
 import moment from 'moment';
 import * as Tasks from '../models/task';
-import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
@@ -99,7 +98,7 @@ async function cronAsync (req, res) {
     tasks.forEach(task => {
       if (task.isModified()) toSave.push(task.save());
     });
-    await Bluebird.all(toSave);
+    await Promise.all(toSave);
 
     await Group.processQuestProgress(user, progress);
 

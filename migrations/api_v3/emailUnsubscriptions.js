@@ -15,9 +15,7 @@ console.log('Starting migrations/api_v3/unsubscriptions.js.');
 // https://github.com/lodash/lodash/wiki/Changelog#v400
 
 require('babel-register');
-require('babel-polyfill');
 
-var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
@@ -35,8 +33,6 @@ var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
-
-mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var EmailUnsubscription = require('../../website/server/models/emailUnsubscription').model;
@@ -120,7 +116,7 @@ function processUnsubscriptions (afterId) {
 }
 
 // Connect to the databases
-Bluebird.all([
+Promise.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

@@ -5,7 +5,6 @@ const authorUuid = ''; //... own data is done
 /*
  * This migraition will copy user data from prod to test
  */
-import Bluebird from 'bluebird';
 
 const monk = require('monk');
 const connectionString = 'mongodb://localhost/new-habit';

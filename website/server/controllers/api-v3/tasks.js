@@ -20,7 +20,6 @@ import {
   setNextDue,
 } from '../../libs/taskManager';
 import common from '../../../common';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
@@ -598,7 +597,7 @@ api.scoreTask = {
       });
 
       managerPromises.push(task.save());
-      await Bluebird.all(managerPromises);
+      await Promise.all(managerPromises);
 
       throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
@@ -647,7 +646,7 @@ api.scoreTask = {
       task.save(),
     ];
     if (taskOrderPromise) promises.push(taskOrderPromise);
-    let results = await Bluebird.all(promises);
+    let results = await Promise.all(promises);
 
     let savedUser = results[0];
 
@@ -1132,7 +1131,7 @@ api.unlinkAllTasks = {
     if (!validTasks) throw new BadRequest(res.t('cantOnlyUnlinkChalTask'));
 
     if (keep === 'keep-all') {
-      await Bluebird.all(tasks.map(task => {
+      await Promise.all(tasks.map(task => {
         task.challenge = {};
         return task.save();
       }));
@@ -1149,7 +1148,7 @@ api.unlinkAllTasks = {
 
       toSave.push(user.save());
 
-      await Bluebird.all(toSave);
+      await Promise.all(toSave);
     }
 
     res.respond(200, {});
@@ -1199,7 +1198,7 @@ api.unlinkOneTask = {
     } else { // remove
       if (task.type !== 'todo' || !task.completed) { // eslint-disable-line no-lonely-if
         removeFromArray(user.tasksOrder[`${task.type}s`], taskId);
-        await Bluebird.all([user.save(), task.remove()]);
+        await Promise.all([user.save(), task.remove()]);
       } else {
         await task.remove();
       }
@@ -1317,7 +1316,7 @@ api.deleteTask = {
       // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
       if (!challenge) user._v++;
 
-      await Bluebird.all([taskOrderUpdate, task.remove()]);
+      await Promise.all([taskOrderUpdate, task.remove()]);
     } else {
       await task.remove();
     }

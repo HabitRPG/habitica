@@ -16,9 +16,7 @@ console.log('Starting migrations/api_v3/users.js.');
 // https://github.com/lodash/lodash/wiki/Changelog#v400
 
 require('babel-register');
-require('babel-polyfill');
 
-var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
@@ -39,8 +37,6 @@ var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var taskDefaults = common.taskDefaults;
 var MongoClient = MongoDB.MongoClient;
-
-mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var NewUser = require('../../website/server/models/user').model;
@@ -222,7 +218,7 @@ function processUsers (afterId) {
 
     console.log(`Saving ${oldUsers.length} users and ${processedTasks} tasks.`);
 
-    return Bluebird.all([
+    return Promise.all([
       batchInsertUsers.execute(),
       batchInsertTasks.execute(),
     ]);
@@ -244,7 +240,7 @@ function processUsers (afterId) {
 }
 
 // Connect to the databases
-Bluebird.all([
+Promise.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

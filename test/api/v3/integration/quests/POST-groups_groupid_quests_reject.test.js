@@ -4,7 +4,6 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
-import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/reject', () => {
   let questingGroup;
@@ -168,7 +167,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
       // quest will start after everyone has accepted or rejected
       await rejectingMember.post(`/groups/${questingGroup._id}/quests/reject`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await questingGroup.sync();
 

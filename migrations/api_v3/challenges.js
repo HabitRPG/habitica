@@ -15,9 +15,7 @@
 console.log('Starting migrations/api_v3/challenges.js.');
 
 require('babel-register');
-require('babel-polyfill');
 
-var Bluebird = require('bluebird');
 var MongoDB = require('mongodb');
 var nconf = require('nconf');
 var mongoose = require('mongoose');
@@ -36,8 +34,6 @@ var MONGODB_OLD = nconf.get('MONGODB_OLD');
 var MONGODB_NEW = nconf.get('MONGODB_NEW');
 
 var MongoClient = MongoDB.MongoClient;
-
-mongoose.Promise = Bluebird; // otherwise mongoose models won't work
 
 // Load new models
 var NewChallenge = require('../../website/server/models/challenge').model;
@@ -172,7 +168,7 @@ function processChallenges (afterId) {
 
     console.log(`Saving ${oldChallenges.length} challenges and ${processedTasks} tasks.`);
 
-    return Bluebird.all([
+    return Promise.all([
       batchInsertChallenges.execute(),
       batchInsertTasks.execute(),
     ]);
@@ -194,7 +190,7 @@ function processChallenges (afterId) {
 }
 
 // Connect to the databases
-Bluebird.all([
+Promise.all([
   MongoClient.connect(MONGODB_OLD),
   MongoClient.connect(MONGODB_NEW),
 ])

@@ -1,8 +1,8 @@
 import moment from 'moment';
-import Bluebird from 'bluebird';
 import { model as User } from '../models/user';
 import common from '../../common/';
 import { preenUserHistory } from '../libs/preening';
+import sleep from '../libs/sleep';
 import _ from 'lodash';
 import cloneDeep from 'lodash/cloneDeep';
 import nconf from 'nconf';
@@ -29,7 +29,7 @@ function setIsDueNextDue (task, user, now) {
 export async function recoverCron (status, locals) {
   let {user} = locals;
 
-  await Bluebird.delay(300);
+  await sleep(0.3);
 
   let reloadedUser = await User.findOne({_id: user._id}).exec();
 

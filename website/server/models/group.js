@@ -19,7 +19,6 @@ import {
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
-import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import pusher from '../libs/pusher';
@@ -309,7 +308,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     }
   });
 
-  let groupsArray = _.reduce(await Bluebird.all(queries), (previousValue, currentValue) => {
+  let groupsArray = _.reduce(await Promise.all(queries), (previousValue, currentValue) => {
     if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
     return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
   }, []);
@@ -428,7 +427,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     return user.save();
   });
 
-  return Bluebird.all(userUpdates);
+  return Promise.all(userUpdates);
 };
 
 // Return true if user is a member of the group
@@ -619,13 +618,16 @@ schema.methods.startQuest = async function startQuest (user) {
   // remove any users from quest.members who aren't in the party
   let partyId = this._id;
   let questMembers = this.quest.members;
-  await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
-    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean().exec();
-
-    if (!member) {
-      delete questMembers[memberId];
-    }
-  });
+  await Promise.all(Object.keys(this.quest.members).map(memberId => {
+    return User.findOne({_id: memberId, 'party._id': partyId})
+      .select('_id')
+      .lean()
+      .exec()
+      .then(() => {
+        delete questMembers[memberId];
+        return;
+      });
+  }));
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -862,7 +864,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }));
   }
 
-  return Bluebird.all(promises);
+  return Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -1107,7 +1109,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     let challengesToRemoveUserFrom = challenges.map(chal => {
       return chal.unlinkTasks(user, keep);
     });
-    await Bluebird.all(challengesToRemoveUserFrom);
+    await Promise.all(challengesToRemoveUserFrom);
   }
 
   // Unlink group tasks)
@@ -1119,7 +1121,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
     return this.unlinkTask(task, user, keep);
   });
-  await Bluebird.all(assignedTasksToRemoveUserFrom);
+  await Promise.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 
@@ -1155,7 +1157,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
     if (members.length === 0) {
       promises.push(group.remove());
-      return await Bluebird.all(promises);
+      return await Promise.all(promises);
     }
   } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
     let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
@@ -1177,7 +1179,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   }
   promises.push(group.update(update).exec());
 
-  return await Bluebird.all(promises);
+  return await Promise.all(promises);
 };
 
 /**
@@ -1311,7 +1313,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
   toSave.push(matchingTask.save(), taskToSync.save(), user.save());
-  return Bluebird.all(toSave);
+  return Promise.all(toSave);
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
@@ -1337,7 +1339,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       user.markModified('tasksOrder');
     }
 
-    return Bluebird.all([task.remove(), user.save(), unlinkingTask.save()]);
+    return Promise.all([task.remove(), user.save(), unlinkingTask.save()]);
   }
 };
 

@@ -1,5 +1,3 @@
-import Bluebird from 'Bluebird';
-
 import { model as Challenges } from '../../website/server/models/challenge';
 import { model as User } from '../../website/server/models/user';
 
@@ -17,10 +15,10 @@ async function syncChallengeToMembers (challenges) {
       promises.push(user.save());
     });
 
-    return Bluebird.all(promises);
+    return Promise.all(promises);
   });
 
-  return await Bluebird.all(challengSyncPromises);
+  return await Promise.all(challengSyncPromises);
 }
 
 async function syncChallenges (lastChallengeDate) {

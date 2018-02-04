@@ -1,12 +1,10 @@
 require("babel-register");
-require("babel-polyfill");
 
 // This file must use ES5, everything required can be in ES6
 
 function setUpServer () {
   var nconf = require('nconf');
   var mongoose = require('mongoose');
-  var Bluebird = require('bluebird');
   var setupNconf = require('../website/server/libs/setupNconf');
   setupNconf();
   // We require src/server and npt src/index because

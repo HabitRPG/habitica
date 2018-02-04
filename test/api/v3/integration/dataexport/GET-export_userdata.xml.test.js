@@ -2,9 +2,9 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import xml2js from 'xml2js';
-import Bluebird from 'bluebird';
+import util from 'utils';
 
-let parseStringAsync = Bluebird.promisify(xml2js.parseString, {context: xml2js});
+let parseStringAsync = util.promisify(xml2js.parseString).bind(xml2js);
 
 describe('GET /export/userdata.xml', () => {
   // TODO disabled because it randomly causes the build to fail
