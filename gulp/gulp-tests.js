@@ -4,7 +4,6 @@ import {
 import mongoose                   from 'mongoose';
 import { exec }                   from 'child_process';
 import gulp                       from 'gulp';
-import runSequence                from 'run-sequence';
 import os                         from 'os';
 import nconf                      from 'nconf';
 
@@ -39,11 +38,11 @@ let testBin = (string, additionalEnvVariables = '') => {
   }
 };
 
-gulp.task('test:nodemon', () => {
+gulp.task('test:nodemon', (done) => {
   process.env.PORT = TEST_SERVER_PORT; // eslint-disable-line no-process-env
   process.env.NODE_DB_URI = TEST_DB_URI; // eslint-disable-line no-process-env
 
-  runSequence('nodemon');
+  return gulp.series('nodemon', done);
 });
 
 gulp.task('test:prepare:mongo', (cb) => {
@@ -55,7 +54,7 @@ gulp.task('test:prepare:mongo', (cb) => {
   });
 });
 
-gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
+gulp.task('test:prepare:server', gulp.series('test:prepare:mongo', (done) => {
   if (!server) {
     server = exec(testBin('node ./website/server/index.js', `NODE_DB_URI=${TEST_DB_URI} PORT=${TEST_SERVER_PORT}`), (error, stdout, stderr) => {
       if (error) {
@@ -64,16 +63,18 @@ gulp.task('test:prepare:server', ['test:prepare:mongo'], () => {
       if (stderr) {
         console.error(stderr); // eslint-disable-line no-console
       }
+      done();
     });
   }
-});
+}));
 
-gulp.task('test:prepare:build', ['build']);
+gulp.task('test:prepare:build', gulp.series('build', done => done()));
 
-gulp.task('test:prepare', [
+gulp.task('test:prepare', gulp.series(
   'test:prepare:build',
   'test:prepare:mongo',
-]);
+  done => done()
+));
 
 gulp.task('test:sanity', (cb) => {
   let runner = exec(
@@ -88,7 +89,7 @@ gulp.task('test:sanity', (cb) => {
   pipe(runner);
 });
 
-gulp.task('test:common', ['test:prepare:build'], (cb) => {
+gulp.task('test:common', gulp.series('test:prepare:build', (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
     (err) => {
@@ -99,17 +100,17 @@ gulp.task('test:common', ['test:prepare:build'], (cb) => {
     }
   );
   pipe(runner);
-});
+}));
 
 gulp.task('test:common:clean', (cb) => {
   pipe(exec(testBin(COMMON_TEST_COMMAND), () => cb()));
 });
 
-gulp.task('test:common:watch', ['test:common:clean'], () => {
-  gulp.watch(['common/script/**/*', 'test/common/**/*'], ['test:common:clean']);
-});
+gulp.task('test:common:watch', gulp.series('test:common:clean', () => {
+  return gulp.watch(['common/script/**/*', 'test/common/**/*'], gulp.series('test:common:clean', done => done()));
+}));
 
-gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
+gulp.task('test:common:safe', gulp.series('test:prepare:build', (cb) => {
   let runner = exec(
     testBin(COMMON_TEST_COMMAND),
     (err, stdout) => { // eslint-disable-line handle-callback-err
@@ -123,9 +124,9 @@ gulp.task('test:common:safe', ['test:prepare:build'], (cb) => {
     }
   );
   pipe(runner);
-});
+}));
 
-gulp.task('test:content', ['test:prepare:build'], (cb) => {
+gulp.task('test:content', gulp.series('test:prepare:build', (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
@@ -137,17 +138,17 @@ gulp.task('test:content', ['test:prepare:build'], (cb) => {
     }
   );
   pipe(runner);
-});
+}));
 
 gulp.task('test:content:clean', (cb) => {
   pipe(exec(testBin(CONTENT_TEST_COMMAND), CONTENT_OPTIONS, () => cb()));
 });
 
-gulp.task('test:content:watch', ['test:content:clean'], () => {
-  gulp.watch(['common/script/content/**', 'test/**'], ['test:content:clean']);
-});
+gulp.task('test:content:watch', gulp.series('test:content:clean', () => {
+  return gulp.watch(['common/script/content/**', 'test/**'], gulp.series('test:content:clean', done => done()));
+}));
 
-gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
+gulp.task('test:content:safe', gulp.series('test:prepare:build', (cb) => {
   let runner = exec(
     testBin(CONTENT_TEST_COMMAND),
     CONTENT_OPTIONS,
@@ -162,7 +163,7 @@ gulp.task('test:content:safe', ['test:prepare:build'], (cb) => {
     }
   );
   pipe(runner);
-});
+}));
 
 gulp.task('test:api-v3:unit', (done) => {
   let runner = exec(
@@ -179,7 +180,7 @@ gulp.task('test:api-v3:unit', (done) => {
 });
 
 gulp.task('test:api-v3:unit:watch', () => {
-  gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], ['test:api-v3:unit']);
+  return gulp.watch(['website/server/libs/*', 'test/api/v3/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api-v3:unit', done => done()));
 });
 
 gulp.task('test:api-v3:integration', (done) => {
@@ -198,8 +199,10 @@ gulp.task('test:api-v3:integration', (done) => {
 });
 
 gulp.task('test:api-v3:integration:watch', () => {
-  gulp.watch(['website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/*.js',
-              'test/api/v3/integration/**/*'], ['test:api-v3:integration']);
+  return gulp.watch([
+    'website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/*.js',
+    'test/api/v3/integration/**/*',
+  ], gulp.series('test:api-v3:integration', done => done()));
 });
 
 gulp.task('test:api-v3:integration:separate-server', (done) => {
@@ -212,21 +215,17 @@ gulp.task('test:api-v3:integration:separate-server', (done) => {
   pipe(runner);
 });
 
-gulp.task('test', (done) => {
-  runSequence(
-    'test:sanity',
-    'test:content',
-    'test:common',
-    'test:api-v3:unit',
-    'test:api-v3:integration',
-    done
-  );
-});
+gulp.task('test', gulp.series(
+  'test:sanity',
+  'test:content',
+  'test:common',
+  'test:api-v3:unit',
+  'test:api-v3:integration',
+  done => done()
+));
 
-gulp.task('test:api-v3', (done) => {
-  runSequence(
-    'test:api-v3:unit',
-    'test:api-v3:integration',
-    done
-  );
-});
+gulp.task('test:api-v3', gulp.series(
+  'test:api-v3:unit',
+  'test:api-v3:integration',
+  done => done()
+));
