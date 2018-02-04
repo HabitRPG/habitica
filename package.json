@@ -97,6 +97,7 @@
     "useragent": "^2.1.9",
     "uuid": "^3.0.1",
     "validator": "^4.9.0",
+    "vinyl-buffer": "^1.0.1",
     "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
     "vue-mugen-scroll": "^0.2.1",

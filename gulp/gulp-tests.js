@@ -38,12 +38,11 @@ let testBin = (string, additionalEnvVariables = '') => {
   }
 };
 
-gulp.task('test:nodemon', (done) => {
+gulp.task('test:nodemon', gulp.series(function setupNodemon (done) {
   process.env.PORT = TEST_SERVER_PORT; // eslint-disable-line no-process-env
   process.env.NODE_DB_URI = TEST_DB_URI; // eslint-disable-line no-process-env
-
-  return gulp.series('nodemon', done);
-});
+  done();
+}, 'nodemon'));
 
 gulp.task('test:prepare:mongo', (cb) => {
   mongoose.connect(TEST_DB_URI, (err) => {
