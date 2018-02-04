@@ -1,4 +1,3 @@
-import findIndex from 'lodash/findIndex';
 import { authWithHeaders } from '../../../middlewares/auth';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
@@ -316,8 +315,8 @@ api.approveTask = {
 
     // Get task direction
     const firstManagerNotifications = managers[0].notifications;
-    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
-      return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+    const firstNotificationIndex = firstManagerNotifications.findIndex((notification) => {
+      return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
     });
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
@@ -327,8 +326,8 @@ api.approveTask = {
     // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
-      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {
@@ -416,8 +415,8 @@ api.taskNeedsWork = {
 
     // Remove old notifications
     managers.forEach((manager) => {
-      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {

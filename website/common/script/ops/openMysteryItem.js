@@ -7,7 +7,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 function markNotificationAsRead (user) {
   const index = user.notifications.findIndex(notification => {
-    return notification.type === 'NEW_MYSTERY_ITEMS';
+    return notification && notification.type === 'NEW_MYSTERY_ITEMS';
   });
 
   if (index !== -1) user.notifications.splice(index, 1);
