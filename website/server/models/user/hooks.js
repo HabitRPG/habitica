@@ -4,6 +4,9 @@ import moment from 'moment';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
+import {
+  model as UserNotification,
+} from '../userNotification';
 
 import schema from './schema';
 
@@ -14,6 +17,10 @@ schema.plugin(baseModel, {
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
+
+    if (originalDoc.notifications) {
+      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
+    }
 
     return plainObj;
   },
@@ -255,7 +262,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
     // Sometimes there can be more than 1 notification
     const existingNotifications = this.notifications.filter(notification => {
-      return notification.type === 'UNALLOCATED_STATS_POINTS';
+      return notification && notification.type === 'UNALLOCATED_STATS_POINTS';
     });
 
     const existingNotificationsLength = existingNotifications.length;
@@ -277,7 +284,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
       let notificationsRemoved = 0;
 
       this.notifications = this.notifications.filter(notification => {
-        if (notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
+        if (notification && notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
         if (notificationsRemoved === notificationsToRemove) return true;
 
         notificationsRemoved++;
