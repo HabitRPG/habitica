@@ -1,1 +1,3 @@
-export sleep from '../website/server/libs/sleep';
+import sleep from '../website/server/libs/sleep';
+
+export default sleep;

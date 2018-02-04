@@ -2,6 +2,7 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
