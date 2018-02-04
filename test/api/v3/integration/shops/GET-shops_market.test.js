@@ -47,7 +47,7 @@ describe('GET /shops/market', () => {
     }));
 
     expect(results.length).to.be.greaterThan(0);
-    results.forEach((item) => {
+    items.forEach((item) => {
       expect(item).to.include.keys('key', 'text', 'notes', 'class', 'value', 'currency');
     });
   });
