@@ -623,8 +623,10 @@ schema.methods.startQuest = async function startQuest (user) {
       .select('_id')
       .lean()
       .exec()
-      .then(() => {
-        delete questMembers[memberId];
+      .then((member) => {
+        if (!member) {
+          delete questMembers[memberId];
+        }
         return;
       });
   }));
