@@ -2,9 +2,11 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import webpackProductionBuild from '../webpack/build';
 
-gulp.task('build', () => {
+gulp.task('build', (doneMain) => {
   if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
-    gulp.start('build:prod');
+    gulp.series('build:prod', doneMain);
+  } else {
+    doneMain();
   }
 });
 
@@ -20,18 +22,20 @@ gulp.task('build:common', () => {
     .pipe(gulp.dest('website/common/transpiled-babel/'));
 });
 
-gulp.task('build:server', ['build:src', 'build:common']);
+gulp.task('build:server', gulp.series('build:src', 'build:common', done => done()));
 
 // Client Production Build
 gulp.task('build:client', (done) => {
   webpackProductionBuild((err, output) => {
     if (err) return done(err);
     console.log(output); // eslint-disable-line no-console
+    done();
   });
 });
 
-gulp.task('build:prod', [
+gulp.task('build:prod', gulp.series(
   'build:server',
   'build:client',
   'apidoc',
-]);
+  done => done()
+));
