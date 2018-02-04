@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-v3-integration.helper';
 import xml2js from 'xml2js';
-import util from 'utils';
+import util from 'util';
 
 let parseStringAsync = util.promisify(xml2js.parseString).bind(xml2js);
 
