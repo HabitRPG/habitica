@@ -71,6 +71,8 @@ export let schema = new Schema({
  * is fixed
  */
 schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
+  if (!notifications) return notifications;
+
   return notifications.filter(n => {
     // Exclude notifications with a nullish value
     if (!n) return false;
