@@ -103,7 +103,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -363,6 +363,13 @@ export default {
       let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
+  },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
