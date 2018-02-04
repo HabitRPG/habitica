@@ -18,7 +18,9 @@ schema.plugin(baseModel, {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
 
-    plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
+    if (originalDoc.notifications) {
+      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
+    }
 
     return plainObj;
   },
