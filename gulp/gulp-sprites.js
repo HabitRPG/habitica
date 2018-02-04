@@ -7,6 +7,7 @@ import mergeStream from 'merge-stream';
 import {basename} from 'path';
 import {sync} from 'glob';
 import {each} from 'lodash';
+import vinylBuffer from 'vinyl-buffer';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
@@ -104,6 +105,7 @@ function createSpritesStream (name, src) {
       }));
 
     let imgStream = spriteData.img
+      .pipe(vinylBuffer())
       .pipe(imagemin())
       .pipe(gulp.dest(IMG_DIST_PATH));
 
