@@ -64,6 +64,25 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].seen).to.eql(false);
     });
 
+    it('removes invalid notifications when calling toJSON', () => {
+      let user = new User();
+
+      user.notifications = [
+        null, // invalid, not an object
+        {seen: true}, // invalid, no type or id
+        {id: 123}, // invalid, no type
+        // {type: 'ABC'}, // invalid, no id, not included here because the id would be added automatically
+        {type: 'ABC', id: '123'}, // valid
+      ];
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.notifications.length).to.equal(1);
+
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('ABC');
+      expect(userToJSON.notifications[0].id).to.equal('123');
+    });
+
     it('can add notifications with data and already marked as seen', () => {
       let user = new User();
 
@@ -78,7 +97,7 @@ describe('User Model', () => {
     });
 
     context('static push method', () => {
-      it('adds notifications for a single member via static method', async() => {
+      it('adds notifications for a single member via static method', async () => {
         let user = new User();
         await user.save();
 
@@ -93,7 +112,7 @@ describe('User Model', () => {
         expect(userToJSON.notifications[0].data).to.eql({});
       });
 
-      it('validates notifications via static method', async() => {
+      it('validates notifications via static method', async () => {
         let user = new User();
         await user.save();
 
@@ -127,7 +146,7 @@ describe('User Model', () => {
         expect(userToJSON.notifications[0].seen).to.eql(false);
       });
 
-      it('adds notifications with data and seen status for all given users via static method', async() => {
+      it('adds notifications with data and seen status for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);

@@ -92,7 +92,7 @@ api.tellMeLaterNews = {
     user.flags.newStuff = false;
 
     const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n.type === 'NEW_STUFF';
+      return n && n.type === 'NEW_STUFF';
     });
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default

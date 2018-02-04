@@ -163,10 +163,12 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  */
 schema.statics.pushNotification = async function pushNotification (query, type, data = {}, seen = false) {
   let newNotification = new UserNotification({type, data, seen});
+
   let validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
+
   await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 

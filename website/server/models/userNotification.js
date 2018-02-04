@@ -38,10 +38,14 @@ export let schema = new Schema({
     type: String,
     default: uuid,
     validate: [validator.isUUID, 'Invalid uuid.'],
-    // required: true, // @TODO: Add these back once we figure out the issue with notifications
+    // @TODO: Add these back once we figure out the issue with notifications
+    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
+    // required: true,
   },
   type: {
     type: String,
+    // @TODO: Add these back once we figure out the issue with notifications
+    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
     // required: true,
     enum: NOTIFICATION_TYPES,
   },
@@ -59,6 +63,24 @@ export let schema = new Schema({
   minimize: false, // So empty objects are returned
   _id: false, // use id instead of _id
 });
+
+/**
+ * Convert notifications to JSON making sure to return only valid data.
+ * Fix for https://github.com/HabitRPG/habitica/issues/9923#issuecomment-362869881
+ * @TODO Remove once https://github.com/HabitRPG/habitica/issues/9923
+ * is fixed
+ */
+schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
+  return notifications.filter(n => {
+    // Exclude notifications with a nullish value
+    if (!n) return false;
+    // Exclude notifications without an id or a type
+    if (!n.id || !n.type) return false;
+    return true;
+  }).map(n => {
+    return n.toJSON();
+  });
+};
 
 schema.plugin(baseModel, {
   noSet: ['_id', 'id'],
