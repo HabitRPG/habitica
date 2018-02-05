@@ -40,7 +40,7 @@ api.getWorldState = {
 
     worldState.worldBoss = await getWorldBoss();
 
-    res.respond(worldState);
+    res.respond(200, worldState);
   },
 };
 
