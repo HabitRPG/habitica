@@ -419,7 +419,6 @@ export default {
       }
     },
     async memberSelected (member) {
-      console.info('member selected?', member, this.selectedSpellToBuy);
       await this.castStart(this.selectedSpellToBuy, member);
 
       // Subtract gold for cards

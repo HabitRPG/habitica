@@ -24,8 +24,6 @@ export default {
       this.$store.state.spellOptions.castingSpell = true;
       this.spell = spell;
 
-      console.info('received spell', spell);
-
       if (spell.target === 'self') {
         return this.castEnd(null, spell.target);
       } else if (spell.target === 'party') {
@@ -52,7 +50,6 @@ export default {
         });
         return this.castEnd(tasks, spell.target);
       } else if (spell.target === 'user') {
-        console.info('target user!!', member, spell);
         let result = await this.castEnd(member, spell.target);
 
         if (member.id === this.user.id) {
@@ -81,9 +78,13 @@ export default {
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
-      this.spell.cast(this.user, target);
-
       let spell = this.spell;
+
+      // the selected member doesn't have the flags property which sets `cardReceived`
+      if (spell.pinType !== 'card') {
+        this.spell.cast(this.user, target);
+      }
+
       let targetId = target ? target._id : null;
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
@@ -91,7 +92,6 @@ export default {
       let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
       let msg = '';
 
-      console.info(type, target, spell);
 
       switch (type) {
         case 'task':
