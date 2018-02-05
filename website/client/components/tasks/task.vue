@@ -758,9 +758,9 @@ export default {
           dropNotes = Content.eggs[drop.key].notes();
           this.drop(this.$t('messageDropEgg', {dropText, dropNotes}), drop);
         } else if (drop.type === 'Food') {
-          dropText = Content.food[drop.key].text();
+          dropText = Content.food[drop.key].textA();
           dropNotes = Content.food[drop.key].notes();
-          this.drop(this.$t('messageDropFood', {dropArticle: drop.article, dropText, dropNotes}), drop);
+          this.drop(this.$t('messageDropFood', {dropText, dropNotes}), drop);
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
