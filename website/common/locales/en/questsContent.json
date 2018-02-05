@@ -647,5 +647,15 @@
   "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
   "questPterodactylBoss": "Pterror-dactyl",
   "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
-  "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market"
+  "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market",
+
+  "questDysheartenerText": "The Dysheartener",
+  "questDysheartenerNotes": "dysheartened dyscription",
+  "questDysheartenerCompletion": "be reheartened",
+  "questDysheartenerCompletionChat": "y'all won",
+  "questDysheartenerBossRageTitle": "Dys",
+  "questDysheartenerBossRageDescription": "y'all get dyssed",
+  "questDysheartenerBossRageSeasonal": "seasonal dyss",
+  "questDysheartenerBossRageMarket": "market dyss",
+  "questDysheartenerBossRageQuests": "quests dyss"
 }
