@@ -48,8 +48,8 @@ export default {
       this.$root.$emit('bv::show::modal', 'broken-task-modal');
     });
   },
-  removed () {
-    this.$root.$remove('handle-broken-task');
+  beforeDestroy () {
+    this.$root.$off('handle-broken-task');
   },
   methods: {
     ...mapActions({

@@ -25,6 +25,7 @@
     "questInvitation": "任务邀请：",
     "questInvitationTitle": "任务邀请",
     "questInvitationInfo": "探索任务邀请<%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "稍后再问",
     "questLater": "后续任务",
     "buyQuest": "购买任务",

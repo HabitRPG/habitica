@@ -86,8 +86,3 @@ export async function markChatSeen (store, payload) {
   let response = await axios.post(url);
   return response.data.data;
 }
-
-// @TODO: should this be here?
-// function clearCards () {
-//   User.user._wrapped && User.set({'flags.cardReceived':false});
-// }

@@ -59,5 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> 找不到行動",
     "messageNotificationNotFound": "找不到通知",
     "notificationsRequired": "通知用ID是必須的。",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "您與 <%= userName %> 的對話即將開始。記得要和善、尊重，並遵守社群準則！"
 }

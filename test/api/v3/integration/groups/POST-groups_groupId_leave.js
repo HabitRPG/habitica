@@ -70,13 +70,21 @@ describe('POST /groups/:groupId/leave', () => {
       it('removes new messages for that group from user', async () => {
         await member.post(`/groups/${groupToLeave._id}/chat`, { message: 'Some message' });
 
+        await sleep(0.5);
+
         await leader.sync();
 
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.exist;
         expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
 
         await leader.post(`/groups/${groupToLeave._id}/leave`);
         await leader.sync();
 
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.not.exist;
         expect(leader.newMessages[groupToLeave._id]).to.be.empty;
       });
 

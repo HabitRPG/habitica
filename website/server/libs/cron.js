@@ -181,11 +181,9 @@ function awardLoginIncentives (user) {
   if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
-  user.notifications
-    .toObject()
-    .forEach((notif, index) => {
-      if (notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
-    });
+  user.notifications.forEach((notif, index) => {
+    if (notif && notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
+  });
 
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned', user.preferences.language);
@@ -442,8 +440,8 @@ export function cron (options = {}) {
 
   // First remove a possible previous cron notification
   // we don't want to flood the users with many cron notifications at once
-  let oldCronNotif = user.notifications.toObject().find((notif, index) => {
-    if (notif.type === 'CRON') {
+  let oldCronNotif = user.notifications.find((notif, index) => {
+    if (notif && notif.type === 'CRON') {
       user.notifications.splice(index, 1);
       return true;
     } else {
