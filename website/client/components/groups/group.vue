@@ -38,6 +38,9 @@
           .col-6.chat-send-actions
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         community-guidelines
+        .row(v-if='showNoNotificationsMessage')
+          .col-12.no-notifications
+            | {{$t('groupNoNotifications')}}
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
