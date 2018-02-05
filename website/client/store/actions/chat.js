@@ -74,12 +74,6 @@ export async function flag (store, payload) {
   return response.data.data;
 }
 
-export async function flagInbox (store, payload) {
-  let url = `/api/v3/chat/${payload.chatId}/flag`;
-  let response = await axios.post(url);
-  return response.data.data;
-}
-
 export async function clearFlagCount (store, payload) {
   let url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/clearflags`;
   let response = await axios.post(url);
@@ -92,8 +86,3 @@ export async function markChatSeen (store, payload) {
   let response = await axios.post(url);
   return response.data.data;
 }
-
-// @TODO: should this be here?
-// function clearCards () {
-//   User.user._wrapped && User.set({'flags.cardReceived':false});
-// }

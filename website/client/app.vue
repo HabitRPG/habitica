@@ -9,7 +9,6 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    report-flag-modal
     amazon-payments-modal
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
@@ -101,6 +100,11 @@ div
     opacity: 1 !important;
     background-color: rgba(67, 40, 116, 0.9) !important;
   }
+
+  /* Push progress bar above modals */
+  #nprogress .bar {
+    z-index: 1043 !important; /* Must stay above nav bar */
+  }
 </style>
 
 <script>
@@ -119,7 +123,6 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
-import reportFlagModal from 'client/components/chat/reportFlagModal';
 
 export default {
   mixins: [notifications],
@@ -133,7 +136,6 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
-    reportFlagModal,
   },
   data () {
     return {
@@ -210,7 +212,7 @@ export default {
       if (error.response.status >= 400) {
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
-        if (invalidUserMessage.indexOf(error.response.data.message) !== -1) {
+        if (invalidUserMessage.indexOf(error.response.data) !== -1) {
           this.$store.dispatch('auth:logout');
         }
 
@@ -225,7 +227,7 @@ export default {
 
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data.message,
+          text: error.response.data,
           type: 'error',
           timeout: true,
         });
@@ -362,6 +364,13 @@ export default {
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
+  },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
@@ -391,7 +400,16 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
@@ -402,6 +420,7 @@ export default {
       if (this.selectedSpellToBuy.pinType === 'card') {
         const newUserGp = castResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
+        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
       }
 
       this.selectedSpellToBuy = null;

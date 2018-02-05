@@ -3,6 +3,7 @@
   .row
     .col-12
       copy-as-todo-modal(:group-name='groupName', :group-id='groupId')
+      report-flag-modal
   div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
@@ -10,8 +11,8 @@
     .row(v-if='user._id !== msg.uuid')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
-          :member="cachedProfileData[msg.uuid]",
+          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+          :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
@@ -35,8 +36,8 @@
           @show-member-modal='showMemberModal')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
-          v-if='cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected',
-          :member="cachedProfileData[msg.uuid]",
+          v-if='msg.userStyles || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)',
+          :member="msg.userStyles || cachedProfileData[msg.uuid]",
           :avatarOnly="true",
           :hideClassBadge='true',
           @click.native="showMemberModal(msg.uuid)",
@@ -82,12 +83,14 @@ import findIndex from 'lodash/findIndex';
 
 import Avatar from '../avatar';
 import copyAsTodoModal from './copyAsTodoModal';
+import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
   components: {
     copyAsTodoModal,
+    reportFlagModal,
     chatCard,
     Avatar,
   },
@@ -114,12 +117,12 @@ export default {
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
+      this.loadProfileCache();
       return this.chat;
     },
   },
   watch: {
-    messages (oldValue, newValue) {
-      if (newValue.length === oldValue.length) return;
+    messages () {
       this.loadProfileCache();
     },
   },
@@ -136,18 +139,28 @@ export default {
       this._loadProfileCache(screenPosition);
     }, 1000),
     async _loadProfileCache (screenPosition) {
+      if (this.loading) return;
+      this.loading = true;
+
       let promises = [];
+      const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
 
       // @TODO: write an explination
-      if (screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
+      // @TODO: Remove this after enough messages are cached
+      if (!noProfilesLoaded && screenPosition && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
         this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else if (screenPosition) {
+      } else if (!noProfilesLoaded && screenPosition) {
         return;
       }
 
       let aboutToCache = {};
       this.messages.forEach(message => {
         let uuid = message.uuid;
+
+        if (message.userStyles) {
+          this.$set(this.cachedProfileData, uuid, message.userStyles);
+        }
+
         if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
           if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
           aboutToCache[uuid] = {};
@@ -173,6 +186,8 @@ export default {
           this.$set(this.cachedProfileData, uuid, {rejected: true});
         }
       }
+
+      this.loading = false;
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {

@@ -1,5 +1,8 @@
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import omit from 'lodash/omit';
+import uuid from 'uuid';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -17,8 +20,80 @@ import {
 import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
 import csvStringify from '../../libs/csvStringify';
+import {
+  createTasks,
+} from '../../libs/taskManager';
+
+const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
 
 let api = {};
+
+async function createChallenge (user, req, res) {
+  let groupId = req.body.group;
+  let prize = req.body.prize;
+
+  let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
+  if (!group) throw new NotFound(res.t('groupNotFound'));
+  if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
+
+  if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
+    throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
+  }
+
+  if (group._id === TAVERN_ID && prize < 1) {
+    throw new NotAuthorized(res.t('tavChalsMinPrize'));
+  }
+
+  if (prize > 0) {
+    let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
+    let prizeCost = prize / 4;
+
+    if (prizeCost > user.balance + groupBalance) {
+      throw new NotAuthorized(res.t('cantAfford'));
+    }
+
+    if (groupBalance >= prizeCost) {
+      // Group pays for all of prize
+      group.balance -= prizeCost;
+    } else if (groupBalance > 0) {
+      // User pays remainder of prize cost after group
+      let remainder = prizeCost - group.balance;
+      group.balance = 0;
+      user.balance -= remainder;
+    } else {
+      // User pays for all of prize
+      user.balance -= prizeCost;
+    }
+  }
+
+  group.challengeCount += 1;
+
+  if (!req.body.summary) {
+    req.body.summary = req.body.name;
+  }
+  req.body.leader = user._id;
+  req.body.official = user.contributor.admin && req.body.official ? true : false;
+  let challenge = new Challenge(Challenge.sanitize(req.body));
+
+  // First validate challenge so we don't save group if it's invalid (only runs sync validators)
+  let challengeValidationErrors = challenge.validateSync();
+  if (challengeValidationErrors) throw challengeValidationErrors;
+
+  // Add achievement if user's first challenge
+  if (!user.achievements.joinedChallenge) {
+    user.achievements.joinedChallenge = true;
+    user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+  }
+
+  let results = await Bluebird.all([challenge.save({
+    validateBeforeSave: false, // already validate
+  }), group.save()]);
+  let savedChal = results[0];
+
+  await savedChal.syncToUser(user); // (it also saves the user)
+
+  return {savedChal, group};
+}
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -179,71 +254,10 @@ api.createChallenge = {
 
     req.checkBody('group', res.t('groupIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let groupId = req.body.group;
-    let prize = req.body.prize;
-
-    let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
-
-    if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
-    }
-
-    if (group._id === TAVERN_ID && prize < 1) {
-      throw new NotAuthorized(res.t('tavChalsMinPrize'));
-    }
-
-    if (prize > 0) {
-      let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
-      let prizeCost = prize / 4;
-
-      if (prizeCost > user.balance + groupBalance) {
-        throw new NotAuthorized(res.t('cantAfford'));
-      }
-
-      if (groupBalance >= prizeCost) {
-        // Group pays for all of prize
-        group.balance -= prizeCost;
-      } else if (groupBalance > 0) {
-        // User pays remainder of prize cost after group
-        let remainder = prizeCost - group.balance;
-        group.balance = 0;
-        user.balance -= remainder;
-      } else {
-        // User pays for all of prize
-        user.balance -= prizeCost;
-      }
-    }
-
-    group.challengeCount += 1;
-
-    if (!req.body.summary) {
-      req.body.summary = req.body.name;
-    }
-    req.body.leader = user._id;
-    req.body.official = user.contributor.admin && req.body.official ? true : false;
-    let challenge = new Challenge(Challenge.sanitize(req.body));
-
-    // First validate challenge so we don't save group if it's invalid (only runs sync validators)
-    let challengeValidationErrors = challenge.validateSync();
-    if (challengeValidationErrors) throw challengeValidationErrors;
-
-    // Add achievement if user's first challenge
-    if (!user.achievements.joinedChallenge) {
-      user.achievements.joinedChallenge = true;
-      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
-    }
-
-    let results = await Bluebird.all([challenge.save({
-      validateBeforeSave: false, // already validate
-    }), group.save()]);
-    let savedChal = results[0];
-
-    await savedChal.syncToUser(user); // (it also saves the user)
+    const {savedChal, group} = await createChallenge(user, req, res);
 
     let response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
@@ -256,6 +270,16 @@ api.createChallenge = {
       type: group.type,
       privacy: group.privacy,
     };
+
+    res.analytics.track('challenge create', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: response._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
 
     res.respond(201, response);
   },
@@ -315,6 +339,16 @@ api.joinChallenge = {
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
+    res.analytics.track('challenge join', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
+
     res.respond(200, response);
   },
 };
@@ -351,6 +385,17 @@ api.leaveChallenge = {
 
     // Unlink challenge's tasks from user's tasks and save the challenge
     await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+
+    res.analytics.track('challenge leave', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -561,13 +606,12 @@ api.exportChallengeCsv = {
 
     let resArray = members.map(member => [member._id, member.profile.name]);
 
-    // We assume every user in the challenge as at least some data so we can say that members[0] tasks will be at tasks [0]
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
-      if (task.userId !== lastUserId) {
-        lastUserId = task.userId;
+      while (task.userId !== lastUserId) {
         index++;
+        lastUserId = resArray[index][0]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;
@@ -580,7 +624,17 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
+
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+
+    // Remove lines for users without tasks info
+    resArray = resArray.filter((line) => {
+      if (line.length === 2) { // only user data ([id, profile name]), no task data
+        return false;
+      }
+
+      return true;
+    });
 
     res.set({
       'Content-Type': 'text/csv',
@@ -679,6 +733,17 @@ api.deleteChallenge = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
+
+    res.analytics.track('challenge delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -717,7 +782,85 @@ api.selectChallengeWinner = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
+
+    res.analytics.track('challenge close', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      challengeWinnerID: winner._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
+  },
+};
+
+function cleanUpTask (task) {
+  let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
+
+  // Copy checklists but reset to uncomplete and assign new id
+  if (!cleansedTask.checklist) cleansedTask.checklist = [];
+  cleansedTask.checklist.forEach((item) => {
+    item.completed = false;
+    item.id = uuid();
+  });
+
+  if (cleansedTask.type !== 'reward') {
+    delete cleansedTask.value;
+  }
+
+  return cleansedTask;
+}
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/clone Clone a challenge
+ * @apiName CloneChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} challenge The cloned challenge
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.cloneChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/clone',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challengeToClone = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
+
+    const {savedChal} = await createChallenge(user, req, res);
+
+    const challengeTasks = await Tasks.Task.find({
+      'challenge.id': challengeToClone._id,
+      userId: {$exists: false},
+    }).exec();
+
+    const tasksToClone = challengeTasks.map(task => {
+      let clonedTask = cloneDeep(task.toObject());
+      let omittedTask = cleanUpTask(clonedTask);
+      return omittedTask;
+    });
+
+    const taskRequest = {
+      body: tasksToClone,
+    };
+
+    const clonedTasks = await createTasks(taskRequest, res, {user, challenge: savedChal});
+
+    res.respond(200, {clonedTasks, clonedChallenge: savedChal});
   },
 };
 

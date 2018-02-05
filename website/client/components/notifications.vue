@@ -156,6 +156,19 @@ export default {
     let lastShownNotifications = [];
     let alreadyReadNotification = [];
 
+    // A list of notifications handled by this component,
+    // NOTE: Those not listed here won't be handled at all!
+    const handledNotifications = {};
+
+    [
+      'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
+      'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
+      'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
+      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE',
+    ].forEach(type => {
+      handledNotifications[type] = true;
+    });
+
     return {
       yesterDailies: [],
       levelBeforeYesterdailies: 0,
@@ -165,54 +178,31 @@ export default {
       alreadyReadNotification,
       isRunningYesterdailies: false,
       nextCron: null,
+      handledNotifications,
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
     // https://stackoverflow.com/questions/42133894/vue-js-how-to-properly-watch-for-nested-properties/42134176#42134176
-    baileyShouldShow () {
-      return this.user.flags.newStuff;
-    },
-    userHp () {
-      return this.user.stats.hp;
-    },
-    userExp () {
-      return this.user.stats.exp;
-    },
-    userGp () {
-      return this.user.stats.gp;
-    },
-    userMp () {
-      return this.user.stats.mp;
-    },
-    userLvl () {
-      return this.user.stats.lvl;
-    },
+    ...mapState({
+      user: 'user.data',
+      userHp: 'user.data.stats.hp',
+      userExp: 'user.data.stats.exp',
+      userGp: 'user.data.stats.gp',
+      userMp: 'user.data.stats.mp',
+      userLvl: 'user.data.stats.lvl',
+      userNotifications: 'user.data.notifications',
+      userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
+      armoireEmpty: 'user.data.flags.armoireEmpty',
+      questCompleted: 'user.data.party.quest.completed',
+    }),
     userClassSelect () {
       return !this.user.flags.classSelected && this.user.stats.lvl >= 10;
-    },
-    userNotifications () {
-      return this.user.notifications;
-    },
-    userAchievements () {
-      // @TODO: does this watch deeply?
-      return this.user.achievements;
-    },
-    armoireEmpty () {
-      return this.user.flags.armoireEmpty;
-    },
-    questCompleted () {
-      return this.user.party.quest.completed;
     },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
   },
   watch: {
-    baileyShouldShow () {
-      if (this.user.needsCron) return;
-      this.$root.$emit('bv::show::modal', 'new-stuff');
-    },
     userHp (after, before) {
       if (after <= 0) {
         this.playSound('Death');
@@ -301,11 +291,17 @@ export default {
       this.runYesterDailies();
 
       // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
+      document.addEventListener('mousemove', this.checkNextCron);
+      document.addEventListener('touchstart', this.checkNextCron);
+      document.addEventListener('mousedown', this.checkNextCron);
+      document.addEventListener('keydown', this.checkNextCron);
     });
+  },
+  beforeDestroy () {
+    document.removeEventListener('mousemove', this.checkNextCron);
+    document.removeEventListener('touchstart', this.checkNextCron);
+    document.removeEventListener('mousedown', this.checkNextCron);
+    document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
     checkUserAchievements () {
@@ -419,9 +415,6 @@ export default {
       this.scheduleNextCron();
       this.handleUserNotifications(this.user.notifications);
     },
-    transferGroupNotification (notification) {
-      this.$store.state.groupNotifications.push(notification);
-    },
     async handleUserNotifications (after) {
       if (this.$store.state.isRunningYesterdailies) return;
 
@@ -434,23 +427,21 @@ export default {
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.$store.state.groupNotifications = []; // Flush group notifictions
-
       after.forEach((notification) => {
+        // This notification type isn't implemented here
+        if (!this.handledNotifications[notification.type]) return;
+
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
         }
 
-        // Some notifications are not marked read here, so we need to fix this system
-        // to handle notifications differently
-        if (['GROUP_TASK_APPROVED', 'GROUP_TASK_APPROVAL'].indexOf(notification.type) === -1) {
-          this.lastShownNotifications.push(notification.id);
-          if (this.lastShownNotifications.length > 10) {
-            this.lastShownNotifications.splice(0, 9);
-          }
+        this.lastShownNotifications.push(notification.id);
+        if (this.lastShownNotifications.length > 10) {
+          this.lastShownNotifications.splice(0, 9);
         }
 
         let markAsRead = true;
+
         // @TODO: Use factory function instead
         switch (notification.type) {
           case 'GUILD_PROMPT':
@@ -507,14 +498,6 @@ export default {
               if (notification.data.mp) this.mp(notification.data.mp);
             }
             break;
-          case 'GROUP_TASK_APPROVAL':
-            this.transferGroupNotification(notification);
-            markAsRead = false;
-            break;
-          case 'GROUP_TASK_APPROVED':
-            this.transferGroupNotification(notification);
-            markAsRead = false;
-            break;
           case 'SCORED_TASK':
             // Search if it is a read notification
             for (let i = 0; i < this.alreadyReadNotification.length; i++) {
@@ -538,16 +521,6 @@ export default {
               this.$root.$emit('bv::show::modal', 'login-incentives');
             }
             break;
-          default:
-            if (notification.data.headerText && notification.data.bodyText) {
-              // @TODO:
-              // let modalScope = this.$new();
-              // modalScope.data = notification.data;
-              // this.openModal('generic', {scope: modalScope});
-            } else {
-              markAsRead = false; // If the notification is not implemented, skip it
-            }
-            break;
         }
 
         if (markAsRead) notificationsToRead.push(notification.id);
@@ -561,6 +534,7 @@ export default {
         });
       }
 
+      // @TODO this code is never run because userReadNotifsPromise is never true
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(() => {
           // Only run this code for scoring approved tasks
@@ -588,8 +562,6 @@ export default {
           }
         });
       }
-
-      this.user.notifications = []; // reset the notifications
 
       this.checkUserAchievements();
     },

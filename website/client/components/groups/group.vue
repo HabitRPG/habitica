@@ -19,7 +19,7 @@
               .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='group.memberCount > 100 && group.memberCount < 999')
               .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='group.memberCount < 100')
               span.number {{ group.memberCount | abbrNum }}
-              div(v-once) {{ $t('memberList') }}
+              div.member-list(v-once) {{ $t('memberList') }}
           .col-4(v-if='!isParty')
             .item-with-icon(@click='showGroupGems()')
               .svg-icon.gem(v-html="icons.gem")
@@ -31,23 +31,19 @@
         .row.new-message-row
           textarea(:placeholder="!isParty ? $t('chatPlaceholder') : $t('partyChatPlaceholder')", v-model='newMessage', @keydown='updateCarretPosition', @keyup.ctrl.enter='sendMessage()')
           autocomplete(:text='newMessage', v-on:select="selectedAutocomplete", :coords='coords', :chat='group.chat')
-        .row
-          .col-6
+        .row.chat-actions
+          .col-6.chat-receive-actions
             button.btn.btn-secondary.float-left.fetch(v-once, @click='fetchRecentMessages()') {{ $t('fetchRecentMessages') }}
             button.btn.btn-secondary.float-left(v-once, @click='reverseChat()') {{ $t('reverseChat') }}
-          .col-6
+          .col-6.chat-send-actions
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
-        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
-          div.col-4
-            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+        community-guidelines
         .row
           .col-12.hr
           chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
-      .col-6
-      .col-6
+      .col-12
         .button-container
           button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
@@ -105,7 +101,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ $t('leave') }}
+      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
 </template>
 
 <style lang="scss" scoped>
@@ -146,7 +142,7 @@
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
-      height: 28px;
+      height: auto;
       margin: 0 auto;
       display: inline-block;
       vertical-align: bottom;
@@ -157,6 +153,10 @@
       font-size: 22px;
       font-weight: bold;
     }
+
+    .member-list {
+      margin-top: .5em;
+    }
   }
 
   .item-with-icon:hover {
@@ -166,6 +166,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
+    padding-top: 2.8em;
   }
 
   .card {
@@ -229,21 +230,28 @@
   .chat-row {
     margin-top: 2em;
 
-    .community-guidelines {
-      background-color: rgba(135, 129, 144, 0.84);
-      padding: 1em;
-      color: $white;
-      position: absolute;
-      top: 0;
-      height: 150px;
-      padding-top: 3em;
-      margin-top: 2.3em;
-      width: 100%;
-      border-radius: 4px;
-    }
-
     .new-message-row {
       position: relative;
+    }
+
+    .chat-actions {
+      margin-top: 1em;
+
+      .chat-receive-actions {
+        padding-left: 0;
+
+        button {
+          margin-bottom: 1em;
+
+          &:not(:last-child) {
+            margin-right: 1em;
+          }
+        }
+      }
+
+      .chat-send-actions {
+        padding-right: 0;
+      }
     }
   }
 
@@ -311,6 +319,7 @@ import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
+import communityGuidelines from './communityGuidelines';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -341,6 +350,7 @@ export default {
     questDetailsModal,
     groupGemsModal,
     questSidebarSection,
+    communityGuidelines,
   },
   directives: {
     markdown: markdownDirective,
@@ -381,9 +391,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    communityGuidelinesAccepted () {
-      return this.user.flags.communityGuidelinesAccepted;
-    },
     partyStore () {
       return this.$store.state.party;
     },
@@ -420,14 +427,9 @@ export default {
     },
   },
   mounted () {
+    if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-
     this.load();
-
-    if (this.user.newMessages[this.searchId]) {
-      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
-      this.$delete(this.user.newMessages, this.searchId);
-    }
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
@@ -454,16 +456,7 @@ export default {
     },
   },
   methods: {
-    acceptCommunityGuidelines () {
-      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
-    },
     load () {
-      if (this.isParty) {
-        this.searchId = 'party';
-        // @TODO: Set up from old client. Decide what we need and what we don't
-        // Check Desktop notifs
-        // Load invites
-      }
       this.fetchGuild();
 
       this.$root.$on('updatedGroup', group => {
@@ -538,16 +531,30 @@ export default {
         return;
       }
 
-      let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
-
       if (this.isParty) {
-        this.$store.state.party.data = group;
+        await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
         this.checkForAchievements();
-        return;
+      } else {
+        const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
+        this.$set(this, 'group', group);
       }
 
-      this.$set(this, 'group', group);
+      const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
+      if (this.hasUnreadMessages(groupId)) {
+        // Delay by 1sec to make sure it returns after other requests that don't have the notification marked as read
+        setTimeout(() => {
+          this.$store.dispatch('chat:markChatSeen', {groupId});
+          this.$delete(this.user.newMessages, groupId);
+        }, 1000);
+      }
+    },
+    hasUnreadMessages (groupId) {
+      if (this.user.newMessages[groupId]) return true;
+
+      return this.user.notifications.some(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
+      });
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -573,8 +580,7 @@ export default {
       if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
-      this.user.guilds.push(this.group._id);
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'guild'});
     },
     clickLeave () {
       Analytics.track({
@@ -601,28 +607,18 @@ export default {
       if (this.isParty) {
         data.type = 'party';
         Analytics.updateUser({partySize: null, partyID: null});
-        this.$store.state.party.members = [];
+        this.$store.state.partyMembers = [];
       }
 
       await this.$store.dispatch('guilds:leave', data);
+
+      if (this.isParty) {
+        this.$router.push({name: 'tasks'});
+      }
     },
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
       this.$router.push('/group-plans');
-    },
-    // @TODO: Move to notificatin component
-    async leaveOldPartyAndJoinNewParty () {
-      let newPartyName = 'where does this come from';
-      if (!confirm(`Are you sure you want to delete your party and join${newPartyName}?`)) return;
-
-      let keepChallenges = 'remain-in-challenges';
-      await this.$store.dispatch('guilds:leave', {
-        groupId: this.group._id,
-        keep: false,
-        keepChallenges,
-      });
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
     clickStartQuest () {
       Analytics.track({

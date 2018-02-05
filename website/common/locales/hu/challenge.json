@@ -6,8 +6,8 @@
     "keepIt": "Megtartom",
     "removeIt": "Eltávolítom",
     "brokenChallenge": "Érvénytelen kihívás link: ez a feladat része volt egy kihívásnak, de a kihívást (vagy a csoportot) törölték. Mit szeretnél csinálni a megmaradó feladatokkal?",
-    "keepThem": "Megtartom őket",
-    "removeThem": "Törlöm őket",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "A kihívás véget ért, a nyertes: <span class=\"badge\"><%= user %></span>! Mit szeretnél csinálni a megmaradó feladatokkal?",
     "unsubChallenge": "Érvénytelen kihívás link: ez a feladat része volt egy kihívásnak, de te leiratkoztál róla. Mit szeretnél csinálni a megmaradó feladatokkal?",
     "challengeWinner": "A következő kihívásokat nyerte meg",
@@ -88,7 +88,7 @@
     "userAlreadyInChallenge": "A felhasználó már részt vesz ebben a kihívásban.",
     "cantOnlyUnlinkChalTask": "Csak a érvénytelen, kihívásokhoz kapcsolódó feladatokat lehet törölni.",
     "shortNameTooShort": "Egy címke nevének legalább 3 betűből kell állnia.",
-    "joinedChallenge": "Csatlakozotál egy kihíváshoz",
+    "joinedChallenge": "Csatlakoztál egy kihíváshoz",
     "joinedChallengeText": "Ez a felhasználó próbára tette magát azzal, hogy csatlakozott egy kihíváshoz!",
     "myChallenges": "Saját kihívásaim",
     "findChallenges": "Kihívások böngészése",
@@ -101,8 +101,8 @@
     "addTask": "Feladat hozzáadása",
     "editChallenge": "Kihívás szerkesztése",
     "challengeDescription": "Kihívás leírása",
-    "selectChallengeWinnersDescription": "Nyertesek kiválasztása a kihívásban résztvevő felhasználók közül",
-    "awardWinners": "Nyertesek",
+    "selectChallengeWinnersDescription": "Nyertes kiválasztása a kihívásban résztvevő felhasználók közül",
+    "awardWinners": "Nyertes",
     "doYouWantedToDeleteChallenge": "Ki akarod törölni ezt a kihívást?",
     "deleteChallenge": "Kihívás törlése",
     "challengeNamePlaceholder": "Mi a kihívásod neve?",
@@ -129,5 +129,5 @@
     "viewProgressOf": "Haladás megtekintése",
     "selectMember": "Tag kiválasztása",
     "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?",
-    "selectParticipant": "Select a Participant"
+    "selectParticipant": "Válassz ki egy résztvevőt"
 }

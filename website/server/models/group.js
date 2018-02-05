@@ -33,6 +33,7 @@ import {
 import amazonPayments from '../libs/amazonPayments';
 import stripePayments from '../libs/stripePayments';
 import { getGroupChat } from '../libs/chat/group-chat';
+import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -473,11 +474,56 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
+function setUserStyles (newMessage, user) {
+  let userStyles = {};
+  userStyles.items = {gear: {}};
+
+  let userCopy = user;
+  if (user.toObject) userCopy = user.toObject();
+
+  if (userCopy.items) {
+    userStyles.items.gear = {};
+    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
+    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
+
+    userStyles.items.currentMount = userCopy.items.currentMount;
+    userStyles.items.currentPet = userCopy.items.currentPet;
+  }
+
+
+  if (userCopy.preferences) {
+    userStyles.preferences = {};
+    if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
+    userStyles.preferences.hair = userCopy.preferences.hair;
+    userStyles.preferences.skin = userCopy.preferences.skin;
+    userStyles.preferences.shirt = userCopy.preferences.shirt;
+    userStyles.preferences.chair = userCopy.preferences.chair;
+    userStyles.preferences.size = userCopy.preferences.size;
+    userStyles.preferences.chair = userCopy.preferences.chair;
+    userStyles.preferences.background = userCopy.preferences.background;
+    userStyles.preferences.costume = userCopy.preferences.costume;
+  }
+
+  userStyles.stats = {};
+  if (userCopy.stats && userCopy.stats.buffs) {
+    userStyles.stats.buffs = {
+      seafoam: userCopy.stats.buffs.seafoam,
+      shinySeed: userCopy.stats.buffs.shinySeed,
+      spookySparkles: userCopy.stats.buffs.spookySparkles,
+      snowball: userCopy.stats.buffs.snowball,
+    };
+  }
+
+  newMessage.userStyles = userStyles;
+}
+
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
   let newChatMessage = new Chat();
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
+
+  if (user) setUserStyles(newMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
@@ -504,10 +550,8 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   }
 
   // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {
-    [`newMessages.${this._id}`]: {name: this.name, value: true},
-  }};
-  let query = {};
+
+  const query = {};
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -517,7 +561,29 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   query._id = { $ne: user ? user._id : ''};
 
-  User.update(query, lastSeenUpdate, {multi: true}).exec();
+  // First remove the old notification (if it exists)
+  const lastSeenUpdateRemoveOld = {
+    $pull: {
+      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
+    },
+  };
+
+  // Then add the new notification
+  const lastSeenUpdateAddNew = {
+    $set: { // old notification, supported until mobile is updated and we release api v4
+      [`newMessages.${this._id}`]: {name: this.name, value: true},
+    },
+    $push: {
+      notifications: new UserNotification({
+        type: 'NEW_CHAT_MESSAGE',
+        data: { group: { id: this._id, name: this.name } },
+      }).toObject(),
+    },
+  };
+
+  User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
+    User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
+  });
 
   // If the message being sent is a system message (not gone through the api.postChat controller)
   // then notify Pusher about it (only parties for now)
@@ -726,7 +792,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) 
       return raw;
     }).catch((err) => {
       if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry);
+        return _updateUserWithRetries(userId, updates, ++numTry, query);
       } else {
         throw err;
       }

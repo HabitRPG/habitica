@@ -181,11 +181,9 @@ function awardLoginIncentives (user) {
   if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
-  user.notifications
-    .toObject()
-    .forEach((notif, index) => {
-      if (notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
-    });
+  user.notifications.forEach((notif, index) => {
+    if (notif && notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
+  });
 
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned', user.preferences.language);
@@ -301,10 +299,6 @@ export function cron (options = {}) {
     let EvadeTask = 0;
     let scheduleMisses = daysMissed;
 
-    // Only check one day back
-    let dailiesDaysMissed = daysMissed;
-    if (dailiesDaysMissed > 1) dailiesDaysMissed = 1;
-
     if (completed) {
       dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
@@ -315,7 +309,7 @@ export function cron (options = {}) {
       // dailys repeat, so need to calculate how many they've missed according to their own schedule
       scheduleMisses = 0;
 
-      for (let i = 0; i < dailiesDaysMissed; i++) {
+      for (let i = 0; i < daysMissed; i++) {
         let thatDay = moment(now).subtract({days: i + 1});
 
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
@@ -325,8 +319,8 @@ export function cron (options = {}) {
             user.stats.buffs.stealth--;
             EvadeTask++;
           }
-          if (multiDaysCountAsOneDay) break;
         }
+        if (multiDaysCountAsOneDay) break;
       }
 
       if (scheduleMisses > EvadeTask) {
@@ -446,8 +440,8 @@ export function cron (options = {}) {
 
   // First remove a possible previous cron notification
   // we don't want to flood the users with many cron notifications at once
-  let oldCronNotif = user.notifications.toObject().find((notif, index) => {
-    if (notif.type === 'CRON') {
+  let oldCronNotif = user.notifications.find((notif, index) => {
+    if (notif && notif.type === 'CRON') {
       user.notifications.splice(index, 1);
       return true;
     } else {

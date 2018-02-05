@@ -1,24 +1,66 @@
-.promo_armoire_bgs_201801 {
+.promo_armoire_backgrounds_201802 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -369px;
+  background-position: -142px -534px;
+  width: 141px;
+  height: 441px;
+}
+.promo_habit_birthday_2018 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -654px 0px;
+  width: 432px;
+  height: 144px;
+}
+.promo_ios {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 325px;
+  height: 336px;
+}
+.promo_mystery_201801 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -337px;
+  width: 376px;
+  height: 196px;
+}
+.promo_starry_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -534px;
   width: 141px;
   height: 441px;
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -595px;
+  background-position: -895px -145px;
   width: 114px;
   height: 87px;
 }
-.scene_calendar {
+.promo_winter_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 436px;
-  height: 368px;
+  background-position: -284px -534px;
+  width: 140px;
+  height: 441px;
 }
-.scene_winter_cleaning {
+.scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -369px;
-  width: 276px;
-  height: 225px;
+  background-position: -654px -341px;
+  width: 282px;
+  height: 147px;
+}
+.scene_setting_up_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -654px -145px;
+  width: 240px;
+  height: 195px;
+}
+.scene_task_list {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -377px -337px;
+  width: 240px;
+  height: 195px;
+}
+.scene_yesterdailies_repeatables {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -326px 0px;
+  width: 327px;
+  height: 276px;
 }

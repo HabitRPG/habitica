@@ -33,7 +33,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
         .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
-          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+          .menu-item(@click='changeTopPage("backgrounds", "2018")')
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
@@ -159,7 +159,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(v-for='option in ["1", "2", "3", "4"]',
+          .option(v-for='option in [1, 2, 3, 4]',
             :class='{active: user.preferences.hair.bangs === option}')
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
@@ -227,7 +227,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
+          .option(v-for='option in [1, 2, 3, 4, 5, 6]',
             :class='{active: user.preferences.hair.flower === option}')
             .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
@@ -250,13 +250,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
       .row.sub-menu.col-10.offset-1
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
+          strong(v-once) 2018
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
           strong(v-once) 2017
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
           strong(v-once) 2016
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
           strong(v-once) 2015
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
         .row(v-for='set in sets', v-if='activeSubPage === key')
@@ -973,12 +975,12 @@ export default {
       rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
       premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
-      baseHair1: ['1', '3'],
-      baseHair2Keys: ['2', '4', '5', '6', '7', '8'],
-      baseHair3Keys: ['9', '10', '11', '12', '13', '14'],
-      baseHair4Keys: ['15', '16', '17', '18', '19', '20'],
-      baseHair5Keys: ['1', '2', '3'],
-      baseHair6Keys: ['1', '2'],
+      baseHair1: [1, 3],
+      baseHair2Keys: [2, 4, 5, 6, 7, 8],
+      baseHair3Keys: [9, 10, 11, 12, 13, 14],
+      baseHair4Keys: [15, 16, 17, 18, 19, 20],
+      baseHair5Keys: [1, 2, 3],
+      baseHair6Keys: [1, 2],
       animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       icons: Object.freeze({
         logoPurple,
@@ -1221,6 +1223,7 @@ export default {
         2015: [],
         2016: [],
         2017: [],
+        2018: [],
       };
 
       // Hack to force update for now until we restructure the data

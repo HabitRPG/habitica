@@ -3,7 +3,7 @@ menu-dropdown.item-user(:right="true")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('user')")
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages", :top="true")
-      .svg-icon.user(v-html="icons.user")
+      .top-menu-icon.svg-icon.user(v-html="icons.user")
   .user-dropdown(slot="dropdown-content")
     a.dropdown-item.edit-avatar.dropdown-separated(@click='showAvatar()')
       h3 {{ user.profile.name }}
@@ -11,7 +11,7 @@ menu-dropdown.item-user(:right="true")
     a.nav-link.dropdown-item.dropdown-separated(@click.prevent='showInbox()')
       | {{ $t('messages') }}
       message-count(v-if='user.inbox.newMessages > 0', :count="user.inbox.newMessages")
-    a.dropdown-item(@click='showAvatar("backgrounds", "2017")') {{ $t('backgrounds') }}
+    a.dropdown-item(@click='showAvatar("backgrounds", "2018")') {{ $t('backgrounds') }}
     a.dropdown-item(@click='showProfile("stats")') {{ $t('stats') }}
     a.dropdown-item(@click='showProfile("achievements")') {{ $t('achievements') }}
     a.dropdown-item.dropdown-separated(@click='showProfile("profile")') {{ $t('profile') }}

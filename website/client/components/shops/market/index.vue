@@ -162,7 +162,7 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-          keys-to-kennel(v-if='category.identifier === "special"')
+          //keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -348,7 +348,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
-  import KeysToKennel from './KeysToKennel';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
@@ -479,8 +479,8 @@ export default {
           categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value, key) => {
-              return value.yearRound || key === 'nye';
+            items: _map(_filter(this.content.cardTypes, (value) => {
+              return value.yearRound;
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),

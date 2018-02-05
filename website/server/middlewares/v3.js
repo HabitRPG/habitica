@@ -11,7 +11,7 @@ const TOP_LEVEL_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/top-lev
 const v3app = express();
 
 // re-set the view options because they are not inherited from the top level app
-v3app.set('view engine', 'jade');
+v3app.set('view engine', 'pug');
 v3app.set('views', `${__dirname}/../../views`);
 
 v3app.use(expressValidator());
