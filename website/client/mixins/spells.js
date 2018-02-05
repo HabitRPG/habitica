@@ -4,6 +4,10 @@ import isArray from 'lodash/isArray';
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
   methods: {
+    handleCastCancelKeyUp (keyEvent) {
+      if (keyEvent.keyCode !== 27) return;
+      this.castCancel();
+    },
     async castStart (spell) {
       if (this.$store.state.spellOptions.castingSpell) {
         this.castCancel();
@@ -47,6 +51,13 @@ export default {
           return true;
         });
         this.castEnd(tasks, spell.target);
+      } else {
+        // If the cast target has to be selected (and can be cancelled)
+        document.addEventListener('keyup', this.handleCastCancelKeyUp);
+
+        this.$root.$on('castEnd', (target, type, $event) => {
+          this.castEnd(target, type, $event);
+        });
       }
     },
     async castEnd (target, type) {
@@ -61,17 +72,12 @@ export default {
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
-      // @TODO: just call castCancel?
-      this.$store.state.spellOptions.castingSpell = false;
-      this.potionClickMode = false;
-
       this.spell.cast(this.user, target);
-      // User.save(); // @TODO:
 
       let spell = this.spell;
       let targetId = target ? target._id : null;
-      this.spell = null;
-      this.applyingAction = false;
+
+      this.castCancel();
 
       let spellUrl = `/api/v3/user/class/cast/${spell.key}`;
       if (targetId) spellUrl += `?targetId=${targetId}`;
@@ -123,6 +129,10 @@ export default {
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
       this.$store.state.spellOptions.castingSpell = false;
+
+      // Remove listeners
+      this.$root.$off('castEnd');
+      document.removeEventListener('keyup', this.handleCastCancelKeyUp);
     },
   },
 };

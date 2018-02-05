@@ -37,10 +37,10 @@ module.exports = function buyGear (user, req = {}, analytics) {
 
   let itemIndex = Number(item.index);
 
-  if (Number.isInteger(itemIndex)) {
+  if (Number.isInteger(itemIndex) && content.classes.includes(item.klass)) {
     let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
     let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
-    let checkIndexToType = itemIndex > (item.type === 'weapon' ? 0 : 1);
+    let checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
 
     if (checkIndexToType && !hasPreviousLevelGear) {
       throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
@@ -51,7 +51,6 @@ module.exports = function buyGear (user, req = {}, analytics) {
     user.items.gear.equipped[item.type] = item.key;
     message = handleTwoHanded(user, item, undefined, req);
   }
-
 
   removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
 

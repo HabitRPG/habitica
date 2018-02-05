@@ -28,13 +28,14 @@ div
   )
     slot(name="popoverContent", :item="item")
       equipmentAttributesPopover(
-        v-if="item.purchaseType==='gear'",
-        :item="item")
+        v-if="item.purchaseType === 'gear'",
+        :item="item"
+      )
       div.questPopover(v-else-if="item.purchaseType === 'quests'")
         h4.popover-content-title {{ item.text }}
         questInfo(:quest="item")
       div(v-else)
-        h4.popover-content-title(v-once) {{ item.text }} {{item.key}}
+        h4.popover-content-title(v-once) {{ item.text }}
         .popover-content-text(v-if='showNotes && item.key !== "armoire"', v-once) {{ item.notes }}
         .popover-content-text(v-if='showNotes && item.key === "armoire"') {{ item.notes }}
       div(v-if="item.event") {{ limitedString }}

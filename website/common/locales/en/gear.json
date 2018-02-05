@@ -128,7 +128,7 @@
   "weaponSpecialSkiText": "Ski-sassin Pole",
   "weaponSpecialSkiNotes": "A weapon capable of destroying hordes of enemies! It also helps the user make very nice parallel turns. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
   "weaponSpecialCandycaneText": "Candy Cane Staff",
-  "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Two-handed weapon. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
+  "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
   "weaponSpecialSnowflakeText": "Snowflake Wand",
   "weaponSpecialSnowflakeNotes": "This wand sparkles with unlimited healing power. Increases Intelligence by <%= int %>. Limited Edition 2013-2014 Winter Gear.",
 
@@ -349,6 +349,8 @@
   "weaponArmoireLamplighterNotes": "This long pole has a wick on one end for lighting lamps, and a hook on the other end for putting them out. Increases Constitution by <%= con %> and Perception by <%= per %>.",
   "weaponArmoireCoachDriversWhipText": "Coach Driver's Whip",
   "weaponArmoireCoachDriversWhipNotes": "Your steeds know what they're doing, so this whip is just for show (and the neat snapping sound!). Increases Intelligence by <%= int %> and Strength by <%= str %>. Enchanted Armoire: Coach Driver Set (Item 3 of 3).",
+  "weaponArmoireScepterOfDiamondsText": "Scepter of Diamonds",
+  "weaponArmoireScepterOfDiamondsNotes": "This scepter shines with a warm red glow as it grants you increased willpower. Increases Strength by <%= str %>. Enchanted Armoire: King of Diamonds Set (Item 3 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -451,6 +453,8 @@
   "armorSpecialBirthday2016Notes": "Happy Birthday, Habitica! Wear these Ridiculous Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2017Text": "Whimsical Party Robes",
   "armorSpecialBirthday2017Notes": "Happy Birthday, Habitica! Wear these Whimsical Party Robes to celebrate this wonderful day. Confers no benefit.",
+  "armorSpecialBirthday2018Text": "Fanciful Party Robes",
+  "armorSpecialBirthday2018Notes": "Happy Birthday, Habitica! Wear these Fanciful Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -742,6 +746,8 @@
   "armorArmoireLamplightersGreatcoatNotes": "This heavy woolen coat can stand up to the harshest wintry night! Increases Perception by <%= per %>.",
   "armorArmoireCoachDriverLiveryText": "Coach Driver's Livery",
   "armorArmoireCoachDriverLiveryNotes": "This heavy overcoat will protect you from the weather as you drive. Plus it looks pretty snazzy, too! Increases Strength by <%= str %>. Enchanted Armoire: Coach Driver Set (Item 1 of 3).",
+  "armorArmoireRobeOfDiamondsText": "Robe of Diamonds",
+  "armorArmoireRobeOfDiamondsNotes": "These royal robes not only make you appear noble, they allow you to see the nobility within others. Increases Perception by <%= per %>. Enchanted Armoire: King of Diamonds Set (Item 1 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1147,6 +1153,8 @@
   "headArmoireLamplightersTopHatNotes": "This jaunty black hat completes your lamp-lighting ensemble! Increases Constitution by <%= con %>.",
   "headArmoireCoachDriversHatText": "Coach Driver's Hat",
   "headArmoireCoachDriversHatNotes": "This hat is dressy, but not quite so dressy as a top hat. Make sure you don't lose it as you drive speedily across the land! Increases Intelligence by <%= int %>. Enchanted Armoire: Coach Driver Set (Item 2 of 3).",
+  "headArmoireCrownOfDiamondsText": "Crown of Diamonds",
+  "headArmoireCrownOfDiamondsNotes": "This shining crown isn't just a great hat; it will also sharpen your mind! Increases Intelligence by <%= int %>. Enchanted Armoire: King of Diamonds Set (Item 2 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1367,6 +1375,8 @@
   "shieldArmoireHandmadeCandlestickNotes": "Your fine wax wares provide light and warmth to grateful Habiticans! Increases Strength by <%= str %>. Enchanted Armoire: Candlestick Maker Set (Item 3 of 3).",
   "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
   "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
+  "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
+  "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -1581,5 +1591,6 @@
   "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
 
   "eyewearArmoirePlagueDoctorMaskText": "Plague Doctor Mask",
-  "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3)."
+  "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
+  "twoHandedItem": "Two-handed item."
 }

@@ -7,6 +7,21 @@ import {
 } from '../libs/errors';
 import content from '../content/index';
 
+// @TODO move in the servercontroller or keep here?
+function markNotificationAsRead (user, cardType) {
+  const indexToRemove = user.notifications.findIndex(notification => {
+    if (
+      notification &&
+      notification.type === 'CARD_RECEIVED' &&
+      notification.data &&
+      notification.data.card === cardType
+    ) return true;
+  });
+
+  if (indexToRemove !== -1) user.notifications.splice(indexToRemove, 1);
+}
+
+
 module.exports = function readCard (user, req = {}) {
   let cardType = get(req.params, 'cardType');
 
@@ -20,6 +35,8 @@ module.exports = function readCard (user, req = {}) {
 
   user.items.special[`${cardType}Received`].shift();
   user.flags.cardReceived = false;
+
+  markNotificationAsRead(user, cardType);
 
   return [
     { specialItems: user.items.special, cardReceived: user.flags.cardReceived },

@@ -9,6 +9,7 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 import randomVal from '../libs/randomVal';
+import { removeItemByPath } from './pinnedGearUtils';
 
 // TODO this is only used on the server
 // move out of common?
@@ -55,6 +56,8 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     if (count.remainingGearInSet(user.items.gear.owned, 'armoire') === 0) {
       user.flags.armoireEmpty = true;
     }
+
+    removeItemByPath(user, `gear.flat.${drop.key}`);
 
     armoireResp = {
       type: 'gear',

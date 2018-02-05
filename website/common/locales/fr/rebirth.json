@@ -21,7 +21,7 @@
     "rebirthOrb": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau  <%= level %>.",
     "rebirthOrb100": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau 100 ou plus.",
     "rebirthOrbNoLevel": "A utilisé un orbe de renaissance pour recommencer à zéro.",
-    "rebirthPop": "Recommencez instantanément votre personnage au niveau 1 tout en conservant vos succès, vos objets, votre équipement et l'historique de vos tâches. Cela prendra effet immédiatement.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Orbe de renaissance",
     "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
     "confirmReborn": "Confirmez-vous ?",

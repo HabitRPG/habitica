@@ -503,5 +503,8 @@
         this.backgroundUpdate = new Date();
       });
     },
+    beforeDestroy () {
+      this.$root.$off('buyModal::boughtItem');
+    },
   };
 </script>

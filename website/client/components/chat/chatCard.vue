@@ -18,11 +18,9 @@ div
         .svg-icon(v-html="icons.like")
         span(v-if='!msg.likes[user._id]') {{ $t('like') }}
         span(v-if='msg.likes[user._id]') {{ $t('liked') }}
-      // @TODO make copyAsTodo work in Tavern, guilds, party (inbox can be done later)
-        span.action(v-if='!inbox', @click='copyAsTodo(msg)')
-          .svg-icon(v-html="icons.copy")
-          | {{$t('copyAsTodo')}}
-          // @TODO make copyAsTodo work in the inbox
+      span.action(v-if='!inbox', @click='copyAsTodo(msg)')
+        .svg-icon(v-html="icons.copy")
+        | {{$t('copyAsTodo')}}
       span.action(v-if='!inbox && user.flags.communityGuidelinesAccepted && msg.uuid !== "system"', @click='report(msg)')
         .svg-icon(v-html="icons.report")
         | {{$t('report')}}
@@ -140,7 +138,6 @@ export default {
   mixins: [styleHelper],
   data () {
     return {
-      copyingMessage: {},
       icons: Object.freeze({
         like: likeIcon,
         copy: copyIcon,
@@ -241,9 +238,7 @@ export default {
       this.$emit('messaged-liked', message);
     },
     copyAsTodo (message) {
-      // @TODO: Move to Habitica Event
-      this.copyingMessage = message;
-      this.$root.$emit('bv::show::modal', 'copyAsTodo');
+      this.$root.$emit('habitica::copy-as-todo', message);
     },
     async report () {
       this.$root.$emit('habitica::report-chat', {
