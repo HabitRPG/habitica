@@ -43,7 +43,7 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
     drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
-      throw new NotAuthorized(i18n.t('equipmentAlradyOwned', req.language));
+      throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
     }
 
     user.items.gear.owned[drop.key] = true;
