@@ -25,6 +25,7 @@
     "questInvitation": "Invitație la Aventuri:",
     "questInvitationTitle": "Quest Invitation",
     "questInvitationInfo": "Invitation for the Quest <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Întreabă-mă mai târziu",
     "questLater": "Quest Later",
     "buyQuest": "Cumpără Aventură",

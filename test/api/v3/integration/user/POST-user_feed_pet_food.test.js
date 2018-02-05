@@ -30,7 +30,7 @@ describe('POST /user/feed/:pet/:food', () => {
       data: user.items.pets['Wolf-Base'],
       message: t('messageDontEnjoyFood', {
         egg: pet.text(),
-        foodText: food.text(),
+        foodText: food.textThe(),
       }),
     });
 

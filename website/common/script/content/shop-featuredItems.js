@@ -6,11 +6,11 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Holly',
+      path: 'hatchingPotions.CottonCandyBlue',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.StarryNight',
+      path: 'hatchingPotions.Golden',
     },
     {
       type: 'card',

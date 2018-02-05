@@ -1,4 +1,3 @@
-import findIndex from 'lodash/findIndex';
 import { authWithHeaders } from '../../../middlewares/auth';
 import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
@@ -58,6 +57,16 @@ api.createGroupTasks = {
     let tasks = await createTasks(req, res, {user, group});
 
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
+
+    tasks.forEach((task) => {
+      res.analytics.track('task create', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        groupID: group._id,
+      });
+    });
   },
 };
 
@@ -306,8 +315,8 @@ api.approveTask = {
 
     // Get task direction
     const firstManagerNotifications = managers[0].notifications;
-    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
-      return notification.data.taskId === task._id;
+    const firstNotificationIndex = firstManagerNotifications.findIndex((notification) => {
+      return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
     });
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
@@ -317,8 +326,8 @@ api.approveTask = {
     // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
-      let notificationIndex =  findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id;
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {
@@ -342,6 +351,105 @@ api.approveTask = {
     managerPromises.push(task.save());
     managerPromises.push(assignedUser.save());
     await Bluebird.all(managerPromises);
+
+    res.respond(200, task);
+  },
+};
+
+/**
+ * @api {post} /api/v3/tasks/:taskId/needs-work/:userId Group task needs more work
+ * @apiDescription Mark an assigned group task as needeing more work before it can be approved
+ * @apiVersion 3.0.0
+ * @apiName TaskNeedsWork
+ * @apiGroup Task
+ *
+ * @apiParam (Path) {UUID} taskId The id of the task that is the original group task
+ * @apiParam (Path) {UUID} userId The id of the assigned user
+ *
+ * @apiSuccess task The task that needs more work
+ */
+api.taskNeedsWork = {
+  method: 'POST',
+  url: '/tasks/:taskId/needs-work/:userId',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
+
+    let reqValidationErrors = req.validationErrors();
+    if (reqValidationErrors) throw reqValidationErrors;
+
+    let user = res.locals.user;
+
+    let assignedUserId = req.params.userId;
+    let taskId = req.params.taskId;
+
+    const [assignedUser, task] = await Promise.all([
+      User.findById(assignedUserId).exec(),
+      await Tasks.Task.findOne({
+        'group.taskId': taskId,
+        userId: assignedUserId,
+      }).exec(),
+    ]);
+
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    let fields = requiredGroupFields.concat(' managers');
+    let group = await Group.getGroup({user, groupId: task.group.id, fields});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (task.group.approval.approved === true) throw new NotAuthorized(res.t('canOnlyApproveTaskOnce'));
+    if (!task.group.approval.requested) {
+      throw new NotAuthorized(res.t('taskApprovalWasNotRequested'));
+    }
+
+    // Get Managers
+    const managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+    const managers = await User.find({_id: managerIds}, 'notifications').exec(); // Use this method so we can get access to notifications
+
+    const promises = [];
+
+    // Remove old notifications
+    managers.forEach((manager) => {
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      });
+
+      if (notificationIndex !== -1) {
+        manager.notifications.splice(notificationIndex, 1);
+        promises.push(manager.save());
+      }
+    });
+
+    task.group.approval.requested = false;
+    task.group.approval.requestedDate = undefined;
+
+    const taskText = task.text;
+    const managerName = user.profile.name;
+
+    const message = res.t('taskNeedsWork', {taskText, managerName}, assignedUser.preferences.language);
+
+    assignedUser.addNotification('GROUP_TASK_NEEDS_WORK', {
+      message,
+      task: {
+        id: task._id,
+        text: taskText,
+      },
+      group: {
+        id: group._id,
+        name: group.name,
+      },
+      manager: {
+        id: user._id,
+        name: managerName,
+      },
+    });
+
+    await Promise.all([...promises, assignedUser.save(), task.save()]);
 
     res.respond(200, task);
   },

@@ -25,7 +25,7 @@ function trueRandom () {
   return Math.random();
 }
 
-module.exports = function randomDrop (user, options, req = {}) {
+module.exports = function randomDrop (user, options, req = {}, analytics) {
   let acceptableDrops;
   let drop;
   let dropMultiplier;
@@ -77,8 +77,7 @@ module.exports = function randomDrop (user, options, req = {}) {
       user.items.food[drop.key] += 1;
       drop.type = 'Food';
       drop.dialog = i18n.t('messageDropFood', {
-        dropArticle: drop.article,
-        dropText: drop.text(req.language),
+        dropText: drop.textA(req.language),
         dropNotes: drop.notes(req.language),
       }, req.language);
     } else if (rarity > 0.3) { // eggs 30% chance
@@ -110,6 +109,16 @@ module.exports = function randomDrop (user, options, req = {}) {
         dropText: drop.text(req.language),
         dropNotes: drop.notes(req.language),
       }, req.language);
+    }
+
+    if (analytics) {
+      analytics.track('dropped item', {
+        uuid: user._id,
+        itemKey: drop.key,
+        acquireMethod: 'Drop',
+        category: 'behavior',
+        headers: req.headers,
+      });
     }
 
     user._tmp.drop = drop;

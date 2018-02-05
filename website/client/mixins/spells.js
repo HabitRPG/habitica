@@ -3,6 +3,10 @@ import isArray from 'lodash/isArray';
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
   methods: {
+    handleCastCancelKeyUp (keyEvent) {
+      if (keyEvent.keyCode !== 27) return;
+      this.castCancel();
+    },
     async castStart (spell, member) {
       if (this.$store.state.spellOptions.castingSpell) {
         this.castCancel();
@@ -19,6 +23,8 @@ export default {
       this.applyingAction = true;
       this.$store.state.spellOptions.castingSpell = true;
       this.spell = spell;
+
+      console.info('received spell', spell);
 
       if (spell.target === 'self') {
         return this.castEnd(null, spell.target);
@@ -46,6 +52,7 @@ export default {
         });
         return this.castEnd(tasks, spell.target);
       } else if (spell.target === 'user') {
+        console.info('target user!!', member, spell);
         let result = await this.castEnd(member, spell.target);
 
         if (member.id === this.user.id) {
@@ -53,6 +60,13 @@ export default {
         }
 
         return result;
+      } else {
+        // If the cast target has to be selected (and can be cancelled)
+        document.addEventListener('keyup', this.handleCastCancelKeyUp);
+
+        this.$root.$on('castEnd', (target, type, $event) => {
+          this.castEnd(target, type, $event);
+        });
       }
     },
     async castEnd (target, type) {
@@ -67,22 +81,17 @@ export default {
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
-      // @TODO: just call castCancel?
-      this.$store.state.spellOptions.castingSpell = false;
-      this.potionClickMode = false;
-
       this.spell.cast(this.user, target);
-      // User.save(); // @TODO:
 
       let spell = this.spell;
       let targetId = target ? target._id : null;
-      this.spell = null;
-      this.applyingAction = false;
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
       let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
       let msg = '';
+
+      console.info(type, target, spell);
 
       switch (type) {
         case 'task':
@@ -92,10 +101,12 @@ export default {
           });
           break;
         case 'user':
-          msg = this.$t('youCastTarget', {
-            spell: spellText,
-            target: target.profile.name,
-          });
+          msg = spell.pinType === 'card' ?
+            this.$t('sentCardToUser', { profileName: target.profile.name }) :
+            this.$t('youCastTarget', {
+              spell: spellText,
+              target: target.profile.name,
+            });
           break;
         case 'party':
           msg = this.$t('youCastParty', {
@@ -113,6 +124,7 @@ export default {
         const newUserGp = apiResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
       }
+
 
       this.markdown(msg); // @TODO: mardown directive?
       // @TODO:
@@ -136,6 +148,10 @@ export default {
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
       this.$store.state.spellOptions.castingSpell = false;
+
+      // Remove listeners
+      this.$root.$off('castEnd');
+      document.removeEventListener('keyup', this.handleCastCancelKeyUp);
     },
   },
 };

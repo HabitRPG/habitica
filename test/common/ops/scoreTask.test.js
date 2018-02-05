@@ -74,13 +74,6 @@ describe('shared.ops.scoreTask', () => {
     }
   });
 
-  it('checks that the streak parameters affects the score', () => {
-    let task = generateDaily({ userId: ref.afterUser._id, text: 'task to check streak' });
-    scoreTask({ user: ref.afterUser, task, direction: 'up', cron: false });
-    scoreTask({ user: ref.afterUser, task, direction: 'up', cron: false });
-    expect(task.streak).to.eql(2);
-  });
-
   it('completes when the task direction is up', () => {
     let task = generateTodo({ userId: ref.afterUser._id, text: 'todo to complete', cron: false });
     scoreTask({ user: ref.afterUser, task, direction: 'up' });
@@ -120,6 +113,64 @@ describe('shared.ops.scoreTask', () => {
 
       expect(Math.abs(delta1 - delta2)).to.be.greaterThan(EPSILON);
       expect(Math.abs(delta1 - delta3)).to.be.lessThan(EPSILON);
+    });
+  });
+
+  it('checks that the streak parameters affects the score', () => {
+    let task = generateDaily({ userId: ref.afterUser._id, text: 'task to check streak' });
+    scoreTask({ user: ref.afterUser, task, direction: 'up', cron: false });
+    scoreTask({ user: ref.afterUser, task, direction: 'up', cron: false });
+    expect(task.streak).to.eql(2);
+  });
+
+  describe('verifies that 21-day streak achievements are given/removed correctly', () => {
+    let initialStreakCount = 20; // 1 before the streak achievement is awarded
+    beforeEach(() => {
+      ref = beforeAfter();
+    });
+
+    it('awards the first streak achievement', () => {
+      let task = generateDaily({ userId: ref.afterUser._id, text: 'some daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task, direction: 'up' });
+      expect(ref.afterUser.achievements.streak).to.equal(1);
+    });
+
+    it('increments the streak achievement for a second streak', () => {
+      let task1 = generateDaily({ userId: ref.afterUser._id, text: 'first daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task: task1, direction: 'up' });
+      let task2 = generateDaily({ userId: ref.afterUser._id, text: 'second daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task: task2, direction: 'up' });
+      expect(ref.afterUser.achievements.streak).to.equal(2);
+    });
+
+    it('removes the first streak achievement when unticking a Daily', () => {
+      let task = generateDaily({ userId: ref.afterUser._id, text: 'some daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task, direction: 'up' });
+      scoreTask({ user: ref.afterUser, task, direction: 'down' });
+      expect(ref.afterUser.achievements.streak).to.equal(0);
+    });
+
+    it('decrements a multiple streak achievement when unticking a Daily', () => {
+      let task1 = generateDaily({ userId: ref.afterUser._id, text: 'first daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task: task1, direction: 'up' });
+      let task2 = generateDaily({ userId: ref.afterUser._id, text: 'second daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task: task2, direction: 'up' });
+      scoreTask({ user: ref.afterUser, task: task2, direction: 'down' });
+      expect(ref.afterUser.achievements.streak).to.equal(1);
+    });
+
+    it('does not give a streak achievement for a streak of zero', () => {
+      let task = generateDaily({ userId: ref.afterUser._id, text: 'some daily', streak: -1 });
+      scoreTask({ user: ref.afterUser, task, direction: 'up' });
+      expect(ref.afterUser.achievements.streak).to.be.undefined;
+    });
+
+    it('does not remove a streak achievement when unticking a Daily gives a streak of zero', () => {
+      let task1 = generateDaily({ userId: ref.afterUser._id, text: 'first daily', streak: initialStreakCount });
+      scoreTask({ user: ref.afterUser, task: task1, direction: 'up' });
+      let task2 = generateDaily({ userId: ref.afterUser._id, text: 'second daily', streak: 1 });
+      scoreTask({ user: ref.afterUser, task: task2, direction: 'down' });
+      expect(ref.afterUser.achievements.streak).to.equal(1);
     });
   });
 
@@ -240,11 +291,14 @@ describe('shared.ops.scoreTask', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
         expectGainedPoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
         expect(daily.completed).to.eql(true);
+        expect(daily.history.length).to.eql(1);
       });
 
       it('up, down', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
+        expect(daily.history.length).to.eql(1);
         scoreTask({user: ref.afterUser, task: daily, direction: 'down'});
+        expect(daily.history.length).to.eql(0);
         expectClosePoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
       });
 

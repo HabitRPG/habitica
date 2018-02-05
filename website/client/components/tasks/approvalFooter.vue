@@ -4,15 +4,15 @@ div
   .claim-bottom-message.col-12
     .task-unclaimed.d-flex.justify-content-between(v-if='!approvalRequested && !multipleApprovalsRequested')
       span {{ message }}
-      a.text-right(@click='claim()', v-if='!userIsAssigned') Claim
-      a.text-right(@click='unassign()', v-if='userIsAssigned') Remove Claim
+      a.text-right(@click='claim()', v-if='!userIsAssigned') {{ $t('claim') }}
+      a.text-right(@click='unassign()', v-if='userIsAssigned') {{ $t('removeClaim') }}
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
-        a(@click='approve()') Approve Task
-      // @TODO: Implement in v2 .col-6.text-center
-        a Needs work
+        a(@click='approve()') {{ $t('approveTask') }}
+      .col-6.text-center
+        a(@click='needsWork()') {{ $t('needsWork') }}
     .text-center.task-multi-approval(v-if='multipleApprovalsRequested')
-      a(@click='showRequests()') View Requests
+      a(@click='showRequests()') {{ $t('viewRequests') }}
 </template>
 
 <style lang="scss", scoped>
@@ -116,15 +116,21 @@ export default {
     approve () {
       if (!confirm(this.$t('confirmApproval'))) return;
       let userIdToApprove = this.task.group.assignedUsers[0];
-      this.$store.dispatch('tasks:unassignTask', {
+      this.$store.dispatch('tasks:approve', {
         taskId: this.task._id,
         userId: userIdToApprove,
       });
       this.task.group.assignedUsers.splice(0, 1);
       this.task.approvals.splice(0, 1);
     },
-    reject () {
-
+    needsWork () {
+      if (!confirm(this.$t('confirmNeedsWork'))) return;
+      let userIdNeedsMoreWork = this.task.group.assignedUsers[0];
+      this.$store.dispatch('tasks:needsWork', {
+        taskId: this.task._id,
+        userId: userIdNeedsMoreWork,
+      });
+      this.task.approvals.splice(0, 1);
     },
     showRequests () {
       this.$root.$emit('bv::show::modal', 'approval-modal');
