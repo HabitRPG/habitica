@@ -34,7 +34,7 @@ div
 
             div(:class='{sticky: user.preferences.stickyHeader}')
               router-view
-            app-footer
+          app-footer
 
             audio#sound(autoplay, ref="sound")
               source#oggSource(type="audio/ogg", :src="sound.oggSource")
@@ -83,10 +83,14 @@ div
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
