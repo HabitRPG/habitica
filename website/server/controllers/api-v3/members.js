@@ -248,7 +248,8 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        query['profile.name'] = {$regex: req.query.search};
+        // Creates a RegExp expression when querying for profile.name
+        query['profile.name'] = { $regex: new RegExp(req.query.search, 'i') };
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if

@@ -77,8 +77,7 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
       user.items.food[drop.key] += 1;
       drop.type = 'Food';
       drop.dialog = i18n.t('messageDropFood', {
-        dropArticle: drop.article,
-        dropText: drop.text(req.language),
+        dropText: drop.textA(req.language),
         dropNotes: drop.notes(req.language),
       }, req.language);
     } else if (rarity > 0.3) { // eggs 30% chance

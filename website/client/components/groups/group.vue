@@ -375,6 +375,7 @@ export default {
         silverGuildBadgeIcon,
         bronzeGuildBadgeIcon,
       }),
+      members: [],
       selectedQuest: {},
       sections: {
         quest: true,
@@ -427,14 +428,9 @@ export default {
     },
   },
   mounted () {
+    if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-
     this.load();
-
-    if (this.user.newMessages[this.searchId]) {
-      this.$store.dispatch('chat:markChatSeen', {groupId: this.searchId});
-      this.$delete(this.user.newMessages, this.searchId);
-    }
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
@@ -461,20 +457,43 @@ export default {
     },
   },
   methods: {
-    load () {
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
+    async load () {
       if (this.isParty) {
         this.searchId = 'party';
         // @TODO: Set up from old client. Decide what we need and what we don't
         // Check Desktop notifs
         // Load invites
       }
-      this.fetchGuild();
-
+      await this.fetchGuild();
+      // Fetch group members on load
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
       this.$root.$on('updatedGroup', group => {
         let updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
       });
     },
+
+    /**
+     * Method for loading members of a group, with optional parameters for
+     * modifying requests.
+     *
+     * @param {Object}  payload     Used for modifying requests for members
+     */
+    loadMembers (payload = null) {
+      // Remove unnecessary data
+      if (payload && payload.challengeId) {
+        delete payload.challengeId;
+      }
+
+      return this.$store.dispatch('members:getGroupMembers', payload);
+    },
+
     // @TODO: abstract autocomplete
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
@@ -511,6 +530,9 @@ export default {
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async sendMessage () {
@@ -550,6 +572,22 @@ export default {
         const group = await this.$store.dispatch('guilds:getGroup', {groupId: this.searchId});
         this.$set(this, 'group', group);
       }
+
+      const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
+      if (this.hasUnreadMessages(groupId)) {
+        // Delay by 1sec to make sure it returns after other requests that don't have the notification marked as read
+        setTimeout(() => {
+          this.$store.dispatch('chat:markChatSeen', {groupId});
+          this.$delete(this.user.newMessages, groupId);
+        }, 1000);
+      }
+    },
+    hasUnreadMessages (groupId) {
+      if (this.user.newMessages[groupId]) return true;
+
+      return this.user.notifications.some(n => {
+        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId;
+      });
     },
     deleteAllMessages () {
       if (confirm(this.$t('confirmDeleteAllMessages'))) {
@@ -575,8 +613,7 @@ export default {
       if (this.group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
         return;
       }
-      await this.$store.dispatch('guilds:join', {guildId: this.group._id, type: 'myGuilds'});
-      this.user.guilds.push(this.group._id);
+      await this.$store.dispatch('guilds:join', {groupId: this.group._id, type: 'guild'});
     },
     clickLeave () {
       Analytics.track({
@@ -615,20 +652,6 @@ export default {
     upgradeGroup () {
       this.$store.state.upgradingGroup = this.group;
       this.$router.push('/group-plans');
-    },
-    // @TODO: Move to notificatin component
-    async leaveOldPartyAndJoinNewParty () {
-      let newPartyName = 'where does this come from';
-      if (!confirm(`Are you sure you want to delete your party and join${newPartyName}?`)) return;
-
-      let keepChallenges = 'remain-in-challenges';
-      await this.$store.dispatch('guilds:leave', {
-        groupId: this.group._id,
-        keep: false,
-        keepChallenges,
-      });
-
-      await this.$store.dispatch('guilds:join', {groupId: this.group._id});
     },
     clickStartQuest () {
       Analytics.track({

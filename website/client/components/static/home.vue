@@ -1,5 +1,5 @@
 <template lang="pug">
-  #front
+  #front.static-view
     noscript.banner {{ $t('jsDisabledHeadingFull') }}
       br
       a(href='http://www.enable-javascript.com/', target='_blank') {{ $t('jsDisabledLink') }}
@@ -118,8 +118,12 @@
         .seamless_stars_varied_opacity_repeat
 </template>
 
+<style lang='scss'>
+@import '~client/assets/scss/static.scss';
+</style>
+
 <style lang="scss" scoped>
-  @import '~client/assets/scss/static.scss';
+@import '~client/assets/scss/colors.scss';
 
   #front {
     .form-text a {
@@ -613,6 +617,10 @@
         }
 
         let groupInvite = '';
+        if (this.$route.query && this.$route.query.p) {
+          groupInvite = this.$route.query.p;
+        }
+
         if (this.$route.query && this.$route.query.groupInvite) {
           groupInvite = this.$route.query.groupInvite;
         }

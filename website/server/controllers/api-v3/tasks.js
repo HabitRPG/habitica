@@ -531,7 +531,7 @@ api.updateTask = {
  * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,"mp":37.2008917491047,"exp":101.93810026267543,"gp":77.09694176716997,"lvl":19,"class":"rogue","points":0,"str":5,"con":3,"int":3,"per":8,"buffs":{"str":9,"int":9,"per":9,"con":9,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,"shinySeed":false,"seafoam":false},"training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
  *
  * @apiSuccessExample {json} Example result with item drop:
- * {"success":true,"data":{"delta":1.0259567046270648,"_tmp":{"quest":{"progressDelta":1.2362778290756147,"collection":1},"drop":{"target":"Zombie","article":"","canDrop":true,"value":1,"key":"RottenMeat","type":"Food","dialog":"You've found Rotten Meat! Feed this to a pet and it may grow into a sturdy steed."}},"hp":50,"mp":66.2390716654227,"exp":143.93810026267545,"gp":135.12889840462591,"lvl":20,"class":"rogue","points":0,"str":6,"con":3,"int":3,"per":8,"buffs":{"str":10,"int":10,"per":10,"con":10,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,"shinySeed":false,"seafoam":false},"training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
+ * {"success":true,"data":{"delta":1.0259567046270648,"_tmp":{"quest":{"progressDelta":1.2362778290756147,"collection":1},"drop":{"target":"Zombie","canDrop":true,"value":1,"key":"RottenMeat","type":"Food","dialog":"You've found Rotten Meat! Feed this to a pet and it may grow into a sturdy steed."}},"hp":50,"mp":66.2390716654227,"exp":143.93810026267545,"gp":135.12889840462591,"lvl":20,"class":"rogue","points":0,"str":6,"con":3,"int":3,"per":8,"buffs":{"str":10,"int":10,"per":10,"con":10,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,"shinySeed":false,"seafoam":false},"training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
  *
  * @apiUse TaskNotFound
  */
@@ -589,7 +589,9 @@ api.scoreTask = {
             taskName: task.text,
           }, manager.preferences.language),
           groupId: group._id,
-          taskId: task._id,
+          taskId: task._id, // user task id, used to match the notification when the task is approved
+          userId: user._id,
+          groupTaskId: task.group.id, // the original task id
           direction,
         });
         managerPromises.push(manager.save());
@@ -729,7 +731,7 @@ api.moveTask = {
     moveTask(order, task._id, to);
 
     // Server updates
-    // @TODO: maybe bulk op?
+    // Cannot send $pull and $push on same field in one single op
     let pullQuery = { $pull: {} };
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
     await user.update(pullQuery).exec();
@@ -744,6 +746,11 @@ api.moveTask = {
       $position: position,
     };
     await user.update(updateQuery).exec();
+
+    // Update the user version field manually,
+    // it cannot be updated in the pre update hook
+    // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+    user._v++;
 
     res.respond(200, order);
   },
@@ -1304,6 +1311,11 @@ api.deleteTask = {
       let pullQuery = {$pull: {}};
       pullQuery.$pull[`tasksOrder.${task.type}s`] = task._id;
       let taskOrderUpdate = (challenge || user).update(pullQuery).exec();
+
+      // Update the user version field manually,
+      // it cannot be updated in the pre update hook
+      // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
+      if (!challenge) user._v++;
 
       await Bluebird.all([taskOrderUpdate, task.remove()]);
     } else {

@@ -34,7 +34,7 @@ div
 
             div(:class='{sticky: user.preferences.stickyHeader}')
               router-view
-            app-footer
+          app-footer
 
             audio#sound(autoplay, ref="sound")
               source#oggSource(type="audio/ogg", :src="sound.oggSource")
@@ -83,10 +83,14 @@ div
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
@@ -103,7 +107,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -364,6 +368,13 @@ export default {
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
+  },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
@@ -393,7 +404,16 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
@@ -404,6 +424,7 @@ export default {
       if (this.selectedSpellToBuy.pinType === 'card') {
         const newUserGp = castResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
+        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
       }
 
       this.selectedSpellToBuy = null;

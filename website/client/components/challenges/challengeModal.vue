@@ -242,7 +242,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:clone-challenge');
   },
   watch: {

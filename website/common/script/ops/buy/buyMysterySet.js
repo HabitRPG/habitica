@@ -39,7 +39,6 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
 
   user.purchased.plan.consecutive.trinkets--;
 
-
   return [
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
     i18n.t('hourglassPurchaseSet', req.language),
