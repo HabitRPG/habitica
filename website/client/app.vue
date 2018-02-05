@@ -400,7 +400,16 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
@@ -411,6 +420,7 @@ export default {
       if (this.selectedSpellToBuy.pinType === 'card') {
         const newUserGp = castResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
+        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
       }
 
       this.selectedSpellToBuy = null;
