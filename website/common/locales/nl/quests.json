@@ -25,6 +25,7 @@
     "questInvitation": "Uitnodiging voor queeste:",
     "questInvitationTitle": "Uitnodiging voor queeste",
     "questInvitationInfo": "Uitnodiging voor de queeste <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Later vragen",
     "questLater": "Queeste uitstellen",
     "buyQuest": "Queeste kopen",

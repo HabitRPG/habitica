@@ -43,12 +43,13 @@ If we ever have an issue, use this list to reindex.
  - `{ "contributor.admin": 1, "contributor.level": -1, "backer.npc": -1, "profile.name": 1 }`
  - `{ "contributor.level": 1 }`
  - `{ "flags.newStuff": 1 }`
+ - `{ "flags.armoireEmpty": 1 }`
  - `{ "guilds": 1, "_id": 1 }`
  - `{ "invitations.guilds.id": 1, "_id": 1 }`
  - `{ "invitations.party.id": 1 }`
  - `{ "loginIncentives": 1 }`
  - `{ "migration": 1 }`
- - {` "party._id": 1, "_id": 1 }`
+ - `{ "party._id": 1, "_id": 1 }`
  - `{ "preferences.sleep": 1, "_id": 1, "flags.lastWeeklyRecap": 1, "preferences.emailNotifications.unsubscribeFromAll": 1, "preferences.emailNotifications.weeklyRecaps": 1 }`
  - `{ "preferences.sleep": 1, "_id": 1, "lastCron": 1, "preferences.emailNotifications.importantAnnouncements": 1, "preferences.emailNotifications.unsubscribeFromAll": 1, "flags.recaptureEmailsPhase": 1 }`
  - `{ "profile.name": 1 }`

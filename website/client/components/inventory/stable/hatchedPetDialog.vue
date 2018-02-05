@@ -11,7 +11,6 @@ b-modal#hatchedPet-modal(:hide-header="true")
   div.clearfix(slot="modal-footer")
 </template>
 
-
 <style lang="scss">
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
@@ -51,7 +50,6 @@ b-modal#hatchedPet-modal(:hide-header="true")
   }
 </style>
 
-
 <script>
   import markdownDirective from 'client/directives/markdown';
 
@@ -63,9 +61,6 @@ b-modal#hatchedPet-modal(:hide-header="true")
     },
     directives: {
       markdown: markdownDirective,
-    },
-    created () {
-
     },
     mounted () {
       this.$root.$on('hatchedPet::open', this.openDialog);

@@ -45,7 +45,7 @@ describe('Stripe - Upgrade Group Plan', () => {
   });
 
   afterEach(function () {
-    sinon.restore(stripe.subscriptions.update);
+    stripe.subscriptions.update.restore();
   });
 
   it('updates a group plan quantity', async () => {

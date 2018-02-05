@@ -59,5 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> művelet nem található",
     "messageNotificationNotFound": "Az értesítés nem található.",
     "notificationsRequired": "Értesítés azonosítók szükségesek.",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "Elkeztél beszélgetni <%= userName %> felhasználóval. Emlékezz, hogy legyél kedves, tisztelettudó és kövesd a Közösségi irányelveket!"
 }

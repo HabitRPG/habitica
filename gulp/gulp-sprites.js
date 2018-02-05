@@ -7,6 +7,7 @@ import mergeStream from 'merge-stream';
 import {basename} from 'path';
 import {sync} from 'glob';
 import {each} from 'lodash';
+import vinylBuffer from 'vinyl-buffer';
 
 // https://github.com/Ensighten/grunt-spritesmith/issues/67#issuecomment-34786248
 const MAX_SPRITESHEET_SIZE = 1024 * 1024 * 3;
@@ -104,6 +105,7 @@ function createSpritesStream (name, src) {
       }));
 
     let imgStream = spriteData.img
+      .pipe(vinylBuffer())
       .pipe(imagemin())
       .pipe(gulp.dest(IMG_DIST_PATH));
 
@@ -116,8 +118,6 @@ function createSpritesStream (name, src) {
 
   return stream;
 }
-
-gulp.task('sprites:compile', ['sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions']);
 
 gulp.task('sprites:main', () => {
   let mainSrc = sync('website/raw_sprites/spritesmith/**/*.png');
@@ -133,7 +133,7 @@ gulp.task('sprites:clean', (done) => {
   clean(`${IMG_DIST_PATH}spritesmith*,${CSS_DIST_PATH}spritesmith*}`, done);
 });
 
-gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSprites'], () => {
+gulp.task('sprites:checkCompiledDimensions', gulp.series('sprites:main', 'sprites:largeSprites', (done) => {
   console.log('Verifiying that images do not exceed max dimensions'); // eslint-disable-line no-console
 
   let numberOfSheetsThatAreTooBig = 0;
@@ -159,4 +159,7 @@ gulp.task('sprites:checkCompiledDimensions', ['sprites:main', 'sprites:largeSpri
   } else {
     console.log('All images are within the correct dimensions'); // eslint-disable-line no-console
   }
-});
+  done();
+}));
+
+gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions', done => done()));

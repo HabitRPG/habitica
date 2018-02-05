@@ -25,6 +25,7 @@
     "questInvitation": "Uppdragsinbjudan:",
     "questInvitationTitle": "Uppdragsinbjudnader",
     "questInvitationInfo": "Inbjudan till Uppdraget <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Fråga senare",
     "questLater": "Gå ut på Uppdrag Senare",
     "buyQuest": "Köp Uppdrag",

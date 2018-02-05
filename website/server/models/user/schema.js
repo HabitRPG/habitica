@@ -377,7 +377,7 @@ let schema = new Schema({
 
   invitations: {
     // Using an array without validation because otherwise mongoose treat this as a subdocument and applies _id by default
-    // Schema is (id, name, inviter)
+    // Schema is (id, name, inviter, publicGuild)
     // TODO one way to fix is http://mongoosejs.com/docs/guide.html#_id
     guilds: {type: Array, default: () => []},
     // Using a Mixed type because otherwise user.invitations.party = {} // to reset invitation, causes validation to fail TODO
