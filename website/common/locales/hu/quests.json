@@ -25,6 +25,7 @@
     "questInvitation": "Küldetés meghívás:",
     "questInvitationTitle": "Küldetés Meghívás",
     "questInvitationInfo": "Meghívás <%= quest %> küldetéshez",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Kérdezd később",
     "questLater": "Küldetés később",
     "buyQuest": "Küldetés megvásárlása",

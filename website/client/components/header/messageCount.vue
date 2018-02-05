@@ -1,5 +1,7 @@
 <template lang="pug" functional>
-span.message-count(:class="{'top-count': props.top === true}") {{props.count}}
+span.message-count(
+  :class="{'top-count': props.top === true, 'top-count-gray': props.gray === true}"
+) {{props.count}}
 </template>
 
 <style lang="scss">
@@ -23,5 +25,9 @@ span.message-count(:class="{'top-count': props.top === true}") {{props.count}}
   top: -0.8em;
   padding: 0.2em;
   background-color: $red-50;
+}
+
+.message-count.top-count-gray {
+  background-color: $gray-200;
 }
 </style>

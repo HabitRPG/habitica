@@ -59,5 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> 无法找到此操作。",
     "messageNotificationNotFound": "找不到消息",
     "notificationsRequired": "需要Notification ids",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！"
 }

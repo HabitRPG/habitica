@@ -25,6 +25,7 @@
     "questInvitation": "Poziv u misiju:",
     "questInvitationTitle": "Poziv u misiju",
     "questInvitationInfo": "Poziv u misiju <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Pitati kasnije",
     "questLater": "Quest Later",
     "buyQuest": "Kupiti misiju",

@@ -1011,13 +1011,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: '' },
-        }, {
-          $set: {
-            [`newMessages.${party._id}`]: {
-              name: party.name,
-              value: true,
-            },
-          },
         });
       });
 
@@ -1032,13 +1025,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           guilds: group._id,
           _id: { $ne: '' },
-        }, {
-          $set: {
-            [`newMessages.${group._id}`]: {
-              name: group.name,
-              value: true,
-            },
-          },
         });
       });
 
@@ -1049,13 +1035,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: 'user-id' },
-        }, {
-          $set: {
-            [`newMessages.${party._id}`]: {
-              name: party.name,
-              value: true,
-            },
-          },
         });
       });
 

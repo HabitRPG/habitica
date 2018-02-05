@@ -110,6 +110,7 @@ describe('Post /groups/:groupId/invite', () => {
         id: group._id,
         name: groupName,
         inviter: inviter._id,
+        publicGuild: false,
       }]);
 
       await expect(userToInvite.get('/user'))
@@ -127,11 +128,13 @@ describe('Post /groups/:groupId/invite', () => {
           id: group._id,
           name: groupName,
           inviter: inviter._id,
+          publicGuild: false,
         },
         {
           id: group._id,
           name: groupName,
           inviter: inviter._id,
+          publicGuild: false,
         },
       ]);
 

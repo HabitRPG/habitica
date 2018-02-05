@@ -1,5 +1,6 @@
 import {
   createAndPopulateGroup,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /groups/:id/chat/seen', () => {
@@ -24,10 +25,15 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a guild', async () => {
+      await guildMember.sync();
+      const initialNotifications = guildMember.notifications.length;
       await guildMember.post(`/groups/${guild._id}/chat/seen`);
+
+      await sleep(0.5);
 
       let guildThatHasSeenChat = await guildMember.get('/user');
 
+      expect(guildThatHasSeenChat.notifications.length).to.equal(initialNotifications - 1);
       expect(guildThatHasSeenChat.newMessages).to.be.empty;
     });
   });
@@ -53,10 +59,13 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a party', async () => {
+      await partyMember.sync();
+      const initialNotifications = partyMember.notifications.length;
       await partyMember.post(`/groups/${party._id}/chat/seen`);
 
       let partyMemberThatHasSeenChat = await partyMember.get('/user');
 
+      expect(partyMemberThatHasSeenChat.notifications.length).to.equal(initialNotifications - 1);
       expect(partyMemberThatHasSeenChat.newMessages).to.be.empty;
     });
   });

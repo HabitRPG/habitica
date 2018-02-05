@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid
+.container-fluid.static-view
   .row
     .col-md-6.offset-3
       h1 {{ $t('overview') }}
@@ -11,9 +11,11 @@
       p(v-markdown="$t('overviewQuestions')")
 </template>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 @import '~client/assets/scss/static.scss';
+</style>
 
+<style lang='scss' scoped>
 .container-fluid {
   margin-top: 56px;
 }

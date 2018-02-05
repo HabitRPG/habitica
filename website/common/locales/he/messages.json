@@ -59,5 +59,6 @@
     "messageUserOperationNotFound": "הפעולה <%= operation %> לא נמצאה",
     "messageNotificationNotFound": "התראה לא נמצאה.",
     "notificationsRequired": "Notification ids are required.",
+    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"
 }

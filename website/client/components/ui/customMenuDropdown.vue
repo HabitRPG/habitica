@@ -3,7 +3,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 -->
 
 <template lang="pug">
-.habitica-menu-dropdown.item-with-icon.dropdown(@click="toggleDropdown()", :class="{open: isDropdownOpen}")
+.habitica-menu-dropdown.dropdown(@click="toggleDropdown()", :class="{open: isOpen}")
   .habitica-menu-dropdown-toggle
     slot(name="dropdown-toggle")
   .dropdown-menu(:class="{'dropdown-menu-right': right}")
@@ -43,7 +43,7 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
   &.open {
     .dropdown-menu {
       display: block;
-      margin-top: 16px;
+      margin-top: 8px;
     }
   }
 }
@@ -51,11 +51,21 @@ A simplified dropdown component that doesn't rely on buttons as toggles  like bo
 
 <script>
 export default {
-  props: ['right'],
+  props: {
+    right: Boolean,
+    openStatus: Number,
+  },
   data () {
     return {
       isDropdownOpen: false,
     };
+  },
+  computed: {
+    isOpen () {
+      // Open status is a number so we can tell if the value was passed
+      if (this.openStatus !== undefined) return this.openStatus === 1 ? true : false;
+      return this.isDropdownOpen;
+    },
   },
   mounted () {
     document.documentElement.addEventListener('click', this._clickOutListener);
@@ -65,12 +75,13 @@ export default {
   },
   methods: {
     _clickOutListener (e) {
-      if (!this.$el.contains(e.target) && this.isDropdownOpen) {
+      if (!this.$el.contains(e.target) && this.isOpen) {
         this.toggleDropdown();
       }
     },
     toggleDropdown () {
-      this.isDropdownOpen = !this.isDropdownOpen;
+      this.isDropdownOpen = !this.isOpen;
+      this.$emit('toggled', this.isDropdownOpen);
     },
   },
 };
