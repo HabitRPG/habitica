@@ -5,12 +5,23 @@ import {
 } from '../libs/errors';
 import cloneDeep from 'lodash/cloneDeep';
 
+function markNotificationAsRead (user) {
+  const index = user.notifications.findIndex(notification => {
+    return notification && notification.type === 'NEW_MYSTERY_ITEMS';
+  });
+
+  if (index !== -1) user.notifications.splice(index, 1);
+}
+
 module.exports = function openMysteryItem (user, req = {}, analytics) {
-  let item = user.purchased.plan.mysteryItems.shift();
+  const mysteryItems = user.purchased.plan.mysteryItems;
+  let item = mysteryItems.shift();
 
   if (!item) {
     throw new BadRequest(i18n.t('mysteryItemIsEmpty', req.language));
   }
+
+  if (mysteryItems.length === 0) markNotificationAsRead(user);
 
   item = cloneDeep(content.gear.flat[item]);
   user.items.gear.owned[item.key] = true;

@@ -19,6 +19,7 @@
     position: absolute;
     left: calc(50% - (16px));
     bottom: -($badge-size / 2);
+    z-index: 1;
   }
 
   .svg-icon {

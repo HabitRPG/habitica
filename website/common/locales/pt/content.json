@@ -163,7 +163,7 @@
     "questEggYarnAdjective": "lanudo",
     "questEggPterodactylText": "Pterodáctilo",
     "questEggPterodactylMountText": "Pterodáctilo",
-    "questEggPterodactylAdjective": "trusting",
+    "questEggPterodactylAdjective": "confiando",
     "eggNotes": "Ache uma poção de eclosão para usar nesse ovo e ele irá eclodir em um <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",

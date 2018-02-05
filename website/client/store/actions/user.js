@@ -124,6 +124,10 @@ export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
 }
 
+export function newStuffLater () {
+  return axios.post('/api/v3/news/tell-me-later');
+}
+
 export async function rebirth () {
   let result = await axios.post('/api/v3/user/rebirth');
 
