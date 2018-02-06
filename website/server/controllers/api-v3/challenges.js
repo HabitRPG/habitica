@@ -28,6 +28,15 @@ const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id
 
 let api = {};
 
+function getChallengeGroupResponse (group) {
+  return {
+    _id: group._id,
+    name: group.name,
+    type: group.type,
+    privacy: group.privacy,
+  };
+}
+
 async function createChallenge (user, req, res) {
   let groupId = req.body.group;
   let prize = req.body.prize;
@@ -264,12 +273,7 @@ api.createChallenge = {
       _id: user._id,
       profile: {name: user.profile.name},
     };
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse();
 
     res.analytics.track('challenge create', {
       uuid: user._id,
@@ -330,12 +334,7 @@ api.joinChallenge = {
     let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse();
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
@@ -692,12 +691,7 @@ api.updateChallenge = {
 
     let savedChal = await challenge.save();
     let response = savedChal.toJSON();
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse();
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
     res.respond(200, response);
