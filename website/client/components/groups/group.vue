@@ -40,7 +40,7 @@
         community-guidelines
         .row
           .col-12.hr
-          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-12

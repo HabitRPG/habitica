@@ -38,7 +38,7 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = `[${message.user}](${baseUrl}/static/home/#?memberId=${message.uuid}) wrote in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
+      const notes = `${message.user} wrote in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
       const newTask = {
         text: message.text,
         type: 'todo',
