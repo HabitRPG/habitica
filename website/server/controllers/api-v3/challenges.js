@@ -28,6 +28,12 @@ const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id
 
 let api = {};
 
+function addUserJoinChallengeNotification (user) {
+  if (user.achievements.joinedChallenge) return;
+  user.achievements.joinedChallenge = true;
+  user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
+}
+
 function getChallengeGroupResponse (group) {
   return {
     _id: group._id,
@@ -88,11 +94,7 @@ async function createChallenge (user, req, res) {
   let challengeValidationErrors = challenge.validateSync();
   if (challengeValidationErrors) throw challengeValidationErrors;
 
-  // Add achievement if user's first challenge
-  if (!user.achievements.joinedChallenge) {
-    user.achievements.joinedChallenge = true;
-    user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
-  }
+  addUserJoinChallengeNotification(user);
 
   let results = await Bluebird.all([challenge.save({
     validateBeforeSave: false, // already validate
@@ -324,11 +326,7 @@ api.joinChallenge = {
 
     challenge.memberCount += 1;
 
-    // Add achievement if user's first challenge
-    if (!user.achievements.joinedChallenge) {
-      user.achievements.joinedChallenge = true;
-      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
-    }
+    addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
     let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
