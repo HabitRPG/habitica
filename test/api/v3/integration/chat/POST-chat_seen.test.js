@@ -63,6 +63,8 @@ describe('POST /groups/:id/chat/seen', () => {
       const initialNotifications = partyMember.notifications.length;
       await partyMember.post(`/groups/${party._id}/chat/seen`);
 
+      await sleep(0.5);
+
       let partyMemberThatHasSeenChat = await partyMember.get('/user');
 
       expect(partyMemberThatHasSeenChat.notifications.length).to.equal(initialNotifications - 1);
