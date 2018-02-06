@@ -386,6 +386,8 @@ api.food = {
   /* eslint-disable camelcase */
   Cake_Skeleton: {
     text: t('foodCakeSkeleton'),
+    textA: t('foodCakeSkeletonA'),
+    textThe: t('foodCakeSkeletonThe'),
     target: 'Skeleton',
     canBuy () {
       return canBuyCakeFood;
