@@ -10,7 +10,6 @@
     "amplitude": "^2.0.3",
     "apidoc": "^0.17.5",
     "apn": "^1.7.6",
-    "async": "^1.5.0",
     "autoprefixer": "^6.4.0",
     "aws-sdk": "^2.0.25",
     "axios": "^0.16.0",
