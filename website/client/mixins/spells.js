@@ -80,9 +80,11 @@ export default {
 
       let spell = this.spell;
 
+      this.castCancel();
+
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card') {
-        this.spell.cast(this.user, target);
+        spell.cast(this.user, target);
       }
 
       let targetId = target ? target._id : null;
@@ -138,6 +140,7 @@ export default {
           this.quest('questCollection', questProgress);
         }
       }
+
 
       return apiResult;
       // @TOOD: User.sync();
