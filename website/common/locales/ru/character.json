@@ -125,7 +125,7 @@
     "mage": "Маг",
     "wizard": "Маг",
     "mystery": "Таинственный",
-    "changeClass": "Change Class, Refund Stat Points",
+    "changeClass": "Сменить класс, перераспределить очки навыков",
     "lvl10ChangeClass": "Для того чтобы изменить класс, вы должны быть, как минимум, на уровне 10.",
     "changeClassConfirmCost": "Вы уверены, что хотите изменить ваш класс и заплатить за это 3 самоцвета?",
     "invalidClass": "Неверный класс. Пожалуйста, выберите  'warrior', 'rogue', 'wizard' или 'healer'.",

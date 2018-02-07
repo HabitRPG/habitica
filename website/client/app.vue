@@ -466,4 +466,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>
