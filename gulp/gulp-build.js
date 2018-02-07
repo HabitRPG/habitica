@@ -2,14 +2,6 @@ import gulp from 'gulp';
 import babel from 'gulp-babel';
 import webpackProductionBuild from '../webpack/build';
 
-gulp.task('build', (doneMain) => {
-  if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
-    gulp.series('build:prod', doneMain);
-  } else {
-    doneMain();
-  }
-});
-
 gulp.task('build:src', () => {
   return gulp.src('website/server/**/*.js')
     .pipe(babel())
@@ -39,3 +31,13 @@ gulp.task('build:prod', gulp.series(
   'apidoc',
   done => done()
 ));
+
+let buildArgs = [];
+
+if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
+  buildArgs.push('build:prod');
+}
+
+gulp.task('build', gulp.series(buildArgs, (done) => {
+  done();
+}));

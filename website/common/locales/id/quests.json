@@ -25,7 +25,7 @@
     "questInvitation": "Pengajuan Misi:",
     "questInvitationTitle": "Pengajuan Misi",
     "questInvitationInfo": "Undangan untuk Misi <%= quest %>",
-    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
+    "invitedToQuest": "Kamu diundang untuk melakukan Misi <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Tanya Nanti",
     "questLater": "Lakukan Misi Nanti",
     "buyQuest": "Beli Misi",
