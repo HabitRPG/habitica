@@ -650,11 +650,11 @@
   "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market",
 
   "questDysheartenerText": "The Dysheartener",
-  "questDysheartenerNotes": "dysheartened dyscription",
+  "questDysheartenerNotes": "The sun is rising on Valentine’s Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City’s main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the gaping earth.<br><br>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome DysHeartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.<br><br>“Take heart, everyone!” Lemoness shouts. “It probably thinks that we’re easy targets because so many of us have daunting New Year’s Resolutions, but it’s about to discover that Habiticans know how to stick to their goals!”<br><br>AnnDeLune raises her staff. “Let’s tackle our tasks and take this monster down!”",
   "questDysheartenerCompletion": "be reheartened",
   "questDysheartenerCompletionChat": "y'all won",
-  "questDysheartenerBossRageTitle": "Dys",
-  "questDysheartenerBossRageDescription": "y'all get dyssed",
+  "questDysheartenerBossRageTitle": "Shattering Heartbreak",
+  "questDysheartenerBossRageDescription": "When this gauge fills, the Dysheartener will unleash its Shattering Heartbreak on Habitica!",
   "questDysheartenerBossRageSeasonal": "seasonal dyss",
   "questDysheartenerBossRageMarket": "market dyss",
   "questDysheartenerBossRageQuests": "quests dyss"
