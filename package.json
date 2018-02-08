@@ -148,7 +148,7 @@
     "chromedriver": "^2.27.2",
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^2.11.2",
-    "cross-spawn": "^5.0.1",
+    "cross-spawn": "^6.0.4",
     "csv": "~0.3.6",
     "eslint": "^3.0.0",
     "eslint-config-habitrpg": "^3.0.0",
