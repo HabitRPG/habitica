@@ -586,6 +586,8 @@ async function castPartySpell (req, party, partyMembers, user, spell) {
 
   spell.cast(user, partyMembers, req);
   await Bluebird.all(partyMembers.map(m => m.save()));
+
+  return partyMembers;
 }
 
 async function castUserSpell (res, req, party, partyMembers, targetId, user, spell) {
@@ -613,6 +615,8 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
   } else {
     await partyMembers.save(); // partyMembers is user
   }
+
+  return partyMembers;
 }
 
 /**
@@ -705,12 +709,13 @@ api.castSpell = {
       let partyMembers;
 
       if (targetType === 'party') {
-        await castPartySpell(req, party, partyMembers, user, spell);
+        partyMembers = await castPartySpell(req, party, partyMembers, user, spell);
       } else {
-        await castUserSpell(res, req, party, partyMembers, targetId, user, spell);
+        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell);
       }
 
       let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
+
       // Only return some fields.
       // See comment above on why we can't just select the necessary fields when querying
       partyMembersRes = partyMembersRes.map(partyMember => {
