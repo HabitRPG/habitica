@@ -200,7 +200,7 @@ api.createChallenge = {
       _id: user._id,
       profile: {name: user.profile.name},
     };
-    response.group = getChallengeGroupResponse();
+    response.group = getChallengeGroupResponse(group);
 
     res.analytics.track('challenge create', {
       uuid: user._id,
@@ -257,7 +257,7 @@ api.joinChallenge = {
     let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
-    response.group = getChallengeGroupResponse();
+    response.group = getChallengeGroupResponse(group);
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
 
