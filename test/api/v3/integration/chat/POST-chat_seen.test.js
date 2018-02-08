@@ -1,5 +1,6 @@
 import {
   createAndPopulateGroup,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
 
 describe('POST /groups/:id/chat/seen', () => {
@@ -27,6 +28,8 @@ describe('POST /groups/:id/chat/seen', () => {
       await guildMember.sync();
       const initialNotifications = guildMember.notifications.length;
       await guildMember.post(`/groups/${guild._id}/chat/seen`);
+
+      await sleep(0.5);
 
       let guildThatHasSeenChat = await guildMember.get('/user');
 

@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Lançadeira do Tecelão",
     "shieldArmoireWeaversShuttleNotes": "Esta ferramenta passa o seu fio cruzado através da dobra para fazer tecido! Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Armário Encantado: Conjunto de Tecelão (Item 3 de 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Acessório de Costas",
     "backCapitalized": "Acessório de Costas",
     "backBase0Text": "Sem Acessório de Fundo",

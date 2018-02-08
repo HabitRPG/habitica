@@ -37,8 +37,9 @@ let improveRepl = (context) => {
   );
 };
 
-gulp.task('console', () => {
+gulp.task('console', (done) => {
   improveRepl(repl.start({
     prompt: 'Habitica > ',
   }).context);
+  done();
 });

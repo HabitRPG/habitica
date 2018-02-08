@@ -8,7 +8,7 @@ gulp.task('apidoc:clean', (done) => {
   clean(APIDOC_DEST_PATH, done);
 });
 
-gulp.task('apidoc', ['apidoc:clean'], (done) => {
+gulp.task('apidoc', gulp.series('apidoc:clean', (done) => {
   let result = apidoc.createDoc({
     src: APIDOC_SRC_PATH,
     dest: APIDOC_DEST_PATH,
@@ -19,8 +19,8 @@ gulp.task('apidoc', ['apidoc:clean'], (done) => {
   } else {
     done();
   }
-});
+}));
 
-gulp.task('apidoc:watch', ['apidoc'], () => {
-  return gulp.watch(`${APIDOC_SRC_PATH}/**/*.js`, ['apidoc']);
-});
+gulp.task('apidoc:watch', gulp.series('apidoc', (done) => {
+  return gulp.watch(`${APIDOC_SRC_PATH}/**/*.js`, gulp.series('apidoc', done));
+}));

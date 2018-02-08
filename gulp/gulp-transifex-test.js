@@ -93,9 +93,7 @@ const malformedStringExceptions = {
   feedPet: true,
 };
 
-gulp.task('transifex', ['transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings']);
-
-gulp.task('transifex:missingFiles', () => {
+gulp.task('transifex:missingFiles', (done) => {
   let missingStrings = [];
 
   eachTranslationFile(ALL_LANGUAGES, (error) => {
@@ -109,9 +107,10 @@ gulp.task('transifex:missingFiles', () => {
     let formattedMessage = formatMessageForPosting(message, missingStrings);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
+  done();
 });
 
-gulp.task('transifex:missingStrings', () => {
+gulp.task('transifex:missingStrings', (done) => {
   let missingStrings = [];
 
   eachTranslationString(ALL_LANGUAGES, (language, filename, key, englishString, translationString) => {
@@ -126,9 +125,10 @@ gulp.task('transifex:missingStrings', () => {
     let formattedMessage = formatMessageForPosting(message, missingStrings);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
+  done();
 });
 
-gulp.task('transifex:malformedStrings', () => {
+gulp.task('transifex:malformedStrings', (done) => {
   let jsonFiles = stripOutNonJsonFiles(fs.readdirSync(ENGLISH_LOCALE));
   let interpolationRegex = /<%= [a-zA-Z]* %>/g;
   let stringsToLookFor = getStringsWith(jsonFiles, interpolationRegex);
@@ -170,4 +170,11 @@ gulp.task('transifex:malformedStrings', () => {
     let formattedMessage = formatMessageForPosting(message, stringsWithIncorrectNumberOfInterpolations);
     postToSlack(formattedMessage, SLACK_CONFIG);
   }
+  done();
 });
+
+gulp.task(
+  'transifex',
+  gulp.series('transifex:missingFiles', 'transifex:missingStrings', 'transifex:malformedStrings'),
+  (done) => done()
+);

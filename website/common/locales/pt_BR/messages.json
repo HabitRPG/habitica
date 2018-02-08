@@ -59,6 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "Você tem <span class=\"notification-bold-blue\"><%= points %></span> Pontos de Atributos não distribuidos",
     "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade."
 }

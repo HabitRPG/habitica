@@ -557,5 +557,11 @@
     "questPterodactylCompletion": "Avec un dernier cri, le Pterreur-dactyl dégringole du flanc de la falaise. Vous vous précipitez pour le voir s'envoler dans les steppes lointaines. «Ouf, je suis content que ce soit fini», dis-tu. \"Moi aussi\", répond @GeraldThePixel. \"Mais regarde, il a laissé quelques oeufs pour nous.\" @Edge vous donne trois oeufs, et vous promettez de les élever dans la tranquillité, entouré par des Habitudes positives et des Journalières bleues.",
     "questPterodactylBoss": "Pterreur-dactyle",
     "questPterodactylDropPterodactylEgg": "Ptérodactyle (Œuf)",
-    "questPterodactylUnlockText": "Déverrouille l'achat d’œufs de ptérodactyle au marché"
+    "questPterodactylUnlockText": "Déverrouille l'achat d’œufs de ptérodactyle au marché",
+    "questBadgerText": "Stop Badgering Me!",
+    "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
+    "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+    "questBadgerBoss": "The Badgering Bother",
+    "questBadgerDropBadgerEgg": "Badger (Egg)",
+    "questBadgerUnlockText": "Unlocks purchasable Badger eggs in the Market"
 }

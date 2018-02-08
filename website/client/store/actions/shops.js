@@ -59,6 +59,7 @@ async function buyArmoire (store, params) {
   if (buyResult) {
     const resData = buyResult;
     const item = resData.armoire;
+    const message = result.data.message;
 
     const isExperience = item.type === 'experience';
     if (item.type === 'gear') {
@@ -67,12 +68,22 @@ async function buyArmoire (store, params) {
     store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
+    const notificationOptions = isExperience ?
+    {
+      text: `+ ${item.value}`,
+      type: 'xp',
+      flavorMessage: message,
+    } :
+    {
+      text: message,
+      type: 'drop',
+      icon: getDropClass({type: item.type, key: item.dropKey}),
+    };
+
     store.dispatch('snackbars:add', {
       title: '',
-      text: isExperience ? item.value : item.dropText,
-      type: isExperience ? 'xp' : 'drop',
-      icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
       timeout: true,
+      ...notificationOptions,
     });
   }
 }
