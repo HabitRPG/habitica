@@ -162,7 +162,7 @@
     "istanbul": "^1.1.0-alpha.1",
     "karma": "^2.0.0",
     "karma-babel-preprocessor": "^7.0.0",
-    "karma-chai-plugins": "~0.6.0",
+    "karma-chai-plugins": "^0.9.0",
     "karma-coverage": "^0.5.3",
     "karma-mocha": "^0.2.0",
     "karma-mocha-reporter": "^1.1.1",
