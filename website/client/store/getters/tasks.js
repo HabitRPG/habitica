@@ -134,8 +134,8 @@ export function getFilteredTaskList ({state, getters}) {
     // assumption: type will always be passed as param
     let requestedTasks = getters['tasks:getUnfilteredTaskList'](type);
 
-    let userPreferences = state.user.data.preferences || {};
-    let taskOrderForType = state.user.data.tasksOrder[type] || [];
+    let userPreferences = state.user.data.preferences;
+    let taskOrderForType = state.user.data.tasksOrder[type];
 
     // order tasks based on user set task order
     // Still needs unit test for this..
@@ -157,9 +157,6 @@ export function getFilteredTaskList ({state, getters}) {
     if (selectedFilter.sort) {
       requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
     }
-
-    // // eslint-disable-next-line no-console
-    // console.log('task:getters:getTaskList', getters, getters);
 
     return requestedTasks;
   };

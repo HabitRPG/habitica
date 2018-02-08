@@ -58,11 +58,5 @@ describe('Filter Category for Tasks', () => {
       expect(activeFilter).to.have.all.keys('label', 'filterFn');
       expect(activeFilter.label).to.eq(activeFilterLabel);
     });
-
-    it('should return default function for wrong filter type', () => {
-      let defaultFunction = getActiveFilter('habit');
-      let errorToDefaultFunction = getActiveFilter('habit', 'thisFilterDoesNotExist');
-      expect(errorToDefaultFunction).to.eq(defaultFunction);
-    });
   });
 });

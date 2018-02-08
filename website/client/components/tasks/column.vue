@@ -328,17 +328,6 @@ export default {
       getUserPreferences: 'user:preferences',
       getUserBuffs: 'user:buffs',
     }),
-    // Temporarily commented till definitely known if onUserPage() is needed or not
-    // onUserPage () {
-    //   let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
-
-    //   if (!onUserPage) {
-    //     this.activateFilter('daily', this.types.daily.filters[0]);
-    //     this.types.reward.filters = [];
-    //   }
-
-    //   return onUserPage;
-    // },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
 
@@ -588,9 +577,9 @@ export default {
             // eslint rule disabled for block to allow nested binary expression
             /* eslint-disable no-extra-parens */
             return (
-              (!isEmpty(task.text) && task.text.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
-              (!isEmpty(task.note) && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
-              (!isEmpty(task.checklist) && task.checklist.length > 0 &&
+              task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
+              (task.note && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.checklist && task.checklist.length > 0 &&
                 task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             );
             /* eslint-enable no-extra-parens */

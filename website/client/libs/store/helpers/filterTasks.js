@@ -1,7 +1,5 @@
 import { shouldDo } from 'common/script/cron';
 
-import isEmpty from 'lodash/isEmpty';
-
 // Task filter data
 // @TODO find a way to include user preferences w.r.t sort and defaults
 const taskFilters = {
@@ -43,7 +41,7 @@ function typeLabel (filterList) {
   return (type) => filterList[type].label;
 }
 
-const getTypeLabel = typeLabel(taskFilters);
+export const getTypeLabel = typeLabel(taskFilters);
 
 function filterLabel (filterList) {
   return (type) => {
@@ -55,29 +53,16 @@ function filterLabel (filterList) {
   };
 }
 
-const getFilterLabels = filterLabel(taskFilters);
+export const getFilterLabels = filterLabel(taskFilters);
 
 function activeFilter (filterList) {
   return (type, filterType = '') => {
     let filterListByType = filterList[type].filters;
-    if (isEmpty(filterType)) {
-      return filterListByType.find(f => f.default === true);
-    } else {
-      // check if filter type is available, else send default filter
-      let filterFunction = filterListByType.find(f => f.label === filterType);
-      if (isEmpty(filterFunction)) {
-        return filterListByType.find(f => f.default === true);
-      } else {
-        return filterFunction;
-      }
+    if (filterType) {
+      return filterListByType.find(f => f.label === filterType);
     }
+    return filterListByType.find(f => f.default === true);
   };
 }
 
-const getActiveFilter = activeFilter(taskFilters);
-
-export {
-  getTypeLabel,
-  getFilterLabels,
-  getActiveFilter,
-};
+export const getActiveFilter = activeFilter(taskFilters);
