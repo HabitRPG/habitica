@@ -1,17 +1,56 @@
 <template lang="pug">
-  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true')
-    .modal-header
-      h4(v-html="$t('abuseFlagModalHeading', reportData)")
+  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='md', :hide-footer='true')
     .modal-body
+      strong(v-html="$t('abuseFlagModalHeading', reportData)")
       blockquote
         div(v-markdown='abuseObject.text')
-      p(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
-    .modal-footer
+      div
+        strong Why are you reporting this post?
+        textarea.form-control(v-model='reportComment', placeholder='Please help our moderators by letting us know why you are reporting this post for a violation. e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.')
+      small(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
+    .footer.text-center
       button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='user.contributor.admin && abuseObject.flagCount > 0')
         | Reset Flag Count
-      button.btn.btn-primary(@click='close()') {{ $t('cancel') }}
+      a.cancel-link(@click.prevent='close()') {{ $t('cancel') }}
       button.btn.btn-danger(@click='reportAbuse()') {{ $t('abuseFlagModalButton') }}
 </template>
+
+<style>
+  #report-flag h5 {
+    color: #f23035;
+  }
+</style>
+
+<style scoped>
+ .modal-body {
+   margin-top: 1em;
+ }
+
+ blockquote {
+   border-radius: 2px;
+   background-color: #f4f4f4;
+   padding: 1em;
+   margin-top: 1em;
+ }
+
+ textarea {
+   margin-top: 1em;
+   margin-bottom: 1em;
+   border-radius: 2px;
+   border: solid 1px #c3c0c7;
+   min-height: 106px;
+ }
+
+ .footer {
+   padding: 1em;
+   padding-bottom: 2em;
+ }
+
+ a.cancel-link {
+   color: #2995cd;
+   margin-right: .5em;
+ }
+</style>
 
 <script>
 import { mapState } from 'client/libs/store';
@@ -45,6 +84,7 @@ export default {
       abuseFlagModalBody,
       abuseObject: '',
       groupId: '',
+      reportComment: '',
     };
   },
   created () {
@@ -64,9 +104,11 @@ export default {
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');
+
       await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
+        comment: this.reportComment,
       });
 
       this.close();
