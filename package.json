@@ -144,7 +144,7 @@
     "babel-plugin-istanbul": "^4.0.0",
     "chai": "^3.4.0",
     "chai-as-promised": "^5.1.0",
-    "chalk": "^1.1.3",
+    "chalk": "^2.3.0",
     "chromedriver": "^2.27.2",
     "connect-history-api-fallback": "^1.1.0",
     "coveralls": "^2.11.2",
