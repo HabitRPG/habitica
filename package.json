@@ -85,7 +85,7 @@
     "request": "^2.83.0",
     "rimraf": "^2.4.3",
     "sass-loader": "^6.0.2",
-    "shelljs": "^0.7.6",
+    "shelljs": "^0.8.1",
     "stripe": "^4.2.0",
     "superagent": "^3.4.3",
     "svg-inline-loader": "^0.7.1",
