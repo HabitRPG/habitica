@@ -4,7 +4,6 @@ import { shouldDo } from 'common/script/cron';
 import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
 import { getActiveFilter } from 'client/libs/store/helpers/filterTasks.js';
 
-// import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
 
 // Return all the tags belonging to an user task

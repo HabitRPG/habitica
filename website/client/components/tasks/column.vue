@@ -569,7 +569,7 @@ export default {
     filterBySearchText (taskList, searchText = '') {
       let filteredTaskList = taskList;
       // filter requested tasks by search text
-      if (!isEmpty(searchText)) {
+      if (searchText) {
         // to ensure broadest case insensitive search matching
         let searchTextLowerCase = searchText.toLowerCase();
         filteredTaskList = taskList.filter(
