@@ -178,6 +178,7 @@
     "mongoskin": "~2.1.0",
     "monk": "^4.0.0",
     "nightwatch": "^0.9.12",
+    "puppeteer": "^1.0.0",
     "require-again": "^2.0.0",
     "selenium-server": "^3.0.1",
     "sinon": "^4.2.2",
