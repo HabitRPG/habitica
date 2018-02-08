@@ -4,5 +4,6 @@
 --check-leaks
 --growl
 --globals io
---compilers js:babel-register
+--require babel-register
 --require ./test/helpers/globals.helper
+--exit

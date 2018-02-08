@@ -264,7 +264,7 @@ describe('POST /groups/:groupId/leave', () => {
     it('deletes non existant party from user when user tries to leave', async () => {
       let nonExistentPartyId = generateUUID();
       let userWithNonExistentParty = await generateUser({'party._id': nonExistentPartyId});
-      expect(userWithNonExistentParty.party._id).to.be.eql(nonExistentPartyId);
+      expect(userWithNonExistentParty.party._id).to.eql(nonExistentPartyId);
 
       await expect(userWithNonExistentParty.post(`/groups/${nonExistentPartyId}/leave`))
         .to.eventually.be.rejected;
