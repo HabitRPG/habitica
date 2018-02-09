@@ -7,7 +7,6 @@ import {
   generateTodo,
   generateReward,
 } from '../../helpers/common.helper';
-import common from '../../../website/common';
 import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
@@ -16,17 +15,9 @@ import crit from '../../../website/common/script/fns/crit';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
-/* Helper Functions */
-let rewrapUser = (user) => {
-  user._wrapped = false;
-  common.wrap(user);
-  return user;
-};
-
 let beforeAfter = () => {
   let beforeUser = generateUser();
   let afterUser = _.cloneDeep(beforeUser);
-  rewrapUser(afterUser);
 
   return {
     beforeUser,
