@@ -434,6 +434,12 @@ api.deleteUser = {
       ]);
     }
 
+    res.analytics.track('account delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
+
     res.respond(200, {});
   },
 };
@@ -1856,6 +1862,12 @@ api.userReset = {
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);
+
+    res.analytics.track('account reset', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
 
     res.respond(200, ...resetRes);
   },
