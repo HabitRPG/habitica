@@ -63,15 +63,6 @@
       width: 282px;
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
-    }
-
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
