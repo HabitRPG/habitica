@@ -1,8 +1,8 @@
 {
     "clearCompleted": "Borrado completado",
     "clearCompletedDescription": "Las Tareas Pendientes completadas se borran transcurridos 30 días para los no suscritos y 90 días para los suscritos.",
-    "clearCompletedConfirm": "Are you sure you want to delete your completed To-Dos?",
-    "sureDeleteCompletedTodos": "Are you sure you want to delete your completed To-Dos?",
+    "clearCompletedConfirm": "¿Estás seguro de que quieres eliminar todas tus tareas pendientes completadas?",
+    "sureDeleteCompletedTodos": "¿Estás seguro de que quieres eliminar todas tus tareas pendientes completadas?",
     "lotOfToDos": "Aquí aparecen las 30 últimas tareas que has completado. Si quieres ver las tareas que completaste anteriormente, ve a Datos > Herramienta de visualización de datos o Datos > Exportar datos > Datos de usuario.",
     "deleteToDosExplanation": "Si pulsas el botón de abajo, todas tus Tareas Pendientes completadas y archivadas serán borradas permanentemente, excepto las Tareas Pendientes de retos activos o Planes de Grupo. Expórtalas primero si quieres mantener un registro de las mismas.",
     "addMultipleTip": "<strong>Consejo:</strong> Para añadir varias Tareas, sepáralas una a una utilizando un salto de línea (Shift + Enter) y, entonces, presiona \"Enter.\"",
