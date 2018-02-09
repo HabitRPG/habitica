@@ -13,32 +13,31 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          notifications-display
-          app-menu
-          .container-fluid
-            app-header
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        notifications-display
+        app-menu
+        .container-fluid
+          app-header
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
-            app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
+          app-footer
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -83,10 +82,14 @@ div
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
@@ -225,9 +228,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
@@ -400,7 +406,16 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
@@ -411,6 +426,7 @@ export default {
       if (this.selectedSpellToBuy.pinType === 'card') {
         const newUserGp = castResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
+        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
       }
 
       this.selectedSpellToBuy = null;
@@ -452,4 +468,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>
