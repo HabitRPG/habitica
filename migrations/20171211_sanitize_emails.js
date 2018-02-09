@@ -4,7 +4,7 @@
   This will fix inconsistent querying for an email when attempting to password reset.
 */
 
-db.users.find().forEach(user => {
+db.users.find({'auth.local.email':{$not: /[A-Z]/}}).forEach(user => {
   db.users.update(
     { _id: user._id },
     { $set: {
