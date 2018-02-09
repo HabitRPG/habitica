@@ -469,7 +469,7 @@ api.getUserAnonymized = {
     let user = res.locals.user.toJSON();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
 
     delete user.apiToken;
     if (user.auth) {

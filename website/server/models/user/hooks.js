@@ -1,4 +1,4 @@
-import shared from '../../../common';
+import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
 import baseModel from '../../libs/baseModel';
@@ -25,10 +25,6 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.post('init', function postInitUser (doc) {
-  shared.wrap(doc);
-});
-
 function findTag (user, tagName) {
   let tagID = _.find(user.tags, (userTag) => {
     return userTag.name === tagName(user.preferences.language);
@@ -39,10 +35,10 @@ function findTag (user, tagName) {
 function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
-    defaultsData = shared.content.userDefaultsMobile;
+    defaultsData = common.content.userDefaultsMobile;
     user.flags.welcomed = true;
   } else {
-    defaultsData = shared.content.userDefaults;
+    defaultsData = common.content.userDefaults;
   }
   let tagsI = taskTypes.indexOf('tag');
 
@@ -51,7 +47,7 @@ function _populateDefaultTasks (user, taskTypes) {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-      newTag.id = shared.uuid();
+      newTag.id = common.uuid();
       // Render tag's name in user's language
       newTag.name = newTag.name(user.preferences.language);
       return newTag;
@@ -228,21 +224,21 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // do not calculate achievements if items or achievements are not selected
   if (this.isSelected('items') && this.isSelected('achievements')) {
     // Determines if Beast Master should be awarded
-    let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+    let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
     if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
       this.achievements.beastMaster = true;
     }
 
     // Determines if Mount Master should be awarded
-    let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
+    let mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
     if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
       this.achievements.mountMaster = true;
     }
 
     // Determines if Triad Bingo should be awarded
-    let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+    let dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
     let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
     if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {

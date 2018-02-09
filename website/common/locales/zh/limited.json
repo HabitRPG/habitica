@@ -125,8 +125,9 @@
     "dateEndOctober": "10月31日",
     "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
-    "discountBundle": "一批",
+    "dateEndFebruary": "February 28",
     "winterPromoGiftHeader": "送訂閱的同時自己也能免費得到一個!",
     "winterPromoGiftDetails1": "直到1月12日，当你给某人订阅时，你可以免费得到相同的订阅！",
-    "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后。非常感谢你的支持！ლ(°◕‵ƹ′◕ლ)"
+    "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后。非常感谢你的支持！ლ(°◕‵ƹ′◕ლ)",
+    "discountBundle": "一批"
 }

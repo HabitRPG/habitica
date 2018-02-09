@@ -606,7 +606,7 @@ api.scoreTask = {
 
     let [delta] = common.ops.scoreTask({task, user, direction}, req);
     // Drop system (don't run on the client, as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') user.fns.randomDrop({task, delta}, req, res.analytics);
+    if (direction === 'up') common.fns.randomDrop(user, {task, delta}, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?

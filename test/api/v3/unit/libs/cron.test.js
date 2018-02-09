@@ -31,10 +31,6 @@ describe('cron', () => {
     });
 
     sinon.spy(analytics, 'track');
-
-    user._statsComputed = {
-      mp: 10,
-    };
   });
 
   afterEach(() => {
@@ -443,9 +439,13 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('computes isDue', () => {
@@ -854,9 +854,13 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('stores a new entry in user.history.exp', () => {
@@ -971,18 +975,27 @@ describe('cron', () => {
 
   describe('adding mp', () => {
     it('should add mp to user', () => {
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+
       let mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.stats.mp).to.be.greaterThan(mpBefore);
+
+      common.statsComputed.restore();
     });
 
-    it('set user\'s mp to user._statsComputed.maxMP when user.stats.mp is greater', () => {
+    it('set user\'s mp to statsComputed.maxMP when user.stats.mp is greater', () => {
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
       user.stats.mp = 120;
-      user._statsComputed.maxMP = 100;
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.stats.mp).to.equal(user._statsComputed.maxMP);
+      expect(user.stats.mp).to.equal(common.statsComputed(user).maxMP);
+
+      common.statsComputed.restore();
     });
   });
 
@@ -997,12 +1010,16 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
 
       daysMissed = 1;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('resets user progress', () => {
@@ -1022,7 +1039,10 @@ describe('cron', () => {
     it('adds a user notification', () => {
       let mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
 
       daysMissed = 1;
       let hpBefore = user.stats.hp;
@@ -1036,12 +1056,17 @@ describe('cron', () => {
         hp: user.stats.hp - hpBefore,
         mp: user.stats.mp - mpBefore,
       });
+
+      common.statsComputed.restore();
     });
 
     it('condenses multiple notifications into one', () => {
       let mpBefore1 = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
 
       daysMissed = 1;
       let hpBefore1 = user.stats.hp;
@@ -1072,6 +1097,7 @@ describe('cron', () => {
         mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
       });
       expect(user.notifications[0].type).to.not.equal('CRON');
+      common.statsComputed.restore();
     });
   });
 
