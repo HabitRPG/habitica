@@ -384,9 +384,7 @@
           return;
         }
 
-        if (this.item.cast) {
-          this.castStart(this.item);
-        } else if (this.genericPurchase) {
+        if (this.genericPurchase) {
           this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           this.purchased(this.item.text);
         }
