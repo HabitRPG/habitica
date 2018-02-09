@@ -125,8 +125,9 @@
     "dateEndOctober": "31 Oktober",
     "dateEndNovember": "30 November",
     "dateEndJanuary": "31 Januari",
-    "discountBundle": "bundel",
+    "dateEndFebruary": "February 28",
     "winterPromoGiftHeader": "HADIAHKAN LANGGANAN DAN DAPATKAN GRATIS SATU!",
     "winterPromoGiftDetails1": "Hanya hingga 12 Januari, sewaktu kamu menghadiahkan orang lain dengan langganan, kamu akan mendapatkan paket langganan yang sama, gratis untuk dirimu sendiri!",
-    "winterPromoGiftDetails2": "Ingat saja kalau kamu atau penerima hadiah itu sudah mempunyai paket langganan yang berulang, hadiah langganan itu baru akan mulai setelah yang sekarang telah dibatalkan atau telah habis. Terima kasih untuk semua dukungan kalian! <3"
+    "winterPromoGiftDetails2": "Ingat saja kalau kamu atau penerima hadiah itu sudah mempunyai paket langganan yang berulang, hadiah langganan itu baru akan mulai setelah yang sekarang telah dibatalkan atau telah habis. Terima kasih untuk semua dukungan kalian! <3",
+    "discountBundle": "bundel"
 }

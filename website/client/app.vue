@@ -13,32 +13,31 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          notifications-display
-          app-menu
-          .container-fluid
-            app-header
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        notifications-display
+        app-menu
+        .container-fluid
+          app-header
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
           app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -466,4 +465,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>

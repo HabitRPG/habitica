@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
     "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Accesorio en la Espalda",
     "backCapitalized": "Back Accessory",
     "backBase0Text": "Sin Accesorio en la Espalda",
