@@ -37,7 +37,7 @@ export async function getProperty (collectionName, id, path) {
 // resets the db to an empty state and creates a tavern document
 export async function resetHabiticaDB () {
   return new Promise((resolve, reject) => {
-    mongoose.connection.db.dropDatabase((dbErr) => {
+    mongoose.connection.dropDatabase((dbErr) => {
       if (dbErr) return reject(dbErr);
       let groups = mongoose.connection.db.collection('groups');
       let users = mongoose.connection.db.collection('users');
@@ -119,7 +119,7 @@ before((done) => {
 });
 
 after((done) => {
-  mongoose.connection.db.dropDatabase((err) => {
+  mongoose.connection.dropDatabase((err) => {
     if (err) return done(err);
     mongoose.connection.close(done);
   });

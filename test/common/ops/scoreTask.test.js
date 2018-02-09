@@ -291,11 +291,14 @@ describe('shared.ops.scoreTask', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
         expectGainedPoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
         expect(daily.completed).to.eql(true);
+        expect(daily.history.length).to.eql(1);
       });
 
       it('up, down', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
+        expect(daily.history.length).to.eql(1);
         scoreTask({user: ref.afterUser, task: daily, direction: 'down'});
+        expect(daily.history.length).to.eql(0);
         expectClosePoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
       });
 

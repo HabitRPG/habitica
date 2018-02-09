@@ -281,7 +281,7 @@ export default {
     },
     async loadChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', {challengeId: this.searchId});
-      this.members = await this.$store.dispatch('members:getChallengeMembers', {challengeId: this.searchId});
+      this.members = await this.loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
       let tasks = await this.$store.dispatch('tasks:getChallengeTasks', {challengeId: this.searchId});
       this.tasksByType = {
         habit: [],
@@ -293,6 +293,21 @@ export default {
         this.tasksByType[task.type].push(task);
       });
     },
+
+    /**
+     * Method for loading members of a group, with optional parameters for
+     * modifying requests.
+     *
+     * @param {Object}  payload     Used for modifying requests for members
+     */
+    loadMembers (payload = null) {
+      // Remove unnecessary data
+      if (payload && payload.groupId) {
+        delete payload.groupId;
+      }
+      return this.$store.dispatch('members:getChallengeMembers', payload);
+    },
+
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
@@ -334,7 +349,9 @@ export default {
       this.$store.state.memberModalOptions.challengeId = this.challenge._id;
       this.$store.state.memberModalOptions.groupId = 'challenge'; // @TODO: change these terrible settings
       this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.memberCount = this.challenge.memberCount;
       this.$store.state.memberModalOptions.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async joinChallenge () {
