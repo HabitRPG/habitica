@@ -4,6 +4,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import analytics from '../../libs/analyticsService';
 import {
   model as Group,
+  basicFields as basicGroupFields,
 } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
@@ -65,7 +66,7 @@ api.inviteToQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -177,7 +178,7 @@ api.acceptQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -236,7 +237,7 @@ api.rejectQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -299,7 +300,7 @@ api.forceStart = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -361,7 +362,7 @@ api.cancelQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type leader quest'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -413,7 +414,7 @@ api.abortQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest leader chat'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -471,7 +472,7 @@ api.leaveQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
