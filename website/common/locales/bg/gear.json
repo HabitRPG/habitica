@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Тъкаческа совалка",
     "shieldArmoireWeaversShuttleNotes": "С този инструмент ще прокарвате нишките през основата, за да тъчете! Увеличава интелигентността с <%= int %> и усета с <%= per %>. Омагьосан гардероб: Тъкачески комплект (предмет 3 от 3).",
     "shieldArmoireShieldOfDiamondsText": "Пурпурен скъпоценен щит",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "Този сияен щит не само осигурява защита, но и ще Ви даде издръжливост! Увеличава якостта с <%= con %>. Омагьосан гардероб: Независим предмет.",
     "back": "Аксесоар за гръб",
     "backCapitalized": "Аксесоар за гръб",
     "backBase0Text": "Няма аксесоар за гръб",

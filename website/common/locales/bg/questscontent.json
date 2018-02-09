@@ -558,10 +558,10 @@
     "questPterodactylBoss": "Птерор-дактил",
     "questPterodactylDropPterodactylEgg": "Птеродактил (яйце)",
     "questPterodactylUnlockText": "Отключва възможността за купуване на яйца на птеродактил от пазара.",
-    "questBadgerText": "Stop Badgering Me!",
-    "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
-    "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
-    "questBadgerBoss": "The Badgering Bother",
-    "questBadgerDropBadgerEgg": "Badger (Egg)",
-    "questBadgerUnlockText": "Unlocks purchasable Badger eggs in the Market"
+    "questBadgerText": "Спрете да ме тормозите!",
+    "questBadgerNotes": "Ех, зима в Задачев лес. Бавно падащият сняг, заскрежените клони, Цветущите феи… още не спят?<br><br>„Защо още са будни?“ — вайка се @LilithofAlfheim. — „Ако скоро не заспят зимен сън, няма да имат сили за вегетационния сезон.“<br><br>Ти и @Willow the Witty се втурвате да видите за какво става въпрос, когато от земята се подава пухкава глава. Преди да успеете да извикате „Това е Язовският тормоз!“ тя вече се е върнала в дупката си, като отмъква задачите за зимен сън на феите и на тяхно място оставя дълъг списък с неизпълнени задачи!<br><br>„Ето защо не си почиват феите, щом постоянно са подложени на такъв тормоз!“ — казва @plumilla. Можеш ли да прогониш този звяр и да спасиш вегетационния сезон на Задачев лес?",
+    "questBadgerCompletion": "Най-накрая успяваш да прогониш Язовския тормоз и се вмъкваш в дупката му. В края на тунела откриваш задачите за зимен сън на феите. В бърлогата няма нищо друго, освен три яйца, готови да се излюпят.",
+    "questBadgerBoss": "Язовският тормоз",
+    "questBadgerDropBadgerEgg": "Язовец (яйце)",
+    "questBadgerUnlockText": "Отключва възможността за купуване на яйца на язовец от пазара."
 }

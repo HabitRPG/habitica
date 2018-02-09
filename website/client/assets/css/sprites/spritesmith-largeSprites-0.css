@@ -1,7 +1,13 @@
 .promo_armoire_backgrounds_201802 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -769px -197px;
+  background-position: -911px -197px;
   width: 141px;
+  height: 441px;
+}
+.promo_cupid_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -809px;
+  width: 138px;
   height: 441px;
 }
 .promo_habit_birthday_2018 {
@@ -24,7 +30,7 @@
 }
 .promo_starry_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -911px -197px;
+  background-position: -769px -197px;
   width: 141px;
   height: 441px;
 }
@@ -54,7 +60,7 @@
 }
 .scene_task_list {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -809px;
+  background-position: -139px -809px;
   width: 240px;
   height: 195px;
 }

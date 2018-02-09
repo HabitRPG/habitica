@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST AND USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'CUPID HATCHING POTIONS AND RESOLUTION PLOT-LINE CONTINUES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,27 +32,22 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/6/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/8/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media">
-          <div class="quest_badger"></div>
-          <div class="media-body">
-            <h3>New Pet Quest: Stop Badgering Me!</h3>
-            <p>Winter has come to the Taskwoods, but the Fairies aren't hibernating yet because the Badgering Bother won't stop pestering them! Get the latest pet quest, <em>Stop Badgering Me!</em>, from the <a href="/shops/quests">Quest Shop</a>, and earn some bustling badger pets by completing your real-life tasks.</p>
-            <div class="small mb-3">by SabreCat and Lemoness</div>
-            <div class="small mb-3">Written by Lil Ackbar and Lemoness</div>
-            <div class="small mb-3">Art by plumilla, LilithofAlfheim, and Willow the Witty</div>
-          </div>
-        </div>
+        <h3>Cupid Hatching Potions</h3>
         <div class="media">
           <div class="media-body">
-            <h3 class="mt-5">Use Case Spotlight: Interpersonal Relationships</h3>
-            <p>This month's <a href="https://habitica.wordpress.com/2018/02/06/use-case-spotlight-interpersonal-relationships/" target="_blank">Use Case Spotlight</a> is about Interpersonal Relationships! It features a number of great suggestions submitted by Habiticans in the <a href="/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6">Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking for advice to help nurture your relationships.</p>
+            <p>There's a new pet breed in town! Between now and February 28th, you can buy Cupid Hatching Potions from <a href="/shops/market">the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Cupid Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+            <p>After they're gone, it will be at least a year before the Cupid Hatching Potions are available again, so be sure to get them now!</p>
+            <div class="small mb-3">by Willow the Witty and SabreCat</div>
+            <h3>Resolution Plot-Line: Goo Galore</h3>
+            <p>Remember the mystery of those Habiticans who grew abruptly disheartened with their New Year's Resolutions? There's just been a significant development!</p>
+            <p>One of the investigation teams, led by Viirus, Apollo, and Piyorii, has turned up something very strange in the broken buildings where those Habiticans live...</p>
+            <p>"The cracks in the buildings have started to glow," Viirus says. "And look!" He points, and you see that a strange orange goo is oozing from the shattered stone. Gingerly, you touch it -- it smells sweet and is very, very sticky, almost like caramel.</p>
+            <p>Hmm.... let's keep watch for the cause in the coming days.</p>
           </div>
-          <div class="scene_tavern ml-3 mb-3"></div>
+          <div class="promo_cupid_potions ml-3"></div>
         </div>
-        <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica for Spring Cleaning? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by Beffymaroo</div>
 
       </div>
       `,
