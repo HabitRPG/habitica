@@ -3,7 +3,7 @@
     "equipmentType": "Tür",
     "klass": "Sınıf",
     "groupBy": "<%= type %> Farkına Göre Gruplandır",
-    "classBonus": "(This item matches your class, so it gets an additional 1.5 Stat multiplier.)",
+    "classBonus": "(Bu eşya karakter sınıfın ile uyumlu olduğu için Nitelik Değerleri 1.5 katına çıkar.)",
     "classArmor": "Sınıf Zırhı",
     "featuredset": "Featured Set <%= name %>",
     "mysterySets": "Gizemli Setler",
@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Sui-kay-st Sopası",
     "weaponSpecialSkiNotes": "Yığınla düşmanı haklayabilen bir silah! Kullananın çok iyi paralel dönüşler yapmasına da yardımcı olur. Gücü <%= str %> puan arttırır. Sınırlı Sürüm 2013-2014 Kış Ekipmanı.",
     "weaponSpecialCandycaneText": "Baston Şeker Asası",
-    "weaponSpecialCandycaneNotes": "Güçlü bir büyücü asası. Güçlü bir biçimde LEZZETLİ, demek istemiştik! Çift elli silah. Zekayı <%= int %> ve Sezgiyi <%= per %> puan arttırır. Sınırlı Sürüm 2013-2014 Kış Ekipmanı.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Kar Tanesi Asası",
     "weaponSpecialSnowflakeNotes": "Bu değnek sınırsız şifa gücü ile ışıldar. Zekayı <%= int %> puan arttırır. Sınırlı Sürüm 2013-2014 Kış Ekipmanı.",
     "weaponSpecialSpringRogueText": "Kanca Pençesi",
@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
     "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Sırt Aksesuarı",
     "backCapitalized": "Sırt Aksesuarı",
     "backBase0Text": "Sırt Aksesuarı Yok",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Tavuskuşu Maskesi",
     "eyewearMystery301703Notes": "Süslü bir maskeli balo için ya da iyi giyimli bir kalabalığın içinden görünmeden ilerlemek için uygundur. Bir fayda sağlamaz. Mart 3017 Abone Eşyası.",
     "eyewearArmoirePlagueDoctorMaskText": "Veba Doktoru Maskesi",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Ağırdan Alma Vebası ile savaşmış doktorlar tarafından giyilmiş, otantik bir maske. Bir fayda sağlamaz. Efsunlu Gardırop: Veba Doktoru Seti (3 Eşyadan 2'ncisi)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Ağırdan Alma Vebası ile savaşmış doktorlar tarafından giyilmiş, otantik bir maske. Bir fayda sağlamaz. Efsunlu Gardırop: Veba Doktoru Seti (3 Eşyadan 2'ncisi).",
+    "twoHandedItem": "Two-handed item."
 }

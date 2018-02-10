@@ -557,5 +557,11 @@
     "questPterodactylCompletion": "Dengan satu jeritan terakhir sang Pteror-daktil terjatuh dari ujung tebing. Kamu berlari maju untuk melihatnya terbang jauh ke stepa yang jauh. \"Fiuh, aku senang semuanya sudah berlalu,' kamu berkata. \"Aku juga,\" balas @GeraldThePixel. \"Tapi lihat! Ada beberapa telur tersisa untuk kita.\" @Edge memberimu tiga telur, dan kamu berjanji untuk membesarkan mereka dalam ketenteraman, dikelilingi dengan Kebiasaan positif dan Keseharian biru.",
     "questPterodactylBoss": "Pteror-daktil",
     "questPterodactylDropPterodactylEgg": "Pterodaktil (Telur)",
-    "questPterodactylUnlockText": "Dapatkan telur Pterodaktil yang dapat dibeli di Pasar"
+    "questPterodactylUnlockText": "Dapatkan telur Pterodaktil yang dapat dibeli di Pasar",
+    "questBadgerText": "Berhenti Merengeki Aku!",
+    "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
+    "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+    "questBadgerBoss": "Sang Luak Perengek",
+    "questBadgerDropBadgerEgg": "Luak (Telur)",
+    "questBadgerUnlockText": "Dapatkan telur Luak yang dapat dibeli di Pasar"
 }

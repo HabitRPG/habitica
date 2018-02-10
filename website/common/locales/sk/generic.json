@@ -168,6 +168,8 @@
     "achievementBewilderText": "Pomohol poraziť Be-Wildera počas Udalosti jarnej rozcvičky 2016!",
     "checkOutProgress": "Pozrieť si môj postup v Habitike!",
     "cards": "Cards",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Pozdrav",
     "greetingCardExplanation": "Obaja získavate odznak Čerešňový kamarát!",

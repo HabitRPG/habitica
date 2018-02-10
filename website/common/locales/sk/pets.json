@@ -81,7 +81,7 @@
     "petNotOwned": "Nevlastníš toto zvieratko.",
     "mountNotOwned": "Nevlastníš tohto tátoša.",
     "earnedCompanion": "Vďaka tvojej produktivite si získal nového spoločníka. Nakŕm ho, aby vyrástol!",
-    "feedPet": "Chceš nakŕmiť toto zvieratko: <%= name %> týmto: <%= article %><%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Chceš osedlať toto zvieratko: <%= pet %>?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "Plnením tvojich úloh si získal verného tátoša!",

@@ -9,7 +9,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 
-describe('user.ops.hourglassPurchase', () => {
+describe('common.ops.hourglassPurchase', () => {
   let user;
   let analytics = {track () {}};
 
