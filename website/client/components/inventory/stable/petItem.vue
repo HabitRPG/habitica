@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
+    .item.pet-slot(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
@@ -31,6 +31,10 @@ div
   .pet-progress-bar {
     height: 4px;
     background-color: #24cc8f;
+  }
+
+  .pet-slot {
+    margin: 0 2px;
   }
 </style>
 
