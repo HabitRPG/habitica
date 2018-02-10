@@ -81,7 +81,7 @@
     "petNotOwned": "Nie posiadasz tego chowańca.",
     "mountNotOwned": "Nie posiadasz tego wierzchowca.",
     "earnedCompanion": "Dzięki swej produktywności masz nowego towarzysza. Nakarm go by urósł!",
-    "feedPet": "Feed <%= text %> to your <%= name %>?",
+    "feedPet": "Nakarmić <%= text %> twojego <%= name %>?",
     "useSaddle": "Osiodłać <%= pet %>?",
     "raisedPet": "Wyhodowałeś <%= pet %>!",
     "earnedSteed": "Dzięki ukończeniu swoich zadań masz teraz wiernego wierzchowca!",

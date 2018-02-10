@@ -1346,8 +1346,8 @@
     "bodyMystery201706Notes": "Ta peleryna posiada ukryte kieszenie, w których możesz schować całe swoje złoto zdobyte z Zadań. Brak dodatkowych korzyści. Przedmiot Abonencki, czerwiec 2017.",
     "bodyMystery201711Text": "Carpet Rider Scarf",
     "bodyMystery201711Notes": "This soft knitted scarf looks quite majestic blowing in the wind. Confers no benefit. November 2017 Subscriber Item.",
-    "bodyArmoireCozyScarfText": "Cozy Scarf",
-    "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Confers no benefit.",
+    "bodyArmoireCozyScarfText": "Przyjemny Szalik",
+    "bodyArmoireCozyScarfNotes": "Ten wyśmienity szalik ogrzeję cię podczas Twoich zimowych eskapad. Nie przyznaje żadnych korzyści.",
     "headAccessory": "Dodatki na głowę",
     "headAccessoryCapitalized": "Dodatki na głowę",
     "accessories": "Akcesoria",
@@ -1419,7 +1419,7 @@
     "headAccessoryArmoireComicalArrowText": "Zabawna Strzała",
     "headAccessoryArmoireComicalArrowNotes": "This whimsical item doesn't provide a Stat boost, but it sure is good for a laugh! Confers no benefit. Enchanted Armoire: Independent Item.",
     "eyewear": "Okulary",
-    "eyewearCapitalized": "Eyewear",
+    "eyewearCapitalized": "Okulary",
     "eyewearBase0Text": "Brak okularów",
     "eyewearBase0Notes": "Brak okularów.",
     "eyewearSpecialBlackTopFrameText": "Zwykłe Czarne Okulary",
@@ -1436,8 +1436,8 @@
     "eyewearSpecialWhiteTopFrameNotes": "Okulary z białą górną oprawką. Nie mają na nic wpływu.",
     "eyewearSpecialYellowTopFrameText": "Zwykłe Żółte Okulary",
     "eyewearSpecialYellowTopFrameNotes": "Okulary z żółtą górną oprawką. Nie mają na nic wpływu.",
-    "eyewearSpecialAetherMaskText": "Aether Mask",
-    "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
+    "eyewearSpecialAetherMaskText": "Eteryczna Maska",
+    "eyewearSpecialAetherMaskNotes": "Ta maska ma tajemniczą historię. Zwiększa Inteligencję o <%= int %>.",
     "eyewearSpecialSummerRogueText": "Zbójecka przepaska na oko",
     "eyewearSpecialSummerRogueNotes": "Nie trzeba być piratem, by zauważyć, jak stylowa jest ta przepaska! Brak dodatkowych korzyści. Edycja Limitowana, lato 2014.",
     "eyewearSpecialSummerWarriorText": "Dziarska przepaska na oko",
@@ -1462,5 +1462,5 @@
     "eyewearMystery301703Notes": "Idealna na maskaradę lub do ukrywania się w specyficznie ubranym tłumie. Brak dodatkowych korzyści. Przedmiot Abonencki, marzec 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Maska Medyków",
     "eyewearArmoirePlagueDoctorMaskNotes": "Autentyczna maska medyczna z czasów Plagi Prokrastynacji... niestety nic nie daje. Zaczarowana szafa: zestaw medyka (przedmiot 2 z 3).",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Przedmiot dwuręczny."
 }
