@@ -1,9 +1,9 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
+    .item.pet-slot(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
-    ).pet-slot
+    )
       slot(name="itemBadge", :item="item")
       span.item-content(:class="itemContentClass")
       span.pet-progress-background(v-if="item.isAllowedToFeed() && progress > 0")

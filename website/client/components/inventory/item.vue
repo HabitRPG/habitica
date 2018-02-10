@@ -22,9 +22,6 @@ div(v-else)
     slot(name="popoverContent", :item="item")
 </template>
 
-<style>
-</style>
-
 <script>
 import uuid from 'uuid';
 
