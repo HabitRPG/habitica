@@ -81,7 +81,7 @@
     "petNotOwned": "Du besitzt dieses Haustier nicht.",
     "mountNotOwned": "Du besitzt dieses Reittier nicht.",
     "earnedCompanion": "Durch all Deine Produktivität hast Du einen neuen Begleiter erhalten. Füttere ihn damit er wächst!",
-    "feedPet": "Verfüttere <%= article %><%= text %> an <%= name %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Einen magischen Sattel auf <%= pet %> anwenden?",
     "raisedPet": "Du hast ein <%= pet %> aufgezogen!",
     "earnedSteed": "Durch das Erfüllen Deiner Aufgaben hast Du ein treues Reittier verdient!",

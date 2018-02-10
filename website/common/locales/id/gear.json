@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Tongkat Ski Pembunuh",
     "weaponSpecialSkiNotes": "Senjata yang mampu menghancurkan pasukan musuh! Juga mampu membuat belokan paralel yang lancar. Meningkatkan Kekuatan sebesar <%= str %>. Perlengkapan Musim Dingin 2013-2014 Edisi Terbatas.",
     "weaponSpecialCandycaneText": "Tongkat Permen",
-    "weaponSpecialCandycaneNotes": "Tongkat penyihir yang sangat kuat. Sangat ENAK, beneran! Senjata untuk dua tangan. Meningkatkan Kecerdasan sebesar <%= int %> dan Persepsi sebesar <%= per %>. Perlengkapan Musim Dingin 2013-2014 Edisi Terbatas.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Tongkat Kristal Salju",
     "weaponSpecialSnowflakeNotes": "Tongkat ini berkilauan dengan kekuatan penyembuhnya yang tak terbatas. Meningkatkan Kecerdasan sebesar <%= int %>. Perlengkapan Musim Dingin 2013-2014 Edisi Terbatas.",
     "weaponSpecialSpringRogueText": "Cakar Kait",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "Topeng Dokter Wabah",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Topeng autentik yang dikenakan para doktor untuk memerangi Wabah Kemalasan. Tidak menambah status apapun. Peti Harta Karun: Set Doktor Wabah (Item 2 dari 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Topeng autentik yang dikenakan para doktor untuk memerangi Wabah Kemalasan. Tidak menambah status apapun. Peti Harta Karun: Set Doktor Wabah (Item 2 dari 3).",
+    "twoHandedItem": "Two-handed item."
 }

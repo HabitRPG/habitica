@@ -81,7 +81,7 @@
     "petNotOwned": "Bu hayvana sahip değilsin.",
     "mountNotOwned": "Bu bineğe sahip değilsin.",
     "earnedCompanion": "Tüm üretkenliğinin sonucunda yeni bir yol arkadaşı kazandın. Onu besle ki büyüsün!",
-    "feedPet": "<%= name %>, <%= article %><%= text %> ile beslensin mi?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "<%= pet %> üzerinde eyer kullanılsın mı?",
     "raisedPet": "Bir <%= pet %> yetiştirdin!",
     "earnedSteed": "İşlerini tamamlayarak sadık bir binek kazandın!",

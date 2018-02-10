@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Pértiga del Ski-asesino",
     "weaponSpecialSkiNotes": "¡Un arma capaz de destruir hordas enteras de enemigos! También ayuda al usuario a hacer bonitos giros en paralelo. Aumenta la Fuerza en <%= str %>. Equipo de Invierno Edición Limitada 2013-2014.",
     "weaponSpecialCandycaneText": "Báculo Bastón de Caramelo",
-    "weaponSpecialCandycaneNotes": "Un poderoso báculo de mago. ¡Nos referimos a poderosamente DELICIOSO! Arma de dos manos. Incrementa Inteligencia en <%= int %> y Percepción en <%= per %>.  Equipo de Invierno Edición Limitada 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Varita de Copo de Nieve",
     "weaponSpecialSnowflakeNotes": "Esta varita centellea con poder sanador ilimitado. Aumenta la Inteligencia en <%= int %>. Equipo de Invierno Edición Limitada 2013-2014.",
     "weaponSpecialSpringRogueText": "Garras de Gancho",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Máscara de Faisán para Baile de Máscaras ",
     "eyewearMystery301703Notes": "Perfecto para un sofisticado baile de máscaras o para moverte sigilosamente entre cualquier muchedumbre bien vestida. No otorga beneficios. Artículo de Suscriptor de marzo de 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Máscara de médico de la peste negra",
-    "eyewearArmoirePlagueDoctorMaskNotes": "La auténtica máscara de los médicos que combatieron la plaga de la procrastinación. No aporta ningún beneficio. Armario encantado: conjunto de médico de la plaga (artículo 2 de 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "La auténtica máscara de los médicos que combatieron la plaga de la procrastinación. No aporta ningún beneficio. Armario encantado: conjunto de médico de la plaga (artículo 2 de 3).",
+    "twoHandedItem": "Two-handed item."
 }

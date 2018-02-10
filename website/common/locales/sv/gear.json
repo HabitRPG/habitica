@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Skid-ninja stav",
     "weaponSpecialSkiNotes": "Ett vapen som är kapabelt till att förinta horder med fiender! Det hjälper också dess användare att göra väldigt schyssta parallella vändningar. Ökar styrka med <%= str %>. Begränsad utgåva av Vinterutrustning 2013-2014.",
     "weaponSpecialCandycaneText": "Polkagrisstav",
-    "weaponSpecialCandycaneNotes": "En kraftfull magikers stav. Kraftfullt SMASKIGT, menar vi! Två-hänt vapen. Ökar intelligens med <%= int %> och uppmärksamhet med <%= per %>. Begränsad utgåva av Vinterutrustning 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Snöflingsstav",
     "weaponSpecialSnowflakeNotes": "Denna stav gnistrar med en obegränsad helande kraft. Ökar intelligens med <%= int %>. Begränsad utgåva av Vinterutrustning 2013-2014.",
     "weaponSpecialSpringRogueText": "Krokklor",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "Pestdoktorns Mask",
-    "eyewearArmoirePlagueDoctorMaskNotes": "En äkta mask som bärdes av doktorer som slogs mot Pesten av Uppskjutningar. Ger ingen fördel. Förtrollad Kista: Pestläkar-set (Objekt 2 av 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "En äkta mask som bärdes av doktorer som slogs mot Pesten av Uppskjutningar. Ger ingen fördel. Förtrollad Kista: Pestläkar-set (Objekt 2 av 3).",
+    "twoHandedItem": "Two-handed item."
 }

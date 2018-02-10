@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Lyžovražedná hůl",
     "weaponSpecialSkiNotes": "Zbraň schopná ničení hord nepřátel! Také pomáhá svému uživateli dělat pěkně souběžné obraty. Zvyšuje sílu o <%= str %>. Limitovaná edice Zimního vybavení 2013-2014!",
     "weaponSpecialCandycaneText": "Cukrátková hůl",
-    "weaponSpecialCandycaneNotes": "Mocná kouzelnická hůl. Silně VYNIKAJÍCÍ, máme na mysli! Zbraň pro obě ruce. Zvyšuje Inteligenci o <%= int %> a Vnímání o <%= per %>. Limitovaná edice Zimního vybavení 2013-2014!",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Vločková hůlka",
     "weaponSpecialSnowflakeNotes": "Tato hůlka září nekonečnou léčebnou silou. Zvyšuje Inteligenci o <%= int %>. Limitovaná edice Zimního vybavení 2013-2014!",
     "weaponSpecialSpringRogueText": "Hákové drápy",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "Maska Morového Lékaře",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Autentická maska, která chránila doktory bojující s Morem Otálení! Nepřináší žádné výhody. Začarovaná almara: Set Morových Lékařů (Předmět 2 ze 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Autentická maska, která chránila doktory bojující s Morem Otálení! Nepřináší žádné výhody. Začarovaná almara: Set Morových Lékařů (Předmět 2 ze 3).",
+    "twoHandedItem": "Two-handed item."
 }

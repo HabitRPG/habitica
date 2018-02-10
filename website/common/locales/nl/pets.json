@@ -81,7 +81,7 @@
     "petNotOwned": "Je bezit dit huisdier niet.",
     "mountNotOwned": "Je bezit dit rijdier niet.",
     "earnedCompanion": "Door al jouw productiviteit heb je een nieuwe kameraad verdiend. Voer hem en laat hem groeien! ",
-    "feedPet": "<%= text %> aan je <%= name %> voeren?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "<%= pet %> zadelen?",
     "raisedPet": "Je hebt je <%= pet %> laten opgroeien!",
     "earnedSteed": "Door het voltooien van taken heb je een trouw ros verdiend!",

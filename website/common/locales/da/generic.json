@@ -168,6 +168,8 @@
     "achievementBewilderText": "Var med til at overvinde Be-Wilder i 2016 Spring Fling-eventet!",
     "checkOutProgress": "Tjek mine fremskridt i Habitica!",
     "cards": "Kort",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Lykønskningskort",
     "greetingCardExplanation": "I modtager begge Glad Gut-præstationen",

@@ -168,6 +168,8 @@
     "achievementBewilderText": "2016年春の元気なダンス イベントで、「まどわしのビ・ワイルダー」の打倒に協力しました!",
     "checkOutProgress": "Habiticaでの私の成長を見てください!",
     "cards": "カード",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "<span class=\"notification-bold-blue\"><%= card %></span>カードが届きました!",
     "greetingCard": "あいさつのカード",
     "greetingCardExplanation": "お二人とも、Kawaii 実績を解除しました!",

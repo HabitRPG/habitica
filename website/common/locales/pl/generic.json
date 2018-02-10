@@ -168,6 +168,8 @@
     "achievementBewilderText": "Pomógł pokonać Be-Wildera podczas Obchodów Wiosennej Uciechy 2016!",
     "checkOutProgress": "Sprawdź swój postęp w Habitice!",
     "cards": "Karty",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "Otrzymałeś <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Kartka powitalna",
     "greetingCardExplanation": "Oboje otrzymaliście osiągnięcie Wesoły koleś!",

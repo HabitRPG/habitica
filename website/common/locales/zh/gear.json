@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "滑雪刺客杖",
     "weaponSpecialSkiNotes": "该武器能够消灭成群的敌人！同时，它还能帮助玩家进行很好的双板平行转弯。增加<%= str %>力量。2013-2014冬季装备限量版。",
     "weaponSpecialCandycaneText": "糖晶魔杖",
-    "weaponSpecialCandycaneNotes": "一支非常强大的法师魔杖。我的意思是！非！常！美！味！，增加<%= int %>点智力，和增加<%= per %>点感知。2013-2014冬季限量版装备。",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "雪花魔杖",
     "weaponSpecialSnowflakeNotes": "这把魔杖闪耀着无限的治疗之力。增加<%= int %>点智力。2013-2014冬季限量版装备。",
     "weaponSpecialSpringRogueText": "钩爪",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "孔雀化妆舞会面具",
     "eyewearMystery301703Notes": "完美适配美妙的化妆舞会，或者静悄悄地穿过那些特别讲究穿着的人群。没有属性加成。3017年三月捐赠者礼品。",
     "eyewearArmoirePlagueDoctorMaskText": "瘟疫医生面具",
-    "eyewearArmoirePlagueDoctorMaskNotes": "防治延迟瘟疫的医生袋的地道面具。没有属性加成。魔法衣橱: 瘟疫医生系列 (3件的第2件)。"
+    "eyewearArmoirePlagueDoctorMaskNotes": "防治延迟瘟疫的医生袋的地道面具。没有属性加成。魔法衣橱: 瘟疫医生系列 (3件的第2件)。",
+    "twoHandedItem": "Two-handed item."
 }

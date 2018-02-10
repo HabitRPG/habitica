@@ -81,7 +81,7 @@
     "petNotOwned": "Kamu tidak memiliki peliharaan ini.",
     "mountNotOwned": "Kamu tidak memiliki tunggangan ini.",
     "earnedCompanion": "Berkat produktivitasmu, kamu mendapatkan seekor teman baru. Beri dia makan supaya dia tumbuh besar!",
-    "feedPet": "Beri makan <%= article %><%= text %> kepada <%= name %> milikmu?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Tunggangi <%= pet %>?",
     "raisedPet": "Kamu membesarkan <%= pet %> milikmu!",
     "earnedSteed": "Dengan melengkapi tugasmu, kamu mendapatkan tunggangan yang setia!",
