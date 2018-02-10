@@ -28,6 +28,10 @@ div
     left: calc((100% - 62px) / 2);
   }
 
+  .pet-slot {
+    margin: 0 2px;
+  }
+
   .pet-progress-bar {
     height: 4px;
     background-color: #24cc8f;
