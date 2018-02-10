@@ -1,9 +1,12 @@
-import shared from '../../../common';
+import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
 import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
+import {
+  model as UserNotification,
+} from '../userNotification';
 
 import schema from './schema';
 
@@ -15,12 +18,12 @@ schema.plugin(baseModel, {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
     delete plainObj.filters;
 
+    if (originalDoc.notifications) {
+      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
+    }
+
     return plainObj;
   },
-});
-
-schema.post('init', function postInitUser (doc) {
-  shared.wrap(doc);
 });
 
 function findTag (user, tagName) {
@@ -33,10 +36,10 @@ function findTag (user, tagName) {
 function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
-    defaultsData = shared.content.userDefaultsMobile;
+    defaultsData = common.content.userDefaultsMobile;
     user.flags.welcomed = true;
   } else {
-    defaultsData = shared.content.userDefaults;
+    defaultsData = common.content.userDefaults;
   }
   let tagsI = taskTypes.indexOf('tag');
 
@@ -45,7 +48,7 @@ function _populateDefaultTasks (user, taskTypes) {
       let newTag = _.cloneDeep(tag);
 
       // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
-      newTag.id = shared.uuid();
+      newTag.id = common.uuid();
       // Render tag's name in user's language
       newTag.name = newTag.name(user.preferences.language);
       return newTag;
@@ -222,21 +225,21 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // do not calculate achievements if items or achievements are not selected
   if (this.isSelected('items') && this.isSelected('achievements')) {
     // Determines if Beast Master should be awarded
-    let beastMasterProgress = shared.count.beastMasterProgress(this.items.pets);
+    let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
     if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
       this.achievements.beastMaster = true;
     }
 
     // Determines if Mount Master should be awarded
-    let mountMasterProgress = shared.count.mountMasterProgress(this.items.mounts);
+    let mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
     if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
       this.achievements.mountMaster = true;
     }
 
     // Determines if Triad Bingo should be awarded
-    let dropPetCount = shared.count.dropPetsCurrentlyOwned(this.items.pets);
+    let dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
     let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
     if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
@@ -255,7 +258,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
     // Sometimes there can be more than 1 notification
     const existingNotifications = this.notifications.filter(notification => {
-      return notification.type === 'UNALLOCATED_STATS_POINTS';
+      return notification && notification.type === 'UNALLOCATED_STATS_POINTS';
     });
 
     const existingNotificationsLength = existingNotifications.length;
@@ -277,7 +280,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
       let notificationsRemoved = 0;
 
       this.notifications = this.notifications.filter(notification => {
-        if (notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
+        if (notification && notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
         if (notificationsRemoved === notificationsToRemove) return true;
 
         notificationsRemoved++;

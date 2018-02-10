@@ -176,6 +176,7 @@
 
     .potion-icon {
       margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -186,6 +187,7 @@
     .popover-content {
       color: white;
       margin: 15px;
+      text-align: center;
     }
   }
 </style>
@@ -473,12 +475,12 @@ export default {
     mouseMoved ($event) {
       if (this.potionClickMode) {
         // dragging potioninfo is 180px wide (90 would be centered)
-        this.$refs.clickPotionInfo.style.left = `${$event.x - 70}px`;
-        this.$refs.clickPotionInfo.style.top = `${$event.y}px`;
+        this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y + 10}px`;
       } else if (this.eggClickMode) {
          // dragging eggInfo is 180px wide (90 would be centered)
-        this.$refs.clickEggInfo.style.left = `${$event.x - 70}px`;
-        this.$refs.clickEggInfo.style.top = `${$event.y}px`;
+        this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
+        this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
       } else {
         lastMouseMoveEvent = $event;
       }

@@ -81,7 +81,7 @@
   "petNotOwned": "You do not own this pet.",
   "mountNotOwned": "You do not own this mount.",
   "earnedCompanion": "With all your productivity, you've earned a new companion. Feed it to make it grow!",
-  "feedPet": "Feed <%= article %><%= text %> to your <%= name %>?",
+  "feedPet": "Feed <%= text %> to your <%= name %>?",
   "useSaddle": "Saddle <%= pet %>?",
   "raisedPet": "You grew your <%= pet %>!",
   "earnedSteed": "By completing your tasks, you've earned a faithful steed!",

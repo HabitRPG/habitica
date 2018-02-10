@@ -59,6 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
     "messageNotificationNotFound": "Notifikasi tidak ditemukan.",
     "notificationsRequired": "Id notifikasi diperlukan.",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "Kamu punya <span class=\"notification-bold-blue\"><%= points %>Poin Atribut yang belum teralokasi</span>",
     "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!"
 }

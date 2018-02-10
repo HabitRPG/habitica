@@ -434,6 +434,12 @@ api.deleteUser = {
       ]);
     }
 
+    res.analytics.track('account delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
+
     res.respond(200, {});
   },
 };
@@ -470,7 +476,7 @@ api.getUserAnonymized = {
     let user = res.locals.user.toJSON();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
 
     delete user.apiToken;
     if (user.auth) {
@@ -1856,6 +1862,12 @@ api.userReset = {
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);
+
+    res.analytics.track('account reset', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
 
     res.respond(200, ...resetRes);
   },
