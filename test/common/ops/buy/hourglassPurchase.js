@@ -1,19 +1,25 @@
-import hourglassPurchase from '../../../website/common/script/ops/hourglassPurchase';
+import hourglassPurchase from '../../../../website/common/script/ops/buy/hourglassPurchase';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
-import content from '../../../website/common/script/content/index';
+} from '../../../../website/common/script/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
+import content from '../../../../website/common/script/content/index';
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../helpers/common.helper';
 
 describe('common.ops.hourglassPurchase', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser();
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -126,11 +132,12 @@ describe('common.ops.hourglassPurchase', () => {
     it('buys a pet', () => {
       user.purchased.plan.consecutive.trinkets = 2;
 
-      let [, message] = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}});
+      let [, message] = hourglassPurchase(user, {params: {type: 'pets', key: 'MantisShrimp-Base'}}, analytics);
 
       expect(message).to.eql(i18n.t('hourglassPurchase'));
       expect(user.purchased.plan.consecutive.trinkets).to.eql(1);
       expect(user.items.pets).to.eql({'MantisShrimp-Base': 5});
+      expect(analytics.track).to.be.calledOnce;
     });
 
     it('buys a mount', () => {

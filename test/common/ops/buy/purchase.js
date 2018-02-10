@@ -1,14 +1,14 @@
-import purchase from '../../../website/common/script/ops/purchase';
-import planGemLimits from '../../../website/common/script/libs/planGemLimits';
+import purchase from '../../../../website/common/script/ops/buy/purchase';
+import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../../website/common/script/libs/errors';
-import i18n from '../../../website/common/script/i18n';
+} from '../../../../website/common/script/libs/errors';
+import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
-} from '../../helpers/common.helper';
+} from '../../../helpers/common.helper';
 import forEach from 'lodash/forEach';
 import moment from 'moment';
 
@@ -17,9 +17,18 @@ describe('shared.ops.purchase', () => {
   let user;
   let goldPoints = 40;
   let gemsBought = 40;
+  let analytics = {track () {}};
 
   before(() => {
     user = generateUser({'stats.class': 'rogue'});
+  });
+
+  beforeEach(() => {
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -129,6 +138,19 @@ describe('shared.ops.purchase', () => {
         done();
       }
     });
+
+
+    it('returns error when item is not found', (done) => {
+      let params = {key: 'notExisting', type: 'food'};
+
+      try {
+        purchase(user, {params});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotFound);
+        expect(err.message).to.equal(i18n.t('contentKeyNotFound', params));
+        done();
+      }
+    });
   });
 
   context('successful purchase', () => {
@@ -142,12 +164,13 @@ describe('shared.ops.purchase', () => {
     });
 
     it('purchases gems', () => {
-      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}});
+      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}}, analytics);
 
       expect(message).to.equal(i18n.t('plusOneGem'));
       expect(user.balance).to.equal(userGemAmount + 0.25);
       expect(user.purchased.plan.gemsBought).to.equal(1);
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
+      expect(analytics.track).to.be.calledOnce;
     });
 
     it('purchases gems with a different language than the default', () => {
@@ -163,9 +186,10 @@ describe('shared.ops.purchase', () => {
       let type = 'eggs';
       let key = 'Wolf';
 
-      purchase(user, {params: {type, key}});
+      purchase(user, {params: {type, key}}, analytics);
 
       expect(user.items[type][key]).to.equal(1);
+      expect(analytics.track).to.be.calledOnce;
     });
 
     it('purchases hatchingPotions', () => {

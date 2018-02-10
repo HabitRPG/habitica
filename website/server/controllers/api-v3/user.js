@@ -744,6 +744,9 @@ api.sleep = {
   },
 };
 
+const buySpecialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
+
 /**
  * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
@@ -781,14 +784,13 @@ api.buy = {
     let user = res.locals.user;
 
     let buyRes;
-    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
-    if (specialKeys.indexOf(req.params.key) !== -1) {
-      type = 'special';
+    if (buySpecialKeys.indexOf(type) !== -1) {
+      req.type = 'special';
+    } else if (buyKnownKeys.indexOf(type) === -1) {
+      req.type = 'marketGear';
     }
-    req.type = type;
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
     if (req.body.type) req.type = req.body.type;
@@ -1267,7 +1269,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
+    let purchaseRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1298,7 +1300,7 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },

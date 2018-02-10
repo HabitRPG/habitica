@@ -1,12 +1,12 @@
-import i18n from '../i18n';
-import content from '../content/index';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import get from 'lodash/get';
 import each from 'lodash/each';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function buyMysterySet (user, req = {}, analytics) {
   let key = get(req, 'params.key');
@@ -21,10 +21,6 @@ module.exports = function buyMysterySet (user, req = {}, analytics) {
 
   if (!mysterySet) {
     throw new NotFound(i18n.t('mysterySetNotFound', req.language));
-  }
-
-  if (typeof window !== 'undefined' && !req.noConfirm && window.confirm) { // TODO move to client
-    if (!window.confirm(i18n.t('hourglassBuyEquipSetConfirm'))) return;
   }
 
   each(mysterySet.items, item => {

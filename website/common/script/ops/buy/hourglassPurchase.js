@@ -1,12 +1,12 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import content from '../../content/index';
+import i18n from '../../i18n';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import keys from 'lodash/keys';
 import {
   BadRequest,
   NotAuthorized,
-} from '../libs/errors';
+} from '../../libs/errors';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
   let key = get(req, 'params.key');

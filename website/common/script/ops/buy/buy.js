@@ -1,14 +1,16 @@
-import i18n from '../i18n';
+import i18n from '../../i18n';
 import get from 'lodash/get';
 import {
   BadRequest,
-} from '../libs/errors';
+} from '../../libs/errors';
 import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
 import buyGear from './buyGear';
 import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
+import purchaseOp from './purchase';
+import hourglassPurchase from './hourglassPurchase';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -22,29 +24,43 @@ module.exports = function buy (user, req = {}, analytics) {
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes
   let type = get(req, 'type');
+  if (!type) type = get(req, 'params.type');
   if (!type) type = key;
-
-  // @TODO: For now, builk purchasing is here, but we should probably have a parent vendor
-  // class that calls the factory and handles larger operations. If there is more than just bulk
-  let quantity = 1;
-  if (req.quantity) quantity = req.quantity;
 
   let buyRes;
 
-  for (let i = 0; i < quantity; i += 1) {
-    if (type === 'potion') {
-      buyRes = buyHealthPotion(user, req, analytics);
-    } else if (type === 'armoire') {
+  switch (type) {
+    case 'armoire':
       buyRes = buyArmoire(user, req, analytics);
-    } else if (type === 'mystery') {
+      break;
+    case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
-    } else if (type === 'quest') {
+      break;
+    case 'potion':
+      buyRes = buyHealthPotion(user, req, analytics);
+      break;
+    case 'eggs':
+    case 'hatchingPotions':
+    case 'food':
+    case 'quests':
+    case 'gear':
+    case 'bundles':
+    case 'gems':
+      buyRes = purchaseOp(user, req, analytics);
+      break;
+    case 'pets':
+    case 'mounts':
+      buyRes = hourglassPurchase(user, req, analytics);
+      break;
+    case 'quest':
       buyRes = buyQuest(user, req, analytics);
-    } else if (type === 'special') {
+      break;
+    case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
-    } else {
+      break;
+    default:
       buyRes = buyGear(user, req, analytics);
-    }
+      break;
   }
 
   return buyRes;
