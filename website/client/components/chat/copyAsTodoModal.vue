@@ -5,7 +5,7 @@
     .form-group
       textarea.form-control(rows='5', v-model='task.notes' focus-element='true')
     hr
-    task(v-if='task._id', :isUser="isUser", :task="task")
+    task(v-if='task._id', :isUser="isUser", :isCopyAsTodo="isCopyAsTodo", :task="task")
     .modal-footer
       button.btn.btn-secondary(@click='close()') {{ $t('close') }}
       button.btn.btn-primary(@click='saveTodo()') {{ $t('submit') }}
@@ -33,6 +33,7 @@ export default {
   data () {
     return {
       isUser: true,
+      isCopyAsTodo: true,
       task: {},
     };
   },

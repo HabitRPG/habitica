@@ -17,7 +17,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies",
+              v-if="isUser && !isRunningYesterdailies && !isCopyAsTodo",
               :right="task.type === 'reward'",
               ref="taskDropdown"
             )
@@ -524,7 +524,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'isCopyAsTodo'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
