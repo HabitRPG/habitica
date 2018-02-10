@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Палка лыжника-ассасина",
     "weaponSpecialSkiNotes": "Оружие способное уничтожать орды врагов! Оно также помогает владельцу делать красивые параллельные повороты. Увеличивает силу на <%= str %>. Ограниченный выпуск зимы 2013-2014.",
     "weaponSpecialCandycaneText": "Карамельный посох",
-    "weaponSpecialCandycaneNotes": "Потрясающий магический посох. То есть, потрясающе ВКУСНЫЙ, разумеется! Двуручное оружие. Увеличивает интеллект на <%= int %> и восприятие на <%= per %>. Ограниченный выпуск зимы 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Палочка «Снежинка»",
     "weaponSpecialSnowflakeNotes": "Эта волшебная палочка так и сверкает от бесконечной исцеляющей силы. Увеличивает интеллект на <%= int %>. Ограниченный выпуск зимы 2013-2014.",
     "weaponSpecialSpringRogueText": "Крюк-кошка",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Маскарадная маска павлина",
     "eyewearMystery301703Notes": "Идеально подходит для причудливого маскарада или для скрытного перемещения через особо хорошо одетую толпу. Бонусов не дает. Март 3017 Элемент подписчика.",
     "eyewearArmoirePlagueDoctorMaskText": "Маска чумного доктора",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Такие маски носили доктора, боровшиеся с Чумой Прокрастинации. Бонусов не даёт. Зачарованный сундук: Набор Чумного доктора (предмет 2 из 3)"
+    "eyewearArmoirePlagueDoctorMaskNotes": "Такие маски носили доктора, боровшиеся с Чумой Прокрастинации. Бонусов не даёт. Зачарованный сундук: Набор Чумного доктора (предмет 2 из 3)",
+    "twoHandedItem": "Two-handed item."
 }

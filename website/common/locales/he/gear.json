@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "מוט מתנקש-סקי",
     "weaponSpecialSkiNotes": "נשק המאפשר להביס להקות של אויבים! ובנוסף, מאפשר למשתמש לבצע פניות מקבילות חינניות. מגביר את הכח ב <%= str %>. מהדורה מוגבלת, ציוד חורף 2013-2014 .",
     "weaponSpecialCandycaneText": "מטה סוכרייה על מקל",
-    "weaponSpecialCandycaneNotes": "מטה מכשף עוצמתי. הוא עוצמתי באופן טעים במיוחד! נשק זה דורש שני ידיים. מעלה את התבונה ב<%= int %> , ואת התפיסה ב<%= per %> נקודות. מהדורה מוגבלת, ציוד חורף 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "שרביט פתית",
     "weaponSpecialSnowflakeNotes": "שרביט זה בוהק ביכולת ריפוי בלתי נלאית. מגביר את התבונה ב<%= int %> נקודות. מהדורת מוגבלת, ציוד חורף 2013-2014.",
     "weaponSpecialSpringRogueText": "טפרי קרס",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "מסכת דוקטור מגפה",
-    "eyewearArmoirePlagueDoctorMaskNotes": "מסכה אותנטית שנחבשה על-ידי הרופאים שנלחמו במגפת הדחיינות. לא מקנה ייתרון. ארמואר קסום: סט דוקטור מגפה (עצם 2 מתוך 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "מסכה אותנטית שנחבשה על-ידי הרופאים שנלחמו במגפת הדחיינות. לא מקנה ייתרון. ארמואר קסום: סט דוקטור מגפה (עצם 2 מתוך 3).",
+    "twoHandedItem": "Two-handed item."
 }

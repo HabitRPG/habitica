@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Mastro Assa-ski-no",
     "weaponSpecialSkiNotes": "Uma arma capaz de destruir hordas de inimigos! Também ajuda o usuário a fazer belas curvas paralelas no esqui. Aumenta Força em <%= str %>. Equipamento Edição Limitada de Inverno 2013-2014.",
     "weaponSpecialCandycaneText": "Cajado de Bastão Doce",
-    "weaponSpecialCandycaneNotes": "Um poderoso cajado de mago. Poderosamente DELICIOSO, queremos dizer! Arma de duas mãos. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento Edição Limitada de Inverno 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Varinha Floco de Neve",
     "weaponSpecialSnowflakeNotes": "Esta varinha brilha com poder ilimitado de cura. Aumenta Inteligência em <%= int %>. Equipamento Edição Limitada de Inverno 2013-2014.",
     "weaponSpecialSpringRogueText": "Garras de Gancho",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Máscara do Pavão Mascarado",
     "eyewearMystery301703Notes": "Perfeito para um baile de máscaras ou para se mover furtivamente entre uma multidão bem vestida. Não concede benefícios. Item de Assinante, Março de 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Máscara de Médico da Peste",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Uma autêntica máscara usada pelos médicos que lutam contra a Peste da Procrastinação. Não concede benefícios. Armário Encantado: Conjunto Médico da Peste (Item 2 de 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Uma autêntica máscara usada pelos médicos que lutam contra a Peste da Procrastinação. Não concede benefícios. Armário Encantado: Conjunto Médico da Peste (Item 2 de 3).",
+    "twoHandedItem": "Two-handed item."
 }

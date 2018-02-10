@@ -81,7 +81,7 @@
     "petNotOwned": "你没有拥有这个宠物。",
     "mountNotOwned": "您还未拥有这一坐骑",
     "earnedCompanion": "因为你的不懈努力，你又获得了一个新的伙伴，好好喂养它，让它成长!",
-    "feedPet": "喂你的<%= name %>一个<%= article %><%= text %>？",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "把鞍用在<%= pet %>上？",
     "raisedPet": "你让你的<%= pet %>长大了！",
     "earnedSteed": "通过完成你的任务，你获得了一匹忠诚的坐骑！",

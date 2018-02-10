@@ -168,6 +168,8 @@
     "achievementBewilderText": "¡Ayudó a derrotar al Apa-bullador durante el Evento de Primavera de 2016!",
     "checkOutProgress": "Consultar mi progreso en Habitica",
     "cards": "Tarjetas ",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Tarjeta de saludo",
     "greetingCardExplanation": "Ambos recibís el logro Alegres Amigotes",

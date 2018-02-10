@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Sí-gyilkos bot",
     "weaponSpecialSkiNotes": "Ez a fegyver képes ellenségeid egész hordáját megsemmisíteni! Továbbá a használója szuper párhuzamos fordulásokat tud végrehajtani vele. Növeli az erődet <%= str %> ponttal. Limitált kiadású 2013-2014-es téli felszerelés.",
     "weaponSpecialCandycaneText": "Cukorbot varázspálca",
-    "weaponSpecialCandycaneNotes": "Egy erőteljes mágus varázsbotja. Mármint erőteljesen ÍZLETES! Kétkezes fegyver. Növeli az intelligenciádat <%= int %> ponttal és az észlelésedet <%= per %> ponttal. Limitált kiadású 2013-2014-es téli felszerelés.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Hópehely varázspálca",
     "weaponSpecialSnowflakeNotes": "Ez a varázspálca végtelen gyógyítóerővel ragyog. Növeli az intelligenciádat <%= int %> ponttal. Limitált kiadású 2013-2014-es téli felszerelés.",
     "weaponSpecialSpringRogueText": "Kampós karmok",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Álarcosbáli páva maszk",
     "eyewearMystery301703Notes": "Tökéletes egy előkelő álarcosbálon vagy hogy végiglopakodj egy jól öltözött tömegen. Nem változtat a tulajdonságaidon. 3017 márciusi előfizetői tárgy.",
     "eyewearArmoirePlagueDoctorMaskText": "Pestisdoktor maszk",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Ezt az eredeti maszkot azok a doktorok hordják akik a Halogatás pestise ellen harcolnak! Nem változtat a tulajdonságaidon. Elvarázsolt láda: Pestisdoktor szett (2. tárgy a 3-ból)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Ezt az eredeti maszkot azok a doktorok hordják akik a Halogatás pestise ellen harcolnak! Nem változtat a tulajdonságaidon. Elvarázsolt láda: Pestisdoktor szett (2. tárgy a 3-ból).",
+    "twoHandedItem": "Two-handed item."
 }

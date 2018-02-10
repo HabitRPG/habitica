@@ -81,7 +81,7 @@
     "petNotOwned": "Você não possui esse mascote.",
     "mountNotOwned": "Você não possui essa montaria.",
     "earnedCompanion": "Com toda sua produtividade, você conseguiu um novo companheiro. Alimente-o para fazê-lo crescer.",
-    "feedPet": "Alimentar <%= article %><%= text %> para o seu <%= name %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Usar sela em <%= pet %>?",
     "raisedPet": "Você domou seu <%= pet %>!",
     "earnedSteed": "Por completar suas tarefas, você conquistou uma fiel montaria!",

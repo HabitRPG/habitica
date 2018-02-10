@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Asta del Nevassassino",
     "weaponSpecialSkiNotes": "Un'arma capace di distruggere orde di nemici! Aiuta anche a fare splendide curve con gli sci. Aumenta la Forza di <%= str %>. Edizione limitata, inverno 2013-2014.",
     "weaponSpecialCandycaneText": "Verga Caramellata",
-    "weaponSpecialCandycaneNotes": "Un potente bastone da mago. Anzi, DELIZIOSAMENTE potente! Arma a due mani. Aumenta l'Intelligenza di <%= int %> e la Percezione di <%= per %>. Edizione limitata, inverno 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Bacchetta Fioccodineve",
     "weaponSpecialSnowflakeNotes": "Questa bacchetta risplende di un illimitato potere curativo! Aumenta l'Intelligenza di <%= int %>. Edizione limitata, inverno 2013-2014.",
     "weaponSpecialSpringRogueText": "Artigli a uncino",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Maschera della Festa in Maschera del Pavone",
     "eyewearMystery301703Notes": "Perfetto per una lussuosa festa in maschera o per muoverti furtivamente attraverso una folla particolarmente ben vestita. Non conferisce alcun beneficio. Oggetto per abbonati, marzo 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Maschera del Dottore della Piaga",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Un'autentica maschera indossata dai dottori che combattono la Piaga della Procrastinazione. Non conferisce alcun bonus. Scrigno Incantato: Set da Dottore della Piaga (Oggetto 2 di 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Un'autentica maschera indossata dai dottori che combattono la Piaga della Procrastinazione. Non conferisce alcun bonus. Scrigno Incantato: Set da Dottore della Piaga (Oggetto 2 di 3).",
+    "twoHandedItem": "Two-handed item."
 }

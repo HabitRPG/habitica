@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "スノアイパーのポール",
     "weaponSpecialSkiNotes": "敵の大群を破壊することができる武器!　また、とても素晴らしいパラレルターンをするのにも役立ちます。力が <%= str %> 上がります。2013年-2014年冬の限定装備。",
     "weaponSpecialCandycaneText": "キャンディー棒のつえ",
-    "weaponSpecialCandycaneNotes": "パワフルな魔道士のつえ。パワフルにおいしい!　両手もちの武器。知能が <%= int %>、知覚が <%= per %> 上がります。2013年-2014年冬の限定装備。",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "雪の結晶のつえ",
     "weaponSpecialSnowflakeNotes": "このつえは無限のいやしの力で輝いています。知能が <%= int %> 上がります。2013年-2014年冬の限定装備。",
     "weaponSpecialSpringRogueText": "かぎづめ",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "クジャクの舞踏会の仮面",
     "eyewearMystery301703Notes": "派手な仮面舞踏会や、身なりの良い群衆の中をひっそりと動くのに最適である。効果なし。3017年3月寄付会員アイテム。",
     "eyewearArmoirePlagueDoctorMaskText": "ペスト専門医のマスク",
-    "eyewearArmoirePlagueDoctorMaskNotes": "「先延ばし」という名のペスト(伝染病)とたたかった医師が着けていた信頼のおけるマスク。効果なし。ラッキー宝箱 : ペスト専門医セット( 3 個中 2 個目のアイテム)。"
+    "eyewearArmoirePlagueDoctorMaskNotes": "「先延ばし」という名のペスト(伝染病)とたたかった医師が着けていた信頼のおけるマスク。効果なし。ラッキー宝箱 : ペスト専門医セット( 3 個中 2 個目のアイテム)。",
+    "twoHandedItem": "Two-handed item."
 }

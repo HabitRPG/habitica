@@ -168,6 +168,8 @@
     "achievementBewilderText": "Ha contribuito alla sconfitta del Be-Wilder durante l'evento Spring Fling 2016!",
     "checkOutProgress": "Guarda i miei progressi su Habitica!",
     "cards": "Cartoline",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "Hai ricevuto una <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Cartolina di saluto",
     "greetingCardExplanation": "Ricevete entrambi la medaglia Allegro Compagno!",
