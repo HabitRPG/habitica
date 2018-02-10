@@ -37,11 +37,6 @@ describe('cron middleware', () => {
 
     user.save()
     .then(savedUser => {
-      savedUser._statsComputed = {
-        mp: 10,
-        maxMP: 100,
-      };
-
       res.locals.user = savedUser;
       res.analytics = analyticsService;
       done();

@@ -168,6 +168,8 @@
     "achievementBewilderText": "Segített legyőzni a Zűrzavart a 2016 tavaszi fesztivál alatt!",
     "checkOutProgress": "Fejlődésem megtekintése a Habiticán!",
     "cards": "Üdvözlőlapok",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Üdvözlőkártya",
     "greetingCardExplanation": "Mindketten megkaptátok a Vidám pajtás kitüntetést!",

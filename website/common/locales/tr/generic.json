@@ -168,6 +168,8 @@
     "achievementBewilderText": "2016 Bahar Şenliği Etkinliği sırasında Şaşkhoroz'u yenmeye yardım etti!",
     "checkOutProgress": "Habitica'daki gelişimimi görüntüle!",
     "cards": "Kartlar",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Selamlama Kartı",
     "greetingCardExplanation": "İkiniz de Şen Dost başarısını kazandınız!",

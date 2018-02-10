@@ -191,11 +191,12 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import spellsMixin from 'client/mixins/spells';
 
 import svgClose from 'assets/svg/close.svg';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   name: 'app',
   components: {
     AppMenu,
@@ -491,14 +492,7 @@ export default {
       }
     },
     async memberSelected (member) {
-      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
-
-      // Subtract gold for cards
-      if (this.selectedSpellToBuy.pinType === 'card') {
-        const newUserGp = castResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
-      }
+      await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
@@ -545,4 +539,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>

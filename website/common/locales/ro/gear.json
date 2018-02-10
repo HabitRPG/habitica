@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Suliță Ski-sasin",
     "weaponSpecialSkiNotes": "O armă ce poate distruge hoarde întregi de inamici! In plus, ajută utilizatorul să facă viraje paralele perfecte cu schiurile. Crește Forța cu <%= str %>. Echipament de Iarnă 2013-2014 în Ediție Limitată!",
     "weaponSpecialCandycaneText": "Toiag cu vată de zahăr",
-    "weaponSpecialCandycaneNotes": "Un impresionant toiag de mag. Impresionant de DELICIOS adică! Armă pentru două mâini. Sporește Inteligența cu <%= int %> și Percepția cu <%= per %>. Echipament de iarnă 2013-2014 în ediție limitată.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Bagheta fulgului de zăpadă",
     "weaponSpecialSnowflakeNotes": "Această baghetă sclipește cu putere nelimitată de vindecare. Crește Inteligența cu <%= int %>. Ediție Limitată Echipament Iarna 2013-2014!",
     "weaponSpecialSpringRogueText": "Gheare de cățărat",
@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
     "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Back Accessory",
     "backCapitalized": "Back Accessory",
     "backBase0Text": "Niciun accesoriu pentru spate",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "Plague Doctor Mask",
-    "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
+    "twoHandedItem": "Two-handed item."
 }

@@ -4,15 +4,16 @@ import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyGear from '../../../../website/common/script/ops/buyGear';
+import buyGear from '../../../../website/common/script/ops/buy/buyGear';
 import shared from '../../../../website/common/script';
 import {
-  NotAuthorized,
+  BadRequest, NotAuthorized, NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buyGear', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser({
@@ -31,18 +32,20 @@ describe('shared.ops.buyGear', () => {
 
     sinon.stub(shared, 'randomVal');
     sinon.stub(shared.fns, 'predictableRandom');
+    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
     shared.randomVal.restore();
     shared.fns.predictableRandom.restore();
+    analytics.track.restore();
   });
 
   context('Gear', () => {
     it('adds equipment to inventory', () => {
       user.stats.gp = 31;
 
-      buyGear(user, {params: {key: 'armor_warrior_1'}});
+      buyGear(user, {params: {key: 'armor_warrior_1'}}, analytics);
 
       expect(user.items.gear.owned).to.eql({
         weapon_warrior_0: true,
@@ -55,6 +58,7 @@ describe('shared.ops.buyGear', () => {
         eyewear_special_whiteTopFrame: true,
         eyewear_special_yellowTopFrame: true,
       });
+      expect(analytics.track).to.be.calledOnce;
     });
 
     it('deducts gold from user', () => {
@@ -135,6 +139,38 @@ describe('shared.ops.buyGear', () => {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
         expect(user.items.gear.owned).to.not.have.property('armor_warrior_1');
+        done();
+      }
+    });
+
+    it('returns error when key is not provided', (done) => {
+      try {
+        buyGear(user);
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('missingKeyParam'));
+        done();
+      }
+    });
+
+    it('returns error when item is not found', (done) => {
+      let params = {key: 'armor_warrior_notExisting'};
+
+      try {
+        buyGear(user, {params});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotFound);
+        expect(err.message).to.equal(i18n.t('itemNotFound', params));
+        done();
+      }
+    });
+
+    it('does not buyGear equipment without the previous equipment', (done) => {
+      try {
+        buyGear(user, {params: {key: 'armor_warrior_2'}});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('previousGearNotOwned'));
         done();
       }
     });

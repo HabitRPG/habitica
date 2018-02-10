@@ -6,7 +6,6 @@ import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinned
 import changeClassOp from 'common/script/ops/changeClass';
 import disableClassesOp from 'common/script/ops/disableClasses';
 
-
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,

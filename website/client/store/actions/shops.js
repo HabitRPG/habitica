@@ -1,8 +1,8 @@
 import axios from 'axios';
-import buyOp from 'common/script/ops/buy';
+import buyOp from 'common/script/ops/buy/buy';
 import content from 'common/script/content/index';
-import purchaseOp from 'common/script/ops/purchaseWithSpell';
-import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
+import purchaseOp from 'common/script/ops/buy/purchaseWithSpell';
+import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import rerollOp from 'common/script/ops/reroll';
@@ -101,7 +101,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, noConfirm: true, type: 'mystery'});
+  let opResult = buyOp(user, {params, type: 'mystery'});
 
   return {
     result: opResult,

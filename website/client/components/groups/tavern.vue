@@ -24,7 +24,7 @@
 
         .row
           .hr.col-12
-          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
 
   .col-12.col-sm-4.sidebar
     .section

@@ -126,7 +126,6 @@ export async function removeMember (store, payload) {
 // }
 //
 // function _prepareMember(member, self) {
-//   Shared.wrap(member, false);
 //   self.selectedMember = members[member._id];
 // }
 //

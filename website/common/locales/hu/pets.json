@@ -81,7 +81,7 @@
     "petNotOwned": "Ennek a háziállatnak nem te vagy a gazdája.",
     "mountNotOwned": "Ennek a hátasnak nem te vagy a gazdája.",
     "earnedCompanion": "Produktivitásoddal új társaságra tettél szert! Etesd meg, hogy megnőjön!",
-    "feedPet": "Megeteted a(z) <%= article %><%= text %>-t a <%= name %>-el?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Felnyergeled a(z) <%= pet %>-t?",
     "raisedPet": "Felnevelted a <%= pet %>-d!",
     "earnedSteed": "Feladatait elvégzésével szert tettél egy hűséges paripára!",

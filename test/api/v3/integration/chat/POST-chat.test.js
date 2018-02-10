@@ -234,7 +234,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[0][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
@@ -287,7 +287,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledThrice;
-      expect(email.sendTxn.args[2][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[2][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
