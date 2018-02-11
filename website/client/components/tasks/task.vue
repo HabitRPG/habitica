@@ -8,7 +8,7 @@
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.positive(v-html="icons.positive")
       // Dailies and todos left side control
-      .left-control.d-flex.justify-content-center(v-if="task.type === 'daily' || task.type === 'todo'", :class="controlClass.bg")
+      .left-control.d-flex.justify-content-center(v-if="(task.type === 'daily' || task.type === 'todo') && !task.preventCheck", :class="controlClass.bg")
         .task-control.daily-todo-control(:class="controlClass.inner", @click="isUser ? score(task.completed ? 'down' : 'up') : null")
           .svg-icon.check(v-html="icons.check", :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}")
       // Task title, description and icons
@@ -17,7 +17,7 @@
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
             menu-dropdown.task-dropdown(
-              v-if="isUser && !isRunningYesterdailies && !isCopyAsTodo",
+              v-if="isUser && !isRunningYesterdailies && !preventEdit",
               :right="task.type === 'reward'",
               ref="taskDropdown"
             )
@@ -524,7 +524,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['task', 'isUser', 'group', 'dueDate', 'isCopyAsTodo'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'dueDate', 'preventCheck', 'preventEdit'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       icons: Object.freeze({
