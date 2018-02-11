@@ -11,72 +11,84 @@ import {
 import handleTwoHanded from '../../fns/handleTwoHanded';
 import ultimateGear from '../../fns/ultimateGear';
 
-import { removePinnedGearAddPossibleNewOnes } from '../pinnedGearUtils';
+import {removePinnedGearAddPossibleNewOnes} from '../pinnedGearUtils';
 
-module.exports = function buyGear (user, req = {}, analytics) {
-  let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
+import {AbstractBuyOperation} from './abstractBuyOperation';
 
-  let item = content.gear.flat[key];
-
-  if (!item) throw new NotFound(i18n.t('itemNotFound', {key}, req.language));
-
-  if (user.stats.gp < item.value) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+export class BuyGearOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
   }
 
-  if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
-  }
+  extractAndValidateParams () {
+    let language = this.req.language;
 
-  let message;
+    let key = this.key = get(this.req, 'params.key');
+    if (!key) throw new BadRequest(i18n.t('missingKeyParam', language));
 
-  if (user.items.gear.owned[item.key]) {
-    throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
-  }
+    let item = this.item = content.gear.flat[key];
 
-  let itemIndex = Number(item.index);
+    if (!item) throw new NotFound(i18n.t('itemNotFound', {key}, language));
 
-  if (Number.isInteger(itemIndex) && content.classes.includes(item.klass)) {
-    let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
-    let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
-    let checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
+    if (this.user.stats.gp < item.value) {
+      throw new NotAuthorized(i18n.t('messageNotEnoughGold', language));
+    }
 
-    if (checkIndexToType && !hasPreviousLevelGear) {
-      throw new NotAuthorized(i18n.t('previousGearNotOwned', req.language));
+    if (item.canOwn && !item.canOwn(this.user)) {
+      throw new NotAuthorized(i18n.t('cannotBuyItem', language));
+    }
+
+    if (this.user.items.gear.owned[item.key]) {
+      throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', language));
+    }
+
+    let itemIndex = Number(item.index);
+
+    if (Number.isInteger(itemIndex) && content.classes.includes(item.klass)) {
+      let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
+      let hasPreviousLevelGear = this.user.items.gear.owned[previousLevelGear];
+      let checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
+
+      if (checkIndexToType && !hasPreviousLevelGear) {
+        throw new NotAuthorized(i18n.t('previousGearNotOwned', language));
+      }
     }
   }
 
-  if (user.preferences.autoEquip) {
-    user.items.gear.equipped[item.type] = item.key;
-    message = handleTwoHanded(user, item, undefined, req);
+  executeChanges () {
+    let message;
+
+    if (this.user.preferences.autoEquip) {
+      this.user.items.gear.equipped[this.item.type] = this.item.key;
+      message = handleTwoHanded(this.user, this.item, undefined, this.req);
+    }
+
+    removePinnedGearAddPossibleNewOnes(this.user, `gear.flat.${this.item.key}`, this.item.key);
+
+    if (this.item.last) ultimateGear(this.user);
+
+    this.user.stats.gp -= this.item.value;
+
+    if (!message) {
+      message = i18n.t('messageBought', {
+        itemText: this.item.text(this.req.language),
+      }, this.req.language);
+    }
+
+    return [
+      pick(this.user, splitWhitespace('items achievements stats flags')),
+      message,
+    ];
   }
 
-  removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
-
-  if (item.last) ultimateGear(user);
-
-  user.stats.gp -= item.value;
-
-  if (!message) {
-    message = i18n.t('messageBought', {
-      itemText: item.text(req.language),
-    }, req.language);
-  }
-
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
-      itemKey: key,
+  sendToAnalytics () {
+    this.analytics.track('acquire item', {
+      uuid: this.user._id,
+      itemKey: this.key,
       acquireMethod: 'Gold',
-      goldCost: item.value,
+      goldCost: this.item.value,
       category: 'behavior',
-      headers: req.headers,
+      headers: this.req.headers,
     });
   }
-
-  return [
-    pick(user, splitWhitespace('items achievements stats flags')),
-    message,
-  ];
-};
+}

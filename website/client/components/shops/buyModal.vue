@@ -383,6 +383,7 @@
           !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
           return;
         }
+        console.info('item', this.item);
 
         if (this.genericPurchase) {
           this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);

@@ -151,6 +151,7 @@ export async function genericPurchase (store, params) {
       return store.dispatch('user:rebirth');
     case 'potion':
     case 'marketGear':
+      console.info('YEP MARKET GEAR');
       return buyItem(store, params);
     case 'background':
       return unlock(store, {

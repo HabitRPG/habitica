@@ -5,7 +5,7 @@ import {
 } from '../../libs/errors';
 import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
-import buyGear from './buyGear';
+import { BuyGearOperation } from './buyGear';
 import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
@@ -28,6 +28,8 @@ module.exports = function buy (user, req = {}, analytics) {
   if (!type) type = key;
 
   let buyRes;
+
+  console.info(type);
 
   switch (type) {
     case 'armoire':
@@ -58,9 +60,16 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
-    default:
-      buyRes = buyGear(user, req, analytics);
+    default: {
+      console.info('pre instance');
+      // market gear
+      let opInstance = new BuyGearOperation(user, req, analytics);
+
+      console.info('pre purchase');
+      buyRes = opInstance.purchase();
+      console.info('buyGear Result', buyRes);
       break;
+    }
   }
 
   return buyRes;
