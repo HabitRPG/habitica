@@ -36,10 +36,6 @@ div
     height: 4px;
     background-color: #24cc8f;
   }
-
-  .pet-slot {
-    margin: 0 2px;
-  }
 </style>
 
 <script>
