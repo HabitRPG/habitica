@@ -29,8 +29,6 @@ module.exports = function buy (user, req = {}, analytics) {
 
   let buyRes;
 
-  console.info(type);
-
   switch (type) {
     case 'armoire':
       buyRes = buyArmoire(user, req, analytics);
@@ -61,13 +59,10 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = buySpecialSpell(user, req, analytics);
       break;
     default: {
-      console.info('pre instance');
       // market gear
       let opInstance = new BuyGearOperation(user, req, analytics);
 
-      console.info('pre purchase');
       buyRes = opInstance.purchase();
-      console.info('buyGear Result', buyRes);
       break;
     }
   }

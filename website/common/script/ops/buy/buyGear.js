@@ -1,5 +1,4 @@
 import content from '../../content/index';
-import i18n from '../../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import splitWhitespace from '../../libs/splitWhitespace';
@@ -13,33 +12,29 @@ import ultimateGear from '../../fns/ultimateGear';
 
 import {removePinnedGearAddPossibleNewOnes} from '../pinnedGearUtils';
 
-import {AbstractBuyOperation} from './abstractBuyOperation';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 
-export class BuyGearOperation extends AbstractBuyOperation {
+export class BuyGearOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
 
+  multiplePurchaseAllowed () {
+    return false;
+  }
+
   extractAndValidateParams () {
-    let language = this.req.language;
-
     let key = this.key = get(this.req, 'params.key');
-    if (!key) throw new BadRequest(i18n.t('missingKeyParam', language));
+    if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
-    let item = this.item = content.gear.flat[key];
+    let item = content.gear.flat[key];
 
-    if (!item) throw new NotFound(i18n.t('itemNotFound', {key}, language));
+    if (!item) throw new NotFound(this.i18n('itemNotFound', {key}));
 
-    if (this.user.stats.gp < item.value) {
-      throw new NotAuthorized(i18n.t('messageNotEnoughGold', language));
-    }
-
-    if (item.canOwn && !item.canOwn(this.user)) {
-      throw new NotAuthorized(i18n.t('cannotBuyItem', language));
-    }
+    super.canUserPurchase(item);
 
     if (this.user.items.gear.owned[item.key]) {
-      throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', language));
+      throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
     let itemIndex = Number(item.index);
@@ -50,7 +45,7 @@ export class BuyGearOperation extends AbstractBuyOperation {
       let checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
 
       if (checkIndexToType && !hasPreviousLevelGear) {
-        throw new NotAuthorized(i18n.t('previousGearNotOwned', language));
+        throw new NotAuthorized(this.i18n('previousGearNotOwned'));
       }
     }
   }
@@ -70,9 +65,9 @@ export class BuyGearOperation extends AbstractBuyOperation {
     this.user.stats.gp -= this.item.value;
 
     if (!message) {
-      message = i18n.t('messageBought', {
+      message = this.i18n('messageBought', {
         itemText: this.item.text(this.req.language),
-      }, this.req.language);
+      });
     }
 
     return [

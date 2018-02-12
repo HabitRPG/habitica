@@ -1,3 +1,8 @@
+import i18n from '../../i18n';
+import {
+  NotAuthorized,
+} from '../../libs/errors';
+
 export class NotImplementedError extends Error {
   constructor (str) {
     super(`Method: '${str}' not implemented`);
@@ -14,6 +19,27 @@ export class AbstractBuyOperation {
     this.user = user;
     this.req = req;
     this.analytics = analytics;
+
+    this.quantity = this.req.quantity || 1;
+  }
+
+  /**
+   * Shortcut to get the translated string without passing `req.language`
+   * @param {String} key - translation key
+   * @param {*=} params
+   * @returns {*|string}
+   */
+  // eslint-disable-next-line no-unused-vars
+  i18n (key, params = {}) {
+    return i18n.t.apply(null, [...arguments, this.req.language]);
+  }
+
+  /**
+   * If the Operation allows purchasing items by quantity
+   * @returns Boolean
+   */
+  multiplePurchaseAllowed () {
+    throw new NotImplementedError('multiplePurchaseAllowed');
   }
 
   /**
@@ -32,6 +58,10 @@ export class AbstractBuyOperation {
   }
 
   purchase () {
+    if (!this.multiplePurchaseAllowed() && this.quantity > 1) {
+      throw new NotAuthorized(this.i18n('messageNotAbleToBuyInBulk'));
+    }
+
     this.extractAndValidateParams();
 
     let resultObj = this.executeChanges();
@@ -42,5 +72,23 @@ export class AbstractBuyOperation {
 
     return resultObj;
   }
+}
 
+export class AbstractGoldItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (item) {
+    this.item = item;
+    let userGold = this.user.stats.gp;
+
+    if (userGold < item.value * this.quantity) {
+      throw new NotAuthorized(this.i18n('messageNotEnoughGold'));
+    }
+
+    if (item.canOwn && !item.canOwn(this.user)) {
+      throw new NotAuthorized(this.i18n('cannotBuyItem'));
+    }
+  }
 }
