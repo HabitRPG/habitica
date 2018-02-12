@@ -1,55 +1,61 @@
 import content from '../../content/index';
-import i18n from '../../i18n';
 import {
   NotAuthorized,
 } from '../../libs/errors';
 
-module.exports = function buyHealthPotion (user, req = {}, analytics) {
-  let item = content.potion;
-  let quantity = req.quantity || 1;
+import { AbstractGoldItemOperation} from './abstractBuyOperation';
 
-  if (user.stats.gp < item.value * quantity) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+export class BuyGearOperation extends AbstractGoldItemOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
   }
 
-  if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
+  multiplePurchaseAllowed () {
+    return true;
   }
 
-  if (user.stats.hp >= 50) {
-    throw new NotAuthorized(i18n.t('messageHealthAlreadyMax', req.language));
+  extractAndValidateParams () {
+    let item = content.potion;
+    let userHp = this.user.stats.hp;
+
+    super.canUserPurchase(item);
+
+    if (userHp >= 50) {
+      throw new NotAuthorized(this.i18n('messageHealthAlreadyMax'));
+    }
+
+    if (userHp <= 0) {
+      throw new NotAuthorized(this.i18n('messageHealthAlreadyMin'));
+    }
   }
 
-  if (user.stats.hp <= 0) {
-    throw new NotAuthorized(i18n.t('messageHealthAlreadyMin', req.language));
+  executeChanges () {
+    this.user.stats.hp += 15 * this.quantity;
+    if (this.user.stats.hp > 50) {
+      this.user.stats.hp = 50;
+    }
+
+    this.user.stats.gp -= this.item.value * this.quantity;
+
+    let message = this.i18n('messageBought', {
+      itemText: this.item.text(this.req.language),
+    });
+
+    return [
+      this.user.stats,
+      message,
+    ];
   }
 
-  user.stats.hp += 15 * quantity;
-  if (user.stats.hp > 50) {
-    user.stats.hp = 50;
-  }
-
-  user.stats.gp -= item.value * quantity;
-
-  let message = i18n.t('messageBought', {
-    itemText: item.text(req.language),
-  }, req.language);
-
-
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
+  sendToAnalytics () {
+    this.analytics.track('acquire item', {
+      uuid: this.user._id,
       itemKey: 'Potion',
       acquireMethod: 'Gold',
-      goldCost: item.value,
+      goldCost: this.item.value,
       category: 'behavior',
-      headers: req.headers,
-      quantityPurchased: quantity,
+      headers: this.req.headers,
+      quantityPurchased: this.quantity,
     });
   }
-
-  return [
-    user.stats,
-    message,
-  ];
-};
+}
