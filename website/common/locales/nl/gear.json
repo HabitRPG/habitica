@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Skimoordenaarsstok",
     "weaponSpecialSkiNotes": "Een wapen dat in staat is om hordes vijanden te vernietigen! Het helpt zijn gebruiker ook hele nette parallelle bochtjes te maken. Verhoogt kracht met <%= str %>. Beperkte oplage winteruitrusting 2013-2014.",
     "weaponSpecialCandycaneText": "Zuurstokstaf",
-    "weaponSpecialCandycaneNotes": "Een machtige magiërsstaf. Machtig LEKKER, bedoelen we! Tweehandig wapen. Verhoogt intelligentie met <%= int %> en perceptie met <%= per %>. Beperkte oplage winteruitrusting 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Sneeuwvloktoverstaf",
     "weaponSpecialSnowflakeNotes": "Deze staf schittert met onbeperkte genezingskracht. Verhoogt intelligentie met <%= int %>. Beperkte oplage winteruitrusting 2013-2014.",
     "weaponSpecialSpringRogueText": "Gehaakte Klauwen",
@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
     "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Lichaamsaccessoire",
     "backCapitalized": "Back Accessory",
     "backBase0Text": "Geen rugaccessoire",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Pauw maskerade masker",
     "eyewearMystery301703Notes": "Perfect voor een elegante maskerade of om geniepig door een mooi gekleed publiek te bewegen. Verleent geen voordelen. Abonnee-artikel Maart 3017. ",
     "eyewearArmoirePlagueDoctorMaskText": "Pestmeestersmasker",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Een authentiek masker dat nog gedragen werd door dokters tijdens de procrastinatiepest! Verleent geen voordelen. Betoverd kabinet: pestmeesterset (voorwerp 2 van 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Een authentiek masker dat nog gedragen werd door dokters tijdens de procrastinatiepest! Verleent geen voordelen. Betoverd kabinet: pestmeesterset (voorwerp 2 van 3).",
+    "twoHandedItem": "Two-handed item."
 }

@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Bastón de Esquia-sesino",
     "weaponSpecialSkiNotes": "¡Un arma capaz de destruir hordas de enemigos! También permite al portador dar vueltas paralelas perfectas. Incrementa la Fuerza por <%= str %>. Equipamiento de Edición Limitada de Invierno 2013-2014.",
     "weaponSpecialCandycaneText": "Báculo de Caramelo",
-    "weaponSpecialCandycaneNotes": "Un poderoso báculo de mago. ¡Poderosamente DELICIOSO, quisimos decir! Arma de dos manos. Incrementa la Inteligencia por <%= int %> y la Percepción por <%= per %>. Equipamiento de Edición Limitada de Invierno 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Varita de Copo de Nieve",
     "weaponSpecialSnowflakeNotes": "Esta vara mágica centellea con poder curativo ilimitado. Incrementa la Inteligencia por <%= int %>. Equipamiento de Edición Limitada de Invierno 2013-2014.",
     "weaponSpecialSpringRogueText": "Garras de Gancho",
@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
     "shieldArmoireWeaversShuttleNotes": "This tool passes your weft thread through the warp to make cloth! Increases Intelligence by <%= int %> and Perception by <%= per %>. Enchanted Armoire: Weaver Set (Item 3 of 3).",
     "shieldArmoireShieldOfDiamondsText": "Crimson Jewel Shield",
-    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armorie: Independent Item.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Accesorio para espalda",
     "backCapitalized": "Back Accessory",
     "backBase0Text": "Sin accesorio para espalda",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Máscara de pavo real",
     "eyewearMystery301703Notes": "Perfecta para un baile de máscaras o para moverse en secreto en una multitud muy bien vestida. No otorga ningún beneficio. Artículo de suscriptor de marzo 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Máscara de Médico de la Peste",
-    "eyewearArmoirePlagueDoctorMaskNotes": "Una máscara auténtica usada por los médicos que luchan contra la Peste de la Procrastinación. No otorga ningún beneficio. Armario Encantado: Conjunto de Médico de la Peste (Artículo 2 de 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "Una máscara auténtica usada por los médicos que luchan contra la Peste de la Procrastinación. No otorga ningún beneficio. Armario Encantado: Conjunto de Médico de la Peste (Artículo 2 de 3).",
+    "twoHandedItem": "Two-handed item."
 }

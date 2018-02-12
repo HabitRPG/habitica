@@ -81,7 +81,7 @@
     "petNotOwned": "No posees esta mascota.",
     "mountNotOwned": "No tienes esta montura.",
     "earnedCompanion": "Con toda tu productividad, has obtenido un nuevo compañero. ¡Aliméntalo para hacerlo crecer!",
-    "feedPet": "¿Dar de comer <%= article %><%= text %> a tu <%= name %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "¿Ensillar <%= pet %>?",
     "raisedPet": "¡Has criado un/a <%= pet %>!",
     "earnedSteed": "Por completar tus tareas, ¡has obtenido un fiel corcel!",

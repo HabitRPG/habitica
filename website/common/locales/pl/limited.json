@@ -125,8 +125,9 @@
     "dateEndOctober": "31 października",
     "dateEndNovember": "30 listopada",
     "dateEndJanuary": "31 stycznia",
-    "discountBundle": "pakiet",
+    "dateEndFebruary": "28 Luty",
     "winterPromoGiftHeader": "DAJ KOMUŚ ABONAMENT W PREZENCIE I ODBIERZ TAKI SAM DLA SIEBIE!",
     "winterPromoGiftDetails1": "Tylko do 12 stycznia, gdy podarujesz komuś subskrypcję, otrzymasz za darmo taką samą subskrypcję!",
-    "winterPromoGiftDetails2": "Zauważ, że w przypadku gdy Ty, lub osoba dla której wykupujesz subskrypcję posiada już podobny abonament, subskrypcja wykupiona jako prezent rozpocznie się dopiero po anulowaniu subskrypcji lub jej wygaśnięciu. Dziękujemy bardzo za wsparcie! <3"
+    "winterPromoGiftDetails2": "Zauważ, że w przypadku gdy Ty, lub osoba dla której wykupujesz subskrypcję posiada już podobny abonament, subskrypcja wykupiona jako prezent rozpocznie się dopiero po anulowaniu subskrypcji lub jej wygaśnięciu. Dziękujemy bardzo za wsparcie! <3",
+    "discountBundle": "pakiet"
 }
