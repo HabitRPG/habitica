@@ -84,18 +84,22 @@ describe('shared.ops.releaseMounts', () => {
     let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
     user.items.mounts[animal] = null;
 
-    releaseMounts(user);
-
-    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    try {
+      releaseMounts(user);
+    } catch (e) {
+      expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    }
   });
 
   it('does not increase mountMasterCount achievement if mount is missing (undefined)', () => {
     let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
     delete user.items.mounts[animal];
 
-    releaseMounts(user);
-
-    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    try {
+      releaseMounts(user);
+    } catch (e) {
+      expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    }
   });
 
   it('subtracts gems from balance', () => {

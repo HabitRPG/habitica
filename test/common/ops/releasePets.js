@@ -88,27 +88,35 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
-    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
-
+    const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = 0;
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (null)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     delete user.items.pets[animal];
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 });

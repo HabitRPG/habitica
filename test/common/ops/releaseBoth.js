@@ -95,26 +95,33 @@ describe('shared.ops.releaseBoth', () => {
   it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = 0;
-
-    releaseBoth(user);
-
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releaseBoth(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (null)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
-    releaseBoth(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releaseBoth(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     delete user.items.pets[animal];
-    releaseBoth(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releaseBoth(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('releases mounts', () => {
@@ -128,18 +135,22 @@ describe('shared.ops.releaseBoth', () => {
     let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
     user.items.mounts[animal] = null;
 
-    releaseBoth(user);
-
-    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    try {
+      releaseBoth(user);
+    } catch (e) {
+      expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    }
   });
 
   it('does not increase mountMasterCount achievement if mount is missing (undefined)', () => {
     let mountMasterCountBeforeRelease = user.achievements.mountMasterCount;
     delete user.items.mounts[animal];
 
-    releaseBoth(user);
-
-    expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    try {
+      releaseBoth(user);
+    } catch (e) {
+      expect(user.achievements.mountMasterCount).to.equal(mountMasterCountBeforeRelease);
+    }
   });
 
   it('removes drop currentPet', () => {
