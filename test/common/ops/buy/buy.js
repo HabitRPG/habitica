@@ -2,7 +2,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buy from '../../../../website/common/script/ops/buy';
+import buy from '../../../../website/common/script/ops/buy/buy';
 import {
   BadRequest,
 } from '../../../../website/common/script/libs/errors';
@@ -11,6 +11,7 @@ import content from '../../../../website/common/script/content/index';
 
 describe('shared.ops.buy', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser({
@@ -26,6 +27,12 @@ describe('shared.ops.buy', () => {
       },
       stats: { gp: 200 },
     });
+
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('returns error when key is not provided', (done) => {
@@ -40,8 +47,10 @@ describe('shared.ops.buy', () => {
 
   it('recovers 15 hp', () => {
     user.stats.hp = 30;
-    buy(user, {params: {key: 'potion'}});
+    buy(user, {params: {key: 'potion'}}, analytics);
     expect(user.stats.hp).to.eql(45);
+
+    expect(analytics.track).to.be.calledOnce;
   });
 
   it('adds equipment to inventory', () => {

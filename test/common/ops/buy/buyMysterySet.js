@@ -3,8 +3,9 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyMysterySet from '../../../../website/common/script/ops/buyMysterySet';
+import buyMysterySet from '../../../../website/common/script/ops/buy/buyMysterySet';
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../../../website/common/script/libs/errors';
@@ -12,6 +13,7 @@ import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buyMysterySet', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser({
@@ -23,6 +25,11 @@ describe('shared.ops.buyMysterySet', () => {
         },
       },
     });
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   context('Mystery Sets', () => {
@@ -57,12 +64,22 @@ describe('shared.ops.buyMysterySet', () => {
           done();
         }
       });
+
+      it('returns error when key is not provided', (done) => {
+        try {
+          buyMysterySet(user);
+        } catch (err) {
+          expect(err).to.be.an.instanceof(BadRequest);
+          expect(err.message).to.equal(i18n.t('missingKeyParam'));
+          done();
+        }
+      });
     });
 
     context('successful purchases', () => {
       it('buys Steampunk Accessories Set', () => {
         user.purchased.plan.consecutive.trinkets = 1;
-        buyMysterySet(user, {params: {key: '301404'}});
+        buyMysterySet(user, {params: {key: '301404'}}, analytics);
 
         expect(user.purchased.plan.consecutive.trinkets).to.eql(0);
         expect(user.items.gear.owned).to.have.property('weapon_warrior_0', true);
@@ -70,6 +87,7 @@ describe('shared.ops.buyMysterySet', () => {
         expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
         expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
+        expect(analytics.track).to.be.called;
       });
     });
   });

@@ -1,5 +1,5 @@
 {
-    "FAQ": "FAQ",
+    "FAQ": "Domande frequenti (FAQ)",
     "termsAndAgreement": "Cliccando il bottone qui sotto, affermi di aver letto e approvato i <a href='/static/terms'>Termini del servizio</a> e l' <a href='/static/privacy'>Informativa sulla Privacy</a>.",
     "accept1Terms": "Cliccando il bottone qui sotto, accetto i",
     "accept2Terms": "e l'",
@@ -131,7 +131,7 @@
     "motivate1": "Motivati a fare qualsiasi cosa.",
     "motivate2": "Organizzati. Motivati. Guadagnaci.",
     "oldNews": "Novità",
-    "newsArchive": "Archivio delle novità su Wikia (multilingua)",
+    "newsArchive": "Archivio delle notizie su Wikia (multilingua)",
     "passConfirm": "Conferma password",
     "setNewPass": "Imposta nuova password",
     "passMan": "Se stai usando un gestore delle password (come 1Password) ed hai problemi ad effettuare l'accesso, prova scrivendo manualmente il nome utente e la password.",

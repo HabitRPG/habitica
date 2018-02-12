@@ -25,11 +25,12 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a guild', async () => {
+      await sleep(1);
       await guildMember.sync();
       const initialNotifications = guildMember.notifications.length;
       await guildMember.post(`/groups/${guild._id}/chat/seen`);
 
-      await sleep(0.5);
+      await sleep(1);
 
       let guildThatHasSeenChat = await guildMember.get('/user');
 
@@ -59,9 +60,12 @@ describe('POST /groups/:id/chat/seen', () => {
     });
 
     it('clears new messages for a party', async () => {
+      await sleep(1);
       await partyMember.sync();
       const initialNotifications = partyMember.notifications.length;
       await partyMember.post(`/groups/${party._id}/chat/seen`);
+
+      await sleep(1);
 
       let partyMemberThatHasSeenChat = await partyMember.get('/user');
 

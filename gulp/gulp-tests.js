@@ -47,9 +47,10 @@ gulp.task('test:nodemon', gulp.series(function setupNodemon (done) {
 gulp.task('test:prepare:mongo', (cb) => {
   mongoose.connect(TEST_DB_URI, (err) => {
     if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
-    mongoose.connection.db.dropDatabase();
-    mongoose.connection.close();
-    cb();
+    mongoose.connection.dropDatabase((err2) => {
+      if (err2) return cb(err2);
+      mongoose.connection.close(cb);
+    });
   });
 });
 

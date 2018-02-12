@@ -168,6 +168,8 @@
     "achievementBewilderText": "Hat bei der Frühlingsfeier 2016 geholfen, den Verwirrer zu besiegen.",
     "checkOutProgress": "Schau Dir meinen Fortschritt in Habitica an!",
     "cards": "Karten",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Grußkarte",
     "greetingCardExplanation": "Ihr erhaltet beide den Fröhlicher-Freund-Erfolg!",

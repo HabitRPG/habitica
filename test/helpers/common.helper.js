@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-import { wrap as wrapUser } from '../../website/common/script/index';
 import { model as User } from '../../website/server/models/user';
 import {
   DailySchema,
@@ -12,8 +11,6 @@ export {translate} from './translate';
 
 export function generateUser (options = {}) {
   let user = new User(options).toObject();
-
-  wrapUser(user);
 
   return user;
 }

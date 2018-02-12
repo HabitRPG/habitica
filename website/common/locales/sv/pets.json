@@ -81,7 +81,7 @@
     "petNotOwned": "Du har inte detta husdjur.",
     "mountNotOwned": "Du äger inte detta riddjur",
     "earnedCompanion": "All din produktivitet har gett dig en ny kompanjon. Mata den så att den växer!",
-    "feedPet": "Mata <%= article %><%= text %> till din <%= name %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Sadla <%= pet %>?",
     "raisedPet": "Du födde upp en <%= pet %>!",
     "earnedSteed": "Genom att genomföra dina uppgifter har du fått en trogen springare!",

@@ -197,8 +197,14 @@ export default {
 
       return false;
     },
-    showMemberModal (memberId) {
-      const profile = this.cachedProfileData[memberId];
+    async showMemberModal (memberId) {
+      let profile = this.cachedProfileData[memberId];
+
+      if (!profile._id) {
+        const result = await this.$store.dispatch('members:fetchMember', { memberId });
+        this.cachedProfileData[memberId] = result.data.data;
+        profile = result.data.data;
+      }
 
       // Open the modal only if the data is available
       if (profile && !profile.rejected) {

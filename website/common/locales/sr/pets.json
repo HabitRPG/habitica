@@ -81,7 +81,7 @@
     "petNotOwned": "Ne posedujete ovog ljubimca.",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Svojom produktivnošću, zaradili ste novog pratioca. Hranite ga da bi porastao!",
-    "feedPet": "Želite li da <%= name %> pojede <%= article %><%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Staviti sedlo na <%= pet %>?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "Odrađujući svoje zadatke, zaradili ste vernog konja!",
