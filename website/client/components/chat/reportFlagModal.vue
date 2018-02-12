@@ -5,14 +5,15 @@
       blockquote
         div(v-markdown='abuseObject.text')
       div
-        strong Why are you reporting this post?
-        textarea.form-control(v-model='reportComment', placeholder='Please help our moderators by letting us know why you are reporting this post for a violation. e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.')
+        strong {{$t('whyReportingPost')}}
+        span.optional {{$t('optional')}}
+        textarea.form-control(v-model='reportComment', :placeholder='$t("whyReportingPostPlaceholder")')
       small(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
     .footer.text-center
       button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='user.contributor.admin && abuseObject.flagCount > 0')
         | Reset Flag Count
       a.cancel-link(@click.prevent='close()') {{ $t('cancel') }}
-      button.btn.btn-danger(@click='reportAbuse()') {{ $t('abuseFlagModalButton') }}
+      button.btn.btn-danger(@click='reportAbuse()') {{ $t('report') }}
 </template>
 
 <style>
@@ -21,35 +22,42 @@
   }
 </style>
 
-<style scoped>
- .modal-body {
-   margin-top: 1em;
- }
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
 
- blockquote {
-   border-radius: 2px;
-   background-color: #f4f4f4;
-   padding: 1em;
-   margin-top: 1em;
- }
+   .modal-body {
+     margin-top: 1em;
+   }
 
- textarea {
-   margin-top: 1em;
-   margin-bottom: 1em;
-   border-radius: 2px;
-   border: solid 1px #c3c0c7;
-   min-height: 106px;
- }
+   blockquote {
+     border-radius: 2px;
+     background-color: #f4f4f4;
+     padding: 1em;
+     margin-top: 1em;
+   }
 
- .footer {
-   padding: 1em;
-   padding-bottom: 2em;
- }
+   textarea {
+     margin-top: 1em;
+     margin-bottom: 1em;
+     border-radius: 2px;
+     border: solid 1px $gray-400;
+     min-height: 106px;
+   }
 
- a.cancel-link {
-   color: #2995cd;
-   margin-right: .5em;
- }
+   .footer {
+     padding: 1em;
+     padding-bottom: 2em;
+   }
+
+   a.cancel-link {
+     color: $blue-10;
+     margin-right: .5em;
+   }
+
+   .optional {
+     color: $gray-200;
+     float: right;
+   }
 </style>
 
 <script>
