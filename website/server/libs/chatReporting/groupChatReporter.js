@@ -41,10 +41,12 @@ export default class GroupChatReporter extends ChatReporter {
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
-    return {message, group};
+    const userComment = this.req.body.comment;
+
+    return {message, group, userComment};
   }
 
-  async notify (group, message) {
+  async notify (group, message, userComment) {
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
@@ -60,6 +62,7 @@ export default class GroupChatReporter extends ChatReporter {
       flagger: this.user,
       group,
       message,
+      userComment,
     });
   }
 
@@ -89,9 +92,9 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async flag () {
-    let {message, group} = await this.validate();
+    let {message, group, userComment} = await this.validate();
     await this.flagGroupMessage(group, message);
-    await this.notify(group, message);
+    await this.notify(group, message, userComment);
     return message;
   }
 }
