@@ -1,8 +1,8 @@
 import axios from 'axios';
-import buyOp from 'common/script/ops/buy';
+import buyOp from 'common/script/ops/buy/buy';
 import content from 'common/script/content/index';
-import purchaseOp from 'common/script/ops/purchaseWithSpell';
-import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
+import purchaseOp from 'common/script/ops/buy/purchaseWithSpell';
+import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import rerollOp from 'common/script/ops/reroll';
@@ -18,7 +18,15 @@ import { getDropClass } from 'client/libs/notifications';
 export function buyItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
+
+  const userPinned = user.pinnedItems.slice();
   let opResult = buyOp(user, {params, quantity});
+
+  // @TODO: Currently resetting the pinned items will reset the market. Purchasing some items does not reset pinned.
+  // For now, I've added this hack for items like contributor gear to update while I am working on add more computed
+  // properties to the market. We will use this quick fix while testing the other changes.
+  user.pinnedItems = userPinned;
+
 
   return {
     result: opResult,
@@ -55,6 +63,7 @@ async function buyArmoire (store, params) {
   if (buyResult) {
     const resData = buyResult;
     const item = resData.armoire;
+    const message = result.data.message;
 
     const isExperience = item.type === 'experience';
     if (item.type === 'gear') {
@@ -63,12 +72,22 @@ async function buyArmoire (store, params) {
     store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
+    const notificationOptions = isExperience ?
+    {
+      text: `+ ${item.value}`,
+      type: 'xp',
+      flavorMessage: message,
+    } :
+    {
+      text: message,
+      type: 'drop',
+      icon: getDropClass({type: item.type, key: item.dropKey}),
+    };
+
     store.dispatch('snackbars:add', {
       title: '',
-      text: isExperience ? item.value : item.dropText,
-      type: isExperience ? 'xp' : 'drop',
-      icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
       timeout: true,
+      ...notificationOptions,
     });
   }
 }
@@ -86,7 +105,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, noConfirm: true, type: 'mystery'});
+  let opResult = buyOp(user, {params, type: 'mystery'});
 
   return {
     result: opResult,

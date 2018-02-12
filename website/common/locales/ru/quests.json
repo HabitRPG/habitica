@@ -25,6 +25,7 @@
     "questInvitation": "Приглашение на участие в квесте",
     "questInvitationTitle": "Приглашение на квест",
     "questInvitationInfo": "Приглашение на квест \"<%= quest %>\"",
+    "invitedToQuest": "Вас пригласили на квест <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Спросить позже",
     "questLater": "Пройти позже",
     "buyQuest": "Купить квест",

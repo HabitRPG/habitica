@@ -123,39 +123,26 @@ div
         .col-12.col-md-6
           h2.text-center {{$t('equipment')}}
           .well
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.eyewear}`")
-              h3 {{$t('eyewear')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.head}`")
-              h3 {{$t('headgearCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.headAccessory}`")
-              h3 {{$t('headAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.back && equippedItems.back.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.back}`")
-              h3 {{$t('backAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.armor}`")
-              h3 {{$t('armorCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.body && equippedItems.body.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.body}`")
-              h3 {{$t('bodyAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.weapon}`")
-              h3 {{$t('mainHand')}}
-            .col-12.col-md-4.item-wrapper
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.shield}`")
-              h3 {{$t('offHand')}}
+            .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
+              .box(
+                :id="key",
+                v-if="label !== 'skip'",
+                :class='{white: equippedItems[key] && equippedItems[key].indexOf("base_0") === -1}'
+              )
+                div(:class="`shop_${equippedItems[key]}`")
+              b-popover(
+                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf(\"base_0\") === -1",
+                :target="key",
+                triggers="hover",
+                :placement="'right'",
+                :preventOverflow="false",
+              )
+                h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
+                attributesGrid.attributesGrid(
+                  :item="content.gear.flat[equippedItems[key]]",
+                )
+
+              h3(v-if="label !== 'skip'") {{ label }}
         .col-12.col-md-6
           h2.text-center {{$t('costume')}}
           .well
@@ -255,7 +242,7 @@ div
                 li
                   strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
-      #allocation(v-if='user._id === userLoggedIn._id')
+      #allocation(v-if='user._id === userLoggedIn._id && user.flags.classSelected && !user.preferences.disableClasses')
         .row.title-row
           .col-12.col-md-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -291,6 +278,11 @@ div
 
     .modal-content {
       background: #f9f9f9;
+    }
+
+    .gearTitle {
+      color: white;
+      margin-bottom: 20px;
     }
   }
 
@@ -357,7 +349,7 @@ div
   }
 
   .photo img {
-    width: 100%;
+    max-width: 100%;
   }
 
   .header {
@@ -595,6 +587,7 @@ import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 import Content from '../../../common/script/content';
+import attributesGrid from 'client/components/inventory/equipment/attributesGrid';
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
@@ -612,6 +605,7 @@ export default {
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
+    attributesGrid,
   },
   data () {
     return {
@@ -636,6 +630,17 @@ export default {
       selectedPage: 'profile',
       achievements: {},
       content: Content,
+      equipTypes: {
+        eyewear: this.$t('eyewear'),
+        head: this.$t('headgearCapitalized'),
+        headAccessory: this.$t('headAccess'),
+        back: this.$t('backAccess'),
+        armor: this.$t('armorCapitalized'),
+        body: this.$t('bodyAccess'),
+        weapon: this.$t('mainHand'),
+        _skip: 'skip',
+        shield: this.$t('offHand'),
+      },
       stats: {
         str: {
           title: 'strength',
@@ -754,6 +759,9 @@ export default {
         userIdToMessage: this.user._id,
         userName: this.user.profile.name,
       });
+    },
+    getGearTitle (key) {
+      return this.flatGear[key].text();
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

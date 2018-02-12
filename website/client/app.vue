@@ -13,32 +13,31 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          notifications-display
-          app-menu
-          .container-fluid
-            app-header
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        notifications-display
+        app-menu
+        .container-fluid
+          app-header
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
-            app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
+          app-footer
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -83,10 +82,14 @@ div
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
@@ -103,7 +106,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -123,9 +126,10 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import spellsMixin from 'client/mixins/spells';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   name: 'app',
   components: {
     AppMenu,
@@ -364,6 +368,13 @@ export default {
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
+  },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
     const loadingScreen = document.getElementById('loading-screen');
@@ -393,18 +404,21 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
-      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
-
-      // Subtract gold for cards
-      if (this.selectedSpellToBuy.pinType === 'card') {
-        const newUserGp = castResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-      }
+      await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
@@ -445,4 +459,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>

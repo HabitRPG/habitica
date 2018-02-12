@@ -159,7 +159,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(v-for='option in ["1", "2", "3", "4"]',
+          .option(v-for='option in [1, 2, 3, 4]',
             :class='{active: user.preferences.hair.bangs === option}')
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
@@ -227,7 +227,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
+          .option(v-for='option in [1, 2, 3, 4, 5, 6]',
             :class='{active: user.preferences.hair.flower === option}')
             .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
@@ -975,12 +975,12 @@ export default {
       rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
       premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
-      baseHair1: ['1', '3'],
-      baseHair2Keys: ['2', '4', '5', '6', '7', '8'],
-      baseHair3Keys: ['9', '10', '11', '12', '13', '14'],
-      baseHair4Keys: ['15', '16', '17', '18', '19', '20'],
-      baseHair5Keys: ['1', '2', '3'],
-      baseHair6Keys: ['1', '2'],
+      baseHair1: [1, 3],
+      baseHair2Keys: [2, 4, 5, 6, 7, 8],
+      baseHair3Keys: [9, 10, 11, 12, 13, 14],
+      baseHair4Keys: [15, 16, 17, 18, 19, 20],
+      baseHair5Keys: [1, 2, 3],
+      baseHair6Keys: [1, 2],
       animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       icons: Object.freeze({
         logoPurple,

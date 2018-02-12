@@ -434,6 +434,12 @@ api.deleteUser = {
       ]);
     }
 
+    res.analytics.track('account delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
+
     res.respond(200, {});
   },
 };
@@ -457,6 +463,7 @@ function _cleanChecklist (task) {
  * Contributor information
  * Special items
  * Webhooks
+ * Notifications
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
@@ -469,7 +476,7 @@ api.getUserAnonymized = {
     let user = res.locals.user.toJSON();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
 
     delete user.apiToken;
     if (user.auth) {
@@ -486,6 +493,7 @@ api.getUserAnonymized = {
     delete user.items.special.valentineReceived;
     delete user.webhooks;
     delete user.achievements.challenges;
+    delete user.notifications;
 
     _.forEach(user.inbox.messages, (msg) => {
       msg.text = 'inbox message text';
@@ -653,6 +661,7 @@ api.castSpell = {
             })
             // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
             // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+            // and we need target.notifications to add the notification for the received card
             .exec();
 
           partyMembers.unshift(user);
@@ -729,11 +738,14 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepRes = common.ops.sleep(user);
+    let sleepRes = common.ops.sleep(user, req, res.analytics);
     await user.save();
     res.respond(200, ...sleepRes);
   },
 };
+
+const buySpecialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
 
 /**
  * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
@@ -772,14 +784,13 @@ api.buy = {
     let user = res.locals.user;
 
     let buyRes;
-    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
-    if (specialKeys.indexOf(req.params.key) !== -1) {
-      type = 'special';
+    if (buySpecialKeys.indexOf(type) !== -1) {
+      req.type = 'special';
+    } else if (buyKnownKeys.indexOf(type) === -1) {
+      req.type = 'marketGear';
     }
-    req.type = type;
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
     if (req.body.type) req.type = req.body.type;
@@ -787,7 +798,6 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-
     buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
@@ -1259,7 +1269,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
+    let purchaseRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1290,7 +1300,7 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },
@@ -1854,6 +1864,12 @@ api.userReset = {
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);
+
+    res.analytics.track('account reset', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
 
     res.respond(200, ...resetRes);
   },

@@ -203,14 +203,18 @@ export default {
         queryParams.groupId = group._id;
       }
 
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
-      await axios.get(cancelUrl);
+      try {
+        const cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
+        await axios.get(cancelUrl);
 
-      this.loading = false;
+        alert(this.$t('paypalCanceled'));
+        // @TODO: We should probably update the api to return the new sub data eventually.
+        await this.$store.dispatch('user:fetch', {forceLoad: true});
 
-      //  Success
-      alert(this.$t('paypalCanceled'));
-      this.$router.push('/');
+        this.loading = false;
+      } catch (e) {
+        alert(e.response.data.message);
+      }
     },
   },
 };

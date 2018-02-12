@@ -377,11 +377,13 @@
   #hatching-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 310px;
+    }
+
     .content {
       text-align: center;
-
       margin: 9px;
-      width: 300px;
     }
 
     .title {
@@ -445,7 +447,8 @@
     }
 
     .food-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -455,6 +458,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 

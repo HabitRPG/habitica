@@ -20,14 +20,11 @@
           .col-6
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
 
-        .row.community-guidelines(v-if='!communityGuidelinesAccepted')
-          div.col-8(v-once, v-html="$t('communityGuidelinesIntro')")
-          div.col-4
-            button.btn.btn-info(@click='acceptCommunityGuidelines()', v-once) {{ $t('acceptCommunityGuidelines') }}
+        community-guidelines
 
         .row
           .hr.col-12
-          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
 
   .col-12.col-sm-4.sidebar
     .section
@@ -147,19 +144,6 @@
 
   .chat-row {
     position: relative;
-
-    .community-guidelines {
-      background-color: rgba(135, 129, 144, 0.84);
-      padding: 1em;
-      color: $white;
-      position: absolute;
-      top: 0;
-      height: 150px;
-      padding-top: 3em;
-      margin-top: 2.3em;
-      width: 100%;
-      border-radius: 4px;
-    }
 
     textarea {
       height: 150px;
@@ -360,6 +344,7 @@ import { mapState } from 'client/libs/store';
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
+import communityGuidelines from './communityGuidelines';
 
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
@@ -384,6 +369,7 @@ export default {
   components: {
     chatMessage,
     autocomplete,
+    communityGuidelines,
   },
   data () {
     return {
@@ -502,9 +488,6 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    communityGuidelinesAccepted () {
-      return this.user.flags.communityGuidelinesAccepted;
-    },
   },
   async mounted () {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
@@ -541,9 +524,6 @@ export default {
     },
     selectedAutocomplete (newText) {
       this.newMessage = newText;
-    },
-    acceptCommunityGuidelines () {
-      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
     },
     toggleSleep () {
       this.user.preferences.sleep = !this.user.preferences.sleep;

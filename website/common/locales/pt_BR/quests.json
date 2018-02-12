@@ -25,6 +25,7 @@
     "questInvitation": "Convite de Missão:",
     "questInvitationTitle": "Convite para Missão",
     "questInvitationInfo": "Convite para a Missão <%= quest %>",
+    "invitedToQuest": "Você foi convidado para a Missão <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Perguntar Depois",
     "questLater": "Voltar depois para a Missão",
     "buyQuest": "Comprar Missão",

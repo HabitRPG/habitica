@@ -108,7 +108,7 @@
     "summer2017WhirlpoolMageSet": "Mago Torbellino (Mago)",
     "summer2017SeashellSeahealerSet": "Concha Marsanador (Sanador)",
     "summer2017SeaDragonSet": "Dragón Marino (Pícaro)",
-    "fall2017HabitoweenSet": "Habitoween Warrior (Warrior)",
+    "fall2017HabitoweenSet": "Guerrero Hábitoween (Guerrero)",
     "fall2017MasqueradeSet": "Masquerade Mage (Mage)",
     "fall2017HauntedHouseSet": "Haunted House Healer (Healer)",
     "fall2017TrickOrTreatSet": "Trick or Treat Rogue (Rogue)",
@@ -122,11 +122,12 @@
     "dateEndJune": "14 de junio",
     "dateEndJuly": "Julio 29",
     "dateEndAugust": "Agosto 31",
-    "dateEndOctober": "October 31",
-    "dateEndNovember": "November 30",
-    "dateEndJanuary": "January 31",
-    "discountBundle": "Lote",
-    "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
+    "dateEndOctober": "31 de octubre",
+    "dateEndNovember": "30 de noviembre",
+    "dateEndJanuary": "31 de enero",
+    "dateEndFebruary": "February 28",
+    "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN Y RECIBE OTRA GRATIS!",
     "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
-    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3"
+    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
+    "discountBundle": "Lote"
 }

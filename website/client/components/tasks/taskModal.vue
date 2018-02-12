@@ -27,7 +27,7 @@
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
-              .input-group-prepend.input-group-icon
+              .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
 
@@ -143,7 +143,7 @@
                   .tags-none {{$t('none')}}
                   .dropdown-toggle
                 span.category-select(v-else)
-                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
           tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
@@ -220,7 +220,7 @@
                           type="number", v-model="task.counterDown", min="0", required,
                         )
 
-              .option(v-if="isUserTask && task.type !== 'reward'")
+              //.option(v-if="isUserTask && task.type !== 'reward'")
                 .form-group
                   label(v-once)
                     span.float-left {{ $t('attributeAllocation') }}
@@ -346,7 +346,7 @@
       position: relative;
 
       label {
-        margin-bottom: 8px;
+        max-height: 30px;
       }
     }
 
@@ -637,6 +637,7 @@
 <script>
 import TagsPopup from './tagsPopup';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
@@ -663,6 +664,9 @@ export default {
     Datepicker,
     toggleSwitch,
     draggable,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],

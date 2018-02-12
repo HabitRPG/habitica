@@ -35,7 +35,7 @@
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
-          span(v-if='classText') {{ classText }}&nbsp;
+          // span(v-if='classText') {{ classText }}&nbsp;
           button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
           small.cost &nbsp; 3 {{ $t('gems') }}
             // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
@@ -118,6 +118,7 @@
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
+            p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
@@ -290,7 +291,6 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.user.flags.newStuff = true;
       this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {

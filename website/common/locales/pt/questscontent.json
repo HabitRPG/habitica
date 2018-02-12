@@ -3,7 +3,7 @@
     "questEvilSantaNotes": "Você escuta rugidos de agonia ao fundo dos Campos de Gelo. Você segue os rugidos - pontuados por um som de cacarejo - até uma clareira na floresta, onde você vê uma urso polar adulta. Ela se encontra enjaulada e acorrentada, lutando pela própria vida. Dançando em cima da jaula está um maldoso duende vestido com roupas que alguém não quis mais. Derrote o Noel Caçador e salve a fera!",
     "questEvilSantaCompletion": "Noel Caçador guincha de raiva, e salta noite adentro. A agradecida ursa, com rugidos e rosnados, tenta te contar algo. Você a leva de volta aos estábulos, onde Matt Boch o Mestre das Bestas escuta o que ela diz com uma expressão de horror. Ela tem um filhote! Ele fugiu para os campos de gelo quando a mamãe ursa foi capturada.",
     "questEvilSantaBoss": "Noel Caçador",
-    "questEvilSantaDropBearCubPolarMount": "Urso Polar (Montada)",
+    "questEvilSantaDropBearCubPolarMount": "Urso Polar (Montaria)",
     "questEvilSanta2Text": "Encontre a Filhote",
     "questEvilSanta2Notes": "Quando o Noel Caçador capturou a montaria de urso polar, seu filhote fugiu para os campos de gelo. Você ouve galhos quebrando e passos na neve pelo som cristalino da floresta. Pegadas! Você começa a correr para seguir a trilha. Encontre todas as pegadas e galhos quebrados, e encontre o filhote!",
     "questEvilSanta2Completion": "Encontrou o filhote! Ele irá fazer-lhe companhia para sempre.",
@@ -557,5 +557,11 @@
     "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
     "questPterodactylBoss": "Pterror-dactyl",
     "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
-    "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market"
+    "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market",
+    "questBadgerText": "Stop Badgering Me!",
+    "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
+    "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+    "questBadgerBoss": "The Badgering Bother",
+    "questBadgerDropBadgerEgg": "Badger (Egg)",
+    "questBadgerUnlockText": "Unlocks purchasable Badger eggs in the Market"
 }

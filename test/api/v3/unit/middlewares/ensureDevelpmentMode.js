@@ -22,7 +22,8 @@ describe('developmentMode middleware', () => {
 
     ensureDevelpmentMode(req, res, next);
 
-    expect(next).to.be.calledWith(new NotFound());
+    const calledWith = next.getCall(0).args;
+    expect(calledWith[0] instanceof NotFound).to.equal(true);
   });
 
   it('passes when not in production', () => {

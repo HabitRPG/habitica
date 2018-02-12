@@ -234,7 +234,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[0][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
@@ -287,7 +287,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledThrice;
-      expect(email.sendTxn.args[2][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[2][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
@@ -364,6 +364,30 @@ describe('POST /chat', () => {
     expect(message.message.id).to.exist;
   });
 
+  it('creates a chat with user styles', async () => {
+    const mount = 'test-mount';
+    const pet = 'test-pet';
+    const style = 'test-style';
+    const userWithStyle = await generateUser({
+      'items.currentMount': mount,
+      'items.currentPet': pet,
+      'preferences.style': style,
+    });
+    await userWithStyle.sync();
+
+    const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.currentMount).to.eql(userWithStyle.items.currentMount);
+    expect(message.message.userStyles.items.currentPet).to.eql(userWithStyle.items.currentPet);
+    expect(message.message.userStyles.preferences.style).to.eql(userWithStyle.preferences.style);
+    expect(message.message.userStyles.preferences.hair).to.eql(userWithStyle.preferences.hair);
+    expect(message.message.userStyles.preferences.skin).to.eql(userWithStyle.preferences.skin);
+    expect(message.message.userStyles.preferences.shirt).to.eql(userWithStyle.preferences.shirt);
+    expect(message.message.userStyles.preferences.chair).to.eql(userWithStyle.preferences.chair);
+    expect(message.message.userStyles.preferences.background).to.eql(userWithStyle.preferences.background);
+  });
+
   it('adds backer info to chat', async () => {
     const backerInfo = {
       npc: 'Town Crier',
@@ -426,6 +450,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+    })).to.exist;
   });
 
   it('notifies other users of new messages for a party', async () => {
@@ -443,6 +470,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
+    })).to.exist;
   });
 
   context('Spam prevention', () => {
