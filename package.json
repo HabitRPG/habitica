@@ -13,7 +13,7 @@
     "autoprefixer": "^6.4.0",
     "aws-sdk": "^2.0.25",
     "axios": "^0.17.1",
-    "axios-progress-bar": "^0.1.7",
+    "axios-progress-bar": "^1.1.8",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^6.0.0",
