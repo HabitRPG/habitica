@@ -11,7 +11,7 @@ import { getDropClass } from 'client/libs/notifications';
 // @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change
 // the generic buy functions to something else. Or have a Gold Vendor and Gem Vendor, etc
 
-export function buyItem (store, params) {
+function buyItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
 
@@ -151,7 +151,9 @@ export async function genericPurchase (store, params) {
       return store.dispatch('user:rebirth');
     case 'potion':
     case 'marketGear':
-      return buyItem(store, params);
+      // 'marketGear' gets `type`= `gear` which is used for gem-purchasable gear
+      // resetting type to pinType only here
+      return buyItem(store, {...params, type: params.pinType});
     case 'background':
       return unlock(store, {
         query: {
