@@ -40,6 +40,12 @@
   width: 114px;
   height: 87px;
 }
+.promo_valentines {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -441px -473px;
+  width: 309px;
+  height: 147px;
+}
 .promo_winter_customizations {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -1146px 0px;
@@ -48,7 +54,7 @@
 }
 .scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -441px -473px;
+  background-position: -380px -809px;
   width: 282px;
   height: 147px;
 }
