@@ -81,7 +81,7 @@
     "petNotOwned": "You do not own this pet.",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "With all your productivity, you've earned a new companion. Feed it to make it grow!",
-    "feedPet": "Hrănești <%= name %> cu <%= article %><%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Înșeuezi <%= pet %>?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "By completing your tasks, you've earned a faithful steed!",

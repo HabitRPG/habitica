@@ -357,14 +357,15 @@ export function cron (options = {}) {
           }
         }
       }
+
+      // add history entry when task was not completed
+      task.history.push({
+        date: Number(new Date()),
+        value: task.value,
+      });
     }
 
-    task.history.push({
-      date: Number(new Date()),
-      value: task.value,
-    });
     task.completed = false;
-
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {

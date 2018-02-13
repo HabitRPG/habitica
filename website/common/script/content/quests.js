@@ -3145,6 +3145,38 @@ let quests = {
       exp: 0,
     },
   },
+  badger: {
+    text: t('questBadgerText'),
+    notes: t('questBadgerNotes'),
+    completion: t('questBadgerCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBadgerBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        },
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questBadgerUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

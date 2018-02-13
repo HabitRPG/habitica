@@ -168,6 +168,8 @@
     "achievementBewilderText": "סייעתם להביס את המש-תומם במהלך ארוע הפלינג האביבי 2016!",
     "checkOutProgress": "תראו את ההתקדמות שלי בהביטיקה!",
     "cards": "Cards",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "כרטיס ברכה",
     "greetingCardExplanation": "שניכם קיבלתם את הישג החבר העליז!",

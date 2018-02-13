@@ -650,12 +650,19 @@
   "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market",
 
   "questDysheartenerText": "The Dysheartener",
-  "questDysheartenerNotes": "The sun is rising on Valentine’s Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City’s main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the gaping earth.<br><br>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome DysHeartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.<br><br>“Take heart, everyone!” Lemoness shouts. “It probably thinks that we’re easy targets because so many of us have daunting New Year’s Resolutions, but it’s about to discover that Habiticans know how to stick to their goals!”<br><br>AnnDeLune raises her staff. “Let’s tackle our tasks and take this monster down!”",
+  "questDysheartenerNotes": "The sun is rising on Valentine’s Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City’s main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the gaping earth.<br><br>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome Dysheartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.<br><br>“Take heart, everyone!” Lemoness shouts. “It probably thinks that we’re easy targets because so many of us have daunting New Year’s Resolutions, but it’s about to discover that Habiticans know how to stick to their goals!”<br><br>AnnDeLune raises her staff. “Let’s tackle our tasks and take this monster down!”",
   "questDysheartenerCompletion": "be reheartened",
   "questDysheartenerCompletionChat": "y'all won",
   "questDysheartenerBossRageTitle": "Shattering Heartbreak",
   "questDysheartenerBossRageDescription": "When this gauge fills, the Dysheartener will unleash its Shattering Heartbreak on Habitica!",
   "questDysheartenerBossRageSeasonal": "seasonal dyss",
   "questDysheartenerBossRageMarket": "market dyss",
-  "questDysheartenerBossRageQuests": "quests dyss"
+  "questDysheartenerBossRageQuests": "quests dyss",
+
+  "questBadgerText": "Stop Badgering Me!",
+  "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
+  "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+  "questBadgerBoss": "The Badgering Bother",
+  "questBadgerDropBadgerEgg": "Badger (Egg)",
+  "questBadgerUnlockText": "Unlocks purchasable Badger eggs in the Market"
 }
