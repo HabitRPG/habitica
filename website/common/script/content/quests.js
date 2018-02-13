@@ -3067,84 +3067,6 @@ let quests = {
       unlock: t('questPterodactylUnlockText'),
     },
   },
-  dysheartener: {
-    text: t('questDysheartenerText'),
-    notes: t('questDysheartenerNotes'),
-    completion: t('questDysheartenerCompletion'),
-    completionChat: t('questDysheartenerCompletionChat'),
-    value: 0,
-    canBuy () {
-      return false;
-    },
-    category: 'world',
-    boss: {
-      name: t('questDysheartenerText'),
-      hp: 20000000,
-      str: 1,
-      def: 1,
-      rage: {
-        title: t('questDysheartenerBossRageTitle'),
-        description: t('questDysheartenerBossRageDescription'),
-        value: 1000000,
-        seasonalShop: t('questDysheartenerBossRageSeasonal'),
-        market: t('questDysheartenerBossRageMarket'),
-        quests: t('questDysheartenerBossRageQuests'),
-      },
-    },
-    colors: {
-      dark: '#410F2A',
-      medium: '#5C1130',
-      light: '#931F4D',
-      extralight: '#DC4069',
-    },
-    drop: {
-      items: [
-        {
-          type: 'food',
-          key: 'Meat',
-          text: t('foodMeat'),
-        }, {
-          type: 'food',
-          key: 'Milk',
-          text: t('foodMilk'),
-        }, {
-          type: 'food',
-          key: 'Potatoe',
-          text: t('foodPotatoe'),
-        }, {
-          type: 'food',
-          key: 'Strawberry',
-          text: t('foodStrawberry'),
-        }, {
-          type: 'food',
-          key: 'Chocolate',
-          text: t('foodChocolate'),
-        }, {
-          type: 'food',
-          key: 'Fish',
-          text: t('foodFish'),
-        }, {
-          type: 'food',
-          key: 'RottenMeat',
-          text: t('foodRottenMeat'),
-        }, {
-          type: 'food',
-          key: 'CottonCandyPink',
-          text: t('foodCottonCandyPink'),
-        }, {
-          type: 'food',
-          key: 'CottonCandyBlue',
-          text: t('foodCottonCandyBlue'),
-        }, {
-          type: 'food',
-          key: 'Honey',
-          text: t('foodHoney'),
-        },
-      ],
-      gp: 0,
-      exp: 0,
-    },
-  },
   badger: {
     text: t('questBadgerText'),
     notes: t('questBadgerNotes'),
@@ -3175,6 +3097,92 @@ let quests = {
       gp: 43,
       exp: 350,
       unlock: t('questBadgerUnlockText'),
+    },
+  },
+  dysheartener: {
+    text: t('questDysheartenerText'),
+    notes: t('questDysheartenerNotes'),
+    completion: t('questDysheartenerCompletion'),
+    completionChat: t('questDysheartenerCompletionChat'),
+    value: 0,
+    canBuy () {
+      return false;
+    },
+    category: 'world',
+    boss: {
+      name: t('questDysheartenerText'),
+      hp: 17000000,
+      str: 1.25,
+      def: 1,
+      rage: {
+        title: t('questDysheartenerBossRageTitle'),
+        description: t('questDysheartenerBossRageDescription'),
+        value: 500000,
+        seasonalShop: t('questDysheartenerBossRageSeasonal'),
+        market: t('questDysheartenerBossRageMarket'),
+        quests: t('questDysheartenerBossRageQuests'),
+      },
+    },
+    colors: {
+      dark: '#410F2A',
+      medium: '#5C1130',
+      light: '#931F4D',
+      extralight: '#DC4069',
+    },
+    drop: {
+      items: [
+        {
+          type: 'pets',
+          key: 'Hippogriff-Hopeful',
+          text: t('questDysheartenerDropHippogriffPet'),
+        }, {
+          type: 'mounts',
+          key: 'Hippogriff-Hopeful',
+          text: t('questDysheartenerDropHippogriffMount'),
+        }, {
+          type: 'food',
+          key: 'Cake_Base',
+          text: t('foodCakeBase'),
+        }, {
+          type: 'food',
+          key: 'Candy_White',
+          text: t('foodCandyWhite'),
+        }, {
+          type: 'food',
+          key: 'Cake_Desert',
+          text: t('foodCakeDesert'),
+        }, {
+          type: 'food',
+          key: 'Candy_Red',
+          text: t('foodCandyRed'),
+        }, {
+          type: 'food',
+          key: 'Cake_Shade',
+          text: t('foodCakeShade'),
+        }, {
+          type: 'food',
+          key: 'Candy_Skeleton',
+          text: t('foodCandySkeleton'),
+        }, {
+          type: 'food',
+          key: 'Cake_Zombie',
+          text: t('foodCakeZombie'),
+        }, {
+          type: 'food',
+          key: 'Candy_CottonCandyPink',
+          text: t('foodCandyCottonCandyPink'),
+        }, {
+          type: 'food',
+          key: 'Candy_CottonCandyBlue',
+          text: t('foodCandyCottonCandyBlue'),
+        }, {
+          type: 'food',
+          key: 'Cake_Golden',
+          text: t('foodCakeGolden'),
+        },
+      ],
+      gp: 0,
+      exp: 0,
     },
   },
 };
