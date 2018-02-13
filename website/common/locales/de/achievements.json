@@ -1,0 +1,8 @@
+{
+  "share": "Teilen",
+  "onwards": "Vorwärts!",
+  "levelup": "Durch das Erfüllen Deiner Lebensziele bist Du ein Level aufgestiegen und nun vollständig geheilt!",
+  "reachedLevel": "Du hast Level <%= level %> erreicht",
+  "achievementLostMasterclasser": "Quest-Erfüller: Meisterklassenserie",
+  "achievementLostMasterclasserText": "Hat alle sechzehn Quests in der Meisterklassen-Questserie abgeschlossen und das Rätsel des Verlorenen Questmeisters gelöst!"
+}
