@@ -1,10 +1,11 @@
+import { TAVERN_ID } from '../../../../../website/server/models/group';
+import { updateDocument } from '../../../../helpers/mongo';
 import {
   requester,
   resetHabiticaDB,
-  setWorldBoss,
 } from '../../../../helpers/api-v3-integration.helper';
 
-describe('GET /world-state', () => {
+describe.only('GET /world-state', () => {
   before(async () => {
     await resetHabiticaDB();
   });
@@ -16,7 +17,20 @@ describe('GET /world-state', () => {
   });
 
   it('returns Tavern quest data including Rage Strike damage when world boss is active', async () => {
-    await setWorldBoss({key: 'dysheartener', hp: 500000, rage: 9999});
+    await updateDocument(
+      'groups',
+      {_id: TAVERN_ID},
+      {quest:
+        {
+          active: true,
+          key: 'dysheartener',
+          progress: {
+            hp: 50000,
+            rage: 9999,
+          },
+        }
+      }
+    );
 
     let res = await requester().get('/world-state');
     expect(res).to.have.deep.property('worldBoss');

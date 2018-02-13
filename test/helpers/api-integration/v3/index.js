@@ -11,5 +11,3 @@ export { translate } from '../../translate';
 export { checkExistence, getProperty, resetHabiticaDB } from '../../mongo';
 export * from  './object-generators';
 export { sleep } from '../../sleep';
-
-export * from './world-state';
