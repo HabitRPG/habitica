@@ -5,14 +5,14 @@ import {
   resetHabiticaDB,
 } from '../../../../helpers/api-v3-integration.helper';
 
-describe('GET /world-state', () => {
+describe.only('GET /world-state', () => {
   before(async () => {
     await resetHabiticaDB();
   });
 
   it('returns empty worldBoss object when world boss is not active (and does not require authentication)', async () => {
     let res = await requester().get('/world-state');
-    expect(res.worldBoss).to.eql({worldBoss: {}});
+    expect(res.worldBoss).to.eql({});
   });
 
   it('returns Tavern quest data when world boss is active', async () => {
@@ -34,7 +34,7 @@ describe('GET /world-state', () => {
     let res = await requester().get('/world-state');
     expect(res).to.have.deep.property('worldBoss');
 
-    expect(res.worldBoss).to.equal({
+    expect(res.worldBoss).to.eql({
       active: true,
       extra: {},
       key: 'dysheartener',
