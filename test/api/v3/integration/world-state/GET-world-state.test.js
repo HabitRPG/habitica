@@ -5,18 +5,17 @@ import {
   resetHabiticaDB,
 } from '../../../../helpers/api-v3-integration.helper';
 
-describe.only('GET /world-state', () => {
+describe('GET /world-state', () => {
   before(async () => {
     await resetHabiticaDB();
   });
 
   it('returns empty worldBoss object when world boss is not active (and does not require authentication)', async () => {
     let res = await requester().get('/world-state');
-    expect(res).to.have.deep.property('worldBoss');
-    expect(res.worldBoss).to.equal({});
+    expect(res.worldBoss).to.eql({worldBoss: {}});
   });
 
-  it('returns Tavern quest data including Rage Strike damage when world boss is active', async () => {
+  it('returns Tavern quest data when world boss is active', async () => {
     await updateDocument(
       'groups',
       {_id: TAVERN_ID},
@@ -37,8 +36,10 @@ describe.only('GET /world-state', () => {
 
     expect(res.worldBoss).to.equal({
       active: true,
+      extra: {},
       key: 'dysheartener',
       progress: {
+        collect: {},
         hp: 50000,
         rage: 9999,
       },
