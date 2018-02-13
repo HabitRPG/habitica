@@ -13,10 +13,8 @@ var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true';
 var dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers(lastId) {
-  // specify a query to limit the affected users (empty for all users):
   var query = {
-    'migration':{$ne:migrationName},
-    'auth.timestamps.loggedin':{$gt:new Date('2018-01-01')}, // remove after first run to cover remaining users
+    'auth.local.email': /[A-Z]/
   };
 
   if (lastId) {
@@ -63,7 +61,6 @@ function updateUser (user) {
 
   var push;
   var set = {
-    'migration': migrationName,
     'auth.local.email': user.auth.local.email.toLowerCase()
   };
 
