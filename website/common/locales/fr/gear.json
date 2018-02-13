@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Bâton de ski-ssassin",
     "weaponSpecialSkiNotes": "Une arme capable de détruire des hordes d'ennemis ! Elle permet aussi à son porteur d'effectuer de jolis virages parallèles. Augmente la Force de <%= str %>. Équipement en édition limitée de l'hiver 2013-2014.",
     "weaponSpecialCandycaneText": "Bâton en sucre d'orge",
-    "weaponSpecialCandycaneNotes": "Un puissant bâton de mage. Puissamment DÉLICIEUX, en vérité ! Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Équipement en édition limitée de l'hiver 2013-2014.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Baguette flocon-de-neige",
     "weaponSpecialSnowflakeNotes": "Cette baguette brille d'un pouvoir de guérison illimité. Augmente l'Intelligence de <%= int %>. Équipement en édition limitée de l'hiver 2013-2014.",
     "weaponSpecialSpringRogueText": "Griffes-crochet",
@@ -1271,7 +1271,7 @@
     "shieldArmoireWeaversShuttleText": "Navette de métier à tisser",
     "shieldArmoireWeaversShuttleNotes": "Cet outil passe vos fils de trame à travers la chaîne pour faire du tissu ! Augmente l'Intelligence de <%= int %> et la Perception de <%= per %>. Armoire enchantée : ensemble du tisserand (objet 3 sur 3).",
     "shieldArmoireShieldOfDiamondsText": "Bouclier-joyau cramoisi",
-    "shieldArmoireShieldOfDiamondsNotes": "Ce bouclier radieux ne vous procure pas seulement une protection, mais aussi un augmentation de votre endurance ! Augmente la Constitution de <%= con %>. Armoire enchantée : objet indépendant.",
+    "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "back": "Accessoire dorsal",
     "backCapitalized": "Accessoire dorsal",
     "backBase0Text": "Pas d’accessoire dorsal",
@@ -1462,5 +1462,5 @@
     "eyewearMystery301703Notes": "Parfait pour un chouette défilé... ou pour se fondre subrepticement dans une foule particulièrement bien habillée. N'apporte aucun bonus. Équipement d'abonné·e de mars 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Masque de médecin de la peste",
     "eyewearArmoirePlagueDoctorMaskNotes": "Un authentique masque porté par les médecins qui ont combattu la peste de Procrastination ! N'apporte aucun bonus. Armoire enchantée : ensemble du médecin de la peste (objet 2 sur 3).",
-    "twoHandedItem": "Arme à deux mains."
+    "twoHandedItem": "Two-handed item."
 }

@@ -281,7 +281,7 @@
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "Let's Go!",
-    "selected": "Seçilmiş",
+    "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

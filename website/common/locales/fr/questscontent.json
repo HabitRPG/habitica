@@ -558,10 +558,10 @@
     "questPterodactylBoss": "Pterreur-dactyle",
     "questPterodactylDropPterodactylEgg": "Ptérodactyle (Œuf)",
     "questPterodactylUnlockText": "Déverrouille l'achat d’œufs de ptérodactyle au marché",
-    "questBadgerText": "Mais quel blaireau !",
-    "questBadgerNotes": "Ah, l'hiver dans le bois des Tâches. La douce neige qui tombe, les branches qui brillent de givre, les fées florissantes... toujours pas en train d'hiberner ?<br><br>\"Pourquoi sont-elles toujours réveillées ?\" pleure @LilithofAlfheim. \"Si elles n'hibernent pas rapidement, elle n'auront jamais assez de force pour la saison des plantations.\"<br><br>Alors que @Willow the Witty et vous vous dépêchez d'enquêter, une tête poilue surgit de la terre. Avant que vous ayez pu crier \"c'est le blaireau !\", il est retourné dans sa tanière—mais pas avant de chaparder la tâche des fées \"Hiberner\" et de laisser une gigantesque liste de tâche pénibles à la place !<br><br>\"Pas étonnant que les fées ne se reposent pas, si elles sont embêtées comme ça en permanence !\" dit @plumilla. Pouvez-vous traquer la bête et sauver la récolte de cette année du bois des Tâches ?",
-    "questBadgerCompletion": "Vous avez finalement fait fuir le Blaireau et vous vous hâtez au fond de sa tanière. Au bout d'un des tunnels, vous trouvez son magot de tâches \"Hiberner\" des fées. En dehors de ça, l'antre est abandonnée, mis à part trois œufs qui ont l'air d'être prêts à éclore.",
-    "questBadgerBoss": "Le Blaireau",
+    "questBadgerText": "Stop Badgering Me!",
+    "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
+    "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+    "questBadgerBoss": "The Badgering Bother",
     "questBadgerDropBadgerEgg": "Blaireau (Œuf)",
-    "questBadgerUnlockText": "Débloque l'achat d’œufs de blaireau au marché"
+    "questBadgerUnlockText": "Unlocks purchasable Badger eggs in the Market"
 }

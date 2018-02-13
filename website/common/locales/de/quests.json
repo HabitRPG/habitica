@@ -25,7 +25,7 @@
     "questInvitation": "Quest-Einladung:",
     "questInvitationTitle": "Quest-Einladung",
     "questInvitationInfo": "Einladung zum Quest <%= quest %>",
-    "invitedToQuest": "Du wurdest zum Quest <span class=\"notification-bold-blue\"><%= quest %></span> eingeladen",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Später fragen",
     "questLater": "Quest später starten",
     "buyQuest": "Quest kaufen",
