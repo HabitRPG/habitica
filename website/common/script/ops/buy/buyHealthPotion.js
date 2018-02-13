@@ -5,7 +5,7 @@ import {
 
 import { AbstractGoldItemOperation} from './abstractBuyOperation';
 
-export class BuyGearOperation extends AbstractGoldItemOperation {
+export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -47,15 +47,11 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
     ];
   }
 
-  sendToAnalytics () {
-    this.analytics.track('acquire item', {
-      uuid: this.user._id,
+  analyticsData () {
+    return {
       itemKey: 'Potion',
       acquireMethod: 'Gold',
       goldCost: this.item.value,
-      category: 'behavior',
-      headers: this.req.headers,
-      quantityPurchased: this.quantity,
-    });
+    };
   }
 }

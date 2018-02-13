@@ -53,7 +53,7 @@ export class AbstractBuyOperation {
     throw new NotImplementedError('executeChanges');
   }
 
-  sendToAnalytics () {
+  analyticsData () {
     throw new NotImplementedError('sendToAnalytics');
   }
 
@@ -67,10 +67,25 @@ export class AbstractBuyOperation {
     let resultObj = this.executeChanges();
 
     if (this.analytics) {
-      this.sendToAnalytics(resultObj);
+      this.sendToAnalytics(this.analyticsData());
     }
 
     return resultObj;
+  }
+
+  sendToAnalytics (additionalData) {
+    let analyticsData ={
+      ...additionalData,
+      uuid: this.user._id,
+      category: 'behavior',
+      headers: this.req.headers,
+    };
+
+    if (this.multiplePurchaseAllowed()) {
+      analyticsData.quantityPurchased = this.quantity;
+    }
+
+    this.analytics.track('acquire item', analyticsData;
   }
 }
 

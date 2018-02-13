@@ -3,8 +3,8 @@ import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import buyHealthPotion from './buyHealthPotion';
-import buyArmoire from './buyArmoire';
+import { BuyHealthPotionOperation } from './buyHealthPotion';
+import { BuyArmoireOperation } from './buyArmoire';
 import { BuyGearOperation } from './buyGear';
 import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
@@ -30,15 +30,21 @@ module.exports = function buy (user, req = {}, analytics) {
   let buyRes;
 
   switch (type) {
-    case 'armoire':
-      buyRes = buyArmoire(user, req, analytics);
+    case 'armoire': {
+      let opInstance = new BuyArmoireOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
     case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
       break;
-    case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+    case 'potion': {
+      let opInstance = new BuyHealthPotionOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':

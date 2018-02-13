@@ -76,14 +76,11 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
     ];
   }
 
-  sendToAnalytics () {
-    this.analytics.track('acquire item', {
-      uuid: this.user._id,
+  analyticsData () {
+    return {
       itemKey: this.key,
       acquireMethod: 'Gold',
       goldCost: this.item.value,
-      category: 'behavior',
-      headers: this.req.headers,
-    });
+    };
   }
 }
