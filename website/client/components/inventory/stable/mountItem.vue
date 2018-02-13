@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
+    .item.pet-slot(
       :class="{'item-empty': emptyItem}",
     )
       slot(name="itemBadge", :item="item")
@@ -15,6 +15,11 @@ div
     slot(name="popoverContent", :item="item")
 </template>
 
+<style lang="scss">
+  .pet-slot {
+    margin: 0 2px;
+  }
+</style>
 <script>
   import uuid from 'uuid';
 
