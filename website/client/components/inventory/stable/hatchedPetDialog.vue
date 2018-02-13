@@ -19,9 +19,7 @@
     div.clearfix(slot="modal-footer")
 </template>
 
-
 <style lang="scss">
-
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
 
@@ -61,7 +59,6 @@
 
 </style>
 
-
 <script>
   import markdownDirective from 'client/directives/markdown';
 
@@ -73,9 +70,6 @@
     },
     directives: {
       markdown: markdownDirective,
-    },
-    created () {
-
     },
     mounted () {
       this.$root.$on('hatchedPet::open', this.openDialog);

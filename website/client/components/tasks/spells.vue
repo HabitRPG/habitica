@@ -103,6 +103,7 @@ div(v-if='user.stats.lvl > 10')
 
       .svg-icon {
         width: 16px;
+        height: 16px;
         margin-right: .2em;
       }
     }
@@ -187,15 +188,6 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('castEnd', (target, type, $event) => {
-      this.castEnd(target, type, $event);
-    });
-
-    document.addEventListener('keyup', keyEvent => {
-      if (keyEvent.keyCode !== 27) return;
-      this.castCancel();
-    });
-
     // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
     const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
     if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {

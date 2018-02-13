@@ -112,6 +112,10 @@
     "fall2017MasqueradeSet": "Balowy Mag (Mag)",
     "fall2017HauntedHouseSet": "Uzdrowiciel z Nawiedzonego Domu (Uzdrowiciel)",
     "fall2017TrickOrTreatSet": "Łotrzyk Cukierek albo Psikus (Łotrzyk)",
+    "winter2018ConfettiSet": "Mag Konfetti (Mag)",
+    "winter2018GiftWrappedSet": "Zapakowany Wojownik (Wojownik)",
+    "winter2018MistletoeSet": "Jemiołowy Uzdrowiciel (Uzdrowiciel)",
+    "winter2018ReindeerSet": "Reniferowy Łotrzyk (Łotrzyk)",
     "eventAvailability": "Dostępny w sprzedaży do <%= date(locale) %>.",
     "dateEndApril": "19 kwietnia",
     "dateEndMay": "17 Maja",
@@ -120,5 +124,10 @@
     "dateEndAugust": "Sierpień 31",
     "dateEndOctober": "31 października",
     "dateEndNovember": "30 listopada",
+    "dateEndJanuary": "31 stycznia",
+    "dateEndFebruary": "28 Luty",
+    "winterPromoGiftHeader": "DAJ KOMUŚ ABONAMENT W PREZENCIE I ODBIERZ TAKI SAM DLA SIEBIE!",
+    "winterPromoGiftDetails1": "Tylko do 12 stycznia, gdy podarujesz komuś subskrypcję, otrzymasz za darmo taką samą subskrypcję!",
+    "winterPromoGiftDetails2": "Zauważ, że w przypadku gdy Ty, lub osoba dla której wykupujesz subskrypcję posiada już podobny abonament, subskrypcja wykupiona jako prezent rozpocznie się dopiero po anulowaniu subskrypcji lub jej wygaśnięciu. Dziękujemy bardzo za wsparcie! <3",
     "discountBundle": "pakiet"
 }

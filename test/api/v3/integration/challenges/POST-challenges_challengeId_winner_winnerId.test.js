@@ -149,13 +149,19 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await sleep(0.5);
 
-      let tasks = await winningUser.get('/tasks/user');
-      let testTask = _.find(tasks, (task) => {
+      const tasks = await winningUser.get('/tasks/user');
+      const testTask = _.find(tasks, (task) => {
         return task.text === taskText;
+      });
+
+      const updatedUser = await winningUser.sync();
+      const challengeTag = updatedUser.tags.find(tags => {
+        return tags.id === challenge._id;
       });
 
       expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
       expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
+      expect(challengeTag.challenge).to.eql('false');
     });
   });
 });

@@ -23,6 +23,17 @@
   height: 16px;
 }
 
+.icon-12 {
+  width: 12px;
+  height: 12px;
+}
+
+.icon-24 {
+  width: 24px;
+  height: 24px;
+}
+
+
 .icon-10 {
   width: 10px;
   height: 10px;
@@ -30,4 +41,12 @@
 
 .inline {
   display: inline-block;
+}
+
+.toggle-up, .toggle-down {
+  cursor: pointer;
+
+  .svg-icon {
+    width: 20px;
+  }
 }

@@ -89,6 +89,18 @@
     "rideLater": "Przejażdżka później",
     "petName": "<%= potion(locale) %> <%= egg(locale) %>",
     "mountName": "<%= potion(locale) %> <%= mount(locale) %>",
+    "keyToPets": "Klucz do Zagród Chowańców",
+    "keyToPetsDesc": "Wypuść wszystkie zwyczajne Chowańce by móc je znów zebrać. (Nie dotyczy rzadkich Chowańców i tych z misji.) ",
+    "keyToMounts": "Klucze do Zagród Wierzchowców",
+    "keyToMountsDesc": "Wypuść wszystkie zwyczajne Wierzchowce by móc je znów zebrać. (Nie dotyczy rzadkich Wierzchowców i tych z misji.) ",
+    "keyToBoth": "Uniwersalny Klucz do Zagród",
+    "keyToBothDesc": "Wypuść wszystkie zwyczajne Chowańce i Wierzchowca by móc je znów zebrać. (Nie dotyczy rzadkich Chowańców/Wierchowców i tych z misji.) ",
+    "releasePetsConfirm": "Czy jesteś pewny, że chcesz wypuścić swoje zwyczajne Chowańce?",
+    "releasePetsSuccess": "Twoje zwyczajne Chowańce zostały wypuszczone!",
+    "releaseMountsConfirm": "Czy jesteś pewny, że chcesz wypuścić swoje zwyczajne Wierzchowce?",
+    "releaseMountsSuccess": "Twoje zwyczajne Wierzchowce zostały wypuszczone!",
+    "releaseBothConfirm": "Czy jesteś pewny, że chcesz wypuścić swoje zwyczajne Chowańce i Wierzchowce?",
+    "releaseBothSuccess": "Twoje zwyczajne Chowańce i Wierzchowce zostały wypuszczone!",
     "petKeyName": "Klucz do schroniska",
     "petKeyPop": "Pozwól swoim chowańcom wyruszyć w nieznane w poszukiwaniu przygód i jeszcze raz podaruj sobie dreszczyk emocji związany ze zbieraniem Władcy chowańców!",
     "petKeyBegin": "Klucz do schroniska: Bądź znów <%= title %>",
@@ -123,5 +135,6 @@
     "clickOnPetToFeed": "Kliknij na Chowańca, aby nakarmić go <%= foodName %> i patrz jak rośnie!",
     "dragThisPotion": "Przeciągnij ten <%= potionName %> na jajo i wykluj nowego Chowańca!",
     "clickOnEggToHatch": "Kliknij na jajo, aby użyć <%= potionName %> eliksir wyklucia i wykluć nowego Chowańca!",
-    "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje isę z niego <%= petName %>."
+    "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje isę z niego <%= petName %>.",
+    "clickOnPotionToHatch": "Kliknij na eliksir wyklucia by użyć go na swoim <%= eggName %> i wykluć nowego chowańca!"
 }

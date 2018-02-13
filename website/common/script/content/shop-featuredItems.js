@@ -6,33 +6,33 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Golden',
+      path: 'hatchingPotions.CottonCandyPink',
     },
     {
-      type: 'food',
-      path: 'food.Saddle',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Cupid',
     },
     {
       type: 'card',
-      path: 'cardTypes.greeting',
+      path: 'cardTypes.valentine',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.gryphon',
+      path: 'quests.pterodactyl',
+    },
+    {
+      type: 'quests',
+      path: 'quests.stoikalmCalamity1',
+    },
+    {
+      type: 'quests',
+      path: 'quests.badger',
     },
     {
       type: 'quests',
       path: 'quests.dilatoryDistress1',
-    },
-    {
-      type: 'quests',
-      path: 'quests.nudibranch',
-    },
-    {
-      type: 'quests',
-      path: 'quests.taskwoodsTerror1',
     },
   ],
   seasonal: 'summerMage',

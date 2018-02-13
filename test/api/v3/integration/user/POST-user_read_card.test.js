@@ -26,7 +26,14 @@ describe('POST /user/read-card/:cardType', () => {
     await user.update({
       'items.special.greetingReceived': [true],
       'flags.cardReceived': true,
+      notifications: [{
+        type: 'CARD_RECEIVED',
+        data: {card: cardType},
+      }],
     });
+
+    await user.sync();
+    expect(user.notifications.length).to.equal(1);
 
     let response = await user.post(`/user/read-card/${cardType}`);
     await user.sync();
@@ -34,5 +41,6 @@ describe('POST /user/read-card/:cardType', () => {
     expect(response.message).to.equal(t('readCard', {cardType}));
     expect(user.items.special[`${cardType}Received`]).to.be.empty;
     expect(user.flags.cardReceived).to.be.false;
+    expect(user.notifications.length).to.equal(0);
   });
 });

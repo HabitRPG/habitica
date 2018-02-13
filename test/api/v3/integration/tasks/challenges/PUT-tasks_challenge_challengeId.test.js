@@ -139,6 +139,23 @@ describe('PUT /tasks/:id', () => {
       expect(savedHabit.up).to.eql(false);
       expect(savedHabit.down).to.eql(false);
     });
+
+    it('allows user to update their copy', async () => {
+      const userTasks = await user.get('/tasks/user');
+      const userChallengeTasks = userTasks.filter(task => task.challenge.id === challenge._id);
+      const userCopyOfChallengeTask = userChallengeTasks[0];
+
+      await user.put(`/tasks/${userCopyOfChallengeTask._id}`, {
+        notes: 'some new notes',
+        counterDown: 1,
+        counterUp: 2,
+      });
+      const savedHabit = await user.get(`/tasks/${userCopyOfChallengeTask._id}`);
+
+      expect(savedHabit.notes).to.eql('some new notes');
+      expect(savedHabit.counterDown).to.eql(1);
+      expect(savedHabit.counterUp).to.eql(2);
+    });
   });
 
   context('todos', () => {

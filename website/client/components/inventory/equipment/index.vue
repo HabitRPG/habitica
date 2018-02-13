@@ -12,10 +12,9 @@
           v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ group.label }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="group.key")
+            label.custom-control-label(v-once, :for="group.key") {{ group.label }}
 
   .standard-page
     .clearfix
@@ -159,7 +158,6 @@ import i18n from 'common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 
-
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
 const sortGearTypeMap = {
@@ -215,7 +213,7 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   mounted () {
@@ -243,7 +241,19 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
+      let userClass = this.user.stats.class;
+
+      return sortBy === 'sortByName' ?
+        _sortBy(items, sortGearTypeMap[sortBy]) :
+        _reverse(_sortBy(items, (item) => {
+          let attrToSort = sortGearTypeMap[sortBy];
+          let attrValue = item[attrToSort];
+          if (item.klass === userClass || item.specialClass === userClass) {
+            attrValue *= 1.5;
+          }
+
+          return attrValue;
+        }));
     },
     drawerToggled (newState) {
       this.$store.state.equipmentDrawerOpen = newState;

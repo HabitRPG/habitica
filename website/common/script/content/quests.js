@@ -3035,6 +3035,70 @@ let quests = {
       unlock: t('questYarnUnlockText'),
     },
   },
+  pterodactyl: {
+    text: t('questPterodactylText'),
+    notes: t('questPterodactylNotes'),
+    completion: t('questPterodactylCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questPterodactylBoss'),
+      hp: 1000,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Pterodactyl',
+          text: t('questPterodactylDropPterodactylEgg'),
+        },
+      ],
+      gp: 67,
+      exp: 650,
+      unlock: t('questPterodactylUnlockText'),
+    },
+  },
+  badger: {
+    text: t('questBadgerText'),
+    notes: t('questBadgerNotes'),
+    completion: t('questBadgerCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questBadgerBoss'),
+      hp: 600,
+      str: 1.5,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Badger',
+          text: t('questBadgerDropBadgerEgg'),
+        },
+      ],
+      gp: 43,
+      exp: 350,
+      unlock: t('questBadgerUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

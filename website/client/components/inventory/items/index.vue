@@ -12,10 +12,9 @@
           v-for="group in groups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="group.selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t(group.key) }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="group.selected", :id="group.key")
+            label.custom-control-label(v-once, :for="group.key") {{ $t(group.key) }}
   .standard-page
     .clearfix
       h1.float-left.mb-4.page-header(v-once) {{ $t('items') }}
@@ -48,7 +47,9 @@
             :item="context.item",
             :key="context.item.key",
             :itemContentClass="context.item.class",
-            :highlightBorder="isHatchable(currentDraggingPotion, context.item.key)",
+            :showPopover="currentDraggingEgg == null",
+            :active="currentDraggingEgg == context.item",
+            :highlightBorder="isHatchable(currentDraggingPotion, context.item)",
             v-drag.drop.hatch="context.item.key",
 
             @itemDragOver="onDragOver($event, context.item)",
@@ -81,6 +82,7 @@
             :itemContentClass="context.item.class",
             :showPopover="currentDraggingPotion == null",
             :active="currentDraggingPotion == context.item",
+            :highlightBorder="isHatchable(context.item, currentDraggingEgg)",
             v-drag.hatch="context.item.key",
 
             @itemDragEnd="onDragEnd($event, context.item)",
@@ -129,6 +131,18 @@
 
   hatchedPetDialog()
 
+  div.eggInfo(ref="draggingEggInfo")
+    div(v-if="currentDraggingEgg != null")
+      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
+      div.popover
+        div.popover-content {{ $t('dragThisEgg', {eggName: currentDraggingEgg.text }) }}
+
+  div.eggInfo.mouse(ref="clickEggInfo", v-if="eggClickMode")
+    div(v-if="currentDraggingEgg != null")
+      div.potion-icon(:class="'Pet_Egg_'+currentDraggingEgg.key")
+      div.popover
+        div.popover-content {{ $t('clickOnPotionToHatch', {eggName: currentDraggingEgg.text }) }}
+
   div.hatchingPotionInfo(ref="draggingPotionInfo")
     div(v-if="currentDraggingPotion != null")
       div.potion-icon(:class="'Pet_HatchingPotion_'+currentDraggingPotion.key")
@@ -149,7 +163,7 @@
 </template>
 
 <style lang="scss" scoped>
-  .hatchingPotionInfo {
+  .eggInfo, .hatchingPotionInfo {
     position: absolute;
     left: -500px;
 
@@ -162,6 +176,7 @@
 
     .potion-icon {
       margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -171,6 +186,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 </style>
@@ -242,6 +259,8 @@ export default {
       groups,
       sortBy: 'quantity', // or 'AZ'
 
+      currentDraggingEgg: null,
+      eggClickMode: false,
       currentDraggingPotion: null,
       potionClickMode: false,
       cardOptions: {
@@ -252,7 +271,7 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   computed: {
@@ -343,6 +362,7 @@ export default {
       this.currentDraggingPotion = null;
     },
     onDragStart ($event, potion) {
+      // Dragging needs to be added for egg items
       this.currentDraggingPotion = potion;
 
       let itemRef = this.$refs.draggingPotionInfo;
@@ -351,19 +371,19 @@ export default {
 
       dragEvent.dataTransfer.setDragImage(itemRef, -20, -20);
     },
-    isHatchable (potion, eggKey) {
-      if (potion === null)
+    isHatchable (potion, egg) {
+      if (potion === null || egg === null)
         return false;
 
-      let petKey = `${eggKey}-${potion.key}`;
+      let petKey = `${egg.key}-${potion.key}`;
 
       if (!this.content.petInfo[petKey])
         return false;
 
-      return !this.userHasPet(potion.key, eggKey);
+      return !this.userHasPet(potion.key, egg.key);
     },
     onDragOver ($event, egg) {
-      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
+      if (this.isHatchable(this.currentDraggingPotion, egg)) {
         $event.dropable = false;
       }
     },
@@ -373,18 +393,38 @@ export default {
     onDragLeave () {
     },
     onEggClicked ($event, egg) {
-      if (this.currentDraggingPotion === null) {
+      if (this.currentDraggingPotion !== null) {
+        if (this.isHatchable(this.currentDraggingPotion, egg)) {
+          this.hatchPet(this.currentDraggingPotion, egg);
+        }
+
+        this.currentDraggingPotion = null;
+        this.potionClickMode = false;
         return;
       }
 
-      if (this.isHatchable(this.currentDraggingPotion, egg.key)) {
-        this.hatchPet(this.currentDraggingPotion, egg);
-      }
+      if (this.currentDraggingEgg === null || this.currentDraggingEgg !== egg) {
+        this.currentDraggingEgg = egg;
+        this.eggClickMode = true;
 
-      this.currentDraggingPotion = null;
-      this.potionClickMode = false;
+        this.$nextTick(() => {
+          this.mouseMoved(lastMouseMoveEvent);
+        });
+      } else {
+        this.currentDraggingEgg = null;
+        this.eggClickMode = false;
+      }
     },
     onPotionClicked ($event, potion) {
+      if (this.currentDraggingEgg !== null) {
+        if (this.isHatchable(potion, this.currentDraggingEgg)) {
+          this.hatchPet(potion, this.currentDraggingEgg);
+        }
+
+        this.currentDraggingEgg = null;
+        this.eggClickMode = false;
+        return;
+      }
       if (this.currentDraggingPotion === null || this.currentDraggingPotion !== potion) {
         this.currentDraggingPotion = potion;
         this.potionClickMode = true;
@@ -435,8 +475,12 @@ export default {
     mouseMoved ($event) {
       if (this.potionClickMode) {
         // dragging potioninfo is 180px wide (90 would be centered)
-        this.$refs.clickPotionInfo.style.left = `${$event.x - 70}px`;
-        this.$refs.clickPotionInfo.style.top = `${$event.y}px`;
+        this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
+        this.$refs.clickPotionInfo.style.top = `${$event.y + 10}px`;
+      } else if (this.eggClickMode) {
+         // dragging eggInfo is 180px wide (90 would be centered)
+        this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
+        this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
       } else {
         lastMouseMoveEvent = $event;
       }

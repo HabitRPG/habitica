@@ -1,58 +1,58 @@
 <template lang="pug">
   b-modal#new-stuff(
-    v-if='user.flags.newStuff',
     size='lg',
     :hide-header='true',
     :hide-footer='true',
   )
     .modal-body
-      new-stuff
+      .static-view(v-html='html')
     .modal-footer
       a.btn.btn-info(href='http://habitica.wikia.com/wiki/Whats_New', target='_blank') {{ this.$t('newsArchive') }}
-      button.btn.btn-default(@click='close()') {{ this.$t('cool') }}
+      button.btn.btn-secondary(@click='tellMeLater()') {{ this.$t('tellMeLater') }}
       button.btn.btn-warning(@click='dismissAlert();') {{ this.$t('dismissAlert') }}
 </template>
 
-<style lang='scss' scoped>
-  @import '~client/assets/scss/static.scss';
+<style lang='scss'>
+@import '~client/assets/scss/static.scss';
+</style>
 
-  .modal-body {
-    padding-top: 2em;
-  }
+<style lang='scss' scoped>
+.modal-body {
+  padding-top: 2em;
+}
 </style>
 
 <script>
+  import axios from 'axios';
   import { mapState } from 'client/libs/store';
-  import markdown from 'client/directives/markdown';
-  import newStuff from 'client/components/static/newStuff';
 
   export default {
-    components: {
-      newStuff,
+    data () {
+      return {
+        html: '',
+      };
     },
     computed: {
       ...mapState({user: 'user.data'}),
     },
-    directives: {
-      markdown,
-    },
-    mounted () {
+    async mounted () {
       this.$root.$on('bv::show::modal', async (modalId) => {
         if (modalId !== 'new-stuff') return;
-        // Request the lastest news, but not locally incase they don't refresh
-        // let response = await axios.get('/static/new-stuff');
+        let response = await axios.get('/api/v3/news');
+        this.html = response.data.html;
       });
     },
     destroyed () {
       this.$root.$off('bv::show::modal');
     },
     methods: {
-      close () {
+      tellMeLater () {
+        this.$store.dispatch('user:newStuffLater');
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
         this.$store.dispatch('user:set', {'flags.newStuff': false});
-        this.close();
+        this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
     },
   };

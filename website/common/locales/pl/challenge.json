@@ -6,8 +6,8 @@
     "keepIt": "Zachowaj",
     "removeIt": "Usuń",
     "brokenChallenge": "Nieprawidłowy link do wyzwania – to zadanie było częścią wyzwania, jednak wyzwanie (lub grupa) zostało usunięte. Co zrobić z porzuconym zadaniem?",
-    "keepThem": "Zachowaj",
-    "removeThem": "Usuń",
+    "keepThem": "Zachowaj Zadania",
+    "removeThem": "Usuń Zadania",
     "challengeCompleted": "Wyzwanie zakończone! Jego zwycięzcą jest <span class=\"badge\"><%= user %></span>! Co chcesz zrobić z porzuconymi zadaniami?",
     "unsubChallenge": "Nieprawidłowy link do wyzwania – to zadanie było częścią wyzwania, ale wypisałeś się z niego. Co zrobić z porzuconym zadaniem?",
     "challengeWinner": "Jest zwycięzcą następujących wyzwań",
@@ -101,8 +101,8 @@
     "addTask": "Dodaj Zadanie",
     "editChallenge": "Edytuj Wyzwanie",
     "challengeDescription": "Opis Wyzwania",
-    "selectChallengeWinnersDescription": "Wybierz zwycięzców spośród uczestników Wyzwania",
-    "awardWinners": "Nagródź Zwycięzców",
+    "selectChallengeWinnersDescription": "Wybierz zwycięzce spośród uczestników Wyzwania",
+    "awardWinners": "Nagródź Zwycięzce",
     "doYouWantedToDeleteChallenge": "Czy chcesz usunąć to Wyzwanie?",
     "deleteChallenge": "Usuń Wyzwanie",
     "challengeNamePlaceholder": "Jaka jest nazwa Twojego Wyzwania? ",
@@ -128,5 +128,6 @@
     "categoiresRequired": "Co najmniej jedna kategoria musi zostać wybrana",
     "viewProgressOf": "Zobacz postęp",
     "selectMember": "Wybierz Członka",
-    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?"
+    "confirmKeepChallengeTasks": "Czy chcesz zachować zadania z wyzwania?",
+    "selectParticipant": "Wybierz Uczestnika"
 }

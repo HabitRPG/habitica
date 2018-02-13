@@ -30,7 +30,7 @@
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
-            div {{conversation.lastMessageText.substring(0, 30)}}
+            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -239,11 +239,13 @@ export default {
           user: message.user,
           uuid: message.uuid,
           id: message.id,
+          contributor: message.contributor,
         };
 
         if (message.sent) {
           newMessage.user = this.user.profile.name;
           newMessage.uuid = this.user._id;
+          newMessage.contributor = this.user.contributor;
         }
 
         if (newMessage.text) conversations[userId].messages.push(newMessage);
@@ -284,6 +286,7 @@ export default {
       this.$set(this, 'activeChat', activeChat);
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
@@ -305,6 +308,7 @@ export default {
         timestamp: new Date(),
         user: this.user.profile.name,
         uuid: this.user._id,
+        contributor: this.user.contributor,
       });
 
       this.activeChat = convoFound.messages;
@@ -315,6 +319,7 @@ export default {
       this.newMessage = '';
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });

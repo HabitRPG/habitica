@@ -153,6 +153,24 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateUpdated if it did exist but the user has cancelled', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.customerId = 'testing';
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
+      it('sets plan.dateUpdated if it did exist but the user has a corrupt plan', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
       it('sets plan.dateCreated if it did not previously exist', async () => {
         expect(recipient.purchased.plan.dateCreated).to.not.exist;
 
@@ -399,13 +417,19 @@ describe('payments/index', () => {
       it('awards mystery items when within the timeframe for a mystery item', async () => {
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
+
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
+
+        const oldNotificationsCount = user.notifications.length;
 
         await api.createSubscription(data);
 
+        expect(user.notifications.find(n => n.type === 'NEW_MYSTERY_ITEMS')).to.not.be.undefined;
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(2);
         expect(user.purchased.plan.mysteryItems).to.include('armor_mystery_201605');
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
+        expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
+        expect(user.notifications[0].type).to.equal('NEW_MYSTERY_ITEMS');
 
         fakeClock.restore();
       });

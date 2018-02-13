@@ -1,13 +1,13 @@
 var migrationName = 'tasks-set-everyX';
-var authorName = ''; // in case script author needs to know when their ...
-var authorUuid = ''; //... own data is done
+var authorName = 'Sabe'; // in case script author needs to know when their ...
+var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 /*
  * Iterates over all tasks and sets invalid everyX values (less than 0 or more than 9999 or not an int) field to 0
  */
 
 var monk = require('monk');
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+var connectionString = 'mongodb://sabrecat:z8e8jyRA8CTofMQ@ds013393-a0.mlab.com:13393/habitica?auto_reconnect=true';
 var dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
 function processTasks(lastId) {

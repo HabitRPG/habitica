@@ -41,6 +41,7 @@ div
                 .grey-progress-bar
                   .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
                 strong {{group.quest.progress.collect[key]}} / {{value.count}}
+                span.float-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
           .boss-info(v-if='questData.boss')
             .row
               .col-6
@@ -208,6 +209,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    userIsOnQuest () {
+      if (!this.group.quest || !this.group.quest.members) return false;
+      return Boolean(this.group.quest.members[this.user._id]);
+    },
     onPendingQuest () {
       return Boolean(this.group.quest.key) && !this.group.quest.active;
     },

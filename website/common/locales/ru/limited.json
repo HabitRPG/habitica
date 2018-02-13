@@ -112,6 +112,10 @@
     "fall2017MasqueradeSet": "Маскарадный Маг (Маг)",
     "fall2017HauntedHouseSet": "Целитель Проклятого Дома (Целитель)",
     "fall2017TrickOrTreatSet": "Кошелек или жизнь (Разбойник)",
+    "winter2018ConfettiSet": "Маг Конфетти",
+    "winter2018GiftWrappedSet": "Подарочно-упакованный Воин",
+    "winter2018MistletoeSet": "Омела Целитель",
+    "winter2018ReindeerSet": "Оленеразбойник",
     "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
     "dateEndApril": "Апрель 19",
     "dateEndMay": "Май 17",
@@ -119,6 +123,11 @@
     "dateEndJuly": "29 июля",
     "dateEndAugust": "31 августа",
     "dateEndOctober": "31 октября",
-    "dateEndNovember": "November 30",
+    "dateEndNovember": "30 ноября",
+    "dateEndJanuary": "31 января",
+    "dateEndFebruary": "Февраль 28",
+    "winterPromoGiftHeader": "ПОДАРИТЕ ПОДПИСКУ И ПОЛУЧИТЕ ОДНУ БЕСПЛАТНО!",
+    "winterPromoGiftDetails1": "Только до 12 января, когда вы дарите кому-то подписку, вы получаете такую же подписку для себя бесплатно!",
+    "winterPromoGiftDetails2": "Обратите внимание, что если у вас или вашего получателя подарка уже есть повторяющаяся Подписка, одаренная Подписка начнется только после того, как эта Подписка будет отменена или истечет срок ее действия. Большое спасибо за вашу поддержку! <3",
     "discountBundle": "комплект"
 }
