@@ -74,14 +74,16 @@
                 img.rage-strike(src="~assets/images/rage_strike2x.png")
               .col-sm-2
                 img.rage-strike(src="~assets/images/rage_strike2x.png")
-            .boss-description.p-3(:style="{'border-color': questData.colors.extralight}")
+            .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
               strong.float-left {{ $t('worldBossDescription') }}
               .float-right
-                .toggle-down(@click="sections.worldBoss = !sections.worldBoss", v-if="!sections.worldBoss")
+                .toggle-down(v-if="!sections.worldBoss")
                   .svg-icon.boss-icon(v-html="icons.chevronIcon")
-                .toggle-up(@click="sections.worldBoss = !sections.worldBoss", v-if="sections.worldBoss")
+                .toggle-up(v-if="sections.worldBoss")
                   .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
             .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
+        .text-center.mt-4
+          .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
 
       .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
@@ -475,6 +477,15 @@
     height: auto;
   }
 
+  .world-boss-info-button {
+    width: 100%;
+    background-color: $gray-500;
+    border-radius: 2px;
+    font-size: 14px;
+    color: $blue-10;
+    padding: 1em;
+  }
+
 </style>
 
 <script>
@@ -550,7 +561,7 @@ export default {
         staff: true,
         helpfulLinks: true,
         playerTiers: true,
-        worldBoss: false,
+        worldBoss: true,
       },
       staff: [
         {
