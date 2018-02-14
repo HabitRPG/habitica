@@ -142,8 +142,8 @@
   },
   "devDependencies": {
     "babel-plugin-istanbul": "^4.0.0",
-    "chai": "^3.4.0",
-    "chai-as-promised": "^5.1.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "chalk": "^2.3.0",
     "chromedriver": "^2.27.2",
     "connect-history-api-fallback": "^1.1.0",
