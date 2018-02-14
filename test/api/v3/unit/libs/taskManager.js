@@ -54,7 +54,7 @@ describe('taskManager', () => {
     expect(newTask.type).to.equal(testHabit.type);
     expect(newTask.up).to.equal(testHabit.up);
     expect(newTask.down).to.equal(testHabit.down);
-    expect(newTask.createdAt).isNotEmtpy;
+    expect(newTask.createdAt).to.exist;
   });
 
   it('gets user tasks', async () => {
@@ -75,7 +75,7 @@ describe('taskManager', () => {
     expect(task.type).to.equal(testHabit.type);
     expect(task.up).to.equal(testHabit.up);
     expect(task.down).to.equal(testHabit.down);
-    expect(task.createdAt).isNotEmtpy;
+    expect(task.createdAt).to.exist;
   });
 
   it('creates group tasks', async () => {
@@ -89,7 +89,7 @@ describe('taskManager', () => {
     expect(newTask.type).to.equal(testHabit.type);
     expect(newTask.up).to.equal(testHabit.up);
     expect(newTask.down).to.equal(testHabit.down);
-    expect(newTask.createdAt).isNotEmtpy;
+    expect(newTask.createdAt).to.exist;
     expect(newTask.group.id).to.equal(group._id);
   });
 
@@ -111,7 +111,7 @@ describe('taskManager', () => {
     expect(task.type).to.equal(testHabit.type);
     expect(task.up).to.equal(testHabit.up);
     expect(task.down).to.equal(testHabit.down);
-    expect(task.createdAt).isNotEmtpy;
+    expect(task.createdAt).to.exist;
     expect(task.group.id).to.equal(group._id);
   });
 
@@ -126,7 +126,7 @@ describe('taskManager', () => {
     expect(newTask.type).to.equal(testHabit.type);
     expect(newTask.up).to.equal(testHabit.up);
     expect(newTask.down).to.equal(testHabit.down);
-    expect(newTask.createdAt).isNotEmtpy;
+    expect(newTask.createdAt).to.exist;
     expect(newTask.challenge.id).to.equal(challenge._id);
   });
 
@@ -148,7 +148,7 @@ describe('taskManager', () => {
     expect(task.type).to.equal(testHabit.type);
     expect(task.up).to.equal(testHabit.up);
     expect(task.down).to.equal(testHabit.down);
-    expect(task.createdAt).isNotEmtpy;
+    expect(task.createdAt).to.exist;
     expect(task.challenge.id).to.equal(challenge._id);
   });
 

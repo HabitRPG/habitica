@@ -194,7 +194,7 @@ describe('Challenge Model', () => {
         });
 
         expect(syncedTask).to.exist;
-        expect(syncedTask.challenge._id).to.be.empty;
+        expect(syncedTask.challenge._id).to.be.undefined;
       });
     });
   });

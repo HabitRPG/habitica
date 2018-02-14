@@ -274,7 +274,7 @@ describe('Group Task Methods', () => {
 
         expect(task.group.assignedUsers).to.not.contain(leader._id);
         expect(updatedSyncedTask).to.exist;
-        expect(updatedSyncedTask.group._id).to.be.empty;
+        expect(updatedSyncedTask.group._id).to.be.undefined;
       });
     });
   });
