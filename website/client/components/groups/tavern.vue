@@ -26,7 +26,7 @@
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
 
-  .col-12.col-sm-4.sidebar.mt-2
+  .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
         .daniel_front
@@ -48,7 +48,7 @@
               .col-sm-6
                 strong.float-left {{ questData.boss.name() }}
               .col-sm-6
-                span.float-right.d-flex.align-items-center
+                span.d-flex.float-right
                   .svg-icon.boss-icon(v-html="icons.swordIcon")
                   span.ml-1.reduce(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
             .grey-progress-bar.mb-1
@@ -65,7 +65,7 @@
               .svg-icon.boss-icon(v-html="icons.rageIcon")
               span.reduce.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
             .row.d-flex.align-items-center.mb-2.mt-2
-              .col-sm-5
+              .col-sm-5.d-flex
                 strong {{ $t('rageStrikes') }}
                 .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
               .col-sm-2
@@ -275,10 +275,6 @@
     margin: 0 auto;
   }
 
-  .sleep {
-    margin-top: 1em;
-  }
-
   .svg-icon {
     width: 10px;
     display: inline-block;
@@ -453,7 +449,7 @@
   }
 
   .boss-event {
-    padding: .25em 3em .25em 3em;
+    padding: .5em 3em .5em 3em;
     border-radius: 2px;
   }
 
