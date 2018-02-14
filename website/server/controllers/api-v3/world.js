@@ -10,13 +10,10 @@ async function getWorldBoss () {
     .findById(tavernId)
     .select('quest.progress quest.key quest.active quest.extra')
     .exec();
-  let quest = {};
-  if (tavern) {
-    if (tavern.quest.active) {
-      quest = tavern.quest;
-    }
+  if (tavern && tavern.quest && tavern.quest.active) {
+    return tavern.quest;
   }
-  return quest;
+  return {};
 }
 
 /**
