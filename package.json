@@ -77,7 +77,7 @@
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "popper.js": "^1.13.0",
-    "postcss-easy-import": "^2.0.0",
+    "postcss-easy-import": "^3.0.0",
     "ps-tree": "^1.0.0",
     "pug": "^2.0.0-rc.4",
     "push-notify": "git://github.com/habitrpg/push-notify.git#6bc2b5fdb1bdc9649b9ec1964d79ca50187fc8a9",
