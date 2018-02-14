@@ -120,5 +120,10 @@
     "createAccountQuest": "Kamu menerima misi ini ketika kamu bergabung dengan Habitica! Kalau ada temanmu bergabung, mereka akan dapat juga.",
     "questBundles": "Bundel Misi Diskon",
     "buyQuestBundle": "Beli Bundel Misi",
-    "noQuestToStart": "Tidak dapat menemukan misi untuk dilakukan? Coba cek Toko Misi di Pasar untuk menemukan misi baru!"
+    "noQuestToStart": "Tidak dapat menemukan misi untuk dilakukan? Coba cek Toko Misi di Pasar untuk menemukan misi baru!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

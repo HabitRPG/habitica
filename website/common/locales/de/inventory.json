@@ -4,5 +4,5 @@
   "eggsItemType": "Eier",
   "hatchingPotionsItemType": "Schlüpfelexier",
   "specialItemType": "Besondere Gegenstände",
-  "lockedItem": "Locked Item"
+  "lockedItem": "Gesperrter Gegenstand"
 }
