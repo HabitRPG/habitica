@@ -32,13 +32,13 @@
       .corner-decoration(:style="{top: '-2px', left: '-2px'}")
       .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
       .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
-      div.text-center.float-bar
+      .text-center.float-bar
         strong.boss-event(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
-      div.boss-gradient.pb-3
+      .boss-gradient.pb-3.pt-3
         p.text-center.small(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
         .quest-boss(:class="'background_' + questData.key")
           .quest-boss(:class="'quest_' + questData.key")
-      div.p-3
+      .p-3
         .row.d-flex.align-items-center
           .col-sm-6
             strong.float-left {{ questData.boss.name() }}
@@ -46,23 +46,19 @@
             span.float-right.d-flex.align-items-center
               .svg-icon.boss-icon(v-html="icons.swordIcon")
               span.ml-1.small(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
-        .grey-progress-bar
+        .grey-progress-bar.mb-1
           .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-        .row.d-flex.align-items-center
-          .col-sm-1.pt-1
-            .svg-icon.boss-icon(v-html="icons.healthIcon")
-          .col-sm-11
-            .small {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
-        div.mt-2
+        span.d-flex.align-items-center
+          .svg-icon.boss-icon(v-html="icons.healthIcon")
+          span.small.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
+        .mt-2
           strong.mr-1 {{ $t('rageAttack') }}
           span {{ questData.boss.rage.title() }}
-        .grey-progress-bar
+        .grey-progress-bar.mb-1
           .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
-        .row.d-flex.align-items-center
-          .col-sm-1.pt-1
-            .svg-icon.boss-icon(v-html="icons.rageIcon")
-          .col-sm-11
-            .small {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
+        span.d-flex.align-items-center
+          .svg-icon.boss-icon(v-html="icons.rageIcon")
+          span.small.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
         .row.d-flex.align-items-center
           .col-sm-5
             strong {{ $t('rageStrikes') }}
@@ -82,7 +78,7 @@
               .svg-icon(v-html="icons.downIcon")
             .toggle-up(@click="sections.worldBoss = !sections.worldBoss", v-if="sections.worldBoss")
               .svg-icon(v-html="icons.upIcon")
-        div.mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
+        .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
 
     .section
       .grassy-meadow-backdrop
@@ -437,6 +433,7 @@
 
   .boss-gradient {
     background-image: linear-gradient(to bottom, #401f2a, #931f4d);
+    margin-top: -1.4em;
   }
 
   .boss-description {
