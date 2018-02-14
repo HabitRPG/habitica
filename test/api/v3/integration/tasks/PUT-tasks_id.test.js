@@ -133,7 +133,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedChallengeUserTask.text).to.equal(challengeUserTask.text);
       expect(savedChallengeUserTask.history).to.eql(challengeUserTask.history);
       expect(savedChallengeUserTask.createdAt).to.equal(challengeUserTask.createdAt);
-      expect(savedChallengeUserTask.updatedAt).to.be.greaterThan(challengeUserTask.updatedAt);
+      expect(new Date(savedChallengeUserTask.updatedAt)).to.be.greaterThan(new Date(challengeUserTask.updatedAt));
       expect(savedChallengeUserTask.challenge).to.eql(challengeUserTask.challenge);
       expect(savedChallengeUserTask.completed).to.equal(challengeUserTask.completed);
       expect(savedChallengeUserTask.dateCompleted).to.equal(challengeUserTask.dateCompleted);
