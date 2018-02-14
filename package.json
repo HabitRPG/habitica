@@ -92,7 +92,7 @@
     "svg-url-loader": "^2.0.2",
     "svgo-loader": "^1.2.1",
     "universal-analytics": "^0.4.16",
-    "url-loader": "^0.5.7",
+    "url-loader": "^0.6.2",
     "useragent": "^2.1.9",
     "uuid": "^3.0.1",
     "validator": "^4.9.0",
