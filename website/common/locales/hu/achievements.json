@@ -3,6 +3,6 @@
   "onwards": "Tovább!",
   "levelup": "A valós céljaid elvégzésével szintet léptél, és teljesen felgyógyultál!",
   "reachedLevel": "Elérted a(z) <%= level %> szintet",
-  "achievementLostMasterclasser": "Küldetés maximalista: Mesterkurzus sorozat",
-  "achievementLostMasterclasserText": "Teljesítetted mind a tizenhat küldetést a Mesterkurzus küldetéssorozatban, és megoldottad az Elveszett nagymester rejtélyét!"
+  "achievementLostMasterclasser": "Küldetés maximalista: Kasztmester sorozat",
+  "achievementLostMasterclasserText": "Teljesítetted mind a tizenhat küldetést a Kasztmester küldetéssorozatban, és megoldottad az Elveszett kasztmester rejtélyét!"
 }
