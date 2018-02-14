@@ -20,7 +20,7 @@ describe('payments : paypal #subscribeSuccess', () => {
     });
   });
 
-  xdescribe('success', () => {
+  describe('success', () => {
     let subscribeSuccessStub;
 
     beforeEach(async () => {

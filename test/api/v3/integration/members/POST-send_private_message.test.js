@@ -131,7 +131,7 @@ describe('POST /members/send-private-message', () => {
   });
 
   // @TODO waiting for mobile support
-  xit('creates a notification with an excerpt if the message is too long', async () => {
+  it('creates a notification with an excerpt if the message is too long', async () => {
     let receiver = await generateUser();
     let longerMessageToSend = 'A very long message, that for sure exceeds the limit of 100 chars for the excerpt that we set to 100 chars';
     let messageExcerpt = `${longerMessageToSend.substring(0, 100)}...`;

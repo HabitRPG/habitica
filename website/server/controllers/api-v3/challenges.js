@@ -434,11 +434,11 @@ api.getUserChallenges = {
     let challenges = await Challenge.find({
       $or: orOptions,
     })
-    .sort('-official -createdAt')
-    // see below why we're not using populate
-    // .populate('group', basicGroupFields)
-    // .populate('leader', nameFields)
-    .exec();
+      .sort('-official -createdAt')
+      // see below why we're not using populate
+      // .populate('group', basicGroupFields)
+      // .populate('leader', nameFields)
+      .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833

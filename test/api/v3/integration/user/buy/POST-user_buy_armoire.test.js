@@ -35,7 +35,7 @@ describe('POST /user/buy-armoire', () => {
     expect(user.stats.gp).to.equal(300);
   });
 
-  xit('buys a piece of armoire', async () => {
+  it('buys a piece of armoire', async () => {
     // Skipped because can't stub predictableRandom correctly
   });
 });

@@ -171,7 +171,7 @@ describe('taskManager', () => {
     expect(syncableTask.updatedAt).to.not.exist;
   });
 
-  it('moves tasks to a specified position', async() => {
+  it('moves tasks to a specified position', async () => {
     let order = ['task-id-1', 'task-id-2'];
 
     moveTask(order, 'task-id-2', 0);

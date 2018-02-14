@@ -152,7 +152,7 @@ describe('GET /tasks/user', () => {
     expect(dailys2[0].isDue).to.be.true;
   });
 
-  xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
+  it('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     let timezone = 420;
     await user.update({
       'preferences.dayStart': 0,
@@ -179,7 +179,7 @@ describe('GET /tasks/user', () => {
   });
 
 
-  xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
+  it('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     let timezone = 240;
     await user.update({
       'preferences.dayStart': 0,
@@ -205,7 +205,7 @@ describe('GET /tasks/user', () => {
     expect(dailys2[0].isDue).to.be.false;
   });
 
-  xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
+  it('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     let timezone = 540;
     await user.update({
       'preferences.dayStart': 0,

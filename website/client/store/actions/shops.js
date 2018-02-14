@@ -69,16 +69,16 @@ async function buyArmoire (store, params) {
 
     // @TODO: We might need to abstract notifications to library rather than mixin
     const notificationOptions = isExperience ?
-    {
-      text: `+ ${item.value}`,
-      type: 'xp',
-      flavorMessage: message,
-    } :
-    {
-      text: message,
-      type: 'drop',
-      icon: getDropClass({type: item.type, key: item.dropKey}),
-    };
+      {
+        text: `+ ${item.value}`,
+        type: 'xp',
+        flavorMessage: message,
+      } :
+      {
+        text: message,
+        type: 'drop',
+        icon: getDropClass({type: item.type, key: item.dropKey}),
+      };
 
     store.dispatch('snackbars:add', {
       title: '',

@@ -41,7 +41,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
-    xit('remove spaces from username', async () => {
+    it('remove spaces from username', async () => {
       // TODO can probably delete this test now
       let username = ' usernamewithspaces ';
       let email = 'test@example.com';
@@ -142,7 +142,7 @@ describe('POST /user/auth/local/register', () => {
         expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
-      xit('for Web', async () => {
+      it('for Web', async () => {
         api = requester(
           null,
           {'x-client': 'habitica-web'},
@@ -579,7 +579,7 @@ describe('POST /user/auth/local/register', () => {
 
     it('adds a user to a guild on an invite of type other than party', async () => {
       let { group, groupLeader } = await createAndPopulateGroup({
-          groupDetails: { type: 'guild', privacy: 'private' },
+        groupDetails: { type: 'guild', privacy: 'private' },
       });
 
       let invite = encrypt(JSON.stringify({
