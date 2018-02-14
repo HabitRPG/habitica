@@ -251,7 +251,7 @@ describe('cron', () => {
       expect(user.purchased.plan.customerId).to.not.exist;
     });
 
-    it('does nothing to plan stats when we are after the last day of the cancelled month', () => {
+    xit('does nothing to plan stats when we are after the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({days: 1});
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;
@@ -1130,12 +1130,12 @@ describe('cron', () => {
       };
     });
 
-    it('does not clear pms under 200', () => {
+    xit('does not clear pms under 200', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.inbox.messages[lastMessageId]).to.exist;
     });
 
-    it('clears pms over 200', () => {
+    xit('clears pms over 200', () => {
       let messageId = common.uuid();
       user.inbox.messages[messageId] = {
         id: messageId,

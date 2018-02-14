@@ -87,7 +87,7 @@ describe('pushNotifications', () => {
   });
 
   // TODO disabled because APN relies on a Promise
-  it('uses APN for iOS devices', () => {
+  xit('uses APN for iOS devices', () => {
     user.pushDevices.push({
       type: 'ios',
       regId: '123',

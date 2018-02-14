@@ -41,7 +41,7 @@ describe('POST /user/auth/local/register', () => {
       expect(user.newUser).to.eql(true);
     });
 
-    it('remove spaces from username', async () => {
+    xit('remove spaces from username', async () => {
       // TODO can probably delete this test now
       let username = ' usernamewithspaces ';
       let email = 'test@example.com';
@@ -142,7 +142,7 @@ describe('POST /user/auth/local/register', () => {
         expect(tags[6].name).to.eql(t('defaultTag7'));
       });
 
-      it('for Web', async () => {
+      xit('for Web', async () => {
         api = requester(
           null,
           {'x-client': 'habitica-web'},

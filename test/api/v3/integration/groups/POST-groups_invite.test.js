@@ -368,7 +368,7 @@ describe('Post /groups/:groupId/invite', () => {
     });
 
     // @TODO: Add this after we are able to mock the group plan route
-    it('returns an error when a non-leader invites to a group plan', async () => {
+    xit('returns an error when a non-leader invites to a group plan', async () => {
       let userToInvite = await generateUser();
 
       let nonGroupLeader = await generateUser();
