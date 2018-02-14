@@ -27,62 +27,61 @@
           chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
 
   .col-12.col-sm-4.sidebar.mt-2
-    .section.world-boss(v-if='group && group.quest && group.quest.active', :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}")
-      .corner-decoration(:style="{top: '-2px', right: '-2px'}")
-      .corner-decoration(:style="{top: '-2px', left: '-2px'}")
-      .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
-      .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
-      .text-center.float-bar
-        strong.boss-event(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
-      .boss-gradient.pb-3.pt-3
-        p.text-center.small(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
-        .quest-boss(:class="'background_' + questData.key")
-          .quest-boss(:class="'quest_' + questData.key")
-      .p-3
-        .row.d-flex.align-items-center
-          .col-sm-6
-            strong.float-left {{ questData.boss.name() }}
-          .col-sm-6
-            span.float-right.d-flex.align-items-center
-              .svg-icon.boss-icon(v-html="icons.swordIcon")
-              span.ml-1.small(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
-        .grey-progress-bar.mb-1
-          .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-        span.d-flex.align-items-center
-          .svg-icon.boss-icon(v-html="icons.healthIcon")
-          span.small.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
-        .mt-2
-          strong.mr-1 {{ $t('rageAttack') }}
-          span {{ questData.boss.rage.title() }}
-        .grey-progress-bar.mb-1
-          .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
-        span.d-flex.align-items-center
-          .svg-icon.boss-icon(v-html="icons.rageIcon")
-          span.small.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
-        .row.d-flex.align-items-center
-          .col-sm-5
-            strong {{ $t('rageStrikes') }}
-            .svg-icon.boss-icon.information-icon(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
-          .col-sm-2
-            .svg-icon.boss-icon-large(v-html="icons.rageIcon")
-              h3 ?
-          .col-sm-2
-            .svg-icon.boss-icon-large(v-html="icons.rageIcon")
-          .col-sm-2
-            .svg-icon.boss-icon-large(v-html="icons.rageIcon")
-        .row.boss-description.pt-3(:style="{'border-color': questData.colors.extralight}")
-          .col-10
-            strong {{ $t('worldBossDescription') }}
-          .col-2
-            .toggle-down(@click="sections.worldBoss = !sections.worldBoss", v-if="!sections.worldBoss")
-              .svg-icon(v-html="icons.downIcon")
-            .toggle-up(@click="sections.worldBoss = !sections.worldBoss", v-if="sections.worldBoss")
-              .svg-icon(v-html="icons.upIcon")
-        .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
-
     .section
       .grassy-meadow-backdrop
         .daniel_front
+
+      .boss-section
+        .world-boss(v-if='group && group.quest && group.quest.active', :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}")
+          .corner-decoration(:style="{top: '-2px', right: '-2px'}")
+          .corner-decoration(:style="{top: '-2px', left: '-2px'}")
+          .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
+          .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
+          .text-center.float-bar
+            strong.reduce.boss-event(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
+          .boss-gradient.pb-3.pt-3
+            p.text-center.reduce(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
+            .quest-boss(:class="'background_' + questData.key")
+              .quest-boss(:class="'quest_' + questData.key")
+          .p-3
+            .row.d-flex.align-items-center.mb-2
+              .col-sm-6
+                strong.float-left {{ questData.boss.name() }}
+              .col-sm-6
+                span.float-right.d-flex.align-items-center
+                  .svg-icon.boss-icon(v-html="icons.swordIcon")
+                  span.ml-1.reduce(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
+            .grey-progress-bar.mb-1
+              .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%', 'background-color': questData.colors.extralight}")
+            span.d-flex.align-items-center
+              .svg-icon.boss-icon(v-html="icons.healthIcon")
+              span.reduce.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
+            .mt-2.mb-2
+              strong.mr-1 {{ $t('rageAttack') }}
+              span {{ questData.boss.rage.title() }}
+            .grey-progress-bar.mb-1
+              .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
+            span.d-flex.align-items-center
+              .svg-icon.boss-icon(v-html="icons.rageIcon")
+              span.reduce.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
+            .row.d-flex.align-items-center.mb-2.mt-2
+              .col-sm-5
+                strong {{ $t('rageStrikes') }}
+                .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
+              .col-sm-2
+                .rage_strike
+              .col-sm-2
+                .rage_strike
+              .col-sm-2
+                .rage_strike
+            .boss-description.p-3(:style="{'border-color': questData.colors.extralight}")
+              strong.float-left {{ $t('worldBossDescription') }}
+              .float-right
+                .toggle-down(@click="sections.worldBoss = !sections.worldBoss", v-if="!sections.worldBoss")
+                  .svg-icon.boss-icon(v-html="icons.chevronIcon")
+                .toggle-up(@click="sections.worldBoss = !sections.worldBoss", v-if="sections.worldBoss")
+                  .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
+            .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
 
       .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
@@ -309,6 +308,7 @@
   .boss-icon {
     width: 16px;
     margin-top: .1em;
+    margin-left: 0;
   }
 
   .boss-icon-large {
@@ -397,6 +397,10 @@
     color: $black;
   }
 
+  .boss-section {
+    padding: 1.75em;
+  }
+
   .world-boss {
     color: $white;
     border-style: solid;
@@ -414,13 +418,12 @@
   .grey-progress-bar {
     width: 100%;
     height: 15px;
-    background-color: #e1e0e3;
+    background-color: rgba(255, 255, 255, 0.24);
     border-radius: 2px;
   }
 
   .boss-health-bar {
     width: 80%;
-    background-color: red;
     height: 15px;
     margin-bottom: .5em;
     border-top-left-radius: 2px;
@@ -428,7 +431,7 @@
   }
 
   .boss-health-bar.rage-bar {
-    background-color: orange;
+    background-color: #ff944c;
   }
 
   .boss-gradient {
@@ -437,7 +440,7 @@
   }
 
   .boss-description {
-    border-top: 2px solid;
+    border-top: 1px solid;
     margin-left: -16px;
     margin-right: -16px;
     padding: .25em 0 0 .25em;
@@ -450,6 +453,7 @@
 
   .boss-event {
     padding: .25em 3em .25em 3em;
+    border-radius: 2px;
   }
 
   .corner-decoration {
@@ -459,6 +463,14 @@
     background-color: inherit;
     border: inherit;
     outline: inherit;
+  }
+
+  .reverse {
+    transform: rotate(180deg);
+  }
+
+  .reduce {
+    font-size: 12px;
   }
 
 </style>
@@ -472,15 +484,16 @@ import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
 
-import gemIcon from 'assets/svg/gem.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
+import chevronIcon from 'assets/svg/chevron-red.svg';
+import downIcon from 'assets/svg/down.svg';
+import gemIcon from 'assets/svg/gem.svg';
 import healthIcon from 'assets/svg/health.svg';
-import swordIcon from 'assets/svg/sword.svg';
-import rageIcon from 'assets/svg/rage.svg';
 import informationIconRed from 'assets/svg/information-red.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
+import rageIcon from 'assets/svg/rage.svg';
+import swordIcon from 'assets/svg/sword.svg';
 import upIcon from 'assets/svg/up.svg';
-import downIcon from 'assets/svg/down.svg';
 
 import tier1 from 'assets/svg/tier-1.svg';
 import tier2 from 'assets/svg/tier-2.svg';
@@ -506,6 +519,7 @@ export default {
       groupId: TAVERN_ID,
       icons: Object.freeze({
         challengeIcon,
+        chevronIcon,
         downIcon,
         gem: gemIcon,
         healthIcon,
