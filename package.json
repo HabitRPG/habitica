@@ -88,7 +88,7 @@
     "shelljs": "^0.8.1",
     "stripe": "^5.4.0",
     "superagent": "^3.4.3",
-    "svg-inline-loader": "^0.7.1",
+    "svg-inline-loader": "^0.8.0",
     "svg-url-loader": "^2.0.2",
     "svgo-loader": "^1.2.1",
     "universal-analytics": "^0.4.16",
