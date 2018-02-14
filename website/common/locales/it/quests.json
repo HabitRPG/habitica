@@ -120,5 +120,10 @@
     "createAccountQuest": "Hai ricevuto questa missione quando ti sei iscritto ad Habitica! Se un tuo amico si iscriverà, ne riceverà una anche lui.",
     "questBundles": "Pacchetto missioni scontato",
     "buyQuestBundle": "Compra pacchetto missioni",
-    "noQuestToStart": "Non sai con quale missione cominciare? Fai un salto al Negozio Missioni nel Mercato per le nuove uscite!"
+    "noQuestToStart": "Non sai con quale missione cominciare? Fai un salto al Negozio Missioni nel Mercato per le nuove uscite!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

@@ -3,6 +3,6 @@
   "onwards": "¡Adelante!",
   "levelup": "¡Por realizar tus metas de la vida real, has subido de nivel y te has curado por completo!",
   "reachedLevel": "Has alcanzado el nivel <%= level %>",
-  "achievementLostMasterclasser": "Completista de Misiones: Serie Masterclasser",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "achievementLostMasterclasser": "Completista de Misiones: Serie Maestro de Clases",
+  "achievementLostMasterclasserText": "¡Completó todas las dieciséis misiones de la Serie Maestro de Clases y resolvió el misterio de el Maestro de Clases perdido!"
 }

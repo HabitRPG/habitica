@@ -120,5 +120,10 @@
     "createAccountQuest": "Otrzymałeś tą misję, kiedy dołączyłeś do Habitiki. Jeżeli twój przyjaciel dołączy, również otrzyma misję.",
     "questBundles": "Przecenione pakiety misji",
     "buyQuestBundle": "Kup pakiet misji",
-    "noQuestToStart": "Nie możesz znaleźć żadnej misji? Wejdź do Sklepu Misji na Targu po nowe zadania!"
+    "noQuestToStart": "Nie możesz znaleźć żadnej misji? Wejdź do Sklepu Misji na Targu po nowe zadania!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }
