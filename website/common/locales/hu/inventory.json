@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Nincsen <%= type %>.",
+  "foodItemType": "Élelem",
+  "eggsItemType": "Tojások",
+  "hatchingPotionsItemType": "Keltetőfőzetek",
+  "specialItemType": "Különleges tárgyak",
+  "lockedItem": "Lezárt tárgyak"
+}

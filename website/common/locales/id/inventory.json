@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Kamu tidak punya <%= type %>.",
+  "foodItemType": "Makanan",
+  "eggsItemType": "Telur",
+  "hatchingPotionsItemType": "Ramuan Penetas",
+  "specialItemType": "Item Spesial",
+  "lockedItem": "Item Terkunci"
+}
