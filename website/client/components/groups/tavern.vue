@@ -27,6 +27,25 @@
           chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
 
   .col-12.col-sm-4.sidebar
+    .section(v-if='group.quest.active')
+      p {{ $t('worldBossEvent') }}
+      p {{ $t(`${questData.key}ArtCredit`) }}
+      .quest-boss(:class="'quest_' + questData.key")
+      .row
+        .col-sm-6
+          strong.float-left {{ questData.boss.name() }}
+        .col-sm-6
+          span.float-right {{ $t('pendingDamage', {damage: pendingDamage()}) }}
+      .grey-progress-bar
+        .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
+      p {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
+      div
+        strong.mr-1 {{ $t('rageStrike') }}
+        span {{ questData.boss.rage.title() }}
+      .grey-progress-bar
+        .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
+      p {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
+
     .section
       .grassy-meadow-backdrop
         .daniel_front
@@ -335,6 +354,27 @@
     color: $black;
   }
 
+  .quest-boss {
+    margin: 0 auto;
+  }
+
+  .grey-progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #e1e0e3;
+  }
+
+  .boss-health-bar {
+    width: 80%;
+    background-color: red;
+    height: 15px;
+    margin-bottom: .5em;
+  }
+
+  .boss-health-bar.rage-bar {
+    background-color: orange;
+  }
+
 </style>
 
 <script>
@@ -364,6 +404,8 @@ import tier7 from 'assets/svg/tier-7.svg';
 import tierMod from 'assets/svg/tier-mod.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 import tierStaff from 'assets/svg/tier-staff.svg';
+
+import quests from 'common/script/content/quests';
 
 export default {
   components: {
@@ -488,6 +530,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    questData () {
+      if (!this.group.quest) return {};
+      return quests.quests[this.group.quest.key];
+    },
   },
   async mounted () {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
@@ -546,6 +592,20 @@ export default {
     },
     reverseChat () {
       this.group.chat.reverse();
+    },
+    pendingDamage () {
+      if (!this.user.party.quest.progress.up) return 0;
+      return parseFloat(this.user.party.quest.progress.up).toFixed(1);
+    },
+    bossCurrentHealth () {
+      if (!this.group.quest.progress.hp) return 0;
+
+      return Math.ceil(parseFloat(this.group.quest.progress.hp)).toLocaleString();
+    },
+    bossCurrentRage () {
+      if (!this.group.quest.progress.hp) return 0;
+
+      return Math.floor(parseFloat(this.group.quest.progress.rage)).toLocaleString();
     },
   },
 };
