@@ -14,11 +14,11 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
     return true;
   }
 
-  extractAndValidateParams () {
+  extractAndValidateParams (user) {
     let item = content.potion;
-    let userHp = this.user.stats.hp;
+    let userHp = user.stats.hp;
 
-    super.canUserPurchase(item);
+    super.canUserPurchase(user, item);
 
     if (userHp >= 50) {
       throw new NotAuthorized(this.i18n('messageHealthAlreadyMax'));
@@ -29,13 +29,13 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
     }
   }
 
-  executeChanges () {
-    this.user.stats.hp += 15 * this.quantity;
-    if (this.user.stats.hp > 50) {
-      this.user.stats.hp = 50;
+  executeChanges (user, item) {
+    user.stats.hp += 15 * this.quantity;
+    if (user.stats.hp > 50) {
+      user.stats.hp = 50;
     }
 
-    this.user.stats.gp -= this.item.value * this.quantity;
+    this.substractCurrency(user, item.value, this.quantity);
 
     let message = this.i18n('messageBought', {
       itemText: this.item.text(this.req.language),

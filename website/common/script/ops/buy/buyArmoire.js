@@ -26,17 +26,14 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     return false;
   }
 
-  extractAndValidateParams () {
+  extractAndValidateParams (user) {
     let item = content.armoire;
 
-    super.canUserPurchase(item);
+    super.canUserPurchase(user, item);
   }
 
-  executeChanges () {
-    let user = this.user;
-
+  executeChanges (user, item) {
     let result = {};
-
 
     let armoireResult = randomVal.trueRandom();
     let eligibleEquipment = filter(content.gear.flat, (eligible) => {
@@ -45,14 +42,14 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
     let armoireHasEquipment = !isEmpty(eligibleEquipment);
 
     if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
-      result = this._gearResult(this.user, eligibleEquipment);
+      result = this._gearResult(user, eligibleEquipment);
     } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-      result = this._foodResult(this.user);
+      result = this._foodResult(user);
     } else {
-      result = this._experienceResult(this.user);
+      result = this._experienceResult(user);
     }
 
-    user.stats.gp -= this.item.value;
+    this.substractCurrency(user, item.value);
 
     let {message, armoireResp} = result;
 

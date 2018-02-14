@@ -23,17 +23,17 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
     return false;
   }
 
-  extractAndValidateParams () {
-    let key = this.key = get(this.req, 'params.key');
+  extractAndValidateParams (user, req) {
+    let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
     let item = content.gear.flat[key];
 
     if (!item) throw new NotFound(this.i18n('itemNotFound', {key}));
 
-    super.canUserPurchase(item);
+    super.canUserPurchase(user, item);
 
-    if (this.user.items.gear.owned[item.key]) {
+    if (user.items.gear.owned[item.key]) {
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
@@ -41,7 +41,7 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
 
     if (Number.isInteger(itemIndex) && content.classes.includes(item.klass)) {
       let previousLevelGear = key.replace(/[0-9]/, itemIndex - 1);
-      let hasPreviousLevelGear = this.user.items.gear.owned[previousLevelGear];
+      let hasPreviousLevelGear = user.items.gear.owned[previousLevelGear];
       let checkIndexToType = itemIndex > (item.type === 'weapon' || item.type === 'shield' && item.klass === 'rogue' ? 0 : 1);
 
       if (checkIndexToType && !hasPreviousLevelGear) {
@@ -50,28 +50,28 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
     }
   }
 
-  executeChanges () {
+  executeChanges (user, item, req) {
     let message;
 
-    if (this.user.preferences.autoEquip) {
-      this.user.items.gear.equipped[this.item.type] = this.item.key;
-      message = handleTwoHanded(this.user, this.item, undefined, this.req);
+    if (user.preferences.autoEquip) {
+      user.items.gear.equipped[item.type] = item.key;
+      message = handleTwoHanded(user, item, undefined, req);
     }
 
-    removePinnedGearAddPossibleNewOnes(this.user, `gear.flat.${this.item.key}`, this.item.key);
+    removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
 
-    if (this.item.last) ultimateGear(this.user);
+    if (item.last) ultimateGear(user);
 
-    this.user.stats.gp -= this.item.value;
+    this.substractCurrency(user, item.value);
 
     if (!message) {
       message = this.i18n('messageBought', {
-        itemText: this.item.text(this.req.language),
+        itemText: item.text(req.language),
       });
     }
 
     return [
-      pick(this.user, splitWhitespace('items achievements stats flags')),
+      pick(user, splitWhitespace('items achievements stats flags')),
       message,
     ];
   }

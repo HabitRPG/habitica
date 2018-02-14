@@ -1,5 +1,5 @@
 import {AbstractBuyOperation} from './abstractBuyOperation';
-
+import {BuyGearOperation} from './buyGear';
 
 
 /**
@@ -11,6 +11,7 @@ import {AbstractBuyOperation} from './abstractBuyOperation';
 export function buyFactory (type, req, user, analytics) {
   switch (type) {
 
-    default: return new BuyGearOperation(user, req, analytics);
+    default:
+      return new BuyGearOperation(user, req, analytics);
   }
 }

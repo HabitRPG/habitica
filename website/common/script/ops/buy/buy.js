@@ -7,10 +7,10 @@ import { BuyHealthPotionOperation } from './buyHealthPotion';
 import { BuyArmoireOperation } from './buyArmoire';
 import { BuyGearOperation } from './buyGear';
 import buyMysterySet from './buyMysterySet';
-import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
+import {BuyQuestWithGoldOperation} from "./buyQuestWithGold";
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -58,9 +58,12 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
-    case 'quest':
-      buyRes = buyQuest(user, req, analytics);
+    case 'quest': {
+      let opInstance = new BuyQuestWithGoldOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;

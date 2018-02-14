@@ -2,6 +2,7 @@ import i18n from '../../i18n';
 import {
   NotAuthorized,
 } from '../../libs/errors';
+import _merge from 'lodash/merge';
 
 export class NotImplementedError extends Error {
   constructor (str) {
@@ -62,9 +63,9 @@ export class AbstractBuyOperation {
       throw new NotAuthorized(this.i18n('messageNotAbleToBuyInBulk'));
     }
 
-    this.extractAndValidateParams();
+    this.extractAndValidateParams(this.user, this.req);
 
-    let resultObj = this.executeChanges();
+    let resultObj = this.executeChanges(this.user, this.item, this.req);
 
     if (this.analytics) {
       this.sendToAnalytics(this.analyticsData());
@@ -73,19 +74,20 @@ export class AbstractBuyOperation {
     return resultObj;
   }
 
-  sendToAnalytics (additionalData) {
-    let analyticsData ={
-      ...additionalData,
+  sendToAnalytics (additionalData = {}) {
+    // spread-operator produces an "unexpected token" error
+    let analyticsData = _merge(additionalData, {
+      // ...additionalData,
       uuid: this.user._id,
       category: 'behavior',
       headers: this.req.headers,
-    };
+    });
 
     if (this.multiplePurchaseAllowed()) {
       analyticsData.quantityPurchased = this.quantity;
     }
 
-    this.analytics.track('acquire item', analyticsData;
+    this.analytics.track('acquire item', analyticsData);
   }
 }
 
@@ -94,16 +96,91 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     super(user, req, analytics);
   }
 
-  canUserPurchase (item) {
+  canUserPurchase (user, item, itemValue = -1) {
     this.item = item;
-    let userGold = this.user.stats.gp;
 
-    if (userGold < item.value * this.quantity) {
+    if (itemValue === -1) {
+      itemValue = item.value;
+    }
+
+    let userGold = user.stats.gp;
+
+    if (userGold < itemValue * this.quantity) {
       throw new NotAuthorized(this.i18n('messageNotEnoughGold'));
     }
 
-    if (item.canOwn && !item.canOwn(this.user)) {
+    if (item.canOwn && !item.canOwn(user)) {
       throw new NotAuthorized(this.i18n('cannotBuyItem'));
     }
+  }
+
+  substractCurrency (user, itemValue, amount = 1) {
+    user.stats.gp -= itemValue * amount;
+  }
+}
+
+// todo
+export class AbstractGemItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (user, item, itemValue = -1) {
+    this.item = item;
+  }
+
+  substractCurrency (user, itemValue, amount = 1) {
+  }
+}
+
+// todo
+export class AbstractHourglassItemOperation extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  canUserPurchase (user, item, itemValue = -1) {
+    this.item = item;
+  }
+
+  substractCurrency (user, itemValue, amount = 1) {
+  }
+}
+
+// todo
+// for items like quests which can be purchased by gold and gem
+export class AbstractHybridItemOperation  extends AbstractBuyOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
+  }
+
+  setCurrency (type) {
+    switch (type) {
+      case 'gem':
+        this.currencyOperation = new AbstractGemItemOperation(this.user, this.req);
+        break;
+      case 'hourglass':
+        this.currencyOperation = new AbstractHourglassItemOperation(this.user, this.req);
+        break;
+      default:
+        this.currencyOperation = new AbstractGoldItemOperation(this.user, this.req);
+        break;
+    }
+  }
+
+  canUserPurchase (user, item, itemValue = -1) {
+    if (!this.currencyOperation) {
+      throw new Error('no currencyOperation');
+    }
+
+    return this.currencyOperation.canUserPurchase(user, item, itemValue);
+  }
+
+  substractCurrency (user, itemValue, amount = 1) {
+    if (!this.currencyOperation) {
+      throw new Error('no currencyOperation');
+    }
+
+    return this.currencyOperation.substractCurrency(user, itemValue, amount);
   }
 }
