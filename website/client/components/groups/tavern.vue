@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  world-boss-info-modal
   .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
@@ -25,7 +26,6 @@
         .row
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
-
   .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
@@ -485,6 +485,7 @@ import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
+import worldBossInfoModal from '../worldBossInfoModal';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import chevronIcon from 'assets/svg/chevron-red.svg';
@@ -515,6 +516,7 @@ export default {
     chatMessage,
     autocomplete,
     communityGuidelines,
+    worldBossInfoModal,
   },
   data () {
     return {
@@ -713,6 +715,9 @@ export default {
       if (!this.group.quest.progress.hp) return 0;
 
       return Math.floor(parseFloat(this.group.quest.progress.rage)).toLocaleString();
+    },
+    showWorldBossInfo () {
+      this.$root.$emit('bv::show::modal', 'world-boss-info');
     },
   },
 };
