@@ -62,7 +62,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       itemKey: this.key,
       itemType: 'Market',
       acquireMethod: 'Gold',
-      goldCost: this.item.value,
+      goldCost: this.item.goldValue,
     };
   }
 }
