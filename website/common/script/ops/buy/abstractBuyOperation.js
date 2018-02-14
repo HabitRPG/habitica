@@ -114,12 +114,11 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     }
   }
 
-  substractCurrency (user, itemValue, amount = 1) {
-    user.stats.gp -= itemValue * amount;
+  substractCurrency (user, itemValue, quantity = 1) {
+    user.stats.gp -= itemValue * quantity;
   }
 }
 
-// todo
 export class AbstractGemItemOperation extends AbstractBuyOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
@@ -127,29 +126,42 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
   canUserPurchase (user, item, itemValue = -1) {
     this.item = item;
+
+    if (!item.canBuy(user)) {
+      throw new NotAuthorized(this.i18n('messageNotAvailable'));
+    }
+
+    if (!user.balance || user.balance < itemValue * this.quantity) {
+      throw new NotAuthorized(this.i18n.t('notEnoughGems'));
+    }
   }
 
-  substractCurrency (user, itemValue, amount = 1) {
+  substractCurrency (user, itemValue, quantity = 1) {
+    user.balance -= itemValue * quantity;
   }
 }
 
-// todo
 export class AbstractHourglassItemOperation extends AbstractBuyOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
 
-  canUserPurchase (user, item, itemValue = -1) {
+  canUserPurchase (user, item) {
     this.item = item;
+
+    if (user.purchased.plan.consecutive.trinkets <= 0) {
+      throw new NotAuthorized(this.i18n('notEnoughHourglasses'));
+    }
   }
 
-  substractCurrency (user, itemValue, amount = 1) {
+  substractCurrency (user) {
+    user.purchased.plan.consecutive.trinkets--;
   }
 }
 
 // todo
 // for items like quests which can be purchased by gold and gem
-export class AbstractHybridItemOperation  extends AbstractBuyOperation {
+export class AbstractHybridItemOperation extends AbstractBuyOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
   }
@@ -176,11 +188,11 @@ export class AbstractHybridItemOperation  extends AbstractBuyOperation {
     return this.currencyOperation.canUserPurchase(user, item, itemValue);
   }
 
-  substractCurrency (user, itemValue, amount = 1) {
+  substractCurrency (user, itemValue, quantity = 1) {
     if (!this.currencyOperation) {
       throw new Error('no currencyOperation');
     }
 
-    return this.currencyOperation.substractCurrency(user, itemValue, amount);
+    return this.currencyOperation.substractCurrency(user, itemValue, quantity);
   }
 }
