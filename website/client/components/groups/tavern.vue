@@ -52,11 +52,11 @@
                   .svg-icon.boss-icon(v-html="icons.swordIcon")
                   span.ml-1.reduce(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
             .grey-progress-bar.mb-1
-              .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%', 'background-color': questData.colors.extralight}")
+              .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
             span.d-flex.align-items-center
               .svg-icon.boss-icon(v-html="icons.healthIcon")
               span.reduce.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
-            .mt-2.mb-2
+            .mt-3.mb-2
               strong.mr-1 {{ $t('rageAttack') }}
               span {{ questData.boss.rage.title() }}
             .grey-progress-bar.mb-1
@@ -69,11 +69,11 @@
                 strong {{ $t('rageStrikes') }}
                 .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
               .col-sm-2
-                .rage_strike
+                img.rage-strike(src="~assets/images/rage_strike2x.png")
               .col-sm-2
-                .rage_strike
+                img.rage-strike(src="~assets/images/rage_strike2x.png")
               .col-sm-2
-                .rage_strike
+                img.rage-strike(src="~assets/images/rage_strike2x.png")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}")
               strong.float-left {{ $t('worldBossDescription') }}
               .float-right
@@ -428,6 +428,7 @@
     margin-bottom: .5em;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
+    background-color: #f74e52;
   }
 
   .boss-health-bar.rage-bar {
@@ -471,6 +472,11 @@
 
   .reduce {
     font-size: 12px;
+  }
+
+  .rage-strike {
+    max-width: 50px;
+    height: auto;
   }
 
 </style>
