@@ -110,7 +110,7 @@
 </style>
 
 <script>
-import redCheck from 'assets/images/world-boss/check.svg';
+import redCheck from 'assets/svg/check-red.svg';
 
 export default {
   data () {

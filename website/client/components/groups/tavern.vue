@@ -248,7 +248,7 @@
     padding: 0em;
 
     .below-header-sections {
-      padding: 1em;
+      padding: 1em 1.75em 1em 1.75em;
     }
   }
 
