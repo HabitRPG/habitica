@@ -43,6 +43,7 @@
             p.text-center.reduce(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
             .quest-boss(:class="'background_' + questData.key")
               .quest-boss(:class="'quest_' + questData.key")
+              .quest-boss(:class="'phobia_' + questData.key", :style="{display: 'none'}")
           .p-3
             .row.d-flex.align-items-center.mb-2
               .col-sm-6

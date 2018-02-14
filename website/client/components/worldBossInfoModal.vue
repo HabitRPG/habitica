@@ -3,6 +3,7 @@
     .modal-header.d-flex
       .left-hearts
       .quest_dysheartener_modal
+      .phobia_dysheartener_modal
       .right-hearts
     .modal-body
       .row
@@ -99,6 +100,7 @@
   }
 
   .phobia_dysheartener_modal {
+    display: none;
     background-image: url('~client/assets/images/world-boss/heart-translucent-shadow@3x.png');
   }
 
