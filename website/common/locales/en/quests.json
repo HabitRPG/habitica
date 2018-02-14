@@ -124,6 +124,7 @@
   "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
   "pendingDamage": "<%= damage %> pending damage",
   "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
-  "rageStrike": "Rage Strike:",
-  "bossRage": "<%= currentRage %> / <%= maxRage %> Rage"
+  "rageAttack": "Rage Attack:",
+  "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+  "rageStrikes": "Rage Strikes"
 }

@@ -28,24 +28,45 @@
 
   .col-12.col-sm-4.sidebar
     .section(v-if='group.quest.active')
-      p {{ $t('worldBossEvent') }}
-      p {{ $t(`${questData.key}ArtCredit`) }}
+      strong
+        p.text-center {{ $t('worldBossEvent') }}
+      p.text-center {{ $t(`${questData.key}ArtCredit`) }}
       .quest-boss(:class="'quest_' + questData.key")
       .row
         .col-sm-6
           strong.float-left {{ questData.boss.name() }}
         .col-sm-6
-          span.float-right {{ $t('pendingDamage', {damage: pendingDamage()}) }}
+          span.float-right
+            .svg-icon.boss-icon(v-html="icons.swordIcon")
+            span.ml-1 {{ $t('pendingDamage', {damage: pendingDamage()}) }}
       .grey-progress-bar
         .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
-      p {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
+      .row
+        .col-sm-1
+          .svg-icon.boss-icon(v-html="icons.healthIcon")
+        .col-sm-11
+          p {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
       div
-        strong.mr-1 {{ $t('rageStrike') }}
+        strong.mr-1 {{ $t('rageAttack') }}
         span {{ questData.boss.rage.title() }}
       .grey-progress-bar
         .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
-      p {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
-
+      .row
+        .col-sm-1
+          .svg-icon.boss-icon(v-html="icons.rageIcon")
+        .col-sm-11
+          p {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
+      .row
+        .col-sm-3
+          strong {{ $t('rageStrikes') }}
+        .col-sm-3
+          .svg-icon.boss-icon.information-icon(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
+        .col-sm-2
+          p ?
+        .col-sm-2
+          p ?
+        .col-sm-2
+          p ?
     .section
       .grassy-meadow-backdrop
         .daniel_front
@@ -272,6 +293,11 @@
     width: 8px;
   }
 
+  .boss-icon {
+    width: 16px;
+    margin-top: .1em;
+  }
+
   .staff {
     margin-bottom: 1em;
 
@@ -355,7 +381,7 @@
   }
 
   .quest-boss {
-    margin: 0 auto;
+    margin: 1em auto;
   }
 
   .grey-progress-bar {
@@ -387,9 +413,11 @@ import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
 
 import gemIcon from 'assets/svg/gem.svg';
-import questIcon from 'assets/svg/quest.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
-import informationIcon from 'assets/svg/information.svg';
+import healthIcon from 'assets/svg/health.svg';
+import swordIcon from 'assets/svg/sword.svg';
+import rageIcon from 'assets/svg/rage.svg';
+import informationIconRed from 'assets/svg/information-red.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
 import upIcon from 'assets/svg/up.svg';
 import downIcon from 'assets/svg/down.svg';
@@ -417,6 +445,14 @@ export default {
     return {
       groupId: TAVERN_ID,
       icons: Object.freeze({
+        challengeIcon,
+        downIcon,
+        gem: gemIcon,
+        healthIcon,
+        informationIcon: informationIconRed,
+        questBackground,
+        rageIcon,
+        swordIcon,
         tier1,
         tier2,
         tier3,
@@ -427,13 +463,7 @@ export default {
         tierMod,
         tierNPC,
         tierStaff,
-        gem: gemIcon,
-        questIcon,
-        challengeIcon,
-        information: informationIcon,
-        questBackground,
         upIcon,
-        downIcon,
       }),
       group: {
         chat: [],
