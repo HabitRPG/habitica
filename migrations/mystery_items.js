@@ -1,26 +1,26 @@
-var UserNotification = require('../website/server/models/userNotification').model
+let UserNotification = require('../website/server/models/userNotification').model;
 
-var _id = '';
+let _id = '';
 
-var items = ['back_mystery_201801','headAccessory_mystery_201801']
+let items = ['back_mystery_201801', 'headAccessory_mystery_201801'];
 
-var update = {
+let update = {
   $addToSet: {
-    'purchased.plan.mysteryItems':{
+    'purchased.plan.mysteryItems': {
       $each: items,
-    }
+    },
   },
   $push: {
     notifications: (new UserNotification({
       type: 'NEW_MYSTERY_ITEMS',
       data: {
-        items: items,
+        items,
       },
     })).toJSON(),
   },
 };
 
-/*var update = {
+/* var update = {
   $set:{
     'purchased.plan':{
       customerId: "",
@@ -37,15 +37,15 @@ var update = {
 
 if (_id) {
   // singular (missing items)
-  db.users.update({_id: _id}, update);
+  db.users.update({_id}, update);
 } else {
   // multiple (once @ start of event)
   db.users.update({
-      'purchased.plan.customerId': { $ne: null },
-      $or: [
-        { 'purchased.plan.dateTerminated': { $gte: new Date() } },
-        { 'purchased.plan.dateTerminated': { $exists: false } },
-        { 'purchased.plan.dateTerminated': { $eq: null } }
-      ]
+    'purchased.plan.customerId': { $ne: null },
+    $or: [
+      { 'purchased.plan.dateTerminated': { $gte: new Date() } },
+      { 'purchased.plan.dateTerminated': { $exists: false } },
+      { 'purchased.plan.dateTerminated': { $eq: null } },
+    ],
   }, update, { multi: true });
 }

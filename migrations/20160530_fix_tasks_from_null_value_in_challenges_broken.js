@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Reason: After running the 20160529_fix_challenges.js migration
  * challenge.broken was set to null, which is not a valid value
  * which caused cron to fail and run many times, messing up daily values,
@@ -28,7 +28,7 @@ const NEW_DB_URI = 'mongodb://username:password@dsXXXXXX-a0.mlab.com:XXXXX,dsXXX
 let oldDb, newDb, OldTasks, NewTasks, OldUsers, NewUsers;
 let count = 0;
 
-var timer = setInterval(function(){
+let timer = setInterval(function () {
   count++;
   if (count % 30 === 0) {
     logger.warn('Process has been running for', count / 60, 'minutes');
@@ -46,7 +46,7 @@ Promise.all([
   .then(getValuesOfOldTasksFromBackup)
   .then(updateNewTasks)
   .then(closeDb)
-  .catch(reportError)
+  .catch(reportError);
 
 function connectToDb (dbUri, type) {
   return new Promise((resolve, reject) => {
@@ -92,14 +92,12 @@ function getAffectedUsersEmail () {
     users.forEach((user) => {
       if (user.preferences.emailNotifications.newPM && user.inbox.optOut !== true) {
         pmsWithEmail.push(user._id);
+      } else if (user.auth && user.auth.local && user.auth.local.email) {
+        emails.push(user.auth.local.email);
+      } else if (user.auth && user.auth.facebook && user.auth.facebook.email) {
+        emails.push(user.auth.facebook.email);
       } else {
-        if (user.auth && user.auth.local && user.auth.local.email) {
-          emails.push(user.auth.local.email);
-        } else if (user.auth && user.auth.facebook && user.auth.facebook.email) {
-          emails.push(user.auth.facebook.email);
-        } else {
-          missing.push(user._id);
-        }
+        missing.push(user._id);
       }
     });
 
@@ -156,7 +154,9 @@ function determineIfTasksNeedAdjusting (tasks) {
         let prodTask = tasks[i];
         let backupTask = backupTasksAsObject[prodTask._id];
 
-        if (!backupTask) { continue; }
+        if (!backupTask) {
+          continue;
+        }
 
         let historyDifference = prodTask.history.length - backupTask.history.length;
 
@@ -194,15 +194,15 @@ function updateNewTasks (oldTasks) {
   function updateTaskById (task) {
     promiseCount++;
 
-    if (promiseCount % 100=== 0) {
+    if (promiseCount % 100 === 0) {
       logger.info(promiseCount, 'updates started');
     }
 
-    return NewTasks.findOneAndUpdate({_id: task._id}, {$set: {value: task.value, streak: task.streak, history: task.history}}, {returnOriginal: false})
+    return NewTasks.findOneAndUpdate({_id: task._id}, {$set: {value: task.value, streak: task.streak, history: task.history}}, {returnOriginal: false});
   }
 
   return Promise.map(oldTasks, queue.wrap(updateTaskById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.success(updates.length, 'tasks have been fixed');
@@ -220,9 +220,9 @@ function unique (array) {
 }
 
 function closeDb () {
-  logger.success('The process took ' + count + ' seconds');
+  logger.success(`The process took ${  count  } seconds`);
 
-  clearInterval(timer)
+  clearInterval(timer);
 
   oldDb.close();
   newDb.close();

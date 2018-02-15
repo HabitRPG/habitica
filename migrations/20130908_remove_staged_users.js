@@ -8,7 +8,7 @@
  * If we experience any troubles with removed staging users, come back to a snapshot and restore accounts. This will
  * give a peak into possible conflict accounts:
  */
-/*db.users.count({
+/* db.users.count({
   "auth.local": {$exists: false},
   "auth.facebook": {$exists: false},
   "history.exp.5": {$exists: 1},
@@ -22,9 +22,9 @@
  * in we'll be using localStorage anyway instead of creating a new database record
  */
 db.users.remove({
-    // Un-registered users
-    "auth.local": {$exists: false},
-    "auth.facebook": {$exists: false}
+  // Un-registered users
+  'auth.local': {$exists: false},
+  'auth.facebook': {$exists: false},
 });
 
 /**
@@ -32,6 +32,6 @@ db.users.remove({
  * Another vestige of Racer. Empty parties shouldn't be being created anymore in the new site
  */
 db.groups.remove({
-    'type': 'party',
-    $where: "return this.members.length === 0"
+  type: 'party',
+  $where: 'return this.members.length === 0',
 });

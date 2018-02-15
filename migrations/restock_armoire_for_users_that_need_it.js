@@ -1,65 +1,65 @@
-var migrationName = 'restock_armoire_for_users_that_need_it.js';
-var authorName = 'Alys (ALittleYellowSpider)'; // in case script author needs to know when their ...
-var authorUuid = '3e595299-3d8a-4a10-bfe0-88f555e4aa0c'; //... own data is done
+let migrationName = 'restock_armoire_for_users_that_need_it.js';
+let authorName = 'Alys (ALittleYellowSpider)'; // in case script author needs to know when their ...
+let authorUuid = '3e595299-3d8a-4a10-bfe0-88f555e4aa0c'; // ... own data is done
 
 /*
  * Remove flag stating that the Enchanted Armoire is empty,
- * for when new equipment has been added 
+ * for when new equipment has been added
  * AND the normal restock_armoire.js script has failed.
  * This script finds all users that logged in recently, checks if they
  * do NOT own all Armoire items, and only then does it mark the Armoire
  * as not empty.
- * 
+ *
  *********************************************************************
  * IMPORTANT:
  * You must update the list of Armoire items that this list checks for.
  * Scroll down. You'll see it.
  *********************************************************************
- * 
+ *
  */
 
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
-var monk = require('monk');
-var dbUsers = monk(connectionString).get('users', { castIds: false });
+let monk = require('monk');
+let dbUsers = monk(connectionString).get('users', { castIds: false });
 
 
-function processUsers(lastId) {
+function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
-  var query = {
-    'auth.timestamps.loggedin':{$gt:new Date('2016-01-04')}
+  let query = {
+    'auth.timestamps.loggedin': {$gt: new Date('2016-01-04')},
     // '_id': authorUuid // FOR TESTING
   };
 
   // specify a query to limit the affected users (empty for all users):
-  var fields = {
-    'flags.armoireEmpty':1,
-    'items.gear.owned':1
+  let fields = {
+    'flags.armoireEmpty': 1,
+    'items.gear.owned': 1,
   };
 
   if (lastId) {
     query._id = {
-      $gt: lastId
-    }
+      $gt: lastId,
+    };
   }
 
   dbUsers.find(query, {
     sort: {_id: 1},
     limit: 250,
     fields: {
-      'flags.armoireEmpty':1,
-      'items.gear.owned':1
-    } // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+      'flags.armoireEmpty': 1,
+      'items.gear.owned': 1,
+    }, // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
-  .then(updateUsers)
-  .catch(function (err) {
-    console.log(err);
-    return exiting(1, 'ERROR! ' + err);
-  });
+    .then(updateUsers)
+    .catch(function (err) {
+      console.log(err);
+      return exiting(1, `ERROR! ${  err}`);
+    });
 }
 
-var progressCount = 1000;
-var count = 0;
+let progressCount = 1000;
+let count = 0;
 
 function updateUsers (users) {
   if (!users || users.length === 0) {
@@ -68,19 +68,19 @@ function updateUsers (users) {
     return;
   }
 
-  var userPromises = users.map(updateUser);
-  var lastUser = users[users.length - 1];
+  let userPromises = users.map(updateUser);
+  let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-  .then(function () {
-    processUsers(lastUser._id);
-  });
+    .then(function () {
+      processUsers(lastUser._id);
+    });
 }
 
 function updateUser (user) {
   count++;
 
-  var set = {'migration':migrationName, 'flags.armoireEmpty':false};
+  let set = {migration: migrationName, 'flags.armoireEmpty': false};
 
 
   if (user.flags.armoireEmpty) {
@@ -98,21 +98,26 @@ function updateUser (user) {
     // console.log("DON'T CHANGE: " + user._id); // FOR TESTING
   }
 
-  if (count % progressCount == 0) console.warn(count + ' ' + user._id);
-  if (user._id == authorUuid) console.warn(authorName + ' processed');
+  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
 }
 
-function displayData() {
-  console.warn('\n' + count + ' users processed\n');
+function displayData () {
+  console.warn(`\n${  count  } users processed\n`);
   return exiting(0);
 }
 
-function exiting(code, msg) {
+function exiting (code, msg) {
   code = code || 0; // 0 = success
-  if (code && !msg) { msg = 'ERROR!'; }
+  if (code && !msg) {
+    msg = 'ERROR!';
+  }
   if (msg) {
-    if (code) { console.error(msg); }
-    else      { console.log(  msg); }
+    if (code) {
+      console.error(msg);
+    } else      {
+      console.log(msg);
+    }
   }
   process.exit(code);
 }

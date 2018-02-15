@@ -2,22 +2,22 @@
 db.users.update(
 
   {
-    'contributor.level':{$gte:7},
-    'purchased.plan.customerId':null
+    'contributor.level': {$gte: 7},
+    'purchased.plan.customerId': null,
   },
 
   {
     $set: {
-      'purchased.plan':{
+      'purchased.plan': {
         planId: 'basic',
         customerId: 'habitrpg',
-        dateCreated: new Date,
-        dateUpdated: new Date,
-        gemsBought: 0
-      }
-    }
+        dateCreated: new Date(),
+        dateUpdated: new Date(),
+        gemsBought: 0,
+      },
+    },
   },
 
-  {multi:true}
+  {multi: true}
 
-)
+);

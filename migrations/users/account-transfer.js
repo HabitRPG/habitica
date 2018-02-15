@@ -1,6 +1,6 @@
-var migrationName = 'AccountTransfer';
-var authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
-var authorUuid = ''; //... own data is done
+let migrationName = 'AccountTransfer';
+let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
+let authorUuid = ''; // ... own data is done
 
 /*
  * This migraition will copy user data from prod to test
@@ -32,7 +32,7 @@ module.exports = async function accountTransfer () {
       'purchased.background': newBackgrounds,
     },
   })
-  .then((result) => {
-    console.log(result);
-  });
+    .then((result) => {
+      console.log(result);
+    });
 };

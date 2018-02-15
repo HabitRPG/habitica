@@ -1,24 +1,24 @@
-var migrationName = 'UserFromProdToTest';
-var authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
-var authorUuid = ''; //... own data is done
+let migrationName = 'UserFromProdToTest';
+let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
+let authorUuid = ''; // ... own data is done
 
 /*
  * This migraition will copy user data from prod to test
  */
 
-var monk = require('monk');
-var testConnectionSting = ''; // FOR TEST DATABASE
-var usersTest = monk(testConnectionSting).get('users', { castIds: false });
-var groupsTest = monk(testConnectionSting).get('groups', { castIds: false });
-var challengesTest = monk(testConnectionSting).get('challenges', { castIds: false });
-var tasksTest = monk(testConnectionSting).get('tasks', { castIds: false });
+let monk = require('monk');
+let testConnectionSting = ''; // FOR TEST DATABASE
+let usersTest = monk(testConnectionSting).get('users', { castIds: false });
+let groupsTest = monk(testConnectionSting).get('groups', { castIds: false });
+let challengesTest = monk(testConnectionSting).get('challenges', { castIds: false });
+let tasksTest = monk(testConnectionSting).get('tasks', { castIds: false });
 
-var monk2 = require('monk');
-var liveConnectString = ''; // FOR TEST DATABASE
-var userLive = monk2(liveConnectString).get('users', { castIds: false });
-var groupsLive = monk2(liveConnectString).get('groups', { castIds: false });
-var challengesLive = monk2(liveConnectString).get('challenges', { castIds: false });
-var tasksLive = monk2(liveConnectString).get('tasks', { castIds: false });
+let monk2 = require('monk');
+let liveConnectString = ''; // FOR TEST DATABASE
+let userLive = monk2(liveConnectString).get('users', { castIds: false });
+let groupsLive = monk2(liveConnectString).get('groups', { castIds: false });
+let challengesLive = monk2(liveConnectString).get('challenges', { castIds: false });
+let tasksLive = monk2(liveConnectString).get('tasks', { castIds: false });
 
 import uniq from 'lodash/uniq';
 import Bluebird from 'bluebird';
@@ -34,7 +34,7 @@ let tasksIds = [];
 
 async function processUsers () {
   let userPromises = [];
-  //{_id: {$in: userIds}}
+  // {_id: {$in: userIds}}
 
   return userLive.find({guilds: 'b0764d64-8276-45a1-afa5-5ca9a5c64ca0'})
     .each((user, {close, pause, resume}) => {
@@ -46,13 +46,13 @@ async function processUsers () {
       if (user.tasksOrder.dailys.length > 0) tasksIds = tasksIds.concat(user.tasksOrder.dailys);
       if (user.tasksOrder.habits.length > 0) tasksIds = tasksIds.concat(user.tasksOrder.habits);
 
-      let userPromise = usersTest.update({'_id': user._id}, user, {upsert:true});
+      let userPromise = usersTest.update({_id: user._id}, user, {upsert: true});
       userPromises.push(userPromise);
     }).then(() => {
       return Bluebird.all(userPromises);
     })
     .then(() => {
-      console.log("Done User");
+      console.log('Done User');
     });
 }
 
@@ -61,13 +61,13 @@ function processGroups () {
   let groupsToQuery = uniq(groupIds);
   return groupsLive.find({_id: {$in: groupsToQuery}})
     .each((group, {close, pause, resume}) => {
-      let promise = groupsTest.update({_id: group._id}, group, {upsert:true});
+      let promise = groupsTest.update({_id: group._id}, group, {upsert: true});
       promises.push(promise);
     }).then(() => {
       return Bluebird.all(promises);
     })
     .then(() => {
-      console.log("Done Group");
+      console.log('Done Group');
     });
 }
 
@@ -76,13 +76,13 @@ function processChallenges () {
   let challengesToQuery = uniq(challengeIds);
   return challengesLive.find({_id: {$in: challengesToQuery}})
     .each((challenge, {close, pause, resume}) => {
-      let promise = challengesTest.update({_id: challenge._id}, challenge, {upsert:true});
+      let promise = challengesTest.update({_id: challenge._id}, challenge, {upsert: true});
       promises.push(promise);
     }).then(() => {
       return Bluebird.all(promises);
     })
     .then(() => {
-      console.log("Done Challenge");
+      console.log('Done Challenge');
     });
 }
 
@@ -91,13 +91,13 @@ function processTasks () {
   let tasksToQuery = uniq(tasksIds);
   return tasksLive.find({_id: {$in: tasksToQuery}})
     .each((task, {close, pause, resume}) => {
-      let promise = tasksTest.update({_id: task._id}, task, {upsert:true});
+      let promise = tasksTest.update({_id: task._id}, task, {upsert: true});
       promises.push(promise);
     }).then(() => {
       return Bluebird.all(promises);
     })
     .then(() => {
-      console.log("Done Tasks");
+      console.log('Done Tasks');
     });
 }
 

@@ -3,6 +3,6 @@
  */
 db.users.update(
   {},
-  {$set:{'items.mounts.Orca-Base':true}},
-  {multi:true}
+  {$set: {'items.mounts.Orca-Base': true}},
+  {multi: true}
 );

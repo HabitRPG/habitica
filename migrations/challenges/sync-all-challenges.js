@@ -42,6 +42,6 @@ async function syncChallenges (lastChallengeDate) {
   let lastChallenge = challengesFound[challengesFound.length - 1];
   if (lastChallenge) syncChallenges(lastChallenge.createdAt);
   return syncedChallenges;
-};
+}
 
 module.exports = syncChallenges;

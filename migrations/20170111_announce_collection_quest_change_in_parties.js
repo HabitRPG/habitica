@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Author: @Alys
  *
  * Reason: Collection quests are being changed
@@ -43,13 +43,13 @@ connectToDb(DB_URI).then((db) => {
 
   return Promise.resolve();
 })
-.then(findPartiesWithCollectionQuest)
+  .then(findPartiesWithCollectionQuest)
 // .then(displayGroups) // for testing only
-.then(addMessageToGroups)
-.then(() => {
-  timer.stop();
-  closeDb();
-}).catch(reportError);
+  .then(addMessageToGroups)
+  .then(() => {
+    timer.stop();
+    closeDb();
+  }).catch(reportError);
 
 function reportError (err) {
   logger.error('Uh oh, an error occurred');
@@ -61,11 +61,11 @@ function reportError (err) {
 function findPartiesWithCollectionQuest () {
   logger.info('Looking up groups on collection quests...');
 
-  return Groups.find({'quest.key': {$in: COLLECTION_QUESTS}}, ['name','quest']).toArray().then((groups) => {
+  return Groups.find({'quest.key': {$in: COLLECTION_QUESTS}}, ['name', 'quest']).toArray().then((groups) => {
     logger.success('Found', groups.length, 'parties on collection quests');
 
     return Promise.resolve(groups);
-  })
+  });
 }
 
 function displayGroups (groups) { // for testing only
@@ -75,16 +75,16 @@ function displayGroups (groups) { // for testing only
 }
 
 function updateGroupById (group) {
-  var newMessage = {
-    'id' : uuid.v4(),
-    'text' : message,
-    'timestamp': Date.now(),
-    'likes': {},
-    'flags': {},
-    'flagCount': 0,
-    'uuid': 'system'
+  let newMessage = {
+    id: uuid.v4(),
+    text: message,
+    timestamp: Date.now(),
+    likes: {},
+    flags: {},
+    flagCount: 0,
+    uuid: 'system',
   };
-  return Groups.findOneAndUpdate({_id: group._id}, {$push:{"chat" :{$each: [newMessage], $position:0}}}, {returnOriginal: false});
+  return Groups.findOneAndUpdate({_id: group._id}, {$push: {chat: {$each: [newMessage], $position: 0}}}, {returnOriginal: false});
   // Does not set the newMessage flag for all party members because I don't think it's essential and
   // I don't want to run the extra code (extra database load, extra opportunity for bugs).
 }
@@ -95,7 +95,7 @@ function addMessageToGroups (groups) {
   logger.info('About to update', groups.length, 'parties...');
 
   return Promise.map(groups, queue.wrap(updateGroupById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.success(updates.length, 'parties have been notified');

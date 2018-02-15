@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Author: Blade Barringer @crookedneighbor
  *
  * Reason: Webhooks have been moved from
@@ -24,7 +24,7 @@ const MIGRATION_NAME = '20161002_add_missing_webhook_type.js';
 const DB_URI = 'mongodb://localhost/prod-copy-1';
 
 const LOGGEDIN_DATE_RANGE = {
-  $gte: new Date("2016-09-30T00:00:00.000Z"),
+  $gte: new Date('2016-09-30T00:00:00.000Z'),
   // $lte: new Date("2016-09-25T00:00:00.000Z"),
 };
 
@@ -33,12 +33,12 @@ let Users;
 connectToDb(DB_URI).then((db) => {
   Users = db.collection('users');
 })
-.then(findUsersWithWebhooks)
-.then(correctWebhooks)
-.then(() => {
-  timer.stop();
-  closeDb();
-}).catch(reportError);
+  .then(findUsersWithWebhooks)
+  .then(correctWebhooks)
+  .then(() => {
+    timer.stop();
+    closeDb();
+  }).catch(reportError);
 
 function reportError (err) {
   logger.error('Uh oh, an error occurred');
@@ -53,14 +53,14 @@ const USER_IDS = require('../../ids_of_webhooks_to_update.json');
 function findUsersWithWebhooks () {
   logger.warn('Fetching users with webhooks...');
 
-  return Users.find({'_id': {$in: USER_IDS}}, ['preferences.webhooks']).toArray().then((docs) => {
+  return Users.find({_id: {$in: USER_IDS}}, ['preferences.webhooks']).toArray().then((docs) => {
   // return Users.find({'preferences.webhooks': {$ne: {} }}, ['preferences.webhooks']).toArray().then((docs) => {
   // TODO: Run this after the initial migration to catch any webhooks that may have been aded since the prod backup download
   // return Users.find({'preferences.webhooks': {$ne: {} }, 'auth.timestamps.loggedin': LOGGEDIN_DATE_RANGE}, ['preferences.webhooks']).toArray().then((docs) => {
     let updates = docs.map((user) => {
       let oldWebhooks = user.preferences.webhooks;
       let webhooks = Object.keys(oldWebhooks).map((id) => {
-        let webhook = oldWebhooks[id]
+        let webhook = oldWebhooks[id];
 
         webhook.type = 'taskActivity';
         webhook.label = '';
@@ -79,7 +79,7 @@ function findUsersWithWebhooks () {
       return {
         webhooks,
         id: user._id,
-      }
+      };
     });
 
     return Promise.resolve(updates);
@@ -92,8 +92,8 @@ function updateUserById (user) {
 
   return Users.findOneAndUpdate({
     _id: userId},
-    {$set: {webhooks: webhooks, migration: MIGRATION_NAME}
-  }, {returnOriginal: false})
+  {$set: {webhooks, migration: MIGRATION_NAME},
+  }, {returnOriginal: false});
 }
 
 function correctWebhooks (users) {
@@ -102,7 +102,7 @@ function correctWebhooks (users) {
   logger.warn('About to update', users.length, 'users...');
 
   return Promise.map(users, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.warn(updates.length, 'users have been fixed');

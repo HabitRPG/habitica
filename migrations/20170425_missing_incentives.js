@@ -1,6 +1,6 @@
-var migrationName = '20170425_missing_incentives';
-var authorName = 'Sabe'; // in case script author needs to know when their ...
-var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
+let migrationName = '20170425_missing_incentives';
+let authorName = 'Sabe'; // in case script author needs to know when their ...
+let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
  * Award missing Royal Purple Hatching Potion to users with 55+ check-ins
@@ -10,36 +10,36 @@ var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 import monk from 'monk';
 import common from '../website/common';
 
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-var dbUsers = monk(connectionString).get('users', { castIds: false });
+let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+let dbUsers = monk(connectionString).get('users', { castIds: false });
 
-function processUsers(lastId) {
+function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
-  var query = {
-    'loginIncentives': {$gt:99},
-    'migration': {$ne: migrationName},
+  let query = {
+    loginIncentives: {$gt: 99},
+    migration: {$ne: migrationName},
   };
 
   if (lastId) {
     query._id = {
-      $gt: lastId
-    }
+      $gt: lastId,
+    };
   }
 
   dbUsers.find(query, {
     sort: {_id: 1},
     limit: 250,
-    fields: [] // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+    fields: [], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
-  .then(updateUsers)
-  .catch(function (err) {
-    console.log(err);
-    return exiting(1, 'ERROR! ' + err);
-  });
+    .then(updateUsers)
+    .catch(function (err) {
+      console.log(err);
+      return exiting(1, `ERROR! ${  err}`);
+    });
 }
 
-var progressCount = 1000;
-var count = 0;
+let progressCount = 1000;
+let count = 0;
 
 function updateUsers (users) {
   if (!users || users.length === 0) {
@@ -48,20 +48,20 @@ function updateUsers (users) {
     return;
   }
 
-  var userPromises = users.map(updateUser);
-  var lastUser = users[users.length - 1];
+  let userPromises = users.map(updateUser);
+  let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-  .then(function () {
-    processUsers(lastUser._id);
-  });
+    .then(function () {
+      processUsers(lastUser._id);
+    });
 }
 
 function updateUser (user) {
   count++;
-  var language = user.preferences.language || 'en';
-  var set = {'migration': migrationName};
-  var inc = {
+  let language = user.preferences.language || 'en';
+  let set = {migration: migrationName};
+  let inc = {
     'items.eggs.BearCub': 0,
     'items.eggs.Cactus': 0,
     'items.eggs.Dragon': 0,
@@ -93,7 +93,7 @@ function updateUser (user) {
     'items.hatchingPotions.White': 0,
     'items.hatchingPotions.Zombie': 0,
   };
-  var nextReward;
+  let nextReward;
 
   if (user.loginIncentives >= 105) {
     inc['items.hatchingPotions.RoyalPurple'] += 1;
@@ -167,39 +167,44 @@ function updateUser (user) {
     nextReward = 160;
   }
 
-  var push = {
-    'notifications': {
-      'type': 'LOGIN_INCENTIVE',
-      'data': {
-        'nextRewardAt': nextReward,
-        'rewardKey': [
+  let push = {
+    notifications: {
+      type: 'LOGIN_INCENTIVE',
+      data: {
+        nextRewardAt: nextReward,
+        rewardKey: [
           'shop_armoire',
         ],
-        'rewardText': common.i18n.t('checkInRewards', language),
-        'reward': [],
-        'message': common.i18n.t('backloggedCheckInRewards', language),
+        rewardText: common.i18n.t('checkInRewards', language),
+        reward: [],
+        message: common.i18n.t('backloggedCheckInRewards', language),
       },
-      'id': common.uuid(),
-    }
+      id: common.uuid(),
+    },
   };
 
-  dbUsers.update({_id: user._id}, {$set:set, $push:push, $inc:inc});
+  dbUsers.update({_id: user._id}, {$set: set, $push: push, $inc: inc});
 
-  if (count % progressCount == 0) console.warn(count + ' ' + user._id);
-  if (user._id == authorUuid) console.warn(authorName + ' processed');
+  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
 }
 
-function displayData() {
-  console.warn('\n' + count + ' users processed\n');
+function displayData () {
+  console.warn(`\n${  count  } users processed\n`);
   return exiting(0);
 }
 
-function exiting(code, msg) {
+function exiting (code, msg) {
   code = code || 0; // 0 = success
-  if (code && !msg) { msg = 'ERROR!'; }
+  if (code && !msg) {
+    msg = 'ERROR!';
+  }
   if (msg) {
-    if (code) { console.error(msg); }
-    else      { console.log(  msg); }
+    if (code) {
+      console.error(msg);
+    } else      {
+      console.log(msg);
+    }
   }
   process.exit(code);
 }

@@ -1,6 +1,6 @@
 const migrationName = 'AchievementRestore';
 const authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
-const authorUuid = ''; //... own data is done
+const authorUuid = ''; // ... own data is done
 
 /*
  * This migraition will copy user data from prod to test
@@ -52,7 +52,7 @@ function getAchievementUpdate (newUser, oldUser) {
     achievementsUpdate.rebirthLevel = oldAchievements.rebirthLevel;
   }
 
-  //All others
+  // All others
   const indexsToIgnore = ['ultimateGearSets', 'challenges', 'quests', 'rebirthLevel'];
   for (let index in oldAchievements) {
     if (indexsToIgnore.indexOf(index) !== -1) continue;
@@ -64,9 +64,7 @@ function getAchievementUpdate (newUser, oldUser) {
 
     if (Number.isInteger(oldAchievements[index])) {
       achievementsUpdate[index] += oldAchievements[index];
-    } else {
-      if (oldAchievements[index] === true) achievementsUpdate[index] = true;
-    }
+    } else if (oldAchievements[index] === true) achievementsUpdate[index] = true;
   }
 
   return achievementsUpdate;
@@ -85,7 +83,7 @@ module.exports = async function achievementRestore () {
       {_id: userId},
       {
         $set: {
-          'achievements': achievementUpdate,
+          achievements: achievementUpdate,
         },
       });
     console.log(`Updated ${userId}`);

@@ -1,13 +1,13 @@
-var _ = require('lodash');
+let _ = require('lodash');
 
-db.users.find({}).forEach(function(user){
-  var newNewMessages = {};
+db.users.find({}).forEach(function (user) {
+  let newNewMessages = {};
 
-  _.each(user.newMessages, function(val, key){
-    if(key != "undefined"){
+  _.each(user.newMessages, function (val, key) {
+    if (key != 'undefined') {
       newNewMessages[key] = val;
-    };
+    }
   });
 
-  db.users.update({_id: user._id}, {$set: {'newMessages': newNewMessages}});
+  db.users.update({_id: user._id}, {$set: {newMessages: newNewMessages}});
 });

@@ -1,9 +1,9 @@
 db.users.find({
   $or: [
-    {'backer.admin':{$exists:1}},
-    {'backer.contributor':{$exists:1}}
-  ]
-},{backer:1}).forEach(function(user){
+    {'backer.admin': {$exists: 1}},
+    {'backer.contributor': {$exists: 1}},
+  ],
+}, {backer: 1}).forEach(function (user) {
   user.contributor = {};
   user.contributor.admin = user.backer.admin;
   delete user.backer.admin;
@@ -14,5 +14,5 @@ db.users.find({
     delete user.backer.contributor;
   }
 
-  db.users.update({_id:user._id}, {$set:{backer:user.backer, contributor:user.contributor}});
+  db.users.update({_id: user._id}, {$set: {backer: user.backer, contributor: user.contributor}});
 });

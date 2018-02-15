@@ -1,6 +1,6 @@
-var migrationName = '20170616_achievements';
-var authorName = 'Sabe'; // in case script author needs to know when their ...
-var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
+let migrationName = '20170616_achievements';
+let authorName = 'Sabe'; // in case script author needs to know when their ...
+let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
 /*
  * Updates to achievements for June 16, 2017 biweekly merge
@@ -10,27 +10,27 @@ var authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; //... own data is done
 
 import monk from 'monk';
 
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-var dbUsers = monk(connectionString).get('users', { castIds: false });
+let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+let dbUsers = monk(connectionString).get('users', { castIds: false });
 
-function processUsers(lastId) {
+function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
-  var query = {
+  let query = {
     $or: [
-      {'achievements.quests.dilatoryDistress1': {$gt:0}},
-      {'achievements.quests.egg': {$gt:0}},
-      {'achievements.quests.goldenknight1': {$gt:0}},
-      {'achievements.quests.moonstone1': {$gt:0}},
-      {'achievements.quests.vice2': {$gt:0}},
+      {'achievements.quests.dilatoryDistress1': {$gt: 0}},
+      {'achievements.quests.egg': {$gt: 0}},
+      {'achievements.quests.goldenknight1': {$gt: 0}},
+      {'achievements.quests.moonstone1': {$gt: 0}},
+      {'achievements.quests.vice2': {$gt: 0}},
       {'achievements.challenges': {$exists: true, $ne: []}},
-      {'challenges': {$exists: true, $ne: []}},
+      {challenges: {$exists: true, $ne: []}},
     ],
   };
 
   if (lastId) {
     query._id = {
-      $gt: lastId
-    }
+      $gt: lastId,
+    };
   }
 
   dbUsers.find(query, {
@@ -41,15 +41,15 @@ function processUsers(lastId) {
       'challenges',
     ],
   })
-  .then(updateUsers)
-  .catch(function (err) {
-    console.log(err);
-    return exiting(1, 'ERROR! ' + err);
-  });
+    .then(updateUsers)
+    .catch(function (err) {
+      console.log(err);
+      return exiting(1, `ERROR! ${  err}`);
+    });
 }
 
-var progressCount = 1000;
-var count = 0;
+let progressCount = 1000;
+let count = 0;
 
 function updateUsers (users) {
   if (!users || users.length === 0) {
@@ -58,18 +58,18 @@ function updateUsers (users) {
     return;
   }
 
-  var userPromises = users.map(updateUser);
-  var lastUser = users[users.length - 1];
+  let userPromises = users.map(updateUser);
+  let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-  .then(function () {
-    processUsers(lastUser._id);
-  });
+    .then(function () {
+      processUsers(lastUser._id);
+    });
 }
 
 function updateUser (user) {
   count++;
-  var set = {'migration': migrationName};
+  let set = {migration: migrationName};
 
   if (user.challenges.length > 0 || user.achievements.challenges.length > 0) {
     set['achievements.joinedChallenge'] = true;
@@ -90,23 +90,28 @@ function updateUser (user) {
     set['achievements.quests.vice2'] = Math.ceil(user.achievements.quests.vice2 * 1.5);
   }
 
-  dbUsers.update({_id: user._id}, {$set:set});
+  dbUsers.update({_id: user._id}, {$set: set});
 
-  if (count % progressCount == 0) console.warn(count + ' ' + user._id);
-  if (user._id == authorUuid) console.warn(authorName + ' processed');
+  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
 }
 
-function displayData() {
-  console.warn('\n' + count + ' users processed\n');
+function displayData () {
+  console.warn(`\n${  count  } users processed\n`);
   return exiting(0);
 }
 
-function exiting(code, msg) {
+function exiting (code, msg) {
   code = code || 0; // 0 = success
-  if (code && !msg) { msg = 'ERROR!'; }
+  if (code && !msg) {
+    msg = 'ERROR!';
+  }
   if (msg) {
-    if (code) { console.error(msg); }
-    else      { console.log(  msg); }
+    if (code) {
+      console.error(msg);
+    } else      {
+      console.log(msg);
+    }
   }
   process.exit(code);
 }

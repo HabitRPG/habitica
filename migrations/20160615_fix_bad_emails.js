@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Author: Blade Barringer @crookedneighbor
  *
  * Reason: Old code didn't properly validate email
@@ -33,11 +33,11 @@ connectToDb(DB_URI).then((db) => {
 })
 // cached the lookup as a json file
 // .then(findUsersWithBadEmails)
-.then(correctEmails)
-.then(() => {
-  timer.stop();
-  closeDb();
-}).catch(reportError);
+  .then(correctEmails)
+  .then(() => {
+    timer.stop();
+    closeDb();
+  }).catch(reportError);
 
 function reportError (err) {
   logger.error('Uh oh, an error occurred');
@@ -58,8 +58,8 @@ function findUsersWithBadEmails (users) {
       return { _id: user._id, email: user.auth.local.email };
     });
 
-    logger.warn('number of invalid emails:', invalidEmails.length)
-    console.log(result)
+    logger.warn('number of invalid emails:', invalidEmails.length);
+    console.log(result);
 
     return Promise.resolve(invalidEmails);
   });
@@ -68,8 +68,8 @@ function findUsersWithBadEmails (users) {
 function updateUserById (user) {
   return Users.findOneAndUpdate({
     _id: user._id},
-    {$set: {'auth.local.email': user._id + '@example.com'}
-  }, {returnOriginal: false})
+  {$set: {'auth.local.email': `${user._id  }@example.com`},
+  }, {returnOriginal: false});
 }
 
 // cached lookup of bad emails
@@ -81,14 +81,14 @@ function correctEmails () {
   logger.warn('About to update', emails.length, 'user email addresses...');
 
   return Promise.map(emails, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.warn(updates.length, 'users have been fixed');
 
     if (failures.length > 0) {
       logger.error(failures.length, 'users could not be found');
-    } 
+    }
 
     return Promise.resolve();
   });

@@ -4,8 +4,8 @@
 // the FAQ (http://goo.gl/1uoPGQ) they insist...
 
 db.users.update(
-  {_id:''},
+  {_id: ''},
   {$set: {
-    'purchased.plan.dateTerminated': moment().add('month',1).toDate()
+    'purchased.plan.dateTerminated': moment().add('month', 1).toDate(),
   }}
 );

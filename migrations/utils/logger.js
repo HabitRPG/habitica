@@ -14,7 +14,7 @@ function loggerGenerator (type, color) {
   return function () {
     let args = Array.from(arguments).map(arg => chalk[color](arg));
     console[type].apply(null, args);
-  }
+  };
 }
 
 module.exports = logger;

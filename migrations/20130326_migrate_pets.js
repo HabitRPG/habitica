@@ -9,25 +9,25 @@
 // be checked for compatibility against the v4 changelog and changed if necessary.
 // https://github.com/lodash/lodash/wiki/Changelog#v400
 
-var mapping = {
-    bearcub: {name:'BearCub', modifier: 'Base'},
-    cactus: {name:'Cactus', modifier:'Base'},
-    dragon: {name:'Dragon', modifier:'Base'},
-    flyingpig: {name:'FlyingPig', modifier:'Base'},
-    fox: {name:'Fox', modifier:'Base'},
-    lioncub: {name:'LionCub', modifier:'Base'},
-    pandacub: {name:'PandaCub', modifier:'Base'},
-    tigercub: {name:'TigerCub', modifier:'Base'},
-    wolfBorder: {name:'Wolf', modifier:'Base'},
-    wolfDesert: {name:'Wolf', modifier:'Desert'},
-    wolfGolden: {name:'Wolf', modifier:'Golden'},
-    wolfRed: {name:'Wolf', modifier:'Red'},
-    wolfShade: {name:'Wolf', modifier:'Shade'},
-    wolfSkeleton: {name:'Wolf', modifier:'Skeleton'},
-    wolfVeteran: {name:'Wolf', modifier:'Veteran'},
-    wolfWhite: {name:'Wolf', modifier:'White'},
-    wolfZombie: {name:'Wolf', modifier:'Zombie'}
-}
+let mapping = {
+  bearcub: {name: 'BearCub', modifier: 'Base'},
+  cactus: {name: 'Cactus', modifier: 'Base'},
+  dragon: {name: 'Dragon', modifier: 'Base'},
+  flyingpig: {name: 'FlyingPig', modifier: 'Base'},
+  fox: {name: 'Fox', modifier: 'Base'},
+  lioncub: {name: 'LionCub', modifier: 'Base'},
+  pandacub: {name: 'PandaCub', modifier: 'Base'},
+  tigercub: {name: 'TigerCub', modifier: 'Base'},
+  wolfBorder: {name: 'Wolf', modifier: 'Base'},
+  wolfDesert: {name: 'Wolf', modifier: 'Desert'},
+  wolfGolden: {name: 'Wolf', modifier: 'Golden'},
+  wolfRed: {name: 'Wolf', modifier: 'Red'},
+  wolfShade: {name: 'Wolf', modifier: 'Shade'},
+  wolfSkeleton: {name: 'Wolf', modifier: 'Skeleton'},
+  wolfVeteran: {name: 'Wolf', modifier: 'Veteran'},
+  wolfWhite: {name: 'Wolf', modifier: 'White'},
+  wolfZombie: {name: 'Wolf', modifier: 'Zombie'},
+};
 
 /**
   == Old Style ==
@@ -55,44 +55,44 @@ var mapping = {
  */
 
 
-db.users.find().forEach(function(user){
-    if (!user.items || (!user.items.pets && !user.items.pet)) return;
+db.users.find().forEach(function (user) {
+  if (!user.items || !user.items.pets && !user.items.pet) return;
 
-    // migrate items.pet to items.currentPet
-    if (!!user.items.pet) {
-        var mapped = mapping[user.items.pet.name];
-        delete user.items.pet;
-        user.items.currentPet = {
-            modifier: mapped.modifier,
-            name: mapped.name,
-            str: mapped.name + "-" + mapped.modifier,
-            text: '' // FIXME?
-        }
-    }
+  // migrate items.pet to items.currentPet
+  if (user.items.pet) {
+    let mapped = mapping[user.items.pet.name];
+    delete user.items.pet;
+    user.items.currentPet = {
+      modifier: mapped.modifier,
+      name: mapped.name,
+      str: `${mapped.name  }-${  mapped.modifier}`,
+      text: '', // FIXME?
+    };
+  }
 
-    // migrate items.pets
-    if (!!user.items.pets) {
-        var newPets = [];
-        _.each(user.items.pets, function(val, key){
-            if (_.isNumber(key)) {
-                newPets.push(val)
-                //FIXME why is this happening? seems the user gets migrated already...
-                //throw "Error: User appears already migrated, this shouldn't be happening!"
-            } else {
-                newPets.push(mapping[key].name + "-" + mapping[key].modifier);
-            }
-        });
-        user.items.pets = newPets;
-    }
+  // migrate items.pets
+  if (user.items.pets) {
+    let newPets = [];
+    _.each(user.items.pets, function (val, key) {
+      if (_.isNumber(key)) {
+        newPets.push(val);
+        // FIXME why is this happening? seems the user gets migrated already...
+        // throw "Error: User appears already migrated, this shouldn't be happening!"
+      } else {
+        newPets.push(`${mapping[key].name  }-${  mapping[key].modifier}`);
+      }
+    });
+    user.items.pets = newPets;
+  }
 
-    try {
-        db.users.update(
-            {_id:user._id},
-            {$set:
-                { 'items' : user.items }
-            }
-        );
-    } catch(e) {
-        print(e);
-    }
-})
+  try {
+    db.users.update(
+      {_id: user._id},
+      {$set:
+                { items: user.items },
+      }
+    );
+  } catch (e) {
+    print(e);
+  }
+});

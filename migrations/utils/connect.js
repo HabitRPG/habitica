@@ -32,4 +32,4 @@ function closeDb () {
 module.exports = {
   connectToDb,
   closeDb,
-}
+};

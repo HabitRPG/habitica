@@ -13,29 +13,28 @@
 // https://github.com/lodash/lodash/wiki/Changelog#v400
 
 // since our primary subscription will first hit parties now, we *definitely* need an index there
-db.parties.ensureIndex( { 'members': 1}, {background: true} );
+db.parties.ensureIndex({ members: 1}, {background: true});
 
-db.parties.find().forEach(function(party){
+db.parties.find().forEach(function (party) {
+  if (!party.members) {
+    return db.parties.remove({_id: party._id});
+  }
 
-    if(!party.members) {
-        return db.parties.remove({_id:party._id});
+  // Find all members
+  db.users.find({_id: {$in: party.members} }, {_id: 1, party: 1}).forEach(function (user) {
+    // user somehow is subscribed to this party in the background, but they're it's not their primary party
+    if (user.party && user.party.current !== party._id) {
+      let i = party.members.indexOf(user._id);
+      party.members.splice(i, 1);
     }
 
-    // Find all members
-    db.users.find( {_id: {$in:party.members} }, {_id:1,party:1} ).forEach(function(user){
-        // user somehow is subscribed to this party in the background, but they're it's not their primary party
-        if (user.party && user.party.current !== party._id) {
-            var i = party.members.indexOf(user._id);
-            party.members.splice(i, 1);
-        }
+    // if after we remove the user, the party is empty - delete this party
+    if (_.isEmpty(party.members)) {
+      db.parties.remove({_id: party._id});
 
-        // if after we remove the user, the party is empty - delete this party
-        if (_.isEmpty(party.members)) {
-            db.parties.remove({_id:party._id});
-
-        // else just set it
-        } else {
-            db.parties.update({_id:party._id}, {$set:{members:party.members}});
-        }
-    })
-})
+      // else just set it
+    } else {
+      db.parties.update({_id: party._id}, {$set: {members: party.members}});
+    }
+  });
+});

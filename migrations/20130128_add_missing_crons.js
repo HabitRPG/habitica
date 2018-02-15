@@ -1,5 +1,5 @@
 db.users.update(
-    { lastCron: { $exists: false} },
-    { $set: { lastCron: +new Date } },
-    { multi: true }
+  { lastCron: { $exists: false} },
+  { $set: { lastCron: Number(new Date()) } },
+  { multi: true }
 );

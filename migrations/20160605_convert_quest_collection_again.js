@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Author: Blade Barringer @crookedneighbor
  *
  * Reason: The android app uses quest.progress.collect
@@ -30,7 +30,7 @@ const COLLECTION_QUESTS = [
   'moonstone1',
   'goldenknight1',
   'dilatoryDistress1',
-]
+];
 
 let Users, Groups;
 
@@ -40,14 +40,14 @@ connectToDb(DB_URI).then((db) => {
 
   return Promise.resolve();
 })
-.then(findUsersWithCollectionData)
-.then(getUsersCollectionData)
-.then(transferCollectionData)
-.then(cleanUpBadCollectionData)
-.then(() => {
-  timer.stop();
-  closeDb();
-}).catch(reportError);
+  .then(findUsersWithCollectionData)
+  .then(getUsersCollectionData)
+  .then(transferCollectionData)
+  .then(cleanUpBadCollectionData)
+  .then(() => {
+    timer.stop();
+    closeDb();
+  }).catch(reportError);
 
 function reportError (err) {
   logger.error('Uh oh, an error occurred');
@@ -65,14 +65,14 @@ function findUsersWithCollectionData () {
 
     let members = groups.reduce((array, party) => {
       let questers = Object.keys(party.quest.members);
-      array.push.apply(array, questers);
+      array.push(...questers);
       return array;
     }, []);
 
     logger.success('Found', members.length, 'users on collection quests');
 
     return Promise.resolve(members);
-  })
+  });
 }
 
 function getUsersCollectionData (users) {
@@ -95,7 +95,7 @@ function getUsersCollectionData (users) {
 }
 
 function updateUserById (user) {
-  return Users.findOneAndUpdate({_id: user._id}, {$set: {'party.quest.progress.collectedItems': user.collect}}, {returnOriginal: false})
+  return Users.findOneAndUpdate({_id: user._id}, {$set: {'party.quest.progress.collectedItems': user.collect}}, {returnOriginal: false});
 }
 
 
@@ -105,7 +105,7 @@ function transferCollectionData (users) {
   logger.info('About to update', users.length, 'user collection items...');
 
   return Promise.map(users, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.success(updates.length, 'users have been fixed');

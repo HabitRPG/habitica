@@ -1,6 +1,6 @@
 'use strict';
 
-/****************************************
+/** **************************************
  * Reason: After the api v3 maintenance migration, some challenge tasks
  * became unlinked from their challenges. We're still not sure why,
  * but this re-links them
@@ -33,7 +33,7 @@ const TASK_UPDATE_DATA = require('../challenge_fixes.json');
 let db;
 let count = 0;
 
-var timer = setInterval(function(){
+let timer = setInterval(function () {
   count++;
   if (count % 30 === 0) {
     logger.warn('Process has been running for', count / 60, 'minutes');
@@ -48,7 +48,7 @@ connectToDb()
   // .then(correctUserTasks)
   .then(updateTasks)
   .then(closeDb)
-  .catch(reportError)
+  .catch(reportError);
 
 function connectToDb () {
   return new Promise((resolve, reject) => {
@@ -81,11 +81,11 @@ function findBrokenChallengeTasks () {
   logger.info('Looking for broken tasks...');
 
   // return db.collection('tasks').find({'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}).toArray()
-  return db.collection('tasks').find({'_id': { '$in': TASK_IDS }}).toArray()
-		.then((tasks) => {
-			logger.success('Found', tasks.length, 'broken tasks.');
-			return Promise.resolve(tasks);
-		});
+  return db.collection('tasks').find({_id: { $in: TASK_IDS }}).toArray()
+    .then((tasks) => {
+      logger.success('Found', tasks.length, 'broken tasks.');
+      return Promise.resolve(tasks);
+    });
 }
 
 function getDataFromTasks (tasks) {
@@ -114,12 +114,12 @@ function getDataFromTasks (tasks) {
 function getUserChallenges (data) {
   logger.info('Collecting user challenges...');
 
-  return db.collection('users').find({_id: { '$in': data.users }}, {challenges: 1}).toArray().then((docs) => {
+  return db.collection('users').find({_id: { $in: data.users }}, {challenges: 1}).toArray().then((docs) => {
     logger.success('Found', docs.length, 'users from broken challenge tasks.');
 
     let challenges = [];
     docs.forEach((user) => {
-      challenges.push.apply(challenges, user.challenges);
+      challenges.push(...user.challenges);
     });
 
     challenges = unique(challenges);
@@ -146,7 +146,7 @@ function getUserChallenges (data) {
 function getChallengeTasks (data) {
   logger.info('Looking up original challenge tasks...');
 
-  return db.collection('tasks').find({'userId': null, 'challenge.id': { '$in': data.challenges }}, [ 'text', 'type', 'challenge', '_legacyId' ]).toArray().then((docs) => {
+  return db.collection('tasks').find({userId: null, 'challenge.id': { $in: data.challenges }}, ['text', 'type', 'challenge', '_legacyId']).toArray().then((docs) => {
     logger.success('Found', docs.length, 'challenge tasks.');
 
     let challengeTasks = {};
@@ -190,14 +190,14 @@ function correctUserTasks (data) {
 
             let foundTask = userTasks.find((task) => {
               return TASK_IDS.indexOf(task._id) > -1 && task._legacyId === legacyId && task.type === type && task.text === text;
-            })
+            });
 
             if (foundTask && !tasksToUpdate[foundTask._id]) {
               tasksToUpdate[foundTask._id] = {
                 id: chal,
                 broken: null, // NOTE: this caused a lot of problems
                 taskId,
-              }
+              };
             } else if (foundTask && taskId !== tasksToUpdate[foundTask._id].taskId) {
               logger.error('Duplicate task found, id:', foundTask._id);
               duplicateTasks[foundTask._id] = duplicateTasks[foundTask._id] || [tasksToUpdate[foundTask._id].taskId];
@@ -236,11 +236,11 @@ function updateTasks (data) {
       logger.info(promiseCount, 'updates started');
     }
 
-    return db.collection('tasks').findOneAndUpdate({_id: taskId, 'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}, {$set: {challenge: tasksToUpdate[taskId]}}, {returnOriginal: false})
+    return db.collection('tasks').findOneAndUpdate({_id: taskId, 'challenge.broken': 'CHALLENGE_TASK_NOT_FOUND'}, {$set: {challenge: tasksToUpdate[taskId]}}, {returnOriginal: false});
   }
 
   return Promise.map(taskIdsToUpdate, queue.wrap(updateTaskById)).then((result) => {
-    let updates = result.filter(res => res && res.lastErrorObject.updatedExisting)
+    let updates = result.filter(res => res && res.lastErrorObject.updatedExisting);
     let failures = result.filter(res => res && !res.lastErrorObject.updatedExisting);
 
     logger.success(updates.length, 'tasks have been fixed');
@@ -256,9 +256,9 @@ function updateTasks (data) {
 }
 
 function closeDb (data) {
-  logger.success('The process took ' + count + ' seconds');
+  logger.success(`The process took ${  count  } seconds`);
 
-  clearInterval(timer)
+  clearInterval(timer);
 
   db.close();
 }

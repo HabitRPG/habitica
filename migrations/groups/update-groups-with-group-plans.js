@@ -1,6 +1,6 @@
-var migrationName = 'ResyncGroupPlanMembers';
-var authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
-var authorUuid = ''; //... own data is done
+let migrationName = 'ResyncGroupPlanMembers';
+let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
+let authorUuid = ''; // ... own data is done
 
 /*
  * This migrations will iterate through all groups with a group plan a subscription and resync the free
@@ -20,14 +20,14 @@ async function updateGroupsWithGroupPlans () {
 
   let promises = [];
 
-  cursor.on('data', function(group) {
+  cursor.on('data', function (group) {
     promises.push(payments.addSubscriptionToGroupUsers(group));
-    promises.push(group.save())
+    promises.push(group.save());
   });
 
-  cursor.on('close', async function() {
+  cursor.on('close', async function () {
     return await Bluebird.all(promises);
   });
-};
+}
 
 module.exports = updateGroupsWithGroupPlans;

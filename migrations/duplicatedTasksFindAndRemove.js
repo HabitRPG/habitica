@@ -39,51 +39,51 @@
 //   needed. Do not miss any of them!
 
 
-var uuid='30fb2640-7121-4968-ace5-f385e60ea6c5';
+let uuid = '30fb2640-7121-4968-ace5-f385e60ea6c5';
 
 db.users.aggregate([
   {$match: {
-    '_id': uuid
+    _id: uuid,
   }},
   {$project: {
-    '_id':0, 'todos':1
+    _id: 0, todos: 1,
   }},
   {$unwind: '$todos'},
   {$group: {
     _id: { taskid: '$todos.id' },
-    count: { $sum: 1 }
+    count: { $sum: 1 },
   }},
   {$match: {
-    count: { $gt: 1 }
+    count: { $gt: 1 },
   }},
   {$project: {
-    '_id.taskid':1,
+    '_id.taskid': 1,
   }},
   {$group: {
     _id: { taskid: '$todos.id' },
-    troublesomeIds: { $addToSet: "$_id.taskid" },
+    troublesomeIds: { $addToSet: '$_id.taskid' },
   }},
   {$project: {
-    '_id':0,
-    troublesomeIds:1,
+    _id: 0,
+    troublesomeIds: 1,
   }},
 ]).forEach(
-  function(data) {
+  function (data) {
     // print( "\n" ); printjson(data);
-    data.troublesomeIds.forEach( function(taskid) {
-      print('non-unique task: ' + taskid);
+    data.troublesomeIds.forEach(function (taskid) {
+      print(`non-unique task: ${  taskid}`);
       db.users.update({
-        '_id': uuid,
-        'todos': { $elemMatch: { id: taskid } }
-      },{
-        $set: { "todos.$.id" : 'de666' }
+        _id: uuid,
+        todos: { $elemMatch: { id: taskid } },
+      }, {
+        $set: { 'todos.$.id': 'de666' },
       });
     });
   }
 );
 
 db.users.update(
-  {'_id': uuid},
+  {_id: uuid},
   {$pull: { todos: { id: 'de666' } } },
   {multi: false }
 );
