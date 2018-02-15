@@ -31,7 +31,7 @@ function processUsers (lastId) {
     ], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
-    .catch(function (err) {
+    .catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
@@ -51,7 +51,7 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-    .then(function () {
+    .then(() => {
       processUsers(lastUser._id);
     });
 }
@@ -60,27 +60,28 @@ function updateUser (user) {
   count++;
 
   let set = {};
+  let push;
 
   if (typeof user.items.gear.owned.back_special_takeThis !== 'undefined') {
     set = {migration: migrationName};
   } else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
     set = {migration: migrationName, 'items.gear.owned.back_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.back_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.back_special_takeThis', _id: monk.id()}};
   } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
     set = {migration: migrationName, 'items.gear.owned.body_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.body_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.body_special_takeThis', _id: monk.id()}};
   } else if (typeof user.items.gear.owned.armor_special_takeThis !== 'undefined') {
     set = {migration: migrationName, 'items.gear.owned.head_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.head_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.head_special_takeThis', _id: monk.id()}};
   } else if (typeof user.items.gear.owned.weapon_special_takeThis !== 'undefined') {
     set = {migration: migrationName, 'items.gear.owned.armor_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.armor_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.armor_special_takeThis', _id: monk.id()}};
   } else if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
     set = {migration: migrationName, 'items.gear.owned.weapon_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.weapon_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.weapon_special_takeThis', _id: monk.id()}};
   } else {
     set = {migration: migrationName, 'items.gear.owned.shield_special_takeThis': false};
-    var push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.shield_special_takeThis', _id: monk.id()}};
+    push = {pinnedItems: {type: 'marketGear', path: 'gear.flat.shield_special_takeThis', _id: monk.id()}};
   }
 
   if (push) {
@@ -89,8 +90,8 @@ function updateUser (user) {
     dbUsers.update({_id: user._id}, {$set: set});
   }
 
-  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
 }
 
 function displayData () {

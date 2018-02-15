@@ -1,6 +1,8 @@
+/*
 let migrationName = 'AccountTransfer';
 let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
 let authorUuid = ''; // ... own data is done
+*/
 
 /*
  * This migraition will copy user data from prod to test
@@ -9,10 +11,6 @@ let authorUuid = ''; // ... own data is done
 const monk = require('monk');
 const connectionString = '';
 const Users = monk(connectionString).get('users', { castIds: false });
-
-import uniq from 'lodash/uniq';
-import Bluebird from 'bluebird';
-
 
 module.exports = async function accountTransfer () {
   const fromAccountId = '';

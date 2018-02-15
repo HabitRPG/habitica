@@ -1,4 +1,4 @@
-let migrationName = 'restore_profile_data.js';
+/* let migrationName = 'restore_profile_data.js'; */
 let authorName = 'ThehollidayInn'; // in case script author needs to know when their ...
 let authorUuid = ''; // ... own data is done
 
@@ -34,7 +34,7 @@ function processUsers (lastId) {
     fields: ['_id', 'profile', 'auth.timestamps.loggedin'], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
-    .catch(function (err) {
+    .catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
@@ -54,8 +54,8 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPaymentPromises)
-    .then(function () {
-      processUsers(lastUser._id);
+    .then(() => {
+      return processUsers(lastUser._id);
     });
 }
 
@@ -91,8 +91,8 @@ function updateUser (user) {
       });
   }
 
-  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
 }
 
 function displayData () {

@@ -10,7 +10,5 @@ apidoc_build/
 content_cache/
 node_modules/
 
+# Old migrations, disabled
 migrations/archive/*
-
-# Temporarilly disabled. These should be removed when the linting errors are fixed TODO
-migrations/*

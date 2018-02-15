@@ -4,10 +4,10 @@ require('babel-polyfill');
 // This file must use ES5, everything required can be in ES6
 
 function setUpServer () {
-  let nconf = require('nconf');
-  let mongoose = require('mongoose');
-  let Bluebird = require('bluebird');
-  let setupNconf = require('../website/server/libs/setupNconf');
+  const nconf = require('nconf'); // eslint-disable-line global-require, no-unused-vars
+  const mongoose = require('mongoose'); // eslint-disable-line global-require, no-unused-vars
+  const Bluebird = require('bluebird'); // eslint-disable-line global-require, no-unused-vars
+  const setupNconf = require('../website/server/libs/setupNconf'); // eslint-disable-line global-require
   setupNconf();
   // We require src/server and npt src/index because
   // 1. nconf is already setup

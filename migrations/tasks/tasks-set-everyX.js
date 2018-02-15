@@ -1,4 +1,4 @@
-let migrationName = 'tasks-set-everyX';
+/* let migrationName = 'tasks-set-everyX'; */
 let authorName = 'Sabe'; // in case script author needs to know when their ...
 let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
@@ -35,7 +35,7 @@ function processTasks (lastId) {
     fields: [],
   })
     .then(updateTasks)
-    .catch(function (err) {
+    .catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
@@ -55,8 +55,8 @@ function updateTasks (tasks) {
   let lasttask = tasks[tasks.length - 1];
 
   return Promise.all(taskPromises)
-    .then(function () {
-      processTasks(lasttask._id);
+    .then(() => {
+      return processTasks(lasttask._id);
     });
 }
 
@@ -66,8 +66,8 @@ function updatetask (task) {
 
   dbTasks.update({_id: task._id}, {$set: set});
 
-  if (count % progressCount == 0) console.warn(`${count  } ${  task._id}`);
-  if (task._id == authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count  } ${  task._id}`);
+  if (task._id === authorUuid) console.warn(`${authorName  } processed`);
 }
 
 function displayData () {

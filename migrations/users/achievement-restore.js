@@ -1,17 +1,17 @@
+/*
 const migrationName = 'AchievementRestore';
 const authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
 const authorUuid = ''; // ... own data is done
+*/
 
 /*
  * This migraition will copy user data from prod to test
  */
-import Bluebird from 'bluebird';
 
 const monk = require('monk');
 const connectionString = 'mongodb://localhost/new-habit';
 const Users = monk(connectionString).get('users', { castIds: false });
 
-const monkOld = require('monk');
 const oldConnectionSting = 'mongodb://localhost/old-habit';
 const UsersOld = monk(oldConnectionSting).get('users', { castIds: false });
 
@@ -55,11 +55,11 @@ function getAchievementUpdate (newUser, oldUser) {
   // All others
   const indexsToIgnore = ['ultimateGearSets', 'challenges', 'quests', 'rebirthLevel'];
   for (let index in oldAchievements) {
-    if (indexsToIgnore.indexOf(index) !== -1) continue;
+    if (indexsToIgnore.indexOf(index) !== -1) continue; // eslint-disable-line no-continue
 
     if (!achievementsUpdate[index])  {
       achievementsUpdate[index] = oldAchievements[index];
-      continue;
+      continue; // eslint-disable-line no-continue
     }
 
     if (Number.isInteger(oldAchievements[index])) {
@@ -75,6 +75,7 @@ module.exports = async function achievementRestore () {
   ];
 
   for (let index in userIds) {
+    /* eslint-disable no-await-in-loop */
     const userId = userIds[index];
     const oldUser = await UsersOld.findOne({_id: userId}, 'achievements');
     const newUser = await Users.findOne({_id: userId}, 'achievements');
@@ -87,5 +88,6 @@ module.exports = async function achievementRestore () {
         },
       });
     console.log(`Updated ${userId}`);
+    /* eslint-enable no-await-in-loop */
   }
 };

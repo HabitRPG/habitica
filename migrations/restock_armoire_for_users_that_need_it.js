@@ -32,10 +32,10 @@ function processUsers (lastId) {
   };
 
   // specify a query to limit the affected users (empty for all users):
-  let fields = {
+  /* let fields = {
     'flags.armoireEmpty': 1,
     'items.gear.owned': 1,
-  };
+  };*/
 
   if (lastId) {
     query._id = {
@@ -52,7 +52,7 @@ function processUsers (lastId) {
     }, // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
-    .catch(function (err) {
+    .catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
@@ -72,7 +72,7 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-    .then(function () {
+    .then(() => {
       processUsers(lastUser._id);
     });
 }
@@ -98,8 +98,8 @@ function updateUser (user) {
     // console.log("DON'T CHANGE: " + user._id); // FOR TESTING
   }
 
-  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
 }
 
 function displayData () {

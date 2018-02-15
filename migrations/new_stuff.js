@@ -1,4 +1,4 @@
-let migrationName = 'new_stuff.js';
+/* let migrationName = 'new_stuff.js'; */
 let authorName = 'Sabe'; // in case script author needs to know when their ...
 let authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is done
 
@@ -28,7 +28,7 @@ function processUsers (lastId) {
     fields: [], // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
   })
     .then(updateUsers)
-    .catch(function (err) {
+    .catch((err) => {
       console.log(err);
       return exiting(1, `ERROR! ${  err}`);
     });
@@ -48,7 +48,7 @@ function updateUsers (users) {
   let lastUser = users[users.length - 1];
 
   return Promise.all(userPromises)
-    .then(function () {
+    .then(() => {
       processUsers(lastUser._id);
     });
 }
@@ -60,8 +60,8 @@ function updateUser (user) {
 
   dbUsers.update({_id: user._id}, {$set: set});
 
-  if (count % progressCount == 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id == authorUuid) console.warn(`${authorName  } processed`);
+  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName  } processed`);
 }
 
 function displayData () {

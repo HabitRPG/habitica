@@ -25,7 +25,7 @@ module.exports = async function groupCreator () {
   let type = process.argv[4];
   let leaderId  = process.argv[5];
 
-  let result = await createGroup(name, privacy, type, leaderId);
+  await createGroup(name, privacy, type, leaderId);
 };
 
 

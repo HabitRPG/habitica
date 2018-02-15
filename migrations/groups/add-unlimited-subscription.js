@@ -1,6 +1,8 @@
+/*
 let migrationName = 'AddUnlimitedSubscription';
 let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
 let authorUuid = ''; // ... own data is done
+*/
 
 /*
  * This migrations will add a free subscription to a specified group
@@ -36,5 +38,5 @@ module.exports = async function addUnlimitedSubscriptionCreator () {
 
   let dateTerminated = process.argv[3];
 
-  let result = await addUnlimitedSubscription(groupId, dateTerminated);
+  await addUnlimitedSubscription(groupId, dateTerminated);
 };
