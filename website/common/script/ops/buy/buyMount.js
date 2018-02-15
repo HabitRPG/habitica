@@ -45,10 +45,6 @@ export class BuyMountOperation extends AbstractHourglassItemOperation {
   }
 
   analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'mounts',
-      acquireMethod: 'Hourglass',
-    };
+    return super.analyticsData('mounts');
   }
 }

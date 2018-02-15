@@ -45,10 +45,6 @@ export class BuyPetOperation extends AbstractHourglassItemOperation {
   }
 
   analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'pets',
-      acquireMethod: 'Hourglass',
-    };
+    return super.analyticsData('pets');
   }
 }

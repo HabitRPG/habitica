@@ -75,12 +75,4 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
       message,
     ];
   }
-
-  analyticsData () {
-    return {
-      itemKey: this.key,
-      acquireMethod: 'Gold',
-      goldCost: this.item.value,
-    };
-  }
 }

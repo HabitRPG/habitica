@@ -40,13 +40,4 @@ export class BuySpecialSpellOperation extends AbstractGoldItemOperation {
       }),
     ];
   }
-
-  analyticsData () {
-    return {
-      itemKey: this.item.key,
-      itemType: 'Market',
-      acquireMethod: 'Gold',
-      goldCost: this.item.goldValue,
-    };
-  }
 }

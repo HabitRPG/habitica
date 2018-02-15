@@ -48,10 +48,8 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
   }
 
   analyticsData () {
-    return {
-      itemKey: 'Potion',
-      acquireMethod: 'Gold',
-      goldCost: this.getItemValue(this.item),
-    };
+    let data = super.analyticsData();
+    data.itemKey = 'Potion';
+    return data;
   }
 }

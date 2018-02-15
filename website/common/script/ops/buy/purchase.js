@@ -13,7 +13,7 @@ import {
 
 import {removeItemByPath} from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
-import {BuyQuestWithGemsOperation} from "./buyQuestWithGems";
+import {BuyQuestWithGemsOperation} from './buyQuestWithGems';
 
 function buyGems (user, analytics, req, key) {
   let convRate = planGemLimits.convRate;
@@ -151,7 +151,6 @@ module.exports = function purchase (user, req = {}, analytics) {
 
     op.purchase();
   } else {
-
     for (let i = 0; i < quantity; i += 1) {
       purchaseItem(user, item, price, type, key);
     }

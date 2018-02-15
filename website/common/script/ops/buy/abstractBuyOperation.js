@@ -120,6 +120,15 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 
     user.stats.gp -= itemValue * quantity;
   }
+
+  analyticsData () {
+    return {
+      itemKey: this.item.key,
+      itemType: 'Market',
+      acquireMethod: 'Gold',
+      goldCost: this.getItemValue(this.item),
+    };
+  }
 }
 
 export class AbstractGemItemOperation extends AbstractBuyOperation {
@@ -148,6 +157,15 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
 
     user.balance -= itemValue * quantity;
   }
+
+  analyticsData () {
+    return {
+      itemKey: this.item.key,
+      itemType: 'Market',
+      acquireMethod: 'Gems',
+      gemCost: this.getItemValue(this.item) * 4,
+    };
+  }
 }
 
 export class AbstractHourglassItemOperation extends AbstractBuyOperation {
@@ -165,6 +183,14 @@ export class AbstractHourglassItemOperation extends AbstractBuyOperation {
 
   substractCurrency (user) {
     user.purchased.plan.consecutive.trinkets--;
+  }
+
+  analyticsData (itemType) {
+    return {
+      itemKey: this.item.key,
+      itemType,
+      acquireMethod: 'Hourglass',
+    };
   }
 }
 

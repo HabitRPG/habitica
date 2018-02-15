@@ -52,13 +52,4 @@ export class BuyQuestWithGemsOperation extends AbstractGemItemOperation {
       }),
     ];
   }
-
-  analyticsData () {
-    return {
-      itemKey: this.key,
-      itemType: 'Market',
-      acquireMethod: 'Gems',
-      goldCost: this.item.goldValue,
-    };
-  }
 }
