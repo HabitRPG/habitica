@@ -21,7 +21,7 @@ liveUsers.findEach({migration: {$ne:'20131225_restore_streaks'}}, fields, {batch
   if (!after) err = '!after';
   if (err) {count++;return console.error(err);}
 
-  backupUsers.findById(after._id, fields, function(err, before){
+  backupUsers.findOne({_id: after._id}, fields, function(err, before){
     if (!before) err = '!before';
     if (err) {count++;return console.error(err);}
 

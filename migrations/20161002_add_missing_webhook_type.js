@@ -102,8 +102,8 @@ function correctWebhooks (users) {
   logger.warn('About to update', users.length, 'users...');
 
   return Promise.map(users, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res.lastErrorObject && res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.warn(updates.length, 'users have been fixed');
 

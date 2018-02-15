@@ -95,8 +95,8 @@ function addMessageToGroups (groups) {
   logger.info('About to update', groups.length, 'parties...');
 
   return Promise.map(groups, queue.wrap(updateGroupById)).then((result) => {
-    let updates = result.filter(res => res.lastErrorObject && res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.success(updates.length, 'parties have been notified');
 

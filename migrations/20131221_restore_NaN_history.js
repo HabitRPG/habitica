@@ -25,7 +25,7 @@ liveUsers.findEach({migration: {$ne:'20131221_restore_NaN_history'}}, fields, {b
   if (!after) err = '!after';
   if (err) {count++;return console.error(err);}
 
-  backupUsers.findById(after._id, fields, function(err, before){
+  backupUsers.findOne({_id: after._id}, fields, function(err, before){
     if (err) {count++;return console.error(err);}
 
     _.each(['todos','exp'],function(type){

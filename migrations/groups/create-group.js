@@ -5,7 +5,7 @@ import { model as User } from '../../website/server/models/user';
 
 // @TODO: this should probably be a GroupManager library method
 async function createGroup (name, privacy, type, leaderId) {
-    let user = await User.findById(leaderId);
+    let user = await User.findOne({_id: leaderId});
     
     let group = new Group({
         name,

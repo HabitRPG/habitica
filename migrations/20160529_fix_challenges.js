@@ -240,8 +240,8 @@ function updateTasks (data) {
   }
 
   return Promise.map(taskIdsToUpdate, queue.wrap(updateTaskById)).then((result) => {
-    let updates = result.filter(res => res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !res.lastErrorObject.updatedExisting);
+    let updates = result.filter(res => res && res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => res && !res.lastErrorObject.updatedExisting);
 
     logger.success(updates.length, 'tasks have been fixed');
 

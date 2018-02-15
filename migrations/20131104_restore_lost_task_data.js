@@ -22,7 +22,7 @@ backupUsers.count(function(err, count){
   backupUsers.findEach({}, {batchSize:250}, function(err, before){
     if (err) return console.error(err);
     if (!before) return console.log('!before');
-    liveUsers.findById(before._id, function(err, after){
+    liveUsers.findOne({_id: before._id}, function(err, after){
       if (err) return console.error(err);
       if (!after) {
         count--;

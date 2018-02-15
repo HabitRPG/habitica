@@ -81,14 +81,14 @@ function correctEmails () {
   logger.warn('About to update', emails.length, 'user email addresses...');
 
   return Promise.map(emails, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res.lastErrorObject && res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.warn(updates.length, 'users have been fixed');
 
     if (failures.length > 0) {
       logger.error(failures.length, 'users could not be found');
-    }
+    } 
 
     return Promise.resolve();
   });

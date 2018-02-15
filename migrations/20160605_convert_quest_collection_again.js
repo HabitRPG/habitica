@@ -105,8 +105,8 @@ function transferCollectionData (users) {
   logger.info('About to update', users.length, 'user collection items...');
 
   return Promise.map(users, queue.wrap(updateUserById)).then((result) => {
-    let updates = result.filter(res => res.lastErrorObject && res.lastErrorObject.updatedExisting)
-    let failures = result.filter(res => !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
+    let updates = result.filter(res => res && res.lastErrorObject && res.lastErrorObject.updatedExisting)
+    let failures = result.filter(res => res && !(res.lastErrorObject && res.lastErrorObject.updatedExisting));
 
     logger.success(updates.length, 'users have been fixed');
 

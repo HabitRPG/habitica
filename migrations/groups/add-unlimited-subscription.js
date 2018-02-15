@@ -11,7 +11,7 @@ import { model as Group } from '../../website/server/models/group';
 
 // @TODO: this should probably be a GroupManager library method
 async function addUnlimitedSubscription (groupId, dateTerminated) {
-    let group = await Group.findById(groupId);
+    let group = await Group.findOne({_id: groupId});
 
     group.purchased.plan.customerId = "group-unlimited";
     group.purchased.plan.dateCreated = new Date();
