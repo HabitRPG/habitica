@@ -45,8 +45,8 @@
         .purchase-amount
           .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
-          div(v-if='showAmountToBuy(item)')
-            .box
+          div
+            .box(v-if='showAmountToBuy(item)')
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
@@ -283,6 +283,7 @@
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
     'rebirth_orb', 'fortify', 'armoire', 'keys',
+    'pets', 'mounts',
   ];
 
   export default {
