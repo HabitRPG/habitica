@@ -15,11 +15,6 @@ div
     slot(name="popoverContent", :item="item")
 </template>
 
-<style lang="scss">
-  .pet-slot {
-    margin: 0 2px;
-  }
-</style>
 <script>
   import uuid from 'uuid';
 
