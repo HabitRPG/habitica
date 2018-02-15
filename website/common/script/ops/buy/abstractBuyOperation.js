@@ -96,12 +96,13 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     super(user, req, analytics);
   }
 
-  canUserPurchase (user, item, itemValue = -1) {
-    this.item = item;
+  getItemValue (item) {
+    return item.value;
+  }
 
-    if (itemValue === -1) {
-      itemValue = item.value;
-    }
+  canUserPurchase (user, item) {
+    this.item = item;
+    let itemValue = this.getItemValue(item);
 
     let userGold = user.stats.gp;
 
@@ -114,7 +115,9 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     }
   }
 
-  substractCurrency (user, itemValue, quantity = 1) {
+  substractCurrency (user, item, quantity = 1) {
+    let itemValue = this.getItemValue(item);
+
     user.stats.gp -= itemValue * quantity;
   }
 }
@@ -122,6 +125,10 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
 export class AbstractGemItemOperation extends AbstractBuyOperation {
   constructor (user, req, analytics) {
     super(user, req, analytics);
+  }
+
+  getItemValue (item) {
+    return item.value;
   }
 
   canUserPurchase (user, item, itemValue = -1) {
@@ -136,7 +143,9 @@ export class AbstractGemItemOperation extends AbstractBuyOperation {
     }
   }
 
-  substractCurrency (user, itemValue, quantity = 1) {
+  substractCurrency (user, item, quantity = 1) {
+    let itemValue = this.getItemValue(item);
+
     user.balance -= itemValue * quantity;
   }
 }
@@ -180,19 +189,19 @@ export class AbstractHybridItemOperation extends AbstractBuyOperation {
     }
   }
 
-  canUserPurchase (user, item, itemValue = -1) {
+  canUserPurchase (user, item) {
     if (!this.currencyOperation) {
       throw new Error('no currencyOperation');
     }
 
-    return this.currencyOperation.canUserPurchase(user, item, itemValue);
+    return this.currencyOperation.canUserPurchase(user, item);
   }
 
-  substractCurrency (user, itemValue, quantity = 1) {
+  substractCurrency (user, item, quantity = 1) {
     if (!this.currencyOperation) {
       throw new Error('no currencyOperation');
     }
 
-    return this.currencyOperation.substractCurrency(user, itemValue, quantity);
+    return this.currencyOperation.substractCurrency(user, item, quantity);
   }
 }

@@ -29,7 +29,7 @@ export class BuySpecialSpellOperation extends AbstractGoldItemOperation {
   }
 
   executeChanges (user, item, req) {
-    this.substractCurrency(user, item.value, this.quantity);
+    this.substractCurrency(user, item, this.quantity);
 
     user.items.special[item.key] += this.quantity;
 

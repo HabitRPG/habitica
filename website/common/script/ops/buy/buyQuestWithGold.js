@@ -24,6 +24,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       user.achievements.quests.taskwoodsTerror3;
   }
 
+  getItemValue (item) {
+    return item.goldValue;
+  }
+
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
@@ -40,14 +44,14 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));
     }
 
-    super.canUserPurchase(user, item, item.goldValue);
+    super.canUserPurchase(user, item);
   }
 
   executeChanges (user, item, req) {
     user.items.quests[item.key] = user.items.quests[item.key] || 0;
     user.items.quests[item.key] += this.quantity;
 
-    this.substractCurrency(user, item.goldValue, this.quantity);
+    this.substractCurrency(user, item, this.quantity);
 
     return [
       user.items.quests,
@@ -62,7 +66,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
       itemKey: this.key,
       itemType: 'Market',
       acquireMethod: 'Gold',
-      goldCost: this.item.goldValue,
+      goldCost: this.getItemValue(this.item.goldValue),
     };
   }
 }

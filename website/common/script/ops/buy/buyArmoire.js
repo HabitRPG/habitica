@@ -49,7 +49,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       result = this._experienceResult(user);
     }
 
-    this.substractCurrency(user, item.value);
+    this.substractCurrency(user, item);
 
     let {message, armoireResp} = result;
 

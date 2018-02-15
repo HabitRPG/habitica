@@ -62,7 +62,7 @@ export class BuyGearOperation extends AbstractGoldItemOperation {
 
     if (item.last) ultimateGear(user);
 
-    this.substractCurrency(user, item.value);
+    this.substractCurrency(user, item);
 
     if (!message) {
       message = this.i18n('messageBought', {
