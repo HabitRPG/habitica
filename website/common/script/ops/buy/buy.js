@@ -3,10 +3,10 @@ import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import { BuyHealthPotionOperation } from './buyHealthPotion';
-import { BuyArmoireOperation } from './buyArmoire';
-import { BuyGearOperation } from './buyGear';
-import buyMysterySet from './buyMysterySet';
+import {BuyHealthPotionOperation} from './buyHealthPotion';
+import {BuyArmoireOperation} from './buyArmoire';
+import {BuyGearOperation} from './buyGear';
+import {BuyMysterySetOperation} from './buyMysterySet';
 import {BuySpecialSpellOperation} from './buySpecialSpell';
 import purchaseOp from './purchase';
 import {BuyQuestWithGoldOperation} from './buyQuestWithGold';
@@ -37,9 +37,12 @@ module.exports = function buy (user, req = {}, analytics) {
       buyRes = opInstance.purchase();
       break;
     }
-    case 'mystery':
-      buyRes = buyMysterySet(user, req, analytics);
+    case 'mystery': {
+      let opInstance = new BuyMysterySetOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
     case 'potion': {
       let opInstance = new BuyHealthPotionOperation(user, req, analytics);
 
