@@ -114,7 +114,7 @@ describe('Post /groups/:groupId/invite', () => {
       }]);
 
       await expect(userToInvite.get('/user'))
-        .to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
+        .to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
     });
 
     it('invites multiple users to a group by uuid', async () => {
@@ -138,8 +138,8 @@ describe('Post /groups/:groupId/invite', () => {
         },
       ]);
 
-      await expect(userToInvite.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
-      await expect(userToInvite2.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
     });
 
     it('returns an error when inviting multiple users and a user is not found', async () => {
