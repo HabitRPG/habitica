@@ -46,7 +46,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.userId).to.equal(task.userId);
       expect(savedTask.history).to.eql(task.history);
       expect(savedTask.createdAt).to.equal(task.createdAt);
-      expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
+      expect(new Date(savedTask.updatedAt)).to.be.greaterThan(new Date(task.updatedAt));
       expect(savedTask.challenge).to.eql(task.challenge);
       expect(savedTask.completed).to.eql(task.completed);
       expect(savedTask.streak).to.equal(savedTask.streak); // it's an habit, dailies can change it
