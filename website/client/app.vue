@@ -280,7 +280,7 @@ export default {
 
       // Get last modal on stack and hide
       let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      let modalOnTop = this.$store.state.modalStack[modalStackLength];
 
       // Add new modal to the stack
       this.$store.state.modalStack.push(modalId);
@@ -296,8 +296,8 @@ export default {
       const modalId = bvEvent.target.id;
 
       let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
+      let modalOnTop = this.$store.state.modalStack[modalStackLength];
+      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 1];
       // Don't remove modal if hid was called from main app
       // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
       // if (data && data.fromRoot) return;
@@ -308,7 +308,7 @@ export default {
 
       // Recalculate and show the last modal if there is one
       modalStackLength = this.$store.state.modalStack.length;
-      modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
+      modalOnTop = this.$store.state.modalStack[modalStackLength];
       if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
     });
   },
