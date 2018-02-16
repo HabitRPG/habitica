@@ -11,8 +11,9 @@ import {
   BadRequest,
 } from '../../libs/errors';
 
-import { removeItemByPath } from '../pinnedGearUtils';
+import {removeItemByPath} from '../pinnedGearUtils';
 import getItemInfo from '../../libs/getItemInfo';
+import {BuyQuestWithGemsOperation} from './buyQuestWithGems';
 
 function buyGems (user, analytics, req, key) {
   let convRate = planGemLimits.convRate;
@@ -145,8 +146,14 @@ module.exports = function purchase (user, req = {}, analytics) {
   let itemInfo = getItemInfo(user, type, item);
   removeItemByPath(user, itemInfo.path);
 
-  for (let i = 0; i < quantity; i += 1) {
-    purchaseItem(user, item, price, type, key);
+  if (type === 'quests') {
+    let op = new BuyQuestWithGemsOperation(user, req, analytics);
+
+    op.purchase();
+  } else {
+    for (let i = 0; i < quantity; i += 1) {
+      purchaseItem(user, item, price, type, key);
+    }
   }
 
   if (analytics) {

@@ -1,47 +1,43 @@
-import i18n from '../../i18n';
 import content from '../../content/index';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
-  NotAuthorized,
   NotFound,
 } from '../../libs/errors';
+import {AbstractGoldItemOperation} from './abstractBuyOperation';
 
-module.exports = function buySpecialSpell (user, req = {}, analytics) {
-  let key = get(req, 'params.key');
-  let quantity = req.quantity || 1;
-
-  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
-
-  let item = content.special[key];
-  if (!item) throw new NotFound(i18n.t('spellNotFound', {spellId: key}, req.language));
-
-  if (user.stats.gp < item.value * quantity) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
-  }
-  user.stats.gp -= item.value * quantity;
-
-  user.items.special[key] += quantity;
-
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
-      itemKey: item.key,
-      itemType: 'Market',
-      goldCost: item.goldValue,
-      quantityPurchased: quantity,
-      acquireMethod: 'Gold',
-      category: 'behavior',
-      headers: req.headers,
-    });
+export class BuySpecialSpellOperation extends AbstractGoldItemOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
   }
 
-  return [
-    pick(user, splitWhitespace('items stats')),
-    i18n.t('messageBought', {
-      itemText: item.text(req.language),
-    }, req.language),
-  ];
-};
+  multiplePurchaseAllowed () {
+    return true;
+  }
+
+  extractAndValidateParams (user, req) {
+    let key = get(req, 'params.key');
+
+    if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
+
+    let item = content.special[key];
+    if (!item) throw new NotFound(this.i18n('spellNotFound', {spellId: key}));
+
+    super.canUserPurchase(user, item);
+  }
+
+  executeChanges (user, item, req) {
+    this.substractCurrency(user, item, this.quantity);
+
+    user.items.special[item.key] += this.quantity;
+
+    return [
+      pick(user, splitWhitespace('items stats')),
+      this.i18n('messageBought', {
+        itemText: item.text(req.language),
+      }),
+    ];
+  }
+}

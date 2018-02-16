@@ -3,14 +3,15 @@ import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import buyHealthPotion from './buyHealthPotion';
-import buyArmoire from './buyArmoire';
-import buyGear from './buyGear';
-import buyMysterySet from './buyMysterySet';
-import buyQuest from './buyQuest';
-import buySpecialSpell from './buySpecialSpell';
+import {BuyHealthPotionOperation} from './buyHealthPotion';
+import {BuyArmoireOperation} from './buyArmoire';
+import {BuyGearOperation} from './buyGear';
+import {BuyMysterySetOperation} from './buyMysterySet';
+import {BuySpecialSpellOperation} from './buySpecialSpell';
 import purchaseOp from './purchase';
-import hourglassPurchase from './hourglassPurchase';
+import {BuyQuestWithGoldOperation} from './buyQuestWithGold';
+import {BuyMountOperation} from './buyMount';
+import {BuyPetOperation} from './buyPet';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -30,15 +31,24 @@ module.exports = function buy (user, req = {}, analytics) {
   let buyRes;
 
   switch (type) {
-    case 'armoire':
-      buyRes = buyArmoire(user, req, analytics);
+    case 'armoire': {
+      let opInstance = new BuyArmoireOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
-    case 'mystery':
-      buyRes = buyMysterySet(user, req, analytics);
+    }
+    case 'mystery': {
+      let opInstance = new BuyMysterySetOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
-    case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+    }
+    case 'potion': {
+      let opInstance = new BuyHealthPotionOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
@@ -48,19 +58,37 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'gems':
       buyRes = purchaseOp(user, req, analytics);
       break;
-    case 'pets':
-    case 'mounts':
-      buyRes = hourglassPurchase(user, req, analytics);
+    case 'pets': {
+      let opInstance = new BuyPetOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
-    case 'quest':
-      buyRes = buyQuest(user, req, analytics);
+    }
+    case 'mounts': {
+      let opInstance = new BuyMountOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
-    case 'special':
-      buyRes = buySpecialSpell(user, req, analytics);
+    }
+    case 'quest': {
+      let opInstance = new BuyQuestWithGoldOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
-    default:
-      buyRes = buyGear(user, req, analytics);
+    }
+    case 'special': {
+      let opInstance = new BuySpecialSpellOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
       break;
+    }
+    default: {
+      // market gear
+      let opInstance = new BuyGearOperation(user, req, analytics);
+
+      buyRes = opInstance.purchase();
+      break;
+    }
   }
 
   return buyRes;
