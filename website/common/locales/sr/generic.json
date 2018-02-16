@@ -168,6 +168,8 @@
     "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
     "checkOutProgress": "Check out my progress in Habitica!",
     "cards": "Cards",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Pozdravna karta",
     "greetingCardExplanation": "You both receive the Cheery Chum achievement!",

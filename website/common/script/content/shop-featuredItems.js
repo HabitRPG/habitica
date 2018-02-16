@@ -6,15 +6,15 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.CottonCandyBlue',
+      path: 'hatchingPotions.CottonCandyPink',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Golden',
+      path: 'hatchingPotions.Cupid',
     },
     {
       type: 'card',
-      path: 'cardTypes.greeting',
+      path: 'cardTypes.valentine',
     },
   ],
   quests: [
@@ -28,7 +28,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.penguin',
+      path: 'quests.badger',
     },
     {
       type: 'quests',

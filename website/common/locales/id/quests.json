@@ -18,10 +18,10 @@
     "youWillReceive": "Kamu Akan Mendapatkan",
     "questOwnerWillReceive": "Pemilik Misi Juga Akan Mendapatkan",
     "youReceived": "Kamu Mendapatkan",
-    "dropQuestCongrats": "Selamat kamu memperoleh gulungan misi ini! Kamu bisa mengundang kelompokmu untuk memulai misi ini sekarang, atau nanti kamu dapat mengaksesnya lagi di menu Inventori > Misi.",
+    "dropQuestCongrats": "Selamat kamu memperoleh gulungan misi ini! Kamu bisa mengundang party-mu untuk memulai misi ini sekarang, atau nanti kamu dapat mengaksesnya lagi di menu Inventori > Misi.",
     "questSend": "Klik \"Undang\" akan mengirimkan undangan ke anggota party-mu. Ketika semua anggota sudah menerima atau menolak, misi akan dimulai. Lihat status di menu Sosial > Party.",
     "questSendBroken": "Klik \"Undang\" akan mengirimkan undangan ke anggota party-mu... Ketika semua anggota sudah menerima atau menolak, misi akan dimulai... Lihat status di menu Sosial > Party...",
-    "inviteParty": "Undang Kelompok untuk mengikuti Misi",
+    "inviteParty": "Undang Party untuk mengikuti Misi",
     "questInvitation": "Pengajuan Misi:",
     "questInvitationTitle": "Pengajuan Misi",
     "questInvitationInfo": "Undangan untuk Misi <%= quest %>",
@@ -120,5 +120,10 @@
     "createAccountQuest": "Kamu menerima misi ini ketika kamu bergabung dengan Habitica! Kalau ada temanmu bergabung, mereka akan dapat juga.",
     "questBundles": "Bundel Misi Diskon",
     "buyQuestBundle": "Beli Bundel Misi",
-    "noQuestToStart": "Tidak dapat menemukan misi untuk dilakukan? Coba cek Toko Misi di Pasar untuk menemukan misi baru!"
+    "noQuestToStart": "Tidak dapat menemukan misi untuk dilakukan? Coba cek Toko Misi di Pasar untuk menemukan misi baru!",
+    "pendingDamage": "<%= damage %> damage terkumpul",
+    "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Nyawa",
+    "rageAttack": "Serangan Kemarahan:",
+    "bossRage": "<%= currentRage %>/<%= maxRage %> Kemarahan",
+    "rageStrikes": "Rage Strikes"
 }

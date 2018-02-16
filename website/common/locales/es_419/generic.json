@@ -168,6 +168,8 @@
     "achievementBewilderText": "¡Ayudó a vencer al Obnubilave durante el Evento Fiesta de Primavera 2016!",
     "checkOutProgress": "¡Echa un vistazo a mi progreso en Habitica!",
     "cards": "Tarjetas",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Tarjeta de Felicitación",
     "greetingCardExplanation": "¡Ambos reciben el logro Alegre Amigo!",

@@ -91,7 +91,7 @@ async function cronAsync (req, res) {
 
     res.locals.wasModified = true; // TODO remove after v2 is retired
 
-    // Group.tavernBoss(user, progress);
+    Group.tavernBoss(user, progress);
 
     // Save user and tasks
     let toSave = [user.save()];

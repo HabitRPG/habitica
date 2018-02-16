@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Skijaška motka",
     "weaponSpecialSkiNotes": "Oružje koje može da uništi horde neprijatelja. Takođe pomaže pri skijanju. Povećava Snagu za <%= str %>. Oprema iz ograničene serije Zima 2013/14.",
     "weaponSpecialCandycaneText": "Šećerna motka",
-    "weaponSpecialCandycaneNotes": "Motka moćnog čarobnjaka. I moćnog ukusa! Dvoručno oružje. Povećava Inteligenciju za <%= int %> i Opažanje za <%= per %>. Oprema iz ograničene serije Zima 2013/14.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Snežni štapić",
     "weaponSpecialSnowflakeNotes": "Iz ovog štapića isijava neograničena moć lečenja. Povećava Inteligenciju za <%= int %>. Oprema iz ograničene serije Zima 2013/14.",
     "weaponSpecialSpringRogueText": "Kukaste kandže",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Peacock Masquerade Mask",
     "eyewearMystery301703Notes": "Perfect for a fancy masquerade or for stealthily moving through a particularly well-dressed crowd. Confers no benefit. March 3017 Subscriber Item.",
     "eyewearArmoirePlagueDoctorMaskText": "Plague Doctor Mask",
-    "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Confers no benefit. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
+    "twoHandedItem": "Two-handed item."
 }
