@@ -4,14 +4,20 @@ import sinon from 'sinon'; // eslint-disable-line no-shadow
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyGear from '../../../../website/common/script/ops/buy/buyGear';
+import {BuyMarketGearOperation} from '../../../../website/common/script/ops/buy/buyMarketGear';
 import shared from '../../../../website/common/script';
 import {
   BadRequest, NotAuthorized, NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 
-describe('shared.ops.buyGear', () => {
+function buyGear (user, req, analytics) {
+  let buyOp = new BuyMarketGearOperation(user, req, analytics);
+
+  return buyOp.purchase();
+}
+
+describe('shared.ops.buyMarketGear', () => {
   let user;
   let analytics = {track () {}};
 
@@ -96,6 +102,31 @@ describe('shared.ops.buyGear', () => {
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('equipmentAlreadyOwned'));
+        done();
+      }
+    });
+
+    it('does not buy equipment of different class', (done) => {
+      user.stats.gp = 82;
+      user.stats.class = 'warrior';
+
+      try {
+        buyGear(user, {params: {key: 'weapon_special_winter2018Rogue'}});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('cannotBuyItem'));
+        done();
+      }
+    });
+
+    it('does not buy equipment in bulk', (done) => {
+      user.stats.gp = 82;
+
+      try {
+        buyGear(user, {params: {key: 'armor_warrior_1'}, quantity: 3});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageNotAbleToBuyInBulk'));
         done();
       }
     });
