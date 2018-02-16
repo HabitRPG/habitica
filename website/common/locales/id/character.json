@@ -162,7 +162,7 @@
     "youDied": "Kamu Terbunuh!",
     "dieText": "Kamu kehilangan satu Level, semua Koin Emas, dan salah satu Perlengkapanmu. Bangkitlah, Habiteer, dan coba lagi! Kurangi Kebiasaan buruk tersebut, waspada dalam menyelesaikan Keseharian, dan tunda kematian selama mungkin dengan Ramuan Kesehatan jika kamu goyah!",
     "sureReset": "Apakah kamu yakin? Kamu akan memilih ulang pekerjaan karaktermu dan Poin Atribut yang sudah dialokasikan akan dihapus (kamu akan mendapatkan semuanya kembali untuk dialokasikan ulang), seharga 3 Permata.",
-    "purchaseFor": "Beli seharga <%= cost %> Gem?",
+    "purchaseFor": "Beli seharga <%= cost %> Permata?",
     "purchaseForHourglasses": "Beli seharga <%= cost %> Jam Pasir?",
     "notEnoughMana": "Mana tidak cukup.",
     "invalidTarget": "Kamu tidak dapat menggunakan kemampuan kamu untuk itu.",

@@ -284,7 +284,7 @@
     "passwordResetEmailSubject": "Wachtwoord reset voor Habitica",
     "passwordResetEmailText": "Als je een wachtwoordreset hebt aangevraagd voor <%= username %> op Habitica, ga dan naar <%= passwordResetLink %> om een nieuwe in te stellen. Deze link verloopt na 24 uur. Als je geen wachtwoordreset hebt aangevraagd, negeer deze mail dan.",
     "passwordResetEmailHtml": "Als je een wachtwoordreset hebt aangevraagd voor <strong><%= username %></strong> op Habitica, klik dan<a href=\"<%= passwordResetLink %>\">hier</a> om een nieuwe in te stellen. Deze link verloopt na 24 uur.<br/><br> Als je geen wachtwoordreset hebt aangevraagd, negeer deze mail dan.",
-    "invalidLoginCredentialsLong": "Uh-oh - your email address / login name or password is incorrect.\n- Make sure they are typed correctly. Your login name and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
+    "invalidLoginCredentialsLong": "oh Ooo! Je emailadres/inlognaam of wachtwoord zijn incorrect.\nZorg ervoor dat ze goed zijn ingevoerd. Je inlognaam en wachtwoord hoofdlettergevoelig.\nHet kan zijn dat je je via Google of Facebook hebt geregistreerd in plaats van met je emailadres. Dit kun je controleren door die login’s te proberen.\nAls je je wachtwoord bent vergeten, klik dan op “wachtwoord vergeten”.",
     "invalidCredentials": "Er is geen account dat deze aanmeldingsgegevens bevat.",
     "accountSuspended": "Account is geschorst. Neem voor hulp alsjeblieft contact op met <%= communityManagerEmail %> met je Gebruikers ID \"<%= userId %>\".",
     "unsupportedNetwork": "Dit netwerk wordt momenteel niet ondersteund.",

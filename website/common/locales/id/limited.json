@@ -3,7 +3,7 @@
     "seasonalEdition": "Edisi Musiman",
     "winterColors": "Warna Musim Dingin",
     "annoyingFriends": "Teman yang Menyebalkan",
-    "annoyingFriendsText": "Dilempari bola salju <%= count %> kali oleh teman party.",
+    "annoyingFriendsText": "Dilempari bola salju <%= count %> kali oleh anggota party.",
     "alarmingFriends": "Teman yang Berbahaya",
     "alarmingFriendsText": "Dihantui <%= count %> kali oleh teman party.",
     "agriculturalFriends": "Teman Tanaman",

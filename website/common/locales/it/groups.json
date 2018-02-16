@@ -417,11 +417,11 @@
     "managerAdded": "Manager added successfully",
     "managerRemoved": "Manager removed successfully",
     "leaderChanged": "Leader has been changed",
-    "whatIsWorldBoss": "What is a World Boss?",
-    "worldBossDesc": "A World Boss is a special event that brings the Habitica community together to take down a powerful monster with their tasks! All Habitica users are rewarded upon its defeat, even those who have been resting in the Inn or have not used Habitica for the entirety of the quest.",
-    "worldBossLink": "Read more about the previous World Bosses of Habitica on the Wiki.",
-    "worldBossBullet1": "Complete tasks to damage the World Boss",
-    "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
+    "whatIsWorldBoss": "Cos'è un Boss Mondiale?",
+    "worldBossDesc": "Un Boss Mondiale è un evento speciale che unisce tutta la community di Habitica per sconfiggere un potente mostro con le loro attività! Tutti gli utenti di Habitica riceveranno le ricompense della vittoria, anche coloro che sono rimasti a riposare nella Locanda o che non hanno usato Habitica per l'intera durata della missione.",
+    "worldBossLink": "Leggi di più sui precedenti Boss Mondiali di Habitica sulla Wiki.",
+    "worldBossBullet1": "Completa le tue attività per danneggiare il Boss Mondiale",
+    "worldBossBullet2": "Il Boss Mondiale non ti danneggerà per le attività non completate, ma la sua Furia aumenterà. Se la barra della Furia si riempie, il Boss attaccherà uno dei negozianti di Habitica!",
     "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-    "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
+    "worldBossBullet4": "Controlla regolarmente la Taverna per vedere i progressi con il Boss Mondiale e gli attacchi Furia."
 }

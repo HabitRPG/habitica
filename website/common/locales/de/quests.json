@@ -121,9 +121,9 @@
     "questBundles": "Reduzierte Quest-Pakete",
     "buyQuestBundle": "Quest-Paket kaufen",
     "noQuestToStart": "Du findest keine Quest, die Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!",
-    "pendingDamage": "<%= damage %> pending damage",
-    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
-    "rageAttack": "Rage Attack:",
-    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "pendingDamage": "<%= damage %> ausstehender Schaden",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Lebenspunkte",
+    "rageAttack": "Raserei-Angriff:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Raserei",
+    "rageStrikes": "Raserei-Angriffe:"
 }

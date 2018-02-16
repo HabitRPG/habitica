@@ -417,11 +417,11 @@
     "managerAdded": "Управителят е добавен успешно",
     "managerRemoved": "Управителят е премахнат успешно.",
     "leaderChanged": "Водачът беше сменен",
-    "whatIsWorldBoss": "What is a World Boss?",
-    "worldBossDesc": "A World Boss is a special event that brings the Habitica community together to take down a powerful monster with their tasks! All Habitica users are rewarded upon its defeat, even those who have been resting in the Inn or have not used Habitica for the entirety of the quest.",
-    "worldBossLink": "Read more about the previous World Bosses of Habitica on the Wiki.",
-    "worldBossBullet1": "Complete tasks to damage the World Boss",
-    "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
-    "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-    "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
+    "whatIsWorldBoss": "Какво е световен главатар?",
+    "worldBossDesc": "Световният главатар е специално събитие, при което цялата общност на Хабитика работи заедно, за да победи могъщо чудовище, използвайки задачите си! След побеждаването му всички потребители на Хабитика получават награда, дори и онези, които са почивали в странноприемницата, или които изобщо не са използвали Хабитика по време на мисията.",
+    "worldBossLink": "Прочетете повече относно предишните световни главатари на Хабитика в Уикито.",
+    "worldBossBullet1": "Завършете задачите си, за да нанесете щети на световния главатар.",
+    "worldBossBullet2": "Главатарят няма да Ви нанесе щети за пропуснатите задачи, но яростомерът му ще се запълни. Ако лентата се запълни, главатарят ще нападне някой от продавачите на Хабитика!",
+    "worldBossBullet3": "Можете да продължите с нормалните главатари от мисиите си, като щетите ще се прилагат и на двамата главатари.",
+    "worldBossBullet4": "Проверявайте в кръчмата, за да видите напредъка за световния главатар и яростните удари."
 }
