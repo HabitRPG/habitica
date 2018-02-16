@@ -379,7 +379,7 @@
       };
     },
     async mounted () {
-      let worldState = await this.$store.dispatch('worldState:getWorldState');
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
       this.broken = worldState.worldBoss.extra.worldDmg.seasonalShop;
     },
     computed: {
