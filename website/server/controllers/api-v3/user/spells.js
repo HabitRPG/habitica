@@ -74,6 +74,7 @@ api.castSpell = {
     let user = res.locals.user;
     let spellId = req.params.spellId;
     let targetId = req.query.targetId;
+    const quantity = req.body.quantity || 1;
 
     // optional because not required by all targetTypes, presence is checked later if necessary
     req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
@@ -92,16 +93,16 @@ api.castSpell = {
     let targetType = spell.target;
 
     if (targetType === 'task') {
-      const results = await castTaskSpell(res, req, targetId, user, spell);
+      const results = await castTaskSpell(res, req, targetId, user, spell, quantity);
       res.respond(200, {
         user: results[0],
         task: results[1],
       });
     } else if (targetType === 'self') {
-      await castSelfSpell(req, user, spell);
+      await castSelfSpell(req, user, spell, quantity);
       res.respond(200, { user });
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      const response = await castMultiTaskSpell(req, user, spell);
+      const response = await castMultiTaskSpell(req, user, spell. quantity);
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
       const party = await Group.getGroup({groupId: 'party', user});
@@ -109,9 +110,9 @@ api.castSpell = {
       let partyMembers;
 
       if (targetType === 'party') {
-        partyMembers = await castPartySpell(req, party, partyMembers, user, spell);
+        partyMembers = await castPartySpell(req, party, partyMembers, user, spell, quantity);
       } else {
-        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell);
+        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell, quantity);
       }
 
       let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
