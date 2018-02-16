@@ -121,9 +121,9 @@
     "questBundles": "Пакети мисии с отстъпка",
     "buyQuestBundle": "Купуване на пакет мисии",
     "noQuestToStart": "Не можете да намерите мисия, която да започнете? Погледнете в магазина за мисии или на пазара за нови попълнения!",
-    "pendingDamage": "<%= damage %> pending damage",
-    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
-    "rageAttack": "Rage Attack:",
-    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "pendingDamage": "<%= damage %> чакащи щети",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здраве",
+    "rageAttack": "Яростна атака:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> ярост",
+    "rageStrikes": "Яростни удари"
 }

@@ -417,11 +417,11 @@
     "managerAdded": "Gestionnaire ajouté avec succès",
     "managerRemoved": "Gestionnaire retiré avec succès",
     "leaderChanged": "Le responsable a été changé",
-    "whatIsWorldBoss": "What is a World Boss?",
-    "worldBossDesc": "A World Boss is a special event that brings the Habitica community together to take down a powerful monster with their tasks! All Habitica users are rewarded upon its defeat, even those who have been resting in the Inn or have not used Habitica for the entirety of the quest.",
-    "worldBossLink": "Read more about the previous World Bosses of Habitica on the Wiki.",
-    "worldBossBullet1": "Complete tasks to damage the World Boss",
-    "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
-    "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-    "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
+    "whatIsWorldBoss": "Qu'est-ce qu'un boss mondial ?",
+    "worldBossDesc": "Un boss mondial est un événement spécial qui rassemble la communauté Habitica autour d'un combat commun, face à un puissant monstre que l'on peut battre grâce à ses tâches ! Tous les utilisateurs d'Habitica sont récompensés lors de la victoire, y compris ceux qui se reposaient à l'Auberge ou qui n'ont pas utilisé Habitica de toute la durée de la quête.",
+    "worldBossLink": "Découvrez-en plus sur les anciens boss mondiaux d'Habitica sur le wiki.",
+    "worldBossBullet1": "Accomplissez vos tâches pour affaiblir le boss mondial",
+    "worldBossBullet2": "Le boss mondial ne vous infligera pas de dégâts en cas de tâches inachevées, mais sa barre de rage se remplira. Quand cette barre est pleine, le boss attaque un des marchands d'Habitica !",
+    "worldBossBullet3": "Vous pouvez poursuivre des quêtes de boss standards, les dommages seront infligés aux deux.",
+    "worldBossBullet4": "Consultez régulièrement la taverne pour voir les niveaux de santé et de rage du boss mondial."
 }
