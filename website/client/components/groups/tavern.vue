@@ -69,12 +69,15 @@
               .col-sm-5.d-flex
                 strong {{ $t('rageStrikes') }}
                 .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
-              .col-sm-2
-                img.rage-strike(src="~assets/images/rage_strike2x.png")
-              .col-sm-2
-                img.rage-strike(src="~assets/images/rage_strike2x.png")
-              .col-sm-2
-                img.rage-strike(src="~assets/images/rage_strike2x.png")
+              .col-sm-2.text-center
+                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
+                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
+              .col-sm-2.text-center
+                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
+                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
+              .col-sm-2.text-center
+                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
+                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
               strong.float-left {{ $t('worldBossDescription') }}
               .float-right
@@ -475,6 +478,11 @@
 
   .rage-strike {
     max-width: 50px;
+    height: auto;
+  }
+
+  .rage-strike-active {
+    max-width: 75px;
     height: auto;
   }
 
