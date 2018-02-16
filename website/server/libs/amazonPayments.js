@@ -270,10 +270,8 @@ api.subscribe = async function subscribe (options) {
   let priceOfSingleMember = 3;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-
-    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
+    const membersCount = await User.count({guilds: this._id}).exec();
+    amount = sub.price + (membersCount - leaderCount) * priceOfSingleMember;
   }
 
   await this.setBillingAgreementDetails({

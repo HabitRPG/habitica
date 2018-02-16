@@ -97,9 +97,8 @@ api.checkout = async function checkout (options, stripeInc) {
 
     if (groupId) {
       customerObject.quantity = sub.quantity;
-      let groupFields = basicGroupFields.concat(' purchased');
-      let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-      customerObject.quantity = group.memberCount + sub.quantity - 1;
+      const membersCount = await User.count({guilds: this._id}).exec();
+      customerObject.quantity = membersCount + sub.quantity - 1;
     }
 
     response = await stripeApi.customers.create(customerObject);
