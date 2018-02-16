@@ -54,7 +54,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('ignores invalid fields', async () => {
-      let savedTask = await  user.put(`/tasks/${task._id}`, {
+      let savedTask = await user.put(`/tasks/${task._id}`, {
         notValid: true,
       });
 

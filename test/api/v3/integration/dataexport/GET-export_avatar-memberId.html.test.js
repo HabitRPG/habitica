@@ -4,7 +4,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe('GET /export/avatar-:memberId.html', () => {
+xdescribe('GET /export/avatar-:memberId.html', () => {
   let user;
 
   before(async () => {
