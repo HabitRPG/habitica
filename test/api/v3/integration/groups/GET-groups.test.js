@@ -93,14 +93,14 @@ describe('GET /groups', () => {
   it('returns only the tavern when tavern passed in as query', async () => {
     await expect(user.get('/groups?type=tavern'))
       .to.eventually.have.a.lengthOf(1)
-      .and.to.have.deep.property('[0]')
+      .and.to.have.nested.property('[0]')
       .and.to.have.property('_id', TAVERN_ID);
   });
 
   it('returns only the user\'s party when party passed in as query', async () => {
     await expect(user.get('/groups?type=party'))
       .to.eventually.have.a.lengthOf(1)
-      .and.to.have.deep.property('[0]');
+      .and.to.have.nested.property('[0]');
   });
 
   it('returns all public guilds when publicGuilds passed in as query', async () => {

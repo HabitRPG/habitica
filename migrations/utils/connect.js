@@ -3,7 +3,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const logger = require('./logger');
 
-let db;
+let dbConnection;
 
 function connectToDb (dbUri) {
   return new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@ function connectToDb (dbUri) {
         return reject(err);
       }
 
-      db = database;
+      dbConnection = database;
 
       logger.success(`Connected to ${dbUri}`);
 
@@ -23,7 +23,7 @@ function connectToDb (dbUri) {
 }
 
 function closeDb () {
-  if (db) db.close();
+  if (dbConnection) dbConnection.close();
 
   logger.success('Closed connection to the database');
   return Promise.resolve();
@@ -32,4 +32,4 @@ function closeDb () {
 module.exports = {
   connectToDb,
   closeDb,
-}
+};

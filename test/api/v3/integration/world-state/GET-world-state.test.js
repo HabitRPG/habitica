@@ -19,7 +19,7 @@ describe('GET /world-state', () => {
     await updateDocument('groups', {_id: TAVERN_ID}, {quest: {active: true, key: 'dysheartener', progress: {hp: 50000, rage: 9999}}});
 
     const res = await requester().get('/world-state');
-    expect(res).to.have.deep.property('worldBoss');
+    expect(res).to.have.nested.property('worldBoss');
 
     expect(res.worldBoss).to.eql({
       active: true,

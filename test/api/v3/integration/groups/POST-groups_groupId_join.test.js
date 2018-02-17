@@ -58,7 +58,7 @@ describe('POST /group/:groupId/join', () => {
 
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
-      await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.deep.property('leader._id', joiningUser._id);
+      await expect(joiningUser.get(`/groups/${publicGuild._id}`)).to.eventually.have.nested.property('leader._id', joiningUser._id);
     });
 
     it('increments memberCount when joining guilds', async () => {
@@ -72,7 +72,7 @@ describe('POST /group/:groupId/join', () => {
     it('awards Joined Guild achievement', async () => {
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
-      await expect(joiningUser.get('/user')).to.eventually.have.deep.property('achievements.joinedGuild', true);
+      await expect(joiningUser.get('/user')).to.eventually.have.nested.property('achievements.joinedGuild', true);
     });
   });
 
@@ -115,7 +115,7 @@ describe('POST /group/:groupId/join', () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
 
         await expect(invitedUser.get('/user'))
-          .to.eventually.have.deep.property('invitations.guilds')
+          .to.eventually.have.nested.property('invitations.guilds')
           .to.not.include({id: guild._id});
       });
 
@@ -130,7 +130,7 @@ describe('POST /group/:groupId/join', () => {
       it('does not give basilist quest to inviter when joining a guild', async () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
 
-        await expect(user.get('/user')).to.eventually.not.have.deep.property('items.quests.basilist');
+        await expect(user.get('/user')).to.eventually.not.have.nested.property('items.quests.basilist');
       });
 
       it('does not increment basilist quest count to inviter with basilist when joining a guild', async () => {
@@ -138,7 +138,7 @@ describe('POST /group/:groupId/join', () => {
 
         await invitedUser.post(`/groups/${guild._id}/join`);
 
-        await expect(user.get('/user')).to.eventually.have.deep.property('items.quests.basilist', 1);
+        await expect(user.get('/user')).to.eventually.have.nested.property('items.quests.basilist', 1);
       });
 
       it('notifies inviting user that their invitation was accepted', async () => {
@@ -160,7 +160,7 @@ describe('POST /group/:groupId/join', () => {
       it('awards Joined Guild achievement', async () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
 
-        await expect(invitedUser.get('/user')).to.eventually.have.deep.property('achievements.joinedGuild', true);
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('achievements.joinedGuild', true);
       });
     });
   });
@@ -197,7 +197,7 @@ describe('POST /group/:groupId/join', () => {
       it('allows invited user to join party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(invitedUser.get('/user')).to.eventually.have.deep.property('party._id', party._id);
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
       });
 
       it('notifies inviting user that their invitation was accepted', async () => {
@@ -220,7 +220,7 @@ describe('POST /group/:groupId/join', () => {
       it('clears invitation from user when joining party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.parties[0].id');
+        await expect(invitedUser.get('/user')).to.eventually.not.have.nested.property('invitations.parties[0].id');
       });
 
       it('increments memberCount when joining party', async () => {
@@ -234,7 +234,7 @@ describe('POST /group/:groupId/join', () => {
       it('gives basilist quest item to the inviter when joining a party', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(user.get('/user')).to.eventually.have.deep.property('items.quests.basilist', 1);
+        await expect(user.get('/user')).to.eventually.have.nested.property('items.quests.basilist', 1);
       });
 
       it('increments basilist quest item count to inviter when joining a party', async () => {
@@ -242,7 +242,7 @@ describe('POST /group/:groupId/join', () => {
 
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(user.get('/user')).to.eventually.have.deep.property('items.quests.basilist', 2);
+        await expect(user.get('/user')).to.eventually.have.nested.property('items.quests.basilist', 2);
       });
 
       it('deletes previous party where the user was the only member', async () => {
@@ -258,7 +258,7 @@ describe('POST /group/:groupId/join', () => {
         });
         await userToInvite.post(`/groups/${party._id}/join`);
 
-        await expect(user.get('/user')).to.eventually.have.deep.property('party._id', party._id);
+        await expect(user.get('/user')).to.eventually.have.nested.property('party._id', party._id);
         await expect(checkExistence('groups', oldParty._id)).to.eventually.equal(false);
       });
 
@@ -273,8 +273,8 @@ describe('POST /group/:groupId/join', () => {
         await invitedUser.sync();
         await party.sync();
 
-        expect(invitedUser).to.have.deep.property('party.quest.RSVPNeeded', true);
-        expect(invitedUser).to.have.deep.property('party.quest.key', party.quest.key);
+        expect(invitedUser).to.have.nested.property('party.quest.RSVPNeeded', true);
+        expect(invitedUser).to.have.nested.property('party.quest.key', party.quest.key);
         expect(party.quest.members[invitedUser._id]).to.be.null;
       });
     });
@@ -300,16 +300,16 @@ describe('POST /group/:groupId/join', () => {
       await member.sync();
       await leader.sync();
 
-      expect(member).to.have.deep.property('achievements.partyUp', true);
-      expect(leader).to.have.deep.property('achievements.partyUp', true);
+      expect(member).to.have.nested.property('achievements.partyUp', true);
+      expect(leader).to.have.nested.property('achievements.partyUp', true);
     });
 
     it('does not award Party On achievement to party of size 2', async () => {
       await member.sync();
       await leader.sync();
 
-      expect(member).to.not.have.deep.property('achievements.partyOn');
-      expect(leader).to.not.have.deep.property('achievements.partyOn');
+      expect(member).to.not.have.nested.property('achievements.partyOn');
+      expect(leader).to.not.have.nested.property('achievements.partyOn');
     });
 
     it('awards Party On achievement to party of size 4', async () => {
@@ -324,8 +324,8 @@ describe('POST /group/:groupId/join', () => {
       await member.sync();
       await leader.sync();
 
-      expect(member).to.have.deep.property('achievements.partyOn', true);
-      expect(leader).to.have.deep.property('achievements.partyOn', true);
+      expect(member).to.have.nested.property('achievements.partyOn', true);
+      expect(leader).to.have.nested.property('achievements.partyOn', true);
     });
   });
 });
