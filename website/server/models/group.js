@@ -317,7 +317,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
-function translateSystemMessages(group, user) {
+async function translateSystemMessages(group, user) {
+  let usernames = {};
   for (let i = 0; i < group.chat.length; i++) {
     if (_.isEmpty(group.chat[i].info)) {
       continue;
@@ -325,6 +326,42 @@ function translateSystemMessages(group, user) {
     switch (group.chat[i].info.type) {
       case 'quest_start':
         group.chat[i].text = '`' + shared.i18n.t('chatQuestStarted', {'questName': questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language) + '`';
+        break;
+      case 'boss_damage':
+        if (!_.has(usernames, group.chat[i].info.user)) {
+          let user = await User
+            .findById(group.chat[i].info.user)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.user] = user.profile.name;
+        }
+        group.chat[i].text = '`' + shared.i18n.t('chatBossDamage', {'username': usernames[group.chat[i].info.user], 'bossName': questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), 'userDamage': group.chat[i].info.userDamage, 'bossDamage': group.chat[i].info.bossDamage}, user.preferences.language) + '`';
+        break;
+      case 'boss_dont_attack':
+        break;
+      case 'boss_rage':
+        group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].boss.rage.effect(user.preferences.language) + '`';
+        break;
+      case 'boss_defeated':
+        break;
+      case 'user_found_items':
+        break;
+      case 'all_items_found':
+        break;
+      case 'spell_cast':
+        break;
+      case 'quest_abort':
+        break;
+      case 'tavern_quest_completed':
+        group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].completionChat(user.preferences.language) + '`';
+        break;
+      case 'tavern_boss_rage_tired':
+        break;
+      case 'tavern_boss_rage':
+        group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](user.preferences.language) + '`';
+        break;
+      case 'tavern_boss_desperation':
+        group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].boss.desperation.text(user.preferences.language) + '`';
         break;
     }
   }
@@ -335,8 +372,8 @@ function translateSystemMessages(group, user) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
-  group = translateSystemMessages(group, user);
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+  group = await translateSystemMessages(group, user);
 
   let toJSON = group.toJSON();
 
@@ -907,8 +944,16 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
   let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
-  // TODO Consider putting the safe mode boss attack message in an ENV var
-  group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
+  if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
+  } else {
+    group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
+      'type': 'boss_damage',
+      'user': user._id,
+      'quest': group.quest.key,
+      'userDamage': progress.up.toFixed(1),
+      'bossDamage': Math.abs(down).toFixed(1),
+    });
+  }
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {
