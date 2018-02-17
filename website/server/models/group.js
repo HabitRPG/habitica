@@ -317,11 +317,27 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
+function translateSystemMessages(group, user) {
+  for (let i = 0; i < group.chat.length; i++) {
+    if (_.isEmpty(group.chat[i].info)) {
+      continue;
+    }
+    switch (group.chat[i].info.type) {
+      case 'quest_start':
+        group.chat[i].text = '`' + shared.i18n.t('chatQuestStarted', {'questName': questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language) + '`';
+        break;
+    }
+  }
+  return group;
+}
+
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+  group = translateSystemMessages(group, user);
+
   let toJSON = group.toJSON();
 
   if (!user.contributor.admin) {
@@ -442,10 +458,11 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
-export function chatDefaults (msg, user) {
+export function chatDefaults (msg, user, info={}) {
   let message = {
     id: shared.uuid(),
     text: msg,
+    info: info,
     timestamp: Number(new Date()),
     likes: {},
     flags: {},
@@ -509,8 +526,8 @@ function setUserStyles (newMessage, user) {
   newMessage.userStyles = userStyles;
 }
 
-schema.methods.sendChat = function sendChat (message, user, metaData) {
-  let newMessage = chatDefaults(message, user);
+schema.methods.sendChat = function sendChat (message, user, metaData, info={}) {
+  let newMessage = chatDefaults(message, user, info);
 
   if (user) setUserStyles(newMessage, user);
 
@@ -696,6 +713,9 @@ schema.methods.startQuest = async function startQuest (user) {
   });
   this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
+  }, {
+    'type': 'quest_start',
+    'quest': quest.key,
   });
 };
 
