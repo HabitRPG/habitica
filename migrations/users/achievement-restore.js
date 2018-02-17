@@ -74,8 +74,8 @@ module.exports = async function achievementRestore () {
   const userIds = [
   ];
 
+  /* eslint-disable no-await-in-loop */
   for (let index in userIds) {
-    /* eslint-disable no-await-in-loop */
     const userId = userIds[index];
     const oldUser = await UsersOld.findOne({_id: userId}, 'achievements');
     const newUser = await Users.findOne({_id: userId}, 'achievements');
