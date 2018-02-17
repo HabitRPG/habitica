@@ -113,10 +113,10 @@ describe('GET /tasks/user', () => {
     await user.sync();
     let initialTodoCount = user.tasksOrder.todos.length;
 
-    for (let i = 0; i < numberOfTodos; i++) {
+    for (let i = 0; i < numberOfTodos; i++) { // eslint-disable-line no-await-in-loop
       let id = todos[i]._id;
 
-      await user.post(`/tasks/${id}/score/up`); // eslint-disable-line no-await-in-loop
+      await user.post(`/tasks/${id}/score/up`);
     }
     await user.sync();
 
