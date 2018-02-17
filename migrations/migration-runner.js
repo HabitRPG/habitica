@@ -8,7 +8,7 @@ function setUpServer () {
   const setupNconf = require('../website/server/libs/setupNconf'); // eslint-disable-line global-require
 
   setupNconf();
-  
+
   // We require src/server and npt src/index because
   // 1. nconf is already setup
   // 2. we don't need clustering
