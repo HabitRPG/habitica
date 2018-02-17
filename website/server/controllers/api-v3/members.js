@@ -407,8 +407,8 @@ api.getChallengeMemberProgress = {
       userId: memberId,
       'challenge.id': challengeId,
     })
-    .select('-tags') // We don't want to return the tags publicly TODO same for other data?
-    .exec();
+      .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+      .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let response = member.toJSON({minimize: true});

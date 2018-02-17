@@ -488,8 +488,8 @@ api.getGroupApprovals = {
       'group.approval.approved': false,
       'group.approval.requested': true,
     }, 'userId group text')
-    .populate('userId', 'profile')
-    .exec();
+      .populate('userId', 'profile')
+      .exec();
 
     res.respond(200, approvals);
   },

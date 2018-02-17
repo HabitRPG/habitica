@@ -78,8 +78,8 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-    .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
-    .exec();
+      .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+      .exec();
 
     group.markModified('quest');
     group.quest.key = questKey;

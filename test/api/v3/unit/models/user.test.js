@@ -119,7 +119,7 @@ describe('User Model', () => {
         expect(User.pushNotification({_id: user._id}, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
       });
 
-      it('adds notifications without data for all given users via static method', async() => {
+      it('adds notifications without data for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
         await Promise.all([user.save(), otherUser.save()]);

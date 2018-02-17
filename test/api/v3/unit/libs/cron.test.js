@@ -180,9 +180,9 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.purchased.plan.customerId).to.not.exist;
-      expect(user.purchased.plan.consecutive.gemCapExtra).to.be.empty;
-      expect(user.purchased.plan.consecutive.count).to.be.empty;
-      expect(user.purchased.plan.consecutive.offset).to.be.empty;
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+      expect(user.purchased.plan.consecutive.count).to.equal(0);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
   });
 
@@ -1026,7 +1026,7 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.party.quest.progress.up).to.equal(0);
       expect(user.party.quest.progress.down).to.equal(0);
-      expect(user.party.quest.progress.collectedItems).to.be.empty;
+      expect(user.party.quest.progress.collectedItems).to.equal(0);
     });
 
     it('applies the user progress', () => {

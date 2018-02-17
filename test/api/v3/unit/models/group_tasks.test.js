@@ -64,7 +64,7 @@ describe('Group Task Methods', () => {
 
   each(tasksToTest, (taskValue, taskType) => {
     context(`${taskType}`, () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         task = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue));
         task.group.id = guild._id;
         await task.save();
@@ -127,7 +127,7 @@ describe('Group Task Methods', () => {
         expect(syncedTask.checklist[0].text).to.equal(task.checklist[0].text);
       });
 
-      describe('syncs updated info', async() => {
+      describe('syncs updated info', async () => {
         let newMember;
 
         beforeEach(async () => {
@@ -274,7 +274,7 @@ describe('Group Task Methods', () => {
 
         expect(task.group.assignedUsers).to.not.contain(leader._id);
         expect(updatedSyncedTask).to.exist;
-        expect(updatedSyncedTask.group._id).to.be.empty;
+        expect(updatedSyncedTask.group._id).to.be.undefined;
       });
     });
   });

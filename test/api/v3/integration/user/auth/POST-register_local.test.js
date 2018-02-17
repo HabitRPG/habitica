@@ -579,7 +579,7 @@ describe('POST /user/auth/local/register', () => {
 
     it('adds a user to a guild on an invite of type other than party', async () => {
       let { group, groupLeader } = await createAndPopulateGroup({
-          groupDetails: { type: 'guild', privacy: 'private' },
+        groupDetails: { type: 'guild', privacy: 'private' },
       });
 
       let invite = encrypt(JSON.stringify({
