@@ -735,7 +735,22 @@ api.castSpell = {
 
       if (party && !spell.silent) {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        party.sendChat(message);
+        if (targetType === 'user') {
+          party.sendChat(message, null, null, {
+            'type': 'spell_cast_user',
+            'user': user._id,
+            'class': klass,
+            'spell': spellId,
+            'target': partyMember._id,
+          });
+        } else {
+          party.sendChat(message, null, null, {
+            'type': 'spell_cast_party',
+            'user': user._id,
+            'class': klass,
+            'spell': spellId,
+          });
+        }
         await party.save();
       }
     }

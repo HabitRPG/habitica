@@ -338,19 +338,68 @@ async function translateSystemMessages(group, user) {
         group.chat[i].text = '`' + shared.i18n.t('chatBossDamage', {'username': usernames[group.chat[i].info.user], 'bossName': questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), 'userDamage': group.chat[i].info.userDamage, 'bossDamage': group.chat[i].info.bossDamage}, user.preferences.language) + '`';
         break;
       case 'boss_dont_attack':
+        group.chat[i].text = '`' + shared.i18n.t('chatBossDontAttack', {'bossName': questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language) + '`';
         break;
       case 'boss_rage':
         group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].boss.rage.effect(user.preferences.language) + '`';
         break;
       case 'boss_defeated':
+        group.chat[i].text = '`' + shared.i18n.t('chatBossDefeated', {'bossName': questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language) + '`';
         break;
       case 'user_found_items':
+        if (!_.has(usernames, group.chat[i].info.user)) {
+          let user = await User
+            .findById(group.chat[i].info.user)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.user] = user.profile.name;
+        }
+        let foundText = _.reduce(group.chat[i].info.items, (m, v, k) => {
+          m.push(`${v} ${questScrolls[group.chat[i].info.quest].collect[k].text(user.preferences.language)}`);
+          return m;
+        }, []);
+        foundText = foundText.join(', ');
+        group.chat[i].text = '`' + shared.i18n.t('chatFindItems', {'username': usernames[group.chat[i].info.user], 'items': foundText}, user.preferences.language) + '`';
         break;
       case 'all_items_found':
+        group.chat[i].text = '`' + shared.i18n.t('chatItemQuestFinish', user.preferences.language) + '`';
         break;
-      case 'spell_cast':
+      case 'spell_cast_party':
+        if (!_.has(usernames, group.chat[i].info.user)) {
+          let user = await User
+            .findById(group.chat[i].info.user)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.user] = user.profile.name;
+        }
+        group.chat[i].text = '`' + shared.i18n.t('chatCastSpellParty', {'username': usernames[group.chat[i].info.user], 'spellName': shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language) + '`';
+        break;
+      case 'spell_cast_user':
+        if (!_.has(usernames, group.chat[i].info.user)) {
+          let user = await User
+            .findById(group.chat[i].info.user)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.user] = user.profile.name;
+        }
+        if (!_.has(usernames, group.chat[i].info.target)) {
+          let target = await User
+            .findById(group.chat[i].info.target)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.target] = user.profile.name;
+        }
+        group.chat[i].text = '`' + shared.i18n.t('chatCastSpellUser', {'username': usernames[group.chat[i].info.user], 'spellName': shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), 'target': usernames[group.chat[i].info.target]}, user.preferences.language) + '`';
         break;
       case 'quest_abort':
+        if (!_.has(usernames, group.chat[i].info.user)) {
+          let user = await User
+            .findById(group.chat[i].info.user)
+            .select(nameFields)
+            .exec();
+          usernames[group.chat[i].info.user] = user.profile.name;
+        }
+        group.chat[i].text = '`' + shared.i18n.t('chatQuestAborted', {'username': usernames[group.chat[i].info.user], 'questName': questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language) + '`';
         break;
       case 'tavern_quest_completed':
         group.chat[i].text = '`' + questScrolls[group.chat[i].info.quest].completionChat(user.preferences.language) + '`';
@@ -945,6 +994,10 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
   let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
+    group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
+      'type': 'boss_dont_attack',
+      'quest': group.quest.key,
+    });
   } else {
     group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
       'type': 'boss_damage',
@@ -986,7 +1039,10 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
+    group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``, null, null, {
+      'type': 'boss_defeated',
+      'quest': quest.key,
+    });
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
@@ -1037,7 +1093,12 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  group.sendChat(`\`${user.profile.name} found ${foundText}.\``, null, null, {
+    'type': 'user_found_items',
+    'user': user._id,
+    'quest': quest.key,
+    'items': itemsFound,
+  });
   group.markModified('quest.progress.collect');
 
   // Still needs completing
@@ -1046,7 +1107,9 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   })) return await group.save();
 
   await group.finishQuest(quest);
-  group.sendChat('`All items found! Party has received their rewards.`');
+  group.sendChat('`All items found! Party has received their rewards.`', null, null, {
+    'type': 'all_items_found',
+  });
 
   return await group.save();
 };
