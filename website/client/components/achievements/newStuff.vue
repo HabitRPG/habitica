@@ -3,6 +3,8 @@
     size='lg',
     :hide-header='true',
     :hide-footer='true',
+    no-close-on-esc,
+    no-close-on-backdrop
   )
     .modal-body
       .static-view(v-html='html')

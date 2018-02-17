@@ -416,5 +416,12 @@
     "wouldYouParticipate": "Wil je deelnemen?",
     "managerAdded": "Manager succesvol toegevoegd",
     "managerRemoved": "Manager succesvol verwijderd",
-    "leaderChanged": "Leader has been changed"
+    "leaderChanged": "Leader has been changed",
+    "whatIsWorldBoss": "What is a World Boss?",
+    "worldBossDesc": "A World Boss is a special event that brings the Habitica community together to take down a powerful monster with their tasks! All Habitica users are rewarded upon its defeat, even those who have been resting in the Inn or have not used Habitica for the entirety of the quest.",
+    "worldBossLink": "Read more about the previous World Bosses of Habitica on the Wiki.",
+    "worldBossBullet1": "Complete tasks to damage the World Boss",
+    "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
+    "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
+    "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
 }

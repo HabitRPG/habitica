@@ -31,6 +31,8 @@
     "danielText2": "Aviso: Si estás participando en una misión contra un jefe, ¡el jefe seguirá haciéndote daño si tus compañeros de equipo no completan sus Diarias! Además, el daño que tú le hagas al Jefe (o los objetos que hayas recolectado) no se aplicará hasta que salgas de la Posada.",
     "danielTextBroken": "Bienvenido a la Taberna... Supongo... Si necesitas descansar, te instalaré en la Posada... Mientras estés registrado, tus Diarias no te harán daño al final del día, pero aún así puedes tildarlas... Si tienes la energía...",
     "danielText2Broken": "Oh... Si estás participando en una misión contra un jefe, el jefe seguirá dañándote por las Diarias que tus compañeros de equipo no completen... Además, el daño que tú le causes al Jefe (o los objetos recolectados) no será aplicado hasta que salgas de la Posada...",
+    "worldBossEvent": "World Boss Event",
+    "worldBossDescription": "World Boss Description",
     "alexander": "Alexander el Comerciante",
     "welcomeMarket": "¡Bienvenidos al Mercado! ¡Compra huevos difíciles de encontrar y pociones! ¡Vende tus extras! ¡Encarga servicios útiles! Ven a ver lo que tenemos para ofrecer.",
     "welcomeMarketMobile": "¡Bienvenido al Mercado! ¡Compra huevos y pociones difíciles de encontrar! Ven a ver lo que tenemos para ofrecer.",

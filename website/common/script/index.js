@@ -86,9 +86,6 @@ api.gold = gold;
 import silver from './libs/silver';
 api.silver = silver;
 
-import taskClasses from './libs/taskClasses';
-api.taskClasses = taskClasses;
-
 import noTags from './libs/noTags';
 api.noTags = noTags;
 

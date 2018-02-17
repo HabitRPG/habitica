@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'VALENTINE\'S DAY CELEBRATION AND CHAT IMPROVEMENTS';
+const LAST_ANNOUNCEMENT_TITLE = 'WORLD BOSS: THE DYSHEARTENER IS UNLEASHED';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,19 +32,22 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/12/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/14/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>Habitica Celebrates Valentine's Day!</h3>
-        <p>In honor of Habitica's holiday celebrating all forms of love, whether it's friendship, familial, or romantic, some of the shopkeepers are dressed up! Take a look around to enjoy their new festive decorations.</p>
-        <div class="small mb-3">By Beffymaroo and Lemoness</div>
-        <div class="promo_valentines center-block"></div>
-        <h3>Send a Valentine</h3>
-        <p>Help motivate all of the lovely people in your life by sending them a caring Valentine. For the next week only, Valentines can be purchased for 10 gold from the <a href="/shops/market">Market</a>. For spreading love and joy throughout the community, both the giver AND the receiver get a coveted "Adoring Friends" badge. Hooray!</p>
-        <p>While you're there, why not check out the other cards that are available to send to your party? Each one gives a special achievement of its own...</p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <h3>New Chat Performance Improvements</h3>
-        <p>We've deployed some behind-the-scenes improvements to the Tavern chat, which should cause the messages and avatars to load more quickly. Additionally, each chat message that you post in the Tavern and in Guilds will now remember the outfit your avatar was wearing when you post it, even on a refresh! We hope that these changes will make chatting even more enjoyable.</p>
-        <div class="small mb-3">By TheHollidayInn and Alys</div>
+        <p>Oh no, a World Boss is attacking Habitica! Head to the Tavern to see it now. If you're on mobile, make sure that you have the latest versions downloaded to get the full experience!</p>
+        <div class="promo_dysheartener center-block"></div>
+        <p class="text-center">~*~</p>
+        <p>The sun is rising on Valentine's Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City's main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the oozing earth.</p>
+        <p>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome Dysheartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.</p>
+        <p>"Take heart, everyone!" Lemoness shouts. "It probably thinks that we're easy targets because so many of us have daunting New Year's Resolutions, but it's about to discover that Habiticans know how to stick to their goals!"</p>
+        <p>AnnDeLune raises her staff. "Let's tackle our tasks and take this monster down!"</p>
+        <p class="text-center">~*~</p>
+        <p>Complete Habits, Dailies and To-Dos to damage the World Boss! Incomplete Dailies fill the Rage Strike Bar. When the Rage Strike bar is full, the World Boss will attack one of Habitica's shopkeepers. A World Boss will never damage individual players or accounts in any way. Only active accounts who are not resting in the Inn will have their incomplete Dailies tallied.</p>
+        <p>*If you’d prefer not to see the World Boss due to a phobia, check out the <a href="http://habitica.wikia.com/wiki/Phobia_Protection_Extension" target="_blank">Phobia Protection Extension</a> (and set it to hide “Beetles”) :)</p>
+        <div class="small">by Lemoness, Beffymaroo, SabreCat, viirus, Apollo, and piyorii</div>
+        <div class="small">Art by AnnDeLune, Lemoness, and Beffymaroo</div>
+        <div class="small">Written by Lemoness</div>
+        <div class="small">Phobia Protection Extension by Alys</div>
 
       </div>
       `,

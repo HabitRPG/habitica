@@ -27,7 +27,7 @@
     "messageDropQuest": "Találtál egy küldetést!",
     "messageDropMysteryItem": "Kinyitottad a dobozt és találtál egy <%= dropText %>!",
     "messageFoundQuest": "Megtaláltad a \"<%= questText %>\" küldetést!",
-    "messageAlreadyPurchasedGear": "A múltban már megvetted ezt a felszerelést, de jelenleg nincs a birtokodban. Újra megvásárolhatod a jutalmak oszlopában a feladatok lapon.",
+    "messageAlreadyPurchasedGear": "A múltban már megvetted ezt a felszerelést, de jelenleg nincs a birtokodban. Újra megvásárolhatod a jutalmak közül a feladatok lapon.",
     "messageAlreadyOwnGear": "Már rendelkezel ezzel a tárggyal. A felszerelés lapon felszerelheted.",
     "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Már maximumon van az életerőd. ",

@@ -1,8 +1,8 @@
 {
   "share": "Deel",
   "onwards": "Voorwaarts!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
+  "levelup": "Door het voltooien van doelen in je echte leven, ben je een niveau gestegen en weer volledig genezen!",
   "reachedLevel": "Je hebt niveau <%= level %> bereikt",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "achievementLostMasterclasser": "Queeste voltooier: de Masterclasser reeks",
+  "achievementLostMasterclasserText": "Alle zestien queesten in de Masterclasser queestereeks voltooid en het mysterie van de verdwaalde Masterclasser voltooid!"
 }

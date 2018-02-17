@@ -120,5 +120,10 @@
     "createAccountQuest": "Du hast diese Quest beim Beitreten zu Habitica erhalten! Wenn einer Deiner Freunde beitritt, erhält er ebenfalls eine.",
     "questBundles": "Reduzierte Quest-Pakete",
     "buyQuestBundle": "Quest-Paket kaufen",
-    "noQuestToStart": "Du findest keine Quest, die Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!"
+    "noQuestToStart": "Du findest keine Quest, die Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!",
+    "pendingDamage": "<%= damage %> ausstehender Schaden",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Lebenspunkte",
+    "rageAttack": "Raserei-Angriff:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Raserei",
+    "rageStrikes": "Raserei-Angriffe:"
 }

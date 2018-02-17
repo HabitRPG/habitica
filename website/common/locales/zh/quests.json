@@ -120,5 +120,10 @@
     "createAccountQuest": "当你加人Habitica的时候，你会收到这个任务！如果你的朋友加入，他们也会得到一个。",
     "questBundles": "打折的任务包",
     "buyQuestBundle": "购买任务包",
-    "noQuestToStart": "找不到一个可以开始的任务？ 尝试查看市场上新版本的任务商店！"
+    "noQuestToStart": "找不到一个可以开始的任务？ 尝试查看市场上新版本的任务商店！",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

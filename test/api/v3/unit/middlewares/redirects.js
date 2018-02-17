@@ -43,7 +43,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceSSL(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect outside of production environments', () => {
@@ -57,7 +57,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceSSL(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect if base URL is not https', () => {
@@ -71,7 +71,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceSSL(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
   });
 
@@ -108,7 +108,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceHabitica(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect if env is set to ignore redirection', () => {
@@ -125,7 +125,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceHabitica(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect if request hostname matches base URL host', () => {
@@ -142,7 +142,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceHabitica(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect if request is an API URL', () => {
@@ -159,7 +159,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceHabitica(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
 
     it('does not redirect if request method is not GET', () => {
@@ -176,7 +176,7 @@ describe('redirects middleware', () => {
 
       attachRedirects.forceHabitica(req, res, next);
 
-      expect(res.redirect).to.be.notCalled;
+      expect(res.redirect).to.have.not.been.called;
     });
   });
 });

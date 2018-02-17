@@ -31,6 +31,8 @@
     "danielText2": "Prenez garde : si vous êtes au milieu d'une quête contre un boss, celui-ci vous infligera tout de même des blessures en fonction des Quotidiennes manquées des membres de votre groupe ! De façon identique, vos propres dégâts au boss (ou les objets récoltés) ne seront pas appliqués tant que vous ne quitterez pas l'auberge.",
     "danielTextBroken": "Bienvenue à la taverne... je suppose... Si vous avez besoin de vous reposer, je vous installerai à l'auberge... Pendant votre séjour, vos tâches Quotidiennes ne vous infligeront pas de dommages à la fin de la journée, mais vous pourrez quand même les réaliser... si vous en avez la force...",
     "danielText2Broken": "Oh... si vous êtes au milieu d'une quête contre un boss, celui-ci vous infligera tout de même des blessures si les membres de votre groupe rate des Quotidiennes ! De plus, vos propres dégâts infligés au boss (ou les objets récoltés) ne seront pas appliqués tant que vous n'aurez pas quitté l'auberge.",
+    "worldBossEvent": "Événement de boss mondial",
+    "worldBossDescription": "Description du boss mondial",
     "alexander": "Alexander le marchand",
     "welcomeMarket": "Bienvenue au marché ! Achetez des œufs rares et des potions ! Vendez vos surplus ! Commandez des services utiles ! Venez voir ce que nous avons à proposer.",
     "welcomeMarketMobile": "Voici le marché ! Achetez des œufs et des potions difficiles à trouver ! Venez voir ce que nous avons pour vous.",
