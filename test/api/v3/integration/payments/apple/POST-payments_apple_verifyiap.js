@@ -26,9 +26,9 @@ describe('payments : apple #verify', () => {
       });
 
       await user.post(endpoint, {
-      transaction: {
-        receipt: 'receipt',
-      }});
+        transaction: {
+          receipt: 'receipt',
+        }});
 
       expect(verifyStub).to.be.calledOnce;
       expect(verifyStub.args[0][0]._id).to.eql(user._id);

@@ -41,11 +41,11 @@ describe('POST /groups/:groupId/quests/cancel', () => {
 
     it('does not reject quest for a group in which user is not a member', async () => {
       await expect(user.post(`/groups/${questingGroup._id}/quests/cancel`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('groupNotFound'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
     });
 
     it('returns an error when group is a guild', async () => {
@@ -54,11 +54,11 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/cancel`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('guildQuestsNotSupported'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('guildQuestsNotSupported'),
+        });
     });
 
     it('returns an error when group is not on a quest', async () => {
@@ -74,11 +74,11 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/cancel`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('onlyLeaderCancelQuest'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('onlyLeaderCancelQuest'),
+        });
     });
 
     it('does not cancel a quest already underway', async () => {
@@ -88,11 +88,11 @@ describe('POST /groups/:groupId/quests/cancel', () => {
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/cancel`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('cantCancelActiveQuest'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cantCancelActiveQuest'),
+        });
     });
   });
 

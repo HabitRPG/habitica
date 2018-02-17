@@ -1012,16 +1012,16 @@ let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
 // we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
   model // eslint-disable-line no-use-before-define
-  .findOne(tavernQ).exec()
-  .then(tavern => {
-    if (!tavern) return; // No tavern quest
+    .findOne(tavernQ).exec()
+    .then(tavern => {
+      if (!tavern) return; // No tavern quest
 
-    // Using _assign so we don't lose the reference to the exported tavernQuest
-    _.assign(tavernQuest, tavern.quest.toObject());
-  })
-  .catch(err => {
-    throw err;
-  });
+      // Using _assign so we don't lose the reference to the exported tavernQuest
+      _.assign(tavernQuest, tavern.quest.toObject());
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 // returns a promise

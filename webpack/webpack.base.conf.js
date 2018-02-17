@@ -98,7 +98,14 @@ const baseConfig = {
         test: /\.svg$/,
         use: [
           { loader: 'svg-inline-loader' },
-          { loader: 'svgo-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {removeViewBox: false},
+              ],
+            },
+          },
         ],
         exclude: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },
@@ -112,7 +119,14 @@ const baseConfig = {
               name: utils.assetsPath('svg/[name].[hash:7].[ext]'),
             },
           },
-          { loader: 'svgo-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {removeViewBox: false},
+              ],
+            },
+          },
         ],
         include: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },

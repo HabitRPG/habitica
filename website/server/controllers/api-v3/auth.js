@@ -347,11 +347,11 @@ api.loginSocial = {
       // Clean previous email preferences
       if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
         EmailUnsubscription
-        .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-        .exec()
-        .then(() => {
-          if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-        }); // eslint-disable-line max-nested-callbacks
+          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+          .exec()
+          .then(() => {
+            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+          }); // eslint-disable-line max-nested-callbacks
       }
 
       if (!existingUser) {
