@@ -331,9 +331,9 @@ async function translateSystemMessages (group, user) {
   }
   await Bluebird.map(Object.keys(usernames), async (username) => {
     let usr = await User
-          .findById(username)
-          .select(nameFields)
-          .exec();
+      .findById(username)
+      .select(nameFields)
+      .exec();
     usernames[username] = usr.profile.name;
   });
   for (let i = 0; i < group.chat.length; i++) {
