@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Прът на ски-убиец",
     "weaponSpecialSkiNotes": "Оръжие, способно да заличава орди от врагове! Също помага на носещия го да прави много добри обратни завои. Увеличава силата с <%= str %>. Ограничена серия: Зимна екипировка 2013-2014 г.",
     "weaponSpecialCandycaneText": "Бонбонен скиптър",
-    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
+    "weaponSpecialCandycaneNotes": "Могъщ магьоснически скиптър. Могъщо ВКУСЕН! Увеличава интелигентността с <%= int %> и усета с <%= per %>. Ограничена серия: Зимна екипировка 2013-2014 г.",
     "weaponSpecialSnowflakeText": "Снежинкова магическа пръчка",
     "weaponSpecialSnowflakeNotes": "Тази магическа пръчица искри с безгранична лековита сила. Увеличава интелигентността с <%= int %>. Ограничена серия: Зимна екипировка 2013-2014 г.",
     "weaponSpecialSpringRogueText": "Ноктоподобни куки",
@@ -1462,5 +1462,5 @@
     "eyewearMystery301703Notes": "Идеална за изискани маскени балове или за промъкване през особено добре издокарана тълпа. Не променя показателите. Предмет за абонати: март 3017 г.",
     "eyewearArmoirePlagueDoctorMaskText": "Маска на чумен лекар",
     "eyewearArmoirePlagueDoctorMaskNotes": "Съвсем истинска маска, носена от лекарите, които са се борили срещу чумата на протакането. Не променя показателите. Омагьосан гардероб: комплект „Чумен лекар“ (предмет 2 от 3).",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Предмет за две ръце"
 }

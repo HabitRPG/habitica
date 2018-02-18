@@ -72,7 +72,7 @@ describe('shared.ops.releaseBoth', () => {
     let message = releaseBoth(user)[1];
 
     expect(message).to.equal(i18n.t('mountsAndPetsReleased'));
-    expect(user.items.pets[animal]).to.be.empty;
+    expect(user.items.pets[animal]).to.equal(0);
     expect(user.items.mounts[animal]).to.equal(null);
   });
 

@@ -42,7 +42,7 @@ function revealMysteryItems (user) {
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
         user.purchased.plan.mysteryItems.indexOf(item.key) === -1
-      ) {
+    ) {
       user.purchased.plan.mysteryItems.push(item.key);
       pushedItems.push(item.key);
     }
@@ -511,9 +511,9 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining})
-    .add({days: extraDays})
-    .toDate();
+      .add({days: remaining})
+      .add({days: extraDays})
+      .toDate();
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

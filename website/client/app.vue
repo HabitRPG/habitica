@@ -436,6 +436,7 @@ export default {
 </script>
 
 <style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="assets/css/sprites/spritesmith-main-0.css"></style>
