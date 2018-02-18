@@ -741,7 +741,7 @@ api.castSpell = {
             user: user.profile.name,
             class: klass,
             spell: spellId,
-            target: partyMembers._id,
+            target: partyMembers.profile.name,
           });
         } else {
           party.sendChat(message, null, null, {
