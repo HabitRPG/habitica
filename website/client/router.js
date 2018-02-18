@@ -9,43 +9,44 @@ import * as Analytics from 'client/libs/analytics';
 import ParentPage from './components/parentPage';
 
 // Static Pages
-const StaticWrapper = () => import(/* webpackChunkName: "entry" */'./components/static/staticWrapper');
-const HomePage = () => import(/* webpackChunkName: "entry" */'./components/static/home');
+const StaticWrapper = () => import(/* webpackChunkName: "entry" */ './components/static/staticWrapper');
+const HomePage = () => import(/* webpackChunkName: "entry" */ './components/static/home');
 
-const AppPage = () => import(/* webpackChunkName: "static" */'./components/static/app');
-const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'./components/static/clearBrowserData');
-const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'./components/static/communityGuidelines');
-const ContactPage = () => import(/* webpackChunkName: "static" */'./components/static/contact');
-const FAQPage = () => import(/* webpackChunkName: "static" */'./components/static/faq');
-const FeaturesPage = () => import(/* webpackChunkName: "static" */'./components/static/features');
-const GroupPlansPage = () => import(/* webpackChunkName: "static" */'./components/static/groupPlans');
-const MerchPage = () => import(/* webpackChunkName: "static" */'./components/static/merch');
-const NewsPage = () => import(/* webpackChunkName: "static" */'./components/static/newStuff');
-const OverviewPage = () => import(/* webpackChunkName: "static" */'./components/static/overview');
-const PressKitPage = () => import(/* webpackChunkName: "static" */'./components/static/pressKit');
-const PrivacyPage = () => import(/* webpackChunkName: "static" */'./components/static/privacy');
-const TermsPage = () => import(/* webpackChunkName: "static" */'./components/static/terms');
+const AppPage = () => import(/* webpackChunkName: "static" */ './components/static/app');
+const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */ './components/static/clearBrowserData');
+const CommunityGuidelinesPage = () =>
+  import(/* webpackChunkName: "static" */ './components/static/communityGuidelines');
+const ContactPage = () => import(/* webpackChunkName: "static" */ './components/static/contact');
+const FAQPage = () => import(/* webpackChunkName: "static" */ './components/static/faq');
+const FeaturesPage = () => import(/* webpackChunkName: "static" */ './components/static/features');
+const GroupPlansPage = () => import(/* webpackChunkName: "static" */ './components/static/groupPlans');
+const MerchPage = () => import(/* webpackChunkName: "static" */ './components/static/merch');
+const NewsPage = () => import(/* webpackChunkName: "static" */ './components/static/newStuff');
+const OverviewPage = () => import(/* webpackChunkName: "static" */ './components/static/overview');
+const PressKitPage = () => import(/* webpackChunkName: "static" */ './components/static/pressKit');
+const PrivacyPage = () => import(/* webpackChunkName: "static" */ './components/static/privacy');
+const TermsPage = () => import(/* webpackChunkName: "static" */ './components/static/terms');
 
-const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */'./components/auth/registerLoginReset');
+const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */ './components/auth/registerLoginReset');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
 // const AchievementsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/achievements');
-const ProfilePage = () => import(/* webpackChunkName: "user" */'./components/userMenu/profilePage');
+const ProfilePage = () => import(/* webpackChunkName: "user" */ './components/userMenu/profilePage');
 
 // Settings
-const Settings = () => import(/* webpackChunkName: "settings" */'./components/settings/index');
-const API = () => import(/* webpackChunkName: "settings" */'./components/settings/api');
-const DataExport = () => import(/* webpackChunkName: "settings" */'./components/settings/dataExport');
-const Notifications = () => import(/* webpackChunkName: "settings" */'./components/settings/notifications');
-const PromoCode = () => import(/* webpackChunkName: "settings" */'./components/settings/promoCode');
-const Site = () => import(/* webpackChunkName: "settings" */'./components/settings/site');
-const Subscription = () => import(/* webpackChunkName: "settings" */'./components/settings/subscription');
+const Settings = () => import(/* webpackChunkName: "settings" */ './components/settings/index');
+const API = () => import(/* webpackChunkName: "settings" */ './components/settings/api');
+const DataExport = () => import(/* webpackChunkName: "settings" */ './components/settings/dataExport');
+const Notifications = () => import(/* webpackChunkName: "settings" */ './components/settings/notifications');
+const PromoCode = () => import(/* webpackChunkName: "settings" */ './components/settings/promoCode');
+const Site = () => import(/* webpackChunkName: "settings" */ './components/settings/site');
+const Subscription = () => import(/* webpackChunkName: "settings" */ './components/settings/subscription');
 
 // Hall
-const HallPage = () => import(/* webpackChunkName: "hall" */'./components/hall/index');
-const PatronsPage = () => import(/* webpackChunkName: "hall" */'./components/hall/patrons');
-const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall/heroes');
+const HallPage = () => import(/* webpackChunkName: "hall" */ './components/hall/index');
+const PatronsPage = () => import(/* webpackChunkName: "hall" */ './components/hall/patrons');
+const HeroesPage = () => import(/* webpackChunkName: "hall" */ './components/hall/heroes');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -54,13 +55,13 @@ const HeroesPage = () => import(/* webpackChunkName: "hall" */'./components/hall
 // for docs
 
 // Tasks
-const UserTasks = () => import(/* webpackChunkName: "userTasks" */'./components/tasks/user');
+const UserTasks = () => import(/* webpackChunkName: "userTasks" */ './components/tasks/user');
 
 // Inventory
-const InventoryContainer = () => import(/* webpackChunkName: "inventory" */'./components/inventory/index');
-const ItemsPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/items/index');
-const EquipmentPage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/equipment/index');
-const StablePage = () => import(/* webpackChunkName: "inventory" */'./components/inventory/stable/index');
+const InventoryContainer = () => import(/* webpackChunkName: "inventory" */ './components/inventory/index');
+const ItemsPage = () => import(/* webpackChunkName: "inventory" */ './components/inventory/items/index');
+const EquipmentPage = () => import(/* webpackChunkName: "inventory" */ './components/inventory/equipment/index');
+const StablePage = () => import(/* webpackChunkName: "inventory" */ './components/inventory/stable/index');
 
 // Guilds
 const GuildIndex = () => import(/* webpackChunkName: "guilds" */ './components/groups/index');
@@ -72,7 +73,8 @@ const GroupPlansAppPage = () => import(/* webpackChunkName: "guilds" */ './compo
 
 // Group Plans
 const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/index');
-const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
+const GroupPlanTaskInformation = () =>
+  import(/* webpackChunkName: "group-plans" */ './components/group-plans/taskInformation');
 const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ './components/group-plans/billing');
 
 // Challenges
@@ -82,11 +84,12 @@ const FindChallenges = () => import(/* webpackChunkName: "challenges" */ './comp
 const ChallengeDetail = () => import(/* webpackChunkName: "challenges" */ './components/challenges/challengeDetail');
 
 // Shops
-const ShopsContainer = () => import(/* webpackChunkName: "shops" */'./components/shops/index');
-const MarketPage = () => import(/* webpackChunkName: "shops-market" */'./components/shops/market/index');
-const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */'./components/shops/quests/index');
-const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */'./components/shops/seasonal/index');
-const TimeTravelersPage = () => import(/* webpackChunkName: "shops-timetravelers" */'./components/shops/timeTravelers/index');
+const ShopsContainer = () => import(/* webpackChunkName: "shops" */ './components/shops/index');
+const MarketPage = () => import(/* webpackChunkName: "shops-market" */ './components/shops/market/index');
+const QuestsPage = () => import(/* webpackChunkName: "shops-quest" */ './components/shops/quests/index');
+const SeasonalPage = () => import(/* webpackChunkName: "shops-seasonal" */ './components/shops/seasonal/index');
+const TimeTravelersPage = () =>
+  import(/* webpackChunkName: "shops-timetravelers" */ './components/shops/timeTravelers/index');
 
 import NotFoundPage from './components/404';
 
@@ -103,9 +106,9 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
-    { name: 'register', path: '/register', component: RegisterLoginReset, meta: {requiresLogin: false} },
-    { name: 'login', path: '/login', component: RegisterLoginReset, meta: {requiresLogin: false} },
-    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: {requiresLogin: false} },
+    { name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false } },
+    { name: 'login', path: '/login', component: RegisterLoginReset, meta: { requiresLogin: false } },
+    { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false } },
     { name: 'tasks', path: '/', component: UserTasks },
     {
       path: '/inventory',
@@ -250,23 +253,33 @@ const router = new VueRouter({
       path: '/static',
       component: StaticWrapper,
       children: [
-        { name: 'app', path: 'app', component: AppPage, meta: {requiresLogin: false}},
-        { name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: {requiresLogin: false}},
-        { name: 'communityGuidelines', path: 'community-guidelines', component: CommunityGuidelinesPage, meta: {requiresLogin: false}},
-        { name: 'contact', path: 'contact', component: ContactPage, meta: {requiresLogin: false}},
-        { name: 'faq', path: 'faq', component: FAQPage, meta: {requiresLogin: false}},
-        { name: 'features', path: 'features', component: FeaturesPage, meta: {requiresLogin: false}},
-        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: {requiresLogin: false}},
-        { name: 'home', path: 'home', component: HomePage, meta: {requiresLogin: false} },
-        { name: 'front', path: 'front', component: HomePage, meta: {requiresLogin: false} },
-        { name: 'merch', path: 'merch', component: MerchPage, meta: {requiresLogin: false}},
-        { name: 'news', path: 'new-stuff', component: NewsPage, meta: {requiresLogin: false}},
-        { name: 'overview', path: 'overview', component: OverviewPage, meta: {requiresLogin: false}},
-        { name: 'plans', path: 'plans', component: GroupPlansPage, meta: {requiresLogin: false}},
-        { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: {requiresLogin: false}},
-        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: {requiresLogin: false}},
-        { name: 'terms', path: 'terms', component: TermsPage, meta: {requiresLogin: false}},
-        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: {requiresLogin: false} },
+        { name: 'app', path: 'app', component: AppPage, meta: { requiresLogin: false } },
+        {
+          name: 'clearBrowserData',
+          path: 'clear-browser-data',
+          component: ClearBrowserDataPage,
+          meta: { requiresLogin: false },
+        },
+        {
+          name: 'communityGuidelines',
+          path: 'community-guidelines',
+          component: CommunityGuidelinesPage,
+          meta: { requiresLogin: false },
+        },
+        { name: 'contact', path: 'contact', component: ContactPage, meta: { requiresLogin: false } },
+        { name: 'faq', path: 'faq', component: FAQPage, meta: { requiresLogin: false } },
+        { name: 'features', path: 'features', component: FeaturesPage, meta: { requiresLogin: false } },
+        { name: 'groupPlans', path: 'group-plans', component: GroupPlansPage, meta: { requiresLogin: false } },
+        { name: 'home', path: 'home', component: HomePage, meta: { requiresLogin: false } },
+        { name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false } },
+        { name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false } },
+        { name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false } },
+        { name: 'overview', path: 'overview', component: OverviewPage, meta: { requiresLogin: false } },
+        { name: 'plans', path: 'plans', component: GroupPlansPage, meta: { requiresLogin: false } },
+        { name: 'pressKit', path: 'press-kit', component: PressKitPage, meta: { requiresLogin: false } },
+        { name: 'privacy', path: 'privacy', component: PrivacyPage, meta: { requiresLogin: false } },
+        { name: 'terms', path: 'terms', component: TermsPage, meta: { requiresLogin: false } },
+        { name: 'notFound', path: 'not-found', component: NotFoundPage, meta: { requiresLogin: false } },
       ],
     },
     {
@@ -286,6 +299,8 @@ const store = getStore();
 router.beforeEach(function routerGuard (to, from, next) {
   const isUserLoggedIn = store.state.isUserLoggedIn;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
+  const isUserLoggedServer = store.dispatch('auth:loginCheck');
+  console.log(isUserLoggedServer);
 
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the
@@ -295,9 +310,12 @@ router.beforeEach(function routerGuard (to, from, next) {
     const redirectTo = to.path === '/' ? 'home' : 'login';
     return next({
       name: redirectTo,
-      query: redirectTo === 'login' ? {
-        redirectTo: to.path,
-      } : null,
+      query:
+        redirectTo === 'login' ?
+          {
+            redirectTo: to.path,
+          } :
+          null,
     });
   }
 
@@ -313,7 +331,7 @@ router.beforeEach(function routerGuard (to, from, next) {
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
-    return next({name: 'tasks'});
+    return next({ name: 'tasks' });
   }
 
   // Redirect old guild urls
