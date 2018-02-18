@@ -423,9 +423,9 @@ api.abortQuest = {
 
     let questName = questScrolls[group.quest.key].text('en');
     group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``, null, null, {
-      'type': 'quest_abort',
-      'user': user._id,
-      'quest': group.quest.key,
+      type: 'quest_abort',
+      user: user._id,
+      quest: group.quest.key,
     });
 
     let memberUpdates = User.update({

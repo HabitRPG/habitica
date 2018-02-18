@@ -737,18 +737,18 @@ api.castSpell = {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
         if (targetType === 'user') {
           party.sendChat(message, null, null, {
-            'type': 'spell_cast_user',
-            'user': user._id,
-            'class': klass,
-            'spell': spellId,
-            'target': partyMember._id,
+            type: 'spell_cast_user',
+            user: user._id,
+            class: klass,
+            spell: spellId,
+            target: partyMembers._id,
           });
         } else {
           party.sendChat(message, null, null, {
-            'type': 'spell_cast_party',
-            'user': user._id,
-            'class': klass,
-            'spell': spellId,
+            type: 'spell_cast_party',
+            user: user._id,
+            class: klass,
+            spell: spellId,
           });
         }
         await party.save();
