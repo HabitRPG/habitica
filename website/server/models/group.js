@@ -360,7 +360,7 @@ function translateSystemMessages (group, user) {
           group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].completionChat(user.preferences.language)}\``;
           break;
         case 'tavern_boss_rage_tired':
-          group.chat[i].text = `\`${shared.i18n.t('tavernBossTired', {username: group.chat[i].info.user, questName: shared.content.quests[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('tavernBossTired', {rageName: shared.content.quests[group.chat[i].info.quest].boss.rage.title(user.preferences.language), bossName: shared.content.quests[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'tavern_boss_rage':
           group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](user.preferences.language)}\``;

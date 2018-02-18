@@ -439,5 +439,5 @@
   "chatCastSpellParty": "<%= username %> casts <%= spellName %> for the party.",
   "chatCastSpellUser": "<%= username %> casts <%= spellName %> on <%= target %>.",
   "chatQuestAborted": "<%= username %> aborted the party quest <%= questName %>.",
-  "tavernBossTired": "<%= bossName %> tries to unleash ${quest.boss.rage.title('en')} but is too tired."
+  "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired."
 }
