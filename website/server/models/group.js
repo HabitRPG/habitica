@@ -317,25 +317,8 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
-async function translateSystemMessages (group, user) {
-  let usernames = {};
+function translateSystemMessages (group, user) {
   let foundText = '';
-  for (let i = 0; i < group.chat.length; i++) {
-    if (!_.isEmpty(group.chat[i].info)) {
-      if (_.has(group.chat[i].info, 'user') && !_.has(usernames, group.chat[i].info.user)) {
-        usernames[group.chat[i].info.user] = null;
-      } else if (_.has(group.chat[i].info, 'target') && !_.has(usernames, group.chat[i].info.target)) {
-        usernames[group.chat[i].info.target] = null;
-      }
-    }
-  }
-  await Bluebird.map(Object.keys(usernames), async (username) => {
-    let usr = await User
-      .findById(username)
-      .select(nameFields)
-      .exec();
-    usernames[username] = usr.profile.name;
-  });
   for (let i = 0; i < group.chat.length; i++) {
     if (!_.isEmpty(group.chat[i].info)) {
       switch (group.chat[i].info.type) {
@@ -343,7 +326,7 @@ async function translateSystemMessages (group, user) {
           group.chat[i].text = `\`${shared.i18n.t('chatQuestStarted', {questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'boss_damage':
-          group.chat[i].text = `\`${shared.i18n.t('chatBossDamage', {username: usernames[group.chat[i].info.user], bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage, bossDamage: group.chat[i].info.bossDamage}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatBossDamage', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage, bossDamage: group.chat[i].info.bossDamage}, user.preferences.language)}\``;
           break;
         case 'boss_dont_attack':
           group.chat[i].text = `\`${shared.i18n.t('chatBossDontAttack', {bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language)}\``;
@@ -359,25 +342,25 @@ async function translateSystemMessages (group, user) {
             m.push(`${v} ${questScrolls[group.chat[i].info.quest].collect[k].text(user.preferences.language)}`);
             return m;
           }, []).join(', ');
-          group.chat[i].text = `\`${shared.i18n.t('chatFindItems', {username: usernames[group.chat[i].info.user], items: foundText}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatFindItems', {username: group.chat[i].info.user, items: foundText}, user.preferences.language)}\``;
           break;
         case 'all_items_found':
           group.chat[i].text = `\`${shared.i18n.t('chatItemQuestFinish', user.preferences.language)}\``;
           break;
         case 'spell_cast_party':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellParty', {username: usernames[group.chat[i].info.user], spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellParty', {username: group.chat[i].info.user, spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'spell_cast_user':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellUser', {username: usernames[group.chat[i].info.user], spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), target: usernames[group.chat[i].info.target]}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellUser', {username: group.chat[i].info.user, spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), target: group.chat[i].info.target}, user.preferences.language)}\``;
           break;
         case 'quest_abort':
-          group.chat[i].text = `\`${shared.i18n.t('chatQuestAborted', {username: usernames[group.chat[i].info.user], questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatQuestAborted', {username: group.chat[i].info.user, questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'tavern_quest_completed':
           group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].completionChat(user.preferences.language)}\``;
           break;
         case 'tavern_boss_rage_tired':
-          group.chat[i].text = `\`${shared.i18n.t('tavernBossTired', {username: usernames[group.chat[i].info.user], questName: shared.content.quests[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('tavernBossTired', {username: group.chat[i].info.user, questName: shared.content.quests[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'tavern_boss_rage':
           group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](user.preferences.language)}\``;
@@ -398,8 +381,8 @@ async function translateSystemMessages (group, user) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
-  group = await translateSystemMessages(group, user);
+schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+  group = translateSystemMessages(group, user);
 
   let toJSON = group.toJSON();
 
@@ -978,7 +961,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   } else {
     group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
       type: 'boss_damage',
-      user: user._id,
+      user: user.profile.name,
       quest: group.quest.key,
       userDamage: progress.up.toFixed(1),
       bossDamage: Math.abs(down).toFixed(1),
@@ -1075,7 +1058,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   foundText = foundText.join(', ');
   group.sendChat(`\`${user.profile.name} found ${foundText}.\``, null, null, {
     type: 'user_found_items',
-    user: user._id,
+    user: user.profile.name,
     quest: quest.key,
     items: itemsFound,
   });

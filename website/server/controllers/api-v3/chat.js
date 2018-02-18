@@ -74,8 +74,7 @@ api.getChat = {
     let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let toJSON = await Group.toJSONCleanChat(group, user);
-    res.respond(200, toJSON.chat);
+    res.respond(200, Group.toJSONCleanChat(group, user).chat);
   },
 };
 
@@ -195,8 +194,7 @@ api.postChat = {
     }
 
     if (chatUpdated) {
-      let toJSON = await Group.toJSONCleanChat(savedGroup, user);
-      res.respond(200, {chat: toJSON.chat});
+      res.respond(200, {chat: Group.toJSONCleanChat(savedGroup, user).chat});
     } else {
       res.respond(200, {message: savedGroup.chat[0]});
     }
@@ -488,8 +486,7 @@ api.deleteChat = {
     ).exec();
 
     if (chatUpdated) {
-      let toJSON = await Group.toJSONCleanChat(group, user);
-      let chatRes = toJSON.chat;
+      let chatRes = Group.toJSONCleanChat(group, user).chat;
       removeFromArray(chatRes, {id: chatId});
       res.respond(200, chatRes);
     } else {

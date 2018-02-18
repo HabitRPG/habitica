@@ -738,7 +738,7 @@ api.castSpell = {
         if (targetType === 'user') {
           party.sendChat(message, null, null, {
             type: 'spell_cast_user',
-            user: user._id,
+            user: user.profile.name,
             class: klass,
             spell: spellId,
             target: partyMembers._id,
@@ -746,7 +746,7 @@ api.castSpell = {
         } else {
           party.sendChat(message, null, null, {
             type: 'spell_cast_party',
-            user: user._id,
+            user: user.profile.name,
             class: klass,
             spell: spellId,
           });
