@@ -6,7 +6,7 @@
     "questsForSale": "Misiones a la venta",
     "petQuests": "Misiones de mascotas y monturas",
     "unlockableQuests": "Misiones desbloqueables",
-    "goldQuests": "Masterclasser Quest Lines",
+    "goldQuests": "Líneas de búsqueda Masterclasser",
     "questDetails": "Detalles de la misión",
     "questDetailsTitle": "Detalles de la misión ",
     "questDescription": "Las misiones permiten a los jugadores enfocarse en objetivos de largo plazo, dentro del juego, junto con los miembros de su grupo.",
@@ -120,5 +120,10 @@
     "createAccountQuest": "¡Recibiste esta misión cuanto te uniste a Habitica! Si un amigo se une recibirá uno también.",
     "questBundles": "Paquetes de misiones con descuento",
     "buyQuestBundle": "Comprar paquete de misiones",
-    "noQuestToStart": "¿No puedes encontrar una misión para iniciar? ¡Intenta revisar la Tienda de Misiones en el Mercado  para ver nuevas misiones!"
+    "noQuestToStart": "¿No puedes encontrar una misión para iniciar? ¡Intenta revisar la Tienda de Misiones en el Mercado  para ver nuevas misiones!",
+    "pendingDamage": "<%= damage %> daño pendiente",
+    "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Salud",
+    "rageAttack": "Ataque de ira",
+    "bossRage": "<%= currentRage %>/<%= maxRage %> Ira",
+    "rageStrikes": "Golpe fulminante"
 }

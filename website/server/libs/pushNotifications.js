@@ -31,33 +31,33 @@ if (APN_ENABLED) {
       Key: 'apple_apn/key.pem',
     }).promise(),
   ])
-  .then(([certObj, keyObj]) => {
-    let cert = certObj.Body.toString();
-    let key = keyObj.Body.toString();
+    .then(([certObj, keyObj]) => {
+      let cert = certObj.Body.toString();
+      let key = keyObj.Body.toString();
 
-    apn = pushNotify.apn({
-      key,
-      cert,
-    });
+      apn = pushNotify.apn({
+        key,
+        cert,
+      });
 
-    apn.on('error', err => logger.error('APN error', err));
-    apn.on('transmissionError', (errorCode, notification, device) => {
-      logger.error('APN transmissionError', errorCode, notification, device);
-    });
+      apn.on('error', err => logger.error('APN error', err));
+      apn.on('transmissionError', (errorCode, notification, device) => {
+        logger.error('APN transmissionError', errorCode, notification, device);
+      });
 
-    let feedback = new apnLib.Feedback({
-      key,
-      cert,
-      batchFeedback: true,
-      interval: 3600, // Check for feedback once an hour
-    });
+      let feedback = new apnLib.Feedback({
+        key,
+        cert,
+        batchFeedback: true,
+        interval: 3600, // Check for feedback once an hour
+      });
 
-    feedback.on('feedback', (devices) => {
-      if (devices && devices.length > 0) {
-        logger.info('Delivery of push notifications failed for some Apple devices.', devices);
-      }
+      feedback.on('feedback', (devices) => {
+        if (devices && devices.length > 0) {
+          logger.info('Delivery of push notifications failed for some Apple devices.', devices);
+        }
+      });
     });
-  });
 }
 function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');

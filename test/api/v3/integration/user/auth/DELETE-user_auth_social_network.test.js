@@ -41,7 +41,7 @@ describe('DELETE social registration', () => {
       let response = await user.del('/user/auth/social/facebook');
       expect(response).to.eql({});
       await user.sync();
-      expect(user.auth.facebook).to.be.empty;
+      expect(user.auth.facebook).to.be.undefined;
     });
 
     it('succeeds if user has a google registration', async () => {
@@ -54,7 +54,7 @@ describe('DELETE social registration', () => {
       let response = await user.del('/user/auth/social/facebook');
       expect(response).to.eql({});
       await user.sync();
-      expect(user.auth.facebook).to.be.empty;
+      expect(user.auth.facebook).to.be.undefined;
     });
   });
 
@@ -79,7 +79,7 @@ describe('DELETE social registration', () => {
       let response = await user.del('/user/auth/social/google');
       expect(response).to.eql({});
       await user.sync();
-      expect(user.auth.google).to.be.empty;
+      expect(user.auth.google).to.be.undefined;
     });
 
     it('succeeds if user has a facebook registration', async () => {
@@ -92,7 +92,7 @@ describe('DELETE social registration', () => {
       let response = await user.del('/user/auth/social/google');
       expect(response).to.eql({});
       await user.sync();
-      expect(user.auth.google).to.be.empty;
+      expect(user.auth.goodl).to.be.undefined;
     });
   });
 });

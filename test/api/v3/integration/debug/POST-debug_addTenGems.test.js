@@ -26,10 +26,10 @@ describe('POST /debug/add-ten-gems', () => {
     nconf.set('IS_PROD', true);
 
     await expect(userToGainTenGems.post('/debug/add-ten-gems'))
-    .eventually.be.rejected.and.to.deep.equal({
-      code: 404,
-      error: 'NotFound',
-      message: 'Not found.',
-    });
+      .eventually.be.rejected.and.to.deep.equal({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
   });
 });

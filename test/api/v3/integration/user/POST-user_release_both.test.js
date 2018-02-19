@@ -54,9 +54,9 @@ describe('POST /user/release-both', () => {
 
     expect(response.message).to.equal(t('mountsAndPetsReleased'));
     expect(user.balance).to.equal(0);
-    expect(user.items.currentMount).to.be.empty;
-    expect(user.items.currentPet).to.be.empty;
-    expect(user.items.pets[animal]).to.be.empty;
+    expect(user.items.currentMount).to.equal('');
+    expect(user.items.currentPet).to.equal('');
+    expect(user.items.pets[animal]).to.equal(0);
     expect(user.items.mounts[animal]).to.equal(null);
     expect(user.achievements.beastMasterCount).to.equal(1);
     expect(user.achievements.mountMasterCount).to.equal(1);
