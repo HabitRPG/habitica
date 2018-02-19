@@ -49,7 +49,7 @@ describe('shops actions', () => {
         quantity: 1,
       });
 
-      expect(store.state.user.data.item.equipped.armor_rogue_1).to.equal(true);
+      expect(store.state.user.data.items.gear.equipped.armor).to.equal('armor_rogue_1');
     });
   });
 });
