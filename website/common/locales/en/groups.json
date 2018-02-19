@@ -429,15 +429,5 @@
   "worldBossBullet1": "Complete tasks to damage the World Boss",
   "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
   "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-  "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
-  "chatQuestStarted": "Your quest, <%= questName %>, has started.",
-  "chatBossDamage": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> attacks party for <%= bossDamage %> damage.",
-  "chatBossDontAttack": "<%= bossName %> does not attack, because it respects the fact that there are some bugs post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
-  "chatBossDefeated": "You defeated <%= bossName %>! Questing party members receive the rewards of victory.",
-  "chatFindItems": "<%= username %> found <%= items %>.",
-  "chatItemQuestFinish": "All items found! Party has received their rewards.",
-  "chatCastSpellParty": "<%= username %> casts <%= spellName %> for the party.",
-  "chatCastSpellUser": "<%= username %> casts <%= spellName %> on <%= target %>.",
-  "chatQuestAborted": "<%= username %> aborted the party quest <%= questName %>.",
-  "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired."
+  "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
 }
