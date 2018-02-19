@@ -102,7 +102,7 @@ api.castSpell = {
       await castSelfSpell(req, user, spell, quantity);
       res.respond(200, { user });
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      const response = await castMultiTaskSpell(req, user, spell. quantity);
+      const response = await castMultiTaskSpell(req, user, spell, quantity);
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
       const party = await Group.getGroup({groupId: 'party', user});
