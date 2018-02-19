@@ -199,7 +199,11 @@ api.assignTask = {
     // User is claiming the task
     if (user._id === assignedUserId) {
       let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
-      group.sendChat(message);
+      group.sendChat(message, null, null, {
+        type: 'claim_task',
+        user: user.profile.name,
+        task: task.text,
+      });
     }
 
     let promises = [];
