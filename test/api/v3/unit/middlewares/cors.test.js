@@ -23,7 +23,7 @@ describe('cors middleware', () => {
       'Access-Control-Allow-Headers': 'Content-Type,Accept,Content-Encoding,X-Requested-With,x-api-user,x-api-key,x-client',
     });
     expect(res.sendStatus).to.not.have.been.called;
-    expect(next).to.have.been.called.once;
+    expect(next).to.have.been.calledOnce;
   });
 
   it('responds immediately if method is OPTIONS', () => {

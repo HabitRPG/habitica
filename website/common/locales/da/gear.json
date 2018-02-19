@@ -119,7 +119,7 @@
     "weaponSpecialSkiText": "Ski-morders Stang",
     "weaponSpecialSkiNotes": "Et våben, der kan smadre horder af fjender! Det hjælper også brugeren til at lave fine parallelle sving. Øger Styrke med <%= str %>. Specielt 2013-2014 Vinterudstyr.",
     "weaponSpecialCandycaneText": "Slikstok-stav",
-    "weaponSpecialCandycaneNotes": "En kraftfuld Magikerstav. Kraftfuld lækker smag, mener vi! Tohåndsvåben. Øger Intelligens med <%= int %> og Opfattelse med <%= per %>. Specielt 2013-2014 Vinterudstyr.",
+    "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
     "weaponSpecialSnowflakeText": "Snefnugstryllestav",
     "weaponSpecialSnowflakeNotes": "Denne tryllestav glimter med uendelig helende kraft. Øger intelligens med <%= int %>. Specielt 2013-2014 Vinterudstyr.",
     "weaponSpecialSpringRogueText": "Krogede Kløer",
@@ -1461,5 +1461,6 @@
     "eyewearMystery301703Text": "Påfugl Maskerade Maske",
     "eyewearMystery301703Notes": "Perfekt til en smart maskerade eller til at listende bevæge sig gennem en særlig velklædt menneskemængde. Giver ingen bonusser. Marts 3017 Abonnentting.",
     "eyewearArmoirePlagueDoctorMaskText": "Pestlægemaske",
-    "eyewearArmoirePlagueDoctorMaskNotes": "En autentisk maske båret af de læger, der bekæmper udsættelsespesten. Giver ingen bonusser. Fortryllet Klædeskab: Pestlægesæt (Genstand 2 af 3)."
+    "eyewearArmoirePlagueDoctorMaskNotes": "En autentisk maske båret af de læger, der bekæmper udsættelsespesten. Giver ingen bonusser. Fortryllet Klædeskab: Pestlægesæt (Genstand 2 af 3).",
+    "twoHandedItem": "Two-handed item."
 }

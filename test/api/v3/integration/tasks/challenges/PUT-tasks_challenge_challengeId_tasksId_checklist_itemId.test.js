@@ -28,11 +28,11 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       completed: true,
       _id: 123, // ignored
     }))
-    .to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('checklistItemNotFound'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('checklistItemNotFound'),
+      });
   });
 
   it('returns error when user is not a member of the challenge', async () => {
@@ -53,11 +53,11 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
       completed: true,
       _id: 123, // ignored
     }))
-    .to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('onlyChalLeaderEditTasks'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyChalLeaderEditTasks'),
+      });
   });
 
   it('updates a checklist item on dailies', async () => {

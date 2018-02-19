@@ -1018,9 +1018,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-      {'auth.local.email': invite.email},
-      {'auth.facebook.emails.value': invite.email},
-      {'auth.google.emails.value': invite.email},
+    {'auth.local.email': invite.email},
+    {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
     .select({_id: true, 'preferences.emailNotifications': true})
     .exec();

@@ -1,8 +1,8 @@
 import nconf from 'nconf';
 import {
- track,
- trackPurchase,
- mockAnalyticsService,
+  track,
+  trackPurchase,
+  mockAnalyticsService,
 } from '../libs/analyticsService';
 
 let service;

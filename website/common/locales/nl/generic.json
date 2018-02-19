@@ -168,6 +168,8 @@
     "achievementBewilderText": "Heeft geholpen om de Ver-Wilder te verslaan tijdens het lente-evenement in 2016.",
     "checkOutProgress": "Moet je mijn vooruitgang in Habitica eens zien!",
     "cards": "Kaarten",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Kaartje",
     "greetingCardExplanation": "Jullie ontvangen allebei de Vrolijke Vriend-prestatie!",

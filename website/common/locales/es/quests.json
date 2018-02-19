@@ -120,5 +120,10 @@
     "createAccountQuest": "Recibiste esta misión al registrarte en Habitica. Si se apunta un amigo tuyo, conseguirá otra.",
     "questBundles": "Packs de Misiones en Descuento",
     "buyQuestBundle": "Compra Packs de Misiones ",
-    "noQuestToStart": "¿No encuentras una misión con la que empezar? ¡Prueba a buscar nuevas en la Tienda de Misiones del Mercados!"
+    "noQuestToStart": "¿No encuentras una misión con la que empezar? ¡Prueba a buscar nuevas en la Tienda de Misiones del Mercados!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

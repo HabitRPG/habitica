@@ -30,22 +30,22 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [fakeID],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('userWithIDNotFound', {userId: fakeID}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('userWithIDNotFound', {userId: fakeID}),
+        });
     });
 
     it('returns an error when inviting yourself to a group', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [inviter._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('cannotInviteSelfToGroup'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('cannotInviteSelfToGroup'),
+        });
     });
 
     it('returns an error when uuids is not an array', async () => {
@@ -54,11 +54,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: {fakeID},
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('uuidsMustBeAnArray'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('uuidsMustBeAnArray'),
+        });
     });
 
     it('returns an error when uuids and emails are empty', async () => {
@@ -66,22 +66,22 @@ describe('Post /groups/:groupId/invite', () => {
         emails: [],
         uuids: [],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('inviteMustNotBeEmpty'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('inviteMustNotBeEmpty'),
+        });
     });
 
     it('returns an error when uuids is empty and emails is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('inviteMissingUuid'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('inviteMissingUuid'),
+        });
     });
 
     it('returns an error when there are more than INVITES_LIMIT uuids', async () => {
@@ -94,11 +94,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids,
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+        });
     });
 
     it('invites a user to a group by uuid', async () => {
@@ -114,7 +114,7 @@ describe('Post /groups/:groupId/invite', () => {
       }]);
 
       await expect(userToInvite.get('/user'))
-        .to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
+        .to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
     });
 
     it('invites multiple users to a group by uuid', async () => {
@@ -138,8 +138,8 @@ describe('Post /groups/:groupId/invite', () => {
         },
       ]);
 
-      await expect(userToInvite.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
-      await expect(userToInvite2.get('/user')).to.eventually.have.deep.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
+      await expect(userToInvite2.get('/user')).to.eventually.have.nested.property('invitations.guilds[0].id', group._id);
     });
 
     it('returns an error when inviting multiple users and a user is not found', async () => {
@@ -149,11 +149,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id, fakeID],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('userWithIDNotFound', {userId: fakeID}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('userWithIDNotFound', {userId: fakeID}),
+        });
     });
   });
 
@@ -164,33 +164,33 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [{name: 'test'}],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('inviteMissingEmail'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('inviteMissingEmail'),
+        });
     });
 
     it('returns an error when emails is not an array', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: {testInvite},
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('emailsMustBeAnArray'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('emailsMustBeAnArray'),
+        });
     });
 
     it('returns an error when emails is empty and uuids is not passed', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails: [],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('inviteMissingEmail'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('inviteMissingEmail'),
+        });
     });
 
     it('returns an error when there are more than INVITES_LIMIT emails', async () => {
@@ -203,11 +203,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         emails,
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+        });
     });
 
     it('returns an error when a user has sent the max number of email invites', async () => {
@@ -224,11 +224,11 @@ describe('Post /groups/:groupId/invite', () => {
         emails: [testInvite],
         inviter: 'inviter name',
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('inviteLimitReached', {techAssistanceEmail: nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL')}),
+        });
     });
 
     it('invites a user to a group by email', async () => {
@@ -258,11 +258,11 @@ describe('Post /groups/:groupId/invite', () => {
   describe('user and email invites', () => {
     it('returns an error when emails and uuids are not provided', async () => {
       await expect(inviter.post(`/groups/${group._id}/invite`))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('canOnlyInviteEmailUuid'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('canOnlyInviteEmailUuid'),
+        });
     });
 
     it('returns an error when there are more than INVITES_LIMIT uuids and emails', async () => {
@@ -281,11 +281,11 @@ describe('Post /groups/:groupId/invite', () => {
         emails,
         uuids,
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('canOnlyInviteMaxInvites', {maxInvites: INVITES_LIMIT}),
+        });
     });
 
     it('invites users to a group by uuid and email', async () => {
@@ -330,11 +330,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('userAlreadyInvitedToGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('userAlreadyInvitedToGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
+        });
     });
 
     it('returns an error when invited user is already in the group', async () => {
@@ -347,11 +347,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('userAlreadyInGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('userAlreadyInGroup', { userId: userToInvite._id, username: userToInvite.profile.name}),
+        });
     });
 
     it('allows 30+ members in a guild', async () => {
@@ -380,11 +380,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(nonGroupLeader.post(`/groups/${group._id}/invite`, {
         uuids: [userToInvite._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('onlyGroupLeaderCanInviteToGroupPlan'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('onlyGroupLeaderCanInviteToGroupPlan'),
+        });
     });
   });
 
@@ -407,11 +407,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('userAlreadyPendingInvitation', { userId: userToInvite._id, username: userToInvite.profile.name}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('userAlreadyPendingInvitation', { userId: userToInvite._id, username: userToInvite.profile.name}),
+        });
     });
 
     it('returns an error when invited user is already in a party of more than 1 member', async () => {
@@ -426,11 +426,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${party._id}/invite`, {
         uuids: [userToInvite._id],
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('userAlreadyInAParty', { userId: userToInvite._id, username: userToInvite.profile.name}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('userAlreadyInAParty', { userId: userToInvite._id, username: userToInvite.profile.name}),
+        });
     });
 
     it('allow inviting a user to a party if they are partying solo', async () => {
@@ -512,11 +512,11 @@ describe('Post /groups/:groupId/invite', () => {
       await expect(inviter.post(`/groups/${party._id}/invite`, {
         uuids: generatedInvites.map(invite => invite._id),
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('partyExceedsMembersLimit', {maxMembersParty: PARTY_LIMIT_MEMBERS}),
+        });
     });
   });
 });

@@ -1,0 +1,8 @@
+{
+  "share": "分享",
+  "onwards": "继续！",
+  "levelup": "在完成你的任务后，你将升级并且恢复满你的生命值！",
+  "reachedLevel": "你达到第<%= level %>级",
+  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+}

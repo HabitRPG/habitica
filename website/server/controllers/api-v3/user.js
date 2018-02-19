@@ -526,6 +526,105 @@ api.getUserAnonymized = {
 
 const partyMembersFields = 'profile.name stats achievements items.special';
 
+async function castTaskSpell (res, req, targetId, user, spell) {
+  if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
+
+  const task = await Tasks.Task.findOne({
+    _id: targetId,
+    userId: user._id,
+  }).exec();
+  if (!task) throw new NotFound(res.t('taskNotFound'));
+  if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
+  if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
+
+  spell.cast(user, task, req);
+
+  const results = await Bluebird.all([
+    user.save(),
+    task.save(),
+  ]);
+
+  return results;
+}
+
+async function castMultiTaskSpell (req, user, spell) {
+  const tasks = await Tasks.Task.find({
+    userId: user._id,
+    ...Tasks.taskIsGroupOrChallengeQuery,
+  }).exec();
+
+  spell.cast(user, tasks, req);
+
+  const toSave = tasks
+    .filter(t => t.isModified())
+    .map(t => t.save());
+  toSave.unshift(user.save());
+  const saved = await Bluebird.all(toSave);
+
+  const response = {
+    tasks: saved,
+    user,
+  };
+
+  return response;
+}
+
+async function castSelfSpell (req, user, spell) {
+  spell.cast(user, null, req);
+  await user.save();
+}
+
+async function castPartySpell (req, party, partyMembers, user, spell) {
+  if (!party) {
+    partyMembers = [user]; // Act as solo party
+  } else {
+    partyMembers = await User
+      .find({
+        'party._id': party._id,
+        _id: { $ne: user._id }, // add separately
+      })
+      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
+      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .exec();
+
+    partyMembers.unshift(user);
+  }
+
+  spell.cast(user, partyMembers, req);
+  await Bluebird.all(partyMembers.map(m => m.save()));
+
+  return partyMembers;
+}
+
+async function castUserSpell (res, req, party, partyMembers, targetId, user, spell) {
+  if (!party && (!targetId || user._id === targetId)) {
+    partyMembers = user;
+  } else {
+    if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
+    if (!party) throw new NotFound(res.t('partyNotFound'));
+    partyMembers = await User
+      .findOne({_id: targetId, 'party._id': party._id})
+      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
+      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
+      .exec();
+  }
+
+  if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+
+  spell.cast(user, partyMembers, req);
+
+  if (partyMembers !== user) {
+    await Bluebird.all([
+      user.save(),
+      partyMembers.save(),
+    ]);
+  } else {
+    await partyMembers.save(); // partyMembers is user
+  }
+
+  return partyMembers;
+}
+
 /**
  * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
  * @apiName UserCast
@@ -599,104 +698,30 @@ api.castSpell = {
     let targetType = spell.target;
 
     if (targetType === 'task') {
-      if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-
-      let task = await Tasks.Task.findOne({
-        _id: targetId,
-        userId: user._id,
-      }).exec();
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
-      if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
-
-      spell.cast(user, task, req);
-
-      let results = await Bluebird.all([
-        user.save(),
-        task.save(),
-      ]);
-
+      const results = await castTaskSpell(res, req, targetId, user, spell);
       res.respond(200, {
         user: results[0],
         task: results[1],
       });
     } else if (targetType === 'self') {
-      spell.cast(user, null, req);
-      await user.save();
+      await castSelfSpell(req, user, spell);
       res.respond(200, { user });
     } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      let tasks = await Tasks.Task.find({
-        userId: user._id,
-        ...Tasks.taskIsGroupOrChallengeQuery,
-      }).exec();
-
-      spell.cast(user, tasks, req);
-
-      let toSave = tasks
-        .filter(t => t.isModified())
-        .map(t => t.save());
-
-      toSave.unshift(user.save());
-      let saved = await Bluebird.all(toSave);
-
-      let response = {
-        tasks: saved,
-        user,
-      };
-
+      const response = await castMultiTaskSpell(req, user, spell);
       res.respond(200, response);
     } else if (targetType === 'party' || targetType === 'user') {
-      let party = await Group.getGroup({groupId: 'party', user});
+      const party = await Group.getGroup({groupId: 'party', user});
       // arrays of users when targetType is 'party' otherwise single users
       let partyMembers;
 
       if (targetType === 'party') {
-        if (!party) {
-          partyMembers = [user]; // Act as solo party
-        } else {
-          partyMembers = await User
-            .find({
-              'party._id': party._id,
-              _id: { $ne: user._id }, // add separately
-            })
-            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-            // and we need target.notifications to add the notification for the received card
-            .exec();
-
-          partyMembers.unshift(user);
-        }
-
-        spell.cast(user, partyMembers, req);
-        await Bluebird.all(partyMembers.map(m => m.save()));
+        partyMembers = await castPartySpell(req, party, partyMembers, user, spell);
       } else {
-        if (!party && (!targetId || user._id === targetId)) {
-          partyMembers = user;
-        } else {
-          if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-          if (!party) throw new NotFound(res.t('partyNotFound'));
-          partyMembers = await User
-            .findOne({_id: targetId, 'party._id': party._id})
-            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-            .exec();
-        }
-
-        if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
-
-        spell.cast(user, partyMembers, req);
-
-        if (partyMembers !== user) {
-          await Bluebird.all([
-            user.save(),
-            partyMembers.save(),
-          ]);
-        } else {
-          await partyMembers.save(); // partyMembers is user
-        }
+        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell);
       }
 
       let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
+
       // Only return some fields.
       // See comment above on why we can't just select the necessary fields when querying
       partyMembersRes = partyMembersRes.map(partyMember => {
@@ -744,6 +769,9 @@ api.sleep = {
   },
 };
 
+const buySpecialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
+
 /**
  * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
  * @apiDescription Under the hood uses UserBuyGear, UserBuyPotion and UserBuyArmoire
@@ -781,14 +809,13 @@ api.buy = {
     let user = res.locals.user;
 
     let buyRes;
-    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
-    if (specialKeys.indexOf(req.params.key) !== -1) {
-      type = 'special';
+    if (buySpecialKeys.indexOf(type) !== -1) {
+      req.type = 'special';
+    } else if (buyKnownKeys.indexOf(type) === -1) {
+      req.type = 'marketGear';
     }
-    req.type = type;
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
     if (req.body.type) req.type = req.body.type;
@@ -1267,7 +1294,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
+    let purchaseRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1298,7 +1325,7 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },
