@@ -614,7 +614,7 @@ api.updateChallenge = {
 
     let savedChal = await challenge.save();
     let response = savedChal.toJSON();
-    response.group = getChallengeGroupResponse();
+    response.group = getChallengeGroupResponse(group);
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
     res.respond(200, response);
