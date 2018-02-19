@@ -1,17 +1,16 @@
-import { post } from 'request';
+import got from 'got';
 import { isURL } from 'validator';
 import logger from './logger';
 
-function sendWebhook (url, body) {
-  post({
-    url,
-    body,
-    json: true,
-  }, (err) => {
-    if (err) {
-      logger.error(err);
-    }
-  });
+async function sendWebhook (url, body) {
+  try {
+    await got.post(url, {
+      body,
+      json: true,
+    });
+  } catch (err) {
+    logger.error(err);
+  }
 }
 
 function isValidWebhook (hook) {
