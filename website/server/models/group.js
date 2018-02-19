@@ -372,7 +372,7 @@ function translateSystemMessages (group, user) {
           group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.desperation.text(user.preferences.language)}\``;
           break;
         case 'claim_task':
-          group.chat[i].text = `\`${shared.i18n.t('userIsClamingTask', {username: group.chat[i].info.user, task: group.chat[i].info.task}, user.preferences.language)}\``;
+          group.chat[i].text = `${shared.i18n.t('userIsClamingTask', {username: group.chat[i].info.user, task: group.chat[i].info.task}, user.preferences.language)}`;
           break;
       }
     }
