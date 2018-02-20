@@ -239,8 +239,8 @@ export default {
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
     hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable line
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable line
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
     });
   },
   computed: {
