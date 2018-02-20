@@ -21,19 +21,10 @@ api.resetPasswordSetNewOne = {
   },
 };
 
-api.loginCheck = {
-  method: 'GET',
-  url: '/session',
-  async handler (req, res) {
-    let loggedIn = req.session ? true : false;
-    return res.respond(200, { loggedOn: loggedIn });
-  },
-};
-
 // Logout the user from the website.
 api.logout = {
   method: 'GET',
-  url: '/logout',
+  url: '/logoutServer',
   async handler (req, res) {
     if (req.logout) req.logout(); // passportjs method
     req.session = null;

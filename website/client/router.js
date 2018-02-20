@@ -7,7 +7,7 @@ import * as Analytics from 'client/libs/analytics';
 
 // TODO Dummy elements used as placeholder until real components are implemented
 import ParentPage from './components/parentPage';
-
+import Logout from './components/logout';
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */ './components/static/staticWrapper');
 const HomePage = () => import(/* webpackChunkName: "entry" */ './components/static/home');
@@ -28,6 +28,7 @@ const PrivacyPage = () => import(/* webpackChunkName: "static" */ './components/
 const TermsPage = () => import(/* webpackChunkName: "static" */ './components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */ './components/auth/registerLoginReset');
+// const Logout = () => import(/* webpackChunkName: "auth" */ './components/logout');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
@@ -106,6 +107,7 @@ const router = new VueRouter({
   },
   // requiresLogin is true by default, isStatic false
   routes: [
+    { name: 'logout', path: '/logout', component: Logout },
     { name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false } },
     { name: 'login', path: '/login', component: RegisterLoginReset, meta: { requiresLogin: false } },
     { name: 'resetPassword', path: '/reset-password', component: RegisterLoginReset, meta: { requiresLogin: false } },
@@ -299,8 +301,6 @@ const store = getStore();
 router.beforeEach(function routerGuard (to, from, next) {
   const isUserLoggedIn = store.state.isUserLoggedIn;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
-  const isUserLoggedServer = store.dispatch('auth:loginCheck');
-  console.log(isUserLoggedServer);
 
   if (!isUserLoggedIn && routeRequiresLogin) {
     // Redirect to the login page unless the user is trying to reach the

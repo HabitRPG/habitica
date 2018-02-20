@@ -127,6 +127,7 @@ import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
+import Logout from './components/logout';
 
 export default {
   mixins: [notifications, spellsMixin],
@@ -140,6 +141,7 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    Logout,
   },
   data () {
     return {
