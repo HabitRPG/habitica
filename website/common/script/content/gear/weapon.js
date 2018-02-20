@@ -60,6 +60,7 @@ for (let key in weapon) {
 
       return `${oldnotes(lang)} ${twoHandedText}`;
     };
+    item.notes.i18nLangFunc = true; // See https://github.com/HabitRPG/habitica/blob/develop/website/common/script/content/translation.js#L8
   }
 }
 
