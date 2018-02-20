@@ -108,3 +108,19 @@ export function generateDaily (user) {
 
   return task;
 }
+
+export function defer () {
+  let resolve;
+  let reject;
+
+  let promise = new Promise((resolveParam, rejectParam) => {
+    resolve = resolveParam;
+    reject = rejectParam;
+  });
+
+  return {
+    resolve,
+    reject,
+    promise,
+  };
+}

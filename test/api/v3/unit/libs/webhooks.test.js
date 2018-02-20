@@ -5,12 +5,13 @@ import {
   groupChatReceivedWebhook,
   taskActivityWebhook,
 } from '../../../../../website/server/libs/webhook';
+import { defer } from '../../../../helpers/api-unit.helper';
 
 describe('webhooks', () => {
   let webhooks;
 
   beforeEach(() => {
-    sandbox.stub(got, 'post');
+    sandbox.stub(got, 'post').returns(defer().promise);
 
     webhooks = [{
       id: 'taskActivity',
