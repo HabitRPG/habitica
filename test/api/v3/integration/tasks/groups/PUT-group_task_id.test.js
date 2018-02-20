@@ -1,7 +1,7 @@
 import {
-  createAndPopulateGroup,
+  createAndPopulateGroup, translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { find } from 'lodash';
+import {find} from 'lodash';
 
 describe('PUT /tasks/:id', () => {
   let user, guild, member, member2, task;
@@ -48,6 +48,58 @@ describe('PUT /tasks/:id', () => {
     expect(savedHabit.notes).to.eql('some new notes');
     expect(savedHabit.up).to.eql(false);
     expect(savedHabit.down).to.eql(false);
+  });
+
+  it('updates a group task - approval is required', async () => {
+    // allow to manage
+    await user.post(`/groups/${guild._id}/add-manager`, {
+      managerId: member._id,
+    });
+
+    // change the todo
+    task = await member.put(`/tasks/${task._id}`, {
+      text: 'new text!',
+      requiresApproval: true,
+    });
+
+    let memberTasks = await member.get('/tasks/user');
+    let syncedTask = find(memberTasks, (memberTask) => memberTask.group.taskId === task._id);
+
+    // score up to trigger approval
+    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+      .to.eventually.be.rejected.and.to.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('taskApprovalHasBeenRequested'),
+      });
+  });
+
+  it('updates a group task with checklist', async () => {
+    // add a new todo
+    task = await user.post(`/tasks/group/${guild._id}`, {
+      text: 'todo',
+      type: 'todo',
+      checklist: [
+        {
+          text: 'checklist 1',
+        },
+      ],
+    });
+
+    await user.post(`/tasks/${task._id}/assign/${member._id}`);
+
+    // change the checklist text
+    task = await user.put(`/tasks/${task._id}`, {
+      checklist: [
+        {
+          id: task.checklist[0].id,
+          text: 'checklist 1 - edit',
+        },
+        {
+          text: 'checklist 2 - edit',
+        },
+      ],
+    });
   });
 
   it('updates the linked tasks', async () => {
