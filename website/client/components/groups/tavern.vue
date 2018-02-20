@@ -1,6 +1,7 @@
 <template lang="pug">
 .row
   world-boss-info-modal
+  world-boss-rage-modal
   .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
@@ -69,7 +70,7 @@
               .col-sm-5.d-flex
                 strong {{ $t('rageStrikes') }}
                 .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
-              .col-sm-2.text-center
+              .col-sm-2.text-center(@click="showWorldBossRage('seasonalShop')")
                 img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
                 img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
               .col-sm-2.text-center
@@ -505,7 +506,8 @@ import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
-import worldBossInfoModal from '../worldBossInfoModal';
+import worldBossInfoModal from '../world-boss/worldBossInfoModal';
+import worldBossRageModal from '../world-boss/worldBossRageModal';
 
 import challengeIcon from 'assets/svg/challenge.svg';
 import chevronIcon from 'assets/svg/chevron-red.svg';
@@ -537,6 +539,7 @@ export default {
     autocomplete,
     communityGuidelines,
     worldBossInfoModal,
+    worldBossRageModal,
   },
   data () {
     return {
@@ -738,6 +741,11 @@ export default {
     },
     showWorldBossInfo () {
       this.$root.$emit('bv::show::modal', 'world-boss-info');
+    },
+    showWorldBossRage (npc) {
+      if (this.group.quest.extra.worldDmg[npc]) {
+        this.$root.$emit('bv::show::modal', 'world-boss-rage');
+      }
     },
   },
 };
