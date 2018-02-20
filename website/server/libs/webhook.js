@@ -1,20 +1,21 @@
 import got from 'got';
 import { isURL } from 'validator';
 import logger from './logger';
+import nconf from 'nconf';
 
-async function sendWebhook (url, body) {
-  try {
-    await got.post(url, {
-      body,
-      json: true,
-    });
-  } catch (err) {
-    logger.error(err);
-  }
+const IS_PRODUCTION = nconf.get('IS_PROD');
+
+function sendWebhook (url, body) {
+  got.post(url, {
+    body,
+    json: true,
+  }).catch(err => logger.error(err));
 }
 
 function isValidWebhook (hook) {
-  return hook.enabled && isURL(hook.url);
+  return hook.enabled && isURL(hook.url, {
+    require_tld: IS_PRODUCTION ? true : false, // eslint-disable-line camelcase
+  });
 }
 
 export class WebhookSender {
