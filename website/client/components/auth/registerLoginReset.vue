@@ -13,15 +13,13 @@
         .svg-icon.gryphon
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
-    .form-group.row.text-center
-      .col-12.col-md-6
-        .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
-          .svg-icon.social-icon(v-html="icons.facebookIcon")
-          .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
-      .col-12.col-md-6
-        .btn.btn-secondary.social-button(@click='socialAuth("google")')
-          .svg-icon.social-icon(v-html="icons.googleIcon")
-          span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
+    .form-group.row.text-center#social-buttons-row
+      .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
+        .svg-icon.social-icon(v-html="icons.facebookIcon")
+        .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+      .btn.btn-secondary.social-button(@click='socialAuth("google")')
+        .svg-icon.social-icon(v-html="icons.googleIcon")
+        .text {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
     .form-group(v-if='registering')
       label(for='usernameInput', v-once) {{$t('username')}}
       input#usernameInput.form-control(type='text', :placeholder='$t("usernamePlaceholder")', v-model='username')
@@ -130,6 +128,14 @@
       padding-left: .5em;
       padding-right: .5em;
     }
+
+    .social-button + .social-button {
+      margin-left: 0px !important;
+    }
+
+    #social-buttons-row {
+      flex-wrap: wrap !important; 
+    }
   }
 
   .form-wrapper {
@@ -212,6 +218,15 @@
       .text {
         display: inline-block;
       }
+    }
+
+    .social-button + .social-button {
+      margin-left: 10px;
+    }
+
+    #social-buttons-row {
+      flex-wrap: nowrap;
+      justify-content: center;
     }
 
     .social-icon {
