@@ -1,4 +1,4 @@
-import { createTransport } from 'nodemailer';
+import nodemailer from 'nodemailer';
 import nconf from 'nconf';
 import { TAVERN_ID } from '../models/group';
 import { encrypt } from './encryption';
@@ -16,7 +16,7 @@ const EMAIL_SERVER = {
 };
 const BASE_URL = nconf.get('BASE_URL');
 
-let smtpTransporter = createTransport({
+let smtpTransporter = nodemailer.createTransport({
   service: nconf.get('SMTP_SERVICE'),
   auth: {
     user: nconf.get('SMTP_USER'),
