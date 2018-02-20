@@ -3,7 +3,7 @@
     "equipmentType": "Tipo",
     "klass": "Classe",
     "groupBy": "Organizar Por <%= type %>",
-    "classBonus": "(This item matches your class, so it gets an additional 1.5 Stat multiplier.)",
+    "classBonus": "(Este item foi feito para sua classe, então tem um multiplicador de atributos adicional de 1.5x.)",
     "classArmor": "Armadura da Classe",
     "featuredset": "Conjunto em Destaque: <%= name %>",
     "mysterySets": "Conjunto Misterioso",

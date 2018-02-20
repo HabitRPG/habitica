@@ -40,7 +40,7 @@
     "taskAliasPlaceholder": "tu-alias-de-Tarea-aquí",
     "taskAliasPopoverWarning": "ADVERTENCIA: Cambiar este valor impedirá la integración con programas de terceros que utilizan alias de Tareas.",
     "difficulty": "Dificultad",
-    "difficultyHelp": "Difficulty describes how challenging a Habit, Daily, or To-Do is for you to complete. A higher difficulty results in greater rewards when a Task is completed, but also greater damage when a Daily is missed or a negative Habit is clicked.",
+    "difficultyHelp": "La Dificultad describe lo complicado de completar que es un Hábito, Tarea Diaria o Pendiente. Una mayor dificultad otorga mayores recompensas cuando una Tarea es completada, pero también mayor daño cuando te saltas una Tarea o haces click en un Hábito negativo.",
     "trivial": "Trivial",
     "easy": "Fácil",
     "medium": "Intermedia",
