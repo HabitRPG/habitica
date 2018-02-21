@@ -14,10 +14,11 @@ base-notification(
         .left-hearts
       .float-right
         .quest_dysheartener_notification
+        .phobia_dysheartener_notification
     .health-bar.d-flex.align-items-center.justify-content-center
       .svg-icon(v-html="icons.health")
       .boss-health-wrap
-        .boss-health-bar(:style="{width: (bossHp / questData.boss.hp.toLocaleString()) * 100 + '%'}")
+        .boss-health-bar(:style="{width: (parseInt(bossHp) / questData.boss.hp) * 100 + '%'}")
       .pending-damage
         .svg-icon(v-html="icons.sword")
         span +{{parseInt(user.party.quest.progress.up) || 0}}
@@ -76,6 +77,10 @@ base-notification(
     background-size: 100%;
   }
 
+  .phobia_dysheartener_notification {
+    display: none;
+  }
+
   .quest_dysheartener_notification {
     background-image: url('~client/assets/images/world-boss/mantis-static-notification@3x.png');
   }
@@ -97,12 +102,14 @@ base-notification(
     width: 274px;
     height: 12px;
     background-color: rgba(255, 255, 255, 0.24);
+    border-radius: 2px;
   }
 
   .boss-health-bar {
     background-color: #f74e52;
     height: 12px;
     margin-bottom: .5em;
+    border-radius: 2px;
   }
 
   .svg-icon {
