@@ -8,7 +8,7 @@
     "dropEggWolfText": "Волк",
     "dropEggWolfMountText": "Волк",
     "dropEggWolfAdjective": "верный",
-    "dropEggTigerCubText": "Тигренок",
+    "dropEggTigerCubText": "Тигрёнок",
     "dropEggTigerCubMountText": "Тигр",
     "dropEggTigerCubAdjective": "свирепый",
     "dropEggPandaCubText": "Детеныш панды",
@@ -174,7 +174,7 @@
     "hatchingPotionRed": "Красный",
     "hatchingPotionShade": "Сумрачный",
     "hatchingPotionSkeleton": "Костяной",
-    "hatchingPotionZombie": "Неживой",
+    "hatchingPotionZombie": "Зомби",
     "hatchingPotionCottonCandyPink": "Розовый сахарный",
     "hatchingPotionCottonCandyBlue": "Синий сахарный",
     "hatchingPotionGolden": "Золотой",
@@ -209,8 +209,8 @@
     "foodChocolateThe": "Шоколад",
     "foodChocolateA": "Плитка шоколада",
     "foodFish": "Рыба",
-    "foodFishThe": "Рыба",
-    "foodFishA": "Рыба",
+    "foodFishThe": "Селёдка",
+    "foodFishA": "Рыбу",
     "foodRottenMeat": "Тухлое мясо",
     "foodRottenMeatThe": "Прелое мясо",
     "foodRottenMeatA": "Тухлое мясо",
@@ -286,5 +286,5 @@
     "foodSaddleText": "Седло",
     "foodSaddleNotes": "Моментально делает одного из питомцев скакуном.",
     "foodSaddleSellWarningNote": "Эй! Это довольно полезная вещь! Знаете ли вы, как пользоваться седлом?",
-    "foodNotes": "Кормите этим питомца, и он может вырасти выносливым скакуном."
+    "foodNotes": "Кормите этим питомца, и он сможет вырасти выносливым скакуном."
 }
