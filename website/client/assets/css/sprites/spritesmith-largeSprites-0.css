@@ -42,7 +42,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -874px -171px;
+  background-position: -1172px -151px;
   width: 114px;
   height: 87px;
 }
@@ -57,6 +57,12 @@
   background-position: -284px -664px;
   width: 140px;
   height: 441px;
+}
+.scene_coding {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1172px 0px;
+  width: 150px;
+  height: 150px;
 }
 .scene_lady_glaciate {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
