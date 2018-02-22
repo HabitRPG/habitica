@@ -135,6 +135,9 @@
 
     #social-buttons-row {
       flex-wrap: wrap !important;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
