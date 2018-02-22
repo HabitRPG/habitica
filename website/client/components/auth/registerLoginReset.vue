@@ -344,6 +344,7 @@ export default {
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
+    this.calculateTextWidth();
   },
   watch: {
     $route: {
@@ -486,6 +487,21 @@ export default {
       }
 
       this.login();
+    },
+    calculateTextWidth () {
+      let socialButtons = document.getElementById('social-buttons-row');
+      let facebookWidth = socialButtons.children[0].textContent.length;
+      let googleWidth = socialButtons.children[1].textContent.length;
+      if (facebookWidth < 26 && googleWidth < 26) {
+        return;
+      } else {
+        return this.changeButtonWidth(
+          Math.max(facebookWidth, googleWidth), socialButtons);
+      }
+    },
+    changeButtonWidth (width, div) {
+      div.style.marginRight = `-${width - 13}em`;
+      div.style.marginLeft = `-${width - 13}em`;
     },
     async forgotPasswordLink () {
       if (!this.username) {
