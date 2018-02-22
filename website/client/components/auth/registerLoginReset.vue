@@ -134,7 +134,7 @@
     }
 
     #social-buttons-row {
-      flex-wrap: wrap !important; 
+      flex-wrap: wrap !important;
     }
   }
 
@@ -500,8 +500,8 @@ export default {
       }
     },
     changeButtonWidth (width, div) {
-      div.style.marginRight = `-${width - 13}em`;
-      div.style.marginLeft = `-${width - 13}em`;
+      div.style.marginRight = `-${(width - 25) / 2}em`;
+      div.style.marginLeft = `-${(width - 25) / 2}em`;
     },
     async forgotPasswordLink () {
       if (!this.username) {
