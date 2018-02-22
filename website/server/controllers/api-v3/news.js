@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WORLD BOSS RAGE STRIKE, GUILD SPOTLIGHT, AND WIKI WEDNESDAY';
+const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,27 +32,20 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>World Boss: Dysheartener attacks the Seasonal Sorceress!</h3>
-        <p>Oh, no! After feasting on our undone Dailies, the Dysheartener has gained the strength to unleash its Shattering Heartbreak attack. With a shrill shriek, it brings its spiny forelegs down upon the pavilion that houses <a href='/shops/seasonal'>the Seasonal Shop</a>! The concussive blast of magic shreds the wood, and the Seasonal Sorceress is overcome by sorrow at the sight.</p>
-        <p>Quickly, let's keep doing our Dailies so that the beast won't strike again!</p>
-        <div class="small">by Lemoness, Beffymaroo, SabreCat, viirus, Apollo, and piyorii</div>
+        <h3>February Subscriber Items Revealed!</h3>
+        <p>The February Subscriber Items have been revealed: The Love Bug Set!! It's a special three-piece set in honor of our ongoing battle with the Dysheartener. You only have until February 28 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="promo_mystery_201802 center-block"></div>
+        <div class="small mb-3">by Beffymaroo</div>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Sharing the Love: Guilds for Interpersonal Relationships</h3>
-            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/19/sharing-the-love-guilds-for-interpersonal-relationships/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you as you work on building and maintaining your relationships with others! Check it out now to find Habitica's best places for support and help with your interpersonal connections.</p>
-            <div class="small">by Beffymaroo</div>
+            <h3>Behind the Scenes: Bringing a World Boss to Life</h3>
+            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/22/behind-the-scenes-bringing-a-world-boss-to-life/' target='_blank'>Behind the Scenes post</a> on the Habitica blog! Ever wonder what goes into bringing a World Boss to Habitica? Check out this post for a behind the scenes glimpse of how the team makes these events happen. It's all fun and no spoilers (we promise)!</p>
+            <div class="small mb-3">by Beffymaroo</div>
           </div>
-          <div class="scene_tavern"></div>
-        </div>
-        <div class="media">
-          <div class="scene_coding mr-3"></div>
-          <div class="media-body">
-            <h3>Blog Post: Routines</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/02/21/routines/' target='_blank'>featured Wiki article</a> is about Routines! We hope that it will help you as you work on structuring your time and tasks. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small">by Beffymaroo and the Wiki Wizards</div>
-          </div>
+          <div class="promo_seasonalshop_broken ml-3"></div>
         </div>
       </div>
       `,
