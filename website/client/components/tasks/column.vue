@@ -280,7 +280,20 @@ export default {
     shopItem,
     draggable,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
+  // Set default values for props
+  // allows for better control of props values
+  // allows for better control of where this component is called
+  props: {
+    type: {},
+    isUser: {
+      type: Boolean,
+      default: false,
+    },
+    searchText: {},
+    selectedTags: {},
+    taskListOverride: {},
+    group: {},
+  }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
       habit: habitIcon,
@@ -331,7 +344,7 @@ export default {
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
 
-      let filteredTaskList = isEmpty(this.taskListOverride) ?
+      let filteredTaskList = this.isUser ?
         this.getFilteredTaskList({
           type: this.type,
           filterType: this.activeFilter.label,
@@ -380,12 +393,12 @@ export default {
 
       return this.taskList.length === 0;
     },
-    dailyDueDefaultView () {
-      if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
-      return this.user.preferences.dailyDueDefaultView;
-    },
+    // dailyDueDefaultView () {
+    //   if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
+    //     this.activateFilter('daily', this.typeFilters[1]);
+    //   }
+    //   return this.user.preferences.dailyDueDefaultView;
+    // },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
@@ -416,12 +429,12 @@ export default {
       }, 250),
       deep: true,
     },
-    dailyDueDefaultView () {
-      if (!this.dailyDueDefaultView) return;
-      if (this.type === 'daily' && this.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
-    },
+    // dailyDueDefaultView () {
+    //   if (!this.dailyDueDefaultView) return;
+    //   if (this.type === 'daily' && this.dailyDueDefaultView) {
+    //     this.activateFilter('daily', this.typeFilters[1]);
+    //   }
+    // },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
       if (!newValue) this.quickAddRows = 1;
@@ -527,7 +540,13 @@ export default {
         this.loadCompletedTodos();
       }
 
-      // this.activeFilters[type] = filter;
+      // the only time activateFilter is called with filter==='' is when the component is first created
+      // this can be used to check If the user has set 'due' as default filter for daily
+      // and set the filter as 'due' only when the component first loads and not on subsequent reloads.
+      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+        filter = 'due';
+      }
+
       this.activeFilter = getActiveFilter(type, filter);
     },
     setColumnBackgroundVisibility () {
