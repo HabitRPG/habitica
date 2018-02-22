@@ -6,6 +6,8 @@ services:
 cache:
   directories:
     - 'node_modules'
+addons:
+  chrome: stable
 before_install:
   - npm install -g npm@5
 before_script:
@@ -20,8 +22,10 @@ env:
     - DISABLE_REQUEST_LOGGING=true
   matrix:
     - TEST="lint"
-    - TEST="test:api-v3" REQUIRES_SERVER=true COVERAGE=true
+    - TEST="test:api-v3:unit" REQUIRES_SERVER=true COVERAGE=true
+    - TEST="test:api-v3:integration" REQUIRES_SERVER=true COVERAGE=true
     - TEST="test:sanity"
     - TEST="test:content" COVERAGE=true
     - TEST="test:common" COVERAGE=true
+    - TEST="client:unit" COVERAGE=true
     - TEST="apidoc"

@@ -6,7 +6,6 @@ import { togglePinnedItem as togglePinnedItemOp } from 'common/script/ops/pinned
 import changeClassOp from 'common/script/ops/changeClass';
 import disableClassesOp from 'common/script/ops/disableClasses';
 
-
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
     store,
@@ -22,7 +21,7 @@ export function fetch (store, options = {}) { // eslint-disable-line no-shadow
 export async function set (store, changes) {
   const user = store.state.user.data;
 
-  for (let key in changes) {
+  for (let key in changes) { // eslint-disable-line no-await-in-loop
     if (key === 'tags') {
       // Keep challenge and group tags
       const oldTags = user.tags.filter(t => {
@@ -32,7 +31,7 @@ export async function set (store, changes) {
       user.tags = changes[key].concat(oldTags);
 
       // Remove deleted tags from tasks
-      const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data; // eslint-disable-line no-await-in-loop
+      const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data;
 
       Object.keys(userTasksByType).forEach(taskType => {
         userTasksByType[taskType].forEach(task => {
@@ -118,6 +117,10 @@ export function castSpell (store, params) {
 
 export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
+}
+
+export function newStuffLater () {
+  return axios.post('/api/v3/news/tell-me-later');
 }
 
 export async function rebirth () {

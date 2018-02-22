@@ -91,7 +91,7 @@ export const ITEM_LIST = {
   premiumHatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
   eggs:            { localeKey: 'eggSingular',    isEquipment: false },
   quests:          { localeKey: 'quest',          isEquipment: false },
-  food:            { localeKey: 'foodText',       isEquipment: false },
+  food:            { localeKey: 'foodTextThe',    isEquipment: false },
   Saddle:          { localeKey: 'foodSaddleText', isEquipment: false },
   bundles:         { localeKey: 'discountBundle', isEquipment: false },
 };

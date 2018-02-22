@@ -129,13 +129,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .group {
     display: inline-block;
     width: 33%;
@@ -387,6 +380,9 @@
       this.$root.$on('buyModal::boughtItem', () => {
         this.backgroundUpdate = new Date();
       });
+    },
+    beforeDestroy () {
+      this.$root.$off('buyModal::boughtItem');
     },
   };
 </script>

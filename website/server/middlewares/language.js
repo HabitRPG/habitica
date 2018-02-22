@@ -77,13 +77,13 @@ export function getUserLanguage (req, res, next) {
     return User.findOne({
       _id: req.session.userId,
     }, 'preferences.language')
-    .lean()
-    .exec()
-    .then((user) => {
-      req.language = _getFromUser(user, req);
-      return next();
-    })
-    .catch(next);
+      .lean()
+      .exec()
+      .then((user) => {
+        req.language = _getFromUser(user, req);
+        return next();
+      })
+      .catch(next);
   } else { // Otherwise get from browser
     req.language = _getFromUser(null, req);
     return next();

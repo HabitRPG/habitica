@@ -7,13 +7,12 @@ import * as Tasks from './task';
 import { model as User } from './user';
 import {
   model as Group,
-  TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import cwait from 'cwait';
+import { TaskQueue } from 'cwait';
 import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
@@ -212,7 +211,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
+  let queue = new TaskQueue(Bluebird, 25); // process only 5 users concurrently
 
   await Bluebird.map(membersIds, queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);
@@ -297,8 +296,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Delete the challenge
   await this.model('Challenge').remove({_id: challenge._id}).exec();
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+  // Refund the leader if the challenge is deleted (no winner chosen)
+  if (brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 

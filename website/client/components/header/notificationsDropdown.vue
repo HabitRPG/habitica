@@ -1,289 +1,256 @@
 <template lang="pug">
-menu-dropdown.item-notifications(:right="true")
+menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange", :openStatus="openStatus")
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
-      message-count(v-if='notificationsCount > 0', :count="notificationsCount", :top="true")
-      .svg-icon.notifications(v-html="icons.notifications")
+      message-count(
+        v-if='notificationsCount > 0',
+        :count="notificationsCount",
+        :top="true",
+        :gray="!hasUnseenNotifications",
+      )
+      .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
   div(slot="dropdown-content")
-    h4.dropdown-item.dropdown-separated(v-if='!hasNoNotifications()') {{ $t('notifications') }}
-    h4.dropdown-item.toolbar-notifs-no-messages(v-if='hasNoNotifications()') {{ $t('noNotifications') }}
-    a.dropdown-item(v-if='user.party.quest && user.party.quest.RSVPNeeded')
-      div {{ $t('invitedTo', {name: quests.quests[user.party.quest.key].text()}) }}
-      div
-        button.btn.btn-primary(@click.stop='questAccept(user.party._id)') Accept
-        button.btn.btn-primary(@click.stop='questReject(user.party._id)') Reject
-    a.dropdown-item(v-if='user.purchased.plan.mysteryItems.length', @click='go("/inventory/items")')
-      span.glyphicon.glyphicon-gift
-      span {{ $t('newSubscriberItem') }}
-    a.dropdown-item(v-for='(party, index) in user.invitations.parties', :key='party.id')
-      div
-        span.glyphicon.glyphicon-user
-        span {{ $t('invitedTo', {name: party.name}) }}
-      div
-        button.btn.btn-primary(@click.stop='accept(party, index, "party")') Accept
-        button.btn.btn-primary(@click.stop='reject(party, index, "party")') Reject
-    a.dropdown-item(v-if='user.flags.cardReceived', @click='go("/inventory/items")')
-      span.glyphicon.glyphicon-envelope
-      span {{ $t('cardReceived') }}
-      a.dropdown-item(@click.stop='clearCards()')
-    a.dropdown-item(v-for='(guild, index) in user.invitations.guilds', :key='guild.id')
-      div
-        span.glyphicon.glyphicon-user
-        span {{ $t('invitedTo', {name: guild.name}) }}
-      div
-        button.btn.btn-primary(@click.stop='accept(guild, index, "guild")') Accept
-        button.btn.btn-primary(@click.stop='reject(guild, index, "guild")') Reject
-    a.dropdown-item(v-if='user.flags.classSelected && !user.preferences.disableClasses && user.stats.points',
-      @click='showProfile()')
-      span.glyphicon.glyphicon-plus-sign
-      span {{ $t('haveUnallocated', {points: user.stats.points}) }}
-    a.dropdown-item(v-for='message in userNewMessages', :key='message.key')
-      span(@click='navigateToGroup(message.key)')
-        span.glyphicon.glyphicon-comment
-        span {{message.name}}
-      span.clear-button(@click.stop='clearMessages(message.key)') Clear
-    a.dropdown-item(v-for='notification in groupNotifications', :key='notification.id')
-      span(:class="groupApprovalNotificationIcon(notification)")
-      span {{notification.data.message}}
-      span.clear-button(@click.stop='viewGroupApprovalNotification(notification)') Clear
+    .dropdown-item.dropdown-separated.d-flex.justify-content-between.dropdown-inactive.align-items-center(
+      @click.stop=""
+    )
+      h4.dropdown-title(v-once) {{ $t('notifications') }}
+      a.small-link.standard-link(@click="dismissAll", :disabled="notificationsCount === 0") {{ $t('dismissAll') }}
+    world-boss
+    component(
+      :is="notification.type",
+      :key="notification.id",
+      v-for="notification in notifications",
+      :notification="notification",
+      :can-remove="!isActionable(notification)",
+    )
+    .dropdown-item.dropdown-separated.d-flex.justify-content-center.dropdown-inactive.no-notifications.flex-column(
+      v-if="notificationsCount === 0"
+    )
+      .svg-icon(v-html="icons.success")
+      h2 You're all caught up!
+      p The notification fairies give you a raucous round of applause! Well done!
 </template>
 
 <style lang='scss' scoped>
-.clear-button {
-  margin-left: .5em;
-}
+  @import '~client/assets/scss/colors.scss';
+
+  .dropdown-item {
+    padding: 16px 24px;
+    width: 378px;
+  }
+
+  .dropdown-title {
+    margin-bottom: 0px;
+    margin-right: 8px;
+    line-height: 1.5;
+  }
+
+  .no-notifications {
+    h2, p {
+      text-align: center;
+      color: $gray-200 !important;
+    }
+
+    h2 {
+      margin-top: 24px;
+    }
+
+    p {
+      white-space: normal;
+      margin-bottom: 43px;
+      margin-left: 24px;
+      margin-right: 24px;
+    }
+
+    .svg-icon {
+      margin: 0 auto;
+      width: 256px;
+      height: 104px;
+    }
+  }
 </style>
 
 <script>
-import axios from 'axios';
-import isEmpty from 'lodash/isEmpty';
-import map from 'lodash/map';
-
-import { mapState } from 'client/libs/store';
-import * as Analytics from 'client/libs/analytics';
+import { mapState, mapActions } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 import notificationsIcon from 'assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
+import successImage from 'assets/svg/success.svg';
+
+// Notifications
+import NEW_STUFF from './notifications/newStuff';
+import GROUP_TASK_NEEDS_WORK from './notifications/groupTaskNeedsWork';
+import GUILD_INVITATION from './notifications/guildInvitation';
+import PARTY_INVITATION from './notifications/partyInvitation';
+import CHALLENGE_INVITATION from './notifications/challengeInvitation';
+import QUEST_INVITATION from './notifications/questInvitation';
+import GROUP_TASK_APPROVAL from './notifications/groupTaskApproval';
+import GROUP_TASK_APPROVED from './notifications/groupTaskApproved';
+import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
+import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
+import CARD_RECEIVED from './notifications/cardReceived';
+import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
+import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
+import WORLD_BOSS from './notifications/worldBoss';
 
 export default {
   components: {
     MenuDropdown,
     MessageCount,
-  },
-  directives: {
-    // bTooltip,
+    // One component for each type
+    NEW_STUFF, GROUP_TASK_NEEDS_WORK,
+    GUILD_INVITATION, PARTY_INVITATION, CHALLENGE_INVITATION,
+    QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED,
+    UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
+    NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
+    WorldBoss: WORLD_BOSS,
   },
   data () {
     return {
       icons: Object.freeze({
         notifications: notificationsIcon,
+        success: successImage,
       }),
       quests,
+      openStatus: undefined,
+      actionableNotifications: [
+        'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
+        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
+      ],
+      // A list of notifications handled by this component,
+      // listed in the order they should appear in the notifications panel.
+      // NOTE: Those not listed here won't be shown in the notification panel!
+      handledNotifications: [
+        'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
+        'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
+        'QUEST_INVITATION', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
+        'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
+        'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
+      ],
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
-    party () {
-      return {name: ''};
-      // return this.user.party;
+    notificationsOrder () {
+      // Returns a map of NOTIFICATION_TYPE -> POSITION
+      const orderMap = {};
+
+      this.handledNotifications.forEach((type, index) => {
+        orderMap[type] = index;
+      });
+
+      return orderMap;
     },
-    userNewMessages () {
-      // @TODO: For some reason data becomes corrupted. We should fix this on the server
-      let userNewMessages = [];
-      for (let key in this.user.newMessages) {
-        let message = this.user.newMessages[key];
-        if (message && message.name && message.value) {
-          message.key = key;
-          userNewMessages.push(message);
+    notifications () {
+      // Convert the notifications not stored in user.notifications
+      const notifications = [];
+
+      // Parties invitations
+      notifications.push(...this.user.invitations.parties.map(partyInvitation => {
+        return {
+          type: 'PARTY_INVITATION',
+          data: partyInvitation,
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-party-invitation-${partyInvitation.id}`,
+        };
+      }));
+
+      // Guilds invitations
+      notifications.push(...this.user.invitations.guilds.map(guildInvitation => {
+        return {
+          type: 'GUILD_INVITATION',
+          data: guildInvitation,
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-guild-invitation-${guildInvitation.id}`,
+        };
+      }));
+
+      // Quest invitation
+      if (this.user.party.quest.RSVPNeeded === true) {
+        notifications.push({
+          type: 'QUEST_INVITATION',
+          data: {
+            quest: this.user.party.quest.key,
+            partyId: this.user.party._id,
+          },
+          // Create a custom id for notifications outside user.notifications (must be unique)
+          id: `custom-quest-invitation-${this.user.party._id}`,
+        });
+      }
+
+      const orderMap = this.notificationsOrder;
+
+      // Push the notifications stored in user.notifications
+      // skipping those not defined in the handledNotifications object
+      notifications.push(...this.user.notifications.filter(notification => {
+        if (notification.type === 'UNALLOCATED_STATS_POINTS') {
+          if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return false;
         }
-      }
-      return userNewMessages;
+
+        return orderMap[notification.type] !== undefined;
+      }));
+
+      // Sort notifications
+      notifications.sort((a, b) => { // a and b are notifications
+        const aOrder = orderMap[a.type];
+        const bOrder = orderMap[b.type];
+
+        if (aOrder === bOrder) return 0; // Same position
+        if (aOrder > bOrder) return 1; // b is higher
+        if (aOrder < bOrder) return -1; // a is higher
+      });
+
+      return notifications;
     },
-    groupNotifications () {
-      return this.$store.state.groupNotifications;
-    },
+    // The total number of notification, shown inside the dropdown
     notificationsCount () {
-      let count = 0;
-
-      if (this.user.invitations.parties) {
-        count += this.user.invitations.parties.length;
-      }
-
-      if (this.user.purchased.plan && this.user.purchased.plan.mysteryItems.length) {
-        count++;
-      }
-
-      if (this.user.invitations.guilds) {
-        count += this.user.invitations.guilds.length;
-      }
-
-      if (this.user.flags.classSelected && !this.user.preferences.disableClasses && this.user.stats.points) {
-        count += this.user.stats.points > 0 ? 1 : 0;
-      }
-
-      if (this.userNewMessages) {
-        count += Object.keys(this.userNewMessages).length;
-      }
-
-      count += this.groupNotifications.length;
-
-      return count;
+      return this.notifications.length;
+    },
+    hasUnseenNotifications () {
+      return this.notifications.some((notification) => {
+        return notification.seen === false ? true : false;
+      });
     },
   },
   methods: {
-    // @TODO: I hate this function, we can do better with a hashmap
-    selectNotificationValue (mysteryValue, invitationValue, cardValue,
-      unallocatedValue, messageValue, noneValue, groupApprovalRequested, groupApproved) {
-      let user = this.user;
+    ...mapActions({
+      readNotifications: 'notifications:readNotifications',
+      seeNotifications: 'notifications:seeNotifications',
+    }),
+    handleOpenStatusChange (openStatus) {
+      this.openStatus = openStatus === true ? 1 : 0;
 
-      if (user.purchased && user.purchased.plan && user.purchased.plan.mysteryItems && user.purchased.plan.mysteryItems.length) {
-        return mysteryValue;
-      } else if (user.invitations.parties && user.invitations.parties.length > 0 || user.invitations.guilds && user.invitations.guilds.length > 0) {
-        return invitationValue;
-      } else if (user.flags.cardReceived) {
-        return cardValue;
-      } else if (user.flags.classSelected && !(user.preferences && user.preferences.disableClasses) && user.stats.points) {
-        return unallocatedValue;
-      } else if (!isEmpty(user.newMessages)) {
-        return messageValue;
-      } else if (!isEmpty(this.groupNotifications)) {
-        let groupNotificationTypes = map(this.groupNotifications, 'type');
-        if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVAL') !== -1) {
-          return groupApprovalRequested;
-        } else if (groupNotificationTypes.indexOf('GROUP_TASK_APPROVED') !== -1) {
-          return groupApproved;
+      // Mark notifications as seen when the menu is opened
+      if (openStatus) this.markAllAsSeen();
+    },
+    markAllAsSeen () {
+      const idsToSee = this.notifications.map(notification => {
+        // We check explicitly for notification.id not starting with `custom-` because some
+        // notification don't follow the standard
+        // (all those not stored in user.notifications)
+        if (notification.seen === false && notification.id && notification.id.indexOf('custom-') !== 0) {
+          return notification.id;
         }
-        return noneValue;
-      } else {
-        return noneValue;
-      }
-    },
-    hasQuestProgress () {
-      let user = this.user;
-      if (user.party.quest) {
-        let userQuest = quests[user.party.quest.key];
+      }).filter(id => Boolean(id));
 
-        if (!userQuest) {
-          return false;
+      if (idsToSee.length > 0) this.seeNotifications({notificationIds: idsToSee});
+    },
+    dismissAll () {
+      const idsToRead = this.notifications.map(notification => {
+        // We check explicitly for notification.id not starting with `custom-` because some
+        // notification don't follow the standard
+        // (all those not stored in user.notifications)
+        if (!this.isActionable(notification) && notification.id.indexOf('custom-') !== 0) {
+          return notification.id;
         }
-        if (userQuest.boss && user.party.quest.progress.up > 0) {
-          return true;
-        }
-        if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
-          return true;
-        }
-      }
-      return false;
-    },
-    getQuestInfo () {
-      let user = this.user;
-      let questInfo = {};
-      if (user.party.quest) {
-        let userQuest = quests[user.party.quest.key];
+      }).filter(id => Boolean(id));
+      this.openStatus = 0;
 
-        questInfo.title = userQuest.text();
-
-        if (userQuest.boss) {
-          questInfo.body =  this.$t('questTaskDamage', { damage: user.party.quest.progress.up.toFixed(1) });
-        } else if (userQuest.collect) {
-          questInfo.body = this.$t('questTaskCollection', { items: user.party.quest.progress.collectedItems });
-        }
-      }
-      return questInfo;
+      if (idsToRead.length > 0) this.readNotifications({notificationIds: idsToRead});
     },
-    clearMessages (key) {
-      this.$store.dispatch('chat:markChatSeen', {groupId: key});
-      this.$delete(this.user.newMessages, key);
-    },
-    clearCards () {
-      this.$store.dispatch('chat:clearCards');
-    },
-    iconClasses () {
-      return this.selectNotificationValue(
-        'glyphicon-gift',
-        'glyphicon-user',
-        'glyphicon-envelope',
-        'glyphicon-plus-sign',
-        'glyphicon-comment',
-        'glyphicon-comment inactive',
-        'glyphicon-question-sign',
-        'glyphicon-ok-sign'
-      );
-    },
-    hasNoNotifications () {
-      return this.selectNotificationValue(false, false, false, false, false, true, false, false);
-    },
-    viewGroupApprovalNotification (notification) {
-      this.$store.state.groupNotifications = this.groupNotifications.filter(groupNotif => {
-        return groupNotif.id !== notification.id;
-      });
-
-      axios.post('/api/v3/notifications/read', {
-        notificationIds: [notification.id],
-      });
-    },
-    groupApprovalNotificationIcon (notification) {
-      if (notification.type === 'GROUP_TASK_APPROVAL') {
-        return 'glyphicon glyphicon-question-sign';
-      } else if (notification.type === 'GROUP_TASK_APPROVED') {
-        return 'glyphicon glyphicon-ok-sign';
-      }
-    },
-    go (path) {
-      this.$router.push(path);
-    },
-    navigateToGroup (key) {
-      if (key === this.party._id || key === this.user.party._id) {
-        this.go('/party');
-        return;
-      }
-
-      this.$router.push({ name: 'guild', params: { groupId: key }});
-    },
-    async reject (group) {
-      await this.$store.dispatch('guilds:rejectInvite', {groupId: group.id});
-      // @TODO: User.sync();
-    },
-    async accept (group, index, type) {
-      if (group.cancelledPlan && !confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
-        return;
-      }
-
-      if (type === 'party') {
-        // @TODO: pretty sure mutability is wrong. Need to check React docs
-        // @TODO mutation to store data should only happen through actions
-        this.user.invitations.parties.splice(index, 1);
-
-        Analytics.updateUser({partyID: group.id});
-      } else {
-        this.user.invitations.guilds.splice(index, 1);
-      }
-
-      if (type === 'party') {
-        this.user.party._id = group.id;
-        this.$router.push('/party');
-      } else {
-        this.user.guilds.push(group.id);
-        this.$router.push(`/groups/guild/${group.id}`);
-      }
-
-      // @TODO: check for party , type: 'myGuilds'
-      await this.$store.dispatch('guilds:join', {guildId: group.id});
-    },
-    async questAccept (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/accept'});
-      this.user.party.quest = quest;
-    },
-    async questReject (partyId) {
-      let quest = await this.$store.dispatch('quests:sendAction', {groupId: partyId, action: 'quests/reject'});
-      this.user.party.quest = quest;
-    },
-    showProfile () {
-      this.$root.$emit('habitica:show-profile', {
-        user: this.user,
-        startingPage: 'stats',
-      });
+    isActionable (notification) {
+      return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
   },
 };

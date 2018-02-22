@@ -237,7 +237,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         notes: item.notes(language),
         value: item.value,
         currency: 'gold',
-        purchaseType: 'potions',
+        purchaseType: 'potion',
         class: `shop_${item.key}`,
         path: 'potion',
         pinType: 'potion',
@@ -269,6 +269,8 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         currency: 'gold',
         path: `cardTypes.${item.key}`,
         pinType: 'card',
+        target: spellInfo.target,
+        cast: spellInfo.cast,
       };
       break;
     }

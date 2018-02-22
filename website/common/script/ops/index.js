@@ -18,19 +18,10 @@ import clearPMs from './clearPMs';
 import deletePM from './deletePM';
 import blockUser from './blockUser';
 import feed from './feed';
-import buySpecialSpell from './buySpecialSpell';
-import purchase from './purchase';
-import purchaseWithSpell from './purchaseWithSpell';
 import releasePets from './releasePets';
 import releaseMounts from './releaseMounts';
 import releaseBoth from './releaseBoth';
-import buy from './buy';
-import buyGear from './buyGear';
-import buyHealthPotion from './buyHealthPotion';
-import buyArmoire from './buyArmoire';
-import buyQuest from './buyQuest';
-import buyMysterySet from './buyMysterySet';
-import hourglassPurchase from './hourglassPurchase';
+import buy from './buy/purchase';
 import sell from './sell';
 import equip from './equip';
 import hatch from './hatch';
@@ -63,19 +54,10 @@ module.exports = {
   deletePM,
   blockUser,
   feed,
-  buySpecialSpell,
-  purchase,
-  purchaseWithSpell,
   releasePets,
   releaseMounts,
   releaseBoth,
   buy,
-  buyGear,
-  buyHealthPotion,
-  buyArmoire,
-  buyQuest,
-  buyMysterySet,
-  hourglassPurchase,
   sell,
   equip,
   hatch,

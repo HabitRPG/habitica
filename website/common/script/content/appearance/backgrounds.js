@@ -619,6 +619,20 @@ let backgrounds = {
       notes: t('backgroundFlyingOverIcySteppesNotes'),
     },
   },
+  backgrounds022018: {
+    chessboard_land: {
+      text: t('backgroundChessboardLandText'),
+      notes: t('backgroundChessboardLandNotes'),
+    },
+    magical_museum: {
+      text: t('backgroundMagicalMuseumText'),
+      notes: t('backgroundMagicalMuseumNotes'),
+    },
+    rose_garden: {
+      text: t('backgroundRoseGardenText'),
+      notes: t('backgroundRoseGardenNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

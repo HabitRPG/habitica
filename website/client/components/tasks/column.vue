@@ -393,12 +393,6 @@ export default {
 
       return this.taskList.length === 0;
     },
-    // dailyDueDefaultView () {
-    //   if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
-    //     this.activateFilter('daily', this.typeFilters[1]);
-    //   }
-    //   return this.user.preferences.dailyDueDefaultView;
-    // },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
@@ -429,12 +423,6 @@ export default {
       }, 250),
       deep: true,
     },
-    // dailyDueDefaultView () {
-    //   if (!this.dailyDueDefaultView) return;
-    //   if (this.type === 'daily' && this.dailyDueDefaultView) {
-    //     this.activateFilter('daily', this.typeFilters[1]);
-    //   }
-    // },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
       if (!newValue) this.quickAddRows = 1;

@@ -58,25 +58,46 @@ describe('User Model', () => {
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({});
+      expect(userToJSON.notifications[0].seen).to.eql(false);
     });
 
-    it('can add notifications with data', () => {
+    it('removes invalid notifications when calling toJSON', () => {
       let user = new User();
 
-      user.addNotification('CRON', {field: 1});
+      user.notifications = [
+        null, // invalid, not an object
+        {seen: true}, // invalid, no type or id
+        {id: 123}, // invalid, no type
+        // {type: 'ABC'}, // invalid, no id, not included here because the id would be added automatically
+        {type: 'ABC', id: '123'}, // valid
+      ];
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.notifications.length).to.equal(1);
+
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('ABC');
+      expect(userToJSON.notifications[0].id).to.equal('123');
+    });
+
+    it('can add notifications with data and already marked as seen', () => {
+      let user = new User();
+
+      user.addNotification('CRON', {field: 1}, true);
 
       let userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
       expect(userToJSON.notifications[0].data).to.eql({field: 1});
+      expect(userToJSON.notifications[0].seen).to.eql(true);
     });
 
     context('static push method', () => {
-      it('adds notifications for a single member via static method', async() => {
+      it('adds notifications for a single member via static method', async () => {
         let user = new User();
         await user.save();
 
@@ -86,19 +107,20 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
       });
 
-      it('validates notifications via static method', async() => {
+      it('validates notifications via static method', async () => {
         let user = new User();
         await user.save();
 
         expect(User.pushNotification({_id: user._id}, 'BAD_TYPE')).to.eventually.be.rejected;
+        expect(User.pushNotification({_id: user._id}, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
       });
 
-      it('adds notifications without data for all given users via static method', async() => {
+      it('adds notifications without data for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);
@@ -109,41 +131,45 @@ describe('User Model', () => {
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
+        expect(userToJSON.notifications[0].seen).to.eql(false);
 
         user = await User.findOne({_id: otherUser._id}).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({});
+        expect(userToJSON.notifications[0].seen).to.eql(false);
       });
 
-      it('adds notifications with data for all given users via static method', async() => {
+      it('adds notifications with data and seen status for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
         await Bluebird.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1});
+        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1}, true);
 
         user = await User.findOne({_id: user._id}).exec();
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].seen).to.eql(true);
 
         user = await User.findOne({_id: otherUser._id}).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
-        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type']);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
         expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].seen).to.eql(true);
       });
     });
   });
@@ -321,6 +347,65 @@ describe('User Model', () => {
       user.achievements.beastMasterCount = 3;
       user = await user.save();
       expect(user.achievements.beastMaster).to.not.equal(true);
+    });
+
+    context('manage unallocated stats points notifications', () => {
+      it('doesn\'t add a notification if there are no points to allocate', async () => {
+        let user = new User();
+        user = await user.save(); // necessary for user.isSelected to work correctly
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 0;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
+      });
+
+      it('removes a notification if there are no more points to allocate', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 0;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount - 1);
+      });
+
+      it('adds a notification if there are points to allocate', async () => {
+        let user = new User();
+        user = await user.save(); // necessary for user.isSelected to work correctly
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 9;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(9);
+      });
+
+      it('adds a notification if the points to allocate have changed', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        const oldNotificationsCount = user.notifications.length;
+        const oldNotificationsUUID = user.notifications[0].id;
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(9);
+
+        user.stats.points = 11;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
+        expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
+        expect(user.notifications[0].data.points).to.equal(11);
+        expect(user.notifications[0].id).to.not.equal(oldNotificationsUUID);
+      });
     });
   });
 

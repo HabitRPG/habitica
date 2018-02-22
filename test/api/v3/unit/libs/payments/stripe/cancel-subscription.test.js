@@ -42,11 +42,11 @@ describe('cancel subscription', () => {
       user,
       groupId: undefined,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 401,
-      name: 'NotAuthorized',
-      message: i18n.t('missingSubscription'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        name: 'NotAuthorized',
+        message: i18n.t('missingSubscription'),
+      });
   });
 
   it('throws an error if the group is not found', async () => {
@@ -54,11 +54,11 @@ describe('cancel subscription', () => {
       user,
       groupId: 'fake-group',
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 404,
-      name: 'NotFound',
-      message: i18n.t('groupNotFound'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 404,
+        name: 'NotFound',
+        message: i18n.t('groupNotFound'),
+      });
   });
 
   it('throws an error if user is not the group leader', async () => {
@@ -70,11 +70,11 @@ describe('cancel subscription', () => {
       user: nonLeader,
       groupId,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 401,
-      name: 'NotAuthorized',
-      message: i18n.t('onlyGroupLeaderCanManageSubscription'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        name: 'NotAuthorized',
+        message: i18n.t('onlyGroupLeaderCanManageSubscription'),
+      });
   });
 
   describe('success', () => {

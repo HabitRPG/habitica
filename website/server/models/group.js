@@ -31,6 +31,7 @@ import {
 } from './subscriptionPlan';
 import amazonPayments from '../libs/amazonPayments';
 import stripePayments from '../libs/stripePayments';
+import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -465,8 +466,53 @@ export function chatDefaults (msg, user) {
   return message;
 }
 
+function setUserStyles (newMessage, user) {
+  let userStyles = {};
+  userStyles.items = {gear: {}};
+
+  let userCopy = user;
+  if (user.toObject) userCopy = user.toObject();
+
+  if (userCopy.items) {
+    userStyles.items.gear = {};
+    userStyles.items.gear.costume = Object.assign({}, userCopy.items.gear.costume);
+    userStyles.items.gear.equipped = Object.assign({}, userCopy.items.gear.equipped);
+
+    userStyles.items.currentMount = userCopy.items.currentMount;
+    userStyles.items.currentPet = userCopy.items.currentPet;
+  }
+
+
+  if (userCopy.preferences) {
+    userStyles.preferences = {};
+    if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;
+    userStyles.preferences.hair = userCopy.preferences.hair;
+    userStyles.preferences.skin = userCopy.preferences.skin;
+    userStyles.preferences.shirt = userCopy.preferences.shirt;
+    userStyles.preferences.chair = userCopy.preferences.chair;
+    userStyles.preferences.size = userCopy.preferences.size;
+    userStyles.preferences.chair = userCopy.preferences.chair;
+    userStyles.preferences.background = userCopy.preferences.background;
+    userStyles.preferences.costume = userCopy.preferences.costume;
+  }
+
+  userStyles.stats = {};
+  if (userCopy.stats && userCopy.stats.buffs) {
+    userStyles.stats.buffs = {
+      seafoam: userCopy.stats.buffs.seafoam,
+      shinySeed: userCopy.stats.buffs.shinySeed,
+      spookySparkles: userCopy.stats.buffs.spookySparkles,
+      snowball: userCopy.stats.buffs.snowball,
+    };
+  }
+
+  newMessage.userStyles = userStyles;
+}
+
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
+
+  if (user) setUserStyles(newMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
@@ -493,10 +539,8 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   }
 
   // Kick off chat notifications in the background.
-  let lastSeenUpdate = {$set: {
-    [`newMessages.${this._id}`]: {name: this.name, value: true},
-  }};
-  let query = {};
+
+  const query = {};
 
   if (this.type === 'party') {
     query['party._id'] = this._id;
@@ -506,7 +550,29 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   query._id = { $ne: user ? user._id : ''};
 
-  User.update(query, lastSeenUpdate, {multi: true}).exec();
+  // First remove the old notification (if it exists)
+  const lastSeenUpdateRemoveOld = {
+    $pull: {
+      notifications: { type: 'NEW_CHAT_MESSAGE', 'data.group.id': this._id },
+    },
+  };
+
+  // Then add the new notification
+  const lastSeenUpdateAddNew = {
+    $set: { // old notification, supported until mobile is updated and we release api v4
+      [`newMessages.${this._id}`]: {name: this.name, value: true},
+    },
+    $push: {
+      notifications: new UserNotification({
+        type: 'NEW_CHAT_MESSAGE',
+        data: { group: { id: this._id, name: this.name } },
+      }).toObject(),
+    },
+  };
+
+  User.update(query, lastSeenUpdateRemoveOld, {multi: true}).exec().then(() => {
+    User.update(query, lastSeenUpdateAddNew, {multi: true}).exec();
+  });
 
   // If the message being sent is a system message (not gone through the api.postChat controller)
   // then notify Pusher about it (only parties for now)
@@ -715,7 +781,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) 
       return raw;
     }).catch((err) => {
       if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry);
+        return _updateUserWithRetries(userId, updates, ++numTry, query);
       } else {
         throw err;
       }
@@ -946,16 +1012,16 @@ let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
 // we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
   model // eslint-disable-line no-use-before-define
-  .findOne(tavernQ).exec()
-  .then(tavern => {
-    if (!tavern) return; // No tavern quest
+    .findOne(tavernQ).exec()
+    .then(tavern => {
+      if (!tavern) return; // No tavern quest
 
-    // Using _assign so we don't lose the reference to the exported tavernQuest
-    _.assign(tavernQuest, tavern.quest.toObject());
-  })
-  .catch(err => {
-    throw err;
-  });
+      // Using _assign so we don't lose the reference to the exported tavernQuest
+      _.assign(tavernQuest, tavern.quest.toObject());
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 // returns a promise
@@ -987,9 +1053,17 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
 
       let wd = tavern.quest.extra.worldDmg;
-      // Burnout attacks Ian, Seasonal Sorceress, tavern
-      // Be-Wilder attacks Alex, Matt, Bailey
-      let scene = wd.market ? wd.stables ? wd.bailey ? false : 'bailey' : 'stables' : 'market'; // eslint-disable-line no-nested-ternary
+      // Dysheartener attacks Seasonal Sorceress, Alex, Ian
+      let scene;
+      if (wd.quests) {
+        scene = false;
+      } else if (wd.market) {
+        scene = 'quests';
+      } else if (wd.seasonalShop) {
+        scene = 'market';
+      } else {
+        scene = 'seasonalShop';
+      }
 
       if (!scene) {
         tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);

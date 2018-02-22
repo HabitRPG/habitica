@@ -1,4 +1,4 @@
-import buySpecialSpell from '../../../../website/common/script/ops/buySpecialSpell';
+import buySpecialSpell from '../../../../website/common/script/ops/buy/buySpecialSpell';
 import {
   BadRequest,
   NotFound,
@@ -12,9 +12,15 @@ import content from '../../../../website/common/script/content/index';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser();
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('throws an error if params.key is missing', (done) => {
@@ -64,7 +70,7 @@ describe('shared.ops.buySpecialSpell', () => {
       params: {
         key: 'thankyou',
       },
-    });
+    }, analytics);
 
     expect(user.stats.gp).to.equal(1);
     expect(user.items.special.thankyou).to.equal(1);
@@ -75,5 +81,6 @@ describe('shared.ops.buySpecialSpell', () => {
     expect(message).to.equal(i18n.t('messageBought', {
       itemText: item.text(),
     }));
+    expect(analytics.track).to.be.calledOnce;
   });
 });

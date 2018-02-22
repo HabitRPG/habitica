@@ -239,11 +239,13 @@ export default {
           user: message.user,
           uuid: message.uuid,
           id: message.id,
+          contributor: message.contributor,
         };
 
         if (message.sent) {
           newMessage.user = this.user.profile.name;
           newMessage.uuid = this.user._id;
+          newMessage.contributor = this.user.contributor;
         }
 
         if (newMessage.text) conversations[userId].messages.push(newMessage);
@@ -306,6 +308,7 @@ export default {
         timestamp: new Date(),
         user: this.user.profile.name,
         uuid: this.user._id,
+        contributor: this.user.contributor,
       });
 
       this.activeChat = convoFound.messages;

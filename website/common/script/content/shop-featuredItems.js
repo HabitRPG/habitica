@@ -6,15 +6,15 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Holly',
+      path: 'hatchingPotions.CottonCandyPink',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.StarryNight',
+      path: 'hatchingPotions.Cupid',
     },
     {
       type: 'card',
-      path: 'cardTypes.greeting',
+      path: 'cardTypes.valentine',
     },
   ],
   quests: [
@@ -28,7 +28,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.penguin',
+      path: 'quests.badger',
     },
     {
       type: 'quests',
@@ -37,7 +37,7 @@ const featuredItems = {
   ],
   seasonal: 'summerMage',
   timeTravelers: [
-      // TODO
+    // TODO
   ],
 };
 

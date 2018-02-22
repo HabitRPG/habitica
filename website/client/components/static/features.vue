@@ -82,6 +82,10 @@
     box-shadow: 0 0 10px 5px #888;
     margin: 0.5em;
     max-width: 500px;
+
+    @media (max-width: 1200px) {
+      max-width: 100%;
+    }
   }
 </style>
 

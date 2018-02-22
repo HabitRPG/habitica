@@ -73,7 +73,7 @@ describe('checkout with subscription', () => {
   });
 
   afterEach(function () {
-    sinon.restore(stripe.subscriptions.update);
+    stripe.subscriptions.update.restore();
     stripe.customers.create.restore();
     payments.createSubscription.restore();
   });
@@ -88,11 +88,11 @@ describe('checkout with subscription', () => {
       headers,
       coupon,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: 'Missing req.body.id',
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: 'Missing req.body.id',
+      });
   });
 
   it('should throw an error when coupon code is missing', async () => {
@@ -108,11 +108,11 @@ describe('checkout with subscription', () => {
       headers,
       coupon,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: i18n.t('couponCodeRequired'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('couponCodeRequired'),
+      });
   });
 
   it('should throw an error when coupon code is invalid', async () => {
@@ -136,15 +136,15 @@ describe('checkout with subscription', () => {
       headers,
       coupon,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: i18n.t('invalidCoupon'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('invalidCoupon'),
+      });
     cc.validate.restore();
   });
 
-  it('subscribes with amazon with a coupon', async () => {
+  it('subscribes with stripe with a coupon', async () => {
     sub.discount = 40;
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
