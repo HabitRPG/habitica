@@ -3,7 +3,7 @@
     "equipmentType": "種類",
     "klass": "クラス",
     "groupBy": "<%= type %> でグループ分け",
-    "classBonus": "(This item matches your class, so it gets an additional 1.5 Stat multiplier.)",
+    "classBonus": "(このアイテムはあなたのクラス用なので、能力値のボーナスが1.5倍になります。)",
     "classArmor": "クラスのよろい",
     "featuredset": "目玉商品 <%= name %>",
     "mysterySets": "ミステリー セット",
@@ -1462,5 +1462,5 @@
     "eyewearMystery301703Notes": "派手な仮面舞踏会や、身なりの良い群衆の中をひっそりと動くのに最適である。効果なし。3017年3月寄付会員アイテム。",
     "eyewearArmoirePlagueDoctorMaskText": "ペスト専門医のマスク",
     "eyewearArmoirePlagueDoctorMaskNotes": "「先延ばし」という名のペスト(伝染病)とたたかった医師が着けていた信頼のおけるマスク。効果なし。ラッキー宝箱 : ペスト専門医セット( 3 個中 2 個目のアイテム)。",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "両手持ちのアイテムです。"
 }

@@ -215,9 +215,9 @@
     "headAccess": "Příslušenství na hlavu",
     "backAccess": "Příslušenství na záda",
     "bodyAccess": "Příslušenství na tělo",
-    "mainHand": "Main-Hand",
-    "offHand": "Off-Hand",
+    "mainHand": "Hlavní ruka",
+    "offHand": "Druhá ruka",
     "pointsAvailable": "Dostupné body",
-    "pts": "pts",
+    "pts": "Body",
     "statsObjectRequired": "Je požadována aktualizace atributů"
 }

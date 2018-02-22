@@ -229,9 +229,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });

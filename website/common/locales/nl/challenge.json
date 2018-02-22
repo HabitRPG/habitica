@@ -1,6 +1,6 @@
 {
     "challenge": "Uitdaging",
-    "challengeDetails": "Uitdagingen zijn evenementen georganiseerd voor de gemeenschap waar spelers elkaar uitdagen en prijzen kunnen winnen door een groep aan elkaar gerelateerde taken te voltooien.",
+    "challengeDetails": "Uitdagingen zijn evenementen waar je aan mee kunt doen om prijzen te winnen door bijpassende taken te voltooien.",
     "brokenChaLink": "Gebroken uitdagingslink",
     "brokenTask": "Gebroken uitdagingslink: deze taak was onderdeel van een uitdaging, maar is daaruit verwijderd. Wat wil je ermee doen?",
     "keepIt": "Behoud hem",
@@ -74,7 +74,7 @@
     "noChallengeOwnerPopover": "Deze uitdaging heeft geen eigenaar omdat de eigenaar zijn of haar account heeft verwijderd.",
     "challengeMemberNotFound": "Gebruiker niet gevonden onder de deelnemers aan de uitdaging",
     "onlyGroupLeaderChal": "Alleen de groepsleider kan uitdagingen creëren",
-    "tavChalsMinPrize": "De prijs moet tenminste 1 edelsteen zijn voor openbare uitdagingen.",
+    "tavChalsMinPrize": "De prijs voor openbare uitdagingen moet tenminste 1 edelsteen zijn.",
     "cantAfford": "Je kunt deze beloning niet betalen. Koop meer edelstenen of verlaag de prijs.",
     "challengeIdRequired": "\"challengeId\" moet een valide UUID zijn.",
     "winnerIdRequired": "\"winnerId\" moet een valide UUID zijn.",
