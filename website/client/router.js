@@ -28,7 +28,6 @@ const PrivacyPage = () => import(/* webpackChunkName: "static" */ './components/
 const TermsPage = () => import(/* webpackChunkName: "static" */ './components/static/terms');
 
 const RegisterLoginReset = () => import(/* webpackChunkName: "auth" */ './components/auth/registerLoginReset');
-// const Logout = () => import(/* webpackChunkName: "auth" */ './components/logout');
 
 // User Pages
 // const StatsPage = () => import(/* webpackChunkName: "user" */'./components/userMenu/stats');
