@@ -417,11 +417,11 @@
     "managerAdded": "Менеджер успешно добавлен",
     "managerRemoved": "Менеджер успешно удалён",
     "leaderChanged": "Лидер был сменен",
-    "whatIsWorldBoss": "What is a World Boss?",
-    "worldBossDesc": "A World Boss is a special event that brings the Habitica community together to take down a powerful monster with their tasks! All Habitica users are rewarded upon its defeat, even those who have been resting in the Inn or have not used Habitica for the entirety of the quest.",
-    "worldBossLink": "Read more about the previous World Bosses of Habitica on the Wiki.",
-    "worldBossBullet1": "Complete tasks to damage the World Boss",
-    "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
-    "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-    "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
+    "whatIsWorldBoss": "Кто такой Мировой Босс?",
+    "worldBossDesc": "Мировой босс — особое событие, во время которого сообщество Habitica объединяет усилия, чтобы своими заданиями победить сильнейшего монстра! После победы над мировым боссом все пользователи Habitica получают награду, даже те, кто отдыхал в Таверне или не использовал Habitica во время этого квеста.",
+    "worldBossLink": "Узнайте больше о предыдущих мировых боссах в википедии Habitica.",
+    "worldBossBullet1": "Выполняйте задачи, чтобы нанести урон Мировому боссу.",
+    "worldBossBullet2": "Мировой босс не ударит вас за пропущенные задания, но уровень его ярости поднимется. Когда шкала ярости заполнится, босс атакует одного из владельцев магазинов страны Habitica!",
+    "worldBossBullet3": "Можно одновременно сражаться с обычным квестовым боссом, вы нанесёте урон обоим.",
+    "worldBossBullet4": "Регулярно заходите в Таверну, чтобы увидеть уровни здоровья и ярости мирового босса."
 }

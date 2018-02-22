@@ -429,5 +429,6 @@
   "worldBossBullet1": "Complete tasks to damage the World Boss",
   "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
   "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
-  "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks"
+  "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
+  "worldBoss": "World Boss"
 }
