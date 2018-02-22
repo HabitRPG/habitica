@@ -32,11 +32,11 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       let nonMember = await generateUser();
 
       await expect(nonMember.post(`/groups/${questingGroup._id}/quests/force-start`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('groupNotFound'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
     });
 
     it('does not force start quest for a guild', async () => {
@@ -45,20 +45,20 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/force-start`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('guildQuestsNotSupported'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('guildQuestsNotSupported'),
+        });
     });
 
     it('does not force start for a party without a pending quest', async () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/force-start`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('questNotPending'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('questNotPending'),
+        });
     });
 
     it('does not force start for a quest already underway', async () => {
@@ -69,22 +69,22 @@ describe('POST /groups/:groupId/quests/force-start', () => {
       await partyMembers[2].post(`/groups/${questingGroup._id}/quests/accept`);
 
       await expect(leader.post(`/groups/${questingGroup._id}/quests/force-start`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('questAlreadyUnderway'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('questAlreadyUnderway'),
+        });
     });
 
     it('does not allow non-quest leader or non-group leader to force start a quest', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/force-start`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('questOrGroupLeaderOnlyStartQuest'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('questOrGroupLeaderOnlyStartQuest'),
+        });
     });
   });
 

@@ -120,5 +120,10 @@
     "createAccountQuest": "Otrzymałeś tą misję, kiedy dołączyłeś do Habitiki. Jeżeli twój przyjaciel dołączy, również otrzyma misję.",
     "questBundles": "Przecenione pakiety misji",
     "buyQuestBundle": "Kup pakiet misji",
-    "noQuestToStart": "Nie możesz znaleźć żadnej misji? Wejdź do Sklepu Misji na Targu po nowe zadania!"
+    "noQuestToStart": "Nie możesz znaleźć żadnej misji? Wejdź do Sklepu Misji na Targu po nowe zadania!",
+    "pendingDamage": "<%= damage %>oczekujących obrażeń",
+    "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Życia",
+    "rageAttack": "Atak Szału:",
+    "bossRage": "<%= currentRage %>/<%= maxRage %> Szału",
+    "rageStrikes": "Napad Szału"
 }

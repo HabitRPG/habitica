@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Нямате <%= type %>.",
+  "foodItemType": "Храна",
+  "eggsItemType": "Яйца",
+  "hatchingPotionsItemType": "Излюпващи отвари",
+  "specialItemType": "Специални предмети",
+  "lockedItem": "Заключен предмет"
+}

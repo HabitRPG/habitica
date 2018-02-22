@@ -76,7 +76,7 @@
     "costumeDisabled": "Vous avez désactivé l'utilisation du costume.",
     "gearAchievement": "Vous avez gagné le succès \"Armé jusqu'aux dents\" pour avoir atteint le niveau maximal de l'ensemble d'équipement de votre classe ! Vous avez acquis les ensembles complets suivants:",
     "moreGearAchievements": "Pour obtenir plus de badges d'équipement ultime, changez de classe sur <a href='/user/settings/site' target='_blank'>Paramètres &gt; Site </a> et achetez l'équipement de votre nouvelle classe !",
-    "armoireUnlocked": "Pour plus d'équipement, regardez dans l'<strong>armoire enchantée !</strong>. Cliquez sur la récompense Armoire enchantée pour une chance aléatoire d'obtenir une pièce d'équipement spéciale ! Cela peut aussi vous donner de l'expérience ou de la nourriture.",
+    "armoireUnlocked": "Pour plus d'équipement, regardez dans l'<strong>armoire enchantée !</strong>. Cliquez sur la récompense \"Armoire enchantée\" pour une chance aléatoire d'obtenir une pièce d'équipement spéciale ! Cela peut aussi vous donner de l'expérience ou de la nourriture.",
     "ultimGearName": "S'armer jusqu'aux dents – <%= ultClass %>",
     "ultimGearText": "S'équiper avec les meilleures armes et les meilleures armures pour la classe <%= ultClass %>. ",
     "level": "Niveau",

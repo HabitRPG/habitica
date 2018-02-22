@@ -478,7 +478,7 @@ export default {
         this.$refs.clickPotionInfo.style.left = `${$event.x - 60}px`;
         this.$refs.clickPotionInfo.style.top = `${$event.y + 10}px`;
       } else if (this.eggClickMode) {
-         // dragging eggInfo is 180px wide (90 would be centered)
+        // dragging eggInfo is 180px wide (90 would be centered)
         this.$refs.clickEggInfo.style.left = `${$event.x - 60}px`;
         this.$refs.clickEggInfo.style.top = `${$event.y + 10}px`;
       } else {

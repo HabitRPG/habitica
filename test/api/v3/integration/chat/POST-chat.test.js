@@ -119,21 +119,21 @@ describe('POST /chat', () => {
     it('errors when word is part of a phrase', async () => {
       let wordInPhrase = `phrase ${testBannedWordMessage} end`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('errors when word is surrounded by non alphabet characters', async () => {
       let wordInPhrase = `_!${testBannedWordMessage}@_`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('checks error message has the banned words used', async () => {
@@ -478,8 +478,8 @@ describe('POST /chat', () => {
   context('Spam prevention', () => {
     it('Returns an error when the user has been posting too many messages', async () => {
       // Post as many messages are needed to reach the spam limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
-        let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) { // eslint-disable-line no-await-in-loop
+        let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage });
         expect(result.message.id).to.exist;
       }
 
@@ -494,8 +494,8 @@ describe('POST /chat', () => {
       let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
 
       // Post 1 more message than the spam limit to ensure they do not reach the limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
-        let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) { // eslint-disable-line no-await-in-loop
+        let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage });
         expect(result.message.id).to.exist;
       }
     });

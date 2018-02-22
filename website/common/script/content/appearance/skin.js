@@ -73,5 +73,5 @@ module.exports = prefill({
   'snowy': {price: 2, set: sets.winterySkins},
   'winterstar': {price: 2, set: sets.winterySkins},
 
-    /* eslint-enable quote-props */
+  /* eslint-enable quote-props */
 });
