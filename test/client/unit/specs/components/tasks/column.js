@@ -4,8 +4,89 @@ import Vue from 'vue/dist/vue';
 
 import TaskColumn from 'client/components/tasks/column.vue';
 
+import generateStore from 'client/store';
+
 describe('Task Column Component', () => {
   let vm, Ctor, tasks;
+
+  describe('Passed Data (Props)', () => {
+    beforeEach(() => {
+      Ctor = Vue.extend(TaskColumn);
+    });
+    it('returns a default value of false for isUser', () => {
+      vm = new Ctor({
+        propsData: {
+          type: 'habit',
+        },
+      }).$mount();
+      expect(vm.isUser).to.eq(false);
+    });
+    it('returns a true value for isUser', () => {
+      vm = new Ctor({
+        propsData: {
+          type: 'habit',
+          isUser: true,
+        },
+      }).$mount();
+      expect(vm.isUser).to.eq(true);
+    });
+    afterEach(() => {
+      vm.$destroy();
+    });
+  });
+
+  describe('Task List', () => {
+    let store, userTasks, groupTasks;
+
+    beforeEach(() => {
+      store = generateStore();
+      Ctor = Vue.extend(TaskColumn);
+      groupTasks = [
+        { id: 1234 },
+        { id: 2345 },
+        { id: 1543 },
+        { id: 6543 },
+      ];
+      userTasks = [
+        { id: 1 },
+        { id: 2 },
+      ];
+      store.state.tasks.data = {
+        habits: userTasks,
+      };
+    });
+    it('returns task list override for default value of isUser', () => {
+      vm = new Ctor({
+        propsData: {
+          type: 'habit',
+          taskListOverride: groupTasks,
+        },
+        store,
+      }).$mount();
+      expect(vm.isUser).to.eq(false);
+      expect(vm.taskListOverride).to.eq(groupTasks);
+      expect(vm.taskList).to.eq(groupTasks);
+    });
+
+    it('returns task list override for false value of isUser', () => {
+      vm = new Ctor({
+        propsData: {
+          type: 'habit',
+          isUser: false,
+          taskListOverride: groupTasks,
+        },
+        store,
+      }).$mount();
+      expect(vm.isUser).to.eq(false);
+      expect(vm.taskListOverride).to.eq(groupTasks);
+      expect(vm.taskList).to.eq(groupTasks);
+    });
+    // @TODO: 'returns store task list for true value of isUser'
+
+    afterEach(() => {
+      vm.$destroy();
+    });
+  });
 
   describe('Task Filtering', () => {
     beforeEach(() => {
