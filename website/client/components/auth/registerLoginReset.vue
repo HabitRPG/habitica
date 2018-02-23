@@ -495,7 +495,7 @@ export default {
       let socialButtons = document.getElementById('social-buttons-row');
       let facebookWidth = socialButtons.children[0].textContent.length;
       let googleWidth = socialButtons.children[1].textContent.length;
-      if (facebookWidth < 26 && googleWidth < 26) {
+      if (facebookWidth < 15 && googleWidth < 15) {
         return;
       } else {
         return this.changeButtonWidth(
@@ -503,8 +503,8 @@ export default {
       }
     },
     changeButtonWidth (width, div) {
-      div.style.marginRight = `-${(width - 25) / 2}em`;
-      div.style.marginLeft = `-${(width - 25) / 2}em`;
+      div.style.marginRight = `-${(width - 15) / 3}em`;
+      div.style.marginLeft = `-${(width - 15) / 3}em`;
     },
     async forgotPasswordLink () {
       if (!this.username) {
