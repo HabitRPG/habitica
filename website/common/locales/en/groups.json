@@ -431,5 +431,7 @@
   "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
   "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
 
-  "approvalNotRequired": "Approval not required"
+  "approvalNotRequired": "Approval not required",
+  "messagedFlaggedNotHidden": "Message flagged once, not hidden",
+  "messageHidden": "Message hidden"
 }

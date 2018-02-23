@@ -1,8 +1,9 @@
 <template lang="pug">
 div
   .mentioned-icon(v-if='isUserMentioned')
-  .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') Message flagged once, not hidden
-  .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') Message hidden
+  .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') {{ $t('messagedFlaggedNotHidden') }}
+  .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') {{ $t('messageHidden') }}
+  .message-hidden(v-if='approvalRequired', @click='approve()') {{ $t('approvalRequired') }}
   .card-body
       h3.leader(
         :class='userLevelStyle(msg)',
@@ -133,6 +134,8 @@ import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
+const CHAT_APPROVAL_REQUIRED = process.env.CHAT_APPROVAL_REQUIRED === 'true'; // eslint-disable-line
+
 export default {
   props: ['msg', 'inbox', 'groupId'],
   mixins: [styleHelper],
@@ -219,6 +222,9 @@ export default {
       }
       return this.icons[`tier${message.contributor.level}`];
     },
+    approvalRequired () {
+      return CHAT_APPROVAL_REQUIRED && this.msg.approvalRequired;
+    },
   },
   methods: {
     async like () {
@@ -240,7 +246,7 @@ export default {
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
     },
-    async report () {
+    report () {
       this.$root.$emit('habitica::report-chat', {
         message: this.msg,
         groupId: this.groupId,
@@ -265,6 +271,17 @@ export default {
     },
     showMemberModal (memberId) {
       this.$emit('show-member-modal', memberId);
+    },
+    approve () {
+      if (!confirm('Are you sure you want to approve this message?')) return;
+
+      this.msg.approvalRequired = false;
+      this.$emit('message-approved', this.msg);
+
+      this.$store.dispatch('chat:approve', {
+        chatId: this.msg.id,
+        groupId: this.groupId,
+      });
     },
   },
 };

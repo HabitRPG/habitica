@@ -4,7 +4,7 @@
     .col-12
       copy-as-todo-modal(:group-name='groupName', :group-id='groupId')
       report-flag-modal
-  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg)')
+  div(v-for="(msg, index) in messages", v-if='chat && canViewFlag(msg) && canViewUnapprovedChat(msg)')
     // @TODO: is there a different way to do these conditionals? This creates an infinite loop
     //.hr(v-if='displayDivider(msg)')
       .hr-middle(v-once) {{ msg.timestamp }}
@@ -24,6 +24,7 @@
           :groupId='groupId',
           @messaged-liked='messageLiked',
           @message-removed='messageRemoved',
+          @message-approved='messageApproved',
           @show-member-modal='showMemberModal')
     .row(v-if='user._id === msg.uuid')
       .card(:class='inbox ? "col-8" : "col-10"')
@@ -33,6 +34,7 @@
           :groupId='groupId',
           @messaged-liked='messageLiked',
           @message-removed='messageRemoved',
+          @message-approved='messageApproved',
           @show-member-modal='showMemberModal')
       div(:class='inbox ? "col-4" : "col-2"')
         avatar(
@@ -86,6 +88,8 @@ import copyAsTodoModal from './copyAsTodoModal';
 import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
+const CHAT_APPROVAL_REQUIRED = process.env.CHAT_APPROVAL_REQUIRED === 'true'; // eslint-disable-line
+
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
   components: {
@@ -134,6 +138,9 @@ export default {
       if (message.uuid === this.user._id) return true;
       if (!message.flagCount || message.flagCount < 2) return true;
       return this.user.contributor.admin;
+    },
+    canViewUnapprovedChat (message) {
+      return !this.approvalRequired(message) || this.user.contributor.admin;
     },
     loadProfileCache: debounce(function loadProfileCache (screenPosition) {
       this._loadProfileCache(screenPosition);
@@ -215,16 +222,25 @@ export default {
       }
     },
     messageLiked (message) {
-      const chatIndex = findIndex(this.chat, chatMessage => {
-        return chatMessage.id === message.id;
-      });
-      this.chat.splice(chatIndex, 1, message);
+      this.replaceMessage(message);
     },
     messageRemoved (message) {
       const chatIndex = findIndex(this.chat, chatMessage => {
         return chatMessage.id === message.id;
       });
       this.chat.splice(chatIndex, 1);
+    },
+    messageApproved (message) {
+      this.replaceMessage(message);
+    },
+    replaceMessage (message) {
+      const chatIndex = findIndex(this.chat, chatMessage => {
+        return chatMessage.id === message.id;
+      });
+      this.chat.splice(chatIndex, 1, message);
+    },
+    approvalRequired (message) {
+      return CHAT_APPROVAL_REQUIRED && message.approvalRequired;
     },
   },
 };

@@ -86,3 +86,9 @@ export async function markChatSeen (store, payload) {
   let response = await axios.post(url);
   return response.data.data;
 }
+
+export async function approve (store, payload) {
+  const url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/approve`;
+  const response = await axios.post(url);
+  return response.data.data;
+}
