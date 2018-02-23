@@ -7,6 +7,7 @@ import {
   NotFound,
   NotAuthorized,
 } from '../../libs/errors';
+import find from 'lodash/find';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
@@ -497,5 +498,59 @@ api.deleteChat = {
     }
   },
 };
+
+/**
+ * @api {post} /api/v3/groups/:groupId/chat/:chatId/approve Approve a group chat message
+ * @apiName ApproveChat
+ * @apiGroup Chat
+ * @apiDescription Approvates a chat message from a group
+ *
+ * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
+ * @apiParam (Path) {UUID} chatId The chat message _id
+ *
+ * @apiSuccess {Object} data The approved <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat message</a>
+ *
+ * @apiUse GroupNotFound
+ * @apiUse MessageNotFound
+ * @apiUse GroupIdRequired
+ * @apiUse ChatIdRequired
+ * @apiError (401) {NotAuthorized} adminRequired A user must be an admin to approve a chat message
+ */
+api.approveChat = {
+  method: 'POST',
+  url: '/groups/:groupId/chat/:chatId/approve',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+    const groupId = req.params.groupId;
+
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.isAdmin()) throw new NotAuthorized(res.t('noAdminAccess'));
+
+    const group = await Group.getGroup({user, groupId});
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    const message = find(group.chat, {id: req.params.chatId});
+    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
+
+    if (!message.approvalRequired) throw new NotAuthorized(res.t('approvalNotRequired'));
+
+    let update = {$set: {}};
+    message.approvalRequired = false;
+    update.$set['chat.$.approvalRequired'] = false;
+
+    await Group.update(
+      {_id: group._id, 'chat.id': message.id},
+      update
+    ).exec();
+    res.respond(200, message);
+  },
+};
+
 
 module.exports = api;
