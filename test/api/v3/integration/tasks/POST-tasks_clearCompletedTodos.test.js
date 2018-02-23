@@ -33,9 +33,9 @@ describe('POST /tasks/clearCompletedTodos', () => {
     let tasks = await user.get('/tasks/user?type=todos');
     expect(tasks.length).to.equal(initialTodoCount + 7);
 
-    for (let task of tasks) { // eslint-disable-line no-await-in-loop
+    for (let task of tasks) {
       if (['todo 2', 'todo 3', 'todo 6'].indexOf(task.text) !== -1) {
-        await user.post(`/tasks/${task._id}/score/up`);
+        await user.post(`/tasks/${task._id}/score/up`); // eslint-disable-line no-await-in-loop
       }
     }
 
