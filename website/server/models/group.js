@@ -32,6 +32,7 @@ import {
 import amazonPayments from '../libs/amazonPayments';
 import stripePayments from '../libs/stripePayments';
 import { model as UserNotification } from './userNotification';
+import config from '../libs/config';
 
 const questScrolls = shared.content.quests;
 const Schema = mongoose.Schema;
@@ -509,10 +510,23 @@ function setUserStyles (newMessage, user) {
   newMessage.userStyles = userStyles;
 }
 
+function checkForChatApproval (group, message, user) {
+  if (!config.isChatApprovalRequired()) return;
+  if (group.privacy !== 'public') return;
+
+  const userCreatedDate = moment(user.auth.timestamps.created);
+  const oneDayAgo = moment().startOf('day').subtract(1, 'days');
+  if (userCreatedDate.isBefore(oneDayAgo)) return;
+
+  message.approvalRequired = true;
+}
+
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
 
   if (user) setUserStyles(newMessage, user);
+
+  checkForChatApproval(this, newMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
