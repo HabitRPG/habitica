@@ -109,6 +109,7 @@
         "TOKEN" : "example-token",
         "SUBDOMAIN" : "exmaple-subdomain"
     },
+    "CHAT_APPROVAL_REQUIRED": "false",
     "KAFKA": {
       "GROUP_ID": "",
       "CLOUDKARAFKA_BROKERS": "",
