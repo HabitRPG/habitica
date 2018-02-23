@@ -1,8 +1,8 @@
-import { createTransport } from 'nodemailer';
+import nodemailer from 'nodemailer';
 import nconf from 'nconf';
 import { TAVERN_ID } from '../models/group';
 import { encrypt } from './encryption';
-import request from 'request';
+import got from 'got';
 import logger from './logger';
 import common from '../../common';
 
@@ -16,7 +16,7 @@ const EMAIL_SERVER = {
 };
 const BASE_URL = nconf.get('BASE_URL');
 
-let smtpTransporter = createTransport({
+let smtpTransporter = nodemailer.createTransport({
   service: nconf.get('SMTP_SERVICE'),
   auth: {
     user: nconf.get('SMTP_USER'),
@@ -150,13 +150,10 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    request.post({
-      url: `${EMAIL_SERVER.url}/job`,
-      auth: {
-        user: EMAIL_SERVER.auth.user,
-        pass: EMAIL_SERVER.auth.password,
-      },
-      json: {
+    got.post(`${EMAIL_SERVER.url}/job`, {
+      auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
+      json: true,
+      body: {
         type: 'email',
         data: {
           emailType,
@@ -170,6 +167,6 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
           backoff: {delay: 10 * 60 * 1000, type: 'fixed'},
         },
       },
-    }, (err) => logger.error(err));
+    }).catch((err) => logger.error(err));
   }
 }

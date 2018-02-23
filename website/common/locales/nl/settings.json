@@ -147,7 +147,7 @@
     "promoCode": "Promotiecode",
     "promoCodeApplied": "Promotiecode toegepast! Kijk in je boedel",
     "promoPlaceholder": "Voer promotiecode in",
-    "displayInviteToPartyWhenPartyIs1": "Toon de 'Uitnodigen voor gezelschap'-knop wanneer de gezelschap 1 lid heeft.",
+    "displayInviteToPartyWhenPartyIs1": "Toon de 'Uitnodigen voor gezelschap'-knop wanneer het gezelschap 1 lid heeft.",
     "saveCustomDayStart": "Begin van de dag opslaan",
     "registration": "Registratie",
     "addLocalAuth": "Plaatselijke authenticatie toevoegen:",

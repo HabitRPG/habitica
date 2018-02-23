@@ -64,6 +64,7 @@
     "classBonusText": "La tua classe (Guerriero, se non ne hai sbloccata o scelta un'altra) sfrutta il suo equipaggiamento più efficientemente di quello delle altre classi. Gli oggetti equipaggiati adatti alla tua classe danno alle tue Statistiche un bonus del 50% maggiore.",
     "classEquipBonus": "Bonus classe",
     "battleGear": "Assetto di battaglia",
+    "gear": "Gear",
     "battleGearText": "Questo è l'equipaggiamento che indossi in battaglia, esso modifica alcuni valori quando interagisci con le tue attività.",
     "autoEquipBattleGear": "Equipaggia automaticamente nuovi oggetti",
     "costume": "Costume",

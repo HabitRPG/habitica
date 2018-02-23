@@ -6,6 +6,8 @@ services:
 cache:
   directories:
     - 'node_modules'
+addons:
+  chrome: stable
 before_script:
   - npm run test:build
   - cp config.json.example config.json
@@ -23,4 +25,5 @@ env:
     - TEST="test:sanity"
     - TEST="test:content" COVERAGE=true
     - TEST="test:common" COVERAGE=true
+    - TEST="client:unit" COVERAGE=true
     - TEST="apidoc"

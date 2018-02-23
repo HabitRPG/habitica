@@ -64,6 +64,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
     "classEquipBonus": "Bonus klase",
     "battleGear": "Borbena oprema",
+    "gear": "Gear",
     "battleGearText": "Oprema u kojoj se borite. Utiče na interakciju sa zadacima.",
     "autoEquipBattleGear": "Automatski stavi novu opremu",
     "costume": "Kostim",

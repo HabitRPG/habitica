@@ -1,26 +1,11 @@
 /* eslint-disable global-require */
-import request from 'request';
+import got from 'got';
 import nconf from 'nconf';
 import nodemailer from 'nodemailer';
 import requireAgain from 'require-again';
 import logger from '../../../../../website/server/libs/logger';
 import { TAVERN_ID } from '../../../../../website/server/models/group';
-
-function defer () {
-  let resolve;
-  let reject;
-
-  let promise = new Promise((resolveParam, rejectParam) => {
-    resolve = resolveParam;
-    reject = rejectParam;
-  });
-
-  return {
-    resolve,
-    reject,
-    promise,
-  };
-}
+import { defer } from '../../../../helpers/api-unit.helper';
 
 function getUser () {
   return {
@@ -157,7 +142,7 @@ describe('emails', () => {
 
   describe('sendTxnEmail', () => {
     beforeEach(() => {
-      sandbox.stub(request, 'post');
+      sandbox.stub(got, 'post').returns(defer().promise);
     });
 
     afterEach(() => {
@@ -175,8 +160,9 @@ describe('emails', () => {
       };
 
       sendTxnEmail(mailingInfo, emailType);
-      expect(request.post).to.be.calledWith(sinon.match({
-        json: {
+      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+        json: true,
+        body: {
           data: {
             emailType: sinon.match.same(emailType),
             to: sinon.match((value) => {
@@ -198,7 +184,7 @@ describe('emails', () => {
       };
 
       sendTxnEmail(mailingInfo, emailType);
-      expect(request.post).not.to.be.called;
+      expect(got.post).not.to.be.called;
     });
 
     it('uses getUserInfo in case of user data', () => {
@@ -209,8 +195,9 @@ describe('emails', () => {
       let mailingInfo = getUser();
 
       sendTxnEmail(mailingInfo, emailType);
-      expect(request.post).to.be.calledWith(sinon.match({
-        json: {
+      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+        json: true,
+        body: {
           data: {
             emailType: sinon.match.same(emailType),
             to: sinon.match(val => val[0]._id === mailingInfo._id),
@@ -231,8 +218,9 @@ describe('emails', () => {
       let variables = [1, 2, 3];
 
       sendTxnEmail(mailingInfo, emailType, variables);
-      expect(request.post).to.be.calledWith(sinon.match({
-        json: {
+      expect(got.post).to.be.calledWith('undefined/job', sinon.match({
+        json: true,
+        body: {
           data: {
             variables: sinon.match((value) => {
               return value[0].name === 'BASE_URL';
