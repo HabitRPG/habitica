@@ -126,9 +126,10 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import spellsMixin from 'client/mixins/spells';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   name: 'app',
   components: {
     AppMenu,
@@ -228,9 +229,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
@@ -417,14 +421,7 @@ export default {
       }
     },
     async memberSelected (member) {
-      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
-
-      // Subtract gold for cards
-      if (this.selectedSpellToBuy.pinType === 'card') {
-        const newUserGp = castResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-        this.text(this.$t('sentCardToUser', { profileName: member.profile.name }));
-      }
+      await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
@@ -442,6 +439,7 @@ export default {
 </script>
 
 <style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="assets/css/sprites/spritesmith-main-0.css"></style>

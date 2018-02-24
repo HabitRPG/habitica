@@ -57,11 +57,11 @@ describe('checkout', () => {
       headers,
       coupon,
     }, stripe))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      message: 'Amount must be at least 1.',
-      name: 'BadRequest',
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        message: 'Amount must be at least 1.',
+        name: 'BadRequest',
+      });
   });
 
 

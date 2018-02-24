@@ -13,7 +13,7 @@ class Timer {
     if (!options.disableAutoStart) this.start();
   }
   start () {
-    this._internalTimer = setInterval(() =>{
+    this._internalTimer = setInterval(() => {
       this.count++;
 
       let shouldWarn = this._minutesWarningThreshold < this.count;

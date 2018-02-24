@@ -255,13 +255,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .item-wrapper.bordered-item .item {
     width: 112px;
     height: 112px;
@@ -359,7 +352,7 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';
@@ -479,8 +472,8 @@ export default {
           categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value) => {
-              return value.yearRound;
+            items: _map(_filter(this.content.cardTypes, (value, key) => {
+              return value.yearRound || key === 'valentine';
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),

@@ -3,7 +3,7 @@
     "seasonalEdition": "Edisi Musiman",
     "winterColors": "Warna Musim Dingin",
     "annoyingFriends": "Teman yang Menyebalkan",
-    "annoyingFriendsText": "Dilempari bola salju <%= count %> kali oleh teman party.",
+    "annoyingFriendsText": "Dilempari bola salju <%= count %> kali oleh anggota party.",
     "alarmingFriends": "Teman yang Berbahaya",
     "alarmingFriendsText": "Dihantui <%= count %> kali oleh teman party.",
     "agriculturalFriends": "Teman Tanaman",
@@ -34,6 +34,7 @@
     "seasonalShopFallText": "Happy Fall Festival!! Apakah kamu mau membeli barang-barang langka bernuansa musim gugur? Hanya tersedia hingga 31 October!",
     "seasonalShopWinterText": "Happy Winter Wonderlang!! Apakah kamu mau membeli barang-barang langka bernuansa musim dingin? Tersedia hingga 31 Januari!",
     "seasonalShopFallTextBroken": "Oh... Selamat datang di Toko Musiman... Saat ini kami menyediakan barang-barang Edisi Musim Gugur atau apalah... Semua yang ada disini bisa dibeli selama perayaan Festival Musim Gugur setiap tahun, tapi kami hanya buka sampai 31 Oktober... jadi kurasa kamu harus beli sekarang juga, atau kamu harus menunggu... dan menunggu... dan menunggu... <strong>*hela nafas*</strong>",
+    "seasonalShopBrokenText": "My pavilion!!!!!!! My decorations!!!! Oh, the Dysheartener's destroyed everything :( Please help defeat it in the Tavern so I can rebuild!",
     "seasonalShopRebirth": "Kalau dulu kamu pernah membeli perlengkapan ini tapi saat ini tidak memilikinya, kamu bisa membelinya lagi di Kolom Hadiah. Awalnya, kamu cuma bisa membeli item untuk pekerjaanmu saat ini (standarnya Prajurit), tapi jangan khawatir, item spesifik tiap pekerjaan akan tersedia saat kamu memilih pekerjaan tersebut.",
     "candycaneSet": "Tongkat Permen (Penyihir)",
     "skiSet": "Ski-sassin (Pencuri)",
@@ -125,8 +126,9 @@
     "dateEndOctober": "31 Oktober",
     "dateEndNovember": "30 November",
     "dateEndJanuary": "31 Januari",
-    "discountBundle": "bundel",
+    "dateEndFebruary": "28 Februari",
     "winterPromoGiftHeader": "HADIAHKAN LANGGANAN DAN DAPATKAN GRATIS SATU!",
     "winterPromoGiftDetails1": "Hanya hingga 12 Januari, sewaktu kamu menghadiahkan orang lain dengan langganan, kamu akan mendapatkan paket langganan yang sama, gratis untuk dirimu sendiri!",
-    "winterPromoGiftDetails2": "Ingat saja kalau kamu atau penerima hadiah itu sudah mempunyai paket langganan yang berulang, hadiah langganan itu baru akan mulai setelah yang sekarang telah dibatalkan atau telah habis. Terima kasih untuk semua dukungan kalian! <3"
+    "winterPromoGiftDetails2": "Ingat saja kalau kamu atau penerima hadiah itu sudah mempunyai paket langganan yang berulang, hadiah langganan itu baru akan mulai setelah yang sekarang telah dibatalkan atau telah habis. Terima kasih untuk semua dukungan kalian! <3",
+    "discountBundle": "bundel"
 }

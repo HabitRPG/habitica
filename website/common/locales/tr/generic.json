@@ -136,6 +136,7 @@
     "audioTheme_airuTheme": "Airu'nun Teması",
     "audioTheme_beatscribeNesTheme": "Beatscribe'ın NES Melodisi",
     "audioTheme_arashiTheme": "Arashi'nin Melodisi",
+    "audioTheme_triumphTheme": "Triumph Theme",
     "audioTheme_lunasolTheme": "Lunasol Theme",
     "audioTheme_spacePenguinTheme": "SpacePenguin's Theme",
     "audioTheme_maflTheme": "MAFL Theme",
@@ -168,6 +169,8 @@
     "achievementBewilderText": "2016 Bahar Şenliği Etkinliği sırasında Şaşkhoroz'u yenmeye yardım etti!",
     "checkOutProgress": "Habitica'daki gelişimimi görüntüle!",
     "cards": "Kartlar",
+    "sentCardToUser": "You sent a card to <%= profileName %>",
+    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
     "cardReceived": "You received a <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Selamlama Kartı",
     "greetingCardExplanation": "İkiniz de Şen Dost başarısını kazandınız!",
@@ -279,7 +282,7 @@
     "emptyMessagesLine2": "Send a message to start a conversation!",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "Let's Go!",
-    "selected": "Selected",
+    "selected": "Seçilmiş",
     "howManyToBuy": "How many would you like to buy?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }

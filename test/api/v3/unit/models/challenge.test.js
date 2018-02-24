@@ -65,7 +65,7 @@ describe('Challenge Model', () => {
 
   each(tasksToTest, (taskValue, taskType) => {
     context(`${taskType}`, () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         task = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue));
         task.challenge.id = challenge._id;
         await task.save();
@@ -194,7 +194,7 @@ describe('Challenge Model', () => {
         });
 
         expect(syncedTask).to.exist;
-        expect(syncedTask.challenge._id).to.be.empty;
+        expect(syncedTask.challenge._id).to.be.undefined;
       });
     });
   });

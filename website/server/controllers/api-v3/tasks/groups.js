@@ -86,7 +86,7 @@ api.getGroupTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -489,8 +489,8 @@ api.getGroupApprovals = {
       'group.approval.approved': false,
       'group.approval.requested': true,
     }, 'userId group text')
-    .populate('userId', 'profile')
-    .exec();
+      .populate('userId', 'profile')
+      .exec();
 
     res.respond(200, approvals);
   },

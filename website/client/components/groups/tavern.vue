@@ -1,5 +1,7 @@
 <template lang="pug">
 .row
+  world-boss-info-modal
+  world-boss-rage-modal
   .col-12.col-sm-8.clearfix.standard-page
     .row
       .col-6.title-details
@@ -25,11 +27,71 @@
         .row
           .hr.col-12
           chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
-
   .col-12.col-sm-4.sidebar
     .section
       .grassy-meadow-backdrop
         .daniel_front
+
+      .boss-section
+        .world-boss(v-if='group && group.quest && group.quest.active', :style="{background: questData.colors.dark, 'border-color': questData.colors.extralight, 'outline-color': questData.colors.light}")
+          .corner-decoration(:style="{top: '-2px', right: '-2px'}")
+          .corner-decoration(:style="{top: '-2px', left: '-2px'}")
+          .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
+          .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
+          .text-center.float-bar.d-flex.align-items-center
+            span.diamond
+            span.strong.reduce(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
+            span.diamond
+          .boss-gradient.pb-3.pt-3
+            p.text-center.reduce(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
+            .quest-boss(:class="'background_' + questData.key")
+              .quest-boss(:class="'quest_' + questData.key")
+              .quest-boss(:class="'phobia_' + questData.key", :style="{display: 'none'}")
+          .p-3
+            .row.d-flex.align-items-center.mb-2
+              .col-sm-6
+                strong.float-left {{ questData.boss.name() }}
+              .col-sm-6
+                span.d-flex.float-right
+                  .svg-icon.boss-icon(v-html="icons.swordIcon")
+                  span.ml-1.reduce(:style="{color: questData.colors.extralight}") {{ $t('pendingDamage', {damage: pendingDamage()}) }}
+            .grey-progress-bar.mb-1
+              .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
+            span.d-flex.align-items-center
+              .svg-icon.boss-icon(v-html="icons.healthIcon")
+              span.reduce.ml-1.pt-1 {{ $t('bossHealth', {currentHealth: bossCurrentHealth(), maxHealth: questData.boss.hp.toLocaleString()}) }}
+            .mt-3.mb-2
+              strong.mr-1 {{ $t('rageAttack') }}
+              span {{ questData.boss.rage.title() }}
+            .grey-progress-bar.mb-1
+              .boss-health-bar.rage-bar(:style="{width: (group.quest.progress.rage / questData.boss.rage.value) * 100 + '%'}")
+            span.d-flex.align-items-center
+              .svg-icon.boss-icon(v-html="icons.rageIcon")
+              span.reduce.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
+            .row.d-flex.align-items-center.mb-2.mt-2
+              .col-sm-4.d-flex
+                strong.mr-2 {{ $t('rageStrikes') }}
+                .svg-icon.boss-icon.information-icon.m-auto(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
+              .col-sm-8.d-flex.align-items-center.justify-content-center
+                .m-auto(@click="showWorldBossRage('seasonalShop')")
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
+                .m-auto
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
+                .m-auto
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
+            .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
+              strong.float-left {{ $t('worldBossDescription') }}
+              .float-right
+                .toggle-down(v-if="!sections.worldBoss")
+                  .svg-icon.boss-icon(v-html="icons.chevronIcon")
+                .toggle-up(v-if="sections.worldBoss")
+                  .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
+            .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
+        .text-center.mt-4
+          .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
 
       .sleep.below-header-sections
         strong(v-once) {{ $t('sleepDescription') }}
@@ -194,7 +256,7 @@
     padding: 0em;
 
     .below-header-sections {
-      padding: 1em;
+      padding: 1em 1.75em 1em 1.75em;
     }
   }
 
@@ -223,10 +285,6 @@
     margin: 0 auto;
   }
 
-  .sleep {
-    margin-top: 1em;
-  }
-
   .svg-icon {
     width: 10px;
     display: inline-block;
@@ -251,6 +309,16 @@
 
   .npc-icon {
     width: 8px;
+  }
+
+  .boss-icon {
+    width: 16px;
+    margin-top: .1em;
+    margin-left: 0;
+  }
+
+  .boss-icon-large {
+    width: 48px;
   }
 
   .staff {
@@ -335,6 +403,115 @@
     color: $black;
   }
 
+  .boss-section {
+    padding: 1.75em;
+  }
+
+  .world-boss {
+    color: $white;
+    border-style: solid;
+    border-width: 2px;
+    outline-style: solid;
+    outline-width: 2px;
+    margin: 2px;
+    position: relative;
+  }
+
+  .quest-boss {
+    margin: 1em auto;
+  }
+
+  .grey-progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.24);
+    border-radius: 2px;
+  }
+
+  .boss-health-bar {
+    width: 80%;
+    height: 15px;
+    margin-bottom: .5em;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    background-color: #f74e52;
+  }
+
+  .boss-health-bar.rage-bar {
+    background-color: #ff944c;
+  }
+
+  .boss-gradient {
+    background-image: linear-gradient(to bottom, #401f2a, #931f4d);
+    margin-top: -1.4em;
+  }
+
+  .boss-description {
+    border-top: 1px solid;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: .25em 0 0 .25em;
+  }
+
+  .float-bar {
+    position: relative;
+    top: -16px;
+    width: 162px;
+    height: 28px;
+    border-radius: 2px;
+    background-color: inherit;
+    margin: auto;
+  }
+
+  .corner-decoration {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: inherit;
+    border: inherit;
+    outline: inherit;
+  }
+
+  .reverse {
+    transform: rotate(180deg);
+  }
+
+  .diamond {
+    margin: auto;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background-color: #dc4069;
+    border: solid 2px #931f4d;
+  }
+
+  .reduce {
+    font-size: 12px;
+  }
+
+  .rage-strike {
+    max-width: 50px;
+    height: auto;
+  }
+
+  .rage-strike-active {
+    max-width: 75px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .world-boss-info-button {
+    width: 100%;
+    background-color: $gray-500;
+    border-radius: 2px;
+    font-size: 14px;
+    color: $blue-10;
+    padding: 1em;
+    cursor: pointer;
+  }
+
 </style>
 
 <script>
@@ -345,14 +522,19 @@ import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
 import autocomplete from '../chat/autoComplete';
 import communityGuidelines from './communityGuidelines';
+import worldBossInfoModal from '../world-boss/worldBossInfoModal';
+import worldBossRageModal from '../world-boss/worldBossRageModal';
 
-import gemIcon from 'assets/svg/gem.svg';
-import questIcon from 'assets/svg/quest.svg';
 import challengeIcon from 'assets/svg/challenge.svg';
-import informationIcon from 'assets/svg/information.svg';
-import questBackground from 'assets/svg/quest-background-border.svg';
-import upIcon from 'assets/svg/up.svg';
+import chevronIcon from 'assets/svg/chevron-red.svg';
 import downIcon from 'assets/svg/down.svg';
+import gemIcon from 'assets/svg/gem.svg';
+import healthIcon from 'assets/svg/health.svg';
+import informationIconRed from 'assets/svg/information-red.svg';
+import questBackground from 'assets/svg/quest-background-border.svg';
+import rageIcon from 'assets/svg/rage.svg';
+import swordIcon from 'assets/svg/sword.svg';
+import upIcon from 'assets/svg/up.svg';
 
 import tier1 from 'assets/svg/tier-1.svg';
 import tier2 from 'assets/svg/tier-2.svg';
@@ -365,16 +547,29 @@ import tierMod from 'assets/svg/tier-mod.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 import tierStaff from 'assets/svg/tier-staff.svg';
 
+import quests from 'common/script/content/quests';
+
 export default {
   components: {
     chatMessage,
     autocomplete,
     communityGuidelines,
+    worldBossInfoModal,
+    worldBossRageModal,
   },
   data () {
     return {
       groupId: TAVERN_ID,
       icons: Object.freeze({
+        challengeIcon,
+        chevronIcon,
+        downIcon,
+        gem: gemIcon,
+        healthIcon,
+        informationIcon: informationIconRed,
+        questBackground,
+        rageIcon,
+        swordIcon,
         tier1,
         tier2,
         tier3,
@@ -385,13 +580,7 @@ export default {
         tierMod,
         tierNPC,
         tierStaff,
-        gem: gemIcon,
-        questIcon,
-        challengeIcon,
-        information: informationIcon,
-        questBackground,
         upIcon,
-        downIcon,
       }),
       group: {
         chat: [],
@@ -400,6 +589,7 @@ export default {
         staff: true,
         helpfulLinks: true,
         playerTiers: true,
+        worldBoss: true,
       },
       staff: [
         {
@@ -488,6 +678,10 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    questData () {
+      if (!this.group.quest) return {};
+      return quests.quests[this.group.quest.key];
+    },
   },
   async mounted () {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
@@ -546,6 +740,28 @@ export default {
     },
     reverseChat () {
       this.group.chat.reverse();
+    },
+    pendingDamage () {
+      if (!this.user.party.quest.progress.up) return 0;
+      return parseFloat(this.user.party.quest.progress.up).toFixed(1);
+    },
+    bossCurrentHealth () {
+      if (!this.group.quest.progress.hp) return 0;
+
+      return Math.ceil(parseFloat(this.group.quest.progress.hp)).toLocaleString();
+    },
+    bossCurrentRage () {
+      if (!this.group.quest.progress.hp) return 0;
+
+      return Math.floor(parseFloat(this.group.quest.progress.rage)).toLocaleString();
+    },
+    showWorldBossInfo () {
+      this.$root.$emit('bv::show::modal', 'world-boss-info');
+    },
+    showWorldBossRage (npc) {
+      if (this.group.quest.extra.worldDmg[npc]) {
+        this.$root.$emit('bv::show::modal', 'world-boss-rage');
+      }
     },
   },
 };

@@ -141,11 +141,11 @@ describe('POST /tasks/:id/score/:direction', () => {
     it('doesn\'t let a todo be completed twice', async () => {
       await user.post(`/tasks/${todo._id}/score/up`);
       await expect(user.post(`/tasks/${todo._id}/score/up`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('sessionOutdated'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('sessionOutdated'),
+        });
     });
 
     it('doesn\'t let a todo be uncompleted twice', async () => {
@@ -380,11 +380,11 @@ describe('POST /tasks/:id/score/:direction', () => {
       await expect(user.post(`/tasks/${habit._id}/score/up`, {
         scoreNotes: scoreNotesString,
       }))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskScoreNotesTooLong'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('taskScoreNotesTooLong'),
+        });
     });
   });
 

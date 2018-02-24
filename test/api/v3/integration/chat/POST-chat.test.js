@@ -119,21 +119,21 @@ describe('POST /chat', () => {
     it('errors when word is part of a phrase', async () => {
       let wordInPhrase = `phrase ${testBannedWordMessage} end`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('errors when word is surrounded by non alphabet characters', async () => {
       let wordInPhrase = `_!${testBannedWordMessage}@_`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('checks error message has the banned words used', async () => {

@@ -1011,16 +1011,16 @@ let tavernQ = {_id: TAVERN_ID, 'quest.key': {$ne: null}};
 // we use process.nextTick because at this point the model is not yet available
 process.nextTick(() => {
   model // eslint-disable-line no-use-before-define
-  .findOne(tavernQ).exec()
-  .then(tavern => {
-    if (!tavern) return; // No tavern quest
+    .findOne(tavernQ).exec()
+    .then(tavern => {
+      if (!tavern) return; // No tavern quest
 
-    // Using _assign so we don't lose the reference to the exported tavernQuest
-    _.assign(tavernQuest, tavern.quest.toObject());
-  })
-  .catch(err => {
-    throw err;
-  });
+      // Using _assign so we don't lose the reference to the exported tavernQuest
+      _.assign(tavernQuest, tavern.quest.toObject());
+    })
+    .catch(err => {
+      throw err;
+    });
 });
 
 // returns a promise
@@ -1052,9 +1052,17 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       if (!tavern.quest.extra.worldDmg) tavern.quest.extra.worldDmg = {};
 
       let wd = tavern.quest.extra.worldDmg;
-      // Burnout attacks Ian, Seasonal Sorceress, tavern
-      // Be-Wilder attacks Alex, Matt, Bailey
-      let scene = wd.market ? wd.stables ? wd.bailey ? false : 'bailey' : 'stables' : 'market'; // eslint-disable-line no-nested-ternary
+      // Dysheartener attacks Seasonal Sorceress, Alex, Ian
+      let scene;
+      if (wd.quests) {
+        scene = false;
+      } else if (wd.market) {
+        scene = 'quests';
+      } else if (wd.seasonalShop) {
+        scene = 'market';
+      } else {
+        scene = 'seasonalShop';
+      }
 
       if (!scene) {
         tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
