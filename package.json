@@ -3,6 +3,11 @@
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
   "version": "4.28.0",
   "main": "./website/server/index.js",
+  "greenkeeper": {
+    "ignore": [
+      "mongoose"
+    ]
+  },
   "dependencies": {
     "@slack/client": "^3.8.1",
     "accepts": "^1.3.2",

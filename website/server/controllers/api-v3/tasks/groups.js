@@ -85,7 +85,7 @@ api.getGroupTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
