@@ -343,7 +343,6 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-
       let filteredTaskList = this.isUser ?
         this.getFilteredTaskList({
           type: this.type,

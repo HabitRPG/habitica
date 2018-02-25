@@ -2,18 +2,41 @@
 // [Vue warn]: You are using the runtime-only build of Vue where the template option is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
 // import Vue from 'vue/dist/vue';
 
-import { shallow } from '@vue/test-utils';
+import { shallow, createLocalVue } from '@vue/test-utils';
 
 import TaskColumn from 'client/components/tasks/column.vue';
 
 import Store from 'client/libs/store';
+import { flattenAndNamespace } from 'client/libs/store/helpers/internals';
 
 // eslint-disable no-exclusive-tests
 
-describe.only('Task Column', () => {
+const localVue = createLocalVue();
+localVue.use(Store);
+
+describe('Task Column', () => {
   let wrapper, type;
+  let store, getters, state;
+  let habits, taskListOverride, tasks;
 
   beforeEach(() => {
+    getters = flattenAndNamespace({
+      tasks: {
+        // (...) => { ... } will return a value
+        // (...) => (...) => { ... } stucture used because getters must return functions
+        getFilteredTaskList: (a, b) => (c, d) => habits,
+        getUnfilteredTaskList: (a) => (b) => habits,
+      },
+    });
+
+    state = {
+      tasks: {
+        habits,
+      },
+    };
+
+    store = new Store({state, getters});
+
     type = 'habit';
     wrapper = shallow(TaskColumn, {
       propsData: {
@@ -22,6 +45,9 @@ describe.only('Task Column', () => {
       mocks: {
         $t () {}, // vue-test-utils throws error if this is not mocked for i18n,
       },
+      stubs: ['b-modal'], // <b-modal> is a custom component and not tested here
+      store,
+      localVue,
     });
   });
 
@@ -45,8 +71,7 @@ describe.only('Task Column', () => {
     });
   });
 
-  describe.only('Computed Properties', () => {
-    let habits, taskListOverride, store, getters, state;
+  describe('Computed Properties', () => {
     beforeEach(() => {
       type = 'habit';
       habits = [
@@ -57,54 +82,32 @@ describe.only('Task Column', () => {
         { id: 3 },
         { id: 4 },
       ];
-      getters = {
-        'tasks:getFilteredTaskList': (type, filter) => habits,
-      };
-      store = new Store({state, getters});
     });
 
     it('returns task list from props for group-plan', () => {
-      wrapper = shallow(TaskColumn, {
-        propsData: {
-          type,
-          taskListOverride,
-        },
-        mocks: {
-          $t () {}, // vue-test-utils throws error if this is not mocked for i18n,
-        },
-        store,
+      wrapper.setProps({ taskListOverride });
+
+      wrapper.vm.taskList.forEach((el, i) => {
+        expect(el).to.eq(taskListOverride[i]);
       });
+      
+      wrapper.setProps({ isUser: false, taskListOverride });
 
       wrapper.vm.taskList.forEach((el, i) => {
         expect(el).to.eq(taskListOverride[i]);
       });
     });
 
-    // it('returns task list from store for user', () => {
-    //   wrapper = shallow(TaskColumn, {
-    //     propsData: {
-    //       type,
-    //       taskListOverride,
-    //       isUser: true,
-    //     },
-    //     mocks: {
-    //       $t () {}, // vue-test-utils throws error if this is not mocked for i18n,
-    //     },
-    //     store,
-    //   });
+    it('returns task list from store for user', () => {
+      wrapper.setProps({ isUser: true, taskListOverride });
 
-    //   wrapper.vm.taskList.forEach((el, i) => {
-    //     expect(el).to.eq(habits[i]);
-    //   });
-    //   // eslint-disable-next-line no-console
-    //   console.log(store);
-    //   // eslint-disable-next-line no-console
-    //   console.log(store._vm.$options.computed);
-    // });
+      wrapper.vm.taskList.forEach((el, i) => {
+        expect(el).to.eq(habits[i]);
+      });
+    });
   });
 
   describe('Task List', () => {
-    let tasks;
     describe('Filter By Tags', () => {
       beforeEach(() => {
         tasks = [
