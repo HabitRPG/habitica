@@ -13,21 +13,22 @@ describe('Task Column', () => {
   let wrapper;
   let store, getters;
   let habits, taskListOverride, tasks;
-  
-  function makeWrapper (setup = {}) {
+
+  function makeWrapper (additionalSetup = {}) {
     let type = 'habit';
     let mocks = {
       $t () {},
     };
     let stubs = ['b-modal'];  // <b-modal> is a custom component and not tested here
+
     return shallow(TaskColumn, {
-       propsData: {
+      propsData: {
         type,
       },
       mocks,
       stubs,
       localVue,
-      ...setup,
+      ...additionalSetup,
     });
   }
 
@@ -86,7 +87,7 @@ describe('Task Column', () => {
       wrapper.vm.taskList.forEach((el, i) => {
         expect(el).to.eq(taskListOverride[i]);
       });
-      
+
       wrapper.setProps({ isUser: false, taskListOverride });
 
       wrapper.vm.taskList.forEach((el, i) => {
