@@ -507,6 +507,8 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
+// info: An object containing relevant information about a system message,
+// so it can be translated to any language.
 export function chatDefaults (msg, user, info = {}) {
   let message = {
     id: shared.uuid(),
