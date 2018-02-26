@@ -51,6 +51,9 @@
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
               span.cost(:class="getPriceClass()") {{ item.value }}
+          div(v-else)
+            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+            span.cost(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}

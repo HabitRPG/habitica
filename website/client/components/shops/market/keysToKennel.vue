@@ -88,7 +88,9 @@ export default {
           try {
             this.$store.dispatch('shops:releasePets', {user: this.user});
             this.text(this.$t('releasePetsSuccess'));
-            this.$router.push({name: 'stable'});
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
@@ -109,7 +111,9 @@ export default {
           try {
             this.$store.dispatch('shops:releaseMounts', {user: this.user});
             this.text(this.$t('releaseMountsSuccess'));
-            this.$router.push({name: 'stable'});
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
@@ -130,7 +134,9 @@ export default {
           try {
             this.$store.dispatch('shops:releaseBoth', {user: this.user});
             this.text(this.$t('releaseBothSuccess'));
-            this.$router.push({name: 'stable'});
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
@@ -141,7 +147,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     userHasAllPets () {
-      return count.beastMasterProgress(this.user.items.pets) === 90;
+      return count.beastCount(this.user.items.pets) === 90;
     },
     userHasAllMounts () {
       return count.mountMasterProgress(this.user.items.mounts) === 90;
