@@ -21,7 +21,7 @@ export function fetch (store, options = {}) { // eslint-disable-line no-shadow
 export async function set (store, changes) {
   const user = store.state.user.data;
 
-  for (let key in changes) { // eslint-disable-line no-await-in-loop
+  for (let key in changes) {
     if (key === 'tags') {
       // Keep challenge and group tags
       const oldTags = user.tags.filter(t => {
@@ -31,7 +31,7 @@ export async function set (store, changes) {
       user.tags = changes[key].concat(oldTags);
 
       // Remove deleted tags from tasks
-      const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data;
+      const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data; // eslint-disable-line no-await-in-loop
 
       Object.keys(userTasksByType).forEach(taskType => {
         userTasksByType[taskType].forEach(task => {

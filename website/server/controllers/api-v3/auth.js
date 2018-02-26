@@ -247,7 +247,7 @@ api.loginLocal = {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (validator.isEmail(username)) {
+    if (validator.isEmail(String(username))) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
     } else {
       login = {'auth.local.username': username};
@@ -410,7 +410,7 @@ api.pusherAuth = {
     }
 
     resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(resourceId)) {
+    if (!validator.isUUID(String(resourceId))) {
       throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
     }
 

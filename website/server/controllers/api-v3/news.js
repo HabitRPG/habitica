@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WORLD BOSS: THE DYSHEARTENER IS UNLEASHED';
+const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,23 +32,21 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/14/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>Oh no, a World Boss is attacking Habitica! Head to the Tavern to see it now. If you're on mobile, make sure that you have the latest versions downloaded to get the full experience!</p>
-        <div class="promo_dysheartener center-block"></div>
-        <p class="text-center">~*~</p>
-        <p>The sun is rising on Valentine's Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City's main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the oozing earth.</p>
-        <p>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome Dysheartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.</p>
-        <p>"Take heart, everyone!" Lemoness shouts. "It probably thinks that we're easy targets because so many of us have daunting New Year's Resolutions, but it's about to discover that Habiticans know how to stick to their goals!"</p>
-        <p>AnnDeLune raises her staff. "Let's tackle our tasks and take this monster down!"</p>
-        <p class="text-center">~*~</p>
-        <p>Complete Habits, Dailies and To-Dos to damage the World Boss! Incomplete Dailies fill the Rage Strike Bar. When the Rage Strike bar is full, the World Boss will attack one of Habitica's shopkeepers. A World Boss will never damage individual players or accounts in any way. Only active accounts who are not resting in the Inn will have their incomplete Dailies tallied.</p>
-        <p>*If you’d prefer not to see the World Boss due to a phobia, check out the <a href="http://habitica.wikia.com/wiki/Phobia_Protection_Extension" target="_blank">Phobia Protection Extension</a> (and set it to hide “Beetles”) :)</p>
-        <div class="small">by Lemoness, Beffymaroo, SabreCat, viirus, Apollo, and piyorii</div>
-        <div class="small">Art by AnnDeLune, Lemoness, and Beffymaroo</div>
-        <div class="small">Written by Lemoness</div>
-        <div class="small">Phobia Protection Extension by Alys</div>
-
+        <h3>February Subscriber Items Revealed!</h3>
+        <p>The February Subscriber Items have been revealed: The Love Bug Set!! It's a special three-piece set in honor of our ongoing battle with the Dysheartener. You only have until February 28 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="promo_mystery_201802 center-block"></div>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Behind the Scenes: Bringing a World Boss to Life</h3>
+            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/22/behind-the-scenes-bringing-a-world-boss-to-life/' target='_blank'>Behind the Scenes post</a> on the Habitica blog! Ever wonder what goes into bringing a World Boss to Habitica? Check out this post for a behind the scenes glimpse of how the team makes these events happen. It's all fun and no spoilers (we promise)!</p>
+            <div class="small mb-3">by Beffymaroo</div>
+          </div>
+          <div class="promo_seasonalshop_broken ml-3"></div>
+        </div>
       </div>
       `,
     });

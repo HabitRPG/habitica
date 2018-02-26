@@ -38,8 +38,10 @@
           .corner-decoration(:style="{top: '-2px', left: '-2px'}")
           .corner-decoration(:style="{bottom: '-2px', right: '-2px'}")
           .corner-decoration(:style="{bottom: '-2px', left: '-2px'}")
-          .text-center.float-bar
-            strong.reduce.boss-event(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
+          .text-center.float-bar.d-flex.align-items-center
+            span.diamond
+            span.strong.reduce(:style="{background: questData.colors.dark}") {{ $t('worldBossEvent') }}
+            span.diamond
           .boss-gradient.pb-3.pt-3
             p.text-center.reduce(:style="{color: questData.colors.extralight}") {{ $t(`${questData.key}ArtCredit`) }}
             .quest-boss(:class="'background_' + questData.key")
@@ -67,18 +69,19 @@
               .svg-icon.boss-icon(v-html="icons.rageIcon")
               span.reduce.ml-1.pt-1 {{ $t('bossRage', {currentRage: bossCurrentRage(), maxRage: questData.boss.rage.value.toLocaleString()}) }}
             .row.d-flex.align-items-center.mb-2.mt-2
-              .col-sm-5.d-flex
-                strong {{ $t('rageStrikes') }}
-                .svg-icon.boss-icon.information-icon.ml-2(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
-              .col-sm-2.text-center(@click="showWorldBossRage('seasonalShop')")
-                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
-                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
-              .col-sm-2.text-center
-                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
-                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
-              .col-sm-2.text-center
-                img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
-                img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
+              .col-sm-4.d-flex
+                strong.mr-2 {{ $t('rageStrikes') }}
+                .svg-icon.boss-icon.information-icon.m-auto(v-html="icons.informationIcon", v-b-tooltip.hover.top="questData.boss.rage.description()")
+              .col-sm-8.d-flex.align-items-center.justify-content-center
+                .m-auto(@click="showWorldBossRage('seasonalShop')")
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
+                .m-auto
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
+                .m-auto
+                  img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
+                  img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
               strong.float-left {{ $t('worldBossDescription') }}
               .float-right
@@ -452,12 +455,12 @@
 
   .float-bar {
     position: relative;
-    top: -.75em;
-  }
-
-  .boss-event {
-    padding: .5em 3em .5em 3em;
+    top: -16px;
+    width: 162px;
+    height: 28px;
     border-radius: 2px;
+    background-color: inherit;
+    margin: auto;
   }
 
   .corner-decoration {
@@ -473,6 +476,17 @@
     transform: rotate(180deg);
   }
 
+  .diamond {
+    margin: auto;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    background-color: #dc4069;
+    border: solid 2px #931f4d;
+  }
+
   .reduce {
     font-size: 12px;
   }
@@ -485,6 +499,7 @@
   .rage-strike-active {
     max-width: 75px;
     height: auto;
+    cursor: pointer;
   }
 
   .world-boss-info-button {
@@ -494,6 +509,7 @@
     font-size: 14px;
     color: $blue-10;
     padding: 1em;
+    cursor: pointer;
   }
 
 </style>

@@ -144,7 +144,12 @@ api.exportUserDataXml = {
       'Content-Type': 'text/xml',
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
-    res.status(200).send(js2xml('user', userData));
+    res.status(200).send(js2xml.parse('user', userData, {
+      cdataInvalidChars: true,
+      declaration: {
+        include: false,
+      },
+    }));
   },
 };
 

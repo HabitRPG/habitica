@@ -64,6 +64,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
     "classEquipBonus": "תוסף מקצוע",
     "battleGear": "ציוד לחימה",
+    "gear": "Gear",
     "battleGearText": "זהו הציוד שאתה נושא עמך אל הקרב! הציוד משפיע על ערכי התכונות שלך כשאתה מבצע משימות.",
     "autoEquipBattleGear": "הצטייד בציוד חדש אוטומטית",
     "costume": "תחפושת",
