@@ -216,6 +216,9 @@ describe('Amazon Payments - Subscribe', () => {
   });
 
   it('subscribes with amazon', async () => {
+    user.guilds.push(groupId);
+    await user.save();
+
     await amzLib.subscribe({
       billingAgreementId,
       sub,
@@ -241,8 +244,13 @@ describe('Amazon Payments - Subscribe', () => {
     user = new User();
     user.guilds.push(groupId);
     await user.save();
-    group.memberCount = 2;
-    await group.save();
+
+    // Add existing users
+    user = new User();
+    user.guilds.push(groupId);
+    await user.save();
+
+    // Set expected amount
     sub.key = 'group_monthly';
     sub.price = 9;
     amount = 12;
