@@ -3,9 +3,9 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
   div(slot="dropdown-toggle")
     div(v-b-tooltip.hover.bottom="$t('notifications')")
       message-count(
-        v-if='notificationsCount > 0', 
-        :count="notificationsCount", 
-        :top="true", 
+        v-if='notificationsCount > 0',
+        :count="notificationsCount",
+        :top="true",
         :gray="!hasUnseenNotifications",
       )
       .top-menu-icon.svg-icon.notifications(v-html="icons.notifications")
@@ -15,6 +15,7 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
     )
       h4.dropdown-title(v-once) {{ $t('notifications') }}
       a.small-link.standard-link(@click="dismissAll", :disabled="notificationsCount === 0") {{ $t('dismissAll') }}
+    world-boss
     component(
       :is="notification.type",
       :key="notification.id",
@@ -28,46 +29,45 @@ menu-dropdown.item-notifications(:right="true", @toggled="handleOpenStatusChange
       .svg-icon(v-html="icons.success")
       h2 You're all caught up!
       p The notification fairies give you a raucous round of applause! Well done!
-
 </template>
 
 <style lang='scss' scoped>
-@import '~client/assets/scss/colors.scss';
+  @import '~client/assets/scss/colors.scss';
 
-.dropdown-item {
-  padding: 16px 24px;
-  width: 378px;
-}
-
-.dropdown-title {
-  margin-bottom: 0px;
-  margin-right: 8px;
-  line-height: 1.5;
-}
-
-.no-notifications {
-  h2, p {
-    text-align: center;
-    color: $gray-200 !important;
+  .dropdown-item {
+    padding: 16px 24px;
+    width: 378px;
   }
 
-  h2 {
-    margin-top: 24px;
+  .dropdown-title {
+    margin-bottom: 0px;
+    margin-right: 8px;
+    line-height: 1.5;
   }
 
-  p {
-    white-space: normal;
-    margin-bottom: 43px;
-    margin-left: 24px;
-    margin-right: 24px;
-  }
+  .no-notifications {
+    h2, p {
+      text-align: center;
+      color: $gray-200 !important;
+    }
 
-  .svg-icon {
-    margin: 0 auto;
-    width: 256px;
-    height: 104px;
+    h2 {
+      margin-top: 24px;
+    }
+
+    p {
+      white-space: normal;
+      margin-bottom: 43px;
+      margin-left: 24px;
+      margin-right: 24px;
+    }
+
+    .svg-icon {
+      margin: 0 auto;
+      width: 256px;
+      height: 104px;
+    }
   }
-}
 </style>
 
 <script>
@@ -92,6 +92,7 @@ import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
 import CARD_RECEIVED from './notifications/cardReceived';
 import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
+import WORLD_BOSS from './notifications/worldBoss';
 
 export default {
   components: {
@@ -103,6 +104,7 @@ export default {
     QUEST_INVITATION, GROUP_TASK_APPROVAL, GROUP_TASK_APPROVED,
     UNALLOCATED_STATS_POINTS, NEW_MYSTERY_ITEMS, CARD_RECEIVED,
     NEW_INBOX_MESSAGE, NEW_CHAT_MESSAGE,
+    WorldBoss: WORLD_BOSS,
   },
   data () {
     return {

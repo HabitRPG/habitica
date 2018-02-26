@@ -432,10 +432,10 @@ export default {
       if (!lastMember) return;
 
       let newMembers = await this.$store.state.memberModalOptions.fetchMoreMembers({
-          challengeId: this.challengeId,
-          groupId: this.groupId,
-          lastMemberId: lastMember._id,
-          includeAllPublicFields: true,
+        challengeId: this.challengeId,
+        groupId: this.groupId,
+        lastMemberId: lastMember._id,
+        includeAllPublicFields: true,
       });
 
       this.members = this.members.concat(newMembers);

@@ -64,6 +64,7 @@
     "classBonusText": "Su clase (Guerrero, si no has desbloqueado o seleccionado otra clase) aprovecha mejor su propio equipamiento mejor que el equipamiento de las otras clases. El equipamiento que lleves puesto y corresponda a tu clase actual aumentará en un 50 % los puntos al atributo que aporte. ",
     "classEquipBonus": "Bonus de clase",
     "battleGear": "Equipo de batalla",
+    "gear": "Gear",
     "battleGearText": "Este es el equipo que llevarás en batalla; los puntos que otorguen se tendrán en cuenta cuando interactúes con tus tareas.",
     "autoEquipBattleGear": "Ponerse automáticamente las piezas de equipamiento nuevas",
     "costume": "Disfraz",

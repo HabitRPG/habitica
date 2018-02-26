@@ -13,11 +13,11 @@ function geti18nBrowserScript (language) {
   return `(function () {
     if (!window) return;
     window['habitica-i18n'] = ${JSON.stringify({
-      availableLanguages,
-      language,
-      strings: translations[langCode],
-      momentLang: momentLangs[language.momentLangCode],
-    })};
+    availableLanguages,
+    language,
+    strings: translations[langCode],
+    momentLang: momentLangs[language.momentLangCode],
+  })};
   })()`;
 }
 

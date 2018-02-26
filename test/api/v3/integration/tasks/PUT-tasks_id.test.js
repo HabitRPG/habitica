@@ -46,7 +46,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.userId).to.equal(task.userId);
       expect(savedTask.history).to.eql(task.history);
       expect(savedTask.createdAt).to.equal(task.createdAt);
-      expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
+      expect(new Date(savedTask.updatedAt)).to.be.greaterThan(new Date(task.updatedAt));
       expect(savedTask.challenge).to.eql(task.challenge);
       expect(savedTask.completed).to.eql(task.completed);
       expect(savedTask.streak).to.equal(savedTask.streak); // it's an habit, dailies can change it
@@ -54,7 +54,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('ignores invalid fields', async () => {
-      let savedTask = await  user.put(`/tasks/${task._id}`, {
+      let savedTask = await user.put(`/tasks/${task._id}`, {
         notValid: true,
       });
 
@@ -133,7 +133,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedChallengeUserTask.text).to.equal(challengeUserTask.text);
       expect(savedChallengeUserTask.history).to.eql(challengeUserTask.history);
       expect(savedChallengeUserTask.createdAt).to.equal(challengeUserTask.createdAt);
-      expect(savedChallengeUserTask.updatedAt).to.be.greaterThan(challengeUserTask.updatedAt);
+      expect(new Date(savedChallengeUserTask.updatedAt)).to.be.greaterThan(new Date(challengeUserTask.updatedAt));
       expect(savedChallengeUserTask.challenge).to.eql(challengeUserTask.challenge);
       expect(savedChallengeUserTask.completed).to.equal(challengeUserTask.completed);
       expect(savedChallengeUserTask.dateCompleted).to.equal(challengeUserTask.dateCompleted);
