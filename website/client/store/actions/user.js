@@ -119,7 +119,8 @@ export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
 }
 
-export function newStuffLater () {
+export function newStuffLater (store) {
+  store.state.user.data.flags.newStuff = false;
   return axios.post('/api/v3/news/tell-me-later');
 }
 

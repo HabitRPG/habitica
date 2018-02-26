@@ -50,7 +50,6 @@
     methods: {
       tellMeLater () {
         this.$store.dispatch('user:newStuffLater');
-        this.$store.dispatch('user:set', {'flags.newStuff': false});
         this.$root.$emit('bv::hide::modal', 'new-stuff');
       },
       dismissAlert () {
