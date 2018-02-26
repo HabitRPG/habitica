@@ -100,6 +100,8 @@ describe('PUT /tasks/:id', () => {
         },
       ],
     });
+
+    expect(task.checklist.length).to.eql(2);
   });
 
   it('updates the linked tasks', async () => {
