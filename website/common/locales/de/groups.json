@@ -357,7 +357,7 @@
     "memberCount": "Anzahl Mitglieder",
     "recentActivity": "Kürzliche Aktivitäten",
     "myGuilds": "Meine Gilden",
-    "guildsDiscovery": "Gilden Entdecken",
+    "guildsDiscovery": "Gilden entdecken",
     "guildOrPartyLeader": "Leiter",
     "guildLeader": "Gildenleiter",
     "member": "Mitglied",
@@ -377,7 +377,7 @@
     "guildGemCostInfo": "Eine Edelstein-Gebühr fördert die Qualität der Gilde und wird der Gildenbank gutgeschrieben.",
     "noGuildsTitle": "Du bist nicht Mitglied einer Gilde.",
     "noGuildsParagraph1": "Gilden sind von anderen Spielern erstellte soziale Gruppen, die Dir Unterstützung, Verantwortlichkeit und aufmunternde Unterhaltung bieten können.",
-    "noGuildsParagraph2": "Klicke auf den Gilden Entdecken Reiter, um basierend auf Deinen Interessen empfohlene Gilden zu sehen, stöbere durch Habitica's öffentliche Gilden, oder erstelle Deine eigene Gilde.",
+    "noGuildsParagraph2": "Klicke auf den \"Gilden entdecken\"-Reiter, um basierend auf Deinen Interessen empfohlene Gilden zu sehen, stöbere durch Habitica's öffentliche Gilden, oder erstelle Deine eigene Gilde.",
     "privateDescription": "Private Gilden werden nicht in Habiticas Gildenübersicht angezeigt. Neue Mitglieder können nur durch eine Einladung hinzugefügt werden.",
     "removeInvite": "Einladung entfernen",
     "removeMember": "Mitglied Entfernen",
@@ -424,5 +424,5 @@
     "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
     "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
     "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
-    "worldBoss": "World Boss"
+    "worldBoss": "Weltboss"
 }

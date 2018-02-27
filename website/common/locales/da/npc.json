@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" skal være en af 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "Skal købes <%= val %> for at putte det på <%= key %>.",
     "typeRequired": "Type er nødvendig",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Nøgle er nødvendig",
     "notAccteptedType": "Type skal være i [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Nøgle ikke fundet for Indhold <%= type %>",

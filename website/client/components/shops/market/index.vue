@@ -27,7 +27,8 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -312,8 +313,24 @@
           left: 80px;
         }
       }
-    }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/market_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/market_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/market_broken_npc.png');
+        background-repeat: no-repeat;
+      }
+    }
   }
 
   .market .gems-left {
@@ -443,7 +460,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({

@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" должен быть один из 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "Должны купить <%= val %>, чтобы поставить на <%= key %>.",
     "typeRequired": "Требуется тип.",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Требуется ключ.",
     "notAccteptedType": "Тип должен быть в [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Ключ не найден для Content <%= type %>",
