@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" חייב להיות אחת מהאפשרויות: 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "חייב לקנות <%= val %> כדי להגדיר את זה על <%= key %>.",
     "typeRequired": "Type הוא הכרחי",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Key הוא הכרחי",
     "notAccteptedType": "הסוג צריך להיות מתוך [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "מפתח לא נמצא עבור התוכן  <%= type %>",

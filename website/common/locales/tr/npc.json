@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" bunlardan biri olmalıdır: 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "<%= key %> üzerine uygulanması için <%= val %> satın alınmalı.",
     "typeRequired": "Tür gerekli",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Anahtar gerekli",
     "notAccteptedType": "[eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear] türü olmalı",
     "contentKeyNotFound": "İçerik <%= type %> için anahtar bulunamadı",

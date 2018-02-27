@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" として、'equipped'、'pet'、'mount'、'costume' のいずれか 1 つが必要です。",
     "mustPurchaseToSet": "<%= key %> にセットする <%= val %> を購入しなくてはなりません。",
     "typeRequired": "型が必要",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "キーが必要",
     "notAccteptedType": "種類は、[eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear] のいずれかです。",
     "contentKeyNotFound": "<%= type %> の中には、キーが見つかりません",

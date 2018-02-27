@@ -227,6 +227,11 @@ describe('checkout with subscription', () => {
     sub = data.sub;
     groupId = group._id;
     email = 'test@test.com';
+
+    // Add user to group
+    user.guilds.push(groupId);
+    await user.save();
+
     headers = {};
 
     await stripePayments.checkout({
@@ -267,9 +272,15 @@ describe('checkout with subscription', () => {
     groupId = group._id;
     email = 'test@test.com';
     headers = {};
+
+    // Add user to group
+    user.guilds.push(groupId);
+    await user.save();
+
     user = new User();
     user.guilds.push(groupId);
     await user.save();
+
     group.memberCount = 2;
     await group.save();
 

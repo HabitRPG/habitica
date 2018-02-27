@@ -64,7 +64,7 @@
     "classBonusText": "A kasztod (harcos, ha még nem oldottál fel, vagy választottál ki másik kasztot) a saját kasztjához tartozó felszereléseket hatékonyabban használja, mint más kasztokhot tartozó felszereléseket. Ha a jelenlegi kasztodnak megfelelő felszerelést használsz, akkor az általa biztosított tulajdonság bónuszok 50%-kal nőnek.",
     "classEquipBonus": "Kaszt bónusz",
     "battleGear": "Harci felszerelés",
-    "gear": "Gear",
+    "gear": "Felszerelés",
     "battleGearText": "Ez az a felszerelés, amit a csatákban viselsz; hatással van az értékekre, amikor a feladataidat teljesíted.",
     "autoEquipBattleGear": "Új felszerelés automatikus hordása",
     "costume": "Jelmez",

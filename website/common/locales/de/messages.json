@@ -9,7 +9,7 @@
     "messageCannotFeedPet": "Dieses Haustier will und kann nicht gefüttert werden.",
     "messageAlreadyMount": "Du hast dieses Reittier bereits. Füttere lieber ein anderes Haustier.",
     "messageEvolve": "<%= egg %> wurde gezähmt. Es ist an der Zeit aufzusitzen!",
-    "messageLikesFood": "<%= egg %> freut sich wirklich über <%= foodText %>!",
+    "messageLikesFood": "<%= egg %> freut sich sehr über <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> isst zwar <%= foodText %>, scheint aber nicht gerade begeistert davon zu sein.",
     "messageBought": "<%= itemText %> gekauft",
     "messageEquipped": "<%= itemText %> angelegt.",
