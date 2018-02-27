@@ -13,8 +13,8 @@
           :key="group.key",
         )
           .custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="group.key")
-            label.custom-control-label(v-once, :for="group.key") {{ group.label }}
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="groupBy + group.key")
+            label.custom-control-label(v-once, :for="groupBy + group.key") {{ group.label }}
 
   .standard-page
     .clearfix
