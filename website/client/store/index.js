@@ -122,6 +122,9 @@ export default function () {
       gemModalOptions: {
         startingPage: '',
       },
+      rageModalOptions: {
+        npc: '',
+      },
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
