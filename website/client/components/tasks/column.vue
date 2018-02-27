@@ -52,6 +52,7 @@
       .reward-items
         shopItem(
           v-for="reward in inAppRewards",
+          v-if="!reward.owned",
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
