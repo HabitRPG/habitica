@@ -15,6 +15,7 @@ import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
+import Queue from '../../libs/queue';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
@@ -430,6 +431,8 @@ api.deleteUser = {
         {name: 'FEEDBACK', content: feedback},
       ]);
     }
+
+    if (feedback) Queue.sendMessage({feedback, username: user.profile.name}, user._id);
 
     res.analytics.track('account delete', {
       uuid: user._id,
