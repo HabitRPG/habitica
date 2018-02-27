@@ -181,7 +181,6 @@ export function sellItems (store, params) {
 
 export function releasePets (store, params) {
   releasePetsOp(params.user);
-  console.log(params.user);
   axios.post('/api/v3/user/release-pets');
 }
 
