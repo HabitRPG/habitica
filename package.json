@@ -71,6 +71,7 @@
     "morgan": "^1.7.0",
     "nconf": "^0.10.0",
     "node-gcm": "^0.14.4",
+    "node-rdkafka": "^2.2.3",
     "node-sass": "^4.5.0",
     "nodemailer": "^4.5.0",
     "ora": "^2.0.0",
