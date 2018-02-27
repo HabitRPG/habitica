@@ -253,8 +253,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 
   // Manage unallocated stats points notifications
-  if (this.isSelected('stats') && this.isSelected('notifications')) {
+  if (this.isSelected('stats') && this.isSelected('notifications') && this.isSelected('flags') && this.isSelected('preferences')) {
     const pointsToAllocate = this.stats.points;
+    const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
     // Sometimes there can be more than 1 notification
     const existingNotifications = this.notifications.filter(notification => {
@@ -271,7 +272,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
-    if (pointsToAllocate > 0 && outdatedNotification) {
+    if (pointsToAllocate > 0 && !classNotEnabled && outdatedNotification) {
       this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
     }
 
