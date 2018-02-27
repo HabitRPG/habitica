@@ -64,7 +64,7 @@
     "classBonusText": "Votre classe (Guerrier, si vous n'avez pas débloqué ou sélectionné d'autre classe) utilise mieux son équipement spécifique que celui d'autres classes. Le bonus d'attribut conféré par l'équipement spécifique à votre classe actuelle est augmenté de 50%.",
     "classEquipBonus": "Bonus de classe",
     "battleGear": "Tenue de combat",
-    "gear": "Gear",
+    "gear": "Équipement",
     "battleGearText": "Voici l'équipement que vous portez au combat ; il affecte les chiffres obtenus lorsque vous interagissez avec vos tâches.",
     "autoEquipBattleGear": "Équiper automatiquement le nouvel équipement",
     "costume": "Costume",

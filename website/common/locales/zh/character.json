@@ -64,7 +64,7 @@
     "classBonusText": "使用与职业相符道具时可以发挥比其他职业的道具更显著的效果。（如果您还未解锁职业，也没有选择其他职业，则您的默认职业是战士。）使用符合您当前职业的装备可令属性点获得50%加成。",
     "classEquipBonus": "职业奖励",
     "battleGear": "战斗装备",
-    "gear": "Gear",
+    "gear": "装备",
     "battleGearText": "这是你在战斗中的装备；这会影响您在任务重的各项数值",
     "autoEquipBattleGear": "自动配备新装备",
     "costume": "服装",

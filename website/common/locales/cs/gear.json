@@ -210,7 +210,7 @@
     "weaponSpecialFall2016MageNotes": "Této koule se na svoji budoucnost raději neptej... Zvyšuje Inteligenci o <%= int %> a Vnímání o <%= per %>. Limitovaná edice 2016 Podzimní výbavy.",
     "weaponSpecialFall2016HealerText": "Venomous Serpent",
     "weaponSpecialFall2016HealerNotes": "One bite harms, and another bite heals. Increases Intelligence by <%= int %>. Limited Edition 2016 Autumn Gear.",
-    "weaponSpecialWinter2017RogueText": "Ice Axe",
+    "weaponSpecialWinter2017RogueText": "Ledová Sekera",
     "weaponSpecialWinter2017RogueNotes": "This axe is great for attack, defense, and ice-climbing! Increases Strength by <%= str %>. Limited Edition 2016-2017 Winter Gear.",
     "weaponSpecialWinter2017WarriorText": "Stick of Might",
     "weaponSpecialWinter2017WarriorNotes": "Conquer your goals by whacking them with this mighty stick! Increases Strength by <%= str %>. Limited Edition 2016-2017 Winter Gear.",

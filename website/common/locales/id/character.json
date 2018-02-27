@@ -64,7 +64,7 @@
     "classBonusText": "Pekerjaanmu (Warrior, jika kamu belum membuka atau memilih pekerjaan lain) akan lebih efektif jika menggunakan perlengkapan pekerjaannya, dibanding menggunakan perlengkapan pekerjaan lain. Perlengkapan yang digunakan sesuai pekerjaanmu mendapat tambahan atribut sebesar 50%.",
     "classEquipBonus": "Bonus Pekerjaan",
     "battleGear": "Perlengkapan Perang",
-    "gear": "Gear",
+    "gear": "Perlengkapan",
     "battleGearText": "Ini adalah perlengkapan yang kamu kenakan di dalam pertarungan; ia memengaruhi nilai ketika berinteraksi dengan tugas-tugasmu.",
     "autoEquipBattleGear": "Gunakan perlengkapan baru secara otomatis",
     "costume": "Kostum",

@@ -219,11 +219,11 @@
     "inviteMissingUuid": "В приглашении отсутствует ID пользователя",
     "inviteMustNotBeEmpty": "В приглашении нет текста",
     "partyMustbePrivate": "Команды должны быть приватными",
-    "userAlreadyInGroup": "UserID: <%= userId %>, User \"<%= username %>\" already in that group.",
+    "userAlreadyInGroup": "ID: <%= userId %>, пользователь \"<%= username %>\" уже в этой группе.",
     "cannotInviteSelfToGroup": "Вы не можете приглосить себя в группу.",
-    "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" already invited to that group.",
-    "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" already pending invitation.",
-    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\"  already in a party.",
+    "userAlreadyInvitedToGroup": "ID: <%= userId %>, пользователь \"<%= username %>\" уже приглашен в эту группу.",
+    "userAlreadyPendingInvitation": "ID: <%= userId %>, пользователь \"<%= username %>\" уже получил приглашение.",
+    "userAlreadyInAParty": "ID: <%= userId %>, пользователь \"<%= username %>\" уже в команде.  ",
     "userWithIDNotFound": "Пользователь с ID \"<%= userId %>\" не найден.",
     "userHasNoLocalRegistration": "Пользователь не имеет местной регистрации (имя пользователя, электронная почта, пароль)",
     "uuidsMustBeAnArray": "Приглашения User ID должны быть массивом.",
@@ -416,7 +416,7 @@
     "managerAdded": "Менеджер успешно добавлен",
     "managerRemoved": "Менеджер успешно удалён",
     "leaderChanged": "Лидер был сменен",
-    "groupNoNotifications": "This Guild does not have notifications due to member size. Be sure to check back often for replies to your messages!",
+    "groupNoNotifications": "От этой Гильдии не будет уведомлений из-за большого числа участников! Проверяйте ответы на ваши сообщения вручную",
     "whatIsWorldBoss": "Кто такой Мировой Босс?",
     "worldBossDesc": "Мировой босс — особое событие, во время которого сообщество Habitica объединяет усилия, чтобы своими заданиями победить сильнейшего монстра! После победы над мировым боссом все пользователи Habitica получают награду, даже те, кто отдыхал в Таверне или не использовал Habitica во время этого квеста.",
     "worldBossLink": "Узнайте больше о предыдущих мировых боссах в википедии Habitica.",
@@ -424,5 +424,5 @@
     "worldBossBullet2": "Мировой босс не ударит вас за пропущенные задания, но уровень его ярости поднимется. Когда шкала ярости заполнится, босс атакует одного из владельцев магазинов страны Habitica!",
     "worldBossBullet3": "Можно одновременно сражаться с обычным квестовым боссом, вы нанесёте урон обоим.",
     "worldBossBullet4": "Регулярно заходите в Таверну, чтобы увидеть уровни здоровья и ярости мирового босса.",
-    "worldBoss": "World Boss"
+    "worldBoss": "Мировой злыдень"
 }
