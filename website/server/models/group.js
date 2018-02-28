@@ -507,6 +507,16 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
+schema.methods.getMemberCount = async function getMemberCount () {
+  let query = { guilds: this._id };
+
+  if (this.type === 'party') {
+    query = { 'party._id': this._id };
+  }
+
+  return await User.count(query).exec();
+};
+
 // info: An object containing relevant information about a system message,
 // so it can be translated to any language.
 export function chatDefaults (msg, user, info = {}) {

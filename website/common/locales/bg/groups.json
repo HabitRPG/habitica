@@ -219,11 +219,11 @@
     "inviteMissingUuid": "В поканата липсва потребителски идентификатор",
     "inviteMustNotBeEmpty": "Поканата не трябва да бъде празна.",
     "partyMustbePrivate": "Групите трябва да бъдат частни",
-    "userAlreadyInGroup": "UserID: <%= userId %>, User \"<%= username %>\" already in that group.",
+    "userAlreadyInGroup": "Потребителят „<%= username %>“ (идентификатор: <%= userId %>) вече членува в тази група.",
     "cannotInviteSelfToGroup": "Не можете да поканите себе си в група.",
-    "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" already invited to that group.",
-    "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" already pending invitation.",
-    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\"  already in a party.",
+    "userAlreadyInvitedToGroup": "Потребителят „<%= username %>“ (идентификатор: <%= userId %>) вече е поканен в тази група.",
+    "userAlreadyPendingInvitation": "Потребителят „<%= username %>“ (идентификатор: <%= userId %>) вече има чакаща покана.",
+    "userAlreadyInAParty": "Потребителят „<%= username %>“ (идентификатор: <%= userId %>) вече членува в група.",
     "userWithIDNotFound": "Не е намерен потребител с идентификатора „<%= userId %>“.",
     "userHasNoLocalRegistration": "Потребителят няма местна регистрация (потребителско име, е-поща, парола).",
     "uuidsMustBeAnArray": "Поканите чрез потребителски идентификатор трябва да бъдат масив.",
@@ -416,7 +416,7 @@
     "managerAdded": "Управителят е добавен успешно",
     "managerRemoved": "Управителят е премахнат успешно.",
     "leaderChanged": "Водачът беше сменен",
-    "groupNoNotifications": "This Guild does not have notifications due to member size. Be sure to check back often for replies to your messages!",
+    "groupNoNotifications": "Тази гилдия няма известия, поради броя на членовете си. Ще трябва да проверявате често за отговори на съобщенията си!",
     "whatIsWorldBoss": "Какво е световен главатар?",
     "worldBossDesc": "Световният главатар е специално събитие, при което цялата общност на Хабитика работи заедно, за да победи могъщо чудовище, използвайки задачите си! След побеждаването му всички потребители на Хабитика получават награда, дори и онези, които са почивали в странноприемницата, или които изобщо не са използвали Хабитика по време на мисията.",
     "worldBossLink": "Прочетете повече относно предишните световни главатари на Хабитика в Уикито.",
@@ -424,5 +424,5 @@
     "worldBossBullet2": "Главатарят няма да Ви нанесе щети за пропуснатите задачи, но яростомерът му ще се запълни. Ако лентата се запълни, главатарят ще нападне някой от продавачите на Хабитика!",
     "worldBossBullet3": "Можете да продължите с нормалните главатари от мисиите си, като щетите ще се прилагат и на двамата главатари.",
     "worldBossBullet4": "Проверявайте в кръчмата, за да видите напредъка за световния главатар и яростните удари.",
-    "worldBoss": "World Boss"
+    "worldBoss": "Световен главатар"
 }

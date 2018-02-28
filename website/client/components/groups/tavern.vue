@@ -76,7 +76,7 @@
                 .m-auto(@click="showWorldBossRage('seasonalShop')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
-                .m-auto
+                .m-auto(@click="showWorldBossRage('market')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
                 .m-auto
@@ -760,6 +760,7 @@ export default {
     },
     showWorldBossRage (npc) {
       if (this.group.quest.extra.worldDmg[npc]) {
+        this.$store.state.rageModalOptions.npc = npc;
         this.$root.$emit('bv::show::modal', 'world-boss-rage');
       }
     },
