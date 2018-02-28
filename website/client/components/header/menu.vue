@@ -55,6 +55,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
+            a.dropdown-item(:href="contactUrl", target='_blank') {{ $t('contactUs') }}
       .user-menu.d-flex.align-items-center
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
@@ -323,6 +324,9 @@ export default {
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
       groupPlans: 'groupPlans',
     }),
+    contactUrl () {
+      return `http://contact.habitica.com/?email=${this.user.auth.local.email}&profileName=${this.user.profile.name}&uuid=${this.user._id}`;
+    },
   },
   mounted () {
     this.getUserGroupPlans();

@@ -38,4 +38,25 @@
           | {{ $t('marketingInquiries') }}
           | &colon;&nbsp;
           a(href='mailto:leslie@habitica.com') leslie&commat;habitica&period;com
+          span(v-if='contactUrl')
+            br
+            | {{ $t('contactUs') }}
+            | &colon;&nbsp;
+            a(:href='contactUrl', target='_blank') {{ $t('contactForm') }}
 </template>
+
+<script>
+import { mapState } from 'client/libs/store';
+
+export default {
+  computed: {
+    ...mapState({
+      user: 'user.data',
+    }),
+    contactUrl () {
+      if (!this.user) return '';
+      return `http://contact.habitica.com/?email=${this.user.auth.local.email}&profileName=${this.user.profile.name}&uuid=${this.user._id}`;
+    },
+  },
+};
+</script>
