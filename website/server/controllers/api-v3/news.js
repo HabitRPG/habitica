@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
+const LAST_ANNOUNCEMENT_TITLE = 'SECOND DYSHEARTENER RAGE STRIKE! LAST CHANCE FOR LOVE BUG SET AND CUPID POTIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,21 +32,25 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>February Subscriber Items Revealed!</h3>
-        <p>The February Subscriber Items have been revealed: The Love Bug Set!! It's a special three-piece set in honor of our ongoing battle with the Dysheartener. You only have until February 28 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="promo_mystery_201802 center-block"></div>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
+        <h3>World Boss: Dysheartener Attacks the Market!</h3>
+        <p>Help! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.</p>
+        <p>We can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.</p>
+        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, viirus, piyorii, and Apollo</div>
+        <div class="media d-flex align-items-center">
           <div class="media-body">
-            <h3>Behind the Scenes: Bringing a World Boss to Life</h3>
-            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/22/behind-the-scenes-bringing-a-world-boss-to-life/' target='_blank'>Behind the Scenes post</a> on the Habitica blog! Ever wonder what goes into bringing a World Boss to Habitica? Check out this post for a behind the scenes glimpse of how the team makes these events happen. It's all fun and no spoilers (we promise)!</p>
+            <h3>Last Chance for Love Bug Set</h3>
+            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Love Bug Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
             <div class="small mb-3">by Beffymaroo</div>
+            <h3>Last Chance for Cupid Hatching Potions</h3>
+            <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Cupid Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
+            <div class="small mb-3">by Willow the Witty and SabreCat</div>
           </div>
-          <div class="promo_seasonalshop_broken ml-3"></div>
+          <div class="promo_cupid_potions ml-3"></div>
         </div>
+        <div class="promo_mystery_201802 center-block"></div>
       </div>
       `,
     });
