@@ -294,6 +294,7 @@
       .content {
         display: flex;
         flex-direction: column;
+        z-index: 1; // Always cover background. 
       }
 
       .npc {
