@@ -764,4 +764,52 @@ api.cloneChallenge = {
   },
 };
 
+async function flagChallenge (challenge, user, res) {
+  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
+
+  challenge.flags[user._id] = true;
+  challenge.markModified('flags');
+
+  if (user.contributor.admin) {
+    // Arbitrary amount, higher than 2
+    challenge.flagCount = 5;
+  } else {
+    challenge.flagCount++;
+  }
+
+  await challenge.save();
+}
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/flag Flag a challenge
+ * @apiName FlagChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.flagChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    await flagChallenge(challenge, user, res);
+
+    res.respond(200, {challenge});
+  },
+};
+
 module.exports = api;
