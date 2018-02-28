@@ -187,7 +187,7 @@
     "sinon-chai": "^2.8.0",
     "sinon-stub-promise": "^4.0.0",
     "webpack-bundle-analyzer": "^2.2.1",
-    "webpack-dev-middleware": "^2.0.5",
+    "webpack-dev-middleware": "^3.0.0",
     "webpack-hot-middleware": "^2.6.1"
   }
 }
