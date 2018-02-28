@@ -264,6 +264,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .row(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
+            button.buy-set-btn.btn.btn-secondary(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))') Purchase Set
+              .svg-icon.gem(v-html='icons.gem')
+              span 15
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
             @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',
@@ -281,11 +284,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            .gem-amount
-              .svg-icon.gem(v-html='icons.gem')
-              span 15
-            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -699,14 +697,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     }
 
     .gem {
-      margin-right: .5em;
+      margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
     }
 
-    .gem-amount {
-      margin-top: 1em;
-      margin-bottom: 1em;
+    .buy-set-btn {
+      margin: 0 0 5px 5px;
+      padding: 5px;
+      font-size: 16px;
 
       .gem {
         width: 24px;
