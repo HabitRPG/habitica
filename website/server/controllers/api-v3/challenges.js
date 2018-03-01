@@ -356,13 +356,18 @@ api.getUserChallenges = {
     let challenges = await Challenge.find({
       $or: orOptions,
     })
-      .sort('-official -createdAt')
+      .sort('-createdAt')
       // see below why we're not using populate
       // .populate('group', basicGroupFields)
       // .populate('leader', nameFields)
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Bluebird.all(resChals.map((chal, index) => {
       return Bluebird.all([
@@ -413,11 +418,16 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let challenges = await Challenge.find({group: groupId})
-      .sort('-official -createdAt')
+      .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Bluebird.all(resChals.map((chal, index) => {
       return User
