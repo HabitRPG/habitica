@@ -442,6 +442,16 @@ schema.methods.isMember = function isGroupMember (user) {
   }
 };
 
+schema.methods.getMemberCount = async function getMemberCount () {
+  let query = { guilds: this._id };
+
+  if (this.type === 'party') {
+    query = { 'party._id': this._id };
+  }
+
+  return await User.count(query).exec();
+};
+
 export function chatDefaults (msg, user) {
   let message = {
     id: shared.uuid(),
