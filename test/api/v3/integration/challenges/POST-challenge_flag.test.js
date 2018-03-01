@@ -45,7 +45,7 @@ describe('POST /challenges/:challengeId/flag', () => {
     const flagResult = await user.post(`/challenges/${challenge._id}/flag`);
 
     expect(flagResult.challenge.flags[user._id]).to.equal(true);
-    expect(flagResult.challenge.flagCount).to.equal(1);
+    expect(flagResult.challenge.flagCount).to.equal(5);
   });
 
   it('returns an error when user tries to flag a challenge that is already flagged', async () => {

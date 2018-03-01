@@ -812,4 +812,65 @@ api.flagChallenge = {
   },
 };
 
+/**
+ * @api {post} /api/v3/challenges/:challengeId/clearflags Clears flags on a challenge
+ * @apiName ClearFlagsChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.clearFlagsChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/clearflags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.contributor.admin) {
+      throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
+    }
+
+    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    challenge.flagCount = 0;
+    await challenge.save();
+
+    // let adminEmailContent = getUserInfo(user, ['email']).email;
+    // let authorEmail = getAuthorEmailFromMessage(message);
+    // let groupUrl = getGroupUrl(group);
+    //
+    // sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
+    //   {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
+    //   {name: 'MESSAGE_TEXT', content: message.text},
+    //
+    //   {name: 'ADMIN_USERNAME', content: user.profile.name},
+    //   {name: 'ADMIN_UUID', content: user._id},
+    //   {name: 'ADMIN_EMAIL', content: adminEmailContent},
+    //   {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+    //
+    //   {name: 'AUTHOR_USERNAME', content: message.user},
+    //   {name: 'AUTHOR_UUID', content: message.uuid},
+    //   {name: 'AUTHOR_EMAIL', content: authorEmail},
+    //   {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
+    //
+    //   {name: 'GROUP_NAME', content: group.name},
+    //   {name: 'GROUP_TYPE', content: group.type},
+    //   {name: 'GROUP_ID', content: group._id},
+    //   {name: 'GROUP_URL', content: groupUrl},
+    // ]);
+
+    res.respond(200, {challenge});
+  },
+};
+
 module.exports = api;
