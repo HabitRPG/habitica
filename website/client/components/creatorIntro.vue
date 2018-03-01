@@ -238,9 +238,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.text-center.set-title
+      .title-row
+        input(id='filterBackgroundsCheckbox' type='checkbox' v-model='filterBackgrounds')
+        label(for='filterBackgroundsCheckbox') Hide locked backgrounds
+      .row.text-center.title-row(v-if='!filterBackgrounds')
         strong {{backgroundShopSets[0].text}}
-      .row.incentive-background-row
+      .row.title-row(v-if='!filterBackgrounds')
         .col-12(v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
         .col-2(v-for='bg in backgroundShopSets[0].items',
           @click='unlock("background." + bg.key)',
@@ -249,7 +252,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           popover-trigger='mouseenter')
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
-      .row.sub-menu.col-10.offset-1
+      .row.sub-menu.col-10.offset-1(v-if='!filterBackgrounds')
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
           strong(v-once) 2018
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
@@ -260,7 +263,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           strong(v-once) 2015
         .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
-      .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
+      .row.customize-menu(v-if='!filterBackgrounds' v-for='(sets, key) in backgroundShopSetsByYear')
         .row.background-set(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
@@ -284,6 +287,14 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             span.label Purchase Set
             .svg-icon.gem(v-html='icons.gem')
             span.price 15
+      .row.customize-menu(v-if='filterBackgrounds')
+        .col-4.text-center.customize-option.background-button(v-for='(bg) in ownedBackgrounds'
+          @click='unlock("background." + bg.key)',
+          :popover-title='bg.text',
+          :popover='bg.notes',
+          popover-trigger='mouseenter')
+          .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]'
+          )
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -607,6 +618,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   #backgrounds {
+    .title-row {
+      margin-bottom: 1em;
+
+      label {
+        margin-left: 5px;
+        font-weight: bold;
+      }
+    }
+
     .set-title {
       margin-top: 1em;
       margin-bottom: 1em;
@@ -620,10 +640,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     strong {
       margin: 0 auto;
-    }
-
-    .incentive-background-row {
-      margin-bottom: 2em;
     }
 
     .incentive-background {
@@ -978,6 +994,7 @@ export default {
       loading: false,
       backgroundShopSets,
       backgroundUpdate: new Date(),
+      filterBackgrounds: false,
       specialShirtKeys: ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'],
       rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
@@ -1249,6 +1266,21 @@ export default {
         backgroundShopSetsByYear[year].push(set);
       });
       return backgroundShopSetsByYear;
+    },
+    ownedBackgrounds () {
+      let ownedBackgrounds = [];
+
+      // Hack to force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      this.backgroundShopSets.forEach((set) => {
+        set.items.forEach((bg) => {
+          if (this.user.purchased.background[bg.key]) {
+            ownedBackgrounds.push(bg);
+          }
+        });
+      });
+      return ownedBackgrounds;
     },
   },
   methods: {
