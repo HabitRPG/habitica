@@ -84,7 +84,7 @@
     "invalidTypeEquip": "\"type\" precisa ser um de 'equipped', 'pet', mount', 'costume'.",
     "mustPurchaseToSet": "É necessário comprar <%= val %> para colocar em <%= key %>.",
     "typeRequired": "Tipo é necessário",
-    "positiveAmountRequired": "Positive amount is required",
+    "positiveAmountRequired": "Requer um número positivo",
     "keyRequired": "Chave é necessária",
     "notAccteptedType": "Tipo precisa estar em [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Chave não encontrada para Conteúdo <%= type %>",

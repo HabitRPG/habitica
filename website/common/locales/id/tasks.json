@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Nama alias tugas telah digunakan pada tugas lain.",
     "taskNotFound": "Tugas tidak ditemukan.",
     "invalidTaskType": "Tipe tugas harus merupakan salah satu dari \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Tugas yang termasuk dalam tantangan tidak dapat dihapus.",
     "checklistOnlyDailyTodo": "Daftar Cek hanya tersedia di Keseharian dan To-Do",
     "checklistItemNotFound": "Tidak ada item daftar cek yang ditemukan dengan id yang diberikan.",
