@@ -261,12 +261,9 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
       .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        .row(v-for='set in sets', v-if='activeSubPage === key')
+        .row.background-set(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
-            button.buy-set-btn.btn.btn-secondary(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))') Purchase Set
-              .svg-icon.gem(v-html='icons.gem')
-              span 15
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
             @click='!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock("background." + bg.key)',
             :popover-title='bg.text',
@@ -274,16 +271,19 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             popover-trigger='mouseenter')
             .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
-            .purchase-single(v-if='!user.purchased.background[bg.key]')
+            .purchase-background.single(v-if='!user.purchased.background[bg.key]')
               .svg-icon.gem(v-html='icons.gem')
-              span 7
+              span.price 7
             span.badge.badge-pill.badge-item.badge-svg(
               :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
               @click.prevent.stop="togglePinned(bg)",
               v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
+          .purchase-background.set(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))')
+            span.label Purchase Set
+            .svg-icon.gem(v-html='icons.gem')
+            span.price 15
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -677,22 +677,34 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       cursor: pointer;
     }
 
-    .purchase-single {
-      width: 141px;
+    .purchase-background {
       margin: 0 auto;
       background: #fff;
       padding: 0.5em;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       border-radius: 0 0 2px 2px;
+      cursor: pointer;
 
       span {
         font-weight: bold;
         font-size: 12px;
-        color: #24cc8f;
       }
 
+      span.price {
+        color: #24cc8f;
+      }
+      
       .gem {
         width: 16px;
+      }
+
+      &.single {
+        width: 141px;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+
+      }
+
+      &.set {
+        width: 100%;
       }
     }
 
@@ -702,20 +714,12 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       vertical-align: bottom;
     }
 
-    .buy-set-btn {
-      margin: 0 0 5px 5px;
-      padding: 5px;
-      font-size: 16px;
-
-      .gem {
-        width: 24px;
-      }
-
-      span {
-        font-weight: bold;
-        font-size: 20px;
-        color: #24cc8f;
-      }
+    .background-set {
+        width: 100%;
+        margin: 10px;
+        background-color: #edecee;
+        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+        border-radius: 2px;
     }
   }
 
@@ -788,6 +792,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
   span.badge.badge-pill.badge-item.badge-svg.hide {
     display: none;
+  }
+
+  .background-button {
+      margin-bottom: 10px;
   }
 
   .background-button:hover {
