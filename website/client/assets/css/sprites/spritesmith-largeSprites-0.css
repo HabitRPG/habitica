@@ -1,12 +1,12 @@
-.promo_armoire_backgrounds_201802 {
+.promo_armoire_background_201803 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -524px;
+  background-position: -1172px 0px;
   width: 141px;
   height: 441px;
 }
 .promo_cupid_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -524px;
+  background-position: 0px -735px;
   width: 138px;
   height: 441px;
 }
@@ -30,7 +30,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -950px -171px;
+  background-position: -1172px -442px;
   width: 114px;
   height: 87px;
 }
@@ -39,6 +39,12 @@
   background-position: -441px -171px;
   width: 309px;
   height: 147px;
+}
+.scene_achievement {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -524px;
+  width: 339px;
+  height: 210px;
 }
 .scene_coding {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
