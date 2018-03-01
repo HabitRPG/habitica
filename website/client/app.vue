@@ -344,8 +344,6 @@ export default {
         if (data.fromRoot) return;
         const modalStack = this.$store.state.modalStack;
 
-        const modal = modalStack.find((m) => m.modalId === modalId);
-
         this.trackGemPurchase(modalId, data);
 
         // Add new modal to the stack
@@ -354,7 +352,7 @@ export default {
         modalStack.push({modalId, prev: prevId});
       });
 
-      this.$root.$on('bv::modal::hidden', (bvEvent, data) => {
+      this.$root.$on('bv::modal::hidden', (bvEvent) => {
         const modalId = bvEvent.target && bvEvent.target.id;
         if (!modalId) return;
 
@@ -391,7 +389,7 @@ export default {
           return false;
         }
 
-        if (!current.prev) continue;
+        if (!current.prev) continue; // eslint-disable-line
         if (!modalCount[current.prev]) modalCount[current.prev] = 0;
         modalCount[current.prev] += 1;
         if (modalCount[current.prev] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.prev) === -1) {
