@@ -105,5 +105,12 @@
     "LOGGLY" : {
         "TOKEN" : "example-token",
         "SUBDOMAIN" : "exmaple-subdomain"
+    },
+    "KAFKA": {
+      "GROUP_ID": "",
+      "CLOUDKARAFKA_BROKERS": "",
+      "CLOUDKARAFKA_USERNAME": "",
+      "CLOUDKARAFKA_PASSWORD": "",
+      "CLOUDKARAFKA_TOPIC_PREFIX": ""
     }
 }

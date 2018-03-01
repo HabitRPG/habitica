@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WORLD BOSS RAGE STRIKE, GUILD SPOTLIGHT, AND WIKI WEDNESDAY';
+const LAST_ANNOUNCEMENT_TITLE = 'SECOND DYSHEARTENER RAGE STRIKE! LAST CHANCE FOR LOVE BUG SET AND CUPID POTIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,28 +32,25 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/21/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>2/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>World Boss: Dysheartener attacks the Seasonal Sorceress!</h3>
-        <p>Oh, no! After feasting on our undone Dailies, the Dysheartener has gained the strength to unleash its Shattering Heartbreak attack. With a shrill shriek, it brings its spiny forelegs down upon the pavilion that houses <a href='/shops/seasonal'>the Seasonal Shop</a>! The concussive blast of magic shreds the wood, and the Seasonal Sorceress is overcome by sorrow at the sight.</p>
-        <p>Quickly, let's keep doing our Dailies so that the beast won't strike again!</p>
-        <div class="small">by Lemoness, Beffymaroo, SabreCat, viirus, Apollo, and piyorii</div>
-        <div class="media align-items-center">
+        <h3>World Boss: Dysheartener Attacks the Market!</h3>
+        <p>Help! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.</p>
+        <p>We can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.</p>
+        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, viirus, piyorii, and Apollo</div>
+        <div class="media d-flex align-items-center">
           <div class="media-body">
-            <h3>Sharing the Love: Guilds for Interpersonal Relationships</h3>
-            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/19/sharing-the-love-guilds-for-interpersonal-relationships/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you as you work on building and maintaining your relationships with others! Check it out now to find Habitica's best places for support and help with your interpersonal connections.</p>
-            <div class="small">by Beffymaroo</div>
+            <h3>Last Chance for Love Bug Set</h3>
+            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Love Bug Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
+            <div class="small mb-3">by Beffymaroo</div>
+            <h3>Last Chance for Cupid Hatching Potions</h3>
+            <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Cupid Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
+            <div class="small mb-3">by Willow the Witty and SabreCat</div>
           </div>
-          <div class="scene_tavern"></div>
+          <div class="promo_cupid_potions ml-3"></div>
         </div>
-        <div class="media">
-          <div class="scene_coding mr-3"></div>
-          <div class="media-body">
-            <h3>Blog Post: Routines</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/02/21/routines/' target='_blank'>featured Wiki article</a> is about Routines! We hope that it will help you as you work on structuring your time and tasks. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small">by Beffymaroo and the Wiki Wizards</div>
-          </div>
-        </div>
+        <div class="promo_mystery_201802 center-block"></div>
       </div>
       `,
     });

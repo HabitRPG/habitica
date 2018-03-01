@@ -64,6 +64,7 @@
     "classBonusText": "Tvoje povolanie (ak nemáš odomknuté alebo zvolené iné povolanie, si bojovník) používa vlastný výstroj efektívnejšie než výstroj iných povolaní. Výstroj tvojho aktuálneho povolania vylepší vlastnosť, ktorú poskytuje ešte o 50 %. ",
     "classEquipBonus": "Bonus za povolanie",
     "battleGear": "Bojová výzbroj",
+    "gear": "Gear",
     "battleGearText": "Toto je výzbroj, ktorú nosíš do boja; ovplyvňuje čísla pri interakcii s úlohami.",
     "autoEquipBattleGear": "Automaticky sa vybaviť novým výstrojom",
     "costume": "Kostým",

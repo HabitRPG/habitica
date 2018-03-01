@@ -187,6 +187,22 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(group.chat[0].uuid).to.equal('system');
   });
 
+  it('cast bulk', async () => {
+    let { group, groupLeader } = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 1,
+    });
+
+    await groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13});
+    await groupLeader.post('/user/class/cast/earth', {quantity: 2});
+
+    await sleep(1);
+    await group.sync();
+
+    expect(group.chat[0]).to.exist;
+    expect(group.chat[0].uuid).to.equal('system');
+  });
+
   it('searing brightness does not affect challenge or group tasks', async () => {
     let guild = await generateGroup(user);
     let challenge = await generateChallenge(user, guild);

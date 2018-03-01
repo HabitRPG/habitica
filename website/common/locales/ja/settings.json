@@ -45,7 +45,7 @@
     "xml": "(XML)",
     "json": "(JSON)",
     "customDayStart": "日付更新の設定",
-    "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
+    "sureChangeCustomDayStartTime": "日付更新の時間を変更しますか？　あなたの日課は<%= time %>以降に、初めてHabiticaを使ったタイミングで更新されます。それまでに日課を片付けておきましょう！",
     "changeCustomDayStart": "日付更新する時間を変更しますか?",
     "sureChangeCustomDayStart": "日付更新する時間を変更します。よろしいですか?",
     "customDayStartHasChanged": "日付更新時間が変更されました。",

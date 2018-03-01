@@ -5,7 +5,9 @@ import shared from '../../common';
 import {v4 as uuid} from 'uuid';
 import _ from 'lodash';
 import { BadRequest } from '../libs/errors';
+import nconf from 'nconf';
 
+const IS_PRODUCTION = nconf.get('IS_PROD');
 const Schema = mongoose.Schema;
 
 const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
@@ -36,7 +38,11 @@ export let schema = new Schema({
   url: {
     type: String,
     required: true,
-    validate: [validator.isURL, shared.i18n.t('invalidUrl')],
+    validate: [(v) => {
+      return validator.isURL(v, {
+        require_tld: IS_PRODUCTION ? true : false, // eslint-disable-line camelcase
+      });
+    }, shared.i18n.t('invalidUrl')],
   },
   enabled: { type: Boolean, required: true, default: true },
   options: {
@@ -72,7 +78,7 @@ schema.methods.formatOptions = function formatOptions (res) {
   } else if (this.type === 'groupChatReceived') {
     this.options = _.pick(this.options, 'groupId');
 
-    if (!validator.isUUID(this.options.groupId)) {
+    if (!validator.isUUID(String(this.options.groupId))) {
       throw new BadRequest(res.t('groupIdRequired'));
     }
   }

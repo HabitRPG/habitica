@@ -125,5 +125,5 @@
     "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Nyawa",
     "rageAttack": "Serangan Kemarahan:",
     "bossRage": "<%= currentRage %>/<%= maxRage %> Kemarahan",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Serangan Kemarahan"
 }
