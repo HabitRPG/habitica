@@ -874,7 +874,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       $set: {'achievements.lostMasterclasser': true},
     };
 
-    promises.concat(participants.map(userId => {
+    promises = promises.concat(participants.map(userId => {
       return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
     }));
   }
