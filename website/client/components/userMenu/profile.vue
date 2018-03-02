@@ -13,6 +13,19 @@ div
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
           .svg-icon.positive-icon(v-html="icons.positive")
+        span(v-if='this.userLoggedIn.contributor.admin')
+          button.btn.btn-secondary.positive-icon(
+            @click="adminRevokeChat()", v-b-tooltip.hover.right="'Admin - Revoke Chat Privileges'")
+            .svg-icon.positive-icon(v-html="icons.megaphone")
+          button.btn.btn-secondary.positive-icon(
+            @click="adminReinstateChat()", v-b-tooltip.hover.right="'Admin - Reinstate Chat Privileges'")
+            .svg-icon.positive-icon(v-html="icons.challenge")
+          button.btn.btn-secondary.positive-icon(
+            @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Block User'")
+            .svg-icon.positive-icon(v-html="icons.lock")
+          button.btn.btn-secondary.positive-icon(
+            @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
+            .svg-icon.positive-icon(v-html="icons.member")
       .row
         .col-12
           member-details(:member="user")
@@ -596,6 +609,10 @@ import gift from 'assets/svg/gift.svg';
 import remove from 'assets/svg/remove.svg';
 import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
+import megaphone from 'assets/svg/broken-megaphone.svg';
+import lock from 'assets/svg/lock.svg';
+import challenge from 'assets/svg/challenge.svg';
+import member from 'assets/svg/member-icon.svg';
 
 export default {
   directives: {
@@ -615,6 +632,10 @@ export default {
         positive,
         gift,
         dots,
+        megaphone,
+        challenge,
+        lock,
+        member,
       }),
       userIdToMessage: '',
       userReceivingGems: '',
@@ -865,6 +886,36 @@ export default {
     openSendGemsModal () {
       this.userReceivingGems = this.user;
       this.$root.$emit('bv::show::modal', 'send-gems');
+    },
+    adminRevokeChat () {
+      if (!this.user.flags) {
+        this.user.flags = {
+          chatRevoked: true,
+        };
+      }
+      this.user.flags.chatRevoked = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+    },
+    adminReinstateChat () {
+      if (!this.user.flags) {
+        this.user.flags = {
+          chatRevoked: false,
+        };
+      }
+      this.user.flags.chatRevoked = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+    },
+    adminBlockUser () {
+      this.user.auth.blocked = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+    },
+    adminUnblockUser () {
+      this.user.auth.blocked = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
     },
   },
 };
