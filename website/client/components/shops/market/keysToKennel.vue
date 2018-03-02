@@ -6,7 +6,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releasePets()",
-    v-if='this.user.achievements.beastMaster'
+    v-if='userHasAllPets'
   )
   shopItem(
     :key="keysToMounts.key",
@@ -14,7 +14,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releaseMounts()",
-    v-if='this.user.achievements.mountMaster'
+    v-if='userHasAllMounts'
   )
   shopItem(
     :key="keysToBoth.key",
@@ -22,7 +22,7 @@
     :emptyItem="false",
     popoverPosition="'top'",
     @click="releaseBoth()",
-    v-if='this.user.achievements.mountMaster'
+    v-if='userHasAllPets && userHasAllMounts'
   )
 </template>
 
@@ -61,9 +61,7 @@
 import { mapState } from 'client/libs/store';
 import ShopItem from '../shopItem';
 
-import releasePets from 'common/script/ops/releasePets';
-import releaseMounts from 'common/script/ops/releaseMounts';
-import releaseBoth from 'common/script/ops/releaseBoth';
+import count from 'common/script/count';
 
 import notifications from 'client/mixins/notifications';
 
@@ -88,11 +86,14 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releasePetsConfirm'))) return;
           try {
-            releasePets(this.user);
+            this.$store.dispatch('shops:releasePets', {user: this.user});
+            this.text(this.$t('releasePetsSuccess'));
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releasePetsSuccess'));
         },
       },
       keysToMounts: {
@@ -108,11 +109,14 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseMountsConfirm'))) return;
           try {
-            releaseMounts(this.user);
+            this.$store.dispatch('shops:releaseMounts', {user: this.user});
+            this.text(this.$t('releaseMountsSuccess'));
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releaseMountsSuccess'));
         },
       },
       keysToBoth: {
@@ -128,17 +132,26 @@ export default {
         buy: () => {
           if (!confirm(this.$t('releaseBothConfirm'))) return;
           try {
-            releaseBoth(this.user);
+            this.$store.dispatch('shops:releaseBoth', {user: this.user});
+            this.text(this.$t('releaseBothSuccess'));
+            // this.$router.push({name: 'stable'});
+            // Reload because achievement is set in user.save instead of common
+            window.location.reload(true);
           } catch (err) {
             alert(err.message);
           }
-          this.text(this.$t('releaseBothSuccess'));
         },
       },
     };
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    userHasAllPets () {
+      return count.beastCount(this.user.items.pets) === 90;
+    },
+    userHasAllMounts () {
+      return count.mountMasterProgress(this.user.items.mounts) === 90;
+    },
   },
   methods: {
     releasePets () {
