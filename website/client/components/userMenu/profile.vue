@@ -13,17 +13,20 @@ div
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
           .svg-icon.positive-icon(v-html="icons.positive")
-        span(v-if='this.userLoggedIn.contributor.admin')
-          button.btn.btn-secondary.positive-icon(
-            @click="adminRevokeChat()", v-b-tooltip.hover.right="'Admin - Revoke Chat Privileges'")
+        button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin && !adminToolsLoaded',
+          @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
+          .svg-icon.positive-icon(v-html="icons.edit")
+        span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
+          button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
+            @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
             .svg-icon.positive-icon(v-html="icons.megaphone")
-          button.btn.btn-secondary.positive-icon(
-            @click="adminReinstateChat()", v-b-tooltip.hover.right="'Admin - Reinstate Chat Privileges'")
+          button.btn.btn-secondary.positive-icon(v-if='hero.flags && hero.flags.chatRevoked',
+            @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Admin - Reinstate Chat Privileges'")
             .svg-icon.positive-icon(v-html="icons.challenge")
-          button.btn.btn-secondary.positive-icon(
+          button.btn.btn-secondary.positive-icon(v-if='!hero.auth.blocked',
             @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Block User'")
             .svg-icon.positive-icon(v-html="icons.lock")
-          button.btn.btn-secondary.positive-icon(
+          button.btn.btn-secondary.positive-icon(v-if='hero.auth.blocked',
             @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
             .svg-icon.positive-icon(v-html="icons.member")
       .row
@@ -613,6 +616,7 @@ import megaphone from 'assets/svg/broken-megaphone.svg';
 import lock from 'assets/svg/lock.svg';
 import challenge from 'assets/svg/challenge.svg';
 import member from 'assets/svg/member-icon.svg';
+import edit from 'assets/svg/edit.svg';
 
 export default {
   directives: {
@@ -636,7 +640,9 @@ export default {
         challenge,
         lock,
         member,
+        edit,
       }),
+      adminToolsLoaded: false,
       userIdToMessage: '',
       userReceivingGems: '',
       editing: false,
@@ -645,6 +651,7 @@ export default {
         imageUrl: '',
         blurb: '',
       },
+      hero: {},
       managerEmail: {
         hrefBlankCommunityManagerEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
@@ -722,8 +729,11 @@ export default {
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
+      this.hero = {};
+      this.adminToolsLoaded = false;
 
       let profileUser = this.$store.state.profileUser;
+
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
       }
@@ -739,6 +749,7 @@ export default {
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+
       return user;
     },
     incentivesProgress () {
@@ -888,34 +899,38 @@ export default {
       this.$root.$emit('bv::show::modal', 'send-gems');
     },
     adminRevokeChat () {
-      if (!this.user.flags) {
-        this.user.flags = {
+      if (!this.hero.flags) {
+        this.hero.flags = {
           chatRevoked: true,
         };
       }
-      this.user.flags.chatRevoked = true;
+      this.hero.flags.chatRevoked = true;
 
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminReinstateChat () {
-      if (!this.user.flags) {
-        this.user.flags = {
+      if (!this.hero.flags) {
+        this.hero.flags = {
           chatRevoked: false,
         };
       }
-      this.user.flags.chatRevoked = false;
+      this.hero.flags.chatRevoked = false;
 
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminBlockUser () {
-      this.user.auth.blocked = true;
+      this.hero.auth.blocked = true;
 
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminUnblockUser () {
-      this.user.auth.blocked = false;
+      this.hero.auth.blocked = false;
 
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.user });
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    async loadAdminTools () {
+      this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
+      this.adminToolsLoaded = true;
     },
   },
 };
