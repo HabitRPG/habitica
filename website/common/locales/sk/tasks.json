@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Alias úloha už je použitá na inej úlohe. ",
     "taskNotFound": "Úloha nebola nájdená.",
     "invalidTaskType": "Typ úlohy musí byť jeden z \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Úloha, ktorá je súčasťou výzvy, nemôže byť vymazaná.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "Žiadny zoznamový predmet nebol nájdený s daným id.",

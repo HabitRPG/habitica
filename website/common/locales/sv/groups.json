@@ -50,7 +50,7 @@
     "leave": "Lämna",
     "invitedToParty": "You were invited to join the Party <span class=\"notification-bold\"><%= party %></span>",
     "invitedToPrivateGuild": "You were invited to join the private Guild <span class=\"notification-bold\"><%= guild %></span>",
-    "invitedToPublicGuild": "You were invited to join the Guild <span class=\"notification-bold-blue\"><%= guild %></span>",
+    "invitedToPublicGuild": "Du har blivit inbjuden att gå med i <span class=\"notification-bold-blue\"><%= guild %></span> Gillen",
     "partyInvitationsText": "You have <%= numberInvites %> Party invitations! Choose wisely, because you can only be in one Party at a time.",
     "joinPartyConfirmationText": "Are you sure you want to join the Party \"<%= partyName %>\"? You can only be in one Party at a time. If you join, all other Party invitations will be rejected.",
     "invitationAcceptedHeader": "Din inbjudan har accepterats",

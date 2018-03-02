@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Alias úkolu byl již použit na jiném úkolu.",
     "taskNotFound": "Úkol nenalezen.",
     "invalidTaskType": "Typ úkolu musí být „zvyk\", „denní úkol\", „úkol\" nebo „odměna\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Úkol náležící výzvě nelze vymazat.",
     "checklistOnlyDailyTodo": "Seznamy jsou podporovány pouze pro denní úkoly a klasické úkoly",
     "checklistItemNotFound": "Na seznamu nenalezen žádný předmět s tímto id.",

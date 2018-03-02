@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "El alias de la tarea ya ha sido utilizado en otra.",
     "taskNotFound": "Tarea no encontrada.",
     "invalidTaskType": "El tipo de tarea debe ser:\"Habitos\",\"Diarias\",\"Pendientes\" o \"Recompensas\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Una tarea perteneciente a un desafio no puede ser eliminada.",
     "checklistOnlyDailyTodo": "Las listas solo están disponibles en Diarias y Pendientes",
     "checklistItemNotFound": "Ningun objeto de lista fue encontrado con el id porporcionado.",
