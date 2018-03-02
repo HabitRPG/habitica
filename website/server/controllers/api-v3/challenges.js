@@ -29,6 +29,10 @@ import {
   cleanUpTask,
 } from '../../libs/challenges';
 
+import {
+  clearFlags,
+} from '../../libs/challenges/reporting';
+
 let api = {};
 
 /**
@@ -842,32 +846,7 @@ api.clearFlagsChallenge = {
     const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    challenge.flagCount = 0;
-    await challenge.save();
-
-    // let adminEmailContent = getUserInfo(user, ['email']).email;
-    // let authorEmail = getAuthorEmailFromMessage(message);
-    // let groupUrl = getGroupUrl(group);
-    //
-    // sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
-    //   {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
-    //   {name: 'MESSAGE_TEXT', content: message.text},
-    //
-    //   {name: 'ADMIN_USERNAME', content: user.profile.name},
-    //   {name: 'ADMIN_UUID', content: user._id},
-    //   {name: 'ADMIN_EMAIL', content: adminEmailContent},
-    //   {name: 'ADMIN_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
-    //
-    //   {name: 'AUTHOR_USERNAME', content: message.user},
-    //   {name: 'AUTHOR_UUID', content: message.uuid},
-    //   {name: 'AUTHOR_EMAIL', content: authorEmail},
-    //   {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
-    //
-    //   {name: 'GROUP_NAME', content: group.name},
-    //   {name: 'GROUP_TYPE', content: group.type},
-    //   {name: 'GROUP_ID', content: group._id},
-    //   {name: 'GROUP_URL', content: groupUrl},
-    // ]);
+    await clearFlags(challenge, user);
 
     res.respond(200, {challenge});
   },

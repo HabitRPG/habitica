@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 
-describe.only('POST /challenges/:challengeId/clearflags', () => {
+describe('POST /challenges/:challengeId/clearflags', () => {
   let user, nonAdmin, challenge;
 
   beforeEach(async () => {
@@ -21,7 +21,7 @@ describe.only('POST /challenges/:challengeId/clearflags', () => {
     user = groupLeader;
     nonAdmin = members[0];
 
-    await user.update({'user.contributor.admin': true});
+    await user.update({'contributor.admin': true});
 
     challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/flag`);
@@ -37,7 +37,6 @@ describe.only('POST /challenges/:challengeId/clearflags', () => {
   });
 
   it('returns an error when challenge is not found', async () => {
-    console.log(user.contributor)
     await expect(user.post(`/challenges/${generateUUID()}/clearflags`))
       .to.eventually.be.rejected.and.eql({
         code: 404,

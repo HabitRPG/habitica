@@ -40,7 +40,7 @@ describe('POST /challenges/:challengeId/flag', () => {
   });
 
   it('flags a challenge with a higher count when from an admin', async () => {
-    await user.update({'user.contributor.admin': true});
+    await user.update({'contributor.admin': true});
 
     const flagResult = await user.post(`/challenges/${challenge._id}/flag`);
 
