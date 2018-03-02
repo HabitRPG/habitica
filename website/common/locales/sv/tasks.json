@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Uppgifts-alias har redan blivit använd på en anna uppgift.",
     "taskNotFound": "Uppgift hittades inte.",
     "invalidTaskType": "Uppgiftstyp måste vara en av \"vana\", \"daglig uppgift\", \"att-göra\", \"belöning\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "En uppgift som tillhör en utmaning can inte raderas",
     "checklistOnlyDailyTodo": "Checklistor stöds bara på Dagliga Uppgifter och Att-Göra",
     "checklistItemNotFound": "Ingen checklista med det angivna id hittades.",

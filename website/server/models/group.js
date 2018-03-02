@@ -1187,7 +1187,6 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
           scene,
         });
         tavern.quest.extra.worldDmg[scene] = true;
-        tavern.quest.extra.worldDmg.recent = scene;
         tavern.markModified('quest.extra.worldDmg');
         tavern.quest.progress.rage = 0;
         if (quest.boss.rage.healing) {

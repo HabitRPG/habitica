@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "タスクの別名が、ほかのタスク名で使われています。",
     "taskNotFound": "タスクが見つかりませんでした。",
     "invalidTaskType": "タスクは、\"habit\", \"daily\", \"todo\", \"reward\" のいずれかの種類でなくてはなりません。",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "チャレンジに関連したタスクは削除できません。",
     "checklistOnlyDailyTodo": "チェックリストは、日課と To Do にのみ対応しています。",
     "checklistItemNotFound": "該当する id に対応したチェックリストは見つかりませんでした。",

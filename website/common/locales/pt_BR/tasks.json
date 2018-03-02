@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Pseudônimo de Tarefa já está sendo utilizado em outra tarefa.",
     "taskNotFound": "Tarefa não encontrada.",
     "invalidTaskType": "O tipo da tarefa precisa ser \"habit\", \"daily\", \"todo\" ou \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Uma tarefa que pertença a um desafio não pode ser deletada.",
     "checklistOnlyDailyTodo": "Listas podem ser adicionadas apenas em Diárias e Afazeres.",
     "checklistItemNotFound": "Nenhum item de lista foi encontrado com o id dado.",
