@@ -493,7 +493,6 @@ api.updateGroup = {
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  * @apiUse messageGroupRequiresInvite
- * @apiUse messageCannotLeaveWhileQuesting
  */
 api.joinGroup = {
   method: 'POST',
