@@ -36,9 +36,18 @@ export default {
       task: {},
     };
   },
+  generateURL () {
+    if (this.group.Type === 'party') {
+      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseURL}/party)`;
+    } else if (this.group.Type === 'guild') {
+      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}]([${this.groupName}](${baseURL}/groups/guild/${this.groupId})`;
+    } else if (this.groupId === 'tavern') {
+      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseURL}/groups/tavern)`;
+    }
+  },
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseUrl}/groups/guild/${this.groupId})`;
+      const notes = generateURL();
       const newTask = {
         text: message.text,
         type: 'todo',
