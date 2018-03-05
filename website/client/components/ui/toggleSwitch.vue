@@ -29,7 +29,6 @@
 
   .toggle-switch-description {
     height: 20px;
-    border-bottom: 1px dashed $gray-200;
   }
 
   .toggle-switch-checkbox {
