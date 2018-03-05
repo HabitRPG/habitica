@@ -1,5 +1,6 @@
 <template lang="pug">
 .row
+  report-challenge-modal
   challenge-modal(v-on:updatedChallenge='updatedChallenge')
   leave-challenge-modal(:challengeId='challenge._id')
   close-challenge-modal(:members='members', :challengeId='challenge._id')
@@ -69,6 +70,8 @@
         button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
       div(v-if='isLeader || isAdmin')
         button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
+      div
+        button.btn.btn-danger(v-once, @click='reportChallenge()') {{$t('report')}}
     .description-section
       h2 {{$t('challengeSummary')}}
       p(v-markdown='challenge.summary')
@@ -189,6 +192,7 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
+import reportChallengeModal from './reportChallengeModal';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -205,6 +209,7 @@ export default {
   components: {
     closeChallengeModal,
     leaveChallengeModal,
+    reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
@@ -386,6 +391,11 @@ export default {
     },
     cloneChallenge () {
       this.$root.$emit('habitica:clone-challenge', {
+        challenge: this.challenge,
+      });
+    },
+    reportChallenge () {
+      this.$root.$emit('habitica::report-challenge', {
         challenge: this.challenge,
       });
     },
