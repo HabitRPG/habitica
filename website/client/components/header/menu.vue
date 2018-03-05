@@ -55,7 +55,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.dropdown-item(:href="contactUrl", target='_blank') {{ $t('contactUs') }}
+            a.dropdown-item(:href="contactUrl", target='_blank') {{ $t('contactForm') }}
       .user-menu.d-flex.align-items-center
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
@@ -284,11 +284,14 @@ div
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
+import { getModFormLink } from 'client/libs/modform';
+
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
+
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
@@ -325,7 +328,7 @@ export default {
       groupPlans: 'groupPlans',
     }),
     contactUrl () {
-      return `http://contact.habitica.com/?email=${this.user.auth.local.email}&profileName=${this.user.profile.name}&uuid=${this.user._id}`;
+      return getModFormLink(this.user);
     },
   },
   mounted () {

@@ -113,6 +113,9 @@
               .svg-icon(v-html="icons.upIcon")
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
+        .row.contact-row
+          .col-12
+            a(:href='contactUrl', target='_blank') {{ $t('contactForm') }}
         .section.row(v-if="sections.staff")
           // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
@@ -512,11 +515,16 @@
     cursor: pointer;
   }
 
+  .contact-row {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
 </style>
 
 <script>
 import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
+import { getModFormLink } from 'client/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
@@ -681,6 +689,9 @@ export default {
     questData () {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
+    },
+    contactUrl () {
+      return getModFormLink(this.user);
     },
   },
   async mounted () {

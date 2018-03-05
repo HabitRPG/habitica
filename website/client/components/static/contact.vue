@@ -29,24 +29,21 @@
           br
           | {{ $t('businessInquiries') }}
           | &colon;&nbsp;
-          a(href='mailto:vicky@habitica.com') vicky&commat;habitica&period;com
+          a(href='mailto:admin@habitica.com') admin@habitica.com
           br
           | {{ $t('merchandiseInquiries') }}
           | &colon;&nbsp;
-          a(href='mailto:store@habitica.com') store&commat;habitica&period;com
-          br
-          | {{ $t('marketingInquiries') }}
-          | &colon;&nbsp;
-          a(href='mailto:leslie@habitica.com') leslie&commat;habitica&period;com
+          a(href='mailto:admin@habitica.com') admin&commat;habitica&period;com
           span(v-if='contactUrl')
             br
-            | {{ $t('contactUs') }}
+            | {{ $t('reportCommunityIssues') }}
             | &colon;&nbsp;
             a(:href='contactUrl', target='_blank') {{ $t('contactForm') }}
 </template>
 
 <script>
 import { mapState } from 'client/libs/store';
+import { getModFormLink } from 'client/libs/modform';
 
 export default {
   computed: {
@@ -54,8 +51,7 @@ export default {
       user: 'user.data',
     }),
     contactUrl () {
-      if (!this.user) return '';
-      return `http://contact.habitica.com/?email=${this.user.auth.local.email}&profileName=${this.user.profile.name}&uuid=${this.user._id}`;
+      return getModFormLink(this.user);
     },
   },
 };
