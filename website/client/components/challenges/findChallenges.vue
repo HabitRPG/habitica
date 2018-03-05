@@ -15,7 +15,7 @@
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
     .row
-      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge)')
+      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge) && (challenge.flagCount < 2 || user.contributor.admin)')
         challenge-item(:challenge='challenge')
 </template>
 
