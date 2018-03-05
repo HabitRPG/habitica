@@ -988,7 +988,7 @@ export default {
   mixins: [guide, notifications],
   components: {
     avatar,
-    toggleSwitch
+    toggleSwitch,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
