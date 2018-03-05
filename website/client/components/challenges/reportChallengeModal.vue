@@ -4,10 +4,9 @@
       h4 {{ challenge.name }}
       blockquote
         div {{ challenge.summary }}
-      p(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
+      p(v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)")
     .modal-footer
-      button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='userIsAdmin')
-        | Reset Flag Count
+      button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='userIsAdmin') {{ $t('resetFlagCount') }}
       button.btn.btn-primary(@click='close()') {{ $t('cancel') }}
       button.btn.btn-danger(@click='reportAbuse()') {{ $t('abuseFlagModalButton') }}
 </template>
@@ -38,7 +37,6 @@ export default {
   created () {
     this.$root.$on('habitica::report-challenge', data => {
       this.challenge = data.challenge;
-      console.log(this.challenge);
       this.$root.$emit('bv::show::modal', 'report-challenge');
     });
   },
@@ -50,16 +48,16 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-challenge');
     },
     async reportAbuse () {
-      this.notify('Thank you for reporting this violation. The moderators have been notified.');
+      this.text(this.$t('abuseReported'));
 
-      await this.$store.dispatch('challenge:flag', {
+      await this.$store.dispatch('challenges:flag', {
         challengeId: this.challenge._id,
       });
 
       this.close();
     },
     async clearFlagCount () {
-      await this.$store.dispatch('challenge:clearFlagCount', {
+      await this.$store.dispatch('challenges:clearFlagCount', {
         challengeId: this.challenge._id,
       });
       this.close();
