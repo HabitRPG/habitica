@@ -238,9 +238,8 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .title-row
-        input(id='filterBackgroundsCheckbox' type='checkbox' v-model='filterBackgrounds')
-        label(for='filterBackgroundsCheckbox') Hide locked backgrounds
+      .row.title-row
+        toggle-switch.backgroundFilterToggle(:label="'Hide locked backgrounds'", v-model='filterBackgrounds')
       .row.text-center.title-row(v-if='!filterBackgrounds')
         strong {{backgroundShopSets[0].text}}
       .row.title-row(v-if='!filterBackgrounds')
@@ -620,11 +619,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   #backgrounds {
     .title-row {
       margin-bottom: 1em;
+    }
 
-      label {
-        margin-left: 5px;
-        font-weight: bold;
-      }
+    .backgroundFilterToggle {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .set-title {
@@ -698,6 +697,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       background: #fff;
       padding: 0.5em;
       border-radius: 0 0 2px 2px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       cursor: pointer;
 
       span {
@@ -715,12 +715,18 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
       &.single {
         width: 141px;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-
       }
 
       &.set {
         width: 100%;
+
+        span {
+          font-size: 14px;
+        }
+      
+        .gem {
+          width: 20px;
+        }
       }
     }
 
@@ -734,7 +740,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         width: 100%;
         margin: 10px;
         background-color: #edecee;
-        box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
         border-radius: 2px;
     }
   }
@@ -811,7 +816,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   .background-button {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
   }
 
   .background-button:hover {
@@ -835,6 +840,7 @@ import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
 import bodyIcon from 'assets/svg/body.svg';
@@ -982,6 +988,7 @@ export default {
   mixins: [guide, notifications],
   components: {
     avatar,
+    toggleSwitch
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
