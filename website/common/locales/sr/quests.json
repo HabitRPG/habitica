@@ -25,6 +25,7 @@
     "questInvitation": "Poziv u misiju:",
     "questInvitationTitle": "Poziv u misiju",
     "questInvitationInfo": "Poziv u misiju <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Pitati kasnije",
     "questLater": "Quest Later",
     "buyQuest": "Kupiti misiju",
@@ -119,5 +120,10 @@
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
     "buyQuestBundle": "Buy Quest Bundle",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

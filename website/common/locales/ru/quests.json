@@ -25,6 +25,7 @@
     "questInvitation": "Приглашение на участие в квесте",
     "questInvitationTitle": "Приглашение на квест",
     "questInvitationInfo": "Приглашение на квест \"<%= quest %>\"",
+    "invitedToQuest": "Вас пригласили на квест <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Спросить позже",
     "questLater": "Пройти позже",
     "buyQuest": "Купить квест",
@@ -119,5 +120,10 @@
     "createAccountQuest": "Вы получили этот квест, когда вы присоединились к Habitica! Если ваш друг присоединяется, он так-же получит это квест.",
     "questBundles": "Наборы квестов со скидкой",
     "buyQuestBundle": "Купить набор квестов",
-    "noQuestToStart": "Не можете найти подходящий квест? Посетите магазин квестов на рынке. Возможно, что там есть новинки!"
+    "noQuestToStart": "Не можете найти подходящий квест? Посетите магазин квестов на рынке. Возможно, что там есть новинки!",
+    "pendingDamage": "<%= damage %> ожидаемого урона",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",
+    "rageAttack": "Атака при ярости:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> ярости",
+    "rageStrikes": "Нападения"
 }

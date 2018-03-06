@@ -377,11 +377,13 @@
   #hatching-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 310px;
+    }
+
     .content {
       text-align: center;
-
       margin: 9px;
-      width: 300px;
     }
 
     .title {
@@ -445,7 +447,8 @@
     }
 
     .food-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -455,6 +458,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 
@@ -958,25 +963,21 @@
           this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
-
       async feedAction (petKey, foodKey) {
-        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
 
         if (result.message) {
           this.text(result.message);
         }
       },
-
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
-
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
         }
       },
-
       onFoodClicked ($event, food) {
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
@@ -990,7 +991,6 @@
           this.foodClickMode = false;
         }
       },
-
       mouseMoved ($event) {
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;

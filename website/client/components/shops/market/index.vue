@@ -27,7 +27,8 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -162,7 +163,7 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-          //keys-to-kennel(v-if='category.identifier === "special"')
+          keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -255,13 +256,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .item-wrapper.bordered-item .item {
     width: 112px;
     height: 112px;
@@ -319,8 +313,24 @@
           left: 80px;
         }
       }
-    }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/market_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/market_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/market_broken_npc.png');
+        background-repeat: no-repeat;
+      }
+    }
   }
 
   .market .gems-left {
@@ -359,7 +369,7 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';
@@ -450,7 +460,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({
@@ -479,8 +495,8 @@ export default {
           categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value) => {
-              return value.yearRound;
+            items: _map(_filter(this.content.cardTypes, (value, key) => {
+              return value.yearRound || key === 'valentine';
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),

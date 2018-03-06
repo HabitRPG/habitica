@@ -619,6 +619,34 @@ let backgrounds = {
       notes: t('backgroundFlyingOverIcySteppesNotes'),
     },
   },
+  backgrounds022018: {
+    chessboard_land: {
+      text: t('backgroundChessboardLandText'),
+      notes: t('backgroundChessboardLandNotes'),
+    },
+    magical_museum: {
+      text: t('backgroundMagicalMuseumText'),
+      notes: t('backgroundMagicalMuseumNotes'),
+    },
+    rose_garden: {
+      text: t('backgroundRoseGardenText'),
+      notes: t('backgroundRoseGardenNotes'),
+    },
+  },
+  backgrounds032018: {
+    driving_a_coach: {
+      text: t('backgroundDrivingACoachText'),
+      notes: t('backgroundDrivingACoachNotes'),
+    },
+    elegant_balcony: {
+      text: t('backgroundElegantBalconyText'),
+      notes: t('backgroundElegantBalconyNotes'),
+    },
+    gorgeous_greenhouse: {
+      text: t('backgroundGorgeousGreenhouseText'),
+      notes: t('backgroundGorgeousGreenhouseNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

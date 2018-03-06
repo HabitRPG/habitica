@@ -13,32 +13,31 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          notifications-display
-          app-menu
-          .container-fluid
-            app-header
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        notifications-display
+        app-menu
+        .container-fluid
+          app-header
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
-            app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
+          app-footer
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -83,10 +82,14 @@ div
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
@@ -103,7 +106,7 @@ div
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043 !important; /* Must stay above nav bar */
   }
 </style>
 
@@ -123,9 +126,10 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import spellsMixin from 'client/mixins/spells';
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   name: 'app',
   components: {
     AppMenu,
@@ -225,9 +229,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
@@ -316,10 +323,84 @@ export default {
       this.hideLoadingScreen();
     }
 
-    // Manage modals
-    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-      if (data.fromRoot) return;
+    this.initializeModalStack();
+  },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
+  },
+  mounted () {
+    // Remove the index.html loading screen and now show the inapp loading
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) document.body.removeChild(loadingScreen);
+  },
+  methods: {
+    initializeModalStack () {
+      // Manage modals
+      this.$root.$on('bv::show::modal', (modalId, data = {}) => {
+        if (data.fromRoot) return;
+        const modalStack = this.$store.state.modalStack;
 
+        this.trackGemPurchase(modalId, data);
+
+        // Add new modal to the stack
+        const prev = modalStack[modalStack.length - 1];
+        const prevId = prev ? prev.modalId : undefined;
+        modalStack.push({modalId, prev: prevId});
+      });
+
+      this.$root.$on('bv::modal::hidden', (bvEvent) => {
+        const modalId = bvEvent.target && bvEvent.target.id;
+        if (!modalId) return;
+
+        const modalStack = this.$store.state.modalStack;
+
+        const modalOnTop = modalStack[modalStack.length - 1];
+
+        // Check for invalid modal. Event systems can send multiples
+        if (!this.validStack(modalStack)) return;
+
+        // If we are moving forward
+        if (modalOnTop && modalOnTop.prev === modalId) return;
+
+        // Remove modal from stack
+        this.$store.state.modalStack.pop();
+
+        // Get previous modal
+        const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
+      });
+    },
+    validStack (modalStack) {
+      const modalsThatCanShowTwice = ['profile'];
+      const modalCount = {};
+      const prevAndCurrent = 2;
+
+      for (let index in modalStack) {
+        const current = modalStack[index];
+
+        if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
+        modalCount[current.modalId] += 1;
+        if (modalCount[current.modalId] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.modalId) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+
+        if (!current.prev) continue; // eslint-disable-line
+        if (!modalCount[current.prev]) modalCount[current.prev] = 0;
+        modalCount[current.prev] += 1;
+        if (modalCount[current.prev] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.prev) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+      }
+
+      return true;
+    },
+    trackGemPurchase (modalId, data) {
       // Track opening of gems modal unless it's been already tracked
       // For example the gems button in the menu already tracks the event by itself
       if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
@@ -330,46 +411,7 @@ export default {
           eventLabel: 'Gems > Wallet',
         });
       }
-
-      // Get last modal on stack and hide
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-
-      // Add new modal to the stack
-      this.$store.state.modalStack.push(modalId);
-
-      // Hide the previous top modal
-      if (modalOnTop) this.$root.$emit('bv::hide::modal', modalOnTop, {fromRoot: true});
-    });
-
-    // @TODO: This part is hacky and could be solved with two options:
-    // 1 - Find a way to pass fromRoot to hidden
-    // 2 - Enforce that all modals use the hide::modal event
-    this.$root.$on('bv::modal::hidden', (bvEvent) => {
-      const modalId = bvEvent.target.id;
-
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
-      // Don't remove modal if hid was called from main app
-      // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
-      // if (data && data.fromRoot) return;
-      if (modalId === modalSecondToTop) return;
-
-      // Remove modal from stack
-      this.$store.state.modalStack.pop();
-
-      // Recalculate and show the last modal if there is one
-      modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
-    });
-  },
-  mounted () {
-    // Remove the index.html loading screen and now show the inapp loading
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) document.body.removeChild(loadingScreen);
-  },
-  methods: {
+    },
     resetItemToBuy ($event) {
       // @TODO: Do we need this? I think selecting a new item
       // overwrites. @negue might know
@@ -393,18 +435,21 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
-      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
-
-      // Subtract gold for cards
-      if (this.selectedSpellToBuy.pinType === 'card') {
-        const newUserGp = castResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-      }
+      await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
@@ -422,6 +467,7 @@ export default {
 </script>
 
 <style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="assets/css/sprites/spritesmith-main-0.css"></style>
@@ -445,4 +491,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>

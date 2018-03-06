@@ -1,4 +1,5 @@
 import content from '../content/index';
+import {beastMasterProgress, mountMasterProgress} from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -11,6 +12,10 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
 
   if (user.balance < 1.5 && !user.achievements.triadBingo) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  if (beastMasterProgress(user.items.pets) !== 90 || mountMasterProgress(user.items.mounts) !== 90) {
+    throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
   }
 
   let giveTriadBingo = true;

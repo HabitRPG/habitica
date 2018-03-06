@@ -25,6 +25,7 @@
     "questInvitation": "Convite de Missão:",
     "questInvitationTitle": "Convite para Missão",
     "questInvitationInfo": "Convite para a Missão <%= quest %>",
+    "invitedToQuest": "Você foi convidado para a Missão <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Perguntar Depois",
     "questLater": "Voltar depois para a Missão",
     "buyQuest": "Comprar Missão",
@@ -119,5 +120,10 @@
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, ele também terá um.",
     "questBundles": "Pacotes de Missões com Desconto",
     "buyQuestBundle": "Comprar Pacote de Missões",
-    "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!"
+    "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!",
+    "pendingDamage": "<%= damage %> de dano acumulado",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Vida",
+    "rageAttack": "Ataque de Fúria: ",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Fúria",
+    "rageStrikes": "Golpes de Fúria"
 }

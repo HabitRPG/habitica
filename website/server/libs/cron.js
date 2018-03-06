@@ -181,11 +181,9 @@ function awardLoginIncentives (user) {
   if (!loginIncentives[user.loginIncentives].rewardKey && user._ABtests && user._ABtests.checkInModals === '20161221_noCheckInPreviews') return;
 
   //  Remove old notifications if they exists
-  user.notifications
-    .toObject()
-    .forEach((notif, index) => {
-      if (notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
-    });
+  user.notifications.forEach((notif, index) => {
+    if (notif && notif.type === 'LOGIN_INCENTIVE') user.notifications.splice(index, 1);
+  });
 
   let notificationData = {};
   notificationData.message = i18n.t('checkinEarned', user.preferences.language);
@@ -359,14 +357,15 @@ export function cron (options = {}) {
           }
         }
       }
+
+      // add history entry when task was not completed
+      task.history.push({
+        date: Number(new Date()),
+        value: task.value,
+      });
     }
 
-    task.history.push({
-      date: Number(new Date()),
-      value: task.value,
-    });
     task.completed = false;
-
     setIsDueNextDue(task, user, now);
 
     if (completed || scheduleMisses > 0) {
@@ -429,8 +428,8 @@ export function cron (options = {}) {
   // Add 10 MP, or 10% of max MP if that'd be more. Perform this after Perfect Day for maximum benefit
   // Adjust for fraction of dailies completed
   if (dailyDueUnchecked === 0 && dailyChecked === 0) dailyChecked = 1;
-  user.stats.mp += _.max([10, 0.1 * user._statsComputed.maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
-  if (user.stats.mp > user._statsComputed.maxMP) user.stats.mp = user._statsComputed.maxMP;
+  user.stats.mp += _.max([10, 0.1 * common.statsComputed(user).maxMP]) * dailyChecked / (dailyDueUnchecked + dailyChecked);
+  if (user.stats.mp > common.statsComputed(user).maxMP) user.stats.mp = common.statsComputed(user).maxMP;
 
   // After all is said and done, progress up user's effect on quest, return those values & reset the user's
   let progress = user.party.quest.progress;
@@ -442,8 +441,8 @@ export function cron (options = {}) {
 
   // First remove a possible previous cron notification
   // we don't want to flood the users with many cron notifications at once
-  let oldCronNotif = user.notifications.toObject().find((notif, index) => {
-    if (notif.type === 'CRON') {
+  let oldCronNotif = user.notifications.find((notif, index) => {
+    if (notif && notif.type === 'CRON') {
       user.notifications.splice(index, 1);
       return true;
     } else {

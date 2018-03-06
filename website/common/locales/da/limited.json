@@ -34,6 +34,7 @@
     "seasonalShopFallText": "Happy Fall Festival!! Would you like to buy some rare items? They’ll only be available until October 31st!",
     "seasonalShopWinterText": "Happy Winter Wonderland!! Would you like to buy some rare items? They’ll only be available until January 31st!",
     "seasonalShopFallTextBroken": "Åh.... Velkommen til Sæson-markedet... Vi har efterårs-sæson varer, eller noget... Alting her kan købes under Efterårsfestival-eventet hvert år, men vi har kun åbent indtil den 31. oktober... Du burde nok købe ind nu, ellers vil du skulle vente... og vente... og vente... <strong>*suk*</strong>",
+    "seasonalShopBrokenText": "My pavilion!!!!!!! My decorations!!!! Oh, the Dysheartener's destroyed everything :( Please help defeat it in the Tavern so I can rebuild!",
     "seasonalShopRebirth": "Hvis du har købt noget af detteudstyr før, men ikke ejer det i øjeblikket, kan du genkøbe det i Belønningskolonnen. I starten vil du kun kunne købe de ting der passer til din nuværende klasse (Kriger som standard), men frygt ej, de andre klasse-specifikke varer bliver tilgængelige hvis du skifter til den klasse.",
     "candycaneSet": "Slikstok (Magiker)",
     "skiSet": "Ski-morder (Slyngel)",
@@ -125,8 +126,9 @@
     "dateEndOctober": "October 31",
     "dateEndNovember": "November 30",
     "dateEndJanuary": "January 31",
-    "discountBundle": "pakke",
+    "dateEndFebruary": "February 28",
     "winterPromoGiftHeader": "GIFT A SUBSCRIPTION AND GET ONE FREE!",
     "winterPromoGiftDetails1": "Until January 12th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
-    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3"
+    "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
+    "discountBundle": "pakke"
 }

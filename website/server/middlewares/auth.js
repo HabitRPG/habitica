@@ -44,17 +44,17 @@ export function authWithHeaders (optional = false, userFieldProjection = '') {
     const findPromise = fields ? User.findOne(userQuery, fields) : User.findOne(userQuery);
 
     return findPromise
-    .exec()
-    .then((user) => {
-      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-      if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
+      .exec()
+      .then((user) => {
+        if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+        if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id}));
 
-      res.locals.user = user;
+        res.locals.user = user;
 
-      req.session.userId = user._id;
-      return next();
-    })
-    .catch(next);
+        req.session.userId = user._id;
+        return next();
+      })
+      .catch(next);
   };
 }
 
@@ -74,14 +74,14 @@ export function authWithSession (req, res, next) {
   return User.findOne({
     _id: userId,
   })
-  .exec()
-  .then((user) => {
-    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+    .exec()
+    .then((user) => {
+      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
-    res.locals.user = user;
-    return next();
-  })
-  .catch(next);
+      res.locals.user = user;
+      return next();
+    })
+    .catch(next);
 }
 
 export function authWithUrl (req, res, next) {
@@ -98,11 +98,11 @@ export function authWithUrl (req, res, next) {
   }
 
   return User.findOne({ _id: userId, apiToken }).exec()
-  .then((user) => {
-    if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
+    .then((user) => {
+      if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
 
-    res.locals.user = user;
-    return next();
-  })
-  .catch(next);
+      res.locals.user = user;
+      return next();
+    })
+    .catch(next);
 }

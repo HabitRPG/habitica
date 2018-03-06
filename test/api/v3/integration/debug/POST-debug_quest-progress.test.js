@@ -16,11 +16,11 @@ describe('POST /debug/quest-progress', () => {
 
   it('errors if user is not on a quest', async () => {
     await expect(user.post('/debug/quest-progress'))
-    .to.eventually.be.rejected.and.to.deep.equal({
-      code: 400,
-      error: 'BadRequest',
-      message: 'User is not on a valid quest.',
-    });
+      .to.eventually.be.rejected.and.to.deep.equal({
+        code: 400,
+        error: 'BadRequest',
+        message: 'User is not on a valid quest.',
+      });
   });
 
   it('increases boss quest progress by 1000', async () => {
@@ -51,10 +51,10 @@ describe('POST /debug/quest-progress', () => {
     nconf.set('IS_PROD', true);
 
     await expect(user.post('/debug/quest-progress'))
-    .eventually.be.rejected.and.to.deep.equal({
-      code: 404,
-      error: 'NotFound',
-      message: 'Not found.',
-    });
+      .eventually.be.rejected.and.to.deep.equal({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
   });
 });

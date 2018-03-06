@@ -4,14 +4,14 @@ import { model as Challenges } from '../../website/server/models/challenge';
 import { model as User } from '../../website/server/models/user';
 
 async function syncChallengeToMembers (challenges) {
-  let challengSyncPromises = challenges.map(async function (challenge) {
+  let challengSyncPromises = challenges.map(async (challenge) => {
     let users = await User.find({
       // _id: '',
       challenges: challenge._id,
     }).exec();
 
     let promises = [];
-    users.forEach(function (user) {
+    users.forEach((user) => {
       promises.push(challenge.syncToUser(user));
       promises.push(challenge.save());
       promises.push(user.save());
@@ -42,6 +42,6 @@ async function syncChallenges (lastChallengeDate) {
   let lastChallenge = challengesFound[challengesFound.length - 1];
   if (lastChallenge) syncChallenges(lastChallenge.createdAt);
   return syncedChallenges;
-};
+}
 
 module.exports = syncChallenges;

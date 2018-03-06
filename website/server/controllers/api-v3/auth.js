@@ -25,6 +25,8 @@ import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
+const USERNAME_LENGTH_MIN = 1;
+const USERNAME_LENGTH_MAX = 20;
 
 let api = {};
 
@@ -78,11 +80,11 @@ function hasBackupAuth (user, networkToRemove) {
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
- * @apiDescription Register a new user with email, username and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Username of the new user
+ * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, hyphens (-), or underscores (_).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
@@ -101,7 +103,12 @@ api.registerLocal = {
         notEmpty: {errorMessage: res.t('missingEmail')},
         isEmail: {errorMessage: res.t('notAnEmail')},
       },
-      username: {notEmpty: {errorMessage: res.t('missingUsername')}},
+      username: {
+        notEmpty: {errorMessage: res.t('missingUsername')},
+        isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameWrongLength')},
+        // TODO use the constants in the error message above
+        matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameBadCharacters')},
+      },
       password: {
         notEmpty: {errorMessage: res.t('missingPassword')},
         equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
@@ -240,7 +247,7 @@ api.loginLocal = {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (validator.isEmail(username)) {
+    if (validator.isEmail(String(username))) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
     } else {
       login = {'auth.local.username': username};
@@ -340,11 +347,11 @@ api.loginSocial = {
       // Clean previous email preferences
       if (savedUser.auth[network].emails && savedUser.auth[network].emails[0] && savedUser.auth[network].emails[0].value) {
         EmailUnsubscription
-        .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
-        .exec()
-        .then(() => {
-          if (!existingUser) sendTxnEmail(savedUser, 'welcome');
-        }); // eslint-disable-line max-nested-callbacks
+          .remove({email: savedUser.auth[network].emails[0].value.toLowerCase()})
+          .exec()
+          .then(() => {
+            if (!existingUser) sendTxnEmail(savedUser, 'welcome');
+          }); // eslint-disable-line max-nested-callbacks
       }
 
       if (!existingUser) {
@@ -403,7 +410,7 @@ api.pusherAuth = {
     }
 
     resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(resourceId)) {
+    if (!validator.isUUID(String(resourceId))) {
       throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
     }
 

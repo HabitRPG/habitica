@@ -33,6 +33,8 @@ api.constants = {
 };
 
 function revealMysteryItems (user) {
+  const pushedItems = [];
+
   _.each(shared.content.gear.flat, function findMysteryItems (item) {
     if (
       item.klass === 'mystery' &&
@@ -40,10 +42,13 @@ function revealMysteryItems (user) {
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
         user.purchased.plan.mysteryItems.indexOf(item.key) === -1
-      ) {
+    ) {
       user.purchased.plan.mysteryItems.push(item.key);
+      pushedItems.push(item.key);
     }
   });
+
+  user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
 }
 
 function _dateDiff (earlyDate, lateDate) {
@@ -62,9 +67,9 @@ function _dateDiff (earlyDate, lateDate) {
 api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name notifications').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name notifications').exec();
   }
 
   let promises = members.map((member) => {
@@ -506,9 +511,9 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining})
-    .add({days: extraDays})
-    .toDate();
+      .add({days: remaining})
+      .add({days: extraDays})
+      .toDate();
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

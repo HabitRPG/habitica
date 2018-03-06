@@ -314,5 +314,33 @@ describe('POST /challenges', () => {
       groupLeader = await groupLeader.sync();
       expect(groupLeader.achievements.joinedChallenge).to.be.true;
     });
+
+    it('sets summary to challenges name when not supplied', async () => {
+      const name = 'Test Challenge';
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name,
+        shortName: 'TC Label',
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+
+      expect(updatedChallenge.summary).to.eql(name);
+    });
+
+    it('sets summary to challenges', async () => {
+      const name = 'Test Challenge';
+      const summary = 'Test Summary Challenge';
+      const challenge = await groupLeader.post('/challenges', {
+        group: group._id,
+        name,
+        shortName: 'TC Label',
+        summary,
+      });
+
+      const updatedChallenge = await groupLeader.get(`/challenges/${challenge._id}`);
+
+      expect(updatedChallenge.summary).to.eql(summary);
+    });
   });
 });

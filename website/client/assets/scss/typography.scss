@@ -15,8 +15,27 @@ body {
   color: $gray-200;
 }
 
-a {
+a, a:not([href]):not([tabindex]) {
   cursor: pointer;
+
+  &.standard-link {
+    color: $blue-10;
+
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
+
+    &[disabled="disabled"] {
+      color: $gray-300;
+      text-decoration: none;
+      cursor: default;
+    }
+  }
+
+  &.small-link {
+    font-size: 12px;
+    line-height: 1.33;
+  }
 }
 
 // Headers
@@ -48,4 +67,9 @@ h3 {
 h4 {
   font-size: 14px;
   line-height: 1.43;
+}
+
+.textCondensed {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
 }

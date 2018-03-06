@@ -35,6 +35,19 @@ describe('shared.ops.releasePets', () => {
     }
   });
 
+  it('returns an error when user does not have all pets', (done) => {
+    const petKeys = Object.keys(user.items.pets);
+    delete user.items.pets[petKeys[0]];
+
+    try {
+      releasePets(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('notEnoughPets'));
+      done();
+    }
+  });
+
   it('releases pets', () => {
     let message = releasePets(user)[1];
 
@@ -75,27 +88,35 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('does not increment beastMasterCount if any pet is level 0 (released)', () => {
-    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
-
+    const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = 0;
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (null)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 
   it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
     let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     delete user.items.pets[animal];
-    releasePets(user);
 
-    expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    try {
+      releasePets(user);
+    } catch (e) {
+      expect(user.achievements.beastMasterCount).to.equal(beastMasterCountBeforeRelease);
+    }
   });
 });

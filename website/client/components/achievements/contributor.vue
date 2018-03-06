@@ -5,6 +5,7 @@
         achievement-avatar.avatar
       .col-6.offset-3.text-center
         | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
+        br
         a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
         br
         button.btn.btn-primary(style='margin-top:1em' @click='close()') {{ $t('huzzah') }}

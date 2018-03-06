@@ -6,7 +6,7 @@
     "questsForSale": "Eladó küldetések",
     "petQuests": "Háziállat és Hátas Küldetések",
     "unlockableQuests": "Feloldható Küldetések",
-    "goldQuests": "Masterclasser Quest Lines",
+    "goldQuests": "Kasztmester küldetéssorozat",
     "questDetails": "Küldetés Részletei",
     "questDetailsTitle": "Quest Details",
     "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
@@ -25,6 +25,7 @@
     "questInvitation": "Küldetés meghívás:",
     "questInvitationTitle": "Küldetés Meghívás",
     "questInvitationInfo": "Meghívás <%= quest %> küldetéshez",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Kérdezd később",
     "questLater": "Küldetés később",
     "buyQuest": "Küldetés megvásárlása",
@@ -119,5 +120,10 @@
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Leárazott Küldetéscsomag",
     "buyQuestBundle": "Vásárolj Küldetéscsomagot!",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

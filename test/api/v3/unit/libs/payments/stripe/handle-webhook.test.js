@@ -34,13 +34,16 @@ describe('Stripe - Webhooks', () => {
     it('logs an error if an unsupported webhook event is passed', async () => {
       const error = new Error(`Missing handler for Stripe webhook ${eventType}`);
       await stripePayments.handleWebhooks({requestBody: event}, stripe);
-      expect(logger.error).to.have.been.called.once;
-      expect(logger.error).to.have.been.calledWith(error, {event: eventRetrieved});
+      expect(logger.error).to.have.been.calledOnce;
+
+      const calledWith = logger.error.getCall(0).args;
+      expect(calledWith[0].message).to.equal(error.message);
+      expect(calledWith[1].event).to.equal(eventRetrieved);
     });
 
     it('retrieves and validates the event from Stripe', async () => {
       await stripePayments.handleWebhooks({requestBody: event}, stripe);
-      expect(stripe.events.retrieve).to.have.been.called.once;
+      expect(stripe.events.retrieve).to.have.been.calledOnce;
       expect(stripe.events.retrieve).to.have.been.calledWith(event.id);
     });
   });
@@ -67,7 +70,7 @@ describe('Stripe - Webhooks', () => {
 
       await stripePayments.handleWebhooks({requestBody: {}}, stripe);
 
-      expect(stripe.events.retrieve).to.have.been.called.once;
+      expect(stripe.events.retrieve).to.have.been.calledOnce;
       expect(stripe.customers.del).to.not.have.been.called;
       expect(payments.cancelSubscription).to.not.have.been.called;
       stripe.events.retrieve.restore();

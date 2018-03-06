@@ -22,10 +22,10 @@ if (IS_PROD) {
       prettyPrint: false,
     });
     logger.add(winston.transports.Loggly, {
-        inputToken: nconf.get('LOGGLY:TOKEN'),
-        subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
-        tags: ['Winston-NodeJS'],
-        json: true,
+      inputToken: nconf.get('LOGGLY:TOKEN'),
+      subdomain: nconf.get('LOGGLY:SUBDOMAIN'),
+      tags: ['Winston-NodeJS'],
+      json: true,
     });
   }
 } else if (!IS_TEST || IS_TEST && ENABLE_LOGS_IN_TEST) { // Do not log anything when testing unless specified

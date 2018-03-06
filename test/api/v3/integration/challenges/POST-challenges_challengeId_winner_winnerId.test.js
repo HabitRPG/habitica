@@ -99,7 +99,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await sleep(0.5);
 
-      await expect(winningUser.sync()).to.eventually.have.deep.property('achievements.challenges').to.include(challenge.name);
+      await expect(winningUser.sync()).to.eventually.have.nested.property('achievements.challenges').to.include(challenge.name);
       expect(winningUser.notifications.length).to.equal(2); // 2 because winningUser just joined the challenge, which now awards an achievement
       expect(winningUser.notifications[1].type).to.equal('WON_CHALLENGE');
     });

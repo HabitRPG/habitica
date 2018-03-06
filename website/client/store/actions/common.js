@@ -8,9 +8,9 @@ export function equip (store, params) {
   equipOp(user, {params});
   axios
     .post(`/api/v3/user/equip/${params.type}/${params.key}`);
-    // TODO
-    // .then((res) => console.log('equip', res))
-    // .catch((err) => console.error('equip', err));
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
 }
 
 export function hatch (store, params) {
@@ -18,16 +18,16 @@ export function hatch (store, params) {
   hatchOp(user, {params});
   axios
     .post(`/api/v3/user/hatch/${params.egg}/${params.hatchingPotion}`);
-    // TODO
-    // .then((res) => console.log('equip', res))
-    // .catch((err) => console.error('equip', err));
+  // TODO
+  // .then((res) => console.log('equip', res))
+  // .catch((err) => console.error('equip', err));
 }
 
 export async function feed (store, params) {
   const user = store.state.user.data;
   feedOp(user, {params});
-  let response = await axios
-    .post(`/api/v3/user/feed/${params.pet}/${params.food}`);
 
+  const response = await axios
+    .post(`/api/v3/user/feed/${params.pet}/${params.food}`);
   return response.data;
 }

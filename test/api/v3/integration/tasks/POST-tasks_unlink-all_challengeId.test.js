@@ -41,30 +41,30 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
 
   it('fails if no keep query', async () => {
     await expect(user.post(`/tasks/unlink-all/${challenge._id}`))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('invalidReqParams'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
   });
 
   it('fails if invalid challenge id', async () => {
     await expect(user.post('/tasks/unlink-all/123?keep=remove-all'))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('invalidReqParams'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
   });
 
   it('fails on an unbroken challenge', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
     await expect(user.post(`/tasks/unlink-all/${challenge._id}?keep=remove-all`))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('cantOnlyUnlinkChalTask'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('cantOnlyUnlinkChalTask'),
+      });
   });
 
   it('unlinks all tasks from a challenge and deletes them on keep=remove-all', async () => {
@@ -87,7 +87,7 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
     const daily = await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
     const anotherUser = await generateUser();
     await user.post(`/groups/${guild._id}/invite`, {
-        uuids: [anotherUser._id],
+      uuids: [anotherUser._id],
     });
     // Have the second user join the group and challenge
     await anotherUser.post(`/groups/${guild._id}/join`);

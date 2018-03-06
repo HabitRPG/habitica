@@ -122,13 +122,15 @@ export default function () {
       gemModalOptions: {
         startingPage: '',
       },
+      rageModalOptions: {
+        npc: '',
+      },
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
       equipmentDrawerOpen: true,
       groupPlans: [],
-      groupNotifications: [],
       isRunningYesterdailies: false,
     },
   });

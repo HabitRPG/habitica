@@ -47,7 +47,7 @@ describe('#upgradeGroupPlan', () => {
   });
 
   afterEach(function () {
-    sinon.restore(amzLib.authorizeOnBillingAgreement);
+    amzLib.authorizeOnBillingAgreement.restore();
     uuid.v4.restore();
   });
 
