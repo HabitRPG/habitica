@@ -464,6 +464,8 @@ api.updateTask = {
 
     if (!challenge && task.userId && task.challenge && task.challenge.id) {
       sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+    } else if (!challenge && task.isChallengeTask || task.group && task.group.id) {
+      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
     } else {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
     }
