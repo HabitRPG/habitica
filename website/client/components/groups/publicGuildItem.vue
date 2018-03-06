@@ -4,10 +4,10 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
     .card-body
       .row
         .col-md-2.badge-column
-          .shield-wrap(:class="{gold: isTier.gold, silver: isTier.silver}")
-            .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='isTier.gold')
-            .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='isTier.silver')
-            .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='isTier.bronze')
+          .shield-wrap(:class="{gold: isTier('gold'), silver: isTier('silver')}")
+            .svg-icon.shield(v-html="icons.goldGuildBadge", v-if='isTier("gold")')
+            .svg-icon.shield(v-html="icons.silverGuildBadgeIcon", v-if='isTier("silver")')
+            .svg-icon.shield(v-html="icons.bronzeGuildBadgeIcon", v-if='isTier("bronze")')
             .member-count {{ guild.memberCount | abbrNum }}
         .col-md-10
           .row
@@ -147,10 +147,8 @@ export default {
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },
-    isTier: Object.freeze({
-      gold: this.guild.memberCount >= 1000,
-      silver: this.guild.memberCount < 1000 && this.guild.memberCount >= 100,
-      bronze: this.guild.memberCount < 100,
+    isTier (tier) {
+      return this.isTier(tier, this.guild);
     },
   },
   data () {

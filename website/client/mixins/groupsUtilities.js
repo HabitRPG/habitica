@@ -28,6 +28,21 @@ export default {
     },
   },
   methods: {
+    isTier(tier, group) {
+      switch (tier) {
+        case "gold":
+          return guild.memberCount >= 1000;
+          break;
+        case "silver":
+          return guild.memberCount < 1000 && guild.memberCount >= 100;
+          break;
+        case "bronze":
+          return guild.memberCount < 100;
+          break;
+        default:
+          return false;
+      }
+    },
     isMemberOfGroup (user, group) {
       if (group._id === this.$store.state.constants.TAVERN_ID) return true;
 
