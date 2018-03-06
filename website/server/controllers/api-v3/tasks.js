@@ -642,6 +642,9 @@ api.scoreTask = {
       user.markModified('_ABtests');
     }
 
+    if (!user.achievements.checked) user.achievements.checked = 0;
+    user.achievements.checked += direction === 'up' ? 1 : -1;
+
     let promises = [
       user.save(),
       task.save(),

@@ -90,6 +90,14 @@ let basicAchievs = {
     pluralTitleKey: 'streakName',
     pluralTextKey: 'streakText',
   },
+  checked: {
+    icon: 'achievement-checked',
+    singularTitleKey: 'checked1',
+    singularTextKey: 'checked1Text',
+    pluralTitleKey: 'checkedName',
+    pluralTextKey: 'checkedText',
+    breakpoints: [1, 10, 25, 50, 100],
+  },
   perfect: {
     icon: 'achievement-perfect',
     singularTitleKey: 'perfectSingular',
