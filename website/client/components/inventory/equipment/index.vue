@@ -34,17 +34,19 @@
           b-dropdown-item(@click="groupBy = 'type'", :active="groupBy === 'type'") {{ $t('equipmentType') }}
           b-dropdown-item(@click="groupBy = 'class'", :active="groupBy === 'class'") {{ $t('class') }}
 
-    .clearfix
+    .clearfix.gear-btn-bar
       b-btn-group.float-left
         b-btn(
           @click="costume = false",
-            :variant="{'primary': costume, 'secondary': !costume}",
+          :variant="costume ? 'secondary' : 'primary'",
+          class="gear-btn"
         ) {{ $t('battleGear') }}
         b-btn(
           @click="costume = true",
-          :variant="{'primary': !costume, 'secondary': costume}",
+          :variant="costume ? 'primary' : 'secondary'",
+          class="gear-btn"
         ) {{ $t('costume') }}
-      .float-right
+      .float-right.clearfix
         toggle-switch(
           :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
           :checked="user.preferences[drawerPreference]",
@@ -53,11 +55,21 @@
         )
             
         b-popover(
-          target="costumePrefToggleSwitch"
+          target="costumePrefToggleSwitch",
           triggers="hover",
-          placement="top"
+          placement="top",
         )
           .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
+
+        b-btn(
+          variant="danger",
+          @click="unequipGear",
+        ) {{ $t('unequip'+ (costume ? 'Costume' : 'BattleGear')) }}
+        
+        b-btn(
+          variant="danger",
+          @click="unequipPetMountBackground",
+        ) {{ $t('unequipPetMountBackground') }}
 
     drawer(
       :title="$t('equipment')",
@@ -145,6 +157,18 @@
 <style lang="scss">
 .pointer {
   cursor: pointer;
+}
+
+.gear-btn {
+  width: 104px;
+}
+
+.gear-btn-bar {
+  margin-bottom: 24px;
+}
+
+.btn {
+  margin-left: 8px;
 }
 </style>
 
@@ -248,6 +272,18 @@ export default {
       this.$store.dispatch('common:equip', {key: item.key, type: this.costume ? 'costume' : 'equipped'});
       this.gearToEquip = null;
     },
+    unequipGear () {
+      console.log(this.activeItems);
+      for (let key in this.activeItems) {
+        console.log(this.activeItems[key]);
+        if (!this.activeItems[key].endsWith('base_0')) {
+          this.$store.dispatch('common:equip', {key: this.activeItems[key], type: this.costume ? 'costume' : 'equipped'});
+        }
+      }
+    },
+    unequipPetMountBackground () {
+      
+    },
     changeDrawerPreference (newVal) {
       this.$store.dispatch('user:set', {
         [`preferences.${this.drawerPreference}`]: newVal,
@@ -275,6 +311,9 @@ export default {
       equippedItems: 'user.data.items.gear.equipped',
       costumeItems: 'user.data.items.gear.costume',
       flatGear: 'content.gear.flat',
+      currentPet: 'user.data.items.currentPet',
+      currentMount: 'user.data.items.currentMount',
+      currentBackground: 'user.data.preferences.background',
     }),
     openStatus () {
       return this.$store.state.equipmentDrawerOpen ? 1 : 0;

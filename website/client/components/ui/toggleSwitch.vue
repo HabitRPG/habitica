@@ -1,9 +1,9 @@
 <template lang="pug">
 .clearfix.toggle-switch-container
   .float-left.toggle-switch-description {{ label }}
-  .float-left.svg-icon.inline.icon-16(
+  .float-left.svg-icon.inline.icon-16.info-icon(
     v-if="infoId",
-    v-html="icons[info]",
+    v-html="icons['info']",
     :id="infoId",
   )
   .toggle-switch.float-left
@@ -29,12 +29,12 @@
     position: relative;
     width: 40px;
     user-select: none;
-    margin-left: 9px;
+    margin-left: 16px;
   }
 
   .toggle-switch-description {
     height: 20px;
-    border-bottom: 1px dashed $gray-200;
+    font-weight: bold;
   }
 
   .toggle-switch-checkbox {
@@ -100,6 +100,10 @@
 
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
     right: 0px;
+  }
+
+  .info-icon {
+    margin-left: 8px;
   }
 </style>
 
