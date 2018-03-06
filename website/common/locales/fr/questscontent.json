@@ -576,13 +576,15 @@
     "seasonalShopRageStrikeRecap": "Le 21 février dernier, notre chère Leslie la sorcière saisonnière a été dévastée par la perte de sa boutique saisonnière, fracassée par la Décœurageante. Vite, accomplissez vos tâches afin de vaincre le monstre et aider à tout reconstruire !",
     "marketRageStrikeHeader": "Le Marché a été attaqué!",
     "marketRageStrikeLead": "Alex a le cœur brisé!",
-    "marketRageStrikeRecap": "Le 28 février, notre merveilleux marchant Alex fut horrifié quand la Décourageante détruisit le Marché. Vite! Abattez vos tâches pour vaincre le monstre et aider la reconstruction!",
-    "questsRageStrikeHeader": "The Quest Shop was Attacked!",
-    "questsRageStrikeLead": "Ian is Heartbroken!",
-    "questsRageStrikeRecap": "On March 6, our wonderful Ian the Quest Guide was deeply shaken when the Dysheartener shattered the ground around the Quest Shop. Quickly, tackle your tasks to defeat the monster and help rebuild!",
+    "marketRageStrikeRecap": "Le 28 février, notre merveilleux marchand Alex fut horrifié quand la Décourageante détruisit le marché. Vite ! Accomplissez vos tâches pour vaincre le monstre et aider à rebâtir !",
+    "questsRageStrikeHeader": "La boutique de quêtes a été prise pour cible !",
+    "questsRageStrikeLead": "Ian est dévasté !",
+    "questsRageStrikeRecap": "Le 6 mars, notre merveilleux Ian, le guide des quêtes, fut profondément touché lorsque la Décœurageante a réduit sa boutique des quêtes en miettes. Vite, accomplissez vos tâches pour vaincre le monstre et permettre la reconstruction !",
     "questDysheartenerBossRageMarket": "`La Décœurageante lance COUP DE CŒUR FRACASSANT`\n\nÀ l'aide ! Après s'être régalée de nos tâches abandonnées, la Décœurageante balance un nouveau Coup de cœur fracassant, explosant les murs et le sol du marché ! Tandis qu'il pleut des pierres et des briques, Alex le marchand pleure ses marchandises détruites, éprouvé par la destruction.\n\nOn ne peut pas laisser une chose pareille se reproduire ! Faites attention à bien accomplir toutes vos tâches pour empêcher la Décœurageante de lancer sa dernière attaque.",
     "questDysheartenerBossRageQuests": "`La Décœurageante lance COUP DE CŒUR FRACASSANT`\n\nHaaa ! Nous avons une nouvelle fois abandonné nos tâches, et la Décœurageante a rassemblé l'énergie suffisante à une dernière attaque contre nos tenanciers préférés. Tous les champs environnant Ian le maître des quêtes sont dévastés par ce Coup de cœur fracassant, et Ian est profondément atteint par cette vision d'horreur. Nous sommes si proches de la victoire face à cette créature... Allons ! Ne nous relâchons pas !",
     "questDysheartenerDropHippogriffPet": "Hippogriffe optimiste (Familier)",
     "questDysheartenerDropHippogriffMount": "Hippogriffe optimiste (Monture)",
-    "dysheartenerArtCredit": "Illustration par @AnnDeLune"
+    "dysheartenerArtCredit": "Illustration par @AnnDeLune",
+    "hugabugText": "Hug a Bug Quest Bundle",
+    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
 }
