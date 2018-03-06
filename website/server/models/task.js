@@ -54,6 +54,23 @@ export let TaskSchema = new Schema({
         return !validator.isUUID(val);
       },
       msg: 'Task short names cannot be uuids.',
+    }, {
+      validator (alias) {
+        return new Promise((resolve, reject) => {
+          Task.findOne({ // eslint-disable-line no-use-before-define
+            _id: { $ne: this._id },
+            userId: this.userId,
+            alias,
+          }).exec().then((task) => {
+            let aliasAvailable = !task;
+
+            return aliasAvailable ? resolve() : reject();
+          }).catch(() => {
+            reject();
+          });
+        });
+      },
+      msg: 'Task alias already used on another task.',
     }],
   },
   tags: [{
@@ -127,7 +144,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 
   let query = _.cloneDeep(additionalQueries);
 
-  if (validator.isUUID(identifier)) {
+  if (validator.isUUID(String(identifier))) {
     query._id = identifier;
   } else {
     query.userId = userId;
@@ -144,7 +161,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
   let initialSanitization = this.sanitize(taskObj);
 
-  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias', 'yesterDaily']);
+  return _.pick(initialSanitization, ['streak', 'checklist', 'attribute', 'reminders', 'tags', 'notes', 'collapseChecklist', 'alias', 'yesterDaily', 'counterDown', 'counterUp']);
 };
 
 // Sanitize checklist objects (disallowing id)
@@ -193,20 +210,6 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 
 export let Task = mongoose.model('Task', TaskSchema);
 
-Task.schema.path('alias').validate(function valiateAliasNotTaken (alias, respond) {
-  Task.findOne({
-    _id: { $ne: this._id },
-    userId: this.userId,
-    alias,
-  }).exec().then((task) => {
-    let aliasAvailable = !task;
-
-    respond(aliasAvailable);
-  }).catch(() => {
-    respond(false);
-  });
-}, 'Task alias already used on another task.');
-
 // habits and dailies shared fields
 let habitDailySchema = () => {
   return {history: Array}; // [{date:Date, value:Number}], // this causes major performance problems
@@ -239,7 +242,14 @@ export let habit = Task.discriminator('habit', HabitSchema);
 
 export let DailySchema = new Schema(_.defaults({
   frequency: {type: String, default: 'weekly', enum: ['daily', 'weekly', 'monthly', 'yearly']},
-  everyX: {type: Number, default: 1}, // e.g. once every X weeks
+  everyX: {
+    type: Number,
+    default: 1,
+    validate: [
+      (val) => val % 1 === 0 && val >= 0 && val <= 9999,
+      'Valid everyX values are integers from 0 to 9999',
+    ],
+  },
   startDate: {
     type: Date,
     default () {

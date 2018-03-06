@@ -6,8 +6,8 @@
     "keepIt": "שמרו עליה",
     "removeIt": "הסירו אותה",
     "brokenChallenge": "קישור אתגר שבור: משימה זו הייתה חלק מאתגר, אך האתגר (או הקבוצה שהציבה אותו) נמחק. מה ברצונך לעשות עם המשימות היתומות?",
-    "keepThem": "לשמור עליהן",
-    "removeThem": "למחוק אותן",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "אתגר זה הושלם, והמנצח היה <span class=\"badge\"><%= user %></span>! מה לעשות עם המשימות שנותרו?",
     "unsubChallenge": "קישור אתגר שבור: המשימה הזו הייתה חלק מאתגר, אבל בחרתם לפרוש ממנו. מה תרצו לעשות עם המשימות היתומות?",
     "challengeWinner": "ניצחו באתגרים הבאים",
@@ -101,8 +101,8 @@
     "addTask": "Add Task",
     "editChallenge": "Edit Challenge",
     "challengeDescription": "Challenge Description",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
-    "awardWinners": "Award Winners",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
     "deleteChallenge": "Delete Challenge",
     "challengeNamePlaceholder": "What is your Challenge name?",
@@ -127,5 +127,7 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

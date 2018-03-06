@@ -1,38 +1,52 @@
 <template lang="pug">
-  div.row
-    span.col-4(v-if="quest.collect") {{ $t('collect') }}
-    span.col-8(v-if="quest.collect")
+.row(:class="{'small-version': smallVersion}")
+  template(v-if="quest.collect")
+    span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('collect') + ':' }}
+    span.col-8
       div(v-for="(collect, key) of quest.collect")
         span {{ collect.count }} {{ getCollectText(collect) }}
 
-    span.col-4 {{ $t('difficulty') }}
-    span.col-8
-      span.svg-icon.inline.icon-16(v-for="star of stars()", v-html="icons[star]")
+  template(v-if="quest.boss")
+    span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('bossHP') + ':' }}
+    span.col-8 {{ quest.boss.hp }}
 
+  span.title(:class="smallVersion ? 'col-3' : 'col-4'") {{ $t('difficulty') + ':' }}
+  span.col-8
+    .svg-icon.inline(
+      v-for="star of stars()", v-html="icons[star]",
+      :class="smallVersion ? 'icon-12' : 'icon-16'",
+    )
 </template>
+
 <style lang="scss" scoped>
+@import '~client/assets/scss/colors.scss';
 
-  @import '~client/assets/scss/colors.scss';
+.title {
+  text-align: left;
+  font-weight: bold;
+  white-space: nowrap;
+}
 
-  .col-4{
-    text-align: left;
-    font-weight: bold;
-    white-space: nowrap;
-    height: 16px;
-    width: 80px;
+.col-8 {
+  text-align: left;
+}
+
+.col-8:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.svg-icon {
+  margin-right: 4px;
+}
+
+.small-version {
+  font-size: 12px;
+  line-height: 1.33;
+
+  .svg-icon {
+    margin-top: 1px;
   }
-
-  .col-8 {
-    text-align: right;
-  }
-
-  .col-8:not(:last-child) {
-    margin-bottom: 4px;
-  }
-
-  span.svg-icon.inline.icon-16 {
-    margin-right: 4px;
-  }
+}
 </style>
 
 <script>
@@ -41,6 +55,15 @@
   import svgStarEmpty from 'assets/svg/difficulty-star-empty.svg';
 
   export default {
+    props: {
+      quest: {
+        type: Object,
+      },
+      smallVersion: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data () {
       return {
         icons: Object.freeze({
@@ -84,11 +107,6 @@
         } else {
           return collect.text;
         }
-      },
-    },
-    props: {
-      quest: {
-        type: Object,
       },
     },
   };

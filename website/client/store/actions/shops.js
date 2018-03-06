@@ -1,20 +1,32 @@
 import axios from 'axios';
-import buyOp from 'common/script/ops/buy';
+import buyOp from 'common/script/ops/buy/buy';
 import content from 'common/script/content/index';
-import purchaseOp from 'common/script/ops/purchaseWithSpell';
-import hourglassPurchaseOp from 'common/script/ops/hourglassPurchase';
+import purchaseOp from 'common/script/ops/buy/purchaseWithSpell';
+import hourglassPurchaseOp from 'common/script/ops/buy/hourglassPurchase';
 import sellOp from 'common/script/ops/sell';
 import unlockOp from 'common/script/ops/unlock';
 import rerollOp from 'common/script/ops/reroll';
+import releasePetsOp from 'common/script/ops/releasePets';
+import releaseMountsOp from 'common/script/ops/releaseMounts';
+import releaseBothOp from 'common/script/ops/releaseBoth';
+
 import { getDropClass } from 'client/libs/notifications';
 
 // @TODO: Purchase means gems and buy means gold. That wording is misused below, but we should also change
 // the generic buy functions to something else. Or have a Gold Vendor and Gem Vendor, etc
 
-export function buyItem (store, params) {
+function buyItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
+
+  const userPinned = user.pinnedItems.slice();
   let opResult = buyOp(user, {params, quantity});
+
+  // @TODO: Currently resetting the pinned items will reset the market. Purchasing some items does not reset pinned.
+  // For now, I've added this hack for items like contributor gear to update while I am working on add more computed
+  // properties to the market. We will use this quick fix while testing the other changes.
+  user.pinnedItems = userPinned;
+
 
   return {
     result: opResult,
@@ -33,7 +45,7 @@ export function buyQuestItem (store, params) {
 
   return {
     result: opResult,
-    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest'}),
+    httpCall: axios.post(`/api/v3/user/buy/${params.key}`, {type: 'quest', quantity}),
   };
 }
 
@@ -51,28 +63,31 @@ async function buyArmoire (store, params) {
   if (buyResult) {
     const resData = buyResult;
     const item = resData.armoire;
+    const message = result.data.message;
 
     const isExperience = item.type === 'experience';
-
     if (item.type === 'gear') {
       store.state.user.data.items.gear.owned[item.dropKey] = true;
     }
+    store.state.user.data.stats.gp -= armoire.value;
 
     // @TODO: We might need to abstract notifications to library rather than mixin
+    const notificationOptions = isExperience ?
+      {
+        text: `+ ${item.value}`,
+        type: 'xp',
+        flavorMessage: message,
+      } :
+      {
+        text: message,
+        type: 'drop',
+        icon: getDropClass({type: item.type, key: item.dropKey}),
+      };
+
     store.dispatch('snackbars:add', {
       title: '',
-      text: `- ${armoire.value}`,
-      type: 'gp',
-      icon: '',
-      sign: '-',
       timeout: true,
-    });
-    store.dispatch('snackbars:add', {
-      title: '',
-      text: isExperience ? item.value : item.dropText,
-      type: isExperience ? 'xp' : 'drop',
-      icon: isExperience ? null : getDropClass({type: item.type, key: item.dropKey}),
-      timeout: true,
+      ...notificationOptions,
     });
   }
 }
@@ -90,7 +105,7 @@ export function purchase (store, params) {
 
 export function purchaseMysterySet (store, params) {
   const user = store.state.user.data;
-  let opResult = buyOp(user, {params, noConfirm: true, type: 'mystery'});
+  let opResult = buyOp(user, {params, type: 'mystery'});
 
   return {
     result: opResult,
@@ -140,7 +155,9 @@ export async function genericPurchase (store, params) {
       return store.dispatch('user:rebirth');
     case 'potion':
     case 'marketGear':
-      return buyItem(store, params);
+      // 'marketGear' gets `type`= `gear` which is used for gem-purchasable gear
+      // resetting type to pinType only here
+      return buyItem(store, {...params, type: params.pinType});
     case 'background':
       return unlock(store, {
         query: {
@@ -162,4 +179,19 @@ export function sellItems (store, params) {
   const user = store.state.user.data;
   sellOp(user, {params, query: {amount: params.amount}});
   axios.post(`/api/v3/user/sell/${params.type}/${params.key}?amount=${params.amount}`);
+}
+
+export function releasePets (store, params) {
+  releasePetsOp(params.user);
+  axios.post('/api/v3/user/release-pets');
+}
+
+export function releaseMounts (store, params) {
+  releaseMountsOp(params.user);
+  axios.post('/api/v3/user/release-mounts');
+}
+
+export function releaseBoth (store, params) {
+  releaseBothOp(params.user);
+  axios.post('/api/v3/user/release-both');
 }

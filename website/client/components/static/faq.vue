@@ -1,7 +1,7 @@
 <template lang="pug">
   .container-fluid
     .row
-      .col-md-6.offset-3
+      .col-12.col-md-6.offset-md-3
         h1 {{ $t('frequentlyAskedQuestions') }}
         .faq-question(v-for='(heading, index) in headings')
           h2.accordion(@click='setActivePage(heading)') {{ $t(`faqQuestion${index}`) }}
@@ -13,6 +13,12 @@
 <style lang='scss' scoped>
   .faq-question {
     margin-bottom: 1em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .container-fluid {
+      margin: auto;
+    }
   }
 </style>
 
@@ -56,8 +62,8 @@
           wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
         },
         // @TODO webFaqStillNeedHelp: {
-          // linkStart: '[',
-          // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
+        // linkStart: '[',
+        // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
         // },
         // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
       };

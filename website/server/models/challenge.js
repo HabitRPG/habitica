@@ -7,14 +7,13 @@ import * as Tasks from './task';
 import { model as User } from './user';
 import {
   model as Group,
-  TAVERN_ID,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import cwait from 'cwait';
-import { syncableAttrs } from '../libs/taskManager';
+import { TaskQueue } from 'cwait';
+import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
 
@@ -145,6 +144,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       matchingTask.challenge = {taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName};
       matchingTask.userId = user._id;
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
+      setNextDue(matchingTask, user);
     } else {
       _.merge(matchingTask, syncableAttrs(chalTask));
       // Make sure the task is in user.tasksOrder
@@ -181,7 +181,10 @@ async function _addTaskFn (challenge, tasks, memberId) {
     let userTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
     userTask.challenge = {taskId: chalTask._id, id: challenge._id, shortName: challenge.shortName};
     userTask.userId = memberId;
-    userTask.notes = chalTask.notes; // We want to sync the notes when the task is first added to the challenge
+
+    // We want to sync the notes and tags when the task is first added to the challenge
+    userTask.notes = chalTask.notes;
+    userTask.tags.push(challenge._id);
 
     let tasksOrderList = updateTasksOrderQ.$push[`tasksOrder.${chalTask.type}s`];
     if (!tasksOrderList) {
@@ -208,7 +211,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
+  let queue = new TaskQueue(Bluebird, 25); // process only 5 users concurrently
 
   await Bluebird.map(membersIds, queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);
@@ -293,8 +296,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   // Delete the challenge
   await this.model('Challenge').remove({_id: challenge._id}).exec();
 
-  // Refund the leader if the challenge is closed and the group not the tavern
-  if (challenge.group !== TAVERN_ID && brokenReason === 'CHALLENGE_DELETED') {
+  // Refund the leader if the challenge is deleted (no winner chosen)
+  if (brokenReason === 'CHALLENGE_DELETED') {
     await User.update({_id: challenge.leader}, {$inc: {balance: challenge.prize / 4}}).exec();
   }
 
@@ -340,7 +343,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     // Set the challenge tag to non-challenge status and remove the challenge from the user's challenges
     User.update({
       challenges: challenge._id,
-      'tags._id': challenge._id,
+      'tags.id': challenge._id,
     }, {
       $set: {'tags.$.challenge': false},
       $pull: {challenges: challenge._id},

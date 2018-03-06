@@ -144,7 +144,12 @@ api.exportUserDataXml = {
       'Content-Type': 'text/xml',
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
-    res.status(200).send(js2xml('user', userData));
+    res.status(200).send(js2xml.parse('user', userData, {
+      cdataInvalidChars: true,
+      declaration: {
+        include: false,
+      },
+    }));
   },
 };
 
@@ -159,7 +164,7 @@ api.exportUserDataXml = {
  *
  * @apiUse UserNotFound
  */
- // @TODO fix
+// @TODO fix
 api.exportUserAvatarHtml = {
   method: 'GET',
   url: '/export/avatar-:memberId.html',
@@ -223,11 +228,11 @@ api.exportUserAvatarPng = {
     }
 
     let [stream] = await new Pageres()
-    .src(`${BASE_URL}/export/avatar-${memberId}.html`, ['140x147'], {
-      crop: true,
-      filename: filename.replace('.png', ''),
-    })
-    .run();
+      .src(`${BASE_URL}/export/avatar-${memberId}.html`, ['140x147'], {
+        crop: true,
+        filename: filename.replace('.png', ''),
+      })
+      .run();
 
     let s3upload = S3.upload({
       Bucket: S3_BUCKET,

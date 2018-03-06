@@ -6,8 +6,8 @@
     "keepIt": "Conservarla",
     "removeIt": "Eliminarla",
     "brokenChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero el desafío (o el grupo) se ha eliminado. ¿Qué hacemos con las tareas del desafío?",
-    "keepThem": "Conservarlas",
-    "removeThem": "Eliminarlas",
+    "keepThem": "Mantener tareas",
+    "removeThem": "Quitar tareas",
     "challengeCompleted": "Este desafío ha finalizado y el ganador es ¡<span class=\"badge\"><%= user %></span>! ¿Qué hacemos con las tareas del desafío?",
     "unsubChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero ya no participas en él. ¿Qué hacemos con las tareas del desafío?",
     "challengeWinner": "Ha ganado los siguientes desafíos",
@@ -101,8 +101,8 @@
     "addTask": "Add Task",
     "editChallenge": "Edit Challenge",
     "challengeDescription": "Challenge Description",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
-    "awardWinners": "Award Winners",
+    "selectChallengeWinnersDescription": "Elige un ganador entre los participantes del reto",
+    "awardWinners": "Ganador del premio",
     "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
     "deleteChallenge": "Delete Challenge",
     "challengeNamePlaceholder": "What is your Challenge name?",
@@ -127,5 +127,7 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "¿Deseas mantener las tareas de retos?",
+    "selectParticipant": "Elige un participante"
 }

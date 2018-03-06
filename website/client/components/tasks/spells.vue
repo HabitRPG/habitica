@@ -12,7 +12,7 @@ div(v-if='user.stats.lvl > 10')
   drawer(
     :title="$t('skillsTitle')",
     v-if='user.stats.class && !user.preferences.disableClasses',
-    v-mousePosition="30", 
+    v-mousePosition="30",
     @mouseMoved="mouseMoved($event)",
     :openStatus='openStatus',
     @toggled='drawerToggled'
@@ -69,6 +69,7 @@ div(v-if='user.stats.lvl > 10')
     .details {
       text-align: left;
       padding-top: .5em;
+      padding-right: .1em;
 
       .img {
         display: inline-block;
@@ -102,6 +103,7 @@ div(v-if='user.stats.lvl > 10')
 
       .svg-icon {
         width: 16px;
+        height: 16px;
         margin-right: .2em;
       }
     }
@@ -129,6 +131,7 @@ div(v-if='user.stats.lvl > 10')
 
       .title {
         font-weight: bold;
+        margin-bottom: .2em;
       }
     }
 
@@ -185,15 +188,6 @@ export default {
     };
   },
   mounted () {
-    this.$root.$on('castEnd', (target, type, $event) => {
-      this.castEnd(target, type, $event);
-    });
-
-    document.addEventListener('keyup', keyEvent => {
-      if (keyEvent.keyCode !== 27) return;
-      this.castCancel();
-    });
-
     // @TODO: should we abstract the drawer state/local store to a library and mixing combo? We use a similar pattern in equipment
     const spellDrawerState = getLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE);
     if (spellDrawerState === CONSTANTS.valueConstants.DRAWER_CLOSED) {

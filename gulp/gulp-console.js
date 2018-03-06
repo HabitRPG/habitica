@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import autoinc  from 'mongoose-id-autoinc';
 import logger  from '../website/server/libs/logger';
 import nconf    from 'nconf';
 import repl     from 'repl';
@@ -25,23 +24,23 @@ let improveRepl = (context) => {
 
   const isProd = nconf.get('NODE_ENV') === 'production';
   const mongooseOptions = !isProd ? {} : {
-    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
+    useMongoClient: true,
   };
-  autoinc.init(
-    mongoose.connect(
-      nconf.get('NODE_DB_URI'),
-      mongooseOptions,
-      (err) => {
-        if (err) throw err;
-        logger.info('Connected with Mongoose');
-      }
-    )
+  mongoose.connect(
+    nconf.get('NODE_DB_URI'),
+    mongooseOptions,
+    (err) => {
+      if (err) throw err;
+      logger.info('Connected with Mongoose');
+    }
   );
 };
 
-gulp.task('console', () => {
+gulp.task('console', (done) => {
   improveRepl(repl.start({
     prompt: 'Habitica > ',
   }).context);
+  done();
 });

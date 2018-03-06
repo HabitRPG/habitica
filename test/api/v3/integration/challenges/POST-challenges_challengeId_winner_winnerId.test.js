@@ -99,7 +99,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await sleep(0.5);
 
-      await expect(winningUser.sync()).to.eventually.have.deep.property('achievements.challenges').to.include(challenge.name);
+      await expect(winningUser.sync()).to.eventually.have.nested.property('achievements.challenges').to.include(challenge.name);
       expect(winningUser.notifications.length).to.equal(2); // 2 because winningUser just joined the challenge, which now awards an achievement
       expect(winningUser.notifications[1].type).to.equal('WON_CHALLENGE');
     });
@@ -149,13 +149,19 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       await sleep(0.5);
 
-      let tasks = await winningUser.get('/tasks/user');
-      let testTask = _.find(tasks, (task) => {
+      const tasks = await winningUser.get('/tasks/user');
+      const testTask = _.find(tasks, (task) => {
         return task.text === taskText;
+      });
+
+      const updatedUser = await winningUser.sync();
+      const challengeTag = updatedUser.tags.find(tags => {
+        return tags.id === challenge._id;
       });
 
       expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
       expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
+      expect(challengeTag.challenge).to.eql('false');
     });
   });
 });

@@ -6,8 +6,8 @@
     "keepIt": "保留",
     "removeIt": "删除",
     "brokenChallenge": "无效的挑战链接：这项任务原本是挑战的一部分，但是该挑战 (或小组) 已经被删除了。你想怎么处置这项任务？",
-    "keepThem": "保留",
-    "removeThem": "删除",
+    "keepThem": "保留任务",
+    "removeThem": "移除任务",
     "challengeCompleted": "这个挑战已被完成，赢家是<span class=\"badge\"><%= user %></span>！你想怎么处置这项任务？",
     "unsubChallenge": "无效的挑战链接：这项任务本来是一个挑战的一部分，可是你取消了该挑战。你想怎么处置这项任务？",
     "challengeWinner": "赢得了以下挑战",
@@ -101,8 +101,8 @@
     "addTask": "新增任务",
     "editChallenge": "编辑挑战",
     "challengeDescription": "挑战描述",
-    "selectChallengeWinnersDescription": "从参与者中选出优胜者",
-    "awardWinners": "获奖者",
+    "selectChallengeWinnersDescription": "从参与者中选出一位获胜者",
+    "awardWinners": "获胜者",
     "doYouWantedToDeleteChallenge": "你要删除这个挑战吗？",
     "deleteChallenge": "删除挑战",
     "challengeNamePlaceholder": "请给你的挑战命名",
@@ -127,5 +127,7 @@
     "locationRequired": "请选择在哪里发起挑战(‘挑战发起至’)",
     "categoiresRequired": "至少选择一个类别",
     "viewProgressOf": "查看参与者的任务状况",
-    "selectMember": "选择成员"
+    "selectMember": "选择成员",
+    "confirmKeepChallengeTasks": "你要保留這個挑戰嗎?",
+    "selectParticipant": "選擇一個參加者"
 }

@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-// TODO remove this lib and use directly the apn module
+// @TODO remove this lib and use directly the apn module
 import pushNotify from 'push-notify';
-import apnLib from 'apn';
 import logger from './logger';
 import Bluebird from 'bluebird';
 import {
@@ -31,34 +30,22 @@ if (APN_ENABLED) {
       Key: 'apple_apn/key.pem',
     }).promise(),
   ])
-  .then(([certObj, keyObj]) => {
-    let cert = certObj.Body.toString();
-    let key = keyObj.Body.toString();
+    .then(([certObj, keyObj]) => {
+      let cert = certObj.Body.toString();
+      let key = keyObj.Body.toString();
 
-    apn = pushNotify.apn({
-      key,
-      cert,
-    });
+      apn = pushNotify.apn({
+        key,
+        cert,
+      });
 
-    apn.on('error', err => logger.error('APN error', err));
-    apn.on('transmissionError', (errorCode, notification, device) => {
-      logger.error('APN transmissionError', errorCode, notification, device);
+      apn.on('error', err => logger.error('APN error', err));
+      apn.on('transmissionError', (errorCode, notification, device) => {
+        logger.error('APN transmissionError', errorCode, notification, device);
+      });
     });
-
-    let feedback = new apnLib.Feedback({
-      key,
-      cert,
-      batchFeedback: true,
-      interval: 3600, // Check for feedback once an hour
-    });
-
-    feedback.on('feedback', (devices) => {
-      if (devices && devices.length > 0) {
-        logger.info('Delivery of push notifications failed for some Apple devices.', devices);
-      }
-    });
-  });
 }
+
 function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;

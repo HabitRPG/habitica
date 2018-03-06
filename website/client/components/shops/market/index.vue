@@ -1,9 +1,8 @@
 <template lang="pug">
   .row.market
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
-
       .form
         h2(v-once) {{ $t('filter') }}
         .form-group
@@ -11,11 +10,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
-
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
           toggle-switch.float-right.no-margin(
@@ -30,7 +27,8 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -62,11 +60,11 @@
 
       h1.mb-4.page-header(v-once) {{ $t('market') }}
 
-      .clearfix
-        h2.float-left.mb-3
+      .clearfix(v-if="viewOptions['equipment'].selected")
+        h2.float-left.mb-3.filters-title
           | {{ $t('equipment') }}
 
-        div.float-right
+        .filters.float-right
           span.dropdown-label {{ $t('class') }}
           b-dropdown(right=true)
             span.dropdown-icon-item(slot="text")
@@ -99,7 +97,8 @@
         :itemWidth=94,
         :itemMargin=24,
         :type="'gear'",
-        :noItemsLabel="$t('noGearItemsOfClass')"
+        :noItemsLabel="$t('noGearItemsOfClass')",
+        v-if="viewOptions['equipment'].selected"
       )
         template(slot="item", slot-scope="ctx")
           shopItem(
@@ -150,7 +149,6 @@
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
-
             template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -159,13 +157,13 @@
               )
               .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
-
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+          keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -195,6 +193,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="ctx")
             item(
@@ -247,7 +246,7 @@
     height: 38px; // button + margin + padding
   }
 
-  
+
   .icon-48 {
     width: 48px;
     height: 48px;
@@ -255,13 +254,6 @@
 
   .featured-label {
     margin: 24px auto;
-  }
-
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
   }
 
   .item-wrapper.bordered-item .item {
@@ -321,13 +313,43 @@
           left: 80px;
         }
       }
-    }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/market_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/market_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/market_broken_npc.png');
+        background-repeat: no-repeat;
+      }
+    }
   }
 
   .market .gems-left {
     right: -.5em;
     top: -.5em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .featuredItems .content {
+      display: none !important;
+    }
+
+    .filters, .filters-title {
+      float: none;
+      button {
+        margin-right: 4em;
+        margin-bottom: 1em;
+      }
+    }
   }
 </style>
 
@@ -336,6 +358,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
@@ -346,7 +369,7 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';
@@ -385,6 +408,7 @@ export default {
     mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
+      KeysToKennel,
       Item,
       CountBadge,
       Drawer,
@@ -436,7 +460,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({
@@ -458,10 +488,15 @@ export default {
           ];
 
           categories.push({
+            identifier: 'equipment',
+            text: this.$t('equipment'),
+          });
+
+          categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value) => {
-              return value.yearRound;
+            items: _map(_filter(this.content.cardTypes, (value, key) => {
+              return value.yearRound || key === 'valentine';
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),
@@ -502,9 +537,11 @@ export default {
           }
 
           categories.map((category) => {
-            this.$set(this.viewOptions, category.identifier, {
-              selected: true,
-            });
+            if (!this.viewOptions[category.identifier]) {
+              this.$set(this.viewOptions, category.identifier, {
+                selected: true,
+              });
+            }
           });
 
           return categories;

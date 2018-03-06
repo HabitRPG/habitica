@@ -6,8 +6,8 @@
     "keepIt": "Ponechať si",
     "removeIt": "Odstrániť",
     "brokenChallenge": "Nefunkčný odkaz k výzve: táto úloha bola súčasťou výzvy, ale výzva (alebo skupina) bola odstránená. Čo chceš spraviť s osirelými úlohami?",
-    "keepThem": "Ponechať si ich",
-    "removeThem": "Odstrániť ich",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "Táto výzva je ukončená a víťazom sa stal <span class=\"badge\"><%= user %></span>! Čo chceš spraviť s osirelými úlohami?",
     "unsubChallenge": "Nefunkčný odkaz k výzve: táto úloha bola súčasťou výzvy, z ktorej si sa odhlásil. Čo chceš spraviť s osirelými úlohami?",
     "challengeWinner": "sa stal víťazom nasledujúcich výziev",
@@ -101,8 +101,8 @@
     "addTask": "Add Task",
     "editChallenge": "Edit Challenge",
     "challengeDescription": "Challenge Description",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
-    "awardWinners": "Award Winners",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
     "deleteChallenge": "Delete Challenge",
     "challengeNamePlaceholder": "What is your Challenge name?",
@@ -127,5 +127,7 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

@@ -2,7 +2,7 @@
 div
   yesterdaily-modal(
     :yesterDailies='yesterDailies',
-    @hide="runYesterDailiesAction()",
+    @run-cron="runYesterDailiesAction()",
   )
   armoire-empty
   new-stuff
@@ -56,7 +56,7 @@ div
     }
   }
 
-  .introjs-button:hover, .introjs-button:active {
+  .introjs-button:hover, .introjs-button:active, .introjs-button:focus {
     background-image: none;
     background-color: #4f2a93 !important;
     color: #fff;
@@ -156,6 +156,19 @@ export default {
     let lastShownNotifications = [];
     let alreadyReadNotification = [];
 
+    // A list of notifications handled by this component,
+    // NOTE: Those not listed here won't be handled at all!
+    const handledNotifications = {};
+
+    [
+      'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
+      'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
+      'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
+      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE',
+    ].forEach(type => {
+      handledNotifications[type] = true;
+    });
+
     return {
       yesterDailies: [],
       levelBeforeYesterdailies: 0,
@@ -165,54 +178,33 @@ export default {
       alreadyReadNotification,
       isRunningYesterdailies: false,
       nextCron: null,
+      handledNotifications,
     };
   },
   computed: {
-    ...mapState({user: 'user.data'}),
     // https://stackoverflow.com/questions/42133894/vue-js-how-to-properly-watch-for-nested-properties/42134176#42134176
-    baileyShouldShow () {
-      return this.user.flags.newStuff;
-    },
-    userHp () {
-      return this.user.stats.hp;
-    },
-    userExp () {
-      return this.user.stats.exp;
-    },
-    userGp () {
-      return this.user.stats.gp;
-    },
-    userMp () {
-      return this.user.stats.mp;
-    },
-    userLvl () {
-      return this.user.stats.lvl;
-    },
+    ...mapState({
+      user: 'user.data',
+      userHp: 'user.data.stats.hp',
+      userExp: 'user.data.stats.exp',
+      userGp: 'user.data.stats.gp',
+      userMp: 'user.data.stats.mp',
+      userLvl: 'user.data.stats.lvl',
+      userNotifications: 'user.data.notifications',
+      userAchievements: 'user.data.achievements', // @TODO: does this watch deeply?
+      armoireEmpty: 'user.data.flags.armoireEmpty',
+      questCompleted: 'user.data.party.quest.completed',
+    }),
     userClassSelect () {
       return !this.user.flags.classSelected && this.user.stats.lvl >= 10;
-    },
-    userNotifications () {
-      return this.user.notifications;
-    },
-    userAchievements () {
-      // @TODO: does this watch deeply?
-      return this.user.achievements;
-    },
-    armoireEmpty () {
-      return this.user.flags.armoireEmpty;
-    },
-    questCompleted () {
-      return this.user.party.quest.completed;
     },
     invitedToQuest () {
       return this.user.party.quest.RSVPNeeded && !this.user.party.quest.completed;
     },
   },
   watch: {
-    baileyShouldShow () {
-      this.$root.$emit('bv::show::modal', 'new-stuff');
-    },
     userHp (after, before) {
+      if (this.user.needsCron) return;
       if (after <= 0) {
         this.playSound('Death');
         this.$root.$emit('bv::show::modal', 'death');
@@ -246,7 +238,7 @@ export default {
       //  Append Bonus
       if (money > 0 && Boolean(bonus)) {
         if (bonus < 0.01) bonus = 0.01;
-        this.text(`+ ${this.coins(bonus)} ${this.$t('streakCoins')}`);
+        this.streak(`+ ${this.coins(bonus)}`);
         delete this.user._tmp.streakBonus;
       }
     },
@@ -261,6 +253,7 @@ export default {
       this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
+      if (this.user.needsCron) return;
       if (!after) return;
       this.$root.$emit('bv::show::modal', 'choose-class');
       // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}
@@ -269,9 +262,6 @@ export default {
       if (this.user.needsCron) return;
       this.handleUserNotifications(after);
     },
-    userAchievements () {
-      this.playSound('Achievement_Unlocked');
-    },
     armoireEmpty (after, before) {
       if (after === before || after === false) return;
       this.$root.$emit('bv::show::modal', 'armoire-empty');
@@ -279,6 +269,7 @@ export default {
     questCompleted () {
       if (!this.questCompleted) return;
       this.$root.$emit('bv::show::modal', 'quest-completed');
+      this.playSound('Achievement_Unlocked');
     },
     invitedToQuest (after) {
       if (after !== true) return;
@@ -302,19 +293,23 @@ export default {
       this.runYesterDailies();
 
       // Do not remove the event listener as it's live for the entire app lifetime
-      document.addEventListener('mousemove', () => this.checkNextCron());
-      document.addEventListener('touchstart', () => this.checkNextCron());
-      document.addEventListener('mousedown', () => this.checkNextCron());
-      document.addEventListener('keydown', () => this.checkNextCron());
+      document.addEventListener('mousemove', this.checkNextCron);
+      document.addEventListener('touchstart', this.checkNextCron);
+      document.addEventListener('mousedown', this.checkNextCron);
+      document.addEventListener('keydown', this.checkNextCron);
     });
+  },
+  beforeDestroy () {
+    document.removeEventListener('mousemove', this.checkNextCron);
+    document.removeEventListener('touchstart', this.checkNextCron);
+    document.removeEventListener('mousedown', this.checkNextCron);
+    document.removeEventListener('keydown', this.checkNextCron);
   },
   methods: {
     checkUserAchievements () {
-      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
-      if (this.user.flags.newStuff) {
-        this.$root.$emit('bv::show::modal', 'new-stuff');
-      }
+      if (this.user.needsCron) return;
 
+      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
       if (!this.user.flags.welcomed) {
         this.$store.state.avatarEditorOptions.editingUser = false;
         this.$root.$emit('bv::show::modal', 'avatar-modal');
@@ -327,10 +322,12 @@ export default {
 
       if (this.questCompleted) {
         this.$root.$emit('bv::show::modal', 'quest-completed');
+        this.playSound('Achievement_Unlocked');
       }
 
       if (this.userClassSelect) {
         this.$root.$emit('bv::show::modal', 'choose-class');
+        this.playSound('Achievement_Unlocked');
       }
     },
     showLevelUpNotifications (newlevel) {
@@ -411,6 +408,8 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
       ]);
 
+      this.$store.state.isRunningYesterdailies = false;
+
       if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
@@ -418,34 +417,33 @@ export default {
       this.scheduleNextCron();
       this.handleUserNotifications(this.user.notifications);
     },
-    transferGroupNotification (notification) {
-      this.$store.state.groupNotifications.push(notification);
-    },
     async handleUserNotifications (after) {
-      if (!after || after.length === 0 || !Array.isArray(after)) return;
-
       if (this.$store.state.isRunningYesterdailies) return;
+
+      if (this.user.flags.newStuff) {
+        this.$root.$emit('bv::show::modal', 'new-stuff');
+      }
+
+      if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       let notificationsToRead = [];
       let scoreTaskNotification = [];
 
-      this.$store.state.groupNotifications = []; // Flush group notifictions
-
       after.forEach((notification) => {
+        // This notification type isn't implemented here
+        if (!this.handledNotifications[notification.type]) return;
+
         if (this.lastShownNotifications.indexOf(notification.id) !== -1) {
           return;
         }
 
-        // Some notifications are not marked read here, so we need to fix this system
-        // to handle notifications differently
-        if (['GROUP_TASK_APPROVED', 'GROUP_TASK_APPROVAL'].indexOf(notification.type) === -1) {
-          this.lastShownNotifications.push(notification.id);
-          if (this.lastShownNotifications.length > 10) {
-            this.lastShownNotifications.splice(0, 9);
-          }
+        this.lastShownNotifications.push(notification.id);
+        if (this.lastShownNotifications.length > 10) {
+          this.lastShownNotifications.splice(0, 9);
         }
 
         let markAsRead = true;
+
         // @TODO: Use factory function instead
         switch (notification.type) {
           case 'GUILD_PROMPT':
@@ -502,14 +500,6 @@ export default {
               if (notification.data.mp) this.mp(notification.data.mp);
             }
             break;
-          case 'GROUP_TASK_APPROVAL':
-            this.transferGroupNotification(notification);
-            markAsRead = false;
-            break;
-          case 'GROUP_TASK_APPROVED':
-            this.transferGroupNotification(notification);
-            markAsRead = false;
-            break;
           case 'SCORED_TASK':
             // Search if it is a read notification
             for (let i = 0; i < this.alreadyReadNotification.length; i++) {
@@ -533,16 +523,6 @@ export default {
               this.$root.$emit('bv::show::modal', 'login-incentives');
             }
             break;
-          default:
-            if (notification.data.headerText && notification.data.bodyText) {
-              // @TODO:
-              // let modalScope = this.$new();
-              // modalScope.data = notification.data;
-              // this.openModal('generic', {scope: modalScope});
-            } else {
-              markAsRead = false; // If the notification is not implemented, skip it
-            }
-            break;
         }
 
         if (markAsRead) notificationsToRead.push(notification.id);
@@ -556,6 +536,7 @@ export default {
         });
       }
 
+      // @TODO this code is never run because userReadNotifsPromise is never true
       if (userReadNotifsPromise) {
         userReadNotifsPromise.then(() => {
           // Only run this code for scoring approved tasks
@@ -563,10 +544,14 @@ export default {
             let approvedTasks = [];
             for (let i = 0; i < scoreTaskNotification.length; i++) {
               // Array with all approved tasks
+              const scoreData = scoreTaskNotification[i].data;
+              let direction = 'up';
+              if (scoreData.direction) direction = scoreData.direction;
+
               approvedTasks.push({
                 params: {
-                  task: scoreTaskNotification[i].data.scoreTask,
-                  direction: 'up',
+                  task: scoreData.scoreTask,
+                  direction,
                 },
               });
 
@@ -579,8 +564,6 @@ export default {
           }
         });
       }
-
-      this.user.notifications = []; // reset the notifications
 
       this.checkUserAchievements();
     },

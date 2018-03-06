@@ -10,11 +10,11 @@ To maintain consistency in equipment descriptions, the following guidelines have
 ## Stat Effect
 * **No bonus:**
 "Confers no benefit."
-* **Single or all stat bonus:**
-"Increases (Strength/Intelligence/Constitution/Perception/all attributes) by (<%= str %>/<%= int %>/<%= con %>/<%= per %>/<%= attrs %>)."
-* **Two stats, same bonus:**
+* **Single or all Stat bonus:**
+"Increases (Strength/Intelligence/Constitution/Perception/all Stats) by (<%= str %>/<%= int %>/<%= con %>/<%= per %>/<%= attrs %>)."
+* **Two Stats, same bonus:**
 "Increases (Strength/Intelligence/Constitution) and (Intelligence/Constitution/Perception) by <%= attrs %> each."
-* **Two stats, different bonus:**
+* **Two Stats, different bonus:**
 "Increases (Strength/Intelligence/Constitution) by (<%= str %>/<%= int %>/<%= con %>) and (Intelligence/Constitution/Perception) by (<%= int %>/<%= con %>/<%= per %>)]."
 
 ## Event/Origin

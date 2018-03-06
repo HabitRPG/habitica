@@ -8,15 +8,25 @@ div
   div(v-else)
     h4.popover-content-title {{ itemText }}
     .popover-content-text {{ itemNotes }}
-    .popover-content-attr(v-for="attr in ATTRIBUTES", :key="attr")
-      span.popover-content-attr-key {{ `${$t(attr)}: ` }}
-      span.popover-content-attr-val {{ `+${item[attr]}` }}
+    attributesGrid(:item="item")
 </template>
+
+<style scoped>
+  .popover-content-text {
+    margin-bottom: 25px;
+  }
+</style>
 
 <script>
   import { mapState } from 'client/libs/store';
+  import attributesGrid from './attributesGrid';
+  import statsMixin from 'client/mixins/stats';
 
   export default {
+    mixins: [statsMixin],
+    components: {
+      attributesGrid,
+    },
     props: {
       item: {
         type: Object,
@@ -25,6 +35,7 @@ div
     computed: {
       ...mapState({
         ATTRIBUTES: 'constants.ATTRIBUTES',
+        user: 'user.data',
       }),
       itemText () {
         if (this.item.text instanceof Function) {

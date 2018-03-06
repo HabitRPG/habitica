@@ -30,33 +30,40 @@ export const EVENTS = {
   spring2017: { start: '2017-03-21', end: '2017-05-02' },
   summer2017: { start: '2017-06-20', end: '2017-08-02' },
   fall2017:   { start: '2017-09-21', end: '2017-11-02' },
+  winter2018: { start: '2017-12-19', end: '2018-02-02' },
 };
 
 export const SEASONAL_SETS = {
-  fall: [
-    // fall 2014
-    'vampireSmiterSet',
-    'monsterOfScienceSet',
-    'witchyWizardSet',
-    'mummyMedicSet',
+  winter: [
+    // winter 2014
+    'candycaneSet',
+    'skiSet',
+    'snowflakeSet',
+    'yetiSet',
 
-    // fall 2015
-    'battleRogueSet',
-    'scarecrowWarriorSet',
-    'stitchWitchSet',
-    'potionerSet',
+    // winter 2015
+    'northMageSet',
+    'icicleDrakeSet',
+    'soothingSkaterSet',
+    'gingerbreadSet',
 
-    // fall 2016
-    'fall2016BlackWidowSet',
-    'fall2016SwampThingSet',
-    'fall2016WickedSorcererSet',
-    'fall2016GorgonHealerSet',
+    // winter 2016
+    'snowDaySet',
+    'snowboardingSet',
+    'festiveFairySet',
+    'cocoaSet',
 
-    // fall 2017
-    'fall2017TrickOrTreatSet',
-    'fall2017HabitoweenSet',
-    'fall2017MasqueradeSet',
-    'fall2017HauntedHouseSet',
+    // winter 2017
+    'winter2017IceHockeySet',
+    'winter2017WinterWolfSet',
+    'winter2017SugarPlumSet',
+    'winter2017FrostyRogueSet',
+
+    // winter 2018
+    'winter2018ConfettiSet',
+    'winter2018GiftWrappedSet',
+    'winter2018MistletoeSet',
+    'winter2018ReindeerSet',
   ],
 };
 
@@ -84,7 +91,7 @@ export const ITEM_LIST = {
   premiumHatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
   eggs:            { localeKey: 'eggSingular',    isEquipment: false },
   quests:          { localeKey: 'quest',          isEquipment: false },
-  food:            { localeKey: 'foodText',       isEquipment: false },
+  food:            { localeKey: 'foodTextThe',    isEquipment: false },
   Saddle:          { localeKey: 'foodSaddleText', isEquipment: false },
   bundles:         { localeKey: 'discountBundle', isEquipment: false },
 };

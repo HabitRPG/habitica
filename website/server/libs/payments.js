@@ -33,6 +33,8 @@ api.constants = {
 };
 
 function revealMysteryItems (user) {
+  const pushedItems = [];
+
   _.each(shared.content.gear.flat, function findMysteryItems (item) {
     if (
       item.klass === 'mystery' &&
@@ -40,10 +42,13 @@ function revealMysteryItems (user) {
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
         user.purchased.plan.mysteryItems.indexOf(item.key) === -1
-      ) {
+    ) {
       user.purchased.plan.mysteryItems.push(item.key);
+      pushedItems.push(item.key);
     }
   });
+
+  user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
 }
 
 function _dateDiff (earlyDate, lateDate) {
@@ -62,9 +67,9 @@ function _dateDiff (earlyDate, lateDate) {
 api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name notifications').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name notifications').exec();
   }
 
   let promises = members.map((member) => {
@@ -235,7 +240,7 @@ api.cancelGroupUsersSubscription = async function cancelGroupUsersSubscription (
   await Promise.all(promises);
 };
 
-api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group) {
+api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUser (user, group, userWasRemoved = false) {
   if (user.purchased.plan.customerId !== this.constants.GROUP_PLAN_CUSTOMER_ID) return;
 
   let userGroups = user.guilds.toObject();
@@ -256,7 +261,9 @@ api.cancelGroupSubscriptionForUser = async function cancelGroupSubscriptionForUs
 
   if (userGroupPlans.length === 0)  {
     let leader = await User.findById(group.leader).exec();
-    txnEmail(user, 'group-member-cancel', [
+    const email = userWasRemoved ? 'group-member-removed' : 'group-member-cancel';
+
+    txnEmail(user, email, [
       {name: 'LEADER', content: leader.profile.name},
       {name: 'GROUP_NAME', content: group.name},
     ]);
@@ -305,7 +312,7 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
@@ -504,9 +511,9 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining})
-    .add({days: extraDays})
-    .toDate();
+      .add({days: remaining})
+      .add({days: extraDays})
+      .toDate();
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

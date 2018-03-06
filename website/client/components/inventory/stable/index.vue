@@ -1,7 +1,7 @@
 <template lang="pug">
   // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar.col-3.hidden-xs-down
+    .standard-sidebar.d-none.d-sm-block
       div
         #npmMattStable.npc_matt
         b-popover(
@@ -23,28 +23,28 @@
             v-for="petGroup in petGroups",
             :key="petGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[petGroup.key].selected",
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
+                :disabled="viewOptions[petGroup.key].animalCount == 0",
+                :id="petGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ petGroup.label }}
+              label.custom-control-label(v-once, :for="petGroup.key") {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
             :key="mountGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[mountGroup.key].selected",
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                :disabled="viewOptions[mountGroup.key].animalCount == 0",
+                :id="mountGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ mountGroup.label }}
+              label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
           h3.float-left Hide Missing
@@ -54,7 +54,7 @@
             @change="updateHideMissing"
           )
 
-    .standard-page.col-12.col-sm-9
+    .standard-page
       .clearfix
         h1.float-left.mb-4.page-header(v-once) {{ $t('stable') }}
 
@@ -186,6 +186,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="context")
             foodItem(
@@ -376,11 +377,13 @@
   #hatching-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 310px;
+    }
+
     .content {
       text-align: center;
-
       margin: 9px;
-      width: 300px;
     }
 
     .title {
@@ -444,7 +447,8 @@
     }
 
     .food-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -454,6 +458,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 
@@ -867,7 +873,7 @@
         }
 
         if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key}`;
+          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.isHatchable()) {
@@ -957,25 +963,21 @@
           this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
-
       async feedAction (petKey, foodKey) {
-        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
 
         if (result.message) {
           this.text(result.message);
         }
       },
-
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
-
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
         }
       },
-
       onFoodClicked ($event, food) {
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
@@ -989,7 +991,6 @@
           this.foodClickMode = false;
         }
       },
-
       mouseMoved ($event) {
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;
