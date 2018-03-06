@@ -31,6 +31,7 @@ import {
 
 import {
   clearFlags,
+  notifyOfFlaggedChallenge,
 } from '../../libs/challenges/reporting';
 
 let api = {};
@@ -811,6 +812,7 @@ api.flagChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     await flagChallenge(challenge, user, res);
+    await notifyOfFlaggedChallenge(challenge, user);
 
     res.respond(200, {challenge});
   },

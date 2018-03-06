@@ -5,6 +5,23 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
   return { email, canSend: true };
 });
 
+export async function notifyOfFlaggedChallenge (challenge, user) {
+  const reporterEmailContent = getUserInfo(user, ['email']).email;
+
+  this.emailVariables = [
+    {name: 'CHALLENGE_NAME', content: challenge.name},
+    {name: 'CHALLENGE_ID', content: challenge.leader._id},
+
+    {name: 'REPORTER_USERNAME', content: this.user.profile.name},
+    {name: 'REPORTER_UUID', content: user._id},
+    {name: 'REPORTER_EMAIL', content: reporterEmailContent},
+    {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
+
+    {name: 'AUTHOR_UUID', content: challenge.leader._id},
+    {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${challenge.leader._id}`},
+  ];
+}
+
 export async function clearFlags (challenge, user) {
   challenge.flagCount = 0;
   await challenge.save();
