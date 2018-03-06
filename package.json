@@ -184,7 +184,7 @@
     "require-again": "^2.0.0",
     "selenium-server": "^3.9.1",
     "sinon": "^4.3.0",
-    "sinon-chai": "^2.8.0",
+    "sinon-chai": "^3.0.0",
     "sinon-stub-promise": "^4.0.0",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^2.0.5",
