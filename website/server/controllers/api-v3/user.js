@@ -1,16 +1,14 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../common';
 import {
-  NotFound,
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import * as Tasks from '../../models/task';
 import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
-import { model as User } from '../../models/user';
+import * as Tasks from '../../models/task';
 import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
@@ -18,6 +16,7 @@ import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
+import Queue from '../../libs/queue';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
@@ -80,11 +79,13 @@ api.getUser = {
     // Remove apiToken from response TODO make it private at the user level? returned in signup/login
     delete userToJSON.apiToken;
 
-    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
-    userToJSON.needsCron = false;
-    if (daysMissed > 0) userToJSON.needsCron = true;
+    if (!req.query.userFields) {
+      let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+      userToJSON.needsCron = false;
+      if (daysMissed > 0) userToJSON.needsCron = true;
+      user.addComputedStatsToJSONObj(userToJSON.stats);
+    }
 
-    user.addComputedStatsToJSONObj(userToJSON.stats);
     return res.respond(200, userToJSON);
   },
 };
@@ -395,7 +396,7 @@ api.deleteUser = {
       let isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
-      throw new NotAuthorized(res.t('incorrectDeletePhrase'));
+      throw new NotAuthorized(res.t('incorrectDeletePhrase', {magicWord: 'DELETE'}));
     }
 
     let feedback = req.body.feedback;
@@ -432,6 +433,14 @@ api.deleteUser = {
       ]);
     }
 
+    if (feedback) Queue.sendMessage({feedback, username: user.profile.name}, user._id);
+
+    res.analytics.track('account delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
+
     res.respond(200, {});
   },
 };
@@ -455,6 +464,7 @@ function _cleanChecklist (task) {
  * Contributor information
  * Special items
  * Webhooks
+ * Notifications
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
@@ -467,7 +477,7 @@ api.getUserAnonymized = {
     let user = res.locals.user.toJSON();
     user.stats.toNextLevel = common.tnl(user.stats.lvl);
     user.stats.maxHealth = common.maxHealth;
-    user.stats.maxMP = res.locals.user._statsComputed.maxMP;
+    user.stats.maxMP = common.statsComputed(res.locals.user).maxMP;
 
     delete user.apiToken;
     if (user.auth) {
@@ -484,6 +494,7 @@ api.getUserAnonymized = {
     delete user.items.special.valentineReceived;
     delete user.webhooks;
     delete user.achievements.challenges;
+    delete user.notifications;
 
     _.forEach(user.inbox.messages, (msg) => {
       msg.text = 'inbox message text';
@@ -514,211 +525,6 @@ api.getUserAnonymized = {
   },
 };
 
-const partyMembersFields = 'profile.name stats achievements items.special';
-
-/**
- * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
- * @apiName UserCast
- * @apiGroup User
- *
-
- * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
- * @apiParamExample {json} Query example:
- * Cast "Pickpocket" on a task:
- *  https://habitica.com/api/v3/user/class/cast/pickPocket?targetId=fd427623...
- *
- * Cast "Tools of the Trade" on the party:
- *  https://habitica.com/api/v3/user/class/cast/toolsOfTrade
- *
- * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
- *
- * @apiDescription Skill Key to Name Mapping
- * Mage
- * fireball: "Burst of Flames"
- * mpheal: "Ethereal Surge"
- * earth: "Earthquake"
- * frost: "Chilling Frost"
- *
- * Warrior
- * smash: "Brutal Smash"
- * defensiveStance: "Defensive Stance"
- * valorousPresence: "Valorous Presence"
- * intimidate: "Intimidating Gaze"
- *
- * Rogue
- * pickPocket: "Pickpocket"
- * backStab: "Backstab"
- * toolsOfTrade: "Tools of the Trade"
- * stealth: "Stealth"
- *
- * Healer
- * heal: "Healing Light"
- * protectAura: "Protective Aura"
- * brightness: "Searing Brightness"
- * healAll: "Blessing"
- *
- * @apiError (400) {NotAuthorized} Not enough mana.
- * @apiUse TaskNotFound
- * @apiUse PartyNotFound
- * @apiUse UserNotFound
- */
-api.castSpell = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/class/cast/:spellId',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let spellId = req.params.spellId;
-    let targetId = req.query.targetId;
-
-    // optional because not required by all targetTypes, presence is checked later if necessary
-    req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
-
-    let reqValidationErrors = req.validationErrors();
-    if (reqValidationErrors) throw reqValidationErrors;
-
-    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
-    let spell = common.content.spells[klass][spellId];
-
-    if (!spell) throw new NotFound(res.t('spellNotFound', {spellId}));
-    if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
-    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
-    if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
-
-    let targetType = spell.target;
-
-    if (targetType === 'task') {
-      if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-
-      let task = await Tasks.Task.findOne({
-        _id: targetId,
-        userId: user._id,
-      }).exec();
-      if (!task) throw new NotFound(res.t('taskNotFound'));
-      if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
-      if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
-
-      spell.cast(user, task, req);
-
-      let results = await Bluebird.all([
-        user.save(),
-        task.save(),
-      ]);
-
-      res.respond(200, {
-        user: results[0],
-        task: results[1],
-      });
-    } else if (targetType === 'self') {
-      spell.cast(user, null, req);
-      await user.save();
-      res.respond(200, { user });
-    } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      let tasks = await Tasks.Task.find({
-        userId: user._id,
-        $and: [ // exclude challenge and group tasks
-          {
-            $or: [
-              {'challenge.id': {$exists: false}},
-              {'challenge.broken': {$exists: true}},
-            ],
-          },
-          {
-            $or: [
-              {'group.id': {$exists: false}},
-              {'group.broken': {$exists: true}},
-            ],
-          },
-        ],
-      }).exec();
-
-      spell.cast(user, tasks, req);
-
-      let toSave = tasks
-        .filter(t => t.isModified())
-        .map(t => t.save());
-
-      toSave.unshift(user.save());
-      let saved = await Bluebird.all(toSave);
-
-      let response = {
-        tasks: saved,
-        user,
-      };
-
-      res.respond(200, response);
-    } else if (targetType === 'party' || targetType === 'user') {
-      let party = await Group.getGroup({groupId: 'party', user});
-      // arrays of users when targetType is 'party' otherwise single users
-      let partyMembers;
-
-      if (targetType === 'party') {
-        if (!party) {
-          partyMembers = [user]; // Act as solo party
-        } else {
-          partyMembers = await User
-            .find({
-              'party._id': party._id,
-              _id: { $ne: user._id }, // add separately
-            })
-            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-            .exec();
-
-          partyMembers.unshift(user);
-        }
-
-        spell.cast(user, partyMembers, req);
-        await Bluebird.all(partyMembers.map(m => m.save()));
-      } else {
-        if (!party && (!targetId || user._id === targetId)) {
-          partyMembers = user;
-        } else {
-          if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-          if (!party) throw new NotFound(res.t('partyNotFound'));
-          partyMembers = await User
-            .findOne({_id: targetId, 'party._id': party._id})
-            // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-            // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-            .exec();
-        }
-
-        if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
-
-        spell.cast(user, partyMembers, req);
-
-        if (partyMembers !== user) {
-          await Bluebird.all([
-            user.save(),
-            partyMembers.save(),
-          ]);
-        } else {
-          await partyMembers.save(); // partyMembers is user
-        }
-      }
-
-      let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
-      // Only return some fields.
-      // See comment above on why we can't just select the necessary fields when querying
-      partyMembersRes = partyMembersRes.map(partyMember => {
-        return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersFields));
-      });
-
-      res.respond(200, {
-        partyMembers: partyMembersRes,
-        user,
-      });
-
-      if (party && !spell.silent) {
-        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        party.sendChat(message);
-        await party.save();
-      }
-    }
-  },
-};
-
 /**
  * @api {post} /api/v3/user/sleep Make the user start / stop sleeping (resting in the Inn)
  * @apiName UserSleep
@@ -740,100 +546,14 @@ api.sleep = {
   url: '/user/sleep',
   async handler (req, res) {
     let user = res.locals.user;
-    let sleepRes = common.ops.sleep(user);
+    let sleepRes = common.ops.sleep(user, req, res.analytics);
     await user.save();
     res.respond(200, ...sleepRes);
   },
 };
 
-/**
- * @api {post} /api/v3/user/allocate Allocate a single attribute point
- * @apiName UserAllocate
- * @apiGroup User
- *
- * @apiParam (Body) {String="str","con","int","per"} stat Query parameter - Default ='str'
- *
- * @apiParamExample {json} Example request
- * {"stat":"int"}
- *
- * @apiSuccess {Object} data Returns stats from the user profile
- *
- * @apiError {NotAuthorized} NoPoints Not enough attribute points to increment a stat.
- *
- * @apiErrorExample {json}
- *  {
- *   "success": false,
- *   "error": "NotAuthorized",
- *   "message": "You don't have enough attribute points."
- * }
- */
-api.allocate = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/allocate',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let allocateRes = common.ops.allocate(user, req);
-    await user.save();
-    res.respond(200, ...allocateRes);
-  },
-};
-
-/**
- * @api {post} /api/v3/user/allocate-now Allocate all attribute points
- * @apiDescription Uses the user's chosen automatic allocation method, or if none, assigns all to STR. Note: will return success, even if there are 0 points to allocate.
- * @apiName UserAllocateNow
- * @apiGroup User
- *
- * @apiSuccessExample {json} Success-Response:
- *  {
- *   "success": true,
- *   "data": {
- *     "hp": 50,
- *     "mp": 38,
- *     "exp": 7,
- *     "gp": 284.8637271160258,
- *     "lvl": 10,
- *     "class": "rogue",
- *     "points": 0,
- *     "str": 2,
- *     "con": 2,
- *     "int": 3,
- *     "per": 3,
- *     "buffs": {
- *       "str": 0,
- *       "int": 0,
- *       "per": 0,
- *       "con": 0,
- *       "stealth": 0,
- *       "streaks": false,
- *       "snowball": false,
- *       "spookySparkles": false,
- *       "shinySeed": false,
- *       "seafoam": false
- *     },
- *     "training": {
- *       "int": 0,
- *       "per": 0,
- *       "str": 0,
- *       "con": 0
- *     }
- *   }
- * }
- *
- * @apiSuccess {Object} data user.stats
- */
-api.allocateNow = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/allocate-now',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let allocateNowRes = common.ops.allocateNow(user);
-    await user.save();
-    res.respond(200, ...allocateNowRes);
-  },
-};
+const buySpecialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+const buyKnownKeys = ['armoire', 'mystery', 'potion', 'quest', 'special'];
 
 /**
  * @api {post} /api/v3/user/buy/:key Buy gear, armoire or potion
@@ -872,14 +592,13 @@ api.buy = {
     let user = res.locals.user;
 
     let buyRes;
-    let specialKeys = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
-    if (specialKeys.indexOf(req.params.key) !== -1) {
-      type = 'special';
+    if (buySpecialKeys.indexOf(type) !== -1) {
+      req.type = 'special';
+    } else if (buyKnownKeys.indexOf(type) === -1) {
+      req.type = 'marketGear';
     }
-    req.type = type;
 
     // @TODO: right now common follow express structure, but we should decouple the dependency
     if (req.body.type) req.type = req.body.type;
@@ -887,7 +606,6 @@ api.buy = {
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
-
     buyRes = common.ops.buy(user, req, res.analytics);
 
     await user.save();
@@ -1359,7 +1077,7 @@ api.purchase = {
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;
 
-    let purchaseRes = common.ops.purchaseWithSpell(user, req, res.analytics);
+    let purchaseRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseRes);
   },
@@ -1390,7 +1108,7 @@ api.userPurchaseHourglass = {
   url: '/user/purchase-hourglass/:type/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    let purchaseHourglassRes = common.ops.purchaseHourglass(user, req, res.analytics);
+    let purchaseHourglassRes = common.ops.buy(user, req, res.analytics);
     await user.save();
     res.respond(200, ...purchaseHourglassRes);
   },
@@ -1666,7 +1384,7 @@ api.userSell = {
  *
  * @apiErrorExample {json}
  * {"success":false,"error":"BadRequest","message":"Path string is required"}
- 8 {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
+ * {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
 api.userUnlock = {
   method: 'POST',
@@ -1674,7 +1392,7 @@ api.userUnlock = {
   url: '/user/unlock',
   async handler (req, res) {
     let user = res.locals.user;
-    let unlockRes = common.ops.unlock(user, req);
+    let unlockRes = common.ops.unlock(user, req, res.analytics);
     await user.save();
     res.respond(200, ...unlockRes);
   },
@@ -1743,20 +1461,7 @@ api.userRebirth = {
     let tasks = await Tasks.Task.find({
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).exec();
 
     let rebirthRes = common.ops.rebirth(user, tasks, req, res.analytics);
@@ -1914,20 +1619,7 @@ api.userReroll = {
     let query = {
       userId: user._id,
       type: {$in: ['daily', 'habit', 'todo']},
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     };
     let tasks = await Tasks.Task.find(query).exec();
     let rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
@@ -1971,20 +1663,7 @@ api.userReset = {
 
     let tasks = await Tasks.Task.find({
       userId: user._id,
-      $and: [ // exclude challenge and group tasks
-        {
-          $or: [
-            {'challenge.id': {$exists: false}},
-            {'challenge.broken': {$exists: true}},
-          ],
-        },
-        {
-          $or: [
-            {'group.id': {$exists: false}},
-            {'group.broken': {$exists: true}},
-          ],
-        },
-      ],
+      ...Tasks.taskIsGroupOrChallengeQuery,
     }).select('_id type challenge group').exec();
 
     let resetRes = common.ops.reset(user, tasks);
@@ -1993,6 +1672,12 @@ api.userReset = {
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);
+
+    res.analytics.track('account reset', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+    });
 
     res.respond(200, ...resetRes);
   },

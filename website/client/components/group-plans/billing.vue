@@ -24,6 +24,8 @@
             li {{ $t('gemCapExtra') }} {{group.purchased.plan.consecutive.gemCapExtra}}
                 li {{ $t('mysticHourglasses') }} {{group.purchased.plan.consecutive.trinkets}}
   .col-12.col-md-6.offset-md-3
+    button.btn.btn-success(class='btn-success', v-if='group.purchased.plan.dateTerminated', @click='upgradeGroup()')
+      | {{ $t('upgrade') }}
     .btn.btn-primary(v-if='!group.purchased.plan.dateTerminated && group.purchased.plan.paymentMethod === "Stripe"',
       @click='showStripeEdit({groupId: group.id})') {{ $t('subUpdateCard') }}
     .btn.btn-sm.btn-danger(v-if='!group.purchased.plan.dateTerminated',
@@ -68,6 +70,10 @@ export default {
     async loadGroup () {
       let group = await this.$store.dispatch('guilds:getGroup', {groupId: this.groupId});
       this.group = Object.assign({}, group);
+    },
+    upgradeGroup () {
+      this.$store.state.upgradingGroup = this.group;
+      this.$router.push('/group-plans');
     },
   },
 };

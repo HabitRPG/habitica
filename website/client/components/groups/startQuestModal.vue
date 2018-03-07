@@ -3,9 +3,18 @@
     .left-panel.content
       h3.text-center Quests
       .row
-        .col-4.quest-col(v-for='(value, key, index) in user.items.quests', @click='selectQuest({key})', :class="{selected: key === selectedQuest}", v-if='value > 0')
+        .col-4.quest-col(
+          v-for='(value, key, index) in user.items.quests',
+          @click='selectQuest({key})',
+          :class="{selected: key === selectedQuest}", v-if='value > 0')
           .quest-wrapper
-            .quest(:class="'inventory_quest_scroll_' + key")
+            b-popover(
+              :target="`inventory_quest_scroll_${key}`"
+               placement="top"
+               triggers="hover")
+                 h4.popover-content-title {{ quests.quests[key].text() }}
+                 questInfo(:quest="quests.quests[key]")
+            .quest(:class="`inventory_quest_scroll_${key}`", :id="`inventory_quest_scroll_${key}`")
       .row
         .col-10.offset-1.text-center
           span.description(v-once) {{ $t('noQuestToStart') }}
@@ -48,10 +57,10 @@
     height: 460px;
     width: 320px;
     top: 2.5em;
-    left: -22em;
+    left: -23em;
     z-index: -1;
     padding: 2em;
-    overflow: scroll;
+    overflow-y: auto;
 
     h3 {
       color: $white;
@@ -98,7 +107,6 @@
 <script>
 import { mapState } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
-import bModal from 'bootstrap-vue/lib/components/modal';
 
 import quests from 'common/script/content/quests';
 
@@ -112,13 +120,14 @@ import goldIcon from 'assets/svg/gold.svg';
 import difficultyStarIcon from 'assets/svg/difficulty-star.svg';
 import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
+import QuestInfo from '../shops/quests/questInfo';
 
 export default {
   props: ['group'],
   components: {
-    bModal,
     questDialogDrops,
     questDialogContent,
+    QuestInfo,
   },
   data () {
     return {
@@ -135,6 +144,7 @@ export default {
         difficultyStarIcon,
       }),
       shareUserIdShown: false,
+      quests,
     };
   },
   mounted () {
@@ -156,7 +166,6 @@ export default {
     selectQuest (quest) {
       this.selectedQuest = quest.key;
     },
-
     async questInit () {
       this.loading = true;
 
@@ -175,7 +184,7 @@ export default {
 
       this.loading = false;
 
-      this.$root.$emit('hide::modal', 'start-quest-modal');
+      this.$root.$emit('bv::hide::modal', 'start-quest-modal');
     },
   },
 };

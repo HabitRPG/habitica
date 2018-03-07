@@ -7,9 +7,16 @@
     div.close
       span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close", @click="hideDialog()")
 
-    div.content(v-if="item != null")
+    div.content(v-if="item")
 
-      div.inner-content
+      div.inner-content(v-if="item.sellWarningNote")
+        slot(name="item", :item="item")
+
+        h4.title {{ text ? text : item.text() }}
+        div.text {{ item.sellWarningNote() }}
+        br
+
+      div.inner-content(v-else)
         slot(name="item", :item="item")
 
         h4.title {{ text ? text : item.text() }}
@@ -17,14 +24,9 @@
 
         div
           b.how-many-to-sell {{ $t('howManyToSell') }}
+
         div
-          b-dropdown(:text="selectedAmountToSell +''", right=true)
-            b-dropdown-item(
-              v-for="num of dropDownItems",
-              @click="selectedAmountToSell = num",
-              :active="selectedAmountToSell === num",
-              :key="num"
-            ) {{ num }}
+          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemCount", min="1", @keyup.native="preventNegative($event)")
 
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
           span.value {{ item.value }}
@@ -43,6 +45,15 @@
   #sell-modal {
     @include centeredModal();
 
+    .itemsToSell {
+      display: inline-block;
+      width: 5em;
+    }
+
+    .modal-dialog {
+      width: 330px;
+    }
+
     .content {
       text-align: center;
 
@@ -50,15 +61,6 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
-    }
-
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
     }
 
     span.svg-icon.inline.icon-32 {
@@ -112,10 +114,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
@@ -124,9 +122,6 @@
 
   export default {
     components: {
-      bModal,
-      bDropdown,
-      bDropdownItem,
       BalanceInfo,
     },
     data () {
@@ -140,20 +135,18 @@
         }),
       };
     },
-    computed: {
-      dropDownItems () {
-        let result = [];
-
-        for (let i = 1; i <= this.itemCount; i++) {
-          result.push(i);
-        }
-
-        return result;
-      },
-    },
     methods: {
       onChange ($event) {
         this.$emit('change', $event);
+
+        this.selectedAmountToSell = 1;
+      },
+      preventNegative ($event) {
+        let value = $event.target.value;
+
+        if (isNaN($event.target.valueAsNumber) || Number(value) < 0) {
+          this.selectedAmountToSell = 0;
+        }
       },
       sellItems () {
         this.$store.dispatch('shops:sellItems', {
@@ -164,7 +157,7 @@
         this.hideDialog();
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'sell-modal');
+        this.$root.$emit('bv::hide::modal', 'sell-modal');
       },
     },
     props: {

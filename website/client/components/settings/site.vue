@@ -35,17 +35,13 @@
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
-          span(v-if='classText') {{ classText }}&nbsp;
+          // span(v-if='classText') {{ classText }}&nbsp;
           button.btn.btn-danger.btn-xs(@click='changeClassForUser(true)', v-once) {{ $t('changeClass') }}
           small.cost &nbsp; 3 {{ $t('gems') }}
             // @TODO add icon span.Pet_Currency_Gem1x.inline-gems
       hr
 
       div
-        .checkbox
-          label
-            input(type='checkbox', v-model='user.preferences.tagsCollapsed', @change='set("tagsCollapsed")')
-            span.hint(popover-trigger='mouseenter', popover-placement='right', :popover="$t('startCollapsedPop')") {{ $t('startCollapsed') }}
         .checkbox
           label
             input(type='checkbox', v-model='user.preferences.advancedCollapsed', @change='set("advancedCollapsed")')
@@ -115,13 +111,13 @@
         div
           ul.list-inline
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
-              // @TODO this is broken
               button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
+            p {{ $t('usernameLimitations') }}
             .form(name='localAuth', novalidate)
               //-.alert.alert-danger(ng-messages='changeUsername.$error && changeUsername.submitted') {{ $t('fillAll') }}
               .form-group
@@ -193,7 +189,6 @@ import moment from 'moment';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-import bPopover from 'bootstrap-vue/lib/directives/popover';
 import restoreModal from './restoreModal';
 import resetModal from './resetModal';
 import deleteModal from './deleteModal';
@@ -207,9 +202,6 @@ export default {
     restoreModal,
     resetModal,
     deleteModal,
-  },
-  directives: {
-    bPopover,
   },
   data () {
     let dayStartOptions = [];
@@ -246,6 +238,12 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
+    }, {
+      redirect_uri: '', // eslint-disable-line
+    });
   },
   computed: {
     ...mapState({
@@ -298,8 +296,7 @@ export default {
       // Guide.goto('intro', 0, true);
     },
     showBailey () {
-      this.user.flags.newStuff = true;
-      this.$root.$emit('show::modal', 'new-stuff');
+      this.$root.$emit('bv::show::modal', 'new-stuff');
     },
     hasBackupAuthOption (networkKeyToCheck) {
       if (this.user.auth.local.username) {
@@ -349,16 +346,15 @@ export default {
       await axios.put(`/api/v3/user/auth/update-${attribute}`, updates);
       alert(this.$t(`${attribute}Success`));
       this.user[attribute] = updates[attribute];
-      updates = {};
     },
     openRestoreModal () {
-      this.$root.$emit('show::modal', 'restore');
+      this.$root.$emit('bv::show::modal', 'restore');
     },
     openResetModal () {
-      this.$root.$emit('show::modal', 'reset');
+      this.$root.$emit('bv::show::modal', 'reset');
     },
     openDeleteModal () {
-      this.$root.$emit('show::modal', 'delete');
+      this.$root.$emit('bv::show::modal', 'delete');
     },
     async deleteSocialAuth (networkKey) {
       // @TODO: What do we use this for?

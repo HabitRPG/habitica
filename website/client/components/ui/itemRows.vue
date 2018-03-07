@@ -16,7 +16,6 @@
     ) {{ showAll ? $t('showLess') : $t('showMore') }}
 
     div.fill-height(v-else)
-
 </template>
 
 <style lang="scss" scoped>
@@ -31,18 +30,16 @@
 
 <script>
   import ResizeDirective from 'client/directives/resize.directive';
-  import { mapState } from 'client/libs/store';
+  import openedItemRowsMixin from 'client/mixins/openedItemRows';
 
   import _take from 'lodash/take';
 
   export default {
+    mixins: [openedItemRowsMixin],
     directives: {
       resize: ResizeDirective,
     },
     computed: {
-      ...mapState({
-        openedItemRows: 'openedItemRows',
-      }),
       itemsPerRow () {
         return Math.floor(this.currentWidth / (this.itemWidth + this.itemMargin));
       },
@@ -59,16 +56,7 @@
       toggleItemsToShow () {
         this.showAll = !this.showAll;
 
-        let array = this.$store.state.openedItemRows;
-        if (this.showAll) {
-          array.push(this.type);
-        } else {
-          let index = array.indexOf(this.type);
-
-          if (index > -1) {
-            array.splice(index, 1);
-          }
-        }
+        this.$_openedItemRows_toggleByType(this.type, this.showAll);
       },
       itemsToShow (showAll) {
         let itemsLength = this.items.length;
@@ -108,7 +96,7 @@
       },
     },
     created () {
-      this.showAll = this.openedItemRows.includes(this.type);
+      this.showAll = this.$_openedItemRows_isToggled(this.type);
     },
   };
 </script>

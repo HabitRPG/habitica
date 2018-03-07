@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.timeTravelers
-    .standard-sidebar(v-if="!closed")
+    .standard-sidebar.d-none.d-sm-block(v-if="!closed")
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -11,10 +11,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -36,7 +35,7 @@
               span.text(v-once) {{ $t('timeTravelersPopoverNoSubMobile') }}
               span.rectangle
 
-      h1.mb-0.page-header(v-once) {{ $t('timeTravelers') }}
+      h1.mb-4.page-header(v-once) {{ $t('timeTravelers') }}
 
       .clearfix(v-if="!closed")
         div.float-right
@@ -55,7 +54,7 @@
         v-if="!closed && viewOptions[category.identifier].selected",
         :class="category.identifier"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           :items="travelersItems(category, selectedSortItemsBy, searchTextThrottled, hidePinned)",
@@ -63,7 +62,7 @@
           :itemMargin=24,
           :type="category.identifier",
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             shopItem(
               :key="ctx.item.key",
               :item="ctx.item",
@@ -72,11 +71,11 @@
               :emptyItem="false",
               @click="selectItemToBuy(ctx.item)"
             )
-              span(slot="popoverContent", scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx")
                 div
                   h4.popover-content-title {{ ctx.item.text }}
 
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   v-if="ctx.item.pinType !== 'IGNORE'",
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
@@ -128,13 +127,6 @@
 
   .featured-label {
     margin: 24px auto;
-  }
-
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
   }
 
   .group {
@@ -233,9 +225,6 @@
   import Avatar from 'client/components/avatar';
 
   import BuyModal from '../buyModal.vue';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgHourglass from 'assets/svg/hourglass.svg';
@@ -257,10 +246,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
       BuyModal,
@@ -317,15 +302,6 @@
           return c.identifier === 'mounts' || c.identifier === 'pets';
         });
 
-        normalGroups.map((group) => {
-          group.items = group.items.map((item) => {
-            return {
-              ...item,
-              class: `shop_${group.identifier}_${item.key}`,
-            };
-          });
-        });
-
         let setGroups = _filter(apiCategories, (c) => {
           return c.identifier !== 'mounts' && c.identifier !== 'pets';
         });
@@ -340,7 +316,7 @@
               currency: 'hourglasses',
               key: c.identifier,
               class: `shop_set_mystery_${c.identifier}`,
-              purchaseType: 'set_mystery',
+              purchaseType: 'mystery_set',
             };
           }),
         };
@@ -404,6 +380,9 @@
       this.$root.$on('buyModal::boughtItem', () => {
         this.backgroundUpdate = new Date();
       });
+    },
+    beforeDestroy () {
+      this.$root.$off('buyModal::boughtItem');
     },
   };
 </script>

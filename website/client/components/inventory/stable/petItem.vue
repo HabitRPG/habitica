@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
+    .item.pet-slot(
       :class="{'item-empty': emptyItem, 'highlight': highlightBorder}",
     )
       slot(name="itemBadge", :item="item")
@@ -35,13 +35,9 @@ div
 </style>
 
 <script>
-  import bPopover from 'bootstrap-vue/lib/components/popover';
   import uuid from 'uuid';
 
   export default {
-    components: {
-      bPopover,
-    },
     props: {
       item: {
         type: Object,

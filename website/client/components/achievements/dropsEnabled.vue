@@ -20,15 +20,10 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import { mapState } from 'client/libs/store';
 import eggs from '../../../common/script/content/eggs';
 
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       eggs,
@@ -45,7 +40,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'drops-enabled');
+      this.$root.$emit('bv::hide::modal', 'drops-enabled');
     },
   },
 };

@@ -23,7 +23,7 @@ describe('Groups Utilities Mixin', () => {
 
   describe('isMemberOfGroup', () => {
     it('registers as a method', () => {
-      expect(instance.isMemberOfGroup).to.be.a.function;
+      expect(instance.isMemberOfGroup).to.exist;
     });
 
     it('returns true when the group is the Tavern', () => {

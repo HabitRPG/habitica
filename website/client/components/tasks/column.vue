@@ -7,7 +7,9 @@
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
   .d-flex
-    h2.tasks-column-title(v-once) {{ $t(types[type].label) }}
+    h2.tasks-column-title
+      | {{ $t(types[type].label) }}
+      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in types[type].filters",
@@ -15,18 +17,35 @@
         @click="activateFilter(type, filter)",
       ) {{ $t(filter.label) }}
   .tasks-list(ref="tasksWrapper")
-    input.quick-add(
+    textarea.quick-add(
+      :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
-      v-model="quickAddText", @keyup.enter="quickAdd",
+      v-model="quickAddText", @keypress.enter="quickAdd",
       ref="quickAdd",
+      @focus="quickAddFocused = true", @blur="quickAddFocused = false",
     )
-    .sortable-tasks(ref="tasksList", v-sortable='activeFilters[type].label !== "scheduled"', @onsort='sorted', data-sortableId)
+    transition(name="quick-add-tip-slide")
+      .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
+    clear-completed-todos(v-if="activeFilters[type].label === 'complete2'")
+    .column-background(
+      v-if="isUser === true",
+      :class="{'initial-description': initialColumnDescription}",
+      ref="columnBackground",
+    )
+      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
+      .small-text {{$t(`${type}sDesc`)}}
+    draggable.sortable-tasks(
+      ref="tasksList",
+      @update='sorted',
+      :options='{disabled: activeFilters[type].label === "scheduled"}',
+    )
       task(
         v-for="task in taskList",
         :key="task.id", :task="task",
-        v-if="filterTask(task)",
         :isUser="isUser",
         @editTask="editTask",
+        @moveTo="moveTo",
         :group='group',
       )
     template(v-if="hasRewardsList")
@@ -39,37 +58,43 @@
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
-
-    .column-background(
-      v-if="isUser === true",
-      :class="{'initial-description': initialColumnDescription}",
-      ref="columnBackground",
-    )
-      .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
-      .small-text {{$t(`${type}sDesc`)}}
+          template(slot="itemBadge", slot-scope="ctx")
+            span.badge.badge-pill.badge-item.badge-svg(
+              :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}",
+              @click.prevent.stop="togglePinned(ctx.item)"
+            )
+              span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+
   .tasks-column {
     min-height: 556px;
-  }
-
-  .task-wrapper {
-    position: relative;
-    z-index: 2;
   }
 
   .sortable-tasks + .reward-items {
     margin-top: 16px;
   }
 
+
   .reward-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @supports (display: grid) {
+      display: grid;
+      justify-content: center;
+      grid-column-gap: 16px;
+      grid-row-gap: 4px;
+      grid-template-columns: repeat(auto-fill, 94px);
+    }
+
+    @supports not (display: grid) {
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+        margin: 0 16px 4px 0;
+      }
+    }
   }
 
   .tasks-list {
@@ -85,11 +110,11 @@
     border-radius: 2px;
     background-color: rgba($black, 0.06);
     width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
     padding: 12px 16px;
-    font-weight: bold;
     border-color: transparent;
     transition: background 0.15s ease-in;
+    resize: none;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -100,21 +125,44 @@
       background: $white;
       border-color: $purple-500;
       color: $gray-50;
+      margin-bottom: 0px;
+    }
+
+    &::placeholder {
+      font-weight: bold;
     }
   }
 
-  .bottom-gradient {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    height: 42px;
-    background-image: linear-gradient(to bottom, rgba($gray-10, 0), rgba($gray-10, 0.24));
-    width: 100%;
-    z-index: 99;
+  .quick-add-tip {
+    font-style: normal;
+    padding: 16px;
+    text-align: center;
+
+    overflow-y: hidden;
+    max-height: 65px; // approximate max height
+  }
+
+  .quick-add-tip-slide-enter-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-leave-active {
+    transition: all 0.5s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
+    max-height: 0;
+    padding: 0px 16px;
   }
 
   .tasks-column-title {
     margin-bottom: 8px;
+    position: relative;
+  }
+
+  .column-badge {
+    top: -5px;
+    right: -24px;
   }
 
   .filters {
@@ -142,7 +190,6 @@
   .column-background {
     position: absolute;
     bottom: 32px;
-    z-index: 1;
 
     &.initial-description {
       top: 30%;
@@ -197,39 +244,39 @@
 
 <script>
 import Task from './task';
+import ClearCompletedTodos from './clearCompletedTodos';
 import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
-import bModal from 'bootstrap-vue/lib/components/modal';
-
-import sortable from 'client/directives/sortable.directive';
 import buyMixin from 'client/mixins/buy';
 import { mapState, mapActions } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
+import notifications from 'client/mixins/notifications';
 import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
+import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
 import dailyIcon from 'assets/svg/daily.svg';
 import todoIcon from 'assets/svg/todo.svg';
 import rewardIcon from 'assets/svg/reward.svg';
+import draggable from 'vuedraggable';
 
 export default {
-  mixins: [buyMixin],
+  mixins: [buyMixin, notifications],
   components: {
     Task,
+    ClearCompletedTodos,
     BuyQuestModal,
-    bModal,
     shopItem,
-  },
-  directives: {
-    sortable,
+    draggable,
   },
   props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
   data () {
+    // @TODO refactor this so that filter functions aren't in data
     const types = Object.freeze({
       habit: {
         label: 'habits',
@@ -270,6 +317,7 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
+      pin: svgPin,
     });
 
     let activeFilters = {};
@@ -285,6 +333,8 @@ export default {
 
       forceRefresh: new Date(),
       quickAddText: '',
+      quickAddFocused: false,
+      quickAddRows: 1,
 
       selectedItemToBuy: {},
     };
@@ -295,6 +345,16 @@ export default {
       user: 'user.data',
       userPreferences: 'user.data.preferences',
     }),
+    onUserPage () {
+      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
+
+      if (!onUserPage) {
+        this.activateFilter('daily', this.types.daily.filters[0]);
+        this.types.reward.filters = [];
+      }
+
+      return onUserPage;
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filter = this.activeFilters[this.type];
@@ -315,12 +375,13 @@ export default {
         taskList = sortBy(taskList, filter.sort);
       }
 
-      return taskList;
+      return taskList.filter(t => {
+        return this.filterTask(t);
+      });
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       let rewards = inAppRewards(this.user);
-
 
       // Add season rewards if user is affected
       // @TODO: Add buff coniditional
@@ -359,11 +420,32 @@ export default {
       if (this.user.preferences.dailyDueDefaultView) {
         this.activateFilter('daily', this.types.daily.filters[1]);
       }
+
       return this.user.preferences.dailyDueDefaultView;
     },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
+    },
+    badgeCount () {
+      // 0 means the badge will not be shown
+      // It is shown for the all and due views of dailies
+      // and for the active and scheduled views of todos.
+      if (this.type === 'todo') {
+        if (this.activeFilters.todo.label !== 'complete2') return this.taskList.length;
+      } else if (this.type === 'daily') {
+        const activeFilter = this.activeFilters.daily.label;
+
+        if (activeFilter === 'due') {
+          return this.taskList.length;
+        } else if (activeFilter === 'all') {
+          return this.taskList.reduce((count, t) => {
+            return !t.completed && shouldDo(new Date(), t, this.userPreferences) ? count + 1 : count;
+          }, 0);
+        }
+      }
+
+      return 0;
     },
   },
   watch: {
@@ -374,9 +456,12 @@ export default {
       deep: true,
     },
     dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
+      if (!this.dailyDueDefaultView) return;
+      this.activateFilter('daily', this.types.daily.filters[1]);
+    },
+    quickAddFocused (newValue) {
+      if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
+      if (!newValue) this.quickAddRows = 1;
     },
   },
   mounted () {
@@ -385,6 +470,17 @@ export default {
     this.$root.$on('buyModal::boughtItem', () => {
       this.forceRefresh = new Date();
     });
+
+    if (this.type !== 'todo') return;
+    this.$root.$on('habitica::resync-requested', () => {
+      if (this.activeFilters.todo.label !== 'complete2') return;
+      this.loadCompletedTodos(true);
+    });
+  },
+  destroyed () {
+    this.$root.$off('buyModal::boughtItem');
+    if (this.type !== 'todo') return;
+    this.$root.$off('habitica::resync-requested');
   },
   methods: {
     ...mapActions({
@@ -392,30 +488,72 @@ export default {
       createTask: 'tasks:create',
     }),
     async sorted (data) {
-      const filteredList = this.taskList.filter(this.activeFilters[this.type].filter);
-      const sorting = this.taskList;
-      const taskIdToMove = filteredList[data.oldIndex]._id;
+      const filteredList = this.taskList;
+      const taskToMove = filteredList[data.oldIndex];
+      const taskIdToMove = taskToMove._id;
+      let originTasks = this.tasks[`${this.type}s`];
+      if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
       const taskIdToReplace = filteredList[data.newIndex];
-      const newIndexOnServer = this.taskList.findIndex(taskId => taskId === taskIdToReplace);
-      let newOrder = await this.$store.dispatch('tasks:move', {
-        taskId: taskIdToMove,
-        position: newIndexOnServer,
-      });
-      this.user.tasksOrder[`${this.type}s`] = newOrder;
+      const newIndexOnServer = originTasks.findIndex(taskId => taskId === taskIdToReplace);
+
+      let newOrder;
+      if (taskToMove.group.id) {
+        newOrder = await this.$store.dispatch('tasks:moveGroupTask', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      } else {
+        newOrder = await this.$store.dispatch('tasks:move', {
+          taskId: taskIdToMove,
+          position: newIndexOnServer,
+        });
+      }
+      if (!this.taskListOverride) this.user.tasksOrder[`${this.type}s`] = newOrder;
 
       // Client
-      if (sorting) {
-        const deleted = sorting.splice(data.oldIndex, 1);
-        sorting.splice(data.newIndex, 0, deleted[0]);
-      }
+      const deleted = originTasks.splice(data.oldIndex, 1);
+      originTasks.splice(data.newIndex, 0, deleted[0]);
     },
-    quickAdd () {
-      const task = taskDefaults({type: this.type, text: this.quickAddText});
-      task.tags = this.selectedTags;
+    async moveTo (task, where) { // where is 'top' or 'bottom'
+      const taskIdToMove = task._id;
+      const list = this.tasks[`${this.type}s`];
+
+      const oldPosition = list.findIndex(t => t._id === taskIdToMove);
+      const moved = list.splice(oldPosition, 1);
+      const newPosition = where === 'top' ? 0 : list.length;
+      list.splice(newPosition, 0, moved[0]);
+
+      let newOrder = await this.$store.dispatch('tasks:move', {
+        taskId: taskIdToMove,
+        position: newPosition,
+      });
+      this.user.tasksOrder[`${this.type}s`] = newOrder;
+    },
+    quickAdd (ev) {
+      // Add a new line if Shift+Enter Pressed
+      if (ev.shiftKey) {
+        this.quickAddRows++;
+        return true;
+      }
+
+      // Do not add new line is added if only Enter is pressed
+      ev.preventDefault();
+      const text = this.quickAddText;
+      if (!text) return false;
+
+      const tasks = text.split('\n').reverse().filter(taskText => {
+        return taskText ? true : false;
+      }).map(taskText => {
+        const task = taskDefaults({type: this.type, text: taskText});
+        task.tags = this.selectedTags;
+        return task;
+      });
+
       this.quickAddText = null;
-      this.createTask(task);
+      this.quickAddRows = 1;
+      this.createTask(tasks);
     },
     editTask (task) {
       this.$emit('editTask', task);
@@ -424,6 +562,7 @@ export default {
       if (type === 'todo' && filter.label === 'complete2') {
         this.loadCompletedTodos();
       }
+
       this.activeFilters[type] = filter;
     },
     setColumnBackgroundVisibility () {
@@ -434,7 +573,7 @@ export default {
 
         const tasksWrapperHeight = tasksWrapperEl.offsetHeight;
         const quickAddHeight = this.$refs.quickAdd ? this.$refs.quickAdd.offsetHeight : 0;
-        const tasksListHeight = this.$refs.tasksList.offsetHeight;
+        const tasksListHeight = this.$refs.tasksList.$el.offsetHeight;
 
         let combinedTasksHeights = tasksListHeight + quickAddHeight;
 
@@ -495,7 +634,7 @@ export default {
 
       if (rewardItem.purchaseType === 'quests') {
         this.selectedItemToBuy = rewardItem;
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
         return;
       }
 
@@ -506,6 +645,15 @@ export default {
     resetItemToBuy ($event) {
       if (!$event) {
         this.selectedItemToBuy = null;
+      }
+    },
+    togglePinned (item) {
+      try {
+        if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
+          this.text(this.$t('unpinnedItem', {item: item.text}));
+        }
+      } catch (e) {
+        this.error(e.message);
       }
     },
   },

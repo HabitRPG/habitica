@@ -7,7 +7,6 @@ import {
 } from '../../../libs/errors';
 import googlePayments from '../../../libs/googlePayments';
 import applePayments from '../../../libs/applePayments';
-import logger from '../../../libs/logger';
 
 let api = {};
 
@@ -88,12 +87,6 @@ api.iapiOSVerify = {
   url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    // @TODO remove once debugging is done
-    logger.info('Debugging iOS verify route', {
-      body: req.body,
-      headers: req.headers,
-    });
-
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
 
     let appleRes = await applePayments.verifyGemPurchase(res.locals.user, req.body.transaction.receipt, req.headers);

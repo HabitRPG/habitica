@@ -1,17 +1,24 @@
 <template lang="pug">
 b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
   .modal-body
+    .row
+      h3.col-12.text-center(v-if='data.rewardText') {{ $t('unlockedReward', {reward: data.rewardText}) }}
     .row.reward-row
       .col-12
         avatar.avatar(:member='user', :avatarOnly='true', :withBackground='true')
       .text-center.col-12
-        .reward-wrap
+        .reward-wrap(v-if="!data.rewardText")
           div(v-if="nextReward.rewardKey.length === 1", :class="nextReward.rewardKey[0]")
           .reward(v-for="reward in nextReward.rewardKey", v-if="nextReward.rewardKey.length > 1", :class='reward')
+        .reward-wrap(v-if="data.rewardText")
+          div(v-if="data.rewardKey.length === 1", :class="data.rewardKey[0]")
+          .reward(v-for="reward in data.rewardKey", v-if="data.rewardKey.length > 1", :class='reward')
       .col-12.text-center(v-if="data.nextRewardAt")
         h4 {{ $t('countLeft', {count: data.nextRewardAt - user.loginIncentives}) }}
     .row
-      .col-8.offset-2.text-center
+      .col-12.text-center(v-if='data.rewardText')
+        p {{ $t('earnedRewardForDevotion', {reward: data.rewardText}) }}
+      .col-12.text-center
         p {{ $t('incentivesDescription') }}
       .col-12.text-center(v-if="data.nextRewardAt")
         h3 {{ $t('nextRewardUnlocksIn', {numberOfCheckinsLeft: data.nextRewardAt - user.loginIncentives}) }}
@@ -44,7 +51,6 @@ b-modal#login-incentives(:title="data.message", size='md', :hide-footer="true")
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import Avatar from '../avatar';
 import {loginIncentives} from '../../../common/script/content/index';
@@ -52,7 +58,6 @@ import {loginIncentives} from '../../../common/script/content/index';
 export default {
   components: {
     Avatar,
-    bModal,
   },
   props: ['data'],
   data () {
@@ -72,7 +77,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'login-incentives');
+      this.$root.$emit('bv::hide::modal', 'login-incentives');
     },
   },
 };

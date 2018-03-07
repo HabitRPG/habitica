@@ -14,16 +14,12 @@
 </template>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import markdownDirective from 'client/directives/markdown';
 
 export default {
   mixins: [notifications],
-  components: {
-    bModal,
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -37,12 +33,6 @@ export default {
         name: `<span class='text-danger'>${reportMessage}</span>`,
       };
     },
-    abuseObject () {
-      return this.$store.state.flagChatOptions.message;
-    },
-    groupId () {
-      return this.$store.state.flagChatOptions.groupId;
-    },
   },
   data () {
     let abuseFlagModalBody = {
@@ -53,11 +43,24 @@ export default {
 
     return {
       abuseFlagModalBody,
+      abuseObject: '',
+      groupId: '',
     };
+  },
+  created () {
+    this.$root.$on('habitica::report-chat', data => {
+      if (!data.message || !data.groupId) return;
+      this.abuseObject = data.message;
+      this.groupId = data.groupId;
+      this.$root.$emit('bv::show::modal', 'report-flag');
+    });
+  },
+  destroyed () {
+    this.$root.$off('habitica::report-chat');
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'report-flag');
+      this.$root.$emit('bv::hide::modal', 'report-flag');
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');
@@ -65,6 +68,7 @@ export default {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
       });
+
       this.close();
     },
     async clearFlagCount () {

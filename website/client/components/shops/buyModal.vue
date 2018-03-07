@@ -18,6 +18,7 @@
         slot(name="item", :item="item")
           div(v-if="showAvatar")
             avatar(
+              :showVisualBuffs="false",
               :member="user",
               :avatarOnly="true",
               :hideClassBadge="true",
@@ -36,19 +37,23 @@
         div.text(v-html="itemNotes")
 
         slot(name="additionalInfo", :item="item")
-          equipmentAttributesGrid.bordered(
+          equipmentAttributesGrid.attributesGrid(
             v-if="showAttributesGrid",
             :item="item"
           )
 
-        .purchase-amount(:class="{'notEnough': !this.enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}")
-          .how-many-to-buy(v-if='item.purchaseType !== "gear"')
+        .purchase-amount
+          .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
-          div(v-if='item.purchaseType !== "gear"')
+          div(v-if='showAmountToBuy(item)')
             .box
               input(type='number', min='0', v-model='selectedAmountToBuy')
+            span(:class="{'notEnough': notEnoughCurrency}")
+              span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+              span.cost(:class="getPriceClass()") {{ item.value }}
+          div(v-else)
             span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-            span.value(:class="getPriceClass()") {{ item.value }}
+            span.cost(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -83,12 +88,15 @@
 </template>
 
 <style lang="scss">
-
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
 
   #buy-modal {
     @include centeredModal();
+
+    .modal-dialog {
+      width: 330px;
+    }
 
     .avatar {
       cursor: default;
@@ -120,7 +128,7 @@
         width: 74px;
         height: 40px;
         border-radius: 2px;
-        background-color: #ffffff;
+        background-color: $white;
         box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
         margin-right: 24px;
 
@@ -139,15 +147,6 @@
       }
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
-    }
-
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
@@ -157,10 +156,9 @@
       vertical-align: middle;
     }
 
-    .value {
+    .cost {
       width: 28px;
       height: 32px;
-      font-family: Roboto;
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
@@ -168,15 +166,15 @@
       vertical-align: middle;
 
       &.gems {
-        color: $green-10;
+        color: $gems-color;
       }
 
       &.gold {
-        color: $yellow-10
+        color: $gold-color;
       }
 
       &.hourglasses {
-        color: $blue-10;
+        color: $hourglass-color;
       }
     }
 
@@ -224,7 +222,7 @@
 
     .limitedTime {
       height: 32px;
-      background-color: #6133b4;
+      background-color: $purple-300;
       width: calc(100% + 30px);
       margin: 0 -15px; // the modal content has its own padding
 
@@ -243,8 +241,12 @@
       }
     }
 
-    .bordered {
+    .attributesGrid {
       margin-top: 8px;
+      border-radius: 2px;
+      background-color: $gray-500;
+
+      margin: 10px 0 24px;
     }
 
     .gems-left {
@@ -254,9 +256,6 @@
 </style>
 
 <script>
-  import bModal from 'bootstrap-vue/lib/components/modal';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
   import * as Analytics from 'client/libs/analytics';
   import spellsMixin from 'client/mixins/spells';
   import planGemLimits from 'common/script/libs/planGemLimits';
@@ -275,7 +274,7 @@
 
   import { mapState } from 'client/libs/store';
 
-  import EquipmentAttributesGrid from './market/equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';
@@ -284,12 +283,14 @@
 
   import moment from 'moment';
 
+  const hideAmountSelectionForPurchaseTypes = [
+    'gear', 'backgrounds', 'mystery_set', 'card',
+    'rebirth_orb', 'fortify', 'armoire', 'keys',
+  ];
+
   export default {
     mixins: [currencyMixin, notifications, spellsMixin, buyMixin],
     components: {
-      bModal,
-      bDropdown,
-      bDropdownItem,
       BalanceInfo,
       EquipmentAttributesGrid,
       Item,
@@ -353,6 +354,9 @@
         if (this.item && this.item.key && this.item.key === 'gem' && this.selectedAmountToBuy > this.gemsLeft) return true;
         return false;
       },
+      notEnoughCurrency () {
+        return !this.enoughCurrency(this.getPriceClass(), this.item.value * this.selectedAmountToBuy);
+      },
     },
     watch: {
       item: function itemChanged () {
@@ -365,9 +369,25 @@
         this.$emit('change', $event);
       },
       buyItem () {
-        if (this.item.cast) {
-          this.castStart(this.item);
-        } else if (this.genericPurchase) {
+        // @TODO: I  think we should buying to the items. Turn the items into classes, and use polymorphism
+        if (this.item.buy) {
+          this.item.buy();
+          this.$emit('buyPressed', this.item);
+          this.hideDialog();
+          return;
+        }
+
+        if (this.item.currency === 'gems' &&
+          !confirm(this.$t('purchaseFor', { cost: this.item.value * this.selectedAmountToBuy }))) {
+          return;
+        }
+
+        if (this.item.currency === 'hourglasses' &&
+          !confirm(this.$t('purchaseForHourglasses', { cost: this.item.value }))) {
+          return;
+        }
+
+        if (this.genericPurchase) {
           this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           this.purchased(this.item.text);
         }
@@ -384,7 +404,7 @@
             eventLabel: 'Gems > Rebirth',
           });
         }
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
       togglePinned () {
         this.isPinned = this.$store.dispatch('user:togglePinnedItem', {type: this.item.pinType, path: this.item.path});
@@ -394,7 +414,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-modal');
       },
       getPriceClass () {
         if (this.priceType && this.icons[this.priceType]) {
@@ -403,6 +423,13 @@
           return this.item.currency;
         } else {
           return 'gold';
+        }
+      },
+      showAmountToBuy (item) {
+        if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
+          return false;
+        } else {
+          return true;
         }
       },
       getAvatarOverrides (item) {

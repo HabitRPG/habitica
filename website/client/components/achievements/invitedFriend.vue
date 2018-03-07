@@ -21,19 +21,17 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 
 export default {
   components: {
-    bModal,
     achievementFooter,
     achievementAvatar,
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'invited-friend');
+      this.$root.$emit('bv::hide::modal', 'invited-friend');
     },
   },
 };

@@ -32,10 +32,6 @@ describe('cron', () => {
     });
 
     sinon.spy(analytics, 'track');
-
-    user._statsComputed = {
-      mp: 10,
-    };
   });
 
   afterEach(() => {
@@ -185,9 +181,9 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.purchased.plan.customerId).to.not.exist;
-      expect(user.purchased.plan.consecutive.gemCapExtra).to.be.empty;
-      expect(user.purchased.plan.consecutive.count).to.be.empty;
-      expect(user.purchased.plan.consecutive.offset).to.be.empty;
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+      expect(user.purchased.plan.consecutive.count).to.equal(0);
+      expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
   });
 
@@ -365,6 +361,72 @@ describe('cron', () => {
 
       expect(user.history.todos).to.be.lengthOf(1);
     });
+
+    it('should remove completed todos from users taskOrder list', () => {
+      tasksByType.todos = [];
+      user.tasksOrder.todos = [];
+      let todo = {
+        text: 'test todo',
+        type: 'todo',
+        value: 0,
+      };
+
+      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      tasksByType.todos.push(task);
+      task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      tasksByType.todos.push(task);
+      tasksByType.todos[0].completed = true;
+
+      user.tasksOrder.todos = tasksByType.todos.map(taskTodo => {
+        return taskTodo._id;
+      });
+      // Since ideally tasksByType should not contain completed todos, fake ids should be filtered too
+      user.tasksOrder.todos.push('00000000-0000-0000-0000-000000000000');
+
+      expect(tasksByType.todos).to.be.lengthOf(2);
+      expect(user.tasksOrder.todos).to.be.lengthOf(3);
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      // user.tasksOrder.todos should be filtered while tasks by type remains unchanged
+      expect(tasksByType.todos).to.be.lengthOf(2);
+      expect(user.tasksOrder.todos).to.be.lengthOf(1);
+    });
+
+    it('should preserve todos order in task list', () => {
+      tasksByType.todos = [];
+      user.tasksOrder.todos = [];
+      let todo = {
+        text: 'test todo',
+        type: 'todo',
+        value: 0,
+      };
+
+      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      tasksByType.todos.push(task);
+      task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      tasksByType.todos.push(task);
+      task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      tasksByType.todos.push(task);
+
+      // Set up user.tasksOrder list in a specific order
+      user.tasksOrder.todos = tasksByType.todos.map(todoTask => {
+        return todoTask._id;
+      }).reverse();
+      let original = user.tasksOrder.todos; // Preserve the original order
+
+      cron({user, tasksByType, daysMissed, analytics});
+
+      let listsAreEqual = true;
+      user.tasksOrder.todos.forEach((taskId, index) => {
+        if (original[index]._id !== taskId) {
+          listsAreEqual = false;
+        }
+      });
+
+      expect(listsAreEqual);
+      expect(user.tasksOrder.todos).to.be.lengthOf(original.length);
+    });
   });
 
   describe('dailys', () => {
@@ -378,9 +440,13 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('computes isDue', () => {
@@ -789,9 +855,13 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('stores a new entry in user.history.exp', () => {
@@ -906,18 +976,27 @@ describe('cron', () => {
 
   describe('adding mp', () => {
     it('should add mp to user', () => {
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+
       let mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.stats.mp).to.be.greaterThan(mpBefore);
+
+      common.statsComputed.restore();
     });
 
-    it('set user\'s mp to user._statsComputed.maxMP when user.stats.mp is greater', () => {
+    it('set user\'s mp to statsComputed.maxMP when user.stats.mp is greater', () => {
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
       user.stats.mp = 120;
-      user._statsComputed.maxMP = 100;
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
       cron({user, tasksByType, daysMissed, analytics});
-      expect(user.stats.mp).to.equal(user._statsComputed.maxMP);
+      expect(user.stats.mp).to.equal(common.statsComputed(user).maxMP);
+
+      common.statsComputed.restore();
     });
   });
 
@@ -932,19 +1011,23 @@ describe('cron', () => {
       tasksByType.dailys = [];
       tasksByType.dailys.push(task);
 
-      user._statsComputed = {
-        con: 1,
-      };
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {con: 1}));
 
       daysMissed = 1;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({days: 1});
+    });
+
+    afterEach(() => {
+      common.statsComputed.restore();
     });
 
     it('resets user progress', () => {
       cron({user, tasksByType, daysMissed, analytics});
       expect(user.party.quest.progress.up).to.equal(0);
       expect(user.party.quest.progress.down).to.equal(0);
-      expect(user.party.quest.progress.collectedItems).to.be.empty;
+      expect(user.party.quest.progress.collectedItems).to.equal(0);
     });
 
     it('applies the user progress', () => {
@@ -957,7 +1040,10 @@ describe('cron', () => {
     it('adds a user notification', () => {
       let mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
 
       daysMissed = 1;
       let hpBefore = user.stats.hp;
@@ -971,12 +1057,17 @@ describe('cron', () => {
         hp: user.stats.hp - hpBefore,
         mp: user.stats.mp - mpBefore,
       });
+
+      common.statsComputed.restore();
     });
 
     it('condenses multiple notifications into one', () => {
       let mpBefore1 = user.stats.mp;
       tasksByType.dailys[0].completed = true;
-      user._statsComputed.maxMP = 100;
+
+      const statsComputedRes = common.statsComputed(user);
+      const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
+      stubbedStatsComputed.returns(Object.assign(statsComputedRes, {maxMP: 100}));
 
       daysMissed = 1;
       let hpBefore1 = user.stats.hp;
@@ -1007,6 +1098,7 @@ describe('cron', () => {
         mp: user.stats.mp - mpBefore2 - (mpBefore2 - mpBefore1),
       });
       expect(user.notifications[0].type).to.not.equal('CRON');
+      common.statsComputed.restore();
     });
   });
 

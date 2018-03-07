@@ -9,7 +9,7 @@
   )
   .col-12
     .row.tasks-navigation
-      .col-4.offset-4
+      .col-12.col-md-4.offset-md-4
         .d-flex
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model="searchText")
           button.btn.btn-secondary.dropdown-toggle.ml-2.d-flex.align-items-center(
@@ -18,7 +18,7 @@
             :class="{active: selectedTags.length > 0}",
           )
             .svg-icon.filter-icon.mr-2(v-html="icons.filter")
-            span(v-once) {{ $t('filter') }}
+            span(v-once) {{ $t('tags') }}
         .filter-panel(v-if="isFilterPanelOpen", v-on:mouseleave="checkMouseOver")
           .tags-category.d-flex(
             v-for="tagsType in tagsByType",
@@ -34,20 +34,19 @@
                   .col-6(v-for="(tag, tagIndex) in tagsSnap[tagsType.key]")
                     .inline-edit-input-group.tag-edit-item.input-group
                       input.tag-edit-input.inline-edit-input.form-control(type="text", v-model="tag.name")
-                      span.input-group-btn(@click="removeTag(tagIndex, tagsType.key)")
+                      .input-group-append(@click="removeTag(tagIndex, tagsType.key)")
                         .svg-icon.destroy-icon(v-html="icons.destroy")
                   .col-6(v-if="tagsType.key === 'tags'")
                     input.new-tag-item.edit-tag-item.inline-edit-input.form-control(type="text", :placeholder="$t('newTag')", @keydown.enter="addTag($event, tagsType.key)", v-model="newTag")
                 template(v-else)
                   .col-6(v-for="(tag, tagIndex) in tagsType.tags")
-                    label.custom-control.custom-checkbox
+                    .custom-control.custom-checkbox
                       input.custom-control-input(
                         type="checkbox",
                         :checked="isTagSelected(tag)",
-                        @change="toggleTag(tag)",
+                        @change="toggleTag(tag)", :id="`tag-${tag.id}`"
                       )
-                      span.custom-control-indicator
-                      span.custom-control-description(v-markdown='tag.name')
+                      label.custom-control-label(v-markdown='tag.name', :for="`tag-${tag.id}`")
 
           .filter-panel-footer.clearfix
             template(v-if="editingTags === true")
@@ -63,8 +62,8 @@
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
             .create-task-btn.rounded-btn(
-              v-for="type in columns", 
-              :key="type", 
+              v-for="type in columns",
+              :key="type",
               @click="createTask(type)",
               v-b-tooltip.hover.bottom="$t(type)",
             )
@@ -192,6 +191,7 @@
     padding-left: 24px;
     padding-right: 24px;
     max-width: 40vw;
+    width: 100%;
     z-index: 9999;
     background: $white;
     border-radius: 2px;
@@ -227,7 +227,7 @@
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
 
-      &:focus, &:focus ~ .input-group-btn {
+      &:focus, &:focus ~ .input-group-append {
         border-color: $purple-500 !important;
       }
     }
@@ -243,7 +243,8 @@
     }
 
     .tag-edit-item {
-      .input-group-btn {
+      .input-group-append {
+        background: $white;
         border-bottom: 1px solid $gray-500 !important;
 
         &:focus {
@@ -260,7 +261,7 @@
       }
     }
 
-    .custom-control-description {
+    .custom-control-label {
       margin-left: 10px;
     }
 
@@ -287,6 +288,13 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .filter-panel {
+      max-width: none;
+      left: 0px;
+    }
+  }
 </style>
 
 <script>
@@ -305,11 +313,6 @@ import rewardIcon from 'assets/svg/reward.svg';
 
 import uuid from 'uuid';
 import Vue from 'vue';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bTooltip from 'bootstrap-vue/lib/directives/tooltip';
-import bTooltipComponent from 'bootstrap-vue/lib/components/tooltip';
-
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState, mapActions } from 'client/libs/store';
@@ -322,16 +325,12 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
-    bDropdown,
-    bDropdownItem,
-    bTooltip: bTooltipComponent,
     Item,
     spells,
     brokenTaskModal,
   },
   directives: {
     markdown,
-    bTooltip,
   },
   data () {
     return {
@@ -415,10 +414,13 @@ export default {
       this.newTag = null;
     },
     removeTag (index, key) {
+      const tagId = this.tagsSnap[key][index].id;
+      const indexInSelected = this.selectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
-      if (this.newTag) this.addTag();
+      if (this.newTag) this.addTag(null, 'tags');
 
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;
@@ -438,7 +440,7 @@ export default {
       this.editingTask = cloneDeep(task);
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     createTask (type) {
@@ -448,7 +450,7 @@ export default {
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {
-        this.$root.$emit('show::modal', 'task-modal');
+        this.$root.$emit('bv::show::modal', 'task-modal');
       });
     },
     cancelTaskModal () {

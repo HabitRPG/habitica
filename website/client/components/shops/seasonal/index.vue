@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.seasonal
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -11,10 +11,9 @@
             v-for="category in filterCategories",
             :key="category.key",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.value }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.key].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.value }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
@@ -24,7 +23,8 @@
           )
     .standard-page
       div.featuredItems
-        .background(:class="{opened: seasonal.opened}")
+        .background(:class="{opened: seasonal.opened && !broken, broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -33,7 +33,8 @@
           div.content(v-if="!seasonal.opened")
             div.featured-label.with-border.closed
               span.rectangle
-              span.text(v-once, v-html="seasonal.notes")
+              span.text(v-if="!broken", v-html="seasonal.notes")
+              span.text(v-if="broken") {{ $t('seasonalShopBrokenText') }}
               span.rectangle
           div.content(v-else-if="seasonal.featured.items.length !== 0")
             div.featured-label.with-border(v-if='!featuredGearBought')
@@ -57,10 +58,10 @@
                 @click="itemSelected(item)"
               )
 
-      h1.mb-0.page-header(v-once) {{ $t('seasonalShop') }}
+      h1.mb-4.page-header(v-once, v-if='seasonal.opened') {{ $t('seasonalShop') }}
 
       .clearfix(v-if="seasonal.opened")
-        h2.float-left
+        h2.float-left.mb-3
           | {{ $t('classArmor') }}
 
         div.float-right
@@ -77,7 +78,7 @@
       div(
         v-for="(groupSets, categoryGroup) in getGroupedCategories(categories)",
       )
-        h3.classgroup
+        h3.classgroup(v-if='categoryGroup !== "spells"')
           span.svg-icon.inline(v-html="icons[categoryGroup]")
           span.name(:class="categoryGroup") {{ getClassName(categoryGroup) }}
 
@@ -97,7 +98,7 @@
                 :showEventBadge="false",
                 @click="itemSelected(item)"
               )
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -148,13 +149,6 @@
 
   .featured-label {
     margin: 24px auto;
-  }
-
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
   }
 
   .group {
@@ -238,6 +232,18 @@
         background-repeat: repeat-x;
       }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
       .content {
         display: flex;
         flex-direction: column;
@@ -260,8 +266,13 @@
         }
       }
 
-      .opened .npc{
+      .opened .npc {
         background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_npc.png');
+        background-repeat: no-repeat;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_npc.png');
         background-repeat: no-repeat;
       }
     }
@@ -285,10 +296,6 @@
   import Avatar from 'client/components/avatar';
   import buyMixin from 'client/mixins/buy';
   import currencyMixin from '../_currencyMixin';
-
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
   import svgWarrior from 'assets/svg/warrior.svg';
@@ -320,10 +327,6 @@
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
     },
@@ -364,7 +367,13 @@
         featuredGearBought: false,
 
         backgroundUpdate: new Date(),
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.seasonalShop;
     },
     computed: {
       ...mapState({
@@ -391,7 +400,9 @@
         // @TODO: add dates to check instead?
         if (seasonal.featured.items.length === 0) {
           this.featuredGearBought = true;
-          seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          if (seasonal.categories.length > 0) {
+            seasonal.featured.items = seasonal.featured.items.concat(seasonal.categories[0].items);
+          }
         }
 
         return seasonal;
@@ -509,6 +520,9 @@
       this.$root.$on('buyModal::boughtItem', () => {
         this.backgroundUpdate = new Date();
       });
+    },
+    beforeDestroy () {
+      this.$root.$off('buyModal::boughtItem');
     },
   };
 </script>

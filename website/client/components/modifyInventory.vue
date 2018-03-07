@@ -6,13 +6,13 @@
       .container-fluid
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.gear", @click="showInv.gear = true") Show Gear
-            button.btn.btn-default.pull-right(ng-if="showInv.gear", @click="showInv.gear = false") Hide Gear
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.gear", @click="showInv.gear = true") Show Gear
+            button.btn.btn-secondary.pull-right(ng-if="showInv.gear", @click="showInv.gear = false") Hide Gear
             h4 Gear
             div(ng-if="showInv.gear")
-              button.btn.btn-default(@click="setAllItems('gear', true)") Own All
-              button.btn.btn-default(@click="setAllItems('gear', false)") Previously Own All
-              button.btn.btn-default(@click="setAllItems('gear', undefined)") Never Own All
+              button.btn.btn-secondary(@click="setAllItems('gear', true)") Own All
+              button.btn.btn-secondary(@click="setAllItems('gear', false)") Previously Own All
+              button.btn.btn-secondary(@click="setAllItems('gear', undefined)") Never Own All
 
               hr
 
@@ -36,13 +36,13 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.special", @click="showInv.special = true") Show Special Items
-            button.btn.btn-default.pull-right(ng-if="showInv.special", @click="showInv.special = false") Hide Special Items
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.special", @click="showInv.special = true") Show Special Items
+            button.btn.btn-secondary.pull-right(ng-if="showInv.special", @click="showInv.special = false") Hide Special Items
             h4 Special Items
             div(ng-if="showInv.special")
-              button.btn.btn-default(@click="setAllItems('special', 999)") Set All to 999
-              button.btn.btn-default(@click="setAllItems('special', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('special', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('special', 999)") Set All to 999
+              button.btn.btn-secondary(@click="setAllItems('special', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('special', undefined)") Set All to undefined
 
               hr
 
@@ -57,14 +57,14 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.pets", @click="showInv.pets = true") Show Pets
-            button.btn.btn-default.pull-right(ng-if="showInv.pets", @click="showInv.pets = false") Hide Pets
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.pets", @click="showInv.pets = true") Show Pets
+            button.btn.btn-secondary.pull-right(ng-if="showInv.pets", @click="showInv.pets = false") Hide Pets
             h4 Pets
             div(ng-if="showInv.pets")
-              button.btn.btn-default(@click="setAllItems('pets', 45)") Set All to 45
-              button.btn.btn-default(@click="setAllItems('pets', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('pets', -1)") Set All to -1
-              button.btn.btn-default(@click="setAllItems('pets', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('pets', 45)") Set All to 45
+              button.btn.btn-secondary(@click="setAllItems('pets', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('pets', -1)") Set All to -1
+              button.btn.btn-secondary(@click="setAllItems('pets', undefined)") Set All to undefined
 
               hr
 
@@ -104,12 +104,12 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.mounts", @click="showInv.mounts = true") Show Mounts
-            button.btn.btn-default.pull-right(ng-if="showInv.mounts", @click="showInv.mounts = false") Hide Mounts
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.mounts", @click="showInv.mounts = true") Show Mounts
+            button.btn.btn-secondary.pull-right(ng-if="showInv.mounts", @click="showInv.mounts = false") Hide Mounts
             h4 Mounts
             div(ng-if="showInv.mounts")
-              button.btn.btn-default(@click="setAllItems('mounts', true)") Set all to Owned
-              button.btn.btn-default(@click="setAllItems('mounts', undefined)") Set all to Not Owned
+              button.btn.btn-secondary(@click="setAllItems('mounts', true)") Set all to Owned
+              button.btn.btn-secondary(@click="setAllItems('mounts', undefined)") Set all to Not Owned
 
               hr
 
@@ -169,13 +169,13 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.hatchingPotions", @click="showInv.hatchingPotions = true") Show Hatching Potions
-            button.btn.btn-default.pull-right(ng-if="showInv.hatchingPotions", @click="showInv.hatchingPotions = false") Hide Hatching Potions
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.hatchingPotions", @click="showInv.hatchingPotions = true") Show Hatching Potions
+            button.btn.btn-secondary.pull-right(ng-if="showInv.hatchingPotions", @click="showInv.hatchingPotions = false") Hide Hatching Potions
             h4 Hatching Potions
             div(ng-if="showInv.hatchingPotions")
-              button.btn.btn-default(@click="setAllItems('hatchingPotions', 999)") Set All to 999
-              button.btn.btn-default(@click="setAllItems('hatchingPotions', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('hatchingPotions', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('hatchingPotions', 999)") Set All to 999
+              button.btn.btn-secondary(@click="setAllItems('hatchingPotions', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('hatchingPotions', undefined)") Set All to undefined
 
               hr
 
@@ -190,13 +190,13 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.eggs", @click="showInv.eggs = true") Show Eggs
-            button.btn.btn-default.pull-right(ng-if="showInv.eggs", @click="showInv.eggs = false") Hide Eggs
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.eggs", @click="showInv.eggs = true") Show Eggs
+            button.btn.btn-secondary.pull-right(ng-if="showInv.eggs", @click="showInv.eggs = false") Hide Eggs
             h4 Eggs
             div(ng-if="showInv.eggs")
-              button.btn.btn-default(@click="setAllItems('eggs', 999)") Set All to 999
-              button.btn.btn-default(@click="setAllItems('eggs', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('eggs', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('eggs', 999)") Set All to 999
+              button.btn.btn-secondary(@click="setAllItems('eggs', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('eggs', undefined)") Set All to undefined
 
               hr
 
@@ -211,13 +211,13 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.food", @click="showInv.food = true") Show Food
-            button.btn.btn-default.pull-right(ng-if="showInv.food", @click="showInv.food = false") Hide Food
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.food", @click="showInv.food = true") Show Food
+            button.btn.btn-secondary.pull-right(ng-if="showInv.food", @click="showInv.food = false") Hide Food
             h4 Food
             div(ng-if="showInv.food")
-              button.btn.btn-default(@click="setAllItems('food', 999)") Set All to 999
-              button.btn.btn-default(@click="setAllItems('food', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('food', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('food', 999)") Set All to 999
+              button.btn.btn-secondary(@click="setAllItems('food', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('food', undefined)") Set All to undefined
 
               hr
 
@@ -232,13 +232,13 @@
 
         .row
           .col-xs-12
-            button.btn.btn-default.pull-right(ng-if="!showInv.quests", @click="showInv.quests = true") Show Quests
-            button.btn.btn-default.pull-right(ng-if="showInv.quests", @click="showInv.quests = false") Hide Quests
+            button.btn.btn-secondary.pull-right(ng-if="!showInv.quests", @click="showInv.quests = true") Show Quests
+            button.btn.btn-secondary.pull-right(ng-if="showInv.quests", @click="showInv.quests = false") Hide Quests
             h4 Quests
             div(ng-if="showInv.quests")
-              button.btn.btn-default(@click="setAllItems('quests', 999)") Set All to 999
-              button.btn.btn-default(@click="setAllItems('quests', 0)") Set All to 0
-              button.btn.btn-default(@click="setAllItems('quests', undefined)") Set All to undefined
+              button.btn.btn-secondary(@click="setAllItems('quests', 999)") Set All to 999
+              button.btn.btn-secondary(@click="setAllItems('quests', 0)") Set All to 0
+              button.btn.btn-secondary(@click="setAllItems('quests', undefined)") Set All to undefined
 
               hr
 
@@ -249,22 +249,18 @@
                     p {{item.text()}}
                     input.form-control(type="number" ng-model="inv.quests[item.key]")
     .modal-footer
-      button.btn.btn-default(@click="close()") {{ $t('close') }}
+      button.btn.btn-secondary(@click="close()") {{ $t('close') }}
       button.btn.btn-primary(@click="close();modifyInventory()") Apply Changes
 </template>
 
 <script>
 import axios from 'axios';
-import bModal from 'bootstrap-vue/lib/components/modal';
 
 import { mapState } from 'client/libs/store';
 
 import Content from '../../common/script/content';
 
 export default {
-  components: {
-    bModal,
-  },
   computed: {
     ...mapState({user: 'user.data'}),
   },
@@ -313,7 +309,7 @@ export default {
       // @TODO: Sync
     },
     close () {
-      this.$root.$emit('hide::modal', 'modify-inventory');
+      this.$root.$emit('bv::hide::modal', 'modify-inventory');
     },
   },
 };

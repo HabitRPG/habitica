@@ -2,6 +2,20 @@
   padding-left: 1.5rem;
 }
 
+label small {
+  font-size: 12px;
+  line-height: 1.33;
+
+  a {
+    color: $white;
+
+    &:hover, &:active {
+      text-decoration: underline;
+      color: $white;
+    }
+  }
+}
+
 // Inputs and texteares
 
 input, textarea, input.form-control, textarea.form-control {
@@ -20,6 +34,7 @@ input, textarea, input.form-control, textarea.form-control {
     border-color: $purple-500;
     color: $gray-50;
     outline: 0;
+    box-shadow: none;
   }
 
   &:disabled {
@@ -53,17 +68,73 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
+.input-group {
+  .input-group-prepend , .input-group-append  {
+    background: $gray-600;
+    color: $gray-300;
+    border-radius: 2px;
+
+    &.input-group-text {
+      font-size: 14px;
+      line-height: 1.43;
+      color: rgba($gray-100, 0.64);
+      padding: 10px 24px;
+      border: none;
+    }
+
+    &.input-group-icon {
+      border: solid 1px $gray-400;
+      border-right: none;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    &.streak-addon .svg-icon {
+      width: 11.6px;
+      height: 7.1px;
+      margin: 15px 13.4px 15.9px 13px;
+    }
+
+    &.positive-addon .svg-icon {
+      width: 10px;
+      height: 10px;
+      margin: 14px 14px;
+    }
+
+    &.negative-addon .svg-icon {
+      width: 10px;
+      height: 2px;
+      margin: 18px 14px;
+    }
+  }
+
+  input:not(:first-child) {
+    border-left: none !important;
+  }
+
+  input:first-child {
+    border-right: none !important;
+  }
+}
+
+.form-check {
+  margin-bottom: 0.5rem;
+  padding-left: 0px;
+}
+
 // Checkboxes and radios
 $bg-focused-active-control: #4f2993;
 $bg-disabled-control: #34303a;
 
 .custom-control {
-  &-description {
+  margin-bottom: .5rem;
+
+  &-label {
     padding-top: 3px;
     padding-left: 3px;
   }
 
-  & .custom-control-indicator {
+  .custom-control-label::before {
     width: 18px;
     height: 18px;
     background-size: 75% 75%;
@@ -71,48 +142,50 @@ $bg-disabled-control: #34303a;
     border: 2px solid $gray-200;
     transition-property: box-shadow;
   }
-
-  & .custom-control-input {
-    display: none;
-  }
 }
 
 .custom-checkbox {
-  .custom-control-indicator {
+  .custom-control-label::before {
     border-radius: 2px;
   }
 
   .custom-control-input {
-    &:checked~.custom-control-indicator {
-      background-image: url(~client/assets/svg/for-css/checkbox-white.svg);
+    &:checked~.custom-control-label::before {
       background-color: $purple-400;
       border-color: $purple-400;
     }
 
-    &:active~.custom-control-indicator {
+    &:checked~.custom-control-label::after {
+      width: 18px;
+      height: 18px;
+      background-image: url(~client/assets/svg/for-css/checkbox-white.svg);
+      background-size: 75% 75%;
+    }
+
+    &:active~.custom-control-label::before {
       background-color: inherit;
     }
 
-    &:focus:not(:checked):not(:disabled)~.custom-control-indicator, &:active:not(:checked):not(:disabled)~.custom-control-indicator  {
+    &:focus:not(:checked):not(:disabled)~.custom-control-label::before, &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
       box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
     }
 
-    &:focus:checked:not(:disabled)~.custom-control-indicator, &:active:checked:not(:disabled)~.custom-control-indicator  {
+    &:focus:checked:not(:disabled)~.custom-control-label::before, &:active:checked:not(:disabled)~.custom-control-label::before  {
       box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
       border-color: $purple-400;
       background-color: $purple-400;
     }
 
-    &:focus:disabled~.custom-control-indicator, &:active:disabled~.custom-control-indicator  {
+    &:focus:disabled~.custom-control-label::before, &:active:disabled~.custom-control-label::before  {
       box-shadow: 0 0 0 6px rgba($bg-disabled-control, 0.1);
     }
 
-    &:disabled:checked~.custom-control-indicator {
+    &:disabled:checked~.custom-control-label::before {
       border-color: $gray-400;
       background-color: $gray-400;
     }
 
-    &:disabled:not(:checked)~.custom-control-indicator {
+    &:disabled:not(:checked)~.custom-control-label::before {
       border-color: $gray-400;
       background-color: transparent;
     }
@@ -120,10 +193,11 @@ $bg-disabled-control: #34303a;
 }
 
 .inline-edit-input-group {
-  .input-group-btn {
+  .input-group-append, .input-group-prepend {
     cursor: pointer;
     padding-left: 10px;
     padding-right: 10px;
+    align-items: center;
   }
 
   .destroy-icon {
@@ -144,45 +218,57 @@ $bg-disabled-control: #34303a;
 }
 
 .custom-radio .custom-control-input {
-  &:checked~.custom-control-indicator {
+  &:checked~.custom-control-label::after {
     @include custom-radio-checked-icon($purple-400);
+    width: 18px;
+    height: 18px;
+    background-size: 12px 12px;
+  }
+
+  &:checked~.custom-control-label::before {
     background-color: $gray-700;
     background-size: 12px 12px;
     border-color: $purple-400;
   }
 
-  &:active~.custom-control-indicator {
+  &:active~.custom-control-label::before {
     background-color: inherit;
   }
 
-  &:focus:not(:checked):not(:disabled)~.custom-control-indicator, &:active:not(:checked):not(:disabled)~.custom-control-indicator  {
+  &:focus:not(:checked):not(:disabled)~.custom-control-label::before, &:active:not(:checked):not(:disabled)~.custom-control-label::before  {
     box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
   }
 
-  &:focus:checked:not(:disabled)~.custom-control-indicator, &:active:checked:not(:disabled)~.custom-control-indicator  {
+  &:focus:checked:not(:disabled)~.custom-control-label::before, &:active:checked:not(:disabled)~.custom-control-label::before  {
     box-shadow: 0 0 0 6px rgba($bg-focused-active-control, 0.1);
     border-color: $purple-400;
     background-color: rgba($bg-focused-active-control, 0.1);
   }
 
-  &:disabled:checked~.custom-control-indicator {
+  &:disabled:checked~.custom-control-label::before {
     border-color: $gray-400;
     background-color: transparent;
-    @include custom-radio-checked-icon($gray-400);
   }
 
-  &:disabled:not(:checked)~.custom-control-indicator {
+  &:disabled:checked~.custom-control-label::after {
+    @include custom-radio-checked-icon($gray-400);
+    width: 18px;
+    height: 18px;
+    background-size: 12px 12px;
+  }
+
+  &:disabled:not(:checked)~.custom-control-label::before {
     border-color: $gray-300;
     background-color: transparent;
   }
 
-  &:focus:disabled~.custom-control-indicator, &:active:disabled~.custom-control-indicator  {
+  &:focus:disabled~.custom-control-label::before, &:active:disabled~.custom-control-label::before  {
     box-shadow: 0 0 0 6px rgba($bg-disabled-control, 0.1);
     border-color: $gray-300;
     background-color: rgba($bg-disabled-control, 0.1);
   }
 
-  &:focus:disabled:checked~.custom-control-indicator, &:active:disabled:checked~.custom-control-indicator  {
+  &:focus:disabled:checked~.custom-control-label::before, &:active:disabled:checked~.custom-control-label::before  {
     border-color: $gray-400;
   }
 }

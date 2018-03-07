@@ -1,6 +1,7 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
 import findIndex from 'lodash/findIndex';
+import * as Analytics from 'client/libs/analytics';
 
 export async function getPublicGuilds (store, payload) {
   let params = {
@@ -38,24 +39,37 @@ export async function getMyGuilds (store) {
 
 export async function getGroup (store, payload) {
   let response = await axios.get(`/api/v3/groups/${payload.groupId}`);
-
   // @TODO: should we store the active group for modifying?
   // let guilds = response.data.data;
   // store.state.myGuilds = guilds;
 
-  // @TODO: Populate wiht members, challenges, and invites
+  // @TODO: Populate with members, challenges, and invites
 
   return response.data.data;
 }
 
 
 export async function join (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.guildId}/join`);
+  const groupId = payload.groupId;
+  const type = payload.type;
+  const user = store.state.user.data;
+  const invitations = user.invitations;
 
-  // @TODO: abstract for parties as well
-  store.state.user.data.guilds.push(payload.guildId);
-  if (payload.type === 'myGuilds') {
+  let response = await axios.post(`/api/v3/groups/${groupId}/join`);
+
+  if (type === 'guild') {
+    const invitationI = invitations.guilds.findIndex(i => i.id === groupId);
+    if (invitationI !== -1) invitations.guilds.splice(invitationI, 1);
+
+    user.guilds.push(groupId);
     store.state.myGuilds.push(response.data.data);
+  } else if (type === 'party') {
+    const invitationI = invitations.parties.findIndex(i => i.id === groupId);
+    if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
+
+    user.party._id = groupId;
+
+    Analytics.updateUser({partyID: groupId});
   }
 
   return response.data.data;
@@ -79,7 +93,8 @@ export async function leave (store, payload) {
     store.state.myGuilds.splice(guildIndex, 1);
   } else if (payload.type === 'party') {
     store.state.user.data.party._id = null;
-    store.state.party = {};
+    store.state.party.data = {};
+    store.state.party.status = 'NOT_LOADED';
   }
 
   return response.data.data;
@@ -88,11 +103,6 @@ export async function leave (store, payload) {
 export async function create (store, payload) {
   let response = await axios.post('/api/v3/groups/', payload.group);
   let newGroup = response.data.data;
-
-  // @TODO: Add party
-  if (newGroup.privacy === 'public') {
-    store.state.publicGuilds.push(newGroup);
-  }
 
   if (newGroup.leader._id === store.state.user.data._id || newGroup.privacy === 'private') {
     store.state.myGuilds.push(newGroup);
@@ -112,16 +122,24 @@ export async function update (store, payload) {
 
   let updatedGroup = response.data.data;
 
-  // @TODO: Replace old group
-  // store.state.publicGuilds.push(newGroup);
-
   return updatedGroup;
 }
 
 export async function rejectInvite (store, payload) {
-  let response = await axios.post(`/api/v3/groups/${payload.groupId}/reject-invite`);
+  const groupId = payload.groupId;
+  const type = payload.type;
+  const user = store.state.user.data;
+  const invitations = user.invitations;
 
-  // @TODO: refresh or add guild
+  let response = await axios.post(`/api/v3/groups/${groupId}/reject-invite`);
+
+  if (type === 'guild') {
+    const invitationI = invitations.guilds.findIndex(i => i.id === groupId);
+    if (invitationI !== -1) invitations.guilds.splice(invitationI, 1);
+  } else if (type === 'party') {
+    const invitationI = invitations.parties.findIndex(i => i.id === groupId);
+    if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
+  }
 
   return response;
 }

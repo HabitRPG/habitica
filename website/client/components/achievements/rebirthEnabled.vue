@@ -17,20 +17,15 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import { mapState } from 'client/libs/store';
 
 export default {
-  components: {
-    bModal,
-  },
   computed: {
     ...mapState({user: 'user.data'}),
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'rebirth-enabled');
+      this.$root.$emit('bv::hide::modal', 'rebirth-enabled');
     },
   },
 };

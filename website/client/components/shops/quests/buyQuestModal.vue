@@ -56,7 +56,8 @@
     @include centeredModal();
 
     .modal-dialog {
-      margin-top: 25em;
+      margin-top: 8%;
+      width: 448px;
     }
 
     .content {
@@ -78,14 +79,6 @@
       width: 70%;
       margin: 0 auto;
       margin-bottom: 10px;
-    }
-
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-      width: 400px;
     }
 
     .right-sidebar {
@@ -210,8 +203,6 @@
 <script>
   import {mapState} from 'client/libs/store';
 
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   import svgClose from 'assets/svg/close.svg';
   import svgGold from 'assets/svg/gold.svg';
   import svgGem from 'assets/svg/gem.svg';
@@ -230,7 +221,6 @@
   export default {
     mixins: [currencyMixin, notifications, buyMixin],
     components: {
-      bModal,
       BalanceInfo,
       QuestInfo,
       questDialogDrops,
@@ -292,7 +282,7 @@
         }
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::hide::modal', 'buy-quest-modal');
       },
       getDropIcon (drop) {
         switch (drop.type) {
@@ -328,7 +318,7 @@
       },
 
       purchaseGems () {
-        this.$root.$emit('show::modal', 'buy-gems');
+        this.$root.$emit('bv::show::modal', 'buy-gems');
       },
     },
     props: {

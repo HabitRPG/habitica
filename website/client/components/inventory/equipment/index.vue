@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .standard-sidebar
+  .standard-sidebar.d-none.d-sm-block
     .form-group
       input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -12,14 +12,13 @@
           v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ group.label }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="groupBy + group.key")
+            label.custom-control-label(v-once, :for="groupBy + group.key") {{ group.label }}
 
   .standard-page
     .clearfix
-      h1.float-left.mb-0.page-header(v-once) {{ $t('equipment') }}
+      h1.float-left.mb-4.page-header(v-once) {{ $t('equipment') }}
       .float-right
         span.dropdown-label {{ $t('sortBy') }}
         b-dropdown(:text="$t(selectedSortGearBy)", right=true)
@@ -79,9 +78,9 @@
           :showPopover="flatGear[activeItems[group]] && Boolean(flatGear[activeItems[group]].text)",
           @click="equipItem(flatGear[activeItems[group]])",
         )
-          template(slot="popoverContent", scope="context")
+          template(slot="popoverContent", slot-scope="context")
             equipmentAttributesPopover(:item="context.item")
-          template(slot="itemBadge", scope="context")
+          template(slot="itemBadge", slot-scope="context")
             starBadge(
               :selected="true",
               :show="!costume || user.preferences.costume",
@@ -93,7 +92,7 @@
       :key="group.key",
       :class='group.key',
     )
-      h2
+      h2.mb-3
        | {{ group.label }}
        |
        span.badge.badge-pill.badge-default {{items[group.key].length}}
@@ -105,7 +104,7 @@
         :type="group.key",
         :noItemsLabel="$t('noGearItemsOfType', { type: group.label })"
       )
-        template(slot="item", scope="context")
+        template(slot="item", slot-scope="context")
           item(
             :item="context.item",
             :itemContentClass="'shop_' + context.item.key",
@@ -113,13 +112,13 @@
             :key="context.item.key",
             @click="openEquipDialog(context.item)"
           )
-            template(slot="itemBadge", scope="context")
+            template(slot="itemBadge", slot-scope="context")
               starBadge(
                 :selected="activeItems[context.item.type] === context.item.key",
                 :show="!costume || user.preferences.costume",
                 @click="equipItem(context.item)",
               )
-            template(slot="popoverContent", scope="context")
+            template(slot="popoverContent", slot-scope="context")
               equipmentAttributesPopover(:item="context.item")
 
   equipGearModal(
@@ -147,9 +146,6 @@ import throttle from 'lodash/throttle';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-import bPopover from 'bootstrap-vue/lib/components/popover';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import Item from 'client/components/inventory/item';
@@ -161,7 +157,6 @@ import Drawer from 'client/components/ui/drawer';
 import i18n from 'common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
-
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -181,9 +176,6 @@ export default {
     EquipmentAttributesPopover,
     StarBadge,
     Drawer,
-    bDropdown,
-    bDropdownItem,
-    bPopover,
     toggleSwitch,
     EquipGearModal,
   },
@@ -221,7 +213,7 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   mounted () {
@@ -249,7 +241,19 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
+      let userClass = this.user.stats.class;
+
+      return sortBy === 'sortByName' ?
+        _sortBy(items, sortGearTypeMap[sortBy]) :
+        _reverse(_sortBy(items, (item) => {
+          let attrToSort = sortGearTypeMap[sortBy];
+          let attrValue = item[attrToSort];
+          if (item.klass === userClass || item.specialClass === userClass) {
+            attrValue *= 1.5;
+          }
+
+          return attrValue;
+        }));
     },
     drawerToggled (newState) {
       this.$store.state.equipmentDrawerOpen = newState;

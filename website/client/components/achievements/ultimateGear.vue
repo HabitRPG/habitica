@@ -46,14 +46,12 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 import { mapState } from 'client/libs/store';
 
 export default {
   components: {
-    bModal,
     achievementFooter,
     achievementAvatar,
   },
@@ -62,7 +60,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'ultimate-gear');
+      this.$root.$emit('bv::hide::modal', 'ultimate-gear');
     },
   },
 };

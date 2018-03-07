@@ -1,5 +1,11 @@
 <template lang="pug">
-  b-modal#death(:title="$t('lostAllHealth')", size='md', :hide-footer="true")
+  b-modal#death(
+    :title="$t('lostAllHealth')",
+    size='md',
+    :hide-footer="true",
+    no-close-on-esc,
+    no-close-on-backdrop,
+  )
     .row
       .col-12
         .hero-stats
@@ -31,8 +37,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 import axios from 'axios';
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
@@ -42,7 +46,6 @@ import {maxHealth} from '../../../common/script/index';
 
 export default {
   components: {
-    bModal,
     Avatar,
   },
   data () {
@@ -60,7 +63,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'death');
+      this.$root.$emit('bv::hide::modal', 'death');
     },
     async revive () {
       await axios.post('/api/v3/user/revive');

@@ -5,6 +5,7 @@
         achievement-avatar.avatar
       .col-6.offset-3.text-center
         | {{ $t('contribModal', {name: user.profile.name, level: user.contributor.level}) }}
+        br
         a(:href="$t('conRewardsURL')", target='_blank') {{ $t('contribLink') }}
         br
         button.btn.btn-primary(style='margin-top:1em' @click='close()') {{ $t('huzzah') }}
@@ -22,7 +23,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import achievementFooter from './achievementFooter';
 import achievementAvatar from './achievementAvatar';
 
@@ -30,7 +30,6 @@ import { mapState } from 'client/libs/store';
 
 export default {
   components: {
-    bModal,
     achievementFooter,
     achievementAvatar,
   },
@@ -39,7 +38,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'contributor');
+      this.$root.$emit('bv::hide::modal', 'contributor');
     },
   },
 };

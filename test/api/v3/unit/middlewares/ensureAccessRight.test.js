@@ -7,6 +7,7 @@ import {
 import i18n from '../../../../../website/common/script/i18n';
 import { ensureAdmin, ensureSudo } from '../../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../../website/server/libs/errors';
+import apiMessages from '../../../../../website/server/libs/apiMessages';
 
 describe('ensure access middlewares', () => {
   let res, req, next;
@@ -23,7 +24,9 @@ describe('ensure access middlewares', () => {
 
       ensureAdmin(req, res, next);
 
-      expect(next).to.be.calledWith(new NotAuthorized(i18n.t('noAdminAccess')));
+      const calledWith = next.getCall(0).args;
+      expect(calledWith[0].message).to.equal(i18n.t('noAdminAccess'));
+      expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
     it('passes when user is an admin', () => {
@@ -42,7 +45,9 @@ describe('ensure access middlewares', () => {
 
       ensureSudo(req, res, next);
 
-      expect(next).to.be.calledWith(new NotAuthorized(i18n.t('noSudoAccess')));
+      const calledWith = next.getCall(0).args;
+      expect(calledWith[0].message).to.equal(apiMessages('noSudoAccess'));
+      expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
     it('passes when user is a sudo user', () => {

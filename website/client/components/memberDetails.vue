@@ -1,6 +1,6 @@
 <template lang="pug">
 .member-details(
-  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }", 
+  :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }",
   @click='showMemberModal(member)'
 )
   div(:class="{ 'col-4': !isHeader }")
@@ -20,17 +20,17 @@
           .is-buffed(v-if="isBuffed")
             .svg-icon(v-html="icons.buff")
         span.small-text.character-level {{ characterLevel }}
-    .progress-container
+    .progress-container(v-b-tooltip.hover.bottom="$t('health')")
       .svg-icon(v-html="icons.health")
       .progress
         .progress-bar.bg-health(:style="{width: `${percent(member.stats.hp, MAX_HEALTH)}%`}")
       span.small-text {{member.stats.hp | statFloor}} / {{MAX_HEALTH}}
-    .progress-container
+    .progress-container(v-b-tooltip.hover.bottom="$t('experience')")
       .svg-icon(v-html="icons.experience")
       .progress
         .progress-bar.bg-experience(:style="{width: `${percent(member.stats.exp, toNextLevel)}%`}")
       span.small-text {{member.stats.exp | statFloor}} / {{toNextLevel}}
-    .progress-container(v-if="hasClass")
+    .progress-container(v-if="hasClass", v-b-tooltip.hover.bottom="$t('mana')")
       .svg-icon(v-html="icons.mana")
       .progress
         .progress-bar.bg-mana(:style="{width: `${percent(member.stats.mp, maxMP)}%`}")
@@ -174,7 +174,7 @@
       border-radius: 0px;
       height: 10px;
     }
-  } 
+  }
 </style>
 
 <script>
@@ -197,6 +197,9 @@ export default {
     Avatar,
     Profile,
     ClassBadge,
+  },
+  directives: {
+    // bTooltip,
   },
   props: {
     member: {
@@ -242,9 +245,10 @@ export default {
   methods: {
     percent,
     showMemberModal (member) {
-      this.$store.state.profileUser = member;
-      this.$store.state.profileOptions.startingPage = 'profile';
-      this.$root.$emit('show::modal', 'profile');
+      this.$root.$emit('habitica:show-profile', {
+        user: member,
+        startingPage: 'profile',
+      });
     },
   },
   computed: {

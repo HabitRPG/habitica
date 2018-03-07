@@ -3,7 +3,7 @@ import nodemon from 'gulp-nodemon';
 
 let pkg = require('../package.json');
 
-gulp.task('nodemon', () => {
+gulp.task('nodemon', (done) => {
   nodemon({
     script: pkg.main,
     ignore: [
@@ -12,4 +12,5 @@ gulp.task('nodemon', () => {
       'common/dist/script/content/*',
     ],
   });
+  done();
 });

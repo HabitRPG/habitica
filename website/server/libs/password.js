@@ -21,17 +21,17 @@ export function bcryptCompare (passwordToCheck, hashedPassword) {
 // Used for legacy passwords that have not yet been migrated to bcrypt
 export function sha1Encrypt (password, salt) {
   return crypto
-          .createHmac('sha1', salt)
-          .update(password)
-          .digest('hex');
+    .createHmac('sha1', salt)
+    .update(password)
+    .digest('hex');
 }
 
 // Create a salt, default length is 10
 export function sha1MakeSalt (len = 10) {
   return crypto
-          .randomBytes(Math.ceil(len / 2))
-          .toString('hex')
-          .substring(0, len);
+    .randomBytes(Math.ceil(len / 2))
+    .toString('hex')
+    .substring(0, len);
 }
 
 // Compare the password for an user

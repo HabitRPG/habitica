@@ -40,11 +40,11 @@ describe('POST /tasks/:taskId/checklist/', () => {
       ignored: false,
       _id: 123,
     }))
-    .to.eventually.be.rejected.and.eql({
-      code: 401,
-      error: 'NotAuthorized',
-      message: t('onlyChalLeaderEditTasks'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlyChalLeaderEditTasks'),
+      });
   });
 
   it('adds a checklist item to a daily', async () => {

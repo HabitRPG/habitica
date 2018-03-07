@@ -18,13 +18,13 @@
     .social-delete(v-if='!user.auth.local.email')
       h4 {{ $t('deleteAccount') }}
       .modal-body
-        p {{ $t('deleteSocialAccountText') }}
+        p {{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}
         br
         .row
           .col-md-6
             input.form-control(type='text', v-model='password')
       .modal-footer
-        button.btn.btn-default(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-secondary(@click='close()') {{ $t('neverMind') }}
         button.btn.btn-danger(:disabled='!password', @click='deleteAccount()') {{ $t('deleteDo') }}
 </template>
 
@@ -32,12 +32,7 @@
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
-import bModal from 'bootstrap-vue/lib/components/modal';
-
 export default {
-  components: {
-    bModal,
-  },
   data () {
     return {
       password: '',
@@ -49,7 +44,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
     async deleteAccount () {
       await axios.delete('/api/v3/user', {
@@ -60,7 +55,7 @@ export default {
       });
       localStorage.clear();
       window.location.href = '/static/home';
-      this.$root.$emit('hide::modal', 'reset');
+      this.$root.$emit('bv::hide::modal', 'reset');
     },
   },
 };

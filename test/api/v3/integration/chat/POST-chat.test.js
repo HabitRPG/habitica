@@ -1,5 +1,6 @@
 import {
   createAndPopulateGroup,
+  generateUser,
   translate as t,
   sleep,
   server,
@@ -12,6 +13,7 @@ import {
 import { v4 as generateUUID } from 'uuid';
 import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
+import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
 import { IncomingWebhook } from '@slack/client';
 import nconf from 'nconf';
@@ -96,24 +98,42 @@ describe('POST /chat', () => {
         });
     });
 
+    it('returns an error when chat message contains a banned word in a public guild', async () => {
+      let { group, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'public guild',
+          type: 'guild',
+          privacy: 'public',
+        },
+        members: 1,
+      });
+
+      await expect(members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage}))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
+    });
+
     it('errors when word is part of a phrase', async () => {
       let wordInPhrase = `phrase ${testBannedWordMessage} end`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('errors when word is surrounded by non alphabet characters', async () => {
       let wordInPhrase = `_!${testBannedWordMessage}@_`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: bannedWordErrorMessage,
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
     });
 
     it('checks error message has the banned words used', async () => {
@@ -161,7 +181,7 @@ describe('POST /chat', () => {
       expect(message.message.id).to.exist;
     });
 
-    it('does not error when sending a chat message containing a banned word to a public guild', async () => {
+    it('does not error when sending a chat message containing a banned word to a public guild in which banned words are allowed', async () => {
       let { group, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'public guild',
@@ -170,6 +190,8 @@ describe('POST /chat', () => {
         },
         members: 1,
       });
+
+      guildsAllowingBannedWords[group._id] = true;
 
       let message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage});
 
@@ -212,7 +234,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[0][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
@@ -265,7 +287,7 @@ describe('POST /chat', () => {
       // Email sent to mods
       await sleep(0.5);
       expect(email.sendTxn).to.be.calledThrice;
-      expect(email.sendTxn.args[2][1]).to.be.eql('slur-report-to-mods');
+      expect(email.sendTxn.args[2][1]).to.eql('slur-report-to-mods');
 
       // Slack message to mods
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
@@ -342,6 +364,48 @@ describe('POST /chat', () => {
     expect(message.message.id).to.exist;
   });
 
+  it('creates a chat with user styles', async () => {
+    const mount = 'test-mount';
+    const pet = 'test-pet';
+    const style = 'test-style';
+    const userWithStyle = await generateUser({
+      'items.currentMount': mount,
+      'items.currentPet': pet,
+      'preferences.style': style,
+    });
+    await userWithStyle.sync();
+
+    const message = await userWithStyle.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+
+    expect(message.message.id).to.exist;
+    expect(message.message.userStyles.items.currentMount).to.eql(userWithStyle.items.currentMount);
+    expect(message.message.userStyles.items.currentPet).to.eql(userWithStyle.items.currentPet);
+    expect(message.message.userStyles.preferences.style).to.eql(userWithStyle.preferences.style);
+    expect(message.message.userStyles.preferences.hair).to.eql(userWithStyle.preferences.hair);
+    expect(message.message.userStyles.preferences.skin).to.eql(userWithStyle.preferences.skin);
+    expect(message.message.userStyles.preferences.shirt).to.eql(userWithStyle.preferences.shirt);
+    expect(message.message.userStyles.preferences.chair).to.eql(userWithStyle.preferences.chair);
+    expect(message.message.userStyles.preferences.background).to.eql(userWithStyle.preferences.background);
+  });
+
+  it('adds backer info to chat', async () => {
+    const backerInfo = {
+      npc: 'Town Crier',
+      tier: 800,
+      tokensApplied: true,
+    };
+    const backer = await generateUser({
+      backer: backerInfo,
+    });
+
+    const message = await backer.post(`/groups/${groupWithChat._id}/chat`, { message: testMessage});
+    const messageBackerInfo = message.message.backer;
+
+    expect(messageBackerInfo.npc).to.equal(backerInfo.npc);
+    expect(messageBackerInfo.tier).to.equal(backerInfo.tier);
+    expect(messageBackerInfo.tokensApplied).to.equal(backerInfo.tokensApplied);
+  });
+
   it('sends group chat received webhooks', async () => {
     let userUuid = generateUUID();
     let memberUuid = generateUUID();
@@ -386,6 +450,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${groupWithChat._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupWithChat._id;
+    })).to.exist;
   });
 
   it('notifies other users of new messages for a party', async () => {
@@ -403,6 +470,9 @@ describe('POST /chat', () => {
 
     expect(message.message.id).to.exist;
     expect(memberWithNotification.newMessages[`${group._id}`]).to.exist;
+    expect(memberWithNotification.notifications.find(n => {
+      return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === group._id;
+    })).to.exist;
   });
 
   context('Spam prevention', () => {

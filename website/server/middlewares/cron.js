@@ -4,15 +4,23 @@ import Bluebird from 'bluebird';
 import { model as Group } from '../models/group';
 import { model as User } from '../models/user';
 import { recoverCron, cron } from '../libs/cron';
-import { v4 as uuid } from 'uuid';
+
+// Wait this length of time in ms before attempting another cron
+const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
 
 async function checkForActiveCron (user, now) {
-  let _cronSignature = uuid();
+  // set _cronSignature to current time in ms since epoch time so we can make sure to wait at least CRONT_TIMEOUT_WAIT before attempting another cron
+  let _cronSignature = now.getTime();
+  // Calculate how long ago cron must have been attempted to try again
+  let cronRetryTime = _cronSignature - CRON_TIMEOUT_WAIT;
 
   // To avoid double cron we first set _cronSignature and then check that it's not changed while processing
   let userUpdateResult = await User.update({
     _id: user._id,
-    _cronSignature: 'NOT_RUNNING', // Check that in the meantime another cron has not started
+    $or: [ // Make sure last cron was successful or failed before cronRetryTime
+      {_cronSignature: 'NOT_RUNNING'},
+      {_cronSignature: {$lt: cronRetryTime}},
+    ],
   }, {
     $set: {
       _cronSignature,
@@ -84,7 +92,7 @@ async function cronAsync (req, res) {
 
     res.locals.wasModified = true; // TODO remove after v2 is retired
 
-    // Group.tavernBoss(user, progress);
+    Group.tavernBoss(user, progress);
 
     // Save user and tasks
     let toSave = [user.save()];

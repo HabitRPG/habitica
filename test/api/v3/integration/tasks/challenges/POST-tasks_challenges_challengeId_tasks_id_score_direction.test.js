@@ -82,6 +82,13 @@ describe('POST /tasks/:id/score/:direction', () => {
     });
 
     it('should update the history', async () => {
+      let newCron = new Date(2015, 11, 20);
+
+      await user.post('/debug/set-cron', {
+        lastCron: newCron,
+      });
+
+      await user.post('/cron');
       await user.post(`/tasks/${usersChallengeTaskId}/score/up`);
 
       let tasks = await user.get(`/tasks/challenge/${challenge._id}`);

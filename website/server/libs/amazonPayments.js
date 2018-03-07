@@ -157,7 +157,7 @@ api.checkout = async function checkout (options = {}) {
 
   if (gift) {
     if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
-    gift.member = await User.findById(gift ? gift.uuid : undefined).exec();
+    gift.member = await User.findById(gift.uuid).exec();
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
   }
@@ -270,10 +270,10 @@ api.subscribe = async function subscribe (options) {
   let priceOfSingleMember = 3;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-
-    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const membersCount = await group.getMemberCount();
+    amount = sub.price + (membersCount - leaderCount) * priceOfSingleMember;
   }
 
   await this.setBillingAgreementDetails({

@@ -13,6 +13,9 @@ import analyticsService from '../../../../../website/server/libs/analyticsServic
 import * as cronLib from '../../../../../website/server/libs/cron';
 import { v4 as generateUUID } from 'uuid';
 
+const CRON_TIMEOUT_WAIT = new Date(60 * 60 * 1000).getTime();
+const CRON_TIMEOUT_UNIT = new Date(60 * 1000).getTime();
+
 describe('cron middleware', () => {
   let res, req;
   let user;
@@ -33,17 +36,12 @@ describe('cron middleware', () => {
     });
 
     user.save()
-    .then(savedUser => {
-      savedUser._statsComputed = {
-        mp: 10,
-        maxMP: 100,
-      };
-
-      res.locals.user = savedUser;
-      res.analytics = analyticsService;
-      done();
-    })
-    .catch(done);
+      .then(savedUser => {
+        res.locals.user = savedUser;
+        res.analytics = analyticsService;
+        done();
+      })
+      .catch(done);
   });
 
   afterEach(() => {
@@ -235,7 +233,13 @@ describe('cron middleware', () => {
     sandbox.spy(cronLib, 'recoverCron');
 
     sandbox.stub(User, 'update')
-      .withArgs({ _id: user._id, _cronSignature: 'NOT_RUNNING' })
+      .withArgs({
+        _id: user._id,
+        $or: [
+          {_cronSignature: 'NOT_RUNNING'},
+          {_cronSignature: {$lt: sinon.match.number}},
+        ],
+      })
       .returns({
         exec () {
           return Promise.resolve(updatedUser);
@@ -247,6 +251,50 @@ describe('cron middleware', () => {
         if (err) return reject(err);
         expect(cronLib.recoverCron).to.be.calledOnce;
 
+        resolve();
+      });
+    });
+  });
+
+  it('cronSignature less than an hour ago should error', async () => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let now = new Date();
+    await User.update({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT + CRON_TIMEOUT_UNIT,
+      },
+    }).exec();
+    await user.save();
+    let expectedErrMessage = `Impossible to recover from cron for user ${user._id}.`;
+
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (!err) return reject(new Error('Cron should have failed.'));
+        expect(err.message).to.be.equal(expectedErrMessage);
+        resolve();
+      });
+    });
+  });
+
+  it('cronSignature longer than an hour ago should allow cron', async () => {
+    user.lastCron = moment(new Date()).subtract({days: 2});
+    let now = new Date();
+    await User.update({
+      _id: user._id,
+    }, {
+      $set: {
+        _cronSignature: now.getTime() - CRON_TIMEOUT_WAIT - CRON_TIMEOUT_UNIT,
+      },
+    }).exec();
+    await user.save();
+
+    await new Promise((resolve, reject) => {
+      cronMiddleware(req, res, (err) => {
+        if (err) return reject(err);
+        expect(moment(now).isSame(user.auth.timestamps.loggedin, 'day'));
+        expect(user._cronSignature).to.be.equal('NOT_RUNNING');
         resolve();
       });
     });

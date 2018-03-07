@@ -45,6 +45,7 @@ export function setNextDue (task, user, dueDateOption) {
   let optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
@@ -77,12 +78,19 @@ export async function createTasks (req, res, options = {}) {
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
+  let taskOrderToAdd = {};
+
   toSave = toSave.map(taskData => {
     // Validate that task.type is valid
     if (!taskData || Tasks.tasksTypes.indexOf(taskData.type) === -1) throw new BadRequest(res.t('invalidTaskType'));
 
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
+
+    // Attempt to round priority
+    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
+      newTask.priority = Number(newTask.priority.toFixed(1));
+    }
 
     if (challenge) {
       newTask.challenge.id = challenge.id;
@@ -103,10 +111,22 @@ export async function createTasks (req, res, options = {}) {
     if (validationErrors) throw validationErrors;
 
     // Otherwise update the user/challenge/group
-    owner.tasksOrder[`${taskType}s`].unshift(newTask._id);
+    if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
+    taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
+
+  // Push all task ids
+  let taskOrderUpdateQuery = {$push: {}};
+  for (let taskType in taskOrderToAdd) {
+    taskOrderUpdateQuery.$push[`tasksOrder.${taskType}`] = {
+      $each: taskOrderToAdd[taskType],
+      $position: 0,
+    };
+  }
+
+  await owner.update(taskOrderUpdateQuery).exec();
 
   // tasks with aliases need to be validated asyncronously
   await _validateTaskAlias(toSave, res);

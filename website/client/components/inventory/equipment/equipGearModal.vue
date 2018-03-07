@@ -17,12 +17,17 @@
           :withBackground="true",
           :overrideAvatarGear="memberOverrideAvatarGear(item)",
           :spritesMargin='"0px auto auto -1px"',
+          :showVisualBuffs="false",
         )
 
         h4.title {{ itemText }}
         div.text(v-html="itemNotes")
 
-        equipmentAttributesGrid.bordered(
+        span.classTag(v-if="showClassTag")
+          span.svg-icon.inline.icon-24(v-html="icons[itemClass]")
+          span.className.textCondensed(:class="itemClass") {{ getClassName(itemClass) }}
+
+        attributesGrid.attributesGrid(
           :item="item",
           v-if="attributesGridVisible"
         )
@@ -30,9 +35,8 @@
         button.btn.btn-primary(@click="equipItem()") {{ $t(isEquipped ? 'unequip' : 'equip') }}
 
     div.clearfix(slot="modal-footer")
-
-
 </template>
+
 <style lang="scss">
 
   @import '~client/assets/scss/colors.scss';
@@ -40,6 +44,10 @@
 
   #equipgear-modal {
     @include centeredModal();
+
+    .modal-dialog {
+      width: 330px;
+    }
 
     .content {
       text-align: center;
@@ -54,11 +62,41 @@
       width: 282px;
     }
 
-    .bordered {
-      border-radius: 2px;
-      background-color: #f9f9f9;
-      margin-bottom: 24px;
-      padding: 24px 24px 10px;
+    .classTag {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .className {
+      height: 24px;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: left;
+      margin-left: 8px;
+    }
+
+    .healer {
+      color: $healer-color;
+    }
+
+    .rogue {
+      color: $rogue-color;
+    }
+
+    .warrior {
+      color: $warrior-color;
+    }
+
+    .wizard {
+      color: $wizard-color;
+    }
+
+    .attributesGrid {
+      background-color: $gray-500;
+
+      margin: 10px 0 24px;
     }
 
     .avatar {
@@ -70,15 +108,6 @@
       }
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
-    }
-
     button.btn.btn-primary {
       margin-top: 24px;
       margin-bottom: 24px;
@@ -88,23 +117,29 @@
 
 <script>
   import { mapState } from 'client/libs/store';
-  import bModal from 'bootstrap-vue/lib/components/modal';
 
   import svgClose from 'assets/svg/close.svg';
+  import svgWarrior from 'assets/svg/warrior.svg';
+  import svgWizard from 'assets/svg/wizard.svg';
+  import svgRogue from 'assets/svg/rogue.svg';
+  import svgHealer from 'assets/svg/healer.svg';
 
   import Avatar from 'client/components/avatar';
-  import EquipmentAttributesGrid from 'client/components/shops/market/equipmentAttributesGrid.vue';
+  import attributesGrid from 'client/components/inventory/equipment/attributesGrid.vue';
 
   export default {
     components: {
-      bModal,
       Avatar,
-      EquipmentAttributesGrid,
+      attributesGrid,
     },
     data () {
       return {
         icons: Object.freeze({
           close: svgClose,
+          warrior: svgWarrior,
+          wizard: svgWizard,
+          rogue: svgRogue,
+          healer: svgHealer,
         }),
       };
     },
@@ -113,6 +148,9 @@
         content: 'content',
         user: 'user.data',
       }),
+      showClassTag () {
+        return this.content.classes.includes(this.itemClass);
+      },
       itemText () {
         if (this.item.text instanceof Function) {
           return this.item.text();
@@ -126,6 +164,9 @@
         } else {
           return this.item.notes;
         }
+      },
+      itemClass () {
+        return this.item.klass || this.item.specialClass;
       },
       attributesGridVisible () {
         if (this.costumeMode) {
@@ -144,12 +185,19 @@
         this.hideDialog();
       },
       hideDialog () {
-        this.$root.$emit('hide::modal', 'equipgear-modal');
+        this.$root.$emit('bv::hide::modal', 'equipgear-modal');
       },
       memberOverrideAvatarGear (gear) {
         return {
           [gear.type]: gear.key,
         };
+      },
+      getClassName (classType) {
+        if (classType === 'wizard') {
+          return this.$t('mage');
+        } else {
+          return this.$t(classType);
+        }
       },
     },
     props: {

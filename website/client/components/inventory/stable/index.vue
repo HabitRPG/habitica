@@ -1,7 +1,7 @@
 <template lang="pug">
   // @TODO: breakdown to componentes and use some SOLID
   .row.stable(v-mousePosition="30", @mouseMoved="mouseMoved($event)")
-    .standard-sidebar.col-3.hidden-xs-down
+    .standard-sidebar.d-none.d-sm-block
       div
         #npmMattStable.npc_matt
         b-popover(
@@ -23,28 +23,28 @@
             v-for="petGroup in petGroups",
             :key="petGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[petGroup.key].selected",
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
+                :disabled="viewOptions[petGroup.key].animalCount == 0",
+                :id="petGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ petGroup.label }}
+              label.custom-control-label(v-once, :for="petGroup.key") {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
             :key="mountGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[mountGroup.key].selected",
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                :disabled="viewOptions[mountGroup.key].animalCount == 0",
+                :id="mountGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ mountGroup.label }}
+              label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
           h3.float-left Hide Missing
@@ -54,9 +54,9 @@
             @change="updateHideMissing"
           )
 
-    .standard-page.col-12.col-sm-9
+    .standard-page
       .clearfix
-        h1.float-left.mb-0.page-header(v-once) {{ $t('stable') }}
+        h1.float-left.mb-4.page-header(v-once) {{ $t('stable') }}
 
         div.float-right
           span.dropdown-label {{ $t('sortBy') }}
@@ -68,7 +68,7 @@
               :key="sort"
             ) {{ $t(sort) }}
 
-      h2
+      h2.mb-3
         | {{ $t('pets') }}
         |
         span.badge.badge-pill.badge-default {{countOwnedAnimals(petGroups[0], 'pet')}}
@@ -82,7 +82,7 @@
 
         .pet-row.d-flex(
           v-for="(group, key, index) in pets(petGroup, hideMissing, selectedSortBy, searchTextThrottled)",
-          v-if='index === 0 || showMore === petGroup.key')
+          v-if='index === 0 || $_openedItemRows_isToggled(petGroup.key)')
           .pet-group(
             v-for='item in group'
             v-drag.drop.food="item.key",
@@ -112,11 +112,11 @@
                       div(:class="'Pet_Egg_'+item.eggKey")
                 div(v-else)
                   h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(:selected="item.key === currentPet", :show="item.isOwned()", @click="selectPet(item)")
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(petGroup.key)", v-if='petGroup.key !== "specialPets"')
-          | {{ showMore === petGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
 
       h2
         | {{ $t('mounts') }}
@@ -131,7 +131,7 @@
         h4(v-if="viewOptions[mountGroup.key].animalCount != 0") {{ mountGroup.label }}
 
         .pet-row.d-flex(v-for="(group, key, index) in mounts(mountGroup, hideMissing, selectedSortBy, searchTextThrottled)"
-          v-if='index === 0 || showMore === mountGroup.key')
+          v-if='index === 0 || $_openedItemRows_isToggled(mountGroup.key)')
           .pet-group(v-for='item in group')
             mountItem(
               :item="item",
@@ -144,7 +144,7 @@
             )
               span(slot="popoverContent")
                 h4.popover-content-title {{ item.name }}
-              template(slot="itemBadge", scope="context")
+              template(slot="itemBadge", slot-scope="context")
                 starBadge(
                   :selected="item.key === currentMount",
                   :show="item.isOwned()",
@@ -152,7 +152,7 @@
                 )
 
         .btn.btn-flat.btn-show-more(@click="setShowMore(mountGroup.key)", v-if='mountGroup.key !== "specialMounts"')
-          | {{ showMore === mountGroup.key ? $t('showLess') : $t('showMore') }}
+          | {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
 
       drawer(
         :title="$t('quickInventory')",
@@ -186,8 +186,9 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
-          template(slot="item", scope="context")
+          template(slot="item", slot-scope="context")
             foodItem(
               :item="context.item",
               :itemCount="userItems.food[context.item.key]",
@@ -376,11 +377,13 @@
   #hatching-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 310px;
+    }
+
     .content {
       text-align: center;
-
       margin: 9px;
-      width: 300px;
     }
 
     .title {
@@ -444,7 +447,8 @@
     }
 
     .food-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -454,6 +458,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 
@@ -488,11 +494,6 @@
 <script>
   import {mapState} from 'client/libs/store';
 
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bModal from 'bootstrap-vue/lib/components/modal';
-
   import _each from 'lodash/each';
   import _sortBy from 'lodash/sortBy';
   import _filter from 'lodash/filter';
@@ -522,6 +523,7 @@
   import svgClose from 'assets/svg/close.svg';
 
   import notifications from 'client/mixins/notifications';
+  import openedItemRowsMixin from 'client/mixins/openedItemRows';
 
   // TODO Normalize special pets and mounts
   // import Store from 'client/store';
@@ -531,7 +533,7 @@
   let lastMouseMoveEvent = {};
 
   export default {
-    mixins: [notifications],
+    mixins: [notifications, openedItemRowsMixin],
     components: {
       PetItem,
       Item,
@@ -539,10 +541,6 @@
       FoodItem,
       MountItem,
       Drawer,
-      bDropdown,
-      bDropdownItem,
-      bPopover,
-      bModal,
       toggleSwitch,
       StarBadge,
       CountBadge,
@@ -583,7 +581,6 @@
         currentDraggingFood: null,
 
         selectedDrawerTab: 0,
-        showMore: '',
       };
     },
     watch: {
@@ -712,11 +709,7 @@
     },
     methods: {
       setShowMore (key) {
-        if (this.showMore === key) {
-          this.showMore = '';
-          return;
-        }
-        this.showMore = key;
+        this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
       },
       getAnimalList (animalGroup, type) {
         let key = animalGroup.key;
@@ -793,7 +786,7 @@
         // 2. Sort
         switch (sort) {
           case 'AZ':
-            animals = _sortBy(animals, ['name']);
+            animals = _sortBy(animals, ['eggName']);
             break;
 
           case 'sortByColor':
@@ -880,7 +873,7 @@
         }
 
         if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key}`;
+          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         if (pet.isHatchable()) {
@@ -967,28 +960,24 @@
           // opens the hatch dialog
           this.hatchablePet = pet;
 
-          this.$root.$emit('show::modal', 'hatching-modal');
+          this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
-
       async feedAction (petKey, foodKey) {
-        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
 
         if (result.message) {
           this.text(result.message);
         }
       },
-
       closeHatchPetDialog () {
-        this.$root.$emit('hide::modal', 'hatching-modal');
+        this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
-
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
         }
       },
-
       onFoodClicked ($event, food) {
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
@@ -1002,7 +991,6 @@
           this.foodClickMode = false;
         }
       },
-
       mouseMoved ($event) {
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;

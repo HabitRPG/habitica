@@ -30,7 +30,7 @@
             div
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
-            div {{conversation.lastMessageText.substring(0, 30)}}
+            div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
       .col-8.messages
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
@@ -160,11 +160,9 @@ import Vue from 'vue';
 import moment from 'moment';
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
+import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
-
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bFormInput from 'bootstrap-vue/lib/components/form-input';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
@@ -173,13 +171,11 @@ import svgClose from 'assets/svg/close.svg';
 export default {
   mixins: [styleHelper],
   components: {
-    bModal,
-    bFormInput,
     chatMessage,
   },
   mounted () {
     this.$root.$on('habitica::new-inbox-message', (data) => {
-      this.$root.$emit('show::modal', 'inbox-modal');
+      this.$root.$emit('bv::show::modal', 'inbox-modal');
 
       const conversation = this.conversations.find(convo => {
         return convo.key === data.userIdToMessage;
@@ -225,43 +221,53 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     conversations () {
-      let conversations = {};
-      for (let messageId in this.user.inbox.messages) {
-        let message = this.user.inbox.messages[messageId];
-        let userId = message.uuid;
+      const inboxGroup = groupBy(this.user.inbox.messages, 'uuid');
 
-        if (!conversations[userId]) {
-          conversations[userId] = {
-            name: message.user,
-            key: userId,
-            messages: [],
-          };
+      // Create conversation objects
+      const convos = [];
+      for (let key in inboxGroup) {
+        const convoSorted = sortBy(inboxGroup[key], [(o) => {
+          return o.timestamp;
+        }]);
+
+        // Fix poor inbox chat models
+        const newChatModels = convoSorted.map(chat => {
+          let newChat = Object.assign({}, chat);
+          if (newChat.sent) {
+            newChat.toUUID = newChat.uuid;
+            newChat.toUser = newChat.user;
+            newChat.uuid = this.user._id;
+            newChat.user = this.user.profile.name;
+            newChat.contributor = this.user.contributor;
+            newChat.backer = this.user.backer;
+          }
+          return newChat;
+        });
+
+        const recentMessage = newChatModels[newChatModels.length - 1];
+
+        // Special case where we have placeholder message because conversations are just grouped messages for now
+        if (!recentMessage.text) {
+          newChatModels.splice(newChatModels.length - 1, 1);
         }
 
-        let newMessage = {
-          text: message.text,
-          timestamp: message.timestamp,
-          user: message.user,
-          uuid: message.uuid,
-          id: message.id,
+        const convoModel = {
+          name: recentMessage.toUser ? recentMessage.toUser : recentMessage.user, // Handles case where from user sent the only message or the to user sent the only message
+          key: recentMessage.toUUID ? recentMessage.toUUID : recentMessage.uuid,
+          messages: newChatModels,
+          lastMessageText: recentMessage.text,
+          date: recentMessage.timestamp,
         };
 
-        if (message.sent) {
-          newMessage.user = this.user.profile.name;
-          newMessage.uuid = this.user._id;
-        }
-
-        if (newMessage.text) conversations[userId].messages.push(newMessage);
-        conversations[userId].lastMessageText = message.text;
-        conversations[userId].date = message.timestamp;
+        convos.push(convoModel);
       }
 
-      conversations = sortBy(conversations, [(o) => {
+      // Sort models by most recent
+      const conversations = sortBy(convos, [(o) => {
         return moment(o.date).toDate();
       }]);
-      conversations = conversations.reverse();
 
-      return conversations;
+      return conversations.reverse();
     },
     filtersConversations () {
       if (!this.search) return this.conversations;
@@ -289,6 +295,7 @@ export default {
       this.$set(this, 'activeChat', activeChat);
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
@@ -310,6 +317,7 @@ export default {
         timestamp: new Date(),
         user: this.user.profile.name,
         uuid: this.user._id,
+        contributor: this.user.contributor,
       });
 
       this.activeChat = convoFound.messages;
@@ -320,12 +328,13 @@ export default {
       this.newMessage = '';
 
       Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
         let chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
     close () {
-      this.$root.$emit('hide::modal', 'inbox-modal');
+      this.$root.$emit('bv::hide::modal', 'inbox-modal');
     },
   },
 };

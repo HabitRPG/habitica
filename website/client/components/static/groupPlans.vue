@@ -17,7 +17,7 @@
           span {{ $t('enterprisePlansDescription') }}
         .row.row-margin
           // TODO
-          a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + $t('enterprisePlansEmailSubject')") {{ $t('enterprisePlansButton') }}
+          a.btn.btn-primary.btn-lg.btn-block(:href="'mailto:vicky@habitica.com?subject=' + enterprisePlansEmailSubject") {{ $t('enterprisePlansButton') }}
 
         br
 
@@ -36,10 +36,15 @@
 <script>
   import StaticHeader from './header.vue';
   import * as Analytics from 'client/libs/analytics';
-
+  
   export default {
     components: {
       StaticHeader,
+    },
+    data () {
+      return {
+        enterprisePlansEmailSubject: 'Question regarding Enterprise Plans',
+      };
     },
     methods: {
       goToNewGroupPage () {
@@ -63,7 +68,7 @@
           eventLabel: 'Contact Us (Plans)',
         });
 
-        window.location.href = `mailto:vicky@habitica.com?subject=${this.$t('enterprisePlansEmailSubject')}`;
+        window.location.href = `mailto:vicky@habitica.com?subject=${ this.enterprisePlansEmailSubject }`;
       },
     },
   };

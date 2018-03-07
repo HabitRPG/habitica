@@ -20,7 +20,7 @@
         mugen-scroll(
           :handler="fetchGuilds",
           :should-handle="!loading && !this.hasLoadedAllGuilds",
-          :handle-on-mount="false",
+          :handle-on-mount="true",
           v-show="loading",
         )
           span(v-once) {{ $t('loading') }}
@@ -47,15 +47,21 @@ import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from 'client/mixins/groupsUtilities';
 
-import bFormSelect from 'bootstrap-vue/lib/components/form-select';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
-
 import positiveIcon from 'assets/svg/positive.svg';
+
+function _mapCategories (guilds) {
+  guilds.forEach((guild) => {
+    if (!guild.categories) return;
+    guild.categorySlugs = guild.categories.map(cat => {
+      if (!cat) return;
+      return cat.slug;
+    });
+  });
+}
 
 export default {
   mixins: [groupUtilities],
-  components: { PublicGuildItem, MugenScroll, Sidebar, bFormSelect, bDropdown, bDropdownItem },
+  components: { PublicGuildItem, MugenScroll, Sidebar },
   data () {
     return {
       icons: Object.freeze({
@@ -91,9 +97,6 @@ export default {
       },
     };
   },
-  created () {
-    if (!this.$store.state.publicGuilds) this.fetchGuilds();
-  },
   computed: {
     filteredGuilds () {
       let search = this.search;
@@ -117,12 +120,7 @@ export default {
       this.queryFilters.search = eventData.searchTerm;
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
-      guilds.forEach((guild) => {
-        if (!guild.categories) return;
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds = guilds;
     },
     async updateFilters (eventData) {
@@ -139,6 +137,7 @@ export default {
 
       // Reset the page when filters are updated
       this.lastPageLoaded = 0;
+      this.hasLoadedAllGuilds = false;
       this.queryFilters.page = this.lastPageLoaded;
 
       this.queryFilters.categories = eventData.categories.join(',');
@@ -170,28 +169,21 @@ export default {
       }
 
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
-      guilds.forEach((guild) => {
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds = guilds;
     },
     async fetchGuilds () {
       // We have the data cached
-      if (this.lastPageLoaded === 0 && this.guilds.length > 0) return;
+      if (this.lastPageLoaded === 0 && this.guilds.length > 0) {
+        this.lastPageLoaded += 1;
+      }
 
       this.loading = true;
-
       this.queryFilters.page = this.lastPageLoaded;
       let guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;
 
-      guilds.forEach((guild) => {
-        guild.categorySlugs = guild.categories.map(cat => {
-          return cat.slug;
-        });
-      });
+      _mapCategories(guilds);
       this.guilds.push(...guilds);
 
       this.lastPageLoaded++;
@@ -199,7 +191,7 @@ export default {
     },
     createGroup () {
       this.$store.state.editingGroup = {};
-      this.$root.$emit('show::modal', 'guild-form');
+      this.$root.$emit('bv::show::modal', 'guild-form');
     },
   },
 };

@@ -3,7 +3,7 @@
     size='md', :hide-footer="true")
     .modal-body.text-center
       .quest(:class='`quest_${user.party.quest.completed}`')
-      p(v-html='questData.completion()')
+      p(v-if='questData.completion && typeof questData.completion === "function"', v-html='questData.completion()')
       .quest-rewards.text-center
         h3 {{ $t('youReceived') }}
         questDialogDrops(:item="questData")
@@ -22,7 +22,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
 import quests from 'common/script/content/quests';
 import questDialogDrops from 'client/components/shops/quests/questDialogDrops';
 
@@ -32,7 +31,6 @@ import { maxHealth } from '../../../common/script/index';
 
 export default {
   components: {
-    bModal,
     questDialogDrops,
   },
   data () {
@@ -57,7 +55,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'quest-completed');
+      this.$root.$emit('bv::hide::modal', 'quest-completed');
     },
     setQuestCompleted () {
       this.$store.dispatch('user:set', {'party.quest.completed': ''});

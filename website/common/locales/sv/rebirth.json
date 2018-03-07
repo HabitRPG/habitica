@@ -21,7 +21,7 @@
     "rebirthOrb": "Använde en Återfödelsens sfär för att starta om efter att ha uppnått Nivå <%= level %>.",
     "rebirthOrb100": "Använd en Återfödelsens sfär för att starta om efter att ha uppnått Nivå 100 eller högre.",
     "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om",
-    "rebirthPop": "Starta om din karaktär vid Nivå 1 och behåll dina prestationer, samlarsaker, utrustning och uppgifter med historia.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Pånyttfödelsesfär",
     "reborn": "Pånyttfödd, max nivå <%= reLevel %>",
     "confirmReborn": "Är du säker?",

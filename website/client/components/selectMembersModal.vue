@@ -42,6 +42,14 @@ div
       color: #4f2a93;
     }
 
+    h3 {
+      color: #4e4a57;
+    }
+
+    span {
+      color: #878190;
+    }
+
     .actions {
       padding-top: 5em;
 
@@ -86,21 +94,17 @@ div
 <script>
 // @TODO: Move this under members directory
 import sortBy from 'lodash/sortBy';
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
 import MemberDetails from './memberDetails';
 import removeIcon from 'assets/members/remove.svg';
 import messageIcon from 'assets/members/message.svg';
 import starIcon from 'assets/members/star.svg';
 
+import { mapState } from 'client/libs/store';
+
 export default {
   props: ['group', 'hideBadge', 'item'],
   components: {
-    bModal,
-    bDropdown,
-    bDropdownItem,
     MemberDetails,
   },
   data () {
@@ -135,11 +139,12 @@ export default {
     };
   },
   computed: {
+    ...mapState({user: 'user.data'}),
     sortedMembers () {
       let sortedMembers = this.members;
       if (!this.sortOption) return sortedMembers;
 
-      sortedMembers = sortBy(this.members, [(member) => {
+      sortBy(this.members, [(member) => {
         if (this.sortOption === 'tier') {
           if (!member.contributor) return;
           return member.contributor.level;
@@ -179,9 +184,13 @@ export default {
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.viewingMembers;
       }
+
+      if (this.members.length === 0 && !this.groupId) {
+        this.members = [this.user];
+      }
     },
     close () {
-      this.$root.$emit('hide::modal', 'select-member-modal');
+      this.$root.$emit('bv::hide::modal', 'select-member-modal');
     },
     sort (option) {
       this.sortOption = option;

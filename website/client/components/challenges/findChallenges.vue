@@ -2,8 +2,7 @@
 .row
   challenge-modal(v-on:createChallenge='challengeCreated')
   sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
-
-  .col-10.standard-page
+  .col-12.col-md-10.standard-page
     .row.header-row
       .col-md-8.text-left
         h1(v-once) {{$t('findChallenges')}}
@@ -44,8 +43,6 @@
 <script>
 import { mapState } from 'client/libs/store';
 
-import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
@@ -59,8 +56,6 @@ export default {
     Sidebar,
     ChallengeItem,
     challengeModal,
-    bDropdown,
-    bDropdownItem,
   },
   data () {
     return {
@@ -124,7 +119,7 @@ export default {
       this.filters = eventData;
     },
     createChallenge () {
-      this.$root.$emit('show::modal', 'challenge-modal');
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.loading = true;

@@ -11,7 +11,7 @@ const IS_PROD = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
   entry: {
-    app: './website/client/main.js',
+    app: ['babel-polyfill', './website/client/main.js'],
   },
   output: {
     path: config.build.assetsRoot,
@@ -83,7 +83,7 @@ const baseConfig = {
         loader: 'url-loader',
         query: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]'),
+          name: utils.assetsPath('images/[name].[hash:7].[ext]'),
         },
       },
       {
@@ -98,7 +98,14 @@ const baseConfig = {
         test: /\.svg$/,
         use: [
           { loader: 'svg-inline-loader' },
-          { loader: 'svgo-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {removeViewBox: false},
+              ],
+            },
+          },
         ],
         exclude: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },
@@ -109,9 +116,17 @@ const baseConfig = {
             loader: 'svg-url-loader',
             options: {
               limit: 10000,
+              name: utils.assetsPath('svg/[name].[hash:7].[ext]'),
             },
           },
-          { loader: 'svgo-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {removeViewBox: false},
+              ],
+            },
+          },
         ],
         include: [path.resolve(projectRoot, 'website/client/assets/svg/for-css')],
       },

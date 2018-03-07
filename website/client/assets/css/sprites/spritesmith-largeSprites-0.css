@@ -1,12 +1,60 @@
-.promo_mystery_201710 {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
-  background-position: 0px -244px;
-  width: 93px;
-  height: 90px;
+.promo_armoire_background_201803 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1172px 0px;
+  width: 141px;
+  height: 441px;
 }
-.scene_positivity {
-  background-image: url(/static/sprites/spritesmith-largeSprites-0.png);
+.promo_cupid_potions {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -735px;
+  width: 138px;
+  height: 441px;
+}
+.promo_dysheartener {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -441px 0px;
+  width: 730px;
+  height: 170px;
+}
+.promo_mystery_201802 {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -327px;
+  width: 372px;
+  height: 196px;
+}
+.promo_seasonalshop_broken {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -751px -171px;
+  width: 198px;
+  height: 147px;
+}
+.promo_take_this {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1172px -442px;
+  width: 114px;
+  height: 87px;
+}
+.promo_valentines {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -441px -171px;
+  width: 309px;
+  height: 147px;
+}
+.scene_achievement {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -524px;
+  width: 339px;
+  height: 210px;
+}
+.scene_coding {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -373px -327px;
+  width: 150px;
+  height: 150px;
+}
+.scene_tavern {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 531px;
-  height: 243px;
+  width: 440px;
+  height: 326px;
 }

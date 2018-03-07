@@ -6,12 +6,12 @@
     .tags-list.container
       .row
         .col-4(v-for="tag in tags")
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags")
-            span.custom-control-indicator
-            span.custom-control-description(:title='tag.name') {{tag.name}}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags", :id="`tag-${tag.id}`")
+            label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`", v-markdown="tag.name")
   .tags-footer
     span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
+    span.close-tags(@click="close()") {{$t("close")}}
 </template>
 
 <style lang="scss" scoped>
@@ -20,7 +20,7 @@
   .tags-popup {
     padding-left: 24px;
     padding-right: 24px;
-    max-width: 593px;
+    width: 593px;
     z-index: 9999;
     background: $white;
     border-radius: 2px;
@@ -52,7 +52,7 @@
     }
 
     .tags-list {
-      .custom-control-description {
+      .custom-control-label {
         color: $gray-50 !important;
         font-weight: normal;
         overflow: hidden;
@@ -67,6 +67,18 @@
 
       display: flex;
       justify-content: center;
+
+      .close-tags {
+        color: $blue-10;
+        margin: 1.1em 0;
+        margin-left: 2em;
+        font-size: 14px;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
 
       .clear-tags {
         cursor: pointer;
@@ -83,8 +95,13 @@
 </style>
 
 <script>
+import markdownDirective from 'client/directives/markdown';
+
 export default {
   props: ['tags', 'value'],
+  directives: {
+    markdown: markdownDirective,
+  },
   data () {
     return {
       selectedTags: [],
@@ -101,6 +118,9 @@ export default {
   methods: {
     clearTags () {
       this.selectedTags = [];
+    },
+    close () {
+      this.$emit('close');
     },
   },
 };

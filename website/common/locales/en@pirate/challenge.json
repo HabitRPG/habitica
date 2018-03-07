@@ -6,8 +6,8 @@
     "keepIt": "Keep It",
     "removeIt": "Remove It",
     "brokenChallenge": "Broken Challenge Link: Ye task was part o' a challenge, but th' challenge (or group) has be deleted. What to do wit' th' orphan tasks?",
-    "keepThem": "Keep 'Em",
-    "removeThem": "Remove 'Em",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "Ye challenge has be completed, 'n th' winner was <span class=\"badge\"><%= user %></span>! What to do wit' th' orphan tasks?",
     "unsubChallenge": "Broken Challenge Link: Ye task was part o' a challenge, but ye've unsubscribed from t' challenge. What to do wit' t' orphan tasks?",
     "challengeWinner": "Was t' victor in t' followin' challenges",
@@ -29,6 +29,7 @@
     "either": "Either",
     "createChallenge": "Create Challenge",
     "createChallengeAddTasks": "Add Challenge Tasks",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "Add Task",
     "discard": "Discard",
     "challengeTitle": "Challenge Title",
@@ -100,8 +101,8 @@
     "addTask": "Add Task",
     "editChallenge": "Edit Challenge",
     "challengeDescription": "Challenge Description",
-    "selectChallengeWinnersDescription": "Select winners from the Challenge participants",
-    "awardWinners": "Award Winners",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "Do you want to delete this Challenge?",
     "deleteChallenge": "Delete Challenge",
     "challengeNamePlaceholder": "What is your Challenge name?",
@@ -126,5 +127,7 @@
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
     "viewProgressOf": "View Progress Of",
-    "selectMember": "Select Member"
+    "selectMember": "Select Member",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

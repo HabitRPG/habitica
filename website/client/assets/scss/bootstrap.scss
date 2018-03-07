@@ -1,0 +1,8 @@
+// Bootstrap variables override https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+$grid-gutter-width: 24px;
+
+// Bootstrap and its default variables
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+// Bootstrap Vue styles
+@import 'node_modules/bootstrap-vue/dist/bootstrap-vue';

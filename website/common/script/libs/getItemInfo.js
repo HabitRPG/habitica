@@ -237,7 +237,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         notes: item.notes(language),
         value: item.value,
         currency: 'gold',
-        purchaseType: 'potions',
+        purchaseType: 'potion',
         class: `shop_${item.key}`,
         path: 'potion',
         pinType: 'potion',
@@ -269,6 +269,8 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         currency: 'gold',
         path: `cardTypes.${item.key}`,
         pinType: 'card',
+        target: spellInfo.target,
+        cast: spellInfo.cast,
       };
       break;
     }
@@ -313,6 +315,22 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         currency: 'gems',
         path: 'special.fortify',
         pinType: 'fortify',
+      };
+      break;
+    }
+    case 'timeTravelersStable': {
+      itemInfo = {
+        key: item.key,
+        purchaseType: item.type,
+        class: `shop_${item.type}_${item.key}`,
+        text: content.timeTravelStable[item.type][item.key](language),
+        notes: '',
+        value: 1,
+
+        locked: false,
+        currency: 'hourglasses',
+        path: `timeTravelStable.${item.type}.${item.key}`,
+        pinType: 'timeTravelersStable',
       };
       break;
     }

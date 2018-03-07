@@ -305,7 +305,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledFourTimes;
+    expect(sender.sendTxn).to.have.callCount(4);
     expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
     expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
     expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
@@ -338,7 +338,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledFourTimes;
+    expect(sender.sendTxn).to.have.callCount(4);
     expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
     expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
     expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
@@ -475,7 +475,7 @@ describe('Purchasing a group plan for group', () => {
 
     let updatedUser = await User.findById(recipient._id).exec();
 
-    expect(updatedUser.purchased.plan.extraMonths).to.within(3, 4);
+    expect(updatedUser.purchased.plan.extraMonths).to.within(3, 5);
   });
 
   it('adds months to members with existing recurring subscription (Paypal)', async () => {

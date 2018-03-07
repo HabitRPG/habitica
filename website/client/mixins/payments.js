@@ -169,11 +169,13 @@ export default {
       this.amazonPayments.gift = data.gift;
       this.amazonPayments.type = data.type;
 
-      this.$root.$emit('show::modal', 'amazon-payment');
+      this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
     },
     async cancelSubscription (config) {
       if (config && config.group && !confirm(this.$t('confirmCancelGroupPlan'))) return;
       if (!confirm(this.$t('sureCancelSub'))) return;
+
+      this.loading = true;
 
       let group;
       if (config && config.group) {
@@ -201,11 +203,18 @@ export default {
         queryParams.groupId = group._id;
       }
 
-      let cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
-      await axios.get(cancelUrl);
-      //  Success
-      alert(this.$t('paypalCanceled'));
-      this.$router.push('/');
+      try {
+        const cancelUrl = `/${paymentMethod}/subscribe/cancel?${encodeParams(queryParams)}`;
+        await axios.get(cancelUrl);
+
+        alert(this.$t('paypalCanceled'));
+        // @TODO: We should probably update the api to return the new sub data eventually.
+        await this.$store.dispatch('user:fetch', {forceLoad: true});
+
+        this.loading = false;
+      } catch (e) {
+        alert(e.response.data.message);
+      }
     },
   },
 };

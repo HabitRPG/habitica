@@ -21,6 +21,7 @@
                 :hideClassBadge='true',
                 :spritesMargin='"1.8em 1.5em"',
                 :overrideTopPadding='"0px"',
+                :showVisualBuffs='false',
                 :class='selectionBox(selectedClass, heroClass)',
               )
         br
@@ -35,21 +36,13 @@
         .modal-actions.text-center
           button.btn.btn-primary.d-inline-block(v-if='!selectedClass', :disabled='true') {{ $t('select') }}
           button.btn.btn-primary.d-inline-block(v-else, @click='clickSelectClass(selectedClass); close();') {{ $t('selectClass', {heroClass: $t(selectedClass)}) }}
-          #classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
-          b-popover.d-inline-block(
-            target="classOptOutBtn",
-            triggers="hover",
-            placement="top",
-          )
-            .popover-content-text {{ $t('optOutOfClassesText') }}
+          .opt-out-wrapper
+            span#classOptOutBtn.danger(@click='clickDisableClasses(); close();') {{ $t('optOutOfClasses') }}
+          span.opt-out-description {{ $t('optOutOfClassesText') }}
 </template>
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  .btn-primary {
-    margin-right: 1em;
-  }
 
   .class-badge {
     $badge-size: 32px;
@@ -71,6 +64,10 @@
     margin: 1.5em auto;
   }
 
+  #classOptOutBtn {
+    cursor: pointer;
+  }
+
   .class-name {
     font-size: 24px;
     font-weight: bold;
@@ -90,6 +87,10 @@
 
   .modal-actions {
     margin: 2em auto;
+  }
+
+  .opt-out-wrapper {
+    margin: 1em 0 0.5em 0;
   }
 
   .selection-box {
@@ -117,9 +118,6 @@
 </style>
 
 <script>
-import bModal from 'bootstrap-vue/lib/components/modal';
-import bPopover from 'bootstrap-vue/lib/components/popover';
-
 import Avatar from '../avatar';
 import { mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
@@ -130,8 +128,6 @@ import wizardIcon from 'assets/svg/wizard.svg';
 
 export default {
   components: {
-    bModal,
-    bPopover,
     Avatar,
   },
   computed: {
@@ -156,9 +152,10 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('hide::modal', 'choose-class');
+      this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
+      if (this.user.flags.classSelected && !confirm(this.$t('changeClassConfirmCost'))) return;
       this.$store.dispatch('user:changeClass', {query: {class: heroClass}});
     },
     clickDisableClasses () {
@@ -187,10 +184,10 @@ export default {
         };
       } else {
         return {
-          head: 'head_warrior_5',
-          weapon: 'weapon_warrior_6',
-          shield: 'shield_warrior_5',
           armor: 'armor_warrior_5',
+          head: 'head_warrior_5',
+          shield: 'shield_warrior_5',
+          weapon: 'weapon_warrior_6',
         };
       }
     },

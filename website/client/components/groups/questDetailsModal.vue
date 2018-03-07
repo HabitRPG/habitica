@@ -15,7 +15,7 @@
       questDialogContent(:item="questData")
     div.text-center.actions(v-if='canEditQuest')
       div
-        button.btn.btn-secondary(v-once, @click="questForceStart()") {{ $t('begin') }}
+        button.btn.btn-secondary(v-once, @click="questConfirm()") {{ $t('begin') }}
         // @TODO don't allow the party leader to start the quest until the leader has accepted or rejected the invitation (users get confused and think "begin" means "join quest")
       div
         .cancel(v-once, @click="questCancel()") {{ $t('cancel') }}
@@ -52,11 +52,10 @@
     height: 460px;
     width: 320px;
     top: 2.5em;
-    left: -22em;
+    left: -22.8em;
     z-index: -1;
     padding: 2em;
-    overflow: scroll;
-
+    overflow-y: auto;
     h3 {
       color: $white;
     }
@@ -135,9 +134,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
-import bModal from 'bootstrap-vue/lib/components/modal';
-
+import { mapState, mapGetters } from 'client/libs/store';
 import quests from 'common/script/content/quests';
 
 import copyIcon from 'assets/svg/copy.svg';
@@ -154,7 +151,6 @@ import questDialogContent from '../shops/quests/questDialogContent';
 export default {
   props: ['group'],
   components: {
-    bModal,
     questDialogDrops,
     questDialogContent,
   },
@@ -177,13 +173,16 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      partyMembers: 'party.members.data',
+    }),
+    ...mapGetters({
+      partyMembers: 'party:members',
     }),
     questData () {
       return quests.quests[this.group.quest.key];
     },
     members () {
-      return this.partyMembers.map(member => {
+      let partyMembers = this.partyMembers || [];
+      return partyMembers.map(member => {
         return {
           name: member.profile.name,
           accepted: this.group.quest.members[member._id],
@@ -198,6 +197,14 @@ export default {
     },
   },
   methods: {
+    async questConfirm () {
+      let count = 0;
+      for (let uuid in this.group.quest.members) {
+        if (this.group.quest.members[uuid]) count += 1;
+      }
+      if (!confirm(this.$t('questConfirm', { questmembers: count, totalmembers: this.group.memberCount}))) return;
+      this.questForceStart();
+    },
     async questForceStart () {
       let quest = await this.$store.dispatch('quests:sendAction', {groupId: this.group._id, action: 'quests/force-start'});
       this.group.quest = quest;
@@ -210,7 +217,7 @@ export default {
       this.close();
     },
     close () {
-      this.$root.$emit('hide::modal', 'quest-details');
+      this.$root.$emit('bv::hide::modal', 'quest-details');
     },
   },
 };

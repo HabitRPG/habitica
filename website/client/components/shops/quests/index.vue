@@ -1,6 +1,6 @@
 <template lang="pug">
   .row.quests
-    .standard-sidebar
+    .standard-sidebar.d-none.d-sm-block
       .form-group
         input.form-control.input-search(type="text", v-model="searchText", :placeholder="$t('search')")
 
@@ -11,10 +11,9 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
@@ -30,7 +29,8 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -54,12 +54,12 @@
                 :popoverPosition="'top'",
                 @click="selectItem(item)"
               )
-                template(slot="popoverContent", scope="ctx")
+                template(slot="popoverContent", slot-scope="ctx")
                   div.questPopover
                     h4.popover-content-title {{ item.text }}
                     questInfo(:quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -67,7 +67,7 @@
                     span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
 
-      h1.mb-0.page-header(v-once) {{ $t('quests') }}
+      h1.mb-4.page-header(v-once) {{ $t('quests') }}
 
       .clearfix
         div.float-right
@@ -85,7 +85,7 @@
         v-for="category in categories",
         v-if="viewOptions[category.identifier].selected"
       )
-        h2 {{ category.text }}
+        h2.mb-3 {{ category.text }}
 
         itemRows(
           v-if="category.identifier === 'pet'",
@@ -94,7 +94,7 @@
           :itemMargin=24,
           :type="'pet_quests'",
         )
-          template(slot="item", scope="ctx")
+          template(slot="item", slot-scope="ctx")
             shopItem(
               :key="ctx.item.key",
               :item="ctx.item",
@@ -104,12 +104,12 @@
               :emptyItem="false",
               @click="selectItem(ctx.item)"
             )
-              span(slot="popoverContent", scope="ctx")
+              span(slot="popoverContent", slot-scope="ctx")
                 div.questPopover
                   h4.popover-content-title {{ ctx.item.text }}
                   questInfo(:quest="ctx.item")
 
-              template(slot="itemBadge", scope="ctx")
+              template(slot="itemBadge", slot-scope="ctx")
                 span.badge.badge-pill.badge-item.badge-svg(
                   :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                   @click.prevent.stop="togglePinned(ctx.item)"
@@ -145,7 +145,7 @@
                     .popover-content-text(v-if='item.lvl > user.stats.lvl') {{ `${$t('mustLvlQuest', {level: item.lvl})}` }}
                     questInfo(v-if='!item.locked', :quest="item")
 
-                template(slot="itemBadge", scope="ctx")
+                template(slot="itemBadge", slot-scope="ctx")
                   span.badge.badge-pill.badge-item.badge-svg(
                     :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                     @click.prevent.stop="togglePinned(ctx.item)"
@@ -172,7 +172,7 @@
                 h4.popover-content-title {{ item.text }}
                 questInfo(:quest="item")
 
-            template(slot="itemBadge", scope="ctx")
+            template(slot="itemBadge", slot-scope="ctx")
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
@@ -190,7 +190,7 @@
       :withPin="true",
       @change="resetItemToBuy($event)",
     )
-      template(slot="item", scope="ctx")
+      template(slot="item", slot-scope="ctx")
         item.flat(
           :item="ctx.item",
           :itemContentClass="ctx.item.class",
@@ -240,13 +240,6 @@
 
   .featured-label {
     margin: 24px auto;
-  }
-
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
   }
 
   .group {
@@ -316,6 +309,23 @@
           left: 70px;
         }
       }
+
+      .background.broken {
+        background: url('~assets/images/npc/broken/quest_shop_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/quest_shop_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/quest_shop_broken_npc.png');
+        background-repeat: no-repeat;
+      }
     }
   }
 </style>
@@ -335,9 +345,6 @@
 
   import BuyModal from './buyQuestModal.vue';
   import QuestInfo from './questInfo.vue';
-  import bPopover from 'bootstrap-vue/lib/components/popover';
-  import bDropdown from 'bootstrap-vue/lib/components/dropdown';
-  import bDropdownItem from 'bootstrap-vue/lib/components/dropdown-item';
 
   import svgPin from 'assets/svg/pin.svg';
 
@@ -359,10 +366,6 @@ export default {
       CountBadge,
       ItemRows,
       toggleSwitch,
-
-      bPopover,
-      bDropdown,
-      bDropdownItem,
 
       Avatar,
       BuyModal,
@@ -391,7 +394,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.quests;
     },
     computed: {
       ...mapState({
@@ -477,7 +486,7 @@ export default {
 
         this.selectedItemToBuy = item;
 
-        this.$root.$emit('show::modal', 'buy-quest-modal');
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
       },
     },
   };
