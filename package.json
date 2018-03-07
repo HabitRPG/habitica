@@ -90,6 +90,7 @@
     "rimraf": "^2.4.3",
     "sass-loader": "^6.0.2",
     "shelljs": "^0.8.1",
+    "stackimpact": "^1.2.1",
     "stripe": "^5.5.0",
     "superagent": "^3.4.3",
     "svg-inline-loader": "^0.8.0",
