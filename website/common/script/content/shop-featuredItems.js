@@ -31,8 +31,8 @@ const featuredItems = {
       path: 'quests.badger',
     },
     {
-      type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      type: 'bundles',
+      path: 'bundles.hugabug',
     },
   ],
   seasonal: 'summerMage',

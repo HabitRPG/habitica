@@ -170,7 +170,7 @@
     "checkOutProgress": "Kolla mina framsteg i Habitica!",
     "cards": "Kort",
     "sentCardToUser": "Du skickade ett kort till <%= profileName %>",
-    "cardReceivedFrom": "<%= cardType %> from <%= userName %>",
+    "cardReceivedFrom": "<%= cardType %> från <%= userName %>",
     "cardReceived": "Du mottog ett <span class=\"notification-bold-blue\"><%= card %></span>",
     "greetingCard": "Hälsningskort",
     "greetingCardExplanation": "Ni får båda en Lycklig Lirare-bedrift!",
