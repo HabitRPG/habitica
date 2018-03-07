@@ -147,9 +147,6 @@ export default {
     isMember () {
       return this.isMemberOfGroup(this.user, this.guild);
     },
-    isTier (tier) {
-      return this.isTier(tier, this.guild);
-    },
   },
   data () {
     return {
