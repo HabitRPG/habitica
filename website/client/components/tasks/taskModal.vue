@@ -181,7 +181,6 @@
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
-              label="",
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )

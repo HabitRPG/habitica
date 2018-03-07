@@ -18,7 +18,6 @@
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
           toggle-switch.float-right.no-margin(
-            :label="''",
             v-model="hidePinned",
           )
     .standard-page

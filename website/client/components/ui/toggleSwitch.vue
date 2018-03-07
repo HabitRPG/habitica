@@ -1,7 +1,7 @@
 <template lang="pug">
 .popover-box
   .clearfix.toggle-switch-container(:id="containerId")
-    .float-left.toggle-switch-description(:class="hoverText ? 'hasPopOver' : ''") {{ label }}
+    .float-left.toggle-switch-description(v-if="label", :class="hoverText ? 'hasPopOver' : ''") {{ label }}
     .toggle-switch.float-left
       input.toggle-switch-checkbox(
         type='checkbox', :id="toggleId",
@@ -130,7 +130,6 @@ export default {
     },
     label: {
       type: String,
-      required: true,
     },
     checked: {
       type: Boolean,
