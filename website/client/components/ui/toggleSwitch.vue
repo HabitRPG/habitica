@@ -1,16 +1,25 @@
 <template lang="pug">
-.clearfix.toggle-switch-container
-  .float-left.toggle-switch-description {{ label }}
-  .toggle-switch.float-left
-    input.toggle-switch-checkbox(
-      type='checkbox', :id="id",
-      @change="handleChange",
-      :checked="isChecked",
-      :value="value",
-    )
-    label.toggle-switch-label(:for="id")
-      span.toggle-switch-inner
-      span.toggle-switch-switch
+.popover-box
+  .clearfix.toggle-switch-container(:id="containerId")
+    .float-left.toggle-switch-description(:class="hoverText ? 'hasPopOver' : ''") {{ label }}
+    .toggle-switch.float-left
+      input.toggle-switch-checkbox(
+        type='checkbox', :id="toggleId",
+        @change="handleChange",
+        :checked="isChecked",
+        :value="value",
+      )
+      label.toggle-switch-label(:for="toggleId")
+        span.toggle-switch-inner
+        span.toggle-switch-switch
+
+  b-popover(
+    v-if="hoverText"
+    :target="containerId"
+    triggers="hover",
+    placement="top"
+  )
+    .popover-content-text {{ hoverText }}
 </template>
 
 <style lang="scss" scoped>
@@ -29,6 +38,10 @@
 
   .toggle-switch-description {
     height: 20px;
+
+    &.hasPopOver {
+      border-bottom: 1px dashed $gray-200;
+    }
   }
 
   .toggle-switch-checkbox {
@@ -101,8 +114,10 @@
 export default {
   data () {
     return {
-      // A value is required for the required for the for and id attributes
-      id: Math.random(),
+      // The toggle requires a unique id to link it to the label
+      toggleId: this.generateId(),
+      // The container requires a unique id to link it to the pop-over
+      containerId: this.generateId(),
     };
   },
   model: {
@@ -121,6 +136,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    hoverText: {
+      type: String,
+    },
   },
   computed: {
     isChecked () {
@@ -131,6 +149,10 @@ export default {
     handleChange ({ target: { checked } }) {
       this.$emit('change', checked);
     },
+    generateId () {
+      return `id-${Math.random().toString(36).substr(2, 16)}`;
+    },
   },
 };
 </script>
+

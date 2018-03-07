@@ -54,18 +54,12 @@
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
 
-            toggle-switch#costumePrefToggleSwitch.float-right(
+            toggle-switch.float-right(
               :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
               :checked="user.preferences[drawerPreference]",
               @change="changeDrawerPreference",
+              :hoverText="$t(drawerPreference+'PopoverText')",
             )
-
-            b-popover(
-              target="costumePrefToggleSwitch"
-              triggers="hover",
-              placement="top"
-            )
-              .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
         item.pointer(
           v-for="(label, group) in gearTypesToStrings",
