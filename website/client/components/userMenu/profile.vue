@@ -27,7 +27,7 @@ div
           .header
             h1 {{user.profile.name}}
             h4
-              strong {{ $t('userId') }}:
+              strong {{ $t('userId') }}:&nbsp;
               | {{user._id}}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
