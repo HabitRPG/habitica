@@ -10,7 +10,7 @@
     "messageAlreadyMount": "Du har redan det riddjuret. Försök att mata ett annat djur.",
     "messageEvolve": "Du har tämjt <%= egg %>. Ta en ridtur!",
     "messageLikesFood": "<%= egg %> tycker verkligen om <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
+    "messageDontEnjoyFood": "<%= egg %> äter <%= foodText %> men verkar inte gilla det.",
     "messageBought": "Köpt <%= itemText %>",
     "messageEquipped": "<%= itemText %> pårustad.",
     "messageUnEquipped": "Tog av <%= itemText %>.",
