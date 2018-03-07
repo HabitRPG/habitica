@@ -1,4 +1,5 @@
 import content from '../content/index';
+import {beastMasterProgress} from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -7,6 +8,10 @@ import {
 module.exports = function releasePets (user, req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  if (beastMasterProgress(user.items.pets) !== 90) {
+    throw new NotAuthorized(i18n.t('notEnoughPets', req.language));
   }
 
   user.balance -= 1;
