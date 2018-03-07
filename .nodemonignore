@@ -16,4 +16,3 @@ CHANGELOG.md
 newrelic_agent.log
 *.swp
 *.swx
-website/raw_sprites/**
