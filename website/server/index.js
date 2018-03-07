@@ -18,6 +18,12 @@ const setupNconf = require('./libs/setupNconf');
 setupNconf();
 
 const nconf = require('nconf');
+const stackimpact = require('stackimpact');
+
+stackimpact.start({
+  agentKey: nconf.get('STACK_IMPACT_KEY'),
+  appName: 'Habitica',
+});
 
 const cluster = require('cluster');
 const logger = require('./libs/logger');
