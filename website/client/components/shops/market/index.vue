@@ -702,8 +702,10 @@ export default {
             break;
           }
           case 'sortByNumber': {
-            result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+            result = _sortBy(result, item => {
+              if (item.showCount === false) return 0;
+
+              return this.userItems[item.purchaseType][item.key] || 0;
             });
             break;
           }
