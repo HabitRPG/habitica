@@ -13,7 +13,7 @@
         .svg-icon.gryphon
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
-    .form-group.row.text-center#social-buttons-row
+    .form-group.row.text-center#social-buttons-row(ref='socialButtonsRow')
       .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
         .svg-icon.social-icon(v-html="icons.facebookIcon")
         .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
@@ -136,8 +136,8 @@
     #social-buttons-row {
       flex-wrap: wrap !important;
       width: 100%;
-      margin-left: 0;
-      margin-right: 0;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
     }
   }
 
@@ -492,7 +492,7 @@ export default {
       this.login();
     },
     calculateTextWidth () {
-      let socialButtons = document.getElementById('social-buttons-row');
+      let socialButtons = this.$refs.socialButtonsRow;
       let facebookWidth = socialButtons.children[0].textContent.length;
       let googleWidth = socialButtons.children[1].textContent.length;
       if (facebookWidth < 15 && googleWidth < 15) {
@@ -503,8 +503,8 @@ export default {
       }
     },
     changeButtonWidth (width, div) {
-      div.style.marginRight = `-${(width - 15) / 3}em`;
-      div.style.marginLeft = `-${(width - 15) / 3}em`;
+      div.style.marginRight = 'calc(-(100% - 15)/3)em';
+      div.style.marginLeft = 'calc(-(100% - 15)/3)em';
     },
     async forgotPasswordLink () {
       if (!this.username) {
