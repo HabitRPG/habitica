@@ -25,6 +25,7 @@
     "questInvitation": "任務邀請：",
     "questInvitationTitle": "任務邀請",
     "questInvitationInfo": "<%= quest %> 的邀請",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "稍後再問",
     "questLater": "等會再進行仼務",
     "buyQuest": "購買任務",
@@ -37,7 +38,7 @@
     "questCollection": "+ <%= val %> 個任務道具被找到。",
     "questDamage": "+ <%= val %> 點傷害給魔王。",
     "begin": "開始",
-    "bossHP": "魔王的生命值",
+    "bossHP": "Boss HP",
     "bossStrength": "魔王的力量",
     "rage": "憤怒值",
     "collect": "收集",
@@ -78,6 +79,7 @@
     "mustLvlQuest": "你需要先達到第<%= level %>級才能購買這個任務！",
     "mustInviteFriend": "你必須邀請朋友到你的對物才能開始任務。開始邀請了嗎?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "你是否確定要放棄這個任務？將會失去所有接受的邀請。任務擁有者將保留原有的任務捲軸。",
     "sureAbort": "你是否確定要放棄這個任務？這樣做會讓你的所有隊員都退出這個任務，並且消除所有進度。任務捲軸將會回到任務擁有者手上。",
     "doubleSureAbort": "你真的真的要這樣做嗎？要確保他們不會一輩子討厭你喲！",
@@ -118,5 +120,10 @@
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
     "buyQuestBundle": "Buy Quest Bundle",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

@@ -17,6 +17,7 @@ div(v-else)
     :target="itemId",
     triggers="hover",
     :placement="popoverPosition",
+    :preventOverflow="false",
   )
     slot(name="popoverContent", :item="item")
 </template>

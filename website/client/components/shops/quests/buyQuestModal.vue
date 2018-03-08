@@ -81,14 +81,6 @@
       margin-bottom: 10px;
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-      width: 400px;
-    }
-
     .right-sidebar {
       position: absolute;
       right: -350px;

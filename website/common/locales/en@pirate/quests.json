@@ -25,6 +25,7 @@
     "questInvitation": "Adventure Invitation:",
     "questInvitationTitle": "Adventure Invitation",
     "questInvitationInfo": "Ye 'ave found th' adventure \"<%= quest %>\"!",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Ask Later",
     "questLater": "Adventure Later",
     "buyQuest": "Buy Adventure Scroll",
@@ -37,7 +38,7 @@
     "questCollection": "+ <%= val %> quest item(s) found",
     "questDamage": "+ <%= val %> damage to boss",
     "begin": "Embark",
-    "bossHP": "Boss Health",
+    "bossHP": "Boss HP",
     "bossStrength": "Strength",
     "rage": "Rage",
     "collect": "Plunder",
@@ -78,6 +79,7 @@
     "mustLvlQuest": "Ye must be level <%= level %> t' buy this adventure!",
     "mustInviteFriend": "To earn this quest, invite a friend t' yer Crew. Invite someone now?",
     "unlockByQuesting": "To unlock this quest, complete <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Be ye sure ye want to cancel 'tis quest? All invitation acceptances gunna be lost. th' quest owner gunna retain possession 'o th' quest scroll.",
     "sureAbort": "Be ye sure ye want to abort 'tis mission? It gunna abort it fer all ye crew members an' all progress gunna be lost. th' quest scroll gunna be returned to th' quest owner.",
     "doubleSureAbort": "Arrr ye double sure? Make sure they won't hate ye forever!",
@@ -118,5 +120,10 @@
     "createAccountQuest": "You received this quest when you joined Habitica! If a friend joins, they'll get one too.",
     "questBundles": "Discounted Quest Bundles",
     "buyQuestBundle": "Buy Quest Bundle",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

@@ -40,4 +40,19 @@ describe('POST /user/buy-special-spell/:key', () => {
       itemText: item.text(),
     }));
   });
+
+  it('returns an error if user does not have enough gold', async () => {
+    let key = 'thankyou';
+
+    await user.update({
+      'stats.gp': 5,
+    });
+
+    await expect(user.post(`/user/buy-special-spell/${key}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageNotEnoughGold'),
+      });
+  });
 });

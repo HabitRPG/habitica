@@ -14,7 +14,7 @@ describe('API Messages', () => {
     let vars = {a: 1};
     sandbox.stub(_, 'clone').returns({});
     apiMessages('guildsOnlyPaginate', vars);
-    expect(_.clone).to.have.been.called.once;
+    expect(_.clone).to.have.been.calledOnce;
     expect(_.clone).to.have.been.calledWith(vars);
   });
 
@@ -23,9 +23,9 @@ describe('API Messages', () => {
     let stub = sinon.stub().returns('string');
     sandbox.stub(_, 'template').returns(stub);
     apiMessages('guildsOnlyPaginate', vars);
-    expect(_.template).to.have.been.called.once;
+    expect(_.template).to.have.been.calledOnce;
     expect(_.template).to.have.been.calledWith(message);
-    expect(stub).to.have.been.called.once;
+    expect(stub).to.have.been.calledOnce;
     expect(stub).to.have.been.calledWith(vars);
   });
 });

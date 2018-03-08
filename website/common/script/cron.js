@@ -47,7 +47,6 @@ function sanitizeOptions (o) {
   }
 
   let now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
-
   // return a new object, we don't want to add "now" to user object
   return {
     dayStart,
@@ -76,6 +75,7 @@ export function startOfDay (options = {}) {
   if (moment(o.now).hour() < o.dayStart) {
     dayStart.subtract({ days: 1 });
   }
+
   return dayStart;
 }
 
@@ -138,7 +138,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInWeeks = moment(startOfDayWithCDSTime).week() - moment(startDate).week();
+    let differenceInWeeks = moment(startOfDayWithCDSTime).diff(moment(startDate), 'week');
     let matchEveryX = differenceInWeeks % dailyTask.everyX === 0;
 
     if (daysOfTheWeek.length === 0) return false;
@@ -163,7 +163,11 @@ export function shouldDo (day, dailyTask, options = {}) {
   } else if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
-    let differenceInMonths = moment(startOfDayWithCDSTime).month() - moment(startDate).month();
+    // Use startOf to ensure that we are always comparing month
+    // to the next rather than a month from the day
+    let differenceInMonths = moment(startOfDayWithCDSTime).startOf('month')
+      .diff(moment(startDate).startOf('month'), 'month', true);
+
     let matchEveryX = differenceInMonths % dailyTask.everyX === 0;
 
     if (dailyTask.weeksOfMonth && dailyTask.weeksOfMonth.length > 0) {
@@ -194,6 +198,7 @@ export function shouldDo (day, dailyTask, options = {}) {
         }
         return filteredDates;
       }
+
       return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
     } else if (dailyTask.daysOfMonth && dailyTask.daysOfMonth.length > 0) {
       schedule = schedule.every(dailyTask.daysOfMonth).daysOfMonth();

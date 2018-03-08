@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  static-header(v-if='showContentWrap', :class='{"home-header": $route.name === "home"}')
+  static-header(v-if='showContentWrap', :class='{"home-header": ["home", "front"].indexOf($route.name) !== -1}')
 
   .static-wrapper
     router-view
@@ -64,6 +64,10 @@ div
   #purple-footer {
     background-color: #271b3d;
 
+    .row {
+      margin: 0;
+    }
+
     footer, footer a {
       background: transparent;
       color: #d5c8ff;
@@ -73,7 +77,7 @@ div
       color: #bda8ff;
     }
 
-    .social-circle, .btn-donate {
+    .social-circle, .btn-contribute {
       background: #36205d;
       color: #bda8ff;
 
@@ -113,6 +117,7 @@ div
   .static-wrapper {
     .container-fluid {
       margin: 5em 2em 2em 2em;
+      width: auto;
     }
 
     h1, h2 {

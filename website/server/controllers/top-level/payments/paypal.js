@@ -123,7 +123,7 @@ api.subscribeSuccess = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/');
+      res.redirect('/user/settings/subscription');
     }
   },
 };
@@ -147,7 +147,7 @@ api.subscribeCancel = {
     if (req.query.noRedirect) {
       res.respond(200);
     } else {
-      res.redirect('/');
+      res.redirect('/user/settings/subscription');
     }
   },
 };

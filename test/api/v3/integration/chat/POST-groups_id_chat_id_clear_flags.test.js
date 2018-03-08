@@ -3,6 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-v3-integration.helper';
+import config from '../../../../../config.json';
 import { v4 as generateUUID } from 'uuid';
 
 describe('POST /groups/:id/chat/:id/clearflags', () => {
@@ -74,7 +75,7 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       expect(messages[0].flagCount).to.eql(0);
     });
 
-    it('can unflag a system message', async () => {
+    it('can\'t flag a system message', async () => {
       let { group, members } = await createAndPopulateGroup({
         groupDetails: {
           type: 'party',
@@ -95,13 +96,15 @@ describe('POST /groups/:id/chat/:id/clearflags', () => {
       await member.post('/user/class/cast/mpheal');
 
       let [skillMsg] = await member.get(`/groups/${group.id}/chat`);
-
-      await member.post(`/groups/${group._id}/chat/${skillMsg.id}/flag`);
-      await admin.post(`/groups/${group._id}/chat/${skillMsg.id}/clearflags`);
-
-      let messages = await members[0].get(`/groups/${group._id}/chat`);
-      expect(messages[0].id).to.eql(skillMsg.id);
-      expect(messages[0].flagCount).to.eql(0);
+      await expect(member.post(`/groups/${group._id}/chat/${skillMsg.id}/flag`))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('messageCannotFlagSystemMessages', {communityManagerEmail: config.EMAILS.COMMUNITY_MANAGER_EMAIL}),
+        });
+      // let messages = await members[0].get(`/groups/${group._id}/chat`);
+      // expect(messages[0].id).to.eql(skillMsg.id);
+      // expect(messages[0].flagCount).to.eql(0);
     });
   });
 

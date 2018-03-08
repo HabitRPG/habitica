@@ -10,6 +10,8 @@ import { v4 as generateUUID } from 'uuid';
 import {
   each,
 } from 'lodash';
+import { model as User } from '../../../../../website/server/models/user';
+import * as payments from '../../../../../website/server/libs/payments';
 
 describe('POST /groups/:groupId/leave', () => {
   let typesOfGroups = {
@@ -68,14 +70,22 @@ describe('POST /groups/:groupId/leave', () => {
       it('removes new messages for that group from user', async () => {
         await member.post(`/groups/${groupToLeave._id}/chat`, { message: 'Some message' });
 
+        await sleep(0.5);
+
         await leader.sync();
 
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.exist;
         expect(leader.newMessages[groupToLeave._id]).to.not.be.empty;
 
         await leader.post(`/groups/${groupToLeave._id}/leave`);
         await leader.sync();
 
-        expect(leader.newMessages[groupToLeave._id]).to.be.empty;
+        expect(leader.notifications.find(n => {
+          return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupToLeave._id;
+        })).to.not.exist;
+        expect(leader.newMessages[groupToLeave._id]).to.be.undefined;
       });
 
       context('with challenges', () => {
@@ -247,14 +257,14 @@ describe('POST /groups/:groupId/leave', () => {
 
         let userWithoutInvitation = await invitedUser.get('/user');
 
-        expect(userWithoutInvitation.invitations.parties[0]).to.be.empty;
+        expect(userWithoutInvitation.invitations.parties[0]).to.be.undefined;
       });
     });
 
     it('deletes non existant party from user when user tries to leave', async () => {
       let nonExistentPartyId = generateUUID();
       let userWithNonExistentParty = await generateUser({'party._id': nonExistentPartyId});
-      expect(userWithNonExistentParty.party._id).to.be.eql(nonExistentPartyId);
+      expect(userWithNonExistentParty.party._id).to.eql(nonExistentPartyId);
 
       await expect(userWithNonExistentParty.post(`/groups/${nonExistentPartyId}/leave`))
         .to.eventually.be.rejected;
@@ -262,6 +272,47 @@ describe('POST /groups/:groupId/leave', () => {
       await userWithNonExistentParty.sync();
 
       expect(userWithNonExistentParty.party).to.eql({});
+    });
+  });
+
+  context('Leaving a group plan', () => {
+    it('cancels the free subscription', async () => {
+      // Create group
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'Test Private Guild',
+          type: 'guild',
+        },
+        members: 1,
+      });
+
+      let leader = groupLeader;
+      let member = members[0];
+      let userWithFreePlan = await User.findById(leader._id).exec();
+
+      // Create subscription
+      let paymentData = {
+        user: userWithFreePlan,
+        groupId: group._id,
+        sub: {
+          key: 'basic_3mo',
+        },
+        customerId: 'customer-id',
+        paymentMethod: 'Payment Method',
+        headers: {
+          'x-client': 'habitica-web',
+          'user-agent': '',
+        },
+      };
+      await payments.createSubscription(paymentData);
+      await member.sync();
+      expect(member.purchased.plan.planId).to.equal('group_plan_auto');
+      expect(member.purchased.plan.dateTerminated).to.not.exist;
+
+      // Leave
+      await member.post(`/groups/${group._id}/leave`);
+      await member.sync();
+      expect(member.purchased.plan.dateTerminated).to.exist;
     });
   });
 });

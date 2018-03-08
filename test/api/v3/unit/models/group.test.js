@@ -391,6 +391,20 @@ describe('Group Model', () => {
           expect(party.quest.progress.collect.soapBars).to.eq(5);
         });
 
+        it('does not drop an item if not need when on a collection quest', async () => {
+          party.quest.key = 'dilatoryDistress1';
+          party.quest.active = false;
+          await party.startQuest(questLeader);
+          party.quest.progress.collect.fireCoral = 20;
+          await party.save();
+
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({_id: party._id});
+
+          expect(party.quest.progress.collect.fireCoral).to.eq(20);
+        });
+
         it('sends a chat message about progress', async () => {
           await Group.processQuestProgress(participatingMember, progress);
 
@@ -997,13 +1011,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: '' },
-        }, {
-          $set: {
-            [`newMessages.${party._id}`]: {
-              name: party.name,
-              value: true,
-            },
-          },
         });
       });
 
@@ -1018,13 +1025,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           guilds: group._id,
           _id: { $ne: '' },
-        }, {
-          $set: {
-            [`newMessages.${group._id}`]: {
-              name: group.name,
-              value: true,
-            },
-          },
         });
       });
 
@@ -1035,13 +1035,6 @@ describe('Group Model', () => {
         expect(User.update).to.be.calledWithMatch({
           'party._id': party._id,
           _id: { $ne: 'user-id' },
-        }, {
-          $set: {
-            [`newMessages.${party._id}`]: {
-              name: party.name,
-              value: true,
-            },
-          },
         });
       });
 

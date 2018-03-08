@@ -98,7 +98,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.userId).to.equal(task.userId);
       expect(savedTask.history).to.eql(task.history);
       expect(savedTask.createdAt).to.equal(task.createdAt);
-      expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
+      expect(new Date(savedTask.updatedAt)).to.be.greaterThan(new Date(task.updatedAt));
       expect(savedTask.challenge._id).to.equal(task.challenge._id);
       expect(savedTask.completed).to.equal(task.completed);
       expect(savedTask.streak).to.equal(task.streak);
@@ -138,6 +138,23 @@ describe('PUT /tasks/:id', () => {
       expect(savedHabit.notes).to.eql('some new notes');
       expect(savedHabit.up).to.eql(false);
       expect(savedHabit.down).to.eql(false);
+    });
+
+    it('allows user to update their copy', async () => {
+      const userTasks = await user.get('/tasks/user');
+      const userChallengeTasks = userTasks.filter(task => task.challenge.id === challenge._id);
+      const userCopyOfChallengeTask = userChallengeTasks[0];
+
+      await user.put(`/tasks/${userCopyOfChallengeTask._id}`, {
+        notes: 'some new notes',
+        counterDown: 1,
+        counterUp: 2,
+      });
+      const savedHabit = await user.get(`/tasks/${userCopyOfChallengeTask._id}`);
+
+      expect(savedHabit.notes).to.eql('some new notes');
+      expect(savedHabit.counterDown).to.eql(1);
+      expect(savedHabit.counterUp).to.eql(2);
     });
   });
 

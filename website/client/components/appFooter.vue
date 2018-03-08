@@ -1,7 +1,7 @@
 <template lang="pug">
-.row
-  buy-gems-modal(v-if="isUserLoaded")
-  modify-inventory(v-if="isUserLoaded")
+.row.footer-row
+  buy-gems-modal(v-if='user')
+  //modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
       .col-12.col-md-2
@@ -10,7 +10,7 @@
         h3
           a(href='https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica', target='_blank') {{ $t('mobileAndroid') }}
       .col-12.col-md-2
-        h3 Company
+        h3 {{ $t('footerCompany') }}
         ul
           li
            router-link(to='/static/features') {{ $t('companyAbout') }}
@@ -29,7 +29,7 @@
           li
            router-link(to='/static/contact') {{ $t('contactUs') }}
       .col-12.col-md-2
-        h3 Community
+        h3 {{ $t('footerCommunity') }}
         ul
           li
             a(target="_blanck", href="/static/community-guidelines") {{ $t('communityGuidelines') }}
@@ -50,7 +50,7 @@
       .col-12.col-md-6
         .row
           .col-6
-            h3 Developers
+            h3 {{ $t('footerDevs') }}
             ul
               li
                 a(href='/apidoc', target='_blank') {{ $t('APIv3') }}
@@ -69,38 +69,42 @@
             a.social-circle(href='https://www.facebook.com/Habitica', target='_blank')
               .social-icon.facebook.svg-icon(v-html='icons.facebook')
         .row
-          .col-10 {{ $t('donateText3') }}
-          .col-2
-            button.btn.btn-donate(@click="donate()")
+          .col-12.col-md-10 {{ $t('donateText3') }}
+          .col-12.col-md-2
+            button.btn.btn-contribute(@click="donate()", v-if="user")
               .svg-icon.heart(v-html="icons.heart")
               .text {{ $t('companyDonate') }}
+            .btn.btn-contribute(v-else)
+              a(href='http://habitica.wikia.com/wiki/Contributing_to_Habitica', target='_blank')
+                .svg-icon.heart(v-html="icons.heart")
+                .text {{ $t('companyContribute') }}
     .row
       .col-12
         hr
     .row
-      .col-5
-        | © 2017 Habitica. All rights reserved.
+      .col-12.col-md-5
+        | © 2018 Habitica. All rights reserved.
         .debug.float-left(v-if="!IS_PRODUCTION && isUserLoaded")
           button.btn.btn-primary(@click="debugMenuShown = !debugMenuShown") Toggle Debug Menu
           .debug-group(v-if="debugMenuShown")
-            a.btn.btn-default(@click="setHealthLow()") Health = 1
-            a.btn.btn-default(@click="addMissedDay(1)") +1 Missed Day
-            a.btn.btn-default(@click="addMissedDay(2)") +2 Missed Days
-            a.btn.btn-default(@click="addMissedDay(8)") +8 Missed Days
-            a.btn.btn-default(@click="addMissedDay(32)") +32 Missed Days
-            a.btn.btn-default(@click="addTenGems()") +10 Gems
-            a.btn.btn-default(@click="addHourglass()") +1 Mystic Hourglass
-            a.btn.btn-default(@click="addGold()") +500GP
-            a.btn.btn-default(@click="plusTenHealth()") + 10HP
-            a.btn.btn-default(@click="addMana()") +MP
-            a.btn.btn-default(@click="addLevelsAndGold()") +Exp +GP +MP
-            a.btn.btn-default(@click="addOneLevel()") +1 Level
-            a.btn.btn-default(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
-            a.btn.btn-default(@click="makeAdmin()") Make Admin
-            a.btn.btn-default(@click="openModifyInventoryModal()") Modify Inventory
-      .col-2.text-center
+            a.btn.btn-secondary(@click="setHealthLow()") Health = 1
+            a.btn.btn-secondary(@click="addMissedDay(1)") +1 Missed Day
+            a.btn.btn-secondary(@click="addMissedDay(2)") +2 Missed Days
+            a.btn.btn-secondary(@click="addMissedDay(8)") +8 Missed Days
+            a.btn.btn-secondary(@click="addMissedDay(32)") +32 Missed Days
+            a.btn.btn-secondary(@click="addTenGems()") +10 Gems
+            a.btn.btn-secondary(@click="addHourglass()") +1 Mystic Hourglass
+            a.btn.btn-secondary(@click="addGold()") +500GP
+            a.btn.btn-secondary(@click="plusTenHealth()") + 10HP
+            a.btn.btn-secondary(@click="addMana()") +MP
+            a.btn.btn-secondary(@click="addLevelsAndGold()") +Exp +GP +MP
+            a.btn.btn-secondary(@click="addOneLevel()") +1 Level
+            a.btn.btn-secondary(@click="addQuestProgress()", tooltip="+1000 to boss quests. 300 items to collection quests") Quest Progress Up
+            a.btn.btn-secondary(@click="makeAdmin()") Make Admin
+            a.btn.btn-secondary(@click="openModifyInventoryModal()") Modify Inventory
+      .col-12.col-md-2.text-center
         .logo.svg-icon(v-html='icons.gryphon')
-      .col-5.text-right
+      .col-12.col-md-5.text-right
         template(v-if="!isExpandedFooter")
           span
             a(:href="getDataDisplayToolUrl", target='_blank') {{ $t('dataDisplayTool') }}
@@ -113,6 +117,11 @@
 </template>
 
 <style lang="scss" scoped>
+  .footer-row {
+    margin: 0;
+    flex: 0 1 auto;
+  }
+
   footer {
     color: #c3c0c7;
     z-index: 17;
@@ -144,11 +153,6 @@
       .logo {
         color: #c3c0c7;
       }
-    }
-
-    & > .row {
-      margin-left: 12px;
-      margin-right: 12px;
     }
   }
 
@@ -211,7 +215,7 @@
     padding: 2em;
   }
 
-  .btn-donate {
+  .btn-contribute {
     background: #c3c0c7;
     box-shadow: none;
     border-radius: 4px;
@@ -369,7 +373,7 @@ export default {
         eventAction: 'click',
         eventLabel: 'Gems > Donate',
       });
-      this.$root.$emit('bv::show::modal', 'buy-gems');
+      this.$root.$emit('bv::show::modal', 'buy-gems', {alreadyTracked: true});
     },
   },
 };

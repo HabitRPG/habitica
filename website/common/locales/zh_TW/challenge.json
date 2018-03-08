@@ -6,8 +6,8 @@
     "keepIt": "保留",
     "removeIt": "刪除",
     "brokenChallenge": "無效的挑戰連結：這項任務本來是一個挑戰的一部分，但是該挑戰 (或隊伍) 已經被刪除了。你想怎麼處置這項任務？",
-    "keepThem": "保留",
-    "removeThem": "刪除",
+    "keepThem": "Keep Tasks",
+    "removeThem": "Remove Tasks",
     "challengeCompleted": "這個挑戰已完成，贏家是<span class=\\\"badge\\\"><%= user %></span>！你想怎麼處置這項任務？",
     "unsubChallenge": "無效的挑戰連結：這項任務本來是一個挑戰的一部分，可是你已經取消訂閱該挑戰了。你想怎麼處置這項任務？",
     "challengeWinner": "贏得了以下挑戰",
@@ -29,6 +29,7 @@
     "either": "都顯示",
     "createChallenge": "建立挑戰",
     "createChallengeAddTasks": "新增挑戰任務",
+    "createChallengeCloneTasks": "Clone Challenge Tasks",
     "addTaskToChallenge": "新增任務",
     "discard": "取消",
     "challengeTitle": "挑戰名",
@@ -100,8 +101,8 @@
     "addTask": "新增任務",
     "editChallenge": "編輯挑戰",
     "challengeDescription": "挑戰說明",
-    "selectChallengeWinnersDescription": "從挑戰參與者中選取勝出者",
-    "awardWinners": "獎勵勝出者",
+    "selectChallengeWinnersDescription": "Select a winner from the Challenge participants",
+    "awardWinners": "Award Winner",
     "doYouWantedToDeleteChallenge": "要刪除此挑戰嗎？",
     "deleteChallenge": "刪除挑戰",
     "challengeNamePlaceholder": "您的挑戰名稱是？",
@@ -126,5 +127,7 @@
     "locationRequired": "必須填寫挑戰所在位置 (「新增至」)",
     "categoiresRequired": "必須選擇一種以上的類別",
     "viewProgressOf": "查看進度",
-    "selectMember": "選擇成員"
+    "selectMember": "選擇成員",
+    "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
+    "selectParticipant": "Select a Participant"
 }

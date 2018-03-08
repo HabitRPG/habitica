@@ -25,6 +25,7 @@
     "questInvitation": "Uppdragsinbjudan:",
     "questInvitationTitle": "Uppdragsinbjudnader",
     "questInvitationInfo": "Inbjudan till Uppdraget <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Fråga senare",
     "questLater": "Gå ut på Uppdrag Senare",
     "buyQuest": "Köp Uppdrag",
@@ -37,7 +38,7 @@
     "questCollection": "+ <%= val %> uppdragsobjekt hittade",
     "questDamage": "+ <%= val %> skada gjord till Boss",
     "begin": "Starta",
-    "bossHP": "Bossens Hälsa",
+    "bossHP": "Boss HP",
     "bossStrength": "Bossstyrka",
     "rage": "Vrede",
     "collect": "Samla",
@@ -78,6 +79,7 @@
     "mustLvlQuest": "Du måste vara level <%= level %> för att köpa detta uppdrag!",
     "mustInviteFriend": "För att förtjäna det här uppdraget, bjud in en vän till ditt sällskap. Vill du bjuda in någon nu?",
     "unlockByQuesting": "För att låsa upp detta uppdrag, slutför <%= title %>.",
+    "questConfirm": "Are you sure? Only <%= questmembers %> of your <%= totalmembers %> party members have joined this quest! Quests start automatically when all players have joined or rejected the invitation.",
     "sureCancel": "Är du säker på att du vill avbryta uppdraget? Alla accepterade inbjudningar kommer att gå förlorade. Uppdragsägaren får behålla uppdragsskriftrullen.",
     "sureAbort": "Är du säker att du vill avbryta detta uppdrag? Det kommer att avbrytas för alla i ditt sällskap och alla framsteg kommer att förloras. Uppdragsrullen kommer att återvända till uppdragsägaren.",
     "doubleSureAbort": "Är du helt säker? Se till att de inte kommer hata dig för alltid!",
@@ -118,5 +120,10 @@
     "createAccountQuest": "Du fick det här uppdraget när du gick med i Habitica! Om en vän går med får dom också en.",
     "questBundles": "Rabatt på Uppdragsbuntar",
     "buyQuestBundle": "Köp Uppdragsbunt",
-    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsaffären i Marknaden för nya utgåvor!"
+    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsaffären i Marknaden för nya utgåvor!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

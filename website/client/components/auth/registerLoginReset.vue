@@ -4,8 +4,8 @@
     .seamless_stars_varied_opacity_repeat
 
   form#login-form(
-    @submit.prevent='handleSubmit', 
-    @keyup.enter="handleSubmit", 
+    @submit.prevent='handleSubmit',
+    @keyup.enter="handleSubmit",
     v-if="!forgotPassword && !resetPasswordSetNewOne",
   )
     .text-center
@@ -14,11 +14,11 @@
       div
         .svg-icon.habitica-logo(v-html="icons.habiticaIcon")
     .form-group.row.text-center
-      .col-6
+      .col-12.col-md-6
         .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
           .svg-icon.social-icon(v-html="icons.facebookIcon")
           .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
-      .col-6
+      .col-12.col-md-6
         .btn.btn-secondary.social-button(@click='socialAuth("google")')
           .svg-icon.social-icon(v-html="icons.googleIcon")
           span {{registering ? $t('signUpWithSocial', {social: 'Google'}) : $t('loginWithSocial', {social: 'Google'})}}
@@ -79,7 +79,7 @@
       input#confirmPasswordInput.form-control(type='password', :placeholder='$t("confirmPasswordPlaceholder")', v-model='passwordConfirm')
     .text-center
       .btn.btn-info(
-        @click='resetPasswordSetNewOneLink()', 
+        @click='resetPasswordSetNewOneLink()',
         :enabled="!resetPasswordSetNewOneData.hasError"
       )  {{$t('setNewPass')}}
 
@@ -118,6 +118,17 @@
       position: fixed !important;
       width: 100%;
       bottom: 0;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #login-form {
+      width: 100% !important;
+    }
+
+    .form-group {
+      padding-left: .5em;
+      padding-right: .5em;
     }
   }
 

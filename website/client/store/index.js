@@ -71,10 +71,8 @@ export default function () {
       browserTimezoneOffset,
       tasks: asyncResourceFactory(), // user tasks
       completedTodosStatus: 'NOT_LOADED',
-      party: {
-        quest: {},
-        members: asyncResourceFactory(),
-      },
+      party: asyncResourceFactory(),
+      partyMembers: asyncResourceFactory(),
       shops: {
         market: asyncResourceFactory(),
         quests: asyncResourceFactory(),
@@ -90,10 +88,6 @@ export default function () {
         editingUser: false,
         startingPage: '',
         subPage: '',
-      },
-      flagChatOptions: {
-        message: {},
-        groupId: '',
       },
       challengeOptions: {
         cloning: false,
@@ -128,13 +122,15 @@ export default function () {
       gemModalOptions: {
         startingPage: '',
       },
+      rageModalOptions: {
+        npc: '',
+      },
       profileUser: {},
       upgradingGroup: {},
       notificationStore: [],
       modalStack: [],
       equipmentDrawerOpen: true,
       groupPlans: [],
-      groupNotifications: [],
       isRunningYesterdailies: false,
     },
   });

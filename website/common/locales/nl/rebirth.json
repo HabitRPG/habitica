@@ -21,7 +21,7 @@
     "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau <%= level %>.",
     "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van niveau 100 of hoger.",
     "rebirthOrbNoLevel": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen.",
-    "rebirthPop": "Begin een nieuw personage vanaf niveau 1 terwijl je je prestaties, verzamelobjecten, uitrusting en taken met hun geschiedenis behoudt.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Bol der Hergeboorte",
     "reborn": "Herboren, maximale niveau <%= reLevel %>",
     "confirmReborn": "Weet je het zeker?",

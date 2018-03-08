@@ -18,13 +18,13 @@
     .social-delete(v-if='!user.auth.local.email')
       h4 {{ $t('deleteAccount') }}
       .modal-body
-        p {{ $t('deleteSocialAccountText') }}
+        p {{ $t('deleteSocialAccountText', {magicWord: 'DELETE'}) }}
         br
         .row
           .col-md-6
             input.form-control(type='text', v-model='password')
       .modal-footer
-        button.btn.btn-default(@click='close()') {{ $t('neverMind') }}
+        button.btn.btn-secondary(@click='close()') {{ $t('neverMind') }}
         button.btn.btn-danger(:disabled='!password', @click='deleteAccount()') {{ $t('deleteDo') }}
 </template>
 
