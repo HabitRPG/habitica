@@ -20,17 +20,19 @@ setupNconf();
 const nconf = require('nconf');
 const stackimpact = require('stackimpact');
 
-stackimpact.start({
-  agentKey: nconf.get('STACK_IMPACT_KEY'),
-  appName: 'Habitica',
-});
-
 const cluster = require('cluster');
 const logger = require('./libs/logger');
 
 const IS_PROD = nconf.get('IS_PROD');
 const IS_DEV = nconf.get('IS_DEV');
 const CORES = Number(nconf.get('WEB_CONCURRENCY')) || 0;
+
+if (IS_PROD) {
+  stackimpact.start({
+    agentKey: nconf.get('STACK_IMPACT_KEY'),
+    appName: 'Habitica',
+  });
+}
 
 // Setup the cluster module
 if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
