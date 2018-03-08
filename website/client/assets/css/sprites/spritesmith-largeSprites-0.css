@@ -1,6 +1,6 @@
 .promo_armoire_background_201803 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1172px 0px;
+  background-position: 0px -735px;
   width: 141px;
   height: 441px;
 }
@@ -16,9 +16,15 @@
   width: 730px;
   height: 170px;
 }
+.promo_hippogriff {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1172px -442px;
+  width: 105px;
+  height: 105px;
+}
 .promo_hugabug_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -735px;
+  background-position: -1172px 0px;
   width: 141px;
   height: 441px;
 }
@@ -36,7 +42,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1172px -442px;
+  background-position: -1172px -548px;
   width: 114px;
   height: 87px;
 }
