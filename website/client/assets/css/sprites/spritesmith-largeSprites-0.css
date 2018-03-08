@@ -6,7 +6,7 @@
 }
 .promo_cupid_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -735px;
+  background-position: -142px -735px;
   width: 138px;
   height: 441px;
 }
@@ -15,6 +15,12 @@
   background-position: -441px 0px;
   width: 730px;
   height: 170px;
+}
+.promo_hugabug_bundle {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -735px;
+  width: 141px;
+  height: 441px;
 }
 .promo_mystery_201802 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
