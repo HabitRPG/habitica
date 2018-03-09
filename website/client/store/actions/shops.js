@@ -19,13 +19,9 @@ function buyItem (store, params) {
   const quantity = params.quantity || 1;
   const user = store.state.user.data;
 
-  const userPinned = user.pinnedItems.slice();
   let opResult = buyOp(user, {params, quantity});
 
-  // @TODO: Currently resetting the pinned items will reset the market. Purchasing some items does not reset pinned.
-  // For now, I've added this hack for items like contributor gear to update while I am working on add more computed
-  // properties to the market. We will use this quick fix while testing the other changes.
-  user.pinnedItems = userPinned;
+  user.pinnedItems = opResult[0].pinnedItems;
 
 
   return {
