@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Помогнал(а) за победата над Умората и възстановяването на Духовете на изтощението по време на Есенния фестивал — 2015 г.",
     "achievementBewilder": "Спасител на Мъглоград",
     "achievementBewilderText": "Помогнал(а) за победата над Озадачителя по време на Буйното пролетно събитие — 2016 г.",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Вижте напредъка ми в Хабитика!",
     "cards": "Картички",
     "sentCardToUser": "Изпратихте картичка на <%= profileName %>",
