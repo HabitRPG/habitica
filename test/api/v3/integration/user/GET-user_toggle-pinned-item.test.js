@@ -2,8 +2,6 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import i18n from "../../../../../website/common/script/i18n";
-import {BadRequest} from "../../../../../website/common/script/libs/errors";
 
 describe('GET /user/toggle-pinned-item', () => {
   let user;
