@@ -7,7 +7,6 @@ import Bluebird from 'bluebird';
 let parseStringAsync = Bluebird.promisify(xml2js.parseString, {context: xml2js});
 
 describe('GET /export/userdata.xml', () => {
-  // TODO disabled because it randomly causes the build to fail
   it('should return a valid XML file with user data', async () => {
     let user = await generateUser();
     let tasks = await user.post('/tasks/user', [
