@@ -30,13 +30,21 @@ describe('GET /export/userdata.xml', () => {
     expect(res).to.contain.all.keys(['tasks', 'flags', 'tasksOrder', 'auth']);
     expect(res.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(res.tasks).to.have.all.keys(['dailys', 'habits', 'todos', 'rewards']);
+
     expect(res.tasks.habits.length).to.equal(2);
-    expect(res.tasks.habits[0]._id).to.equal(tasks[0]._id);
+    let habitIds = _.map(res.tasks.habits, '_id');
+    expect(habitIds).to.have.deep.members([tasks[0]._id, tasks[4]._id]);
+
     expect(res.tasks.dailys.length).to.equal(2);
-    expect(res.tasks.dailys[0]._id).to.equal(tasks[1]._id);
+    let dailyIds = _.map(res.tasks.dailys, '_id');
+    expect(dailyIds).to.have.deep.members([tasks[1]._id, tasks[5]._id]);
+
     expect(res.tasks.rewards.length).to.equal(2);
-    expect(res.tasks.rewards[0]._id).to.equal(tasks[2]._id);
+    let rewardIds = _.map(res.tasks.rewards, '_id');
+    expect(rewardIds).to.have.deep.members([tasks[2]._id, tasks[6]._id]);
+
     expect(res.tasks.todos.length).to.equal(3);
-    expect(res.tasks.todos[1]._id).to.equal(tasks[3]._id);
+    let todoIds = _.map(res.tasks.todos, '_id');
+    expect(todoIds).to.deep.include.members([tasks[3]._id, tasks[7]._id]);
   });
 });
