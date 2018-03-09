@@ -1,15 +1,9 @@
 import i18n from '../../i18n';
 import {
-  NotAuthorized,
+  NotAuthorized, NotImplementedError,
 } from '../../libs/errors';
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
-
-export class NotImplementedError extends Error {
-  constructor (str) {
-    super(`Method: '${str}' not implemented`);
-  }
-}
 
 export class AbstractBuyOperation {
   /**

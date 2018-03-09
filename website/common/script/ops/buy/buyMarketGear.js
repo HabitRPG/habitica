@@ -31,7 +31,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
 
     if (!item) throw new NotFound(this.i18n('itemNotFound', {key}));
 
-    super.canUserPurchase(user, item);
+    this.canUserPurchase(user, item);
 
     if (user.items.gear.owned[item.key]) {
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
