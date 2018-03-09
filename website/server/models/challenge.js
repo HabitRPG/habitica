@@ -50,7 +50,7 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next, chal) {
+schema.pre('init', function ensureSummaryIsFetched (chal) {
   // The Vue website makes the summary be mandatory for all new challenges, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any challenge without a summary is fetched from the database, this code
@@ -59,7 +59,6 @@ schema.pre('init', function ensureSummaryIsFetched (next, chal) {
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
-  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
