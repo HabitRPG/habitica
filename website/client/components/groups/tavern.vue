@@ -90,7 +90,7 @@
                 .toggle-up(v-if="sections.worldBoss")
                   .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
             .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
-        .text-center.mt-4
+        // .text-center.mt-4
           .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
 
       .sleep.below-header-sections

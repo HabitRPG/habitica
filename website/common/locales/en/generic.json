@@ -1,4 +1,4 @@
-﻿{
+{
   "languageName": "English",
   "stringNotFound": "String '<%= string %>' not found.",
   "titleIndex": "Habitica | Your Life The Role Playing Game",
@@ -172,6 +172,8 @@
   "achievementBurnoutText": "Helped defeat Burnout and restore the Exhaust Spirits during the 2015 Fall Festival Event!",
   "achievementBewilder": "Savior of Mistiflying",
   "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
+  "achievementDysheartener": "Savior of the Shattered",
+  "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2017 Valentine's Event!",
   "checkOutProgress": "Check out my progress in Habitica!",
   "cards": "Cards",
   "sentCardToUser": "You sent a card to <%= profileName %>",

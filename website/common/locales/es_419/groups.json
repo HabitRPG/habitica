@@ -205,7 +205,7 @@
     "groupIdRequired": "\"groupId\" debe ser un UUID válido",
     "groupNotFound": "Grupo no encontrado o no tienes acceso.",
     "groupTypesRequired": "Debes ingresar una cadena de caracteres \"type\" valida.",
-    "questLeaderCannotLeaveGroup": "You cannot leave your Party when you have started a quest. Abort the quest first.",
+    "questLeaderCannotLeaveGroup": "No puedes abandonar el Grupo cuando tienes una misión comenzada. Finaliza primero la misión.",
     "cannotLeaveWhileActiveQuest": "You cannot leave Party during an active quest. Please leave the quest first.",
     "onlyLeaderCanRemoveMember": "Solo el lider del grupo puede sacar un miembro.",
     "cannotRemoveCurrentLeader": "No puedes quitar al líder del grupo. Asigna un nuevo líder del grupo primero.",
