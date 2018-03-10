@@ -145,7 +145,8 @@ export default {
           }
         }
         // If there are mages, show message telling that the mpheal don't work on other mages
-        if (magesCount > 0) {
+        // The count must be bigger than 1 because the user casting the spell is a mage
+        if (magesCount > 1) {
           this.markdown(this.$t('spellWizardNoEthOnMage'));
         }
       }
