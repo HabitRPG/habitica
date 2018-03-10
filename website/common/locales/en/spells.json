@@ -4,7 +4,7 @@
 
   "spellWizardMPHealText": "Ethereal Surge",
   "spellWizardMPHealNotes": "You sacrifice mana so the rest of your Party gains MP! (Based on: INT)",
-  "spellWizardNoEthOnMage": "Your Ethereal Surge backfires when mixed with another's magic. Only the non-magic users gain mana.",
+  "spellWizardNoEthOnMage": "Your spell backfires with another's magic. Only the non-magic users gain mana.",
 
   "spellWizardEarthText": "Earthquake",
   "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
