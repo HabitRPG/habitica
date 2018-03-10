@@ -506,14 +506,17 @@ function setUserStyles (newMessage, user) {
     userStyles.preferences.costume = userCopy.preferences.costume;
   }
 
-  userStyles.stats = {};
-  if (userCopy.stats && userCopy.stats.buffs) {
-    userStyles.stats.buffs = {
-      seafoam: userCopy.stats.buffs.seafoam,
-      shinySeed: userCopy.stats.buffs.shinySeed,
-      spookySparkles: userCopy.stats.buffs.spookySparkles,
-      snowball: userCopy.stats.buffs.snowball,
-    };
+  if (userCopy.stats) {
+    userStyles.stats = {};
+    userStyles.stats.class = userCopy.stats.class;
+    if (userCopy.stats.buffs) {
+      userStyles.stats.buffs = {
+        seafoam: userCopy.stats.buffs.seafoam,
+        shinySeed: userCopy.stats.buffs.shinySeed,
+        spookySparkles: userCopy.stats.buffs.spookySparkles,
+        snowball: userCopy.stats.buffs.snowball,
+      };
+    }
   }
 
   newMessage.userStyles = userStyles;
