@@ -295,6 +295,7 @@
       .content {
         display: flex;
         flex-direction: column;
+        z-index: 1; // Always cover background. 
       }
 
       .npc {
@@ -495,8 +496,8 @@ export default {
           categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value, key) => {
-              return value.yearRound || key === 'valentine';
+            items: _map(_filter(this.content.cardTypes, (value) => {
+              return value.yearRound;
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),
@@ -702,8 +703,10 @@ export default {
             break;
           }
           case 'sortByNumber': {
-            result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+            result = _sortBy(result, item => {
+              if (item.showCount === false) return 0;
+
+              return this.userItems[item.purchaseType][item.key] || 0;
             });
             break;
           }
