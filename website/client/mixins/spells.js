@@ -129,6 +129,27 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
+
+      // If using mpheal and there are other mages in the party, show extra notification
+      if (type === 'party' && spell.key === 'mpheal') {
+        // Get party
+        let members = await this.$store.dispatch('members:getGroupMembers', {
+          groupId: target[0].party._id,
+          includeAllPublicFields: true,
+        });
+        // Counting mages
+        let magesCount = 0;
+        for (let i = 0; i < members.length; i++) {
+          if (members[i].stats.class === 'wizard') {
+            magesCount++;
+          }
+        }
+        // If there are mages, show message telling that the mpheal don't work on other mages
+        if (magesCount > 0) {
+          this.markdown(this.$t('spellWizardNoEthOnMage'));
+        }
+      }
+
       // @TODO:
       if (!beforeQuestProgress) return apiResult;
       let questProgress = this.questProgress() - beforeQuestProgress;
