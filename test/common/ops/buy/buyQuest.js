@@ -36,6 +36,25 @@ describe('shared.ops.buyQuest', () => {
     expect(analytics.track).to.be.calledOnce;
   });
 
+  it('buys a Quest scroll with the right quantity if a string is passed for quantity', () => {
+    user.stats.gp = 1000;
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+    }, analytics);
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+      quantity: '3',
+    }, analytics);
+
+    expect(user.items.quests).to.eql({
+      dilatoryDistress1: 4,
+    });
+  });
+
   it('does not buy Quests without enough Gold', (done) => {
     user.stats.gp = 1;
     try {
