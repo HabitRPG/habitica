@@ -13,7 +13,7 @@ describe('hasClass getter', () => {
         classSelected: true,
       },
     };
-    expect(hasClass(member)).to.equal(false);
+    expect(hasClass()(member)).to.equal(false);
   });
 
   it('returns false if member has disabled classes', () => {
@@ -28,7 +28,7 @@ describe('hasClass getter', () => {
         classSelected: true,
       },
     };
-    expect(hasClass(member)).to.equal(false);
+    expect(hasClass()(member)).to.equal(false);
   });
 
   it('returns false if member has not yet selected a class', () => {
@@ -43,7 +43,7 @@ describe('hasClass getter', () => {
         classSelected: false,
       },
     };
-    expect(hasClass(member)).to.equal(false);
+    expect(hasClass()(member)).to.equal(false);
   });
 
   it('returns true when all conditions are met', () => {
@@ -58,6 +58,6 @@ describe('hasClass getter', () => {
         classSelected: true,
       },
     };
-    expect(hasClass(member)).to.equal(true);
+    expect(hasClass()(member)).to.equal(true);
   });
 });
