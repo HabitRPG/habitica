@@ -11,8 +11,8 @@ describe('hasClass getter', () => {
       },
       flags: {
         classSelected: true,
-      }
-    }
+      },
+    };
     expect(hasClass(member)).to.equal(false);
   });
 
@@ -26,8 +26,8 @@ describe('hasClass getter', () => {
       },
       flags: {
         classSelected: true,
-      }
-    }
+      },
+    };
     expect(hasClass(member)).to.equal(false);
   });
 
@@ -41,8 +41,8 @@ describe('hasClass getter', () => {
       },
       flags: {
         classSelected: false,
-      }
-    }
+      },
+    };
     expect(hasClass(member)).to.equal(false);
   });
 
@@ -56,8 +56,8 @@ describe('hasClass getter', () => {
       },
       flags: {
         classSelected: true,
-      }
-    }
+      },
+    };
     expect(hasClass(member)).to.equal(true);
   });
 });
