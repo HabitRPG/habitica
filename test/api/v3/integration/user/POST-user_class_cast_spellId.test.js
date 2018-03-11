@@ -187,6 +187,30 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(group.chat[0].uuid).to.equal('system');
   });
 
+  it('Etheal Surge does not recover mp of other mages', async () => {
+    let group = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 4,
+    });
+    await group.groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20});
+    await group.members[0].update({'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20});
+    await group.members[1].update({'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20});
+    await group.members[2].update({'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20});
+    await group.members[3].update({'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20});
+
+    await group.groupLeader.post('/user/class/cast/mpheal');
+    await sleep(0.5);
+    await group.members[0].sync();
+    await group.members[1].sync();
+    await group.members[2].sync();
+    await group.members[3].sync();
+
+    expect(group.members[0].stats.mp).to.be.greaterThan(0) // warrior
+    expect(group.members[1].stats.mp).to.equal(0); // wizard
+    expect(group.members[2].stats.mp).to.be.greaterThan(0) // rogue
+    expect(group.members[3].stats.mp).to.be.greaterThan(0) // healer
+  });
+
   it('cast bulk', async () => {
     let { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
