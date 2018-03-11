@@ -1,4 +1,4 @@
-import { hasClass } from 'client/store/getters/user';
+import { hasClass } from 'client/store/getters/members';
 
 describe('hasClass getter', () => {
   it('returns false if level < 10', () => {
