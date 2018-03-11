@@ -205,10 +205,10 @@ describe('POST /user/class/cast/:spellId', () => {
     await group.members[2].sync();
     await group.members[3].sync();
 
-    expect(group.members[0].stats.mp).to.be.greaterThan(0) // warrior
+    expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
     expect(group.members[1].stats.mp).to.equal(0); // wizard
-    expect(group.members[2].stats.mp).to.be.greaterThan(0) // rogue
-    expect(group.members[3].stats.mp).to.be.greaterThan(0) // healer
+    expect(group.members[2].stats.mp).to.be.greaterThan(0); // rogue
+    expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
   });
 
   it('cast bulk', async () => {
