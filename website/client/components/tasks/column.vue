@@ -26,7 +26,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    clear-completed-todos(v-if="activeFilters[type].label === 'complete2'")
+    clear-completed-todos(v-if="activeFilters[type].label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -347,7 +347,7 @@ export default {
     }),
     onUserPage () {
       let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
-
+      
       if (!onUserPage) {
         this.activateFilter('daily', this.types.daily.filters[0]);
         this.types.reward.filters = [];
