@@ -66,7 +66,6 @@
     "morgan": "^1.7.0",
     "nconf": "^0.10.0",
     "node-gcm": "^0.14.4",
-    "node-rdkafka": "^2.2.3",
     "node-sass": "^4.5.0",
     "nodemailer": "^4.5.0",
     "ora": "^2.0.0",
@@ -185,5 +184,8 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^2.0.5",
     "webpack-hot-middleware": "^2.6.1"
+  },
+  "optionalDependencies": {
+    "node-rdkafka": "^2.3.0"
   }
 }

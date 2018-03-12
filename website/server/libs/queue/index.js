@@ -1,5 +1,5 @@
-import Kafka from 'node-rdkafka';
 import nconf from 'nconf';
+import logger from '../logger';
 
 const GROUP_ID = nconf.get('KAFKA:GROUP_ID');
 const CLOUDKARAFKA_BROKERS = nconf.get('KAFKA:CLOUDKARAFKA_BROKERS');
@@ -9,7 +9,15 @@ const CLOUDKARAFKA_TOPIC_PREFIX = nconf.get('KAFKA:CLOUDKARAFKA_TOPIC_PREFIX');
 
 const prefix = CLOUDKARAFKA_TOPIC_PREFIX;
 const topic = `${prefix}-default`;
+
+let Kafka;
 let producer;
+
+try {
+  Kafka = require('node-rdkafka'); // eslint-disable-line global-require
+} catch (er) {
+  Kafka = null;
+}
 
 function createProducer () {
   const kafkaConf = {
@@ -28,7 +36,7 @@ function createProducer () {
   producer.connect();
 }
 
-if (GROUP_ID && CLOUDKARAFKA_BROKERS && CLOUDKARAFKA_USERNAME && CLOUDKARAFKA_PASSWORD && CLOUDKARAFKA_TOPIC_PREFIX) {
+if (Kafka && GROUP_ID && CLOUDKARAFKA_BROKERS && CLOUDKARAFKA_USERNAME && CLOUDKARAFKA_PASSWORD && CLOUDKARAFKA_TOPIC_PREFIX) {
   createProducer();
 }
 
@@ -43,8 +51,8 @@ api.sendMessage = function sendMessage (message, key) {
 
   try {
     producer.produce(topic, -1, new Buffer(JSON.stringify(message)), key);
-  } catch (e) {
-    // @TODO: Send the to loggly?
+  } catch (err) {
+    logger.error(err);
   }
 };
 
