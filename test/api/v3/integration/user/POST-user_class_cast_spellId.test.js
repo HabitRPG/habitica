@@ -187,7 +187,7 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(group.chat[0].uuid).to.equal('system');
   });
 
-  it('Etheal Surge does not recover mp of other mages', async () => {
+  it('Ethereal Surge does not recover mp of other mages', async () => {
     let group = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
       members: 4,
