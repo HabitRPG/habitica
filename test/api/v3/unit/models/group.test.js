@@ -201,7 +201,7 @@ describe('Group Model', () => {
           party = await Group.findOne({_id: party._id});
 
           expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member attacks Wailing Whale for 5.0 damage.` `Wailing Whale attacks party for 7.5 damage.`');
+          expect(Group.prototype.sendChat).to.be.calledWith('`Participating Member attacks Wailing Whale for 5.0 damage. Wailing Whale attacks party for 7.5 damage.`');
         });
 
         it('applies damage only to participating members of party', async () => {
