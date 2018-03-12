@@ -772,7 +772,7 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
+  this.sendChat(`\`${shared.i18n.t('chatQuestStarted', {questName: quest.text('en')}, 'en')}\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   }, {
     type: 'quest_start',
@@ -965,16 +965,13 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   };
 
   group.quest.progress.hp -= progress.up;
-  // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
-  let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
-  let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
-    group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
+    group.sendChat(`\`${shared.i18n.t('chatBossDontAttack', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
       type: 'boss_dont_attack',
       quest: group.quest.key,
     });
   } else {
-    group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``, null, null, {
+    group.sendChat(`\`${shared.i18n.t('chatBossDamage', {username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1)}, user.preferences.language)}\``, null, null, {
       type: 'boss_damage',
       user: user.profile.name,
       quest: group.quest.key,
@@ -1017,7 +1014,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``, null, null, {
+    group.sendChat(`\`${shared.i18n.t('chatBossDefeated', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
       type: 'boss_defeated',
       quest: quest.key,
     });
@@ -1071,7 +1068,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  group.sendChat(`\`${user.profile.name} found ${foundText}.\``, null, null, {
+  group.sendChat(`\`${shared.i18n.t('chatFindItems', {username: user.profile.name, items: foundText}, 'en')}\``, null, null, {
     type: 'user_found_items',
     user: user.profile.name,
     quest: quest.key,
@@ -1085,7 +1082,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   })) return await group.save();
 
   await group.finishQuest(quest);
-  group.sendChat('`All items found! Party has received their rewards.`', null, null, {
+  group.sendChat(`\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``, null, null, {
     type: 'all_items_found',
   });
 
@@ -1175,7 +1172,7 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       }
 
       if (!scene) {
-        tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``, null, null, {
+        tavern.sendChat(`\`${shared.i18n.t('tavernBossTired', {rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
           type: 'tavern_boss_rage_tired',
           quest: quest.key,
         });

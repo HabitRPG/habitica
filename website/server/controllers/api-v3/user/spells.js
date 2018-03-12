@@ -129,9 +129,8 @@ api.castSpell = {
       });
 
       if (party && !spell.silent) {
-        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
         if (targetType === 'user') {
-          party.sendChat(message, null, null, {
+          party.sendChat(`\`${common.i18n.t('chatCastSpellUser', {username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name}, 'en')}\``, null, null, {
             type: 'spell_cast_user',
             user: user.profile.name,
             class: klass,
@@ -139,7 +138,7 @@ api.castSpell = {
             target: partyMembers.profile.name,
           });
         } else {
-          party.sendChat(message, null, null, {
+          party.sendChat(`\`${common.i18n.t('chatCastSpellParty', {username: user.profile.name, spell: spell.text()}, 'en')}\``, null, null, {
             type: 'spell_cast_party',
             user: user.profile.name,
             class: klass,
