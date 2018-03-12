@@ -348,10 +348,10 @@ function translateSystemMessages (group, user) {
           group.chat[i].text = `\`${shared.i18n.t('chatItemQuestFinish', user.preferences.language)}\``;
           break;
         case 'spell_cast_party':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellParty', {username: group.chat[i].info.user, spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellParty', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language)}\``;
           break;
         case 'spell_cast_user':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellUser', {username: group.chat[i].info.user, spellName: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), target: group.chat[i].info.target}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellUser', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), target: group.chat[i].info.target}, user.preferences.language)}\``;
           break;
         case 'quest_abort':
           group.chat[i].text = `\`${shared.i18n.t('chatQuestAborted', {username: group.chat[i].info.user, questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
