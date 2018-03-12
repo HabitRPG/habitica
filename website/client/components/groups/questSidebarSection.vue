@@ -41,7 +41,7 @@ div
                 .grey-progress-bar
                   .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
                 strong {{group.quest.progress.collect[key]}} / {{value.count}}
-                span.float-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
+            div.text-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
           .boss-info(v-if='questData.boss')
             .row
               .col-6
