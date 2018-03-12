@@ -129,7 +129,7 @@
   "rageStrikes": "Rage Strikes",
   "chatQuestStarted": "Your quest, <%= questName %>, has started.",
   "chatBossDamage": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> attacks party for <%= bossDamage %> damage.",
-  "chatBossDontAttack": "<%= bossName %> does not attack, because it respects the fact that there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
+  "chatBossDontAttack": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> does not attack, because it respects the fact that there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
   "chatBossDefeated": "You defeated <%= bossName %>! Questing party members receive the rewards of victory.",
   "chatFindItems": "<%= username %> found <%= items %>.",
   "chatItemQuestFinish": "All items found! Party has received their rewards.",

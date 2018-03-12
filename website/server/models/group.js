@@ -329,7 +329,7 @@ function translateSystemMessages (group, user) {
           group.chat[i].text = `\`${shared.i18n.t('chatBossDamage', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage, bossDamage: group.chat[i].info.bossDamage}, user.preferences.language)}\``;
           break;
         case 'boss_dont_attack':
-          group.chat[i].text = `\`${shared.i18n.t('chatBossDontAttack', {bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language)}\``;
+          group.chat[i].text = `\`${shared.i18n.t('chatBossDontAttack', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage}, user.preferences.language)}\``;
           break;
         case 'boss_rage':
           group.chat[i].text = `\`${questScrolls[group.chat[i].info.quest].boss.rage.effect(user.preferences.language)}\``;
@@ -968,7 +968,9 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
     group.sendChat(`\`${shared.i18n.t('chatBossDontAttack', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
       type: 'boss_dont_attack',
+      user: user.profile.name,
       quest: group.quest.key,
+      userDamage: progress.up.toFixed(1),
     });
   } else {
     group.sendChat(`\`${shared.i18n.t('chatBossDamage', {username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1)}, user.preferences.language)}\``, null, null, {
