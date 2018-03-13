@@ -103,6 +103,32 @@ function removeTerminatedSubscription (user) {
   user.markModified('purchased.plan');
 }
 
+function ageHabits (tasksByType) {
+  tasksByType.habits.forEach((task) => {
+    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
+    // move singleton Habits towards yellow.
+    if (task.up === false || task.down === false) {
+      task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
+    }
+  });
+}
+
+function ageTodos (user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally) {
+  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
+    scoreTask({
+      task,
+      user,
+      direction: 'down',
+      cron: true,
+      times: multiDaysCountAsOneDay ? 1 : daysMissed,
+    });
+
+    todoTally += task.value;
+  });
+
+  return todoTally;
+}
+
 function resetHabitCounters (user, tasksByType, now, daysMissed) {
   // check if we've passed a day on which we should reset the habit counters, including today
   let resetWeekly = false;
@@ -157,6 +183,7 @@ function performSleepTasks (user, tasksByType, now, daysMissed) {
   });
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
+  ageHabits(tasksByType);
 }
 
 function trackCronAnalytics (analytics, user, _progress, options) {
@@ -260,32 +287,23 @@ export function cron (options = {}) {
   user.loginIncentives++;
   awardLoginIncentives(user);
 
+  // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
+  // When site-wide difficulty settings are introduced, this can be a user preference option.
+  let multiDaysCountAsOneDay = true;
+
   // User is resting at the inn.
   // On cron, buffs are cleared and all dailies are reset without performing damage
   if (user.preferences.sleep === true) {
     performSleepTasks(user, tasksByType, now, daysMissed);
+    ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, 0);
     trackCronAnalytics(analytics, user, _progress, options);
     return;
   }
 
-  let multiDaysCountAsOneDay = true;
-  // If the user does not log in for two or more days, cron (mostly) acts as if it were only one day.
-  // When site-wide difficulty settings are introduced, this can be a user preference option.
-
   // Tally each task
   let todoTally = 0;
 
-  tasksByType.todos.forEach(task => { // make uncompleted To-Dos redder (further incentive to complete them)
-    scoreTask({
-      task,
-      user,
-      direction: 'down',
-      cron: true,
-      times: multiDaysCountAsOneDay ? 1 : daysMissed,
-    });
-
-    todoTally += task.value;
-  });
+  todoTally = ageTodos(user, tasksByType, multiDaysCountAsOneDay, daysMissed, todoTally);
 
   // For incomplete Dailys, add value (further incentive), deduct health, keep records for later decreasing the nightly mana gain
   let dailyChecked = 0; // how many dailies were checked?
@@ -376,14 +394,7 @@ export function cron (options = {}) {
   });
 
   resetHabitCounters(user, tasksByType, now, daysMissed);
-
-  tasksByType.habits.forEach((task) => {
-    // slowly reset value to 0 for "onlies" (Habits with + or - but not both)
-    // move singleton Habits towards yellow.
-    if (task.up === false || task.down === false) {
-      task.value = Math.abs(task.value) < 0.1 ? 0 : task.value = task.value / 2;
-    }
-  });
+  ageHabits(tasksByType);
 
   // Finished tallying
   user.history.todos.push({date: now, value: todoTally});
