@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Dieser Aufgaben Alias wird bereits verwendet.",
     "taskNotFound": "Aufgabe nicht gefunden.",
     "invalidTaskType": "Aufgabenart muss eines der folgenden sein: \"Gewohnheit\", \"tägliche Aufgabe\", \"To-Do\", \"Belohnung\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Eine Aufgabe, die zu einem Wettbewerb gehört, kann nicht gelöscht werden.",
     "checklistOnlyDailyTodo": "Checklisten sind nur für Tägliche Aufgaben und To-Do's verfügbar.",
     "checklistItemNotFound": "Es wurde kein Checklisten-Eintrag mit dieser ID gefunden.",

@@ -18,6 +18,15 @@
           .col-12.text-center.padding-24
             h2 {{ $t('marketRageStrikeLead') }}
             p {{ $t('marketRageStrikeRecap') }}
+    div(v-if="npc === 'quests'")
+      .modal-header.d-flex.align-items-center.justify-content-center
+        .reduce {{ $t('questsRageStrikeHeader') }}
+      img.npc-background(src='~assets/images/npc/broken/rage-strike-quests-scaled@2x.png')
+      .modal-body
+        .row
+          .col-12.text-center.padding-24
+            h2 {{ $t('questsRageStrikeLead') }}
+            p {{ $t('questsRageStrikeRecap') }}
 </template>
 
 <style>

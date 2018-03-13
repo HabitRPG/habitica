@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "A tarefa alíbi já está sendo utilizada em outra tarefa",
     "taskNotFound": "Tarefa não encontrada.",
     "invalidTaskType": "O tipo de tarefa precisa ser um de \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Uma tarefa que pertença a um desafio não pode ser deletada.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "Nenhum item de lista foi encontrado com o id dado.",

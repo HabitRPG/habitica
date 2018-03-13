@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SECOND DYSHEARTENER RAGE STRIKE! LAST CHANCE FOR LOVE BUG SET AND CUPID POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'DYSHEARTENER DEFEATED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,26 +31,18 @@ api.getNews = {
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
+          <div class="promo_hippogriff"></div>
         </div>
-        <h2>2/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/8/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>World Boss: Dysheartener Attacks the Market!</h3>
-        <p>Help! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.</p>
-        <p>We can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.</p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, viirus, piyorii, and Apollo</div>
-        <div class="media d-flex align-items-center">
-          <div class="media-body">
-            <h3>Last Chance for Love Bug Set</h3>
-            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Love Bug Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
-            <h3>Last Chance for Cupid Hatching Potions</h3>
-            <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Cupid Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
-            <div class="small mb-3">by Willow the Witty and SabreCat</div>
-          </div>
-          <div class="promo_cupid_potions ml-3"></div>
-        </div>
-        <div class="promo_mystery_201802 center-block"></div>
+        <h3>World Boss: Dysheartener Defeated!</h3>
+        <p>Together, everyone in Habitica strikes a final blow to their tasks, and the Dysheartener rears back, shrieking with dismay. "What's wrong, Dysheartener?" AnnDeLune calls, eyes sparkling. "Feeling discouraged?"</p>
+        <p>Glowing pink fractures crack across the Dysheartener's carapace, and it shatters in a puff of pink smoke. As a renewed sense of vigor and determination sweeps across the land, a flurry of delightful sweets rains down upon everyone.</p>
+        <p>The crowd cheers wildly, hugging each other as their pets happily chew on the belated Valentine's treats. Suddenly, a joyful chorus of song cascades through the air, and gleaming silhouettes soar across the sky.</p>
+        <p>Our newly-invigorated optimism has attracted a flock of Hopeful Hippogriffs! The graceful creatures alight upon the ground, ruffling their feathers with interest and prancing about. "It looks like we've made some new friends to help keep our spirits high, even when our tasks are daunting," Lemoness says.</p>
+        <p>Beffymaroo already has her arms full with feathered fluffballs. "Maybe they'll help us rebuild the damaged areas of Habitica!"</p>
+        <p>Crooning and singing, the Hippogriffs lead the way as all the Habitcans work together to restore our beloved home.</p>
+        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, AnnDeLune, viirus, piyorii, and Apollo</div>
       </div>
       `,
     });
