@@ -1,5 +1,5 @@
 <template lang="pug">
-  b-modal#won-challenge(:title="$t('wonChallenge')", size='md', :hide-footer="true")
+  b-modal#won-challenge(:title="$t('wonChallenge')", size='md', :hide-footer="true", @shown='syncUser')
     .modal-body.text-center
       h4(v-markdown='user.achievements.challenges[user.achievements.challenges.length - 1]')
       .row
@@ -58,6 +58,12 @@ export default {
     };
   },
   methods: {
+    async syncUser () {
+      // @TODO: There are times when the user is not updated when this modal is shown
+      // It would be nice to not need to fetch to full user, maybe just the achievements?
+      // See https://github.com/HabitRPG/habitica/issues/7716
+      await this.$store.dispatch('user:fetch', {forceLoad: true});
+    },
     close () {
       this.$root.$emit('bv::hide::modal', 'won-challenge');
     },
