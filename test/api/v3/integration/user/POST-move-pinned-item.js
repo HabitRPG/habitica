@@ -1,6 +1,5 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../helpers/api-integration/v3';
 
 import getOfficialPinnedItems from '../../../../../website/common/script/libs/getOfficialPinnedItems.js';
@@ -14,8 +13,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     officialPinnedItems = getOfficialPinnedItems(user);
   });
 
-  it.only('adjusts the order of pinned items with no order mismatch', async () => {
-
+  it('adjusts the order of pinned items with no order mismatch', async () => {
     let testPinnedItems = [
       { type: 'armoire', path: 'armoire' },
       { type: 'potion', path: 'potion' },
@@ -27,7 +25,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       { type: 'card', path: 'cardTypes.greeting' },
       { type: 'potion', path: 'hatchingPotions.Golden' },
       { type: 'card', path: 'cardTypes.thankyou' },
-      { type: 'food', path: 'food.Saddle' }
+      { type: 'food', path: 'food.Saddle' },
     ];
 
     let testPinnedItemsOrder = [
@@ -40,7 +38,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'gear.flat.armor_warrior_1',
       'food.Saddle',
       'gear.flat.shield_warrior_1',
-      'potion'
+      'potion',
     ];
 
     let officialPinnedItemPaths = [];
@@ -54,8 +52,8 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     }
 
     await user.update({
-      'pinnedItems': testPinnedItems,
-      'pinnedItemsOrder': testPinnedItemsOrder,
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
     });
 
     let res = await user.post('/user/move-pinned-item/armoire/move/to/5');
@@ -74,19 +72,19 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'gear.flat.armor_warrior_1',
       'food.Saddle',
       'gear.flat.shield_warrior_1',
-      'potion'
+      'potion',
     ];
     expectedResponse = expectedResponse.concat(officialPinnedItemPaths);
 
     expect(res).to.eql(expectedResponse);
   });
 
-  it( 'adjusts the order of pinned items with order mismatch', async () => {
-
-    // Shuffle all of them up and don't put the pinned items in...
-
+  it('adjusts the order of pinned items with order mismatch', async () => {
+    // TODO - create test where pinned items need to be refreshed
   });
 
-  // TODO - this must be included in the other tests
-
+  it('adjusts the order of pinned items using seasonal unpinned item', async () => {
+    // TODO - create a test with seasonal item that has been unpinned and thus
+    // not used anymore
+  });
 });
