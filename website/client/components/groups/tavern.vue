@@ -782,21 +782,13 @@ export default {
         this.$root.$emit('bv::show::modal', 'world-boss-rage');
       }
     },
+
     async viewStaffProfile (staffId) {
-      const result = await this.$store.dispatch('members:fetchMember', { memberId: staffId });
-
-      let profile;
-      if (result.data) {
-        profile = result.data.data;
-      }
-
-      // Open the modal only if the data is available
-      if (profile && !profile.rejected) {
-        this.$root.$emit('habitica:show-profile', {
-          user: profile,
-          startingPage: 'profile',
-        });
-      }
+      let staffDetails = await this.$store.dispatch('members:fetchMember', { memberId: staffId });
+      this.$root.$emit('habitica:show-profile', {
+        user: staffDetails.data.data,
+        startingPage: 'profile',
+      });
     },
   },
 };
