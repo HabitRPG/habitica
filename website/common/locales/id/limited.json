@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Penyembuh Mistletoe (Healer)",
     "winter2018ReindeerSet": "Rogue Rusa Kutub (Rogue)",
     "eventAvailability": "Tersedia untuk dibeli hingga <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 April",
     "dateEndMay": "17 Mei",
     "dateEndJune": "14 Juni",
