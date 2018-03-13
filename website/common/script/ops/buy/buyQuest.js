@@ -10,7 +10,9 @@ import get from 'lodash/get';
 // buy a quest with gold
 module.exports = function buyQuest (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  let quantity = Number(req.quantity) || 1;
+
+  if (req.quantity && isNaN(req.quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
+  let quantity = req.quantity ? Number(req.quantity) : 1;
 
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
