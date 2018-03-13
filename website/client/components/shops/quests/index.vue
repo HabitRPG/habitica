@@ -448,8 +448,10 @@ export default {
 
         switch (sortBy) {
           case 'AZ': {
-            result = _sortBy(result, ['text']);
-
+            result.forEach(item => {
+              item.textWithoutTitle = item.text.replace('The ', '');
+            });
+            result = _sortBy(result, ['textWithoutTitle']);
             break;
           }
           case 'sortByNumber': {
