@@ -7,10 +7,17 @@ import getOfficialPinnedItems from '../../../../../website/common/script/libs/ge
 describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   let user;
   let officialPinnedItems;
+  let officialPinnedItemPaths;
 
   beforeEach(async () => {
     user = await generateUser();
     officialPinnedItems = getOfficialPinnedItems(user);
+
+    officialPinnedItemPaths = [];
+    // officialPinnedItems are returned in { type: ..., path:... } format but we just need the paths for testPinnedItemsOrder
+    if (officialPinnedItems.length > 0) {
+      officialPinnedItemPaths = officialPinnedItems.map(item => item.path);
+    }
   });
 
   it('adjusts the order of pinned items with no order mismatch', async () => {
@@ -41,15 +48,8 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'potion',
     ];
 
-    let officialPinnedItemPaths = [];
-
-    // officialPinnedItems are returned in { type: ..., path:... } format
-    // but we just need the paths for testPinnedItemsOrder
-    if (officialPinnedItems.length > 0) {
-      officialPinnedItemPaths = officialPinnedItems.map(item => item.path);
-      // For this test put the seasonal items at the end where they can stay out of the way
-      testPinnedItemsOrder = testPinnedItemsOrder.concat(officialPinnedItemPaths);
-    }
+    // For this test put seasonal items at the end so they stay out of the way
+    testPinnedItemsOrder = testPinnedItemsOrder.concat(officialPinnedItemPaths);
 
     await user.update({
       pinnedItems: testPinnedItems,
@@ -80,7 +80,44 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   });
 
   it('adjusts the order of pinned items with order mismatch', async () => {
-    // TODO - create test where pinned items need to be refreshed
+    let testPinnedItems = [
+      { type: 'card', path: 'cardTypes.thankyou' },
+      { type: 'card', path: 'cardTypes.greeting' },
+      { type: 'potion', path: 'potion' },
+      { type: 'armoire', path: 'armoire' },
+    ];
+
+    let testPinnedItemsOrder = [
+      'armoire',
+      'potion',
+    ];
+
+    await user.update({
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
+    });
+
+    let res = await user.post('/user/move-pinned-item/armoire/move/to/1');
+    await user.sync();
+
+    // The basic test
+    expect(user.pinnedItemsOrder[1]).to.equal('armoire');
+
+    // potion is now the last item because the 2 unacounted for cards show up
+    // at the beginning of the order
+    expect(user.pinnedItemsOrder[user.pinnedItemsOrder.length - 1]).to.equal('potion');
+
+    let expectedResponse = [
+      'cardTypes.thankyou',
+      'cardTypes.greeting',
+      'potion',
+    ];
+    // inAppRewards is used here and will by default put these seasonal items in the front like this:
+    expectedResponse = officialPinnedItemPaths.concat(expectedResponse);
+    // now put "armoire" in where we moved it:
+    expectedResponse.splice(1, 0, 'armoire');
+
+    expect(res).to.eql(expectedResponse);
   });
 
   it('adjusts the order of pinned items using seasonal unpinned item', async () => {
