@@ -1,8 +1,8 @@
 {
-  "share": "Share",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "share": "Distribuie",
+  "onwards": "Înainte!",
+  "levelup": "Prin atingerea scopurilor în viață, ai trecut la următorul nivel și viața îți este complet refăcută.",
+  "reachedLevel": "Ai Atins Nivelul <%= level %>",
+  "achievementLostMasterclasser": "Săvârșitorul de expediții: Seria Masterclass",
+  "achievementLostMasterclasserText": "Ai terminat toate cele șaisprezece expediții în Seria de Expediții Masterclass și ai rezolvat misterul Masterclasser-ului Pierdut!"
 }

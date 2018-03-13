@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Sanador de Muérdago (Sanador)",
     "winter2018ReindeerSet": "Pícaro Reno (Pícaro)",
     "eventAvailability": "Disponible para su compra hasta el <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 de abril",
     "dateEndMay": "17 de mayo",
     "dateEndJune": "14 de junio",

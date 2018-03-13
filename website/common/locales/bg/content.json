@@ -191,6 +191,7 @@
     "hatchingPotionShimmer": "Блещукащ цвят",
     "hatchingPotionFairy": "Фейски цвят",
     "hatchingPotionStarryNight": "Звездна нощ",
+    "hatchingPotionRainbow": "Rainbow",
     "hatchingPotionNotes": "Излейте това върху яйце и от него ще се излюпи любимец с(ъс) <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Не може да се използва върху яйца за любимци от мисии.",
     "foodMeat": "Месо",

@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Имелен лечител (лечител)",
     "winter2018ReindeerSet": "Еленов мошеник (мошеник)",
     "eventAvailability": "Налично за купуване до <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 април",
     "dateEndMay": "17 май",
     "dateEndJune": "14 юни",
