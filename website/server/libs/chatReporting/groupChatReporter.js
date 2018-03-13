@@ -50,11 +50,12 @@ export default class GroupChatReporter extends ChatReporter {
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', this.emailVariables.concat([
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', this.emailVariables.concat([
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
       {name: 'GROUP_ID', content: group._id},
       {name: 'GROUP_URL', content: groupUrl},
+      {name: 'REPORTER_COMMENT', content: userComment || ''},
     ]));
 
     slack.sendFlagNotification({

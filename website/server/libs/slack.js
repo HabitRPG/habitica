@@ -35,7 +35,7 @@ function sendFlagNotification ({
   let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
 
   if (userComment) {
-    text += `User Commented: ${userComment}`;
+    text += ` and commented: ${userComment}`;
   }
 
   if (group.id === TAVERN_ID) {
