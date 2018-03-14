@@ -946,7 +946,7 @@
         const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
         if (result.message) this.text(result.message);
         if (this.user.preferences.suppressModals.raisePet) return;
-        this.$root.$emit('habitica::mount-raised', petKey);
+        if (this.user.items.pets[petKey] === -1) this.$root.$emit('habitica::mount-raised', petKey);
       },
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
