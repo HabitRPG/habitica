@@ -25,7 +25,6 @@ newrelic_agent.log
 Vagrantfile
 TODO
 *.log
-.gitattributes
 src/*/*.map
 src/*/*/*.map
 test/*.js
