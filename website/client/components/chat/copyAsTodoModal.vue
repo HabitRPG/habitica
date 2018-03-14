@@ -1,4 +1,4 @@
-<template lang="pug">
+ <template lang="pug">
   b-modal#copyAsTodo(:title="$t('copyMessageAsToDo')", :hide-footer="true", size='md')
     .form-group
       input.form-control(type='text', v-model='task.text')
@@ -36,18 +36,9 @@ export default {
       task: {},
     };
   },
-  generateURL () {
-    if (this.group.Type === 'party') {
-      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseURL}/party)`;
-    } else if (this.group.Type === 'guild') {
-      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}]([${this.groupName}](${baseURL}/groups/guild/${this.groupId})`;
-    } else if (this.groupId === 'tavern') {
-      return `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}](${baseURL}/groups/tavern)`;
-    }
-  },
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = generateURL();
+      const notes = message;
       const newTask = {
         text: message.text,
         type: 'todo',
@@ -71,6 +62,14 @@ export default {
       this.createTask(this.task);
       this.text(this.$t('messageAddedAsToDo'));
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
+      let taskNote = `${this.message.user || 'system message'}${this.message.user ? ' wrote' : ''} in [${this.groupName}]`;
+      if (this.group.Type === 'party') {
+        return `${taskNote}(${baseUrl}/party)`;
+      } else if (this.group.Type === 'guild') {
+        return `${taskNote}(${baseUrl}/groups/guild/${this.groupId})`;
+      } else if (this.groupId === 'tavern') {
+        return `${taskNote}(${baseUrl}/groups/tavern)`;
+      }
     },
   },
 };
