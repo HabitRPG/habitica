@@ -20,7 +20,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     }
   });
 
-  it('adjusts the order of pinned items with no order mismatch', async () => {
+  it.only('adjusts the order of pinned items with no order mismatch', async () => {
     let testPinnedItems = [
       { type: 'armoire', path: 'armoire' },
       { type: 'potion', path: 'potion' },
@@ -61,6 +61,9 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
 
     expect(user.pinnedItemsOrder[5]).to.equal('armoire');
     expect(user.pinnedItemsOrder[2]).to.equal('gear.flat.weapon_warrior_1');
+
+    // We have done nothing to change pinnedItems!
+    expect(user.pinnedItems).to.deep.equal(testPinnedItems);
 
     let expectedResponse = [
       'hatchingPotions.Golden',
