@@ -36,9 +36,19 @@ export default {
       task: {},
     };
   },
+  generateURL (message) {
+    let taskNote =  `${message.user || 'system message'}${message.user ? ' wrote' : ''} in [${this.groupName}]`;
+    if (this.group.Type === 'party') {
+      return `${taskNote}(${baseUrl}/party)`;
+    } else if (this.group.Type === 'guild') {
+      return `${taskNote}(${baseUrl}/groups/guild/${this.groupId})`;
+    } else if (this.groupId === 'tavern') {
+      return `${taskNote}(${baseUrl}/groups/tavern)`;
+    }
+  },
   mounted () {
     this.$root.$on('habitica::copy-as-todo', message => {
-      const notes = message;
+      const notes = this.generateURL(message);
       const newTask = {
         text: message.text,
         type: 'todo',
@@ -62,14 +72,6 @@ export default {
       this.createTask(this.task);
       this.text(this.$t('messageAddedAsToDo'));
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
-      let taskNote = `${this.message.user || 'system message'}${this.message.user ? ' wrote' : ''} in [${this.groupName}]`;
-      if (this.group.Type === 'party') {
-        return `${taskNote}(${baseUrl}/party)`;
-      } else if (this.group.Type === 'guild') {
-        return `${taskNote}(${baseUrl}/groups/guild/${this.groupId})`;
-      } else if (this.groupId === 'tavern') {
-        return `${taskNote}(${baseUrl}/groups/tavern)`;
-      }
     },
   },
 };
