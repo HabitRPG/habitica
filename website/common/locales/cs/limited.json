@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Léčitel z Jmelí (Léčitel)",
     "winter2018ReindeerSet": "Sobí Zloděj (Zloděj)",
     "eventAvailability": "Dostupný k zakoupení do <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "Duben 19",
     "dateEndMay": "Květen 17",
     "dateEndJune": "Červen 14",

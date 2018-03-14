@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Maretak Heler",
     "winter2018ReindeerSet": "Rendierdief",
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 april",
     "dateEndMay": "17 mei",
     "dateEndJune": "14 juni",
