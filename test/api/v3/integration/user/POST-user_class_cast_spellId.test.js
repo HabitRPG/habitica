@@ -192,18 +192,23 @@ describe('POST /user/class/cast/:spellId', () => {
       groupDetails: { type: 'party', privacy: 'private' },
       members: 4,
     });
-    await group.groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20});
-    await group.members[0].update({'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20});
-    await group.members[1].update({'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20});
-    await group.members[2].update({'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20});
-    await group.members[3].update({'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20});
+
+    let promises = [];
+    promises.push(group.groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[0].update({'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20}));
+    promises.push(group.members[1].update({'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[2].update({'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20}));
+    promises.push(group.members[3].update({'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20}));
+    await Promise.all(promises);
 
     await group.groupLeader.post('/user/class/cast/mpheal');
-    await sleep(0.5);
-    await group.members[0].sync();
-    await group.members[1].sync();
-    await group.members[2].sync();
-    await group.members[3].sync();
+
+    promises = [];
+    promises.push(group.members[0].sync());
+    promises.push(group.members[1].sync());
+    promises.push(group.members[2].sync());
+    promises.push(group.members[3].sync());
+    await Promise.all(promises);
 
     expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
     expect(group.members[1].stats.mp).to.equal(0); // wizard
