@@ -115,7 +115,7 @@
               .svg-icon(v-html="icons.downIcon")
         .row.contact-row
           .col-12
-            a(:href='contactUrl', target='_blank') {{ $t('contactForm') }}
+            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
         .section.row(v-if="sections.staff")
           // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
@@ -524,7 +524,7 @@
 <script>
 import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
-import { getModFormLink } from 'client/libs/modform';
+import { goToModForm } from 'client/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
@@ -690,14 +690,14 @@ export default {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
     },
-    contactUrl () {
-      return getModFormLink(this.user);
-    },
   },
   async mounted () {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
+    modForm () {
+      goToModForm(this.user);
+    },
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
       let carPos = text.selectionEnd;

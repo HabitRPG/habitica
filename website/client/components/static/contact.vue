@@ -34,24 +34,26 @@
           | {{ $t('merchandiseInquiries') }}
           | &colon;&nbsp;
           a(href='mailto:admin@habitica.com') admin&commat;habitica&period;com
-          span(v-if='contactUrl')
+          span(v-if='this.user')
             br
             | {{ $t('reportCommunityIssues') }}
             | &colon;&nbsp;
-            a(:href='contactUrl', target='_blank') {{ $t('contactForm') }}
+            a(@click.prevent='modForm()', href='') {{ $t('contactForm') }}
 </template>
 
 <script>
 import { mapState } from 'client/libs/store';
-import { getModFormLink } from 'client/libs/modform';
+import { goToModForm } from 'client/libs/modform';
 
 export default {
   computed: {
     ...mapState({
       user: 'user.data',
     }),
-    contactUrl () {
-      return getModFormLink(this.user);
+  },
+  methods: {
+    modForm () {
+      goToModForm(this.user);
     },
   },
 };

@@ -55,7 +55,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.dropdown-item(:href="contactUrl", target='_blank') {{ $t('contactForm') }}
+            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
       .user-menu.d-flex.align-items-center
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
@@ -284,7 +284,7 @@ div
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
-import { getModFormLink } from 'client/libs/modform';
+import { goToModForm } from 'client/libs/modform';
 
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
@@ -327,14 +327,14 @@ export default {
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
       groupPlans: 'groupPlans',
     }),
-    contactUrl () {
-      return getModFormLink(this.user);
-    },
   },
   mounted () {
     this.getUserGroupPlans();
   },
   methods: {
+    modForm () {
+      goToModForm(this.user);
+    },
     toggleUserDropdown () {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
