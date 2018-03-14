@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DYSHEARTENER DEFEATED!';
+const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER AND RAINBOW HATCHING POTIONS; SPRING CLEANING GUILD SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,18 +31,26 @@ api.getNews = {
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
-          <div class="promo_hippogriff"></div>
         </div>
-        <h2>3/8/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/13/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>World Boss: Dysheartener Defeated!</h3>
-        <p>Together, everyone in Habitica strikes a final blow to their tasks, and the Dysheartener rears back, shrieking with dismay. "What's wrong, Dysheartener?" AnnDeLune calls, eyes sparkling. "Feeling discouraged?"</p>
-        <p>Glowing pink fractures crack across the Dysheartener's carapace, and it shatters in a puff of pink smoke. As a renewed sense of vigor and determination sweeps across the land, a flurry of delightful sweets rains down upon everyone.</p>
-        <p>The crowd cheers wildly, hugging each other as their pets happily chew on the belated Valentine's treats. Suddenly, a joyful chorus of song cascades through the air, and gleaming silhouettes soar across the sky.</p>
-        <p>Our newly-invigorated optimism has attracted a flock of Hopeful Hippogriffs! The graceful creatures alight upon the ground, ruffling their feathers with interest and prancing about. "It looks like we've made some new friends to help keep our spirits high, even when our tasks are daunting," Lemoness says.</p>
-        <p>Beffymaroo already has her arms full with feathered fluffballs. "Maybe they'll help us rebuild the damaged areas of Habitica!"</p>
-        <p>Crooning and singing, the Hippogriffs lead the way as all the Habitcans work together to restore our beloved home.</p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, AnnDeLune, viirus, piyorii, and Apollo</div>
+        <div class="media">
+          <div class="media-body">
+            <h3>Shimmer and Rainbow Hatching Potions</h3>
+            <p>We've brought back Shimmer Potions, and added a brand-new Magic Hatching Potion: Rainbow! Between now and March 31st, you can buy these Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+            <p>After they're gone, it will be at least a year before the Shimmer or Rainbow Hatching Potions are available again, so be sure to get them now!</p>
+            <div class="small mb-3">by Beffymaroo, Teto Forever, tricksy.fox, and SabreCat</div>
+            <div class="media">
+              <div class="scene_sweeping mr-3"></div>
+              <div class="media-body">
+                <h3>Another One Fights the Dust: Guilds for Spring Cleaning</h3>
+                <p>There's a new <a href='https://habitica.wordpress.com/2018/03/08/another-one-fights-the-dust-guilds-for-spring-cleaning/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you with your Spring Cleaning! Check it out now to find Habitica's best communities for help and motivation with cleaning.</p>
+                <div class="small mb-3">by Beffymaroo</div>
+              </div>
+            </div>
+          </div>
+          <div class="promo_rainbow_potions ml-3"></div>
+        </div>
       </div>
       `,
     });

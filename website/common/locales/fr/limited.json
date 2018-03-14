@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Guérisseur du gui (Guérisseur)",
     "winter2018ReindeerSet": "Voleur renne (Voleur)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 avril",
     "dateEndMay": "17 mai",
     "dateEndJune": "14 juin",
