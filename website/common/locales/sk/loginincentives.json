@@ -1,5 +1,5 @@
 {
-  "unlockedReward": "You have received <%= reward %>",
+  "unlockedReward": "Máš <%= reward %>",
   "earnedRewardForDevotion": "You have earned <%= reward %> for being committed to improving your life.",
   "nextRewardUnlocksIn": "Check-ins until your next prize: <%= numberOfCheckinsLeft %>",
   "awesome": "Awesome!",
@@ -19,8 +19,8 @@
   "oneOfAllHatchingPotions": "one of each standard Hatching Potion",
   "threeOfEachFood": "three of each standard Pet Food",
   "fourOfEachFood": "four of each standard Pet Food",
-  "twoSaddles": "two Saddles",
-  "threeSaddles": "three Saddles",
+  "twoSaddles": "dve Sedlá",
+  "threeSaddles": "tri Sedlá",
   "incentiveAchievement": "the Royally Loyal achievement",
   "royallyLoyal": "Royally Loyal",
   "royallyLoyalText": "This user has checked in over 500 times, and has earned every Check-In Prize!",

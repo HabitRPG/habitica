@@ -191,6 +191,7 @@
     "hatchingPotionShimmer": "Berkilau",
     "hatchingPotionFairy": "Peri",
     "hatchingPotionStarryNight": "Malam Berbintang",
+    "hatchingPotionRainbow": "Rainbow",
     "hatchingPotionNotes": "Berikan ini kepada sebuah telur, dan ia akan menetas menjadi binatang peliharaan <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Tidak dapat digunakan kepada telur peliharaan yang didapat dari misi.",
     "foodMeat": "Daging",

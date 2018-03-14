@@ -144,7 +144,7 @@ export default {
         healer: healerIcon,
         wizard: wizardIcon,
       }),
-      selectedClass: '',
+      selectedClass: 'warrior',
     };
   },
   directives: {

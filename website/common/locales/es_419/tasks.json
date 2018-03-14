@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Borrar hábitos completados",
-    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedDescription": "Las tareas pendientes completadas se eliminan después de 30 días para los no suscriptores y de 90 días para los suscriptores.",
     "clearCompletedConfirm": "¿Estas seguro que quieres borrar tus pendientes completados?",
     "sureDeleteCompletedTodos": "¿Estas seguro que quieres borrar tus pendientes completados?",
     "lotOfToDos": "Se ven las 30 tareas completadas más recientes aquí. Se pueden ver tareas completadas anteriores por Datos >  Exportar Datos > Datos de Usario.",
@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "El alias de la tarea ya ha sido utilizado en otra.",
     "taskNotFound": "Tarea no encontrada.",
     "invalidTaskType": "El tipo de tarea debe ser:\"Habitos\",\"Diarias\",\"Pendientes\" o \"Recompensas\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Una tarea perteneciente a un desafio no puede ser eliminada.",
     "checklistOnlyDailyTodo": "Las listas solo están disponibles en Diarias y Pendientes",
     "checklistItemNotFound": "Ningun objeto de lista fue encontrado con el id porporcionado.",

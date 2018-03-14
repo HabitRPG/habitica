@@ -76,7 +76,7 @@ module.exports = function buyGear (user, req = {}, analytics) {
   }
 
   return [
-    pick(user, splitWhitespace('items achievements stats flags')),
+    pick(user, splitWhitespace('items achievements stats flags pinnedItems')),
     message,
   ];
 };

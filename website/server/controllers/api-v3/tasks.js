@@ -287,7 +287,7 @@ api.getUserTasks = {
   async handler (req, res) {
     let types = Tasks.tasksTypes.map(type => `${type}s`);
     types.push('completedTodos', '_allCompletedTodos'); // _allCompletedTodos is currently in BETA and is likely to be removed in future
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksTypeExtra')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -325,7 +325,7 @@ api.getChallengeTasks = {
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
     let types = Tasks.tasksTypes.map(type => `${type}s`);
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

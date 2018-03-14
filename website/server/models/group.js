@@ -141,7 +141,7 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next, group) {
+schema.pre('init', function ensureSummaryIsFetched (group) {
   // The Vue website makes the summary be mandatory for all new groups, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any guild without a summary is fetched from the database, this code
@@ -152,7 +152,6 @@ schema.pre('init', function ensureSummaryIsFetched (next, group) {
   if (!group.summary) {
     group.summary = group.name ? group.name.substring(0, MAX_SUMMARY_SIZE_FOR_GUILDS) : ' ';
   }
-  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -441,6 +440,16 @@ schema.methods.isMember = function isGroupMember (user) {
   } else { // guilds
     return user.guilds.indexOf(this._id) !== -1;
   }
+};
+
+schema.methods.getMemberCount = async function getMemberCount () {
+  let query = { guilds: this._id };
+
+  if (this.type === 'party') {
+    query = { 'party._id': this._id };
+  }
+
+  return await User.count(query).exec();
 };
 
 export function chatDefaults (msg, user) {
@@ -1085,7 +1094,6 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       } else {
         tavern.sendChat(quest.boss.rage[scene]('en'));
         tavern.quest.extra.worldDmg[scene] = true;
-        tavern.quest.extra.worldDmg.recent = scene;
         tavern.markModified('quest.extra.worldDmg');
         tavern.quest.progress.rage = 0;
         if (quest.boss.rage.healing) {
