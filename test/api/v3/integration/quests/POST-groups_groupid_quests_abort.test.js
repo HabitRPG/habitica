@@ -42,11 +42,11 @@ describe('POST /groups/:groupId/quests/abort', () => {
 
     it('returns an error for a group in which user is not a member', async () => {
       await expect(user.post(`/groups/${questingGroup._id}/quests/abort`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('groupNotFound'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
     });
 
     it('returns an error when group is a guild', async () => {
@@ -55,11 +55,11 @@ describe('POST /groups/:groupId/quests/abort', () => {
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/abort`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('guildQuestsNotSupported'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('guildQuestsNotSupported'),
+        });
     });
 
     it('returns an error when quest is not active', async () => {

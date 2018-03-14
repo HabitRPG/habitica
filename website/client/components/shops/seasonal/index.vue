@@ -23,7 +23,8 @@
           )
     .standard-page
       div.featuredItems
-        .background(:class="{opened: seasonal.opened}")
+        .background(:class="{opened: seasonal.opened && !broken, broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -32,7 +33,8 @@
           div.content(v-if="!seasonal.opened")
             div.featured-label.with-border.closed
               span.rectangle
-              span.text(v-once, v-html="seasonal.notes")
+              span.text(v-if="!broken", v-html="seasonal.notes")
+              span.text(v-if="broken") {{ $t('seasonalShopBrokenText') }}
               span.rectangle
           div.content(v-else-if="seasonal.featured.items.length !== 0")
             div.featured-label.with-border(v-if='!featuredGearBought')
@@ -149,13 +151,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .group {
     display: inline-block;
     width: 50%;
@@ -237,6 +232,18 @@
         background-repeat: repeat-x;
       }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
       .content {
         display: flex;
         flex-direction: column;
@@ -259,8 +266,13 @@
         }
       }
 
-      .opened .npc{
+      .opened .npc {
         background: url('~assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_npc.png');
+        background-repeat: no-repeat;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/seasonal_shop_broken_npc.png');
         background-repeat: no-repeat;
       }
     }
@@ -355,7 +367,13 @@
         featuredGearBought: false,
 
         backgroundUpdate: new Date(),
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.seasonalShop;
     },
     computed: {
       ...mapState({

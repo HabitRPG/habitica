@@ -98,7 +98,7 @@ describe('PUT /tasks/:id', () => {
       expect(savedTask.userId).to.equal(task.userId);
       expect(savedTask.history).to.eql(task.history);
       expect(savedTask.createdAt).to.equal(task.createdAt);
-      expect(savedTask.updatedAt).to.be.greaterThan(task.updatedAt);
+      expect(new Date(savedTask.updatedAt)).to.be.greaterThan(new Date(task.updatedAt));
       expect(savedTask.challenge._id).to.equal(task.challenge._id);
       expect(savedTask.completed).to.equal(task.completed);
       expect(savedTask.streak).to.equal(task.streak);

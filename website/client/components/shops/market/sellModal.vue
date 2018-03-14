@@ -26,7 +26,7 @@
           b.how-many-to-sell {{ $t('howManyToSell') }}
 
         div
-          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemCount", min="1")
+          b-input.itemsToSell(type="number", v-model="selectedAmountToSell", :max="itemCount", min="1", @keyup.native="preventNegative($event)")
 
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons.gold")
           span.value {{ item.value }}
@@ -61,15 +61,6 @@
     .inner-content {
       margin: 33px auto auto;
       width: 282px;
-    }
-
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
     }
 
     span.svg-icon.inline.icon-32 {
@@ -149,6 +140,13 @@
         this.$emit('change', $event);
 
         this.selectedAmountToSell = 1;
+      },
+      preventNegative ($event) {
+        let value = $event.target.value;
+
+        if (isNaN($event.target.valueAsNumber) || Number(value) < 0) {
+          this.selectedAmountToSell = 0;
+        }
       },
       sellItems () {
         this.$store.dispatch('shops:sellItems', {

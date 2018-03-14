@@ -7,7 +7,6 @@ import {
   generateTodo,
   generateReward,
 } from '../../helpers/common.helper';
-import common from '../../../website/common';
 import i18n from '../../../website/common/script/i18n';
 import {
   NotAuthorized,
@@ -16,17 +15,9 @@ import crit from '../../../website/common/script/fns/crit';
 
 let EPSILON = 0.0001; // negligible distance between datapoints
 
-/* Helper Functions */
-let rewrapUser = (user) => {
-  user._wrapped = false;
-  common.wrap(user);
-  return user;
-};
-
 let beforeAfter = () => {
   let beforeUser = generateUser();
   let afterUser = _.cloneDeep(beforeUser);
-  rewrapUser(afterUser);
 
   return {
     beforeUser,
@@ -291,11 +282,14 @@ describe('shared.ops.scoreTask', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
         expectGainedPoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
         expect(daily.completed).to.eql(true);
+        expect(daily.history.length).to.eql(1);
       });
 
       it('up, down', () => {
         scoreTask({user: ref.afterUser, task: daily, direction: 'up'});
+        expect(daily.history.length).to.eql(1);
         scoreTask({user: ref.afterUser, task: daily, direction: 'down'});
+        expect(daily.history.length).to.eql(0);
         expectClosePoints(ref.beforeUser, ref.afterUser, freshDaily, daily);
       });
 

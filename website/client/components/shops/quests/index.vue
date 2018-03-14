@@ -29,7 +29,8 @@
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -241,13 +242,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .group {
     display: inline-block;
     width: 33%;
@@ -314,6 +308,23 @@
           margin: 0;
           left: 70px;
         }
+      }
+
+      .background.broken {
+        background: url('~assets/images/npc/broken/quest_shop_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/quest_shop_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/quest_shop_broken_npc.png');
+        background-repeat: no-repeat;
       }
     }
   }
@@ -383,7 +394,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState.worldBoss.extra.worldDmg.quests;
     },
     computed: {
       ...mapState({

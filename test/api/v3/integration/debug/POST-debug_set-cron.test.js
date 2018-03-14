@@ -30,10 +30,10 @@ describe('POST /debug/set-cron', () => {
     nconf.set('IS_PROD', true);
 
     await expect(user.post('/debug/set-cron'))
-    .eventually.be.rejected.and.to.deep.equal({
-      code: 404,
-      error: 'NotFound',
-      message: 'Not found.',
-    });
+      .eventually.be.rejected.and.to.deep.equal({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
   });
 });

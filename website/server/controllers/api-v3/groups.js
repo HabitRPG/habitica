@@ -935,10 +935,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
   if (group.type === 'guild') {
     if (_.includes(userToInvite.guilds, group._id)) {
-      throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let guildInvite = {
@@ -952,14 +952,14 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   } else if (group.type === 'party') {
     // Do not add to invitations.parties array if the user is already invited to that party
     if (_.find(userToInvite.invitations.parties, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
@@ -1018,9 +1018,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-      {'auth.local.email': invite.email},
-      {'auth.facebook.emails.value': invite.email},
-      {'auth.google.emails.value': invite.email},
+    {'auth.local.email': invite.email},
+    {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
     .select({_id: true, 'preferences.emailNotifications': true})
     .exec();

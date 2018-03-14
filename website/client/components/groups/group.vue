@@ -38,9 +38,12 @@
           .col-6.chat-send-actions
             button.btn.btn-secondary.send-chat.float-right(v-once, @click='sendMessage()') {{ $t('send') }}
         community-guidelines
+        .row(v-if='showNoNotificationsMessage')
+          .col-12.no-notifications
+            | {{$t('groupNoNotifications')}}
         .row
           .col-12.hr
-          chat-message(:chat.sync='group.chat', :group-id='group._id', group-name='group.name')
+          chat-message(:chat.sync='group.chat', :group-id='group._id', :group-name='group.name')
   .col-12.col-sm-4.sidebar
     .row(:class='{"guild-background": !isParty}')
       .col-12
@@ -297,6 +300,17 @@
     text-align: center;
     margin: 2em 0;
   }
+
+  .no-notifications {
+    border-radius: 4px;
+    border: solid 1px $orange-10;
+    padding: 1em;
+    margin-top: 3em;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: $orange-50;
+  }
 </style>
 
 <script>
@@ -375,6 +389,7 @@ export default {
         silverGuildBadgeIcon,
         bronzeGuildBadgeIcon,
       }),
+      members: [],
       selectedQuest: {},
       sections: {
         quest: true,
@@ -425,6 +440,9 @@ export default {
       if (!this.group.challenges) return false;
       return this.group.challenges.length === 0;
     },
+    showNoNotificationsMessage () {
+      return this.group.memberCount > this.$store.state.constants.LARGE_GROUP_COUNT_MESSAGE_CUTOFF;
+    },
   },
   mounted () {
     if (this.isParty) this.searchId = 'party';
@@ -456,14 +474,43 @@ export default {
     },
   },
   methods: {
-    load () {
-      this.fetchGuild();
-
+    acceptCommunityGuidelines () {
+      this.$store.dispatch('user:set', {'flags.communityGuidelinesAccepted': true});
+    },
+    async load () {
+      if (this.isParty) {
+        this.searchId = 'party';
+        // @TODO: Set up from old client. Decide what we need and what we don't
+        // Check Desktop notifs
+        // Load invites
+      }
+      await this.fetchGuild();
+      // Fetch group members on load
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
       this.$root.$on('updatedGroup', group => {
         let updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
       });
     },
+
+    /**
+     * Method for loading members of a group, with optional parameters for
+     * modifying requests.
+     *
+     * @param {Object}  payload     Used for modifying requests for members
+     */
+    loadMembers (payload = null) {
+      // Remove unnecessary data
+      if (payload && payload.challengeId) {
+        delete payload.challengeId;
+      }
+
+      return this.$store.dispatch('members:getGroupMembers', payload);
+    },
+
     // @TODO: abstract autocomplete
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
@@ -500,6 +547,9 @@ export default {
     showMemberModal () {
       this.$store.state.memberModalOptions.groupId = this.group._id;
       this.$store.state.memberModalOptions.group = this.group;
+      this.$store.state.memberModalOptions.memberCount = this.group.memberCount;
+      this.$store.state.memberModalOptions.viewingMembers = this.members;
+      this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
     },
     async sendMessage () {

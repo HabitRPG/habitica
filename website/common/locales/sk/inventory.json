@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Nemáš ziaden <%= type %>.",
+  "foodItemType": "Food",
+  "eggsItemType": "Eggs",
+  "hatchingPotionsItemType": "Hatching Potions",
+  "specialItemType": "Special items",
+  "lockedItem": "Locked Item"
+}

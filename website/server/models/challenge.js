@@ -12,7 +12,7 @@ import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import cwait from 'cwait';
+import { TaskQueue } from 'cwait';
 import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
@@ -50,7 +50,7 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next, chal) {
+schema.pre('init', function ensureSummaryIsFetched (chal) {
   // The Vue website makes the summary be mandatory for all new challenges, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any challenge without a summary is fetched from the database, this code
@@ -59,7 +59,6 @@ schema.pre('init', function ensureSummaryIsFetched (next, chal) {
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
-  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -211,7 +210,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
+  let queue = new TaskQueue(Bluebird, 25); // process only 5 users concurrently
 
   await Bluebird.map(membersIds, queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);

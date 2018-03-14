@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "כינוי זה כבר בשימוש עבור משימה אחרת.",
     "taskNotFound": "משימה לא נמצאה.",
     "invalidTaskType": "סוג המטלה חייב להיות אחד מבין \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "מטלה השייכת לאתגר איננה יכולה להימחק.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "אף חפץ מתוך רשימת הסימון לא נמצא עם הזהות הנתונה.",

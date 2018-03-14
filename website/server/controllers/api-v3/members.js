@@ -248,7 +248,8 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        query['profile.name'] = {$regex: req.query.search};
+        // Creates a RegExp expression when querying for profile.name
+        query['profile.name'] = { $regex: new RegExp(req.query.search, 'i') };
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
@@ -407,8 +408,8 @@ api.getChallengeMemberProgress = {
       userId: memberId,
       'challenge.id': challengeId,
     })
-    .select('-tags') // We don't want to return the tags publicly TODO same for other data?
-    .exec();
+      .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+      .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let response = member.toJSON({minimize: true});

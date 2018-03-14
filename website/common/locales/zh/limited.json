@@ -34,6 +34,7 @@
     "seasonalShopFallText": "快乐秋天嘉年华！你想买些稀罕东西吗？10月31日前购买！",
     "seasonalShopWinterText": "快乐冬天嘉年华！你想买些稀罕东西吗？1月31日前购买！",
     "seasonalShopFallTextBroken": "啊……欢迎来到季节商店……我们正在准备秋季特供产品，还有其他一些什么的…… 这里所有的东西都会在每年秋季节庆期间开放购买，但我们只开门到10月31日……你可能现在可以开始囤货了，或者只能继续等，等，等…… <strong>*叹气*</strong>",
+    "seasonalShopBrokenText": "My pavilion!!!!!!! My decorations!!!! Oh, the Dysheartener's destroyed everything :( Please help defeat it in the Tavern so I can rebuild!",
     "seasonalShopRebirth": "如果你曾经购买过这件装备，但是现在失去了它，那么你可以从奖励栏中重新购买它。最初，你只能购买你当前职业的装备(默认职业是战士)，但是不用担心，当你转换职业时，其他职业的装备你就可以购买了。",
     "candycaneSet": "拐杖糖 (法师)",
     "skiSet": "雪橇刺客 (盗贼)",
@@ -117,6 +118,7 @@
     "winter2018MistletoeSet": "槲寄生医师 (医师)",
     "winter2018ReindeerSet": "驯鹿盗贼 (盗贼)",
     "eventAvailability": "在<%= date(locale) %>前可购买。",
+    "dateEndMarch": "March 31",
     "dateEndApril": "4月19日",
     "dateEndMay": "5月17日",
     "dateEndJune": "6月14日",
@@ -125,8 +127,9 @@
     "dateEndOctober": "10月31日",
     "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
-    "discountBundle": "一批",
+    "dateEndFebruary": "February 28",
     "winterPromoGiftHeader": "送訂閱的同時自己也能免費得到一個!",
     "winterPromoGiftDetails1": "直到1月12日，当你给某人订阅时，你可以免费得到相同的订阅！",
-    "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后。非常感谢你的支持！ლ(°◕‵ƹ′◕ლ)"
+    "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后。非常感谢你的支持！ლ(°◕‵ƹ′◕ლ)",
+    "discountBundle": "一批"
 }

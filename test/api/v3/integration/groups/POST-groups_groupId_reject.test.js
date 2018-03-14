@@ -36,7 +36,7 @@ describe('POST /group/:groupId/reject-invite', () => {
       await invitedUser.post(`/groups/${publicGuild._id}/reject-invite`);
 
       await expect(invitedUser.get('/user'))
-        .to.eventually.have.deep.property('invitations.guilds')
+        .to.eventually.have.nested.property('invitations.guilds')
         .to.not.include({id: publicGuild._id});
     });
   });
@@ -72,7 +72,7 @@ describe('POST /group/:groupId/reject-invite', () => {
       await invitedUser.post(`/groups/${guild._id}/reject-invite`);
 
       await expect(invitedUser.get('/user'))
-        .to.eventually.have.deep.property('invitations.guilds')
+        .to.eventually.have.nested.property('invitations.guilds')
         .to.not.include({id: guild._id});
     });
   });
@@ -107,7 +107,7 @@ describe('POST /group/:groupId/reject-invite', () => {
     it('clears invitation from user', async () => {
       await invitedUser.post(`/groups/${party._id}/reject-invite`);
 
-      await expect(invitedUser.get('/user')).to.eventually.not.have.deep.property('invitations.parties[0].id');
+      await expect(invitedUser.get('/user')).to.eventually.not.have.nested.property('invitations.parties[0].id');
     });
   });
 });
