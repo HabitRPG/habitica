@@ -20,7 +20,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     }
   });
 
-  it.only('adjusts the order of pinned items with no order mismatch', async () => {
+  it('adjusts the order of pinned items with no order mismatch', async () => {
     let testPinnedItems = [
       { type: 'armoire', path: 'armoire' },
       { type: 'potion', path: 'potion' },
@@ -123,8 +123,27 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     expect(res).to.eql(expectedResponse);
   });
 
-  it('adjusts the order of pinned items using seasonal unpinned item', async () => {
-    // TODO - create a test with seasonal item that has been unpinned and thus
-    // not used anymore
+  it.only('cannot move pinned item that you do not have pinned', async () => {
+    let testPinnedItems = [
+      { type: 'potion', path: 'potion' },
+      { type: 'armoire', path: 'armoire' },
+    ];
+
+    let testPinnedItemsOrder = [
+      'armoire',
+      'potion',
+    ];
+
+    await user.update({
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
+    });
+
+    let res = await user.post('/user/move-pinned-item/cardTypes.thankyou/move/to/1');
+    await user.sync();
+
+    console.log( res );
+
+    expect(1).to.equal(1);
   });
 });
