@@ -32,9 +32,10 @@ export default {
           return this.castEnd(party, spell.target);
         }
 
-        let party = this.$store.state.partyMembers;
-        party = isArray(party) ? party : [];
-        party = party.concat(this.user);
+        let party = this.$store.state.partyMembers.data;
+        if (!isArray(party)) {
+          party = [this.user];
+        }
         this.castEnd(party, spell.target);
       } else if (spell.target === 'tasks') {
         let userTasks = this.$store.state.tasks.data;
@@ -132,15 +133,10 @@ export default {
 
       // If using mpheal and there are other mages in the party, show extra notification
       if (type === 'party' && spell.key === 'mpheal') {
-        // Get party
-        let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId: target[0].party._id,
-          includeAllPublicFields: true,
-        });
         // Counting mages
         let magesCount = 0;
-        for (let i = 0; i < members.length; i++) {
-          if (members[i].stats.class === 'wizard') {
+        for (let i = 0; i < target.length; i++) {
+          if (target[i].stats.class === 'wizard') {
             magesCount++;
           }
         }
