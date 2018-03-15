@@ -134,8 +134,6 @@ import tier8 from 'assets/svg/tier-mod.svg';
 import tier9 from 'assets/svg/tier-staff.svg';
 import tierNPC from 'assets/svg/tier-npc.svg';
 
-const CHAT_APPROVAL_REQUIRED = process.env.CHAT_APPROVAL_REQUIRED === 'true'; // eslint-disable-line
-
 export default {
   props: ['msg', 'inbox', 'groupId'],
   mixins: [styleHelper],
@@ -223,7 +221,7 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     approvalRequired () {
-      return CHAT_APPROVAL_REQUIRED && this.msg.approvalRequired;
+      return this.msg.approvalRequired;
     },
   },
   methods: {

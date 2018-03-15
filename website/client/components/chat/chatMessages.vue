@@ -88,8 +88,6 @@ import copyAsTodoModal from './copyAsTodoModal';
 import reportFlagModal from './reportFlagModal';
 import chatCard from './chatCard';
 
-const CHAT_APPROVAL_REQUIRED = process.env.CHAT_APPROVAL_REQUIRED === 'true'; // eslint-disable-line
-
 export default {
   props: ['chat', 'groupId', 'groupName', 'inbox'],
   components: {
@@ -240,7 +238,7 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     approvalRequired (message) {
-      return CHAT_APPROVAL_REQUIRED && message.approvalRequired;
+      return message.approvalRequired;
     },
   },
 };
