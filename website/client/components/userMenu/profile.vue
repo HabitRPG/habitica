@@ -146,42 +146,35 @@ div
         .col-12.col-md-6
           h2.text-center {{$t('costume')}}
           .well
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.eyewear}`")
-              h3 {{$t('eyewear')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.head}`")
-              h3 {{$t('headgearCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.headAccessory}`")
-              h3 {{$t('headAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.back && costumeItems.back.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.back}`")
-              h3 {{$t('backAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.armor}`")
-              h3 {{$t('armorCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.body && costumeItems.body.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.body}`")
-              h3 {{$t('bodyAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.weapon}`")
-              h3 {{$t('mainHand')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+            // Use similar for loop for costume items, except show background if label is 'skip'.
+            .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
+              // Append a "C" to the key name since HTML IDs have to be unique.
+              .box(
+                :id="key + \"C\"",
+                v-if="label !== 'skip'",
+                :class='{white: costumeItems[key] && costumeItems[key].indexOf("base_0") === -1}'
+              )
+                div(:class="`shop_${costumeItems[key]}`")
+              // Show background on 8th tile rather than a piece of equipment.
+              .box(v-if="label === 'skip'",
+              	:class='{white: user.preferences.background}', style="overflow:hidden"
+              )
                 div(:class="'icon_background_' + user.preferences.background")
-              h3 {{$t('background')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.shield}`")
-              h3 {{$t('offHand')}}
+              b-popover(
+                v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf(\"base_0\") === -1",
+                :target="key + \"C\"",
+                triggers="hover",
+                :placement="'left'",
+                :preventOverflow="false",
+              )
+                h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
+                attributesGrid.attributesGrid(
+                  :item="content.gear.flat[costumeItems[key]]",
+                )
+              
+              h3(v-if="label !== 'skip'") {{ label }}
+              h3(v-else) {{ $t('background') }}
+              
       .row.pet-mount-row
         .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
