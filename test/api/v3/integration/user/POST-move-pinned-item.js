@@ -123,7 +123,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     expect(res).to.eql(expectedResponse);
   });
 
-  it.only('cannot move pinned item that you do not have pinned', async () => {
+  it('cannot move pinned item that you do not have pinned', async () => {
     let testPinnedItems = [
       { type: 'potion', path: 'potion' },
       { type: 'armoire', path: 'armoire' },
@@ -140,10 +140,9 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     });
 
     try {
-    let res = await user.post('/user/move-pinned-item/cardTypes.thankyou/move/to/1');
-    await user.sync();
-  } catch(err){
-    expect(err).to.exist;
-  }
+      await user.post('/user/move-pinned-item/cardTypes.thankyou/move/to/1');
+    } catch (err) {
+      expect(err).to.exist;
+    }
   });
 });
