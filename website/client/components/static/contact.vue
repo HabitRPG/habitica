@@ -14,10 +14,11 @@
           a(target='_blank', href='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') Report a Bug guild
           | &nbsp;or&nbsp;
           a(target='_blank', href='https://github.com/HabitRPG/habitica/issues?q=is%3Aopen') GitHub
-          br
-          | {{ $t('reportCommunityIssues') }}
-          | &colon;&nbsp;
-          a(href='mailto:leslie@habitica.com') leslie&commat;habitica&period;com
+          span(v-if='this.user')
+            br
+            | {{ $t('reportCommunityIssues') }}
+            | &colon;&nbsp;
+            a(@click.prevent='modForm()', href='') {{ $t('contactForm') }}
           br
           | {{ $t('subscriptionPaymentIssues') }}
           | &colon;&nbsp;
@@ -34,11 +35,6 @@
           | {{ $t('merchandiseInquiries') }}
           | &colon;&nbsp;
           a(href='mailto:admin@habitica.com') admin&commat;habitica&period;com
-          span(v-if='this.user')
-            br
-            | {{ $t('reportCommunityIssues') }}
-            | &colon;&nbsp;
-            a(@click.prevent='modForm()', href='') {{ $t('contactForm') }}
 </template>
 
 <script>

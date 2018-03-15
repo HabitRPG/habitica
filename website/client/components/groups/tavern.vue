@@ -113,9 +113,6 @@
               .svg-icon(v-html="icons.upIcon")
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
-        .row.contact-row
-          .col-12
-            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
         .section.row(v-if="sections.staff")
           // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
@@ -137,6 +134,8 @@
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.helpfulLinks")
           ul
+            li
+              a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
             li
              router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
@@ -513,11 +512,6 @@
     color: $blue-10;
     padding: 1em;
     cursor: pointer;
-  }
-
-  .contact-row {
-    margin-top: 1em;
-    margin-bottom: 2em;
   }
 </style>
 
