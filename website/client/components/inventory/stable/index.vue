@@ -939,6 +939,7 @@
           // opens the hatch dialog
           this.hatchablePet = pet;
 
+          if (this.user.preferences.suppressModals.hatchPet) return;
           this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
