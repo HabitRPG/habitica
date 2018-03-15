@@ -139,11 +139,11 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       pinnedItemsOrder: testPinnedItemsOrder,
     });
 
+    try {
     let res = await user.post('/user/move-pinned-item/cardTypes.thankyou/move/to/1');
     await user.sync();
-
-    console.log( res );
-
-    expect(1).to.equal(1);
+  } catch(err){
+    expect(err).to.exist;
+  }
   });
 });
