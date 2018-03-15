@@ -283,8 +283,8 @@
     "emptyMessagesLine1": "No tienes ningún mensaje ",
     "emptyMessagesLine2": "¡Envía un mensaje para iniciar una conversación!",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
-    "letsgo": "Let's Go!",
-    "selected": "Selected",
+    "letsgo": "¡Vamos!",
+    "selected": "Seleccionado",
     "howManyToBuy": "¿Cuántos quieres vender? ",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
 }
