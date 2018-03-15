@@ -9,7 +9,7 @@ div
       .svg-icon.gryphon.d-md-block.d-none.d-xl-none
       .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
     b-nav-toggle(target='nav_collapse')
-    b-collapse#nav_collapse.collapse.navbar-collapse.justify-content-between.flex-wrap(is-nav)
+    b-collapse#nav_collapse.collapse.navbar-collapse
       .ul.navbar-nav
         router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
           a.nav-link(v-once) {{ $t('tasks') }}
@@ -56,7 +56,7 @@ div
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
             a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
-      .user-menu.d-flex.align-items-center
+      .user-menu
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
@@ -112,31 +112,26 @@ div
   @media only screen and (max-width: 990px) {
     #nav_collapse {
       margin-top: 0.6em;
-      flex-direction: row !important;
-      max-height: 650px;
+      max-height: 320px;
       overflow: auto;
-    }
+      flex-direction: column;
+      background-color: $purple-100;
 
-    .navbar-nav {
-      width: 100%;
-      background: $purple-100;
-    }
-
-    .user-menu {
-      flex-direction: column !important;
-      align-items: left !important;
-      background: $purple-100;
-      width: 100%;
-
-      .item-with-icon {
+      .navbar-nav {
         width: 100%;
-        padding-bottom: 1em;
+        order: 1;
+      }
+
+      .user-menu {
+        margin: 10px;
+        order: 0;
       }
     }
   }
 
   #nav_collapse {
     display: flex;
+    justify-content: space-between;
   }
 
   nav.navbar {
@@ -164,6 +159,10 @@ div
       width: 128px;
       height: 28px;
     }
+  }
+
+  .user-menu {
+    display: flex;
   }
 
   .nav-item {
