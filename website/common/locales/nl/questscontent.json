@@ -434,7 +434,7 @@
     "questStoikalmCalamity1DropDesertPotion": "Woestijnachtige uitbroeddrank",
     "questStoikalmCalamity1DropArmor": "Mammoetrijder Harnas",
     "questStoikalmCalamity2Text": "Stoïkalmse Calamiteit, Deel 2: Zoek de ijskegelgrotten.",
-    "questStoikalmCalamity2Notes": "\nDe statige hal van de Mammoth Riders is een stevig meesterwerk van architectuur, maar het is ook helemaal leeg. Er zijn geen meubels, de wapens ontbreken, en zelfs de kolommen werden schoon gemaakt van hun inlays.<br><br> 'Die schedel hebben de plaats geschuurd', zegt Lady Glaciate en er is een blizzardbrouw in haar toon. \"Vernederend. Niet een ziel is dit te noemen voor de april-dwaas, of ik zal het einde ervan nooit horen.\" <br><br> \"Hoe mysterieus!\" Zegt @Beffymaroo. 'Maar waar hebben ze?' '<br><br>' De ijskegels draken grotten. ' Lady Glaciate gebaren bij glanzende munten die in de sneeuw buiten zijn gegooid. \"Sloppy.\" <br><br> \"Maar zijn er geen icicle dragers eerbare schepselen met hun eigen schat?\" @Beffymaroo vraagt. 'Waarom zouden ze mogelijk -' <br><br> 'Mind control', zegt Lady Glaciate, volledig onaangeraakt. 'Of iets even melodramatisch en ongemakkelijk.' Ze begint te lopen vanuit de hal. 'Waarom sta je daar gewoon?'<br><br> Volg het spoor van Icicle Coins!",
+    "questStoikalmCalamity2Notes": "De statige hal van de Mammoetrijders is een sober meesterwerk van architectuur, maar is ook helemaal leeg. Er zijn geen meubels, de wapens ontbreken en zelfs de kolommen hebben geen insnijding.<br><br>\"Deze schedels hebben de plek uitgeschuurd,\" zegt Vrouwe Glaciate, en er zit een sneeuwstorm te broeden in haar toon. \"Vernederend. Geen ziel mag dit vermelden aan de April Gek, of hij houdt er nooit meer over op.\"<br><br>\"Heel mysterieus!\" zegt @Beffymaroo. \"Maar  waar hebben ze--\"<br><br>\"De ijskegeldraak grotten.\" Vrouwe Glaciate gebaart naar blinkende munten die buiten in de sneeuw liggen. \"Slordig.\"<br><br>\"Maar zijn ijskegeldraken geen eervolle wezens met hun eigen schatten?\" vraagt @Beffymaroo. \"Waarom zouden mogelijks--\"<br><br>\"Gedachtebeheersing,\" zegt Vrouwe Glaciate, zonder emotie te tonen. \"Of iets dat even melodramatisch en onhandig is.\" Ze begint door de hal te stappen. \"Waarom blijven jullie daar staan?\"<br><br>Snel, volg het pad van Ijskegelmunten!",
     "questStoikalmCalamity2Completion": "De Ijskegelmunten leiden jullie recht naar de begraving ingang van een goed verstopte grot. Hoewel het weer buiten kalm en lieflijk is, met zonlicht dat glinstert over de sneeuw, is er een gebrul binnen zoals een stevige winterwind. Vrouwe Glaciate grijnst en geeft je een Mammoetrijder helm. \"Draag dit,\" zegt ze. \"Je zult het nodig hebben.\"",
     "questStoikalmCalamity2CollectIcicleCoins": "Ijskegelmunten",
     "questStoikalmCalamity2DropHeadgear": "Mammoetrijder helm (Hoofddeksel)",
@@ -574,9 +574,17 @@
     "seasonalShopRageStrikeHeader": "De Seizoenswinkel is aangevallen! ",
     "seasonalShopRageStrikeLead": "Leslie is verscheurd door verdriet!",
     "seasonalShopRageStrikeRecap": "Op 21 februari is onze dierbare Leslie de Seizoenstovenares aangevallen door de Harteloze. Haar hart was gebroken toen ze haar prachtige winkel aan stukken geslagen zag. Snel, pak je taken aan om het monster te verslaan en Leslie’s winkel te herstellen!",
+    "marketRageStrikeHeader": "The Market was Attacked!",
+    "marketRageStrikeLead": "Alex is Heartbroken!",
+    "marketRageStrikeRecap": "On February 28, our marvelous Alex the Merchant was horrified when the Dysheartener shattered the Market. Quickly, tackle your tasks to defeat the monster and help rebuild!",
+    "questsRageStrikeHeader": "The Quest Shop was Attacked!",
+    "questsRageStrikeLead": "Ian is Heartbroken!",
+    "questsRageStrikeRecap": "On March 6, our wonderful Ian the Quest Guide was deeply shaken when the Dysheartener shattered the ground around the Quest Shop. Quickly, tackle your tasks to defeat the monster and help rebuild!",
     "questDysheartenerBossRageMarket": "‘De Harteloze zet het VERSPLINTEREND HARTEZEER in!’\n\nHelp! Doordat de De Harteloze zich opnieuw tegoed heeft gedaan aan onze onafgemaakte dagelijkse taken, valt hij opnieuw aan met Versplinterend Hartezeer. Dit keer vermorzelt hij de muren en de vloer van de Markt! Terwijl het steen naar beneden raast, laat Alex de Koopman bittere tranen om zijn verlorengegane waar, getroffen door de verwoesting.\n\nWe kunnen dit niet nog eens laten gebeuren! Wees zeker dat je al je dagelijkse taken voltooit, alleen zo voorkomen we dat de Harteloze zijn ultieme slag zal toebrengen.",
     "questDysheartenerBossRageQuests": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nAaaah! We've left our Dailies undone again, and the Dysheartener has mustered the energy for one final blow against our beloved shopkeepers. The countryside around Ian the Quest Master is ripped apart by its Shattering Heartbreak attack, and Ian is struck to the core by the horrific vision. We're so close to defeating this monster.... Hurry! Don't stop now!",
     "questDysheartenerDropHippogriffPet": "Hoopvolle Hippogrief (Huisdier)",
     "questDysheartenerDropHippogriffMount": "Hoopvolle Hippogrief (Rijdier)",
-    "dysheartenerArtCredit": "Ontwerp van @AnnDeLune"
+    "dysheartenerArtCredit": "Ontwerp van @AnnDeLune",
+    "hugabugText": "Hug a Bug Quest Bundle",
+    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
 }

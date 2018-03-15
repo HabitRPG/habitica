@@ -79,11 +79,11 @@ export default {
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('silver_tier') !== -1) {
-        correctSize = group.memberCount > 100 && group.memberCount < 999;
+        correctSize = group.memberCount > 100 && group.memberCount < 1000;
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('bronze_tier') !== -1) {
-        correctSize = group.memberCount < 99;
+        correctSize = group.memberCount < 100;
       }
 
       return passedSearch && hasCategories && isMember && isLeader && correctSize;

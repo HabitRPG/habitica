@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Helped defeat Burnout and restore the Exhaust Spirits during the 2015 Fall Festival Event!",
     "achievementBewilder": "Savior o' Mistiflyin'",
     "achievementBewilderText": "Helped defeat th' Be-Wilder durin' th' 2016 Spring Fling Event!",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Check out me progress in Habitica!",
     "cards": "Cards",
     "sentCardToUser": "You sent a card to <%= profileName %>",

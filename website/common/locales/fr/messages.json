@@ -29,7 +29,7 @@
     "messageFoundQuest": "Vous avez trouvé la quête \"<%= questText %>\" !",
     "messageAlreadyPurchasedGear": "Vous avez acheté cet équipement auparavant mais ne le possédez actuellement pas. Vous pouvez l'acheter à nouveau dans la colonne Récompenses sur la page des tâches.",
     "messageAlreadyOwnGear": "Vous possédez déjà cet objet. Équipez le depuis la page d'équipement.",
-    "previousGearNotOwned": "Vous devez achetez un équipement de niveau inférieur avant celui là.",
+    "previousGearNotOwned": "Vous devez achetez un équipement de niveau inférieur avant celui-ci.",
     "messageHealthAlreadyMax": "Votre santé est déjà à son maximum.",
     "messageHealthAlreadyMin": "Ho non ! Votre santé est déjà tombée au plus bas et il est trop tard pour acheter une potion de santé ! Mais pas de panique... vous pouvez revivre !",
     "armoireEquipment": "<%= image %> Vous avez trouvé une pièce d'équipement rare dans l'armoire : <%= dropText %> ! Génial !",
@@ -59,6 +59,6 @@
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
     "messageNotificationNotFound": "Notification non trouvée.",
     "notificationsRequired": "Les numéros d'identification (ID) de notification sont requis.",
-    "unallocatedStatsPoints": "Vous avez <%= points %> point(s) d'attribut non alloué(s).",
+    "unallocatedStatsPoints": "Vous avez <span class=\"notification-bold-blue\"><%= points %> points d'attribut non alloués</span>",
     "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N´oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !"
 }

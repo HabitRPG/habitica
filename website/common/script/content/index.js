@@ -137,6 +137,21 @@ api.bundles = {
     type: 'quests',
     value: 7,
   },
+  hugabug: {
+    key: 'hugabug',
+    text: t('hugabugText'),
+    notes: t('hugabugNotes'),
+    bundleKeys: [
+      'snail',
+      'beetle',
+      'butterfly',
+    ],
+    canBuy () {
+      return moment().isBetween('2018-02-06', '2018-04-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 /*

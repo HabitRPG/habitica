@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" musi zostać wybrany spośród 'wyposażony', 'chowaniec', 'wierzchowiec', 'kostium'.",
     "mustPurchaseToSet": "Trzeba kupić  <%= val %>, aby ustawić na <%= key %>.",
     "typeRequired": "Wymagany typ.",
+    "positiveAmountRequired": "Dodatnia ilość jest wymagana",
     "keyRequired": "Wymagany klucz.",
     "notAccteptedType": "Typ musi zostać być jednym z: [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Nie znaleziono klawisza dla <%= type %>",

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
+const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER AND RAINBOW HATCHING POTIONS; SPRING CLEANING GUILD SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,20 +32,24 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/13/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>February Subscriber Items Revealed!</h3>
-        <p>The February Subscriber Items have been revealed: The Love Bug Set!! It's a special three-piece set in honor of our ongoing battle with the Dysheartener. You only have until February 28 to receive the item set when you <a href='/user/settings/subscription'>subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="promo_mystery_201802 center-block"></div>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
+        <div class="media">
           <div class="media-body">
-            <h3>Behind the Scenes: Bringing a World Boss to Life</h3>
-            <p>There's a new <a href='https://habitica.wordpress.com/2018/02/22/behind-the-scenes-bringing-a-world-boss-to-life/' target='_blank'>Behind the Scenes post</a> on the Habitica blog! Ever wonder what goes into bringing a World Boss to Habitica? Check out this post for a behind the scenes glimpse of how the team makes these events happen. It's all fun and no spoilers (we promise)!</p>
-            <div class="small mb-3">by Beffymaroo</div>
+            <h3>Shimmer and Rainbow Hatching Potions</h3>
+            <p>We've brought back Shimmer Potions, and added a brand-new Magic Hatching Potion: Rainbow! Between now and March 31st, you can buy these Hatching Potions from <a href='/shops/market' target='_blank'>the Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat any kind of food that you feed them!</p>
+            <p>After they're gone, it will be at least a year before the Shimmer or Rainbow Hatching Potions are available again, so be sure to get them now!</p>
+            <div class="small mb-3">by Beffymaroo, Teto Forever, tricksy.fox, and SabreCat</div>
+            <div class="media">
+              <div class="scene_sweeping mr-3"></div>
+              <div class="media-body">
+                <h3>Another One Fights the Dust: Guilds for Spring Cleaning</h3>
+                <p>There's a new <a href='https://habitica.wordpress.com/2018/03/08/another-one-fights-the-dust-guilds-for-spring-cleaning/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you with your Spring Cleaning! Check it out now to find Habitica's best communities for help and motivation with cleaning.</p>
+                <div class="small mb-3">by Beffymaroo</div>
+              </div>
+            </div>
           </div>
-          <div class="promo_seasonalshop_broken ml-3"></div>
+          <div class="promo_rainbow_potions ml-3"></div>
         </div>
       </div>
       `,

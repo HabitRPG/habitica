@@ -80,6 +80,10 @@ let bannedWords = [
   'oh, god',
   'g\\*d',
 
+  'bugger',
+  'buggery',
+  'buggering',
+  'buggered',
   'shit',
   'shitty',
   'shitting',

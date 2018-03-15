@@ -76,10 +76,10 @@
                 .m-auto(@click="showWorldBossRage('seasonalShop')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
-                .m-auto
+                .m-auto(@click="showWorldBossRage('market')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
-                .m-auto
+                .m-auto(@click="showWorldBossRage('quests')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
@@ -90,7 +90,7 @@
                 .toggle-up(v-if="sections.worldBoss")
                   .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
             .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
-        .text-center.mt-4
+        // .text-center.mt-4
           .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
 
       .sleep.below-header-sections
@@ -760,6 +760,7 @@ export default {
     },
     showWorldBossRage (npc) {
       if (this.group.quest.extra.worldDmg[npc]) {
+        this.$store.state.rageModalOptions.npc = npc;
         this.$root.$emit('bv::show::modal', 'world-boss-rage');
       }
     },
