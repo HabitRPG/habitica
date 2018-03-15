@@ -37,7 +37,7 @@ api.getNews = {
         <div class="media align-items-center">
           <div class="media-body">
             <h3>Release Pets & Mounts!</h3>
-            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
+            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once at no cost!</p>
           </div>
           <div class="pet_key ml-3"></div>
         </div>
