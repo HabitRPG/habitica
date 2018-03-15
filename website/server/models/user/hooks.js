@@ -1,7 +1,6 @@
 import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
-import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
@@ -58,7 +57,7 @@ function _populateDefaultTasks (user, taskTypes) {
   // @TODO: default tasks are handled differently now, and not during registration. We should move this code
 
   let tasksToCreate = [];
-  if (user.registeredThrough === 'habitica-web') return Bluebird.all(tasksToCreate);
+  if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
     taskTypes = _.clone(taskTypes);
@@ -89,7 +88,7 @@ function _populateDefaultTasks (user, taskTypes) {
     tasksToCreate.push(...tasksOfType);
   });
 
-  return Bluebird.all(tasksToCreate)
+  return Promise.all(tasksToCreate)
     .then((tasksCreated) => {
       _.each(tasksCreated, (task) => {
         user.tasksOrder[`${task.type}s`].push(task._id);
