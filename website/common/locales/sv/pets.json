@@ -138,5 +138,8 @@
     "dragThisPotion": "Dra denna <%= potionName %> till ett Ägg för att kläcka ett nytt husdjur!",
     "clickOnEggToHatch": "Klicka på ett Ägg för att använda din <%= potionName %> kläckningsdryck och kläck ett nytt husdjur!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }
