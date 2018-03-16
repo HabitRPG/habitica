@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Mistelzweigheiler (Heiler)",
     "winter2018ReindeerSet": "Rentier-Schurke (Schurke)",
     "eventAvailability": "Zum Kauf verfügbar bis zum <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19. April",
     "dateEndMay": "17. Mai",
     "dateEndJune": "14. Juni",

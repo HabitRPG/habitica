@@ -9,7 +9,6 @@
  * they support a type and options and label
 * ***************************************/
 
-global.Promise = require('bluebird');
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');
 const Timer = require('./utils/timer');

@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "槲寄生医师 (医师)",
     "winter2018ReindeerSet": "驯鹿盗贼 (盗贼)",
     "eventAvailability": "在<%= date(locale) %>前可购买。",
+    "dateEndMarch": "March 31",
     "dateEndApril": "4月19日",
     "dateEndMay": "5月17日",
     "dateEndJune": "6月14日",

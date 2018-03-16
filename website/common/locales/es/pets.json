@@ -138,5 +138,8 @@
     "dragThisPotion": "¡Arrastra esta <%= potionName %> hasta un Huevo y eclosiona una nueva mascota!",
     "clickOnEggToHatch": "¡Haz click en un Huevo para utilizar tu poción de eclosión <%= potionName %> y eclosiona una nueva mascota!",
     "hatchDialogText": "Vierte tu poción de eclosión <%= potionName %>en tu huevo <%= eggName %>, y eclosionará en un <%= petName %>.",
-    "clickOnPotionToHatch": "¡Haz click en una poción de closión para utilizarla en tu <%= eggName %> y eclosionar una nueva mascota!"
+    "clickOnPotionToHatch": "¡Haz click en una poción de closión para utilizarla en tu <%= eggName %> y eclosionar una nueva mascota!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

@@ -12,7 +12,7 @@
     "rebirthInList2": "Les défis, les guildes et les appartenances à des équipes sont conservés.",
     "rebirthInList3": "Les gemmes, les paliers de soutien et les niveaux de contribution sont conservés.",
     "rebirthInList4": "Les objets obtenus à partir de gemmes ou de butin (comme les familiers et les montures) sont conservés.",
-    "rebirthEarnAchievement": "Vous avez également obtenu un Succès pour avoir commencé une nouvelle aventure !",
+    "rebirthEarnAchievement": "Vous avez également obtenu un succès pour avoir commencé une nouvelle aventure !",
     "beReborn": "Renaître",
     "rebirthAchievement": "Vous avez commencé une nouvelle aventure ! C'est votre Renaissance n°<%= number %> et le niveau le plus élevé que vous avez atteint est <%= level %>. Pour cumuler ce Succès, commencez votre nouvelle aventure une fois que vous aurez atteint un niveau encore plus élevé !",
     "rebirthAchievement100": "Vous avez commencé une nouvelle aventure ! C'est votre Renaissance <%= number %>, et le plus haut niveau que vous ayez atteint est 100 ou plus. Pour obtenir ce succès une fois de plus, commencez votre prochaine nouvelle aventure lorsque vous aurez atteint la prochaine centaine !",
