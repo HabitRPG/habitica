@@ -94,9 +94,9 @@ div
 </style>
 
 <style>
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal, .modal-open {
-    overflow-y: scroll !important;
+  /* Bootstrap padding bug fix */
+  .modal-open[style] {
+    padding-right: 0 !important;
   }
 
   .modal-backdrop.show {
