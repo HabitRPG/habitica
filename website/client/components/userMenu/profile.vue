@@ -189,7 +189,7 @@ div
             .row.col-12
               .col-12.col-md-4
                 .box(:class='{white: user.items.currentPet}')
-                  .pet(:class="`Pet-${user.items.currentPet}`")
+                  .Pet(:class="`Pet-${user.items.currentPet}`")
               .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -338,10 +338,6 @@ div
   .pet-mount-row {
     margin-top: 2em;
     margin-bottom: 2em;
-  }
-
-  .pet {
-    margin-top: -1.4em !important;
   }
 
   .mount {
