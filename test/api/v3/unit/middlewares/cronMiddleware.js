@@ -166,8 +166,11 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
         if (err) return reject(err);
-        expect(user.stats.hp).to.be.lessThan(hpBefore);
-        resolve();
+        User.findOne({_id: user._id}, function (secondErr, updatedUser) {
+          if (secondErr) return reject(secondErr);
+          expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+          resolve();
+        });
       });
     });
   });
@@ -217,8 +220,11 @@ describe('cron middleware', () => {
     await new Promise((resolve, reject) => {
       cronMiddleware(req, res, (err) => {
         if (err) return reject(err);
-        expect(user.stats.hp).to.be.lessThan(hpBefore);
-        resolve();
+        User.findOne({_id: user._id}, function (secondErr, updatedUser) {
+          if (secondErr) return reject(secondErr);
+          expect(updatedUser.stats.hp).to.be.lessThan(hpBefore);
+          resolve();
+        });
       });
     });
   });
