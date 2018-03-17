@@ -206,10 +206,6 @@ import HatchedPetDialog from '../stable/hatchedPetDialog';
 import startQuestModal from '../../groups/startQuestModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
-import Item from 'client/components/inventory/item';
-import ItemRows from 'client/components/ui/itemRows';
-import CountBadge from 'client/components/ui/countBadge';
-
 import { mapState } from 'client/libs/store';
 import createAnimal from 'client/libs/createAnimal';
 
