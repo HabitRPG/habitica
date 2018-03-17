@@ -720,7 +720,6 @@ export default {
       this.newMessage = newText;
     },
     toggleSleep () {
-      this.user.preferences.sleep = !this.user.preferences.sleep;
       this.$store.dispatch('user:sleep');
     },
     async sendMessage () {
