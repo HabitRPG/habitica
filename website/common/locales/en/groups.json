@@ -228,6 +228,7 @@
   "inviteMustNotBeEmpty": "Invite must not be empty.",
   "partyMustbePrivate": "Parties must be private",
   "userAlreadyInGroup": "UserID: <%= userId %>, User \"<%= username %>\" already in that group.",
+  "youAreAlreadyInGroup": "You are already a member of this group.",
   "cannotInviteSelfToGroup": "You cannot invite yourself to a group.",
   "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" already invited to that group.",
   "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" already pending invitation.",

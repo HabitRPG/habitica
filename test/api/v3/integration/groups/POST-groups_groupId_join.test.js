@@ -44,12 +44,12 @@ describe('POST /group/:groupId/join', () => {
       expect(res.leader.profile.name).to.eql(user.profile.name);
     });
 
-    it('returns an error is user was already a member', async () => {
+    it('returns an error if user was already a member', async () => {
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
       await expect(joiningUser.post(`/groups/${publicGuild._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('userAlreadyInGroup'),
+        message: t('youAreAlreadyInGroup'),
       });
     });
 
