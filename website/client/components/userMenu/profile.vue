@@ -134,7 +134,7 @@ div
                 v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf(\"base_0\") === -1",
                 :target="key",
                 triggers="hover",
-                :placement="'right'",
+                :placement="'bottom'",
                 :preventOverflow="false",
               )
                 h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
@@ -164,7 +164,7 @@ div
                 v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf(\"base_0\") === -1",
                 :target="key + \"C\"",
                 triggers="hover",
-                :placement="'left'",
+                :placement="'bottom'",
                 :preventOverflow="false",
               )
                 h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
