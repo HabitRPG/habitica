@@ -551,7 +551,7 @@ export default {
         return task;
       });
 
-      this.quickAddText = null;
+      this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
     },
