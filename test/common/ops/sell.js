@@ -75,6 +75,16 @@ describe('shared.ops.sell', () => {
     }
   });
 
+  it('returns an error when the requested amount is negative', (done) => {
+    try {
+      sell(user, {params: { type, key }, query: {amount: -42} });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('positiveAmountRequired', {type}));
+      done();
+    }
+  });
+
   it('reduces item count from user', () => {
     sell(user, {params: { type, key } });
 

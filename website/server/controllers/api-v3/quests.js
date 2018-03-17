@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import Bluebird from 'bluebird';
 import { authWithHeaders } from '../../middlewares/auth';
 import analytics from '../../libs/analyticsService';
 import {
@@ -79,8 +78,8 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-    .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
-    .exec();
+      .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+      .exec();
 
     group.markModified('quest');
     group.quest.key = questKey;
@@ -109,7 +108,7 @@ api.inviteToQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -312,7 +311,7 @@ api.forceStart = {
 
     await group.startQuest(user);
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -372,7 +371,7 @@ api.cancelQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       User.update(
         {'party._id': groupId},
@@ -441,7 +440,7 @@ api.abortQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [groupSaved] = await Bluebird.all([group.save(), memberUpdates, questLeaderUpdate]);
+    let [groupSaved] = await Promise.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
   },
@@ -486,7 +485,7 @@ api.leaveQuest = {
     user.party.quest = Group.cleanQuestProgress();
     user.markModified('party.quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);

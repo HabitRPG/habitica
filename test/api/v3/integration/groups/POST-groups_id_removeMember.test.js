@@ -184,7 +184,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       let invitedUserWithoutInvite = await partyInvitedUser.get('/user');
 
-      expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.empty;
+      expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.undefined;
     });
 
     it('removes new messages from a member who is removed', async () => {
@@ -203,7 +203,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(removedMember.notifications.find(n => {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
       })).to.not.exist;
-      expect(removedMember.newMessages[party._id]).to.be.empty;
+      expect(removedMember.newMessages[party._id]).to.be.undefined;
     });
 
     it('removes user from quest when removing user from party after quest starts', async () => {

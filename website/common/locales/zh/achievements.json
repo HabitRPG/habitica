@@ -3,6 +3,6 @@
   "onwards": "继续！",
   "levelup": "在完成你的任务后，你将升级并且恢复满你的生命值！",
   "reachedLevel": "你达到第<%= level %>级",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+  "achievementLostMasterclasser": "完成任务的专家：大师鉴别者系列",
+  "achievementLostMasterclasserText": "完成大师鉴别者系列任务的全部6个任务，解开失传的大师鉴别者的神秘面纱！"
 }

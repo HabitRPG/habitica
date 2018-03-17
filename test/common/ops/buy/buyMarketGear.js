@@ -84,6 +84,17 @@ describe('shared.ops.buyMarketGear', () => {
       expect(user.items.gear.equipped).to.have.property('armor', 'armor_warrior_1');
     });
 
+    it('updates the pinnedItems to the next item in the set if one exists', () => {
+      user.stats.gp = 31;
+
+      buyGear(user, {params: {key: 'armor_warrior_1'}});
+
+      expect(user.pinnedItems).to.deep.include({
+        type: 'marketGear',
+        path: 'gear.flat.armor_warrior_2',
+      });
+    });
+
     it('buyGears equipment but does not auto-equip', () => {
       user.stats.gp = 31;
       user.preferences.autoEquip = false;

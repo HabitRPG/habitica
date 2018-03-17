@@ -1,9 +1,9 @@
 import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import moment from 'moment';
 import cc from 'coupon-code';
 import uuid from 'uuid';
+import util from 'util';
 
 import common from '../../common';
 import {
@@ -51,15 +51,15 @@ api.constants = {
   PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
-api.getTokenInfo = Bluebird.promisify(amzPayment.api.getTokenInfo, {context: amzPayment.api});
-api.createOrderReferenceId = Bluebird.promisify(amzPayment.offAmazonPayments.createOrderReferenceForId, {context: amzPayment.offAmazonPayments});
-api.setOrderReferenceDetails = Bluebird.promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails, {context: amzPayment.offAmazonPayments});
-api.confirmOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.confirmOrderReference, {context: amzPayment.offAmazonPayments});
-api.closeOrderReference = Bluebird.promisify(amzPayment.offAmazonPayments.closeOrderReference, {context: amzPayment.offAmazonPayments});
-api.setBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails, {context: amzPayment.offAmazonPayments});
-api.getBillingAgreementDetails = Bluebird.promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails, {context: amzPayment.offAmazonPayments});
-api.confirmBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement, {context: amzPayment.offAmazonPayments});
-api.closeBillingAgreement = Bluebird.promisify(amzPayment.offAmazonPayments.closeBillingAgreement, {context: amzPayment.offAmazonPayments});
+api.getTokenInfo = util.promisify(amzPayment.api.getTokenInfo).bind(amzPayment.api);
+api.createOrderReferenceId = util.promisify(amzPayment.offAmazonPayments.createOrderReferenceForId).bind(amzPayment.offAmazonPayments);
+api.setOrderReferenceDetails = util.promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails).bind(amzPayment.offAmazonPayments);
+api.confirmOrderReference = util.promisify(amzPayment.offAmazonPayments.confirmOrderReference).bind(amzPayment.offAmazonPayments);
+api.closeOrderReference = util.promisify(amzPayment.offAmazonPayments.closeOrderReference).bind(amzPayment.offAmazonPayments);
+api.setBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
+api.getBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
+api.confirmBillingAgreement = util.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement).bind(amzPayment.offAmazonPayments);
+api.closeBillingAgreement = util.promisify(amzPayment.offAmazonPayments.closeBillingAgreement).bind(amzPayment.offAmazonPayments);
 
 api.authorizeOnBillingAgreement = function authorizeOnBillingAgreement (inputSet) {
   return new Promise((resolve, reject) => {
@@ -270,10 +270,10 @@ api.subscribe = async function subscribe (options) {
   let priceOfSingleMember = 3;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
-
-    amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const membersCount = await group.getMemberCount();
+    amount = sub.price + (membersCount - leaderCount) * priceOfSingleMember;
   }
 
   await this.setBillingAgreementDetails({

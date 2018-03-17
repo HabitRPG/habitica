@@ -71,7 +71,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
     }
 
     return [
-      pick(user, splitWhitespace('items achievements stats flags')),
+      pick(user, splitWhitespace('items achievements stats flags pinnedItems')),
       message,
     ];
   }

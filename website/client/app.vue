@@ -229,9 +229,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
@@ -320,53 +323,7 @@ export default {
       this.hideLoadingScreen();
     }
 
-    // Manage modals
-    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-      if (data.fromRoot) return;
-
-      // Track opening of gems modal unless it's been already tracked
-      // For example the gems button in the menu already tracks the event by itself
-      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Wallet',
-        });
-      }
-
-      // Get last modal on stack and hide
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-
-      // Add new modal to the stack
-      this.$store.state.modalStack.push(modalId);
-
-      // Hide the previous top modal
-      if (modalOnTop) this.$root.$emit('bv::hide::modal', modalOnTop, {fromRoot: true});
-    });
-
-    // @TODO: This part is hacky and could be solved with two options:
-    // 1 - Find a way to pass fromRoot to hidden
-    // 2 - Enforce that all modals use the hide::modal event
-    this.$root.$on('bv::modal::hidden', (bvEvent) => {
-      const modalId = bvEvent.target.id;
-
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
-      // Don't remove modal if hid was called from main app
-      // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
-      // if (data && data.fromRoot) return;
-      if (modalId === modalSecondToTop) return;
-
-      // Remove modal from stack
-      this.$store.state.modalStack.pop();
-
-      // Recalculate and show the last modal if there is one
-      modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
-    });
+    this.initializeModalStack();
   },
   beforeDestroy () {
     this.$root.$off('playSound');
@@ -381,6 +338,80 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
+    initializeModalStack () {
+      // Manage modals
+      this.$root.$on('bv::show::modal', (modalId, data = {}) => {
+        if (data.fromRoot) return;
+        const modalStack = this.$store.state.modalStack;
+
+        this.trackGemPurchase(modalId, data);
+
+        // Add new modal to the stack
+        const prev = modalStack[modalStack.length - 1];
+        const prevId = prev ? prev.modalId : undefined;
+        modalStack.push({modalId, prev: prevId});
+      });
+
+      this.$root.$on('bv::modal::hidden', (bvEvent) => {
+        const modalId = bvEvent.target && bvEvent.target.id;
+        if (!modalId) return;
+
+        const modalStack = this.$store.state.modalStack;
+
+        const modalOnTop = modalStack[modalStack.length - 1];
+
+        // Check for invalid modal. Event systems can send multiples
+        if (!this.validStack(modalStack)) return;
+
+        // If we are moving forward
+        if (modalOnTop && modalOnTop.prev === modalId) return;
+
+        // Remove modal from stack
+        this.$store.state.modalStack.pop();
+
+        // Get previous modal
+        const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
+      });
+    },
+    validStack (modalStack) {
+      const modalsThatCanShowTwice = ['profile'];
+      const modalCount = {};
+      const prevAndCurrent = 2;
+
+      for (let index in modalStack) {
+        const current = modalStack[index];
+
+        if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
+        modalCount[current.modalId] += 1;
+        if (modalCount[current.modalId] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.modalId) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+
+        if (!current.prev) continue; // eslint-disable-line
+        if (!modalCount[current.prev]) modalCount[current.prev] = 0;
+        modalCount[current.prev] += 1;
+        if (modalCount[current.prev] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.prev) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+      }
+
+      return true;
+    },
+    trackGemPurchase (modalId, data) {
+      // Track opening of gems modal unless it's been already tracked
+      // For example the gems button in the menu already tracks the event by itself
+      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Wallet',
+        });
+      }
+    },
     resetItemToBuy ($event) {
       // @TODO: Do we need this? I think selecting a new item
       // overwrites. @negue might know
@@ -436,6 +467,7 @@ export default {
 </script>
 
 <style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="assets/css/sprites/spritesmith-main-0.css"></style>

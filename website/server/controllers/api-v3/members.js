@@ -18,7 +18,6 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
-import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
 
@@ -408,8 +407,8 @@ api.getChallengeMemberProgress = {
       userId: memberId,
       'challenge.id': challengeId,
     })
-    .select('-tags') // We don't want to return the tags publicly TODO same for other data?
-    .exec();
+      .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+      .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     let response = member.toJSON({minimize: true});
@@ -552,7 +551,7 @@ api.transferGems = {
     receiver.balance += amount;
     sender.balance -= amount;
     let promises = [receiver.save(), sender.save()];
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     // generate the message in both languages, so both users can understand it
     let receiverLang = receiver.preferences.language;

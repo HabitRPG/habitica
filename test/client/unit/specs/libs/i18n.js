@@ -14,7 +14,7 @@ describe('i18n plugin', () => {
   });
 
   it('adds $t to Vue.prototype', () => {
-    expect(Vue.prototype.$t).to.be.a.function;
+    expect(Vue.prototype.$t).to.exist;
   });
 
   it('$t is a proxy for common/i18n.t', () => {

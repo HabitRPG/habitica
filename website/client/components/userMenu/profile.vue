@@ -525,7 +525,7 @@ div
     }
 
     .box {
-      width: 141px;
+      width: 148px;
       height: 84px;
       padding: .5em;
       margin: 0 auto;

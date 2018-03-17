@@ -64,6 +64,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
     "classEquipBonus": "職業加成",
     "battleGear": "戰鬥裝備",
+    "gear": "Gear",
     "battleGearText": "這是你穿上戰場的裝備，在你做任務時會影響一些數值。",
     "autoEquipBattleGear": "自動穿上新裝備",
     "costume": "服裝",

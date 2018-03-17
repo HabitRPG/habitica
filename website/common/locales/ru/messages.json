@@ -23,7 +23,7 @@
     "messageTwoHandedUnequip": "Удержать <%= twoHandedText %> возможно только двумя руками, поэтому его пришлось положить, когда вы вооружились <%= offHandedText %>.",
     "messageDropFood": "Вы нашли <%= dropText %>!",
     "messageDropEgg": "Вы нашли <%= dropText %> в яйце!",
-    "messageDropPotion": "Вы нашли <%= dropText %>инкубационный эликсир!",
+    "messageDropPotion": "Вы нашли <%= dropText %> инкубационный эликсир!",
     "messageDropQuest": "Вы нашли квест!",
     "messageDropMysteryItem": "Вы открываете коробку и находите <%= dropText %>!",
     "messageFoundQuest": "Вы нашли квест: «<%= questText %>»!",

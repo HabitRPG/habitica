@@ -36,12 +36,12 @@ describe('cron middleware', () => {
     });
 
     user.save()
-    .then(savedUser => {
-      res.locals.user = savedUser;
-      res.analytics = analyticsService;
-      done();
-    })
-    .catch(done);
+      .then(savedUser => {
+        res.locals.user = savedUser;
+        res.analytics = analyticsService;
+        done();
+      })
+      .catch(done);
   });
 
   afterEach(() => {

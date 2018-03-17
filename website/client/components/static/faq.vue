@@ -62,8 +62,8 @@
           wikiTechAssistanceEmail: `mailto:${TECH_ASSISTANCE_EMAIL}`,
         },
         // @TODO webFaqStillNeedHelp: {
-          // linkStart: '[',
-          // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
+        // linkStart: '[',
+        // linkEnd: '](/groups/guild/5481ccf3-5d2d-48a9-a871-70a7380cee5a)',
         // },
         // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.wikia.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
       };

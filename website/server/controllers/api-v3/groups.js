@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import nconf from 'nconf';
 import {
@@ -137,7 +136,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -194,7 +193,7 @@ api.createGroupPlan = {
     group.leader = user._id;
     user.guilds.push(group._id);
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Analytics
@@ -617,7 +616,7 @@ api.joinGroup = {
       }
     }
 
-    promises = await Bluebird.all(promises);
+    promises = await Promise.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -915,7 +914,7 @@ api.removeGroupMember = {
     let message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Bluebird.all([
+    await Promise.all([
       member.save(),
       group.save(),
     ]);
@@ -935,10 +934,10 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
   if (group.type === 'guild') {
     if (_.includes(userToInvite.guilds, group._id)) {
-      throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let guildInvite = {
@@ -952,14 +951,14 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
   } else if (group.type === 'party') {
     // Do not add to invitations.parties array if the user is already invited to that party
     if (_.find(userToInvite.invitations.parties, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
@@ -1018,9 +1017,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-      {'auth.local.email': invite.email},
-      {'auth.facebook.emails.value': invite.email},
-      {'auth.google.emails.value': invite.email},
+    {'auth.local.email': invite.email},
+    {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
     .select({_id: true, 'preferences.emailNotifications': true})
     .exec();
@@ -1167,7 +1166,7 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Bluebird.all(uuidInvites);
+      let uuidResults = await Promise.all(uuidInvites);
       results.push(...uuidResults);
     }
 
@@ -1175,7 +1174,7 @@ api.inviteToGroup = {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
       user.invitesSent += emails.length;
       await user.save();
-      let emailResults = await Bluebird.all(emailInvites);
+      let emailResults = await Promise.all(emailInvites);
       results.push(...emailResults);
     }
 

@@ -1,4 +1,3 @@
-import Bluebird from 'bluebird';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
@@ -120,10 +119,10 @@ describe('User Model', () => {
         expect(User.pushNotification({_id: user._id}, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
       });
 
-      it('adds notifications without data for all given users via static method', async() => {
+      it('adds notifications without data for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
-        await Bluebird.all([user.save(), otherUser.save()]);
+        await Promise.all([user.save(), otherUser.save()]);
 
         await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON');
 
@@ -149,7 +148,7 @@ describe('User Model', () => {
       it('adds notifications with data and seen status for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
-        await Bluebird.all([user.save(), otherUser.save()]);
+        await Promise.all([user.save(), otherUser.save()]);
 
         await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1}, true);
 
@@ -352,7 +351,12 @@ describe('User Model', () => {
     context('manage unallocated stats points notifications', () => {
       it('doesn\'t add a notification if there are no points to allocate', async () => {
         let user = new User();
+
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = false;
+        user.stats.class = 'warrior';
         user = await user.save(); // necessary for user.isSelected to work correctly
+
         const oldNotificationsCount = user.notifications.length;
 
         user.stats.points = 0;
@@ -363,6 +367,10 @@ describe('User Model', () => {
 
       it('removes a notification if there are no more points to allocate', async () => {
         let user = new User();
+
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = false;
+        user.stats.class = 'warrior';
         user.stats.points = 9;
         user = await user.save(); // necessary for user.isSelected to work correctly
 
@@ -377,6 +385,9 @@ describe('User Model', () => {
 
       it('adds a notification if there are points to allocate', async () => {
         let user = new User();
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = false;
+        user.stats.class = 'warrior';
         user = await user.save(); // necessary for user.isSelected to work correctly
         const oldNotificationsCount = user.notifications.length;
 
@@ -391,6 +402,9 @@ describe('User Model', () => {
       it('adds a notification if the points to allocate have changed', async () => {
         let user = new User();
         user.stats.points = 9;
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = false;
+        user.stats.class = 'warrior';
         user = await user.save(); // necessary for user.isSelected to work correctly
 
         const oldNotificationsCount = user.notifications.length;
@@ -405,6 +419,37 @@ describe('User Model', () => {
         expect(user.notifications[0].type).to.equal('UNALLOCATED_STATS_POINTS');
         expect(user.notifications[0].data.points).to.equal(11);
         expect(user.notifications[0].id).to.not.equal(oldNotificationsUUID);
+      });
+
+      it('does not add a notification if the user has disabled classes', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user.flags.classSelected = true;
+        user.preferences.disableClasses = true;
+        user.stats.class = 'warrior';
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 9;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
+      });
+
+      it('does not add a notification if the user has not selected a class', async () => {
+        let user = new User();
+        user.stats.points = 9;
+        user.flags.classSelected = false;
+        user.stats.class = 'warrior';
+        user = await user.save(); // necessary for user.isSelected to work correctly
+
+        const oldNotificationsCount = user.notifications.length;
+
+        user.stats.points = 9;
+        user = await user.save();
+
+        expect(user.notifications.length).to.equal(oldNotificationsCount);
       });
     });
   });

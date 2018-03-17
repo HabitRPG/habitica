@@ -71,15 +71,15 @@ api.getPatrons = {
     const perPage = 50;
 
     let patrons = await User
-    .find({
-      'backer.tier': {$gt: 0},
-    })
-    .select('contributor backer profile.name')
-    .sort('-backer.tier')
-    .skip(page * perPage)
-    .limit(perPage)
-    .lean()
-    .exec();
+      .find({
+        'backer.tier': {$gt: 0},
+      })
+      .select('contributor backer profile.name')
+      .sort('-backer.tier')
+      .skip(page * perPage)
+      .limit(perPage)
+      .lean()
+      .exec();
 
     res.respond(200, patrons);
   },
@@ -123,13 +123,13 @@ api.getHeroes = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let heroes = await User
-    .find({
-      'contributor.level': {$gt: 0},
-    })
-    .select('contributor backer profile.name')
-    .sort('-contributor.level')
-    .lean()
-    .exec();
+      .find({
+        'contributor.level': {$gt: 0},
+      })
+      .select('contributor backer profile.name')
+      .sort('-contributor.level')
+      .lean()
+      .exec();
 
     res.respond(200, heroes);
   },

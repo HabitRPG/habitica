@@ -27,8 +27,8 @@
     "royalPurpleGryphon": "Королевский пурпурный грифон",
     "phoenix": "Феникс",
     "magicalBee": "Волшебная пчелка",
-    "hopefulHippogriffPet": "Hopeful Hippogriff",
-    "hopefulHippogriffMount": "Hopeful Hippogriff",
+    "hopefulHippogriffPet": "Обнадеживающий Гиппогриф",
+    "hopefulHippogriffMount": "Надежный Гиппогриф",
     "royalPurpleJackalope": "Королевский пурпурный Джекалоп",
     "invisibleAether": "Невидимый Эфир",
     "rarePetPop1": "Нажмите золотую лапу, чтобы подробнее узнать, как получить этого редкого питомца, приняв участие в проекте Habitica!",
@@ -138,5 +138,8 @@
     "dragThisPotion": "Перемести <%= potionName %> на яйцо и вылупи нового питомца!",
     "clickOnEggToHatch": "Выберите яйцо, над которым применить <%= potionName %> инкубационный эликсир для выращивания нового питомца!",
     "hatchDialogText": "Полейте ваш <%= potionName %> инкубационный эликсир на яйцо <%= eggName %>, и из него вылупится <%= petName %>.",
-    "clickOnPotionToHatch": "Выберите инкубационный эликсир, чтобы использовать его над <%= eggName %> для выведения нового питомца!"
+    "clickOnPotionToHatch": "Выберите инкубационный эликсир, чтобы использовать его над <%= eggName %> для выведения нового питомца!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

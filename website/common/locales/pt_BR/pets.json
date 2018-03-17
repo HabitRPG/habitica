@@ -27,8 +27,8 @@
     "royalPurpleGryphon": "Grifo Real Roxo",
     "phoenix": "Fênix",
     "magicalBee": "Abelha Mágica",
-    "hopefulHippogriffPet": "Hopeful Hippogriff",
-    "hopefulHippogriffMount": "Hopeful Hippogriff",
+    "hopefulHippogriffPet": "Hipogrifo Otimista",
+    "hopefulHippogriffMount": "Hipogrifo Otimista",
     "royalPurpleJackalope": "Lebrílope Roxo Real ",
     "invisibleAether": "Éter Invisível",
     "rarePetPop1": "Clique na pata de ouro para saber mais em como obter esse mascote raro através de contribuições ao Habitica.",
@@ -83,7 +83,7 @@
     "petNotOwned": "Você não possui esse mascote.",
     "mountNotOwned": "Você não possui essa montaria.",
     "earnedCompanion": "Com toda sua produtividade, você conseguiu um novo companheiro. Alimente-o para fazê-lo crescer.",
-    "feedPet": "Feed <%= text %> to your <%= name %>?",
+    "feedPet": "Dar <%= text %> para seu <%= name %>?",
     "useSaddle": "Usar sela em <%= pet %>?",
     "raisedPet": "Você domou seu <%= pet %>!",
     "earnedSteed": "Por completar suas tarefas, você conquistou uma fiel montaria!",
@@ -138,5 +138,8 @@
     "dragThisPotion": "Arraste a <%= potionName %> até um Ovo e choque um novo mascote!",
     "clickOnEggToHatch": "Clique em um Ovo para usar sua Poção de Eclosão <%= potionName %> e chocar um novo mascote!",
     "hatchDialogText": "Use sua Poção de Eclosão <%= potionName %> no seu ovo <%= eggName %> e ele irá chocar como <%= petName %>.",
-    "clickOnPotionToHatch": "Clique em uma poção de eclosão para usar seu ovo <%= eggName %> e chocar um novo mascote!"
+    "clickOnPotionToHatch": "Clique em uma poção de eclosão para usar seu ovo <%= eggName %> e chocar um novo mascote!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

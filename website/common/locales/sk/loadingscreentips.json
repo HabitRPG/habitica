@@ -1,5 +1,5 @@
 {
-  "tipTitle": "Tip #<%= tipNumber %>",
+  "tipTitle": "Tip číslo <%= tipNumber %>",
   "tip1": "Kontroluj svoje úlohy za pochodu s mobilnou aplikáciou Habitiky. ",
   "tip2": "Click any equipment to see a preview, or equip it instantly by clicking the star in its upper-left corner!",
   "tip3": "Použi emotikony pre rýchle rozlíšenie medzi tvojimi úlohami. ",
@@ -11,8 +11,8 @@
   "tip9": "Use the filters + search bar in the Inventories, Shops, Guilds, and Challenges to quickly find what you want.",
   "tip10": "Môžeš vyhrať drahokamy súťažením vo výzvach. Nové výzvy sú pridávané každý deň!",
   "tip11": "Having more than four Party members increases accountability!",
-  "tip12": "Add checklists to your To-Dos to multiply your rewards!",
-  "tip13": "Click “Filters” on your task page to make an unwieldy task list very manageable!",
+  "tip12": "Pridaj si zoznam do tvojich Úloh a znásob odmeny!",
+  "tip13": "Click “Tags” on your task page to make an unwieldy task list very manageable!",
   "tip14": "Môžeš pridať hlavičky a inšpiratívne citáty do svojich Návykov bez (+/-).",
   "tip15": "Complete all the Masterclasser Quest-lines to learn about Habitica’s secret lore.",
   "tip16": "Click the link to the Data Display Tool in the footer for valuable insights on your progress.",

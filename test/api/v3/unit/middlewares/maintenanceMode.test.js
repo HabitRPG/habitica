@@ -22,7 +22,7 @@ describe('maintenance mode middleware', () => {
 
     attachMaintenanceMode(req, res, next);
 
-    expect(next).to.have.been.called.once;
+    expect(next).to.have.been.calledOnce;
     expect(res.status).to.not.have.been.called;
   });
 

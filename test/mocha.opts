@@ -2,9 +2,7 @@
 --reporter spec
 --timeout 8000
 --check-leaks
---growl
 --globals io
--r babel-polyfill
 --require babel-register
 --require ./test/helpers/globals.helper
 --exit
