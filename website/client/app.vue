@@ -13,39 +13,38 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          div.resting-banner(v-if="showRestingBanner")
-            span.content
-              span.label {{ $t('innCheckOutBanner') }}
-              span.separator |
-              span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
-            div.closepadding(@click="hideBanner()")
-              span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
-          notifications-display
-          app-menu(:class='{"restingInn": showRestingBanner}')
-          .container-fluid
-            app-header(:class='{"restingInn": showRestingBanner}')
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        div.resting-banner(v-if="showRestingBanner")
+          span.content
+            span.label {{ $t('innCheckOutBanner') }}
+            span.separator |
+            span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
+          div.closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
+        notifications-display
+        app-menu(:class='{"restingInn": showRestingBanner}')
+        .container-fluid
+          app-header(:class='{"restingInn": showRestingBanner}')
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
-          app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
+        app-footer
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
