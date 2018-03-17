@@ -570,6 +570,7 @@ import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
+import cloneDeep from 'lodash/cloneDeep';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
@@ -782,10 +783,13 @@ export default {
     save () {
       let values = {};
 
-      each(this.editingProfile, (value, key) => {
+      let edits = cloneDeep(this.editingProfile);
+
+      each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         let curVal = this.user.profile[key];
-        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
+
+        if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }
