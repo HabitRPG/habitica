@@ -201,8 +201,8 @@ describe('GET /groups', () => {
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       let page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
-        .to.eventually.have.a.lengthOf(1 + 3); // 1 created now, 3 by other tests
-      expect(page2[3].name).to.equal('guild with less members');
+        .to.eventually.have.a.lengthOf(1 + 4); // 1 created now, 4 by other tests
+      expect(page2[4].name).to.equal('guild with less members');
     });
   });
 
@@ -219,5 +219,19 @@ describe('GET /groups', () => {
   it('returns a list of groups user has access to', async () => {
     await expect(user.get('/groups?type=privateGuilds,publicGuilds,party,tavern'))
       .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW);
+  });
+
+  it('returns a list of groups user has access to', async () => {
+    let group = await generateGroup(user, {
+      name: 'c++ coders',
+      type: 'guild',
+      privacy: 'public',
+    });
+
+    // search for 'c++ coders'
+    await expect(user.get('/groups?type=publicGuilds&paginate=true&page=0&search=c%2B%2B+coders'))
+      .to.eventually.have.lengthOf(1)
+      .and.to.have.nested.property('[0]')
+      .and.to.have.property('_id', group._id);
   });
 });
