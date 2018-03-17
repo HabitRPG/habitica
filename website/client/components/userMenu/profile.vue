@@ -131,7 +131,7 @@ div
               )
                 div(:class="`shop_${equippedItems[key]}`")
               b-popover(
-                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf(\"base_0\") === -1",
+                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1",
                 :target="key",
                 triggers="hover",
                 :placement="'bottom'",
@@ -150,7 +150,7 @@ div
             .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
               // Append a "C" to the key name since HTML IDs have to be unique.
               .box(
-                :id="key + \"C\"",
+                :id="key + 'C'",
                 v-if="label !== 'skip'",
                 :class='{white: costumeItems[key] && costumeItems[key].indexOf("base_0") === -1}'
               )
@@ -161,8 +161,8 @@ div
               )
                 div(:class="'icon_background_' + user.preferences.background")
               b-popover(
-                v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf(\"base_0\") === -1",
-                :target="key + \"C\"",
+                v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1",
+                :target="key + 'C'",
                 triggers="hover",
                 :placement="'bottom'",
                 :preventOverflow="false",
