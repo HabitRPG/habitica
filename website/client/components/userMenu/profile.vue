@@ -157,7 +157,7 @@ div
                 div(:class="`shop_${costumeItems[key]}`")
               // Show background on 8th tile rather than a piece of equipment.
               .box(v-if="label === 'skip'",
-              	:class='{white: user.preferences.background}', style="overflow:hidden"
+                :class='{white: user.preferences.background}', style="overflow:hidden"
               )
                 div(:class="'icon_background_' + user.preferences.background")
               b-popover(
