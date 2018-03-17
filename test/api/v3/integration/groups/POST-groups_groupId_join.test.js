@@ -262,6 +262,30 @@ describe('POST /group/:groupId/join', () => {
         await expect(checkExistence('groups', oldParty._id)).to.eventually.equal(false);
       });
 
+      it('does not allow user to leave a party if a quest was active and they were the only member', async () => {
+        let userToInvite = await generateUser();
+        let oldParty = await userToInvite.post('/groups', { // add user to a party
+          name: 'Another Test Party',
+          type: 'party',
+        });
+
+        await userToInvite.update({
+          [`items.quests.${PET_QUEST}`]: 1,
+        });
+        await userToInvite.post(`/groups/${oldParty._id}/quests/invite/${PET_QUEST}`);
+
+        await expect(checkExistence('groups', oldParty._id)).to.eventually.equal(true);
+        await user.post(`/groups/${party._id}/invite`, {
+          uuids: [userToInvite._id],
+        });
+
+        await expect(userToInvite.post(`/groups/${party._id}/join`)).to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('messageCannotLeaveWhileQuesting'),
+        });
+      });
+
       it('invites joining member to active quest', async () => {
         await user.update({
           [`items.quests.${PET_QUEST}`]: 1,

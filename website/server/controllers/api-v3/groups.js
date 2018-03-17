@@ -518,6 +518,18 @@ api.joinGroup = {
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+
+          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+          }
+
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -528,13 +540,6 @@ api.joinGroup = {
           user.party.quest.key = group.quest.key;
           group.quest.members[user._id] = null;
           group.markModified('quest.members');
-        }
-
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
 
         user.party._id = group._id; // Set group as user's party
