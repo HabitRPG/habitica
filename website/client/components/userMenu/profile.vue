@@ -224,7 +224,7 @@ div
               span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
                 :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
               .stat-title(:class='stat') {{ $t(statInfo.title) }}
-              strong.number {{ statsComputed[stat] }}
+              strong.number {{ statsComputed[stat] | floorWholeNumber }}
             .col-12.col-md-6
               ul.bonus-stats
                 li
