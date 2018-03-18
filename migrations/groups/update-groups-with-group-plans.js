@@ -9,8 +9,6 @@ let authorUuid = ''; // ... own data is done
  * subscription to all members
  */
 
-import Bluebird from 'bluebird';
-
 import { model as Group } from '../../website/server/models/group';
 import * as payments from '../../website/server/libs/payments';
 
@@ -28,7 +26,7 @@ async function updateGroupsWithGroupPlans () {
   });
 
   cursor.on('close', async () => {
-    return await Bluebird.all(promises);
+    return await Promise.all(promises);
   });
 }
 

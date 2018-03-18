@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WORLD BOSS: THE DYSHEARTENER IS UNLEASHED';
+const LAST_ANNOUNCEMENT_TITLE = 'KEYS TO THE KENNELS AND USE CASE SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,23 +32,26 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/14/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <p>Oh no, a World Boss is attacking Habitica! Head to the Tavern to see it now. If you're on mobile, make sure that you have the latest versions downloaded to get the full experience!</p>
-        <div class="promo_dysheartener center-block"></div>
-        <p class="text-center">~*~</p>
-        <p>The sun is rising on Valentine's Day when a shocking crash splinters the air. A blaze of sickly pink light lances through all the buildings, and bricks crumble as a deep crack rips through Habit City's main street. An unearthly shrieking rises through the air, shattering windows as a hulking form slithers forth from the oozing earth.</p>
-        <p>Mandibles snap and a carapace glitters; legs upon legs unfurl in the air. The crowd begins to scream as the insectoid creature rears up, revealing itself to be none other than that cruelest of creatures: the fearsome Dysheartener itself. It howls in anticipation and lunges forward, hungering to gnaw on the hopes of hard-working Habiticans. With each rasping scrape of its spiny forelegs, you feel a vise of despair tightening in your chest.</p>
-        <p>"Take heart, everyone!" Lemoness shouts. "It probably thinks that we're easy targets because so many of us have daunting New Year's Resolutions, but it's about to discover that Habiticans know how to stick to their goals!"</p>
-        <p>AnnDeLune raises her staff. "Let's tackle our tasks and take this monster down!"</p>
-        <p class="text-center">~*~</p>
-        <p>Complete Habits, Dailies and To-Dos to damage the World Boss! Incomplete Dailies fill the Rage Strike Bar. When the Rage Strike bar is full, the World Boss will attack one of Habitica's shopkeepers. A World Boss will never damage individual players or accounts in any way. Only active accounts who are not resting in the Inn will have their incomplete Dailies tallied.</p>
-        <p>*If you’d prefer not to see the World Boss due to a phobia, check out the <a href="http://habitica.wikia.com/wiki/Phobia_Protection_Extension" target="_blank">Phobia Protection Extension</a> (and set it to hide “Beetles”) :)</p>
-        <div class="small">by Lemoness, Beffymaroo, SabreCat, viirus, Apollo, and piyorii</div>
-        <div class="small">Art by AnnDeLune, Lemoness, and Beffymaroo</div>
-        <div class="small">Written by Lemoness</div>
-        <div class="small">Phobia Protection Extension by Alys</div>
-
+        <div class="media align-items-center">
+          <div class="media-body">
+            <h3>Release Pets & Mounts!</h3>
+            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
+          </div>
+          <div class="pet_key ml-3"></div>
+        </div>
+        <p>Scroll to the bottom of <a href='/shops/market' target='_blank'>the Market</a> to purchase a Key. It takes effect immediately on purchase, so say your goodbyes first!</p>
+        <div class="small mb-3">by TheHollidayInn, Apollo, Lemoness, deilann, and Megan</div>
+        <div class="media align-items-center">
+          <div class="scene_sweeping mr-3"></div>
+          <div class="media-body">
+            <h3>Use Case Spotlight: Spring Cleaning</h3>
+            <p>This month's <a href='https://habitica.wordpress.com/2018/03/15/use-case-spotlight-spring-cleaning/' target='_blank'>Use Case Spotlight</a> is about Spring Cleaning! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to start spring with a nice, clean dwelling.</p>
+            <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to Make a Difference? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+            <div class="small mb-3">by Beffymaroo</div>
+          </div>
+        </div>
       </div>
       `,
     });

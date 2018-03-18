@@ -52,6 +52,7 @@
 // Do not block the following words:
 // 'ale' because it's Polish for 'but'.
 // 'af' because it's Danish for 'of'.
+// 'fu' and 'fuq' because they have legitimate meanings in English and/or other languages.
 // 'tard' because it's French for 'late' and there's no common synonyms.
 // 'god' because it is allowed for use in ways that are not oaths.
 // Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
@@ -64,8 +65,13 @@
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
 // These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
 
+
+// DO NOT EDIT! See the comments at the top of this file.
 let bannedWords = [
   'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
+
+
+
 
   'hell',
   'hellish',
@@ -80,6 +86,10 @@ let bannedWords = [
   'oh, god',
   'g\\*d',
 
+  'bugger',
+  'buggery',
+  'buggering',
+  'buggered',
   'shit',
   'shitty',
   'shitting',
@@ -100,8 +110,6 @@ let bannedWords = [
   'motherfuckers',
   'motherfucking',
   'muthafucka',
-  'fu',
-  'fuq',
   'dafuq',
   'wtf',
 

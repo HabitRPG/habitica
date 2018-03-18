@@ -27,7 +27,7 @@ div
           .header
             h1 {{user.profile.name}}
             h4
-              strong {{ $t('userId') }}:
+              strong {{ $t('userId') }}:&nbsp;
               | {{user._id}}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
@@ -189,7 +189,7 @@ div
             .row.col-12
               .col-12.col-md-4
                 .box(:class='{white: user.items.currentPet}')
-                  .pet(:class="`Pet-${user.items.currentPet}`")
+                  .Pet(:class="`Pet-${user.items.currentPet}`")
               .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -224,7 +224,7 @@ div
               span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
                 :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
               .stat-title(:class='stat') {{ $t(statInfo.title) }}
-              strong.number {{ statsComputed[stat] }}
+              strong.number {{ statsComputed[stat] | floorWholeNumber }}
             .col-12.col-md-6
               ul.bonus-stats
                 li
@@ -338,10 +338,6 @@ div
   .pet-mount-row {
     margin-top: 2em;
     margin-bottom: 2em;
-  }
-
-  .pet {
-    margin-top: -1.4em !important;
   }
 
   .mount {
@@ -525,7 +521,7 @@ div
     }
 
     .box {
-      width: 141px;
+      width: 148px;
       height: 84px;
       padding: .5em;
       margin: 0 auto;
@@ -574,6 +570,7 @@ import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
+import cloneDeep from 'lodash/cloneDeep';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
@@ -786,10 +783,13 @@ export default {
     save () {
       let values = {};
 
-      each(this.editingProfile, (value, key) => {
+      let edits = cloneDeep(this.editingProfile);
+
+      each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         let curVal = this.user.profile[key];
-        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
+
+        if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }

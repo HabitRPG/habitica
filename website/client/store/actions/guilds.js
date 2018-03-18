@@ -55,7 +55,13 @@ export async function join (store, payload) {
   const user = store.state.user.data;
   const invitations = user.invitations;
 
-  let response = await axios.post(`/api/v3/groups/${groupId}/join`);
+  let response;
+  try {
+    response = await axios.post(`/api/v3/groups/${groupId}/join`);
+  } catch (err) {
+    alert(err.response.data.message);
+    return;
+  }
 
   if (type === 'guild') {
     const invitationI = invitations.guilds.findIndex(i => i.id === groupId);

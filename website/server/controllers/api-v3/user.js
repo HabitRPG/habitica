@@ -1,23 +1,21 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import common from '../../../common';
 import {
-  NotFound,
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import * as Tasks from '../../models/task';
 import {
   basicFields as basicGroupFields,
   model as Group,
 } from '../../models/group';
-import { model as User } from '../../models/user';
-import Bluebird from 'bluebird';
+import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
+import Queue from '../../libs/queue';
 import nconf from 'nconf';
 import get from 'lodash/get';
 
@@ -416,7 +414,7 @@ api.deleteUser = {
       return group.leave(user, 'remove-all');
     });
 
-    await Bluebird.all(groupLeavePromises);
+    await Promise.all(groupLeavePromises);
 
     await Tasks.Task.remove({
       userId: user._id,
@@ -433,6 +431,8 @@ api.deleteUser = {
         {name: 'FEEDBACK', content: feedback},
       ]);
     }
+
+    if (feedback) Queue.sendMessage({feedback, username: user.profile.name}, user._id);
 
     res.analytics.track('account delete', {
       uuid: user._id,
@@ -521,224 +521,6 @@ api.getUserAnonymized = {
     });
 
     return res.respond(200, { user, tasks });
-  },
-};
-
-const partyMembersFields = 'profile.name stats achievements items.special';
-
-async function castTaskSpell (res, req, targetId, user, spell) {
-  if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-
-  const task = await Tasks.Task.findOne({
-    _id: targetId,
-    userId: user._id,
-  }).exec();
-  if (!task) throw new NotFound(res.t('taskNotFound'));
-  if (task.challenge.id) throw new BadRequest(res.t('challengeTasksNoCast'));
-  if (task.group.id) throw new BadRequest(res.t('groupTasksNoCast'));
-
-  spell.cast(user, task, req);
-
-  const results = await Bluebird.all([
-    user.save(),
-    task.save(),
-  ]);
-
-  return results;
-}
-
-async function castMultiTaskSpell (req, user, spell) {
-  const tasks = await Tasks.Task.find({
-    userId: user._id,
-    ...Tasks.taskIsGroupOrChallengeQuery,
-  }).exec();
-
-  spell.cast(user, tasks, req);
-
-  const toSave = tasks
-    .filter(t => t.isModified())
-    .map(t => t.save());
-  toSave.unshift(user.save());
-  const saved = await Bluebird.all(toSave);
-
-  const response = {
-    tasks: saved,
-    user,
-  };
-
-  return response;
-}
-
-async function castSelfSpell (req, user, spell) {
-  spell.cast(user, null, req);
-  await user.save();
-}
-
-async function castPartySpell (req, party, partyMembers, user, spell) {
-  if (!party) {
-    partyMembers = [user]; // Act as solo party
-  } else {
-    partyMembers = await User
-      .find({
-        'party._id': party._id,
-        _id: { $ne: user._id }, // add separately
-      })
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-      .exec();
-
-    partyMembers.unshift(user);
-  }
-
-  spell.cast(user, partyMembers, req);
-  await Bluebird.all(partyMembers.map(m => m.save()));
-
-  return partyMembers;
-}
-
-async function castUserSpell (res, req, party, partyMembers, targetId, user, spell) {
-  if (!party && (!targetId || user._id === targetId)) {
-    partyMembers = user;
-  } else {
-    if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
-    if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMembers = await User
-      .findOne({_id: targetId, 'party._id': party._id})
-      // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
-      // default values for non-selected fields and pre('save') will mess up thinking some values are missing
-      .exec();
-  }
-
-  if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
-
-  spell.cast(user, partyMembers, req);
-
-  if (partyMembers !== user) {
-    await Bluebird.all([
-      user.save(),
-      partyMembers.save(),
-    ]);
-  } else {
-    await partyMembers.save(); // partyMembers is user
-  }
-
-  return partyMembers;
-}
-
-/**
- * @api {post} /api/v3/user/class/cast/:spellId Cast a skill (spell) on a target
- * @apiName UserCast
- * @apiGroup User
- *
-
- * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
- * @apiParamExample {json} Query example:
- * Cast "Pickpocket" on a task:
- *  https://habitica.com/api/v3/user/class/cast/pickPocket?targetId=fd427623...
- *
- * Cast "Tools of the Trade" on the party:
- *  https://habitica.com/api/v3/user/class/cast/toolsOfTrade
- *
- * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
- *
- * @apiDescription Skill Key to Name Mapping
- * Mage
- * fireball: "Burst of Flames"
- * mpheal: "Ethereal Surge"
- * earth: "Earthquake"
- * frost: "Chilling Frost"
- *
- * Warrior
- * smash: "Brutal Smash"
- * defensiveStance: "Defensive Stance"
- * valorousPresence: "Valorous Presence"
- * intimidate: "Intimidating Gaze"
- *
- * Rogue
- * pickPocket: "Pickpocket"
- * backStab: "Backstab"
- * toolsOfTrade: "Tools of the Trade"
- * stealth: "Stealth"
- *
- * Healer
- * heal: "Healing Light"
- * protectAura: "Protective Aura"
- * brightness: "Searing Brightness"
- * healAll: "Blessing"
- *
- * @apiError (400) {NotAuthorized} Not enough mana.
- * @apiUse TaskNotFound
- * @apiUse PartyNotFound
- * @apiUse UserNotFound
- */
-api.castSpell = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/user/class/cast/:spellId',
-  async handler (req, res) {
-    let user = res.locals.user;
-    let spellId = req.params.spellId;
-    let targetId = req.query.targetId;
-
-    // optional because not required by all targetTypes, presence is checked later if necessary
-    req.checkQuery('targetId', res.t('targetIdUUID')).optional().isUUID();
-
-    let reqValidationErrors = req.validationErrors();
-    if (reqValidationErrors) throw reqValidationErrors;
-
-    let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
-    let spell = common.content.spells[klass][spellId];
-
-    if (!spell) throw new NotFound(res.t('spellNotFound', {spellId}));
-    if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
-    if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
-    if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
-
-    let targetType = spell.target;
-
-    if (targetType === 'task') {
-      const results = await castTaskSpell(res, req, targetId, user, spell);
-      res.respond(200, {
-        user: results[0],
-        task: results[1],
-      });
-    } else if (targetType === 'self') {
-      await castSelfSpell(req, user, spell);
-      res.respond(200, { user });
-    } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
-      const response = await castMultiTaskSpell(req, user, spell);
-      res.respond(200, response);
-    } else if (targetType === 'party' || targetType === 'user') {
-      const party = await Group.getGroup({groupId: 'party', user});
-      // arrays of users when targetType is 'party' otherwise single users
-      let partyMembers;
-
-      if (targetType === 'party') {
-        partyMembers = await castPartySpell(req, party, partyMembers, user, spell);
-      } else {
-        partyMembers = await castUserSpell(res, req, party, partyMembers, targetId, user, spell);
-      }
-
-      let partyMembersRes = Array.isArray(partyMembers) ? partyMembers : [partyMembers];
-
-      // Only return some fields.
-      // See comment above on why we can't just select the necessary fields when querying
-      partyMembersRes = partyMembersRes.map(partyMember => {
-        return common.pickDeep(partyMember.toJSON(), common.$w(partyMembersFields));
-      });
-
-      res.respond(200, {
-        partyMembers: partyMembersRes,
-        user,
-      });
-
-      if (party && !spell.silent) {
-        let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        party.sendChat(message);
-        await party.save();
-      }
-    }
   },
 };
 
@@ -1687,7 +1469,7 @@ api.userRebirth = {
 
     toSave.push(user.save());
 
-    await Bluebird.all(toSave);
+    await Promise.all(toSave);
 
     res.respond(200, ...rebirthRes);
   },
@@ -1844,7 +1626,7 @@ api.userReroll = {
     let promises = tasks.map(task => task.save());
     promises.push(user.save());
 
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     res.respond(200, ...rerollRes);
   },
@@ -1885,7 +1667,7 @@ api.userReset = {
 
     let resetRes = common.ops.reset(user, tasks);
 
-    await Bluebird.all([
+    await Promise.all([
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);

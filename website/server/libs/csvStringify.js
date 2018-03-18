@@ -1,8 +1,7 @@
 import csvStringify from 'csv-stringify';
-import Bluebird from 'bluebird';
 
 module.exports = (input) => {
-  return new Bluebird((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     csvStringify(input, (err, output) => {
       if (err) return reject(err);
       return resolve(output);

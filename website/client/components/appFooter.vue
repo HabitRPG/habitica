@@ -1,7 +1,7 @@
 <template lang="pug">
 .row.footer-row
   buy-gems-modal(v-if='user')
-  modify-inventory(v-if="isUserLoaded")
+  //modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
       .col-12.col-md-2

@@ -16,7 +16,6 @@
 const authorName = 'Blade';
 const authorUuid = '75f270e8-c5db-4722-a5e6-a83f1b23f76b';
 
-global.Promise = require('bluebird');
 const MongoClient = require('mongodb').MongoClient;
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');

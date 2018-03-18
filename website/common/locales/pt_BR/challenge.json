@@ -110,7 +110,7 @@
     "challengeSummaryPlaceholder": "Escreva uma breve descrição anunciando seu Desafio para outros Habiticanos. Qual é o principal objetivo do Desafio e por que as pessoas deveriam entrar nele? Tente incluir palavras chave úteis na descrição de forma que Habiticanos possam encontrá-lo facilmente em suas buscas.",
     "challengeDescriptionPlaceholder": "Use essa seção para dar maiores informações sobre tudo que os participantes do Desafio deveriam saber sobre seu Desafio.",
     "challengeGuild": "Adicionar a",
-    "challengeMinimum": "É necessário o mínimo de 1 Gema para desafios públicos (Ajuda a prevenir o spam, ajuda mesmo).",
+    "challengeMinimum": "Desafios na Taverna exigem o mínimo de 1 gema. Outros lugares, basta colocar 0 no prêmio. ",
     "participantsTitle": "Participantes",
     "shortName": "Nome Curto",
     "shortNamePlaceholder": "Que etiqueta curta serve para identificar o seu Desafio?",

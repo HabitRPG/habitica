@@ -1,7 +1,6 @@
 // Currently this holds helpers for challenge api, but we should break this up into submodules as it expands
 import omit from 'lodash/omit';
 import uuid from 'uuid';
-import Bluebird from 'bluebird';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -82,7 +81,7 @@ export async function createChallenge (user, req, res) {
 
   addUserJoinChallengeNotification(user);
 
-  let results = await Bluebird.all([challenge.save({
+  let results = await Promise.all([challenge.save({
     validateBeforeSave: false, // already validate
   }), group.save()]);
   let savedChal = results[0];

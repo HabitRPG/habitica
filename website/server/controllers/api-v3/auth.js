@@ -247,7 +247,7 @@ api.loginLocal = {
     let username = req.body.username;
     let password = req.body.password;
 
-    if (validator.isEmail(username)) {
+    if (validator.isEmail(String(username))) {
       login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
     } else {
       login = {'auth.local.username': username};
@@ -410,7 +410,7 @@ api.pusherAuth = {
     }
 
     resourceId = resourceId.join('-'); // the split at the beginning had split resourceId too
-    if (!validator.isUUID(resourceId)) {
+    if (!validator.isUUID(String(resourceId))) {
       throw new BadRequest('Invalid Pusher resource id, must be a UUID.');
     }
 
@@ -629,7 +629,7 @@ api.updateEmail = {
     if (validationErrors) throw validationErrors;
 
     let emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.newEmail,
+      'auth.local.email': req.body.newEmail.toLowerCase(),
     }).select({_id: 1}).lean().exec();
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
@@ -643,7 +643,7 @@ api.updateEmail = {
       await passwordUtils.convertToBcrypt(user, password);
     }
 
-    user.auth.local.email = req.body.newEmail;
+    user.auth.local.email = req.body.newEmail.toLowerCase();
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });

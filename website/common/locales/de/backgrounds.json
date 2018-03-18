@@ -178,7 +178,7 @@
     "backgroundLilypadText": "Seerosenblatt",
     "backgroundLilypadNotes": "Hüpfe auf ein Seerosenblatt.",
     "backgroundWaterfallRockText": "Wasserfall-Felsen",
-    "backgroundWaterfallRockNotes": "Plantsche auf einem Wasserfall-Felsen herum.",
+    "backgroundWaterfallRockNotes": "Plansche auf einem Wasserfall-Felsen herum.",
     "backgrounds072016": "Set 26: Veröffentlicht im Juli 2016",
     "backgroundAquariumText": "Aquarium",
     "backgroundAquariumNotes": "Hüpf in ein Aquarium.",
@@ -331,5 +331,12 @@
     "backgroundMagicalMuseumText": "Magisches Museum",
     "backgroundMagicalMuseumNotes": "Besuche ein Magisches Museum.",
     "backgroundRoseGardenText": "Rosengarten",
-    "backgroundRoseGardenNotes": "Schlendere durch einen duftenden Rosengarten."
+    "backgroundRoseGardenNotes": "Schlendere durch einen duftenden Rosengarten.",
+    "backgrounds032018": "SET 46: Veröffentlicht im März 2018",
+    "backgroundGorgeousGreenhouseText": "Großartiges Gewächshaus",
+    "backgroundGorgeousGreenhouseNotes": "Spaziere durch die Flora in einem großartigen Gewächshaus.",
+    "backgroundElegantBalconyText": "Eleganter Balcon",
+    "backgroundElegantBalconyNotes": "Betrachte von einem eleganten Balkon aus die Landschaft.",
+    "backgroundDrivingACoachText": "Kutschfahrt",
+    "backgroundDrivingACoachNotes": "Erfreue Dich an einer Kutschfahrt vorbei an Blumenfeldern."
 }
