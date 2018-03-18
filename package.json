@@ -91,7 +91,7 @@
     "svgo": "^1.0.5",
     "svgo-loader": "^2.1.0",
     "universal-analytics": "^0.4.16",
-    "url-loader": "^0.6.2",
+    "url-loader": "^1.0.0",
     "useragent": "^2.1.9",
     "uuid": "^3.0.1",
     "validator": "^9.4.1",
