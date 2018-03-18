@@ -32,11 +32,11 @@ export default {
           return this.castEnd(party, spell.target);
         }
 
-        let party = this.$store.state.partyMembers.data;
-        if (!isArray(party)) {
-          party = [this.user];
+        let partyMembers = this.$store.state.partyMembers.data;
+        if (!isArray(partyMembers)) {
+          partyMembers = [this.user];
         }
-        this.castEnd(party, spell.target);
+        this.castEnd(partyMembers, spell.target);
       } else if (spell.target === 'tasks') {
         let userTasks = this.$store.state.tasks.data;
         // exclude rewards
