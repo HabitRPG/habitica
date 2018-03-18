@@ -11,12 +11,12 @@ source /home/vagrant/.profile
 
 echo Setting up node...
 cd /vagrant
-nvm install
-nvm use
+nvm install 8
+nvm use 8
 nvm alias default current
 
 echo Update npm...
-npm install -g npm@4
+npm install -g npm@5
 
 echo Installing global modules...
 npm install -g gulp mocha node-pre-gyp

@@ -2,7 +2,7 @@
     "npc": "PNJ",
     "npcAchievementName": "<%= key %> PNJ",
     "npcAchievementText": "A soutenu le projet Kickstarter à son niveau maximum!",
-    "welcomeTo": "Bienvenu à",
+    "welcomeTo": "La bienvenue à",
     "welcomeBack": "Heureux de vous revoir !",
     "justin": "Justin",
     "justinIntroMessage1": "Bonjour bonjour ! On dirait que vous venez tout juste d'arriver. Je m'appelle Justin, votre guide dans Habitica.",

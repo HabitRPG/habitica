@@ -118,7 +118,7 @@
     "winter2018MistletoeSet": "Jemiołowy Uzdrowiciel (Uzdrowiciel)",
     "winter2018ReindeerSet": "Reniferowy Łotrzyk (Łotrzyk)",
     "eventAvailability": "Dostępny w sprzedaży do <%= date(locale) %>.",
-    "dateEndMarch": "March 31",
+    "dateEndMarch": "31 Marca",
     "dateEndApril": "19 kwietnia",
     "dateEndMay": "17 Maja",
     "dateEndJune": "14 czerwca",

@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.30.0",
+  "version": "4.31.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@slack/client": "^3.8.1",
@@ -18,7 +18,7 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-async-to-module-method": "^6.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-plugin-transform-regenerator": "^6.16.1",
     "babel-polyfill": "^6.6.1",
@@ -26,7 +26,6 @@
     "babel-register": "^6.6.0",
     "babel-runtime": "^6.11.6",
     "bcrypt": "^1.0.2",
-    "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
     "bootstrap": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.2",
@@ -113,8 +112,8 @@
   },
   "private": true,
   "engines": {
-    "node": "^6.9.1",
-    "npm": "^5.0.0"
+    "node": "^8.9.4",
+    "npm": "^5.6.0"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
@@ -141,6 +140,7 @@
     "apidoc": "gulp apidoc"
   },
   "devDependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-istanbul": "^4.1.6",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",

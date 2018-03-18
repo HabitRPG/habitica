@@ -629,7 +629,7 @@ api.updateEmail = {
     if (validationErrors) throw validationErrors;
 
     let emailAlreadyInUse = await User.findOne({
-      'auth.local.email': req.body.newEmail,
+      'auth.local.email': req.body.newEmail.toLowerCase(),
     }).select({_id: 1}).lean().exec();
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
@@ -643,7 +643,7 @@ api.updateEmail = {
       await passwordUtils.convertToBcrypt(user, password);
     }
 
-    user.auth.local.email = req.body.newEmail;
+    user.auth.local.email = req.body.newEmail.toLowerCase();
     await user.save();
 
     return res.respond(200, { email: user.auth.local.email });

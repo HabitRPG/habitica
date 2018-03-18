@@ -138,5 +138,8 @@
     "dragThisPotion": "Tarik <%= potionName %> ini ke sebuah Telur dan tetaskan peliharaan baru!",
     "clickOnEggToHatch": "Klik sebuah Telur untuk menggunakan ramuan penetas <%= potionName %>-mu dan tetaskan peliharaan baru!",
     "hatchDialogText": "Tuangkan ramuan penetas <%= potionName %>-mu diatas telur <%= eggName %>-mu, dan ia akan menetas menjadi seekor <%= petName %>.",
-    "clickOnPotionToHatch": "Klik sebuah ramuan penetas untuk menggunakannya pada telur <%= eggName %>-mu dan tetaskan peliharaan baru!"
+    "clickOnPotionToHatch": "Klik sebuah ramuan penetas untuk menggunakannya pada telur <%= eggName %>-mu dan tetaskan peliharaan baru!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

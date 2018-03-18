@@ -26,7 +26,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    clear-completed-todos(v-if="activeFilters[type].label === 'complete2'")
+    clear-completed-todos(v-if="activeFilters[type].label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -551,7 +551,7 @@ export default {
         return task;
       });
 
-      this.quickAddText = null;
+      this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
     },

@@ -191,7 +191,7 @@
     "hatchingPotionShimmer": "Brillo",
     "hatchingPotionFairy": "Hadas",
     "hatchingPotionStarryNight": "Noche Estrellada",
-    "hatchingPotionRainbow": "Rainbow",
+    "hatchingPotionRainbow": "Arcoíris",
     "hatchingPotionNotes": "Vierte esto sobre un huevo, y nacerá una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No se puede usar con huevos de mascotas de misión.",
     "foodMeat": "Carne",

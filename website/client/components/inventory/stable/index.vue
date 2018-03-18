@@ -276,18 +276,6 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet:not(.FlyingPig) {
-    top: -28px;
-  }
-
-  .stable .item .item-content.FlyingPig {
-    top: 7px;
-  }
-
-  .stable .item .item-content.Pet-Dragon-Hydra {
-    top: -16px !important;
-  }
-
   .hatchablePopover {
     width: 180px
   }
