@@ -317,62 +317,65 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 
 function translateSystemMessages (group, user) {
   let foundText = '';
+  let lang = user.preferences.language;
   for (let i = 0; i < group.chat.length; i++) {
     if (!_.isEmpty(group.chat[i].info)) {
+      let msg;
       switch (group.chat[i].info.type) {
         case 'quest_start':
-          group.chat[i].text = `\`${shared.i18n.t('chatQuestStarted', {questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatQuestStarted', {questName: questScrolls[group.chat[i].info.quest].text(lang)}, lang)}\``;
           break;
         case 'boss_damage':
-          group.chat[i].text = `\`${shared.i18n.t('chatBossDamage', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage, bossDamage: group.chat[i].info.bossDamage}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatBossDamage', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(lang), userDamage: group.chat[i].info.userDamage, bossDamage: group.chat[i].info.bossDamage}, lang)}\``;
           break;
         case 'boss_dont_attack':
-          group.chat[i].text = `\`${shared.i18n.t('chatBossDontAttack', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language), userDamage: group.chat[i].info.userDamage}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatBossDontAttack', {username: group.chat[i].info.user, bossName: questScrolls[group.chat[i].info.quest].boss.name(lang), userDamage: group.chat[i].info.userDamage}, lang)}\``;
           break;
         case 'boss_rage':
-          group.chat[i].text = `\`${questScrolls[group.chat[i].info.quest].boss.rage.effect(user.preferences.language)}\``;
+          msg = `\`${questScrolls[group.chat[i].info.quest].boss.rage.effect(lang)}\``;
           break;
         case 'boss_defeated':
-          group.chat[i].text = `\`${shared.i18n.t('chatBossDefeated', {bossName: questScrolls[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatBossDefeated', {bossName: questScrolls[group.chat[i].info.quest].boss.name(lang)}, lang)}\``;
           break;
         case 'user_found_items':
           foundText = _.reduce(group.chat[i].info.items, (m, v, k) => {
-            m.push(`${v} ${questScrolls[group.chat[i].info.quest].collect[k].text(user.preferences.language)}`);
+            m.push(`${v} ${questScrolls[group.chat[i].info.quest].collect[k].text(lang)}`);
             return m;
           }, []).join(', ');
-          group.chat[i].text = `\`${shared.i18n.t('chatFindItems', {username: group.chat[i].info.user, items: foundText}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatFindItems', {username: group.chat[i].info.user, items: foundText}, lang)}\``;
           break;
         case 'all_items_found':
-          group.chat[i].text = `\`${shared.i18n.t('chatItemQuestFinish', user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatItemQuestFinish', lang)}\``;
           break;
         case 'spell_cast_party':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellParty', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language)}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatCastSpellParty', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(lang)}, lang)}\``;
           break;
         case 'spell_cast_user':
-          group.chat[i].text = `\`${shared.i18n.t('chatCastSpellUser', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(user.preferences.language), target: group.chat[i].info.target}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatCastSpellUser', {username: group.chat[i].info.user, spell: shared.content.spells[group.chat[i].info.class][group.chat[i].info.spell].text(lang), target: group.chat[i].info.target}, lang)}\``;
           break;
         case 'quest_abort':
-          group.chat[i].text = `\`${shared.i18n.t('chatQuestAborted', {username: group.chat[i].info.user, questName: questScrolls[group.chat[i].info.quest].text(user.preferences.language)}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('chatQuestAborted', {username: group.chat[i].info.user, questName: questScrolls[group.chat[i].info.quest].text(lang)}, lang)}\``;
           break;
         case 'tavern_quest_completed':
-          group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].completionChat(user.preferences.language)}\``;
+          msg = `\`${shared.content.quests[group.chat[i].info.quest].completionChat(lang)}\``;
           break;
         case 'tavern_boss_rage_tired':
-          group.chat[i].text = `\`${shared.i18n.t('tavernBossTired', {rageName: shared.content.quests[group.chat[i].info.quest].boss.rage.title(user.preferences.language), bossName: shared.content.quests[group.chat[i].info.quest].boss.name(user.preferences.language)}, user.preferences.language)}\``;
+          msg = `\`${shared.i18n.t('tavernBossTired', {rageName: shared.content.quests[group.chat[i].info.quest].boss.rage.title(lang), bossName: shared.content.quests[group.chat[i].info.quest].boss.name(lang)}, lang)}\``;
           break;
         case 'tavern_boss_rage':
-          group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](user.preferences.language)}\``;
+          msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](lang)}\``;
           break;
         case 'tavern_boss_rage_effect':
-          group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage.effect(user.preferences.language)}\``;
+          msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage.effect(lang)}\``;
           break;
         case 'tavern_boss_desperation':
-          group.chat[i].text = `\`${shared.content.quests[group.chat[i].info.quest].boss.desperation.text(user.preferences.language)}\``;
+          msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.desperation.text(lang)}\``;
           break;
         case 'claim_task':
-          group.chat[i].text = `${shared.i18n.t('userIsClamingTask', {username: group.chat[i].info.user, task: group.chat[i].info.task}, user.preferences.language)}`;
+          msg = `${shared.i18n.t('userIsClamingTask', {username: group.chat[i].info.user, task: group.chat[i].info.task}, lang)}`;
           break;
       }
+      group.chat[i].text = msg;
     }
   }
   return group;
