@@ -358,9 +358,15 @@ api.getUserChallenges = {
       }); // Challenges in groups where I'm a member
     }
 
-    let challenges = await Challenge.find({
+    const query = {
       $or: orOptions,
-    })
+    };
+
+    if (!user.contributor.admin) {
+      query.flagCount = { $eq: 0 };
+    }
+
+    let challenges = await Challenge.find(query)
       .sort('-official -createdAt')
       // see below why we're not using populate
       // .populate('group', basicGroupFields)
@@ -417,7 +423,13 @@ api.getGroupChallenges = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let challenges = await Challenge.find({group: groupId})
+    const query = { group: groupId };
+
+    if (!user.contributor.admin) {
+      query.flagCount = { $eq: 0 };
+    }
+
+    let challenges = await Challenge.find(query)
       .sort('-official -createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
@@ -467,8 +479,9 @@ api.getChallenge = {
     // Don't populate the group as we'll fetch it manually later
     // .populate('leader', nameFields)
     let challenge = await Challenge.findById(challengeId).exec();
-
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    if (!user.contributor.admin && challenge.flagCount > 0) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});

@@ -8,11 +8,11 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
 export async function notifyOfFlaggedChallenge (challenge, user) {
   const reporterEmailContent = getUserInfo(user, ['email']).email;
 
-  this.emailVariables = [
+  const emailVariables = [
     {name: 'CHALLENGE_NAME', content: challenge.name},
     {name: 'CHALLENGE_ID', content: challenge.leader._id},
 
-    {name: 'REPORTER_USERNAME', content: this.user.profile.name},
+    {name: 'REPORTER_USERNAME', content: user.profile.name},
     {name: 'REPORTER_UUID', content: user._id},
     {name: 'REPORTER_EMAIL', content: reporterEmailContent},
     {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
@@ -20,6 +20,11 @@ export async function notifyOfFlaggedChallenge (challenge, user) {
     {name: 'AUTHOR_UUID', content: challenge.leader._id},
     {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${challenge.leader._id}`},
   ];
+
+  sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', emailVariables.concat([
+    {name: 'CHALLENGE_NAME', content: challenge.name},
+    {name: 'CHALLENGE_ID', content: challenge.leader._id},
+  ]));
 }
 
 export async function clearFlags (challenge, user) {
