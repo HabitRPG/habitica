@@ -1,5 +1,15 @@
 <template lang="pug">
 .standard-page
+  task-modal(
+    :task="workingTask",
+    :purpose="taskFormPurpose",
+    @cancel="cancelTaskModal()",
+    ref="taskModal",
+    :groupId="groupId",
+    v-on:taskCreated='taskCreated',
+    v-on:taskEdited='taskEdited',
+    v-on:taskDestroyed='taskDestroyed'
+  )
   .row.tasks-navigation
     .col-12.col-md-4
       h1 Group's Tasks
@@ -53,27 +63,17 @@
             .d-flex.align-items-center
               span(v-once) {{ $t('filter') }}
               .svg-icon.filter-icon(v-html="icons.filter")
-    #create-dropdown.col-12.col-md-1.offset-md-3
-      b-dropdown(:right="true", :variant="'success'")
-        div(slot="button-content")
+    #create-dropdown.col-12.col-md-4
+      b-dropdown.float-right(:right="true", :variant="'success'")
+        .button-label(slot="button-content")
           .svg-icon.positive(v-html="icons.positive")
           | {{ $t('addTaskToGroupPlan') }}
         b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
           span.dropdown-icon-item(v-once)
             span.svg-icon.inline(v-html="icons[type]")
             span.text {{$t(type)}}
-      task-modal(
-        :task="workingTask",
-        :purpose="taskFormPurpose",
-        @cancel="cancelTaskModal()",
-        ref="taskModal",
-        :groupId="groupId",
-        v-on:taskCreated='taskCreated',
-        v-on:taskEdited='taskEdited',
-        v-on:taskDestroyed='taskDestroyed'
-      )
   .row
-    task-column.col-12.col-sm-6.col-3(
+    task-column.col-12.col-md-3(
       v-for="column in columns",
       :type="column",
       :key="column",
@@ -224,6 +224,10 @@
       }
     }
   }
+
+  .button-label {
+    display: inline-block;
+  }
 </style>
 
 <script>
@@ -253,6 +257,7 @@ export default {
   },
   data () {
     return {
+      openCreateBtn: false,
       searchId: '',
       columns: ['habit', 'daily', 'todo', 'reward'],
       tasksByType: {
