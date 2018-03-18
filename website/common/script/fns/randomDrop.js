@@ -41,9 +41,9 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
     (1 + (user.contributor.level / 40 || 0)) *          // Contrib levels: +2.5% per level
     (1 + (user.achievements.rebirths / 20 || 0)) *      // Rebirths: +5% per achievement
     (1 + (user.achievements.streak / 200 || 0)) *       // Streak achievements: +0.5% per achievement
-    (user._tmp.crit || 1) * (1 + 0.5 * (reduce(task.checklist, (m, i) => {
-      return m + (i.completed ? 1 : 0); // +50% per checklist item complete. TODO: make this into X individual drop chances instead
-    }, 0) || 0));
+    (user._tmp.crit || 1) * (1 + 0.5 * (reduce(task.checklist, (m, i) => { // +50% per checklist item complete. TODO: make this into X individual drop chances instead
+      return m + (i.completed ? 1 : 0); // eslint-disable-line indent
+    }, 0) || 0)); // eslint-disable-line indent
   chance = diminishingReturns(chance, 0.75);
 
   if (predictableRandom() < chance) {

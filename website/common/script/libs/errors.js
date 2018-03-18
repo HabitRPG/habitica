@@ -40,3 +40,12 @@ export class NotFound extends CustomError {
     this.message = customMessage || 'Not found.';
   }
 }
+
+export class NotImplementedError extends CustomError {
+  constructor (str) {
+    super();
+    this.name = this.constructor.name;
+
+    this.message = `Method: '${str}' not implemented`;
+  }
+}

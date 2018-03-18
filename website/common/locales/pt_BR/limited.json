@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Curandeiro do Visco (Curandeiro)",
     "winter2018ReindeerSet": "Gatuno da Rena ( Gatuno)",
     "eventAvailability": "Disponível para compra até <%= date(locale) %>.",
+    "dateEndMarch": "31 de Março",
     "dateEndApril": "19 de Abril",
     "dateEndMay": "17 de Maio",
     "dateEndJune": "14 de Junho",

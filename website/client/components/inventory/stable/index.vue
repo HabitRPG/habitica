@@ -276,18 +276,6 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet:not(.FlyingPig) {
-    top: -28px;
-  }
-
-  .stable .item .item-content.FlyingPig {
-    top: 7px;
-  }
-
-  .stable .item .item-content.Pet-Dragon-Hydra {
-    top: -16px !important;
-  }
-
   .hatchablePopover {
     width: 180px
   }
@@ -904,7 +892,7 @@
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
 
         this.closeHatchPetDialog();
-        this.$root.$emit('hatchedPet::open', pet);
+        // this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {

@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Помог победить Перегорание и восстановить Истощённых Духов во время Осеннего Фестиваля 2015 года!",
     "achievementBewilder": "Спаситель Летящей Дымки",
     "achievementBewilderText": "Помог(ла) победить С-толку-сбивателя во время события Весенней веселухи 2016!",
+    "achievementDysheartener": "Спаситель Угнетенных",
+    "achievementDysheartenerText": "Помог одолеть Гразочаровывателя во время Валентинского события 2018!",
     "checkOutProgress": "Оцените мои достижения в Habitica!",
     "cards": "Открытки",
     "sentCardToUser": "Ваша открытка отправлена <%= profileName %>",

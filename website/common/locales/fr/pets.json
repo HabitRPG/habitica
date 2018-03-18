@@ -127,7 +127,7 @@
     "petLikeToEatText": "Les familiers grandissent, peu importe de quoi vous les nourrissez, mais ils grandiront plus vite si vous leur donnez ce qu'ils préfèrent. Expérimentez et trouvez par vous-même, ou regardez les réponses ici : <br/> <a href=\"http://habitica.wikia.com/wiki/Food_Preferences\" target=\"_blank\">http://fr.habitica.wikia.com/wiki/Préférences_alimentaires</a>",
     "filterByStandard": "Standards",
     "filterByMagicPotion": "Potions",
-    "filterByQuest": "de quêtes",
+    "filterByQuest": "Familiers de quêtes",
     "standard": "Standard",
     "sortByColor": "Couleurs",
     "sortByHatchable": "Peut éclore",
@@ -138,5 +138,8 @@
     "dragThisPotion": "Déplacez cette <%= potionName %> vers un œuf pour en faire sortir un nouveau familier !",
     "clickOnEggToHatch": "Cliquez sur un œuf à associer à votre potion d'éclosion <%= potionName %> et faites éclore un nouveau familier !",
     "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>.",
-    "clickOnPotionToHatch": "Cliquez sur une potion d'éclosion pour l'utiliser sur votre <%= eggName %> et faire éclore un nouveau familier !"
+    "clickOnPotionToHatch": "Cliquez sur une potion d'éclosion pour l'utiliser sur votre <%= eggName %> et faire éclore un nouveau familier !",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

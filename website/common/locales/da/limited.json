@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Mistletoe Healer (Healer)",
     "winter2018ReindeerSet": "Reindeer Rogue (Rogue)",
     "eventAvailability": "Tilgændelig til køb indtil <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19. april",
     "dateEndMay": "17. maj",
     "dateEndJune": "Juni 14",

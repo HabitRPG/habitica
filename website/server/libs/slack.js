@@ -24,6 +24,7 @@ function sendFlagNotification ({
   flagger,
   group,
   message,
+  userComment,
 }) {
   if (!SLACK_FLAGGING_URL) {
     return;
@@ -31,7 +32,11 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
