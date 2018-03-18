@@ -138,5 +138,8 @@
     "dragThisPotion": "この<%= potionName %>をたまごにドラッグして、たまごをかえしましょう!",
     "clickOnEggToHatch": "たまごをクリックして<%= potionName %>をたまごに使い、たまごをかえしましょう!",
     "hatchDialogText": "<%= potionName %>たまごがえしの薬を<%= eggName %>のたまごにかけると、<%= petName %>が生まれます。",
-    "clickOnPotionToHatch": "たまごがえしの薬をクリックして<%= eggName %>に使い、たまごをかえしましょう！"
+    "clickOnPotionToHatch": "たまごがえしの薬をクリックして<%= eggName %>に使い、たまごをかえしましょう！",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

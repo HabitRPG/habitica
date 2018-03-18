@@ -1,13 +1,32 @@
 <template lang="pug">
   b-modal#world-boss-rage(title="", :hide-footer="true", :hide-header="true")
-    .modal-header.d-flex.align-items-center.justify-content-center
-      .reduce {{ $t('seasonalShopRageStrikeHeader') }}
-    img.npc-background(src='~assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png')
-    .modal-body
-      .row
-        .col-12.text-center.padding-24
-          h2 {{ $t('seasonalShopRageStrikeLead') }}
-          p {{ $t('seasonalShopRageStrikeRecap') }}
+    div(v-if="npc === 'seasonalShop'")
+      .modal-header.d-flex.align-items-center.justify-content-center
+        .reduce {{ $t('seasonalShopRageStrikeHeader') }}
+      img.npc-background(src='~assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png')
+      .modal-body
+        .row
+          .col-12.text-center.padding-24
+            h2 {{ $t('seasonalShopRageStrikeLead') }}
+            p {{ $t('seasonalShopRageStrikeRecap') }}
+    div(v-if="npc === 'market'")
+      .modal-header.d-flex.align-items-center.justify-content-center
+        .reduce {{ $t('marketRageStrikeHeader') }}
+      img.npc-background(src='~assets/images/npc/broken/rage-strike-market-scaled@2x.png')
+      .modal-body
+        .row
+          .col-12.text-center.padding-24
+            h2 {{ $t('marketRageStrikeLead') }}
+            p {{ $t('marketRageStrikeRecap') }}
+    div(v-if="npc === 'quests'")
+      .modal-header.d-flex.align-items-center.justify-content-center
+        .reduce {{ $t('questsRageStrikeHeader') }}
+      img.npc-background(src='~assets/images/npc/broken/rage-strike-quests-scaled@2x.png')
+      .modal-body
+        .row
+          .col-12.text-center.padding-24
+            h2 {{ $t('questsRageStrikeLead') }}
+            p {{ $t('questsRageStrikeRecap') }}
 </template>
 
 <style>
@@ -48,9 +67,24 @@
 
 <script>
   export default {
+    computed: {
+      npcOption () {
+        return this.$store.state.rageModalOptions.npc;
+      },
+    },
+    data () {
+      return {
+        npc: 'seasonalShop',
+      };
+    },
     methods: {
       close () {
         this.$root.$emit('bv::hide::modal', 'world-boss-rage');
+      },
+    },
+    watch: {
+      npcOption () {
+        this.npc = this.$store.state.rageModalOptions.npc;
       },
     },
   };

@@ -574,9 +574,17 @@
     "seasonalShopRageStrikeHeader": "季節の店が襲撃を受けました！",
     "seasonalShopRageStrikeLead": "Leslieは悲しみに打ちひしがれています！",
     "seasonalShopRageStrikeRecap": "2月21日、ディスハートナーの攻撃で季節の店が破壊されたので、愛すべき季節の魔女Leslieは打ちのめされてしまいました。急いで！　タスクを片付けてこの怪物を倒し、再建の手助けをするのです！",
+    "marketRageStrikeHeader": "市場が襲撃を受けました！",
+    "marketRageStrikeLead": "Alexは悲しみに打ちひしがれています！",
+    "marketRageStrikeRecap": "2月28日、素晴らしき我らが商人のAlexはディスハートナーが市場を破壊した際に恐怖に打ちのめされてしまいました。急いで！　タスクを片付けてこの怪物を倒し、再建の手助けをするのです！",
+    "questsRageStrikeHeader": "クエストショップが襲撃を受けました！",
+    "questsRageStrikeLead": "Ianは悲しみに打ちひしがれています！",
+    "questsRageStrikeRecap": "3月6日、我らが素晴らしきクエストガイドのIanはディスハートナーがクエストショップ周辺の土地をめちゃくちゃにした際に深いショックを受けてしまいました。急いで！　タスクを片付けてこの怪物を倒し、再建の手助けをするのです！",
     "questDysheartenerBossRageMarket": "`心蝕のディスハートナーは強烈なハートブレイクを使った！`\n\n助けて！　未完了の日課をおいしく頂いたあと、ディスハートナーは更なる強烈なハートブレイクを市場の壁と床に食らわせました！　がれきが降り注ぎ、商人のAlexは壊れてしまった商品を見て涙しています。\n\nこの悲劇をまた起こすわけにはいきません。ディスハートナーに最後の攻撃を使わせないよう、確実に日課を行いましょう。",
     "questDysheartenerBossRageQuests": "`心蝕のディスハートナーは強烈なハートブレイクを使った！`\n\nああああ!!　またもや私たちが日課を終わらせずに残してしまい、ディスハートナーは愛すべき店主たちに向けて放つ最後の一撃のエネルギーを溜めました。クエストマスターのIanがいる郊外は強烈なハートブレイクによってずたずたに破壊され、Ianは恐るべき光景に徹底的に打ちのめされています。怪物が倒れるときは近づいています……急ぎましょう！　止まっている暇はありません！",
     "questDysheartenerDropHippogriffPet": "希望に満ちたヒッポグリフ(ペット)",
     "questDysheartenerDropHippogriffMount": "希望に満ちたヒッポグリフ(乗騎)",
-    "dysheartenerArtCredit": "イラスト作成：@AnnDeLune"
+    "dysheartenerArtCredit": "イラスト作成：@AnnDeLune",
+    "hugabugText": "「虫さんと仲良し」クエストセット",
+    "hugabugNotes": "「クリティカル・バグ」「タンタン泥地のカタツムリ」「バイバイ、蝶々さん」のセット。3月31日まで購入できます。"
 }

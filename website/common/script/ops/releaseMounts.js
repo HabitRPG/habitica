@@ -1,4 +1,5 @@
 import content from '../content/index';
+import {mountMasterProgress} from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -7,6 +8,10 @@ import {
 module.exports = function releaseMounts (user, req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  }
+
+  if (mountMasterProgress(user.items.mounts) !== 90) {
+    throw new NotAuthorized(i18n.t('notEnoughMounts', req.language));
   }
 
   user.balance -= 1;

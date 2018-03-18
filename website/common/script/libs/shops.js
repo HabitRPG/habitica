@@ -187,16 +187,14 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     text: i18n.t('none', language),
   };
 
-  let falseGear = filter(content.gear.flat, (gear) => {
-    let prevOwnedFalseGear = user.items.gear.owned[gear.key] === false && gear.klass !== user.stats.class;
-    let specialNonClassGear = !user.items.gear.owned[gear.key] &&
-                              content.classes.indexOf(gear.klass) < 0 &&
-                              content.classes.indexOf(gear.specialClass) < 0 &&
-                              (gear.canOwn && gear.canOwn(user));
-    return  prevOwnedFalseGear || specialNonClassGear;
+  let specialNonClassGear = filter(content.gear.flat, (gear) => {
+    return !user.items.gear.owned[gear.key] &&
+      content.classes.indexOf(gear.klass) === -1 &&
+      content.classes.indexOf(gear.specialClass) === -1 &&
+      (gear.canOwn && gear.canOwn(user));
   });
 
-  nonClassCategory.items = map(falseGear, (e) => {
+  nonClassCategory.items = map(specialNonClassGear, (e) => {
     return getItemInfo(user, 'marketGear', e);
   });
 

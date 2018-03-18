@@ -276,18 +276,6 @@
     display: inline-block;
   }
 
-  .stable .item .item-content.Pet:not(.FlyingPig) {
-    top: -28px;
-  }
-
-  .stable .item .item-content.FlyingPig {
-    top: 7px;
-  }
-
-  .stable .item .item-content.Pet-Dragon-Hydra {
-    top: -16px !important;
-  }
-
   .hatchablePopover {
     width: 180px
   }
@@ -904,7 +892,7 @@
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
 
         this.closeHatchPetDialog();
-        this.$root.$emit('hatchedPet::open', pet);
+        // this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {
@@ -963,25 +951,21 @@
           this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
-
       async feedAction (petKey, foodKey) {
-        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
 
         if (result.message) {
           this.text(result.message);
         }
       },
-
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
-
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
         }
       },
-
       onFoodClicked ($event, food) {
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
@@ -995,7 +979,6 @@
           this.foodClickMode = false;
         }
       },
-
       mouseMoved ($event) {
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;

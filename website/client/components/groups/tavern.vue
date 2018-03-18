@@ -76,10 +76,10 @@
                 .m-auto(@click="showWorldBossRage('seasonalShop')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.seasonalShop")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-seasonalShop@2x.png", v-if="group.quest.extra.worldDmg.seasonalShop")
-                .m-auto
+                .m-auto(@click="showWorldBossRage('market')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.market")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-market@2x.png", v-if="group.quest.extra.worldDmg.market")
-                .m-auto
+                .m-auto(@click="showWorldBossRage('quests')")
                   img.rage-strike(src="~assets/images/world-boss/rage_strike@2x.png", v-if="!group.quest.extra.worldDmg.quests")
                   img.rage-strike-active(src="~assets/images/world-boss/rage_strike-quests@2x.png", v-if="group.quest.extra.worldDmg.quests")
             .boss-description.p-3(:style="{'border-color': questData.colors.extralight}", @click="sections.worldBoss = !sections.worldBoss")
@@ -90,7 +90,7 @@
                 .toggle-up(v-if="sections.worldBoss")
                   .svg-icon.boss-icon.reverse(v-html="icons.chevronIcon")
             .mt-3(v-if="sections.worldBoss", v-html="questData.notes()")
-        .text-center.mt-4
+        // .text-center.mt-4
           .world-boss-info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
 
       .sleep.below-header-sections
@@ -114,10 +114,9 @@
             .toggle-down(@click="sections.staff = !sections.staff", v-if="!sections.staff")
               .svg-icon(v-html="icons.downIcon")
         .section.row(v-if="sections.staff")
-          // @TODO open member modal when clicking on a staff member
           .col-4.staff(v-for='user in staff', :class='{staff: user.type === "Staff", moderator: user.type === "Moderator", bailey: user.name === "It\'s Bailey"}')
             div
-              .title {{user.name}}
+              a.title(@click="viewStaffProfile(user.uuid)") {{user.name}}
               .svg-icon.staff-icon(v-html="icons.tierStaff", v-if='user.type === "Staff"')
               .svg-icon.mod-icon(v-html="icons.tierMod", v-if='user.type === "Moderator" && user.name !== "It\'s Bailey"')
               .svg-icon.npc-icon(v-html="icons.tierNPC", v-if='user.name === "It\'s Bailey"')
@@ -595,78 +594,97 @@ export default {
         {
           name: 'beffymaroo',
           type: 'Staff',
+          uuid: '9fe7183a-4b79-4c15-9629-a1aee3873390',
         },
         // {
         //   name: 'lefnire',
         //   type: 'Staff',
+        //   uuid: '00000000-0000-4000-9000-000000000000',
         // },
         {
           name: 'Lemoness',
           type: 'Staff',
+          uuid: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
         },
         {
           name: 'paglias',
           type: 'Staff',
+          uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
         },
         {
           name: 'redphoenix',
           type: 'Staff',
+          uuid: 'cb46ad54-8c78-4dbc-a8ed-4e3185b2b3ff',
         },
         {
           name: 'SabreCat',
           type: 'Staff',
+          uuid: '7f14ed62-5408-4e1b-be83-ada62d504931',
         },
         {
           name: 'TheHollidayInn',
           type: 'Staff',
+          uuid: '206039c6-24e4-4b9f-8a31-61cbb9aa3f66',
         },
         {
           name: 'viirus',
           type: 'Staff',
+          uuid: 'a327d7e0-1c2e-41be-9193-7b30b484413f',
         },
         {
           name: 'It\'s Bailey',
           type: 'Moderator',
+          uuid: '9da65443-ed43-4c21-804f-d260c1361596',
         },
         {
           name: 'Alys',
           type: 'Moderator',
+          uuid: 'd904bd62-da08-416b-a816-ba797c9ee265',
         },
         {
           name: 'Blade',
           type: 'Moderator',
+          uuid: '75f270e8-c5db-4722-a5e6-a83f1b23f76b',
         },
         {
           name: 'Breadstrings',
           type: 'Moderator',
+          uuid: '3b675c0e-d7a6-440c-8687-bc67cd0bf4e9',
         },
         {
           name: 'Cantras',
           type: 'Moderator',
+          uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
         },
         // {
         //   name: 'Daniel the Bard',
         //   type: 'Moderator',
+        //   uuid: '1f7c4a74-03a3-4b2c-b015-112d0acbd593',
         // },
         {
           name: 'deilann 5.0.5b',
           type: 'Moderator',
+          uuid: 'e7b5d1e2-3b6e-4192-b867-8bafdb03eeec',
         },
         {
           name: 'Dewines',
           type: 'Moderator',
+          uuid: '262a7afb-6b57-4d81-88e0-80d2e9f6cbdc',
         },
         {
           name: 'Fox_town',
           type: 'Moderator',
+          uuid: 'a05f0152-d66b-4ef1-93ac-4adb195d0031',
         },
         {
           name: 'Megan',
           type: 'Moderator',
+          uuid: '73e5125c-2c87-4004-8ccd-972aeac4f17a',
         },
         {
           name: 'shanaqui',
           type: 'Moderator',
+          uuid: 'bb089388-28ae-4e42-a8fa-f0c2bfb6f779',
         },
       ],
       newMessage: '',
@@ -720,7 +738,6 @@ export default {
       this.newMessage = newText;
     },
     toggleSleep () {
-      this.user.preferences.sleep = !this.user.preferences.sleep;
       this.$store.dispatch('user:sleep');
     },
     async sendMessage () {
@@ -760,8 +777,17 @@ export default {
     },
     showWorldBossRage (npc) {
       if (this.group.quest.extra.worldDmg[npc]) {
+        this.$store.state.rageModalOptions.npc = npc;
         this.$root.$emit('bv::show::modal', 'world-boss-rage');
       }
+    },
+
+    async viewStaffProfile (staffId) {
+      let staffDetails = await this.$store.dispatch('members:fetchMember', { memberId: staffId });
+      this.$root.$emit('habitica:show-profile', {
+        user: staffDetails.data.data,
+        startingPage: 'profile',
+      });
     },
   },
 };

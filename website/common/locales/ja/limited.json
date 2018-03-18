@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "ヤドリギの治療師(治療師)",
     "winter2018ReindeerSet": "トナカイ盗賊(盗賊)",
     "eventAvailability": "<%= date(locale) %>まで購入できます。",
+    "dateEndMarch": "March 31",
     "dateEndApril": "4月19日",
     "dateEndMay": "5月17日",
     "dateEndJune": "6月14日",

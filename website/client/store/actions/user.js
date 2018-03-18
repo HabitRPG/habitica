@@ -56,7 +56,11 @@ export async function set (store, changes) {
   // .catch((err) => console.error('set', err));
 }
 
-export async function sleep () {
+export async function sleep (store) {
+  const user = store.state.user.data;
+
+  user.preferences.sleep = !user.preferences.sleep;
+
   let response = await axios.post('/api/v3/user/sleep');
   return response.data.data;
 }
@@ -119,7 +123,8 @@ export function openMysteryItem () {
   return axios.post('/api/v3/user/open-mystery-item');
 }
 
-export function newStuffLater () {
+export function newStuffLater (store) {
+  store.state.user.data.flags.newStuff = false;
   return axios.post('/api/v3/news/tell-me-later');
 }
 

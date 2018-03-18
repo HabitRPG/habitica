@@ -17,6 +17,16 @@ function beastMasterProgress (pets = {}) {
   return count;
 }
 
+function beastCount (pets = {}) {
+  let count = 0;
+
+  each(DROP_ANIMALS, (animal) => {
+    if (pets[animal] > 0) count++;
+  });
+
+  return count;
+}
+
 function dropPetsCurrentlyOwned (pets = {}) {
   let count = 0;
 
@@ -67,6 +77,7 @@ function questsOfCategory (userQuests = {}, category) {
 
 module.exports = {
   beastMasterProgress,
+  beastCount,
   dropPetsCurrentlyOwned,
   mountMasterProgress,
   remainingGearInSet,

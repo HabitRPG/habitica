@@ -556,7 +556,7 @@
     "questPterodactylNotes": "You're taking a stroll along the peaceful Stoïkalm Cliffs when an evil screech rends the air. You turn to find a hideous creature flying towards you and are overcome by a powerful terror. As you turn to flee, @Lilith of Alfheim grabs you. \"Don't panic! It's just a Pterror-dactyl.\"<br><br>@Procyon P nods. \"They nest nearby, but they're attracted to the scent of negative Habits and undone Dailies.\"<br><br>\"Don't worry,\" @Katy133 says. \"We just need to be extra productive to defeat it!\" You are filled with a renewed sense of purpose and turn to face your foe.",
     "questPterodactylCompletion": "With one last screech the Pterror-dactyl plummets over the side of the cliff. You run forward to watch it soar away over the distant steppes. \"Phew, I'm glad that's over,\" you say. \"Me too,\" replies @GeraldThePixel. \"But look! It's left some eggs behind for us.\" @Edge passes you three eggs, and you vow to raise them in tranquility, surrounded by positive Habits and blue Dailies.",
     "questPterodactylBoss": "Pterror-dactyl",
-    "questPterodactylDropPterodactylEgg": "Pterodactyl (Egg)",
+    "questPterodactylDropPterodactylEgg": "Pterodattilo (uovo)",
     "questPterodactylUnlockText": "Unlocks purchasable Pterodactyl eggs in the Market",
     "questBadgerText": "Stop Badgering Me!",
     "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
@@ -574,9 +574,17 @@
     "seasonalShopRageStrikeHeader": "The Seasonal Shop was Attacked!",
     "seasonalShopRageStrikeLead": "Leslie is Heartbroken!",
     "seasonalShopRageStrikeRecap": "On February 21, our beloved Leslie the Seasonal Sorceress was devastated when the Dysheartener shattered the Seasonal Shop. Quickly, tackle your tasks to defeat the monster and help rebuild!",
+    "marketRageStrikeHeader": "The Market was Attacked!",
+    "marketRageStrikeLead": "Alex is Heartbroken!",
+    "marketRageStrikeRecap": "On February 28, our marvelous Alex the Merchant was horrified when the Dysheartener shattered the Market. Quickly, tackle your tasks to defeat the monster and help rebuild!",
+    "questsRageStrikeHeader": "The Quest Shop was Attacked!",
+    "questsRageStrikeLead": "Ian is Heartbroken!",
+    "questsRageStrikeRecap": "On March 6, our wonderful Ian the Quest Guide was deeply shaken when the Dysheartener shattered the ground around the Quest Shop. Quickly, tackle your tasks to defeat the monster and help rebuild!",
     "questDysheartenerBossRageMarket": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nHelp! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.\n\nWe can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.",
     "questDysheartenerBossRageQuests": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nAaaah! We've left our Dailies undone again, and the Dysheartener has mustered the energy for one final blow against our beloved shopkeepers. The countryside around Ian the Quest Master is ripped apart by its Shattering Heartbreak attack, and Ian is struck to the core by the horrific vision. We're so close to defeating this monster.... Hurry! Don't stop now!",
     "questDysheartenerDropHippogriffPet": "Hopeful Hippogriff (Pet)",
     "questDysheartenerDropHippogriffMount": "Hopeful Hippogriff (Mount)",
-    "dysheartenerArtCredit": "Illustrazione di @AnnDeLune"
+    "dysheartenerArtCredit": "Illustrazione di @AnnDeLune",
+    "hugabugText": "Hug a Bug Quest Bundle",
+    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
 }

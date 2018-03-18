@@ -47,7 +47,7 @@ describe('slack', () => {
 
       expect(IncomingWebhook.prototype.send).to.be.calledOnce;
       expect(IncomingWebhook.prototype.send).to.be.calledWith({
-        text: 'flagger (flagger-id) flagged a message (language: flagger-lang)',
+        text: 'flagger (flagger-id; language: flagger-lang) flagged a message',
         attachments: [{
           fallback: 'Flag Message',
           color: 'danger',
