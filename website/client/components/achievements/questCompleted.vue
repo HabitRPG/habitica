@@ -62,7 +62,7 @@ export default {
       this.$store.dispatch('user:set', {'party.quest.completed': ''});
       this.close();
     },
-    hide (evt) {
+    hide () {
       this.setQuestCompleted();
     },
   },
