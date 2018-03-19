@@ -11,8 +11,8 @@ import get from 'lodash/get';
 module.exports = function buyQuest (user, req = {}, analytics) {
   let key = get(req, 'params.key');
 
-  if (req.quantity && isNaN(req.quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
   let quantity = req.quantity ? Number(req.quantity) : 1;
+  if (isNaN(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
 
   if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 

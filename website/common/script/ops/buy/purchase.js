@@ -110,8 +110,8 @@ module.exports = function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
   let key = get(req.params, 'key');
 
-  if (req.quantity && isNaN(req.quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
   let quantity = req.quantity ? Number(req.quantity) : 1;
+  if (isNaN(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
 
   if (!type) {
     throw new BadRequest(i18n.t('typeRequired', req.language));
