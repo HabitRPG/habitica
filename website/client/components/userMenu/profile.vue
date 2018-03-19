@@ -43,7 +43,7 @@ div
           .header
             h1 {{user.profile.name}}
             h4
-              strong {{ $t('userId') }}:
+              strong {{ $t('userId') }}:&nbsp;
               | {{user._id}}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
@@ -147,10 +147,10 @@ div
               )
                 div(:class="`shop_${equippedItems[key]}`")
               b-popover(
-                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf(\"base_0\") === -1",
+                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1",
                 :target="key",
                 triggers="hover",
-                :placement="'right'",
+                :placement="'bottom'",
                 :preventOverflow="false",
               )
                 h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
@@ -162,42 +162,35 @@ div
         .col-12.col-md-6
           h2.text-center {{$t('costume')}}
           .well
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.eyewear}`")
-              h3 {{$t('eyewear')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.head}`")
-              h3 {{$t('headgearCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.headAccessory}`")
-              h3 {{$t('headAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.back && costumeItems.back.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.back}`")
-              h3 {{$t('backAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.armor}`")
-              h3 {{$t('armorCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.body && costumeItems.body.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.body}`")
-              h3 {{$t('bodyAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.weapon}`")
-              h3 {{$t('mainHand')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+            // Use similar for loop for costume items, except show background if label is 'skip'.
+            .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
+              // Append a "C" to the key name since HTML IDs have to be unique.
+              .box(
+                :id="key + 'C'",
+                v-if="label !== 'skip'",
+                :class='{white: costumeItems[key] && costumeItems[key].indexOf("base_0") === -1}'
+              )
+                div(:class="`shop_${costumeItems[key]}`")
+              // Show background on 8th tile rather than a piece of equipment.
+              .box(v-if="label === 'skip'",
+                :class='{white: user.preferences.background}', style="overflow:hidden"
+              )
                 div(:class="'icon_background_' + user.preferences.background")
-              h3 {{$t('background')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.shield}`")
-              h3 {{$t('offHand')}}
+              b-popover(
+                v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1",
+                :target="key + 'C'",
+                triggers="hover",
+                :placement="'bottom'",
+                :preventOverflow="false",
+              )
+                h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
+                attributesGrid.attributesGrid(
+                  :item="content.gear.flat[costumeItems[key]]",
+                )
+              
+              h3(v-if="label !== 'skip'") {{ label }}
+              h3(v-else) {{ $t('background') }}
+              
       .row.pet-mount-row
         .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -205,7 +198,7 @@ div
             .row.col-12
               .col-12.col-md-4
                 .box(:class='{white: user.items.currentPet}')
-                  .pet(:class="`Pet-${user.items.currentPet}`")
+                  .Pet(:class="`Pet-${user.items.currentPet}`")
               .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -240,7 +233,7 @@ div
               span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
                 :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
               .stat-title(:class='stat') {{ $t(statInfo.title) }}
-              strong.number {{ statsComputed[stat] }}
+              strong.number {{ statsComputed[stat] | floorWholeNumber }}
             .col-12.col-md-6
               ul.bonus-stats
                 li
@@ -354,10 +347,6 @@ div
   .pet-mount-row {
     margin-top: 2em;
     margin-bottom: 2em;
-  }
-
-  .pet {
-    margin-top: -1.4em !important;
   }
 
   .mount {
@@ -590,6 +579,7 @@ import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
+import cloneDeep from 'lodash/cloneDeep';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
@@ -818,10 +808,13 @@ export default {
     save () {
       let values = {};
 
-      each(this.editingProfile, (value, key) => {
+      let edits = cloneDeep(this.editingProfile);
+
+      each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         let curVal = this.user.profile[key];
-        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
+
+        if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }
