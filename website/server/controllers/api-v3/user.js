@@ -9,7 +9,6 @@ import {
   model as Group,
 } from '../../models/group';
 import * as Tasks from '../../models/task';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
@@ -415,7 +414,7 @@ api.deleteUser = {
       return group.leave(user, 'remove-all');
     });
 
-    await Bluebird.all(groupLeavePromises);
+    await Promise.all(groupLeavePromises);
 
     await Tasks.Task.remove({
       userId: user._id,
@@ -1470,7 +1469,7 @@ api.userRebirth = {
 
     toSave.push(user.save());
 
-    await Bluebird.all(toSave);
+    await Promise.all(toSave);
 
     res.respond(200, ...rebirthRes);
   },
@@ -1627,7 +1626,7 @@ api.userReroll = {
     let promises = tasks.map(task => task.save());
     promises.push(user.save());
 
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     res.respond(200, ...rerollRes);
   },
@@ -1668,7 +1667,7 @@ api.userReset = {
 
     let resetRes = common.ops.reset(user, tasks);
 
-    await Bluebird.all([
+    await Promise.all([
       Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
       user.save(),
     ]);

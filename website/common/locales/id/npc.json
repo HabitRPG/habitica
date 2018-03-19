@@ -84,7 +84,7 @@
     "invalidTypeEquip": "\"type\" harus merupakan salah satu dari 'equipped', 'pet', 'mount', 'costume'.",
     "mustPurchaseToSet": "Harus membeli <%= val %> untuk memberikan kepada <%= key %>.",
     "typeRequired": "Tipe dibutuhkan",
-    "positiveAmountRequired": "Positive amount is required",
+    "positiveAmountRequired": "Jumlah positif dibutuhkan",
     "keyRequired": "Kunci dibutuhkan",
     "notAccteptedType": "Tipe harus dalam [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Kunci tidak ditemukan untuk Konten <%= type %>",

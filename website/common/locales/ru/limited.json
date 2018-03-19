@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Омела Целитель",
     "winter2018ReindeerSet": "Оленеразбойник",
     "eventAvailability": "Доступно для покупки до <%= date(locale) %>.",
+    "dateEndMarch": "March 31",
     "dateEndApril": "Апрель 19",
     "dateEndMay": "Май 17",
     "dateEndJune": "14 Июня",

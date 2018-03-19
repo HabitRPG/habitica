@@ -2,8 +2,8 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
-import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/accept', () => {
   const PET_QUEST = 'whale';
@@ -140,7 +140,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
       // quest will start after everyone has accepted
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await rejectingMember.sync();
 

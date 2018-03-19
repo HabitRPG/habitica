@@ -3,7 +3,6 @@ import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import shared from '../../common';
 
@@ -18,9 +17,9 @@ async function _validateTaskAlias (tasks, res) {
     throw new BadRequest(res.t('taskAliasAlreadyUsed'));
   }
 
-  await Bluebird.map(tasksWithAliases, (task) => {
+  await Promise.all(tasksWithAliases.map((task) => {
     return task.validate();
-  });
+  }));
 }
 
 export function setNextDue (task, user, dueDateOption) {
@@ -137,7 +136,7 @@ export async function createTasks (req, res, options = {}) {
 
   toSave.unshift(owner.save());
 
-  let tasks = await Bluebird.all(toSave);
+  let tasks = await Promise.all(toSave);
   tasks.splice(0, 1); // Remove user, challenge, or group promise
   return tasks;
 }

@@ -191,6 +191,7 @@
     "hatchingPotionShimmer": "Cintilante",
     "hatchingPotionFairy": "Fada",
     "hatchingPotionStarryNight": "Noite de Estrelas",
+    "hatchingPotionRainbow": "Rainbow",
     "hatchingPotionNotes": "Utilize isto num ovo, e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável nos ovos de mascote de missão.",
     "foodMeat": "Carne",

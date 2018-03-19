@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SECOND DYSHEARTENER RAGE STRIKE! LAST CHANCE FOR LOVE BUG SET AND CUPID POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'KEYS TO THE KENNELS AND USE CASE SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,25 +32,26 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>2/28/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>World Boss: Dysheartener Attacks the Market!</h3>
-        <p>Help! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.</p>
-        <p>We can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.</p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, SabreCat, viirus, piyorii, and Apollo</div>
-        <div class="media d-flex align-items-center">
+        <div class="media align-items-center">
           <div class="media-body">
-            <h3>Last Chance for Love Bug Set</h3>
-            <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Love Bug Set! Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems you get!</p>
-            <p>Thanks so much for your support! You help keep Habitica running.</p>
-            <div class="small mb-3">by Beffymaroo</div>
-            <h3>Last Chance for Cupid Hatching Potions</h3>
-            <p>Reminder: this is the final day to <a href='/shops/market' target='_blank'>buy Cupid Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so don't delay!</p>
-            <div class="small mb-3">by Willow the Witty and SabreCat</div>
+            <h3>Release Pets & Mounts!</h3>
+            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
           </div>
-          <div class="promo_cupid_potions ml-3"></div>
+          <div class="pet_key ml-3"></div>
         </div>
-        <div class="promo_mystery_201802 center-block"></div>
+        <p>Scroll to the bottom of <a href='/shops/market' target='_blank'>the Market</a> to purchase a Key. It takes effect immediately on purchase, so say your goodbyes first!</p>
+        <div class="small mb-3">by TheHollidayInn, Apollo, Lemoness, deilann, and Megan</div>
+        <div class="media align-items-center">
+          <div class="scene_sweeping mr-3"></div>
+          <div class="media-body">
+            <h3>Use Case Spotlight: Spring Cleaning</h3>
+            <p>This month's <a href='https://habitica.wordpress.com/2018/03/15/use-case-spotlight-spring-cleaning/' target='_blank'>Use Case Spotlight</a> is about Spring Cleaning! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to start spring with a nice, clean dwelling.</p>
+            <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to Make a Difference? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
+            <div class="small mb-3">by Beffymaroo</div>
+          </div>
+        </div>
       </div>
       `,
     });
