@@ -19,7 +19,6 @@ import {
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
-import Bluebird from 'bluebird';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
 import pusher from '../libs/pusher';
@@ -140,7 +139,7 @@ schema.plugin(baseModel, {
   },
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next, group) {
+schema.pre('init', function ensureSummaryIsFetched (group) {
   // The Vue website makes the summary be mandatory for all new groups, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any guild without a summary is fetched from the database, this code
@@ -151,7 +150,6 @@ schema.pre('init', function ensureSummaryIsFetched (next, group) {
   if (!group.summary) {
     group.summary = group.name ? group.name.substring(0, MAX_SUMMARY_SIZE_FOR_GUILDS) : ' ';
   }
-  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -309,7 +307,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
     }
   });
 
-  let groupsArray = _.reduce(await Bluebird.all(queries), (previousValue, currentValue) => {
+  let groupsArray = _.reduce(await Promise.all(queries), (previousValue, currentValue) => {
     if (_.isEmpty(currentValue)) return previousValue; // don't add anything to the results if the query returned null or an empty array
     return previousValue.concat(Array.isArray(currentValue) ? currentValue : [currentValue]); // otherwise concat the new results to the previousValue
   }, []);
@@ -428,7 +426,7 @@ schema.methods.removeGroupInvitations = async function removeGroupInvitations ()
     return user.save();
   });
 
-  return Bluebird.all(userUpdates);
+  return Promise.all(userUpdates);
 };
 
 // Return true if user is a member of the group
@@ -506,14 +504,17 @@ function setUserStyles (newMessage, user) {
     userStyles.preferences.costume = userCopy.preferences.costume;
   }
 
-  userStyles.stats = {};
-  if (userCopy.stats && userCopy.stats.buffs) {
-    userStyles.stats.buffs = {
-      seafoam: userCopy.stats.buffs.seafoam,
-      shinySeed: userCopy.stats.buffs.shinySeed,
-      spookySparkles: userCopy.stats.buffs.spookySparkles,
-      snowball: userCopy.stats.buffs.snowball,
-    };
+  if (userCopy.stats) {
+    userStyles.stats = {};
+    userStyles.stats.class = userCopy.stats.class;
+    if (userCopy.stats.buffs) {
+      userStyles.stats.buffs = {
+        seafoam: userCopy.stats.buffs.seafoam,
+        shinySeed: userCopy.stats.buffs.shinySeed,
+        spookySparkles: userCopy.stats.buffs.spookySparkles,
+        snowball: userCopy.stats.buffs.snowball,
+      };
+    }
   }
 
   newMessage.userStyles = userStyles;
@@ -629,13 +630,18 @@ schema.methods.startQuest = async function startQuest (user) {
   // remove any users from quest.members who aren't in the party
   let partyId = this._id;
   let questMembers = this.quest.members;
-  await Bluebird.map(Object.keys(this.quest.members), async (memberId) => {
-    let member = await User.findOne({_id: memberId, 'party._id': partyId}).select('_id').lean().exec();
-
-    if (!member) {
-      delete questMembers[memberId];
-    }
-  });
+  await Promise.all(Object.keys(this.quest.members).map(memberId => {
+    return User.findOne({_id: memberId, 'party._id': partyId})
+      .select('_id')
+      .lean()
+      .exec()
+      .then((member) => {
+        if (!member) {
+          delete questMembers[memberId];
+        }
+        return;
+      });
+  }));
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -879,7 +885,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }));
   }
 
-  return Bluebird.all(promises);
+  return Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -1131,7 +1137,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     let challengesToRemoveUserFrom = challenges.map(chal => {
       return chal.unlinkTasks(user, keep);
     });
-    await Bluebird.all(challengesToRemoveUserFrom);
+    await Promise.all(challengesToRemoveUserFrom);
   }
 
   // Unlink group tasks)
@@ -1143,7 +1149,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   let assignedTasksToRemoveUserFrom = assignedTasks.map(task => {
     return this.unlinkTask(task, user, keep);
   });
-  await Bluebird.all(assignedTasksToRemoveUserFrom);
+  await Promise.all(assignedTasksToRemoveUserFrom);
 
   let promises = [];
 
@@ -1179,7 +1185,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
 
     if (members.length === 0) {
       promises.push(group.remove());
-      return await Bluebird.all(promises);
+      return await Promise.all(promises);
     }
   } else if (group.leader === user._id) { // otherwise If the leader is leaving (or if the leader previously left, and this wasn't accounted for)
     let query = group.type === 'party' ? {'party._id': group._id} : {guilds: group._id};
@@ -1201,7 +1207,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   }
   promises.push(group.update(update).exec());
 
-  return await Bluebird.all(promises);
+  return await Promise.all(promises);
 };
 
 /**
@@ -1335,7 +1341,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   if (matchingTask.tags.indexOf(group._id) === -1) matchingTask.tags.push(group._id); // add tag if missing
 
   toSave.push(matchingTask.save(), taskToSync.save(), user.save());
-  return Bluebird.all(toSave);
+  return Promise.all(toSave);
 };
 
 schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user, keep) {
@@ -1361,7 +1367,7 @@ schema.methods.unlinkTask = async function groupUnlinkTask (unlinkingTask, user,
       user.markModified('tasksOrder');
     }
 
-    return Bluebird.all([task.remove(), user.save(), unlinkingTask.save()]);
+    return Promise.all([task.remove(), user.save(), unlinkingTask.save()]);
   }
 };
 

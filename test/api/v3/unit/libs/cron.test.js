@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 import moment from 'moment';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import requireAgain from 'require-again';
 import { recoverCron, cron } from '../../../../../website/server/libs/cron';
 import { model as User } from '../../../../../website/server/models/user';
@@ -1363,7 +1362,7 @@ describe('recoverCron', () => {
   });
 
   it('throws an error if user cannot be found', async () => {
-    execStub.returns(Bluebird.resolve(null));
+    execStub.returns(Promise.resolve(null));
 
     try {
       await recoverCron(status, locals);
@@ -1374,8 +1373,8 @@ describe('recoverCron', () => {
   });
 
   it('increases status.times count and reruns up to 4 times', async () => {
-    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
-    execStub.onCall(4).returns(Bluebird.resolve({_cronSignature: 'NOT_RUNNING'}));
+    execStub.returns(Promise.resolve({_cronSignature: 'RUNNING_CRON'}));
+    execStub.onCall(4).returns(Promise.resolve({_cronSignature: 'NOT_RUNNING'}));
 
     await recoverCron(status, locals);
 
@@ -1384,7 +1383,7 @@ describe('recoverCron', () => {
   });
 
   it('throws an error if recoverCron runs 5 times', async () => {
-    execStub.returns(Bluebird.resolve({_cronSignature: 'RUNNING_CRON'}));
+    execStub.returns(Promise.resolve({_cronSignature: 'RUNNING_CRON'}));
 
     try {
       await recoverCron(status, locals);

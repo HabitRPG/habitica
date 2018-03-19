@@ -18,7 +18,6 @@ import {
   getUserInfo,
   sendTxn as sendTxnEmail,
 } from '../../libs/email';
-import Bluebird from 'bluebird';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import { achievements } from '../../../../website/common/';
 
@@ -552,7 +551,7 @@ api.transferGems = {
     receiver.balance += amount;
     sender.balance -= amount;
     let promises = [receiver.save(), sender.save()];
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     // generate the message in both languages, so both users can understand it
     let receiverLang = receiver.preferences.language;

@@ -726,6 +726,11 @@ export default {
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
       if (this.task) this.checklist = clone(this.task.checklist);
     },
+    'task.startDate' () {
+      if (this.task && this.repeatsOn) {
+        this.calculateMonthlyRepeatDays(this.repeatsOn);
+      }
+    },
   },
   computed: {
     ...mapGetters({
@@ -792,23 +797,7 @@ export default {
         return repeatsOn;
       },
       set (newValue) {
-        const task = this.task;
-
-        if (task.frequency === 'monthly' && newValue === 'dayOfMonth') {
-          const date = moment(task.startDate).date();
-          task.weeksOfMonth = [];
-          task.daysOfMonth = [date];
-        } else if (task.frequency === 'monthly' && newValue === 'dayOfWeek') {
-          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
-          const dayOfWeek = moment(task.startDate).day();
-          const shortDay = this.dayMapping[dayOfWeek];
-          task.daysOfMonth = [];
-          task.weeksOfMonth = [week];
-          for (let key in task.repeat) {
-            task.repeat[key] = false;
-          }
-          task.repeat[shortDay] = true;
-        }
+        this.calculateMonthlyRepeatDays(newValue);
       },
     },
     selectedTags () {
@@ -869,6 +858,27 @@ export default {
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
+    },
+    calculateMonthlyRepeatDays (repeatsOn) {
+      const task = this.task;
+
+      if (task.frequency === 'monthly') {
+        if (repeatsOn === 'dayOfMonth') {
+          const date = moment(task.startDate).date();
+          task.weeksOfMonth = [];
+          task.daysOfMonth = [date];
+        } else if (repeatsOn === 'dayOfWeek') {
+          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
+          const dayOfWeek = moment(task.startDate).day();
+          const shortDay = this.dayMapping[dayOfWeek];
+          task.daysOfMonth = [];
+          task.weeksOfMonth = [week];
+          for (let key in task.repeat) {
+            task.repeat[key] = false;
+          }
+          task.repeat[shortDay] = true;
+        }
+      }
     },
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();

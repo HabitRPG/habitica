@@ -577,9 +577,14 @@
     "marketRageStrikeHeader": "The Market was Attacked!",
     "marketRageStrikeLead": "Alex is Heartbroken!",
     "marketRageStrikeRecap": "On February 28, our marvelous Alex the Merchant was horrified when the Dysheartener shattered the Market. Quickly, tackle your tasks to defeat the monster and help rebuild!",
+    "questsRageStrikeHeader": "The Quest Shop was Attacked!",
+    "questsRageStrikeLead": "Ian is Heartbroken!",
+    "questsRageStrikeRecap": "On March 6, our wonderful Ian the Quest Guide was deeply shaken when the Dysheartener shattered the ground around the Quest Shop. Quickly, tackle your tasks to defeat the monster and help rebuild!",
     "questDysheartenerBossRageMarket": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nHelp! After feasting on our incomplete Dailies, the Dysheartener lets out another Shattering Heartbreak attack, smashing the walls and floor of the Market! As stone rains down, Alex the Merchant weeps at his crushed merchandise, stricken by the destruction.\n\nWe can't let this happen again! Be sure to do all our your Dailies to prevent the Dysheartener from using its final strike.",
     "questDysheartenerBossRageQuests": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nAaaah! We've left our Dailies undone again, and the Dysheartener has mustered the energy for one final blow against our beloved shopkeepers. The countryside around Ian the Quest Master is ripped apart by its Shattering Heartbreak attack, and Ian is struck to the core by the horrific vision. We're so close to defeating this monster.... Hurry! Don't stop now!",
     "questDysheartenerDropHippogriffPet": "Hopeful Hippogriff (Pet)",
     "questDysheartenerDropHippogriffMount": "Hopeful Hippogriff (Mount)",
-    "dysheartenerArtCredit": "Artwork by @AnnDeLune"
+    "dysheartenerArtCredit": "Artwork by @AnnDeLune",
+    "hugabugText": "Hug a Bug Quest Bundle",
+    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
 }

@@ -2,9 +2,6 @@ import nconf from 'nconf';
 import logger from './libs/logger';
 import express from 'express';
 import http from 'http';
-import Bluebird from 'bluebird';
-
-global.Promise = Bluebird;
 
 const server = http.createServer();
 const app = express();

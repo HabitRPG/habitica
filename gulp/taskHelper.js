@@ -2,7 +2,6 @@ import { exec }                   from 'child_process';
 import psTree                     from 'ps-tree';
 import nconf                      from 'nconf';
 import net                        from 'net';
-import Bluebird                   from 'bluebird';
 import { post }                   from 'superagent';
 import { sync as glob }           from 'glob';
 import Mocha                      from 'mocha';
@@ -45,7 +44,7 @@ export function kill (proc) {
  * before failing.
  */
 export function awaitPort (port, max = 60) {
-  return new Bluebird((rej, res) => {
+  return new Promise((rej, res) => {
     let socket;
     let timeout;
     let interval;
