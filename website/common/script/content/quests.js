@@ -411,6 +411,7 @@ let quests = {
   vice1: {
     text: t('questVice1Text'),
     notes: t('questVice1Notes'),
+    completion: t('questVice1Completion'),
     group: 'questGroupVice',
     value: 4,
     lvl: 30,
@@ -436,6 +437,7 @@ let quests = {
   vice2: {
     text: t('questVice2Text'),
     notes: t('questVice2Notes'),
+    completion: t('questVice2Completion'),
     group: 'questGroupVice',
     value: 4,
     lvl: 30,
@@ -664,6 +666,7 @@ let quests = {
   atom1: {
     text: t('questAtom1Text'),
     notes: t('questAtom1Notes'),
+    completion: t('questAtom1Completion'),
     group: 'questGroupAtom',
     value: 4,
     lvl: 15,
@@ -690,6 +693,7 @@ let quests = {
   atom2: {
     text: t('questAtom2Text'),
     notes: t('questAtom2Notes'),
+    completion: t('questAtom2Completion'),
     group: 'questGroupAtom',
     previous: 'atom1',
     value: 4,
@@ -846,6 +850,7 @@ let quests = {
   moonstone1: {
     text: t('questMoonstone1Text'),
     notes: t('questMoonstone1Notes'),
+    completion: t('questMoonstone1Completion'),
     group: 'questGroupMoonstone',
     value: 4,
     lvl: 60,
@@ -872,6 +877,7 @@ let quests = {
   moonstone2: {
     text: t('questMoonstone2Text'),
     notes: t('questMoonstone2Notes'),
+    completion: t('questMoonstone2Completion'),
     group: 'questGroupMoonstone',
     value: 4,
     lvl: 60,
@@ -956,6 +962,7 @@ let quests = {
   goldenknight1: {
     text: t('questGoldenknight1Text'),
     notes: t('questGoldenknight1Notes'),
+    completion: t('questGoldenknight1Completion'),
     group: 'questGroupGoldenknight',
     value: 4,
     lvl: 40,
@@ -982,6 +989,7 @@ let quests = {
   goldenknight2: {
     text: t('questGoldenknight2Text'),
     notes: t('questGoldenknight2Notes'),
+    completion: t('questGoldenknight2Completion'),
     group: 'questGroupGoldenknight',
     value: 4,
     previous: 'goldenknight1',

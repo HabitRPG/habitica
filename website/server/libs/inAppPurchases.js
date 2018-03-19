@@ -1,6 +1,6 @@
 import nconf from 'nconf';
+import util from 'util';
 import iap from 'in-app-purchase';
-import Bluebird from 'bluebird';
 
 // Validation ERROR Codes
 // const INVALID_PAYLOAD = 6778001;
@@ -18,8 +18,8 @@ iap.config({
 });
 
 module.exports = {
-  setup: Bluebird.promisify(iap.setup, { context: iap }),
-  validate: Bluebird.promisify(iap.validate, { context: iap }),
+  setup: util.promisify(iap.setup.bind(iap)),
+  validate: util.promisify(iap.validate.bind(iap)),
   isValidated: iap.isValidated,
   getPurchaseData: iap.getPurchaseData,
   GOOGLE: iap.GOOGLE,

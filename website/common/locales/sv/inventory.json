@@ -3,6 +3,6 @@
   "foodItemType": "Mat",
   "eggsItemType": "Ägg",
   "hatchingPotionsItemType": "Kläckningsdrycker",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "specialItemType": "Specialobjekt",
+  "lockedItem": "Låst Objekt"
 }

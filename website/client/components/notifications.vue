@@ -204,6 +204,7 @@ export default {
   },
   watch: {
     userHp (after, before) {
+      if (this.user.needsCron) return;
       if (after <= 0) {
         this.playSound('Death');
         this.$root.$emit('bv::show::modal', 'death');
@@ -252,6 +253,7 @@ export default {
       this.showLevelUpNotifications(after);
     },
     userClassSelect (after) {
+      if (this.user.needsCron) return;
       if (!after) return;
       this.$root.$emit('bv::show::modal', 'choose-class');
       // @TODO: {controller:'UserCtrl', keyboard:false, backdrop:'static'}

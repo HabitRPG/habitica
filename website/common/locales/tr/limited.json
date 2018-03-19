@@ -118,6 +118,7 @@
     "winter2018MistletoeSet": "Mistletoe Healer (Healer)",
     "winter2018ReindeerSet": "Reindeer Rogue (Rogue)",
     "eventAvailability": "<%= date(locale) %> tarihine kadar satın alınabilir. ",
+    "dateEndMarch": "March 31",
     "dateEndApril": "19 Nisan",
     "dateEndMay": "17 Mayıs",
     "dateEndJune": "14 Haziran",

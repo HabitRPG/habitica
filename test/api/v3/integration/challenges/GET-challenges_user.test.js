@@ -193,7 +193,10 @@ describe('GET challenges/user', () => {
       });
 
       officialChallenge = await generateChallenge(user, group, {
-        official: true,
+        categories: [{
+          name: 'habitica_official',
+          slug: 'habitica_official',
+        }],
       });
 
       challenge = await generateChallenge(user, group);
