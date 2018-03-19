@@ -54,7 +54,7 @@
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
 
-            toggle-switch.float-right(
+            toggle-switch.float-right.align-with-tab(
               :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
               :checked="user.preferences[drawerPreference]",
               @change="changeDrawerPreference",
@@ -128,6 +128,14 @@
 .pointer {
   cursor: pointer;
 }
+
+.align-with-tab {
+  margin-top: 3px;
+}
+
+.drawer-tab-text {
+  display: inline-block;
+}
 </style>
 
 <script>
@@ -141,7 +149,6 @@ import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
 import toggleSwitch from 'client/components/ui/toggleSwitch';
-
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';

@@ -17,12 +17,12 @@
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
+          toggle-switch.float-right(
             v-model="hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page

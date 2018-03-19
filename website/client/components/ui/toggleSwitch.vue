@@ -1,6 +1,6 @@
 <template lang="pug">
 .popover-box
-  .clearfix.toggle-switch-container(:id="containerId")
+  .clearfix(:id="containerId")
     .float-left.toggle-switch-description(v-if="label", :class="hoverText ? 'hasPopOver' : ''") {{ label }}
     .toggle-switch.float-left
       input.toggle-switch-checkbox(
@@ -24,10 +24,6 @@
 
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
-
-  .toggle-switch-container {
-    margin-top: 6px;
-  }
 
   .toggle-switch {
     position: relative;
