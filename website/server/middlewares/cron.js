@@ -60,7 +60,7 @@ async function cronAsync (req, res) {
   try {
     await checkForActiveCron(user, now);
 
-    user = await User.findOne({_id: user._id}).exec();
+    user = res.locals.user = await User.findOne({_id: user._id}).exec();
     let {daysMissed, timezoneOffsetFromUserPrefs} = user.daysUserHasMissed(now, req);
 
     await updateLastCron(user, now);
