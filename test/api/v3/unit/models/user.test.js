@@ -1,4 +1,3 @@
-import Bluebird from 'bluebird';
 import moment from 'moment';
 import { model as User } from '../../../../../website/server/models/user';
 import { model as Group } from '../../../../../website/server/models/group';
@@ -123,7 +122,7 @@ describe('User Model', () => {
       it('adds notifications without data for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
-        await Bluebird.all([user.save(), otherUser.save()]);
+        await Promise.all([user.save(), otherUser.save()]);
 
         await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON');
 
@@ -149,7 +148,7 @@ describe('User Model', () => {
       it('adds notifications with data and seen status for all given users via static method', async () => {
         let user = new User();
         let otherUser = new User();
-        await Bluebird.all([user.save(), otherUser.save()]);
+        await Promise.all([user.save(), otherUser.save()]);
 
         await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1}, true);
 

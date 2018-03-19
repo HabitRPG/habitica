@@ -357,6 +357,21 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
+    it('sanitizes email params to a lowercase string before creating the user', async () => {
+      let username = generateRandomUserName();
+      let email = 'ISANEmAiL@ExAmPle.coM';
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.auth.local.email).to.equal(email.toLowerCase());
+    });
+
     it('fails on a habitica.com email', async () => {
       let username = generateRandomUserName();
       let email = `${username}@habitica.com`;

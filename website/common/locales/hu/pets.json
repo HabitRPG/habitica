@@ -138,5 +138,8 @@
     "dragThisPotion": "Húzd oda <%= potionName %> egy tojáshoz és kelts ki egy új háziállatot!",
     "clickOnEggToHatch": "Kattints egy tojásra hogy használd a <%= potionName %> keltetőfőzeted és kelts ki egy új háziállatot!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }
