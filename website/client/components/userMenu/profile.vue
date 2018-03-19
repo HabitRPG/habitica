@@ -187,10 +187,10 @@ div
                 attributesGrid.attributesGrid(
                   :item="content.gear.flat[costumeItems[key]]",
                 )
-              
+
               h3(v-if="label !== 'skip'") {{ label }}
               h3(v-else) {{ $t('background') }}
-              
+
       .row.pet-mount-row
         .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -893,9 +893,7 @@ export default {
     },
     adminRevokeChat () {
       if (!this.hero.flags) {
-        this.hero.flags = {
-          chatRevoked: true,
-        };
+        this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = true;
 
@@ -903,9 +901,7 @@ export default {
     },
     adminReinstateChat () {
       if (!this.hero.flags) {
-        this.hero.flags = {
-          chatRevoked: false,
-        };
+        this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = false;
 
