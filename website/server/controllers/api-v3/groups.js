@@ -336,7 +336,7 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = req.query.search.split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({name: searchQuery});
       filters.$or.push({description: searchQuery});
@@ -518,6 +518,18 @@ api.joinGroup = {
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+
+          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+          }
+
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -528,13 +540,6 @@ api.joinGroup = {
           user.party.quest.key = group.quest.key;
           group.quest.members[user._id] = null;
           group.markModified('quest.members');
-        }
-
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
 
         user.party._id = group._id; // Set group as user's party
@@ -554,7 +559,7 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new NotAuthorized(res.t('youAreAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
