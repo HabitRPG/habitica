@@ -373,7 +373,7 @@ api.getUserChallenges = {
 
     if (req.query.search) {
       const searchOr = {$or: []};
-      const searchWords = req.query.search.split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       searchOr.$or.push({name: searchQuery});
       searchOr.$or.push({description: searchQuery});
