@@ -796,7 +796,7 @@ async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) 
     return await User.update(query, updates).exec();
   } catch (err) {
     if (numTry < MAX_UPDATE_RETRIES) {
-      return _updateUserWithRetries(userId, updates, ++numTry);
+      return _updateUserWithRetries(userId, updates, ++numTry, query);
     } else {
       throw err;
     }
