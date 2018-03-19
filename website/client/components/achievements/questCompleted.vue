@@ -63,7 +63,7 @@ export default {
       this.close();
     },
     hide (evt) {
-      if (evt.trigger === 'header-close') this.setQuestCompleted();
+      this.setQuestCompleted();
     },
   },
 };
