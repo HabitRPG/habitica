@@ -5,10 +5,10 @@ div
   .static-wrapper
     router-view
 
-  #purple-footer(v-if='showContentWrap')
+  div(:id='footerId', v-if='showContentWrap')
     app-footer
 
-  #bottom-wrap.purple-4(v-if='showContentWrap')
+  #bottom-wrap.purple-4(v-if='showContentWrap && footerId')
     #bottom-background
       .seamless_mountains_demo_repeat
       .midground_foreground_extended2
@@ -155,6 +155,10 @@ export default {
   computed: {
     showContentWrap () {
       return this.$route.name !== 'news';
+    },
+    footerId () {
+      if (this.$route.name === 'groupPlans') return;
+      return 'purple-footer';
     },
   },
 };
