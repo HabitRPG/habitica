@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Щракнете върху яйце, за да използвате своята излюпваща отвара с(ъс) <%= potionName %> и ще се излюпи нов любимец!",
     "hatchDialogText": "Изсипете своята излюпваща отвара с(ъс) <%= potionName %> върху своето яйце на <%= eggName %> и от него ще се излюпи <%= petName %>.",
     "clickOnPotionToHatch": "Щракнете върху излюпваща отвара, която да използвате върху върху своето яйце на <%= eggName %> и от него ще се излюпи нов любимец!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Не сте събрали достатъчно любимци",
+    "notEnoughMounts": "Не сте събрали достатъчно превози",
+    "notEnoughPetsMounts": "Не сте събрали достатъчно любимци и превози"
 }
