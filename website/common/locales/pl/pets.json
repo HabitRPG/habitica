@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Kliknij na jajo, aby użyć <%= potionName %> eliksir wyklucia i wykluć nowego Chowańca!",
     "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje isę z niego <%= petName %>.",
     "clickOnPotionToHatch": "Kliknij na eliksir wyklucia by użyć go na swoim <%= eggName %> i wykluć nowego chowańca!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Nie zebrałeś/aś wystarczająco chowańców",
+    "notEnoughMounts": "Nie zabrałeś/aś wystarczająco wierzchowców",
+    "notEnoughPetsMounts": "Nie zebrałeś/aś wystarczająco chowańców i wierzchowców"
 }

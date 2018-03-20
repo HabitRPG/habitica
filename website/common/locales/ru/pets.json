@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Выберите яйцо, над которым применить <%= potionName %> инкубационный эликсир для выращивания нового питомца!",
     "hatchDialogText": "Полейте ваш <%= potionName %> инкубационный эликсир на яйцо <%= eggName %>, и из него вылупится <%= petName %>.",
     "clickOnPotionToHatch": "Выберите инкубационный эликсир, чтобы использовать его над <%= eggName %> для выведения нового питомца!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Вы не собрали достаточного количества питомцев",
+    "notEnoughMounts": "Вы не собрали достаточного количества скакунов",
+    "notEnoughPetsMounts": "Вы не собрали достаточного количества питомцев и скакунов"
 }

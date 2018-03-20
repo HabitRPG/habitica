@@ -150,7 +150,7 @@
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "whyReportingPost": "Why are you reporting this post?",
     "whyReportingPostPlaceholder": "Please help our moderators by letting us know why you are reporting this post for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
-    "optional": "Optional",
+    "optional": "オプション",
     "needsText": "メッセージを入力してください。",
     "needsTextPlaceholder": "ここにメッセージを入力してください。",
     "copyMessageAsToDo": "メッセージをコピーしてTo-Doに追加",
@@ -427,5 +427,5 @@
     "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
     "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
     "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
-    "worldBoss": "World Boss"
+    "worldBoss": "ワールドボス"
 }
