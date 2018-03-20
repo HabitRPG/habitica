@@ -41,6 +41,7 @@
   @import '~client/assets/scss/colors.scss';
 
   .member-details {
+	margin-left: 20px;
     white-space: nowrap;
     transition: all 0.15s ease-out;
   }
@@ -144,7 +145,7 @@
     .member-stats {
       background: $header-dark-background;
       position: absolute;
-      right: 100%;
+      left: 100%;
       height: calc(100% + 18px);
       margin-top: -9px;
       padding-top: 9px;
