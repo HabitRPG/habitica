@@ -23,8 +23,7 @@
           )
     .standard-page
       div.featuredItems
-        .background(:class="{opened: seasonal.opened && !broken, broken: broken}")
-        .background(:class="{cracked: broken, broken: broken}")
+        .background(:class="{opened: seasonal.opened}")
           div.npc
             div.featured-label
               span.rectangle
@@ -373,7 +372,7 @@
     },
     async mounted () {
       const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState.worldBoss.extra.worldDmg.seasonalShop;
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
     },
     computed: {
       ...mapState({

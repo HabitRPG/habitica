@@ -10,8 +10,8 @@ import pick from 'lodash/pick';
 module.exports = function releaseBoth (user, req = {}, analytics) {
   let animal;
 
-  if (user.balance < 1.5 && !user.achievements.triadBingo) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  if (!user.achievements.triadBingo) {
+    throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
   }
 
   if (beastMasterProgress(user.items.pets) !== 90 || mountMasterProgress(user.items.mounts) !== 90) {
