@@ -39,4 +39,4 @@ describe('GET /world-state', () => {
     expect(res).to.have.nested.property('npcImageSuffix');
     expect(res.npcImageSuffix).to.be.a('string');
   });
-}});
+});
