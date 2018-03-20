@@ -1,5 +1,6 @@
 <template lang="pug">
   .group-plan-static.text-center
+    amazon-payments-modal
     .container
       .row.top
         .col-6.offset-3
@@ -44,9 +45,16 @@
           .text-center
             button.btn.btn-primary.cta-button(@click="goToNewGroupPage()") {{ $t('getStarted') }}
           small *billed as a monthly subscription
+    b-modal#group-plan(title="", size='md', :hide-footer='true', :hide-header='true')
+      div(v-if='modalPage === "account"')
+        h2 Let's create you an account
+        auth-form(@authenticate='authenticate()')
+      div(v-if='modalPage === "purchaseGroup"')
+        h2 Create a Group
+        create-group-modal-pages
 </template>
 
-<style lang='scss' scoped>  
+<style lang='scss' scoped>
   .party {
     width: 386px;
     margin-top: 4em;
@@ -58,8 +66,9 @@
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 22px;
     color: #34313a;
+    margin-top: 1em;
   }
 
   p {
@@ -129,8 +138,11 @@
 </style>
 
 <script>
+  import { setup as setupPayments } from 'client/libs/payments';
+  import amazonPaymentsModal from 'client/components/payments/amazonModal';
   import StaticHeader from './header.vue';
-  import * as Analytics from 'client/libs/analytics';
+  import AuthForm from '../auth/authForm.vue';
+  import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
 
   import party from '../../assets/images/group-plans-static/party.svg';
   import groupManagement from '../../assets/images/group-plans-static/group-management.svg';
@@ -139,40 +151,33 @@
   export default {
     components: {
       StaticHeader,
+      AuthForm,
+      CreateGroupModalPages,
+      amazonPaymentsModal,
     },
     data () {
       return {
-        enterprisePlansEmailSubject: 'Question regarding Enterprise Plans',
         svg: {
           party,
           groupManagement,
           teamBased,
         },
+        modalTitle: this.$t('register'),
+        modalPage: 'account',
       };
+    },
+    mounted () {
+      this.$nextTick(() => {
+        // Load external scripts after the app has been rendered
+        setupPayments();
+      });
     },
     methods: {
       goToNewGroupPage () {
-        if (!this.$store.state.isUserLoggedIn) {
-          this.$router.push({
-            name: 'register',
-            query: {
-              redirectTo: '/group-plans',
-            },
-          });
-          return;
-        }
-
-        this.$router.push('/group-plans');
+        this.$root.$emit('bv::show::modal', 'group-plan');
       },
-      contactUs () {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Contact Us (Plans)',
-        });
-
-        window.location.href = `mailto:vicky@habitica.com?subject=${ this.enterprisePlansEmailSubject }`;
+      authenticate () {
+        this.modalPage = 'purchaseGroup';
       },
     },
   };
