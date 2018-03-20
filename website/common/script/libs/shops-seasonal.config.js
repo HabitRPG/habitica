@@ -22,7 +22,6 @@ module.exports = {
   ],
 
   availableQuests: [
-    'egg',
   ],
 
   featuredSet: 'comfortingKittySet',
