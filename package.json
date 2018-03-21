@@ -179,7 +179,7 @@
     "puppeteer": "^1.2.0",
     "require-again": "^2.0.0",
     "selenium-server": "^3.11.0",
-    "sinon": "^4.4.5",
+    "sinon": "^5.0.0",
     "sinon-chai": "^3.0.0",
     "sinon-stub-promise": "^4.0.0",
     "webpack-bundle-analyzer": "^2.11.1",
