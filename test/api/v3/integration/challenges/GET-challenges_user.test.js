@@ -229,14 +229,14 @@ describe('GET challenges/user', () => {
   });
 
   context('filters and paging', () => {
-    let user, guild;
+    let user, guild, member;
     const categories = [{
       slug: 'newCat',
       name: 'New Category',
     }];
 
     before(async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
+      let { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: 'TestGuild',
           type: 'guild',
@@ -247,6 +247,7 @@ describe('GET challenges/user', () => {
 
       user = groupLeader;
       guild = group;
+      member = members[0];
 
       for (let i = 0; i < 11; i += 1) {
         await generateChallenge(user, group); // eslint-disable-line
@@ -263,14 +264,14 @@ describe('GET challenges/user', () => {
 
     it('paginates challenges', async () => {
       const challenges = await user.get('/challenges/user');
-      const challengesPaged = await user.get('/challenges/user?page=1');
+      const challengesPaged = await user.get('/challenges/user?page=1&owned=owned');
 
       expect(challenges.length).to.eql(10);
       expect(challengesPaged.length).to.eql(2);
     });
 
     it('filters by owned', async () => {
-      const challenges = await user.get('/challenges/user?owned=not_owned');
+      const challenges = await member.get('/challenges/user?owned=owned');
 
       expect(challenges.length).to.eql(0);
     });
