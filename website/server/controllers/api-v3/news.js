@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'KEYS TO THE KENNELS AND USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'SPRING FLING BEGINS! LIMITED EDITION EQUIPMENT, SEASONAL SHOP OPENS, AND EGG QUEST IS AVAILABLE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,26 +32,28 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Release Pets & Mounts!</h3>
-            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
+            <h3>Limited Edition Class Outfits</h3>
+            <p>From now until April 30th, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Tulip Mage, Sunrise Warrior, Duckling Rogue, or Garnet Healer. You'd better get productive to earn enough gold before your time runs out...</p>
+            <div class="small mb-3">by Vikte, Lalaitha, DialFForFunky, Gerald the Pixel, Beffymaroo and SabreCat</div>
+            <div class="media align-items-center">
+              <div class="promo_seasonalshop_spring mr-3"></div>
+              <div class="media-body">
+                <h3>Seasonal Shop Opens</h3>
+                <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! It's stocking springtime Seasonal Edition goodies at the moment, including past spring outfits. Everything there will be available to purchase during the Spring Fling event each year, but it's only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
+                <div class="small mb-3">by Scarvia, Awesome kitty, usnbfs, Lemoness, Balduranne, PainterProphet, Beffymaroo and SabreCat</div>
+              </div>
+            </div>
+            <h3>Egg Quest Available</h3>
+            <p>The Egg Quest is also available again in the <a href='/shops/quests' target='_blank'>Quest Shop</a>! Strange eggs are appearing all over Habitica. Can you collect them all to earn some colorful Egg pets and mounts?</p>
+            <div class="small mb-3">by Megan, Beffymaroo, and Lemoness</div>
           </div>
-          <div class="pet_key ml-3"></div>
+          <div class="promo_spring_fling_2018 ml-3"></div>
         </div>
-        <p>Scroll to the bottom of <a href='/shops/market' target='_blank'>the Market</a> to purchase a Key. It takes effect immediately on purchase, so say your goodbyes first!</p>
-        <div class="small mb-3">by TheHollidayInn, Apollo, Lemoness, deilann, and Megan</div>
-        <div class="media align-items-center">
-          <div class="scene_sweeping mr-3"></div>
-          <div class="media-body">
-            <h3>Use Case Spotlight: Spring Cleaning</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/03/15/use-case-spotlight-spring-cleaning/' target='_blank'>Use Case Spotlight</a> is about Spring Cleaning! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to start spring with a nice, clean dwelling.</p>
-            <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to Make a Difference? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-            <div class="small mb-3">by Beffymaroo</div>
-          </div>
-        </div>
+        <div class="promo_egg_hunt center-block"></div>
       </div>
       `,
     });
