@@ -29,7 +29,7 @@ describe('shared.ops.releaseBoth', () => {
     user.balance = 1.5;
   });
 
-  it('returns an error when user balance is too low and user does not have triadBingo', (done) => {
+  xit('returns an error when user balance is too low and user does not have triadBingo', (done) => {
     user.balance = 0;
 
     try {
