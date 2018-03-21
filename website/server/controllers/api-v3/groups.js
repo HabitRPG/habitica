@@ -555,7 +555,7 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new NotAuthorized(res.t('userAlreadyInGroup', {userId: user._id, username: user.profile.name}));
       }
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
