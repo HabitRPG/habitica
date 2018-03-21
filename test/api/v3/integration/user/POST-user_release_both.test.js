@@ -30,6 +30,7 @@ describe('POST /user/release-both', () => {
       'items.currentPet': animal,
       'items.pets': loadPets(),
       'items.mounts': loadMounts(),
+      'achievements.triadBingo': true,
     });
   });
 
@@ -46,9 +47,7 @@ describe('POST /user/release-both', () => {
   // More tests in common code unit tests
 
   it('grants triad bingo with gems', async () => {
-    await user.update({
-      balance: 1.5,
-    });
+    await user.update();
 
     let response = await user.post('/user/release-both');
     await user.sync();

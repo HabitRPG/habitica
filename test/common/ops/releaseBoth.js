@@ -26,7 +26,8 @@ describe('shared.ops.releaseBoth', () => {
 
     user.items.currentMount = animal;
     user.items.currentPet = animal;
-    user.balance = 1.5;
+
+    user.achievements.triadBingo = true;
   });
 
   xit('returns an error when user balance is too low and user does not have triadBingo', (done) => {
