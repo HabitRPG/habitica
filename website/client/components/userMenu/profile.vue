@@ -280,7 +280,8 @@ div
   }
 
   .message-icon svg {
-    height: 16px;
+    height: 11px;
+    margin-top: 1px;
   }
 
   .gift-icon svg {
@@ -307,15 +308,15 @@ div
     }
   }
 
-  .message-icon {
-    width: 16px;
+  .message-icon,
+  .gift-icon {
+    width: 14px;
+    margin: auto;
     color: #686274;
   }
 
   .gift-icon {
-    width: 14px;
-    padding: 0 0 0 1px;
-    color: #686274;
+    width: 12px;
   }
 
   .remove-icon {
