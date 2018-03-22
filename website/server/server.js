@@ -4,6 +4,14 @@ import express from 'express';
 import http from 'http';
 import Bluebird from 'bluebird';
 
+// @TODO: May need to remove - testing
+import memwatch from 'memwatch-next';
+
+memwatch.on('leak', (info) => {
+  const message = `Memory leak detected:\n${info}`;
+  logger.error(message);
+});
+
 global.Promise = Bluebird;
 
 const server = http.createServer();
