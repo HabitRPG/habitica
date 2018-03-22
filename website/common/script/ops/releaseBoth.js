@@ -7,7 +7,7 @@ import {
 import splitWhitespace from '../libs/splitWhitespace';
 import pick from 'lodash/pick';
 
-module.exports = function releaseBoth (user, req = {}, analytics) {
+module.exports = function releaseBoth (user, req = {}) {
   let animal;
 
   if (!user.achievements.triadBingo) {
@@ -22,19 +22,20 @@ module.exports = function releaseBoth (user, req = {}, analytics) {
   let giveBeastMasterAchievement = true;
   let giveMountMasterAchievement = true;
 
-  if (!user.achievements.triadBingo) {
-    if (analytics) {
-      analytics.track('release pets & mounts', {
-        uuid: user._id,
-        acquireMethod: 'Gems',
-        gemCost: 6,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
-
-    user.balance -= 1.5;
-  }
+  // @TODO: We are only offering the free version now
+  // if (!user.achievements.triadBingo) {
+  //   if (analytics) {
+  //     analytics.track('release pets & mounts', {
+  //       uuid: user._id,
+  //       acquireMethod: 'Gems',
+  //       gemCost: 6,
+  //       category: 'behavior',
+  //       headers: req.headers,
+  //     });
+  //   }
+  //
+  //   user.balance -= 1.5;
+  // }
 
   let mountInfo = content.mountInfo[user.items.currentMount];
 

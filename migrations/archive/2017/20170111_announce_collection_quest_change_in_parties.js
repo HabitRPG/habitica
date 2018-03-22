@@ -12,7 +12,6 @@
  * message into the chat for affected parties.
  ***************************************/
 
-global.Promise = require('bluebird');
 const uuid = require('uuid');
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');

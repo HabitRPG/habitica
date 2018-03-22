@@ -486,6 +486,10 @@
           return c.identifier === 'spells';
         })[0];
 
+        let questsCategory = _filter(categories, (c) => {
+          return c.identifier === 'quests';
+        })[0];
+
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
@@ -493,6 +497,12 @@
         if (spellCategory) {
           result.spells = [
             spellCategory,
+          ];
+        }
+
+        if (questsCategory) {
+          result.quests = [
+            questsCategory,
           ];
         }
 

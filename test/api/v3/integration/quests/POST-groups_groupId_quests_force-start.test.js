@@ -2,8 +2,8 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
-import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/force-start', () => {
   const PET_QUEST = 'whale';
@@ -135,7 +135,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await Promise.all([
         partyMemberThatRejects.sync(),
@@ -161,7 +161,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await questingGroup.sync();
 
@@ -184,7 +184,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await questingGroup.sync();
 
@@ -201,7 +201,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await questingGroup.sync();
 
@@ -222,7 +222,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
 
       await leader.post(`/groups/${questingGroup._id}/quests/force-start`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await questingGroup.sync();
 

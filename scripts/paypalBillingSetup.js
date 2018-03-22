@@ -1,5 +1,4 @@
 require('babel-register');
-require('babel-polyfill');
 
 // This file is used for creating paypal billing plans. PayPal doesn't have a web interface for setting up recurring
 // payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
