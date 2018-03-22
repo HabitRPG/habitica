@@ -272,7 +272,7 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
-    }
+    },
   },
   methods: {
     set (preferenceType, subtype) {
