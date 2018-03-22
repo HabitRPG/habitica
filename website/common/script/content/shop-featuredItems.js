@@ -24,18 +24,18 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.stoikalmCalamity1',
+      path: 'quests.taskwoodsTerror1',
     },
     {
       type: 'quests',
-      path: 'quests.badger',
+      path: 'quests.egg',
     },
     {
       type: 'bundles',
       path: 'bundles.hugabug',
     },
   ],
-  seasonal: 'summerMage',
+  seasonal: 'springHealer',
   timeTravelers: [
     // TODO
   ],

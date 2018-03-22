@@ -191,7 +191,7 @@
     "hatchingPotionShimmer": "Resplandeciente",
     "hatchingPotionFairy": "Hada",
     "hatchingPotionStarryNight": "Noche Estrellada",
-    "hatchingPotionRainbow": "Rainbow",
+    "hatchingPotionRainbow": "Arco-iris",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
     "foodMeat": "Carne",

@@ -72,8 +72,8 @@
     "triadBingoAchievement": "Vous avez remporté le succès \"Triple bingo\" pour avoir trouvé tous les familiers, dompté toutes les montures, et trouvé tous les familiers à nouveau !",
     "dropsEnabled": "Butins activés !",
     "itemDrop": "Vous avez trouvé un objet !",
-    "firstDrop": "Vous avez débloqué le système de butins ! À présent lorsque vous complétez des tâches, vous avez une petite chance de trouver un objet. Vous venez de trouver un <strong><%= eggText %> Œuf </strong>! <%= eggNotes %>",
-    "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des gemmes dans <strong>Inventaire > Marché</strong>pour l'acheter !",
+    "firstDrop": "Vous avez débloqué le système de butins ! À présent lorsque vous complétez des tâches, vous avez une petite chance de trouver un objet. Vous venez de trouver un <strong>œuf de <%= eggText %></strong>! <%= eggNotes %>",
+    "useGems": "Si vous voulez un familier et que vous n'en pouvez plus d'attendre de le trouver, utilisez des gemmes dans <strong>Boutiques > Marché</strong> pour l'acheter !",
     "hatchAPot": "Faire éclore un bébé <%= egg %> <%= potion %> ?",
     "hatchedPet": "Un bébé <%= egg %> <%= potion %> vient d'éclore !",
     "hatchedPetGeneric": "Vous avez fait éclore un nouveau familier !",
@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Cliquez sur un œuf à associer à votre potion d'éclosion <%= potionName %> et faites éclore un nouveau familier !",
     "hatchDialogText": "Versez votre potion d'éclosion <%= potionName %> sur votre œuf de <%= eggName %>, et il en sortira un <%= petName %>.",
     "clickOnPotionToHatch": "Cliquez sur une potion d'éclosion pour l'utiliser sur votre <%= eggName %> et faire éclore un nouveau familier !",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Vous n'avez pas collecté assez de familiers",
+    "notEnoughMounts": "Vous n'avez pas collecté assez de montures",
+    "notEnoughPetsMounts": "Vous n'avez pas collecté assez de familiers et de montures"
 }

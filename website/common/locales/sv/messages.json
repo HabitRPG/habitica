@@ -55,10 +55,11 @@
     "messageGroupChatAdminClearFlagCount": "Endast en administratör kan rensa flagg-räknaren!",
     "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Hoppsan, det ser ut som att du har postat för många meddelanden! Var vänlig vänta en minut och försök igen. Värdshuschatten kan bara visa 200 meddelanden åt gången, så Habitica uppmuntrar längre, mer genomtänkta meddelanden och sammanslagning av svar. Vi kan inte vänta på att få höra vad du har att säga. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "sökvägen `<%= operation %>` sparades inte, eftersom det är en skyddad sökväg.",
     "messageUserOperationNotFound": "<%= operation %> operationen hittades inte",
     "messageNotificationNotFound": "Notisen hittades inte.",
     "notificationsRequired": "Notifikations-id krävs.",
-    "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
+    "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> outdelat Egenskapspoäng</span>",
     "beginningOfConversation": "Detta är början av din konversation med <%= userName %>. Kom ihåg att vara trevlig, respektfull, och att följa gemenskapens riktlinjer!"
 }

@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Klicke auf ein Ei um Dein <%= potionName %> Schlüpfelixier zu nutzen und ein neues Haustier auszubrüten!",
     "hatchDialogText": "Gieße Dein <%= potionName %> Schlüpfelixier auf Dein <%= eggName %>-Ei und es wird ein <%= petName %> daraus schlüpfen.",
     "clickOnPotionToHatch": "Klicke auf ein Schlüpfelixier, um es über Dein <%= eggName %> zu gießen und ein neues Haustier schlüpfen zu lassen!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Du hast noch nicht genug Haustiere gesammelt",
+    "notEnoughMounts": "Du hast noch nicht genug Reittiere gesammelt",
+    "notEnoughPetsMounts": "Du hast noch nicht genug Haus- und Reittiere gesammelt"
 }
