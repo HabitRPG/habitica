@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPRING FLING BEGINS! LIMITED EDITION EQUIPMENT, SEASONAL SHOP OPENS, AND EGG QUEST IS AVAILABLE!';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,28 +32,25 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/20/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Limited Edition Class Outfits</h3>
-            <p>From now until April 30th, limited edition outfits are available in the Rewards column! Depending on your class, you can be a Tulip Mage, Sunrise Warrior, Duckling Rogue, or Garnet Healer. You'd better get productive to earn enough gold before your time runs out...</p>
-            <div class="small mb-3">by Vikte, Lalaitha, DialFForFunky, Gerald the Pixel, Beffymaroo and SabreCat</div>
-            <div class="media align-items-center">
-              <div class="promo_seasonalshop_spring mr-3"></div>
-              <div class="media-body">
-                <h3>Seasonal Shop Opens</h3>
-                <p>The <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> has opened! It's stocking springtime Seasonal Edition goodies at the moment, including past spring outfits. Everything there will be available to purchase during the Spring Fling event each year, but it's only open until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these items again!</p>
-                <div class="small mb-3">by Scarvia, Awesome kitty, usnbfs, Lemoness, Balduranne, PainterProphet, Beffymaroo and SabreCat</div>
-              </div>
-            </div>
-            <h3>Egg Quest Available</h3>
-            <p>The Egg Quest is also available again in the <a href='/shops/quests' target='_blank'>Quest Shop</a>! Strange eggs are appearing all over Habitica. Can you collect them all to earn some colorful Egg pets and mounts?</p>
-            <div class="small mb-3">by Megan, Beffymaroo, and Lemoness</div>
+            <h3>March Subscriber Items Revealed!</h3>
+            <p>The March Subscriber Item has been revealed: the Daring Dragonfly Set! You'll receive this set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a> by March 31! If you're already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!</p>
           </div>
-          <div class="promo_spring_fling_2018 ml-3"></div>
+          <div class="promo_mystery_201803"></div>
         </div>
-        <div class="promo_egg_hunt center-block"></div>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="media align-items-center">
+          <div class="scene_podcast mb-3 mr-3"></div>
+          <div class="media-body">
+            <h3>Behind the Scenes: Staff Podcast Picks!</h3>
+            <p>Looking for new podcasts? The Habitica team loves podcasts, and in this special post we wanted to share some favorites that help us get things done, learn, and have fun! Come check them out in <a href='https://habitica.wordpress.com/2018/03/22/behind-the-scenes-habitica-staff-podcast-picks/' target='_blank'>this month's Behind the Scenes feature!</a></p>
+            <div class="small mb-3">by Beffymaroo and the rest of the Habitica team</div>
+          </div>
+        </div>
       </div>
       `,
     });
