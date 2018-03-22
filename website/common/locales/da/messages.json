@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Kun en administrator kan rydde flagtælleren!",
     "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, det ser ud til at du slår for mange beskeder op! Vent venligst et minut og prøv igen. Værtshuschatten kan kun indeholde 200 beskeder ad gangen, så Habitica opfordrer til at man skriver længere, mere gennemtænkte beskeder og venter på svar. Vi glæder os til at høre hvad du vil sige. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
     "messageUserOperationNotFound": "Funktionen <%= operation %> blev ikke fundet.",
     "messageNotificationNotFound": "Notifikation ikke fundet.",

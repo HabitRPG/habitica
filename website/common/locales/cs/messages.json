@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
     "messageCannotFlagSystemMessages": "Nemůžeš nahlásit systémovou zprávu. Pokud potřebuješ nahlásit porušení Zásad Komunity, které se vztahuje na tuto zprávu, prosím, pošlete emailem screenshot a vysvětlení na Lemoness na <%= communityManagerEmail %>",
     "messageGroupChatSpam": "Ups, vypadá to, že posíláš moc zpráv! Počkej prosím minutku a zkus to znovu. Chat v Krčmě může mít jenom 200 zpráv v jeden čas, takže Habitica podporuje posílání delších, více promyšlených zpráv a odpovědí. Nemůžeme se dočkat, až se s námi podělíš o tom, co máš na srdci. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
     "messageNotificationNotFound": "Oznámení nenalezeno.",

@@ -49,7 +49,7 @@
     "attributeAllocation": "Distribuição de Atributo",
     "attributeAllocationHelp": "Stat allocation is an option that provides methods for Habitica to automatically assign an earned Stat Point to a Stat immediately upon level-up. <br/><br/> You can set your Automatic Allocation method to Task Based in the Stats section of your profile.",
     "progress": "Progresso",
-    "daily": "X Dia(s)",
+    "daily": "Diária",
     "dailies": "Diárias",
     "newDaily": "Nova Diária",
     "newDailyBulk": "Novas Diárias (uma por linha)",

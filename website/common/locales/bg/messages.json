@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Само администратор може да изчисти броя на докладванията!",
     "messageCannotFlagSystemMessages": "Не можете да докладвате системно съобщение. Ако искате да докладвате за нарушение на Обществените правила свързано с това съобщение, моля, изпратете е-писмо със снимка и обяснение на Lemoness на адрес <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Опа! Изглежда публикувате твърде много съобщения. Моля, изчакайте малко и опитайте отново. Чатът в кръчмата може да показва най-много 200 съобщения, така че съветваме потребителите да публикуват по-дълги и добре обмислени съобщения, както и да обединяват отговорите си. Скоро ще можете да пишете отново! :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
     "messageNotificationNotFound": "Известието не е намерено.",

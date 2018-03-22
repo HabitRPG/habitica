@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",
     "messageCannotFlagSystemMessages": "Você não pode denunciar uma mensagem do sistema. Caso precise relatar uma violação das Diretrizes de Comunidade relacionada a esta mensagem, por favor envie  a Screenshot e a explicação para  Lemoness no email <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ops, parece que você está postando mensagens demais! Por favor aguarde um minuto e tente novamente. O chat da Taverna só suporta 200 mensagens por vez, então a Habitica recomenda postar mensagens longas e mais profundas e respostas consolidadoras. Mal posso esperar para ouvir o que você tem a dizer. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",
