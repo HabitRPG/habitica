@@ -7,7 +7,7 @@ import http from 'http';
 import memwatch from 'memwatch-next';
 
 memwatch.on('leak', (info) => {
-  const message = `Memory leak detected:\n${info}`;
+  const message = `Memory leak detected:\n${JSON.stringify(info)}`;
   logger.error(message);
 });
 
