@@ -11,9 +11,10 @@ export default {
     filterChallenge (challenge, filters, search, user) {
       let passedSearch = true;
       let hasCategories = true;
-      let isMember = true;
-      let isLeader = true;
-      let ownerShip = true;
+      let participating = false;
+      let notParticipating = false;
+      let owned = false;
+      let notOwned = false;
 
       if (search) {
         passedSearch = challenge.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
@@ -27,22 +28,22 @@ export default {
 
       let filteringRole = filters.roles && filters.roles.length > 0;
       if (filteringRole && filters.roles.indexOf('participating') !== -1) {
-        isMember = this.isMemberOfChallenge(user, challenge);
+        participating = this.isMemberOfChallenge(user, challenge);
       }
 
       if (filteringRole && filters.roles.indexOf('not_participating') !== -1) {
-        isMember = !this.isMemberOfChallenge(user, challenge);
+        notParticipating = !this.isMemberOfChallenge(user, challenge);
       }
 
       if (filters.ownership && filters.ownership.indexOf('not_owned') !== -1) {
-        ownerShip = !this.isLeaderOfChallenge(user, challenge);
+        notOwned = !this.isLeaderOfChallenge(user, challenge);
       }
 
       if (filters.ownership && filters.ownership.indexOf('owned') !== -1) {
-        ownerShip = this.isLeaderOfChallenge(user, challenge);
+        owned = this.isLeaderOfChallenge(user, challenge);
       }
 
-      return passedSearch && hasCategories && isMember && isLeader && ownerShip;
+      return passedSearch && hasCategories && (participating || notParticipating) && (owned || notOwned);
     },
   },
 };

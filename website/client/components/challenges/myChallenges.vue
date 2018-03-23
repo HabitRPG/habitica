@@ -112,7 +112,7 @@ export default {
       ],
       search: '',
       filters: {
-        roles: ['participating'], // This is required for my challenges
+        ownership: [],
       },
     };
   },
@@ -126,8 +126,14 @@ export default {
       let filters = this.filters;
       let user = this.$store.state.user.data;
 
-      // Always filter by member on this page:
-      filters.roles = ['participating'];
+      // If ownership is not defined, show all tasks
+      if (!this.filters.ownership || this.filters.ownership.length === 0) {
+        this.filters.ownership = ['owned', 'not_owned'];
+      }
+      // If roles is not defined, show all tasks
+      if (!this.filters.roles || this.filters.roles.length === 0) {
+        this.filters.roles = ['participating', 'not_participating'];
+      }
 
       // @TODO: Move this to the server
       return this.challenges.filter((challenge) => {
