@@ -153,7 +153,7 @@
     "cross-spawn": "^6.0.5",
     "eslint": "^4.19.0",
     "eslint-config-habitrpg": "^4.0.0",
-    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-friendly-formatter": "^4.0.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-mocha": "^4.12.1",
