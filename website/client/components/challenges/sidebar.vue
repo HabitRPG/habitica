@@ -145,7 +145,7 @@ export default {
       this.$emit('search', {
         searchTerm: newSearch,
       });
-    }, 250),
+    }, 500),
   },
   methods: {
     emitFilters () {
