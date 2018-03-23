@@ -91,11 +91,11 @@
     "rideLater": "あとで乗る",
     "petName": "<%= potion(locale) %><%= egg(locale) %>",
     "mountName": "<%= potion(locale) %><%= mount(locale) %>",
-    "keyToPets": "動物小屋のカギ",
+    "keyToPets": "ペット小屋のカギ",
     "keyToPetsDesc": "すべての基本的なペットを逃がし、再び集め直す(クエストペットやレアペットは変更されません)。",
     "keyToMounts": "乗騎小屋のカギ",
     "keyToMountsDesc": "すべての基本的な乗騎を逃がし、再び集め直す(クエスト乗騎やレア乗騎は変更されません)。",
-    "keyToBoth": "動物小屋のカギ",
+    "keyToBoth": "動物小屋のマスターキー",
     "keyToBothDesc": "すべての基本的なペットと乗騎を逃がし、再び集め直す(クエストペットとクエスト乗騎、レアペットとレア乗騎は変更されません)。",
     "releasePetsConfirm": "本当にすべての基本的なペットを逃がしても良いですか？",
     "releasePetsSuccess": "基本的なペットを逃がしました。",
@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "たまごをクリックして<%= potionName %>をたまごに使い、たまごをかえしましょう!",
     "hatchDialogText": "<%= potionName %>たまごがえしの薬を<%= eggName %>のたまごにかけると、<%= petName %>が生まれます。",
     "clickOnPotionToHatch": "たまごがえしの薬をクリックして<%= eggName %>に使い、たまごをかえしましょう！",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "まだ十分な数のペットを集めていません。",
+    "notEnoughMounts": "まだ十分な数の乗騎を集めていません。",
+    "notEnoughPetsMounts": "まだ十分な数のペットと乗騎を集めていません。"
 }

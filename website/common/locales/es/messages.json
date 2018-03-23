@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar la cuenta!",
     "messageCannotFlagSystemMessages": "No puedes reportar un mensaje de sistema. Si necesitas reportar una violación de las Normas de la Comunidad relacionadas con este mensaje, por favor manda un email con una captura de pantalla y una explicación a Lemoness a <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "¡Oops, parece que estas escribiendo demasiados mensajes! Por favor, espera un minuto y vuelve a intentarlo. El Chat de la Taberna solo puede procesar 200 mensajes a la vez, por ello, Habitica recomienda escribir mensajes más largos y razonados, al igual que respuestas combinadas. No puedo esperar a leer lo que tienes que decir :) .",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> no encontrado",
     "messageNotificationNotFound": "Notificación no encontrada.",

@@ -478,7 +478,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(quests, (quest) => {
-      return getItemInfo(user, 'seasonalQuest', quest, language);
+      return getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language);
     });
 
     categories.push(category);
