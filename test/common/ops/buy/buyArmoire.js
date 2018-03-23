@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import count from '../../../../website/common/script/count';
-import buyArmoire from '../../../../website/common/script/ops/buy/buyArmoire';
+import {BuyArmoireOperation} from '../../../../website/common/script/ops/buy/buyArmoire';
 import randomVal from '../../../../website/common/script/libs/randomVal';
 import content from '../../../../website/common/script/content/index';
 import {
@@ -32,6 +32,12 @@ describe('shared.ops.buyArmoire', () => {
   let YIELD_FOOD = 0.7;
   let YIELD_EXP = 0.9;
   let analytics = {track () {}};
+
+  function buyArmoire(_user, _req, _analytics) {
+    const buyOp = new BuyArmoireOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
 
   beforeEach(() => {
     user = generateUser({
