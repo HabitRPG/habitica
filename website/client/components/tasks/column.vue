@@ -372,6 +372,7 @@ export default {
         if (this.getUserBuffs(key)) {
           let debuff = seasonalSkills[key];
           let item = Object.assign({}, spells.special[debuff]);
+          item.purchaseType = 'spell'; // TODO: consider make lower level
           item.text = item.text();
           item.notes = item.notes();
           item.class = `shop_${key}`;
