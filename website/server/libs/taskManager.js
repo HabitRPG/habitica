@@ -77,6 +77,9 @@ export async function createTasks (req, res, options = {}) {
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
+  // Return if no tasks are passed, avoids errors with mongo $push being empty
+  if (toSave.length === 0) return [];
+
   let taskOrderToAdd = {};
 
   toSave = toSave.map(taskData => {
