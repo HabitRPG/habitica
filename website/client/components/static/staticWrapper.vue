@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  static-header(v-if='showContentWrap', :class='{"home-header": ["home", "front"].indexOf($route.name) !== -1}')
+  static-header(v-if='showContentWrap', :class='{"home-header": ["home", "front"].indexOf($route.name) !== -1, "white-header": this.$route.name === "plans"}')
 
   .static-wrapper
     router-view
@@ -54,6 +54,19 @@ div
     .login-button:hover {
       background-color: #b288ff;
       box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
+    }
+  }
+
+  .white-header {
+    background: #fff !important;
+    background-color: #fff !important;
+
+    a {
+      color: #271b3d !important;
+    }
+
+    a:hover {
+      color: #fff !important;
     }
   }
 
@@ -157,7 +170,7 @@ export default {
       return this.$route.name !== 'news';
     },
     footerId () {
-      if (this.$route.name === 'groupPlans') return;
+      if (this.$route.name === 'plans') return;
       return 'purple-footer';
     },
   },
