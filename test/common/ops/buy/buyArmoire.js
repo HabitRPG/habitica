@@ -33,7 +33,7 @@ describe('shared.ops.buyArmoire', () => {
   let YIELD_EXP = 0.9;
   let analytics = {track () {}};
 
-  function buyArmoire(_user, _req, _analytics) {
+  function buyArmoire (_user, _req, _analytics) {
     const buyOp = new BuyArmoireOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
