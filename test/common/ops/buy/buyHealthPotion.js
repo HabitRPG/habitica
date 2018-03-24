@@ -12,7 +12,7 @@ describe('shared.ops.buyHealthPotion', () => {
   let user;
   let analytics = {track () {}};
 
-  function buyHealthPotion(_user, _req, _analytics) {
+  function buyHealthPotion (_user, _req, _analytics) {
     const buyOp = new BuyHealthPotionOperation(_user, _req, _analytics);
 
     return buyOp.purchase();
