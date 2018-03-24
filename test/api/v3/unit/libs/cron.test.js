@@ -196,6 +196,222 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.count).to.equal(0);
       expect(user.purchased.plan.consecutive.offset).to.equal(0);
     });
+
+    describe('for a 3-month recurring subscription', () => {
+      it('does not increment consecutive benefits in the first month of the first paid period that they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 0;
+        user.purchased.plan.consecutive.offset = 3;
+        user.purchased.plan.consecutive.trinkets = 1;
+        user.purchased.plan.consecutive.gemCapExtra = 5;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(1);
+        expect(user.purchased.plan.consecutive.offset).to.equal(2);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      });
+
+      it('does not increment consecutive benefits in the middle of the period they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 1;
+        user.purchased.plan.consecutive.offset = 2;
+        user.purchased.plan.consecutive.trinkets = 1;
+        user.purchased.plan.consecutive.gemCapExtra = 5;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(2);
+        expect(user.purchased.plan.consecutive.offset).to.equal(1);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      });
+
+      it('does not increment consecutive benefits in the final month of the period they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 2;
+        user.purchased.plan.consecutive.offset = 1;
+        user.purchased.plan.consecutive.trinkets = 1;
+        user.purchased.plan.consecutive.gemCapExtra = 5;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(3);
+        expect(user.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+      });
+
+      it('increments consecutive benefits the month after the second paid period has started', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 3;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 1;
+        user.purchased.plan.consecutive.gemCapExtra = 5;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(4);
+        expect(user.purchased.plan.consecutive.offset).to.equal(2);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('increments consecutive benefits correctly if user skipped months between logins', () => {
+        user.purchased.plan.dateUpdated = moment().subtract(2, 'months').toDate();
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 2;
+        user.purchased.plan.consecutive.offset = 1;
+        user.purchased.plan.consecutive.trinkets = 1;
+        user.purchased.plan.consecutive.gemCapExtra = 5;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(4);
+        expect(user.purchased.plan.consecutive.offset).to.equal(2);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('does not increment consecutive benefits in the second month of the second period they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 4;
+        user.purchased.plan.consecutive.offset = 2;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(5);
+        expect(user.purchased.plan.consecutive.offset).to.equal(1);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('does not increment consecutive benefits in the final month of the second period they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 5;
+        user.purchased.plan.consecutive.offset = 1;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(6);
+        expect(user.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('increments consecutive benefits the month after the third paid period has started', () => {
+        user.purchased.plan.planId = 'basic_3mo';
+        user.purchased.plan.consecutive.count = 6;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(7);
+        expect(user.purchased.plan.consecutive.offset).to.equal(2);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(3);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(15);
+      });
+    });
+
+    describe('for a 6-month recurring subscription', () => {
+      it('does not increment consecutive benefits in the first month of the first paid period that they have already been given for', () => {
+        user.purchased.plan.planId = 'google_6mo';
+        user.purchased.plan.consecutive.count = 0;
+        user.purchased.plan.consecutive.offset = 6;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(1);
+        expect(user.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('does not increment consecutive benefits in the final month of the period they have already been given for', () => {
+        user.purchased.plan.planId = 'google_6mo';
+        user.purchased.plan.consecutive.count = 5;
+        user.purchased.plan.consecutive.offset = 1;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(6);
+        expect(user.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
+      });
+
+      it('increments consecutive benefits the month after the second paid period has started', () => {
+        user.purchased.plan.planId = 'google_6mo';
+        user.purchased.plan.consecutive.count = 6;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(7);
+        expect(user.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(4);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(20);
+      });
+
+      it('increments consecutive benefits correctly if user skipped months between logins', () => {
+        user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
+        user.purchased.plan.planId = 'google_6mo';
+        user.purchased.plan.consecutive.count = 1;
+        user.purchased.plan.consecutive.offset = 5;
+        user.purchased.plan.consecutive.trinkets = 2;
+        user.purchased.plan.consecutive.gemCapExtra = 10;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(7);
+        expect(user.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(4);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(20);
+      });
+
+      it('increments consecutive benefits the month after the third paid period has started', () => {
+        user.purchased.plan.planId = 'google_6mo';
+        user.purchased.plan.consecutive.count = 12;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 4;
+        user.purchased.plan.consecutive.gemCapExtra = 20;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(13);
+        expect(user.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(6);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+      });
+    });
+
+    describe('for a 12-month recurring subscription', () => {
+      it('does not increment consecutive benefits in the final month of the period they have already been given for', () => {
+        user.purchased.plan.planId = 'basic_12mo';
+        user.purchased.plan.consecutive.count = 11;
+        user.purchased.plan.consecutive.offset = 1;
+        user.purchased.plan.consecutive.trinkets = 4;
+        user.purchased.plan.consecutive.gemCapExtra = 20;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(12);
+        expect(user.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(4);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(20);
+      });
+
+      it('increments consecutive benefits the month after the second paid period has started', () => {
+        user.purchased.plan.planId = 'basic_12mo';
+        user.purchased.plan.consecutive.count = 12;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 4;
+        user.purchased.plan.consecutive.gemCapExtra = 20;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(13);
+        expect(user.purchased.plan.consecutive.offset).to.equal(11);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(8);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+      });
+
+      it('increments consecutive benefits the month after the third paid period has started', () => {
+        user.purchased.plan.planId = 'basic_12mo';
+        user.purchased.plan.consecutive.count = 24;
+        user.purchased.plan.consecutive.offset = 0;
+        user.purchased.plan.consecutive.trinkets = 8;
+        user.purchased.plan.consecutive.gemCapExtra = 25;
+        cron({user, tasksByType, daysMissed, analytics});
+        expect(user.purchased.plan.consecutive.count).to.equal(25);
+        expect(user.purchased.plan.consecutive.offset).to.equal(11);
+        expect(user.purchased.plan.consecutive.trinkets).to.equal(12);
+        expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+      });
+    });
   });
 
   describe('end of the month perks when user is not subscribed', () => {
