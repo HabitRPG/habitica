@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { v4 as generateUUID } from 'uuid';
 import validator from 'validator';
-import { sleep } from '../../../../helpers/api-unit.helper';
+import { sleep, translationCheck } from '../../../../helpers/api-unit.helper';
 import {
   SPAM_MESSAGE_LIMIT,
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
@@ -634,6 +634,206 @@ describe('Group Model', () => {
       it('does not throw an error if emails are passed in and uuids are an empty array', async () => {
         await Group.validateInvitations([], ['user1@example.com', 'user2@example.com'], res);
         expect(res.t).to.not.be.called;
+      });
+    });
+
+    describe('translateSystemMessages', () => {
+      it('translate quest_start', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_start',
+            quest: 'basilist',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate boss_damage', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_damage',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+            bossDamage: 3.7,
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate boss_dont_attack', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_dont_attack',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+            userDamage: 15.3,
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate boss_rage', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_rage',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate boss_defeated', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'boss_defeated',
+            quest: 'lostMasterclasser3',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate user_found_items', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'user_found_items',
+            user: questLeader.profile.name,
+            quest: 'lostMasterclasser1',
+            items: {
+              ancientTome: 3,
+              forbiddenTome: 2,
+              hiddenTome: 1,
+            },
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate all_items_found', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'all_items_found',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate spell_cast_party', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_party',
+            user: questLeader.profile.name,
+            class: 'wizard',
+            spell: 'earth',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate spell_cast_user', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'spell_cast_user',
+            user: questLeader.profile.name,
+            class: 'special',
+            spell: 'snowball',
+            target: participatingMember.profile.name,
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate quest_abort', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'quest_abort',
+            user: questLeader.profile.name,
+            quest: 'basilist',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate tavern_quest_completed', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_quest_completed',
+            quest: 'stressbeast',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage_tired', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage_tired',
+            quest: 'stressbeast',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate tavern_boss_rage', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_rage',
+            quest: 'dysheartener',
+            scene: 'market',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate tavern_boss_desperation', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'tavern_boss_desperation',
+            quest: 'stressbeast',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
+      });
+
+      it('translate claim_task', () => {
+        questLeader.preferences.language = 'en';
+        party.chat = [{
+          info: {
+            type: 'claim_task',
+            user: questLeader.profile.name,
+            task: 'Feed the pet',
+          },
+        }];
+        party = Group.translateSystemMessages(party, questLeader);
+        translationCheck(party.chat[0].text);
       });
     });
   });

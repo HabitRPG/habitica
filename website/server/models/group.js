@@ -315,7 +315,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
   return groupsArray;
 };
 
-function translateSystemMessages (group, user) {
+function _translateSystemMessages (group, user) {
   let foundText = '';
   let lang = user.preferences.language;
   for (let i = 0; i < group.chat.length; i++) {
@@ -365,9 +365,6 @@ function translateSystemMessages (group, user) {
         case 'tavern_boss_rage':
           msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage[group.chat[i].info.scene](lang)}\``;
           break;
-        case 'tavern_boss_rage_effect':
-          msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.rage.effect(lang)}\``;
-          break;
         case 'tavern_boss_desperation':
           msg = `\`${shared.content.quests[group.chat[i].info.quest].boss.desperation.text(lang)}\``;
           break;
@@ -381,12 +378,14 @@ function translateSystemMessages (group, user) {
   return group;
 }
 
+schema.statics.translateSystemMessages = _translateSystemMessages;
+
 // When converting to json remove chat messages with more than 1 flag and remove all flags info
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
 schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
-  group = translateSystemMessages(group, user);
+  group = _translateSystemMessages(group, user);
 
   let toJSON = group.toJSON();
 
@@ -993,7 +992,7 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
       group.sendChat(quest.boss.rage.effect('en'), null, null, {
-        type: 'tavern_boss_rage_effect',
+        type: 'boss_rage',
         quest: quest.key,
       });
       group.quest.progress.rage = 0;
