@@ -118,7 +118,7 @@
     "winter2018MistletoeSet": "Guérisseur du gui (Guérisseur)",
     "winter2018ReindeerSet": "Voleur renne (Voleur)",
     "spring2018SunriseWarriorSet": "Sunrise Warrior (Warrior)",
-    "spring2018TulipMageSet": "Tulip Mage (Mage)",
+    "spring2018TulipMageSet": "Mage Tulipe (Mage) ",
     "spring2018GarnetHealerSet": "Garnet Healer (Healer)",
     "spring2018DucklingRogueSet": "Duckling Rogue (Rogue)",
     "eventAvailability": "Disponible à l'achat jusqu'au <%= date(locale) %>.",
