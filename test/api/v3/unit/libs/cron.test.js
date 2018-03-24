@@ -117,6 +117,13 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
+    it('does not increment plan.consecutive.trinkets when one-month-recurring subscription has not reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 4;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.trinkets).to.equal(0);
+      expect(user.purchased.plan.consecutive.count).to.equal(5);
+    });
+
     it('increments plan.consecutive.trinkets when one-month-recurring subscription has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
       cron({user, tasksByType, daysMissed, analytics});
@@ -140,6 +147,13 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
+    });
+
+    it('does not increment plan.consecutive.gemCapExtra when one-month-recurring subscription has not reached a month that is a multiple of 3', () => {
+      user.purchased.plan.consecutive.count = 4;
+      cron({user, tasksByType, daysMissed, analytics});
+      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
+      expect(user.purchased.plan.consecutive.count).to.equal(5);
     });
 
     it('increments plan.consecutive.gemCapExtra when one-month-recurring subscription has reached a month that is a multiple of 3', () => {
