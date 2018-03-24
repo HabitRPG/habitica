@@ -235,7 +235,7 @@ div
                 li
                   strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
-      #allocation(v-if='user._id === userLoggedIn._id && user.flags.classSelected && !user.preferences.disableClasses')
+      #allocation(v-if='user._id === userLoggedIn._id && hasClass')
         .row.title-row
           .col-12.col-md-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -732,6 +732,9 @@ export default {
     },
     startingPageOption () {
       return this.$store.state.profileOptions.startingPage;
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.userLoggedIn);
     },
   },
   watch: {
