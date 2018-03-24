@@ -584,7 +584,7 @@ export default {
             /* eslint-disable no-extra-parens */
             return (
               task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
-              (task.note && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
               (task.checklist && task.checklist.length > 0 &&
                 task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             );
