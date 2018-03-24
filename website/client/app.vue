@@ -14,10 +14,17 @@ div
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
+        div.resting-banner(v-if="showRestingBanner")
+          span.content
+            span.label {{ $t('innCheckOutBanner') }}
+            span.separator |
+            span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
+          div.closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu
+        app-menu(:class='{"restingInn": showRestingBanner}')
         .container-fluid
-          app-header
+          app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
@@ -34,13 +41,15 @@ div
 
           div(:class='{sticky: user.preferences.stickyHeader}')
             router-view
-          app-footer
+        app-footer
           audio#sound(autoplay, ref="sound")
             source#oggSource(type="audio/ogg", :src="sound.oggSource")
             source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
+  @import '~client/assets/scss/colors.scss';
+
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
@@ -53,7 +62,7 @@ div
     }
 
     h2 {
-      color: #fff;
+      color: $white;
       font-size: 32px;
       font-weight: bold;
     }
@@ -72,10 +81,10 @@ div
 
   .notification {
     border-radius: 1000px;
-    background-color: #24cc8f;
+    background-color: $green-10;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: .5em 1em;
-    color: #fff;
+    color: $white;
     margin-top: .5em;
     margin-bottom: .5em;
   }
@@ -93,7 +102,9 @@ div
   }
 </style>
 
-<style>
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
     overflow-y: scroll !important;
@@ -101,12 +112,65 @@ div
 
   .modal-backdrop.show {
     opacity: 1 !important;
-    background-color: rgba(67, 40, 116, 0.9) !important;
+    background-color: $purple-100 !important;
   }
 
   /* Push progress bar above modals */
   #nprogress .bar {
     z-index: 1043 !important; /* Must stay above nav bar */
+  }
+
+  .restingInn {
+    .navbar {
+      top: 40px;
+    }
+
+    #app-header {
+      margin-top: 96px !important;
+    }
+
+  }
+
+  .resting-banner {
+    width: 100%;
+    height: 40px;
+    background-color: $blue-10;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+
+    .content {
+      height: 24px;
+      line-height: 1.71;
+      text-align: center;
+      color: $white;
+
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      span svg path {
+        stroke: $blue-500;
+      }
+    }
+
+    .separator {
+      color: $blue-100;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 </style>
 
@@ -128,6 +192,8 @@ import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
 
+import svgClose from 'assets/svg/close.svg';
+
 export default {
   mixins: [notifications, spellsMixin],
   name: 'app',
@@ -143,6 +209,9 @@ export default {
   },
   data () {
     return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -152,6 +221,7 @@ export default {
       },
       loading: true,
       currentTipNumber: 0,
+      bannerHidden: false,
     };
   },
   computed: {
@@ -171,6 +241,9 @@ export default {
       this.currentTipNumber = tipNumber;
 
       return this.$t(`tip${tipNumber}`);
+    },
+    showRestingBanner () {
+      return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
   created () {
@@ -461,6 +534,12 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
+    },
+    hideBanner () {
+      this.bannerHidden = true;
+    },
+    resumeDamage () {
+      this.$store.dispatch('user:sleep');
     },
   },
 };

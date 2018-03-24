@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Csak egy adminisztrátor törölheti flag számlálót.",
     "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Uppsz, úgy néz ki, túl sok üzenetet küldtél. Kérlek, várj egy kicsit és próbáld újra. A Fogadó üzenőfala csak 200 üzenettel bír el egyszerre, ezért a Habitica hosszabb és tartalmasabb üzenetek küldésére, illetve a válaszok összevonására bátorít. Alig várjuk, hogy ismét halljunk felőled... :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "'<%= operation %>' elérési út nem menthető, mivel ez védett.",
     "messageUserOperationNotFound": "<%= operation %> művelet nem található",
     "messageNotificationNotFound": "Az értesítés nem található.",

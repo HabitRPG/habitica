@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Hanya admin yang bisa menghapus jumlah tanda!",
     "messageCannotFlagSystemMessages": "Kamu tidak dapat melaporkan sebuah pesan sistem. Jika kamu perlu melaporkan pelanggaran dari Pedoman Komunitas terkait dengan pesan ini, harap email screenshot itu beserta penjelasan kepada Lemoness di <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, sepertinya kamu mengirim terlalu banyak pesan! Cobalah tunggu beberapa menit dan coba lagi. Ruang obrolan Kedai Minuman hanya dapat menampung 200 pesan sekaligus, jadi Habitica menyarankan agar kamu mengirim pesan yang lebih panjang dan terpikir matang serta balasan yang membantu. Kami tak sabar menunggu apa yang ingin kamu katakan. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
     "messageNotificationNotFound": "Notifikasi tidak ditemukan.",

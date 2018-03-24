@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Seul un administrateur peut modifier ce compteur !",
     "messageCannotFlagSystemMessages": "Vous ne pouvez pas signaler un message système. Si vous avez besoin de signaler une violation des règles de vie en communauté liée à ce message, veuillez envoyer un courriel avec une capture d'écran à Lemoness à <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Oups, on dirait que vous postez trop de messages ! Merci d'attendre une minute et d'essayer de nouveau. Le fil de discussion de la taverne ne pouvant contenir que 200 messages, Habitica vous encourage à poster des messages plus longs et plus réfléchis, et à répondre en un seul bloc plutôt qu'en plusieurs petits messages. Nous avons hâte d'entendre ce que vous avez à dire. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "chemin `<%= operation %>` n'a pas été sauvegardé car c'est un chemin protégé.",
     "messageUserOperationNotFound": "<%= operation %> opération introuvable",
     "messageNotificationNotFound": "Notification non trouvée.",

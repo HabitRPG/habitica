@@ -112,6 +112,7 @@ let bannedWords = [
   'muthafucka',
   'dafuq',
   'wtf',
+  'stfu',
 
   'ass',
   'arse',

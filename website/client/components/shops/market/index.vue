@@ -295,7 +295,7 @@
       .content {
         display: flex;
         flex-direction: column;
-        z-index: 1; // Always cover background. 
+        z-index: 1; // Always cover background.
       }
 
       .npc {
@@ -467,7 +467,7 @@ export default {
     },
     async mounted () {
       const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState.worldBoss.extra.worldDmg.market;
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({
