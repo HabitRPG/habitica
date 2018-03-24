@@ -48,8 +48,7 @@
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             :checked="hideMissing",
             @change="updateHideMissing"
           )
