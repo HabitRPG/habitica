@@ -11,6 +11,10 @@
     top: 65px;
     width: 350px;
     z-index: 1041; // 1041 is above modal backgrounds
+
+    &.restingInn {
+      top: 105px;
+    }
   }
 </style>
 

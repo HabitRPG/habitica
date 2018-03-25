@@ -10,7 +10,7 @@ div
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
     amazon-payments-modal
-    snackbars
+    snackbars(:class='{"restingInn": showRestingBanner}')
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
