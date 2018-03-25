@@ -1,6 +1,6 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()")
+    b-modal#task-modal(size="sm", @hidden="onClose()", @shown="focusInput()")
       .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
@@ -12,7 +12,8 @@
           input.form-control.title-input(
             type="text",
             required, v-model="task.text",
-            autofocus, spellcheck="true",
+            ref="inputToFocus",
+            spellcheck="true",
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
@@ -962,6 +963,9 @@ export default {
         taskId: this.task._id,
         userId: memberId,
       });
+    },
+    focusInput () {
+      this.$refs.inputToFocus.focus();
     },
   },
 };
