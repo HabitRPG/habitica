@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 import Amplitude from 'amplitude';
-import Bluebird from 'bluebird';
 import googleAnalytics from 'universal-analytics';
 import useragent from 'useragent';
 import {
@@ -171,7 +170,7 @@ let _sendDataToAmplitude = (eventType, data) => {
 
   amplitudeData.event_type = eventType;
 
-  return new Bluebird((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
       .catch(() => reject('Error while sending data to Amplitude.'));
@@ -222,7 +221,7 @@ let _sendDataToGoogle = (eventType, data) => {
     eventData.ev = value;
   }
 
-  return new Bluebird((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     ga.event(eventData, (err) => {
       if (err) return reject(err);
       resolve();
@@ -236,7 +235,7 @@ let _sendPurchaseDataToAmplitude = (data) => {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
-  return new Bluebird((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     amplitude.track(amplitudeData)
       .then(resolve)
       .catch(reject);
@@ -261,7 +260,7 @@ let _sendPurchaseDataToGoogle = (data) => {
     ev: price,
   };
 
-  return new Bluebird((resolve) => {
+  return new Promise((resolve) => {
     ga.event(eventData).send();
 
     ga.transaction(data.uuid, price)
@@ -273,14 +272,14 @@ let _sendPurchaseDataToGoogle = (data) => {
 };
 
 function track (eventType, data) {
-  return Bluebird.all([
+  return Promise.all([
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ]);
 }
 
 function trackPurchase (data) {
-  return Bluebird.all([
+  return Promise.all([
     _sendPurchaseDataToAmplitude(data),
     _sendPurchaseDataToGoogle(data),
   ]);

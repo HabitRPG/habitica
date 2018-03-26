@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"typ\" vybavení musí být jeden z následujících: 'vybaveno', 'mazlíček', 'zvíře k osedlání', 'kostým'",
     "mustPurchaseToSet": "Musíte koupit <%= val %> k nastavení na <%= key %>.",
     "typeRequired": "Je požadován typ",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Je požadován klíč",
     "notAccteptedType": "Typ musí být v  [vajíčka, líhnoucíLektvary, prémiovéLíhnoucíLektvary, jídlo, výpravy, výbava]",
     "contentKeyNotFound": "Klíč nenalezen pro Obsah <%= type %>",

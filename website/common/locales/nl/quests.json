@@ -63,7 +63,7 @@
     "questTaskCollection": "<%= items %> voorwerpen verzameld vandaag",
     "questOwnerNotInPendingQuest": "De eigenaar van de queeste heeft de queeste verlaten en kan deze niet meer handmatig starten. Advies is om de queeste te annuleren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "questOwnerNotInRunningQuest": "De eigenaar van de queeste heeft de queeste verlaten. Als het nodig is, kun je de queeste afbreken. Het is ook mogelijk om de queeste door te laten gaan; alle resterende deelnemers krijgen hun beloning als de queeste afgelopen is.",
-    "questOwnerNotInPendingQuestParty": "De eigenaar van de queeste heeft de gezelschap verlaten en kan de queeste niet meer handmatig starten. Advies is om de queeste te annuleren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
+    "questOwnerNotInPendingQuestParty": "De eigenaar van de queeste heeft het gezelschap verlaten en kan de queeste niet meer handmatig starten. Advies is om de queeste te annuleren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "questOwnerNotInRunningQuestParty": "De eigenaar van de queeste heeft de gezelschap verlaten. Als het nodig is, kun je de queeste afbreken, maar het is ook mogelijk om de queeste door te laten gaan; alle resterende deelnemers krijgen hun beloning als de queeste afgelopen is.",
     "questParticipants": "Deelnemers",
     "scrolls": "Queeste-perkamentrol",
@@ -83,8 +83,8 @@
     "sureCancel": "Weet je zeker dat je deze queeste af wilt breken? Alle geaccepteerde uitnodigingen gaan verloren. De eigenaar van de queeste houdt de queeste-perkamentrol.",
     "sureAbort": "Weet je zeker dat je deze missie wilt afbreken? De missie wordt afgebroken voor iedereen in jouw gezelschap; alle vorderingen gaan verloren. De queeste-perkamentrol wordt teruggegeven aan de eigenaar van de queeste.",
     "doubleSureAbort": "Weet je het echt heel zeker? Zorg ervoor dat ze niet voor altijd een hekel aan je krijgen!",
-    "questWarning": "Als nieuwe spelers bij de gezelschap komen voordat de queeste begint, krijgen ze ook een uitnodiging. Als de queeste eenmaal begonnen is, kunnen nieuwe gezelschapsleden zich echter niet bij de queeste aansluiten.",
-    "questWarningBroken": "Als nieuwe spelers bij de gezelschap komen voordat de queeste begint, krijgen ze ook een uitnodiging... Als de queeste eenmaal begonnen is, kunnen nieuwe gezelschapsleden zich echter niet bij de queeste aansluiten...",
+    "questWarning": "Als nieuwe spelers bij het gezelschap komen voordat de queeste begint, krijgen ze ook een uitnodiging. Als de queeste eenmaal begonnen is, kunnen nieuwe gezelschapsleden zich echter niet bij de queeste aansluiten.",
+    "questWarningBroken": "Als nieuwe spelers bij eht gezelschap komen voordat de queeste begint, krijgen ze ook een uitnodiging... Als de queeste eenmaal begonnen is, kunnen nieuwe gezelschapsleden zich echter niet bij de queeste aansluiten...",
     "bossRageTitle": "Woede",
     "bossRageDescription": "Als deze balk vol is, zal de eindbaas een speciale aanval ontketenen.",
     "startAQuest": "START EEN QUEESTE",
@@ -123,7 +123,7 @@
     "noQuestToStart": "Kun je geen queeste vinden om mee te beginnen? Bekijk de queestenwinkel op de markt om nieuwe uitgaven te ontdekken!",
     "pendingDamage": "<%= damage %> voorlopige schade",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Gezondheid",
-    "rageAttack": "Woede Aanval:",
+    "rageAttack": "Uitbarsting van Razernij:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Woede",
     "rageStrikes": "Woede Treffers"
 }

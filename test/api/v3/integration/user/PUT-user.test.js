@@ -27,6 +27,33 @@ describe('PUT /user', () => {
       expect(user.stats.hp).to.eql(14);
     });
 
+    it('tags must be an array', async () => {
+      await expect(user.put('/user', {
+        tags: {
+          tag: true,
+        },
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'mustBeArray',
+      });
+    });
+
+    it('update tags', async () => {
+      let userTags = user.tags;
+
+      await user.put('/user', {
+        tags: [...user.tags, {
+          name: 'new tag',
+        }],
+      });
+
+      await user.sync();
+
+      expect(user.tags.length).to.be.eql(userTags.length + 1);
+    });
+
+
     it('profile.name cannot be an empty string or null', async () => {
       await expect(user.put('/user', {
         'profile.name': ' ', // string should be trimmed

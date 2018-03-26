@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Alias Attività già usato su un'altra attività.",
     "taskNotFound": "Attività non trovata.",
     "invalidTaskType": "Il tipo di attività può essere solo uno tra \"Abitudine\", \"Daily\", \"Cosa Da Fare\", \"Ricompensa\".",
+    "invalidTasksType": "Il tipo di attività deve essere uno tra \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Il tipo di attività deve essere uno tra \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Un'attività che appartiene ad una sfida non può essere eliminata.",
     "checklistOnlyDailyTodo": "Le checklist sono supportate solo nelle Daily e nelle Cose Da Fare.",
     "checklistItemNotFound": "Non è stato trovato alcun elemento checklist con l'id specificato.",

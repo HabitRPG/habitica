@@ -41,18 +41,21 @@ export default class GroupChatReporter extends ChatReporter {
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
-    return {message, group};
+    const userComment = this.req.body.comment;
+
+    return {message, group, userComment};
   }
 
-  async notify (group, message) {
+  async notify (group, message, userComment) {
     await super.notify(group, message);
 
     const groupUrl = getGroupUrl(group);
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', this.emailVariables.concat([
+    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', this.emailVariables.concat([
       {name: 'GROUP_NAME', content: group.name},
       {name: 'GROUP_TYPE', content: group.type},
       {name: 'GROUP_ID', content: group._id},
       {name: 'GROUP_URL', content: groupUrl},
+      {name: 'REPORTER_COMMENT', content: userComment || ''},
     ]));
 
     slack.sendFlagNotification({
@@ -60,6 +63,7 @@ export default class GroupChatReporter extends ChatReporter {
       flagger: this.user,
       group,
       message,
+      userComment,
     });
   }
 
@@ -84,9 +88,9 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async flag () {
-    let {message, group} = await this.validate();
+    let {message, group, userComment} = await this.validate();
     await this.flagGroupMessage(group, message);
-    await this.notify(group, message);
+    await this.notify(group, message, userComment);
     return message;
   }
 }

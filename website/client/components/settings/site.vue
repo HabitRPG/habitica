@@ -31,7 +31,7 @@
           option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
       hr
 
-      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .form-horizontal(v-if='hasClass')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
@@ -76,9 +76,9 @@
 
         hr
 
-        button.btn.btn-primary(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
-        button.btn.btn-primary(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
-        button.btn.btn-primary(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
+        button.btn.btn-primary.mr-2.mb-2(@click='showBailey()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('showBaileyPop')") {{ $t('showBailey') }}
+        button.btn.btn-primary.mr-2.mb-2(@click='openRestoreModal()', popover-trigger='mouseenter', popover-placement='right', :popover="$t('fixValPop')") {{ $t('fixVal') }}
+        button.btn.btn-primary.mb-2(v-if='user.preferences.disableClasses == true', @click='changeClassForUser(false)',
           popover-trigger='mouseenter', popover-placement='right', :popover="$t('enableClassPop')") {{ $t('enableClass') }}
 
         hr
@@ -93,7 +93,7 @@
                   option(v-for='option in dayStartOptions' :value='option.value') {{option.name}}
 
               .col-5
-                button.btn.btn-block.btn-primary(@click='openDayStartModal()',
+                button.btn.btn-block.btn-primary.mt-1(@click='openDayStartModal()',
                   :disabled='newDayStart === user.preferences.dayStart')
                   | {{ $t('saveCustomDayStart') }}
           hr
@@ -111,9 +111,8 @@
         div
           ul.list-inline
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
-              // @TODO this is broken
-              button.btn.btn-primary(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
-              button.btn.btn-primary(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
+              button.btn.btn-primary.mb-2(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
+              button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
               button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
           div(v-if='!user.auth.local.username')
@@ -172,9 +171,9 @@
         div
           h5 {{ $t('dangerZone') }}
           div
-            button.btn.btn-danger(@click='openResetModal()',
+            button.btn.btn-danger.mr-2.mb-2(@click='openResetModal()',
               popover-trigger='mouseenter', popover-placement='right', v-b-popover.hover.auto="$t('resetAccPop')") {{ $t('resetAccount') }}
-            button.btn.btn-danger(@click='openDeleteModal()',
+            button.btn.btn-danger.mb-2(@click='openDeleteModal()',
               popover-trigger='mouseenter', v-b-popover.hover.auto="$t('deleteAccPop')") {{ $t('deleteAccount') }}
 </template>
 
@@ -239,6 +238,12 @@ export default {
     // @TODO: We may need to request the party here
     this.party = this.$store.state.party;
     this.newDayStart = this.user.preferences.dayStart;
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
+    }, {
+      redirect_uri: '', // eslint-disable-line
+    });
   },
   computed: {
     ...mapState({
@@ -264,6 +269,9 @@ export default {
     },
     dayStart () {
       return this.user.preferences.dayStart;
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
     },
   },
   methods: {

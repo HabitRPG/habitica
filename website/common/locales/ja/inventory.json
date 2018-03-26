@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "You have no <%= type %>.",
-  "foodItemType": "Food",
-  "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Hatching Potions",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "noItemsAvailableForType": "<%= type %>を持っていません。",
+  "foodItemType": "えさ",
+  "eggsItemType": "たまご",
+  "hatchingPotionsItemType": "たまごがえしの薬",
+  "specialItemType": "特別なアイテム",
+  "lockedItem": "ロックされたアイテム"
 }

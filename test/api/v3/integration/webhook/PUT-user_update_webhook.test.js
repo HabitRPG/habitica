@@ -34,7 +34,7 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('returns an error if validation fails', async () => {
-    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { url: 'foo', enabled: true })).to.eventually.be.rejected.and.eql({
+    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { url: 'foo_invalid', enabled: true })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: 'User validation failed',

@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Такий псевдонім завдання вже використовується в іншому завданні.",
     "taskNotFound": "Завдання не знайдено.",
     "invalidTaskType": "Завдання має бути одним із наступних: «звичка»,  «щоденка», «задача», «нагорода».",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Завдання, яке належить випробуванню, не можна вилучити.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "За наданим ID не знайдено підзавдань.",

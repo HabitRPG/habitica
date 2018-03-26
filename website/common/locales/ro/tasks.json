@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Task alias already used on another task.",
     "taskNotFound": "Task not found.",
     "invalidTaskType": "Task type must be one of \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "No checklist item was found with given id.",

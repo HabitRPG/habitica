@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   .item-wrapper(@click="click()", :id="itemId")
-    .item(
+    .item.pet-slot(
       :class="{'item-empty': emptyItem}",
     )
       slot(name="itemBadge", :item="item")

@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Ezt a feladatcímkét már használod egy másik feladathoz.",
     "taskNotFound": "A feladat nem található.",
     "invalidTaskType": "A feladat típusa \"Szokás\", \"Napi\" \"Cél\" vagy \"Jutalom\" lehet.",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Egy kihívás feladatát nem törölheted.",
     "checklistOnlyDailyTodo": "Feladatlisták csak napi feladatokhoz és a célokhoz adhatóak.",
     "checklistItemNotFound": " Nem található feladatlista az adott azonosítóhoz.",

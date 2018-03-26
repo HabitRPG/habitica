@@ -11,7 +11,6 @@ import {
   each,
   map,
 } from 'lodash';
-import Bluebird from 'bluebird';
 import {
   sha1MakeSalt,
   sha1Encrypt as sha1EncryptPassword,
@@ -104,7 +103,7 @@ describe('DELETE /user', () => {
         password,
       });
 
-      await Bluebird.all(map(ids, id => {
+      await Promise.all(map(ids, id => {
         return expect(checkExistence('tasks', id)).to.eventually.eql(false);
       }));
     });

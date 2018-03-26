@@ -14,7 +14,6 @@ import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
@@ -186,7 +185,7 @@ api.postChat = {
       toSave.push(user.save());
     }
 
-    await Bluebird.all(toSave);
+    await Promise.all(toSave);
 
     // real-time chat is only enabled for private groups (for now only for parties)
     if (group.privacy === 'private' && group.type === 'party') {
