@@ -422,6 +422,12 @@ export default {
       const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
       const parseSettings = JSON.parse(AUTH_SETTINGS);
       const errorMessage = error.response.data.message;
+
+      // Case where user is not logged in
+      if (!parseSettings) {
+        return;
+      }
+
       const bannedMessage = this.$t('accountSuspended', {
         communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
         userId: parseSettings.auth.apiId,

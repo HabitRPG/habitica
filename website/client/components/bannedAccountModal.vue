@@ -25,10 +25,10 @@ export default {
     bannedMessage () {
       const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
       const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const userId = parseSettings ? parseSettings.auth.apiId : '';
 
-      return this.$t('accountSuspendedBody', {
-        profileName: 'test',
-        userId: parseSettings.auth.apiId,
+      return this.$t('accountSuspended', {
+        userId,
         communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
       });
     },
