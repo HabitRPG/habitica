@@ -5,6 +5,8 @@ import _ from 'lodash';
 
 // When this file grows, it can be split into multiple ones.
 const messages = {
+  taskIdRequired: '"taskId" must be a valid UUID.',
+
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
   guildsPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
