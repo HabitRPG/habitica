@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Alleen een admin kan de flag-telling leegmaken!",
     "messageCannotFlagSystemMessages": "Je kunt geen syteemberichten melden. Als je een overtreding van de gemeenschapsrichtlijnen, gerelateerd aan dit bericht, wenst te melden, stuur dan een bericht aan Lemoness via <%= communityManagerEmail %> en voeg een screenshot en uitleg bij.",
     "messageGroupChatSpam": "Oeps, het ziet er naar uit dat je te veel berichten plaatst! Wacht alsjeblieft een minuut en probeer het dan nog eens. De herberg chat kan slechts 200 berichten tonen, dus Habitica moedigt spelers aan om langere berichten en verstevigde reacties te plaatsen. We kunnen niet wachten om te horen wat je te zeggen hebt. :)",
+    "messageCannotLeaveWhileQuesting": "Je kan deze gezelschapsuitnodiging niet accepteren terwijl je op een queeste bent. Als je wil deelnemen aan dit gezelschap, moet je eerst je queeste annuleren, wat je kan doen vanuit het gezelschapsscherm. Je zal de queeste-perkamentrol terugkrijgen.",
     "messageUserOperationProtected": "path `<%= operation %>`  is niet opgeslagen, omdat het een beschermd path is.",
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",

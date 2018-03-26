@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '6'
+  - '8'
 services:
   - mongodb
 cache:
@@ -8,8 +8,6 @@ cache:
     - 'node_modules'
 addons:
   chrome: stable
-before_install:
-  - npm install -g npm@5
 before_script:
   - npm run test:build
   - cp config.json.example config.json

@@ -1,7 +1,6 @@
 import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
-import Bluebird from 'bluebird';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
@@ -58,7 +57,7 @@ function _populateDefaultTasks (user, taskTypes) {
   // @TODO: default tasks are handled differently now, and not during registration. We should move this code
 
   let tasksToCreate = [];
-  if (user.registeredThrough === 'habitica-web') return Bluebird.all(tasksToCreate);
+  if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
     taskTypes = _.clone(taskTypes);
@@ -89,7 +88,7 @@ function _populateDefaultTasks (user, taskTypes) {
     tasksToCreate.push(...tasksOfType);
   });
 
-  return Bluebird.all(tasksToCreate)
+  return Promise.all(tasksToCreate)
     .then((tasksCreated) => {
       _.each(tasksCreated, (task) => {
         user.tasksOrder[`${task.type}s`].push(task._id);
@@ -140,8 +139,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  user.items.gear.owned.armor_special_birthday = true; // eslint-disable-line camelcase
-  user.items.gear.equipped.body = 'armor_special_birthday';
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -253,8 +250,9 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 
   // Manage unallocated stats points notifications
-  if (this.isSelected('stats') && this.isSelected('notifications')) {
+  if (this.isSelected('stats') && this.isSelected('notifications') && this.isSelected('flags') && this.isSelected('preferences')) {
     const pointsToAllocate = this.stats.points;
+    const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
     // Sometimes there can be more than 1 notification
     const existingNotifications = this.notifications.filter(notification => {
@@ -271,7 +269,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
-    if (pointsToAllocate > 0 && outdatedNotification) {
+    if (pointsToAllocate > 0 && !classNotEnabled && outdatedNotification) {
       this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
     }
 

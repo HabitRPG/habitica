@@ -31,6 +31,7 @@ export const EVENTS = {
   summer2017: { start: '2017-06-20', end: '2017-08-02' },
   fall2017:   { start: '2017-09-21', end: '2017-11-02' },
   winter2018: { start: '2017-12-19', end: '2018-02-02' },
+  spring2018: { start: '2018-03-20', end: '2018-05-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -64,6 +65,37 @@ export const SEASONAL_SETS = {
     'winter2018GiftWrappedSet',
     'winter2018MistletoeSet',
     'winter2018ReindeerSet',
+  ],
+  spring: [
+    // spring 2014
+    'mightyBunnySet',
+    'magicMouseSet',
+    'lovingPupSet',
+    'stealthyKittySet',
+
+    // spring 2015
+    'bewareDogSet',
+    'magicianBunnySet',
+    'comfortingKittySet',
+    'sneakySqueakerSet',
+
+    // spring 2016
+    'springingBunnySet',
+    'grandMalkinSet',
+    'cleverDogSet',
+    'braveMouseSet',
+
+    // spring 2017
+    'spring2017FelineWarriorSet',
+    'spring2017CanineConjurorSet',
+    'spring2017FloralMouseSet',
+    'spring2017SneakyBunnySet',
+
+    // spring 2018
+    'spring2018TulipMageSet',
+    'spring2018SunriseWarriorSet',
+    'spring2018DucklingRogueSet',
+    'spring2018GarnetHealerSet',
   ],
 };
 

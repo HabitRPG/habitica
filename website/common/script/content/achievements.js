@@ -23,6 +23,11 @@ let worldQuestAchievs = {
     titleKey: 'achievementBewilder',
     textKey: 'achievementBewilderText',
   },
+  dysheartenerQuest: {
+    icon: 'achievement-dysheartener',
+    titleKey: 'achievementDysheartener',
+    textKey: 'achievementDysheartenerText',
+  },
 };
 Object.assign(achievementsData, worldQuestAchievs);
 

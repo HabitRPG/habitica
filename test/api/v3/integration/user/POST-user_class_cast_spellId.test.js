@@ -258,11 +258,31 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(user.achievements.birthday).to.equal(1);
   });
 
+  it('passes correct target to spell when targetType === \'task\'', async () => {
+    await user.update({'stats.class': 'wizard', 'stats.lvl': 11});
+
+    let task = await user.post('/tasks/user', {
+      text: 'test habit',
+      type: 'habit',
+    });
+
+    let result = await user.post(`/user/class/cast/fireball?targetId=${task._id}`);
+
+    expect(result.task._id).to.equal(task._id);
+  });
+
+  it('passes correct target to spell when targetType === \'self\'', async () => {
+    await user.update({'stats.class': 'wizard', 'stats.lvl': 14, 'stats.mp': 50});
+
+    let result = await user.post('/user/class/cast/frost');
+
+    expect(result.user.stats.mp).to.equal(10);
+  });
+
+
   // TODO find a way to have sinon working in integration tests
   // it doesn't work when tests are running separately from server
-  it('passes correct target to spell when targetType === \'task\'');
   it('passes correct target to spell when targetType === \'tasks\'');
-  it('passes correct target to spell when targetType === \'self\'');
   it('passes correct target to spell when targetType === \'party\'');
   it('passes correct target to spell when targetType === \'user\'');
   it('passes correct target to spell when targetType === \'party\' and user is not in a party');

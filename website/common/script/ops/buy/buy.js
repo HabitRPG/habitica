@@ -5,7 +5,7 @@ import {
 } from '../../libs/errors';
 import buyHealthPotion from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
-import buyGear from './buyGear';
+import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
 import buyQuest from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
@@ -58,9 +58,12 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
-    default:
-      buyRes = buyGear(user, req, analytics);
+    default: {
+      const buyOp = new BuyMarketGearOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
   }
 
   return buyRes;

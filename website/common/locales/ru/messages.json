@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
     "messageCannotFlagSystemMessages": "Вы не можете пометить системное сообщение. Если вы хотите пожаловаться на нарушеие Правил сообщества, связанное с этим сообщением, пожалуйста, отправьте нам скриншот по электронной почте и объяснение Lemoness на <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Упс, похоже, что вы отправляете слишком много сообщений! Подождите минуту и повторите попытку. В чате таверны отображается только 200 сообщений за раз, поэтому страна Хабитика поощряет размещение более длинных, более продуманных сообщений и объединенных ответов. Не могу дождаться, чтобы услышать, что вы на это скажете. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",

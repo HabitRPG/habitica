@@ -84,6 +84,7 @@
     "invalidTypeEquip": "\"type\" moet eentje zijn van 'aangekleed', 'huisdier', 'rijdier', 'kostuum'.",
     "mustPurchaseToSet": "Moet <%= val %> kopen om het op <%= key %> te zetten.",
     "typeRequired": "Type is vereist",
+    "positiveAmountRequired": "Positive amount is required",
     "keyRequired": "Sleutel is vereist",
     "notAccteptedType": "Het type moet een [ei, uitbroeddrankje, premiumUitbroeddrankje, eten, queesten, uitrusting] zijn.",
     "contentKeyNotFound": "Sleutel niet gevonden voor Content <%= type %>",
