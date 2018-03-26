@@ -458,19 +458,14 @@ api.getGroupChallenges = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-<<<<<<< HEAD
     const query = { group: groupId };
 
     if (!user.contributor.admin) {
       query.flagCount = { $eq: 0 };
     }
 
-    let challenges = await Challenge.find(query)
-      .sort('-official -createdAt')
-=======
     let challenges = await Challenge.find({group: groupId})
       .sort('-createdAt')
->>>>>>> upstream/develop
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
