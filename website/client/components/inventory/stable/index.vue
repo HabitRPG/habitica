@@ -936,11 +936,12 @@
           if (!pet.isHatchable()) {
             return;
           }
-          // opens the hatch dialog
-          this.hatchablePet = pet;
 
+          this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+          this.text(this.$t('hatchedPet', {egg: pet.eggKey, potion: pet.potionKey}));
           if (this.user.preferences.suppressModals.hatchPet) return;
-          this.$root.$emit('bv::show::modal', 'hatching-modal');
+          const newPet = createAnimal(pet.eggKey, pet.potionKey, 'pet', this.content, this.user.items);
+          this.$root.$emit('hatchedPet::open', newPet);
         }
       },
       async feedAction (petKey, foodKey) {

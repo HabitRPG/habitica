@@ -356,6 +356,7 @@ export default {
     },
     hatchPet (potion, egg) {
       this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
+      this.text(this.$t('hatchedPet', {egg: egg.key, potion: potion.key}));
       if (this.user.preferences.suppressModals.hatchPet) return;
       const newPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
       this.$root.$emit('hatchedPet::open', newPet);
