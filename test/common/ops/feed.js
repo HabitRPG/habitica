@@ -125,7 +125,7 @@ describe('shared.ops.feed', () => {
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
         egg: pet.text(),
-        foodText: food.text(),
+        foodText: food.textThe(),
       }));
 
       expect(user.items.food.Meat).to.equal(1);
@@ -143,7 +143,7 @@ describe('shared.ops.feed', () => {
       expect(data).to.eql(user.items.pets['Wolf-Spooky']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
         egg: pet.text(),
-        foodText: food.text(),
+        foodText: food.textThe(),
       }));
 
       expect(user.items.food.Milk).to.equal(1);
@@ -161,7 +161,7 @@ describe('shared.ops.feed', () => {
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageDontEnjoyFood', {
         egg: pet.text(),
-        foodText: food.text(),
+        foodText: food.textThe(),
       }));
 
       expect(user.items.food.Milk).to.equal(1);

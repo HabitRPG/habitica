@@ -37,12 +37,12 @@
         div.text(v-html="itemNotes")
 
         slot(name="additionalInfo", :item="item")
-          equipmentAttributesGrid.bordered(
+          equipmentAttributesGrid.attributesGrid(
             v-if="showAttributesGrid",
             :item="item"
           )
 
-        .purchase-amount
+        .purchase-amount(v-if='item.value > 0')
           .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
@@ -50,7 +50,10 @@
               input(type='number', min='0', v-model='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
-              span.value(:class="getPriceClass()") {{ item.value }}
+              span.cost(:class="getPriceClass()") {{ item.value }}
+          div(v-else)
+            span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
+            span.cost(:class="getPriceClass()") {{ item.value }}
 
         .gems-left(v-if='item.key === "gem"')
           strong(v-if='gemsLeft > 0') {{ gemsLeft }} {{ $t('gemsRemaining') }}
@@ -125,7 +128,7 @@
         width: 74px;
         height: 40px;
         border-radius: 2px;
-        background-color: #ffffff;
+        background-color: $white;
         box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
         margin-right: 24px;
 
@@ -144,15 +147,6 @@
       }
     }
 
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-
-      width: 400px;
-    }
-
     span.svg-icon.inline.icon-32 {
       height: 32px;
       width: 32px;
@@ -162,10 +156,9 @@
       vertical-align: middle;
     }
 
-    .value {
+    .cost {
       width: 28px;
       height: 32px;
-      font-family: Roboto;
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
@@ -173,15 +166,15 @@
       vertical-align: middle;
 
       &.gems {
-        color: $green-10;
+        color: $gems-color;
       }
 
       &.gold {
-        color: $yellow-10
+        color: $gold-color;
       }
 
       &.hourglasses {
-        color: $blue-10;
+        color: $hourglass-color;
       }
     }
 
@@ -229,7 +222,7 @@
 
     .limitedTime {
       height: 32px;
-      background-color: #6133b4;
+      background-color: $purple-300;
       width: calc(100% + 30px);
       margin: 0 -15px; // the modal content has its own padding
 
@@ -248,8 +241,12 @@
       }
     }
 
-    .bordered {
+    .attributesGrid {
       margin-top: 8px;
+      border-radius: 2px;
+      background-color: $gray-500;
+
+      margin: 10px 0 24px;
     }
 
     .gems-left {
@@ -277,7 +274,7 @@
 
   import { mapState } from 'client/libs/store';
 
-  import EquipmentAttributesGrid from './market/equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../inventory/equipment/attributesGrid.vue';
 
   import Item from 'client/components/inventory/item';
   import Avatar from 'client/components/avatar';
@@ -390,9 +387,7 @@
           return;
         }
 
-        if (this.item.cast) {
-          this.castStart(this.item);
-        } else if (this.genericPurchase) {
+        if (this.genericPurchase) {
           this.makeGenericPurchase(this.item, 'buyModal', this.selectedAmountToBuy);
           this.purchased(this.item.text);
         }

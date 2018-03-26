@@ -1,5 +1,11 @@
 <template lang="pug">
-  b-modal#death(:title="$t('lostAllHealth')", size='md', :hide-footer="true")
+  b-modal#death(
+    :title="$t('lostAllHealth')",
+    size='md',
+    :hide-footer="true",
+    no-close-on-esc,
+    no-close-on-backdrop,
+  )
     .row
       .col-12
         .hero-stats

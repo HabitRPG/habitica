@@ -14,35 +14,43 @@ div
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
-        template(v-if="isUserLoaded")
-          notifications-display
-          app-menu
-          .container-fluid
-            app-header
-            buyModal(
-              :item="selectedItemToBuy || {}",
-              :withPin="true",
-              @change="resetItemToBuy($event)",
-              @buyPressed="customPurchase($event)",
-              :genericPurchase="genericPurchase(selectedItemToBuy)",
+      template(v-if="isUserLoaded")
+        div.resting-banner(v-if="showRestingBanner")
+          span.content
+            span.label {{ $t('innCheckOutBanner') }}
+            span.separator |
+            span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
+          div.closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
+        notifications-display
+        app-menu(:class='{"restingInn": showRestingBanner}')
+        .container-fluid
+          app-header(:class='{"restingInn": showRestingBanner}')
+          buyModal(
+            :item="selectedItemToBuy || {}",
+            :withPin="true",
+            @change="resetItemToBuy($event)",
+            @buyPressed="customPurchase($event)",
+            :genericPurchase="genericPurchase(selectedItemToBuy)",
 
-            )
-            selectMembersModal(
-              :item="selectedSpellToBuy || {}",
-              :group="user.party",
-              @memberSelected="memberSelected($event)",
-            )
+          )
+          selectMembersModal(
+            :item="selectedSpellToBuy || {}",
+            :group="user.party",
+            @memberSelected="memberSelected($event)",
+          )
 
-            div(:class='{sticky: user.preferences.stickyHeader}')
-              router-view
-            app-footer
-
-            audio#sound(autoplay, ref="sound")
-              source#oggSource(type="audio/ogg", :src="sound.oggSource")
-              source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+          div(:class='{sticky: user.preferences.stickyHeader}')
+            router-view
+        app-footer
+          audio#sound(autoplay, ref="sound")
+            source#oggSource(type="audio/ogg", :src="sound.oggSource")
+            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
+  @import '~client/assets/scss/colors.scss';
+
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
@@ -55,7 +63,7 @@ div
     }
 
     h2 {
-      color: #fff;
+      color: $white;
       font-size: 32px;
       font-weight: bold;
     }
@@ -74,24 +82,30 @@ div
 
   .notification {
     border-radius: 1000px;
-    background-color: #24cc8f;
+    background-color: $green-10;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: .5em 1em;
-    color: #fff;
+    color: $white;
     margin-top: .5em;
     margin-bottom: .5em;
   }
 
   .container-fluid {
     overflow-x: hidden;
+    flex: 1 0 auto;
   }
 
   #app {
     height: calc(100% - 56px); /* 56px is the menu */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 </style>
 
-<style>
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
     overflow-y: scroll !important;
@@ -99,12 +113,65 @@ div
 
   .modal-backdrop.show {
     opacity: 1 !important;
-    background-color: rgba(67, 40, 116, 0.9) !important;
+    background-color: $purple-100 !important;
   }
 
   /* Push progress bar above modals */
   #nprogress .bar {
-    z-index: 1041;
+    z-index: 1043 !important; /* Must stay above nav bar */
+  }
+
+  .restingInn {
+    .navbar {
+      top: 40px;
+    }
+
+    #app-header {
+      margin-top: 96px !important;
+    }
+
+  }
+
+  .resting-banner {
+    width: 100%;
+    height: 40px;
+    background-color: $blue-10;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+
+    .content {
+      height: 24px;
+      line-height: 1.71;
+      text-align: center;
+      color: $white;
+
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      span svg path {
+        stroke: $blue-500;
+      }
+    }
+
+    .separator {
+      color: $blue-100;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 </style>
 
@@ -124,12 +191,15 @@ import SelectMembersModal from 'client/components/selectMembersModal.vue';
 import notifications from 'client/mixins/notifications';
 import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
+import spellsMixin from 'client/mixins/spells';
+
+import svgClose from 'assets/svg/close.svg';
 import bannedAccountModal from 'client/components/bannedAccountModal';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
-  mixins: [notifications],
+  mixins: [notifications, spellsMixin],
   name: 'app',
   components: {
     AppMenu,
@@ -144,6 +214,9 @@ export default {
   },
   data () {
     return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -153,6 +226,7 @@ export default {
       },
       loading: true,
       currentTipNumber: 0,
+      bannerHidden: false,
     };
   },
   computed: {
@@ -172,6 +246,9 @@ export default {
       this.currentTipNumber = tipNumber;
 
       return this.$t(`tip${tipNumber}`);
+    },
+    showRestingBanner () {
+      return !this.bannerHidden && this.user.preferences.sleep;
     },
   },
   created () {
@@ -232,9 +309,12 @@ export default {
           return Promise.resolve(error);
         }
 
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData;
+
         this.$store.dispatch('snackbars:add', {
           title: 'Habitica',
-          text: error.response.data.message || error.response.data,
+          text: errorMessage,
           type: 'error',
           timeout: true,
         });
@@ -323,53 +403,14 @@ export default {
       this.hideLoadingScreen();
     }
 
-    // Manage modals
-    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-      if (data.fromRoot) return;
-
-      // Track opening of gems modal unless it's been already tracked
-      // For example the gems button in the menu already tracks the event by itself
-      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Wallet',
-        });
-      }
-
-      // Get last modal on stack and hide
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-
-      // Add new modal to the stack
-      this.$store.state.modalStack.push(modalId);
-
-      // Hide the previous top modal
-      if (modalOnTop) this.$root.$emit('bv::hide::modal', modalOnTop, {fromRoot: true});
-    });
-
-    // @TODO: This part is hacky and could be solved with two options:
-    // 1 - Find a way to pass fromRoot to hidden
-    // 2 - Enforce that all modals use the hide::modal event
-    this.$root.$on('bv::modal::hidden', (bvEvent) => {
-      const modalId = bvEvent.target.id;
-
-      let modalStackLength = this.$store.state.modalStack.length;
-      let modalSecondToTop = this.$store.state.modalStack[modalStackLength - 2];
-      // Don't remove modal if hid was called from main app
-      // @TODO: I'd reather use this, but I don't know how to pass data to hidden event
-      // if (data && data.fromRoot) return;
-      if (modalId === modalSecondToTop) return;
-
-      // Remove modal from stack
-      this.$store.state.modalStack.pop();
-
-      // Recalculate and show the last modal if there is one
-      modalStackLength = this.$store.state.modalStack.length;
-      let modalOnTop = this.$store.state.modalStack[modalStackLength - 1];
-      if (modalOnTop) this.$root.$emit('bv::show::modal', modalOnTop, {fromRoot: true});
-    });
+    this.initializeModalStack();
+  },
+  beforeDestroy () {
+    this.$root.$off('playSound');
+    this.$root.$off('bv::modal::hidden');
+    this.$root.$off('bv::show::modal');
+    this.$root.$off('buyModal::showItem');
+    this.$root.$off('selectMembersModal::showItem');
   },
   mounted () {
     // Remove the index.html loading screen and now show the inapp loading
@@ -389,6 +430,80 @@ export default {
       if (errorMessage !== bannedMessage) return;
 
       this.$root.$emit('bv::show::modal', 'banned-account');
+    },
+    initializeModalStack () {
+      // Manage modals
+      this.$root.$on('bv::show::modal', (modalId, data = {}) => {
+        if (data.fromRoot) return;
+        const modalStack = this.$store.state.modalStack;
+
+        this.trackGemPurchase(modalId, data);
+
+        // Add new modal to the stack
+        const prev = modalStack[modalStack.length - 1];
+        const prevId = prev ? prev.modalId : undefined;
+        modalStack.push({modalId, prev: prevId});
+      });
+
+      this.$root.$on('bv::modal::hidden', (bvEvent) => {
+        const modalId = bvEvent.target && bvEvent.target.id;
+        if (!modalId) return;
+
+        const modalStack = this.$store.state.modalStack;
+
+        const modalOnTop = modalStack[modalStack.length - 1];
+
+        // Check for invalid modal. Event systems can send multiples
+        if (!this.validStack(modalStack)) return;
+
+        // If we are moving forward
+        if (modalOnTop && modalOnTop.prev === modalId) return;
+
+        // Remove modal from stack
+        this.$store.state.modalStack.pop();
+
+        // Get previous modal
+        const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
+        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, {fromRoot: true});
+      });
+    },
+    validStack (modalStack) {
+      const modalsThatCanShowTwice = ['profile'];
+      const modalCount = {};
+      const prevAndCurrent = 2;
+
+      for (let index in modalStack) {
+        const current = modalStack[index];
+
+        if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
+        modalCount[current.modalId] += 1;
+        if (modalCount[current.modalId] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.modalId) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+
+        if (!current.prev) continue; // eslint-disable-line
+        if (!modalCount[current.prev]) modalCount[current.prev] = 0;
+        modalCount[current.prev] += 1;
+        if (modalCount[current.prev] > prevAndCurrent && modalsThatCanShowTwice.indexOf(current.prev) === -1) {
+          this.$store.state.modalStack = [];
+          return false;
+        }
+      }
+
+      return true;
+    },
+    trackGemPurchase (modalId, data) {
+      // Track opening of gems modal unless it's been already tracked
+      // For example the gems button in the menu already tracks the event by itself
+      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Wallet',
+        });
+      }
     },
     resetItemToBuy ($event) {
       // @TODO: Do we need this? I think selecting a new item
@@ -413,18 +528,21 @@ export default {
       if (item.purchaseType === 'card') {
         this.selectedSpellToBuy = item;
 
+        // hide the dialog
         this.$root.$emit('bv::hide::modal', 'buy-modal');
+        // remove the dialog from our modal-stack,
+        // the default hidden event is delayed
+        this.$root.$emit('bv::modal::hidden', {
+          target: {
+            id: 'buy-modal',
+          },
+        });
+
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
     },
     async memberSelected (member) {
-      let castResult = await this.$store.dispatch('user:castSpell', {key: this.selectedSpellToBuy.key, targetId: member.id});
-
-      // Subtract gold for cards
-      if (this.selectedSpellToBuy.pinType === 'card') {
-        const newUserGp = castResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-      }
+      await this.castStart(this.selectedSpellToBuy, member);
 
       this.selectedSpellToBuy = null;
 
@@ -437,11 +555,18 @@ export default {
     hideLoadingScreen () {
       this.loading = false;
     },
+    hideBanner () {
+      this.bannerHidden = true;
+    },
+    resumeDamage () {
+      this.$store.dispatch('user:sleep');
+    },
   },
 };
 </script>
 
 <style src="intro.js/minified/introjs.min.css"></style>
+<style src="axios-progress-bar/dist/nprogress.css"></style>
 <style src="assets/scss/index.scss" lang="scss"></style>
 <style src="assets/css/sprites/spritesmith-largeSprites-0.css"></style>
 <style src="assets/css/sprites/spritesmith-main-0.css"></style>
@@ -465,4 +590,5 @@ export default {
 <style src="assets/css/sprites/spritesmith-main-18.css"></style>
 <style src="assets/css/sprites/spritesmith-main-19.css"></style>
 <style src="assets/css/sprites/spritesmith-main-20.css"></style>
+<style src="assets/css/sprites/spritesmith-main-21.css"></style>
 <style src="assets/css/sprites.css"></style>

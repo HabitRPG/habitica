@@ -25,6 +25,7 @@
     "questInvitation": "Quest-invitation:",
     "questInvitationTitle": "Quest-invitation",
     "questInvitationInfo": "Invitation til Questen <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Spørg Senere",
     "questLater": "Udfør Questen senere",
     "buyQuest": "Køb Quest",
@@ -119,5 +120,10 @@
     "createAccountQuest": "Du fik denne quest da du sluttede dig til Habitica! Hvis en ven også opretter sig vil de også få en.",
     "questBundles": "Nedsatte Quest Pakker",
     "buyQuestBundle": "Køb Quest Pakke",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

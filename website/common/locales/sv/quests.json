@@ -25,6 +25,7 @@
     "questInvitation": "Uppdragsinbjudan:",
     "questInvitationTitle": "Uppdragsinbjudnader",
     "questInvitationInfo": "Inbjudan till Uppdraget <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Fråga senare",
     "questLater": "Gå ut på Uppdrag Senare",
     "buyQuest": "Köp Uppdrag",
@@ -119,5 +120,10 @@
     "createAccountQuest": "Du fick det här uppdraget när du gick med i Habitica! Om en vän går med får dom också en.",
     "questBundles": "Rabatt på Uppdragsbuntar",
     "buyQuestBundle": "Köp Uppdragsbunt",
-    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsaffären i Marknaden för nya utgåvor!"
+    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsaffären i Marknaden för nya utgåvor!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

@@ -27,7 +27,7 @@
           .form-group
             label(v-once) {{ $t('cost') }}
             .input-group
-              .input-group-prepend.input-group-icon
+              .input-group-prepend.input-group-icon.align-items-center
                 .svg-icon.gold(v-html="icons.gold")
               input.form-control(type="number", v-model="task.value", required, placeholder="1.0", step="0.01", min="0")
 
@@ -143,7 +143,7 @@
                   .tags-none {{$t('none')}}
                   .dropdown-toggle
                 span.category-select(v-else)
-                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName") {{ tagName }}
+                  .category-label(v-for='tagName in truncatedSelectedTags', :title="tagName", v-markdown='tagName')
                   .tags-more(v-if='remainingSelectedTags.length > 0') +{{ $t('more', { count: remainingSelectedTags.length }) }}
                   .dropdown-toggle
           tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
@@ -181,7 +181,6 @@
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
-              label="",
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
@@ -346,7 +345,7 @@
       position: relative;
 
       label {
-        margin-bottom: 8px;
+        max-height: 30px;
       }
     }
 
@@ -637,6 +636,7 @@
 <script>
 import TagsPopup from './tagsPopup';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
+import markdownDirective from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
@@ -663,6 +663,9 @@ export default {
     Datepicker,
     toggleSwitch,
     draggable,
+  },
+  directives: {
+    markdown: markdownDirective,
   },
   // purpose is either create or edit, task is the task created or edited
   props: ['task', 'purpose', 'challengeId', 'groupId'],
@@ -721,6 +724,11 @@ export default {
 
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
       if (this.task) this.checklist = clone(this.task.checklist);
+    },
+    'task.startDate' () {
+      if (this.task && this.repeatsOn) {
+        this.calculateMonthlyRepeatDays(this.repeatsOn);
+      }
     },
   },
   computed: {
@@ -788,23 +796,7 @@ export default {
         return repeatsOn;
       },
       set (newValue) {
-        const task = this.task;
-
-        if (task.frequency === 'monthly' && newValue === 'dayOfMonth') {
-          const date = moment(task.startDate).date();
-          task.weeksOfMonth = [];
-          task.daysOfMonth = [date];
-        } else if (task.frequency === 'monthly' && newValue === 'dayOfWeek') {
-          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
-          const dayOfWeek = moment(task.startDate).day();
-          const shortDay = this.dayMapping[dayOfWeek];
-          task.daysOfMonth = [];
-          task.weeksOfMonth = [week];
-          for (let key in task.repeat) {
-            task.repeat[key] = false;
-          }
-          task.repeat[shortDay] = true;
-        }
+        this.calculateMonthlyRepeatDays(newValue);
       },
     },
     selectedTags () {
@@ -865,6 +857,27 @@ export default {
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
+    },
+    calculateMonthlyRepeatDays (repeatsOn) {
+      const task = this.task;
+
+      if (task.frequency === 'monthly') {
+        if (repeatsOn === 'dayOfMonth') {
+          const date = moment(task.startDate).date();
+          task.weeksOfMonth = [];
+          task.daysOfMonth = [date];
+        } else if (repeatsOn === 'dayOfWeek') {
+          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
+          const dayOfWeek = moment(task.startDate).day();
+          const shortDay = this.dayMapping[dayOfWeek];
+          task.daysOfMonth = [];
+          task.weeksOfMonth = [week];
+          for (let key in task.repeat) {
+            task.repeat[key] = false;
+          }
+          task.repeat[shortDay] = true;
+        }
+      }
     },
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();

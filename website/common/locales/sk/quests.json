@@ -13,7 +13,7 @@
     "invitations": "Pozvánky",
     "completed": "Dokončná!",
     "rewardsAllParticipants": "Rewards for all Quest Participants",
-    "rewardsQuestOwner": "Additional Rewards for Quest Owner",
+    "rewardsQuestOwner": "Ďalšie odmeny pre vlastníka výpravy",
     "questOwnerReceived": "The Quest Owner Has Also Received",
     "youWillReceive": "You Will Receive",
     "questOwnerWillReceive": "The Quest Owner Will Also Receive",
@@ -25,6 +25,7 @@
     "questInvitation": "Pozvánka na výpravu:",
     "questInvitationTitle": "Pozvánka na výpravu",
     "questInvitationInfo": "Pozvánka na výpravu <%= quest %>",
+    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
     "askLater": "Spýtať sa neškôr",
     "questLater": "Vodca výpravy",
     "buyQuest": "Kúpiť výpravu",
@@ -119,5 +120,10 @@
     "createAccountQuest": "Túto výpravu si získal keď si sa pridal k Habitike! Ak sa pridá aj kamarát, dostane výpravu tiež.",
     "questBundles": "Discounted Quest Bundles",
     "buyQuestBundle": "Buy Quest Bundle",
-    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!"
+    "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+    "pendingDamage": "<%= damage %> pending damage",
+    "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
+    "rageAttack": "Rage Attack:",
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
+    "rageStrikes": "Rage Strikes"
 }

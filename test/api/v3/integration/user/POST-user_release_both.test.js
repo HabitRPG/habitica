@@ -30,10 +30,12 @@ describe('POST /user/release-both', () => {
       'items.currentPet': animal,
       'items.pets': loadPets(),
       'items.mounts': loadMounts(),
+      'achievements.triadBingo': true,
     });
   });
 
-  it('returns an error when user balance is too low and user does not have triadBingo', async () => {
+  // @TODO: Traid is now free. Add this back if we need
+  xit('returns an error when user balance is too low and user does not have triadBingo', async () => {
     await expect(user.post('/user/release-both'))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
@@ -45,18 +47,16 @@ describe('POST /user/release-both', () => {
   // More tests in common code unit tests
 
   it('grants triad bingo with gems', async () => {
-    await user.update({
-      balance: 1.5,
-    });
+    await user.update();
 
     let response = await user.post('/user/release-both');
     await user.sync();
 
     expect(response.message).to.equal(t('mountsAndPetsReleased'));
     expect(user.balance).to.equal(0);
-    expect(user.items.currentMount).to.be.empty;
-    expect(user.items.currentPet).to.be.empty;
-    expect(user.items.pets[animal]).to.be.empty;
+    expect(user.items.currentMount).to.equal('');
+    expect(user.items.currentPet).to.equal('');
+    expect(user.items.pets[animal]).to.equal(0);
     expect(user.items.mounts[animal]).to.equal(null);
     expect(user.achievements.beastMasterCount).to.equal(1);
     expect(user.achievements.mountMasterCount).to.equal(1);

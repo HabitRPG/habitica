@@ -1,7 +1,6 @@
 import moment from 'moment';
 import common from '../../../common';
 
-import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
@@ -106,11 +105,33 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   userToReceiveMessage._v++;
   userToReceiveMessage.markModified('inbox.messages');
 
+  /* @TODO disabled until mobile is ready
+
+  let excerpt;
+
+  if (!options.receiverMsg) {
+    excerpt = '';
+  } else if (options.receiverMsg.length < 100) {
+    excerpt = options.receiverMsg;
+  } else {
+    excerpt = options.receiverMsg.substring(0, 100);
+  }
+  userToReceiveMessage.addNotification('NEW_INBOX_MESSAGE', {
+    sender: {
+      id: sender._id,
+      name: sender.profile.name,
+    },
+    excerpt,
+    messageId: newMessage.id,
+  });
+
+  */
+
   common.refPush(sender.inbox.messages, defaults({sent: true}, chatDefaults(senderMsg, userToReceiveMessage)));
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
-  await Bluebird.all(promises);
+  await Promise.all(promises);
 };
 
 /**
@@ -119,11 +140,13 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
  *
  * @param  type  The type of notification to add to the this. Possible values are defined in the UserNotificaiton Schema
  * @param  data  The data to add to the notification
+ * @param  seen  If the notification should be marked as seen
  */
-schema.methods.addNotification = function addUserNotification (type, data = {}) {
+schema.methods.addNotification = function addUserNotification (type, data = {}, seen = false) {
   this.notifications.push({
     type,
     data,
+    seen,
   });
 };
 
@@ -137,13 +160,15 @@ schema.methods.addNotification = function addUserNotification (type, data = {}) 
  * @param  type  The type of notification to add to the this. Possible values are defined in the UserNotificaiton Schema
  * @param  data  The data to add to the notification
  */
-schema.statics.pushNotification = async function pushNotification (query, type, data = {}) {
-  let newNotification = new UserNotification({type, data});
+schema.statics.pushNotification = async function pushNotification (query, type, data = {}, seen = false) {
+  let newNotification = new UserNotification({type, data, seen});
+
   let validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
-  await this.update(query, {$push: {notifications: newNotification}}, {multi: true}).exec();
+
+  await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth

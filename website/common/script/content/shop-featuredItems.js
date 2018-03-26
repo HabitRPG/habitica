@@ -6,15 +6,15 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Holly',
+      path: 'hatchingPotions.Shimmer',
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.StarryNight',
+      path: 'hatchingPotions.Rainbow',
     },
     {
       type: 'card',
-      path: 'cardTypes.greeting',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [
@@ -24,20 +24,20 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.stoikalmCalamity1',
+      path: 'quests.taskwoodsTerror1',
     },
     {
       type: 'quests',
-      path: 'quests.penguin',
+      path: 'quests.egg',
     },
     {
-      type: 'quests',
-      path: 'quests.dilatoryDistress1',
+      type: 'bundles',
+      path: 'bundles.hugabug',
     },
   ],
-  seasonal: 'summerMage',
+  seasonal: 'springHealer',
   timeTravelers: [
-      // TODO
+    // TODO
   ],
 };
 

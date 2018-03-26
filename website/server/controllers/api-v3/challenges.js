@@ -1,5 +1,6 @@
 import { authWithHeaders, authWithSession } from '../../middlewares/auth';
 import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -15,8 +16,17 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
-import Bluebird from 'bluebird';
 import csvStringify from '../../libs/csvStringify';
+import {
+  createTasks,
+} from '../../libs/taskManager';
+
+import {
+  addUserJoinChallengeNotification,
+  getChallengeGroupResponse,
+  createChallenge,
+  cleanUpTask,
+} from '../../libs/challenges';
 
 let api = {};
 
@@ -179,83 +189,27 @@ api.createChallenge = {
 
     req.checkBody('group', res.t('groupIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let groupId = req.body.group;
-    let prize = req.body.prize;
-
-    let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
-    if (!group) throw new NotFound(res.t('groupNotFound'));
-    if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
-
-    if (group.leaderOnly && group.leaderOnly.challenges && group.leader !== user._id) {
-      throw new NotAuthorized(res.t('onlyGroupLeaderChal'));
-    }
-
-    if (group._id === TAVERN_ID && prize < 1) {
-      throw new NotAuthorized(res.t('tavChalsMinPrize'));
-    }
-
-    if (prize > 0) {
-      let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
-      let prizeCost = prize / 4;
-
-      if (prizeCost > user.balance + groupBalance) {
-        throw new NotAuthorized(res.t('cantAfford'));
-      }
-
-      if (groupBalance >= prizeCost) {
-        // Group pays for all of prize
-        group.balance -= prizeCost;
-      } else if (groupBalance > 0) {
-        // User pays remainder of prize cost after group
-        let remainder = prizeCost - group.balance;
-        group.balance = 0;
-        user.balance -= remainder;
-      } else {
-        // User pays for all of prize
-        user.balance -= prizeCost;
-      }
-    }
-
-    group.challengeCount += 1;
-
-    if (!req.body.summary) {
-      req.body.summary = req.body.name;
-    }
-    req.body.leader = user._id;
-    req.body.official = user.contributor.admin && req.body.official ? true : false;
-    let challenge = new Challenge(Challenge.sanitize(req.body));
-
-    // First validate challenge so we don't save group if it's invalid (only runs sync validators)
-    let challengeValidationErrors = challenge.validateSync();
-    if (challengeValidationErrors) throw challengeValidationErrors;
-
-    // Add achievement if user's first challenge
-    if (!user.achievements.joinedChallenge) {
-      user.achievements.joinedChallenge = true;
-      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
-    }
-
-    let results = await Bluebird.all([challenge.save({
-      validateBeforeSave: false, // already validate
-    }), group.save()]);
-    let savedChal = results[0];
-
-    await savedChal.syncToUser(user); // (it also saves the user)
+    const {savedChal, group} = await createChallenge(user, req, res);
 
     let response = savedChal.toJSON();
     response.leader = { // the leader is the authenticated user
       _id: user._id,
       profile: {name: user.profile.name},
     };
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse(group);
+
+    res.analytics.track('challenge create', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: response._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
 
     res.respond(201, response);
   },
@@ -296,24 +250,25 @@ api.joinChallenge = {
 
     challenge.memberCount += 1;
 
-    // Add achievement if user's first challenge
-    if (!user.achievements.joinedChallenge) {
-      user.achievements.joinedChallenge = true;
-      user.addNotification('CHALLENGE_JOINED_ACHIEVEMENT');
-    }
+    addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
+    let results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse(group);
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
+
+    res.analytics.track('challenge join', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: group._id,
+      groupName: group.privacy === 'private' ? null : group.name,
+      groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+    });
 
     res.respond(200, response);
   },
@@ -350,7 +305,18 @@ api.leaveChallenge = {
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Promise.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+
+    res.analytics.track('challenge leave', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -374,11 +340,18 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const CHALLENGES_PER_PAGE = 10;
+    const page = req.query.page || 0;
+
+    const user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
+
+    const owned = req.query.owned;
+    if (!owned)  {
+      orOptions.push({leader: user._id});
+    }
 
     if (!req.query.member) {
       orOptions.push({
@@ -386,19 +359,50 @@ api.getUserChallenges = {
       }); // Challenges in groups where I'm a member
     }
 
-    let challenges = await Challenge.find({
-      $or: orOptions,
-    })
-    .sort('-official -createdAt')
-    // see below why we're not using populate
-    // .populate('group', basicGroupFields)
-    // .populate('leader', nameFields)
-    .exec();
+    let query = {
+      $and: [{$or: orOptions}],
+    };
+
+    if (owned && owned === 'not_owned') {
+      query.$and.push({leader: {$ne: user._id}});
+    }
+
+    if (owned && owned === 'owned') {
+      query.$and.push({leader: user._id});
+    }
+
+    if (req.query.search) {
+      const searchOr = {$or: []};
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      searchOr.$or.push({name: searchQuery});
+      searchOr.$or.push({description: searchQuery});
+      query.$and.push(searchOr);
+    }
+
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    const challenges = await Challenge.find(query)
+      .sort('-createdAt')
+      .limit(CHALLENGES_PER_PAGE)
+      .skip(CHALLENGES_PER_PAGE * page)
+      // see below why we're not using populate
+      // .populate('group', basicGroupFields)
+      // .populate('leader', nameFields)
+      .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
-      return Bluebird.all([
+    await Promise.all(resChals.map((chal, index) => {
+      return Promise.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
@@ -446,13 +450,18 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     let challenges = await Challenge.find({group: groupId})
-      .sort('-official -createdAt')
+      .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
+    await Promise.all(resChals.map((chal, index) => {
       return User
         .findById(chal.leader)
         .select(nameFields)
@@ -544,7 +553,7 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Bluebird.all([
+    let [members, tasks] = await Promise.all([
       User.find({challenges: challengeId})
         .select(nameFields)
         .sort({_id: 1})
@@ -561,13 +570,12 @@ api.exportChallengeCsv = {
 
     let resArray = members.map(member => [member._id, member.profile.name]);
 
-    // We assume every user in the challenge as at least some data so we can say that members[0] tasks will be at tasks [0]
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
-      if (task.userId !== lastUserId) {
-        lastUserId = task.userId;
+      while (task.userId !== lastUserId) {
         index++;
+        lastUserId = resArray[index][0]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;
@@ -580,7 +588,17 @@ api.exportChallengeCsv = {
       return result.concat(array);
     }, []).sort();
     resArray.unshift(['UUID', 'name']);
+
     _.times(challengeTasks.length, () => resArray[0].push('Task', 'Value', 'Notes', 'Streak'));
+
+    // Remove lines for users without tasks info
+    resArray = resArray.filter((line) => {
+      if (line.length === 2) { // only user data ([id, profile name]), no task data
+        return false;
+      }
+
+      return true;
+    });
 
     res.set({
       'Content-Type': 'text/csv',
@@ -638,12 +656,7 @@ api.updateChallenge = {
 
     let savedChal = await challenge.save();
     let response = savedChal.toJSON();
-    response.group = { // we already have the group data
-      _id: group._id,
-      name: group.name,
-      type: group.type,
-      privacy: group.privacy,
-    };
+    response.group = getChallengeGroupResponse(group);
     let chalLeader = await User.findById(response.leader).select(nameFields).exec();
     response.leader = chalLeader ? chalLeader.toJSON({minimize: true}) : null;
     res.respond(200, response);
@@ -679,6 +692,17 @@ api.deleteChallenge = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_DELETED'});
+
+    res.analytics.track('challenge delete', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
   },
 };
@@ -717,7 +741,68 @@ api.selectChallengeWinner = {
 
     // Close channel in background, some ops are run in the background without `await`ing
     await challenge.closeChal({broken: 'CHALLENGE_CLOSED', winner});
+
+    res.analytics.track('challenge close', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      challengeID: challenge._id,
+      challengeWinnerID: winner._id,
+      groupID: challenge.group._id,
+      groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
+      groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+    });
+
     res.respond(200, {});
+  },
+};
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/clone Clone a challenge
+ * @apiName CloneChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} challenge The cloned challenge
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.cloneChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/clone',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    let user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challengeToClone = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challengeToClone) throw new NotFound(res.t('challengeNotFound'));
+
+    const {savedChal} = await createChallenge(user, req, res);
+
+    const challengeTasks = await Tasks.Task.find({
+      'challenge.id': challengeToClone._id,
+      userId: {$exists: false},
+    }).exec();
+
+    const tasksToClone = challengeTasks.map(task => {
+      let clonedTask = cloneDeep(task.toObject());
+      let omittedTask = cleanUpTask(clonedTask);
+      return omittedTask;
+    });
+
+    const taskRequest = {
+      body: tasksToClone,
+    };
+
+    const clonedTasks = await createTasks(taskRequest, res, {user, challenge: savedChal});
+
+    res.respond(200, {clonedTasks, clonedChallenge: savedChal});
   },
 };
 

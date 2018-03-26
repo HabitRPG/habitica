@@ -64,6 +64,7 @@
     "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
     "classEquipBonus": "Klassebonus",
     "battleGear": "Kampudstyr",
+    "gear": "Gear",
     "battleGearText": "Dette er den udrustning du bærer i kamp. Den påvirker resultaterne når du interagerer med dine opgaver.",
     "autoEquipBattleGear": "Benyt automatisk nyt udstyr",
     "costume": "Kostume",

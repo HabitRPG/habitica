@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "Royal Purple Gryphon",
     "phoenix": "Phoenix",
     "magicalBee": "Magical Bee",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "Royal Purple Jackalope",
     "invisibleAether": "Invisible Aether",
     "rarePetPop1": "Apasă pe laba de aur pentru a afla mai multe despre cum poți obține acest companion rar contribuind la Habitica!",
@@ -81,7 +83,7 @@
     "petNotOwned": "You do not own this pet.",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "With all your productivity, you've earned a new companion. Feed it to make it grow!",
-    "feedPet": "Hrănești <%= name %> cu <%= article %><%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Înșeuezi <%= pet %>?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "By completing your tasks, you've earned a faithful steed!",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

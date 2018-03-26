@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import Bluebird from 'bluebird';
 import { authWithHeaders } from '../../middlewares/auth';
 import analytics from '../../libs/analyticsService';
 import {
   model as Group,
+  basicFields as basicGroupFields,
 } from '../../models/group';
 import { model as User } from '../../models/user';
 import {
@@ -65,7 +65,7 @@ api.inviteToQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -78,8 +78,8 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: {$ne: user._id},
     })
-    .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
-    .exec();
+      .select('auth.facebook auth.local preferences.emailNotifications profile.name pushDevices')
+      .exec();
 
     group.markModified('quest');
     group.quest.key = questKey;
@@ -108,7 +108,7 @@ api.inviteToQuest = {
       await group.startQuest(user);
     }
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -177,7 +177,7 @@ api.acceptQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -236,7 +236,7 @@ api.rejectQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -299,7 +299,7 @@ api.forceStart = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: 'type quest leader chat'});
+    let group = await Group.getGroup({user, groupId: req.params.groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -311,7 +311,7 @@ api.forceStart = {
 
     await group.startQuest(user);
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);
@@ -361,7 +361,7 @@ api.cancelQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type leader quest'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
@@ -371,7 +371,7 @@ api.cancelQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       User.update(
         {'party._id': groupId},
@@ -413,7 +413,7 @@ api.abortQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest leader chat'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest chat')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -440,7 +440,7 @@ api.abortQuest = {
     group.quest = Group.cleanGroupQuest();
     group.markModified('quest');
 
-    let [groupSaved] = await Bluebird.all([group.save(), memberUpdates, questLeaderUpdate]);
+    let [groupSaved] = await Promise.all([group.save(), memberUpdates, questLeaderUpdate]);
 
     res.respond(200, groupSaved.quest);
   },
@@ -471,7 +471,7 @@ api.leaveQuest = {
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let group = await Group.getGroup({user, groupId, fields: 'type quest'});
+    let group = await Group.getGroup({user, groupId, fields: basicGroupFields.concat(' quest')});
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
@@ -485,7 +485,7 @@ api.leaveQuest = {
     user.party.quest = Group.cleanQuestProgress();
     user.markModified('party.quest');
 
-    let [savedGroup] = await Bluebird.all([
+    let [savedGroup] = await Promise.all([
       group.save(),
       user.save(),
     ]);

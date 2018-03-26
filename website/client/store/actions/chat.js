@@ -69,8 +69,10 @@ export async function like (store, payload) {
 }
 
 export async function flag (store, payload) {
-  let url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
-  let response = await axios.post(url);
+  const url = `/api/v3/groups/${payload.groupId}/chat/${payload.chatId}/flag`;
+  const response = await axios.post(url, {
+    comment: payload.comment,
+  });
   return response.data.data;
 }
 
@@ -86,8 +88,3 @@ export async function markChatSeen (store, payload) {
   let response = await axios.post(url);
   return response.data.data;
 }
-
-// @TODO: should this be here?
-// function clearCards () {
-//   User.user._wrapped && User.set({'flags.cardReceived':false});
-// }

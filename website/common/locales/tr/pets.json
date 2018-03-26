@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "Kraliyet Moru Griffon",
     "phoenix": "Anka",
     "magicalBee": "Büyülü Arı",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "Kraliyet Moru Boynuzlu Tavşan",
     "invisibleAether": "Invisible Aether",
     "rarePetPop1": "Habitica'ya katkıda bulunarak bu ender hayvanı nasıl elde edebileceğini öğrenmek için altın patiye tıkla!",
@@ -81,7 +83,7 @@
     "petNotOwned": "Bu hayvana sahip değilsin.",
     "mountNotOwned": "Bu bineğe sahip değilsin.",
     "earnedCompanion": "Tüm üretkenliğinin sonucunda yeni bir yol arkadaşı kazandın. Onu besle ki büyüsün!",
-    "feedPet": "<%= name %>, <%= article %><%= text %> ile beslensin mi?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "<%= pet %> üzerinde eyer kullanılsın mı?",
     "raisedPet": "Bir <%= pet %> yetiştirdin!",
     "earnedSteed": "İşlerini tamamlayarak sadık bir binek kazandın!",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

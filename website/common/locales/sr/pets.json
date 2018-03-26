@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "Kraljevski Ljubičasti Grifon",
     "phoenix": "Feniks",
     "magicalBee": "Magična Pčela",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "Royal Purple Jackalope",
     "invisibleAether": "Invisible Aether",
     "rarePetPop1": "Kliknite na zlatnu šapu da saznate kako da nabavite ovu retku zver!",
@@ -81,7 +83,7 @@
     "petNotOwned": "Ne posedujete ovog ljubimca.",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "Svojom produktivnošću, zaradili ste novog pratioca. Hranite ga da bi porastao!",
-    "feedPet": "Želite li da <%= name %> pojede <%= article %><%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Staviti sedlo na <%= pet %>?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "Odrađujući svoje zadatke, zaradili ste vernog konja!",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

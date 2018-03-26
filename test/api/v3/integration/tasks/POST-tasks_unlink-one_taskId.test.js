@@ -43,50 +43,50 @@ describe('POST /tasks/unlink-one/:taskId', () => {
   it('fails if no keep query', async () => {
     const daily = await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
     await expect(user.post(`/tasks/unlink-one/${daily._id}`))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('invalidReqParams'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
   });
 
   it('fails if invalid task id', async () => {
     await expect(user.post('/tasks/unlink-one/123?keep=remove'))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('invalidReqParams'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('invalidReqParams'),
+      });
   });
 
   it('fails on task not found', async () => {
     await expect(user.post(`/tasks/unlink-one/${generateUUID()}?keep=keep`))
-    .to.eventually.be.rejected.and.eql({
-      code: 404,
-      error: 'NotFound',
-      message: t('taskNotFound'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 404,
+        error: 'NotFound',
+        message: t('taskNotFound'),
+      });
   });
 
   it('fails on task unlinked to challenge', async () => {
     let daily = await user.post('/tasks/user', tasksToTest.daily);
     await expect(user.post(`/tasks/unlink-one/${daily._id}?keep=keep`))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('cantOnlyUnlinkChalTask'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('cantOnlyUnlinkChalTask'),
+      });
   });
 
   it('fails on unbroken challenge', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
     let [daily] = await user.get('/tasks/user');
     await expect(user.post(`/tasks/unlink-one/${daily._id}?keep=keep`))
-    .to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('cantOnlyUnlinkChalTask'),
-    });
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('cantOnlyUnlinkChalTask'),
+      });
   });
 
   it('unlinks a task from a challenge and saves it on keep=keep', async () => {
