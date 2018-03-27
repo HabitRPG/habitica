@@ -5,9 +5,9 @@ import _ from 'lodash';
 
 // When this file grows, it can be split into multiple ones.
 const messages = {
-  taskIdRequired: '"taskId" must be a valid UUID.',
-  taskUnlinkKeepOrRemove: 'req.query.keep must be either "keep" or "remove"',
-  taskUnlinkKeepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all"',
+  taskIdRequired: 'req.params.taskId must contain a task id.',
+  taskUnlinkKeepOrRemove: 'req.query.keep must be either "keep" or "remove".',
+  taskUnlinkKeepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',
 
   queryPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
 
@@ -15,7 +15,7 @@ const messages = {
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
   groupIdRequired: 'req.params.groupId must contain a groupId.',
   managerIdRequired: 'req.body.managerId must contain a user ID.',
-  noSudoAccess: 'You don\'t have sudo access',
+  noSudoAccess: 'You don\'t have sudo access.',
 };
 
 export default function (msgKey, vars = {}) {
