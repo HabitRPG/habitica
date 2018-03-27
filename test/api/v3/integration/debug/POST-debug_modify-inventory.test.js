@@ -151,10 +151,10 @@ describe('POST /debug/modify-inventory', () => {
     nconf.set('IS_PROD', true);
 
     await expect(user.post('/debug/modify-inventory'))
-    .eventually.be.rejected.and.to.deep.equal({
-      code: 404,
-      error: 'NotFound',
-      message: 'Not found.',
-    });
+      .eventually.be.rejected.and.to.deep.equal({
+        code: 404,
+        error: 'NotFound',
+        message: 'Not found.',
+      });
   });
 });

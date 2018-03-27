@@ -1,17 +1,64 @@
 <template lang="pug">
-  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true')
-    .modal-header
-      h4(v-html="$t('abuseFlagModalHeading', reportData)")
+  b-modal#report-flag(:title='$t("abuseFlagModalHeading")', size='md', :hide-footer='true')
     .modal-body
+      strong(v-html="$t('abuseFlagModalHeading', reportData)")
       blockquote
         div(v-markdown='abuseObject.text')
-      p(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
-    .modal-footer
+      div
+        strong {{$t('whyReportingPost')}}
+        span.optional {{$t('optional')}}
+        textarea.form-control(v-model='reportComment', :placeholder='$t("whyReportingPostPlaceholder")')
+      small(v-html="$t('abuseFlagModalBody', abuseFlagModalBody)")
+    .footer.text-center
       button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='user.contributor.admin && abuseObject.flagCount > 0')
         | Reset Flag Count
-      button.btn.btn-primary(@click='close()') {{ $t('cancel') }}
-      button.btn.btn-danger(@click='reportAbuse()') {{ $t('abuseFlagModalButton') }}
+      a.cancel-link(@click.prevent='close()') {{ $t('cancel') }}
+      button.btn.btn-danger(@click='reportAbuse()') {{ $t('report') }}
 </template>
+
+<style>
+  #report-flag h5 {
+    color: #f23035;
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '~client/assets/scss/colors.scss';
+
+   .modal-body {
+     margin-top: 1em;
+   }
+
+   blockquote {
+     border-radius: 2px;
+     background-color: #f4f4f4;
+     padding: 1em;
+     margin-top: 1em;
+   }
+
+   textarea {
+     margin-top: 1em;
+     margin-bottom: 1em;
+     border-radius: 2px;
+     border: solid 1px $gray-400;
+     min-height: 106px;
+   }
+
+   .footer {
+     padding: 1em;
+     padding-bottom: 2em;
+   }
+
+   a.cancel-link {
+     color: $blue-10;
+     margin-right: .5em;
+   }
+
+   .optional {
+     color: $gray-200;
+     float: right;
+   }
+</style>
 
 <script>
 import { mapState } from 'client/libs/store';
@@ -45,6 +92,7 @@ export default {
       abuseFlagModalBody,
       abuseObject: '',
       groupId: '',
+      reportComment: '',
     };
   },
   created () {
@@ -64,9 +112,11 @@ export default {
     },
     async reportAbuse () {
       this.notify('Thank you for reporting this violation. The moderators have been notified.');
+
       await this.$store.dispatch('chat:flag', {
         groupId: this.groupId,
         chatId: this.abuseObject.id,
+        comment: this.reportComment,
       });
 
       this.close();

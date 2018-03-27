@@ -11,14 +11,14 @@ import { removeFromArray } from '../../libs/collectionManipulators';
 import { getUserInfo, getGroupUrl, sendTxn } from '../../libs/email';
 import slack from '../../libs/slack';
 import pusher from '../../libs/pusher';
+import { getAuthorEmailFromMessage } from '../../libs/chat';
+import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 
-const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
 });
@@ -39,22 +39,6 @@ const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email)
  */
 
 let api = {};
-
-async function getAuthorEmailFromMessage (message) {
-  let authorId = message.uuid;
-
-  if (authorId === 'system') {
-    return 'system';
-  }
-
-  let author = await User.findOne({_id: authorId}, {auth: 1}).exec();
-
-  if (author) {
-    return getUserInfo(author, ['email']).email;
-  } else {
-    return 'Author Account Deleted';
-  }
-}
 
 function textContainsBannedSlur (message) {
   let bannedSlursMatched = getMatchesByWordArray(message, bannedSlurs);
@@ -199,7 +183,7 @@ api.postChat = {
       toSave.push(user.save());
     }
 
-    let [savedGroup] = await Bluebird.all(toSave);
+    let [savedGroup] = await Promise.all(toSave);
 
     // realtime chat is only enabled for private groups (for now only for parties)
     if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {
@@ -303,79 +287,8 @@ api.flagChat = {
   url: '/groups/:groupId/chat/:chatId/flag',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let groupId = req.params.groupId;
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
-    req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
-
-    let validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
-    let group = await Group.getGroup({
-      user,
-      groupId,
-      optionalMembership: user.contributor.admin,
-    });
-    if (!group) throw new NotFound(res.t('groupNotFound'));
-    let message = _.find(group.chat, {id: req.params.chatId});
-
-    if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
-    if (message.uuid === 'system') throw new BadRequest(res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
-    let update = {$set: {}};
-
-    // Log user ids that have flagged the message
-    if (!message.flags) message.flags = {};
-    // TODO fix error type
-    if (message.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
-    message.flags[user._id] = true;
-    update.$set[`chat.$.flags.${user._id}`] = true;
-
-    // Log total number of flags (publicly viewable)
-    if (!message.flagCount) message.flagCount = 0;
-    if (user.contributor.admin) {
-      // Arbitrary amount, higher than 2
-      message.flagCount = 5;
-    } else {
-      message.flagCount++;
-    }
-    update.$set['chat.$.flagCount'] = message.flagCount;
-
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
-
-    let reporterEmailContent = getUserInfo(user, ['email']).email;
-    let authorEmail = await getAuthorEmailFromMessage(message);
-    let groupUrl = getGroupUrl(group);
-
-    sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', [
-      {name: 'MESSAGE_TIME', content: (new Date(message.timestamp)).toString()},
-      {name: 'MESSAGE_TEXT', content: message.text},
-
-      {name: 'REPORTER_USERNAME', content: user.profile.name},
-      {name: 'REPORTER_UUID', content: user._id},
-      {name: 'REPORTER_EMAIL', content: reporterEmailContent},
-      {name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${user._id}`},
-
-      {name: 'AUTHOR_USERNAME', content: message.user},
-      {name: 'AUTHOR_UUID', content: message.uuid},
-      {name: 'AUTHOR_EMAIL', content: authorEmail},
-      {name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${message.uuid}`},
-
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'GROUP_TYPE', content: group.type},
-      {name: 'GROUP_ID', content: group._id},
-      {name: 'GROUP_URL', content: groupUrl},
-    ]);
-
-    slack.sendFlagNotification({
-      authorEmail,
-      flagger: user,
-      group,
-      message,
-    });
-
+    const chatReporter = chatReporterFactory('Group', req, res);
+    const message = await chatReporter.flag();
     res.respond(200, message);
   },
 };
@@ -502,7 +415,7 @@ api.seenChat = {
 
     // Remove from response
     user.notifications = user.notifications.filter(n => {
-      if (n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId) {
+      if (n && n.type === 'NEW_CHAT_MESSAGE' && n.data && n.data.group && n.data.group.id === groupId) {
         return false;
       }
 

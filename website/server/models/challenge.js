@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Bluebird from 'bluebird';
 import validator from 'validator';
 import baseModel from '../libs/baseModel';
 import _ from 'lodash';
@@ -12,7 +11,7 @@ import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import cwait from 'cwait';
+import { TaskQueue } from 'cwait';
 import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const Schema = mongoose.Schema;
@@ -50,7 +49,7 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.pre('init', function ensureSummaryIsFetched (next, chal) {
+schema.pre('init', function ensureSummaryIsFetched (chal) {
   // The Vue website makes the summary be mandatory for all new challenges, but the
   // Angular website did not, and the API does not yet for backwards-compatibilty.
   // When any challenge without a summary is fetched from the database, this code
@@ -59,7 +58,6 @@ schema.pre('init', function ensureSummaryIsFetched (next, chal) {
   if (!chal.summary) {
     chal.summary = chal.name ? chal.name.substring(0, MAX_SUMMARY_SIZE_FOR_CHALLENGES) : ' ';
   }
-  next();
 });
 
 // A list of additional fields that cannot be updated (but can be set on creation)
@@ -121,7 +119,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
     });
   }
 
-  let [challengeTasks, userTasks] = await Bluebird.all([
+  let [challengeTasks, userTasks] = await Promise.all([
     // Find original challenge tasks
     Tasks.Task.find({
       userId: {$exists: false},
@@ -166,7 +164,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   });
 
   toSave.push(user.save());
-  return Bluebird.all(toSave);
+  return Promise.all(toSave);
 };
 
 async function _fetchMembersIds (challengeId) {
@@ -203,7 +201,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
 
   // Update the user
   toSave.unshift(User.update({_id: memberId}, updateTasksOrderQ).exec());
-  return await Bluebird.all(toSave);
+  return await Promise.all(toSave);
 }
 
 // Add a new task to challenge members
@@ -211,11 +209,11 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   let challenge = this;
   let membersIds = await _fetchMembersIds(challenge._id);
 
-  let queue = new cwait.TaskQueue(Bluebird, 25); // process only 5 users concurrently
+  let queue = new TaskQueue(Promise, 25); // process only 5 users concurrently
 
-  await Bluebird.map(membersIds, queue.wrap((memberId) => {
+  await Promise.all(membersIds.map(queue.wrap((memberId) => {
     return _addTaskFn(challenge, tasks, memberId);
-  }));
+  })));
 };
 
 // Sync updated task to challenge members
@@ -268,7 +266,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
       $set: {challenge: {}},
     }, {multi: true}).exec();
 
-    return Bluebird.all([user.save(), this.save()]);
+    return Promise.all([user.save(), this.save()]);
   } else { // keep = 'remove-all'
     let tasks = await Tasks.Task.find(findQuery).select('_id type completed').exec();
     let taskPromises = tasks.map(task => {
@@ -281,7 +279,7 @@ schema.methods.unlinkTasks = async function challengeUnlinkTasks (user, keep) {
     });
     user.markModified('tasksOrder');
     taskPromises.push(user.save(), this.save());
-    return Bluebird.all(taskPromises);
+    return Promise.all(taskPromises);
   }
 };
 
@@ -359,7 +357,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     }, {multi: true}).exec(),
   ];
 
-  Bluebird.all(backgroundTasks);
+  Promise.all(backgroundTasks);
 };
 
 export let model = mongoose.model('Challenge', schema);

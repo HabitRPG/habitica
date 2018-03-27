@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "גריפון סגול מלכותי",
     "phoenix": "פיניקס",
     "magicalBee": "דבורה קסומה",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "Royal Purple Jackalope",
     "invisibleAether": "Invisible Aether",
     "rarePetPop1": "לחצו על הכפה הזהובה ותוכלו ללמוד כיצד להשיג חיה נדירה זו - דרך תרומה להאביטיקה!",
@@ -81,7 +83,7 @@
     "petNotOwned": "חיית המחמד הזו אינה בבעלותך.",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "עם כל הפרודוקטיביות שלך, זכית במלווה חדש. האכל אותו כדי לגרום לו לגדול!",
-    "feedPet": "להאכיל את ה<%= name %> שלך ב <%= text %>?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "לשים אוכף על ה<%= pet %> שלך?",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "על ידי השלמת המשימות שלכם, הרווחתם חיית רכיבה נאמה!",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

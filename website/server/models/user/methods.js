@@ -1,7 +1,6 @@
 import moment from 'moment';
 import common from '../../../common';
 
-import Bluebird from 'bluebird';
 import {
   chatDefaults,
   TAVERN_ID,
@@ -132,7 +131,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   sender.markModified('inbox.messages');
 
   let promises = [userToReceiveMessage.save(), sender.save()];
-  await Bluebird.all(promises);
+  await Promise.all(promises);
 };
 
 /**
@@ -163,10 +162,12 @@ schema.methods.addNotification = function addUserNotification (type, data = {}, 
  */
 schema.statics.pushNotification = async function pushNotification (query, type, data = {}, seen = false) {
   let newNotification = new UserNotification({type, data, seen});
+
   let validationResult = newNotification.validateSync();
   if (validationResult) {
     throw validationResult;
   }
+
   await this.update(query, {$push: {notifications: newNotification.toObject()}}, {multi: true}).exec();
 };
 

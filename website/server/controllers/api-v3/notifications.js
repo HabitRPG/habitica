@@ -5,6 +5,9 @@ import {
 import {
   model as User,
 } from '../../models/user';
+import {
+  model as UserNotification,
+} from '../../models/userNotification';
 
 let api = {};
 
@@ -30,7 +33,7 @@ api.readNotification = {
     if (validationErrors) throw validationErrors;
 
     const index = user.notifications.findIndex(n => {
-      return n.id === req.params.notificationId;
+      return n && n.id === req.params.notificationId;
     });
 
     if (index === -1) {
@@ -48,7 +51,7 @@ api.readNotification = {
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
-    res.respond(200, user.notifications);
+    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
   },
 };
 
@@ -74,7 +77,7 @@ api.readNotifications = {
     let notificationsIds = req.body.notificationIds;
     for (let notificationId of notificationsIds) {
       const index = user.notifications.findIndex(n => {
-        return n.id === notificationId;
+        return n && n.id === notificationId;
       });
 
       if (index === -1) {
@@ -93,7 +96,7 @@ api.readNotifications = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v++;
 
-    res.respond(200, user.notifications);
+    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
   },
 };
 
@@ -122,7 +125,7 @@ api.seeNotification = {
     const notificationId = req.params.notificationId;
 
     const notification = user.notifications.find(n => {
-      return n.id === notificationId;
+      return n && n.id === notificationId;
     });
 
     if (!notification) {
@@ -172,7 +175,7 @@ api.seeNotifications = {
 
     for (let notificationId of notificationsIds) {
       const notification = user.notifications.find(n => {
-        return n.id === notificationId;
+        return n && n.id === notificationId;
       });
 
       if (!notification) {
@@ -184,7 +187,7 @@ api.seeNotifications = {
 
     await user.save();
 
-    res.respond(200, user.notifications);
+    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
   },
 };
 

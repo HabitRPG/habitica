@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-  - '6'
+  - '8'
 services:
   - mongodb
 cache:
   directories:
     - 'node_modules'
-before_install:
-  - npm install -g npm@5
+addons:
+  chrome: stable
 before_script:
   - npm run test:build
   - cp config.json.example config.json
@@ -25,4 +25,5 @@ env:
     - TEST="test:sanity"
     - TEST="test:content" COVERAGE=true
     - TEST="test:common" COVERAGE=true
+    - TEST="client:unit" COVERAGE=true
     - TEST="apidoc"

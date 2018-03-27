@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 import moment from 'moment';
+import util from 'util';
 import _ from 'lodash';
 import payments from './payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
 import shared from '../../common';
 import cc from 'coupon-code';
-import Bluebird from 'bluebird';
 import { model as Coupon } from '../models/coupon';
 import { model as User } from '../models/user';
 import {
@@ -60,14 +60,14 @@ api.constants = {
   // PAYMENT_METHOD_GIFT: 'Amazon Payments (Gift)',
 };
 
-api.paypalPaymentCreate = Bluebird.promisify(paypal.payment.create, {context: paypal.payment});
-api.paypalPaymentExecute = Bluebird.promisify(paypal.payment.execute, {context: paypal.payment});
-api.paypalBillingAgreementCreate = Bluebird.promisify(paypal.billingAgreement.create, {context: paypal.billingAgreement});
-api.paypalBillingAgreementExecute = Bluebird.promisify(paypal.billingAgreement.execute, {context: paypal.billingAgreement});
-api.paypalBillingAgreementGet = Bluebird.promisify(paypal.billingAgreement.get, {context: paypal.billingAgreement});
-api.paypalBillingAgreementCancel = Bluebird.promisify(paypal.billingAgreement.cancel, {context: paypal.billingAgreement});
+api.paypalPaymentCreate = util.promisify(paypal.payment.create.bind(paypal.payment));
+api.paypalPaymentExecute = util.promisify(paypal.payment.execute.bind(paypal.payment));
+api.paypalBillingAgreementCreate = util.promisify(paypal.billingAgreement.create.bind(paypal.billingAgreement));
+api.paypalBillingAgreementExecute = util.promisify(paypal.billingAgreement.execute.bind(paypal.billingAgreement));
+api.paypalBillingAgreementGet = util.promisify(paypal.billingAgreement.get.bind(paypal.billingAgreement));
+api.paypalBillingAgreementCancel = util.promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
 
-api.ipnVerifyAsync = Bluebird.promisify(ipn.verify, {context: ipn});
+api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
 
 api.checkout = async function checkout (options = {}) {
   let {gift, user} = options;

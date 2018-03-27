@@ -11,7 +11,7 @@ import * as Tasks from '../../website/server/models/task';
 
 afterEach((done) => {
   sandbox.restore();
-  mongoose.connection.db.dropDatabase(done);
+  mongoose.connection.dropDatabase(done);
 });
 
 export { sleep } from './sleep';
@@ -107,4 +107,20 @@ export function generateDaily (user) {
   task.save();
 
   return task;
+}
+
+export function defer () {
+  let resolve;
+  let reject;
+
+  let promise = new Promise((resolveParam, rejectParam) => {
+    resolve = resolveParam;
+    reject = rejectParam;
+  });
+
+  return {
+    resolve,
+    reject,
+    promise,
+  };
 }

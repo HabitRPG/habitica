@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "紫禦獅鷲",
     "phoenix": "鳳凰",
     "magicalBee": "奇幻蜜蜂",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "紫禦鹿角兔",
     "invisibleAether": "Invisible Aether",
     "rarePetPop1": "按按金色的爪印，看看怎麼為Habitica貢獻而獲得這隻稀有寵物！",
@@ -81,7 +83,7 @@
     "petNotOwned": "你不擁有這隻寵物。",
     "mountNotOwned": "You do not own this mount.",
     "earnedCompanion": "因為你的效率，你已經獲得了一個新的同伴。餵養它，使其茁壯成長！",
-    "feedPet": "餵一個<%= article %><%= text %> 給 <%= name %>？",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "把鞍用在<%= pet %>上？",
     "raisedPet": "You grew your <%= pet %>!",
     "earnedSteed": "通過完成你的任務，你贏得一個忠心的坐騎！",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

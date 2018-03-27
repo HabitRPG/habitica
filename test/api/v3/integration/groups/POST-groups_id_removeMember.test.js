@@ -120,16 +120,16 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       await leader.post(`/groups/${guild._id}/removeMember/${invitedUser._id}`);
 
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][0]._id).to.be.eql(invitedUser._id);
-      expect(email.sendTxn.args[0][1]).to.be.eql('guild-invite-rescinded');
+      expect(email.sendTxn.args[0][0]._id).to.eql(invitedUser._id);
+      expect(email.sendTxn.args[0][1]).to.eql('guild-invite-rescinded');
     });
 
     it('sends email to removed user', async () => {
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
 
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][0]._id).to.be.eql(member._id);
-      expect(email.sendTxn.args[0][1]).to.be.eql('kicked-from-guild');
+      expect(email.sendTxn.args[0][0]._id).to.eql(member._id);
+      expect(email.sendTxn.args[0][1]).to.eql('kicked-from-guild');
     });
   });
 
@@ -184,7 +184,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       let invitedUserWithoutInvite = await partyInvitedUser.get('/user');
 
-      expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.empty;
+      expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.undefined;
     });
 
     it('removes new messages from a member who is removed', async () => {
@@ -203,7 +203,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(removedMember.notifications.find(n => {
         return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
       })).to.not.exist;
-      expect(removedMember.newMessages[party._id]).to.be.empty;
+      expect(removedMember.newMessages[party._id]).to.be.undefined;
     });
 
     it('removes user from quest when removing user from party after quest starts', async () => {
@@ -255,16 +255,16 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyInvitedUser._id}`);
 
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][0]._id).to.be.eql(partyInvitedUser._id);
-      expect(email.sendTxn.args[0][1]).to.be.eql('party-invite-rescinded');
+      expect(email.sendTxn.args[0][0]._id).to.eql(partyInvitedUser._id);
+      expect(email.sendTxn.args[0][1]).to.eql('party-invite-rescinded');
     });
 
     it('sends email to removed user', async () => {
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyMember._id}`);
 
       expect(email.sendTxn).to.be.calledOnce;
-      expect(email.sendTxn.args[0][0]._id).to.be.eql(partyMember._id);
-      expect(email.sendTxn.args[0][1]).to.be.eql('kicked-from-party');
+      expect(email.sendTxn.args[0][0]._id).to.eql(partyMember._id);
+      expect(email.sendTxn.args[0][1]).to.eql('kicked-from-party');
     });
   });
 });

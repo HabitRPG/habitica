@@ -24,7 +24,7 @@ describe('POST /news/tell-me-later', () => {
     const notification = user.notifications[user.notifications.length - 1];
 
     expect(notification.type).to.equal('NEW_STUFF');
-     // should be marked as seen by default so it's not counted in the number of notifications
+    // should be marked as seen by default so it's not counted in the number of notifications
     expect(notification.seen).to.equal(true);
     expect(notification.data.title).to.be.a.string;
   });

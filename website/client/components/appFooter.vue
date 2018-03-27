@@ -1,7 +1,7 @@
 <template lang="pug">
-.row
+.row.footer-row
   buy-gems-modal(v-if='user')
-  modify-inventory(v-if="isUserLoaded")
+  //modify-inventory(v-if="isUserLoaded")
   footer.col-12(:class="{expanded: isExpandedFooter}")
     .row(v-if="isExpandedFooter")
       .col-12.col-md-2
@@ -117,6 +117,11 @@
 </template>
 
 <style lang="scss" scoped>
+  .footer-row {
+    margin: 0;
+    flex: 0 1 auto;
+  }
+
   footer {
     color: #c3c0c7;
     z-index: 17;

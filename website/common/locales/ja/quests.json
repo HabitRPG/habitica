@@ -120,5 +120,10 @@
     "createAccountQuest": "このクエストはHabiticaに参加した時に配布されます！もしあなたの友達が参加すれば、彼らも同じように受け取るでしょう。",
     "questBundles": "割引されたクエスト セット",
     "buyQuestBundle": "クエスト セットを買う",
-    "noQuestToStart": "クエストを開始できませんか？新しいものがないか、クエストショップをチェックしてみましょう！"
+    "noQuestToStart": "クエストを開始できませんか？新しいものがないか、クエストショップをチェックしてみましょう！",
+    "pendingDamage": "<%= damage %> 保留中のダメージ",
+    "bossHealth": "体力 <%= currentHealth %> / <%= maxHealth %>",
+    "rageAttack": "怒り攻撃:",
+    "bossRage": "怒り <%= currentRage %> / <%= maxRage %>",
+    "rageStrikes": "怒りの一撃"
 }

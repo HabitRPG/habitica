@@ -27,6 +27,8 @@
     "royalPurpleGryphon": "Fenséges lila griffmadár",
     "phoenix": "Főnix",
     "magicalBee": "Varázslatos méh",
+    "hopefulHippogriffPet": "Hopeful Hippogriff",
+    "hopefulHippogriffMount": "Hopeful Hippogriff",
     "royalPurpleJackalope": "Fenséges lila szarvasnyúl",
     "invisibleAether": "Láthatatlan Éter",
     "rarePetPop1": "Kattints az arany mancsra, hogy megtudd hogyan tudod megszerezni ezt a ritka háziállatot úgy, hogy közreműködsz a Habitica-nak.",
@@ -81,7 +83,7 @@
     "petNotOwned": "Ennek a háziállatnak nem te vagy a gazdája.",
     "mountNotOwned": "Ennek a hátasnak nem te vagy a gazdája.",
     "earnedCompanion": "Produktivitásoddal új társaságra tettél szert! Etesd meg, hogy megnőjön!",
-    "feedPet": "Megeteted a(z) <%= article %><%= text %>-t a <%= name %>-el?",
+    "feedPet": "Feed <%= text %> to your <%= name %>?",
     "useSaddle": "Felnyergeled a(z) <%= pet %>-t?",
     "raisedPet": "Felnevelted a <%= pet %>-d!",
     "earnedSteed": "Feladatait elvégzésével szert tettél egy hűséges paripára!",
@@ -136,5 +138,8 @@
     "dragThisPotion": "Húzd oda <%= potionName %> egy tojáshoz és kelts ki egy új háziállatot!",
     "clickOnEggToHatch": "Kattints egy tojásra hogy használd a <%= potionName %> keltetőfőzeted és kelts ki egy új háziállatot!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

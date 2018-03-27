@@ -239,7 +239,7 @@ function _getSeasonalAchievements (user, language) {
     _addSimpleWithCount(result, user, {path, language});
   });
 
-  let questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
+  let questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder', 'dysheartener'];
   questAchievements.forEach(path => {
     if (user.achievements.quests[path]) {
       _addQuest(result, user, {path, language});

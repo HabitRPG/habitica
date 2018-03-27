@@ -1,6 +1,4 @@
-import findIndex from 'lodash/findIndex';
 import { authWithHeaders } from '../../../middlewares/auth';
-import Bluebird from 'bluebird';
 import * as Tasks from '../../../models/task';
 import { model as Group } from '../../../models/group';
 import { model as User } from '../../../models/user';
@@ -87,7 +85,7 @@ api.getGroupTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
-    req.checkQuery('type', res.t('invalidTaskType')).optional().isIn(types);
+    req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -206,7 +204,7 @@ api.assignTask = {
     let promises = [];
     promises.push(group.syncTask(task, assignedUser));
     promises.push(group.save());
-    await Bluebird.all(promises);
+    await Promise.all(promises);
 
     res.respond(200, task);
   },
@@ -316,8 +314,8 @@ api.approveTask = {
 
     // Get task direction
     const firstManagerNotifications = managers[0].notifications;
-    const firstNotificationIndex =  findIndex(firstManagerNotifications, (notification) => {
-      return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+    const firstNotificationIndex = firstManagerNotifications.findIndex((notification) => {
+      return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
     });
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
@@ -327,8 +325,8 @@ api.approveTask = {
     // Remove old notifications
     let managerPromises = [];
     managers.forEach((manager) => {
-      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {
@@ -351,7 +349,7 @@ api.approveTask = {
 
     managerPromises.push(task.save());
     managerPromises.push(assignedUser.save());
-    await Bluebird.all(managerPromises);
+    await Promise.all(managerPromises);
 
     res.respond(200, task);
   },
@@ -416,8 +414,8 @@ api.taskNeedsWork = {
 
     // Remove old notifications
     managers.forEach((manager) => {
-      let notificationIndex = findIndex(manager.notifications, function findNotification (notification) {
-        return notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
+      let notificationIndex = manager.notifications.findIndex(function findNotification (notification) {
+        return notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL';
       });
 
       if (notificationIndex !== -1) {
@@ -490,8 +488,8 @@ api.getGroupApprovals = {
       'group.approval.approved': false,
       'group.approval.requested': true,
     }, 'userId group text')
-    .populate('userId', 'profile')
-    .exec();
+      .populate('userId', 'profile')
+      .exec();
 
     res.respond(200, approvals);
   },

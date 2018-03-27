@@ -22,7 +22,7 @@
           .how-many-to-buy
             strong {{ $t('howManyToBuy') }}
           .box
-            input(type='number', min='0', v-model='selectedAmountToBuy')
+            input(type='number', min='0', v-model.number='selectedAmountToBuy')
           span.svg-icon.inline.icon-32(aria-hidden="true", v-html="(priceType  === 'gems') ? icons.gem : icons.gold")
           span.value(:class="priceType") {{ item.value }}
 
@@ -79,14 +79,6 @@
       width: 70%;
       margin: 0 auto;
       margin-bottom: 10px;
-    }
-
-    .content-text {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.43;
-      width: 400px;
     }
 
     .right-sidebar {

@@ -123,11 +123,11 @@ describe('Amazon Payments - Subscribe', () => {
       groupId,
       headers,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: i18n.t('missingSubscriptionCode'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('missingSubscriptionCode'),
+      });
   });
 
   it('should throw an error if we are missing a billingAgreementId', async () => {
@@ -138,11 +138,11 @@ describe('Amazon Payments - Subscribe', () => {
       groupId,
       headers,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: 'Missing req.body.billingAgreementId',
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: 'Missing req.body.billingAgreementId',
+      });
   });
 
   it('should throw an error when coupon code is missing', async () => {
@@ -156,11 +156,11 @@ describe('Amazon Payments - Subscribe', () => {
       groupId,
       headers,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 400,
-      name: 'BadRequest',
-      message: i18n.t('couponCodeRequired'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 400,
+        name: 'BadRequest',
+        message: i18n.t('couponCodeRequired'),
+      });
   });
 
   it('should throw an error when coupon code is invalid', async () => {
@@ -182,11 +182,11 @@ describe('Amazon Payments - Subscribe', () => {
       groupId,
       headers,
     }))
-    .to.eventually.be.rejected.and.to.eql({
-      httpCode: 401,
-      name: 'NotAuthorized',
-      message: i18n.t('invalidCoupon'),
-    });
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        name: 'NotAuthorized',
+        message: i18n.t('invalidCoupon'),
+      });
     cc.validate.restore();
   });
 
@@ -216,6 +216,9 @@ describe('Amazon Payments - Subscribe', () => {
   });
 
   it('subscribes with amazon', async () => {
+    user.guilds.push(groupId);
+    await user.save();
+
     await amzLib.subscribe({
       billingAgreementId,
       sub,
@@ -241,8 +244,13 @@ describe('Amazon Payments - Subscribe', () => {
     user = new User();
     user.guilds.push(groupId);
     await user.save();
-    group.memberCount = 2;
-    await group.save();
+
+    // Add existing users
+    user = new User();
+    user.guilds.push(groupId);
+    await user.save();
+
+    // Set expected amount
     sub.key = 'group_monthly';
     sub.price = 9;
     amount = 12;

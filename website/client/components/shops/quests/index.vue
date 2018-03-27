@@ -17,19 +17,18 @@
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -241,13 +240,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .group {
     display: inline-block;
     width: 33%;
@@ -314,6 +306,23 @@
           margin: 0;
           left: 70px;
         }
+      }
+
+      .background.broken {
+        background: url('~assets/images/npc/broken/quest_shop_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/quest_shop_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/quest_shop_broken_npc.png');
+        background-repeat: no-repeat;
       }
     }
   }
@@ -383,7 +392,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
     },
     computed: {
       ...mapState({

@@ -1,8 +1,9 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyQuest from '../../../../website/common/script/ops/buyQuest';
+import buyQuest from '../../../../website/common/script/ops/buy/buyQuest';
 import {
+  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../../../website/common/script/libs/errors';
@@ -10,9 +11,15 @@ import i18n from '../../../../website/common/script/i18n';
 
 describe('shared.ops.buyQuest', () => {
   let user;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser();
+    sinon.stub(analytics, 'track');
+  });
+
+  afterEach(() => {
+    analytics.track.restore();
   });
 
   it('buys a Quest scroll', () => {
@@ -21,11 +28,49 @@ describe('shared.ops.buyQuest', () => {
       params: {
         key: 'dilatoryDistress1',
       },
-    });
+    }, analytics);
     expect(user.items.quests).to.eql({
       dilatoryDistress1: 1,
     });
     expect(user.stats.gp).to.equal(5);
+    expect(analytics.track).to.be.calledOnce;
+  });
+
+  it('buys a Quest scroll with the right quantity if a string is passed for quantity', () => {
+    user.stats.gp = 1000;
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+    }, analytics);
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+      quantity: '3',
+    }, analytics);
+
+    expect(user.items.quests).to.eql({
+      dilatoryDistress1: 4,
+    });
+  });
+
+  it('does not buy a Quest scroll when an invalid quantity is passed', (done) => {
+    user.stats.gp = 1000;
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        quantity: 'a',
+      }, analytics);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      expect(user.items.quests).to.eql({});
+      expect(user.stats.gp).to.equal(1000);
+      done();
+    }
   });
 
   it('does not buy Quests without enough Gold', (done) => {
@@ -62,6 +107,22 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
+  it('does not buy the Mystery of the Masterclassers', (done) => {
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'lostMasterclasser1',
+        },
+      });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('questUnlockLostMasterclasser'));
+      expect(user.items.quests).to.eql({});
+      done();
+    }
+  });
+
+
   it('does not buy Gem-premium Quests', (done) => {
     user.stats.gp = 9999;
     try {
@@ -75,6 +136,16 @@ describe('shared.ops.buyQuest', () => {
       expect(err.message).to.equal(i18n.t('questNotGoldPurchasable', {key: 'kraken'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
+      done();
+    }
+  });
+
+  it('returns error when key is not provided', (done) => {
+    try {
+      buyQuest(user);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('missingKeyParam'));
       done();
     }
   });

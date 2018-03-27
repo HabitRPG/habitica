@@ -4,7 +4,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import count from '../../../../website/common/script/count';
-import buyArmoire from '../../../../website/common/script/ops/buyArmoire';
+import buyArmoire from '../../../../website/common/script/ops/buy/buyArmoire';
 import randomVal from '../../../../website/common/script/libs/randomVal';
 import content from '../../../../website/common/script/content/index';
 import {
@@ -31,6 +31,7 @@ describe('shared.ops.buyArmoire', () => {
   let YIELD_EQUIPMENT = 0.5;
   let YIELD_FOOD = 0.7;
   let YIELD_EXP = 0.9;
+  let analytics = {track () {}};
 
   beforeEach(() => {
     user = generateUser({
@@ -45,10 +46,12 @@ describe('shared.ops.buyArmoire', () => {
     user.items.food = {};
 
     sandbox.stub(randomVal, 'trueRandom');
+    sinon.stub(analytics, 'track');
   });
 
   afterEach(() => {
     randomVal.trueRandom.restore();
+    analytics.track.restore();
   });
 
   context('failure conditions', () => {
@@ -141,7 +144,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(_.size(user.items.gear.owned)).to.equal(2);
 
-      buyArmoire(user);
+      buyArmoire(user, {}, analytics);
 
       expect(_.size(user.items.gear.owned)).to.equal(3);
 
@@ -149,6 +152,7 @@ describe('shared.ops.buyArmoire', () => {
 
       expect(armoireCount).to.eql(_.size(getFullArmoire()) - 2);
       expect(user.stats.gp).to.eql(100);
+      expect(analytics.track).to.be.calledOnce;
     });
   });
 });

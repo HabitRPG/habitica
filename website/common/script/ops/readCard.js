@@ -11,7 +11,9 @@ import content from '../content/index';
 function markNotificationAsRead (user, cardType) {
   const indexToRemove = user.notifications.findIndex(notification => {
     if (
+      notification &&
       notification.type === 'CARD_RECEIVED' &&
+      notification.data &&
       notification.data.card === cardType
     ) return true;
   });

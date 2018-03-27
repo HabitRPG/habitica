@@ -144,7 +144,7 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (identifier,
 
   let query = _.cloneDeep(additionalQueries);
 
-  if (validator.isUUID(identifier)) {
+  if (validator.isUUID(String(identifier))) {
     query._id = identifier;
   } else {
     query.userId = userId;

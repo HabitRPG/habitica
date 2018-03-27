@@ -1,5 +1,6 @@
 import axios from 'axios';
 import omit from 'lodash/omit';
+import encodeParams from 'client/libs/encodeParams';
 
 export async function createChallenge (store, payload) {
   let response = await axios.post('/api/v3/challenges', payload.challenge);
@@ -34,8 +35,24 @@ export async function leaveChallenge (store, payload) {
 
 export async function getUserChallenges (store, payload) {
   let url = '/api/v3/challenges/user';
-  if (payload && payload.member) url += '?member=true';
-  let response = await axios.get(url);
+  let {
+    member,
+    page,
+    search,
+    categories,
+    owned,
+  } = payload;
+
+  let query = {};
+  if (member) query.member = member;
+  if (page) query.page = page;
+  if (search) query.search = search;
+  if (categories) query.categories = categories;
+  if (owned) query.owned = owned;
+
+  const parms = encodeParams(query);
+  const response = await axios.get(`${url}?${parms}`);
+
   return response.data.data;
 }
 

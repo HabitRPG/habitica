@@ -17,6 +17,9 @@
     .row
       .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge)')
         challenge-item(:challenge='challenge')
+    .row
+      .col-12.text-center
+        button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
 <style lang='scss' scoped>
@@ -89,23 +92,16 @@ export default {
       ],
       search: '',
       filters: {},
+      page: 0,
     };
   },
   mounted () {
     this.loadchallanges();
-
-    // @TODO: do we need to load groups for filters still?
   },
   computed: {
     ...mapState({user: 'user.data'}),
     filteredChallenges () {
-      let search = this.search;
-      let filters = this.filters;
-      let user = this.$store.state.user.data;
-      // @TODO: Move this to the server
-      return this.challenges.filter((challenge) => {
-        return this.filterChallenge(challenge, filters, search, user);
-      });
+      return this.challenges;
     },
   },
   methods: {
@@ -114,20 +110,52 @@ export default {
     },
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
+      this.page = 0;
+      this.loadchallanges();
     },
     updateFilters (eventData) {
       this.filters = eventData;
+      this.page = 0;
+      this.loadchallanges();
     },
     createChallenge () {
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
     async loadchallanges () {
       this.loading = true;
-      this.challenges = await this.$store.dispatch('challenges:getUserChallenges');
+
+      let categories = '';
+      if (this.filters.categories) {
+        categories = this.filters.categories.join(',');
+      }
+
+      let owned = '';
+      // @TODO: we skip ownership === 2 because it is the same as === 0 right now
+      if (this.filters.ownership && this.filters.ownership.length === 1) {
+        owned = this.filters.ownership[0];
+      }
+
+      const challenges = await this.$store.dispatch('challenges:getUserChallenges', {
+        page: this.page,
+        search: this.search,
+        categories,
+        owned,
+      });
+
+      if (this.page === 0) {
+        this.challenges = challenges;
+      } else {
+        this.challenges = this.challenges.concat(challenges);
+      }
+
       this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
+    },
+    async loadMore () {
+      this.page += 1;
+      this.loadchallanges();
     },
   },
 };

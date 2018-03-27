@@ -73,7 +73,7 @@
     "surveysMultiple": "Heeft Habitica helpen groeien op <%= count %> momenten, door een enquête in te vullen of door mee te helpen met een grote test. Bedankt!",
     "currentSurvey": "Huidige enquête",
     "surveyWhen": "De badge zal eind maart worden uitgereikt, wanneer de enquêtes van alle deelnemers zijn verwerkt.",
-    "blurbInbox": "Hier worden je persoonlijke berichten opgeslagen! Je kunt iemand een bericht sturen door op het envelop-icoon naast hun naam te klikken in de Herberg-, groep- of gilde-Chat. Als je een ongepast bericht hebt gekregen, e-mail dan een screenshot ervan naar de staf. (<%= hrefCommunityManagerEmail %>)",
+    "blurbInbox": "Hier worden je persoonlijke berichten opgeslagen! Je kunt iemand een bericht sturen door op het envelop-icoon naast hun naam te klikken in de Herberg-, gezelschap- of gilde-Chat. Als je een ongepast bericht hebt gekregen, e-mail dan een screenshot ervan naar de staf. (<%= hrefCommunityManagerEmail %>)",
     "blurbGuildsPage": "Gildes zijn chatgroepen waar een bepaalde interesse centraal staat. Gildes zijn opgezet door spelers, voor spelers! Zoek naar gildes met de zelfde interesses als die van jou en sluit je erbij aan!",
     "blurbChallenges": "Uitdagingen worden gemaakt door medespelers. Door mee te doen met een uitdaging krijg je extra taken op je takenlijst. Het winnen van een uitdaging geeft je een prestatie en soms edelstenen als beloning!",
     "blurbHallPatrons": "Dit is de Hal der Weldoeners. Hier eren we de nobele adventuriers die Habitica hebben gesteund in de Kickstarter. We bedanken ze omdat ze Habitica tot leven hebben gebracht!",

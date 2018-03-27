@@ -2,8 +2,8 @@ import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
+  sleep,
 } from '../../../../helpers/api-v3-integration.helper';
-import Bluebird from 'bluebird';
 
 describe('POST /groups/:groupId/quests/accept', () => {
   const PET_QUEST = 'whale';
@@ -33,20 +33,20 @@ describe('POST /groups/:groupId/quests/accept', () => {
   context('failure conditions', () => {
     it('does not accept quest without an invite', async () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('questInviteNotFound'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('questInviteNotFound'),
+        });
     });
 
     it('does not accept quest for a group in which user is not a member', async () => {
       await expect(user.post(`/groups/${questingGroup._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: t('groupNotFound'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 404,
+          error: 'NotFound',
+          message: t('groupNotFound'),
+        });
     });
 
     it('does not accept quest for a guild', async () => {
@@ -55,11 +55,11 @@ describe('POST /groups/:groupId/quests/accept', () => {
       });
 
       await expect(guildLeader.post(`/groups/${guild._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('guildQuestsNotSupported'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('guildQuestsNotSupported'),
+        });
     });
 
     it('does not accept invite twice', async () => {
@@ -67,11 +67,11 @@ describe('POST /groups/:groupId/quests/accept', () => {
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('questAlreadyAccepted'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('questAlreadyAccepted'),
+        });
     });
 
     it('clears the invalid invite from the user when the request fails', async () => {
@@ -79,11 +79,11 @@ describe('POST /groups/:groupId/quests/accept', () => {
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('questAlreadyAccepted'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('questAlreadyAccepted'),
+        });
 
       await partyMembers[0].sync();
       expect(partyMembers[0].party.quest.RSVPNeeded).to.be.false;
@@ -96,11 +96,11 @@ describe('POST /groups/:groupId/quests/accept', () => {
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
       await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('questAlreadyUnderway'),
-      });
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('questAlreadyUnderway'),
+        });
     });
   });
 
@@ -140,7 +140,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
       // quest will start after everyone has accepted
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      await Bluebird.delay(500);
+      await sleep(0.5);
 
       await rejectingMember.sync();
 

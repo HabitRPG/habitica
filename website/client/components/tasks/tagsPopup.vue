@@ -8,7 +8,7 @@
         .col-4(v-for="tag in tags")
           .custom-control.custom-checkbox
             input.custom-control-input(type="checkbox", :value="tag.id", v-model="selectedTags", :id="`tag-${tag.id}`")
-            label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`") {{tag.name}}
+            label.custom-control-label(:title="tag.name", :for="`tag-${tag.id}`", v-markdown="tag.name")
   .tags-footer
     span.clear-tags(@click="clearTags()") {{$t("clearTags")}}
     span.close-tags(@click="close()") {{$t("close")}}
@@ -95,8 +95,13 @@
 </style>
 
 <script>
+import markdownDirective from 'client/directives/markdown';
+
 export default {
   props: ['tags', 'value'],
+  directives: {
+    markdown: markdownDirective,
+  },
   data () {
     return {
       selectedTags: [],

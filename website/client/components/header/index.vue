@@ -160,9 +160,10 @@ export default {
     },
     openPartyModal () {
       if (this.user.party._id) {
+        // Set the party details for the members-modal component
         this.$store.state.memberModalOptions.groupId = this.user.party._id;
-        // @TODO: do we need to fetch party?
-        // this.$store.state.memberModalOptions.group = this.$store.state.party;
+        this.$store.state.memberModalOptions.viewingMembers = this.partyMembers;
+        this.$store.state.memberModalOptions.group = this.user.party;
         this.$root.$emit('bv::show::modal', 'members-modal');
         return;
       }
@@ -174,9 +175,10 @@ export default {
       }
     },
   },
-  async created () {
+  created () {
     if (this.user.party && this.user.party._id) {
-      await this.getPartyMembers(true);
+      this.$store.state.memberModalOptions.groupId = this.user.party._id;
+      this.getPartyMembers();
     }
   },
 };
