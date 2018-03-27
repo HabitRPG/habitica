@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
     "messageCannotFlagSystemMessages": "システムメッセージを報告することはできません。このメッセージに関してコミュニティガイドラインの違反を報告する必要がある場合は、スクリーンショットと説明をLemoness（<%= communityManagerEmail %>）にメールで送ってください。",
     "messageGroupChatSpam": "おおっと!たくさんのメッセージを投稿しすぎたようです!少しだけ待ってから再度お試しください。キャンプ場では200個のメッセージまでしか一度に表示されませんので,Habiticaでは熟慮と吟味がなされた返信を奨励しています。あなたが言いかけたことを楽しみにしています。:)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
     "messageNotificationNotFound": "通知はありません。",

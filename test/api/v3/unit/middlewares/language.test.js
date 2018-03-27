@@ -8,7 +8,6 @@ import {
   attachTranslateFunction,
 } from '../../../../../website/server/middlewares/language';
 import common from '../../../../../website/common';
-import Bluebird from 'bluebird';
 import { model as User } from '../../../../../website/server/models/user';
 
 const i18n = common.i18n;
@@ -162,7 +161,7 @@ describe('language middleware', () => {
             return this;
           },
           exec () {
-            return Bluebird.resolve({
+            return Promise.resolve({
               preferences: {
                 language: 'it',
               },

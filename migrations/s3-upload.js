@@ -1,4 +1,3 @@
-let Bluebird = require('bluebird');
 let request = require('superagent');
 let last = require('lodash/last');
 let AWS = require('aws-sdk');
@@ -74,7 +73,7 @@ function uploadToS3 (start, end, filesUrls) {
   });
   console.log(promises.length);
 
-  return Bluebird.all(promises)
+  return Promise.all(promises)
     .then(() => {
       currentIndex += 50;
       uploadToS3(currentIndex, currentIndex + 50, filesUrls);

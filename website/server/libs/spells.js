@@ -1,5 +1,3 @@
-import Bluebird from 'bluebird';
-
 import { model as User } from '../models/user';
 import * as Tasks from '../models/task';
 import {
@@ -24,7 +22,7 @@ async function castTaskSpell (res, req, targetId, user, spell, quantity = 1) {
     spell.cast(user, task, req);
   }
 
-  const results = await Bluebird.all([
+  const results = await Promise.all([
     user.save(),
     task.save(),
   ]);
@@ -46,7 +44,7 @@ async function castMultiTaskSpell (req, user, spell, quantity = 1) {
     .filter(t => t.isModified())
     .map(t => t.save());
   toSave.unshift(user.save());
-  const saved = await Bluebird.all(toSave);
+  const saved = await Promise.all(toSave);
 
   const response = {
     tasks: saved,
@@ -82,7 +80,7 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, partyMembers, req);
   }
-  await Bluebird.all(partyMembers.map(m => m.save()));
+  await Promise.all(partyMembers.map(m => m.save()));
 
   return partyMembers;
 }
@@ -107,7 +105,7 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
   }
 
   if (partyMembers !== user) {
-    await Bluebird.all([
+    await Promise.all([
       user.save(),
       partyMembers.save(),
     ]);

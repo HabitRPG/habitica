@@ -27,8 +27,8 @@
     "royalPurpleGryphon": "Grifo real morado",
     "phoenix": "Fénix",
     "magicalBee": "Abeja mágica",
-    "hopefulHippogriffPet": "Hipogrifón Esperanzado",
-    "hopefulHippogriffMount": "Hipogrifón Esperanzado",
+    "hopefulHippogriffPet": "Hipogrifo Esperanzado",
+    "hopefulHippogriffMount": "Hipogrifo Esperanzado",
     "royalPurpleJackalope": "Jackalope Púrpura Real",
     "invisibleAether": "Éter Invisible",
     "rarePetPop1": "¡Haz clic en la pata dorada para saber cómo puedes conseguir esta mascota contribuyendo con Habitica!",
@@ -138,5 +138,8 @@
     "dragThisPotion": "¡Arrastra esta <%= potionName %> hasta un Huevo y eclosiona una nueva mascota!",
     "clickOnEggToHatch": "¡Haz click en un Huevo para utilizar tu poción de eclosión <%= potionName %> y eclosiona una nueva mascota!",
     "hatchDialogText": "Vierte tu poción de eclosión <%= potionName %>en tu huevo <%= eggName %>, y eclosionará en un <%= petName %>.",
-    "clickOnPotionToHatch": "¡Haz click en una poción de closión para utilizarla en tu <%= eggName %> y eclosionar una nueva mascota!"
+    "clickOnPotionToHatch": "¡Haz click en una poción de closión para utilizarla en tu <%= eggName %> y eclosionar una nueva mascota!",
+    "notEnoughPets": "No has reunido suficientes mascotas",
+    "notEnoughMounts": "No has reunido suficientes monturas",
+    "notEnoughPetsMounts": "No has reunido suficientes mascotas ni monturas"
 }

@@ -75,6 +75,7 @@
       font-weight: bold;
       line-height: 1.33;
       text-align: right;
+      white-space: nowrap;
 
       &.green {
         color: $green-10;

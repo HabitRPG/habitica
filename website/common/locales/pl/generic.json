@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Pomógł pokonać Wypaleńca i przywrócić Wycieńczone Duchy do ich prawdziwych postaci podczas obchodów Jesiennego Festiwalu 2015!",
     "achievementBewilder": "Zbawca Mistiflying",
     "achievementBewilderText": "Pomógł pokonać Be-Wildera podczas Obchodów Wiosennej Uciechy 2016!",
+    "achievementDysheartener": "Zbawca Roztrzaskanych",
+    "achievementDysheartenerText": "Pomógł pokonać Odsercowiaczkę podczas obchodów Walentynek 2018!",
     "checkOutProgress": "Sprawdź swój postęp w Habitice!",
     "cards": "Karty",
     "sentCardToUser": "Wysłałeś kartę do <%= profileName %>",
