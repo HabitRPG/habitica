@@ -52,7 +52,7 @@ describe('inAppRewards', () => {
     testPinnedItemsOrder = testPinnedItemsOrder.concat(officialPinnedItemPaths);
   });
 
-  it.only('returns the pinned items in the correct order', async () => {
+  it('returns the pinned items in the correct order', async () => {
     await user.update({
       pinnedItems: testPinnedItems,
       pinnedItemsOrder: testPinnedItemsOrder,
@@ -64,12 +64,15 @@ describe('inAppRewards', () => {
   });
 
   it('does not return seasonal items which have been unpinned', async () => {
-    if (officialPinnedItems.length > 0){
-      let testUnpinnedItem = officialPinnedItems[0];
-      let testUnpinnedPath = testUnpinnedItem.path;
-    } else {
+    if (officialPinnedItems.length === 0) {
       return; // if no seasonal items, this test is not applicable
     }
+
+    let testUnpinnedItem = officialPinnedItems[0];
+    let testUnpinnedPath = testUnpinnedItem.path;
+    let testUnpinnedItems = [
+      { type: testUnpinnedItem.type, path: testUnpinnedPath},
+    ];
 
     await user.update({
       pinnedItems: testPinnedItems,
