@@ -136,7 +136,6 @@ describe('Webhook Model', () => {
           } catch (err) {
             expect(err).to.be.an.instanceOf(BadRequest);
             expect(res.t).to.be.calledOnce;
-            expect(res.t).to.be.calledWith('groupIdRequired');
             done();
           }
         });

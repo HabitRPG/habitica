@@ -1111,7 +1111,7 @@ api.unlinkAllTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    req.checkQuery('keep', apiMessages('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1178,7 +1178,7 @@ api.unlinkOneTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    req.checkQuery('keep', apiMessages('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -41,7 +41,7 @@ api.createGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
@@ -85,7 +85,7 @@ api.getGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
@@ -470,7 +470,7 @@ api.getGroupApprovals = {
   url: '/approvals/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
