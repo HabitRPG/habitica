@@ -9,9 +9,10 @@ const messages = {
   taskUnlinkKeepOrRemove: 'req.query.keep must be either "keep" or "remove"',
   taskUnlinkKeepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all"',
 
+  queryPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
+
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
-  guildsPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
   groupIdRequired: 'req.params.groupId must contain a groupId.',
   managerIdRequired: 'req.body.managerId must contain a user ID.',
   noSudoAccess: 'You don\'t have sudo access',

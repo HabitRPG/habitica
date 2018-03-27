@@ -273,7 +273,7 @@ api.createGroupPlan = {
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
  * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
- * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
@@ -294,7 +294,7 @@ api.getGroups = {
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
     req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
