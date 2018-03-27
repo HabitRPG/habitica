@@ -6,6 +6,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import get from 'lodash/get';
+import apiMessages from '../../../../server/libs/apiMessages';
 
 // buy a quest with gold
 module.exports = function buyQuest (user, req = {}, analytics) {
@@ -14,7 +15,7 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   let quantity = req.quantity ? Number(req.quantity) : 1;
   if (isNaN(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
 
-  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(apiMessages('missingKeyParam', req.language));
 
   let item = content.quests[key];
   if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));

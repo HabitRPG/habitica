@@ -82,7 +82,6 @@
   "ianBrokenText": "Welcome to the Quest Shop... Here you can use Quest Scrolls to battle monsters with your friends... Be sure to check out our fine array of Quest Scrolls for purchase on the right...",
   "featuredQuests": "Featured Quests!",
 
-  "missingKeyParam": "\"req.params.key\" is required.",
   "itemNotFound": "Item \"<%= key %>\" not found.",
   "cannotBuyItem": "You can't buy this item.",
   "missingTypeKeyEquip": "\"key\" and \"type\" are required parameters.",

@@ -1,7 +1,8 @@
 // A map of messages used by the API that don't need to be translated and
 // so are not placed into /common/locales
 
-import _ from 'lodash';
+import _clone from 'lodash/clone';
+import _template from 'lodash/template';
 
 // When this file grows, it can be split into multiple ones.
 const messages = {
@@ -10,6 +11,8 @@ const messages = {
   taskUnlinkKeepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',
 
   queryPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
+
+  missingKeyParam: '"req.params.key" is required.',
 
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
@@ -22,8 +25,8 @@ export default function (msgKey, vars = {}) {
   let message = messages[msgKey];
   if (!message) throw new Error(`Error processing the API message "${msgKey}".`);
 
-  let clonedVars = vars ? _.clone(vars) : {};
+  let clonedVars = vars ? _clone(vars) : {};
 
   // TODO cache the result of template() ? More memory usage, faster output
-  return _.template(message)(clonedVars);
+  return _template(message)(clonedVars);
 }
