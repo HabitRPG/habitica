@@ -726,9 +726,10 @@ export default {
       if (this.task) this.checklist = clone(this.task.checklist);
     },
     'task.startDate' () {
-      if (this.task && this.repeatsOn) {
-        this.calculateMonthlyRepeatDays(this.repeatsOn);
-      }
+      this.calculateMonthlyRepeatDays();
+    },
+    'task.frequency' () {
+      this.calculateMonthlyRepeatDays();
     },
   },
   computed: {
@@ -795,9 +796,6 @@ export default {
 
         return repeatsOn;
       },
-      set (newValue) {
-        this.calculateMonthlyRepeatDays(newValue);
-      },
     },
     selectedTags () {
       return this.getTagsFor(this.task);
@@ -858,8 +856,10 @@ export default {
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
     },
-    calculateMonthlyRepeatDays (repeatsOn) {
+    calculateMonthlyRepeatDays () {
+      if (!this.task) return;
       const task = this.task;
+      const repeatsOn = this.repeatsOn;
 
       if (task.frequency === 'monthly') {
         if (repeatsOn === 'dayOfMonth') {
