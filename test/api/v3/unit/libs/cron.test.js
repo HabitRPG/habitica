@@ -524,9 +524,9 @@ describe('cron', () => {
       let user3g = new User({
         auth: {
           local: {
-            username: 'username3',
-            lowerCaseUsername: 'username3',
-            email: 'email3@example.com',
+            username: 'username3g',
+            lowerCaseUsername: 'username3g',
+            email: 'email3g@example.com',
             salt: 'salt',
             hashed_password: 'hashed_password', // eslint-disable-line camelcase
           },
@@ -581,7 +581,69 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(0); // erased
         clock.restore();
       });
+    });
 
+    describe('for a 6-month recurring subscription where the user has incorrect consecutive month data from prior bugs', () => {
+      let clock;
+      let user6x = new User({
+        auth: {
+          local: {
+            username: 'username6x',
+            lowerCaseUsername: 'username6x',
+            email: 'email6x@example.com',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
+        },
+      });
+      // user6x has a 6-month recurring subscription starting 8 months in the past before issue #4819 was fixed
+      user6x.purchased.plan.customerId = 'subscribedId';
+      user6x.purchased.plan.dateUpdated = moment().toDate();
+      user6x.purchased.plan.planId = 'basic_6mo';
+      user6x.purchased.plan.consecutive.count = 8;
+      user6x.purchased.plan.consecutive.offset = 0;
+      user6x.purchased.plan.consecutive.trinkets = 3;
+      user6x.purchased.plan.consecutive.gemCapExtra = 15;
+
+      it('increments consecutive benefits in the first month since the fix for #4819 goes live', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months').add(2, 'days').toDate());
+        cron({user:user6x, tasksByType, daysMissed, analytics});
+        expect(user6x.purchased.plan.consecutive.count).to.equal(9);
+        expect(user6x.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
+        expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+        clock.restore();
+      });
+
+      it('does not increment consecutive benefits in the second month after the fix goes live', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months').add(2, 'days').toDate());
+        cron({user:user6x, tasksByType, daysMissed, analytics});
+        expect(user6x.purchased.plan.consecutive.count).to.equal(10);
+        expect(user6x.purchased.plan.consecutive.offset).to.equal(4);
+        expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
+        expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+        clock.restore();
+      });
+
+      it('does not increment consecutive benefits in the third month after the fix goes live', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months').add(2, 'days').toDate());
+        cron({user:user6x, tasksByType, daysMissed, analytics});
+        expect(user6x.purchased.plan.consecutive.count).to.equal(11);
+        expect(user6x.purchased.plan.consecutive.offset).to.equal(3);
+        expect(user6x.purchased.plan.consecutive.trinkets).to.equal(5);
+        expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+        clock.restore();
+      });
+
+      it('increments consecutive benefits in the seventh month after the fix goes live', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(7, 'months').add(2, 'days').toDate());
+        cron({user:user6x, tasksByType, daysMissed, analytics});
+        expect(user6x.purchased.plan.consecutive.count).to.equal(15);
+        expect(user6x.purchased.plan.consecutive.offset).to.equal(5);
+        expect(user6x.purchased.plan.consecutive.trinkets).to.equal(7);
+        expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
+        clock.restore();
+      });
     });
   });
 
