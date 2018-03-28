@@ -271,7 +271,6 @@ describe('cron', () => {
 
     describe('for a 3-month recurring subscription', () => {
       let clock;
-      // create a user that will be used for all of these tests without a reset before each
       let user3 = new User({
         auth: {
           local: {
@@ -518,6 +517,71 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
         clock.restore();
       });
+    });
+
+    describe('for a 3-month gift subscription (non-recurring)', () => {
+      let clock;
+      let user3g = new User({
+        auth: {
+          local: {
+            username: 'username3',
+            lowerCaseUsername: 'username3',
+            email: 'email3@example.com',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
+        },
+      });
+      // user3g has a 3-month gift subscription starting today
+      user3g.purchased.plan.customerId = 'Gift';
+      user3g.purchased.plan.dateUpdated = moment().toDate();
+      user3g.purchased.plan.dateTerminated = moment().add(3, 'months').toDate();
+      user3g.purchased.plan.planId = null;
+      user3g.purchased.plan.consecutive.count = 0;
+      user3g.purchased.plan.consecutive.offset = 3;
+      user3g.purchased.plan.consecutive.trinkets = 1;
+      user3g.purchased.plan.consecutive.gemCapExtra = 5;
+
+      it('does not increment consecutive benefits in the first month of the gift subscription', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months').add(2, 'days').toDate());
+        cron({user:user3g, tasksByType, daysMissed, analytics});
+        expect(user3g.purchased.plan.consecutive.count).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.offset).to.equal(2);
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+        clock.restore();
+      });
+
+      it('does not increment consecutive benefits in the second month of the gift subscription', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months').add(2, 'days').toDate());
+        cron({user:user3g, tasksByType, daysMissed, analytics});
+        expect(user3g.purchased.plan.consecutive.count).to.equal(2);
+        expect(user3g.purchased.plan.consecutive.offset).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+        clock.restore();
+      });
+
+      it('does not increment consecutive benefits in the third month of the gift subscription', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months').add(2, 'days').toDate());
+        cron({user:user3g, tasksByType, daysMissed, analytics});
+        expect(user3g.purchased.plan.consecutive.count).to.equal(3);
+        expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
+        clock.restore();
+      });
+
+      it('does not increment consecutive benefits in the month after the gift subscription has ended', () => {
+        clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(4, 'months').add(2, 'days').toDate());
+        cron({user:user3g, tasksByType, daysMissed, analytics});
+        expect(user3g.purchased.plan.consecutive.count).to.equal(0); // subscription has been erased by now
+        expect(user3g.purchased.plan.consecutive.offset).to.equal(0);
+        expect(user3g.purchased.plan.consecutive.trinkets).to.equal(1);
+        expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(0); // erased
+        clock.restore();
+      });
+
     });
   });
 
