@@ -25,6 +25,16 @@ module.exports = function buySpecialSpell (user, req = {}, analytics) {
 
   user.items.special[key] += quantity;
 
+  if (key === 'salt') {
+    user.stats.buffs.snowball = false;
+  } else if (key === 'opaquePotion') {
+    user.stats.buffs.spookySparkles = false;
+  } else if (key === 'petalFreePotion') {
+    user.stats.buffs.shinySeed = false;
+  } else if (key === 'sand') {
+    user.stats.buffs.seafoam = false;
+  }
+
   if (analytics) {
     analytics.track('acquire item', {
       uuid: user._id,
