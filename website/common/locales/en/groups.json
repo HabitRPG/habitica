@@ -256,6 +256,7 @@
   "userCountRequestsApproval": "<%= userCount %> request approval",
   "youAreRequestingApproval": "You are requesting approval",
   "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
+  "cannotInviteWhenMuted": "You cannot invite anyone to a guild or party because your chat privileges have been revoked.",
   "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
   "newChatMessageTitle": "New message in <%= groupName %>",
   "exportInbox": "Export Messages",
