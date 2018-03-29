@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Tylko administrator może wyczyścić licznik flag!",
     "messageCannotFlagSystemMessages": "Nie możesz zgłosić wiadomości systemowej. Jesli potrzebujesz zgłosić naruszenie Wytycznych Społeczności związane z tą wiadomością, proszę wyślij e-mailem zrzut ekranu i wyjaśnienie do <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, zdaje się, że wysyłasz zbyt wiele wiadomości! Poczekaj minutę i spróbuj ponownie. Pogaduszki w Karczmie mieszczą równocześnie tylko 200 wiadomości, więc Habitica zaleca wysyłanie dłuższych i bardziej przemyślanych wiadomości oraz łączenie odpowiedzi. Nie możemy się doczekać żeby usłyszeć co masz do powiedzenia. :)",
+    "messageCannotLeaveWhileQuesting": "Nie możesz zaakceptować zaproszenia tej drużyny gdy bierzesz udział w misji. Jeśli chcesz do niej dołączyć to musisz najpierw przerwać misję co możesz zrobić na stronie swojej drużyny. Dostaniesz z powrotem swój zwój misji.",
     "messageUserOperationProtected": "Ścieżka `<%= operation %>` nie została zapisana, gdyż jest chronniona przed zapisem.",
     "messageUserOperationNotFound": "Operacja <%= operation %> nie znaleziona",
     "messageNotificationNotFound": "Nie znaleziono powiadomienia.",

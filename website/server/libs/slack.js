@@ -32,7 +32,7 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
 
   if (userComment) {
     text += ` and commented: ${userComment}`;

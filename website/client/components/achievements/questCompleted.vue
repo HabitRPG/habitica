@@ -1,6 +1,7 @@
 <template lang="pug">
   b-modal#quest-completed(v-if='user.party.quest.completed', :title="title",
-    size='md', :hide-footer="true")
+    size='md', :hide-footer="true", :no-close-on-esc="true", :no-close-on-backdrop="true",
+    @hide='hide')
     .modal-body.text-center
       .quest(:class='`quest_${user.party.quest.completed}`')
       p(v-if='questData.completion && typeof questData.completion === "function"', v-html='questData.completion()')
@@ -60,6 +61,9 @@ export default {
     setQuestCompleted () {
       this.$store.dispatch('user:set', {'party.quest.completed': ''});
       this.close();
+    },
+    hide () {
+      this.setQuestCompleted();
     },
   },
 };

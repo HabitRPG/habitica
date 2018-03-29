@@ -181,7 +181,6 @@
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
-              label="",
               :checked="requiresApproval",
               @change="updateRequiresApproval"
             )
@@ -726,6 +725,12 @@ export default {
       // @TODO: This whole component is mutating a prop and that causes issues. We need to not copy the prop similar to group modals
       if (this.task) this.checklist = clone(this.task.checklist);
     },
+    'task.startDate' () {
+      this.calculateMonthlyRepeatDays();
+    },
+    'task.frequency' () {
+      this.calculateMonthlyRepeatDays();
+    },
   },
   computed: {
     ...mapGetters({
@@ -791,25 +796,6 @@ export default {
 
         return repeatsOn;
       },
-      set (newValue) {
-        const task = this.task;
-
-        if (task.frequency === 'monthly' && newValue === 'dayOfMonth') {
-          const date = moment(task.startDate).date();
-          task.weeksOfMonth = [];
-          task.daysOfMonth = [date];
-        } else if (task.frequency === 'monthly' && newValue === 'dayOfWeek') {
-          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
-          const dayOfWeek = moment(task.startDate).day();
-          const shortDay = this.dayMapping[dayOfWeek];
-          task.daysOfMonth = [];
-          task.weeksOfMonth = [week];
-          for (let key in task.repeat) {
-            task.repeat[key] = false;
-          }
-          task.repeat[shortDay] = true;
-        }
-      },
     },
     selectedTags () {
       return this.getTagsFor(this.task);
@@ -869,6 +855,29 @@ export default {
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
+    },
+    calculateMonthlyRepeatDays () {
+      if (!this.task) return;
+      const task = this.task;
+      const repeatsOn = this.repeatsOn;
+
+      if (task.frequency === 'monthly') {
+        if (repeatsOn === 'dayOfMonth') {
+          const date = moment(task.startDate).date();
+          task.weeksOfMonth = [];
+          task.daysOfMonth = [date];
+        } else if (repeatsOn === 'dayOfWeek') {
+          const week = Math.ceil(moment(task.startDate).date() / 7) - 1;
+          const dayOfWeek = moment(task.startDate).day();
+          const shortDay = this.dayMapping[dayOfWeek];
+          task.daysOfMonth = [];
+          task.weeksOfMonth = [week];
+          for (let key in task.repeat) {
+            task.repeat[key] = false;
+          }
+          task.repeat[shortDay] = true;
+        }
+      }
     },
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();

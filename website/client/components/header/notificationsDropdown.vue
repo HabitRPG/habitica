@@ -185,7 +185,7 @@ export default {
       // skipping those not defined in the handledNotifications object
       notifications.push(...this.user.notifications.filter(notification => {
         if (notification.type === 'UNALLOCATED_STATS_POINTS') {
-          if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return false;
+          if (!this.hasClass) return false;
         }
 
         return orderMap[notification.type] !== undefined;
@@ -211,6 +211,9 @@ export default {
       return this.notifications.some((notification) => {
         return notification.seen === false ? true : false;
       });
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
     },
   },
   methods: {

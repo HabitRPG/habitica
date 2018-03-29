@@ -25,7 +25,7 @@
     "questInvitation": "Görev Davetiyesi:",
     "questInvitationTitle": "Görev Davetiyesi",
     "questInvitationInfo": "<%= quest %> Görevine Davetiye",
-    "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",
+    "invitedToQuest": "<span class=\"notification-bold-blue\"><%= quest %></span> Görevine davet edildin",
     "askLater": "Sonra Sor",
     "questLater": "Görevi Ertele",
     "buyQuest": "Görev Satın Al",

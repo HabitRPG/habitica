@@ -3,6 +3,6 @@
   "foodItemType": "Yiyecek",
   "eggsItemType": "Yumurtalar",
   "hatchingPotionsItemType": "Kuluçka İksirleri",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "specialItemType": "Özel eşyalar",
+  "lockedItem": "Kilitli Eşya"
 }

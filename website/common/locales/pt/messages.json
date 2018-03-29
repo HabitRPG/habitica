@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de bandeira!",
     "messageCannotFlagSystemMessages": "Não é possível assinalar uma mensagem do sistema. Se precisares de reportar uma violação das Directrizes de Comunidade relacionada com esta mensagem, por favor envia uma captura de ecrã e uma explicação por e-mail à Lemoness através do <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, parece que estás a publicar demasiadas mensagens! Por favor aguarda um minuto e volta a tentar. A conversação da Estalagem só pode conter 200 mensagens de cada vez, por isso o Habitica encoraja publicações mais longas e reflectidas, assim como respostas sólidas. Mal podemos esperar por ouvir o que tens a dizer. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",
     "messageNotificationNotFound": "Notificação não encontrada.",

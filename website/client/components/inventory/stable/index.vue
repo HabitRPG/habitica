@@ -48,8 +48,7 @@
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             :checked="hideMissing",
             @change="updateHideMissing"
           )
@@ -274,18 +273,6 @@
     padding: 20px;
     border: 1px solid;
     display: inline-block;
-  }
-
-  .stable .item .item-content.Pet:not(.FlyingPig) {
-    top: -28px;
-  }
-
-  .stable .item .item-content.FlyingPig {
-    top: 7px;
-  }
-
-  .stable .item .item-content.Pet-Dragon-Hydra {
-    top: -16px !important;
   }
 
   .hatchablePopover {

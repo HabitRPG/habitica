@@ -138,5 +138,8 @@
     "dragThisPotion": "Sleep deze <%= potionName %> naar een ei en broed een nieuw huisdier uit!",
     "clickOnEggToHatch": "Klik op een ei om je <%= potionName %>uitbroeddrank te gebruiken en een nieuw huisdier uit te broeden!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Klik op een uitbroeddrank om het te gebruiken op je<%= eggName %>en broed een nieuw huisdier uit!"
+    "clickOnPotionToHatch": "Klik op een uitbroeddrank om het te gebruiken op je<%= eggName %>en broed een nieuw huisdier uit!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }
