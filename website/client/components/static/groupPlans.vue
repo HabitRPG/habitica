@@ -6,8 +6,8 @@
         .top-left
         .col-6.offset-3
           img.party(src='../../assets/images/group-plans-static/party@3x.png')
-          h1 Need more for your party?
-          p This should be a two or three sentence blurb about the team-focused aspect of Group Plans and how their enhanced task management enables productivity with your friends/co-workers.
+          h1 Need more for your crew?
+          p Managing a small team or organizing household chores? Our group plans grant you exclusive access to a private task board and chat area dedicated to you and your group members!
           .pricing
             span Just
             span.number $9
