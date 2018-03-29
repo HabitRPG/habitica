@@ -58,9 +58,6 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
-    case 'spell':
-      buyRes = buySpecialSpell(user, req, analytics);
-      break;
     default: {
       const buyOp = new BuyMarketGearOperation(user, req, analytics);
 
