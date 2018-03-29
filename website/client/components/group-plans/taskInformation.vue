@@ -1,5 +1,6 @@
 <template lang="pug">
 .standard-page
+  group-plan-overview-modal
   task-modal(
     :task="workingTask",
     :purpose="taskFormPurpose",
@@ -234,6 +235,7 @@
 import taskDefaults from 'common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
+import GroupPlanOverviewModal from './groupPlanOverviewModal';
 
 import positiveIcon from 'assets/svg/positive.svg';
 import filterIcon from 'assets/svg/filter.svg';
@@ -254,6 +256,7 @@ export default {
   components: {
     TaskColumn,
     TaskModal,
+    GroupPlanOverviewModal,
   },
   data () {
     return {
@@ -299,6 +302,10 @@ export default {
   mounted () {
     if (!this.searchId) this.searchId = this.groupId;
     this.load();
+
+    if (this.$route.query.showGroupOverview) {
+      this.$root.$emit('bv::show::modal', 'group-plan-overview');
+    }
   },
   computed: {
     ...mapState({user: 'user.data'}),

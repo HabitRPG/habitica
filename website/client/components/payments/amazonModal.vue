@@ -225,7 +225,7 @@ export default {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
               const habiticaUrl = `${location.protocol}//${location.host};`;
-              window.location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information`;
+              window.location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
               return;
             }
 
