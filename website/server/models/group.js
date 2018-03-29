@@ -885,7 +885,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }));
   }
 
-  return Promise.all(promises);
+  return await Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
