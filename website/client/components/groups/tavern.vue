@@ -134,6 +134,8 @@
         .section.row(v-if="sections.helpfulLinks")
           ul
             li
+              a(href='', @click.prevent='modForm()') {{ $t('contactForm') }}
+            li
              router-link(to='/static/community-guidelines', v-once) {{ $t('communityGuidelinesLink') }}
             li
               router-link(to="/groups/guild/f2db2a7f-13c5-454d-b3ee-ea1f5089e601") {{ $t('lookingForGroup') }}
@@ -510,12 +512,12 @@
     padding: 1em;
     cursor: pointer;
   }
-
 </style>
 
 <script>
 import debounce from 'lodash/debounce';
 import { mapState } from 'client/libs/store';
+import { goToModForm } from 'client/libs/modform';
 
 import { TAVERN_ID } from '../../../common/script/constants';
 import chatMessage from '../chat/chatMessages';
@@ -705,6 +707,9 @@ export default {
     this.group = await this.$store.dispatch('guilds:getGroup', {groupId: TAVERN_ID});
   },
   methods: {
+    modForm () {
+      goToModForm(this.user);
+    },
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
     getCoord (e, text) {
       let carPos = text.selectionEnd;
