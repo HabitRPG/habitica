@@ -6,7 +6,7 @@
     "innText": "Du erholst Dich im Gasthaus! Während Du dort verweilst, werden Dir Deine täglichen Aufgaben keinen Schaden zufügen, aber trotzdem täglich aktualisiert. Vorsicht: Wenn Du an einem Bosskampf teilnimmst, erhältst Du weiterhin Schaden für die verpassten Aufgaben Deiner Gruppenmitglieder, sofern sich diese nicht auch im Gasthaus befinden! Außerdem wird der Schaden, den Du dem Boss zufügst, (und gefundene Gegenstände) erst angewendet, wenn Du das Gasthaus verlässt.",
     "innTextBroken": "Du erholst Dich im Gasthaus, schätze ich ... Während Du dort verweilst, werden Dir Deine täglichen Aufgaben keinen Schaden zufügen, aber trotzdem täglich aktualisiert ... Wenn Du an einem Bosskampf teilnimmst, erhältst Du weiterhin Schaden für die verpassten Aufgaben Deiner Gruppenmitglieder ... sofern sich diese nicht auch im Gasthaus befinden ... Außerdem wird Dein Schaden am Boss (oder gesammelte Gegenstände) nicht berücksichtigt, bis Du das Gasthaus verlässt ... So müde ...",
     "innCheckOutBanner": "You are currently checked into the Inn. Your Dailies won't damage you and you won't make progress towards Quests.",
-    "resumeDamage": "Resume Damage",
+    "resumeDamage": "Schaden fortsetzen",
     "helpfulLinks": "Weiterführende Links",
     "communityGuidelinesLink": "Community-Richtlinien",
     "lookingForGroup": "Gruppe gesucht (Party wanted) Posts",
