@@ -620,7 +620,7 @@ export default {
       }
     },
     togglePinned (item) {
-      if (!Boolean(item.pinType)) {
+      if (!item.pinType) {
         this.error(this.$t('errorTemporaryItem'));
         return;
       }
