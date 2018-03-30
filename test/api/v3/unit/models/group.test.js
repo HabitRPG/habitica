@@ -1434,6 +1434,7 @@ describe('Group Model', () => {
         };
         await questLeader.save();
         await party.finishQuest(quest);
+        await sleep(0.5);
 
         let [
           updatedLeader,
