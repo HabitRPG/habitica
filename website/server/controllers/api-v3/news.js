@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SUBSCRIBER ITEMS, MAGIC POTIONS AVAILABLE INTO APRIL, AND COMMUNITY GUIDELINES UPDATES';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA ON INSTAGRAM, SELF-IMPOSED CHALLENGE BLOG, AND WHAT\'S THE APRIL FOOL UP TO?';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,37 +32,22 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/29/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
+        <h3>Habitica is Now on Instagram!</h3>
+        <p>Habitica's <a href='https://www.instagram.com/habitica' target='_blank'>Instagram</a> is now live! Follow us for updates and exclusive peeks at behind-the-scenes fun!</p>
         <div class="media align-items-center">
-          <div class="promo_rainbow_potions mr-3 mb-3"></div>
+          <div class="scene_todos"></div>
           <div class="media-body">
-            <div class="media align-items-center">
-              <div class="media-body">
-                <h3>Last Chance for Daring Dragonfly Set</h3>
-                <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe</a> and receive the Daring Dragonfly Set! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!</p>
-                <p>Thanks so much for your support! You help keep Habitica running.</p>
-                <div class="small mb-3">by Beffymaroo</div>
-              </div>
-              <div class="promo_mystery_201803"></div>
-            </div>
-            <h3>Extended Availability for Shimmer and Rainbow Hatching Potions</h3>
-            <p>Due to popular demand, we've extended the availability of the Rainbow and Shimmer Magic Hatching Potions until Spring Fling ends on April 30! Be sure to grab them from the <a href='/shops/market' target='_blank'>Market</a> before then! If they come back, it won't be until next year at the earliest, so don't delay!</p>
-            <div class="small mb-3">by Beffymaroo, Teto Forever, tricksy.fox, and SabreCat</div>
+            <h3>New Blog Post: Self-Imposed Challenges!</h3>
+            <p>This month's <a href='https://habitica.wordpress.com/2018/03/28/self-imposed-challenges/' target='_blank'>featured Wiki article</a> is about Self-Imposed Challenges! We hope that it will help you as you customize Habitica to make it as fun and challenging as you'd like it to be! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+            <div class="small mb-3">by Beffymaroo and the Wiki Wizards</div>
           </div>
         </div>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>Community Guidelines Updates</h3>
-            <p>We've made some important updates to <a href='/static/community-guidelines' target='_blank'>the Community Guidelines</a> to make it easier to read, as well as to clarify some policies on subjects such as promotional Challenges, spamming, and more. <a href='/static/community-guidelines' target='_blank'>Be sure to read it</a> before you chat in the <a href='/groups/tavern' target='_blank'>Tavern</a>, in <a href='/groups/discovery' target='_blank'>Guilds</a>, or in your <a href='/party' target='_blank'>Party</a>!</p>
-            <p>Thanks for helping us keep Habitica's community happy and safe!</p>
-            <div class="small mb-3">by shanaqui and the marvelous moderators</div>
-          </div>
-          <div class="community_guidelines"></div>
-        </div>
-        <h3>Moderator Contact Form</h3>
-        <p>Encountering a community issue? There's a new, simple way to get in touch with the moderator team: <a href='http://contact.habitica.com' target='_blank'>the moderator contact form</a>! You can access it under the Help menu, under the Helpful Links in the <a href='/groups/tavern' target='_blank'>Tavern</a> sidebar, or on <a href='/static/contact' target='_blank'>the Contact Us page</a>. This is always the best and fastest way to contact a moderator if you need help. We hope that it will be useful!</p>
-        <div class="small mb-3">by TheHollidayInn, Lemoness, and Alys</p>
+        <h3>The April Fool Stops By the Tavern...</h3>
+        <p>It's that time of year again, and all Habitica's denizens have been on the lookout for stirrings from the most mischievous Masterclasser: the April Fool. Puzzlingly (and perhaps alarmingly!) he's been unusually quiet considering his favorite day is nearing. He's announced he's keeping his plans small-scale and that they will hardly be noticed, but upon hearing this from Tavern-goers on a visit to Habit City, Lady Glaciate rolled her eyes.</p>
+        <p>"I'd be interested to know what the Master of Rogues considers a modestly-proportioned prank…" she says irritably.</p>
+        <p>Perhaps you should check back over the weekend to see what's in store…</p>
       </div>
       `,
     });

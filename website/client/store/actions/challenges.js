@@ -45,7 +45,7 @@ export async function getUserChallenges (store, payload) {
 
   let query = {};
   if (member) query.member = member;
-  if (page) query.page = page;
+  if (page >= 0) query.page = page;
   if (search) query.search = search;
   if (categories) query.categories = categories;
   if (owned) query.owned = owned;
