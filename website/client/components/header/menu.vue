@@ -210,6 +210,7 @@ div
 
       &:hover {
         background: $purple-300;
+        color: $white;
 
         &:last-child {
           border-bottom-right-radius: 5px;
