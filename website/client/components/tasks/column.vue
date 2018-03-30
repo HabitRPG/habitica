@@ -620,6 +620,11 @@ export default {
       }
     },
     togglePinned (item) {
+      if (!Boolean(item.pinType)) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.text(this.$t('unpinnedItem', {item: item.text}));
