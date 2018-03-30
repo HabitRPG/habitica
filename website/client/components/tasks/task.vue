@@ -73,15 +73,15 @@
             span {{dueIn}}
           .icons-right.d-flex.justify-content-end
             .d-flex.align-items-center(v-if="showStreak")
-              .svg-icon.streak(v-html="icons.streak")
+              .svg-icon.streak(v-html="icons.streak", v-b-tooltip.hover.bottom="$t('streakCounter')")
               span(v-if="task.type === 'daily'") {{task.streak}}
               span(v-if="task.type === 'habit'")
                 span.m-0(v-if="task.up") +{{task.counterUp}}
                 span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
                 span.m-0(v-if="task.down") -{{task.counterDown}}
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken')
-              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
+              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="$t('challenge')")
+              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)', v-b-tooltip.hover.bottom="$t('brokenChaLink')")
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
             b-popover(
