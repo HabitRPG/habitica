@@ -13,22 +13,6 @@ div
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
           .svg-icon.positive-icon(v-html="icons.positive")
-        button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin && !adminToolsLoaded',
-          @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
-          .svg-icon.positive-icon(v-html="icons.edit")
-        span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
-          button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
-            @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
-            .svg-icon.positive-icon(v-html="icons.megaphone")
-          button.btn.btn-secondary.positive-icon(v-if='hero.flags && hero.flags.chatRevoked',
-            @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Admin - Reinstate Chat Privileges'")
-            .svg-icon.positive-icon(v-html="icons.challenge")
-          button.btn.btn-secondary.positive-icon(v-if='!hero.auth.blocked',
-            @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Block User'")
-            .svg-icon.positive-icon(v-html="icons.lock")
-          button.btn.btn-secondary.positive-icon(v-if='hero.auth.blocked',
-            @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
-            .svg-icon.positive-icon(v-html="icons.member")
       .row
         .col-12
           member-details(:member="user")
@@ -187,10 +171,10 @@ div
                 attributesGrid.attributesGrid(
                   :item="content.gear.flat[costumeItems[key]]",
                 )
-
+              
               h3(v-if="label !== 'skip'") {{ label }}
               h3(v-else) {{ $t('background') }}
-
+              
       .row.pet-mount-row
         .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -603,11 +587,6 @@ import gift from 'assets/svg/gift.svg';
 import remove from 'assets/svg/remove.svg';
 import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
-import megaphone from 'assets/svg/broken-megaphone.svg';
-import lock from 'assets/svg/lock.svg';
-import challenge from 'assets/svg/challenge.svg';
-import member from 'assets/svg/member-icon.svg';
-import edit from 'assets/svg/edit.svg';
 
 export default {
   directives: {
@@ -627,13 +606,7 @@ export default {
         positive,
         gift,
         dots,
-        megaphone,
-        challenge,
-        lock,
-        member,
-        edit,
       }),
-      adminToolsLoaded: false,
       userIdToMessage: '',
       userReceivingGems: '',
       editing: false,
@@ -642,7 +615,6 @@ export default {
         imageUrl: '',
         blurb: '',
       },
-      hero: {},
       managerEmail: {
         hrefBlankCommunityManagerEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
@@ -720,11 +692,8 @@ export default {
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
-      this.hero = {};
-      this.adminToolsLoaded = false;
 
       let profileUser = this.$store.state.profileUser;
-
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
       }
@@ -740,7 +709,6 @@ export default {
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
-
       return user;
     },
     incentivesProgress () {
@@ -894,36 +862,6 @@ export default {
     openSendGemsModal () {
       this.userReceivingGems = this.user;
       this.$root.$emit('bv::show::modal', 'send-gems');
-    },
-    adminRevokeChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminReinstateChat () {
-      if (!this.hero.flags) {
-        this.hero.flags = {};
-      }
-      this.hero.flags.chatRevoked = false;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminBlockUser () {
-      this.hero.auth.blocked = true;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    adminUnblockUser () {
-      this.hero.auth.blocked = false;
-
-      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
-    },
-    async loadAdminTools () {
-      this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
-      this.adminToolsLoaded = true;
     },
   },
 };
