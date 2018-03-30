@@ -19,7 +19,8 @@
             menu-dropdown.task-dropdown(
               v-if="isUser && !isRunningYesterdailies",
               :right="task.type === 'reward'",
-              ref="taskDropdown"
+              ref="taskDropdown",
+              v-b-tooltip.hover.top="$t('showMore')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
@@ -69,7 +70,7 @@
             label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
-            .svg-icon.calendar(v-html="icons.calendar")
+            .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
             span {{dueIn}}
           .icons-right.d-flex.justify-content-end
             .d-flex.align-items-center(v-if="showStreak")
