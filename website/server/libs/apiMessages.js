@@ -17,8 +17,17 @@ const messages = {
   guildsOnlyPaginate: 'Only public guilds support pagination.',
   guildsPaginateBooleanString: 'req.query.paginate must be a boolean string.',
   groupIdRequired: 'req.params.groupId must contain a groupId.',
+  groupRemainOrLeaveChallenges: 'req.query.keep must be either "remain-in-challenges" or "leave-challenges"',
   managerIdRequired: 'req.body.managerId must contain a user ID.',
   noSudoAccess: 'You don\'t have sudo access.',
+
+  eventRequired: '"req.params.event" is required.',
+  countRequired: '"req.query.count" is required.',
+
+  missingPaymentId: 'Missing "req.query.paymentId"',
+  missingCustomerId: 'Missing "req.query.customerId"',
+  missingPaypalBlock: 'Missing "req.session.paypalBlock"',
+  missingSubKey: 'Missing "req.query.sub"',
 };
 
 export default function (msgKey, vars = {}) {

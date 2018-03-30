@@ -8,6 +8,7 @@ import {
 import {
   BadRequest,
 } from '../../../libs/errors';
+import apiMessages from '../../../libs/apiMessages';
 
 const i18n = shared.i18n;
 
@@ -54,8 +55,8 @@ api.checkoutSuccess = {
     let gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
 
-    if (!paymentId) throw new BadRequest(i18n.t('missingPaymentId'));
-    if (!customerId) throw new BadRequest(i18n.t('missingCustomerId'));
+    if (!paymentId) throw new BadRequest(apiMessages('missingPaymentId'));
+    if (!customerId) throw new BadRequest(apiMessages('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({user, gift, paymentId, customerId});
 
@@ -78,7 +79,7 @@ api.subscribe = {
   url: '/paypal/subscribe',
   middlewares: [authWithUrl],
   async handler (req, res) {
-    if (!req.query.sub) throw new BadRequest(i18n.t('missingSubKey'));
+    if (!req.query.sub) throw new BadRequest(apiMessages('missingSubKey'));
 
     let sub = shared.content.subscriptionBlocks[req.query.sub];
     let coupon = req.query.coupon;
@@ -109,7 +110,7 @@ api.subscribeSuccess = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    if (!req.session.paypalBlock) throw new BadRequest(i18n.t('missingPaypalBlock'));
+    if (!req.session.paypalBlock) throw new BadRequest(apiMessages('missingPaypalBlock'));
 
     let block = shared.content.subscriptionBlocks[req.session.paypalBlock];
     let groupId = req.session.groupId;

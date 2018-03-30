@@ -3,6 +3,7 @@ import {
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
 import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import apiMessages from '../../../../../../website/server/libs/apiMessages';
 
 describe('payments : paypal #checkoutSuccess', () => {
   let endpoint = '/paypal/checkout/success';
@@ -17,7 +18,7 @@ describe('payments : paypal #checkoutSuccess', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('missingPaymentId'),
+        message: apiMessages('missingPaymentId'),
       });
   });
 
@@ -26,7 +27,7 @@ describe('payments : paypal #checkoutSuccess', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('missingCustomerId'),
+        message: apiMessages('missingCustomerId'),
       });
   });
 
