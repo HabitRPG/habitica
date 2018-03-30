@@ -24,7 +24,7 @@ div
             @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Admin - Reinstate Chat Privileges'")
             .svg-icon.positive-icon(v-html="icons.challenge")
           button.btn.btn-secondary.positive-icon(v-if='!hero.auth.blocked',
-            @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Block User'")
+            @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Ban User'")
             .svg-icon.positive-icon(v-html="icons.lock")
           button.btn.btn-secondary.positive-icon(v-if='hero.auth.blocked',
             @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
