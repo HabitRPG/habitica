@@ -96,6 +96,7 @@
     "unlocked": "Предметите бяха отключени",
     "alreadyUnlocked": "Пълният комплект вече е отключен.",
     "alreadyUnlockedPart": "Пълният комплект вече е частично отключен.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "Нови неща от Бейли",
     "newBaileyUpdate": "Ново обновление от Бейли!",

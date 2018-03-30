@@ -21,7 +21,7 @@
     "spellRogueBackStabText": "Arkadan Bıçaklama",
     "spellRogueBackStabNotes": "Aptal bir göreve ihanet ederek altın ve tecrübe kazan! Uygulamak için bir işe tıkla. (Baz alınan: Güç)",
     "spellRogueToolsOfTradeText": "Hırsızlık Eşyaları",
-    "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
+    "spellRogueToolsOfTradeNotes": "Senin el çabuklukların tüm partinin sezgisini artırdı! (Baz alınan: Kutsanmamış Sezgi)",
     "spellRogueStealthText": "Gizlilik",
     "spellRogueStealthNotes": "Her kullanımla yerine getirmediğin bazı Günlük İşlerin bu gece sana zarar vermeyecek ve tamamlama serileri/renkleri değişmeyecek. (Baz alınan: Sezgi)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılan günlük iş sayısı: <%= number %>.",

@@ -96,6 +96,7 @@
     "unlocked": "Przedmioty zostały odblokowane",
     "alreadyUnlocked": "Pełen zestaw jest już odblokowany.",
     "alreadyUnlockedPart": "Zestaw jest już częściowo odblokowany.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "Nowości od Bailey",
     "newBaileyUpdate": "Nowości od Bailey",

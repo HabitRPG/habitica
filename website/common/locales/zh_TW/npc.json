@@ -96,6 +96,7 @@
     "unlocked": "物品解鎖",
     "alreadyUnlocked": "Full set already unlocked.",
     "alreadyUnlockedPart": "Full set already partially unlocked.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(美金)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

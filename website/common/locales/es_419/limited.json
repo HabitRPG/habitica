@@ -122,7 +122,7 @@
     "spring2018GarnetHealerSet": "Garnet Healer (Healer)",
     "spring2018DucklingRogueSet": "Duckling Rogue (Rogue)",
     "eventAvailability": "Disponible para compra hasta el <%= date(locale) %>.",
-    "dateEndMarch": "31 de marzo",
+    "dateEndMarch": "April 30",
     "dateEndApril": "19 de Abril",
     "dateEndMay": "17 de Mayo",
     "dateEndJune": "14 de junio",
