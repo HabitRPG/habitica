@@ -6,7 +6,7 @@
 }
 .promo_armoire_background_201803 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -284px -327px;
+  background-position: -814px 0px;
   width: 141px;
   height: 441px;
 }
@@ -18,7 +18,7 @@
 }
 .promo_hugabug_bundle {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -814px 0px;
+  background-position: -142px -327px;
   width: 141px;
   height: 441px;
 }
@@ -30,19 +30,19 @@
 }
 .promo_mystery_201803 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -814px -729px;
+  background-position: -956px -622px;
   width: 114px;
   height: 90px;
 }
 .promo_rainbow_potions {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -142px -327px;
+  background-position: -284px -327px;
   width: 141px;
   height: 441px;
 }
 .promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -441px -752px;
+  background-position: -956px -196px;
   width: 162px;
   height: 138px;
 }
@@ -54,7 +54,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -814px -820px;
+  background-position: -1071px -622px;
   width: 114px;
   height: 87px;
 }
@@ -66,13 +66,13 @@
 }
 .scene_podcast {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -814px -442px;
+  background-position: -956px -335px;
   width: 141px;
   height: 141px;
 }
 .scene_sweeping {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -814px -584px;
+  background-position: -956px -477px;
   width: 138px;
   height: 144px;
 }
@@ -81,4 +81,10 @@
   background-position: 0px 0px;
   width: 440px;
   height: 326px;
+}
+.scene_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -956px 0px;
+  width: 240px;
+  height: 195px;
 }
