@@ -885,10 +885,10 @@
         this.$store.dispatch('common:equip', {key: item.key, type: 'mount'});
       },
       hatchPet (pet) {
-        this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
-
         this.closeHatchPetDialog();
-        // this.$root.$emit('hatchedPet::open', pet);
+
+        this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
+        this.text(this.$t('hatchedPet', {egg: pet.eggKey, potion: pet.potionKey}));
       },
       onDragStart (ev, food) {
         this.currentDraggingFood = food;
@@ -937,11 +937,9 @@
             return;
           }
 
-          this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
-          this.text(this.$t('hatchedPet', {egg: pet.eggKey, potion: pet.potionKey}));
-          if (this.user.preferences.suppressModals.hatchPet) return;
-          const newPet = createAnimal(pet.eggKey, pet.potionKey, 'pet', this.content, this.user.items);
-          this.$root.$emit('hatchedPet::open', newPet);
+          // Confirm
+          this.hatchablePet = pet;
+          this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
       async feedAction (petKey, foodKey) {
