@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "No tienes <%= type %>",
+  "foodItemType": "Comida",
+  "eggsItemType": "Huevos",
+  "hatchingPotionsItemType": "Pociones de Eclosión ",
+  "specialItemType": "Artículos Especiales",
+  "lockedItem": "Artículo bloqueado"
+}

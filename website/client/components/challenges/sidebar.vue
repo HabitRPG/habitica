@@ -10,30 +10,27 @@
         v-for="group in categoryOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="categoryFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group(v-if='$route.name !== "findChallenges"')
       h3 Membership
       .form-check(
         v-for="group in roleOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="roleFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
     .form-group
       h3 Ownership
       .form-check(
         v-for="group in ownershipOptions",
         :key="group.key",
       )
-        label.custom-control.custom-checkbox
-          input.custom-control-input(type="checkbox", :value='group.key' v-model="ownershipFilters")
-          span.custom-control-indicator
-          span.custom-control-description(v-once) {{ $t(group.label) }}
+        .custom-control.custom-checkbox
+          input.custom-control-input(type="checkbox", :value='group.key' v-model="ownershipFilters", :id="group.key")
+          label.custom-control-label(v-once, :for="group.key") {{ $t(group.label) }}
 </template>
 
 <script>
@@ -148,7 +145,7 @@ export default {
       this.$emit('search', {
         searchTerm: newSearch,
       });
-    }, 250),
+    }, 500),
   },
   methods: {
     emitFilters () {

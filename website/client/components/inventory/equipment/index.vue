@@ -12,10 +12,9 @@
           v-for="group in itemsGroups",
           :key="group.key",
         )
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected")
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ group.label }}
+          .custom-control.custom-checkbox
+            input.custom-control-input(type="checkbox", v-model="viewOptions[group.key].selected", :id="groupBy + group.key")
+            label.custom-control-label(v-once, :for="groupBy + group.key") {{ group.label }}
 
   .standard-page
     .clearfix
@@ -55,18 +54,12 @@
                 :class="{'drawer-tab-text-active': costume === true}",
               ) {{ $t('costume') }}
 
-            toggle-switch#costumePrefToggleSwitch.float-right(
+            toggle-switch.float-right.align-with-tab(
               :label="$t(costume ? 'useCostume' : 'autoEquipBattleGear')",
               :checked="user.preferences[drawerPreference]",
               @change="changeDrawerPreference",
+              :hoverText="$t(drawerPreference+'PopoverText')",
             )
-
-            b-popover(
-              target="costumePrefToggleSwitch"
-              triggers="hover",
-              placement="top"
-            )
-              .popover-content-text {{ $t(drawerPreference+'PopoverText') }}
       .items.items-one-line(slot="drawer-slider")
         item.pointer(
           v-for="(label, group) in gearTypesToStrings",
@@ -135,6 +128,14 @@
 .pointer {
   cursor: pointer;
 }
+
+.align-with-tab {
+  margin-top: 3px;
+}
+
+.drawer-tab-text {
+  display: inline-block;
+}
 </style>
 
 <script>
@@ -148,7 +149,6 @@ import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
 
 import toggleSwitch from 'client/components/ui/toggleSwitch';
-
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import EquipmentAttributesPopover from 'client/components/inventory/equipment/attributesPopover';
@@ -158,7 +158,6 @@ import Drawer from 'client/components/ui/drawer';
 import i18n from 'common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
-
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -215,7 +214,7 @@ export default {
   },
   watch: {
     searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText;
+      this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
   mounted () {
@@ -243,7 +242,19 @@ export default {
       });
     },
     sortItems (items, sortBy) {
-      return _reverse(_sortBy(items, sortGearTypeMap[sortBy]));
+      let userClass = this.user.stats.class;
+
+      return sortBy === 'sortByName' ?
+        _sortBy(items, sortGearTypeMap[sortBy]) :
+        _reverse(_sortBy(items, (item) => {
+          let attrToSort = sortGearTypeMap[sortBy];
+          let attrValue = item[attrToSort];
+          if (item.klass === userClass || item.specialClass === userClass) {
+            attrValue *= 1.5;
+          }
+
+          return attrValue;
+        }));
     },
     drawerToggled (newState) {
       this.$store.state.equipmentDrawerOpen = newState;

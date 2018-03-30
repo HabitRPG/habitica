@@ -24,6 +24,7 @@ function sendFlagNotification ({
   flagger,
   group,
   message,
+  userComment,
 }) {
   if (!SLACK_FLAGGING_URL) {
     return;
@@ -31,7 +32,11 @@ function sendFlagNotification ({
   let titleLink;
   let authorName;
   let title = `Flag in ${group.name}`;
-  let text = `${flagger.profile.name} (${flagger.id}) flagged a message (language: ${flagger.preferences.language})`;
+  let text = `${flagger.profile.name} (${flagger.id}; language: ${flagger.preferences.language}) flagged a message`;
+
+  if (userComment) {
+    text += ` and commented: ${userComment}`;
+  }
 
   if (group.id === TAVERN_ID) {
     titleLink = `${BASE_URL}/groups/tavern`;
@@ -77,7 +82,7 @@ function sendSubscriptionNotification ({
   let text;
   let timestamp = new Date();
   if (recipient.id) {
-    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {

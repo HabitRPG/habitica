@@ -41,6 +41,7 @@ div
                 .grey-progress-bar
                   .collect-progress-bar(:style="{width: (group.quest.progress.collect[key] / value.count) * 100 + '%'}")
                 strong {{group.quest.progress.collect[key]}} / {{value.count}}
+            div.text-right {{parseFloat(user.party.quest.progress.collectedItems) || 0}} items found
           .boss-info(v-if='questData.boss')
             .row
               .col-6
@@ -52,14 +53,14 @@ div
                 .grey-progress-bar
                   .boss-health-bar(:style="{width: (group.quest.progress.hp / questData.boss.hp) * 100 + '%'}")
             .row.boss-details
-                .col-6
-                  span.float-left
-                    | {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
-                    // current boss hp uses ceil so you don't underestimate damage needed to end quest
-                .col-6(v-if='userIsOnQuest')
-                  // @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.
-                  span.float-right {{ Math.floor(parseFloat(user.party.quest.progress.up) * 10) / 10 }} {{ $t('pendingDamage') }}
-                  // player's pending damage uses floor so you don't overestimate damage you've already done
+              .col-6
+                span.float-left
+                  | {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }}
+                  // current boss hp uses ceil so you don't underestimate damage needed to end quest
+              .col-6(v-if='userIsOnQuest')
+                // @TODO: Why do we not sync quest progress on the group doc? Each user could have different progress.
+                span.float-right {{ Math.floor(parseFloat(user.party.quest.progress.up) * 10) / 10 }} {{ $t('pendingDamage') }}
+                // player's pending damage uses floor so you don't overestimate damage you've already done
             .row.rage-bar-row(v-if='questData.boss.rage')
               .col-12
                 .grey-progress-bar

@@ -153,6 +153,24 @@ describe('payments/index', () => {
         expect(recipient.purchased.plan.dateUpdated).to.exist;
       });
 
+      it('sets plan.dateUpdated if it did exist but the user has cancelled', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
+        recipient.purchased.plan.customerId = 'testing';
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
+      it('sets plan.dateUpdated if it did exist but the user has a corrupt plan', async () => {
+        recipient.purchased.plan.dateUpdated = moment().subtract(1, 'days').toDate();
+
+        await api.createSubscription(data);
+
+        expect(moment(recipient.purchased.plan.dateUpdated).date()).to.eql(moment().date());
+      });
+
       it('sets plan.dateCreated if it did not previously exist', async () => {
         expect(recipient.purchased.plan.dateCreated).to.not.exist;
 
@@ -191,7 +209,7 @@ describe('payments/index', () => {
         await api.createSubscription(data);
         let msg = '\`Hello recipient, sender has sent you 3 months of subscription!\`';
 
-        expect(user.sendMessage).to.be.calledTwice;
+        expect(user.sendMessage).to.be.calledOnce;
         expect(user.sendMessage).to.be.calledWith(recipient, { receiverMsg: msg, senderMsg: msg });
       });
 
@@ -227,77 +245,6 @@ describe('payments/index', () => {
             'x-client': 'habitica-web',
             'user-agent': '',
           },
-        });
-      });
-
-      context('Winter 2017-18 Gift-1-Get-1 Promotion', async () => {
-        it('creates a gift subscription for purchaser and recipient if none exist', async () => {
-          await api.createSubscription(data);
-
-          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
-          expect(user.purchased.plan.customerId).to.eql('Gift');
-          expect(user.purchased.plan.dateTerminated).to.exist;
-          expect(user.purchased.plan.dateUpdated).to.exist;
-          expect(user.purchased.plan.dateCreated).to.exist;
-
-          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
-          expect(recipient.purchased.plan.customerId).to.eql('Gift');
-          expect(recipient.purchased.plan.dateTerminated).to.exist;
-          expect(recipient.purchased.plan.dateUpdated).to.exist;
-          expect(recipient.purchased.plan.dateCreated).to.exist;
-        });
-
-        it('adds extraMonths to existing subscription for purchaser and creates a gift subscription for recipient without sub', async () => {
-          user.purchased.plan = plan;
-
-          expect(user.purchased.plan.extraMonths).to.eql(0);
-
-          await api.createSubscription(data);
-
-          expect(user.purchased.plan.extraMonths).to.eql(3);
-
-          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
-          expect(recipient.purchased.plan.customerId).to.eql('Gift');
-          expect(recipient.purchased.plan.dateTerminated).to.exist;
-          expect(recipient.purchased.plan.dateUpdated).to.exist;
-          expect(recipient.purchased.plan.dateCreated).to.exist;
-        });
-
-        it('adds extraMonths to existing subscription for recipient and creates a gift subscription for purchaser without sub', async () => {
-          recipient.purchased.plan = plan;
-
-          expect(recipient.purchased.plan.extraMonths).to.eql(0);
-
-          await api.createSubscription(data);
-
-          expect(recipient.purchased.plan.extraMonths).to.eql(3);
-
-          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
-          expect(user.purchased.plan.customerId).to.eql('Gift');
-          expect(user.purchased.plan.dateTerminated).to.exist;
-          expect(user.purchased.plan.dateUpdated).to.exist;
-          expect(user.purchased.plan.dateCreated).to.exist;
-        });
-
-        it('adds extraMonths to existing subscriptions for purchaser and recipient', async () => {
-          user.purchased.plan = plan;
-          recipient.purchased.plan = plan;
-
-          expect(user.purchased.plan.extraMonths).to.eql(0);
-          expect(recipient.purchased.plan.extraMonths).to.eql(0);
-
-          await api.createSubscription(data);
-
-          expect(user.purchased.plan.extraMonths).to.eql(3);
-          expect(recipient.purchased.plan.extraMonths).to.eql(3);
-        });
-
-        it('sends a private message about the promotion', async () => {
-          await api.createSubscription(data);
-          let msg = '\`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!\`';
-
-          expect(user.sendMessage).to.be.calledTwice;
-          expect(user.sendMessage).to.be.calledWith(user, { senderMsg: msg });
         });
       });
     });
@@ -470,13 +417,19 @@ describe('payments/index', () => {
       it('awards mystery items when within the timeframe for a mystery item', async () => {
         let mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
         let fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
+
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
+
+        const oldNotificationsCount = user.notifications.length;
 
         await api.createSubscription(data);
 
+        expect(user.notifications.find(n => n.type === 'NEW_MYSTERY_ITEMS')).to.not.be.undefined;
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(2);
         expect(user.purchased.plan.mysteryItems).to.include('armor_mystery_201605');
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
+        expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
+        expect(user.notifications[0].type).to.equal('NEW_MYSTERY_ITEMS');
 
         fakeClock.restore();
       });

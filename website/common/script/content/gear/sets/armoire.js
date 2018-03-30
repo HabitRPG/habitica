@@ -314,6 +314,32 @@ let armor = {
     set: 'lamplighter',
     canOwn: ownsItem('armor_armoire_lamplightersGreatcoat'),
   },
+  coachDriverLivery: {
+    text: t('armorArmoireCoachDriverLiveryText'),
+    notes: t('armorArmoireCoachDriverLiveryNotes', { str: 12 }),
+    value: 100,
+    str: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('armor_armoire_coachDriverLivery'),
+  },
+  robeOfDiamonds: {
+    text: t('armorArmoireRobeOfDiamondsText'),
+    notes: t('armorArmoireRobeOfDiamondsNotes', { per: 13 }),
+    value: 100,
+    per: 13,
+    set: 'kingOfDiamonds',
+    canOwn: ownsItem('armor_armoire_robeOfDiamonds'),
+  },
+  flutteryFrock: {
+    text: t('armorArmoireFlutteryFrockText'),
+    notes: t('armorArmoireFlutteryFrockNotes', { attrs: 5 }),
+    value: 100,
+    con: 5,
+    per: 5,
+    str: 5,
+    set: 'fluttery',
+    canOwn: ownsItem('armor_armoire_flutteryFrock'),
+  },
 };
 
 let body = {
@@ -674,6 +700,32 @@ let head = {
     set: 'lamplighter',
     canOwn: ownsItem('head_armoire_lamplightersTopHat'),
   },
+  coachDriversHat: {
+    text: t('headArmoireCoachDriversHatText'),
+    notes: t('headArmoireCoachDriversHatNotes', { int: 12 }),
+    value: 100,
+    int: 12,
+    set: 'coachDriver',
+    canOwn: ownsItem('head_armoire_coachDriversHat'),
+  },
+  crownOfDiamonds: {
+    text: t('headArmoireCrownOfDiamondsText'),
+    notes: t('headArmoireCrownOfDiamondsNotes', { int: 13 }),
+    value: 100,
+    int: 13,
+    set: 'kingOfDiamonds',
+    canOwn: ownsItem('head_armoire_crownOfDiamonds'),
+  },
+  flutteryWig: {
+    text: t('headArmoireFlutteryWigText'),
+    notes: t('headArmoireFlutteryWigNotes', { attrs: 5 }),
+    value: 100,
+    int: 5,
+    per: 5,
+    str: 5,
+    set: 'fluttery',
+    canOwn: ownsItem('head_armoire_flutteryWig'),
+  },
 };
 
 let shield = {
@@ -834,6 +886,24 @@ let shield = {
     int: 8,
     set: 'weaver',
     canOwn: ownsItem('shield_armoire_weaversShuttle'),
+  },
+  shieldOfDiamonds: {
+    text: t('shieldArmoireShieldOfDiamondsText'),
+    notes: t('shieldArmoireShieldOfDiamondsNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    // set: 'kingOfDiamonds',
+    canOwn: ownsItem('shield_armoire_shieldOfDiamonds'),
+  },
+  flutteryFan: {
+    text: t('shieldArmoireFlutteryFanText'),
+    notes: t('shieldArmoireFlutteryFanNotes', { attrs: 5 }),
+    value: 100,
+    con: 5,
+    int: 5,
+    per: 5,
+    // set: 'fluttery',
+    canOwn: ownsItem('shield_armoire_flutteryFan'),
   },
 };
 
@@ -1098,6 +1168,33 @@ let weapon = {
     con: 8,
     set: 'lamplighter',
     canOwn: ownsItem('weapon_armoire_lamplighter'),
+  },
+  coachDriversWhip: {
+    text: t('weaponArmoireCoachDriversWhipText'),
+    notes: t('weaponArmoireCoachDriversWhipNotes', { str: 6, int: 8 }),
+    value: 100,
+    str: 6,
+    int: 8,
+    set: 'coachDriver',
+    canOwn: ownsItem('weapon_armoire_coachDriversWhip'),
+  },
+  scepterOfDiamonds: {
+    text: t('weaponArmoireScepterOfDiamondsText'),
+    notes: t('weaponArmoireScepterOfDiamondsNotes', { str: 13 }),
+    value: 100,
+    str: 13,
+    set: 'kingOfDiamonds',
+    canOwn: ownsItem('weapon_armoire_scepterOfDiamonds'),
+  },
+  flutteryArmy: {
+    text: t('weaponArmoireFlutteryArmyText'),
+    notes: t('weaponArmoireFlutteryArmyNotes', { attrs: 5 }),
+    value: 100,
+    con: 5,
+    int: 5,
+    str: 5,
+    set: 'fluttery',
+    canOwn: ownsItem('weapon_armoire_flutteryArmy'),
   },
 };
 

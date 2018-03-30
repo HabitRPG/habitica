@@ -6,38 +6,38 @@ const featuredItems = {
     },
     {
       type: 'hatchingPotions',
-      path: 'hatchingPotions.Golden',
+      path: 'hatchingPotions.Shimmer',
     },
     {
-      type: 'food',
-      path: 'food.Saddle',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Rainbow',
     },
     {
       type: 'card',
-      path: 'cardTypes.greeting',
+      path: 'cardTypes.goodluck',
     },
   ],
   quests: [
     {
       type: 'quests',
-      path: 'quests.gryphon',
-    },
-    {
-      type: 'quests',
-      path: 'quests.dilatoryDistress1',
-    },
-    {
-      type: 'quests',
-      path: 'quests.nudibranch',
+      path: 'quests.pterodactyl',
     },
     {
       type: 'quests',
       path: 'quests.taskwoodsTerror1',
     },
+    {
+      type: 'quests',
+      path: 'quests.egg',
+    },
+    {
+      type: 'bundles',
+      path: 'bundles.hugabug',
+    },
   ],
-  seasonal: 'summerMage',
+  seasonal: 'springHealer',
   timeTravelers: [
-      // TODO
+    // TODO
   ],
 };
 

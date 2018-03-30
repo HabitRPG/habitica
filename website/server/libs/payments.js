@@ -33,6 +33,8 @@ api.constants = {
 };
 
 function revealMysteryItems (user) {
+  const pushedItems = [];
+
   _.each(shared.content.gear.flat, function findMysteryItems (item) {
     if (
       item.klass === 'mystery' &&
@@ -40,10 +42,13 @@ function revealMysteryItems (user) {
         moment().isBefore(shared.content.mystery[item.mystery].end) &&
         !user.items.gear.owned[item.key] &&
         user.purchased.plan.mysteryItems.indexOf(item.key) === -1
-      ) {
+    ) {
       user.purchased.plan.mysteryItems.push(item.key);
+      pushedItems.push(item.key);
     }
   });
+
+  user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
 }
 
 function _dateDiff (earlyDate, lateDate) {
@@ -62,9 +67,9 @@ function _dateDiff (earlyDate, lateDate) {
 api.addSubscriptionToGroupUsers = async function addSubscriptionToGroupUsers (group) {
   let members;
   if (group.type === 'guild') {
-    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({guilds: group._id}).select('_id purchased items auth profile.name notifications').exec();
   } else {
-    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name').exec();
+    members = await User.find({'party._id': group._id}).select('_id purchased items auth profile.name notifications').exec();
   }
 
   let promises = members.map((member) => {
@@ -307,7 +312,7 @@ api.createSubscription = async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({months}).toDate();
       } else {
@@ -365,58 +370,46 @@ api.createSubscription = async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  if (!data.promo) {
-    analytics.trackPurchase({
-      uuid: data.user._id,
-      groupId,
-      itemPurchased,
-      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-      purchaseType,
-      paymentMethod: data.paymentMethod,
-      quantity: 1,
-      gift: Boolean(data.gift),
-      purchaseValue: block.price,
-      headers: data.headers,
-    });
-  }
+  analytics.trackPurchase({
+    uuid: data.user._id,
+    groupId,
+    itemPurchased,
+    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+    purchaseType,
+    paymentMethod: data.paymentMethod,
+    quantity: 1,
+    gift: Boolean(data.gift),
+    purchaseValue: block.price,
+    headers: data.headers,
+  });
 
-  if (!group && !data.promo) data.user.purchased.txnCount++;
+  if (!group) data.user.purchased.txnCount++;
 
   if (data.gift) {
     let byUserName = getUserInfo(data.user, ['name']).name;
 
     // generate the message in both languages, so both users can understand it
     let languages = [data.user.preferences.language, data.gift.member.preferences.language];
-    if (data.promo) {
-      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
-        username: data.gift.member.profile.name,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[0]);
+    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[0]);
+    senderMsg = `\`${senderMsg}\``;
 
-      senderMsg = `\`${senderMsg}\``;
-      data.user.sendMessage(data.gift.member, { senderMsg });
-    } else {
-      let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
-        username: data.gift.member.profile.name,
-        sender: byUserName,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[0]);
-      senderMsg = `\`${senderMsg}\``;
+    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+      username: data.gift.member.profile.name,
+      sender: byUserName,
+      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+    }, languages[1]);
+    receiverMsg = `\`${receiverMsg}\``;
 
-      let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
-        username: data.gift.member.profile.name,
-        sender: byUserName,
-        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-      }, languages[1]);
-      receiverMsg = `\`${receiverMsg}\``;
-
-      if (data.gift.message) {
-        receiverMsg += ` ${data.gift.message}`;
-        senderMsg += ` ${data.gift.message}`;
-      }
-
-      data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
+    if (data.gift.message) {
+      receiverMsg += ` ${data.gift.message}`;
+      senderMsg += ` ${data.gift.message}`;
     }
+
+    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg });
 
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
       txnEmail(data.gift.member, 'gifted-subscription', [
@@ -425,20 +418,7 @@ api.createSubscription = async function createSubscription (data) {
       ]);
     }
 
-    if (data.gift.member._id !== data.user._id) { // If sending to a user other than yourself, don't push notify, and get bonus sub for self per holiday promo
-      let promoData = {
-        user: data.user,
-        gift: {
-          member: data.user,
-          subscription: {
-            key: data.gift.subscription.key,
-          },
-        },
-        paymentMethod: data.paymentMethod,
-        promo: 'Winter',
-      };
-      await this.createSubscription(promoData);
-
+    if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
@@ -531,9 +511,9 @@ api.cancelSubscription = async function cancelSubscription (data) {
 
   plan.dateTerminated =
     moment(nowStr, nowStrFormat)
-    .add({days: remaining})
-    .add({days: extraDays})
-    .toDate();
+      .add({days: remaining})
+      .add({days: extraDays})
+      .toDate();
 
   plan.extraMonths = 0; // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
 

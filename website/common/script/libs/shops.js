@@ -106,9 +106,7 @@ function getClassName (classType, language) {
 
 shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
   let result = filter(items, ['pinType', 'marketGear']);
-
   let availableGear = map(updateStore(user), (item) => getItemInfo(user, 'marketGear', item).path);
-
   for (let gear of result) {
     if (gear.klass !== user.stats.class) {
       gear.locked = true;
@@ -167,9 +165,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     });
 
     category.items = map(result, (e) => {
-      let newItem = getItemInfo(user, 'marketGear', e, officialPinnedItems);
-
-      return newItem;
+      return getItemInfo(user, 'marketGear', e, officialPinnedItems);
     });
 
     let specialGear = filter(content.gear.flat, (gear) => {
@@ -183,7 +179,6 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     });
 
     shops.checkMarketGearLocked(user, category.items);
-
     categories.push(category);
   }
 
@@ -192,21 +187,19 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
     text: i18n.t('none', language),
   };
 
-  let falseGear = filter(content.gear.flat, (gear) => {
-    return user.items.gear.owned[gear.key] === false &&
-      (gear.klass === 'special' && !gear.specialClass ||
-       gear.key.indexOf('mystery') !== -1 ||
-       gear.key.indexOf('armoire') !== -1);
+  let specialNonClassGear = filter(content.gear.flat, (gear) => {
+    return !user.items.gear.owned[gear.key] &&
+      content.classes.indexOf(gear.klass) === -1 &&
+      content.classes.indexOf(gear.specialClass) === -1 &&
+      (gear.canOwn && gear.canOwn(user));
   });
 
-  nonClassCategory.items = map(falseGear, (e) => {
-    let newItem = getItemInfo(user, 'marketGear', e);
-
-    return newItem;
+  nonClassCategory.items = map(specialNonClassGear, (e) => {
+    return getItemInfo(user, 'marketGear', e);
   });
 
+  shops.checkMarketGearLocked(user, nonClassCategory.items);
   categories.push(nonClassCategory);
-
   return categories;
 };
 
@@ -485,7 +478,7 @@ shops.getSeasonalShopCategories = function getSeasonalShopCategories (user, lang
     };
 
     category.items = map(quests, (quest) => {
-      return getItemInfo(user, 'seasonalQuest', quest, language);
+      return getItemInfo(user, 'seasonalQuest', quest, officialPinnedItems, language);
     });
 
     categories.push(category);

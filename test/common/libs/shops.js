@@ -34,6 +34,31 @@ describe('shops', () => {
         });
       });
     });
+
+    it('shows relevant non class gear in special category', () => {
+      let contributor = generateUser({
+        contributor: {
+          level: 7,
+          critical: true,
+        },
+        items: {
+          gear: {
+            owned: {
+              weapon_armoire_basicCrossbow: true, // eslint-disable-line camelcase
+            },
+          },
+        },
+      });
+
+      let gearCategories = shared.shops.getMarketGearCategories(contributor);
+      let specialCategory = gearCategories.find(o => o.identifier === 'none');
+      expect(specialCategory.items.find((item) => item.key === 'weapon_special_1'));
+      expect(specialCategory.items.find((item) => item.key === 'armor_special_1'));
+      expect(specialCategory.items.find((item) => item.key === 'head_special_1'));
+      expect(specialCategory.items.find((item) => item.key === 'shield_special_1'));
+      expect(specialCategory.items.find((item) => item.key === 'weapon_special_critical'));
+      expect(specialCategory.items.find((item) => item.key === 'weapon_armoire_basicCrossbow'));// eslint-disable-line camelcase
+    });
   });
 
   describe('questShop', () => {

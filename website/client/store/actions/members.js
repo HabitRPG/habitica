@@ -7,15 +7,21 @@ let apiV3Prefix = '/api/v3';
 export async function getGroupMembers (store, payload) {
   let url = `${apiV3Prefix}/groups/${payload.groupId}/members`;
 
+  const params = {};
+
   if (payload.includeAllPublicFields) {
-    url += '?includeAllPublicFields=true';
+    params.includeAllPublicFields = true;
+  }
+
+  if (payload.lastMemberId) {
+    params.lastId = payload.lastMemberId;
   }
 
   if (payload.searchTerm) {
-    url += `?search=${payload.searchTerm}`;
+    params.search = payload.searchTerm;
   }
 
-  let response = await axios.get(url);
+  let response = await axios.get(url, { params });
   return response.data.data;
 }
 
@@ -35,17 +41,23 @@ export async function getGroupInvites (store, payload) {
 }
 
 export async function getChallengeMembers (store, payload) {
-  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members?includeAllPublicFields=true`;
+  let url = `${apiV3Prefix}/challenges/${payload.challengeId}/members`;
+
+  const params = {};
+
+  if (payload.includeAllPublicFields) {
+    params.includeAllPublicFields = true;
+  }
 
   if (payload.lastMemberId) {
-    url += `&lastId=${payload.lastMemberId}`;
+    params.lastId = payload.lastMemberId;
   }
 
   if (payload.searchTerm) {
-    url += `&search=${payload.searchTerm}`;
+    params.search = payload.searchTerm;
   }
 
-  let response = await axios.get(url);
+  let response = await axios.get(url, { params });
   return response.data.data;
 }
 
@@ -114,7 +126,6 @@ export async function removeMember (store, payload) {
 // }
 //
 // function _prepareMember(member, self) {
-//   Shared.wrap(member, false);
 //   self.selectedMember = members[member._id];
 // }
 //

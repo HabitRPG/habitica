@@ -22,6 +22,8 @@
     "CRON_SEMI_SAFE_MODE":"false",
     "MAINTENANCE_MODE": "false",
     "SESSION_SECRET":"YOUR SECRET HERE",
+    "SESSION_SECRET_KEY": "1234567891234567891234567891234567891234567891234567891234567891",
+    "SESSION_SECRET_IV": "12345678912345678912345678912345",
     "ADMIN_EMAIL": "you@example.com",
     "SMTP_USER":"user@example.com",
     "SMTP_PASS":"password",
@@ -103,5 +105,13 @@
     "LOGGLY" : {
         "TOKEN" : "example-token",
         "SUBDOMAIN" : "exmaple-subdomain"
-    }
+    },
+    "KAFKA": {
+      "GROUP_ID": "",
+      "CLOUDKARAFKA_BROKERS": "",
+      "CLOUDKARAFKA_USERNAME": "",
+      "CLOUDKARAFKA_PASSWORD": "",
+      "CLOUDKARAFKA_TOPIC_PREFIX": ""
+    },
+    "STACK_IMPACT_KEY": "aaaabbbbccccddddeeeeffffgggg111100002222"
 }

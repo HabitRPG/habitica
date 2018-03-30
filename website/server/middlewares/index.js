@@ -37,7 +37,7 @@ const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 module.exports = function attachMiddlewares (app, server) {
-  app.set('view engine', 'jade');
+  app.set('view engine', 'pug');
   app.set('views', `${__dirname}/../../views`);
 
   app.use(domainMiddleware(server, mongoose));

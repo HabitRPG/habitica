@@ -6,8 +6,8 @@
     "keepIt": "La garder",
     "removeIt": "La supprimer",
     "brokenChallenge": "Lien de défi cassé : cette tâche faisait partie d'un défi mais le défi (ou le groupe) a été supprimé. Que faire des tâches orphelines ?",
-    "keepThem": "Les garder",
-    "removeThem": "Les supprimer",
+    "keepThem": "Conserver les tâches",
+    "removeThem": "Supprimer les tâches",
     "challengeCompleted": "Ce défi est terminé et le gagnant est  <span class=\"badge\"><%= user %></span> ! Que faire des tâches orphelines ?",
     "unsubChallenge": "Lien de défi cassé : cette tâche faisait partie d'un défi mais n'y participez plus. Que faire des tâches orphelines ?",
     "challengeWinner": "A remporté les défis suivants",
@@ -101,7 +101,7 @@
     "addTask": "Ajouter une tâche",
     "editChallenge": "Modifier le défi",
     "challengeDescription": "Description du défi",
-    "selectChallengeWinnersDescription": "Sélectionnez les vainqueurs parmi les participants",
+    "selectChallengeWinnersDescription": "Choisissez un gagnant parmi les participants au défi",
     "awardWinners": "Vainqueur du prix",
     "doYouWantedToDeleteChallenge": "Voulez-vous supprimer ce défi ?",
     "deleteChallenge": "Supprimer le défi",
@@ -128,6 +128,6 @@
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
     "viewProgressOf": "Voir la progression de",
     "selectMember": "Choisir un membre",
-    "confirmKeepChallengeTasks": "Voulez-vous garder les tâches du défi?",
-    "selectParticipant": "Select a Participant"
+    "confirmKeepChallengeTasks": "Voulez-vous conserver les tâches du défi ?",
+    "selectParticipant": "Sélectionnez un participant"
 }

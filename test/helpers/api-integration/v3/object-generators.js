@@ -1,7 +1,6 @@
 import {
   times,
 } from 'lodash';
-import Bluebird from 'bluebird';
 import { v4 as generateUUID } from 'uuid';
 import { ApiUser, ApiGroup, ApiChallenge } from '../api-classes';
 import { requester } from '../requester';
@@ -15,7 +14,7 @@ import * as Tasks from '../../../../website/server/models/task';
 // , you can do so by passing in the full path as a string:
 // { 'items.eggs.Wolf': 10 }
 export async function generateUser (update = {}) {
-  let username = generateUUID();
+  let username = (Date.now() + generateUUID()).substring(0, 20);
   let password = 'password';
   let email = `${username}@example.com`;
 
@@ -106,7 +105,7 @@ export async function createAndPopulateGroup (settings = {}) {
     guild: { guilds: [group._id] },
   };
 
-  let members = await Bluebird.all(
+  let members = await Promise.all(
     times(numberOfMembers, () => {
       return generateUser(groupMembershipTypes[group.type]);
     })
@@ -114,7 +113,7 @@ export async function createAndPopulateGroup (settings = {}) {
 
   await group.update({ memberCount: numberOfMembers + 1});
 
-  let invitees = await Bluebird.all(
+  let invitees = await Promise.all(
     times(numberOfInvites, () => {
       return generateUser();
     })
@@ -126,9 +125,9 @@ export async function createAndPopulateGroup (settings = {}) {
     });
   });
 
-  await Bluebird.all(invitationPromises);
+  await Promise.all(invitationPromises);
 
-  await Bluebird.map(invitees, (invitee) => invitee.sync());
+  await Promise.all(invitees.map((invitee) => invitee.sync()));
 
   return {
     groupLeader,

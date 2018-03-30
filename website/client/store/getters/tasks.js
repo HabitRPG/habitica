@@ -1,5 +1,11 @@
 import { shouldDo } from 'common/script/cron';
 
+// Library / Utility function
+import { orderSingleTypeTasks } from 'client/libs/store/helpers/orderTasks.js';
+import { getActiveFilter } from 'client/libs/store/helpers/filterTasks.js';
+
+import sortBy from 'lodash/sortBy';
+
 // Return all the tags belonging to an user task
 export function getTagsFor (store) {
   return (task) => {
@@ -9,21 +15,25 @@ export function getTagsFor (store) {
   };
 }
 
-function getTaskColorByValue (value) {
+function getTaskColor (task) {
+  if (task.type === 'reward') return 'purple';
+
+  const value = task.value;
+
   if (value < -20) {
-    return 'task-worst';
+    return 'worst';
   } else if (value < -10) {
-    return 'task-worse';
+    return 'worse';
   } else if (value < -1) {
-    return 'task-bad';
+    return 'bad';
   } else if (value < 1) {
-    return 'task-neutral';
+    return 'neutral';
   } else if (value < 5) {
-    return 'task-good';
+    return 'good';
   } else if (value < 10) {
-    return 'task-better';
+    return 'better';
   } else {
-    return 'task-best';
+    return 'best';
   }
 }
 
@@ -38,43 +48,114 @@ export function canDelete () {
 export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 
-  // Purpose is one of 'controls', 'editModal', 'createModal', 'content'
+  // Purpose can be one of the following strings:
+  // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
+  // Create Modal: create-modal-bg, create-modal-text, create-modal-icon
+  // Control: 'control'
   return (task, purpose, dueDate) => {
     if (!dueDate) dueDate = new Date();
     const type = task.type;
+    const color = getTaskColor(task);
 
     switch (purpose) {
-      case 'createModal':
-        return 'task-purple';
-      case 'editModal':
-        return type === 'reward' ? 'task-purple' : getTaskColorByValue(task.value);
-      case 'controlCreate':
-        return {
-          up: task.up ? 'task-purple' : 'task-habit-disabled',
-          down: task.down ? 'task-purple' : 'task-habit-disabled',
-        };
+      case 'edit-modal-bg':
+        return `task-${color}-modal-bg`;
+      case 'edit-modal-text':
+        return `task-${color}-modal-text`;
+      case 'edit-modal-icon':
+        return `task-${color}-modal-icon`;
+      case 'edit-modal-option-disabled':
+        return `task-${color}-modal-option-disabled`;
+      case 'edit-modal-habit-control-disabled':
+        return `task-${color}-modal-habit-control-disabled`;
+      case 'create-modal-bg':
+        return 'task-purple-modal-bg';
+      case 'create-modal-text':
+        return 'task-purple-modal-text';
+      case 'create-modal-icon':
+        return 'task-purple-modal-icon';
+      case 'create-modal-option-disabled':
+        return 'task-purple-modal-option-disabled';
+      case 'create-modal-habit-control-disabled':
+        return 'task-purple-modal-habit-control-disabled';
+
       case 'control':
-        switch (type) {
-          case 'daily':
-            if (task.completed || !shouldDo(dueDate, task, userPreferences)) return 'task-daily-todo-disabled';
-            return getTaskColorByValue(task.value);
-          case 'todo':
-            if (task.completed) return 'task-daily-todo-disabled';
-            return getTaskColorByValue(task.value);
-          case 'habit':
+        if (type === 'todo' || type === 'daily') {
+          if (task.completed || !shouldDo(dueDate, task, userPreferences) && type === 'daily') {
             return {
-              up: task.up ? getTaskColorByValue(task.value) : 'task-habit-disabled',
-              down: task.down ? getTaskColorByValue(task.value) : 'task-habit-disabled',
+              bg: 'task-disabled-daily-todo-control-bg',
+              checkbox: 'task-disabled-daily-todo-control-checkbox',
+              inner: 'task-disabled-daily-todo-control-inner',
+              content: 'task-disabled-daily-todo-control-content',
             };
-          case 'reward':
-            return 'task-reward';
+          }
+
+          return {
+            bg: `task-${color}-control-bg`,
+            checkbox: `task-${color}-control-checkbox`,
+            inner: `task-${color}-control-inner-daily-todo`,
+          };
+        } else if (type === 'reward') {
+          return {
+            bg: 'task-reward-control-bg',
+          };
+        } else if (type === 'habit') {
+          return {
+            up: task.up ?
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
+              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
+            down: task.down ?
+              { bg: `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`} :
+              { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner' },
+          };
         }
         break;
-      case 'content':
-        if (type === 'daily' && (task.completed || !shouldDo(dueDate, task, userPreferences)) || type === 'todo' && task.completed) {
-          return 'task-daily-todo-content-disabled';
-        }
-        break;
+      default:
+        return 'not a valid class';
     }
+  };
+}
+
+// Returns all list for given task type
+export function getUnfilteredTaskList ({state}) {
+  return (type) => state.tasks.data[`${type}s`];
+}
+
+// Returns filtered, sorted, ordered, tag filtered, and search filtered task list
+// @TODO: sort task list based on used preferences
+export function getFilteredTaskList ({state, getters}) {
+  return ({
+    type,
+    filterType = '',
+  }) => {
+    // get requested tasks
+    // check if task list has been passed as override props
+    // assumption: type will always be passed as param
+    let requestedTasks = getters['tasks:getUnfilteredTaskList'](type);
+
+    let userPreferences = state.user.data.preferences;
+    let taskOrderForType = state.user.data.tasksOrder[type];
+
+    // order tasks based on user set task order
+    // Still needs unit test for this..
+    if (requestedTasks.length > 0 && ['scheduled', 'due'].indexOf(filterType.label) === -1) {
+      requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
+    }
+
+    let selectedFilter = getActiveFilter(type, filterType);
+    // Pass user preferences to the filter function which uses currying
+    if (type === 'daily' && (filterType === 'due' || filterType === 'notDue')) {
+      selectedFilter = {
+        ...selectedFilter,
+        filterFn: selectedFilter.filterFn(userPreferences),
+      };
+    }
+
+    requestedTasks = requestedTasks.filter(selectedFilter.filterFn);
+    if (selectedFilter.sort) {
+      requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
+    }
+
+    return requestedTasks;
   };
 }

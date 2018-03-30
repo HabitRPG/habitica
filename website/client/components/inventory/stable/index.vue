@@ -23,33 +23,32 @@
             v-for="petGroup in petGroups",
             :key="petGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[petGroup.key].selected",
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
+                :disabled="viewOptions[petGroup.key].animalCount == 0",
+                :id="petGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ petGroup.label }}
+              label.custom-control-label(v-once, :for="petGroup.key") {{ petGroup.label }}
         h3(v-once) {{ $t('mounts') }}
         .form-group
           .form-check(
             v-for="mountGroup in mountGroups",
             :key="mountGroup.key"
           )
-            label.custom-control.custom-checkbox
+            .custom-control.custom-checkbox
               input.custom-control-input(
                 type="checkbox",
                 v-model="viewOptions[mountGroup.key].selected",
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                :disabled="viewOptions[mountGroup.key].animalCount == 0",
+                :id="mountGroup.key",
               )
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ mountGroup.label }}
+              label.custom-control-label(v-once, :for="mountGroup.key") {{ mountGroup.label }}
 
         div.form-group.clearfix
           h3.float-left Hide Missing
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             :checked="hideMissing",
             @change="updateHideMissing"
           )
@@ -186,6 +185,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="context")
             foodItem(
@@ -273,18 +273,6 @@
     padding: 20px;
     border: 1px solid;
     display: inline-block;
-  }
-
-  .stable .item .item-content.Pet:not(.FlyingPig) {
-    top: -28px;
-  }
-
-  .stable .item .item-content.FlyingPig {
-    top: 7px;
-  }
-
-  .stable .item .item-content.Pet-Dragon-Hydra {
-    top: -16px !important;
   }
 
   .hatchablePopover {
@@ -376,11 +364,13 @@
   #hatching-modal {
     @include centeredModal();
 
+    .modal-dialog {
+      width: 310px;
+    }
+
     .content {
       text-align: center;
-
       margin: 9px;
-      width: 300px;
     }
 
     .title {
@@ -444,7 +434,8 @@
     }
 
     .food-icon {
-      margin: 0 auto;
+      margin: 0 auto 8px;
+      transform: scale(1.5);
     }
 
     .popover {
@@ -454,6 +445,8 @@
 
     .popover-content {
       color: white;
+      margin: 15px;
+      text-align: center;
     }
   }
 
@@ -898,7 +891,7 @@
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
 
         this.closeHatchPetDialog();
-        this.$root.$emit('hatchedPet::open', pet);
+        // this.$root.$emit('hatchedPet::open', pet);
       },
 
       onDragStart (ev, food) {
@@ -957,25 +950,21 @@
           this.$root.$emit('bv::show::modal', 'hatching-modal');
         }
       },
-
       async feedAction (petKey, foodKey) {
-        let result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
+        const result = await this.$store.dispatch('common:feed', {pet: petKey, food: foodKey});
 
         if (result.message) {
           this.text(result.message);
         }
       },
-
       closeHatchPetDialog () {
         this.$root.$emit('bv::hide::modal', 'hatching-modal');
       },
-
       resetHatchablePet ($event) {
         if (!$event) {
           this.hatchablePet = null;
         }
       },
-
       onFoodClicked ($event, food) {
         if (this.currentDraggingFood === null || this.currentDraggingFood !== food) {
           this.currentDraggingFood = food;
@@ -989,7 +978,6 @@
           this.foodClickMode = false;
         }
       },
-
       mouseMoved ($event) {
         if (this.foodClickMode) {
           this.$refs.clickFoodInfo.style.left = `${$event.x - 70}px`;

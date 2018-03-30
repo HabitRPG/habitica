@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import nconf from 'nconf';
 import {
@@ -137,7 +136,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -194,7 +193,7 @@ api.createGroupPlan = {
     group.leader = user._id;
     user.guilds.push(group._id);
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Analytics
@@ -337,7 +336,7 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = req.query.search.split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({name: searchQuery});
       filters.$or.push({description: searchQuery});
@@ -519,6 +518,18 @@ api.joinGroup = {
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+
+          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+          }
+
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -529,13 +540,6 @@ api.joinGroup = {
           user.party.quest.key = group.quest.key;
           group.quest.members[user._id] = null;
           group.markModified('quest.members');
-        }
-
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
 
         user.party._id = group._id; // Set group as user's party
@@ -555,7 +559,7 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new NotAuthorized(res.t('youAreAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
@@ -617,7 +621,7 @@ api.joinGroup = {
       }
     }
 
-    promises = await Bluebird.all(promises);
+    promises = await Promise.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -701,6 +705,14 @@ function _removeMessagesFromMember (member, groupId) {
     delete member.newMessages[groupId];
     member.markModified('newMessages');
   }
+
+  member.notifications = member.notifications.filter(n => {
+    if (n && n.type === 'NEW_CHAT_MESSAGE' && n.data && n.data.group && n.data.group.id === groupId) {
+      return false;
+    }
+
+    return true;
+  });
 }
 
 /**
@@ -907,7 +919,7 @@ api.removeGroupMember = {
     let message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Bluebird.all([
+    await Promise.all([
       member.save(),
       group.save(),
     ]);
@@ -917,6 +929,7 @@ api.removeGroupMember = {
 
 async function _inviteByUUID (uuid, group, inviter, req, res) {
   let userToInvite = await User.findById(uuid).exec();
+  const publicGuild = group.type === 'guild' && group.privacy === 'public';
 
   if (!userToInvite) {
     throw new NotFound(res.t('userWithIDNotFound', {userId: uuid}));
@@ -926,26 +939,31 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
 
   if (group.type === 'guild') {
     if (_.includes(userToInvite.guilds, group._id)) {
-      throw new NotAuthorized(res.t('userAlreadyInGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
     if (_.find(userToInvite.invitations.guilds, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup'));
+      throw new NotAuthorized(res.t('userAlreadyInvitedToGroup', { userId: uuid, username: userToInvite.profile.name}));
     }
 
-    let guildInvite = {id: group._id, name: group.name, inviter: inviter._id};
+    let guildInvite = {
+      id: group._id,
+      name: group.name,
+      inviter: inviter._id,
+      publicGuild,
+    };
     if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
     userToInvite.invitations.guilds.push(guildInvite);
   } else if (group.type === 'party') {
     // Do not add to invitations.parties array if the user is already invited to that party
     if (_.find(userToInvite.invitations.parties, {id: group._id})) {
-      throw new NotAuthorized(res.t('userAlreadyPendingInvitation'));
+      throw new NotAuthorized(res.t('userAlreadyPendingInvitation', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     if (userToInvite.party._id) {
       let userParty = await Group.getGroup({user: userToInvite, groupId: 'party', fields: 'memberCount'});
 
       // Allow user to be invited to a new party when they're partying solo
-      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty'));
+      if (userParty && userParty.memberCount !== 1) throw new NotAuthorized(res.t('userAlreadyInAParty', { userId: uuid, username: userToInvite.profile.name}));
     }
 
     let partyInvite = {id: group._id, name: group.name, inviter: inviter._id};
@@ -985,7 +1003,7 @@ async function _inviteByUUID (uuid, group, inviter, req, res) {
         title: group.name,
         message: res.t(identifier),
         identifier,
-        payload: {groupID: group._id},
+        payload: {groupID: group._id, publicGuild},
       }
     );
   }
@@ -1004,9 +1022,9 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
   if (!invite.email) throw new BadRequest(res.t('inviteMissingEmail'));
 
   let userToContact = await User.findOne({$or: [
-      {'auth.local.email': invite.email},
-      {'auth.facebook.emails.value': invite.email},
-      {'auth.google.emails.value': invite.email},
+    {'auth.local.email': invite.email},
+    {'auth.facebook.emails.value': invite.email},
+    {'auth.google.emails.value': invite.email},
   ]})
     .select({_id: true, 'preferences.emailNotifications': true})
     .exec();
@@ -1022,6 +1040,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
+      publicGuild: group.type === 'guild' && group.privacy === 'public',
       sentAt: Date.now(), // so we can let it expire
       cancelledPlan,
     });
@@ -1152,7 +1171,7 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Bluebird.all(uuidInvites);
+      let uuidResults = await Promise.all(uuidInvites);
       results.push(...uuidResults);
     }
 
@@ -1160,7 +1179,7 @@ api.inviteToGroup = {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
       user.invitesSent += emails.length;
       await user.save();
-      let emailResults = await Bluebird.all(emailInvites);
+      let emailResults = await Promise.all(emailInvites);
       results.push(...emailResults);
     }
 
@@ -1262,7 +1281,9 @@ api.removeGroupManager = {
 
     let manager = await User.findById(managerId, 'notifications').exec();
     let newNotifications = manager.notifications.filter((notification) => {
-      return notification.type !== 'GROUP_TASK_APPROVAL';
+      const isGroupTaskNotification = notification && notification.type && notification.type.indexOf('GROUP_TASK_') === 0;
+
+      return !isGroupTaskNotification;
     });
     manager.notifications = newNotifications;
     manager.markModified('notifications');

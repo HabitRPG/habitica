@@ -13,6 +13,22 @@ div
         button.btn.btn-secondary.positive-icon(v-if='user._id !== this.userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) !== -1',
           @click="unblockUser()", v-b-tooltip.hover.right="$t('unblock')")
           .svg-icon.positive-icon(v-html="icons.positive")
+        button.btn.btn-secondary.positive-icon(v-if='this.userLoggedIn.contributor.admin && !adminToolsLoaded',
+          @click="loadAdminTools()", v-b-tooltip.hover.right="'Admin - Load Tools'")
+          .svg-icon.positive-icon(v-html="icons.edit")
+        span(v-if='this.userLoggedIn.contributor.admin && adminToolsLoaded')
+          button.btn.btn-secondary.positive-icon(v-if='!hero.flags || (hero.flags && !hero.flags.chatRevoked)',
+            @click="adminRevokeChat()", v-b-tooltip.hover.bottom="'Admin - Revoke Chat Privileges'")
+            .svg-icon.positive-icon(v-html="icons.megaphone")
+          button.btn.btn-secondary.positive-icon(v-if='hero.flags && hero.flags.chatRevoked',
+            @click="adminReinstateChat()", v-b-tooltip.hover.bottom="'Admin - Reinstate Chat Privileges'")
+            .svg-icon.positive-icon(v-html="icons.challenge")
+          button.btn.btn-secondary.positive-icon(v-if='!hero.auth.blocked',
+            @click="adminBlockUser()", v-b-tooltip.hover.right="'Admin - Block User'")
+            .svg-icon.positive-icon(v-html="icons.lock")
+          button.btn.btn-secondary.positive-icon(v-if='hero.auth.blocked',
+            @click="adminUnblockUser()", v-b-tooltip.hover.right="'Admin - Unblock User'")
+            .svg-icon.positive-icon(v-html="icons.member")
       .row
         .col-12
           member-details(:member="user")
@@ -27,7 +43,7 @@ div
           .header
             h1 {{user.profile.name}}
             h4
-              strong {{ $t('userId') }}:
+              strong {{ $t('userId') }}:&nbsp;
               | {{user._id}}
         .col-12.col-md-4
           button.btn.btn-secondary(v-if='user._id === userLoggedIn._id', @click='editing = !editing') {{ $t('edit') }}
@@ -123,78 +139,58 @@ div
         .col-12.col-md-6
           h2.text-center {{$t('equipment')}}
           .well
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.eyewear && equippedItems.eyewear.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.eyewear}`")
-              h3 {{$t('eyewear')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.head && equippedItems.head.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.head}`")
-              h3 {{$t('headgearCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.headAccessory && equippedItems.headAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.headAccessory}`")
-              h3 {{$t('headAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.back && equippedItems.back.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.back}`")
-              h3 {{$t('backAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.armor && equippedItems.armor.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.armor}`")
-              h3 {{$t('armorCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.body && equippedItems.body.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.body}`")
-              h3 {{$t('bodyAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.weapon && equippedItems.weapon.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.weapon}`")
-              h3 {{$t('mainHand')}}
-            .col-12.col-md-4.item-wrapper
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: equippedItems.shield && equippedItems.shield.indexOf("base_0") === -1}')
-                div(:class="`shop_${equippedItems.shield}`")
-              h3 {{$t('offHand')}}
+            .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
+              .box(
+                :id="key",
+                v-if="label !== 'skip'",
+                :class='{white: equippedItems[key] && equippedItems[key].indexOf("base_0") === -1}'
+              )
+                div(:class="`shop_${equippedItems[key]}`")
+              b-popover(
+                v-if="label !== 'skip' && equippedItems[key] && equippedItems[key].indexOf('base_0') === -1",
+                :target="key",
+                triggers="hover",
+                :placement="'bottom'",
+                :preventOverflow="false",
+              )
+                h4.gearTitle {{ getGearTitle(equippedItems[key]) }}
+                attributesGrid.attributesGrid(
+                  :item="content.gear.flat[equippedItems[key]]",
+                )
+
+              h3(v-if="label !== 'skip'") {{ label }}
         .col-12.col-md-6
           h2.text-center {{$t('costume')}}
           .well
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.eyewear && costumeItems.eyewear.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.eyewear}`")
-              h3 {{$t('eyewear')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.head && costumeItems.head.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.head}`")
-              h3 {{$t('headgearCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.headAccessory && costumeItems.headAccessory.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.headAccessory}`")
-              h3 {{$t('headAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.back && costumeItems.back.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.back}`")
-              h3 {{$t('backAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.armor && costumeItems.armor.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.armor}`")
-              h3 {{$t('armorCapitalized')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.body && costumeItems.body.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.body}`")
-              h3 {{$t('bodyAccess')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.weapon && costumeItems.weapon.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.weapon}`")
-              h3 {{$t('mainHand')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: user.preferences.background}', style="overflow:hidden")
+            // Use similar for loop for costume items, except show background if label is 'skip'.
+            .col-12.col-md-4.item-wrapper(v-for="(label, key) in equipTypes")
+              // Append a "C" to the key name since HTML IDs have to be unique.
+              .box(
+                :id="key + 'C'",
+                v-if="label !== 'skip'",
+                :class='{white: costumeItems[key] && costumeItems[key].indexOf("base_0") === -1}'
+              )
+                div(:class="`shop_${costumeItems[key]}`")
+              // Show background on 8th tile rather than a piece of equipment.
+              .box(v-if="label === 'skip'",
+                :class='{white: user.preferences.background}', style="overflow:hidden"
+              )
                 div(:class="'icon_background_' + user.preferences.background")
-              h3 {{$t('background')}}
-            .col-12.col-md-4.item-wrapper
-              .box(:class='{white: costumeItems.shield && costumeItems.shield.indexOf("base_0") === -1}')
-                div(:class="`shop_${costumeItems.shield}`")
-              h3 {{$t('offHand')}}
+              b-popover(
+                v-if="label !== 'skip' && costumeItems[key] && costumeItems[key].indexOf('base_0') === -1",
+                :target="key + 'C'",
+                triggers="hover",
+                :placement="'bottom'",
+                :preventOverflow="false",
+              )
+                h4.gearTitle {{ getGearTitle(costumeItems[key]) }}
+                attributesGrid.attributesGrid(
+                  :item="content.gear.flat[costumeItems[key]]",
+                )
+
+              h3(v-if="label !== 'skip'") {{ label }}
+              h3(v-else) {{ $t('background') }}
+
       .row.pet-mount-row
         .col-12.col-md-6
           h2.text-center(v-once) {{ $t('pets') }}
@@ -202,7 +198,7 @@ div
             .row.col-12
               .col-12.col-md-4
                 .box(:class='{white: user.items.currentPet}')
-                  .pet(:class="`Pet-${user.items.currentPet}`")
+                  .Pet(:class="`Pet-${user.items.currentPet}`")
               .col-12.col-md-8
                 div
                   | {{ formatAnimal(user.items.currentPet, 'pet') }}
@@ -237,7 +233,7 @@ div
               span.hint(:popover-title='$t(statInfo.title)', popover-placement='right',
                 :popover='$t(statInfo.popover)', popover-trigger='mouseenter')
               .stat-title(:class='stat') {{ $t(statInfo.title) }}
-              strong.number {{ statsComputed[stat] }}
+              strong.number {{ statsComputed[stat] | floorWholeNumber }}
             .col-12.col-md-6
               ul.bonus-stats
                 li
@@ -255,7 +251,7 @@ div
                 li
                   strong {{$t('buffs')}}:
                   | {{user.stats.buffs[stat]}}
-      #allocation(v-if='user._id === userLoggedIn._id')
+      #allocation(v-if='user._id === userLoggedIn._id && hasClass')
         .row.title-row
           .col-12.col-md-6
             h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
@@ -292,10 +288,16 @@ div
     .modal-content {
       background: #f9f9f9;
     }
+
+    .gearTitle {
+      color: white;
+      margin-bottom: 20px;
+    }
   }
 
   .message-icon svg {
-    height: 16px;
+    height: 11px;
+    margin-top: 1px;
   }
 
   .gift-icon svg {
@@ -322,16 +324,15 @@ div
     }
   }
 
-
-  .message-icon {
-    width: 16px;
+  .message-icon,
+  .gift-icon {
+    width: 14px;
+    margin: auto;
     color: #686274;
   }
 
   .gift-icon {
-    width: 14px;
-    padding: 0 0 0 1px;
-    color: #686274;
+    width: 12px;
   }
 
   .remove-icon {
@@ -349,12 +350,12 @@ div
     margin-bottom: 2em;
   }
 
-  .pet {
-    margin-top: -1.4em !important;
-  }
-
   .mount {
     margin-top: -0.2em !important;
+  }
+
+  .photo img {
+    max-width: 100%;
   }
 
   .header {
@@ -530,7 +531,7 @@ div
     }
 
     .box {
-      width: 141px;
+      width: 148px;
       height: 84px;
       padding: .5em;
       margin: 0 auto;
@@ -579,6 +580,7 @@ import each from 'lodash/each';
 import { mapState } from 'client/libs/store';
 import size from 'lodash/size';
 import keys from 'lodash/keys';
+import cloneDeep from 'lodash/cloneDeep';
 import { beastMasterProgress, mountMasterProgress } from '../../../common/script/count';
 import statsComputed from  '../../../common/script/libs/statsComputed';
 import autoAllocate from '../../../common/script/fns/autoAllocate';
@@ -592,6 +594,7 @@ import achievementsLib from '../../../common/script/libs/achievements';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 import Content from '../../../common/script/content';
+import attributesGrid from 'client/components/inventory/equipment/attributesGrid';
 const DROP_ANIMALS = keys(Content.pets);
 const TOTAL_NUMBER_OF_DROP_ANIMALS = DROP_ANIMALS.length;
 
@@ -600,6 +603,11 @@ import gift from 'assets/svg/gift.svg';
 import remove from 'assets/svg/remove.svg';
 import positive from 'assets/svg/positive.svg';
 import dots from 'assets/svg/dots.svg';
+import megaphone from 'assets/svg/broken-megaphone.svg';
+import lock from 'assets/svg/lock.svg';
+import challenge from 'assets/svg/challenge.svg';
+import member from 'assets/svg/member-icon.svg';
+import edit from 'assets/svg/edit.svg';
 
 export default {
   directives: {
@@ -609,6 +617,7 @@ export default {
     sendGemsModal,
     MemberDetails,
     toggleSwitch,
+    attributesGrid,
   },
   data () {
     return {
@@ -618,7 +627,13 @@ export default {
         positive,
         gift,
         dots,
+        megaphone,
+        challenge,
+        lock,
+        member,
+        edit,
       }),
+      adminToolsLoaded: false,
       userIdToMessage: '',
       userReceivingGems: '',
       editing: false,
@@ -627,12 +642,24 @@ export default {
         imageUrl: '',
         blurb: '',
       },
+      hero: {},
       managerEmail: {
         hrefBlankCommunityManagerEmail: `<a href="mailto:${COMMUNITY_MANAGER_EMAIL}">${COMMUNITY_MANAGER_EMAIL}</a>`,
       },
       selectedPage: 'profile',
       achievements: {},
       content: Content,
+      equipTypes: {
+        eyewear: this.$t('eyewear'),
+        head: this.$t('headgearCapitalized'),
+        headAccessory: this.$t('headAccess'),
+        back: this.$t('backAccess'),
+        armor: this.$t('armorCapitalized'),
+        body: this.$t('bodyAccess'),
+        weapon: this.$t('mainHand'),
+        _skip: 'skip',
+        shield: this.$t('offHand'),
+      },
       stats: {
         str: {
           title: 'strength',
@@ -693,8 +720,11 @@ export default {
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
+      this.hero = {};
+      this.adminToolsLoaded = false;
 
       let profileUser = this.$store.state.profileUser;
+
       if (profileUser._id && profileUser._id !== this.userLoggedIn._id) {
         user = profileUser;
       }
@@ -710,6 +740,7 @@ export default {
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+
       return user;
     },
     incentivesProgress () {
@@ -734,6 +765,9 @@ export default {
     startingPageOption () {
       return this.$store.state.profileOptions.startingPage;
     },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.userLoggedIn);
+    },
   },
   watch: {
     startingPageOption () {
@@ -751,6 +785,9 @@ export default {
         userIdToMessage: this.user._id,
         userName: this.user.profile.name,
       });
+    },
+    getGearTitle (key) {
+      return this.flatGear[key].text();
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
@@ -775,10 +812,13 @@ export default {
     save () {
       let values = {};
 
-      each(this.editingProfile, (value, key) => {
+      let edits = cloneDeep(this.editingProfile);
+
+      each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         let curVal = this.user.profile[key];
-        if (!curVal || this.editingProfile[key].toString() !== curVal.toString()) {
+
+        if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }
@@ -854,6 +894,36 @@ export default {
     openSendGemsModal () {
       this.userReceivingGems = this.user;
       this.$root.$emit('bv::show::modal', 'send-gems');
+    },
+    adminRevokeChat () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatRevoked = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    adminReinstateChat () {
+      if (!this.hero.flags) {
+        this.hero.flags = {};
+      }
+      this.hero.flags.chatRevoked = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    adminBlockUser () {
+      this.hero.auth.blocked = true;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    adminUnblockUser () {
+      this.hero.auth.blocked = false;
+
+      this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+    },
+    async loadAdminTools () {
+      this.hero = await this.$store.dispatch('hall:getHero', { uuid: this.user._id });
+      this.adminToolsLoaded = true;
     },
   },
 };

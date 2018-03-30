@@ -10,25 +10,23 @@
             v-for="category in categories",
             :key="category.identifier",
           )
-            label.custom-control.custom-checkbox
-              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected")
-              span.custom-control-indicator
-              span.custom-control-description(v-once) {{ category.text }}
+            .custom-control.custom-checkbox
+              input.custom-control-input(type="checkbox", v-model="viewOptions[category.identifier].selected", :id="`category-${category.identifier}`")
+              label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -149,7 +147,6 @@
             span(slot="popoverContent")
               strong(v-if='item.key === "gem" && gemsLeft === 0') {{ $t('maxBuyGems') }}
               h4.popover-content-title {{ item.text }}
-
             template(slot="itemBadge", slot-scope="ctx")
               countBadge(
                 v-if="item.showCount != false",
@@ -158,13 +155,13 @@
               )
               .badge.badge-pill.badge-purple.gems-left(v-if='item.key === "gem"')
                 | {{ gemsLeft }}
-
               span.badge.badge-pill.badge-item.badge-svg(
                 :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}",
                 @click.prevent.stop="togglePinned(ctx.item)"
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
+          keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -194,6 +191,7 @@
           slot="drawer-slider",
           :itemWidth=94,
           :itemMargin=24,
+          :itemType="selectedDrawerTab"
         )
           template(slot="item", slot-scope="ctx")
             item(
@@ -256,13 +254,6 @@
     margin: 24px auto;
   }
 
-  .bordered {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    margin-bottom: 24px;
-    padding: 24px 24px 10px;
-  }
-
   .item-wrapper.bordered-item .item {
     width: 112px;
     height: 112px;
@@ -302,6 +293,7 @@
       .content {
         display: flex;
         flex-direction: column;
+        z-index: 1; // Always cover background.
       }
 
       .npc {
@@ -320,8 +312,24 @@
           left: 80px;
         }
       }
-    }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/market_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/market_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/market_broken_npc.png');
+        background-repeat: no-repeat;
+      }
+    }
   }
 
   .market .gems-left {
@@ -349,6 +357,7 @@
   import {mapState} from 'client/libs/store';
 
   import ShopItem from '../shopItem';
+  import KeysToKennel from './keysToKennel';
   import Item from 'client/components/inventory/item';
   import CountBadge from 'client/components/ui/countBadge';
   import Drawer from 'client/components/ui/drawer';
@@ -359,7 +368,7 @@
   import Avatar from 'client/components/avatar';
 
   import SellModal from './sellModal.vue';
-  import EquipmentAttributesGrid from './equipmentAttributesGrid.vue';
+  import EquipmentAttributesGrid from '../../inventory/equipment/attributesGrid.vue';
   import SelectMembersModal from 'client/components/selectMembersModal.vue';
 
   import svgPin from 'assets/svg/pin.svg';
@@ -398,6 +407,7 @@ export default {
     mixins: [notifications, buyMixin, currencyMixin],
     components: {
       ShopItem,
+      KeysToKennel,
       Item,
       CountBadge,
       Drawer,
@@ -449,7 +459,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({
@@ -685,8 +701,10 @@ export default {
             break;
           }
           case 'sortByNumber': {
-            result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+            result = _sortBy(result, item => {
+              if (item.showCount === false) return 0;
+
+              return this.userItems[item.purchaseType][item.key] || 0;
             });
             break;
           }

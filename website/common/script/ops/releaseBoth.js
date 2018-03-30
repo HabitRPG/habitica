@@ -1,4 +1,5 @@
 import content from '../content/index';
+import {beastMasterProgress, mountMasterProgress} from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
@@ -6,30 +7,35 @@ import {
 import splitWhitespace from '../libs/splitWhitespace';
 import pick from 'lodash/pick';
 
-module.exports = function releaseBoth (user, req = {}, analytics) {
+module.exports = function releaseBoth (user, req = {}) {
   let animal;
 
-  if (user.balance < 1.5 && !user.achievements.triadBingo) {
-    throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
+  if (!user.achievements.triadBingo) {
+    throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
+  }
+
+  if (beastMasterProgress(user.items.pets) !== 90 || mountMasterProgress(user.items.mounts) !== 90) {
+    throw new NotAuthorized(i18n.t('notEnoughPetsMounts', req.language));
   }
 
   let giveTriadBingo = true;
   let giveBeastMasterAchievement = true;
   let giveMountMasterAchievement = true;
 
-  if (!user.achievements.triadBingo) {
-    if (analytics) {
-      analytics.track('release pets & mounts', {
-        uuid: user._id,
-        acquireMethod: 'Gems',
-        gemCost: 6,
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
-
-    user.balance -= 1.5;
-  }
+  // @TODO: We are only offering the free version now
+  // if (!user.achievements.triadBingo) {
+  //   if (analytics) {
+  //     analytics.track('release pets & mounts', {
+  //       uuid: user._id,
+  //       acquireMethod: 'Gems',
+  //       gemCost: 6,
+  //       category: 'behavior',
+  //       headers: req.headers,
+  //     });
+  //   }
+  //
+  //   user.balance -= 1.5;
+  // }
 
   let mountInfo = content.mountInfo[user.items.currentMount];
 

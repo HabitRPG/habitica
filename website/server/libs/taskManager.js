@@ -3,7 +3,6 @@ import * as Tasks from '../models/task';
 import {
   BadRequest,
 } from './errors';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import shared from '../../common';
 
@@ -18,9 +17,9 @@ async function _validateTaskAlias (tasks, res) {
     throw new BadRequest(res.t('taskAliasAlreadyUsed'));
   }
 
-  await Bluebird.map(tasksWithAliases, (task) => {
+  await Promise.all(tasksWithAliases.map((task) => {
     return task.validate();
-  });
+  }));
 }
 
 export function setNextDue (task, user, dueDateOption) {
@@ -45,6 +44,7 @@ export function setNextDue (task, user, dueDateOption) {
   let optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
+
   optionsForShouldDo.nextDue = true;
   let nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
   if (nextDue && nextDue.length > 0) {
@@ -76,6 +76,9 @@ export async function createTasks (req, res, options = {}) {
   let owner = group || challenge || user;
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
+
+  // Return if no tasks are passed, avoids errors with mongo $push being empty
+  if (toSave.length === 0) return [];
 
   let taskOrderToAdd = {};
 
@@ -136,7 +139,7 @@ export async function createTasks (req, res, options = {}) {
 
   toSave.unshift(owner.save());
 
-  let tasks = await Bluebird.all(toSave);
+  let tasks = await Promise.all(toSave);
   tasks.splice(0, 1); // Remove user, challenge, or group promise
   return tasks;
 }

@@ -33,7 +33,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
         .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
-          .menu-item(@click='changeTopPage("backgrounds", "2017")')
+          .menu-item(@click='changeTopPage("backgrounds", "2018")')
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
@@ -159,7 +159,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.bangs": 0})',
             :class="[{ active: user.preferences.hair.bangs === 0 }, 'hair_bangs_0_' + user.preferences.hair.color]")
-          .option(v-for='option in ["1", "2", "3", "4"]',
+          .option(v-for='option in [1, 2, 3, 4]',
             :class='{active: user.preferences.hair.bangs === option}')
             .bangs.sprite.customize-option(:class="`hair_bangs_${option}_${user.preferences.hair.color}`", @click='set({"preferences.hair.bangs": option})')
       #facialhair.row(v-if='activeSubPage === "facialhair"')
@@ -227,7 +227,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       #flowers.row(v-if='activeSubPage === "flower"')
         .col-12.customize-options
           .head_0.option(@click='set({"preferences.hair.flower":0})', :class='{active: user.preferences.hair.flower === 0}')
-          .option(v-for='option in ["1", "2", "3", "4", "5", "6"]',
+          .option(v-for='option in [1, 2, 3, 4, 5, 6]',
             :class='{active: user.preferences.hair.flower === option}')
             .sprite.customize-option(:class="`hair_flower_${option}`", @click='set({"preferences.hair.flower": option})')
       .row(v-if='activeSubPage === "flower"')
@@ -238,9 +238,11 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             popover-placement='right', popover-append-to-body='true',
             ng-click='user.items.gear.owned[item.key] ? equip(item.key) : purchase(item.type,item)')
     #backgrounds.section.container.customize-section(v-if='activeTopPage === "backgrounds"')
-      .row.text-center.set-title
+      .row.title-row
+        toggle-switch.backgroundFilterToggle(:label="'Hide locked backgrounds'", v-model='filterBackgrounds')
+      .row.text-center.title-row(v-if='!filterBackgrounds')
         strong {{backgroundShopSets[0].text}}
-      .row.incentive-background-row
+      .row.title-row(v-if='!filterBackgrounds')
         .col-12(v-if='showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)') {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
         .col-2(v-for='bg in backgroundShopSets[0].items',
           @click='unlock("background." + bg.key)',
@@ -249,17 +251,19 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           popover-trigger='mouseenter')
           .incentive-background(:class='[`background_${bg.key}`]')
             .small-rectangle
-      .row.sub-menu.col-10.offset-1
+      .row.sub-menu.col-10.offset-1(v-if='!filterBackgrounds')
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("2018")', :class='{active: activeSubPage === "2018"}')
+          strong(v-once) 2018
         .col-3.text-center.sub-menu-item(@click='changeSubPage("2017")', :class='{active: activeSubPage === "2017"}')
           strong(v-once) 2017
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2016")', :class='{active: activeSubPage === "2016"}')
           strong(v-once) 2016
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2015")', :class='{active: activeSubPage === "2015"}')
           strong(v-once) 2015
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
+        .col-2.text-center.sub-menu-item(@click='changeSubPage("2014")', :class='{active: activeSubPage === "2014"}')
           strong(v-once) 2014
-      .row.customize-menu(v-for='(sets, key) in backgroundShopSetsByYear')
-        .row(v-for='set in sets', v-if='activeSubPage === key')
+      .row.customize-menu(v-if='!filterBackgrounds' v-for='(sets, key) in backgroundShopSetsByYear')
+        .row.background-set(v-for='set in sets', v-if='activeSubPage === key')
           .col-8.offset-2.text-center.set-title
             strong {{set.text}}
           .col-4.text-center.customize-option.background-button(v-for='bg in set.items',
@@ -269,21 +273,27 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             popover-trigger='mouseenter')
             .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]')
             i.glyphicon.glyphicon-lock(v-if='!user.purchased.background[bg.key]')
-            .purchase-single(v-if='!user.purchased.background[bg.key]')
+            .purchase-background.single(v-if='!user.purchased.background[bg.key]')
               .svg-icon.gem(v-html='icons.gem')
-              span 7
+              span.price 7
             span.badge.badge-pill.badge-item.badge-svg(
               :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}",
               @click.prevent.stop="togglePinned(bg)",
               v-if='!user.purchased.background[bg.key]'
             )
               span.svg-icon.inline.icon-12.color(v-html="icons.pin")
-
-          .col-12.text-center(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"')
-            .gem-amount
-              .svg-icon.gem(v-html='icons.gem')
-              span 15
-            button.btn.btn-secondary(@click='unlock(setKeys("background", set.items))') Purchase Set
+          .purchase-background.set(v-if='!ownsSet("background", set.items) && set.identifier !== "incentiveBackgrounds"' @click='unlock(setKeys("background", set.items))')
+            span.label Purchase Set
+            .svg-icon.gem(v-html='icons.gem')
+            span.price 15
+      .row.customize-menu(v-if='filterBackgrounds')
+        .col-4.text-center.customize-option.background-button(v-for='(bg) in ownedBackgrounds'
+          @click='unlock("background." + bg.key)',
+          :popover-title='bg.text',
+          :popover='bg.notes',
+          popover-trigger='mouseenter')
+          .background(:class='[`background_${bg.key}`, backgroundLockedStatus(bg.key)]'
+          )
 
   .container.interests-section(v-if='modalPage === 3 && !editing')
     .section.row
@@ -292,41 +302,34 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     .section.row
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='work', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('work') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#work(type="checkbox", value='work', v-model='taskCategories')
+            label.custom-control-label(v-once, for="work") {{ $t('work') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='exercise', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('exercise') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#excercise(type="checkbox", value='exercise', v-model='taskCategories')
+            label.custom-control-label(v-once, for="excercise") {{ $t('exercise') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='health_wellness', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('health_wellness') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#health_wellness(type="checkbox", value='health_wellness', v-model='taskCategories')
+            label.custom-control-label(v-once, for="health_wellness") {{ $t('health_wellness') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='school', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('school') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#school(type="checkbox", value='school', v-model='taskCategories')
+            label.custom-control-label(v-once, for="school") {{ $t('school') }}
       .col-6
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='chores', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('chores') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#chores(type="checkbox", value='chores', v-model='taskCategories')
+            label.custom-control-label(v-once, for="chores") {{ $t('chores') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='creativity', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('creativity') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#creativity(type="checkbox", value='creativity', v-model='taskCategories')
+            label.custom-control-label(v-once, for="creativity") {{ $t('creativity') }}
         .task-option
-          label.custom-control.custom-checkbox
-            input.custom-control-input(type="checkbox", value='self_care', v-model='taskCategories')
-            span.custom-control-indicator
-            span.custom-control-description(v-once) {{ $t('self_care') }}
+          .custom-control.custom-checkbox
+            input.custom-control-input#self_care(type="checkbox", value='self_care', v-model='taskCategories')
+            label.custom-control-label(v-once, for="self_care") {{ $t('self_care') }}
 
   .section.row.justin-message-section(:class='{top: modalPage > 1}', v-if='!editing')
     .col-12
@@ -614,6 +617,15 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
   }
 
   #backgrounds {
+    .title-row {
+      margin-bottom: 1em;
+    }
+
+    .backgroundFilterToggle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .set-title {
       margin-top: 1em;
       margin-bottom: 1em;
@@ -627,10 +639,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
 
     strong {
       margin: 0 auto;
-    }
-
-    .incentive-background-row {
-      margin-bottom: 2em;
     }
 
     .incentive-background {
@@ -684,44 +692,55 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       cursor: pointer;
     }
 
-    .purchase-single {
-      width: 141px;
+    .purchase-background {
       margin: 0 auto;
       background: #fff;
       padding: 0.5em;
-      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
       border-radius: 0 0 2px 2px;
+      box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      cursor: pointer;
 
       span {
         font-weight: bold;
         font-size: 12px;
-        color: #24cc8f;
       }
 
+      span.price {
+        color: #24cc8f;
+      }
+      
       .gem {
         width: 16px;
+      }
+
+      &.single {
+        width: 141px;
+      }
+
+      &.set {
+        width: 100%;
+
+        span {
+          font-size: 14px;
+        }
+      
+        .gem {
+          width: 20px;
+        }
       }
     }
 
     .gem {
-      margin-right: .5em;
+      margin: 0 .5em;
       display: inline-block;
       vertical-align: bottom;
     }
 
-    .gem-amount {
-      margin-top: 1em;
-      margin-bottom: 1em;
-
-      .gem {
-        width: 24px;
-      }
-
-      span {
-        font-weight: bold;
-        font-size: 20px;
-        color: #24cc8f;
-      }
+    .background-set {
+        width: 100%;
+        margin: 10px;
+        background-color: #edecee;
+        border-radius: 2px;
     }
   }
 
@@ -796,6 +815,10 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
     display: none;
   }
 
+  .background-button {
+      margin-bottom: 15px;
+  }
+
   .background-button:hover {
     span.badge.badge-pill.badge-item.badge-svg.hide {
       display: block;
@@ -817,6 +840,7 @@ import guide from 'client/mixins/guide';
 import notifications from 'client/mixins/notifications';
 import appearance from 'common/script/content/appearance';
 import appearanceSets from 'common/script/content/appearance/sets';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import logoPurple from 'assets/svg/logo-purple.svg';
 import bodyIcon from 'assets/svg/body.svg';
@@ -964,6 +988,7 @@ export default {
   mixins: [guide, notifications],
   components: {
     avatar,
+    toggleSwitch,
   },
   mounted () {
     if (this.editing) this.modalPage = 2;
@@ -976,16 +1001,17 @@ export default {
       loading: false,
       backgroundShopSets,
       backgroundUpdate: new Date(),
+      filterBackgrounds: false,
       specialShirtKeys: ['convict', 'cross', 'fire', 'horizon', 'ocean', 'purple', 'rainbow', 'redblue', 'thunder', 'tropical', 'zombie'],
       rainbowSkinKeys: ['eb052b', 'f69922', 'f5d70f', '0ff591', '2b43f6', 'd7a9f7', '800ed0', 'rainbow'],
       animalSkinKeys: ['bear', 'cactus', 'fox', 'lion', 'panda', 'pig', 'tiger', 'wolf'],
       premiumHairColorKeys: ['rainbow', 'yellow', 'green', 'purple', 'blue', 'TRUred'],
-      baseHair1: ['1', '3'],
-      baseHair2Keys: ['2', '4', '5', '6', '7', '8'],
-      baseHair3Keys: ['9', '10', '11', '12', '13', '14'],
-      baseHair4Keys: ['15', '16', '17', '18', '19', '20'],
-      baseHair5Keys: ['1', '2', '3'],
-      baseHair6Keys: ['1', '2'],
+      baseHair1: [1, 3],
+      baseHair2Keys: [2, 4, 5, 6, 7, 8],
+      baseHair3Keys: [9, 10, 11, 12, 13, 14],
+      baseHair4Keys: [15, 16, 17, 18, 19, 20],
+      baseHair5Keys: [1, 2, 3],
+      baseHair6Keys: [1, 2],
       animalEarsKeys: ['bearEars', 'cactusEars', 'foxEars', 'lionEars', 'pandaEars', 'pigEars', 'tigerEars', 'wolfEars'],
       icons: Object.freeze({
         logoPurple,
@@ -1050,7 +1076,6 @@ export default {
       return own;
     },
     animalEars () {
-      // @TODO: This is not like other purchase items
       // @TODO: For some resonse when I use $set on the user purchases object, this is not recomputed. Hack for now
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       let keys = this.animalEarsKeys;
@@ -1065,7 +1090,7 @@ export default {
         option.locked = locked;
         option.click = () => {
           let type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return locked ? this.purchase('gear', newKey) : this.equip(newKey, type);
+          return locked ? this.unlock(`items.gear.owned.${newKey}`) : this.equip(newKey, type);
         };
         return option;
       });
@@ -1229,6 +1254,7 @@ export default {
         2015: [],
         2016: [],
         2017: [],
+        2018: [],
       };
 
       // Hack to force update for now until we restructure the data
@@ -1247,6 +1273,21 @@ export default {
         backgroundShopSetsByYear[year].push(set);
       });
       return backgroundShopSetsByYear;
+    },
+    ownedBackgrounds () {
+      let ownedBackgrounds = [];
+
+      // Hack to force update for now until we restructure the data
+      let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
+
+      this.backgroundShopSets.forEach((set) => {
+        set.items.forEach((bg) => {
+          if (this.user.purchased.background[bg.key]) {
+            ownedBackgrounds.push(bg);
+          }
+        });
+      });
+      return ownedBackgrounds;
     },
   },
   methods: {

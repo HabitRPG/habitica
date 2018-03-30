@@ -1,0 +1,10 @@
+{
+  "root": false,
+  "globals": {
+    "db": true,
+    "moment": true,
+    "print": true,
+    "printjson": true,
+    "_": true,
+  },
+}

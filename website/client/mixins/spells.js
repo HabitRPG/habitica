@@ -1,10 +1,13 @@
-import axios from 'axios';
 import isArray from 'lodash/isArray';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
   methods: {
-    async castStart (spell) {
+    handleCastCancelKeyUp (keyEvent) {
+      if (keyEvent.keyCode !== 27) return;
+      this.castCancel();
+    },
+    async castStart (spell, member) {
       if (this.$store.state.spellOptions.castingSpell) {
         this.castCancel();
         return;
@@ -22,15 +25,14 @@ export default {
       this.spell = spell;
 
       if (spell.target === 'self') {
-        this.castEnd(null, spell.target);
+        return this.castEnd(null, spell.target);
       } else if (spell.target === 'party') {
         if (!this.user.party._id) {
           let party = [this.user];
-          this.castEnd(party, spell.target);
-          return;
+          return this.castEnd(party, spell.target);
         }
 
-        let party = this.$store.state.party.members;
+        let party = this.$store.state.partyMembers;
         party = isArray(party) ? party : [];
         party = party.concat(this.user);
         this.castEnd(party, spell.target);
@@ -46,7 +48,22 @@ export default {
           if (task.group && task.group.id && !task.group.broken) return false;
           return true;
         });
-        this.castEnd(tasks, spell.target);
+        return this.castEnd(tasks, spell.target);
+      } else if (spell.target === 'user') {
+        let result = await this.castEnd(member, spell.target);
+
+        if (member.id === this.user.id) {
+          this.$set(this.$store.state.user.data, 'stats', member.stats);
+        }
+
+        return result;
+      } else {
+        // If the cast target has to be selected (and can be cancelled)
+        document.addEventListener('keyup', this.handleCastCancelKeyUp);
+
+        this.$root.$on('castEnd', (target, type, $event) => {
+          this.castEnd(target, type, $event);
+        });
       }
     },
     async castEnd (target, type) {
@@ -61,27 +78,22 @@ export default {
       if (target && target.challenge && target.challenge.id) return this.text(this.$t('invalidTarget'));
       if (target && target.group && target.group.id) return this.text(this.$t('invalidTarget'));
 
-      // @TODO: just call castCancel?
-      this.$store.state.spellOptions.castingSpell = false;
-      this.potionClickMode = false;
-
-      this.spell.cast(this.user, target);
-      // User.save(); // @TODO:
-
       let spell = this.spell;
-      let targetId = target ? target._id : null;
-      this.spell = null;
-      this.applyingAction = false;
 
-      let spellUrl = `/api/v3/user/class/cast/${spell.key}`;
-      if (targetId) spellUrl += `?targetId=${targetId}`;
+      this.castCancel();
+
+      // the selected member doesn't have the flags property which sets `cardReceived`
+      if (spell.pinType !== 'card') {
+        spell.cast(this.user, target);
+      }
+
+      let targetId = target ? target._id : null;
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      await axios.post(spellUrl);
-      let msg = this.$t('youCast', {
-        spell: spellText,
-      });
+      let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
+      let msg = '';
+
 
       switch (type) {
         case 'task':
@@ -91,21 +103,34 @@ export default {
           });
           break;
         case 'user':
-          msg = this.$t('youCastTarget', {
-            spell: spellText,
-            target: target.profile.name,
-          });
+          msg = spell.pinType === 'card' ?
+            this.$t('sentCardToUser', { profileName: target.profile.name }) :
+            this.$t('youCastTarget', {
+              spell: spellText,
+              target: target.profile.name,
+            });
           break;
         case 'party':
           msg = this.$t('youCastParty', {
             spell: spellText,
           });
           break;
+        default:
+          msg = this.$t('youCast', {
+            spell: spellText,
+          });
+          break;
       }
+
+      if (spell.pinType === 'card') {
+        const newUserGp = apiResult.data.data.user.stats.gp;
+        this.$store.state.user.data.stats.gp = newUserGp;
+      }
+
 
       this.markdown(msg); // @TODO: mardown directive?
       // @TODO:
-      if (!beforeQuestProgress) return;
+      if (!beforeQuestProgress) return apiResult;
       let questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
         let userQuest = this.quests[this.user.party.quest.key];
@@ -115,6 +140,9 @@ export default {
           this.quest('questCollection', questProgress);
         }
       }
+
+
+      return apiResult;
       // @TOOD: User.sync();
     },
     castCancel () {
@@ -123,6 +151,10 @@ export default {
       this.spell = null;
       document.querySelector('body').style.cursor = 'initial';
       this.$store.state.spellOptions.castingSpell = false;
+
+      // Remove listeners
+      this.$root.$off('castEnd');
+      document.removeEventListener('keyup', this.handleCastCancelKeyUp);
     },
   },
 };

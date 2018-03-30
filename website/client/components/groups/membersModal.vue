@@ -36,7 +36,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.messageIcon")
                 span.text {{$t('sendMessage')}}
-            b-dropdown-item(@click='promoteToLeader(member)', v-if='isLeader || isAdmin')
+            b-dropdown-item(@click='promoteToLeader(member)', v-if='shouldShowPromoteToLeader')
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.starIcon")
                 span.text {{$t('promoteToLeader')}}
@@ -48,7 +48,7 @@ div
               span.dropdown-icon-item
                 .svg-icon.inline(v-html="icons.removeIcon")
                 span.text {{$t('removeManager2')}}
-      .row(v-if='groupId === "challenge"')
+      .row(v-if='isLoadMoreAvailable')
         .col-12.text-center
           button.btn.btn-secondary(@click='loadMoreMembers()') {{ $t('loadMore') }}
       .row.gradient(v-if='members.length > 3')
@@ -286,12 +286,20 @@ export default {
   },
   computed: {
     ...mapState({user: 'user.data'}),
+    shouldShowPromoteToLeader () {
+      return !this.challengeId && (this.isLeader || this.isAdmin);
+    },
     isLeader () {
       if (!this.group || !this.group.leader) return false;
       return this.user._id === this.group.leader || this.user._id === this.group.leader._id;
     },
     isAdmin () {
       return Boolean(this.user.contributor.admin);
+    },
+    isLoadMoreAvailable () {
+      // Only available if the current length of `members` is less than the
+      // total size of the Group/Challenge
+      return this.members.length < this.$store.state.memberModalOptions.memberCount;
     },
     groupIsSubscribed () {
       return this.group.purchased.active;
@@ -307,16 +315,6 @@ export default {
     },
     sortedMembers () {
       let sortedMembers = this.members;
-
-      if (this.searchTerm) {
-        sortedMembers = sortedMembers.filter(member => {
-          return (
-            member.profile.name
-              .toLowerCase()
-              .indexOf(this.searchTerm.toLowerCase()) !== -1
-          );
-        });
-      }
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
@@ -334,6 +332,15 @@ export default {
     group () {
       this.getMembers();
     },
+    // Watches `searchTerm` and if present, performs a `searchMembers` action
+    // and usual `getMembers` otherwise
+    searchTerm () {
+      if (this.searchTerm) {
+        this.searchMembers(this.searchTerm);
+      } else {
+        this.getMembers();
+      }
+    },
   },
   methods: {
     sendMessage (member) {
@@ -342,22 +349,24 @@ export default {
         userName: member.profile.name,
       });
     },
+    async searchMembers (searchTerm = '') {
+      this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({
+        challengeId: this.challengeId,
+        groupId: this.groupId,
+        searchTerm,
+        includeAllPublicFields: true,
+      });
+    },
     async getMembers () {
       let groupId = this.groupId;
-      if (groupId && groupId !== 'challenge') {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
-          groupId,
-          includeAllPublicFields: true,
-        });
-        this.members = members;
 
+      if (groupId && groupId !== 'challenge') {
         let invites = await this.$store.dispatch('members:getGroupInvites', {
           groupId,
           includeAllPublicFields: true,
         });
         this.invites = invites;
       }
-
       if (this.$store.state.memberModalOptions.viewingMembers.length > 0) {
         this.members = this.$store.state.memberModalOptions.viewingMembers;
       }
@@ -422,9 +431,11 @@ export default {
       const lastMember = this.members[this.members.length - 1];
       if (!lastMember) return;
 
-      let newMembers = await this.$store.dispatch('members:getChallengeMembers', {
+      let newMembers = await this.$store.state.memberModalOptions.fetchMoreMembers({
         challengeId: this.challengeId,
+        groupId: this.groupId,
         lastMemberId: lastMember._id,
+        includeAllPublicFields: true,
       });
 
       this.members = this.members.concat(newMembers);

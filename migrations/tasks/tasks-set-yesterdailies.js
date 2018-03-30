@@ -1,6 +1,6 @@
-var migrationName = 'tasks-set-yesterdaily';
-var authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
-var authorUuid = ''; //... own data is done
+/* let migrationName = 'tasks-set-yesterdaily'; */
+let authorName = 'TheHollidayInn'; // in case script author needs to know when their ...
+let authorUuid = ''; // ... own data is done
 
 /*
  * Iterates over all tasks and sets the yseterDaily field to True
@@ -8,36 +8,41 @@ var authorUuid = ''; //... own data is done
 
 import monk from 'monk';
 
-var connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
-var dbTasks = monk(connectionString).get('tasks', { castIds: false });
+let connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
+let dbTasks = monk(connectionString).get('tasks', { castIds: false });
 
-function processTasks(lastId) {
-  // specify a query to limit the affected tasks (empty for all tasks):
-  var query = {
-    yesterDaily: false,
-  };
+let progressCount = 1000;
+let count = 0;
 
-  if (lastId) {
-    query._id = {
-      $gt: lastId
+function exiting (code, msg) {
+  code = code || 0; // 0 = success
+  if (code && !msg) {
+    msg = 'ERROR!';
+  }
+  if (msg) {
+    if (code) {
+      console.error(msg);
+    } else      {
+      console.log(msg);
     }
   }
-
-  dbTasks.find(query, {
-    sort: {_id: 1},
-    limit: 250,
-    fields: [ // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
-    ],
-  })
-  .then(updateTasks)
-  .catch(function (err) {
-    console.log(err);
-    return exiting(1, 'ERROR! ' + err);
-  });
+  process.exit(code);
 }
 
-var progressCount = 1000;
-var count = 0;
+function displayData () {
+  console.warn(`\n${  count  } tasks processed\n`);
+  return exiting(0);
+}
+
+function updatetask (task) {
+  count++;
+  let set = {yesterDaily: true};
+
+  dbTasks.update({_id: task._id}, {$set: set});
+
+  if (count % progressCount === 0) console.warn(`${count  } ${  task._id}`);
+  if (task._id === authorUuid) console.warn(`${authorName  } processed`);
+}
 
 function updateTasks (tasks) {
   if (!tasks || tasks.length === 0) {
@@ -46,38 +51,38 @@ function updateTasks (tasks) {
     return;
   }
 
-  var taskPromises = tasks.map(updatetask);
-  var lasttask = tasks[tasks.length - 1];
+  let taskPromises = tasks.map(updatetask);
+  let lasttask = tasks[tasks.length - 1];
 
   return Promise.all(taskPromises)
-  .then(function () {
-    processtasks(lasttask._id);
-  });
+    .then(() => {
+      return processTasks(lasttask._id); // eslint-disable-line no-use-before-define
+    });
 }
 
-function updatetask (task) {
-  count++;
-  var set = {'yesterDaily': true};
+function processTasks (lastId) {
+  // specify a query to limit the affected tasks (empty for all tasks):
+  let query = {
+    yesterDaily: false,
+  };
 
-  dbTasks.update({_id: task._id}, {$set:set});
-
-  if (count % progressCount == 0) console.warn(count + ' ' + task._id);
-  if (task._id == authorUuid) console.warn(authorName + ' processed');
-}
-
-function displayData() {
-  console.warn('\n' + count + ' tasks processed\n');
-  return exiting(0);
-}
-
-function exiting(code, msg) {
-  code = code || 0; // 0 = success
-  if (code && !msg) { msg = 'ERROR!'; }
-  if (msg) {
-    if (code) { console.error(msg); }
-    else      { console.log(  msg); }
+  if (lastId) {
+    query._id = {
+      $gt: lastId,
+    };
   }
-  process.exit(code);
+
+  dbTasks.find(query, {
+    sort: {_id: 1},
+    limit: 250,
+    fields: [ // specify fields we are interested in to limit retrieved data (empty if we're not reading data):
+    ],
+  })
+    .then(updateTasks)
+    .catch((err) => {
+      console.log(err);
+      return exiting(1, `ERROR! ${  err}`);
+    });
 }
 
-module.exports = processtasks;
+module.exports = processTasks;

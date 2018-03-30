@@ -6,9 +6,13 @@ import {
   getProperty,
 } from '../../../../../helpers/api-integration/v3';
 import { ApiUser } from '../../../../../helpers/api-integration/api-classes';
-import { v4 as generateRandomUserName } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { each } from 'lodash';
 import { encrypt } from '../../../../../../website/server/libs/encryption';
+
+function generateRandomUserName () {
+  return (Date.now() + uuid()).substring(0, 20);
+}
 
 describe('POST /user/auth/local/register', () => {
   context('username and email are free', () => {
@@ -35,6 +39,71 @@ describe('POST /user/auth/local/register', () => {
       expect(user.auth.local.username).to.eql(username);
       expect(user.profile.name).to.eql(username);
       expect(user.newUser).to.eql(true);
+    });
+
+    xit('remove spaces from username', async () => {
+      // TODO can probably delete this test now
+      let username = ' usernamewithspaces ';
+      let email = 'test@example.com';
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.auth.local.username).to.eql(username.trim());
+      expect(user.profile.name).to.eql(username.trim());
+    });
+
+    context('validates username', () => {
+      const email = 'test@example.com';
+      const password = 'password';
+
+      it('requires to username to be less than 20', async () => {
+        const username = (Date.now() + uuid()).substring(0, 21);
+
+        await expect(api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        })).to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+      });
+
+      it('rejects chracters not in [-_a-zA-Z0-9]', async () => {
+        const username = 'a-zA_Z09*';
+
+        await expect(api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        })).to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: 'Invalid request parameters.',
+        });
+      });
+
+      it('allows only [-_a-zA-Z0-9] characters', async () => {
+        const username = 'a-zA_Z09';
+
+        const user = await api.post('/user/auth/local/register', {
+          username,
+          email,
+          password,
+          confirmPassword: password,
+        });
+
+        expect(user.auth.local.username).to.eql(username);
+      });
     });
 
     context('provides default tags and tasks', async () => {
@@ -288,6 +357,21 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
+    it('sanitizes email params to a lowercase string before creating the user', async () => {
+      let username = generateRandomUserName();
+      let email = 'ISANEmAiL@ExAmPle.coM';
+      let password = 'password';
+
+      let user = await api.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+
+      expect(user.auth.local.email).to.equal(email.toLowerCase());
+    });
+
     it('fails on a habitica.com email', async () => {
       let username = generateRandomUserName();
       let email = `${username}@habitica.com`;
@@ -510,7 +594,7 @@ describe('POST /user/auth/local/register', () => {
 
     it('adds a user to a guild on an invite of type other than party', async () => {
       let { group, groupLeader } = await createAndPopulateGroup({
-          groupDetails: { type: 'guild', privacy: 'private' },
+        groupDetails: { type: 'guild', privacy: 'private' },
       });
 
       let invite = encrypt(JSON.stringify({
