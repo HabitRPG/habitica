@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import buyHealthPotion from './buyHealthPotion';
+import {BuyHealthPotionOperation} from './buyHealthPotion';
 import buyArmoire from './buyArmoire';
 import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
@@ -36,9 +36,12 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
       break;
-    case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+    case 'potion': {
+      const buyOp = new BuyHealthPotionOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
