@@ -282,6 +282,7 @@ spells.special = {
     mana: 0,
     value: 5,
     immediateUse: true,
+    purchaseType: 'debuffPotion',
     target: 'self',
     notes: t('spellSpecialSaltNotes'),
     cast (user) {
@@ -312,6 +313,7 @@ spells.special = {
     mana: 0,
     value: 5,
     immediateUse: true,
+    purchaseType: 'debuffPotion',
     target: 'self',
     notes: t('spellSpecialOpaquePotionNotes'),
     cast (user) {
@@ -342,6 +344,7 @@ spells.special = {
     mana: 0,
     value: 5,
     immediateUse: true,
+    purchaseType: 'debuffPotion',
     target: 'self',
     notes: t('spellSpecialPetalFreePotionNotes'),
     cast (user) {
@@ -372,6 +375,7 @@ spells.special = {
     mana: 0,
     value: 5,
     immediateUse: true,
+    purchaseType: 'debuffPotion',
     target: 'self',
     notes: t('spellSpecialSandNotes'),
     cast (user) {
