@@ -131,6 +131,10 @@ TaskSchema.plugin(baseModel, {
       delete taskObj.value;
     }
 
+    if (taskObj.priority && !Number.isNaN(Number.parseFloat(taskObj.priority))) {
+      taskObj.priority = Number(taskObj.priority.toFixed(1));
+    }
+
     return taskObj;
   },
   private: [],

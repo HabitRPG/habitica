@@ -470,10 +470,6 @@ api.updateTask = {
 
     _.assign(task, sanitizedObj);
 
-    if (task.priority && !Number.isNaN(Number.parseFloat(task.priority))) {
-      task.priority = Number(task.priority.toFixed(1));
-    }
-
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
