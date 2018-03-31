@@ -499,7 +499,7 @@ export default {
       if (!item)
         return false;
 
-      if (item.purchaseType === 'card')
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
         return false;
 
       return true;
@@ -519,6 +519,10 @@ export default {
         });
 
         this.$root.$emit('bv::show::modal', 'select-member-modal');
+      }
+
+      if (item.purchaseType === 'debuffPotion') {
+        this.castStart(item, this.user);
       }
     },
     async memberSelected (member) {
