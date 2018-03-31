@@ -10,8 +10,6 @@ import {
 } from '../../../libs/errors';
 import apiMessages from '../../../libs/apiMessages';
 
-const i18n = shared.i18n;
-
 let api = {};
 
 /**
