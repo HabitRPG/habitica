@@ -342,7 +342,7 @@ api.getUserChallenges = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const CHALLENGES_PER_PAGE = 10;
-    const page = req.query.page || 0;
+    const page = req.query.page;
 
     const user = res.locals.user;
     let orOptions = [
@@ -386,14 +386,20 @@ api.getUserChallenges = {
       query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
     }
 
-    const challenges = await Challenge.find(query)
-      .sort('-createdAt')
-      .limit(CHALLENGES_PER_PAGE)
-      .skip(CHALLENGES_PER_PAGE * page)
-      // see below why we're not using populate
-      // .populate('group', basicGroupFields)
-      // .populate('leader', nameFields)
-      .exec();
+    let mongoQuery = Challenge.find(query)
+      .sort('-createdAt');
+
+    if (page) {
+      mongoQuery = mongoQuery
+        .limit(CHALLENGES_PER_PAGE)
+        .skip(CHALLENGES_PER_PAGE * page);
+    }
+
+    // see below why we're not using populate
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
+    const challenges = await mongoQuery.exec();
+
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 

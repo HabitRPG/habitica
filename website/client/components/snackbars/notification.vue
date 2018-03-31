@@ -59,7 +59,7 @@ transition(name="fade")
 
   .text {
     text-align: center;
-    padding: .5em;
+    padding: .5em 1.5em;
   }
 
   .svg-icon {

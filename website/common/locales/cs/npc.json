@@ -96,6 +96,7 @@
     "unlocked": "Předměty byly odemčeny",
     "alreadyUnlocked": "Celý set je již odemčen.",
     "alreadyUnlockedPart": "Celý set je již částečně odemčen.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

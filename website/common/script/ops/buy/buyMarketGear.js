@@ -29,7 +29,6 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
     if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
     let item = content.gear.flat[key];
-
     if (!item) throw new NotFound(this.i18n('itemNotFound', {key}));
 
     this.canUserPurchase(user, item);
