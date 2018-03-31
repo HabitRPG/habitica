@@ -1138,6 +1138,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1149,6 +1150,8 @@ api.inviteToGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
