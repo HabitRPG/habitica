@@ -123,7 +123,7 @@ export default {
         key: 'keysToBoth',
         text: this.$t('keyToBoth'),
         notes: this.$t('keyToBothDesc'),
-        value: 6,
+        value: 0,
         currency: 'gems',
         class: 'key_to_both',
         locked: false,

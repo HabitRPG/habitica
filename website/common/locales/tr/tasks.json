@@ -12,7 +12,7 @@
     "createTask": "<%= type %> oluştur",
     "addTaskToUser": "iş ekle",
     "scheduled": "Zamanlı",
-    "theseAreYourTasks": "These are your <%= taskType %>",
+    "theseAreYourTasks": "Bunlar senin <%= taskType %>",
     "habit": "Alışkanlık",
     "habits": "Alışkanlıklar",
     "newHabit": "Yeni Alışkanlık",

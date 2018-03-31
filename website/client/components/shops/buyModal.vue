@@ -42,7 +42,7 @@
             :item="item"
           )
 
-        .purchase-amount
+        .purchase-amount(v-if='item.value > 0')
           .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')

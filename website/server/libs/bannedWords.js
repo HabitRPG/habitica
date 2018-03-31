@@ -68,7 +68,7 @@
 
 // DO NOT EDIT! See the comments at the top of this file.
 let bannedWords = [
-  'TEST_PLACEHOLDER_SWEAR_WORD_HERE',
+  'TESTPLACEHOLDERSWEARWORDHERE',
 
 
 
@@ -112,6 +112,7 @@ let bannedWords = [
   'muthafucka',
   'dafuq',
   'wtf',
+  'stfu',
 
   'ass',
   'arse',

@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'KEYS TO THE KENNELS AND USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA ON INSTAGRAM, SELF-IMPOSED CHALLENGE BLOG, AND WHAT\'S THE APRIL FOOL UP TO?';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,26 +32,22 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>3/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
+        <h3>Habitica is Now on Instagram!</h3>
+        <p>Habitica's <a href='https://www.instagram.com/habitica' target='_blank'>Instagram</a> is now live! Follow us for updates and exclusive peeks at behind-the-scenes fun!</p>
         <div class="media align-items-center">
+          <div class="scene_todos"></div>
           <div class="media-body">
-            <h3>Release Pets & Mounts!</h3>
-            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
-          </div>
-          <div class="pet_key ml-3"></div>
-        </div>
-        <p>Scroll to the bottom of <a href='/shops/market' target='_blank'>the Market</a> to purchase a Key. It takes effect immediately on purchase, so say your goodbyes first!</p>
-        <div class="small mb-3">by TheHollidayInn, Apollo, Lemoness, deilann, and Megan</div>
-        <div class="media align-items-center">
-          <div class="scene_sweeping mr-3"></div>
-          <div class="media-body">
-            <h3>Use Case Spotlight: Spring Cleaning</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/03/15/use-case-spotlight-spring-cleaning/' target='_blank'>Use Case Spotlight</a> is about Spring Cleaning! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to start spring with a nice, clean dwelling.</p>
-            <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to Make a Difference? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-            <div class="small mb-3">by Beffymaroo</div>
+            <h3>New Blog Post: Self-Imposed Challenges!</h3>
+            <p>This month's <a href='https://habitica.wordpress.com/2018/03/28/self-imposed-challenges/' target='_blank'>featured Wiki article</a> is about Self-Imposed Challenges! We hope that it will help you as you customize Habitica to make it as fun and challenging as you'd like it to be! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+            <div class="small mb-3">by Beffymaroo and the Wiki Wizards</div>
           </div>
         </div>
+        <h3>The April Fool Stops By the Tavern...</h3>
+        <p>It's that time of year again, and all Habitica's denizens have been on the lookout for stirrings from the most mischievous Masterclasser: the April Fool. Puzzlingly (and perhaps alarmingly!) he's been unusually quiet considering his favorite day is nearing. He's announced he's keeping his plans small-scale and that they will hardly be noticed, but upon hearing this from Tavern-goers on a visit to Habit City, Lady Glaciate rolled her eyes.</p>
+        <p>"I'd be interested to know what the Master of Rogues considers a modestly-proportioned prank…" she says irritably.</p>
+        <p>Perhaps you should check back over the weekend to see what's in store…</p>
       </div>
       `,
     });
