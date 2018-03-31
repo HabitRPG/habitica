@@ -79,15 +79,15 @@ describe('shouldDo', () => {
 
       it('returns true if the user\'s current time is after start date and Custom Day Start', () => {
         options.dayStart = 4;
-        day = moment().zone(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
-        dailyTask.startDate = moment().zone(options.timezoneOffset).startOf('day').toDate();
+        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
+        dailyTask.startDate = moment().utcOffset(options.timezoneOffset).startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
       it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
-        day = moment().zone(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
-        dailyTask.startDate = moment().zone(options.timezoneOffset).startOf('day').toDate();
+        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
+        dailyTask.startDate = moment().utcOffset(options.timezoneOffset).startOf('day').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
@@ -109,13 +109,13 @@ describe('shouldDo', () => {
 
       it('returns true if the user\'s current time is after Custom Day Start', () => {
         options.dayStart = 4;
-        day = moment().zone(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
+        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(6, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(true);
       });
 
       it('returns false if the user\'s current time is before Custom Day Start', () => {
         options.dayStart = 8;
-        day = moment().zone(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
+        day = moment().utcOffset(options.timezoneOffset).startOf('day').add(2, 'hours').toDate();
         expect(shouldDo(day, dailyTask, options)).to.equal(false);
       });
     });
