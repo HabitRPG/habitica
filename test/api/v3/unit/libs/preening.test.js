@@ -9,7 +9,7 @@ describe('preenHistory', () => {
   beforeEach(() => {
     // Replace system clocks so we can get predictable results
     clock = sinon.useFakeTimers({
-      now: Number(moment('2013-10-20').zone(0).startOf('day').toDate()),
+      now: Number(moment('2013-10-20').utcOffset(0).startOf('day').toDate()),
       toFake: ['Date'],
     });
   });
