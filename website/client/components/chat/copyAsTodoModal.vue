@@ -1,11 +1,11 @@
 <template lang="pug">
   b-modal#copyAsTodo(:title="$t('copyMessageAsToDo')", :hide-footer="true", size='md')
     .form-group
-      input.form-control(type='text', v-model='task.text')
+      input.form-control(type='text', v-model='task.text', readonly)
     .form-group
-      textarea.form-control(rows='5', v-model='task.notes' focus-element='true')
+      textarea.form-control(rows='5', v-model='task.notes' focus-element='true', readonly)
     hr
-    task(v-if='task._id', :isUser="isUser", :task="task")
+    task(v-if='task._id', :isUser="isUser", :preventEdit="preventEdit", :preventCheck="preventCheck", :task="task")
     .modal-footer
       button.btn.btn-secondary(@click='close()') {{ $t('close') }}
       button.btn.btn-primary(@click='saveTodo()') {{ $t('submit') }}
@@ -33,6 +33,8 @@ export default {
   data () {
     return {
       isUser: true,
+      preventEdit: true,
+      preventCheck: true,
       task: {},
     };
   },
