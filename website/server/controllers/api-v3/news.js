@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA ON INSTAGRAM, SELF-IMPOSED CHALLENGE BLOG, AND WHAT\'S THE APRIL FOOL UP TO?';
+const LAST_ANNOUNCEMENT_TITLE = 'APRIL FOOL\'S 2018: TINY PETS AND MOUNTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,22 +32,21 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>Habitica is Now on Instagram!</h3>
-        <p>Habitica's <a href='https://www.instagram.com/habitica' target='_blank'>Instagram</a> is now live! Follow us for updates and exclusive peeks at behind-the-scenes fun!</p>
         <div class="media align-items-center">
-          <div class="scene_todos"></div>
           <div class="media-body">
-            <h3>New Blog Post: Self-Imposed Challenges!</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/03/28/self-imposed-challenges/' target='_blank'>featured Wiki article</a> is about Self-Imposed Challenges! We hope that it will help you as you customize Habitica to make it as fun and challenging as you'd like it to be! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small mb-3">by Beffymaroo and the Wiki Wizards</div>
+            <h3>Tiny Pets and Mounts</h3>
+            <p>Oh no! That dastardly April Fool seems to have pulled off his "small" prank: all our pets and mounts have shrunk!</p>
+            <p>"Haha!" the April Fool laughs as he bursts in the the Tavern, "Enjoy your new and more efficiently-sized friends! Now your pets and mounts are so much easier to keep track of, right? This should certainly increase your productivity!"</p>
           </div>
+          <div class="npc_aprilFool"></div>
         </div>
-        <h3>The April Fool Stops By the Tavern...</h3>
-        <p>It's that time of year again, and all Habitica's denizens have been on the lookout for stirrings from the most mischievous Masterclasser: the April Fool. Puzzlingly (and perhaps alarmingly!) he's been unusually quiet considering his favorite day is nearing. He's announced he's keeping his plans small-scale and that they will hardly be noticed, but upon hearing this from Tavern-goers on a visit to Habit City, Lady Glaciate rolled her eyes.</p>
-        <p>"I'd be interested to know what the Master of Rogues considers a modestly-proportioned prank…" she says irritably.</p>
-        <p>Perhaps you should check back over the weekend to see what's in store…</p>
+        <p>Lady Glaciate grumbles from her corner table and looks at her mammoth, which is happily cavorting in her teacup. "Well, since I don't have a ride back home to the Stoikalm Steppes at the moment, I disagree."</p>
+        <p>As Sir Stomp sprays tea triumphantly from his trunk, a small smile tugs at the corner of her mouth. ".…I suppose one could argue it's quite cute, though," she grudgingly adds.</p>
+        <p>It looks like all our pets and mounts are extra small for the time being. Enjoy the fun by checking out everyone's profiles today! Your pets and mounts will return to normal on April 3.</p>
+        <h3>Special April Fool's Social Media Challenge!</h3>
+        <p>For even more fun, check out the <a href='/challenges/a7cacfb6-3135-4d17-9a51-46dfcfe1e712' target='_blank'>official Challenge</a> posted especially for today! Share your avatar featuring your tiny pets on social media between now and April 3, and you'll have a chance to win gems!</p>
       </div>
       `,
     });
