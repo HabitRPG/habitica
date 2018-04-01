@@ -24,6 +24,7 @@ describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
+  let testBannedWordMessage1 = 'TESTPLACEHOLDERSWEARWORDHERE1';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
   let bannedWordErrorMessage = t('bannedWordUsed').replace('.', ` (${testBannedWordMessage}).`);
@@ -149,9 +150,8 @@ describe('POST /chat', () => {
         });
     });
 
-    it('checks error message has the banned words used', async () => {
-      let randIndex = Math.floor(Math.random() * (bannedWords.length + 1));
-      let testBannedWords = bannedWords.slice(randIndex, randIndex + 2).map((w) => w.replace(/\\/g, ''));
+    it('checks error message has all the banned words used, regardless of case', async () => {
+      let testBannedWords = [testBannedWordMessage.toUpperCase(), testBannedWordMessage1.toLowerCase()];
       let chatMessage = `Mixing ${testBannedWords[0]} and ${testBannedWords[1]} is bad for you.`;
       await expect(user.post('/groups/habitrpg/chat', { message: chatMessage}))
         .to.eventually.be.rejected
