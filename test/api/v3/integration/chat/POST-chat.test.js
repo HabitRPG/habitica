@@ -26,9 +26,7 @@ describe('POST /chat', () => {
   let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
-  let bannedWordErrorMessage = t('bannedWordUsed').split('.');
-  bannedWordErrorMessage[0] += ` (${testBannedWordMessage.toLowerCase()})`;
-  bannedWordErrorMessage = bannedWordErrorMessage.join('.');
+  let bannedWordErrorMessage = t('bannedWordUsed').replace('.', ` (${testBannedWordMessage}).`);
   let slurErrorMessage = t('bannedSlurUsed');
 
   before(async () => {
@@ -142,6 +140,7 @@ describe('POST /chat', () => {
     it('errors when word is typed in mixed case', async () => {
       let substrLength = Math.floor(testBannedWordMessage.length / 2);
       let chatMessage = testBannedWordMessage.substring(0, substrLength).toLowerCase() + testBannedWordMessage.substring(substrLength).toUpperCase();
+      let bannedWordErrorMessage = t('bannedWordUsed').replace('.', ` (${chatMessage}).`);
       await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
         .to.eventually.be.rejected.and.eql({
           code: 400,
