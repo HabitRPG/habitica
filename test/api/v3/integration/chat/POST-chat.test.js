@@ -39,6 +39,7 @@ describe('POST /chat', () => {
       members: 2,
     });
     user = groupLeader;
+    await user.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL}); // prevent tests accidentally throwing messageGroupChatSpam
     groupWithChat = group;
     member = members[0];
     additionalMember = members[1];
