@@ -136,7 +136,7 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
     let itemOwned = user.items.gear.owned[gear.key];
 
     if (itemOwned === false) {
-      gear.locked = false;
+      gear.locked = true;
     }
 
     gear.owned = itemOwned;
