@@ -937,6 +937,11 @@
             return;
           }
 
+          if (this.user.preferences.suppressModals.raisePet) {
+            this.hatchPet(pet);
+            return;
+          }
+
           // Confirm
           this.hatchablePet = pet;
           this.$root.$emit('bv::show::modal', 'hatching-modal');
