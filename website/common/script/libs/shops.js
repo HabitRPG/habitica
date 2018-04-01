@@ -112,7 +112,9 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
       gear.locked = true;
     }
 
-    if (!gear.locked  && !availableGear.includes(gear.path)) {
+    let itemOwned = user.items.gear.owned[gear.key];
+
+    if (!itemOwned && !gear.locked  && !availableGear.includes(gear.path)) {
       gear.locked = true;
     }
 
@@ -130,13 +132,6 @@ shops.checkMarketGearLocked = function checkMarketGearLocked (user, items) {
 
     if (gear.canOwn) {
       gear.locked = !gear.canOwn(user);
-    }
-
-
-    let itemOwned = user.items.gear.owned[gear.key];
-
-    if (itemOwned === false) {
-      gear.locked = true;
     }
 
     gear.owned = itemOwned;
