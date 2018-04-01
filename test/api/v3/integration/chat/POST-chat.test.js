@@ -11,7 +11,7 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
-import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
+import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
@@ -26,7 +26,7 @@ describe('POST /chat', () => {
   let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let bannedWordErrorMessage = t('bannedWordUsed').split('.');
-  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
+  bannedWordErrorMessage[0] += ` (${testBannedWordMessage.toLowerCase()})`;
   bannedWordErrorMessage = bannedWordErrorMessage.join('.');
 
   before(async () => {
