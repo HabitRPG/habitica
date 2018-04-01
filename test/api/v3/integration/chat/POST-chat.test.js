@@ -27,8 +27,7 @@ describe('POST /chat', () => {
   let testBannedWordMessage1 = 'TESTPLACEHOLDERSWEARWORDHERE1';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
-  let bannedWordErrorMessage = t('bannedWordUsed').replace('.', ` (${testBannedWordMessage}).`);
-  let slurErrorMessage = t('bannedSlurUsed');
+  let bannedWordErrorMessage = t('bannedWordUsed', {swearWordsUsed: testBannedWordMessage});
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -141,12 +140,11 @@ describe('POST /chat', () => {
     it('errors when word is typed in mixed case', async () => {
       let substrLength = Math.floor(testBannedWordMessage.length / 2);
       let chatMessage = testBannedWordMessage.substring(0, substrLength).toLowerCase() + testBannedWordMessage.substring(substrLength).toUpperCase();
-      let bannedWordErrorMessage = t('bannedWordUsed').replace('.', ` (${chatMessage}).`);
       await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: bannedWordErrorMessage,
+          message: t('bannedWordUsed', {swearWordsUsed: chatMessage}),
         });
     });
 
@@ -341,7 +339,7 @@ describe('POST /chat', () => {
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
-          message: slurErrorMessage,
+          message: t('bannedSlurUsed'),
         });
     });
   });
