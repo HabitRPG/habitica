@@ -144,8 +144,11 @@ module.exports = function purchase (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  let itemInfo = getItemInfo(user, type, item);
-  removeItemByPath(user, itemInfo.path);
+  let singlePurchaseTypes = ['gear'];
+  if (singlePurchaseTypes.indexOf(type) !== -1) {
+    let itemInfo = getItemInfo(user, type, item);
+    removeItemByPath(user, itemInfo.path);
+  }
 
   for (let i = 0; i < quantity; i += 1) {
     purchaseItem(user, item, price, type, key);
