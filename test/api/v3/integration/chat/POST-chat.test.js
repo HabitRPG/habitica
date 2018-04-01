@@ -25,9 +25,11 @@ describe('POST /chat', () => {
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
+  let testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
   let bannedWordErrorMessage = t('bannedWordUsed').split('.');
   bannedWordErrorMessage[0] += ` (${testBannedWordMessage.toLowerCase()})`;
   bannedWordErrorMessage = bannedWordErrorMessage.join('.');
+  let slurErrorMessage = t('bannedSlurUsed');
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -130,6 +132,17 @@ describe('POST /chat', () => {
     it('errors when word is surrounded by non alphabet characters', async () => {
       let wordInPhrase = `_!${testBannedWordMessage}@_`;
       await expect(user.post('/groups/habitrpg/chat', { message: wordInPhrase}))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: bannedWordErrorMessage,
+        });
+    });
+
+    it('errors when word is typed in mixed case', async () => {
+      let substrLength = Math.floor(testBannedWordMessage.length / 2);
+      let chatMessage = testBannedWordMessage.substring(0, substrLength).toLowerCase() + testBannedWordMessage.substring(substrLength).toUpperCase();
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
         .to.eventually.be.rejected.and.eql({
           code: 400,
           error: 'BadRequest',
@@ -320,6 +333,17 @@ describe('POST /chat', () => {
       // Restore chat privileges to continue testing
       members[0].flags.chatRevoked = false;
       await members[0].update({'flags.chatRevoked': false});
+    });
+
+    it('errors when slur is typed in mixed case', async () => {
+      let substrLength = Math.floor(testSlurMessage1.length / 2);
+      let chatMessage = testSlurMessage1.substring(0, substrLength).toLowerCase() + testSlurMessage1.substring(substrLength).toUpperCase();
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: slurErrorMessage,
+        });
     });
   });
 
