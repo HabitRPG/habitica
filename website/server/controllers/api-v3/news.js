@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MARCH SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
+const LAST_ANNOUNCEMENT_TITLE = 'APRIL FOOL\'S 2018: TINY PETS AND MOUNTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,25 +32,21 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>March Subscriber Items Revealed!</h3>
-            <p>The March Subscriber Item has been revealed: the Daring Dragonfly Set! You'll receive this set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a> by March 31! If you're already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!</p>
+            <h3>Tiny Pets and Mounts</h3>
+            <p>Oh no! That dastardly April Fool seems to have pulled off his "small" prank: all our pets and mounts have shrunk!</p>
+            <p>"Haha!" the April Fool laughs as he bursts in the the Tavern, "Enjoy your new and more efficiently-sized friends! Now your pets and mounts are so much easier to keep track of, right? This should certainly increase your productivity!"</p>
           </div>
-          <div class="promo_mystery_201803"></div>
+          <div class="npc_aprilFool"></div>
         </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
-          <div class="scene_podcast mb-3 mr-3"></div>
-          <div class="media-body">
-            <h3>Behind the Scenes: Staff Podcast Picks!</h3>
-            <p>Looking for new podcasts? The Habitica team loves podcasts, and in this special post we wanted to share some favorites that help us get things done, learn, and have fun! Come check them out in <a href='https://habitica.wordpress.com/2018/03/22/behind-the-scenes-habitica-staff-podcast-picks/' target='_blank'>this month's Behind the Scenes feature!</a></p>
-            <div class="small mb-3">by Beffymaroo and the rest of the Habitica team</div>
-          </div>
-        </div>
+        <p>Lady Glaciate grumbles from her corner table and looks at her mammoth, which is happily cavorting in her teacup. "Well, since I don't have a ride back home to the Stoikalm Steppes at the moment, I disagree."</p>
+        <p>As Sir Stomp sprays tea triumphantly from his trunk, a small smile tugs at the corner of her mouth. ".…I suppose one could argue it's quite cute, though," she grudgingly adds.</p>
+        <p>It looks like all our pets and mounts are extra small for the time being. Enjoy the fun by checking out everyone's profiles today! Your pets and mounts will return to normal on April 3.</p>
+        <h3>Special April Fool's Social Media Challenge!</h3>
+        <p>For even more fun, check out the <a href='/challenges/a7cacfb6-3135-4d17-9a51-46dfcfe1e712' target='_blank'>official Challenge</a> posted especially for today! Share your avatar featuring your tiny pets on social media between now and April 3, and you'll have a chance to win gems!</p>
       </div>
       `,
     });

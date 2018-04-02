@@ -176,7 +176,7 @@
     "taskApprovalHasBeenRequested": "A aprovação já foi solicitada",
     "taskApprovalWasNotRequested": "Only a task waiting for approval can be marked as needing more work",
     "approvals": "Aprovações",
-    "approvalRequired": "Needs Approval",
+    "approvalRequired": "Precisa de Aprovação",
     "repeatZero": "A Tarefa Diária nunca expira",
     "repeatType": "Tipo de Repetição",
     "repeatTypeHelpTitle": "Que tipo de repetição é este?",

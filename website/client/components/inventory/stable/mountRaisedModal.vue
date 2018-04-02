@@ -1,21 +1,21 @@
 <template lang="pug">
-b-modal#hatchedPet-modal(:hide-header="true")
-  div.content(v-if="pet != null")
-    div.dialog-header.title(v-once) {{ $t('hatchedPetGeneric') }}
+b-modal#mount-raised-modal(:hide-header="true")
+  div.content(v-if="mount != null")
+    div.dialog-header.title(v-once) {{ $t('raisedPet', {pet: mount.text()}) }}
     div.inner-content
       div.pet-background
-        div(:class="pet.class")
-      h4.title {{ pet.name }}
-      div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse')")
-      button.btn.btn-primary(@click="close()") {{ $t('onward') }}
+        .mount(:class="`Mount_Icon_${mount.key}`")
+      h4.title {{ mount.text() }}
+      button.btn.btn-primary.onward(@click="close()") {{ $t('onward') }}
   div.clearfix(slot="modal-footer")
 </template>
 
-<style lang="scss">
+
+<style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
   @import '~client/assets/scss/modal.scss';
 
-  #hatchedPet-modal {
+  #mount-raised-modal {
     @include centeredModal();
 
     .modal-dialog {
@@ -40,43 +40,52 @@ b-modal#hatchedPet-modal(:hide-header="true")
       background-color: $gray-700;
     }
 
-    .Pet {
-      margin: auto;
+    .mount {
+      margin: 0 auto;
     }
 
     .dialog-header {
       color: $purple-200;
     }
+
+    .onward {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
   }
 </style>
 
+
 <script>
   import markdownDirective from 'client/directives/markdown';
+  import {mountInfo} from 'common/script/content/stable';
 
   export default {
     data () {
       return {
-        pet: null,
+        mount: null,
       };
     },
     directives: {
       markdown: markdownDirective,
     },
+    created () {
+
+    },
     mounted () {
-      this.$root.$on('hatchedPet::open', this.openDialog);
+      this.$root.$on('habitica::mount-raised', this.openDialog);
     },
     destroyed () {
-      this.$root.$off('hatchedPet::open', this.openDialog);
+      this.$root.$off('habitica::mount-raised', this.openDialog);
     },
     methods: {
-      openDialog (item) {
-        this.pet = item;
-        this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
+      openDialog (mountKey) {
+        this.mount = mountInfo[mountKey];
+        this.$root.$emit('bv::show::modal', 'mount-raised-modal');
       },
       close () {
-        this.$emit('closed', this.item);
-        this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');
-        this.pet = null;
+        this.$root.$emit('bv::hide::modal', 'mount-raised-modal');
+        this.mount = null;
       },
     },
     props: {
