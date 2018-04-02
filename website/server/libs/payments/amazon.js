@@ -5,19 +5,19 @@ import cc from 'coupon-code';
 import uuid from 'uuid';
 import util from 'util';
 
-import common from '../../common';
+import common from '../../../common';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from './errors';
+} from '../errors';
 import payments from './payments';
-import { model as User } from '../models/user';
+import { model as User } from '../../models/user';
 import {
   model as Group,
   basicFields as basicGroupFields,
-} from '../models/group';
-import { model as Coupon } from '../models/coupon';
+} from '../../models/group';
+import { model as Coupon } from '../../models/coupon';
 
 // TODO better handling of errors
 
