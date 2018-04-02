@@ -454,7 +454,7 @@ api.updateGroup = {
     _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
 
     let savedGroup = await group.save();
-    let response = Group.toJSONCleanChat(savedGroup, user);
+    let response = await Group.toJSONCleanChat(savedGroup, user);
 
     // If the leader changed fetch new data, otherwise use authenticated user
     if (response.leader !== user._id) {
@@ -623,7 +623,7 @@ api.joinGroup = {
 
     promises = await Promise.all(promises);
 
-    let response = Group.toJSONCleanChat(promises[0], user);
+    let response = await Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
     if (leader) {
       response.leader = leader.toJSON({minimize: true});
