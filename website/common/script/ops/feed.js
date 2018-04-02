@@ -47,12 +47,15 @@ module.exports = function feed (user, req = {}) {
     throw new NotFound(i18n.t('messageFoodNotFound', req.language));
   }
 
-  if (pet.type === 'special') {
-    throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
-  }
-
   if (user.items.mounts[pet.key]) {
     throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
+  }
+
+  if (pet.type === 'special') {
+    return [
+      userPets[pet.key],
+      i18n.t('messageCannotFeedPet', req.language),
+    ];
   }
 
   let message;
