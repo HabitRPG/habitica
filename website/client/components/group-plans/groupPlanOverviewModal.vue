@@ -1,5 +1,5 @@
 <template lang="pug">
-b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true)
+b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true, @shown='shown()')
   .header-wrap.text-center(slot="modal-header")
     h2(v-once) Getting Started
     p(v-once) Congratulations on creating your new Group! Here are a few answers to some of the more commonly asked questions.
@@ -190,6 +190,7 @@ b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true)
 </style>
 
 <script>
+import * as Analytics from 'client/libs/analytics';
 import { mapState } from 'client/libs/store';
 
 import upIcon from 'assets/svg/up.svg';
@@ -215,6 +216,14 @@ export default {
     ...mapState({user: 'user.data'}),
   },
   methods: {
+    shown () {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'button',
+        eventAction: 'click',
+        eventLabel: 'viewed-group-plan-overview',
+      });
+    },
     toggle (question) {
       this.expandedQuestions[question] = !this.expandedQuestions[question];
     },

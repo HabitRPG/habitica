@@ -73,6 +73,7 @@
 </style>
 
 <script>
+import * as Analytics from 'client/libs/analytics';
 import hello from 'hellojs';
 import { setUpAxios } from 'client/libs/auth';
 
@@ -102,6 +103,13 @@ export default {
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+    });
+
+    Analytics.track({
+      hitType: 'event',
+      eventCategory: 'group-plans-static',
+      eventAction: 'view',
+      eventLabel: 'view-auth-form',
     });
   },
   methods: {

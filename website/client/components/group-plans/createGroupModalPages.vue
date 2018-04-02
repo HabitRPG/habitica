@@ -6,7 +6,7 @@
       input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Example: Avengers Academy", v-model='newGroup.name')
     .form-group
       label(for='new-group-description') {{ $t('description') }}
-      textarea.form-control#new-group-description.option-content(cols='3', :placeholder="For those selected to join the training academy for The Avengers Superhero Initiative", v-model='newGroup.description')
+      textarea.form-control#new-group-description.option-content(cols='3', placeholder="For those selected to join the training academy for The Avengers Superhero Initiative", v-model='newGroup.description')
     .form-group.text-left(v-if='newGroup.type === "guild"')
       .custom-control.custom-radio
         input.custom-control-input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
@@ -61,6 +61,7 @@
 </style>
 
 <script>
+import * as Analytics from 'client/libs/analytics';
 import { mapState } from 'client/libs/store';
 import paymentsMixin from '../../mixins/payments';
 
@@ -102,8 +103,22 @@ export default {
       return Boolean(this.newGroup.name);
     },
   },
+  mounted () {
+    Analytics.track({
+      hitType: 'event',
+      eventCategory: 'group-plans-static',
+      eventAction: 'view',
+      eventLabel: 'create-group',
+    });
+  },
   methods: {
     changePage (page) {
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'group-plans-static',
+        eventAction: 'view',
+        eventLabel: page,
+      });
       this.activePage = page;
       window.scrollTo(0, 0);
     },

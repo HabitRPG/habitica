@@ -5,6 +5,7 @@ import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
+import * as Analytics from 'client/libs/analytics';
 
 export default {
   mixins: [notificationsMixin],
@@ -99,6 +100,14 @@ export default {
             // Handle new user signup
             if (!this.$store.state.isUserLoggedIn) {
               const habiticaUrl = `${location.protocol}//${location.host}`;
+
+              Analytics.track({
+                hitType: 'event',
+                eventCategory: 'group-plans-static',
+                eventAction: 'view',
+                eventLabel: 'paid-with-stripe',
+              });
+
               location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
               return;
             }
