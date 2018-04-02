@@ -144,6 +144,7 @@ describe('POST /group', () => {
           user.post('/groups', {
             name: 'Test Public Guild',
             type: 'guild',
+            privacy: 'public',
           })
         ).to.eventually.be.rejected.and.eql({
           code: 401,
