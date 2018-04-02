@@ -1,16 +1,16 @@
 <template lang="pug">
-div
+.create-group-modal-pages
   .col-12(v-if='activePage === PAGES.CREATE_GROUP')
     .form-group
       label.control-label(for='new-group-name') Name
-      input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Name", v-model='newGroup.name')
+      input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Example: Avengers Academy", v-model='newGroup.name')
     .form-group
       label(for='new-group-description') {{ $t('description') }}
-      textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('description')", v-model='newGroup.description')
+      textarea.form-control#new-group-description.option-content(cols='3', :placeholder="For those selected to join the training academy for The Avengers Superhero Initiative", v-model='newGroup.description')
     .form-group.text-left(v-if='newGroup.type === "guild"')
       .custom-control.custom-radio
         input.custom-control-input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-        label.custom-control-label {{ $t('inviteOnly') }}
+        label.custom-control-label This group is invitation only.
     .form-group.text-left
       .custom-control.custom-checkbox
         input.custom-control-input(type='checkbox', v-model='newGroup.leaderOnly.challenges' id='create-group-leaderOnlyChallenges-checkbox')

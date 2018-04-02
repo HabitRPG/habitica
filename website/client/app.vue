@@ -111,7 +111,7 @@ div
   }
 
   .modal-backdrop.show {
-    opacity: 1 !important;
+    opacity: .9 !important;
     background-color: $purple-100 !important;
   }
 

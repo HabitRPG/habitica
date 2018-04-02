@@ -51,10 +51,10 @@
         .bot-right
     b-modal#group-plan(title="", size='md', :hide-footer='true', :hide-header='true')
       div(v-if='modalPage === "account"')
-        h2 Let's create you an account
+        h2 First, let’s make you an account
         auth-form(@authenticate='authenticate()')
       div(v-if='modalPage === "purchaseGroup"')
-        h2 Create a Group
+        h2 Next, Name Your Group
         create-group-modal-pages
 </template>
 
@@ -69,6 +69,23 @@
   .party {
     width: 386px;
     margin-top: 4em;
+  }
+
+  .team-based {
+    background-image: url('../../assets/images/group-plans-static/group-management@3x.png');
+    background-size: contain;
+    position: absolute;
+    height: 356px;
+    width: 411px;
+    margin-top: -2em;
+  }
+
+  .group-management {
+    background-image: url('../../assets/images/group-plans-static/team-based@3x.png');
+    background-size: contain;
+    position: absolute;
+    height: 294px;
+    width: 411px;
   }
 
   .top-left, .top-right, .bot-left, .bot-right {
@@ -129,8 +146,8 @@
   }
 
   .row {
-    margin-top: 4em;
-    margin-bottom: 4em;
+    margin-top: 10em;
+    margin-bottom: 10em;
   }
 
   .text-col {
@@ -178,16 +195,6 @@
   }
 </style>
 
-<style>
-  .team-based svg {
-    height: 292px;
-  }
-
-  .group-management svg {
-    height: 224px;
-  }
-</style>
-
 <script>
   import { setup as setupPayments } from 'client/libs/payments';
   import amazonPaymentsModal from 'client/components/payments/amazonModal';
@@ -196,8 +203,6 @@
   import CreateGroupModalPages from '../group-plans/createGroupModalPages.vue';
 
   import party from '../../assets/images/group-plans-static/party.svg';
-  import groupManagement from '../../assets/images/group-plans-static/group-management.svg';
-  import teamBased from '../../assets/images/group-plans-static/team-based.svg';
 
   export default {
     components: {
@@ -210,8 +215,6 @@
       return {
         svg: {
           party,
-          groupManagement,
-          teamBased,
         },
         modalTitle: this.$t('register'),
         modalPage: 'account',

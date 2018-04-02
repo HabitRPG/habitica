@@ -42,6 +42,11 @@
     position: relative;
     z-index: 1;
 
+    .form-group {
+      text-align: left;
+      font-weight: bold;
+    }
+
     .social-button {
       width: 100%;
       text-align: center;
@@ -59,6 +64,10 @@
       display: inline-block;
       vertical-align: top;
       margin-top: .2em;
+    }
+
+    small.form-text {
+      text-align: center;
     }
   }
 </style>
