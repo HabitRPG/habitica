@@ -429,8 +429,9 @@ api.getGroupChallenges = {
       query.flagCount = { $eq: 0 };
     }
 
-    let challenges = await Challenge.find(query)
-      .sort('-official -createdAt')
+    let challenges = await Challenge
+      .find(query)
+      .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
