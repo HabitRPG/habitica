@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'KEYS TO THE KENNELS AND USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'BACKGROUNDS, ARMOIRE ITEMS, AND OFFICIAL CHALLENGES FOR APRIL';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,26 +32,25 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/15/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/2/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
         <div class="media align-items-center">
           <div class="media-body">
-            <h3>Release Pets & Mounts!</h3>
-            <p>The Keys to the Kennels have returned! Now, when you collect all 90 standard pets or mounts, you can release them for 4 Gems, letting you collect them all over again! If you want a real challenge, you can attain the elusive Triad Bingo by filling your stable with all of both, then set them all free at once for 6 Gems!</p>
+            <h3>April Backgrounds and Armoire Items!</h3>
+            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can fly over an Ancient Forest, soar above a Field of Wildflowers, and dally in a pretty Tulip Garden. Check them out under User Icon > Backgrounds!</p>
+            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including some fun joke props in honor of April Fool's Day! Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+            <div class="small mb-3">by BanthaFett, Podcod, virginiamoon, Vikte and Kiwibot</div>
+            <h3>April 2018 Resolution Success Challenge and Take This Challenge</h3>
+            <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/1db268f0-9be3-4f34-9c68-ae63b3a4c7d4' target='_blank'>Rally Your Allies</a>, we're focusing on building accountability by reaching out to supportive people in your life ! It has a 15 gem prize, which will be awarded to five lucky winners on May 1st.</p>
+            <p>Congratulations to the winners of March's Challenge, LuxInWonderland, kheftel, Midnight Reverie, bookishninja, and VeganValerie!</p>
           </div>
-          <div class="pet_key ml-3"></div>
+          <div class="promo_armoire_background_201804 ml-3"></div>
         </div>
-        <p>Scroll to the bottom of <a href='/shops/market' target='_blank'>the Market</a> to purchase a Key. It takes effect immediately on purchase, so say your goodbyes first!</p>
-        <div class="small mb-3">by TheHollidayInn, Apollo, Lemoness, deilann, and Megan</div>
-        <div class="media align-items-center">
-          <div class="scene_sweeping mr-3"></div>
-          <div class="media-body">
-            <h3>Use Case Spotlight: Spring Cleaning</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/03/15/use-case-spotlight-spring-cleaning/' target='_blank'>Use Case Spotlight</a> is about Spring Cleaning! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be looking to start spring with a nice, clean dwelling.</p>
-            <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to Make a Difference? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-            <div class="small mb-3">by Beffymaroo</div>
-          </div>
-        </div>
+        <div class="scene_positivity center-block"></div>
+        <p>The next Take This Challenge has also launched, "<a href='/challenges/f817901f-86eb-4bbd-afd9-d3e2396d9ae5' target='_blank'>Test Thy Courage!</a>, with a focus on initiating positive social interactions. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+        <p>Congratulations to the winners of the last Take This Challenge, "I Am the Night!": grand prize winner Jon Johnson, and runners-up valosin, ninaninet, awcward, Jackie Stack, and SaphirSoleil. Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they didn't have the full set already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });

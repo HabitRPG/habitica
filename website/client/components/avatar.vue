@@ -1,10 +1,6 @@
 <template lang="pug">
 .avatar(:style="{width, height, paddingTop}", :class="backgroundClass", @click.prevent='castEnd()')
   .character-sprites(:style='{margin: spritesMargin}')
-    template(v-if="!avatarOnly")
-      // Mount Body
-      span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
-
     // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
     template(v-for="(klass, item) in visualBuffs")
       span(v-if="member.stats.buffs[item] && showVisualBuffs", :class="klass")
@@ -21,11 +17,10 @@
       span(:class="member.preferences.size + '_shirt_' + member.preferences.shirt")
       span.head_0
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
-      span.head_0
       span(:class="getGearClass('back_collar')")
-      span(:class="getGearClass('body')")
       template(v-for="type in ['bangs', 'base', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
+      span(:class="getGearClass('body')")
       span(:class="getGearClass('eyewear')")
       span(:class="getGearClass('head')")
       span(:class="getGearClass('headAccessory')")
@@ -37,6 +32,8 @@
     span.zzz(v-if="member.preferences.sleep")
 
     template(v-if="!avatarOnly")
+      // Mount Body
+      span(v-if="member.items.currentMount", :class="'Mount_Body_' + member.items.currentMount")
       // Mount Head
       span(v-if="member.items.currentMount", :class="'Mount_Head_' + member.items.currentMount")
       // Pet
@@ -65,8 +62,8 @@
   }
 
   .current-pet {
-    bottom: 0px;
-    left: 0px;
+    right: 70px;
+    top: 70px;
   }
 </style>
 
@@ -137,7 +134,7 @@ export default {
 
       if (!this.avatarOnly) {
         if (this.member.items.currentPet) val = '24.5px';
-        if (this.member.items.currentMount) val = '0px';
+        // if (this.member.items.currentMount) val = '0px';
       }
 
       return val;

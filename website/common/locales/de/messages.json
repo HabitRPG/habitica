@@ -55,6 +55,7 @@
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
     "messageCannotFlagSystemMessages": "Du kannst eine Systemmeldungen nicht als unangemessen melden. Falls Du bezüglich dieser Meldung eine Verletzung der Community-Richtlinien melden willst, sende bitte eine E-Mail mit einem Screenshot und einer Erklärung an Lemoness unter <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, es sieht so aus als ob du zu viele Nachrichten schreibst! Bitte warte eine Minute und versuche es erneut. Das Gasthaus kann nur 200 Nachrichten gleichzeitig beinhalten und deshalb ermutigt Habitica längere, mehr durchdachte Nachrichten und hilfreiche Antworten zu schreiben. Wir können es kaum erwarten zu hören, was du zu sagen hast. :)",
+    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
     "messageNotificationNotFound": "Mitteilung nicht gefunden.",

@@ -5,6 +5,8 @@
     "innCheckIn": "ロッジで休む",
     "innText": "あなたはロッジで休んでいます！　ロッジにチェックインしている間、一日の終わりに日課が未実施でもダメージを受けません、しかし日課は毎日リフレッシュされます。注意: もしあなたがボスクエストに参加しているのなら、あなたのパーティの仲間が日課をし損ねたとき、その仲間もロッジに泊まっていない限り、あなたはダメージを受けます！　また、あなたのボスへのダメージ(または収集したアイテム)はロッジをチェックアウトするまで適用されません。",
     "innTextBroken": "You're resting in the Inn, I guess... While checked-in, your Dailies won't hurt you at the day's end, but they will still refresh every day...  If you are participating in a Boss Quest, the Boss will still damage you for your Party mates' missed Dailies... unless they are also in the Inn... Also, your own damage to the Boss (or items collected) will not be applied until you check out of the Inn... so tired...",
+    "innCheckOutBanner": "You are currently checked into the Inn. Your Dailies won't damage you and you won't make progress towards Quests.",
+    "resumeDamage": "Resume Damage",
     "helpfulLinks": "便利なリンク集",
     "communityGuidelinesLink": "コミュニティー ガイドライン",
     "lookingForGroup": "仲間探し(パーティーメンバー募集)の投稿",
@@ -150,7 +152,7 @@
     "abuseAlreadyReported": "このメッセージは報告済みです。",
     "whyReportingPost": "Why are you reporting this post?",
     "whyReportingPostPlaceholder": "Please help our moderators by letting us know why you are reporting this post for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
-    "optional": "Optional",
+    "optional": "オプション",
     "needsText": "メッセージを入力してください。",
     "needsTextPlaceholder": "ここにメッセージを入力してください。",
     "copyMessageAsToDo": "メッセージをコピーしてTo-Doに追加",
@@ -223,6 +225,7 @@
     "inviteMustNotBeEmpty": "招待は空のままでは受け付けません。",
     "partyMustbePrivate": "パーティーは、プライベートでなくてはなりません。",
     "userAlreadyInGroup": "UserID: <%= userId %>, User \"<%= username %>\" already in that group.",
+    "youAreAlreadyInGroup": "You are already a member of this group.",
     "cannotInviteSelfToGroup": "自分自身をグループに招待することはできません。",
     "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" already invited to that group.",
     "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" already pending invitation.",
@@ -427,5 +430,5 @@
     "worldBossBullet2": "The World Boss won’t damage you for missed tasks, but its Rage meter will go up. If the bar fills up, the Boss will attack one of Habitica’s shopkeepers!",
     "worldBossBullet3": "You can continue with normal Quest Bosses, damage will apply to both",
     "worldBossBullet4": "Check the Tavern regularly to see World Boss progress and Rage attacks",
-    "worldBoss": "World Boss"
+    "worldBoss": "ワールドボス"
 }

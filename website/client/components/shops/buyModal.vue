@@ -42,7 +42,7 @@
             :item="item"
           )
 
-        .purchase-amount
+        .purchase-amount(v-if='item.value > 0')
           .how-many-to-buy(v-if='showAmountToBuy(item)')
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
@@ -286,6 +286,7 @@
   const hideAmountSelectionForPurchaseTypes = [
     'gear', 'backgrounds', 'mystery_set', 'card',
     'rebirth_orb', 'fortify', 'armoire', 'keys',
+    'debuffPotion',
   ];
 
   export default {

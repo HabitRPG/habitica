@@ -3,6 +3,14 @@ import logger from './libs/logger';
 import express from 'express';
 import http from 'http';
 
+// @TODO: May need to remove - testing
+import memwatch from 'memwatch-next';
+
+memwatch.on('leak', (info) => {
+  const message = 'Memory leak detected.';
+  logger.error(message, info);
+});
+
 const server = http.createServer();
 const app = express();
 
