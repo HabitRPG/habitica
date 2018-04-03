@@ -1,6 +1,6 @@
 import {
   generateUser,
-} from '../../helpers/api-integration/v3';
+} from '../../helpers/common.helper';
 import getOfficialPinnedItems from '../../../website/common/script/libs/getOfficialPinnedItems.js';
 import inAppRewards from '../../../website/common/script/libs/inAppRewards';
 
@@ -11,8 +11,8 @@ describe('inAppRewards', () => {
   let testPinnedItems;
   let testPinnedItemsOrder;
 
-  beforeEach(async () => {
-    user = await generateUser();
+  beforeEach(() => {
+    user = generateUser();
     officialPinnedItems = getOfficialPinnedItems(user);
 
     officialPinnedItemPaths = [];
@@ -52,18 +52,17 @@ describe('inAppRewards', () => {
     testPinnedItemsOrder = testPinnedItemsOrder.concat(officialPinnedItemPaths);
   });
 
-  it('returns the pinned items in the correct order', async () => {
-    await user.update({
-      pinnedItems: testPinnedItems,
-      pinnedItemsOrder: testPinnedItemsOrder,
-    });
-    await user.sync();
-    let result = inAppRewards();
+  it('returns the pinned items in the correct order', () => {
+    user.pinnedItems = testPinnedItems;
+    user.pinnedItemsOrder = testPinnedItemsOrder;
+
+    let result = inAppRewards(user);
+
     expect(result[2].path).to.eql('armoire');
     expect(result[9].path).to.eql('potion');
   });
 
-  it('does not return seasonal items which have been unpinned', async () => {
+  it('does not return seasonal items which have been unpinned', () => {
     if (officialPinnedItems.length === 0) {
       return; // if no seasonal items, this test is not applicable
     }
@@ -74,15 +73,12 @@ describe('inAppRewards', () => {
       { type: testUnpinnedItem.type, path: testUnpinnedPath},
     ];
 
-    await user.update({
-      pinnedItems: testPinnedItems,
-      pinnedItemsOrder: testPinnedItemsOrder,
-      unpinnedItems: testUnpinnedItems,
-    });
-    await user.sync();
+    user.pinnedItems = testPinnedItems;
+    user.pinnedItemsOrder = testPinnedItemsOrder;
+    user.unpinnedItems = testUnpinnedItems;
 
-    let result = inAppRewards();
+    let result = inAppRewards(user);
     let itemPaths = result.map(item => item.path);
-    expect(itemPaths).to.not.inlude(testUnpinnedPath);
+    expect(itemPaths).to.not.include(testUnpinnedPath);
   });
 });
