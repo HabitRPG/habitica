@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
     "searchTasks": "Cerca titoli e descrizioni...",
-    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza."
+    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

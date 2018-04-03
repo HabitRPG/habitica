@@ -12,7 +12,7 @@
 }
 .promo_mystery_201803 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -674px -335px;
+  background-position: -915px -148px;
   width: 114px;
   height: 90px;
 }
@@ -24,9 +24,15 @@
 }
 .promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -674px -196px;
+  background-position: -674px -344px;
   width: 162px;
   height: 138px;
+}
+.promo_shiny_seeds {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -674px 0px;
+  width: 360px;
+  height: 147px;
 }
 .promo_spring_fling_2018 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -36,7 +42,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -789px -335px;
+  background-position: -915px -239px;
   width: 114px;
   height: 87px;
 }
@@ -48,7 +54,7 @@
 }
 .scene_todos {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -674px 0px;
+  background-position: -674px -148px;
   width: 240px;
   height: 195px;
 }

@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "path `<%= operation %>` was not saved, as it's a protected path.",
     "messageUserOperationNotFound": "<%= operation %> operation not found",
     "messageNotificationNotFound": "Notification not found.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"

@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Bu ayar uygulanıyorsa, avatarına zarar verme hesaplamasından önce Günlük İşi yapıp yapmadığını Habitica soracaktır. Bu, kasıtsız olarak hasar görmelerine karşı seni koruyabilir.",
     "repeatDayError": "Lütfen haftanın en az bir gününün seçili olduğundan emin ol.",
     "searchTasks": "Search titles and descriptions...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

@@ -47,7 +47,7 @@
     "hard": "Difícil",
     "attributes": "Atributos",
     "attributeAllocation": "Distribuição de Atributo",
-    "attributeAllocationHelp": "Stat allocation is an option that provides methods for Habitica to automatically assign an earned Stat Point to a Stat immediately upon level-up. <br/><br/> You can set your Automatic Allocation method to Task Based in the Stats section of your profile.",
+    "attributeAllocationHelp": "Distribuição de Atributo é uma opção que oferece métodos para que Habitica atribua automaticamente um Ponto de Atributo recebido imediatamente ao se subir de nível. <br/><br/> Você pode definir seu método de Distribuição Automática para Baseado em Tarefas na seção de Atributos de seu perfil.",
     "progress": "Progresso",
     "daily": "Diária",
     "dailies": "Diárias",
@@ -110,7 +110,7 @@
     "streakSingular": "Mestre da Disciplina",
     "streakSingularText": "Atingiu um combo de 21 dias em uma Diária",
     "perfectName": "<%= count %> Dias Perfeitos",
-    "perfectText": "Completed all active Dailies on <%= count %> days. With this achievement you get a +level/2 buff to all Stats for the next day. Levels greater than 100 don't have any additional effects on buffs.",
+    "perfectText": "Completou todas as Taferas Diárias ativas em <%= count %> dias. Com essa conquista você recebe um buff de +nível/2 em todos os Atributos pelo próximo dia. Níveis maiores que 100 não recebem quaisquer efeitos adicionais por buffs.",
     "perfectSingular": "Dia Perfeito",
     "perfectSingularText": "Complete todas as Diárias ativas em um dia. Com esta conquista você ganha um buff de (nível/2) para todos os Atributos pelo próximo dia. Níveis maiores que 100 não tem nenhuma efeito adicional em buffs.",
     "streakerAchievement": "Você atingiu a Conquista de Combo! A marca de 21 dias é um marco na formação de hábitos. Você pode continuar acumulando essa conquista para cada sequência de 21 dias adicional nessa Diária ou em qualquer outra!",
@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Se essa opção for selecionada, o Habitica vai te perguntar se você realmente quer deixar a Diária desmarcada antes de calcular e aplicar dano ao seu personagem. Isso pode te proteger de receber dano não intencional.",
     "repeatDayError": "Por favor, garanta que você tem ao menos um dia da semana selecionado.",
     "searchTasks": "Pesquise em títulos e descrições...",
-    "sessionOutdated": "Sua sessão com o navegador está desatualizada. Por favor, atualize a página ou clique em sincronizar."
+    "sessionOutdated": "Sua sessão com o navegador está desatualizada. Por favor, atualize a página ou clique em sincronizar.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

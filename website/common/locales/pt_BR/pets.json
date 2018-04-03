@@ -139,7 +139,7 @@
     "clickOnEggToHatch": "Clique em um Ovo para usar sua Poção de Eclosão <%= potionName %> e chocar um novo mascote!",
     "hatchDialogText": "Use sua Poção de Eclosão <%= potionName %> no seu ovo <%= eggName %> e ele irá chocar como <%= petName %>.",
     "clickOnPotionToHatch": "Clique em uma poção de eclosão para usar em seu ovo <%= eggName %> e chocar um novo mascote!",
-    "notEnoughPets": "You have not collected enough pets",
-    "notEnoughMounts": "You have not collected enough mounts",
-    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+    "notEnoughPets": "Você não coletou mascotes suficientes",
+    "notEnoughMounts": "Você não coletou montarias suficientes",
+    "notEnoughPetsMounts": "Você não coletou mascotes e montarias suficientes"
 }

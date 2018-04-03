@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
     "messageUserOperationNotFound": "<%= operation %> no encontrado",
     "messageNotificationNotFound": "Notificación no encontrada.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Se requieren ids de notificación.",
     "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Estadísticas sin asignar</span>",
     "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!"

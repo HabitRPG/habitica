@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
     "messageUserOperationNotFound": "<%= operation %> operace nebyla nalezena",
     "messageNotificationNotFound": "Oznámení nenalezeno.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Id upozornění je potřeba.",
     "unallocatedStatsPoints": "Máš <span class=\"notification-bold-blue\"><%= points %>nepřidělených vlastnostních bodů</span>",
     "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!"

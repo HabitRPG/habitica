@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Als deze instelling is toegepast zal Habitica je vragen of je expres de dagelijkse taak ongedaan hebt gelaten voordat schade wordt berekend en toegepast wordt op je avatar. Dit kan je beschermen tegen onbedoelde schade.",
     "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn.",
     "searchTasks": "Zoek op titels en beschrijvingen...",
-    "sessionOutdated": "Jouw sessie is verouderd. Gelieve te refreshen of te synchroniseren"
+    "sessionOutdated": "Jouw sessie is verouderd. Gelieve te refreshen of te synchroniseren",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

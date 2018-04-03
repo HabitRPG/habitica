@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Jestli je toto nastavení zapnuto, Habitica se tě pokaždé před kalkulováním a aplikováním zranění tvé postavy zeptá, jestli opravdu chceš nechat úkoly nesplněné. To tě může ochránit před neúmyslným zraněním. ",
     "repeatDayError": "Prosím, ujisti se, že máš alespoň jeden den v týdnu vybraný.",
     "searchTasks": "Vyhledat názvy a popisy...",
-    "sessionOutdated": "Tvá relace je zastaralá. Prosím, zkus ji obnovit nebo synchronizovat."
+    "sessionOutdated": "Tvá relace je zastaralá. Prosím, zkus ji obnovit nebo synchronizovat.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }
