@@ -6,8 +6,8 @@
         .top-left
         .col-6.offset-3
           img.party(src='../../assets/images/group-plans-static/party@3x.png')
-          h1 Need more for your crew?
-          p Managing a small team or organizing household chores? Our group plans grant you exclusive access to a private task board and chat area dedicated to you and your group members!
+          h1 {{ $t('groupPlanTitle') }}
+          p {{ $t('groupPlanDesc') }}
           .pricing
             span Just
             span.number $9
@@ -16,29 +16,29 @@
             span.bold per member*
           .text-center
             button.btn.btn-primary.cta-button(@click="goToNewGroupPage()") {{ $t('getStarted') }}
-          small *billed as a monthly subscription
+          small {{ $t('billedMonthly') }}
         .top-right
       .row
         .text-col.col-12.col-md-6.text-left
-          h2 Team-Based Task List
-          p Set up an easily-viewed shared task list for the group. Assign tasks to your fellow group members, or let them claim their own tasks to make it clear what everyone is working on!
+          h2 {{ $t('teamBasedTasksList') }}
+          p {{ $t('teamBasedTasksListDesc') }}
         .col-12.col-md-6
           .team-based(v-html='svg.teamBased')
       .row
         .col-12.col-md-6
           .group-management(v-html='svg.groupManagement')
         .text-col.col-12.col-md-6.text-left
-          h2 Group Management Controls
-          p Use task approvals to verify that a task that was really completed, add Group Managers to share responsibilities, and enjoy a private group chat for all team members.
+          h2 {{ $t('groupManagementControls') }}
+          p {{ $t('groupManagementControlsDesc') }}
       .row
         .col-12.col-md-6.offset-md-3.text-center
           img.big-gem(src='../../assets/images/group-plans-static/big-gem@3x.png')
-          h2 In-Game Benefits
-          p Group members get an exclusive Jackalope Mount, as well as full subscription benefits, including special monthly equipment sets and the ability to buy gems with gold.
+          h2 {{ $t('inGameBenefits') }}
+          p {{ $t('inGameBenefitsDesc') }}
       .row
         .bot-left
         .col-6.offset-3
-          h2.purple Inspire your party, gamify life together.
+          h2.purple {{ $t('inspireYourParty') }}
           .pricing
             span Just
             span.number $9
@@ -47,11 +47,11 @@
             span.bold per member*
           .text-center
             button.btn.btn-primary.cta-button(@click="goToNewGroupPage()") {{ $t('getStarted') }}
-          small *billed as a monthly subscription
+          small {{ $t('billedMonthly') }}
         .bot-right
     b-modal#group-plan(title="", size='md', :hide-footer='true', :hide-header='true')
       div(v-if='modalPage === "account"')
-        h2 First, let’s make you an account
+        h2 {{ $t('letsMakeAccount') }}
         auth-form(@authenticate='authenticate()')
       div(v-if='modalPage === "purchaseGroup"')
         create-group-modal-pages

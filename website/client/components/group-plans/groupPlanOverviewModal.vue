@@ -1,66 +1,66 @@
 <template lang="pug">
 b-modal#group-plan-overview(title="Empty", size='lg', hide-footer=true, @shown='shown()')
   .header-wrap.text-center(slot="modal-header")
-    h2(v-once) Getting Started
-    p(v-once) Congratulations on creating your new Group! Here are a few answers to some of the more commonly asked questions.
+    h2(v-once) {{ $t('gettingStarted') }}
+    p(v-once) {{ $t('congratsOnGroupPlan') }}
   .row
     .col-12
       .card(:class='{expanded: expandedQuestions.question1}')
         .question-head
           .q Q.
-          .title What's included in the subscription
+          .title {{ $t('whatsIncludedGroup') }}
           .arrow.float-right(@click='toggle("question1")')
             .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question1')
             .svg-icon(v-html="icons.downIcon", v-else)
         .question-body(v-if='expandedQuestions.question1')
-          p All members of the Group receive full subscription benefits, including the monthly subscriber items, the ability to buy Gems with Gold, and the Royal Purple Jackalope mount, which is exclusive to users with a Group Plan membership.
+          p {{ $t('whatsIncludedGroupDesc') }}
     .col-12
       .card(:class='{expanded: expandedQuestions.question2}')
         .question-head
           .q Q.
-          .title How does billing work?
+          .title {{ $t('howDoesBillingWork') }}
           .arrow.float-right(@click='toggle("question2")')
             .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question2')
             .svg-icon(v-html="icons.downIcon", v-else)
         .question-body(v-if='expandedQuestions.question2')
-          p Group Leaders are billed based on group member count on a monthly basis. This charge includes the $9 (USD) price for the Group Leader subscription, plus $3 USD for each additional group member. For example: A group of four users will cost $18 USD/month, as the group consists of 1 Group Leader + 3 group members.
+          p {{ $t('howDoesBillingWorkDesc') }}
     .col-12
       .card(:class='{expanded: expandedQuestions.question3}')
         .question-head
           .q Q.
-          .title How do you assign a Task?
+          .title {{ $t('howToAssignTask') }}
           .arrow.float-right(@click='toggle("question3")')
             .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question3')
             .svg-icon(v-html="icons.downIcon", v-else)
         .question-body(v-if='expandedQuestions.question3')
-          p Assign any Task to one or more Group members (including the Group Leader or Managers themselves) by entering their usernames in the "Assign To" field within the Create Task modal. You can also decide to assign a Task after creating it, by editing the Task and adding the user in the "Assign To" field!
+          p {{ $t('howToAssignTaskDesc') }}
           .assign-tasks.image-example
     .col-12
       .card(:class='{expanded: expandedQuestions.question4}')
         .question-head
           .q Q.
-          .title How do you mark a Task as requiring approval?
+          .title {{ $t('howToRequireApproval') }}
           .arrow.float-right(@click='toggle("question4")')
             .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question4')
             .svg-icon(v-html="icons.downIcon", v-else)
         .question-body(v-if='expandedQuestions.question4')
-          p Toggle the "Requires Approval" setting to mark a specific task as requiring Group Leader or Manager confirmation. The user who checked off the task won't get their rewards for completing it until it has been approved.
+          p {{ $t('howToRequireApprovalDesc') }}
           .requires-approval.image-example
-          p Group Leaders and Managers can approve completed Tasks directly from the Task Board or from the Notifications panel.
+          p {{ $t('howToRequireApprovalDesc2') }}
           .approval-requested.image-example
     .col-12
       .card(:class='{expanded: expandedQuestions.question5}')
         .question-head
           .q Q.
-          .title What is a Group Manager?
+          .title {{ $t('whatIsGroupManager') }}
           .arrow.float-right(@click='toggle("question5")')
             .svg-icon(v-html="icons.upIcon", v-if='expandedQuestions.question5')
             .svg-icon(v-html="icons.downIcon", v-else)
         .question-body(v-if='expandedQuestions.question5')
-          p A Group Manager is a user role that do not have access to the group's billing details, but can create, assign, and approve shared Tasks for the Group's members. Promote Group Managers from the Group’s member list.
+          p {{ $t('whatIsGroupManagerDesc') }}
           .promote-leader.image-example
     .col-12.text-center
-      button.btn.btn-primary.close-button(@click='close()') Go to Task Board
+      button.btn.btn-primary.close-button(@click='close()') {{ $t('goToTaskBoard') }}
 </template>
 
 <style>

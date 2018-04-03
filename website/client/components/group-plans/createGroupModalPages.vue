@@ -1,17 +1,17 @@
 <template lang="pug">
 .create-group-modal-pages
   .col-12(v-if='activePage === PAGES.CREATE_GROUP')
-    h2 Next, Name Your Group
+    h2 {{ $t('nameYourGroup') }}
     .form-group
-      label.control-label(for='new-group-name') Name
-      input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Example: Avengers Academy", v-model='newGroup.name')
+      label.control-label(for='new-group-name') {{ $t('name') }}
+      input.form-control#new-group-name.input-medium.option-content(required, type='text', :placeholder="$t('exampleGroupName')", v-model='newGroup.name')
     .form-group
       label(for='new-group-description') {{ $t('description') }}
-      textarea.form-control#new-group-description.option-content(cols='3', placeholder="For those selected to join the training academy for The Avengers Superhero Initiative", v-model='newGroup.description')
+      textarea.form-control#new-group-description.option-content(cols='3', :placeholder="$t('exampleGroupDesc')", v-model='newGroup.description')
     .form-group.text-left(v-if='newGroup.type === "guild"')
       .custom-control.custom-radio
         input.custom-control-input(type='radio', name='new-group-privacy', value='private', v-model='newGroup.privacy')
-        label.custom-control-label This group is invitation only.
+        label.custom-control-label {{ $t('thisGroupInviteOnly') }}
     .form-group.text-left
       .custom-control.custom-checkbox
         input.custom-control-input(type='checkbox', v-model='newGroup.leaderOnly.challenges' id='create-group-leaderOnlyChallenges-checkbox')
@@ -21,7 +21,7 @@
     .form-group
       button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
   .col-12(v-if='activePage === PAGES.PAY')
-    h2 Choose your payment method
+    h2 {{ $t('choosePaymentMethod') }}
     .payment-providers
       .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
         .svg-icon.credit-card-icon(v-html="icons.creditCard")
