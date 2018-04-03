@@ -31,8 +31,8 @@ const featuredItems = {
       path: 'quests.egg',
     },
     {
-      type: 'bundles',
-      path: 'bundles.hugabug',
+      type: 'quests',
+      path: 'quests.bunny',
     },
   ],
   seasonal: 'springHealer',
