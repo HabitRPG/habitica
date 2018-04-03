@@ -100,34 +100,7 @@
 
 [class*="Mount_Head_"],
 [class*="Mount_Body_"] {
-  margin-top: 18px; /* Sprite accommodates 105x123 box */
-  left: 28px;
-  top: 34px;
-}
-
-[class*="Mount_"],
-[class*="Pet-"] {
-  transform: scale(0.333, 0.333);
-  -ms-transform: scale(0.333, 0.333);
-  -webkit-transform: scale(0.333, 0.333);
-}
-
-[class*="_Sabretooth"],
-[class*="_TRex"],
-[class*="_Wolf"] {
-  left: 18px;
-  top: 25px;
-}
-
-[class*="_JackOLantern"] {
-  left: 32px;
-}
-
-[class*="_Cuttlefish"],
-[class*="_Frog"],
-[class*="_MagicalBee"],
-[class*="_Mammoth"] {
-  top: 30px;
+  margin-top:18px; /* Sprite accommodates 105x123 box */
 }
 
 .Pet_Currency_Gem {
