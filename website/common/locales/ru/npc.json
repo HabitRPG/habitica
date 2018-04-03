@@ -96,7 +96,7 @@
     "unlocked": "Предметы были разблокированы",
     "alreadyUnlocked": "Полный набор уже открыт.",
     "alreadyUnlockedPart": "Полный набор уже частично открыт.",
-    "invalidQuantity": "Quantity to purchase must be a number.",
+    "invalidQuantity": "Покупаемое количество должно быть числом.",
     "USD": "(долл. США)",
     "newStuff": "Новый материал от Бейли",
     "newBaileyUpdate": "Обновление от Бейли!",
