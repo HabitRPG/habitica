@@ -1,6 +1,7 @@
 <template lang="pug">
 .create-group-modal-pages
   .col-12(v-if='activePage === PAGES.CREATE_GROUP')
+    h2 Next, Name Your Group
     .form-group
       label.control-label(for='new-group-name') Name
       input.form-control#new-group-name.input-medium.option-content(required, type='text', placeholder="Example: Avengers Academy", v-model='newGroup.name')
@@ -20,26 +21,43 @@
     .form-group
       button.btn.btn-primary.btn-lg.btn-block(@click="createGroup()", :disabled="!newGroupIsReady") {{ $t('createGroupPlan') }}
   .col-12(v-if='activePage === PAGES.PAY')
+    h2 Choose your payment method
     .payment-providers
-      h3 Choose your payment method
       .box.payment-button(@click='pay(PAYMENTS.STRIPE)')
         .svg-icon.credit-card-icon(v-html="icons.creditCard")
-      .box.payment-button(@click='pay(PAYMENTS.AMAZON)')
+      .box.payment-button.amazon(@click='pay(PAYMENTS.AMAZON)')
         .svg-icon.amazon-pay-icon(v-html="icons.amazonpay")
 </template>
 
 <style lang="scss" scoped>
+  h2 {
+    font-family: 'Varela Round', sans-serif;
+    font-weight: normal;
+    font-size: 29px;
+    color: #34313a;
+    margin-top: 1em;
+  }
+
   .box {
     border-radius: 2px;
     background-color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 2em;
     text-align: center;
-    display: inline-block !important;
     vertical-align: bottom;
-    margin-right: 1em;
-    margin-bottom: 2em;
     height: 100px;
+    width: 306px;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+
+  .box .svg-icon {
+    margin: 0 auto;
+  }
+
+  .form-group {
+    text-align: left;
+    font-weight: bold;
   }
 
   .box:hover {
@@ -48,15 +66,20 @@
   }
 
   .amazon-pay-icon {
-    width: 100px;
+    width: 150px;
   }
 
   .credit-card-icon {
-    width: 120px;
+    width: 150px;
+    color: #4e4a57;
   }
 
   .btn-block {
     margin-bottom: 1em;
+  }
+
+  .payment-button.amazon {
+    margin-bottom: 2em;
   }
 </style>
 

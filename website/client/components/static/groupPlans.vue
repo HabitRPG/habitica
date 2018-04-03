@@ -54,7 +54,6 @@
         h2 First, let’s make you an account
         auth-form(@authenticate='authenticate()')
       div(v-if='modalPage === "purchaseGroup"')
-        h2 Next, Name Your Group
         create-group-modal-pages
 </template>
 

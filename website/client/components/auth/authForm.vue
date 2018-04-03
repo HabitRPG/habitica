@@ -4,7 +4,7 @@
     .col-12.col-md-6
       .btn.btn-secondary.social-button(@click='socialAuth("facebook")')
         .svg-icon.social-icon(v-html="icons.facebookIcon")
-        .text {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
+        span {{registering ? $t('signUpWithSocial', {social: 'Facebook'}) : $t('loginWithSocial', {social: 'Facebook'})}}
     .col-12.col-md-6
       .btn.btn-secondary.social-button(@click='socialAuth("google")')
         .svg-icon.social-icon(v-html="icons.googleIcon")
