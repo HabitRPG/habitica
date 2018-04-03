@@ -647,6 +647,20 @@ let backgrounds = {
       notes: t('backgroundGorgeousGreenhouseNotes'),
     },
   },
+  backgrounds042018: {
+    flying_over_an_ancient_forest: {
+      text: t('backgroundFlyingOverAncientForestText'),
+      notes: t('backgroundFlyingOverAncientForestNotes'),
+    },
+    flying_over_a_field_of_wildflowers: {
+      text: t('backgroundFlyingOverWildflowerFieldText'),
+      notes: t('backgroundFlyingOverWildflowerFieldNotes'),
+    },
+    tulip_garden: {
+      text: t('backgroundTulipGardenText'),
+      notes: t('backgroundTulipGardenNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
