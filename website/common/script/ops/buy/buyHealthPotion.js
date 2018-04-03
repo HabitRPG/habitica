@@ -35,7 +35,7 @@ export class BuyHealthPotionOperation extends AbstractGoldItemOperation {
       user.stats.hp = 50;
     }
 
-    this.substractCurrency(user, item, this.quantity);
+    this.subtractCurrency(user, item, this.quantity);
 
     let message = this.i18n('messageBought', {
       itemText: this.item.text(this.req.language),
