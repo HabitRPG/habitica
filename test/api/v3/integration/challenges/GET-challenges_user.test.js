@@ -249,6 +249,8 @@ describe('GET challenges/user', () => {
       guild = group;
       member = members[0];
 
+      await user.update({balance: 20});
+
       for (let i = 0; i < 11; i += 1) {
         await generateChallenge(user, group); // eslint-disable-line
       }
@@ -262,8 +264,14 @@ describe('GET challenges/user', () => {
       expect(challenges.length).to.eql(1);
     });
 
-    it('paginates challenges', async () => {
+    it('does not page challenges if page parameter is absent', async () => {
       const challenges = await user.get('/challenges/user');
+
+      expect(challenges.length).to.be.above(11);
+    });
+
+    it('paginates challenges', async () => {
+      const challenges = await user.get('/challenges/user?page=0');
       const challengesPaged = await user.get('/challenges/user?page=1&owned=owned');
 
       expect(challenges.length).to.eql(10);

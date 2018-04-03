@@ -96,6 +96,7 @@
     "unlocked": "Genstande er blevet låst op",
     "alreadyUnlocked": "Fuldt sæt er allerede låst op for.",
     "alreadyUnlockedPart": "Fuldt sæt er delvist låst op for.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

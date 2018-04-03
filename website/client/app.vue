@@ -9,7 +9,7 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    amazon-payments-modal
+    amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -42,9 +42,9 @@ div
           div(:class='{sticky: user.preferences.stickyHeader}')
             router-view
         app-footer
-          audio#sound(autoplay, ref="sound")
-            source#oggSource(type="audio/ogg", :src="sound.oggSource")
-            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+        audio#sound(autoplay, ref="sound")
+          source#oggSource(type="audio/ogg", :src="sound.oggSource")
+          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -111,7 +111,7 @@ div
   }
 
   .modal-backdrop.show {
-    opacity: 1 !important;
+    opacity: .9 !important;
     background-color: $purple-100 !important;
   }
 
@@ -250,8 +250,9 @@ export default {
     this.$root.$on('playSound', (sound) => {
       let theme = this.user.preferences.sound;
 
-      if (!theme || theme === 'off')
+      if (!theme || theme === 'off') {
         return;
+      }
 
       let file =  `/static/audio/${theme}/${sound}`;
       this.sound = {
@@ -499,7 +500,7 @@ export default {
       if (!item)
         return false;
 
-      if (item.purchaseType === 'card')
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
         return false;
 
       return true;
@@ -519,6 +520,10 @@ export default {
         });
 
         this.$root.$emit('bv::show::modal', 'select-member-modal');
+      }
+
+      if (item.purchaseType === 'debuffPotion') {
+        this.castStart(item, this.user);
       }
     },
     async memberSelected (member) {

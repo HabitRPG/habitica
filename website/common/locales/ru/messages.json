@@ -55,10 +55,11 @@
     "messageGroupChatAdminClearFlagCount": "Только администратор может очистить счётчик отметок.",
     "messageCannotFlagSystemMessages": "Вы не можете пометить системное сообщение. Если вы хотите пожаловаться на нарушеие Правил сообщества, связанное с этим сообщением, пожалуйста, отправьте нам скриншот по электронной почте и объяснение Lemoness на <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Упс, похоже, что вы отправляете слишком много сообщений! Подождите минуту и повторите попытку. В чате таверны отображается только 200 сообщений за раз, поэтому страна Хабитика поощряет размещение более длинных, более продуманных сообщений и объединенных ответов. Не могу дождаться, чтобы услышать, что вы на это скажете. :)",
-    "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
+    "messageCannotLeaveWhileQuesting": "Вы не можете принять приглашение в команду, пока выполняете квест. Если вы хотите вступить в эту команду, вы должны прервать выполнение квеста на странице своей команды. Ваш квестовый свиток вернется к вам.",
     "messageUserOperationProtected": "путь `<%= operation %>` не был сохранён, это зарезервированный путь.",
     "messageUserOperationNotFound": "Операция <%= operation %> не найдена",
     "messageNotificationNotFound": "Уведомление не найдено.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Необходим идентификатор оповещений.",
     "unallocatedStatsPoints": "Вы не распределили <span class=\"notification-bold-blue\"><%= points %> очков</span>",
     "beginningOfConversation": "Это начало вашего разговора с <%= userName %>. Не забывайте, что общепринятые правила сообщества предписавыют быть добрыми, уважительными!"

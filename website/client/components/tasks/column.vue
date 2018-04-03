@@ -610,7 +610,7 @@ export default {
             /* eslint-disable no-extra-parens */
             return (
               task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
-              (task.note && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
               (task.checklist && task.checklist.length > 0 &&
                 task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             );
@@ -646,6 +646,11 @@ export default {
       }
     },
     togglePinned (item) {
+      if (!item.pinType) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.text(this.$t('unpinnedItem', {item: item.text}));
