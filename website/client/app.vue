@@ -9,7 +9,7 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    amazon-payments-modal
+    amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -111,6 +111,7 @@ div
   }
 
   .modal-backdrop.show {
+    opacity: .9 !important;
     background-color: $purple-100 !important;
   }
 
