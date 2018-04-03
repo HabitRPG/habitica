@@ -199,7 +199,7 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.post('/user/class/cast/earth', {quantity: 2});
 
     await sleep(1);
-    await group.sync();
+    group = await groupLeader.get(`/groups/${group._id}`);
 
     expect(group.chat[0]).to.exist;
     expect(group.chat[0].uuid).to.equal('system');

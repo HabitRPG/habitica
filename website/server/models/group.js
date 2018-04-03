@@ -526,6 +526,7 @@ function setUserStyles (newMessage, user) {
   }
 
   newMessage.userStyles = userStyles;
+  newMessage.markModified('userStyles');
 }
 
 schema.methods.sendChat = function sendChat (message, user, metaData) {
@@ -534,7 +535,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   newChatMessage = Object.assign(newChatMessage, newMessage);
   newChatMessage.groupId = this._id;
 
-  if (user) setUserStyles(newMessage, user);
+  if (user) setUserStyles(newChatMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
