@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "jalur `<%= operation %>` tidak disimpan, karena terproteksi.",
     "messageUserOperationNotFound": "<%= operation %> operasi tidak ditemukan",
     "messageNotificationNotFound": "Notifikasi tidak ditemukan.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Id notifikasi diperlukan.",
     "unallocatedStatsPoints": "Kamu punya <span class=\"notification-bold-blue\"><%= points %>Poin Atribut yang belum teralokasi</span>",
     "beginningOfConversation": "Ini permulaan percakapanmu dengan <%= userName %>. Ingatlah untuk menunjukkan rasa hormat, sikap baik hati, dan ikuti Pedoman Komunitas!"

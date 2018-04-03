@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Jeśli ta opcja jest zaznaczona, Habitica zapyta cię, czy chcesz zostawić Codzienne jako niewykonane zanim zada ci obrażenia. To może ochronić cie przed niezamierzonymi obrażeniami.",
     "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany.",
     "searchTasks": "Szukaj po tytule lub opisie...",
-    "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie."
+    "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

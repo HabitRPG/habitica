@@ -86,7 +86,7 @@
     "score": "Pontuação",
     "reward": "Recompensa",
     "rewards": "Recompensas",
-    "rewardsDesc": "Rewards are a great way to use Habitica and complete your tasks. Try adding a few today!",
+    "rewardsDesc": "As Recompensas são um excelente modo de usares o Habitica e completares as tuas tarefas. Experimenta adicionar algumas hoje!",
     "ingamerewards": "Equipamento & Habilidades",
     "gold": "Ouro",
     "silver": "Prata (100 prata = 1 ouro)",
@@ -210,6 +210,7 @@
     "yesterDailiesOptionTitle": "Confirme que esta Tarefa Diária não foi terminada antes de aplicar dano",
     "yesterDailiesDescription": "Se esta configuração for ativada, Habitica irá perguntar-lhe se quer deixar a Tarefa Diária por completar antes de calcular e aplicar dano ao seu avatar. Isto pode protegê-lo contra dano não intencional.",
     "repeatDayError": "Por favor confirme que tem pelo menos um dia da semana escolhido.",
-    "searchTasks": "Search titles and descriptions...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "searchTasks": "Pesquisa título e descrições...",
+    "sessionOutdated": "Your session is outdated. Please refresh or sync.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }
