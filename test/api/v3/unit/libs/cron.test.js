@@ -117,22 +117,6 @@ describe('cron', () => {
       expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
-    it('increments plan.consecutive.trinkets when one-month-recurring subscription has reached a month that is a multiple of 3', () => {
-      // TODO if approved, delete this because the new tests below include this situation
-      user.purchased.plan.consecutive.count = 5;
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
-      expect(user.purchased.plan.consecutive.count).to.equal(6);
-    });
-
-    it('increments plan.consecutive.trinkets multiple times if user has been absent with continuous subscription', () => {
-      // TODO if approved, delete this because the new tests below include this situation
-      user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
-      user.purchased.plan.consecutive.count = 5;
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.trinkets).to.equal(2);
-    });
-
     it('does not award unearned plan.consecutive.trinkets if subscription ended during an absence', () => {
       user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
       user.purchased.plan.dateTerminated = moment().subtract(3, 'months').toDate();
@@ -142,22 +126,6 @@ describe('cron', () => {
       cron({user, tasksByType, daysMissed, analytics});
 
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
-    });
-
-    it('increments plan.consecutive.gemCapExtra when one-month-recurring subscription has reached a month that is a multiple of 3', () => {
-      // TODO if approved, delete this because the new tests below include this situation
-      user.purchased.plan.consecutive.count = 5;
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(5);
-      expect(user.purchased.plan.consecutive.count).to.equal(6);
-    });
-
-    it('increments plan.consecutive.gemCapExtra multiple times if user has been absent with continuous subscription', () => {
-      // TODO if approved, delete this because the new tests below include this situation
-      user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
-      user.purchased.plan.consecutive.count = 5;
-      cron({user, tasksByType, daysMissed, analytics});
-      expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(10);
     });
 
     it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
