@@ -3,50 +3,50 @@ div
   inbox-modal
   creator-intro
   profile
-  b-navbar.navbar.navbar-inverse.fixed-top.navbar-expand-lg(type="dark", :class="navbarZIndexClass")
-    .navbar-header
+  b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark")
+    .topbar-header.navbar-header
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
       .svg-icon.gryphon.d-md-block.d-none.d-xl-none
       .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
-    b-nav-toggle(target='nav_collapse')
-    b-collapse#nav_collapse.collapse.navbar-collapse
-      .ul.navbar-nav
-        router-link.nav-item(tag="li", :to="{name: 'tasks'}", exact)
-          a.nav-link(v-once) {{ $t('tasks') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
-          a.nav-link(v-once) {{ $t('inventory') }}
+    b-nav-toggle(target='menu_collapse')
+    b-collapse#menu_collapse.collapse.navbar-collapse
+      .menu-list.ul.navbar-nav
+        router-link.topbar-item.nav-item(tag="li", :to="{name: 'tasks'}", exact)
+          a.topbar-link.nav-link(v-once) {{ $t('tasks') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'items'}", :class="{'active': $route.path.startsWith('/inventory')}")
+          a.topbar-link.nav-link(v-once) {{ $t('inventory') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'items'}", exact) {{ $t('items') }}
             router-link.dropdown-item(:to="{name: 'equipment'}") {{ $t('equipment') }}
             router-link.dropdown-item(:to="{name: 'stable'}") {{ $t('stable') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
-          a.nav-link(v-once) {{ $t('shops') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'market'}", :class="{'active': $route.path.startsWith('/shop')}")
+          a.topbar-link.nav-link(v-once) {{ $t('shops') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'market'}", exact) {{ $t('market') }}
             router-link.dropdown-item(:to="{name: 'quests'}") {{ $t('quests') }}
             router-link.dropdown-item(:to="{name: 'seasonal'}") {{ $t('titleSeasonalShop') }}
             router-link.dropdown-item(:to="{name: 'time'}") {{ $t('titleTimeTravelers') }}
-        router-link.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
-          a.nav-link(v-once) {{ $t('party') }}
+        router-link.topbar-item.nav-item(tag="li", :to="{name: 'party'}", v-if='this.user.party._id')
+          a.topbar-link.nav-link(v-once) {{ $t('party') }}
         .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
-          a.nav-link(v-once) {{ $t('party') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
+          a.topbar-link.nav-link(v-once) {{ $t('party') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
           a.nav-link(v-once) {{ $t('guilds') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
             router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
-          a.nav-link(v-once) {{ $t('group') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
+          a.topbar-link.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
-          a.nav-link(v-once) {{ $t('challenges') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'myChallenges'}", :class="{'active': $route.path.startsWith('/challenges')}")
+          a.topbar-link.nav-link(v-once) {{ $t('challenges') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
-        router-link.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
-          a.nav-link(v-once) {{ $t('help') }}
+        router-link.topbar-item.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
+          a.topbar-link.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}
@@ -77,11 +77,11 @@ div
   @import '~client/assets/scss/utils.scss';
 
   @media only screen and (max-width: 1305px) {
-    .nav-link {
+    .topbar-link {
       padding: .8em 1em !important;
     }
 
-    .navbar-header {
+    .topbar-header {
       margin-right: 5px !important;
     }
   }
@@ -103,21 +103,21 @@ div
       top: 1em;
     }
 
-    .nav-item .nav-link {
+    .topbar-item .topbar-link {
       font-size: 14px !important;
       padding: 16px 12px !important;
     }
   }
 
   @media only screen and (max-width: 990px) {
-    #nav_collapse {
+    #menu_collapse {
       margin-top: 0.6em;
       max-height: 320px;
       overflow: auto;
       flex-direction: column;
       background-color: $purple-100;
 
-      .navbar-nav {
+      .menu-list {
         width: 100%;
         order: 1;
       }
@@ -129,16 +129,16 @@ div
     }
   }
 
-  #nav_collapse {
+  #menu_collapse {
     display: flex;
     justify-content: space-between;
   }
 
-  nav.navbar {
-    background: $purple-100 url(~assets/svg/for-css/bits.svg) right no-repeat;
+  .topbar {
+    background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
     padding-left: 25px;
     padding-right: 12.5px;
-    height: 56px;
+    min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
   }
 
@@ -152,7 +152,7 @@ div
     }
   }
 
-  .navbar-header {
+  .topbar-header {
     margin-right: 48px;
 
     .logo {
@@ -165,8 +165,8 @@ div
     display: flex;
   }
 
-  .nav-item {
-    .nav-link {
+  .topbar-item {
+    .topbar-link {
       font-size: 16px;
       color: $white !important;
       font-weight: bold;
@@ -176,14 +176,14 @@ div
     }
 
     &:hover {
-      .nav-link {
+      .topbar-link {
         color: $white !important;
         background: $purple-200;
       }
     }
 
     &.active:not(:hover) {
-      .nav-link {
+      .topbar-link {
         box-shadow: 0px -4px 0px $purple-300 inset;
       }
     }
