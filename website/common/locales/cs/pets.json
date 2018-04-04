@@ -27,8 +27,8 @@
     "royalPurpleGryphon": "Vznešený fialový gryf",
     "phoenix": "Fénix",
     "magicalBee": "Magická včela",
-    "hopefulHippogriffPet": "Hopeful Hippogriff",
-    "hopefulHippogriffMount": "Hopeful Hippogriff",
+    "hopefulHippogriffPet": "Nadějný Gryf",
+    "hopefulHippogriffMount": "Nadějný Gryf",
     "royalPurpleJackalope": "Královský Fialový Zajdalen",
     "invisibleAether": "Neviditelný Éter",
     "rarePetPop1": "Klikni na zlatou packu pro více informací o tom, jak získat toto vzácné zvíře za přispívání programu Habitica!",
@@ -138,5 +138,8 @@
     "dragThisPotion": "Drag this <%= potionName %> to an Egg and hatch a new pet!",
     "clickOnEggToHatch": "Click on an Egg to use your <%= potionName %> hatching potion and hatch a new pet!",
     "hatchDialogText": "Pour your <%= potionName %> hatching potion on your <%= eggName %> egg, and it will hatch into a <%= petName %>.",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

@@ -1,5 +1,4 @@
 import content from '../../content/index';
-import i18n from '../../i18n';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
@@ -9,7 +8,8 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import randomVal from '../../libs/randomVal';
-import { removeItemByPath } from '../pinnedGearUtils';
+import {removeItemByPath} from '../pinnedGearUtils';
+import {AbstractGoldItemOperation} from './abstractBuyOperation';
 
 // TODO this is only used on the server
 // move out of common?
@@ -17,41 +17,71 @@ import { removeItemByPath } from '../pinnedGearUtils';
 const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
 
-module.exports = function buyArmoire (user, req = {}, analytics) {
-  let item = content.armoire;
-
-  if (user.stats.gp < item.value) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+export class BuyArmoireOperation extends AbstractGoldItemOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
   }
 
-  if (item.canOwn && !item.canOwn(user)) {
-    throw new NotAuthorized(i18n.t('cannotBuyItem', req.language));
+  multiplePurchaseAllowed () {
+    return false;
   }
 
-  let armoireResp;
-  let drop;
-  let message;
+  extractAndValidateParams (user) {
+    let item = content.armoire;
 
-  let armoireResult = randomVal.trueRandom();
-  let eligibleEquipment = filter(content.gear.flat, (eligible) => {
-    return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
-  });
-  let armoireHasEquipment = !isEmpty(eligibleEquipment);
+    this.canUserPurchase(user, item);
+  }
 
-  if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
+  executeChanges (user, item) {
+    let result = {};
+
+    let armoireResult = randomVal.trueRandom();
+    let eligibleEquipment = filter(content.gear.flat, (eligible) => {
+      return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
+    });
+    let armoireHasEquipment = !isEmpty(eligibleEquipment);
+
+    if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
+      result = this._gearResult(user, eligibleEquipment);
+    } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
+      result = this._foodResult(user);
+    } else {
+      result = this._experienceResult(user);
+    }
+
+    this.subtractCurrency(user, item);
+
+    let {message, armoireResp} = result;
+
+    if (!message) {
+      message = this.i18n('messageBought', {
+        itemText: this.item.text(this.req.language),
+      });
+    }
+
+    let resData = pick(user, splitWhitespace('items flags'));
+    if (armoireResp) resData.armoire = armoireResp;
+
+    return [
+      resData,
+      message,
+    ];
+  }
+
+  _gearResult (user, eligibleEquipment) {
     eligibleEquipment.sort();
-    drop = randomVal(eligibleEquipment);
+    let drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
-      throw new NotAuthorized(i18n.t('equipmentAlreadyOwned', req.language));
+      throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
     user.items.gear.owned[drop.key] = true;
     user.flags.armoireOpened = true;
-    message = i18n.t('armoireEquipment', {
+    let message = this.i18n('armoireEquipment', {
       image: `<span class="shop_${drop.key} pull-left"></span>`,
-      dropText: drop.text(req.language),
-    }, req.language);
+      dropText: drop.text(this.req.language),
+    });
 
     if (count.remainingGearInSet(user.items.gear.owned, 'armoire') === 0) {
       user.flags.armoireEmpty = true;
@@ -59,62 +89,56 @@ module.exports = function buyArmoire (user, req = {}, analytics) {
 
     removeItemByPath(user, `gear.flat.${drop.key}`);
 
-    armoireResp = {
+    let armoireResp = {
       type: 'gear',
       dropKey: drop.key,
-      dropText: drop.text(req.language),
+      dropText: drop.text(this.req.language),
     };
-  } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
-    drop = randomVal(filter(content.food, {
+
+    return {
+      message,
+      armoireResp,
+    };
+  }
+
+  _foodResult (user) {
+    let drop = randomVal(filter(content.food, {
       canDrop: true,
     }));
 
     user.items.food[drop.key] = user.items.food[drop.key] || 0;
     user.items.food[drop.key] += 1;
 
-    message = i18n.t('armoireFood', {
-      image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,
-      dropText: drop.text(req.language),
-    }, req.language);
-    armoireResp = {
-      type: 'food',
-      dropKey: drop.key,
-      dropText: drop.textA(req.language),
+    return {
+      message: this.i18n('armoireFood', {
+        image: `<span class="Pet_Food_${drop.key} pull-left"></span>`,
+        dropText: drop.text(this.req.language),
+      }),
+      armoireResp: {
+        type: 'food',
+        dropKey: drop.key,
+        dropText: drop.textA(this.req.language),
+      },
     };
-  } else {
+  }
+
+  _experienceResult (user) {
     let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
-    message = i18n.t('armoireExp', req.language);
-    armoireResp = {
-      type: 'experience',
-      value: armoireExp,
+
+    return {
+      message: this.i18n('armoireExp'),
+      armoireResp: {
+        type: 'experience',
+        value:
+        armoireExp,
+      },
     };
   }
 
-  user.stats.gp -= item.value;
-
-  if (!message) {
-    message = i18n.t('messageBought', {
-      itemText: item.text(req.language),
-    }, req.language);
+  analyticsData () {
+    let data = super.analyticsData();
+    data.itemKey = 'Armoire';
+    return data;
   }
-
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
-      itemKey: 'Armoire',
-      acquireMethod: 'Gold',
-      goldCost: item.value,
-      category: 'behavior',
-      headers: req.headers,
-    });
-  }
-
-  let resData = pick(user, splitWhitespace('items flags'));
-  if (armoireResp) resData.armoire = armoireResp;
-
-  return [
-    resData,
-    message,
-  ];
-};
+}

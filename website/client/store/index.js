@@ -4,6 +4,7 @@ import content from 'common/script/content/index';
 import * as commonConstants from 'common/script/constants';
 import { DAY_MAPPING } from 'common/script/cron';
 import { asyncResourceFactory } from 'client/libs/asyncResource';
+import { setUpAxios } from 'client/libs/auth';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -19,18 +20,9 @@ let browserTimezoneOffset = moment().zone(); // eg, 240 - this will be converted
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
 let AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
-
 if (AUTH_SETTINGS) {
   AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS);
-
-  if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
-    axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
-    axios.defaults.headers.common['x-api-key'] = AUTH_SETTINGS.auth.apiToken;
-
-    axios.defaults.headers.common['x-user-timezoneOffset'] = browserTimezoneOffset;
-
-    isUserLoggedIn = true;
-  }
+  isUserLoggedIn = setUpAxios(AUTH_SETTINGS);
 }
 
 const i18nData = window && window['habitica-i18n'];
@@ -121,6 +113,9 @@ export default function () {
       },
       gemModalOptions: {
         startingPage: '',
+      },
+      rageModalOptions: {
+        npc: '',
       },
       profileUser: {},
       upgradingGroup: {},

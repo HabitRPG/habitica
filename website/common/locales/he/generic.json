@@ -136,6 +136,7 @@
     "audioTheme_airuTheme": "Airu's Theme",
     "audioTheme_beatscribeNesTheme": "Beatscribe's NES Theme",
     "audioTheme_arashiTheme": "Arashi's Theme",
+    "audioTheme_triumphTheme": "Triumph Theme",
     "audioTheme_lunasolTheme": "Lunasol Theme",
     "audioTheme_spacePenguinTheme": "SpacePenguin's Theme",
     "audioTheme_maflTheme": "MAFL Theme",
@@ -166,6 +167,8 @@
     "achievementBurnoutText": "סייע להביס ״שחיקה״ ולהשיב את ״הרוחות המותשות״ במהלך אירוע פסטיבל השלכת 2015!",
     "achievementBewilder": "מציל של מיסטי",
     "achievementBewilderText": "סייעתם להביס את המש-תומם במהלך ארוע הפלינג האביבי 2016!",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "תראו את ההתקדמות שלי בהביטיקה!",
     "cards": "Cards",
     "sentCardToUser": "You sent a card to <%= profileName %>",
@@ -283,5 +286,6 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
+    "contactForm": "Contact the Moderation Team"
 }

@@ -4,7 +4,7 @@
   "nextRewardUnlocksIn": "Registros hasta tu próximo premio: <%= numberOfCheckinsLeft %>",
   "awesome": "¡Fantástico!",
   "totalCount": "<%= count %> cuenta total",
-  "countLeft": "Registros hasta tu próximo premio: <%= count %>",
+  "countLeft": "Registros hasta la próxima recompensa: <%= count %>",
   "incentivesDescription": "Cuando se trata de desarrollar hábitos, la consistencia es la clave. Cada día que hagas check-in te acercas más a un premio.",
   "totalCheckins": "<%= count %> Check-Ins",
   "checkinEarned": "¡Tu contador de Check-In subió!",
@@ -25,5 +25,5 @@
   "royallyLoyal": "Realmente Leal",
   "royallyLoyalText": "¡Este usuario entró más de 500 veces a Habitica y ganó todos los premios por entrar!",
   "checkInRewards": "Recompensas por entrar",
-  "backloggedCheckInRewards": "¡Recibiste premios por entrar! Visita tu Inventario y Equipamiento para verlos."
+  "backloggedCheckInRewards": "¡Recibiste premios por entrar! Visita tu Inventario y Equipamiento para ver qué hay de nuevo."
 }

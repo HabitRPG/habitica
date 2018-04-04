@@ -26,7 +26,7 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    clear-completed-todos(v-if="activeFilter.label === 'complete2'")
+    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
@@ -280,7 +280,20 @@ export default {
     shopItem,
     draggable,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
+  // Set default values for props
+  // allows for better control of props values
+  // allows for better control of where this component is called
+  props: {
+    type: {},
+    isUser: {
+      type: Boolean,
+      default: false,
+    },
+    searchText: {},
+    selectedTags: {},
+    taskListOverride: {},
+    group: {},
+  }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
       habit: habitIcon,
@@ -330,8 +343,7 @@ export default {
     }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-
-      let filteredTaskList = isEmpty(this.taskListOverride) ?
+      let filteredTaskList = this.isUser ?
         this.getFilteredTaskList({
           type: this.type,
           filterType: this.activeFilter.label,
@@ -380,12 +392,6 @@ export default {
 
       return this.taskList.length === 0;
     },
-    dailyDueDefaultView () {
-      if (this.type === 'daily' && this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
-      return this.user.preferences.dailyDueDefaultView;
-    },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
       return this.$t('addATask', {type});
@@ -415,12 +421,6 @@ export default {
         this.setColumnBackgroundVisibility();
       }, 250),
       deep: true,
-    },
-    dailyDueDefaultView () {
-      if (!this.dailyDueDefaultView) return;
-      if (this.type === 'daily' && this.dailyDueDefaultView) {
-        this.activateFilter('daily', this.typeFilters[1]);
-      }
     },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
@@ -514,7 +514,7 @@ export default {
         return task;
       });
 
-      this.quickAddText = null;
+      this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
     },
@@ -527,7 +527,13 @@ export default {
         this.loadCompletedTodos();
       }
 
-      // this.activeFilters[type] = filter;
+      // the only time activateFilter is called with filter==='' is when the component is first created
+      // this can be used to check If the user has set 'due' as default filter for daily
+      // and set the filter as 'due' only when the component first loads and not on subsequent reloads.
+      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+        filter = 'due';
+      }
+
       this.activeFilter = getActiveFilter(type, filter);
     },
     setColumnBackgroundVisibility () {
@@ -578,7 +584,7 @@ export default {
             /* eslint-disable no-extra-parens */
             return (
               task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
-              (task.note && task.note.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
               (task.checklist && task.checklist.length > 0 &&
                 task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
             );
@@ -614,6 +620,11 @@ export default {
       }
     },
     togglePinned (item) {
+      if (!item.pinType) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.text(this.$t('unpinnedItem', {item: item.text}));

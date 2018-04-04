@@ -87,6 +87,19 @@ describe('shared.ops.purchase', () => {
       }
     });
 
+    it('prevents user from buying an invalid quantity', (done) => {
+      user.stats.gp = goldPoints;
+      user.purchased.plan.gemsBought = gemsBought;
+
+      try {
+        purchase(user, {params: {type: 'gems', key: 'gem'}, quantity: 'a'});
+      } catch (err) {
+        expect(err).to.be.an.instanceof(BadRequest);
+        expect(err.message).to.equal(i18n.t('invalidQuantity'));
+        done();
+      }
+    });
+
     it('returns error when unknown type is provided', (done) => {
       try {
         purchase(user, {params: {type: 'randomType', key: 'gem'}});

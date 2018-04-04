@@ -15,19 +15,18 @@
               label.custom-control-label(v-once, :for="`category-${category.identifier}`") {{ category.text }}
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page
       div.featuredItems
-        .background
+        .background(:class="{broken: broken}")
+        .background(:class="{cracked: broken, broken: broken}")
           div.npc
             div.featured-label
               span.rectangle
@@ -162,7 +161,7 @@
               )
                 span.svg-icon.inline.icon-12.color(v-html="icons.pin")
 
-          //keys-to-kennel(v-if='category.identifier === "special"')
+          keys-to-kennel(v-if='category.identifier === "special"')
 
         div.fill-height
 
@@ -294,6 +293,7 @@
       .content {
         display: flex;
         flex-direction: column;
+        z-index: 1; // Always cover background.
       }
 
       .npc {
@@ -312,8 +312,24 @@
           left: 80px;
         }
       }
-    }
 
+      .background.broken {
+        background: url('~assets/images/npc/broken/market_broken_background.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .background.cracked {
+        background: url('~assets/images/npc/broken/market_broken_layer.png');
+
+        background-repeat: repeat-x;
+      }
+
+      .broken .npc {
+        background: url('~assets/images/npc/broken/market_broken_npc.png');
+        background-repeat: no-repeat;
+      }
+    }
   }
 
   .market .gems-left {
@@ -443,7 +459,13 @@ export default {
 
         hideLocked: false,
         hidePinned: false,
+
+        broken: false,
       };
+    },
+    async mounted () {
+      const worldState = await this.$store.dispatch('worldState:getWorldState');
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.market;
     },
     computed: {
       ...mapState({
@@ -472,8 +494,8 @@ export default {
           categories.push({
             identifier: 'cards',
             text: this.$t('cards'),
-            items: _map(_filter(this.content.cardTypes, (value, key) => {
-              return value.yearRound || key === 'valentine';
+            items: _map(_filter(this.content.cardTypes, (value) => {
+              return value.yearRound;
             }), (value) => {
               return {
                 ...getItemInfo(this.user, 'card', value),
@@ -679,8 +701,10 @@ export default {
             break;
           }
           case 'sortByNumber': {
-            result = _sortBy(result, i => {
-              return this.userItems[i.purchaseType][i.key] || 0;
+            result = _sortBy(result, item => {
+              if (item.showCount === false) return 0;
+
+              return this.userItems[item.purchaseType][item.key] || 0;
             });
             break;
           }

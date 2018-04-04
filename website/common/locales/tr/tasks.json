@@ -12,12 +12,12 @@
     "createTask": "<%= type %> oluştur",
     "addTaskToUser": "iş ekle",
     "scheduled": "Zamanlı",
-    "theseAreYourTasks": "These are your <%= taskType %>",
+    "theseAreYourTasks": "Bunlar senin <%= taskType %>",
     "habit": "Alışkanlık",
     "habits": "Alışkanlıklar",
     "newHabit": "Yeni Alışkanlık",
     "newHabitBulk": "Yeni Alışkanlıklar (satır başı bir tane)",
-    "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
+    "habitsDesc": "Alışkanlıkların belirli bir gün düzeni yoktur. Onları bir gün içeriside birden çok kere tamamlıyabilirsin.",
     "positive": "Pozitif",
     "negative": "Negatif",
     "yellowred": "Zayıf",
@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "İşin takma adı başka bir işte kullanılmakta.",
     "taskNotFound": "Görev bulunamadı.",
     "invalidTaskType": "İş türü bunlardan biri olmalıdır: \"habit\", \"daily\", \"todo\", \"reward\".",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Bir mücadeleye ait bir iş silinemez.",
     "checklistOnlyDailyTodo": "Kontrol listeleri yalnızca günlük işlerde ve yapılacak işlerde bulunabilir.",
     "checklistItemNotFound": "Verilen id'ye sahip bir liste maddesi bulunamadı.",
@@ -209,5 +211,6 @@
     "yesterDailiesDescription": "Bu ayar uygulanıyorsa, avatarına zarar verme hesaplamasından önce Günlük İşi yapıp yapmadığını Habitica soracaktır. Bu, kasıtsız olarak hasar görmelerine karşı seni koruyabilir.",
     "repeatDayError": "Lütfen haftanın en az bir gününün seçili olduğundan emin ol.",
     "searchTasks": "Search titles and descriptions...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

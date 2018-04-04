@@ -33,16 +33,16 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
   let correctReceipt = false;
 
   // Purchasing one item at a time (processing of await(s) below is sequential not parallel)
-  for (let index in purchaseDataList) { // eslint-disable-line no-await-in-loop
+  for (let index in purchaseDataList) {
     let purchaseData = purchaseDataList[index];
     let token = purchaseData.transactionId;
 
-    let existingReceipt = await IapPurchaseReceipt.findOne({
+    let existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
       _id: token,
     }).exec();
 
     if (!existingReceipt) {
-      await IapPurchaseReceipt.create({
+      await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
         _id: token,
         consumed: true,
         userId: user._id,

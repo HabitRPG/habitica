@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Ezt a feladatcímkét már használod egy másik feladathoz.",
     "taskNotFound": "A feladat nem található.",
     "invalidTaskType": "A feladat típusa \"Szokás\", \"Napi\" \"Cél\" vagy \"Jutalom\" lehet.",
+    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Egy kihívás feladatát nem törölheted.",
     "checklistOnlyDailyTodo": "Feladatlisták csak napi feladatokhoz és a célokhoz adhatóak.",
     "checklistItemNotFound": " Nem található feladatlista az adott azonosítóhoz.",
@@ -209,5 +211,6 @@
     "yesterDailiesDescription": "Ha ez a beállítás engedélyezve van, a Habitica meg fogja kérdezni hogy a napi feladat tényleg nem volt-e elvégezve mielőtt kiszámolja a sebzést az avatárodra. Ez megvéd a nem szándékos sebzésektől.",
     "repeatDayError": "Bizonyosodj meg róla hogy legalább a hét egyik napja ki van választva.",
     "searchTasks": "Search titles and descriptions...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

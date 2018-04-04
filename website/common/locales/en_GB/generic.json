@@ -136,6 +136,7 @@
     "audioTheme_airuTheme": "Airu's Theme",
     "audioTheme_beatscribeNesTheme": "Beatscribe's NES Theme",
     "audioTheme_arashiTheme": "Arashi's Theme",
+    "audioTheme_triumphTheme": "Triumph Theme",
     "audioTheme_lunasolTheme": "Lunasol Theme",
     "audioTheme_spacePenguinTheme": "SpacePenguin's Theme",
     "audioTheme_maflTheme": "MAFL Theme",
@@ -166,6 +167,8 @@
     "achievementBurnoutText": "Helped defeat Burnout and restore the Exhaust Spirits during the 2015 Fall Festival Event!",
     "achievementBewilder": "Saviour of Mistiflying",
     "achievementBewilderText": "Helped defeat the Be-Wilder during the 2016 Spring Fling Event!",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Check out my progress in Habitica!",
     "cards": "Cards",
     "sentCardToUser": "You sent a card to <%= profileName %>",
@@ -283,5 +286,6 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
+    "contactForm": "Contact the Moderation Team"
 }

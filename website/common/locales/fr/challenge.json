@@ -101,7 +101,7 @@
     "addTask": "Ajouter une tâche",
     "editChallenge": "Modifier le défi",
     "challengeDescription": "Description du défi",
-    "selectChallengeWinnersDescription": "Choisissez un gagnant parmi les participants au Défi",
+    "selectChallengeWinnersDescription": "Choisissez un gagnant parmi les participants au défi",
     "awardWinners": "Vainqueur du prix",
     "doYouWantedToDeleteChallenge": "Voulez-vous supprimer ce défi ?",
     "deleteChallenge": "Supprimer le défi",
@@ -128,6 +128,6 @@
     "categoiresRequired": "Une ou plusieurs catégories doivent être sélectionnées",
     "viewProgressOf": "Voir la progression de",
     "selectMember": "Choisir un membre",
-    "confirmKeepChallengeTasks": "Voulez-vous garder les tâches du défi?",
+    "confirmKeepChallengeTasks": "Voulez-vous conserver les tâches du défi ?",
     "selectParticipant": "Sélectionnez un participant"
 }

@@ -136,6 +136,7 @@
     "audioTheme_airuTheme": "Tema Airu",
     "audioTheme_beatscribeNesTheme": "Tema NES Beatscribe",
     "audioTheme_arashiTheme": "Tema Arashi",
+    "audioTheme_triumphTheme": "Tema Triumph",
     "audioTheme_lunasolTheme": "Tema Lunasol",
     "audioTheme_spacePenguinTheme": "Tema SpacePenguin",
     "audioTheme_maflTheme": "Tema MAFL",
@@ -166,6 +167,8 @@
     "achievementBurnoutText": "Membantu mengalahkan Burnout dan mengembalikan Ruh Kelelahan selama event Festival Musim Gugur 2015!",
     "achievementBewilder": "Penyelamat Mistiflying",
     "achievementBewilderText": "Membantu mengalahkan Be-Wilder selama event Pesta Pora Musim Semi 2016!",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Cek progresku di Habitica!",
     "cards": "Kartu",
     "sentCardToUser": "Kamu mengirim kartu ke <%= profileName %>",
@@ -283,5 +286,6 @@
     "letsgo": "Ayo Pergi!",
     "selected": "Dipilih",
     "howManyToBuy": "Berapa banyak yang ingin kamu beli?",
-    "habiticaHasUpdated": "Habitica ada pembaharuan baru. Muat ulang untuk dapatkan versi terbaru!"
+    "habiticaHasUpdated": "Habitica ada pembaharuan baru. Muat ulang untuk dapatkan versi terbaru!",
+    "contactForm": "Contact the Moderation Team"
 }

@@ -23,8 +23,8 @@ const BASE_URL = nconf.get('BASE_URL');
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
-  let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
-  let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
+  let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
+  let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let bannedWordErrorMessage = t('bannedWordUsed').split('.');
   bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
   bannedWordErrorMessage = bannedWordErrorMessage.join('.');
@@ -478,8 +478,8 @@ describe('POST /chat', () => {
   context('Spam prevention', () => {
     it('Returns an error when the user has been posting too many messages', async () => {
       // Post as many messages are needed to reach the spam limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) { // eslint-disable-line no-await-in-loop
-        let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage });
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT; i++) {
+        let result = await additionalMember.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
         expect(result.message.id).to.exist;
       }
 
@@ -494,8 +494,8 @@ describe('POST /chat', () => {
       let userSocialite = await member.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL, 'flags.chatRevoked': false});
 
       // Post 1 more message than the spam limit to ensure they do not reach the limit
-      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) { // eslint-disable-line no-await-in-loop
-        let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage });
+      for (let i = 0; i < SPAM_MESSAGE_LIMIT + 1; i++) {
+        let result = await userSocialite.post(`/groups/${TAVERN_ID}/chat`, { message: testMessage }); // eslint-disable-line no-await-in-loop
         expect(result.message.id).to.exist;
       }
     });

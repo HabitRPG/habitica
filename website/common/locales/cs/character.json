@@ -64,6 +64,7 @@
     "classBonusText": "Tvé povolání (Válečník, pokud jsi neodemkl nebo nevybral jiné povolání) využívá svoje vlastní vybavení efektivněji, než vybavení pro jiné povolání. Nasazené vybavení ti přidává 50% bonus k poskytované vlastnosti.",
     "classEquipBonus": "Bonus třídy",
     "battleGear": "Bojová výzbroj",
+    "gear": "Výbava",
     "battleGearText": "Tohle je tvé vybavení, které máš na sobě do bitvy; ovlivňuje čísla, když pracuješ se svými úkoly.",
     "autoEquipBattleGear": "Automaticky použít nové vybavení",
     "costume": "Kostým",
@@ -215,9 +216,9 @@
     "headAccess": "Příslušenství na hlavu",
     "backAccess": "Příslušenství na záda",
     "bodyAccess": "Příslušenství na tělo",
-    "mainHand": "Main-Hand",
-    "offHand": "Off-Hand",
+    "mainHand": "Hlavní ruka",
+    "offHand": "Druhá ruka",
     "pointsAvailable": "Dostupné body",
-    "pts": "pts",
+    "pts": "Body",
     "statsObjectRequired": "Je požadována aktualizace atributů"
 }
