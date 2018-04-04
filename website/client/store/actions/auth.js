@@ -68,5 +68,5 @@ export async function socialAuth (store, params) {
 export async function logout () {
   localStorage.removeItem(LOCALSTORAGE_AUTH_KEY);
   localStorage.removeItem(LOCALSTORAGE_SOCIAL_AUTH_KEY);
-  await axios.get('/logoutServer');
+  window.location.href = '/logout-server';
 }

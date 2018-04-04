@@ -1,9 +1,6 @@
 import { model as User } from '../models/user';
 import * as Tasks from '../models/task';
-import {
-  NotFound,
-  BadRequest,
-} from './errors';
+import { NotFound, BadRequest } from './errors';
 
 // @TODO: After refactoring individual spells, move quantity to the calculations
 
@@ -22,10 +19,7 @@ async function castTaskSpell (res, req, targetId, user, spell, quantity = 1) {
     spell.cast(user, task, req);
   }
 
-  const results = await Promise.all([
-    user.save(),
-    task.save(),
-  ]);
+  const results = await Promise.all([user.save(), task.save()]);
 
   return results;
 }
@@ -40,9 +34,7 @@ async function castMultiTaskSpell (req, user, spell, quantity = 1) {
     spell.cast(user, tasks, req);
   }
 
-  const toSave = tasks
-    .filter(t => t.isModified())
-    .map(t => t.save());
+  const toSave = tasks.filter((t) => t.isModified()).map((t) => t.save());
   toSave.unshift(user.save());
   const saved = await Promise.all(toSave);
 
@@ -65,11 +57,10 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
   if (!party) {
     partyMembers = [user]; // Act as solo party
   } else {
-    partyMembers = await User
-      .find({
-        'party._id': party._id,
-        _id: { $ne: user._id }, // add separately
-      })
+    partyMembers = await User.find({
+      'party._id': party._id,
+      _id: { $ne: user._id }, // add separately
+    })
       // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
       // default values for non-selected fields and pre('save') will mess up thinking some values are missing
       .exec();
@@ -80,7 +71,7 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, partyMembers, req);
   }
-  await Promise.all(partyMembers.map(m => m.save()));
+  await Promise.all(partyMembers.map((m) => m.save()));
 
   return partyMembers;
 }
@@ -91,24 +82,20 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
   } else {
     if (!targetId) throw new BadRequest(res.t('targetIdUUID'));
     if (!party) throw new NotFound(res.t('partyNotFound'));
-    partyMembers = await User
-      .findOne({_id: targetId, 'party._id': party._id})
+    partyMembers = await User.findOne({ _id: targetId, 'party._id': party._id })
       // .select(partyMembersFields) Selecting the entire user because otherwise when saving it'll save
       // default values for non-selected fields and pre('save') will mess up thinking some values are missing
       .exec();
   }
 
-  if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', {userId: targetId}));
+  if (!partyMembers) throw new NotFound(res.t('userWithIDNotFound', { userId: targetId }));
 
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, partyMembers, req);
   }
 
   if (partyMembers !== user) {
-    await Promise.all([
-      user.save(),
-      partyMembers.save(),
-    ]);
+    await Promise.all([user.save(), partyMembers.save()]);
   } else {
     await partyMembers.save(); // partyMembers is user
   }
@@ -116,4 +103,4 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
   return partyMembers;
 }
 
-export {castTaskSpell, castMultiTaskSpell, castSelfSpell, castPartySpell, castUserSpell};
+export { castTaskSpell, castMultiTaskSpell, castSelfSpell, castPartySpell, castUserSpell };

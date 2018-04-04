@@ -24,7 +24,7 @@ api.resetPasswordSetNewOne = {
 // Logout the user from the website.
 api.logout = {
   method: 'GET',
-  url: '/logoutServer',
+  url: '/logout-server',
   async handler (req, res) {
     if (req.logout) req.logout(); // passportjs method
     req.session = null;
