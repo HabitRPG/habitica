@@ -62,7 +62,7 @@ spells.wizard = {
     cast (user, target) {
       each(target, (member) => {
         let bonus = statsComputed(user).int;
-        if (user._id !== member._id) {
+        if (user._id !== member._id && member.stats.class !== 'wizard') {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }
       });

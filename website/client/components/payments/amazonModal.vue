@@ -24,6 +24,7 @@
 </style>
 
 <script>
+import * as Analytics from 'client/libs/analytics';
 import axios from 'axios';
 import { mapState } from 'client/libs/store';
 
@@ -222,6 +223,21 @@ export default {
 
           let newGroup = response.data.data;
           if (newGroup && newGroup._id) {
+            // Handle new user signup
+            if (!this.$store.state.isUserLoggedIn) {
+              const habiticaUrl = `${location.protocol}//${location.host}`;
+
+              Analytics.track({
+                hitType: 'event',
+                eventCategory: 'group-plans-static',
+                eventAction: 'view',
+                eventLabel: 'paid-with-amazon',
+              });
+
+              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
+              return;
+            }
+
             // @TODO: Just append? or $emit?
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             this.user.guilds.push(newGroup._id);

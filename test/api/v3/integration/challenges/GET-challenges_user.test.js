@@ -267,7 +267,7 @@ describe('GET challenges/user', () => {
     it('does not page challenges if page parameter is absent', async () => {
       const challenges = await user.get('/challenges/user');
 
-      expect(challenges.length).to.eql(12);
+      expect(challenges.length).to.be.above(11);
     });
 
     it('paginates challenges', async () => {

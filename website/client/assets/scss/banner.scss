@@ -9,6 +9,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 
   &.with-border {
     border: solid 2px $yellow-10;
