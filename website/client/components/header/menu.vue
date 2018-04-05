@@ -4,11 +4,15 @@ div
   creator-intro
   profile
   b-navbar.topbar.navbar-inverse.static-top.navbar-expand-lg(type="dark")
-    .topbar-header.navbar-header
+    b-navbar-brand
       .logo.svg-icon.d-none.d-xl-block(v-html="icons.logo")
-      .svg-icon.gryphon.d-md-block.d-none.d-xl-none
-      .svg-icon.gryphon.d-sm-block.d-lg-none.d-md-none
+      .svg-icon.gryphon.d-xs-block.d-xl-none
     b-nav-toggle(target='menu_collapse')
+    .quick-menu.mobile-only.form-inline
+      a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
+        .top-menu-icon.svg-icon(v-html="icons.sync")
+      notification-menu.item-with-icon
+      user-dropdown.item-with-icon
     b-collapse#menu_collapse.collapse.navbar-collapse
       .menu-list.ul.navbar-nav
         router-link.topbar-item.nav-item(tag="li", :to="{name: 'tasks'}", exact)
@@ -31,7 +35,7 @@ div
         .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
           a.topbar-link.nav-link(v-once) {{ $t('party') }}
         router-link.topbar-item.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
-          a.nav-link(v-once) {{ $t('guilds') }}
+          a.topbar-link.nav-link(v-once) {{ $t('guilds') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
@@ -55,8 +59,7 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
-      .user-menu
+      .currency-tray.form-inline
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
@@ -66,6 +69,7 @@ div
         .item-with-icon.gold
           .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
           span {{Math.floor(user.stats.gp * 100) / 100}}
+      .form-inline.desktop-only
         a.item-with-icon(@click="sync", v-b-tooltip.hover.bottom="$t('sync')")
           .top-menu-icon.svg-icon(v-html="icons.sync")
         notification-menu.item-with-icon
@@ -80,10 +84,6 @@ div
     .topbar-link {
       padding: .8em 1em !important;
     }
-
-    .topbar-header {
-      margin-right: 5px !important;
-    }
   }
 
   @media only screen and (max-width: 1200px) {
@@ -97,19 +97,31 @@ div
 
     }
 
-    .svg-icon.gryphon.d-sm-block {
-      position: absolute;
-      left: calc(50% - 30px);
-      top: 1em;
-    }
-
     .topbar-item .topbar-link {
       font-size: 14px !important;
       padding: 16px 12px !important;
     }
   }
 
-  @media only screen and (max-width: 990px) {
+  @media only screen and (min-width: 992px) {
+    .mobile-only {
+      display: none !important;
+    }
+
+    .topbar {
+      .currency-tray {
+        margin-left: auto;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .gryphon {
+      position: absolute;
+      left: calc(50% - 30px);
+      top: 10px;
+    }
+
     #menu_collapse {
       margin-top: 0.6em;
       max-height: 320px;
@@ -121,11 +133,10 @@ div
         width: 100%;
         order: 1;
       }
+    }
 
-      .user-menu {
-        margin: 10px;
-        order: 0;
-      }
+    .desktop-only {
+      display: none !important;
     }
   }
 
@@ -136,8 +147,7 @@ div
 
   .topbar {
     background: $purple-100 url(~assets/svg/for-css/bits.svg) right top no-repeat;
-    padding-left: 25px;
-    padding-right: 12.5px;
+    padding: 0 12.5px 0 25px;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
   }
@@ -152,16 +162,17 @@ div
     }
   }
 
-  .topbar-header {
-    margin-right: 48px;
-
-    .logo {
-      width: 128px;
-      height: 28px;
-    }
+  .logo {
+    width: 128px;
+    height: 28px;
   }
 
-  .user-menu {
+  .quick-menu {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .currency-tray {
     display: flex;
   }
 
