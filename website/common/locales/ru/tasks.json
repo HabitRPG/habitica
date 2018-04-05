@@ -212,5 +212,5 @@
     "repeatDayError": "Пожалуйста, убедитесь, что у вас отмечен хотя бы один день недели.",
     "searchTasks": "Поиск заголовков и описаний...",
     "sessionOutdated": "Ваша сессия истекла. Пожалуйста, обновите страницу или синхронизируйтесь.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Это предмет временный и не может быть закреплен."
 }

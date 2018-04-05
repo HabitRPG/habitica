@@ -212,5 +212,5 @@
     "repeatDayError": "Моля, уверете се, че сте избрали поне един ден от седмицата.",
     "searchTasks": "Търсене в заглавията и описанията…",
     "sessionOutdated": "Сесията Ви е изтекла. Моля, опреснете или синхронизирайте.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Този предмет е временен и не може да бъде закачен."
 }

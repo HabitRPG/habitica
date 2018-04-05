@@ -96,7 +96,7 @@
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
     "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet.",
-    "invalidQuantity": "Quantity to purchase must be a number.",
+    "invalidQuantity": "Die zu kaufende Menge muss eine Zahl sein.",
     "USD": "(USD)",
     "newStuff": "Neuigkeiten von Bailey",
     "newBaileyUpdate": "Neues Update von Bailey!",

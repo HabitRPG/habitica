@@ -212,5 +212,5 @@
     "repeatDayError": "Por favor, asegúrate de que seleccionas al menos un día de la semana.",
     "searchTasks": "Buscar títulos y descripciones...",
     "sessionOutdated": "Tu sesión no está sincronizada. Por favor, refresca o sincroniza.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Este artículo es temporal y no puede ser fijado."
 }
