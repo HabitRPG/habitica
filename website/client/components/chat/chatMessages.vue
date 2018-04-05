@@ -22,7 +22,7 @@
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
-          @messaged-liked='messageLiked',
+          @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @show-member-modal='showMemberModal')
     .row(v-if='user._id === msg.uuid')
@@ -31,7 +31,7 @@
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
-          @messaged-liked='messageLiked',
+          @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @show-member-modal='showMemberModal')
       div(:class='inbox ? "col-4" : "col-2"')
