@@ -91,7 +91,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
           strong(v-once) {{$t('color')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("bangs")', :class='{active: activeSubPage === "bangs"}')
           strong(v-once) {{$t('bangs')}}
-        .col-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}', v-if='editing')
+        .col-3.text-center.sub-menu-item(@click='changeSubPage("style")', :class='{active: activeSubPage === "style"}')
           strong(v-once) {{$t('style')}}
         .col-3.text-center.sub-menu-item(@click='changeSubPage("facialhair")', :class='{active: activeSubPage === "facialhair"}', v-if='editing')
             strong(v-once) {{$t('facialhair')}}
@@ -708,7 +708,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       span.price {
         color: #24cc8f;
       }
-      
+
       .gem {
         width: 16px;
       }
@@ -723,7 +723,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         span {
           font-size: 14px;
         }
-      
+
         .gem {
           width: 20px;
         }
