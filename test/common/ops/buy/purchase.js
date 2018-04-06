@@ -26,7 +26,7 @@ describe('shared.ops.purchase', () => {
 
   beforeEach(() => {
     sinon.stub(analytics, 'track');
-    sinon.spy(pinnedGearUtils, 'removeItemByPath')
+    sinon.spy(pinnedGearUtils, 'removeItemByPath');
   });
 
   afterEach(() => {
