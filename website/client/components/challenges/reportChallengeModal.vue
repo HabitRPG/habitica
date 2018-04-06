@@ -50,9 +50,12 @@ export default {
     async reportAbuse () {
       this.text(this.$t('abuseReported'));
 
+
       await this.$store.dispatch('challenges:flag', {
         challengeId: this.challenge._id,
-      });
+      })
+      .catch((e) => {
+      })
 
       this.close();
     },

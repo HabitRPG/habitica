@@ -57,7 +57,7 @@ describe('POST /challenges/:challengeId/flag', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('messageGroupChatFlagAlreadyReported'),
+        message: t('messageChallengeFlagAlreadyReported'),
       });
   });
 

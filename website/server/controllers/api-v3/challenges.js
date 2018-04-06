@@ -346,11 +346,18 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    const CHALLENGES_PER_PAGE = 10;
+    const page = req.query.page;
+
     let user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
+
+    const owned = req.query.owned;
+    if (!owned)  {
+      orOptions.push({leader: user._id});
+    }
 
     if (!req.query.member) {
       orOptions.push({
@@ -359,19 +366,49 @@ api.getUserChallenges = {
     }
 
     const query = {
-      $or: orOptions,
+      $and: [{$or: orOptions}],
     };
 
     if (!user.contributor.admin) {
-      query.flagCount = { $eq: 0 };
+      query.$and.push({flagCount: {$lt: 2}});
     }
 
-    let challenges = await Challenge.find(query)
-      .sort('-official -createdAt')
-      // see below why we're not using populate
-      // .populate('group', basicGroupFields)
-      // .populate('leader', nameFields)
-      .exec();
+    if (owned && owned === 'not_owned') {
+      query.$and.push({leader: {$ne: user._id}});
+    }
+
+    if (owned && owned === 'owned') {
+      query.$and.push({leader: user._id});
+    }
+
+    if (req.query.search) {
+      const searchOr = {$or: []};
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      searchOr.$or.push({name: searchQuery});
+      searchOr.$or.push({description: searchQuery});
+      query.$and.push(searchOr);
+    }
+
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    let mongoQuery = Challenge.find(query)
+      .sort('-createdAt');
+
+    if (page) {
+      mongoQuery = mongoQuery
+        .limit(CHALLENGES_PER_PAGE)
+        .skip(CHALLENGES_PER_PAGE * page);
+    }
+
+    // see below why we're not using populate
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
+    const challenges = await mongoQuery.exec();
+
 
     let resChals = challenges.map(challenge => challenge.toJSON());
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -426,7 +463,7 @@ api.getGroupChallenges = {
     const query = { group: groupId };
 
     if (!user.contributor.admin) {
-      query.flagCount = { $eq: 0 };
+      query.flagCount = { $lt: 2 };
     }
 
     let challenges = await Challenge
@@ -482,7 +519,7 @@ api.getChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!user.contributor.admin && challenge.flagCount > 0) throw new NotFound(res.t('challengeNotFound'));
+    if (!user.contributor.admin && challenge.flagCount > 1) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
@@ -784,7 +821,7 @@ api.cloneChallenge = {
 };
 
 async function flagChallenge (challenge, user, res) {
-  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
+  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
 
   challenge.flags[user._id] = true;
   challenge.markModified('flags');
