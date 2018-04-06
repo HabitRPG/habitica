@@ -1,6 +1,7 @@
 <template lang="pug">
 .card
   .row
+    span(v-if='canViewFlags') {{ $t('flagged') }}
     router-link.col-12(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
       h3(v-markdown='challenge.name')
   .row
@@ -156,6 +157,8 @@
 </style>
 
 <script>
+import { mapState } from 'client/libs/store';
+
 import gemIcon from 'assets/svg/gem.svg';
 import memberIcon from 'assets/svg/member-icon.svg';
 import calendarIcon from 'assets/svg/calendar.svg';
@@ -182,6 +185,14 @@ export default {
   },
   directives: {
     markdown: markdownDirective,
+  },
+  computed: {
+    ...mapState({user: 'user.data'}),
+    canViewFlags () {
+      const isAdmin = Boolean(this.user.contributor.admin);
+      if (isAdmin && this.challenge.flagCount > 0) return true;
+      return false;
+    },
   },
 };
 </script>

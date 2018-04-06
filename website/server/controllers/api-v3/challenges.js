@@ -28,6 +28,11 @@ import {
   cleanUpTask,
 } from '../../libs/challenges';
 
+import {
+  clearFlags,
+  notifyOfFlaggedChallenge,
+} from '../../libs/challenges/reporting';
+
 let api = {};
 
 /**
@@ -363,6 +368,10 @@ api.getUserChallenges = {
       $and: [{$or: orOptions}],
     };
 
+    if (!user.contributor.admin) {
+      query.$and.push({flagCount: {$lt: 2}});
+    }
+
     if (owned && owned === 'not_owned') {
       query.$and.push({leader: {$ne: user._id}});
     }
@@ -455,7 +464,14 @@ api.getGroupChallenges = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let challenges = await Challenge.find({group: groupId})
+    const query = { group: groupId };
+
+    if (!user.contributor.admin) {
+      query.flagCount = { $lt: 2 };
+    }
+
+    let challenges = await Challenge
+      .find(query)
       .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
@@ -510,8 +526,9 @@ api.getChallenge = {
     // Don't populate the group as we'll fetch it manually later
     // .populate('leader', nameFields)
     let challenge = await Challenge.findById(challengeId).exec();
-
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    if (!user.contributor.admin && challenge.flagCount > 1) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
@@ -809,6 +826,91 @@ api.cloneChallenge = {
     const clonedTasks = await createTasks(taskRequest, res, {user, challenge: savedChal});
 
     res.respond(200, {clonedTasks, clonedChallenge: savedChal});
+  },
+};
+
+async function flagChallenge (challenge, user, res) {
+  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
+
+  challenge.flags[user._id] = true;
+  challenge.markModified('flags');
+
+  if (user.contributor.admin) {
+    // Arbitrary amount, higher than 2
+    challenge.flagCount = 5;
+  } else {
+    challenge.flagCount++;
+  }
+
+  await challenge.save();
+}
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/flag Flag a challenge
+ * @apiName FlagChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.flagChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/flag',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    await flagChallenge(challenge, user, res);
+    await notifyOfFlaggedChallenge(challenge, user);
+
+    res.respond(200, {challenge});
+  },
+};
+
+/**
+ * @api {post} /api/v3/challenges/:challengeId/clearflags Clears flags on a challenge
+ * @apiName ClearFlagsChallenge
+ * @apiGroup Challenge
+ *
+ * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ *
+ * @apiSuccess {Object} data The flagged challenge message
+ *
+ * @apiUse ChallengeNotFound
+ */
+api.clearFlagsChallenge = {
+  method: 'POST',
+  url: '/challenges/:challengeId/clearflags',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    const user = res.locals.user;
+
+    req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    if (!user.contributor.admin) {
+      throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
+    }
+
+    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+    await clearFlags(challenge, user);
+
+    res.respond(200, {challenge});
   },
 };
 

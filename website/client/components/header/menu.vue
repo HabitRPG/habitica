@@ -328,6 +328,9 @@ export default {
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
       groupPlans: 'groupPlans',
     }),
+    contactUrl () {
+      return `http://contact.habitica.com/?email=${this.user.auth.local.email}&profileName=${this.user.profile.name}&uuid=${this.user._id}`;
+    },
   },
   mounted () {
     this.getUserGroupPlans();
