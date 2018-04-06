@@ -149,8 +149,8 @@
     "taskAliasAlreadyUsed": "Taakalias al in gebruik bij een andere taak.",
     "taskNotFound": "Taak niet gevonden.",
     "invalidTaskType": "Taaktype moet een \"habit\",  \"daily\", \"todo\" of \"reward\" zijn.",
-    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
-    "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
+    "invalidTasksType": "Taaktype moet een \"Gewoonte\",  \"Dagelijkse taak\", \"To-do\", of \"Beloning\" zijn.",
+    "invalidTasksTypeExtra": "Taaktype moet een \"Gewoonte\",  \"Dagelijkse taak\", \"To-do\", \"Beloning\", of \"Voltooide To-do\" zijn.",
     "cantDeleteChallengeTasks": "Een taak die bij een uitdaging hoort kan niet verwijderd worden.",
     "checklistOnlyDailyTodo": "Checklijsten zijn alleen beschikbaar op dagelijkse taken en to-do's.",
     "checklistItemNotFound": "Er is geen checklistvoorwerp gevonden met de opgegeven id.",
@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Als deze instelling is toegepast zal Habitica je vragen of je expres de dagelijkse taak ongedaan hebt gelaten voordat schade wordt berekend en toegepast wordt op je avatar. Dit kan je beschermen tegen onbedoelde schade.",
     "repeatDayError": "Er moet minstens één dag van de week geselecteerd zijn.",
     "searchTasks": "Zoek op titels en beschrijvingen...",
-    "sessionOutdated": "Jouw sessie is verouderd. Gelieve te refreshen of te synchroniseren"
+    "sessionOutdated": "Jouw sessie is verouderd. Gelieve te refreshen of te synchroniseren",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

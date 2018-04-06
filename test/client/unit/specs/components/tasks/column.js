@@ -145,17 +145,17 @@ describe('Task Column', () => {
         tasks = [
           {
             text: 'Hello world 1',
-            note: '',
+            notes: '',
             checklist: [],
           },
           {
             text: 'Hello world 2',
-            note: '',
+            notes: '',
             checklist: [],
           },
           {
             text: 'Generic Task Title',
-            note: '',
+            notes: '',
             checklist: [
               { text: 'Check 1' },
               { text: 'Check 2' },
@@ -164,7 +164,7 @@ describe('Task Column', () => {
           },
           {
             text: 'Hello world 3',
-            note: 'Generic Task Note',
+            notes: 'Generic Task Note',
             checklist: [
               { text: 'Checkitem 1' },
               { text: 'Checkitem 2' },

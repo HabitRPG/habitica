@@ -10,7 +10,7 @@ div
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
     banned-account-modal
-    amazon-payments-modal
+    amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -112,7 +112,7 @@ div
   }
 
   .modal-backdrop.show {
-    opacity: 1 !important;
+    opacity: .9 !important;
     background-color: $purple-100 !important;
   }
 
@@ -526,7 +526,7 @@ export default {
       if (!item)
         return false;
 
-      if (item.purchaseType === 'card')
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
         return false;
 
       return true;
@@ -546,6 +546,10 @@ export default {
         });
 
         this.$root.$emit('bv::show::modal', 'select-member-modal');
+      }
+
+      if (item.purchaseType === 'debuffPotion') {
+        this.castStart(item, this.user);
       }
     },
     async memberSelected (member) {

@@ -96,6 +96,7 @@
     "unlocked": "Gejer upplåstes",
     "alreadyUnlocked": "Du har redan låst upp hela uppsättningen.",
     "alreadyUnlockedPart": "Du har redan delvis låst upp hela uppsättningen.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",
