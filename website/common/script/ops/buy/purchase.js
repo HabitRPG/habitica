@@ -106,6 +106,8 @@ function purchaseItem (user, item, price, type, key) {
   }
 }
 
+const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
+const singlePurchaseTypes = ['gear'];
 module.exports = function purchase (user, req = {}, analytics) {
   let type = get(req.params, 'type');
   let key = get(req.params, 'key');
@@ -129,8 +131,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     return gemResponse;
   }
 
-  let acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'gear', 'bundles'];
-  if (acceptedTypes.indexOf(type) === -1) {
+  if (!acceptedTypes.includes(type)) {
     throw new NotFound(i18n.t('notAccteptedType', req.language));
   }
 
@@ -144,8 +145,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  let singlePurchaseTypes = ['gear'];
-  if (singlePurchaseTypes.indexOf(type) !== -1) {
+  if (singlePurchaseTypes.includes(type)) {
     let itemInfo = getItemInfo(user, type, item);
     removeItemByPath(user, itemInfo.path);
   }
