@@ -16,24 +16,24 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         button.btn.btn-secondary(v-once) {{$t('randomize')}}
     #options-nav.container.section.text-center.customize-menu
       .row
-        .menu-container(:class='{"col-3": !editing, "col-2 offset-1": editing, active: activeTopPage === "body"}')
-          .menu-item(@click='changeTopPage("body", "size")')
+        .menu-container(@click='changeTopPage("body", "size")', :class='{"col-3": !editing, "col-2 offset-1": editing, active: activeTopPage === "body"}')
+          .menu-item
             .svg-icon(v-html='icons.bodyIcon')
           strong(v-once) {{$t('bodyBody')}}
-        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}')
-          .menu-item(@click='changeTopPage("skin", "color")')
+        .menu-container(@click='changeTopPage("skin", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "skin"}')
+          .menu-item
             .svg-icon(v-html='icons.skinIcon')
           strong(v-once) {{$t('skin')}}
-        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}')
-          .menu-item(@click='changeTopPage("hair", "color")')
+        .menu-container(@click='changeTopPage("hair", "color")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "hair"}')
+          .menu-item
             .svg-icon(v-html='icons.hairIcon')
           strong(v-once) {{$t('hair')}}
-        .menu-container(:class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}')
-          .menu-item(@click='changeTopPage("extra", "glasses")')
+        .menu-container(@click='changeTopPage("extra", "glasses")', :class='{"col-3": !editing, "col-2": editing, active: activeTopPage === "extra"}')
+          .menu-item
             .svg-icon(v-html='icons.accessoriesIcon')
           strong(v-once) {{$t('extra')}}
-        .menu-container.col-2(v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
-          .menu-item(@click='changeTopPage("backgrounds", "2018")')
+        .menu-container.col-2(@click='changeTopPage("backgrounds", "2018")', v-if='editing', :class='{active: activeTopPage === "backgrounds"}')
+          .menu-item
             .svg-icon(v-html='icons.backgroundsIcon')
           strong(v-once) {{$t('backgrounds')}}
     #body.section.customize-section(v-if='activeTopPage === "body"')
@@ -708,7 +708,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
       span.price {
         color: #24cc8f;
       }
-      
+
       .gem {
         width: 16px;
       }
@@ -723,7 +723,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
         span {
           font-size: 14px;
         }
-      
+
         .gem {
           width: 20px;
         }
