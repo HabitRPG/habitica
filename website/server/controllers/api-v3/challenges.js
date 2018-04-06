@@ -352,6 +352,7 @@ api.getUserChallenges = {
     let user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
+      {leader: user._id}, // Challenges where I'm the leader
     ];
 
     const owned = req.query.owned;
