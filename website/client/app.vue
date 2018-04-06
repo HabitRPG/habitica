@@ -9,6 +9,7 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
+    banned-account-modal
     amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
@@ -193,6 +194,9 @@ import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
 
 import svgClose from 'assets/svg/close.svg';
+import bannedAccountModal from 'client/components/bannedAccountModal';
+
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   mixins: [notifications, spellsMixin],
@@ -206,6 +210,7 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    bannedAccountModal,
   },
   data () {
     return {
@@ -288,6 +293,8 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        this.checkForBannedUser(error);
+
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(error.response.data) !== -1) {
@@ -412,6 +419,25 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
+    checkForBannedUser (error) {
+      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const errorMessage = error.response.data.message;
+
+      // Case where user is not logged in
+      if (!parseSettings) {
+        return;
+      }
+
+      const bannedMessage = this.$t('accountSuspended', {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: parseSettings.auth.apiId,
+      });
+
+      if (errorMessage !== bannedMessage) return;
+
+      this.$root.$emit('bv::show::modal', 'banned-account');
+    },
     initializeModalStack () {
       // Manage modals
       this.$root.$on('bv::show::modal', (modalId, data = {}) => {
