@@ -369,7 +369,7 @@ api.getUserChallenges = {
     };
 
     if (!user.contributor.admin) {
-      query.$and.push({flagCount: {$eq: 0}});
+      query.$and.push({flagCount: {$lt: 2}});
     }
 
     if (owned && owned === 'not_owned') {
@@ -467,7 +467,7 @@ api.getGroupChallenges = {
     const query = { group: groupId };
 
     if (!user.contributor.admin) {
-      query.flagCount = { $eq: 0 };
+      query.flagCount = { $lt: 2 };
     }
 
     let challenges = await Challenge
@@ -528,7 +528,7 @@ api.getChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!user.contributor.admin && challenge.flagCount > 0) throw new NotFound(res.t('challengeNotFound'));
+    if (!user.contributor.admin && challenge.flagCount > 1) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});
@@ -830,7 +830,7 @@ api.cloneChallenge = {
 };
 
 async function flagChallenge (challenge, user, res) {
-  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageGroupChatFlagAlreadyReported'));
+  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
 
   challenge.flags[user._id] = true;
   challenge.markModified('flags');

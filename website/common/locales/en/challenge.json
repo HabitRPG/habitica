@@ -131,5 +131,6 @@
   "viewProgressOf": "View Progress Of",
   "selectMember": "Select Member",
   "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-  "selectParticipant": "Select a Participant"
+  "selectParticipant": "Select a Participant",
+  "messageChallengeFlagAlreadyReported": "You have already flagged this challenge."
 }
