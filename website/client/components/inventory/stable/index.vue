@@ -875,7 +875,7 @@
         this.closeHatchPetDialog();
 
         this.$store.dispatch('common:hatch', {egg: pet.eggKey, hatchingPotion: pet.potionKey});
-        this.text(this.$t('hatchedPet', {egg: pet.eggKey, potion: pet.potionKey}));
+        this.text(this.$t('hatchedPet', {egg: pet.eggName, potion: pet.potionName}));
       },
       onDragStart (ev, food) {
         this.currentDraggingFood = food;
