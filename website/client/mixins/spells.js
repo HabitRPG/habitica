@@ -32,10 +32,11 @@ export default {
           return this.castEnd(party, spell.target);
         }
 
-        let party = this.$store.state.partyMembers;
-        party = isArray(party) ? party : [];
-        party = party.concat(this.user);
-        this.castEnd(party, spell.target);
+        let partyMembers = this.$store.state.partyMembers.data;
+        if (!isArray(partyMembers)) {
+          partyMembers = [this.user];
+        }
+        this.castEnd(partyMembers, spell.target);
       } else if (spell.target === 'tasks') {
         let userTasks = this.$store.state.tasks.data;
         // exclude rewards
@@ -129,6 +130,23 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
+
+      // If using mpheal and there are other mages in the party, show extra notification
+      if (type === 'party' && spell.key === 'mpheal') {
+        // Counting mages
+        let magesCount = 0;
+        for (let i = 0; i < target.length; i++) {
+          if (target[i].stats.class === 'wizard') {
+            magesCount++;
+          }
+        }
+        // If there are mages, show message telling that the mpheal don't work on other mages
+        // The count must be bigger than 1 because the user casting the spell is a mage
+        if (magesCount > 1) {
+          this.markdown(this.$t('spellWizardNoEthOnMage'));
+        }
+      }
+
       // @TODO:
       if (!beforeQuestProgress) return apiResult;
       let questProgress = this.questProgress() - beforeQuestProgress;

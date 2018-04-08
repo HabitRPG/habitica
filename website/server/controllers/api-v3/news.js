@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MARCH SUBSCRIBER ITEMS AND BEHIND THE SCENES BLOG';
+const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER HAIR, PASTEL SKINS, HABITICA FORGE TWITTER, AND GUILD SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,25 +32,19 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/22/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>March Subscriber Items Revealed!</h3>
-            <p>The March Subscriber Item has been revealed: the Daring Dragonfly Set! You'll receive this set when you <a href='/user/settings/subscription' target='_blank'>subscribe</a> by March 31! If you're already an active subscriber, reload the site and then head to Inventory > Equipment to claim your gear!</p>
-          </div>
-          <div class="promo_mystery_201803"></div>
-        </div>
-        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe, the more Gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="promo_shimmer_pastel center-block"></div>
+        <h3>Shimmer Hair Colors and Pastel Skin Set</h3>
+        <p>The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for purchase in User > Edit Avatar! These skin sets will only be available to purchase until April 30th, and then they will disappear from the shop until next Spring Fling. If you buy them, though, you will have access to them year-round!</p>
+        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <h3>The Habitica Forge</h3>
+        <p>We've launched an exciting new Twitter account! <a href='https://twitter.com/habiticaforge' target='_blank'>Habitica Forge</a> will be tweeting automated updates about all the work of our fantastic blacksmiths. If you're curious about what fixes and improvements are in the works, be sure to check it out! This account will also be the official source for updates from Habitica about any site or app access issues or outages.</p>
+        <div class="small mb-3">by Beffymaroo, TheHollidayInn, Paglias, Alys, Viirus, SabreCat, Blade, and all Habitica's wonderful Blacksmiths!</div>
+        <h3>Be the Change: Guilds for Making a Difference</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2018/04/05/be-the-change-guilds-for-making-a-difference/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you as you work to make the world a better place! Check it out now to find Habitica's best communities for volunteers and general do-gooders.</p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
-          <div class="scene_podcast mb-3 mr-3"></div>
-          <div class="media-body">
-            <h3>Behind the Scenes: Staff Podcast Picks!</h3>
-            <p>Looking for new podcasts? The Habitica team loves podcasts, and in this special post we wanted to share some favorites that help us get things done, learn, and have fun! Come check them out in <a href='https://habitica.wordpress.com/2018/03/22/behind-the-scenes-habitica-staff-podcast-picks/' target='_blank'>this month's Behind the Scenes feature!</a></p>
-            <div class="small mb-3">by Beffymaroo and the rest of the Habitica team</div>
-          </div>
-        </div>
+        <div class="scene_positivity center-block"></div>
       </div>
       `,
     });

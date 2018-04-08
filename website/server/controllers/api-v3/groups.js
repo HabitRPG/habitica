@@ -78,9 +78,10 @@ let api = {};
  *       "privacy": "private"
  *     }
  *
- * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
- * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
- * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -115,6 +116,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -1138,6 +1140,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1149,6 +1152,8 @@ api.inviteToGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 

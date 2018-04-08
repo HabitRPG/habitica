@@ -96,6 +96,7 @@
     "unlocked": "Item telah dibuka",
     "alreadyUnlocked": "Set lengkap telah dibuka.",
     "alreadyUnlockedPart": "Set lengkap telah dibuka sebagian.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "Hal Baru dari Bailey",
     "newBaileyUpdate": "Update Bailey Baru!",

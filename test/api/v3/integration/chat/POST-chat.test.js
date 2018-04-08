@@ -23,8 +23,8 @@ const BASE_URL = nconf.get('BASE_URL');
 describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
-  let testBannedWordMessage = 'TEST_PLACEHOLDER_SWEAR_WORD_HERE';
-  let testSlurMessage = 'message with TEST_PLACEHOLDER_SLUR_WORD_HERE';
+  let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
+  let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
   let bannedWordErrorMessage = t('bannedWordUsed').split('.');
   bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
   bannedWordErrorMessage = bannedWordErrorMessage.join('.');
