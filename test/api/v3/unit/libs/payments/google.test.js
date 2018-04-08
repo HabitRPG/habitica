@@ -1,26 +1,26 @@
 /* eslint-disable camelcase */
-import iapModule from '../../../../../website/server/libs/inAppPurchases';
-import payments from '../../../../../website/server/libs/payments/payments';
-import applePayments from '../../../../../website/server/libs/payments/apple';
-import iap from '../../../../../website/server/libs/inAppPurchases';
-import {model as User} from '../../../../../website/server/models/user';
-import common from '../../../../../website/common';
+import iapModule from '../../../../../../website/server/libs/inAppPurchases';
+import payments from '../../../../../../website/server/libs/payments/payments';
+import googlePayments from '../../../../../../website/server/libs/payments/google';
+import iap from '../../../../../../website/server/libs/inAppPurchases';
+import {model as User} from '../../../../../../website/server/models/user';
+import common from '../../../../../../website/common';
 import moment from 'moment';
 
 const i18n = common.i18n;
 
-describe('Apple Payments', ()  => {
+describe('Google Payments', ()  => {
   let subKey = 'basic_3mo';
 
   describe('verifyGemPurchase', () => {
-    let sku, user, token, receipt, headers;
-    let iapSetupStub, iapValidateStub, iapIsValidatedStub, paymentBuyGemsStub, iapGetPurchaseDataStub;
+    let sku, user, token, receipt, signature, headers;
+    let iapSetupStub, iapValidateStub, iapIsValidatedStub, paymentBuyGemsStub;
 
     beforeEach(() => {
-      token = 'testToken';
-      sku = 'com.habitrpg.ios.habitica.iap.21gems';
+      sku = 'com.habitrpg.android.habitica.iap.21gems';
       user = new User();
       receipt = `{"token": "${token}", "productId": "${sku}"}`;
+      signature = '';
       headers = {};
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
@@ -29,10 +29,6 @@ describe('Apple Payments', ()  => {
         .returnsPromise().resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
-      iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
-        .returns([{productId: 'com.habitrpg.ios.Habitica.21gems',
-                   transactionId: token,
-        }]);
       paymentBuyGemsStub = sinon.stub(payments, 'buyGems').returnsPromise().resolves({});
     });
 
@@ -40,7 +36,6 @@ describe('Apple Payments', ()  => {
       iapModule.setup.restore();
       iapModule.validate.restore();
       iapModule.isValidated.restore();
-      iapModule.getPurchaseData.restore();
       payments.buyGems.restore();
     });
 
@@ -49,17 +44,29 @@ describe('Apple Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: applePayments.constants.RESPONSE_INVALID_RECEIPT,
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
     });
 
-    it('errors if the user cannot purchase gems', async () => {
+    it('should throw an error if productId is invalid', async () => {
+      receipt = `{"token": "${token}", "productId": "invalid"}`;
+
+      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
+        });
+    });
+
+    it('should throw an error if user cannot purchase gems', async () => {
       sinon.stub(user, 'canGetGems').returnsPromise().resolves(false);
-      await expect(applePayments.verifyGemPurchase(user, receipt, headers))
+
+      await expect(googlePayments.verifyGemPurchase(user, receipt, signature, headers))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -71,19 +78,21 @@ describe('Apple Payments', ()  => {
 
     it('purchases gems', async () => {
       sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
-      await applePayments.verifyGemPurchase(user, receipt, headers);
+      await googlePayments.verifyGemPurchase(user, receipt, signature, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({});
-      expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         amount: 5.25,
         headers,
       });
@@ -93,16 +102,17 @@ describe('Apple Payments', ()  => {
   });
 
   describe('subscribe', () => {
-    let sub, sku, user, token, receipt, headers, nextPaymentProcessing;
-    let iapSetupStub, iapValidateStub, iapIsValidatedStub, paymentsCreateSubscritionStub, iapGetPurchaseDataStub;
+    let sub, sku, user, token, receipt, signature, headers, nextPaymentProcessing;
+    let iapSetupStub, iapValidateStub, iapIsValidatedStub, paymentsCreateSubscritionStub;
 
     beforeEach(() => {
       sub = common.content.subscriptionBlocks[subKey];
-      sku = 'com.habitrpg.ios.habitica.subscription.3month';
+      sku = 'com.habitrpg.android.habitica.subscription.3month';
 
       token = 'test-token';
       headers = {};
       receipt = `{"token": "${token}"}`;
+      signature = '';
       nextPaymentProcessing = moment.utc().add({days: 2});
 
       iapSetupStub = sinon.stub(iapModule, 'setup')
@@ -111,20 +121,6 @@ describe('Apple Payments', ()  => {
         .returnsPromise().resolves({});
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(true);
-      iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
-        .returns([{
-          expirationDate: moment.utc().subtract({day: 1}).toDate(),
-          productId: sku,
-          transactionId: token,
-        }, {
-          expirationDate: moment.utc().add({day: 1}).toDate(),
-          productId: 'wrongsku',
-          transactionId: token,
-        }, {
-          expirationDate: moment.utc().add({day: 1}).toDate(),
-          productId: sku,
-          transactionId: token,
-        }]);
       paymentsCreateSubscritionStub = sinon.stub(payments, 'createSubscription').returnsPromise().resolves({});
     });
 
@@ -132,7 +128,6 @@ describe('Apple Payments', ()  => {
       iapModule.setup.restore();
       iapModule.validate.restore();
       iapModule.isValidated.restore();
-      iapModule.getPurchaseData.restore();
       payments.createSubscription.restore();
     });
 
@@ -141,45 +136,59 @@ describe('Apple Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
+      await expect(googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: applePayments.constants.RESPONSE_INVALID_RECEIPT,
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
+        });
+    });
+
+    it('should throw an error if sku is invalid', async () => {
+      sku = 'invalid';
+
+      await expect(googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: googlePayments.constants.RESPONSE_INVALID_ITEM,
         });
     });
 
     it('creates a user subscription', async () => {
-      await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
+      await googlePayments.subscribe(sku, user, receipt, signature, headers, nextPaymentProcessing);
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({});
-      expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
       expect(paymentsCreateSubscritionStub).to.be.calledOnce;
       expect(paymentsCreateSubscritionStub).to.be.calledWith({
         user,
         customerId: token,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         sub,
         headers,
-        additionalData: receipt,
+        additionalData: {data: receipt, signature},
         nextPaymentProcessing,
       });
     });
   });
 
   describe('cancelSubscribe ', () => {
-    let user, token, receipt, headers, customerId, expirationDate;
+    let user, token, receipt, signature, headers, customerId, expirationDate;
     let iapSetupStub, iapValidateStub, iapIsValidatedStub, iapGetPurchaseDataStub, paymentCancelSubscriptionSpy;
 
     beforeEach(async () => {
       token = 'test-token';
       headers = {};
       receipt = `{"token": "${token}"}`;
+      signature = '';
       customerId = 'test-customerId';
       expirationDate = moment.utc();
 
@@ -196,10 +205,10 @@ describe('Apple Payments', ()  => {
 
       user = new User();
       user.profile.name = 'sender';
-      user.purchased.plan.paymentMethod = applePayments.constants.PAYMENT_METHOD_APPLE;
       user.purchased.plan.customerId = customerId;
+      user.purchased.plan.paymentMethod = googlePayments.constants.PAYMENT_METHOD_GOOGLE;
       user.purchased.plan.planId = subKey;
-      user.purchased.plan.additionalData = receipt;
+      user.purchased.plan.additionalData = {data: receipt, signature};
 
       paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').returnsPromise().resolves({});
     });
@@ -215,7 +224,7 @@ describe('Apple Payments', ()  => {
     it('should throw an error if we are missing a subscription', async () => {
       user.purchased.plan.paymentMethod = undefined;
 
-      await expect(applePayments.cancelSubscribe(user, headers))
+      await expect(googlePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
@@ -228,11 +237,11 @@ describe('Apple Payments', ()  => {
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
         .returns([{expirationDate: expirationDate.add({day: 1}).toDate()}]);
 
-      await expect(applePayments.cancelSubscribe(user, headers))
+      await expect(googlePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: applePayments.constants.RESPONSE_STILL_VALID,
+          message: googlePayments.constants.RESPONSE_STILL_VALID,
         });
     });
 
@@ -241,20 +250,23 @@ describe('Apple Payments', ()  => {
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
         .returns(false);
 
-      await expect(applePayments.cancelSubscribe(user, headers))
+      await expect(googlePayments.cancelSubscribe(user, headers))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
           name: 'NotAuthorized',
-          message: applePayments.constants.RESPONSE_INVALID_RECEIPT,
+          message: googlePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
     });
 
     it('should cancel a user subscription', async () => {
-      await applePayments.cancelSubscribe(user, headers);
+      await googlePayments.cancelSubscribe(user, headers);
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({
         expirationDate,
@@ -264,7 +276,7 @@ describe('Apple Payments', ()  => {
       expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
       expect(paymentCancelSubscriptionSpy).to.be.calledWith({
         user,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
         nextBill: expirationDate.toDate(),
         headers,
       });
