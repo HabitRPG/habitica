@@ -5,8 +5,8 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../../website/server/models/group';
-import amzLib from '../../../../../../../website/server/libs/amazonPayments';
-import payments from '../../../../../../../website/server/libs/payments';
+import amzLib from '../../../../../../../website/server/libs/payments/amazon';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 
 describe('#upgradeGroupPlan', () => {
   let spy, data, user, group, uuidString;

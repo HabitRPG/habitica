@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import iapModule from '../../../../../website/server/libs/inAppPurchases';
-import payments from '../../../../../website/server/libs/payments';
-import googlePayments from '../../../../../website/server/libs/googlePayments';
+import payments from '../../../../../website/server/libs/payments/payments';
+import googlePayments from '../../../../../website/server/libs/payments/google';
 import iap from '../../../../../website/server/libs/inAppPurchases';
 import {model as User} from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
