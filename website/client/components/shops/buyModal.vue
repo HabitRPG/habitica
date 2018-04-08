@@ -47,7 +47,7 @@
             strong {{ $t('howManyToBuy') }}
           div(v-if='showAmountToBuy(item)')
             .box
-              input(type='number', min='0', v-model='selectedAmountToBuy')
+              input(type='number', min='0', v-model.number='selectedAmountToBuy')
             span(:class="{'notEnough': notEnoughCurrency}")
               span.svg-icon.inline.icon-32(aria-hidden="true", v-html="icons[getPriceClass()]")
               span.cost(:class="getPriceClass()") {{ item.value }}

@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "應用這項設定，Habitica將會在對你的人物造成傷害前，向你確認是否真的沒有完成這個每日任務。這個設定可以保護你免於因不小心而造成的傷害。",
     "repeatDayError": "請確定你每週至少有選擇一天",
     "searchTasks": "Search titles and descriptions...",
-    "sessionOutdated": "Your session is outdated. Please refresh or sync."
+    "sessionOutdated": "Your session is outdated. Please refresh or sync.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

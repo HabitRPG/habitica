@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL FOOL\'S 2018: TINY PETS AND MOUNTS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER HAIR, PASTEL SKINS, HABITICA FORGE TWITTER, AND GUILD SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,21 +32,19 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>4/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media align-items-center">
-          <div class="media-body">
-            <h3>Tiny Pets and Mounts</h3>
-            <p>Oh no! That dastardly April Fool seems to have pulled off his "small" prank: all our pets and mounts have shrunk!</p>
-            <p>"Haha!" the April Fool laughs as he bursts in the the Tavern, "Enjoy your new and more efficiently-sized friends! Now your pets and mounts are so much easier to keep track of, right? This should certainly increase your productivity!"</p>
-          </div>
-          <div class="npc_aprilFool"></div>
-        </div>
-        <p>Lady Glaciate grumbles from her corner table and looks at her mammoth, which is happily cavorting in her teacup. "Well, since I don't have a ride back home to the Stoikalm Steppes at the moment, I disagree."</p>
-        <p>As Sir Stomp sprays tea triumphantly from his trunk, a small smile tugs at the corner of her mouth. ".…I suppose one could argue it's quite cute, though," she grudgingly adds.</p>
-        <p>It looks like all our pets and mounts are extra small for the time being. Enjoy the fun by checking out everyone's profiles today! Your pets and mounts will return to normal on April 3.</p>
-        <h3>Special April Fool's Social Media Challenge!</h3>
-        <p>For even more fun, check out the <a href='/challenges/a7cacfb6-3135-4d17-9a51-46dfcfe1e712' target='_blank'>official Challenge</a> posted especially for today! Share your avatar featuring your tiny pets on social media between now and April 3, and you'll have a chance to win gems!</p>
+        <div class="promo_shimmer_pastel center-block"></div>
+        <h3>Shimmer Hair Colors and Pastel Skin Set</h3>
+        <p>The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for purchase in User > Edit Avatar! These skin sets will only be available to purchase until April 30th, and then they will disappear from the shop until next Spring Fling. If you buy them, though, you will have access to them year-round!</p>
+        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <h3>The Habitica Forge</h3>
+        <p>We've launched an exciting new Twitter account! <a href='https://twitter.com/habiticaforge' target='_blank'>Habitica Forge</a> will be tweeting automated updates about all the work of our fantastic blacksmiths. If you're curious about what fixes and improvements are in the works, be sure to check it out! This account will also be the official source for updates from Habitica about any site or app access issues or outages.</p>
+        <div class="small mb-3">by Beffymaroo, TheHollidayInn, Paglias, Alys, Viirus, SabreCat, Blade, and all Habitica's wonderful Blacksmiths!</div>
+        <h3>Be the Change: Guilds for Making a Difference</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2018/04/05/be-the-change-guilds-for-making-a-difference/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you as you work to make the world a better place! Check it out now to find Habitica's best communities for volunteers and general do-gooders.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_positivity center-block"></div>
       </div>
       `,
     });

@@ -110,7 +110,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     }
   }
 
-  substractCurrency (user, item, quantity = 1) {
+  subtractCurrency (user, item, quantity = 1) {
     let itemValue = this.getItemValue(item);
 
     user.stats.gp -= itemValue * quantity;

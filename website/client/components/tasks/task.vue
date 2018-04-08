@@ -19,7 +19,8 @@
             menu-dropdown.task-dropdown(
               v-if="isUser && !isRunningYesterdailies",
               :right="task.type === 'reward'",
-              ref="taskDropdown"
+              ref="taskDropdown",
+              v-b-tooltip.hover.top="$t('showMore')"
             )
               div(slot="dropdown-toggle", draggable=false)
                 .svg-icon.dropdown-icon(v-html="icons.menu")
@@ -69,19 +70,19 @@
             label.custom-control-label(v-markdown="item.text", :for="`checklist-${item.id}`")
         .icons.small-text.d-flex.align-items-center
           .d-flex.align-items-center(v-if="task.type === 'todo' && task.date", :class="{'due-overdue': isDueOverdue}")
-            .svg-icon.calendar(v-html="icons.calendar")
+            .svg-icon.calendar(v-html="icons.calendar", v-b-tooltip.hover.bottom="$t('dueDate')")
             span {{dueIn}}
           .icons-right.d-flex.justify-content-end
             .d-flex.align-items-center(v-if="showStreak")
-              .svg-icon.streak(v-html="icons.streak")
+              .svg-icon.streak(v-html="icons.streak", v-b-tooltip.hover.bottom="$t('streakCounter')")
               span(v-if="task.type === 'daily'") {{task.streak}}
               span(v-if="task.type === 'habit'")
                 span.m-0(v-if="task.up") +{{task.counterUp}}
                 span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
                 span.m-0(v-if="task.down") -{{task.counterDown}}
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
-              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken')
-              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)')
+              .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="`${task.challenge.shortName}`")
+              .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)', v-b-tooltip.hover.bottom="$t('brokenChaLink')")
             .d-flex.align-items-center(v-if="hasTags", :id="`tags-icon-${task._id}`")
               .svg-icon.tags(v-html="icons.tags")
             b-popover(

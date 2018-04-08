@@ -134,6 +134,8 @@ let guildsAllowingBannedWords = {
   '8e389264-ada0-4834-828c-ef65679e929c': true, // Witches, Pagans, and Diviners
   '0ff469a9-677f-4dcd-a091-2d2d3cebcaa8': true, // Writers of Ideas: Speculative Fiction Authors
   'f371368a-b3b0-4a81-a400-3bd59fc0a89d': true, // Youtube francophone
+  '9ffb19bb-1356-4ead-b585-c5031b5393b1': true, // Cynophiles
+  '14ae3965-0536-4b63-bc55-3dbd6660e3af': true, // Purely Positive Dog Trainers
 };
 
 module.exports = guildsAllowingBannedWords;

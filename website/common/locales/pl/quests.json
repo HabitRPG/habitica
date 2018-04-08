@@ -122,6 +122,7 @@
     "buyQuestBundle": "Kup pakiet misji",
     "noQuestToStart": "Nie możesz znaleźć żadnej misji? Wejdź do Sklepu Misji na Targu po nowe zadania!",
     "pendingDamage": "<%= damage %> oczekujących obrażeń",
+    "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Życia",
     "rageAttack": "Atak Szału:",
     "bossRage": "<%= currentRage %>/<%= maxRage %> Szału",
