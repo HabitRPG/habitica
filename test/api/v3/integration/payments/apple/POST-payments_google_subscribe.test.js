@@ -1,5 +1,5 @@
 import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
-import applePayments from '../../../../../../website/server/libs/applePayments';
+import applePayments from '../../../../../../website/server/libs/payments/apple';
 
 describe('payments : apple #subscribe', () => {
   let endpoint = '/iap/ios/subscribe';

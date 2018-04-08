@@ -5,8 +5,8 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../../website/server/models/group';
-import stripePayments from '../../../../../../../website/server/libs/stripePayments';
-import payments from '../../../../../../../website/server/libs/payments';
+import stripePayments from '../../../../../../../website/server/libs/payments/stripe';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 
 describe('Stripe - Upgrade Group Plan', () => {
   const stripe = stripeModule('test');

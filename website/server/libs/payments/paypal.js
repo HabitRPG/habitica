@@ -6,19 +6,19 @@ import _ from 'lodash';
 import payments from './payments';
 import ipn from 'paypal-ipn';
 import paypal from 'paypal-rest-sdk';
-import shared from '../../common';
+import shared from '../../../common';
 import cc from 'coupon-code';
-import { model as Coupon } from '../models/coupon';
-import { model as User } from '../models/user';
+import { model as Coupon } from '../../models/coupon';
+import { model as User } from '../../models/user';
 import {
   model as Group,
   basicFields as basicGroupFields,
-} from '../models/group';
+} from '../../models/group';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from './errors';
+} from '../errors';
 
 
 const BASE_URL = nconf.get('BASE_URL');
