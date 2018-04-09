@@ -77,7 +77,7 @@
     "hatchAPot": "孵化一个新的<%= potion %><%= egg %>？",
     "hatchedPet": "你孵化了一个新的<%= potion %> <%= egg %>！",
     "hatchedPetGeneric": "你孵化了一个新宠物！",
-    "hatchedPetHowToUse": "到马厩去喂饲和装备你最新的宠物吧!",
+    "hatchedPetHowToUse": "Visit the [Stable](/inventory/stable) to feed and equip your newest pet!",
     "displayNow": "现在显示",
     "displayLater": "稍后显示",
     "petNotOwned": "你没有拥有这个宠物。",
@@ -138,5 +138,8 @@
     "dragThisPotion": "把<%= potionName %>拖到到一个宠物蛋上来孵化一个新宠物！",
     "clickOnEggToHatch": "点击一个宠物蛋，使用你的<%= potionName %>孵化药水来孵化一个新的宠物！",
     "hatchDialogText": "将您的<%= potionName %>孵化药水倒在您的<%= eggName %>蛋上，它将孵化成一个<%= petName %>。",
-    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!"
+    "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
+    "notEnoughPets": "You have not collected enough pets",
+    "notEnoughMounts": "You have not collected enough mounts",
+    "notEnoughPetsMounts": "You have not collected enough pets and mounts"
 }

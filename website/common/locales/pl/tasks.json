@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Alias zadania jest już używany dla innego zadania.",
     "taskNotFound": "Nie znaleziono zadania.",
     "invalidTaskType": "Zadanie musi być typu \"nawyk\", \"codzienne\", \"do zrobienia\" lub \"nagroda\".",
+    "invalidTasksType": "Typ zadań musi być jednym z: \"Nawyki\", \"Codzienne\", \"Do-Zrobienia\", \"Nagrody\".",
+    "invalidTasksTypeExtra": "Typ zadań musi być jednym z: \"Nawyki\", \"Codzienne\", \"Do-Zrobienia\", \"Nagrody\", \"wykonane Do-Zrobienia\".",
     "cantDeleteChallengeTasks": "Zadanie należące do wyzwania nie może być usunięte.",
     "checklistOnlyDailyTodo": "Listy dostępne są jedynie dla Codziennych i Do-Zrobienia",
     "checklistItemNotFound": "Nie znaleziono punktu listy o podanym ID",
@@ -209,5 +211,6 @@
     "yesterDailiesDescription": "Jeśli ta opcja jest zaznaczona, Habitica zapyta cię, czy chcesz zostawić Codzienne jako niewykonane zanim zada ci obrażenia. To może ochronić cie przed niezamierzonymi obrażeniami.",
     "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany.",
     "searchTasks": "Szukaj po tytule lub opisie...",
-    "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie."
+    "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie.",
+    "errorTemporaryItem": "Ten przedmiot jest tymczasowy i nie można go przypiąć."
 }

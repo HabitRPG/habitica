@@ -191,6 +191,7 @@
     "hatchingPotionShimmer": "Migoczący",
     "hatchingPotionFairy": "Bajeczny",
     "hatchingPotionStarryNight": "Gwiezdna Noc",
+    "hatchingPotionRainbow": "Tęcza",
     "hatchingPotionNotes": "Wylej go na jajko, a wykluje się z niego <%=potText(locale)%>.",
     "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
     "foodMeat": "Mięso",

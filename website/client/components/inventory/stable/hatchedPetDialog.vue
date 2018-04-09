@@ -1,22 +1,14 @@
 <template lang="pug">
-
-  b-modal#hatchedPet-modal(
-    :hide-header="true"
-  )
-    div.content(v-if="pet != null")
-      div.dialog-header.title(v-once) {{ $t('hatchedPetGeneric') }}
-
-
-      div.inner-content
-        div.pet-background
-          div(:class="pet.class")
-
-        h4.title {{ pet.name }}
-        div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse')")
-
-        button.btn.btn-primary(@click="close()") {{ $t('onward') }}
-
-    div.clearfix(slot="modal-footer")
+b-modal#hatchedPet-modal(:hide-header="true")
+  div.content(v-if="pet != null")
+    div.dialog-header.title(v-once) {{ $t('hatchedPetGeneric') }}
+    div.inner-content
+      div.pet-background
+        div(:class="pet.class")
+      h4.title {{ pet.name }}
+      div.text(v-if="!hideText", v-markdown="$t('hatchedPetHowToUse')")
+      button.btn.btn-primary(@click="close()") {{ $t('onward') }}
+  div.clearfix(slot="modal-footer")
 </template>
 
 <style lang="scss">
@@ -56,7 +48,6 @@
       color: $purple-200;
     }
   }
-
 </style>
 
 <script>
@@ -82,7 +73,6 @@
         this.pet = item;
         this.$root.$emit('bv::show::modal', 'hatchedPet-modal');
       },
-
       close () {
         this.$emit('closed', this.item);
         this.$root.$emit('bv::hide::modal', 'hatchedPet-modal');

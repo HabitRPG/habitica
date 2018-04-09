@@ -1,8 +1,8 @@
 {
   "noItemsAvailableForType": "You have no <%= type %>.",
-  "foodItemType": "Food",
-  "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Hatching Potions",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "foodItemType": "Yiyecek",
+  "eggsItemType": "Yumurtalar",
+  "hatchingPotionsItemType": "Kuluçka İksirleri",
+  "specialItemType": "Özel eşyalar",
+  "lockedItem": "Kilitli Eşya"
 }

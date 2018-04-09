@@ -7,6 +7,6 @@ export function isBuffed () {
 
 export function hasClass () {
   return (member) => {
-    return member.stats.lvl >= 10 && !member.preferences.disableClasses;
+    return member.stats.lvl >= 10 && !member.preferences.disableClasses && member.flags.classSelected;
   };
 }

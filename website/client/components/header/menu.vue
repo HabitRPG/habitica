@@ -55,14 +55,14 @@ div
             a.dropdown-item(href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents", target='_blank') {{ $t('requestAF') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Contributing_to_Habitica", target='_blank') {{ $t('contributing') }}
             a.dropdown-item(href="http://habitica.wikia.com/wiki/Habitica_Wiki", target='_blank') {{ $t('wiki') }}
-            a.dropdown-item(:href="contactUrl", target='_blank') {{ $t('contactUs') }}
+            a.dropdown-item(@click='modForm()') {{ $t('contactForm') }}
       .user-menu.d-flex.align-items-center
         .item-with-icon(v-if="userHourglasses > 0")
           .top-menu-icon.svg-icon(v-html="icons.hourglasses", v-b-tooltip.hover.bottom="$t('mysticHourglassesTooltip')")
           span {{ userHourglasses }}
         .item-with-icon
           .top-menu-icon.svg-icon.gem(v-html="icons.gem", @click='showBuyGemsModal("gems")', v-b-tooltip.hover.bottom="$t('gems')")
-          span {{userGems | roundBigNumber}}
+          span {{userGems}}
         .item-with-icon.gold
           .top-menu-icon.svg-icon(v-html="icons.gold", v-b-tooltip.hover.bottom="$t('gold')")
           span {{Math.floor(user.stats.gp * 100) / 100}}
@@ -210,6 +210,7 @@ div
 
       &:hover {
         background: $purple-300;
+        color: $white;
 
         &:last-child {
           border-bottom-right-radius: 5px;
@@ -284,11 +285,14 @@ div
 <script>
 import { mapState, mapGetters } from 'client/libs/store';
 import * as Analytics from 'client/libs/analytics';
+import { goToModForm } from 'client/libs/modform';
+
 import gemIcon from 'assets/svg/gem.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import syncIcon from 'assets/svg/sync.svg';
 import svgHourglasses from 'assets/svg/hourglass.svg';
 import logo from 'assets/svg/logo.svg';
+
 import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import creatorIntro from '../creatorIntro';
@@ -332,6 +336,9 @@ export default {
     this.getUserGroupPlans();
   },
   methods: {
+    modForm () {
+      goToModForm(this.user);
+    },
     toggleUserDropdown () {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },

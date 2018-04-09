@@ -16,7 +16,6 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
-import Bluebird from 'bluebird';
 import csvStringify from '../../libs/csvStringify';
 import {
   createTasks,
@@ -259,7 +258,7 @@ api.joinChallenge = {
     addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    let results = await Bluebird.all([challenge.syncToUser(user), challenge.save()]);
+    let results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
 
     let response = results[1].toJSON();
     response.group = getChallengeGroupResponse(group);
@@ -311,7 +310,7 @@ api.leaveChallenge = {
     if (!challenge.isMember(user)) throw new NotAuthorized(res.t('challengeMemberNotFound'));
 
     // Unlink challenge's tasks from user's tasks and save the challenge
-    await Bluebird.all([challenge.unlinkTasks(user, keep), challenge.save()]);
+    await Promise.all([challenge.unlinkTasks(user, keep), challenge.save()]);
 
     res.analytics.track('challenge leave', {
       uuid: user._id,
@@ -349,10 +348,9 @@ api.getUserChallenges = {
     const CHALLENGES_PER_PAGE = 10;
     const page = req.query.page;
 
-    let user = res.locals.user;
+    const user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
 
     const owned = req.query.owned;
@@ -412,9 +410,14 @@ api.getUserChallenges = {
 
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
-      return Bluebird.all([
+    await Promise.all(resChals.map((chal, index) => {
+      return Promise.all([
         User.findById(chal.leader).select(nameFields).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
@@ -474,8 +477,13 @@ api.getGroupChallenges = {
       .exec();
 
     let resChals = challenges.map(challenge => challenge.toJSON());
+
+    resChals = _.orderBy(resChals, [challenge => {
+      return challenge.categories.map(category => category.slug).includes('habitica_official');
+    }], ['desc']);
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Bluebird.all(resChals.map((chal, index) => {
+    await Promise.all(resChals.map((chal, index) => {
       return User
         .findById(chal.leader)
         .select(nameFields)
@@ -568,7 +576,7 @@ api.exportChallengeCsv = {
     // In v2 this used the aggregation framework to run some computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    let [members, tasks] = await Bluebird.all([
+    let [members, tasks] = await Promise.all([
       User.find({challenges: challengeId})
         .select(nameFields)
         .sort({_id: 1})

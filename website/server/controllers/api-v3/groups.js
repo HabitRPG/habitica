@@ -1,5 +1,4 @@
 import { authWithHeaders } from '../../middlewares/auth';
-import Bluebird from 'bluebird';
 import _ from 'lodash';
 import nconf from 'nconf';
 import {
@@ -22,9 +21,9 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
-import payments from '../../libs/payments';
-import stripePayments from '../../libs/stripePayments';
-import amzLib from '../../libs/amazonPayments';
+import payments from '../../libs/payments/payments';
+import stripePayments from '../../libs/payments/stripe';
+import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
 
@@ -79,9 +78,10 @@ let api = {};
  *       "privacy": "private"
  *     }
  *
- * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
- * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
- * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -116,6 +116,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -137,7 +138,7 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
@@ -194,7 +195,7 @@ api.createGroupPlan = {
     group.leader = user._id;
     user.guilds.push(group._id);
 
-    let results = await Bluebird.all([user.save(), group.save()]);
+    let results = await Promise.all([user.save(), group.save()]);
     let savedGroup = results[1];
 
     // Analytics
@@ -337,7 +338,7 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = req.query.search.split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({name: searchQuery});
       filters.$or.push({description: searchQuery});
@@ -519,6 +520,18 @@ api.joinGroup = {
       if (inviterParty) {
         inviter = inviterParty.inviter;
 
+        // If user was in a different party (when partying solo you can be invited to a new party)
+        // make them leave that party before doing anything
+        if (user.party._id) {
+          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
+
+          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+          }
+
+          if (userPreviousParty) await userPreviousParty.leave(user);
+        }
+
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -529,13 +542,6 @@ api.joinGroup = {
           user.party.quest.key = group.quest.key;
           group.quest.members[user._id] = null;
           group.markModified('quest.members');
-        }
-
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          let userPreviousParty = await Group.getGroup({user, groupId: user.party._id});
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
 
         user.party._id = group._id; // Set group as user's party
@@ -555,7 +561,7 @@ api.joinGroup = {
 
     if (isUserInvited && group.type === 'guild') {
       if (user.guilds.indexOf(group._id) !== -1) { // if user is already a member (party is checked previously)
-        throw new NotAuthorized(res.t('userAlreadyInGroup'));
+        throw new NotAuthorized(res.t('youAreAlreadyInGroup'));
       }
       user.guilds.push(group._id); // Add group to user's guilds
       if (!user.achievements.joinedGuild) {
@@ -617,7 +623,7 @@ api.joinGroup = {
       }
     }
 
-    promises = await Bluebird.all(promises);
+    promises = await Promise.all(promises);
 
     let response = Group.toJSONCleanChat(promises[0], user);
     let leader = await User.findById(response.leader).select(nameFields).exec();
@@ -915,7 +921,7 @@ api.removeGroupMember = {
     let message = req.query.message || req.body.message;
     _sendMessageToRemoved(group, member, message, isInGroup);
 
-    await Bluebird.all([
+    await Promise.all([
       member.save(),
       group.save(),
     ]);
@@ -1134,6 +1140,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1145,6 +1152,8 @@ api.inviteToGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
+
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
 
     req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
@@ -1167,7 +1176,7 @@ api.inviteToGroup = {
 
     if (uuids) {
       let uuidInvites = uuids.map((uuid) => _inviteByUUID(uuid, group, user, req, res));
-      let uuidResults = await Bluebird.all(uuidInvites);
+      let uuidResults = await Promise.all(uuidInvites);
       results.push(...uuidResults);
     }
 
@@ -1175,7 +1184,7 @@ api.inviteToGroup = {
       let emailInvites = emails.map((invite) => _inviteByEmail(invite, group, user, req, res));
       user.invitesSent += emails.length;
       await user.save();
-      let emailResults = await Bluebird.all(emailInvites);
+      let emailResults = await Promise.all(emailInvites);
       results.push(...emailResults);
     }
 

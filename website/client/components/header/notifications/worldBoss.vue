@@ -3,7 +3,8 @@ base-notification(
   :can-remove="false",
   :notification="{}",
   :read-after-click="false",
-  @click="action"
+  @click="action",
+  v-if="worldBoss.active"
 )
   .background(slot="content")
     .text

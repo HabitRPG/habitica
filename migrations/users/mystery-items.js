@@ -5,7 +5,7 @@ const authorUuid = '7f14ed62-5408-4e1b-be83-ada62d504931'; // ... own data is do
 /*
  * Award this month's mystery items to subscribers
  */
-const MYSTERY_ITEMS = ['armor_mystery_201802', 'head_mystery_201802', 'shield_mystery_201802'];
+const MYSTERY_ITEMS = ['back_mystery_201803', 'head_mystery_201803'];
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
 let monk = require('monk');

@@ -14,7 +14,6 @@ import pusher from '../../libs/pusher';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import nconf from 'nconf';
-import Bluebird from 'bluebird';
 import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
@@ -161,10 +160,7 @@ api.postChat = {
     if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
-        // @TODO replace this split mechanism with something that works properly in translations
-        let message = res.t('bannedWordUsed').split('.');
-        message[0] += ` (${matchedBadWords.join(', ')})`;
-        throw new BadRequest(message.join('.'));
+        throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
       }
     }
 
@@ -184,7 +180,7 @@ api.postChat = {
       toSave.push(user.save());
     }
 
-    let [savedGroup] = await Bluebird.all(toSave);
+    let [savedGroup] = await Promise.all(toSave);
 
     // realtime chat is only enabled for private groups (for now only for parties)
     if (savedGroup.privacy === 'private' && savedGroup.type === 'party') {

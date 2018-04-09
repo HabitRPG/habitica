@@ -187,6 +187,35 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(group.chat[0].uuid).to.equal('system');
   });
 
+  it('Ethereal Surge does not recover mp of other mages', async () => {
+    let group = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 4,
+    });
+
+    let promises = [];
+    promises.push(group.groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[0].update({'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20}));
+    promises.push(group.members[1].update({'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[2].update({'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20}));
+    promises.push(group.members[3].update({'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20}));
+    await Promise.all(promises);
+
+    await group.groupLeader.post('/user/class/cast/mpheal');
+
+    promises = [];
+    promises.push(group.members[0].sync());
+    promises.push(group.members[1].sync());
+    promises.push(group.members[2].sync());
+    promises.push(group.members[3].sync());
+    await Promise.all(promises);
+
+    expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
+    expect(group.members[1].stats.mp).to.equal(0); // wizard
+    expect(group.members[2].stats.mp).to.be.greaterThan(0); // rogue
+    expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
+  });
+
   it('cast bulk', async () => {
     let { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
@@ -258,11 +287,31 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(user.achievements.birthday).to.equal(1);
   });
 
+  it('passes correct target to spell when targetType === \'task\'', async () => {
+    await user.update({'stats.class': 'wizard', 'stats.lvl': 11});
+
+    let task = await user.post('/tasks/user', {
+      text: 'test habit',
+      type: 'habit',
+    });
+
+    let result = await user.post(`/user/class/cast/fireball?targetId=${task._id}`);
+
+    expect(result.task._id).to.equal(task._id);
+  });
+
+  it('passes correct target to spell when targetType === \'self\'', async () => {
+    await user.update({'stats.class': 'wizard', 'stats.lvl': 14, 'stats.mp': 50});
+
+    let result = await user.post('/user/class/cast/frost');
+
+    expect(result.user.stats.mp).to.equal(10);
+  });
+
+
   // TODO find a way to have sinon working in integration tests
   // it doesn't work when tests are running separately from server
-  it('passes correct target to spell when targetType === \'task\'');
   it('passes correct target to spell when targetType === \'tasks\'');
-  it('passes correct target to spell when targetType === \'self\'');
   it('passes correct target to spell when targetType === \'party\'');
   it('passes correct target to spell when targetType === \'user\'');
   it('passes correct target to spell when targetType === \'party\' and user is not in a party');

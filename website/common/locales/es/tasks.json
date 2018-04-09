@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Este alias esta siendo usado por otra tarea.",
     "taskNotFound": "Tarea no encontrada.",
     "invalidTaskType": "El tipo de tarea debe ser \"habit\", \"daily\", \"todo\" o \"reward\".",
+    "invalidTasksType": "Los tipos de tareas deben ser \"hábitos\", \"tareas diarias\", \"tareas pendientes\" y \"recompensas\".",
+    "invalidTasksTypeExtra": "Los tipos de tareas deben ser \"hábitos\", \"tareas diarias\", \"tareas pendientes\", \"recompensas\" y \"tareas completas\".",
     "cantDeleteChallengeTasks": "Una tarea perteneciente a un desafío no puede ser eliminada.",
     "checklistOnlyDailyTodo": "Las Listas solo pueden utilizarse en Tareas Diarias y Por-Hacer",
     "checklistItemNotFound": "No se ha encontrado ningún elemento de lista con el identificador indicado.",
@@ -209,5 +211,6 @@
     "yesterDailiesDescription": "Si esta opción es aplicada, Habitica te preguntará si de verdad querías dejar la Tarea Diaria sin marcar antes de calcular y aplicar el daño a tu personaje. Esto puede protegerte de daño no intencionado.",
     "repeatDayError": "Por favor, asegúrate de que seleccionas al menos un día de la semana.",
     "searchTasks": "Buscar títulos y descripciones...",
-    "sessionOutdated": "Tu sesión no está sincronizada. Por favor, refresca o sincroniza."
+    "sessionOutdated": "Tu sesión no está sincronizada. Por favor, refresca o sincroniza.",
+    "errorTemporaryItem": "Este artículo es temporal y no puede ser fijado."
 }

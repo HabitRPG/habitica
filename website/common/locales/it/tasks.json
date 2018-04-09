@@ -149,6 +149,8 @@
     "taskAliasAlreadyUsed": "Alias Attività già usato su un'altra attività.",
     "taskNotFound": "Attività non trovata.",
     "invalidTaskType": "Il tipo di attività può essere solo uno tra \"Abitudine\", \"Daily\", \"Cosa Da Fare\", \"Ricompensa\".",
+    "invalidTasksType": "Il tipo di attività deve essere uno tra \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksTypeExtra": "Il tipo di attività deve essere uno tra \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Un'attività che appartiene ad una sfida non può essere eliminata.",
     "checklistOnlyDailyTodo": "Le checklist sono supportate solo nelle Daily e nelle Cose Da Fare.",
     "checklistItemNotFound": "Non è stato trovato alcun elemento checklist con l'id specificato.",
@@ -172,9 +174,9 @@
     "habitCounterDown": "Contatore negativo (si resetta <%= frequency %>)",
     "taskRequiresApproval": "Questa attività deve essere approvata prima che tu la possa completare. L'approvazione è già stata richiesta.",
     "taskApprovalHasBeenRequested": "Un'approvazione è stata richiesta.",
-    "taskApprovalWasNotRequested": "Only a task waiting for approval can be marked as needing more work",
+    "taskApprovalWasNotRequested": "Solo un'attività in attesa di approvazione può essere segnata come incompleta",
     "approvals": "Approvazioni",
-    "approvalRequired": "Needs Approval",
+    "approvalRequired": "Richiede Approvazioni",
     "repeatZero": "La Daily non scade mai",
     "repeatType": "Tipo ripetizione",
     "repeatTypeHelpTitle": "Che tipo di ripetizione è questa?",
@@ -209,5 +211,6 @@
     "yesterDailiesDescription": "Se questa opzione è attiva, Habitica ti chiederà se era tua intenzione lasciare delle Daily incomplete prima di calcolare ed applicare il danno al tuo avatar. Questa funzione può proteggerti da danni involontari.",
     "repeatDayError": "Assicurati di aver selezionato almeno un giorno della settimana.",
     "searchTasks": "Cerca titoli e descrizioni...",
-    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza."
+    "sessionOutdated": "La tua sessione è obsoleta. Ricarica la pagina o sincronizza.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

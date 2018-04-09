@@ -5,10 +5,6 @@
         label
           strong(v-once) {{$t('name')}} *
         b-form-input(type="text", :placeholder="$t('newGuildPlaceholder')", v-model="workingGroup.name")
-      .form-group(v-if='workingGroup.id && members.length > 0')
-        label
-          strong(v-once) {{$t('guildOrPartyLeader')}} *
-        group-member-search-dropdown(:text="currentLeader", :members='members', :groupId='workingGroup.id', @member-selected='selectNewLeader')
       .form-group
         label
           strong(v-once) {{$t('privacySettings')}} *
@@ -202,7 +198,6 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
-        newLeader: '',
       },
       categoryOptions: [
         {
@@ -306,13 +301,6 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
-    currentLeader () {
-      const currentLeader = this.members.find(member => {
-        return member._id === this.workingGroup.newLeader;
-      });
-      const currentLeaderName = currentLeader.profile ? currentLeader.profile.name : '';
-      return currentLeaderName;
-    },
   },
   watch: {
     editingGroup () {
@@ -343,17 +331,10 @@ export default {
 
       this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
 
-      if (editingGroup.leader._id) {
-        this.workingGroup.newLeader = editingGroup.leader._id;
-        this.workingGroup.currentLeaderId = editingGroup.leader._id;
-      }
       if (editingGroup._id) this.getMembers();
     },
   },
   methods: {
-    selectNewLeader (member) {
-      this.workingGroup.newLeader = member._id;
-    },
     async getMembers () {
       if (!this.workingGroup.id) return;
       let members = await this.$store.dispatch('members:getGroupMembers', {
@@ -427,9 +408,6 @@ export default {
       this.workingGroup.categories = serverCategories;
 
       let groupData = Object.assign({}, this.workingGroup);
-      if (groupData.newLeader === this.workingGroup.currentLeaderId) {
-        groupData.leader = this.workingGroup.currentLeaderId;
-      }
 
       let newgroup;
       if (groupData.id) {
@@ -474,7 +452,6 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
-        newLeader: '',
       };
     },
   },

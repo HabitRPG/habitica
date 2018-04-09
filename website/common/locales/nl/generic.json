@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Heeft geholpen Burnout te verslaan tijdens het Najaarsvolksfeest van 2015!",
     "achievementBewilder": "Redder van Mistiflying",
     "achievementBewilderText": "Heeft geholpen om de Ver-Wilder te verslaan tijdens het lente-evenement in 2016.",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Moet je mijn vooruitgang in Habitica eens zien!",
     "cards": "Kaarten",
     "sentCardToUser": "You sent a card to <%= profileName %>",
@@ -284,5 +286,6 @@
     "letsgo": "Let's Go!",
     "selected": "Geselecteerd",
     "howManyToBuy": "Hoeveel wil je kopen?",
-    "habiticaHasUpdated": "Er is een nieuwe update voor Habitica. Ververs om de laatste versie te krijgen!"
+    "habiticaHasUpdated": "Er is een nieuwe update voor Habitica. Ververs om de laatste versie te krijgen!",
+    "contactForm": "Contact the Moderation Team"
 }

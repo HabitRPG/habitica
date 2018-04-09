@@ -9,7 +9,6 @@
  * and transfers a group's progress to it
  ***************************************/
 
-global.Promise = require('bluebird');
 const TaskQueue = require('cwait').TaskQueue;
 const logger = require('./utils/logger');
 const Timer = require('./utils/timer');

@@ -167,6 +167,8 @@
     "achievementBurnoutText": "Pomohol poraziť Vypaľača a zachránil Vyčerpané duše počas Jesenného festivalu 2015!",
     "achievementBewilder": "Záchranca zakliatych v hmle",
     "achievementBewilderText": "Pomohol poraziť Be-Wildera počas Udalosti jarnej rozcvičky 2016!",
+    "achievementDysheartener": "Savior of the Shattered",
+    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
     "checkOutProgress": "Pozrieť si môj postup v Habitike!",
     "cards": "Cards",
     "sentCardToUser": "You sent a card to <%= profileName %>",
@@ -284,5 +286,6 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!"
+    "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
+    "contactForm": "Contact the Moderation Team"
 }

@@ -3,7 +3,6 @@ import nconf from 'nconf';
 // @TODO remove this lib and use directly the apn module
 import pushNotify from 'push-notify';
 import logger from './logger';
-import Bluebird from 'bluebird';
 import {
   S3,
 } from './aws';
@@ -20,7 +19,7 @@ const APN_ENABLED = nconf.get('PUSH_CONFIGS:APN_ENABLED') === 'true';
 const S3_BUCKET = nconf.get('S3:bucket');
 
 if (APN_ENABLED) {
-  Bluebird.all([
+  Promise.all([
     S3.getObject({
       Bucket: S3_BUCKET,
       Key: 'apple_apn/cert.pem',

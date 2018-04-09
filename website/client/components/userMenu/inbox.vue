@@ -267,7 +267,7 @@ export default {
         return moment(o.date).toDate();
       }]);
 
-      return conversations;
+      return conversations.reverse();
     },
     filtersConversations () {
       if (!this.search) return this.conversations;
