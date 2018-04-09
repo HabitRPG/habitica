@@ -122,6 +122,7 @@
     "buyQuestBundle": "Beli Bundel Misi",
     "noQuestToStart": "Tidak dapat menemukan misi untuk dilakukan? Coba cek Toko Misi di Pasar untuk menemukan misi baru!",
     "pendingDamage": "<%= damage %> damage terkumpul",
+    "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %>/<%= maxHealth %> Nyawa",
     "rageAttack": "Serangan Kemarahan:",
     "bossRage": "<%= currentRage %>/<%= maxRage %> Kemarahan",

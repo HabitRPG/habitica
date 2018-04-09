@@ -212,5 +212,5 @@
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist.",
     "searchTasks": "Durchsuche die Überschriften und Beschreibungen...",
     "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden."
 }

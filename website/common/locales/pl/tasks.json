@@ -212,5 +212,5 @@
     "repeatDayError": "Proszę upewnij się, że chociaż jeden dzień w tygodniu jest wybrany.",
     "searchTasks": "Szukaj po tytule lub opisie...",
     "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie.",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "Ten przedmiot jest tymczasowy i nie można go przypiąć."
 }

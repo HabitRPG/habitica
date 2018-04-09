@@ -11,7 +11,7 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { v4 as generateUUID } from 'uuid';
-import { getMatchesByWordArray, removePunctuationFromString } from '../../../../../website/server/libs/stringUtils';
+import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
@@ -24,10 +24,10 @@ describe('POST /chat', () => {
   let user, groupWithChat, member, additionalMember;
   let testMessage = 'Test Message';
   let testBannedWordMessage = 'TESTPLACEHOLDERSWEARWORDHERE';
+  let testBannedWordMessage1 = 'TESTPLACEHOLDERSWEARWORDHERE1';
   let testSlurMessage = 'message with TESTPLACEHOLDERSLURWORDHERE';
-  let bannedWordErrorMessage = t('bannedWordUsed').split('.');
-  bannedWordErrorMessage[0] += ` (${removePunctuationFromString(testBannedWordMessage.toLowerCase())})`;
-  bannedWordErrorMessage = bannedWordErrorMessage.join('.');
+  let testSlurMessage1 = 'TESTPLACEHOLDERSLURWORDHERE1';
+  let bannedWordErrorMessage = t('bannedWordUsed', {swearWordsUsed: testBannedWordMessage});
 
   before(async () => {
     let { group, groupLeader, members } = await createAndPopulateGroup({
@@ -39,6 +39,7 @@ describe('POST /chat', () => {
       members: 2,
     });
     user = groupLeader;
+    await user.update({'contributor.level': SPAM_MIN_EXEMPT_CONTRIB_LEVEL}); // prevent tests accidentally throwing messageGroupChatSpam
     groupWithChat = group;
     member = members[0];
     additionalMember = members[1];
@@ -136,9 +137,19 @@ describe('POST /chat', () => {
         });
     });
 
-    it('checks error message has the banned words used', async () => {
-      let randIndex = Math.floor(Math.random() * (bannedWords.length + 1));
-      let testBannedWords = bannedWords.slice(randIndex, randIndex + 2).map((w) => w.replace(/\\/g, ''));
+    it('errors when word is typed in mixed case', async () => {
+      let substrLength = Math.floor(testBannedWordMessage.length / 2);
+      let chatMessage = testBannedWordMessage.substring(0, substrLength).toLowerCase() + testBannedWordMessage.substring(substrLength).toUpperCase();
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('bannedWordUsed', {swearWordsUsed: chatMessage}),
+        });
+    });
+
+    it('checks error message has all the banned words used, regardless of case', async () => {
+      let testBannedWords = [testBannedWordMessage.toUpperCase(), testBannedWordMessage1.toLowerCase()];
       let chatMessage = `Mixing ${testBannedWords[0]} and ${testBannedWords[1]} is bad for you.`;
       await expect(user.post('/groups/habitrpg/chat', { message: chatMessage}))
         .to.eventually.be.rejected
@@ -319,6 +330,17 @@ describe('POST /chat', () => {
       // Restore chat privileges to continue testing
       members[0].flags.chatRevoked = false;
       await members[0].update({'flags.chatRevoked': false});
+    });
+
+    it('errors when slur is typed in mixed case', async () => {
+      let substrLength = Math.floor(testSlurMessage1.length / 2);
+      let chatMessage = testSlurMessage1.substring(0, substrLength).toLowerCase() + testSlurMessage1.substring(substrLength).toUpperCase();
+      await expect(user.post('/groups/habitrpg/chat', { message: chatMessage }))
+        .to.eventually.be.rejected.and.eql({
+          code: 400,
+          error: 'BadRequest',
+          message: t('bannedSlurUsed'),
+        });
     });
   });
 

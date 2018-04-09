@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import nconf from 'nconf';
 
-import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../../website/server/libs/payments/paypal';
 import { model as User } from '../../../../../../../website/server/models/user';
 import common from '../../../../../../../website/common';
 

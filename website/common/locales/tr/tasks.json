@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Tamamlanmışları Sil",
-    "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
+    "clearCompletedDescription": "Tamamlanan işler abone olmayanlar için 30 günden ve aboneler için 90 günden sonra silinir.",
     "clearCompletedConfirm": "Tamamlanmış Yapılacak iİlerini silmek istediğine emin misin?",
     "sureDeleteCompletedTodos": "Tamamlanmış Yapılacak iİlerini silmek istediğine emin misin?",
     "lotOfToDos": "En son tamamladığın 30 Yapılacak İş burada gösterilir. Tamamlanan Yapılacak İşlerin daha eskilerini Veri > Veri Görüntüleme Aracı veya Veri > Veriyi Dışa Aktar > Kullanıcı Verisi sekmelerinden görebilirsin.",
@@ -34,7 +34,7 @@
     "extraNotes": "Ek Notlar",
     "notes": "Notlar",
     "direction/Actions": "Yönlendirme/Aksiyonlar",
-    "advancedSettings": "Advanced Settings",
+    "advancedSettings": "İleri Düzey Ayarlar",
     "taskAlias": "İşin Takma Adı",
     "taskAliasPopover": "İşler için bir takma isim, 3. parti entegrasyonlarında kullanılabilir. Yalnızca tire, alt çizgi ve alfanumerik karakterler desteklenmektedir. İşin takma adı, diğer işlerin isimlerinden farklı olmalıdır.",
     "taskAliasPlaceholder": "işinin-takma-ismi",

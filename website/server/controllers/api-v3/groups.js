@@ -21,9 +21,9 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
-import payments from '../../libs/payments';
-import stripePayments from '../../libs/stripePayments';
-import amzLib from '../../libs/amazonPayments';
+import payments from '../../libs/payments/payments';
+import stripePayments from '../../libs/payments/stripe';
+import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
 
