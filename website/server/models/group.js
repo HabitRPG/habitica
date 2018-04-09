@@ -926,8 +926,8 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
   let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   // TODO Consider putting the safe mode boss attack message in an ENV var
-  const newMessage = group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
-  promises.push(newMessage.save());
+  const groupMessage = group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
+  promises.push(groupMessage.save());
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {
