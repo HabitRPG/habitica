@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA ON INSTAGRAM, SELF-IMPOSED CHALLENGE BLOG, AND WHAT\'S THE APRIL FOOL UP TO?';
+const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER HAIR, PASTEL SKINS, HABITICA FORGE TWITTER, AND GUILD SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,22 +32,19 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>3/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/5/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <h3>Habitica is Now on Instagram!</h3>
-        <p>Habitica's <a href='https://www.instagram.com/habitica' target='_blank'>Instagram</a> is now live! Follow us for updates and exclusive peeks at behind-the-scenes fun!</p>
-        <div class="media align-items-center">
-          <div class="scene_todos"></div>
-          <div class="media-body">
-            <h3>New Blog Post: Self-Imposed Challenges!</h3>
-            <p>This month's <a href='https://habitica.wordpress.com/2018/03/28/self-imposed-challenges/' target='_blank'>featured Wiki article</a> is about Self-Imposed Challenges! We hope that it will help you as you customize Habitica to make it as fun and challenging as you'd like it to be! Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-            <div class="small mb-3">by Beffymaroo and the Wiki Wizards</div>
-          </div>
-        </div>
-        <h3>The April Fool Stops By the Tavern...</h3>
-        <p>It's that time of year again, and all Habitica's denizens have been on the lookout for stirrings from the most mischievous Masterclasser: the April Fool. Puzzlingly (and perhaps alarmingly!) he's been unusually quiet considering his favorite day is nearing. He's announced he's keeping his plans small-scale and that they will hardly be noticed, but upon hearing this from Tavern-goers on a visit to Habit City, Lady Glaciate rolled her eyes.</p>
-        <p>"I'd be interested to know what the Master of Rogues considers a modestly-proportioned prank…" she says irritably.</p>
-        <p>Perhaps you should check back over the weekend to see what's in store…</p>
+        <div class="promo_shimmer_pastel center-block"></div>
+        <h3>Shimmer Hair Colors and Pastel Skin Set</h3>
+        <p>The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for purchase in User > Edit Avatar! These skin sets will only be available to purchase until April 30th, and then they will disappear from the shop until next Spring Fling. If you buy them, though, you will have access to them year-round!</p>
+        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <h3>The Habitica Forge</h3>
+        <p>We've launched an exciting new Twitter account! <a href='https://twitter.com/habiticaforge' target='_blank'>Habitica Forge</a> will be tweeting automated updates about all the work of our fantastic blacksmiths. If you're curious about what fixes and improvements are in the works, be sure to check it out! This account will also be the official source for updates from Habitica about any site or app access issues or outages.</p>
+        <div class="small mb-3">by Beffymaroo, TheHollidayInn, Paglias, Alys, Viirus, SabreCat, Blade, and all Habitica's wonderful Blacksmiths!</div>
+        <h3>Be the Change: Guilds for Making a Difference</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2018/04/05/be-the-change-guilds-for-making-a-difference/' target='_blank'>Guild Spotlight on the blog</a> that highlights the Guilds that can help you as you work to make the world a better place! Check it out now to find Habitica's best communities for volunteers and general do-gooders.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_positivity center-block"></div>
       </div>
       `,
     });

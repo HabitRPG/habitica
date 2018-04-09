@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
-import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import apiMessages from '../../../../../../website/server/libs/apiMessages';
 
 describe('payments : paypal #checkoutSuccess', () => {

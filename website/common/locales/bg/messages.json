@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "Пътят `<%= operation %>` не беше запазен, тъй като е защитен път.",
     "messageUserOperationNotFound": "Операцията „<%= operation %>“ не е намерена",
     "messageNotificationNotFound": "Известието не е намерено.",
+    "messageNotAbleToBuyInBulk": "Не може да се закупи повече от един брой от този предмет.",
     "notificationsRequired": "Идентификаторите на известията са задължителни.",
     "unallocatedStatsPoints": "Имате <span class=\"notification-bold-blue\"><%= points %> неразпределени показателни точки</span>",
     "beginningOfConversation": "Това е началото на разговора Ви с <%= userName %>. Запомнете да спазвате добрия тон, да уважавате другия и да следвате Обществените правила!"

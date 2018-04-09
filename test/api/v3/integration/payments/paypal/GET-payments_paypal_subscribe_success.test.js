@@ -1,8 +1,8 @@
 import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
-import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
 import apiMessages from '../../../../../../website/server/libs/apiMessages';
+import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 
 describe('payments : paypal #subscribeSuccess', () => {
   let endpoint = '/paypal/subscribe/success';

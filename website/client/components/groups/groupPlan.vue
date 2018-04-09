@@ -342,7 +342,6 @@ export default {
         UPGRADE_GROUP: 'upgrade-group',
         PAY: 'pay',
       },
-      // @TODO: Import from payment library?
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',

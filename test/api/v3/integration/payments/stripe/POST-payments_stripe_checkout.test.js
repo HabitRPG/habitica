@@ -2,7 +2,7 @@ import {
   generateUser,
   generateGroup,
 } from '../../../../../helpers/api-integration/v3';
-import stripePayments from '../../../../../../website/server/libs/stripePayments';
+import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 describe('payments - stripe - #checkout', () => {
   let endpoint = '/stripe/checkout';

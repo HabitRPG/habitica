@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "'<%= operation %>' elérési út nem menthető, mivel ez védett.",
     "messageUserOperationNotFound": "<%= operation %> művelet nem található",
     "messageNotificationNotFound": "Az értesítés nem található.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Értesítés azonosítók szükségesek.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "Elkeztél beszélgetni <%= userName %> felhasználóval. Emlékezz, hogy legyél kedves, tisztelettudó és kövesd a Közösségi irányelveket!"

@@ -69,6 +69,7 @@
 // DO NOT EDIT! See the comments at the top of this file.
 let bannedWords = [
   'TESTPLACEHOLDERSWEARWORDHERE',
+  'TESTPLACEHOLDERSWEARWORDHERE1',
 
 
 

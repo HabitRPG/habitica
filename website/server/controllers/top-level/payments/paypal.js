@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import paypalPayments from '../../../libs/paypalPayments';
+import paypalPayments from '../../../libs/payments/paypal';
 import shared from '../../../../common';
 import {
   authWithUrl,

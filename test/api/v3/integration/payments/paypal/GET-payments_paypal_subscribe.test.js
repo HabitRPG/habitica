@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../../../helpers/api-integration/v3';
-import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import shared from '../../../../../../website/common';
 import apiMessages from '../../../../../../website/server/libs/apiMessages';
 
