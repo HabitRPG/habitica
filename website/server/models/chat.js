@@ -20,7 +20,6 @@ const schema = new mongoose.Schema({
 
 schema.plugin(baseModel, {
   noSet: ['_id'],
-  timestamps: true,
 });
 
 export const model = mongoose.model('Chat', schema);
