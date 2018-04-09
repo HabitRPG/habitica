@@ -162,10 +162,7 @@ api.postChat = {
     if (group.privacy !== 'private' && !guildsAllowingBannedWords[group._id]) {
       let matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
-        // @TODO replace this split mechanism with something that works properly in translations
-        let message = res.t('bannedWordUsed').split('.');
-        message[0] += ` (${matchedBadWords.join(', ')})`;
-        throw new BadRequest(message.join('.'));
+        throw new BadRequest(res.t('bannedWordUsed', {swearWordsUsed: matchedBadWords.join(', ')}));
       }
     }
 

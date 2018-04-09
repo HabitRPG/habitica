@@ -22,9 +22,9 @@
       span.head_0
       span(:class="member.preferences.size + '_' + getGearClass('armor')")
       span(:class="getGearClass('back_collar')")
-      span(:class="getGearClass('body')")
       template(v-for="type in ['bangs', 'base', 'mustache', 'beard']")
         span(:class="'hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color")
+      span(:class="getGearClass('body')")
       span(:class="getGearClass('eyewear')")
       span(:class="getGearClass('head')")
       span(:class="getGearClass('headAccessory')")

@@ -11,7 +11,7 @@ import { model as Chat } from './chat';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
-import payments from '../libs/payments';
+import payments from '../libs/payments/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -29,8 +29,8 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
-import amazonPayments from '../libs/amazonPayments';
-import stripePayments from '../libs/stripePayments';
+import amazonPayments from '../libs/payments/amazon';
+import stripePayments from '../libs/payments/stripe';
 import { getGroupChat } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
 

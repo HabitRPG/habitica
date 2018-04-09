@@ -122,6 +122,7 @@
     "buyQuestBundle": "Купить набор квестов",
     "noQuestToStart": "Не можете найти подходящий квест? Посетите магазин квестов на рынке. Возможно, что там есть новинки!",
     "pendingDamage": "<%= damage %> ожидаемого урона",
+    "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> здоровья",
     "rageAttack": "Атака при ярости:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> ярости",

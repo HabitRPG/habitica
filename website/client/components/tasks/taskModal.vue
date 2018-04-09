@@ -1,6 +1,6 @@
 <template lang="pug">
   form(v-if="task", @submit.stop.prevent="submit()")
-    b-modal#task-modal(size="sm", @hidden="onClose()")
+    b-modal#task-modal(size="sm", @hidden="onClose()", @shown="focusInput()")
       .task-modal-header(slot="modal-header", :class="cssClass('bg')")
         .clearfix
           h1.float-left {{ title }}
@@ -12,7 +12,8 @@
           input.form-control.title-input(
             type="text",
             required, v-model="task.text",
-            autofocus, spellcheck="true",
+            ref="inputToFocus",
+            spellcheck="true",
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           )
         .form-group
@@ -128,10 +129,10 @@
             label.d-block(v-once) {{ $t('repeatOn') }}
             .form-radio
               .custom-control.custom-radio.custom-control-inline
-                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
               .custom-control.custom-radio.custom-control-inline
-                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek")
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
@@ -962,6 +963,9 @@ export default {
         taskId: this.task._id,
         userId: memberId,
       });
+    },
+    focusInput () {
+      this.$refs.inputToFocus.focus();
     },
   },
 };

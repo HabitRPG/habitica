@@ -1,7 +1,7 @@
 import {
   BadRequest,
 } from '../../../libs/errors';
-import amzLib from '../../../libs/amazonPayments';
+import amzLib from '../../../libs/payments/amazon';
 import {
   authWithHeaders,
   authWithUrl,

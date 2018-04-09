@@ -6,8 +6,8 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Coupon } from '../../../../../../../website/server/models/coupon';
-import stripePayments from '../../../../../../../website/server/libs/stripePayments';
-import payments from '../../../../../../../website/server/libs/payments';
+import stripePayments from '../../../../../../../website/server/libs/payments/stripe';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../../website/common';
 
 const i18n = common.i18n;

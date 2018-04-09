@@ -3,10 +3,10 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 
 import * as sender from '../../../../../../../website/server/libs/email';
-import * as api from '../../../../../../../website/server/libs/payments';
-import amzLib from '../../../../../../../website/server/libs/amazonPayments';
-import stripePayments from '../../../../../../../website/server/libs/stripePayments';
-import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
+import * as api from '../../../../../../../website/server/libs/payments/payments';
+import amzLib from '../../../../../../../website/server/libs/payments/amazon';
+import paypalPayments from '../../../../../../../website/server/libs/payments/paypal';
+import stripePayments from '../../../../../../../website/server/libs/payments/stripe';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../../website/server/models/group';
 import {

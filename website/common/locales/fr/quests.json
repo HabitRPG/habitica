@@ -122,6 +122,7 @@
     "buyQuestBundle": "Acheter ce lot de quêtes",
     "noQuestToStart": "Vous ne trouvez pas de quête à commencer ? Essayez de vérifier la boutique des quêtes, au marché, pour de nouvelles sorties !",
     "pendingDamage": "<%= damage %> dommages en instance",
+    "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Santé",
     "rageAttack": "Attaque de rage :",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",

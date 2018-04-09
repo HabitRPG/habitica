@@ -3,7 +3,7 @@ import {
   generateGroup,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import amzLib from '../../../../../../website/server/libs/amazonPayments';
+import amzLib from '../../../../../../website/server/libs/payments/amazon';
 
 describe('payments - amazon - #subscribe', () => {
   let endpoint = '/amazon/subscribe';

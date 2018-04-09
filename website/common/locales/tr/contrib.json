@@ -29,7 +29,7 @@
     "heroicText": "Epik kademesi, Habitica kadrosunu ve kadro seviyesindeki katılımcıları kapsar. Bu unvana sahipsen, görevlendirildin (ya da işe alındın!) demektir.",
     "npcText": "NPC'ler, Habitica Kickstarter kampanyasının en üst kademede destekçileridir. Avatarlarının, sitenin çeşitli özelliklerine göz kulak olduğunu görebilirsin!",
     "modalContribAchievement": "Katılımcı Başarısı!",
-    "contribModal": "<%= name %>, you awesome person! You're now a tier <%= level %> contributor for helping Habitica.",
+    "contribModal": "<%= name %>, sen mükemmel bir insansın! Habiticaya katkda bulunduğun için artık <%= level %>. kademe bir katılımcısın",
     "contribLink": "See what prizes you've earned for your contribution!",
     "contribName": "Katılımcı",
     "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
