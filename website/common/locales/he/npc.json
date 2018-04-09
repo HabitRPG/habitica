@@ -96,6 +96,7 @@
     "unlocked": "חפצים שוחררו",
     "alreadyUnlocked": "סט מלא כבר נפתח.",
     "alreadyUnlockedPart": "סט מלא כבר נפתח חלקית.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(דולר)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

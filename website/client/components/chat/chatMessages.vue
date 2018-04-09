@@ -22,7 +22,7 @@
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
-          @messaged-liked='messageLiked',
+          @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @message-approved='messageApproved',
           @show-member-modal='showMemberModal')
@@ -32,7 +32,7 @@
           :msg='msg',
           :inbox='inbox',
           :groupId='groupId',
-          @messaged-liked='messageLiked',
+          @message-liked='messageLiked',
           @message-removed='messageRemoved',
           @message-approved='messageApproved',
           @show-member-modal='showMemberModal')

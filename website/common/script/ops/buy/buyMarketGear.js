@@ -26,9 +26,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
-
     let item = content.gear.flat[key];
-
     if (!item) throw new NotFound(this.i18n('itemNotFound', {key}));
 
     this.canUserPurchase(user, item);
@@ -62,7 +60,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
 
     if (item.last) ultimateGear(user);
 
-    this.substractCurrency(user, item);
+    this.subtractCurrency(user, item);
 
     if (!message) {
       message = this.i18n('messageBought', {

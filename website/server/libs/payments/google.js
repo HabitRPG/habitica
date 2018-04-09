@@ -1,12 +1,12 @@
-import shared from '../../common';
-import iap from './inAppPurchases';
+import shared from '../../../common';
+import iap from '../inAppPurchases';
 import payments from './payments';
 import {
   NotAuthorized,
   BadRequest,
-} from './errors';
-import { model as IapPurchaseReceipt } from '../models/iapPurchaseReceipt';
-import {model as User } from '../models/user';
+} from '../errors';
+import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
+import {model as User } from '../../models/user';
 import moment from 'moment';
 
 let api = {};
@@ -140,16 +140,27 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
 
   await iap.setup();
 
-  let googleRes = await iap.validate(iap.GOOGLE, plan.additionalData);
+  let dateTerminated;
 
-  let isValidated = iap.isValidated(googleRes);
-  if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+  try {
+    let googleRes = await iap.validate(iap.GOOGLE, plan.additionalData);
 
-  let purchases = iap.getPurchaseData(googleRes);
-  if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
-  let subscriptionData = purchases[0];
+    let isValidated = iap.isValidated(googleRes);
+    if (!isValidated) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
 
-  let dateTerminated = new Date(Number(subscriptionData.expirationDate));
+    let purchases = iap.getPurchaseData(googleRes);
+    if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
+    let subscriptionData = purchases[0];
+    dateTerminated = new Date(Number(subscriptionData.expirationDate));
+  } catch (err) {
+    // Status:410 means that the subsctiption isn't active anymore and we can safely delete it
+    if (err && err.message === 'Status:410') {
+      dateTerminated = new Date();
+    } else {
+      throw err;
+    }
+  }
+
   if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
 
   await payments.cancelSubscription({

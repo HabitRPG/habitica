@@ -122,6 +122,7 @@
     "buyQuestBundle": "Quest-Paket kaufen",
     "noQuestToStart": "Du findest keine Quest, die Du starten möchtest? Dann guck mal im Quest-Markt auf dem Marktplatz vorbei um neue Quests zu entdecken!",
     "pendingDamage": "<%= damage %> ausstehender Schaden",
+    "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Lebenspunkte",
     "rageAttack": "Raserei-Angriff:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Raserei",

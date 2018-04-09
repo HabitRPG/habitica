@@ -15,7 +15,7 @@ div
       p.time {{msg.timestamp | timeAgo}}
       .text(v-markdown='msg.text')
       hr
-      .action(@click='like()', v-if='msg.likes', :class='{active: msg.likes[user._id]}')
+      .action(@click='like()', v-if='!inbox && msg.likes', :class='{active: msg.likes[user._id]}')
         .svg-icon(v-html="icons.like")
         span(v-if='!msg.likes[user._id]') {{ $t('like') }}
         span(v-if='msg.likes[user._id]') {{ $t('liked') }}
@@ -239,7 +239,7 @@ export default {
         message.likes[this.user._id] = !message.likes[this.user._id];
       }
 
-      this.$emit('messaged-liked', message);
+      this.$emit('message-liked', message);
     },
     copyAsTodo (message) {
       this.$root.$emit('habitica::copy-as-todo', message);
