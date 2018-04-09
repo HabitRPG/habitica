@@ -2,20 +2,20 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 import cc from 'coupon-code';
 import moment from 'moment';
-import logger from './logger';
+import logger from '../logger';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from './errors';
+} from '../errors';
 import payments from './payments';
-import { model as User } from '../models/user';
-import { model as Coupon } from '../models/coupon';
+import { model as User } from '../../models/user';
+import { model as Coupon } from '../../models/coupon';
 import {
   model as Group,
   basicFields as basicGroupFields,
-} from '../models/group';
-import shared from '../../common';
+} from '../../models/group';
+import shared from '../../../common';
 
 let stripe = stripeModule(nconf.get('STRIPE_API_KEY'));
 const i18n = shared.i18n;

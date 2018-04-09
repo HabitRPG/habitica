@@ -1,23 +1,23 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-import analytics from './analyticsService';
+import analytics from '../analyticsService';
 import {
   getUserInfo,
   sendTxn as txnEmail,
-} from './email';
+} from '../email';
 import moment from 'moment';
-import { sendNotification as sendPushNotification } from './pushNotifications';
-import shared from '../../common';
+import { sendNotification as sendPushNotification } from '../pushNotifications';
+import shared from '../../../common';
 import {
   model as Group,
   basicFields as basicGroupFields,
-} from '../models/group';
-import { model as User } from '../models/user';
+} from '../../models/group';
+import { model as User } from '../../models/user';
 import {
   NotAuthorized,
   NotFound,
-} from './errors';
-import slack from './slack';
+} from '../errors';
+import slack from '../slack';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
 const JOINED_GROUP_PLAN = 'joined group plan';

@@ -1,12 +1,12 @@
-import shared from '../../common';
-import iap from './inAppPurchases';
+import shared from '../../../common';
+import iap from '../inAppPurchases';
 import payments from './payments';
 import {
   NotAuthorized,
   BadRequest,
-} from './errors';
-import { model as IapPurchaseReceipt } from '../models/iapPurchaseReceipt';
-import {model as User } from '../models/user';
+} from '../errors';
+import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
+import {model as User } from '../../models/user';
 import moment from 'moment';
 
 let api = {};

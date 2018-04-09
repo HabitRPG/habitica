@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import iapModule from '../../../../../website/server/libs/inAppPurchases';
-import payments from '../../../../../website/server/libs/payments';
-import applePayments from '../../../../../website/server/libs/applePayments';
-import iap from '../../../../../website/server/libs/inAppPurchases';
-import {model as User} from '../../../../../website/server/models/user';
-import common from '../../../../../website/common';
+import iapModule from '../../../../../../website/server/libs/inAppPurchases';
+import payments from '../../../../../../website/server/libs/payments/payments';
+import applePayments from '../../../../../../website/server/libs/payments/apple';
+import iap from '../../../../../../website/server/libs/inAppPurchases';
+import {model as User} from '../../../../../../website/server/models/user';
+import common from '../../../../../../website/common';
 import moment from 'moment';
 
 const i18n = common.i18n;

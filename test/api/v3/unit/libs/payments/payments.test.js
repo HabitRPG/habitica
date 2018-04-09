@@ -1,14 +1,14 @@
 import moment from 'moment';
 
-import * as sender from '../../../../../website/server/libs/email';
-import * as api from '../../../../../website/server/libs/payments';
-import analytics from '../../../../../website/server/libs/analyticsService';
-import notifications from '../../../../../website/server/libs/pushNotifications';
-import { model as User } from '../../../../../website/server/models/user';
-import { translate as t } from '../../../../helpers/api-v3-integration.helper';
+import * as sender from '../../../../../../website/server/libs/email';
+import * as api from '../../../../../../website/server/libs/payments/payments';
+import analytics from '../../../../../../website/server/libs/analyticsService';
+import notifications from '../../../../../../website/server/libs/pushNotifications';
+import { model as User } from '../../../../../../website/server/models/user';
+import { translate as t } from '../../../../../helpers/api-v3-integration.helper';
 import {
   generateGroup,
-} from '../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper.js';
 
 describe('payments/index', () => {
   let user, group, data, plan;
