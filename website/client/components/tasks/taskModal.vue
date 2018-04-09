@@ -129,10 +129,10 @@
             label.d-block(v-once) {{ $t('repeatOn') }}
             .form-radio
               .custom-control.custom-radio.custom-control-inline
-                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth")
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfMonth", id="repeat-dayOfMonth" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfMonth") {{ $t('dayOfMonth') }}
               .custom-control.custom-radio.custom-control-inline
-                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek")
+                input.custom-control-input(type='radio', v-model="repeatsOn", value="dayOfWeek", id="repeat-dayOfWeek" name="repeatsOn")
                 label.custom-control-label(for="repeat-dayOfWeek") {{ $t('dayOfWeek') }}
 
         .tags-select.option(v-if="isUserTask")
