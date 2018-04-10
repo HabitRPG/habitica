@@ -583,12 +583,12 @@ export default {
         tierStaff,
         upIcon,
       }),
-	  chat: {
-		chatSubmitDisable: false,
-		chatSubmitTimeout: null
-	  },
+      chat: {
+         submitDisable: false,
+         submitTimeout: null,
+      },
       group: {
-        chat: []
+        chat: [],
       },
       sections: {
         staff: true,
@@ -752,22 +752,22 @@ export default {
     disableMessageSendShortcut () {
       // Some users were experiencing accidental sending of messages after pasting
       // So, after pasting, disable the shortcut for a second.
-      this.chat.SubmitDisable = true;
+      this.chat.submitDisable = true;
 
-      if (this.chat.SubmitTimeout) {
+      if (this.chat.submitTimeout) {
         // If someone pastes during the disabled period, prevent early re-enable
-        clearTimeout(this.chat.SubmitTimeout);
-        this.chat.SubmitTimeout = null;
+        clearTimeout(this.chat.submitTimeout);
+        this.chat.submitTimeout = null;
       }
 
-      this.chat.SubmitTimeout = window.setTimeout(() => {
-        this.chat.SubmitTimeout = null;
-        this.chat.SubmitDisable = false;
+      this.chat.submitTimeout = window.setTimeout(() => {
+        this.chat.submitTimeout = null;
+        this.chat.submitDisable = false;
       }, 500);
     },
     async sendMessageShortcut () {
       // If the user recently pasted in the text field, don't submit
-      if (!this.chat.SubmitDisable) {
+      if (!this.chat.submitDisable) {
         this.sendMessage();
       }
     },
