@@ -114,9 +114,12 @@ export function togglePinnedItem (store, params) {
 export function castSpell (store, params) {
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
-  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+  const data = {};
 
-  return axios.post(spellUrl);
+  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+  if (params.quantity) data.quantity = params.quantity;
+
+  return axios.post(spellUrl, data);
 }
 
 export function openMysteryItem () {
