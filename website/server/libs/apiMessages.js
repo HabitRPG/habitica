@@ -6,8 +6,8 @@ import _ from 'lodash';
 // When this file grows, it can be split into multiple ones.
 const messages = {
   taskIdRequired: 'req.params.taskId must contain a task id.',
-  taskUnlinkKeepOrRemove: 'req.query.keep must be either "keep" or "remove".',
-  taskUnlinkKeepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',
+  keepOrRemove: 'req.query.keep must be either "keep" or "remove".',
+  keepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',
 
   queryPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
 
