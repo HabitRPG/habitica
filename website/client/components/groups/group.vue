@@ -397,10 +397,10 @@ export default {
         description: true,
         challenges: true,
       },
-      group: {
-		chatSubmitDisable: false,
-		chatSubmitTimeout: null
-      },
+	  chat: {
+		SubmitDisable: false,
+		SubmitTimeout: null
+	  },
       newMessage: '',
       coords: {
         TOP: 0,
@@ -559,22 +559,22 @@ export default {
     disableMessageSendShortcut () {
       // Some users were experiencing accidental sending of messages after pasting
       // So, after pasting, disable the shortcut for a second.
-      this.group.chatSubmitDisable = true;
+      this.chat.SubmitDisable = true;
 
-      if (this.group.chatSubmitTimeout) {
+      if (this.chat.SubmitTimeout) {
         // If someone pastes during the disabled period, prevent early re-enable
-        clearTimeout(this.group.chatSubmitTimeout);
-        this.group.chatSubmitTimeout = null;
+        clearTimeout(this.chat.SubmitTimeout);
+        this.chat.SubmitTimeout = null;
       }
 
-      this.group.chatSubmitTimeout = window.setTimeout(() => {
-        this.group.chatSubmitTimeout = null;
-        this.group.chatSubmitDisable = false;
+      this.chat.SubmitTimeout = window.setTimeout(() => {
+        this.chat.SubmitTimeout = null;
+        this.chat.SubmitDisable = false;
       }, 500);
     },
     async sendMessageShortcut () {
       // If the user recently pasted in the text field, don't submit
-      if (!this.group.chatSubmitDisable) {
+      if (!this.chat.SubmitDisable) {
         this.sendMessage();
       }
     },
