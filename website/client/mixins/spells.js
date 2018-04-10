@@ -93,7 +93,6 @@ export default {
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      //
       if (spell.pinType !== 'card') spellQueue.queue({key: spell.key, targetId});
       let msg = '';
 
