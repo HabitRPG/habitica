@@ -19,7 +19,7 @@ import apiMessages from '../../../../server/libs/apiMessages';
 
 module.exports = function buy (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes

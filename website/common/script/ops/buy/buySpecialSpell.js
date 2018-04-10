@@ -14,7 +14,7 @@ module.exports = function buySpecialSpell (user, req = {}, analytics) {
   let key = get(req, 'params.key');
   let quantity = req.quantity || 1;
 
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
   let item = content.special[key];
   if (!item) throw new NotFound(i18n.t('spellNotFound', {spellId: key}, req.language));

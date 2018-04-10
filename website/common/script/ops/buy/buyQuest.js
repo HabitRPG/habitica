@@ -15,7 +15,7 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   let quantity = req.quantity ? Number(req.quantity) : 1;
   if (isNaN(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
 
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
   let item = content.quests[key];
   if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));
