@@ -23,7 +23,7 @@ const featuredItems = {
   quests: [
     {
       type: 'quests',
-      path: 'quests.pterodactyl',
+      path: 'quests.squirrel',
     },
     {
       type: 'quests',
