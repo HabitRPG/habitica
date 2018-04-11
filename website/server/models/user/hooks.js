@@ -208,19 +208,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // we do not want to run any hook that relies on user.items because it will
   // use the default values defined in the user schema and not the real ones.
   //
-  // To check if a field was selected Document.isSelected('field') can be used.
-  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isSelected
-  // IMPORTANT NOTE2 : due to a bug in mongoose (https://github.com/Automattic/mongoose/issues/5063)
-  // document.isSelected('items') will return true even if only a sub field (like 'items.mounts')
-  // was selected. So this fix only works as long as the entire subdoc is selected
-  // For example in the code below it won't work if only `achievements.beastMasterCount` is selected
-  // which is why we should only ever select the full paths and not subdocs,
-  // or if we really have to do the document.isSelected() calls should check for
-  // every specific subpath (items.mounts, items.pets, ...) but it's better to avoid it
-  // since it'll break as soon as a new field is added to the schema but not here.
+  // To check if a field was selected Document.isDirectSelected('field') can be used.
+  // more info on its usage can be found at http://mongoosejs.com/docs/api.html#document_Document-isDirectSelected
 
   // do not calculate achievements if items or achievements are not selected
-  if (this.isSelected('items') && this.isSelected('achievements')) {
+  if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
     // Determines if Beast Master should be awarded
     let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
@@ -250,7 +242,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 
   // Manage unallocated stats points notifications
-  if (this.isSelected('stats') && this.isSelected('notifications') && this.isSelected('flags') && this.isSelected('preferences')) {
+  if (this.isDirectSelected('stats') && this.isDirectSelected('notifications') && this.isDirectSelected('flags') && this.isDirectSelected('preferences')) {
     const pointsToAllocate = this.stats.points;
     const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
@@ -287,21 +279,27 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
   }
 
-  // Enable weekly recap emails for old users who sign in
-  if (this.flags.lastWeeklyRecapDiscriminator) {
-    // Enable weekly recap emails in 24 hours
-    this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
-    // Unset the field so this is run only once
-    this.flags.lastWeeklyRecapDiscriminator = undefined;
+  if(this.isDirectSelected('flags')){
+    // Enable weekly recap emails for old users who sign in
+    if (this.flags.lastWeeklyRecapDiscriminator) {
+      // Enable weekly recap emails in 24 hours
+      this.flags.lastWeeklyRecap = moment().subtract(6, 'days').toDate();
+      // Unset the field so this is run only once
+      this.flags.lastWeeklyRecapDiscriminator = undefined;
+    }
   }
 
-  if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
-    this.preferences.dayStart = 0;
+  if (this.isDirectSelected('preferences')) {
+    if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+      this.preferences.dayStart = 0;
+    }
   }
 
   // our own version incrementer
-  if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
-  this._v++;
+  if (this.isDirectSelected('_v')) {
+    if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
+    this._v++;
+  }
 
   // Populate new users with default content
   if (this.isNew) {
