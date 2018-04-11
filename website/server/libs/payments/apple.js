@@ -28,7 +28,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
   let appleRes = await iap.validate(iap.APPLE, receipt);
   let isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
-  let purchaseDataList = iap.getPurchaseData(appleRes);
+  const purchaseDataList = iap.getPurchaseData(appleRes);
   if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   let correctReceipt = false;
 
