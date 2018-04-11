@@ -584,8 +584,8 @@ export default {
         upIcon,
       }),
       chat: {
-         submitDisable: false,
-         submitTimeout: null,
+        submitDisable: false,
+        submitTimeout: null,
       },
       group: {
         chat: [],

@@ -398,8 +398,8 @@ export default {
         challenges: true,
       },
       chat: {
-         submitDisable: false,
-         submitTimeout: null,
+        submitDisable: false,
+        submitTimeout: null,
       },
       newMessage: '',
       coords: {
