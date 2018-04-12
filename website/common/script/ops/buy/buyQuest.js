@@ -18,7 +18,7 @@ module.exports = function buyQuest (user, req = {}, analytics) {
   if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
   let item = content.quests[key];
-  if (!item) throw new NotFound(i18n.t('questNotFound', {key}, req.language));
+  if (!item) throw new NotFound(apiMessages('questNotFound', {key}));
 
   if (key === 'lostMasterclasser1' && !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3)) {
     throw new NotAuthorized(i18n.t('questUnlockLostMasterclasser', req.language));

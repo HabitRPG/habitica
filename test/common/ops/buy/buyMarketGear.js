@@ -203,7 +203,7 @@ describe('shared.ops.buyMarketGear', () => {
         buyGear(user, {params});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
-        expect(err.message).to.equal(i18n.t('itemNotFound', params));
+        expect(err.message).to.equal(apiMessages('itemNotFound', params));
         done();
       }
     });

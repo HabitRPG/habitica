@@ -43,7 +43,7 @@ describe('shared.ops.buySpecialSpell', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(i18n.t('spellNotFound', {spellId: 'notExisting'}));
+      expect(err.message).to.equal(apiMessages('spellNotFound', {spellId: 'notExisting'}));
       done();
     }
   });
