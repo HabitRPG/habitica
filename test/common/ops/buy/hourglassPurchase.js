@@ -39,7 +39,7 @@ describe('common.ops.hourglassPurchase', () => {
         hourglassPurchase(user, {params: {key: 'Base'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.eql(i18n.t('missingTypeParam'));
+        expect(err.message).to.eql(apiMessages('missingTypeParam'));
         done();
       }
     });

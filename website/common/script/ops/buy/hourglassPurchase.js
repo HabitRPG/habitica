@@ -14,7 +14,7 @@ module.exports = function purchaseHourglass (user, req = {}, analytics) {
   if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
 
   let type = get(req, 'params.type');
-  if (!type) throw new BadRequest(i18n.t('missingTypeParam', req.language));
+  if (!type) throw new BadRequest(apiMessages('missingTypeParam'));
 
   if (!content.timeTravelStable[type]) {
     throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: keys(content.timeTravelStable).toString()}, req.language));

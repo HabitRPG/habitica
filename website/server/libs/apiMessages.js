@@ -13,6 +13,7 @@ const messages = {
   statsObjectRequired: '"stats" update is required',
   queryPageInteger: 'req.query.page must be an integer greater than or equal to 0.',
 
+  missingTypeParam: '"req.params.type" is required.',
   missingKeyParam: '"req.params.key" is required.',
   itemNotFound: 'Item "<%= key %>" not found.',
   questNotFound: 'Quest "<%= key %>" not found.',
