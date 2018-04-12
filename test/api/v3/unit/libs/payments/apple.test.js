@@ -81,7 +81,7 @@ describe('Apple Payments', ()  => {
       user.canGetGems.restore();
     });
 
-    it.only('errors if amount does not exist', async () => {
+    it('errors if amount does not exist', async () => {
       sinon.stub(user, 'canGetGems').returnsPromise().resolves(true);
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
@@ -197,6 +197,15 @@ describe('Apple Payments', ()  => {
       payments.createSubscription.restore();
     });
 
+    it('should throw an error if sku is empty', async () => {
+      await expect(applePayments.subscribe('', user, receipt, headers, nextPaymentProcessing))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 400,
+          name: 'BadRequest',
+          message: i18n.t('missingSubscriptionCode'),
+        });
+    });
+
     it('should throw an error if receipt is invalid', async () => {
       iapModule.isValidated.restore();
       iapIsValidatedStub = sinon.stub(iapModule, 'isValidated')
@@ -208,6 +217,57 @@ describe('Apple Payments', ()  => {
           name: 'NotAuthorized',
           message: applePayments.constants.RESPONSE_INVALID_RECEIPT,
         });
+    });
+
+    const subOptions = [
+      {
+        sku: 'subscription1month',
+        subKey: 'basic_earned',
+      },
+      {
+        sku: 'com.habitrpg.ios.habitica.subscription.3month',
+        subKey: 'basic_3mo',
+      },
+      {
+        sku: 'com.habitrpg.ios.habitica.subscription.6month',
+        subKey: 'basic_6mo',
+      },
+      {
+        sku: 'com.habitrpg.ios.habitica.subscription.12month',
+        subKey: 'basic_12mo',
+      },
+    ];
+    subOptions.forEach(option => {
+      it(`creates a user subscription for ${option.sku}`, async () => {
+        iapModule.getPurchaseData.restore();
+        iapGetPurchaseDataStub = sinon.stub(iapModule, 'getPurchaseData')
+          .returns([{
+            expirationDate: moment.utc().add({day: 1}).toDate(),
+            productId: option.sku,
+            transactionId: token,
+          }]);
+        sub = common.content.subscriptionBlocks[option.subKey];
+
+        await applePayments.subscribe(option.sku, user, receipt, headers, nextPaymentProcessing);
+
+        expect(iapSetupStub).to.be.calledOnce;
+        expect(iapValidateStub).to.be.calledOnce;
+        expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
+        expect(iapIsValidatedStub).to.be.calledOnce;
+        expect(iapIsValidatedStub).to.be.calledWith({});
+        expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+        expect(paymentsCreateSubscritionStub).to.be.calledOnce;
+        expect(paymentsCreateSubscritionStub).to.be.calledWith({
+          user,
+          customerId: token,
+          paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
+          sub,
+          headers,
+          additionalData: receipt,
+          nextPaymentProcessing,
+        });
+      });
     });
 
     it('creates a user subscription', async () => {
