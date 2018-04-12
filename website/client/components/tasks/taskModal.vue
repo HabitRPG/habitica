@@ -864,7 +864,6 @@ export default {
       if (!this.task) return;
       const task = this.task;
       const repeatsOn = newRepeatsOn || this.repeatsOn;
-      console.log(this.repeatsOn, newRepeatsOn)
 
       if (task.frequency === 'monthly') {
         if (repeatsOn === 'dayOfMonth') {
@@ -883,7 +882,6 @@ export default {
           task.repeat[shortDay] = true;
         }
       }
-      console.log(this.repeatsOn)
     },
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
