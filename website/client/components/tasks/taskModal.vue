@@ -797,6 +797,9 @@ export default {
 
         return repeatsOn;
       },
+      set (newRepeatsOn) {
+        this.calculateMonthlyRepeatDays(newRepeatsOn);
+      },
     },
     selectedTags () {
       return this.getTagsFor(this.task);
@@ -857,10 +860,11 @@ export default {
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
     },
-    calculateMonthlyRepeatDays () {
+    calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
       const task = this.task;
-      const repeatsOn = this.repeatsOn;
+      const repeatsOn = newRepeatsOn || this.repeatsOn;
+      console.log(this.repeatsOn, newRepeatsOn)
 
       if (task.frequency === 'monthly') {
         if (repeatsOn === 'dayOfMonth') {
@@ -879,6 +883,7 @@ export default {
           task.repeat[shortDay] = true;
         }
       }
+      console.log(this.repeatsOn)
     },
     async submit () {
       if (this.newChecklistItem) this.addChecklistItem();
