@@ -194,7 +194,7 @@ describe('Apple Payments', ()  => {
       iapModule.validate.restore();
       iapModule.isValidated.restore();
       iapModule.getPurchaseData.restore();
-      payments.createSubscription.restore();
+      if (payments.createSubscription.restore) payments.createSubscription.restore();
     });
 
     it('should throw an error if sku is empty', async () => {
@@ -270,26 +270,18 @@ describe('Apple Payments', ()  => {
       });
     });
 
-    it('creates a user subscription', async () => {
+    it('errors when a user is already subscribed', async () => {
+      payments.createSubscription.restore();
+      user = new User();
+
       await applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing);
 
-      expect(iapSetupStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledWith(iap.APPLE, receipt);
-      expect(iapIsValidatedStub).to.be.calledOnce;
-      expect(iapIsValidatedStub).to.be.calledWith({});
-      expect(iapGetPurchaseDataStub).to.be.calledOnce;
-
-      expect(paymentsCreateSubscritionStub).to.be.calledOnce;
-      expect(paymentsCreateSubscritionStub).to.be.calledWith({
-        user,
-        customerId: token,
-        paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-        sub,
-        headers,
-        additionalData: receipt,
-        nextPaymentProcessing,
-      });
+      await expect(applePayments.subscribe(sku, user, receipt, headers, nextPaymentProcessing))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: applePayments.constants.RESPONSE_ALREADY_USED,
+        });
     });
   });
 
