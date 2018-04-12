@@ -34,7 +34,7 @@
     "communityGuidelines": "zásady komunity",
     "communityGuidelinesRead1": "Prosíme, přečti si naše",
     "communityGuidelinesRead2": "než začneš chatovat.",
-    "bannedWordUsed": "Oops! Vypadá to, že příspěvek obsahuje sprosté slovo, náboženskou přísahu, nebo referenci na návykovou látku či dospělé téma. Habitica má uživatele z různých prostředí a věkových kategorií, takže se snažíme držet náš chat co nejvíce přístupný. Nebojte se tedy upravit svoji zprávu tak, aby jste ji mohli zveřejnit!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Tvůj příspěvek obsahoval nevhodný jazyk, takže ti byl zrušen přístup na chat.",
     "party": "Družina",
     "createAParty": "Vytvořit družinu",

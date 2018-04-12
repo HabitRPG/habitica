@@ -34,7 +34,7 @@
     "communityGuidelines": "Retningslinjer for Fællesskabet",
     "communityGuidelinesRead1": "Læs venligst vores",
     "communityGuidelinesRead2": "før du chatter.",
-    "bannedWordUsed": "Ups! Det ser ud til at denne besked indeholder et bandeord, religiøs ed, eller en reference til en vanedannende substans eller voksen emne. Habitica har brugere fra alle baggrunde, så vi holder vores chat meget ren. Føl dig endelig fri til at rette din besked, så du kan sende den!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
     "party": "Gruppe",
     "createAParty": "Opret en Gruppe",

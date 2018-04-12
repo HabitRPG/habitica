@@ -34,7 +34,7 @@
     "communityGuidelines": "社区准则",
     "communityGuidelinesRead1": "请阅读我们的",
     "communityGuidelinesRead2": "在聊天之前",
-    "bannedWordUsed": "哦呀！似乎这篇的文章包含脏话，宗教的诅咒，或者涉及到成瘾物质或成人话题。habitica的用户拥有各种不同的背景，所以我们得保持我们的聊天环境很干净。请修改您的消息以发送它！",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "您的帖子包含不合适的语言，您的聊天权限已被取消。",
     "party": "队伍",
     "createAParty": "创建一个队伍",
