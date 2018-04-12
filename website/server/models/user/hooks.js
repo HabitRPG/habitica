@@ -279,7 +279,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
   }
 
-  if(this.isDirectSelected('flags')){
+  if (this.isDirectSelected('flags')) {
     // Enable weekly recap emails for old users who sign in
     if (this.flags.lastWeeklyRecapDiscriminator) {
       // Enable weekly recap emails in 24 hours
