@@ -459,8 +459,9 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 export function chatDefaults (msg, user) {
-  let message = {
-    id: shared.uuid(),
+  const id = shared.uuid();
+  const message = {
+    id,
     _id: id,
     text: msg,
     timestamp: Number(new Date()),
