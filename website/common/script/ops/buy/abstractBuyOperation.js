@@ -1,6 +1,8 @@
 import i18n from '../../i18n';
 import {
-  NotAuthorized, NotImplementedError,
+  NotAuthorized,
+  NotImplementedError,
+  BadRequest,
 } from '../../libs/errors';
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
@@ -16,7 +18,14 @@ export class AbstractBuyOperation {
     this.req = req || {};
     this.analytics = analytics;
 
-    this.quantity = _get(req, 'quantity', 1);
+    this.quantity = 1;
+
+    if (this.multiplePurchaseAllowed()) {
+      let quantity = _get(req, 'quantity');
+
+      this.quantity = quantity ? Number(quantity) : 1;
+      if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
+    }
   }
 
   /**
@@ -110,7 +119,7 @@ export class AbstractGoldItemOperation extends AbstractBuyOperation {
     }
   }
 
-  substractCurrency (user, item, quantity = 1) {
+  subtractCurrency (user, item, quantity = 1) {
     let itemValue = this.getItemValue(item);
 
     user.stats.gp -= itemValue * quantity;

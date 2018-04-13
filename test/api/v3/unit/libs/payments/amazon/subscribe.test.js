@@ -5,8 +5,8 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import { model as User } from '../../../../../../../website/server/models/user';
 import { model as Coupon } from '../../../../../../../website/server/models/coupon';
-import amzLib from '../../../../../../../website/server/libs/amazonPayments';
-import payments from '../../../../../../../website/server/libs/payments';
+import amzLib from '../../../../../../../website/server/libs/payments/amazon';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../../website/common';
 
 const i18n = common.i18n;

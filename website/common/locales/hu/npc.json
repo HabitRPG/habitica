@@ -96,6 +96,7 @@
     "unlocked": "Új tárgyak elérhetőek",
     "alreadyUnlocked": "A teljes szett már elérhető.",
     "alreadyUnlockedPart": "A teljes szett már részben elérhető.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Falls diese Einstellung ausgewählt wird, wird Habitica Dich fragen, ob Du die Tagesaufgabe absichtlich nicht abgehakt hast, bevor der Schaden an deinem Avatar berechnet und angewandt wird. Dies kann Dich vor unbeabsichtigtem Schaden schützen.",
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist.",
     "searchTasks": "Durchsuche die Überschriften und Beschreibungen...",
-    "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu."
+    "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu.",
+    "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden."
 }

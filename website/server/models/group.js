@@ -10,7 +10,7 @@ import { model as Challenge} from './challenge';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
-import payments from '../libs/payments';
+import payments from '../libs/payments/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -28,8 +28,8 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
-import amazonPayments from '../libs/amazonPayments';
-import stripePayments from '../libs/stripePayments';
+import amazonPayments from '../libs/payments/amazon';
+import stripePayments from '../libs/payments/stripe';
 import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
@@ -885,7 +885,7 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }));
   }
 
-  return Promise.all(promises);
+  return await Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {

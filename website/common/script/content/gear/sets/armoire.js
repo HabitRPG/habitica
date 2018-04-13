@@ -345,8 +345,10 @@ let armor = {
 let body = {
   cozyScarf: {
     text: t('bodyArmoireCozyScarfText'),
-    notes: t('bodyArmoireCozyScarfNotes'),
+    notes: t('bodyArmoireCozyScarfNotes', { attrs: 5 }),
     value: 100,
+    con: 5,
+    per: 5,
     set: 'lamplighter',
     canOwn: ownsItem('body_armoire_cozyScarf'),
   },
@@ -355,10 +357,19 @@ let body = {
 let eyewear = {
   plagueDoctorMask: {
     text: t('eyewearArmoirePlagueDoctorMaskText'),
-    notes: t('eyewearArmoirePlagueDoctorMaskNotes'),
+    notes: t('eyewearArmoirePlagueDoctorMaskNotes', { attrs: 5 }),
+    con: 5,
+    int: 5,
     value: 100,
     set: 'plagueDoctor',
     canOwn: ownsItem('eyewear_armoire_plagueDoctorMask'),
+  },
+  goofyGlasses: {
+    text: t('eyewearArmoireGoofyGlassesText'),
+    notes: t('eyewearArmoireGoofyGlassesNotes', { per: 10 }),
+    value: 100,
+    per: 10,
+    canOwn: ownsItem('eyewear_armoire_goofyGlasses'),
   },
 };
 
@@ -726,6 +737,27 @@ let head = {
     set: 'fluttery',
     canOwn: ownsItem('head_armoire_flutteryWig'),
   },
+  bigWig: {
+    text: t('headArmoireBigWigText'),
+    notes: t('headArmoireBigWigNotes', { str: 10 }),
+    value: 100,
+    str: 10,
+    canOwn: ownsItem('head_armoire_bigWig'),
+  },
+  paperBag: {
+    text: t('headArmoirePaperBagText'),
+    notes: t('headArmoirePaperBagNotes', { con: 10 }),
+    value: 100,
+    con: 10,
+    canOwn: ownsItem('head_armoire_paperBag'),
+  },
+  birdsNest: {
+    text: t('headArmoireBirdsNestText'),
+    notes: t('headArmoireBirdsNestNotes', { int: 10 }),
+    value: 100,
+    int: 10,
+    canOwn: ownsItem('head_armoire_birdsNest'),
+  },
 };
 
 let shield = {
@@ -910,8 +942,9 @@ let shield = {
 let headAccessory = {
   comicalArrow: {
     text: t('headAccessoryArmoireComicalArrowText'),
-    notes: t('headAccessoryArmoireComicalArrowNotes'),
+    notes: t('headAccessoryArmoireComicalArrowNotes', { str: 10 }),
     value: 100,
+    str: 10,
     canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
   },
 };

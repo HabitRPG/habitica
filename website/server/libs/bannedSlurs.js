@@ -84,7 +84,8 @@
 
 // DO NOT EDIT! See the comments at the top of this file.
 let bannedSlurs = [
-  'TEST_PLACEHOLDER_SLUR_WORD_HERE',
+  'TESTPLACEHOLDERSLURWORDHERE',
+  'TESTPLACEHOLDERSLURWORDHERE1',
 
 
 

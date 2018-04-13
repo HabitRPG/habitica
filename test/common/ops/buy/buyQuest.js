@@ -1,7 +1,7 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyQuest from '../../../../website/common/script/ops/buy/buyQuest';
+import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuest';
 import {
   BadRequest,
   NotAuthorized,
@@ -12,6 +12,12 @@ import i18n from '../../../../website/common/script/i18n';
 describe('shared.ops.buyQuest', () => {
   let user;
   let analytics = {track () {}};
+
+  function buyQuest (_user, _req, _analytics) {
+    const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
 
   beforeEach(() => {
     user = generateUser();
