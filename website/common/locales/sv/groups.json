@@ -34,7 +34,7 @@
     "communityGuidelines": "Gemenskapens riktlinjer",
     "communityGuidelinesRead1": "Vänligen läs vår",
     "communityGuidelinesRead2": "Innan du Pratar",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Ditt inlägg innehöll olämpligt språk och dina chatt privilegium har återkallats.",
     "party": "Sällskap",
     "createAParty": "Starta ett Sällskap",

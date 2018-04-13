@@ -34,7 +34,7 @@
     "communityGuidelines": "Topluluk Kuralları",
     "communityGuidelinesRead1": "Sohbet etmeden önce, lütfen",
     "communityGuidelinesRead2": "metnimizi oku.",
-    "bannedWordUsed": "Hata! Görünüşe göre bu yazı bir küfür, dini yemin veya bağımlılık yapıcı bir madde veya yetişkin konusuna gönderme içeriyor. Habitica'nın her kökenden kullanıcıları var, bu nedenle sohbetimizi çok temiz tutuyoruz. Mesajını yayınlayabilmen için mesajını düzeltmekten çekinme!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Mesajındaki uygunsuz içerik sebebiyle sohbet ayrıcalıkların iptal edildi.",
     "party": "Takım",
     "createAParty": "Takım Oluştur",

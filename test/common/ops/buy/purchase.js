@@ -1,4 +1,5 @@
 import purchase from '../../../../website/common/script/ops/buy/purchase';
+import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
@@ -25,10 +26,12 @@ describe('shared.ops.purchase', () => {
 
   beforeEach(() => {
     sinon.stub(analytics, 'track');
+    sinon.spy(pinnedGearUtils, 'removeItemByPath');
   });
 
   afterEach(() => {
     analytics.track.restore();
+    pinnedGearUtils.removeItemByPath.restore();
   });
 
   context('failure conditions', () => {
@@ -174,6 +177,12 @@ describe('shared.ops.purchase', () => {
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
       user.purchased.plan.customerId = 'customer-id';
+      user.pinnedItems.push({type: 'eggs', key: 'Wolf'});
+      user.pinnedItems.push({type: 'hatchingPotions', key: 'Base'});
+      user.pinnedItems.push({type: 'food', key: SEASONAL_FOOD});
+      user.pinnedItems.push({type: 'quests', key: 'gryphon'});
+      user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
+      user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
 
     it('purchases gems', () => {
@@ -202,6 +211,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}}, analytics);
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
       expect(analytics.track).to.be.calledOnce;
     });
 
@@ -212,6 +222,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases food', () => {
@@ -221,6 +232,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases quests', () => {
@@ -230,6 +242,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items[type][key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases gear', () => {
@@ -239,6 +252,7 @@ describe('shared.ops.purchase', () => {
       purchase(user, {params: {type, key}});
 
       expect(user.items.gear.owned[key]).to.be.true;
+      expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
     });
 
     it('purchases quest bundles', () => {
@@ -261,6 +275,7 @@ describe('shared.ops.purchase', () => {
 
       expect(user.balance).to.equal(startingBalance - price);
 
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
       clock.restore();
     });
   });
