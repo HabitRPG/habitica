@@ -96,6 +96,7 @@
     "unlocked": "Voorwerpen zijn ontgrendeld",
     "alreadyUnlocked": "Volledige set is al ontgrendeld.",
     "alreadyUnlockedPart": "Volledige set is al gedeeltelijk ontgrendeld.",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
     "newBaileyUpdate": "New Bailey Update!",

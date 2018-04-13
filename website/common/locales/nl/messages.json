@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "path `<%= operation %>`  is niet opgeslagen, omdat het een beschermd path is.",
     "messageUserOperationNotFound": "<%= operation %> operatie niet gevonden",
     "messageNotificationNotFound": "Mededeling niet gevonden.",
+    "messageNotAbleToBuyInBulk": "Dit voorwerp kan niet worden gekocht in hoeveelheden boven 1.",
     "notificationsRequired": "Notificatie-id's zijn vereist.",
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
     "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>. Denk eraan aardig en respectvol te zijn en de gemeenschapsrichtlijnen te volgen!"

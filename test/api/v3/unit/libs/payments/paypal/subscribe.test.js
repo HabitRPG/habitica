@@ -2,7 +2,7 @@
 import moment from 'moment';
 import cc from 'coupon-code';
 
-import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../../website/server/libs/payments/paypal';
 import { model as Coupon } from '../../../../../../../website/server/models/coupon';
 import common from '../../../../../../../website/common';
 

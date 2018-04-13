@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import payments from '../../../../../../../website/server/libs/payments';
-import paypalPayments from '../../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../../website/server/libs/payments/paypal';
+import payments from '../../../../../../../website/server/libs/payments/payments';
 import { model as User } from '../../../../../../../website/server/models/user';
 
 describe('checkout success', () => {

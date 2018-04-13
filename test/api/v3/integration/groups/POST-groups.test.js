@@ -136,6 +136,22 @@ describe('POST /group', () => {
           },
         });
       });
+
+      it('returns an error when a user with no chat privileges attempts to create a public guild', async () => {
+        await user.update({ 'flags.chatRevoked': true });
+
+        await expect(
+          user.post('/groups', {
+            name: 'Test Public Guild',
+            type: 'guild',
+            privacy: 'public',
+          })
+        ).to.eventually.be.rejected.and.eql({
+          code: 401,
+          error: 'NotAuthorized',
+          message: t('cannotCreatePublicGuildWhenMuted'),
+        });
+      });
     });
 
     context('private guild', () => {
@@ -161,6 +177,17 @@ describe('POST /group', () => {
             name: user.profile.name,
           },
         });
+      });
+
+      it('creates a private guild when the user has no chat privileges', async () => {
+        await user.update({ 'flags.chatRevoked': true });
+        let privateGuild = await user.post('/groups', {
+          name: groupName,
+          type: groupType,
+          privacy: groupPrivacy,
+        });
+
+        expect(privateGuild._id).to.exist;
       });
 
       it('deducts gems from user and adds them to guild bank', async () => {
@@ -199,6 +226,16 @@ describe('POST /group', () => {
           name: user.profile.name,
         },
       });
+    });
+
+    it('creates a party when the user has no chat privileges', async () => {
+      await user.update({ 'flags.chatRevoked': true });
+      let party = await user.post('/groups', {
+        name: partyName,
+        type: partyType,
+      });
+
+      expect(party._id).to.exist;
     });
 
     it('does not require gems to create a party', async () => {

@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "If this setting is applied, Habitica will ask you if you meant to leave the Daily undone before calculating and applying damage to your avatar. This can protect you against unintentional damage.",
     "repeatDayError": "Tjek venligst at du har mindst en ugedag valgt.",
     "searchTasks": "Søg i titler og beskrivelser...",
-    "sessionOutdated": "Din session er forældet. Refresh din browser eller synkronisér."
+    "sessionOutdated": "Din session er forældet. Refresh din browser eller synkronisér.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

@@ -59,6 +59,7 @@
     "messageUserOperationProtected": "cesta `<%= operation %>` nebola uložená, keďže je to chránená cesta.",
     "messageUserOperationNotFound": "<%= operation %> operácia sa nenašla",
     "messageNotificationNotFound": "Oznámenie sa nenašlo.",
+    "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
     "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!"

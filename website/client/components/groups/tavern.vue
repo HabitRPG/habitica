@@ -765,7 +765,8 @@ export default {
     },
     pendingDamage () {
       if (!this.user.party.quest.progress.up) return 0;
-      return parseFloat(this.user.party.quest.progress.up).toFixed(1);
+      return this.$options.filters.floor(this.user.party.quest.progress.up, 10);
+      // keep user's pending damage consistent with how it's displayed on the party page
     },
     bossCurrentHealth () {
       if (!this.group.quest.progress.hp) return 0;

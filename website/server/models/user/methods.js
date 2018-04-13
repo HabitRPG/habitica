@@ -10,10 +10,10 @@ import {
 import { defaults, map, flatten, flow, compact, uniq, partialRight } from 'lodash';
 import { model as UserNotification } from '../userNotification';
 import schema from './schema';
-import payments from '../../libs/payments';
-import amazonPayments from '../../libs/amazonPayments';
-import stripePayments from '../../libs/stripePayments';
-import paypalPayments from '../../libs/paypalPayments';
+import payments from '../../libs/payments/payments';
+import amazonPayments from '../../libs/payments/amazon';
+import stripePayments from '../../libs/payments/stripe';
+import paypalPayments from '../../libs/payments/paypal';
 
 const daysSince = common.daysSince;
 
