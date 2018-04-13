@@ -82,7 +82,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
 };
 
 api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing) {
-  if (user.isSubscribed()) {
+  if (user && user.isSubscribed()) {
     throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
   }
 
