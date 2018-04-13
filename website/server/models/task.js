@@ -131,8 +131,12 @@ TaskSchema.plugin(baseModel, {
       delete taskObj.value;
     }
 
-    if (taskObj.priority && !Number.isNaN(Number.parseFloat(taskObj.priority))) {
-      taskObj.priority = Number(taskObj.priority.toFixed(1));
+    if (taskObj.priority) {
+      let parsedFloat = Number.parseFloat(taskObj.priority);
+
+      if (!Number.isNaN(parsedFloat)) {
+        taskObj.priority = parsedFloat.toFixed(1);
+      }
     }
 
     return taskObj;
