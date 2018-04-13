@@ -1769,4 +1769,68 @@ api.togglePinnedItem = {
   },
 };
 
+/**
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @apiName MovePinnedItem
+ * @apiGroup User
+ *
+ * @apiParam (Path) {String} path The unique item path used for pinning
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new pinned items order.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests","_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
+ *
+ * @apiUse TaskNotFound
+ */
+api.movePinnedItem = {
+  method: 'POST',
+  url: '/user/move-pinned-item/:path/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('path', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let path = req.params.path;
+    let position = Number(req.params.position);
+
+    // If something has been added or removed from the inAppRewards, we need
+    // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
+    // Uses the current pinnedItemsOrder to return these in the right order,
+    // the new reset array will be in the right order before we do the swap
+    let currentPinnedItems = common.inAppRewards(user);
+    if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
+      user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
+    }
+
+    // Adjust the order
+    let currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
+    let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
+
+    if (currentIndex === -1) {
+      throw new BadRequest(res.t('wrongItemPath', req.language));
+    }
+
+    // Remove the one we will move
+    user.pinnedItemsOrder.splice(currentIndex, 1);
+
+    // reinsert the item in position (or just at the end)
+    if (position === -1) {
+      user.pinnedItemsOrder.push(currentPinnedItemPath);
+    } else {
+      user.pinnedItemsOrder.splice(position, 0, currentPinnedItemPath);
+    }
+
+    await user.save();
+    let userJson = user.toJSON();
+
+    res.respond(200, userJson.pinnedItemsOrder);
+  },
+};
+
 module.exports = api;
