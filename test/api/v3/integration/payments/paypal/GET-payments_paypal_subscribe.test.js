@@ -1,9 +1,9 @@
 import {
   generateUser,
-  translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import shared from '../../../../../../website/common';
+import apiMessages from '../../../../../../website/server/libs/apiMessages';
 
 describe('payments : paypal #subscribe', () => {
   let endpoint = '/paypal/subscribe';
@@ -17,7 +17,7 @@ describe('payments : paypal #subscribe', () => {
     await expect(user.get(endpoint)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('missingSubKey'),
+      message: apiMessages('missingSubKey'),
     });
   });
 

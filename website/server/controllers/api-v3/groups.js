@@ -21,9 +21,9 @@ import { encrypt } from '../../libs/encryption';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import pusher from '../../libs/pusher';
 import common from '../../../common';
-import payments from '../../libs/payments';
-import stripePayments from '../../libs/stripePayments';
-import amzLib from '../../libs/amazonPayments';
+import payments from '../../libs/payments/payments';
+import stripePayments from '../../libs/payments/stripe';
+import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
 import apiMessages from '../../libs/apiMessages';
 
@@ -78,9 +78,10 @@ let api = {};
  *       "privacy": "private"
  *     }
  *
- * @apiError (400) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
- * @apiError (400) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
- * @apiError (400) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} messageInsufficientGems User does not have enough gems (4)
+ * @apiError (401) {NotAuthorized} partyMustbePrivate Party must have privacy set to private
+ * @apiError (401) {NotAuthorized} messageGroupAlreadyInParty
+ * @apiError (401) {NotAuthorized} cannotCreatePublicGuildWhenMuted You cannot create a public guild because your chat privileges have been revoked.
  *
  * @apiSuccess (201) {Object} data The created group (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
  *
@@ -115,6 +116,7 @@ api.createGroup = {
     group.leader = user._id;
 
     if (group.type === 'guild') {
+      if (group.privacy === 'public' && user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotCreatePublicGuildWhenMuted'));
       if (user.balance < 1) throw new NotAuthorized(res.t('messageInsufficientGems'));
 
       group.balance = 1;
@@ -273,7 +275,7 @@ api.createGroupPlan = {
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
  * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
- * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
@@ -294,7 +296,7 @@ api.getGroups = {
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
     req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -379,7 +381,7 @@ api.getGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -437,7 +439,7 @@ api.updateGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -501,7 +503,7 @@ api.joinGroup = {
     let user = res.locals.user;
     let inviter;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -671,7 +673,7 @@ api.rejectGroupInvite = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -745,10 +747,10 @@ api.leaveGroup = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     let user = res.locals.user;
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
-    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
+    req.checkQuery('keep', apiMessages('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', apiMessages('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -833,7 +835,7 @@ api.removeGroupMember = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1138,6 +1140,7 @@ async function _inviteByEmail (invite, group, inviter, req, res) {
  *
  * @apiError (401) {NotAuthorized} UserAlreadyInvited The user has already been invited to the group.
  * @apiError (401) {NotAuthorized} UserAlreadyInGroup The user is already a member of the group.
+ * @apiError (401) {NotAuthorized} CannotInviteWhenMuted You cannot invite anyone to a guild or party because your chat privileges have been revoked.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -1150,7 +1153,9 @@ api.inviteToGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
+
+    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
 
     if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 

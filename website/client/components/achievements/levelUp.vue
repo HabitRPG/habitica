@@ -149,7 +149,7 @@ export default {
   computed: {
     ...mapState({user: 'user.data'}),
     showAllocation () {
-      return this.user.flags.classSelected && !this.user.preferences.disableClasses && !this.user.preferences.automaticAllocation;
+      return this.$store.getters['members:hasClass'](this.user) && !this.user.preferences.automaticAllocation;
     },
   },
   methods: {

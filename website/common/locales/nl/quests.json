@@ -122,6 +122,7 @@
     "buyQuestBundle": "Koop queestebundel",
     "noQuestToStart": "Kun je geen queeste vinden om mee te beginnen? Bekijk de queestenwinkel op de markt om nieuwe uitgaven te ontdekken!",
     "pendingDamage": "<%= damage %> voorlopige schade",
+    "pendingDamageLabel": "voorlopige schade",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Gezondheid",
     "rageAttack": "Uitbarsting van Razernij:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Woede",

@@ -96,6 +96,7 @@
     "unlocked": "アイテムがアンロックされました",
     "alreadyUnlocked": "フルセットはすでにアンロックされています",
     "alreadyUnlockedPart": "フルセットはすでに一部アンロックされています",
+    "invalidQuantity": "購入する個数を数字で入れてください。",
     "USD": "(米ドル)",
     "newStuff": "Baileyの新着情報",
     "newBaileyUpdate": "Baileyから新しいお知らせがあります！",

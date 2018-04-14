@@ -97,7 +97,7 @@
     "questGoldenknight1Text": "Złoty Rycerz, część 1: Sroga reprymenda",
     "questGoldenknight1Notes": "Złoty Rycerz lustruje biednych Habitan. Nie zrobiłeś wszystkich Codziennych? Odhaczyłeś negatywny Nawyk? To dla niej pretekst, by cię gnębić opowiadaniem jak to powinieneś podążać za jej przykładem. Jest wzorem idealnego Habitanina, a ty tylko wielką porażką. Cóż, to wcale nie jest miłe! Każdy popełnia błędy. Nie powinno się nikogo przez to aż tak piętnować. Chyba już czas zebrać zeznania od urażonych Habitan i dać Złotemu Rycerzowi srogą reprymendę!",
     "questGoldenknight1CollectTestimony": "Zeznania",
-    "questGoldenknight1Completion": "Look at all these testimonies! Surely this will be enough to convince the Golden Knight. Now all you need to do is find her.",
+    "questGoldenknight1Completion": "Popatrz na te wszystkie zeznania! Z pewnością to wystarczy by przekonać Złotego Rycerza. Teraz musisz tylko ją znaleźć.",
     "questGoldenknight1DropGoldenknight2Quest": "Złoty Rycerz, część 2: Złoty Rycerz (zwój)",
     "questGoldenknight2Text": "Złoty Rycerz, część 2: Złoty Rycerz",
     "questGoldenknight2Notes": "Uzbrojeni w dziesiątki zeznań mieszkańców Habitiki, nareszcie możecie skonfrontować się ze Złotym Rycerzem. Zaczynasz jej recytować skargi, jedna po drugiej. \"A @Pfeffernusse twierdzi, że Twoje stałe przechwałki-\" Rycerz unosi  rękę by Cię uciszyć i szydzi: \"Proszę, ci ludzie są jedynie zazdrośni o moje sukcesy. Zamiast narzekać powinni po prostu pracować tak ciężko jak ja! Może powinnam pokazać Ci potęgę jaką możesz osiągnąć dzięki takiej gorliwości, jak moja!\" Rycerz unosi swoją Gwiazdę Poranną i przygotowuje się do ataku na Ciebie!",
@@ -594,5 +594,11 @@
     "questDysheartenerDropHippogriffMount": "Optymistyczny Hipogryf (Wierzchowiec)",
     "dysheartenerArtCredit": "Grafika zrobiona przez @AnnDeLune",
     "hugabugText": "Pakiet Misji Przytul Robaka",
-    "hugabugNotes": "Zawiera 'Krytyczna pluskwa,' 'Ślimak ze Ślęczącego Ścieku,' i 'Pa, Pa, Płomieńcu.' Dostępne do 31 Marca."
+    "hugabugNotes": "Zawiera 'Krytyczna pluskwa,' 'Ślimak ze Ślęczącego Ścieku,' i 'Pa, Pa, Płomieńcu.' Dostępne do 31 Marca.",
+    "questSquirrelText": "The Sneaky Squirrel",
+    "questSquirrelNotes": "You wake up and find you’ve overslept! Why didn’t your alarm go off? … How did an acorn get stuck in the ringer?<br><br>When you try to make breakfast, the toaster is stuffed with acorns. When you go to retrieve your mount, @Shtut is there, trying unsuccessfully to unlock their stable. They look into the keyhole. “Is that an acorn in there?”<br><br>@randomdaisy cries out, “Oh no! I knew my pet squirrels had gotten out, but I didn’t know they’d made such trouble! Can you help me round them up before they make any more of a mess?”<br><br>Following the trail of mischievously placed oak nuts, you track and catch the wayward sciurines, with @Cantras helping secure each one safely at home. But just when you think your task is almost complete, an acorn bounces off your helm! You look up to see a mighty beast of a squirrel, crouched in defense of a prodigious pile of seeds.<br><br>“Oh dear,” says @randomdaisy, softly. “She’s always been something of a resource guarder. We’ll have to proceed very carefully!” You circle up with your party, ready for trouble!",
+    "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
+    "questSquirrelBoss": "Sneaky Squirrel",
+    "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
 }

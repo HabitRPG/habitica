@@ -77,6 +77,9 @@ export async function createTasks (req, res, options = {}) {
 
   let toSave = Array.isArray(req.body) ? req.body : [req.body];
 
+  // Return if no tasks are passed, avoids errors with mongo $push being empty
+  if (toSave.length === 0) return [];
+
   let taskOrderToAdd = {};
 
   toSave = toSave.map(taskData => {
@@ -85,11 +88,6 @@ export async function createTasks (req, res, options = {}) {
 
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
-
-    // Attempt to round priority
-    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
-      newTask.priority = Number(newTask.priority.toFixed(1));
-    }
 
     if (challenge) {
       newTask.challenge.id = challenge.id;

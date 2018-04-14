@@ -244,7 +244,8 @@ export default {
     },
     userMp (after, before) {
       if (after === before) return;
-      if (!this.user.flags.classSelected || this.user.preferences.disableClasses) return;
+      if (!this.$store.getters['members:hasClass'](this.user)) return;
+
       let mana = after - before;
       this.mp(mana);
     },

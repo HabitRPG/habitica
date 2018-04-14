@@ -1,17 +1,24 @@
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import buyQuest from '../../../../website/common/script/ops/buy/buyQuest';
+import {BuyQuestWithGoldOperation} from '../../../../website/common/script/ops/buy/buyQuest';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
+import apiMessages from '../../../../website/server/libs/apiMessages';
 
 describe('shared.ops.buyQuest', () => {
   let user;
   let analytics = {track () {}};
+
+  function buyQuest (_user, _req, _analytics) {
+    const buyOp = new BuyQuestWithGoldOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
 
   beforeEach(() => {
     user = generateUser();
@@ -34,6 +41,43 @@ describe('shared.ops.buyQuest', () => {
     });
     expect(user.stats.gp).to.equal(5);
     expect(analytics.track).to.be.calledOnce;
+  });
+
+  it('buys a Quest scroll with the right quantity if a string is passed for quantity', () => {
+    user.stats.gp = 1000;
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+    }, analytics);
+    buyQuest(user, {
+      params: {
+        key: 'dilatoryDistress1',
+      },
+      quantity: '3',
+    }, analytics);
+
+    expect(user.items.quests).to.eql({
+      dilatoryDistress1: 4,
+    });
+  });
+
+  it('does not buy a Quest scroll when an invalid quantity is passed', (done) => {
+    user.stats.gp = 1000;
+    try {
+      buyQuest(user, {
+        params: {
+          key: 'dilatoryDistress1',
+        },
+        quantity: 'a',
+      }, analytics);
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('invalidQuantity'));
+      expect(user.items.quests).to.eql({});
+      expect(user.stats.gp).to.equal(1000);
+      done();
+    }
   });
 
   it('does not buy Quests without enough Gold', (done) => {
@@ -63,7 +107,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(i18n.t('questNotFound', {key: 'snarfblatter'}));
+      expect(err.message).to.equal(apiMessages('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
@@ -108,7 +152,7 @@ describe('shared.ops.buyQuest', () => {
       buyQuest(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('missingKeyParam'));
+      expect(err.message).to.equal(apiMessages('missingKeyParam'));
       done();
     }
   });

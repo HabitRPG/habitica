@@ -54,10 +54,15 @@ export function generateReq (options = {}) {
     body: {},
     query: {},
     headers: {},
-    header: sandbox.stub().returns(null),
+    header (header) {
+      return this.headers[header];
+    },
+    session: {},
   };
 
-  return defaultsDeep(options, defaultReq);
+  const req = defaultsDeep(options, defaultReq);
+
+  return req;
 }
 
 export function generateNext (func) {

@@ -97,7 +97,7 @@
     "questGoldenknight1Text": "La Dama de Oro, Parte 1: Un Regaño Severo",
     "questGoldenknight1Notes": "La Dama de Oro ha estado molestando a los pobres Habiticanos. ¿No cumpliste todas tus Diarias? ¿Marcaste un Hábito negativo? Ella lo usará como razón para acosarte y decir que tienes que seguir su ejemplo. Ella es el ejemplo brillante de un Habiticano perfecto y tú no eres más que un fracaso. Bueno, ¡eso no es para nada agradable! Todos cometen errores, y no deberían ser tratados con tanta negatividad por ello. ¡Tal vez es hora de reunir unos cuantos testimonios de Habiticanos ofendidos y darle a la Dama de Oro una severa reprimenda!",
     "questGoldenknight1CollectTestimony": "Testimonios",
-    "questGoldenknight1Completion": "Look at all these testimonies! Surely this will be enough to convince the Golden Knight. Now all you need to do is find her.",
+    "questGoldenknight1Completion": "¡Mira todos estos testimonios! Seguramente esto es suficiente para convencer a la Guerrera Dorada. Ahora todo lo que necesitas hacer es encontrarla.",
     "questGoldenknight1DropGoldenknight2Quest": "El caballero dorado Parte 2: Caballero de Oro (Pergamino)",
     "questGoldenknight2Text": "La Dama de Oro, Parte 2: Dama de Oro",
     "questGoldenknight2Notes": "\nArmado con docenas de testimonios de Habiticanos, finalmente te enfrentas al Caballero Dorado. Comienzas a recitar las quejas de los Habitcanos a ella, una por una. \"Y @Pfeffernusse dice que estás presumiendo constantemente-\" El caballero levanta su mano para silenciarte y se burla, \"Por favor, estas personas simplemente están celosas de mi éxito. En lugar de quejarse, ¡simplemente deberían trabajar tan duro como yo! le mostraré el poder que puede alcanzar a través de la diligencia como la mía! \" ¡Ella levanta su morningstar y se prepara para atacarte!\n",
@@ -251,7 +251,7 @@
     "questDilatoryDistress3Boss": "Adva, la Sirena Usurpadora",
     "questDilatoryDistress3DropFish": "Pescado (Comida)",
     "questDilatoryDistress3DropWeapon": "Tridente de Mareas Tempestuosas (Arma)",
-    "questDilatoryDistress3DropShield": "Moonpearl Shield (Off-Hand Item)",
+    "questDilatoryDistress3DropShield": "Escudo de Perla Lunar (Artículo Adicional)",
     "questCheetahText": "Como un Guepardo",
     "questCheetahNotes": "Mientras realizas una caminata a través de la Sabana Sloensteadi con tus amigos @PainterProphet, @tivaquinn, @Unruly Hyena, y @Crawford, te sobresaltas al ver a un Guepardo pasar corriendo con un nuevo Habiticano atrapado entre sus mandíbulas. Bajo las patas abrasadoras del Guepardo, las tareas son consumidas por el fuego como si estuvieran completas -- ¡antes de que alguien tenga la chance de realmente terminarlas! El Habiticano te ve y grita, \"¡Por favor, ayúdenme! Este Guepardo me está haciendo aumentar de nivel demasiado rápido, pero no estoy logrando hacer nada. Quiero disminuir la velocidad y disfrutar el juego. ¡Hagan que se detenga!\" Tú recuerdas cariñosamente tus propios días como novato, ¡y estás seguro de que tienes que ayudar al principiante deteniendo al Guepardo!",
     "questCheetahCompletion": "El nuevo Habiticano está respirando con dificultad luego del recorrido desenfrenado, pero te agradece a ti y a tus amigos por su ayuda. \"Me alegra que el Guepardo no vaya a poder atrapar a nadie más. Pero sí dejó algunos huevos de Guepardo para nosotros, ¡así que quizás podríamos criarlos y convertirlos en mascotas más confiables!\"",
@@ -592,7 +592,13 @@
     "questDysheartenerBossRageQuests": "`The Dysheartener uses SHATTERING HEARTBREAK!`\n\nAaaah! We've left our Dailies undone again, and the Dysheartener has mustered the energy for one final blow against our beloved shopkeepers. The countryside around Ian the Quest Master is ripped apart by its Shattering Heartbreak attack, and Ian is struck to the core by the horrific vision. We're so close to defeating this monster.... Hurry! Don't stop now!",
     "questDysheartenerDropHippogriffPet": "Hopeful Hippogriff (Pet)",
     "questDysheartenerDropHippogriffMount": "Hopeful Hippogriff (Mount)",
-    "dysheartenerArtCredit": "Artwork by @AnnDeLune",
+    "dysheartenerArtCredit": "Trabajo artistico por @AnnDeLune",
     "hugabugText": "Hug a Bug Quest Bundle",
-    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
+    "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31.",
+    "questSquirrelText": "The Sneaky Squirrel",
+    "questSquirrelNotes": "You wake up and find you’ve overslept! Why didn’t your alarm go off? … How did an acorn get stuck in the ringer?<br><br>When you try to make breakfast, the toaster is stuffed with acorns. When you go to retrieve your mount, @Shtut is there, trying unsuccessfully to unlock their stable. They look into the keyhole. “Is that an acorn in there?”<br><br>@randomdaisy cries out, “Oh no! I knew my pet squirrels had gotten out, but I didn’t know they’d made such trouble! Can you help me round them up before they make any more of a mess?”<br><br>Following the trail of mischievously placed oak nuts, you track and catch the wayward sciurines, with @Cantras helping secure each one safely at home. But just when you think your task is almost complete, an acorn bounces off your helm! You look up to see a mighty beast of a squirrel, crouched in defense of a prodigious pile of seeds.<br><br>“Oh dear,” says @randomdaisy, softly. “She’s always been something of a resource guarder. We’ll have to proceed very carefully!” You circle up with your party, ready for trouble!",
+    "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
+    "questSquirrelBoss": "Sneaky Squirrel",
+    "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
+    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
 }

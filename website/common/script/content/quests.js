@@ -3193,6 +3193,38 @@ let quests = {
       exp: 0,
     },
   },
+  squirrel: {
+    text: t('questSquirrelText'),
+    notes: t('questSquirrelNotes'),
+    completion: t('questSquirrelCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questSquirrelBoss'),
+      hp: 700,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Squirrel',
+          text: t('questSquirrelDropSquirrelEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Squirrel',
+          text: t('questSquirrelDropSquirrelEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Squirrel',
+          text: t('questSquirrelDropSquirrelEgg'),
+        },
+      ],
+      gp: 49,
+      exp: 425,
+      unlock: t('questSquirrelUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

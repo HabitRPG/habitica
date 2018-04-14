@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Si se aplica esta configuración, Habitica te preguntará si quisiste dejar la tarea diaria sin hacer antes de calcular y aplicar el daño a tu avatar. Esto te puede proteger contra daño no intencional.",
     "repeatDayError": "Asegúrate de tener al menos un día de la semana seleccionado.",
     "searchTasks": "Buscar títulos y descripciones...",
-    "sessionOutdated": "Su sesión está desactualizada. Por favor actualice o sincronice."
+    "sessionOutdated": "Su sesión está desactualizada. Por favor actualice o sincronice.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

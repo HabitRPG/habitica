@@ -3,6 +3,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
+import apiMessages from '../../../../../website/server/libs/apiMessages';
 
 describe('POST /user/webhook', () => {
   let user, body;
@@ -200,7 +201,7 @@ describe('POST /user/webhook', () => {
     await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
-      message: t('groupIdRequired'),
+      message: apiMessages('groupIdRequired'),
     });
   });
 

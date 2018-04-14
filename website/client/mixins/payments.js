@@ -5,6 +5,7 @@ import subscriptionBlocks from '../../common/script/content/subscriptionBlocks';
 import { mapState } from 'client/libs/store';
 import encodeParams from 'client/libs/encodeParams';
 import notificationsMixin from 'client/mixins/notifications';
+import * as Analytics from 'client/libs/analytics';
 
 export default {
   mixins: [notificationsMixin],
@@ -95,6 +96,22 @@ export default {
           if (newGroup && newGroup._id) {
             // @TODO this does not do anything as we reload just below
             // @TODO: Just append? or $emit?
+
+            // Handle new user signup
+            if (!this.$store.state.isUserLoggedIn) {
+              const habiticaUrl = `${location.protocol}//${location.host}`;
+
+              Analytics.track({
+                hitType: 'event',
+                eventCategory: 'group-plans-static',
+                eventAction: 'view',
+                eventLabel: 'paid-with-stripe',
+              });
+
+              location.href = `${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`;
+              return;
+            }
+
             this.$router.push(`/group-plans/${newGroup._id}/task-information`);
             // @TODO action
             this.user.guilds.push(newGroup._id);
@@ -144,7 +161,6 @@ export default {
       return true;
     },
     amazonPaymentsInit (data) {
-      // @TODO: Do we need this? if (!this.isAmazonReady) return;
       if (!this.checkGemAmount(data)) return;
       if (data.type !== 'single' && data.type !== 'subscription') return;
 

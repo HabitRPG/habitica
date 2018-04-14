@@ -7,6 +7,7 @@ import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
+import apiMessages from '../../../../website/server/libs/apiMessages';
 
 describe('shared.ops.allocate', () => {
   let user;
@@ -22,7 +23,7 @@ describe('shared.ops.allocate', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('invalidAttribute', {attr: 'notValid'}));
+      expect(err.message).to.equal(apiMessages('invalidAttribute', {attr: 'notValid'}));
       done();
     }
   });

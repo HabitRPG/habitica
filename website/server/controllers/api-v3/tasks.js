@@ -23,6 +23,7 @@ import common from '../../../common';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
+import apiMessages from '../../libs/apiMessages';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -429,7 +430,7 @@ api.updateTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -457,7 +458,6 @@ api.updateTask = {
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
 
@@ -470,6 +470,7 @@ api.updateTask = {
     }
 
     _.assign(task, sanitizedObj);
+
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
@@ -480,7 +481,6 @@ api.updateTask = {
     }
 
     setNextDue(task, user);
-
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
@@ -710,7 +710,7 @@ api.moveTask = {
   url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
@@ -783,7 +783,7 @@ api.addChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -841,7 +841,7 @@ api.scoreCheckListItem = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -891,7 +891,7 @@ api.updateChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -956,7 +956,7 @@ api.removeChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1017,7 +1017,7 @@ api.addTagToTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
@@ -1066,7 +1066,7 @@ api.removeTagFromTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1110,7 +1110,7 @@ api.unlinkAllTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    req.checkQuery('keep', apiMessages('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1176,8 +1176,8 @@ api.unlinkOneTask = {
   url: '/tasks/unlink-one/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', apiMessages('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
