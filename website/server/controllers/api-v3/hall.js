@@ -5,6 +5,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import _ from 'lodash';
+import apiMessages from '../../libs/apiMessages';
 
 let api = {};
 
@@ -62,7 +63,7 @@ api.getPatrons = {
   url: '/hall/patrons',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkQuery('page', res.t('pageMustBeNumber')).optional().isNumeric();
+    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

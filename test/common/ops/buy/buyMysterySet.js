@@ -10,6 +10,7 @@ import {
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
+import apiMessages from '../../../../website/server/libs/apiMessages';
 
 describe('shared.ops.buyMysterySet', () => {
   let user;
@@ -70,7 +71,7 @@ describe('shared.ops.buyMysterySet', () => {
           buyMysterySet(user);
         } catch (err) {
           expect(err).to.be.an.instanceof(BadRequest);
-          expect(err.message).to.equal(i18n.t('missingKeyParam'));
+          expect(err.message).to.equal(apiMessages('missingKeyParam'));
           done();
         }
       });

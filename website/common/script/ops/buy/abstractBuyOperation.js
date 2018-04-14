@@ -18,14 +18,10 @@ export class AbstractBuyOperation {
     this.req = req || {};
     this.analytics = analytics;
 
-    this.quantity = 1;
+    let quantity = _get(req, 'quantity');
 
-    if (this.multiplePurchaseAllowed()) {
-      let quantity = _get(req, 'quantity');
-
-      this.quantity = quantity ? Number(quantity) : 1;
-      if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
-    }
+    this.quantity = quantity ? Number(quantity) : 1;
+    if (isNaN(this.quantity)) throw new BadRequest(this.i18n('invalidQuantity'));
   }
 
   /**
