@@ -588,6 +588,8 @@ let schema = new Schema({
     path: {type: String},
     type: {type: String},
   }],
+  // Ordered array of shown pinned items, necessary for sorting because seasonal items are not stored in pinnedItems
+  pinnedItemsOrder: [{type: String}],
   // Items the user manually unpinned from the ones suggested by Habitica
   unpinnedItems: [{
     _id: false,

@@ -28,7 +28,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
   let appleRes = await iap.validate(iap.APPLE, receipt);
   let isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
-  let purchaseDataList = iap.getPurchaseData(appleRes);
+  const purchaseDataList = iap.getPurchaseData(appleRes);
   if (purchaseDataList.length === 0) throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   let correctReceipt = false;
 
@@ -81,8 +81,13 @@ api.verifyGemPurchase = async function verifyGemPurchase (user, receipt, headers
   return appleRes;
 };
 
-api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing = undefined) {
+api.subscribe = async function subscribe (sku, user, receipt, headers, nextPaymentProcessing) {
+  if (user && user.isSubscribed()) {
+    throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+  }
+
   if (!sku) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+
   let subCode;
   switch (sku) {
     case 'subscription1month':
@@ -98,13 +103,12 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
       subCode = 'basic_12mo';
       break;
   }
-  let sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
+  const sub = subCode ? shared.content.subscriptionBlocks[subCode] : false;
   if (!sub) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
-
   await iap.setup();
 
   let appleRes = await iap.validate(iap.APPLE, receipt);
-  let isValidated = iap.isValidated(appleRes);
+  const isValidated = iap.isValidated(appleRes);
   if (!isValidated) throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
 
   let purchaseDataList = iap.getPurchaseData(appleRes);
@@ -121,6 +125,7 @@ api.subscribe = async function subscribe (sku, user, receipt, headers, nextPayme
       break;
     }
   }
+
   if (transactionId) {
     let existingUser = await User.findOne({
       'purchased.plan.customerId': transactionId,

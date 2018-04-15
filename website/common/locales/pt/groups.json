@@ -34,7 +34,7 @@
     "communityGuidelines": "Diretrizes da Comunidade",
     "communityGuidelinesRead1": "Por favor, leia nossas",
     "communityGuidelinesRead2": "antes de conversar.",
-    "bannedWordUsed": "Ops! Parece que essa postagem conté um palavrão, juramento religioso, ou referência a uma substância viciante ou tópico adulto. Habitica possui usuários de todos os tipos, então mantemos nosso bate-papo bastante limpo. Sinta-se livre para editar sua mensagem para que possa ser postada!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "A sua mensagem contém linguagem inapropriada e foram-lhe retirados os seus privilégios de chat.",
     "party": "Equipa",
     "createAParty": "Criar uma Equipa",

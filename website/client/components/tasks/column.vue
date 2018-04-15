@@ -37,8 +37,9 @@
       .small-text {{$t(`${type}sDesc`)}}
     draggable.sortable-tasks(
       ref="tasksList",
-      @update='sorted',
+      @update='taskSorted',
       :options='{disabled: activeFilter.label === "scheduled"}',
+      class="sortable-tasks"
     )
       task(
         v-for="task in taskList",
@@ -49,12 +50,19 @@
         :group='group',
       )
     template(v-if="hasRewardsList")
-      .reward-items
+      draggable(
+        ref="rewardsList",
+        @update="rewardSorted",
+        @start="rewardDragStart",
+        @end="rewardDragEnd",
+        class="reward-items",
+      )
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
+          :showPopover="showPopovers"
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
@@ -319,6 +327,7 @@ export default {
       quickAddText: '',
       quickAddFocused: false,
       quickAddRows: 1,
+      showPopovers: true,
 
       selectedItemToBuy: {},
     };
@@ -450,7 +459,7 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    async sorted (data) {
+    async taskSorted (data) {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
@@ -493,6 +502,23 @@ export default {
         position: newPosition,
       });
       this.user.tasksOrder[`${this.type}s`] = newOrder;
+    },
+    async rewardSorted (data) {
+      const rewardsList = this.inAppRewards;
+      const rewardToMove = rewardsList[data.oldIndex];
+
+      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+        path: rewardToMove.path,
+        position: data.newIndex,
+      });
+      this.user.pinnedItemsOrder = newOrder;
+    },
+    rewardDragStart () {
+      // We need to stop popovers from interfering with our dragging
+      this.showPopovers = false;
+    },
+    rewardDragEnd () {
+      this.showPopovers = true;
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed

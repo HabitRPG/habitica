@@ -34,7 +34,7 @@
     "communityGuidelines": "a közösségi irányelveinket",
     "communityGuidelinesRead1": "Kérlek olvasd el",
     "communityGuidelinesRead2": "chatelés előtt.",
-    "bannedWordUsed": "Upsz! Úgy látszik ez az üzenet káromkodást, vallásos kijelentést, függőséget okozó dologra vagy felnőtt tartalomra való utalást tartalmaz. A Habitica-n különböző hátérrel rendelkező felhasználók vannak, ezért a chat-t mindig rendben tartjuk. Nyugodtan szerkeszd meg az üzenetedet mielőtt elküldenéd!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Az üzeneted nem megfelelő nyelvezetet tartalmazott, azért az üzenetküldési kiváltságaid visszavonásra kerültek. ",
     "party": "Csapat",
     "createAParty": "Csapat létrehozása",

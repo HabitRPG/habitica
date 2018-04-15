@@ -1,57 +1,73 @@
-import i18n from '../../i18n';
-import content from '../../content/index';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
+import content from '../../content/index';
 import get from 'lodash/get';
-import apiMessages from '../../../../server/libs/apiMessages';
 
-// buy a quest with gold
-module.exports = function buyQuest (user, req = {}, analytics) {
-  let key = get(req, 'params.key');
+import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import commonMessages from '../../libs/commonMessages';
 
-  let quantity = req.quantity ? Number(req.quantity) : 1;
-  if (isNaN(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
-
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
-
-  let item = content.quests[key];
-  if (!item) throw new NotFound(apiMessages('questNotFound', {key}));
-
-  if (key === 'lostMasterclasser1' && !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3)) {
-    throw new NotAuthorized(i18n.t('questUnlockLostMasterclasser', req.language));
+export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
+  constructor (user, req, analytics) {
+    super(user, req, analytics);
   }
 
-  if (!(item.category === 'gold' && item.goldValue)) {
-    throw new NotAuthorized(i18n.t('questNotGoldPurchasable', {key}, req.language));
-  }
-  if (user.stats.gp < item.goldValue * quantity) {
-    throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
+  multiplePurchaseAllowed () {
+    return true;
   }
 
-  user.items.quests[item.key] = user.items.quests[item.key] || 0;
-  user.items.quests[item.key] += quantity;
-  user.stats.gp -= item.goldValue * quantity;
+  userAbleToStartMasterClasser (user) {
+    return user.achievements.quests.dilatoryDistress3 &&
+      user.achievements.quests.mayhemMistiflying3 &&
+      user.achievements.quests.stoikalmCalamity3 &&
+      user.achievements.quests.taskwoodsTerror3;
+  }
 
-  if (analytics) {
-    analytics.track('acquire item', {
-      uuid: user._id,
-      itemKey: item.key,
+  getItemValue (item) {
+    return item.goldValue;
+  }
+
+  extractAndValidateParams (user, req) {
+    let key = this.key = get(req, 'params.key');
+    if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
+
+    if (key === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
+      throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
+    }
+
+    let item = content.quests[key];
+
+    if (!item) throw new NotFound(commonMessages('questNotFound', {key}));
+
+    if (!(item.category === 'gold' && item.goldValue)) {
+      throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));
+    }
+
+    this.canUserPurchase(user, item);
+  }
+
+  executeChanges (user, item, req) {
+    user.items.quests[item.key] = user.items.quests[item.key] || 0;
+    user.items.quests[item.key] += this.quantity;
+
+    this.subtractCurrency(user, item, this.quantity);
+
+    return [
+      user.items.quests,
+      this.i18n('messageBought', {
+        itemText: item.text(req.language),
+      }),
+    ];
+  }
+
+  analyticsData () {
+    return {
+      itemKey: this.key,
       itemType: 'Market',
-      goldCost: item.goldValue,
-      quantityPurchased: quantity,
       acquireMethod: 'Gold',
-      category: 'behavior',
-      headers: req.headers,
-    });
+      goldCost: this.getItemValue(this.item.goldValue),
+    };
   }
-
-  return [
-    user.items.quests,
-    i18n.t('messageBought', {
-      itemText: item.text(req.language),
-    }, req.language),
-  ];
-};
+}

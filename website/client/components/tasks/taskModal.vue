@@ -797,6 +797,9 @@ export default {
 
         return repeatsOn;
       },
+      set (newRepeatsOn) {
+        this.calculateMonthlyRepeatDays(newRepeatsOn);
+      },
     },
     selectedTags () {
       return this.getTagsFor(this.task);
@@ -857,10 +860,10 @@ export default {
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
     },
-    calculateMonthlyRepeatDays () {
+    calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
       const task = this.task;
-      const repeatsOn = this.repeatsOn;
+      const repeatsOn = newRepeatsOn || this.repeatsOn;
 
       if (task.frequency === 'monthly') {
         if (repeatsOn === 'dayOfMonth') {

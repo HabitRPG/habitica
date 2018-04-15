@@ -1322,7 +1322,7 @@
     "shieldArmoireShieldOfDiamondsNotes": "This radiant shield not only provides protection, it empowers you with endurance! Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
     "shieldArmoireFlutteryFanText": "ひらひらの扇子",
     "shieldArmoireFlutteryFanNotes": "暑い日に目と心をクールにしてくれる、素敵な扇子にかなうものはありません。体質と知能、知覚が <%= attrs %> ずつ上がります。ラッキー宝箱: 個別のアイテム。",
-    "back": "背のアクセサリー",
+    "back": "背中のアクセサリー",
     "backCapitalized": "背のアクセサリー",
     "backBase0Text": "背のアクセサリーなし",
     "backBase0Notes": "背のアクセサリーがありません。",

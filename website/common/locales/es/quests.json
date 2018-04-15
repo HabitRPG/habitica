@@ -122,7 +122,7 @@
     "buyQuestBundle": "Compra Packs de Misiones ",
     "noQuestToStart": "¿No encuentras una misión con la que empezar? ¡Prueba a buscar nuevas en la Tienda de Misiones del Mercados!",
     "pendingDamage": "<%= damage %> daño pendiente",
-    "pendingDamageLabel": "pending damage",
+    "pendingDamageLabel": "daño pendiente",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Salud",
     "rageAttack": "Ataque de Ira:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Ira",
