@@ -27,6 +27,9 @@ const messages = {
   missingCustomerId: 'Missing "req.query.customerId"',
   missingPaypalBlock: 'Missing "req.session.paypalBlock"',
   missingSubKey: 'Missing "req.query.sub"',
+
+  // messages that are used in common and API
+  spellNotFound: 'Skill "<%= spellId %>" not found.',
 };
 
 export default function (msgKey, vars = {}) {

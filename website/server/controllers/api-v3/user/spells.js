@@ -15,7 +15,6 @@ import {
   castUserSpell,
 } from '../../../libs/spells';
 import apiMessages from '../../../libs/apiMessages';
-import commonMessages from '../../../../common/script/libs/commonMessages';
 
 const partyMembersFields = 'profile.name stats achievements items.special';
 
@@ -87,7 +86,7 @@ api.castSpell = {
     let klass = common.content.spells.special[spellId] ? 'special' : user.stats.class;
     let spell = common.content.spells[klass][spellId];
 
-    if (!spell) throw new NotFound(commonMessages('spellNotFound', {spellId}));
+    if (!spell) throw new NotFound(apiMessages('spellNotFound', {spellId}));
     if (spell.mana > user.stats.mp) throw new NotAuthorized(res.t('notEnoughMana'));
     if (spell.value > user.stats.gp && !spell.previousPurchase) throw new NotAuthorized(res.t('messageNotEnoughGold'));
     if (spell.lvl > user.stats.lvl) throw new NotAuthorized(res.t('spellLevelTooHigh', {level: spell.lvl}));
