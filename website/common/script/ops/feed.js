@@ -6,7 +6,7 @@ import {
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import apiMessages from '../../../server/libs/apiMessages';
+import commonMessages from '../libs/commonMessages';
 
 function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
@@ -25,17 +25,17 @@ module.exports = function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
   let foodK = get(req, 'params.food');
 
-  if (!pet || !foodK) throw new BadRequest(apiMessages('missingPetFoodFeed'));
+  if (!pet || !foodK) throw new BadRequest(commonMessages('missingPetFoodFeed'));
 
   pet = content.petInfo[pet];
 
   if (!pet) {
-    throw new BadRequest(i18n.t('invalidPetName', req.language));
+    throw new BadRequest(commonMessages('invalidPetName'));
   }
 
   let food = content.food[foodK];
   if (!food) {
-    throw new NotFound(i18n.t('messageFoodNotFound', req.language));
+    throw new NotFound(commonMessages('invalidFoodName', req.language));
   }
 
   let userPets = user.items.pets;

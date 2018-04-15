@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import apiMessages from '../../../../../../website/server/libs/apiMessages';
+import commonMessages from '../../../../../../website/common/script/libs/commonMessages';
 
 describe('POST /user/allocate', () => {
   let user;
@@ -18,7 +18,7 @@ describe('POST /user/allocate', () => {
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: apiMessages('invalidAttribute', {attr: 'invalid'}),
+        message: commonMessages('invalidAttribute', {attr: 'invalid'}),
       });
   });
 

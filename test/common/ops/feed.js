@@ -9,7 +9,7 @@ import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import apiMessages from '../../../website/server/libs/apiMessages';
+import commonMessages from '../../../website/common/script/libs/commonMessages';
 
 describe('shared.ops.feed', () => {
   let user;
@@ -24,7 +24,7 @@ describe('shared.ops.feed', () => {
         feed(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(apiMessages('missingPetFoodFeed'));
+        expect(err.message).to.equal(commonMessages('missingPetFoodFeed'));
         done();
       }
     });
@@ -34,7 +34,7 @@ describe('shared.ops.feed', () => {
         feed(user, {params: {pet: 'invalid', food: 'food'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidPetName'));
+        expect(err.message).to.equal(commonMessages('invalidPetName'));
         done();
       }
     });
@@ -44,7 +44,7 @@ describe('shared.ops.feed', () => {
         feed(user, {params: {pet: 'Wolf-Red', food: 'invalid food name'}});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
-        expect(err.message).to.equal(i18n.t('messageFoodNotFound'));
+        expect(err.message).to.equal(commonMessages('invalidFoodName'));
         done();
       }
     });

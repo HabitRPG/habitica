@@ -7,11 +7,11 @@ import {
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
-import apiMessages from '../../../../server/libs/apiMessages';
+import commonMessages from '../../libs/commonMessages';
 
 module.exports = function buyMysterySet (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
+  if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
 
   if (!(user.purchased.plan.consecutive.trinkets > 0)) {
     throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));

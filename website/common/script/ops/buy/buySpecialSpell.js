@@ -8,16 +8,16 @@ import {
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
-import apiMessages from '../../../../server/libs/apiMessages';
+import commonMessages from '../../libs/commonMessages';
 
 module.exports = function buySpecialSpell (user, req = {}, analytics) {
   let key = get(req, 'params.key');
   let quantity = req.quantity || 1;
 
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
+  if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
 
   let item = content.special[key];
-  if (!item) throw new NotFound(apiMessages('spellNotFound', {spellId: key}));
+  if (!item) throw new NotFound(commonMessages('spellNotFound', {spellId: key}));
 
   if (user.stats.gp < item.value * quantity) {
     throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));

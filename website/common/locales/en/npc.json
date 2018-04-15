@@ -83,7 +83,6 @@
   "featuredQuests": "Featured Quests!",
 
   "cannotBuyItem": "You can't buy this item.",
-  "invalidPetName": "Invalid pet name supplied.",
   "mustPurchaseToSet": "Must purchase <%= val %> to set it on <%= key %>.",
   "typeRequired": "Type is required",
   "positiveAmountRequired": "Positive amount is required",

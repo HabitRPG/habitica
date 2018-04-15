@@ -8,7 +8,7 @@ import {
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
 import content from '../../../../website/common/script/content/index';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import commonMessages from '../../../../website/common/script/libs/commonMessages';
 
 describe('shared.ops.buy', () => {
   let user;
@@ -41,7 +41,7 @@ describe('shared.ops.buy', () => {
       buy(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(apiMessages('missingKeyParam'));
+      expect(err.message).to.equal(commonMessages('missingKeyParam'));
       done();
     }
   });

@@ -9,7 +9,7 @@ import {
   generateUser,
 } from '../../../helpers/common.helper';
 import content from '../../../../website/common/script/content/index';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import commonMessages from '../../../../website/common/script/libs/commonMessages';
 
 describe('shared.ops.buySpecialSpell', () => {
   let user;
@@ -29,7 +29,7 @@ describe('shared.ops.buySpecialSpell', () => {
       buySpecialSpell(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(apiMessages('missingKeyParam'));
+      expect(err.message).to.equal(commonMessages('missingKeyParam'));
       done();
     }
   });
@@ -43,7 +43,7 @@ describe('shared.ops.buySpecialSpell', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(apiMessages('spellNotFound', {spellId: 'notExisting'}));
+      expect(err.message).to.equal(commonMessages('spellNotFound', {spellId: 'notExisting'}));
       done();
     }
   });

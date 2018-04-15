@@ -8,7 +8,7 @@ import {
   NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
-import apiMessages from '../../../../website/server/libs/apiMessages';
+import commonMessages from '../../../../website/common/script/libs/commonMessages';
 
 describe('shared.ops.buyQuest', () => {
   let user;
@@ -107,7 +107,7 @@ describe('shared.ops.buyQuest', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotFound);
-      expect(err.message).to.equal(apiMessages('questNotFound', {key: 'snarfblatter'}));
+      expect(err.message).to.equal(commonMessages('questNotFound', {key: 'snarfblatter'}));
       expect(user.items.quests).to.eql({});
       expect(user.stats.gp).to.equal(9999);
       done();
@@ -152,7 +152,7 @@ describe('shared.ops.buyQuest', () => {
       buyQuest(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(apiMessages('missingKeyParam'));
+      expect(err.message).to.equal(commonMessages('missingKeyParam'));
       done();
     }
   });
