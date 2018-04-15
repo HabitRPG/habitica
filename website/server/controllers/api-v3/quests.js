@@ -18,7 +18,6 @@ import {
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import apiMessages from '../../libs/apiMessages';
-import commonMessages from '../../../common/script/libs/commonMessages';
 
 const questScrolls = common.content.quests;
 
@@ -71,7 +70,7 @@ api.inviteToQuest = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
-    if (!quest) throw new NotFound(commonMessages('questNotFound', { key: questKey }));
+    if (!quest) throw new NotFound(apiMessages('questNotFound', { key: questKey }));
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
     if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
