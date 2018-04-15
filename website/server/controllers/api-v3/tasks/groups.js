@@ -12,7 +12,6 @@ import {
   getTasks,
   moveTask,
 } from '../../../libs/taskManager';
-import apiMessages from '../../../libs/apiMessages';
 
 let requiredGroupFields = '_id leader tasksOrder name';
 let types = Tasks.tasksTypes.map(type => `${type}s`);
@@ -41,7 +40,7 @@ api.createGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
     if (reqValidationErrors) throw reqValidationErrors;
@@ -85,7 +84,7 @@ api.getGroupTasks = {
   url: '/tasks/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
     req.checkQuery('type', res.t('invalidTasksType')).optional().isIn(types);
 
     let validationErrors = req.validationErrors();
@@ -118,7 +117,7 @@ api.groupMoveTask = {
   url: '/group-tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let reqValidationErrors = req.validationErrors();
@@ -169,7 +168,7 @@ api.assignTask = {
   url: '/tasks/:taskId/assign/:assignedUserId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -227,7 +226,7 @@ api.unassignTask = {
   url: '/tasks/:taskId/unassign/:assignedUserId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('assignedUserId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -277,7 +276,7 @@ api.approveTask = {
   url: '/tasks/:taskId/approve/:userId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -373,7 +372,7 @@ api.taskNeedsWork = {
   url: '/tasks/:taskId/needs-work/:userId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', apiMessages('taskIdRequired')).notEmpty().isUUID();
+    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
     req.checkParams('userId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let reqValidationErrors = req.validationErrors();
@@ -470,7 +469,7 @@ api.getGroupApprovals = {
   url: '/approvals/group/:groupId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty().isUUID();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -9,7 +9,6 @@ import i18n from '../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../helpers/common.helper';
-import apiMessages from '../../../website/server/libs/apiMessages';
 
 describe('shared.ops.feed', () => {
   let user;
@@ -24,7 +23,7 @@ describe('shared.ops.feed', () => {
         feed(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(apiMessages('missingPetFoodFeed'));
+        expect(err.message).to.equal(i18n.t('missingPetFoodFeed'));
         done();
       }
     });

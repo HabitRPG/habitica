@@ -6,7 +6,6 @@ import {
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
-import apiMessages from '../../../server/libs/apiMessages';
 
 function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
@@ -25,7 +24,7 @@ module.exports = function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
   let foodK = get(req, 'params.food');
 
-  if (!pet || !foodK) throw new BadRequest(apiMessages('missingPetFoodFeed'));
+  if (!pet || !foodK) throw new BadRequest(i18n.t('missingPetFoodFeed', req.language));
 
   pet = content.petInfo[pet];
 

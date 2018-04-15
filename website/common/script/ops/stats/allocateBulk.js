@@ -7,18 +7,17 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import i18n from '../../i18n';
-import apiMessages from '../../../../server/libs/apiMessages';
 
 module.exports = function allocateBulk (user, req = {}) {
   const stats = get(req, 'body.stats');
-  if (!stats) throw new BadRequest(apiMessages('statsObjectRequired'));
+  if (!stats) throw new BadRequest(i18n.t('statsObjectRequired', req.language));
 
   const statKeys = Object.keys(stats);
   const invalidStats = statKeys.filter(statKey => {
     return ATTRIBUTES.indexOf(statKey) === -1;
   });
   if (invalidStats.length > 0) {
-    throw new BadRequest(apiMessages('invalidAttribute', {attr: invalidStats.join(',')}));
+    throw new BadRequest(i18n.t('invalidAttribute', {attr: invalidStats.join(',')}, req.language));
   }
 
   if (user.stats.points <= 0) {
