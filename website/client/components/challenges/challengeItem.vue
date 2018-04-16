@@ -1,7 +1,7 @@
 <template lang="pug">
 .card
   .row
-    span(v-if='canViewFlags') {{ $t('flagged') }}
+    span(v-if='canViewFlags') {{ $t('hasBeenFlagged') }}
     router-link.col-12(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
       h3(v-markdown='challenge.name')
   .row

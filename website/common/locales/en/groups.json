@@ -146,7 +146,7 @@
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
   "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
   "report": "Report",
-  "flagged": "Flagged",
+  "hasBeenFlagged": "Flagged",
   "abuseFlag": "Report violation of Community Guidelines",
   "abuseFlagModalHeading": "Report a Violation",
   "abuseFlagModalBody": "Are you sure you want to report this post? You should <strong>only</strong> report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",

@@ -528,7 +528,7 @@ api.getChallenge = {
     let challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
-    if (!user.contributor.admin && challenge.flagCount > 1) throw new NotFound(res.t('challengeNotFound'));
+    if (!user.contributor.admin && challenge.leader._id !== user._id && challenge.flagCount > 1) throw new NotFound(res.t('challengeNotFound'));
 
     // Fetching basic group data
     let group = await Group.getGroup({user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true});

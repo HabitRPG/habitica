@@ -15,7 +15,7 @@
           .svg-icon.positive-icon(v-html="icons.positiveIcon")
           span(v-once) {{$t('createChallenge')}}
     .row
-      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge) && (challenge.flagCount < 2 || user.contributor.admin)')
+      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge) && userCanViewFlagged(challenge)')
         challenge-item(:challenge='challenge')
     .row
       .col-12.text-center
@@ -156,6 +156,9 @@ export default {
     async loadMore () {
       this.page += 1;
       this.loadchallanges();
+    },
+    userCanViewFlagged (challenge) {
+      return challenge.flagCount < 2 || this.user.contributor.admin || this.user._id === challenge.leader._id;
     },
   },
 };
