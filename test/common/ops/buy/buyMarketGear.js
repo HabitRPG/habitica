@@ -10,7 +10,7 @@ import {
   BadRequest, NotAuthorized, NotFound,
 } from '../../../../website/common/script/libs/errors';
 import i18n from '../../../../website/common/script/i18n';
-import commonMessages from '../../../../website/common/script/libs/commonMessages';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 function buyGear (user, req, analytics) {
   let buyOp = new BuyMarketGearOperation(user, req, analytics);
@@ -191,7 +191,7 @@ describe('shared.ops.buyMarketGear', () => {
         buyGear(user);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(commonMessages('missingKeyParam'));
+        expect(err.message).to.equal(errorMessage('missingKeyParam'));
         done();
       }
     });
@@ -203,7 +203,7 @@ describe('shared.ops.buyMarketGear', () => {
         buyGear(user, {params});
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
-        expect(err.message).to.equal(commonMessages('itemNotFound', params));
+        expect(err.message).to.equal(errorMessage('itemNotFound', params));
         done();
       }
     });

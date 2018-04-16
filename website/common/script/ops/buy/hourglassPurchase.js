@@ -7,14 +7,14 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import commonMessages from '../../libs/commonMessages';
+import errorMessage from '../../libs/errorMessage';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
+  if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   let type = get(req, 'params.type');
-  if (!type) throw new BadRequest(commonMessages('missingTypeParam'));
+  if (!type) throw new BadRequest(errorMessage('missingTypeParam'));
 
   if (!content.timeTravelStable[type]) {
     throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: keys(content.timeTravelStable).toString()}, req.language));

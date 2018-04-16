@@ -1,11 +1,9 @@
-
-// A map of messages used by the API/App that don't need to be translated and
-// so are not placed into /common/locales
+// errorMessage(key) will be called by all common-ops , which is also imported to the website
 
 import _clone from 'lodash/clone';
 import _template from 'lodash/template';
 
-import messages from './../../errors/commonMessages';
+import messages from '../../errors/commonErrorMessages';
 
 export default function (msgKey, vars = {}) {
   let message = messages[msgKey];

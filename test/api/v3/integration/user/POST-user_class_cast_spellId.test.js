@@ -9,7 +9,6 @@ import {
 
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
-import commonMessages from '../../../../../website/common/script/libs/commonMessages';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;
@@ -25,7 +24,7 @@ describe('POST /user/class/cast/:spellId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: commonMessages('spellNotFound', {spellId}),
+        message: apiError('spellNotFound', {spellId}),
       });
   });
 
@@ -35,7 +34,7 @@ describe('POST /user/class/cast/:spellId', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: commonMessages('spellNotFound', {spellId}),
+        message: apiError('spellNotFound', {spellId}),
       });
   });
 

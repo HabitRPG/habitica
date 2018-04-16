@@ -5,7 +5,7 @@ import {
 } from '../../../../helpers/api-v3-integration.helper';
 import { v4 as generateUUID } from 'uuid';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
-import commonMessages from '../../../../../website/common/script/libs/commonMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /groups/:groupId/quests/invite/:questKey', () => {
   let questingGroup;
@@ -69,7 +69,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${FAKE_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: commonMessages('questNotFound', {key: FAKE_QUEST}),
+        message: apiError('questNotFound', {key: FAKE_QUEST}),
       });
     });
 

@@ -3,7 +3,7 @@ import {
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
 import shared from '../../../../../../website/common/script';
-import commonMessages from '../../../../../../website/common/script/libs/commonMessages';
+import apiError from '../../../../../../website/server/libs/apiError';
 
 let content = shared.content;
 
@@ -21,7 +21,7 @@ describe('POST /user/buy-special-spell/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: commonMessages('spellNotFound', {spellId: 'notExisting'}),
+        message: apiError('spellNotFound', {spellId: 'notExisting'}),
       });
   });
 

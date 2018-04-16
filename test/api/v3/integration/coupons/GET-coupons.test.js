@@ -2,7 +2,7 @@ import {
   generateUser,
   resetHabiticaDB,
 } from '../../../../helpers/api-v3-integration.helper';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('GET /coupons/', () => {
   let user;
@@ -19,7 +19,7 @@ describe('GET /coupons/', () => {
     await expect(user.get('/coupons')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: apiMessages('noSudoAccess'),
+      message: apiError('noSudoAccess'),
     });
   });
 

@@ -7,7 +7,7 @@ import content from '../../content/index';
 import get from 'lodash/get';
 
 import {AbstractGoldItemOperation} from './abstractBuyOperation';
-import commonMessages from '../../libs/commonMessages';
+import errorMessage from '../../libs/errorMessage';
 
 export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
@@ -31,7 +31,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
 
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
-    if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
+    if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     if (key === 'lostMasterclasser1' && !this.userAbleToStartMasterClasser(user)) {
       throw new NotAuthorized(this.i18n('questUnlockLostMasterclasser'));
@@ -39,7 +39,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation {
 
     let item = content.quests[key];
 
-    if (!item) throw new NotFound(commonMessages('questNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('questNotFound', {key}));
 
     if (!(item.category === 'gold' && item.goldValue)) {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', {key}));

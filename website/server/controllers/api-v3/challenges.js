@@ -27,7 +27,7 @@ import {
   createChallenge,
   cleanUpTask,
 } from '../../libs/challenges';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -188,7 +188,7 @@ api.createChallenge = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkBody('group', apiMessages('groupIdRequired')).notEmpty();
+    req.checkBody('group', apiError('groupIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -445,7 +445,7 @@ api.getGroupChallenges = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

@@ -7,7 +7,7 @@ import { ensureSudo } from '../../middlewares/ensureAccessRight';
 import { model as Coupon } from '../../models/coupon';
 import _ from 'lodash';
 import couponCode from 'coupon-code';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -70,8 +70,8 @@ api.generateCoupons = {
   url: '/coupons/generate/:event',
   middlewares: [authWithHeaders(), ensureSudo],
   async handler (req, res) {
-    req.checkParams('event', apiMessages('eventRequired')).notEmpty();
-    req.checkQuery('count', apiMessages('countRequired')).notEmpty().isNumeric();
+    req.checkParams('event', apiError('eventRequired')).notEmpty();
+    req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

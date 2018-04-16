@@ -1,23 +1,5 @@
 // When this file grows, it can be split into multiple ones.
 module.export = {
-  // common libs/ops error messages
-  invalidAttribute: '"<%= attr %>" is not a valid Stat.',
-
-  statsObjectRequired: '"stats" update is required',
-
-  missingTypeParam: '"req.params.type" is required.',
-  missingKeyParam: '"req.params.key" is required.',
-  itemNotFound: 'Item "<%= key %>" not found.',
-  questNotFound: 'Quest "<%= key %>" not found.',
-  spellNotFound: 'Skill "<%= spellId %>" not found.',
-  invalidTypeEquip: '"type" must be one of "equipped", "pet", "mount", "costume"',
-  missingPetFoodFeed: '"pet" and "food" are required parameters.',
-  missingEggHatchingPotion: '"egg" and "hatchingPotion" are required parameters.',
-
-  invalidPetName: 'Invalid pet name supplied.',
-  invalidFoodName: 'Invalid food name supplied.',
-
-  // api error messages
   taskIdRequired: 'req.params.taskId must contain a task id.',
   keepOrRemove: 'req.query.keep must be either "keep" or "remove".',
   keepOrRemoveAll: 'req.query.keep must be either "keep-all" or "remove-all".',

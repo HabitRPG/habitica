@@ -10,7 +10,7 @@ import {BuyQuestWithGoldOperation} from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
-import commonMessages from '../../libs/commonMessages';
+import errorMessage from '../../libs/errorMessage';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
 // We should either have more parms or a set structure validated by a Type checker
@@ -19,7 +19,7 @@ import commonMessages from '../../libs/commonMessages';
 
 module.exports = function buy (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
+  if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes

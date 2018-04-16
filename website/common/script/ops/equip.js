@@ -6,7 +6,7 @@ import {
   BadRequest,
 } from '../libs/errors';
 import get from 'lodash/get';
-import commonMessages from '../libs/commonMessages';
+import errorMessage from '../libs/errorMessage';
 
 module.exports = function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
@@ -14,9 +14,9 @@ module.exports = function equip (user, req = {}) {
   let type = get(req, 'params.type', 'equipped');
   let key = get(req, 'params.key');
 
-  if (!key || !type) throw new BadRequest(commonMessages('missingTypeKeyEquip'));
+  if (!key || !type) throw new BadRequest(errorMessage('missingTypeKeyEquip'));
   if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {
-    throw new BadRequest(commonMessages('invalidTypeEquip'));
+    throw new BadRequest(errorMessage('invalidTypeEquip'));
   }
 
   let message;

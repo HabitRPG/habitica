@@ -7,13 +7,13 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import i18n from '../../i18n';
-import commonMessages from '../../libs/commonMessages';
+import errorMessage from '../../libs/errorMessage';
 
 module.exports = function allocate (user, req = {}) {
   let stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
-    throw new BadRequest(commonMessages('invalidAttribute', {attr: stat}));
+    throw new BadRequest(errorMessage('invalidAttribute', {attr: stat}));
   }
 
   if (user.stats.points > 0) {

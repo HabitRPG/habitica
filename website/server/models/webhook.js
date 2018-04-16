@@ -6,7 +6,7 @@ import {v4 as uuid} from 'uuid';
 import _ from 'lodash';
 import { BadRequest } from '../libs/errors';
 import nconf from 'nconf';
-import apiMessages from '../libs/apiMessages';
+import apiError from '../libs/apiError';
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
 const Schema = mongoose.Schema;
@@ -80,7 +80,7 @@ schema.methods.formatOptions = function formatOptions (res) {
     this.options = _.pick(this.options, 'groupId');
 
     if (!validator.isUUID(String(this.options.groupId))) {
-      throw new BadRequest(apiMessages('groupIdRequired'));
+      throw new BadRequest(apiError('groupIdRequired'));
     }
   }
 };

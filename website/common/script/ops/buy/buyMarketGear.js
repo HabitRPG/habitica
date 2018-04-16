@@ -13,7 +13,7 @@ import ultimateGear from '../../fns/ultimateGear';
 import {removePinnedGearAddPossibleNewOnes} from '../pinnedGearUtils';
 
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
-import commonMessages from '../../libs/commonMessages';
+import errorMessage from '../../libs/errorMessage';
 
 export class BuyMarketGearOperation extends AbstractGoldItemOperation {
   constructor (user, req, analytics) {
@@ -26,10 +26,10 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation {
 
   extractAndValidateParams (user, req) {
     let key = this.key = get(req, 'params.key');
-    if (!key) throw new BadRequest(commonMessages('missingKeyParam'));
+    if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
     let item = content.gear.flat[key];
-    if (!item) throw new NotFound(commonMessages('itemNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('itemNotFound', {key}));
 
     this.canUserPurchase(user, item);
 
