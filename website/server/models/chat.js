@@ -14,6 +14,7 @@ const schema = new mongoose.Schema({
   flagCount: {type: Number, default: 0},
   likes: {type: mongoose.Schema.Types.Mixed},
   userStyles: {type: mongoose.Schema.Types.Mixed},
+  _meta: {type: mongoose.Schema.Types.Mixed},
 }, {
   minimize: false, // Allow for empty flags to be saved
 });

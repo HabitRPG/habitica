@@ -542,7 +542,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
   if (metaData) {
-    newMessage._meta = metaData;
+    newChatMessage._meta = metaData;
   }
 
   // @TODO: Completely remove the code below after migration
@@ -728,6 +728,7 @@ schema.methods.startQuest = async function startQuest (user) {
   const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
+
   await newMessage.save();
 };
 
