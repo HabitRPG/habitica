@@ -1,12 +1,15 @@
-import getStore from '../store';
-
-const store = getStore();
+let store = {};
 
 let currentCount = 1;
 let currentSpell = {
   key: '',
 };
 let timer = null;
+
+// @TODO: We are using this lib in actions, so we have to inject store
+function setStore (storeInc) {
+  store = storeInc;
+}
 
 function castSpell () {
   clearTimeout(timer);
@@ -17,7 +20,9 @@ function castSpell () {
   currentCount = 0;
 }
 
-function queue (spell) {
+function queue (spell, storeInc) {
+  setStore(storeInc);
+
   currentCount += 1;
 
   if (currentSpell.key && spell.key !== currentSpell.key) {

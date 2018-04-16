@@ -1,4 +1,5 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
+import spellQueue from 'client/libs/spellQueue';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
@@ -112,6 +113,11 @@ export function togglePinnedItem (store, params) {
 }
 
 export function castSpell (store, params) {
+  if (params.pinType !== 'card' && !params.quantity) {
+    spellQueue.queue({key: params.key, targetId: params.targetId}, store);
+    return;
+  }
+
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
   const data = {};

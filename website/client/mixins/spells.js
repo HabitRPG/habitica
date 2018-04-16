@@ -1,5 +1,4 @@
 import isArray from 'lodash/isArray';
-import spellQueue from '../libs/spellQueue';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
@@ -93,7 +92,11 @@ export default {
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      if (spell.pinType !== 'card') spellQueue.queue({key: spell.key, targetId});
+      let apiResult = await this.$store.dispatch('user:castSpell', {
+        key: spell.key,
+        targetId,
+        pinType: spell.pinType,
+      });
       let msg = '';
 
       switch (type) {
@@ -124,7 +127,6 @@ export default {
       }
 
       if (spell.pinType === 'card') {
-        let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
         const newUserGp = apiResult.data.data.user.stats.gp;
         this.$store.state.user.data.stats.gp = newUserGp;
       }
