@@ -373,6 +373,11 @@ export default {
       document.title = title;
     });
 
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
+    });
+
     if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
       Promise.all([
@@ -395,7 +400,6 @@ export default {
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
-          Analytics.load();
         });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console

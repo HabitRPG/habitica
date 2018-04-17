@@ -34,7 +34,7 @@
     "communityGuidelines": "Обществени правила",
     "communityGuidelinesRead1": "Моля, прочетете нашите",
     "communityGuidelinesRead2": "преди да пишете.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Опа! Изглежда тази публикация съдържа ругатня, религиозна клетва или намеква за употреба на пристрастяващо вещество или друга тема, подходяща само за възрастни (<%= swearWordsUsed %>). Хабитика се използва от най-различни потребители, затова държим на това съобщенията в чата да бъдат подходящи за всички. Редактирайте съобщението си и ще можете да го публикувате!",
     "bannedSlurUsed": "Публикацията Ви съдържа неприлични думи или изказ, затова привилегиите Ви в чата Ви бяха отнети.",
     "party": "Група",
     "createAParty": "Създаване на група",
