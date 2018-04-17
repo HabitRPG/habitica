@@ -9,6 +9,7 @@ import {
 
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('POST /user/class/cast/:spellId', () => {
   let user;
