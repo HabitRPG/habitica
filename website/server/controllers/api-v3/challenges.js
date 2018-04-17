@@ -581,11 +581,22 @@ api.exportChallengeCsv = {
     tasks.forEach(task => {
       while (task.userId !== lastUserId) {
         index++;
+        /**
+         * Occasional error does not completely remove user data after they leave a challenge, causing a failure when
+         * exporting to a CSV. The following if statements check for user data before executing.
+         * See more at https://github.com/HabitRPG/habitica/issues/8350
+         */
+        if (!resArray[index]) {
+          break;
+        }
         lastUserId = resArray[index][0]; // resArray[index][0] is an user id
       }
 
       const streak = task.streak || 0;
 
+      if (!resArray[index]) {
+        return;
+      }
       resArray[index].push(`${task.type}:${task.text}`, task.value, task.notes, streak);
     });
 
