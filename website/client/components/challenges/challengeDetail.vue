@@ -8,7 +8,7 @@
     .row
       .col-12.col-md-8
         h1(v-markdown='challenge.name')
-        div
+        div(@click="showLeaderProfileModal(challenge.leader)")
           strong(v-once) {{$t('createdBy')}}:
           span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
@@ -353,6 +353,12 @@ export default {
       this.$store.state.memberModalOptions.viewingMembers = this.members;
       this.$store.state.memberModalOptions.fetchMoreMembers = this.loadMembers;
       this.$root.$emit('bv::show::modal', 'members-modal');
+    },
+    async showLeaderProfileModal (leader) {
+      let leaderDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
+      this.$store.state.profileUser = leaderDetails.data.data;
+      this.$store.state.profileOptions.startingPage = 'profile';
+      this.$root.$emit('show::modal', 'profile');
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
