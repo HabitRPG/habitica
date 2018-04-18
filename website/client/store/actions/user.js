@@ -111,6 +111,11 @@ export function togglePinnedItem (store, params) {
   return addedItem;
 }
 
+export async function movePinnedItem (store, params) {
+  let response = await axios.post(`/api/v3/user/move-pinned-item/${params.path}/move/to/${params.position}`);
+  return response.data.data;
+}
+
 export function castSpell (store, params) {
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 

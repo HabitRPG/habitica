@@ -594,5 +594,11 @@
     "questDysheartenerDropHippogriffMount": "Hipogrifo Esperanzado (Montura)",
     "dysheartenerArtCredit": "Material gráfico hecho por @AnnDeLune",
     "hugabugText": "Abraza un Lote de Misiones de Insectos",
-    "hugabugNotes": "Contiene \"El Insecto Crítico\", \"El Caracol del Cieno de Rutinaria\" y \"Adiós, Mariposa\". Disponible hasta el 31 de marzo."
+    "hugabugNotes": "Contiene \"El Insecto Crítico\", \"El Caracol del Cieno de Rutinaria\" y \"Adiós, Mariposa\". Disponible hasta el 31 de marzo.",
+    "questSquirrelText": "La Ardilla Escurridiza",
+    "questSquirrelNotes": "¡Te levantas y te das cuenta de que te has quedado dormido! ¿Por qué no ha sonado la alarma...? ¿Cómo es que hay una bellota en el timbre? <br><br>Cuando intentas hacer el desayuno, la tostadora está llena de bellotas. Cuando intentas coger tu montura, @Shtut está ahí, intentando abrir su establo sin resultado. Mira en el agujero de la llave.\n—¿Eso es una bellota?<br><br>\n@randomdaisy grita:\n—¡Oh, no! ¡Sabía que mis ardillas se habían escapado, pero nunca pensé que causarían tantos problemas! ¿Puedes ayudarme a reunirlas antes de que la líen todavía más?<br><br>\nSiguiendo la huella de bellotas colocadas con malicia, rastreas y encuentras a las caprichosas ardillas, con @Cantras ayudando a llevar a todas ellas a casa a salvo. Pero justo cuando piensas que tu tarea está a punto de completarse, ¡una bellota cae sobre tu cabeza! Miras hacia arriba y encuentras una ardilla bestial, apostada detrás de una prodigiosa pila de semillas. <br><br>\n—Ay, madre —murmura @randomdaisy—. Ella siempre ha sido algo así como una guardiana de recursos. ¡Tendremos que proceder con mucho cuidado!\n¡Te reúnes con tu equipo, preparado para afrontar el problema! ",
+    "questSquirrelCompletion": "Acercándote con suavidad, con ofertas de intercambio y algún hechizo tranquilizante, eres capaz de convencer a la ardilla para que se aparte de sus provisiones y vuelva a los establos, que @Shtut acaba de terminar de desbellotizar. Ha dejado algunas bellotas aparte en una mesa de trabajo.\n—¡Esto son huevos de ardilla! A lo mejor puedes criar algunas que no jueguen tanto con la comida.",
+    "questSquirrelBoss": "Ardilla Escurridiza",
+    "questSquirrelDropSquirrelEgg": "Ardilla (huevo)",
+    "questSquirrelUnlockText": "Desbloquea huevos de Ardilla que puedas comprar en el Mercado"
 }

@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Пам’ятайте, що ваше ім’я, світлина профілю та інформація про себе повинні відповідати <a href='https://habitica.com/static/community-guidelines' target='_blank'>правилам спільноти</a> (тобто, жодних непристойностей, тем для дорослих, образ тощо). Якщо у вас виникли запитання, ви можете написати на <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Профіль",
     "avatar": "Налаштувати аватар",
-    "editAvatar": "Edit Avatar",
+    "editAvatar": "Змінити аватар",
     "noDescription": "This Habitican hasn't added a description.",
     "noPhoto": "This Habitican hasn't added a photo.",
     "other": "Інше",

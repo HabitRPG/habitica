@@ -21,7 +21,9 @@ let api = {};
 api.addPushDevice = {
   method: 'POST',
   url: '/user/push-devices',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -64,7 +66,9 @@ api.addPushDevice = {
 api.removePushDevice = {
   method: 'DELETE',
   url: '/user/push-devices/:regId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 

@@ -848,12 +848,12 @@
           return `Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
-        if (pet.mountOwned()) {
-          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
-        }
-
         if (pet.isHatchable()) {
           return 'PixelPaw';
+        }
+
+        if (pet.mountOwned()) {
+          return `GreyedOut Pet Pet-${pet.key} ${pet.eggKey}`;
         }
 
         return 'GreyedOut PixelPaw';

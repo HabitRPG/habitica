@@ -7,7 +7,7 @@ import {BuyArmoireOperation} from './buyArmoire';
 import {BuyHealthPotionOperation} from './buyHealthPotion';
 import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
-import buyQuest from './buyQuest';
+import {BuyQuestWithGoldOperation} from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
@@ -58,9 +58,12 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
-    case 'quest':
-      buyRes = buyQuest(user, req, analytics);
+    case 'quest': {
+      const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
