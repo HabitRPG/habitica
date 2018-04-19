@@ -27,7 +27,10 @@ export let schema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['taskActivity', 'groupChatReceived'],
+    enum: [
+      'global', // global webhooks send a request for every type of event
+      'taskActivity', 'groupChatReceived'
+    ],
     default: 'taskActivity',
   },
   label: {
