@@ -71,4 +71,9 @@ describe('GET /challenges/:challengeId/export/csv', () => {
     expect(splitRes[4]).to.equal(`${sortedMembers[3]._id},${sortedMembers[3].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
     expect(splitRes[5]).to.equal('');
   });
+
+  it('should successfully return when it contains erroneous residue user data', async () => {
+    await members[0].update({challenges: []});
+    await members[1].get(`/challenges/${challenge._id}/export/csv`);
+  });
 });
