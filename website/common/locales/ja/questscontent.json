@@ -150,7 +150,7 @@
     "questAtom2Drop": "センタクロマンサー ( 巻物 )",
     "questAtom2Completion": "With a deafening cry, and five delicious types of cheese bursting from its mouth, the Snackless Monster falls to pieces. Well done, brave adventurer! But wait... is there something else wrong with the lake?",
     "questAtom3Text": "日常の攻撃・第 3 部：センタクロマンサー",
-    "questAtom3Notes": "Just when you thought that your trials had ended, Washed-Up Lake begins to froth violently. “HOW DARE YOU!” booms a voice from beneath the water's surface. A robed, blue figure emerges from the water, wielding a magic toilet brush. Filthy laundry begins to bubble up to the surface of the lake. \"I am the Laundromancer!\" he angrily announces. \"You have some nerve - washing my delightfully dirty dishes, destroying my pet, and entering my domain with such clean clothes. Prepare to feel the soggy wrath of my anti-laundry magic!\"",
+    "questAtom3Notes": "あなたがようやく災難が終わったと思った矢先に、シンク湖が荒々しく泡立ち始めた。\"よくもまあ！\" 水面の下から声が轟く。魔法のトイレブラシを振り回しながら、ローブをまとった青い人影が現れる。汚れた洗濯物が湖面で泡立ち始める。\"我が名はセンタクロマンサー！\" その人影は憤りながら告げる。\"なんと厚かましいやつよ － 我が素晴らしき汚れた皿を洗い、ペットを滅ぼし、あまつさえそんな清潔な服で我が領域に足を踏み入れるとは。我がアンチランドリー魔法の陰湿なる憤怒を食らう覚悟はよいか！\"",
     "questAtom3Completion": "邪悪なセンタクロマンサーを倒しました!　あなたのまわりに積んだ洗濯物を片づけましょう。ここのあたりはずっときれいになりました。あなたがプレスのかかった気持ちのいい防具の間を進むと、金属部分のきらめきが目をとらえ、視線はピカピカのヘルメットに注がれます。ここにあるアイテムの元の持ち主は知りませんが、身につけると、寛大なる精神の存在をあたたかく感じます。 残念ながら彼らは名札をぬいつけておくのを忘れたようです。",
     "questAtom3Boss": "センタクロマンサー",
     "questAtom3DropPotion": "普通のたまごがえしの薬",
@@ -595,10 +595,10 @@
     "dysheartenerArtCredit": "イラスト作成：@AnnDeLune",
     "hugabugText": "「虫さんと仲良し」クエストセット",
     "hugabugNotes": "「クリティカル・バグ」「タンタン泥地のカタツムリ」「バイバイ、蝶々さん」のセット。3月31日まで購入できます。",
-    "questSquirrelText": "The Sneaky Squirrel",
-    "questSquirrelNotes": "You wake up and find you’ve overslept! Why didn’t your alarm go off? … How did an acorn get stuck in the ringer?<br><br>When you try to make breakfast, the toaster is stuffed with acorns. When you go to retrieve your mount, @Shtut is there, trying unsuccessfully to unlock their stable. They look into the keyhole. “Is that an acorn in there?”<br><br>@randomdaisy cries out, “Oh no! I knew my pet squirrels had gotten out, but I didn’t know they’d made such trouble! Can you help me round them up before they make any more of a mess?”<br><br>Following the trail of mischievously placed oak nuts, you track and catch the wayward sciurines, with @Cantras helping secure each one safely at home. But just when you think your task is almost complete, an acorn bounces off your helm! You look up to see a mighty beast of a squirrel, crouched in defense of a prodigious pile of seeds.<br><br>“Oh dear,” says @randomdaisy, softly. “She’s always been something of a resource guarder. We’ll have to proceed very carefully!” You circle up with your party, ready for trouble!",
+    "questSquirrelText": "コソコソリス",
+    "questSquirrelNotes": "あなたは目を覚まし、寝過ごしたことに気づきました！なんで目覚ましが鳴らなかったんだ？ ．．．目覚ましにドングリが詰まっているがどうしてこうなった？<br><br>あなたが朝食を作ろうとすると、トースターがドングリで一杯になっている。乗騎を取りに行くと、@Shtut がそこにいて、動物小屋の鍵を開けようとしているがうまくいかない。二人は鍵穴を覗き込む。\"ドングリが詰まってないか？\"<br><br>@randomdaisy が叫ぶ \"なんてこと！私のペットのリス達が逃げ出したのはわかっていたけど、こんなトラブルを引き起こすなんて思わなかった！あの子達がこれ以上の面倒を起こす前に捕まえるのを手伝ってくれない？\" <br><br>いたずらに置かれたドングリの跡をたどり、@Cantrasの助けも借りて手慣れた様子で一匹ずつ確保してゆき、あなたはわがままなリス達を捕まえてゆく。しかしあなたがもう少しで終わりそうだと思ったところで、ドングリがあなたのヘルメットにコツンとあたった！ あなたが見上げると、そこには巨大なリスの化け物が、うず高く積まれた種を守りながら身を屈めている。<br><br> \"ああ、なんてこと\" @randomdaisy がそっとささやく \"あの子はいつも防衛本能が強いのよ。慎重に進まないと！\"あなたはパーティーの仲間と共に取り囲み、準備は整った！",
     "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
-    "questSquirrelBoss": "Sneaky Squirrel",
-    "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
-    "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
+    "questSquirrelBoss": "コソコソリス",
+    "questSquirrelDropSquirrelEgg": "リス ( たまご )",
+    "questSquirrelUnlockText": "市場でリスのたまごを買えるようにする"
 }

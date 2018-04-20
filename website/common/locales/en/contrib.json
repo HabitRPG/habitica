@@ -49,6 +49,7 @@
   "UUID": "User ID",
   "loadUser": "Load User",
   "noAdminAccess": "You don't have admin access.",
+  "pageMustBeNumber": "req.query.page must be a number",
   "userNotFound": "User not found.",
   "invalidUUID": "UUID must be valid",
   "title": "Title",

@@ -73,7 +73,9 @@ let api = {};
  */
 api.addWebhook = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/webhook',
   async handler (req, res) {
     let user = res.locals.user;
@@ -133,7 +135,9 @@ api.addWebhook = {
  */
 api.updateWebhook = {
   method: 'PUT',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;
@@ -184,7 +188,9 @@ api.updateWebhook = {
 */
 api.deleteWebhook = {
   method: 'DELETE',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/user/webhook/:id',
   async handler (req, res) {
     let user = res.locals.user;

@@ -1,7 +1,6 @@
 import { model as Webhook } from '../../../../../website/server/models/webhook';
 import { BadRequest } from '../../../../../website/server/libs/errors';
 import { v4 as generateUUID } from 'uuid';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
 
 describe('Webhook Model', () => {
   context('Instance Methods', () => {
@@ -136,8 +135,8 @@ describe('Webhook Model', () => {
             wh.formatOptions(res);
           } catch (err) {
             expect(err).to.be.an.instanceOf(BadRequest);
-
-            expect(err.message).to.eql(apiMessages('groupIdRequired'));
+            expect(res.t).to.be.calledOnce;
+            expect(res.t).to.be.calledWith('groupIdRequired');
             done();
           }
         });

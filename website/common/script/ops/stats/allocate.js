@@ -7,13 +7,12 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import i18n from '../../i18n';
-import apiMessages from '../../../../server/libs/apiMessages';
 
 module.exports = function allocate (user, req = {}) {
   let stat = get(req, 'query.stat', 'str');
 
   if (ATTRIBUTES.indexOf(stat) === -1) {
-    throw new BadRequest(apiMessages('invalidAttribute', {attr: stat}));
+    throw new BadRequest(i18n.t('invalidAttribute', {attr: stat}, req.language));
   }
 
   if (user.stats.points > 0) {

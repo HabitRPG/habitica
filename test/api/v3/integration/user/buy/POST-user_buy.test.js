@@ -5,7 +5,6 @@ import {
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
 import shared from '../../../../../../website/common/script';
-import apiMessages from '../../../../../../website/server/libs/apiMessages';
 
 let content = shared.content;
 
@@ -25,7 +24,7 @@ describe('POST /user/buy/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiMessages('itemNotFound', {key: 'notExisting'}),
+        message: t('itemNotFound', {key: 'notExisting'}),
       });
   });
 

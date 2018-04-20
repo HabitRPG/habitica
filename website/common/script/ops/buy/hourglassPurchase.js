@@ -7,14 +7,13 @@ import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
-import apiMessages from '../../../../server/libs/apiMessages';
 
 module.exports = function purchaseHourglass (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(apiMessages('missingKeyParam'));
+  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
 
   let type = get(req, 'params.type');
-  if (!type) throw new BadRequest(apiMessages('missingTypeParam'));
+  if (!type) throw new BadRequest(i18n.t('missingTypeParam', req.language));
 
   if (!content.timeTravelStable[type]) {
     throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: keys(content.timeTravelStable).toString()}, req.language));

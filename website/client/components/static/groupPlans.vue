@@ -195,6 +195,7 @@
 </style>
 
 <script>
+  import * as Analytics from 'client/libs/analytics';
   import { setup as setupPayments } from 'client/libs/payments';
   import amazonPaymentsModal from 'client/components/payments/amazonModal';
   import StaticHeader from './header.vue';
@@ -227,10 +228,24 @@
     },
     methods: {
       goToNewGroupPage () {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'group-plans-static',
+          eventAction: 'view',
+          eventLabel: 'view-auth-form',
+        });
+
         this.$root.$emit('bv::show::modal', 'group-plan');
       },
       authenticate () {
         this.modalPage = 'purchaseGroup';
+
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'group-plans-static',
+          eventAction: 'view',
+          eventLabel: 'create-group',
+        });
       },
     },
   };

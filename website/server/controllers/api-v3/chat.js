@@ -18,7 +18,6 @@ import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
-import apiMessages from '../../libs/apiMessages';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -66,7 +65,7 @@ api.getChat = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -105,7 +104,7 @@ api.postChat = {
     let groupId = req.params.groupId;
     let chatUpdated;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.sanitize('message').trim();
     req.checkBody('message', res.t('messageGroupChatBlankMessage')).notEmpty();
 
@@ -225,7 +224,7 @@ api.likeChat = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -318,7 +317,7 @@ api.clearChatFlags = {
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
@@ -391,7 +390,7 @@ api.seenChat = {
     let user = res.locals.user;
     let groupId = req.params.groupId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -458,7 +457,7 @@ api.deleteChat = {
     let groupId = req.params.groupId;
     let chatId = req.params.chatId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkParams('chatId', res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();

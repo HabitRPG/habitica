@@ -6,7 +6,6 @@ import {
   BadRequest,
 } from '../libs/errors';
 import get from 'lodash/get';
-import apiMessages from '../../../server/libs/apiMessages';
 
 module.exports = function equip (user, req = {}) {
   // Being type a parameter followed by another parameter
@@ -14,9 +13,9 @@ module.exports = function equip (user, req = {}) {
   let type = get(req, 'params.type', 'equipped');
   let key = get(req, 'params.key');
 
-  if (!key || !type) throw new BadRequest(apiMessages('missingTypeKeyEquip'));
+  if (!key || !type) throw new BadRequest(i18n.t('missingTypeKeyEquip', req.language));
   if (['mount', 'pet', 'costume', 'equipped'].indexOf(type) === -1) {
-    throw new BadRequest(apiMessages('invalidTypeEquip'));
+    throw new BadRequest(i18n.t('invalidTypeEquip', req.language));
   }
 
   let message;

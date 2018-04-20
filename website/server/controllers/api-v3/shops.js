@@ -15,7 +15,9 @@ let api = {};
 api.getMarketItems = {
   method: 'GET',
   url: '/shops/market',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -36,7 +38,9 @@ api.getMarketItems = {
 api.getMarketGear = {
   method: 'GET',
   url: '/shops/market-gear',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -60,7 +64,9 @@ api.getMarketGear = {
 api.getQuestShopItems = {
   method: 'GET',
   url: '/shops/quests',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -82,7 +88,9 @@ api.getQuestShopItems = {
 api.getTimeTravelerShopItems = {
   method: 'GET',
   url: '/shops/time-travelers',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -104,7 +112,9 @@ api.getTimeTravelerShopItems = {
 api.getSeasonalShopItems = {
   method: 'GET',
   url: '/shops/seasonal',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -126,7 +136,9 @@ api.getSeasonalShopItems = {
 api.getBackgroundShopItems = {
   method: 'GET',
   url: '/shops/backgrounds',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
