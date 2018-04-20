@@ -60,9 +60,9 @@ describe('GET /challenges/:challengeId/export/csv', () => {
   });
 
   it('should return a valid CSV file with export data', async () => {
-    let res = await members[0].get(`/challenges/${challenge._id}/export/csv`);
-    let sortedMembers = _.sortBy([members[0], members[1], members[2], groupLeader], '_id');
-    let splitRes = res.split('\n');
+    const res = await members[0].get(`/challenges/${challenge._id}/export/csv`);
+    const sortedMembers = _.sortBy([members[0], members[1], members[2], groupLeader], '_id');
+    const splitRes = res.split('\n');
 
     expect(splitRes[0]).to.equal('UUID,name,Task,Value,Notes,Streak,Task,Value,Notes,Streak');
     expect(splitRes[1]).to.equal(`${sortedMembers[0]._id},${sortedMembers[0].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
