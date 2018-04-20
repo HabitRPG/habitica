@@ -74,6 +74,13 @@ describe('GET /challenges/:challengeId/export/csv', () => {
 
   it('should successfully return when it contains erroneous residue user data', async () => {
     await members[0].update({challenges: []});
-    await members[1].get(`/challenges/${challenge._id}/export/csv`);
+    const res = await members[1].get(`/challenges/${challenge._id}/export/csv`);
+    const sortedMembers = _.sortBy([members[1], members[2], groupLeader], '_id');
+    const splitRes = res.split('\n');
+    expect(splitRes[0]).to.equal('UUID,name,Task,Value,Notes,Streak,Task,Value,Notes,Streak');
+    expect(splitRes[1]).to.equal(`${sortedMembers[0]._id},${sortedMembers[0].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[2]).to.equal(`${sortedMembers[1]._id},${sortedMembers[1].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[3]).to.equal(`${sortedMembers[2]._id},${sortedMembers[2].profile.name},habit:Task 1,0,,0,todo:Task 2,0,,0`);
+    expect(splitRes[4]).to.equal('');
   });
 });
