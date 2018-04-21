@@ -18,6 +18,12 @@ const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   scored: true,
 });
 
+const USER_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
+  petHatched: false,
+  mountRaised: false,
+  leveledUp: false,
+});
+
 export let schema = new Schema({
   id: {
     type: String,
@@ -72,11 +78,7 @@ schema.plugin(baseModel, {
 schema.methods.formatOptions = function formatOptions (res) {
   if (this.type === 'taskActivity') {
     _.defaults(this.options, TASK_ACTIVITY_DEFAULT_OPTIONS);
-    this.options = _.pick(this.options,
-      'created', 'updated',
-      'deleted', 'scored',
-      'checklistScored'
-    );
+    this.options = _.pick(this.options, Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS));
 
     let invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
@@ -89,6 +91,16 @@ schema.methods.formatOptions = function formatOptions (res) {
 
     if (!validator.isUUID(String(this.options.groupId))) {
       throw new BadRequest(res.t('groupIdRequired'));
+    }
+  } else if (this.type === 'userActiviy') {
+    _.defaults(this.options, USER_ACTIVITY_DEFAULT_OPTIONS);
+    this.options = _.pick(this.options, Object.keys(USER_ACTIVITY_DEFAULT_OPTIONS));
+
+    let invalidOption = Object.keys(this.options)
+      .find(option => typeof this.options[option] !== 'boolean');
+
+    if (invalidOption) {
+      throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
     }
   }
 };

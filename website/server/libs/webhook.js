@@ -90,6 +90,14 @@ export let taskActivityWebhook = new WebhookSender({
   },
 });
 
+export let userActivityWebhook = new WebhookSender({
+  type: 'userActivity',
+  webhookFilter (hook, data) {
+    let { type } = data;
+    return hook.options[type];
+  },
+});
+
 export let groupChatReceivedWebhook = new WebhookSender({
   type: 'groupChatReceived',
   webhookFilter (hook, data) {

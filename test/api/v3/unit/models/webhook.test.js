@@ -36,6 +36,7 @@ describe('Webhook Model', () => {
           wh.formatOptions(res);
 
           expect(wh.options).to.eql({
+            checklistScored: false,
             created: false,
             updated: false,
             deleted: false,
@@ -51,6 +52,7 @@ describe('Webhook Model', () => {
           wh.formatOptions(res);
 
           expect(wh.options).to.eql({
+            checklistScored: false,
             created: false,
             updated: true,
             deleted: true,
@@ -67,6 +69,7 @@ describe('Webhook Model', () => {
 
           expect(wh.options.foo).to.not.exist;
           expect(wh.options).to.eql({
+            checklistScored: false,
             created: true,
             updated: true,
             deleted: true,

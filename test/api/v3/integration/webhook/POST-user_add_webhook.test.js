@@ -116,6 +116,7 @@ describe('POST /user/webhook', () => {
     let webhook = await user.post('/user/webhook', body);
 
     expect(webhook.options).to.eql({
+      checklistScored: false,
       created: false,
       updated: false,
       deleted: false,
@@ -126,6 +127,7 @@ describe('POST /user/webhook', () => {
   it('can set taskActivity options', async () => {
     body.type = 'taskActivity';
     body.options = {
+      checklistScored: true,
       created: true,
       updated: true,
       deleted: true,
@@ -135,6 +137,7 @@ describe('POST /user/webhook', () => {
     let webhook = await user.post('/user/webhook', body);
 
     expect(webhook.options).to.eql({
+      checklistScored: true,
       created: true,
       updated: true,
       deleted: true,
@@ -145,6 +148,7 @@ describe('POST /user/webhook', () => {
   it('discards extra properties in taskActivity options', async () => {
     body.type = 'taskActivity';
     body.options = {
+      checklistScored: false,
       created: true,
       updated: true,
       deleted: true,
@@ -156,6 +160,7 @@ describe('POST /user/webhook', () => {
 
     expect(webhook.options.foo).to.not.exist;
     expect(webhook.options).to.eql({
+      checklistScored: false,
       created: true,
       updated: true,
       deleted: true,

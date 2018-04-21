@@ -12,6 +12,9 @@ import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
+  userActivityWebhook,
+} from '../../libs/webhookd';
+import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
@@ -906,8 +909,19 @@ api.hatch = {
   async handler (req, res) {
     let user = res.locals.user;
     let hatchRes = common.ops.hatch(user, req);
+
     await user.save();
+
     res.respond(200, ...hatchRes);
+
+    // Send webhook
+    const petKey = `${req.params.egg}-${req.params.hatchingPotion}`;
+
+    userActivityWebhook.send(user.webhooks, {
+      type: 'petHatched',
+      pet: petKey,
+      message: hatchRes[1],
+    });
   },
 };
 
@@ -982,8 +996,21 @@ api.feed = {
   async handler (req, res) {
     let user = res.locals.user;
     let feedRes = common.ops.feed(user, req);
+
     await user.save();
+
     res.respond(200, ...feedRes);
+
+    // Send webhook
+    const petValue = feedRes[0];
+
+    if (petValue === -1) { // evolved to mount
+      userActivityWebhook.send(user.webhooks, {
+        type: 'mountRaised',
+        pet: req.params.pet,
+        message: feedRes[1],
+      });
+    }
   },
 };
 
