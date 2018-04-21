@@ -39,10 +39,8 @@
             router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
             a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
-          li
-            a(v-html='$t("communityExtensions")')
-          li
-            a(v-html='$t("communityForum")')
+          li(v-html='$t("communityExtensions")')
+          li(v-html='$t("communityForum")')
           li
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
