@@ -17,7 +17,6 @@ describe('shared.ops.purchase', () => {
   const SEASONAL_FOOD = 'Meat';
   let user;
   let goldPoints = 40;
-  let gemsBought = 40;
   let analytics = {track () {}};
 
   before(() => {
@@ -45,63 +44,6 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns an error when key is not provided', (done) => {
-      try {
-        purchase(user, {params: {type: 'gems'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('missingKeyParam'));
-        done();
-      }
-    });
-
-    it('prevents unsubscribed user from buying gems', (done) => {
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('mustSubscribeToPurchaseGems'));
-        done();
-      }
-    });
-
-    it('prevents user with not enough gold from buying gems', (done) => {
-      user.purchased.plan.customerId = 'customer-id';
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('messageNotEnoughGold'));
-        done();
-      }
-    });
-
-    it('prevents user that have reached the conversion cap from buying gems', (done) => {
-      user.stats.gp = goldPoints;
-      user.purchased.plan.gemsBought = gemsBought;
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(NotAuthorized);
-        expect(err.message).to.equal(i18n.t('reachedGoldToGemCap', {convCap: planGemLimits.convCap}));
-        done();
-      }
-    });
-
-    it('prevents user from buying an invalid quantity', (done) => {
-      user.stats.gp = goldPoints;
-      user.purchased.plan.gemsBought = gemsBought;
-
-      try {
-        purchase(user, {params: {type: 'gems', key: 'gem'}, quantity: 'a'});
-      } catch (err) {
-        expect(err).to.be.an.instanceof(BadRequest);
-        expect(err.message).to.equal(i18n.t('invalidQuantity'));
-        done();
-      }
-    });
 
     it('returns error when unknown type is provided', (done) => {
       try {
@@ -185,24 +127,7 @@ describe('shared.ops.purchase', () => {
       user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
 
-    it('purchases gems', () => {
-      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}}, analytics);
 
-      expect(message).to.equal(i18n.t('plusOneGem'));
-      expect(user.balance).to.equal(userGemAmount + 0.25);
-      expect(user.purchased.plan.gemsBought).to.equal(1);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate);
-      expect(analytics.track).to.be.calledOnce;
-    });
-
-    it('purchases gems with a different language than the default', () => {
-      let [, message] = purchase(user, {params: {type: 'gems', key: 'gem'}, language: 'de'});
-
-      expect(message).to.equal(i18n.t('plusOneGem', 'de'));
-      expect(user.balance).to.equal(userGemAmount + 0.5);
-      expect(user.purchased.plan.gemsBought).to.equal(2);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
-    });
 
     it('purchases eggs', () => {
       let type = 'eggs';
@@ -305,18 +230,6 @@ describe('shared.ops.purchase', () => {
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
         done();
       }
-    });
-
-    it('makes bulk purchases of gems', () => {
-      let [, message] = purchase(user, {
-        params: {type: 'gems', key: 'gem'},
-        quantity: 2,
-      });
-
-      expect(message).to.equal(i18n.t('plusOneGem'));
-      expect(user.balance).to.equal(userGemAmount + 0.50);
-      expect(user.purchased.plan.gemsBought).to.equal(2);
-      expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
     it('makes bulk purchases of eggs', () => {
