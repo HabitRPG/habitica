@@ -8,7 +8,7 @@ import {
 } from '../userNotification';
 import {
   userActivityWebhook,
-} from '../../libs/webhooks';
+} from '../../libs/webhook';
 
 import schema from './schema';
 
