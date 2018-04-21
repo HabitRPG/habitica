@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import nconf from 'nconf';
 // @TODO remove this lib and use directly the apn module
-import pushNotify from 'push-notify';
+import { Provider, Notification } from 'apn';
 import logger from './logger';
 import {
   S3,
@@ -33,7 +33,7 @@ if (APN_ENABLED) {
       let cert = certObj.Body.toString();
       let key = keyObj.Body.toString();
 
-      apn = pushNotify.apn({
+      apn = new Provider({
         key,
         cert,
       });
@@ -77,13 +77,13 @@ function sendNotification (user, details = {}) {
 
       case 'ios':
         if (apn) {
-          apn.send({
-            token: pushDevice.regId,
+          const notification = new Notification({
             alert: details.message,
             sound: 'default',
             category: details.category,
             payload,
           });
+          apn.send(notification, pushDevice.regId);
         }
         break;
     }
