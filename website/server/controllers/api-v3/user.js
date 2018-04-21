@@ -13,7 +13,7 @@ import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
   userActivityWebhook,
-} from '../../libs/webhookd';
+} from '../../libs/webhook';
 import {
   getUserInfo,
   sendTxn as txnEmail,
