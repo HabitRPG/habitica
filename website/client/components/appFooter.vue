@@ -135,23 +135,6 @@
         margin-bottom: 7px;
       }
     }
-
-    &.expanded {
-      padding-left: 6em;
-      padding-right: 6em;
-      padding-top: 3em;
-      background: #e1e0e3;
-      color: #878190;
-      min-height: 408px;
-
-      a {
-        color: #878190;
-      }
-
-      .logo {
-        color: #c3c0c7;
-      }
-    }
   }
 
   h3 {
@@ -231,10 +214,29 @@
   }
 </style>
 
-<style>
+<style lang="scss">
   .facebook svg {
     width: 10px;
     margin: 0 auto;
+  }
+
+  footer {
+    &.expanded {
+      padding-left: 6em;
+      padding-right: 6em;
+      padding-top: 3em;
+      background: #e1e0e3;
+      color: #878190;
+      min-height: 408px;
+
+      a {
+        color: #878190;
+      }
+
+      .logo {
+        color: #c3c0c7;
+      }
+    }
   }
 </style>
 
