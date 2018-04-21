@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Došiel ti život!",
+    "dontDespair": "Nezúfaj!",
+    "deathPenaltyDetails": "Stratil si level, tvoje zlato a kus výstroje, ale s tvrdú prácu ich môžeš všetky získať späť! Veľa šťastia - pôjde ti to skvelo.",
+    "refillHealthTryAgain": "Doplň si život a skús znova",
+    "dyingOftenTips": "Stáva sa to často? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> Tu sú nejaké tipy! </a>",
+    "losingHealthWarning": "Pozor - Strácaš život!",
+    "losingHealthWarning2": "Nedopusti, aby tvoj život klesol na nulu! Ak sa to udeje, stratíš level, tvoje zlato a časť výstroje.",
+    "toRegainHealth": "Ak chcete znova získať život:",
+    "lowHealthTips1": "Dosiahni celý level, aby si sa plne uzdravil!",
+    "lowHealthTips2": "Zakúp si lektvar života zo stĺpca odmien, aby si obnovil 15 bodov života.",
+    "losingHealthQuickly": "Strácaš život rýchlo?",
+    "lowHealthTips3": "Nedokončené denné úlohy ťa ublížia cez noc, takže buď opatrní, aby si ich nepridal príliš veľa na začiatku.",
+    "lowHealthTips4": "Ak denná úloha nieje splatná na určitý deň, môžete to vypnúť kliknutím na ikonu ceruzky.",
+    "goodLuck": "Veľa šťastia!",
+    "cannotRevive": "Nemôžeš sa znovuzrodiť, ak nie si mŕtvy"
+}

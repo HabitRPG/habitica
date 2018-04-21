@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Renaissance : Une Nouvelle Aventure Disponible !",
+    "rebirthUnlock": "Vous avez débloqué la Renaissance ! Cet article spécial du marché vous permet de commencer une nouvelle partie au niveau 1 tout en gardant vos tâches, vos familiers et bien plus. Utilisez-le pour vous procurer un vent de renouveau dans Habitica si vous sentez que vous en avez fait le tour, ou pour expérimenter de nouvelles fonctionnalités avec le regard nouveau d'un personnage débutant.",
+    "rebirthAchievement": "Vous avez commencé une nouvelle aventure ! C'est votre Renaissance n°<%= number %> et le niveau le plus élevé que vous avez atteint est <%= level %>. Pour cumuler ce Succès, commencez votre nouvelle aventure une fois que vous aurez atteint un niveau encore plus élevé !",
+    "rebirthAchievement100": "Vous avez commencé une nouvelle aventure ! C'est votre Renaissance <%= number %>, et le plus haut niveau que vous ayez atteint est 100 ou plus. Pour obtenir ce succès une fois de plus, commencez votre prochaine nouvelle aventure lorsque vous aurez atteint la prochaine centaine !",
+    "rebirthBegan": "A commencé une Nouvelle Aventure",
+    "rebirthText": "A débuté <%= rebirths %> Nouvelles Aventures",
+    "rebirthOrb": "A utilisé un Orbe de Renaissance pour recommencer à zéro après avoir atteint le niveau  <%= level %>.",
+    "rebirthOrb100": "A utilisé un Orbe de Renaissance pour recommencer à zéro après avoir atteint le niveau 100 ou plus.",
+    "rebirthOrbNoLevel": "A utilisé un Orbe de Renaissance pour recommencer à zéro.",
+    "rebirthPop": "Recommencez instantanément votre personnage au niveau 1 tout en conservant vos succès, vos objets, votre équipement et l'historique de vos tâches. Cela prendra effet immédiatement.",
+    "rebirthName": "Orbe de Renaissance",
+    "reborn": "Né de nouveau, niveau maximum <%= reLevel %>",
+    "rebirthComplete": "Vous avez été ressuscité !"
+}

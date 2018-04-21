@@ -1,0 +1,16 @@
+{
+    "rebirthNew": "Reenkarnasyon: Yeni Bir Maceraya Yelken Aç!",
+    "rebirthUnlock": "Reenkarnasyon Küresi kullanmaya hak kazandın! Bu özel eşya sayesinde tüm görevlerin, başarıların ve hayvanların elinde kalmak kaydıyla 1. seviyeden yeni bir oyuna başlayabilirsin. Eğer Habitica'da yapılabilecek her şeyi bitirdiğini düşünüyorsan ya da yepyeni bir karakter oynama heyecanını tekrar yaşamak istiyorsan reenkarnasyonu deneyebilirsin!",
+
+    "rebirthAchievement": "Yeni bir maceraya başladın! Bu, senin <%= number %>. yeniden doğuşun. Ulaştığın en yüksek seviye <%= level %>. Bu başarı madalyasından bir tane daha kazanabilmek için, yeni maceranda bu seviyeden daha yukarısına ulaşmalısın.",
+    "rebirthAchievement100": "Yeni bir maceraya başladın! Bu, senin <%= number %>. yeniden doğuşun. Ulaştığın en yüksek seviye 100'ün üzerinde. Bu başarı madalyasından bir tane daha kazanabilmek için, yeni maceranda da en az 100. seviyeye ulaşmalısın.",
+    "rebirthBegan": "Yeni Bir Maceraya Başladı",
+    "rebirthText": "<%= rebirths %> Defa Yeni Maceraya Başladı",
+    "rebirthOrb": "Reenkarnasyon Küresini <%= level %> seviyesine ulaştıktan sonra baştan başlamak için kullandı.",
+    "rebirthOrb100": "100 ya da daha yüksek bir seviyeye ulaştıktan sonra Reenkarnasyon Küresi kullanarak baştan başladı.",
+    "rebirthOrbNoLevel": "Reenkarnasyon Küresini baştan başlamak için kullandı.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Reenkarnasyon Küresi",
+    "reborn": "Reenkarne, maksimum seviye <%= reLevel %>",
+    "rebirthComplete": "Yeniden doğdun!"
+}

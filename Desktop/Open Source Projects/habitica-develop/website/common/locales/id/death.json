@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Nyawamu habis!",
+    "dontDespair": "Jangan bersedih!",
+    "deathPenaltyDetails": "Kamu kehilangan satu level, seluruh Koin Emas, dan satu buah perlengkapan, tapi kamu bisa mendapatkan semuanya lagi dengan kerja keras! Semangat--kamu pasti bisa.",
+    "refillHealthTryAgain": "Isi kembali nyawa & coba lagi",
+    "dyingOftenTips": "Apakah ini sering terjadi? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Berikut beberapa tips!</a>",
+    "losingHealthWarning": "Hati-hati - Kamu Kehilangan Nyawa!",
+    "losingHealthWarning2": "Jangan biarkan Nyawamu habis! Jika kamu membiarkannya, kamu akan kehilangan satu level, seluruh Koin Emas, dan sebuah perlengkapan.",
+    "toRegainHealth": "Untuk mendapatkan Nyawa kembali:",
+    "lowHealthTips1": "Naikkan level untuk mengembalikan nyawa sepenuhnya!",
+    "lowHealthTips2": "Beli Ramuan Kesehatan dari kolom Hadiah untuk mengembalikan 15 Poin Nyawa.",
+    "losingHealthQuickly": "Kehilangan Nyawa dengan cepat?",
+    "lowHealthTips3": "Tugas Harian yang tidak selesai akan mengurangi nyawamu saat pergantian hari, jadi hati-hati jangan membuat terlalu banyak saat baru mulai!",
+    "lowHealthTips4": "Jika sebuah kegiatan harian tidak memiliki batas waktu pada hari tertentu, kamu dapat menonaktifkannya dengan klik ikon pensil.",
+    "goodLuck": "Semoga beruntung!",
+    "cannotRevive": "Tidak dapat lahir kembali jika belum mati"
+}
