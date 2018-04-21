@@ -860,6 +860,12 @@ api.scoreCheckListItem = {
     let savedTask = await task.save();
 
     res.respond(200, savedTask);
+
+    taskActivityWebhook.send(user.webhooks, {
+      type: 'checklistScored',
+      task: savedTask,
+      item,
+    });
   },
 };
 

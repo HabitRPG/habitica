@@ -14,6 +14,7 @@ const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   created: false,
   updated: false,
   deleted: false,
+  checklistScored: false,
   scored: true,
 });
 
@@ -29,7 +30,8 @@ export let schema = new Schema({
     required: true,
     enum: [
       'global', // global webhooks send a request for every type of event
-      'taskActivity', 'groupChatReceived'
+      'taskActivity', 'groupChatReceived',
+      'userActiviy', 'questActivity',
     ],
     default: 'taskActivity',
   },
@@ -70,7 +72,11 @@ schema.plugin(baseModel, {
 schema.methods.formatOptions = function formatOptions (res) {
   if (this.type === 'taskActivity') {
     _.defaults(this.options, TASK_ACTIVITY_DEFAULT_OPTIONS);
-    this.options = _.pick(this.options, 'created', 'updated', 'deleted', 'scored');
+    this.options = _.pick(this.options,
+      'created', 'updated',
+      'deleted', 'scored',
+      'checklistScored'
+    );
 
     let invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');

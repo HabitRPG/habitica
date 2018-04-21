@@ -23,6 +23,7 @@ describe('webhooks', () => {
         updated: true,
         deleted: true,
         scored: true,
+        checklistScored: true,
       },
     }, {
       id: 'groupChatReceived',
@@ -316,6 +317,44 @@ describe('webhooks', () => {
       it(`does not send task ${type} data if ${type} option is not true`, () => {
         data.type = type;
         webhooks[0].options[type] = false;
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(got.post).to.not.be.called;
+      });
+    });
+
+    describe('checklistScored', () => {
+      beforeEach(() => {
+        data = {
+          task: {
+            text: 'text',
+          },
+          item: {
+            text: 'item-text',
+          },
+        };
+      });
+
+      it('sends \'checklistScored\' tasks', () => {
+        data.type = 'checklistScored';
+
+        taskActivityWebhook.send(webhooks, data);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
+          json: true,
+          body: {
+            type: data.type,
+            task: data.task,
+            item: data.item,
+          },
+        });
+      });
+
+      it('does not send task \'checklistScored\' data if \'checklistScored\' option is not true', () => {
+        data.type = 'checklistScored';
+        webhooks[0].options.checklistScored = false;
 
         taskActivityWebhook.send(webhooks, data);
 
