@@ -59,6 +59,9 @@ export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
 
+export const MAX_CHAT_COUNT = 200;
+export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+
 export let schema = new Schema({
   name: {type: String, required: true},
   summary: {type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS},
@@ -547,9 +550,6 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   // @TODO: Completely remove the code below after migration
   // this.chat.unshift(newMessage);
-
-  const MAX_CHAT_COUNT = 200;
-  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
   let maxCount = MAX_CHAT_COUNT;
 
