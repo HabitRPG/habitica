@@ -189,18 +189,17 @@ describe('webhooks', () => {
 
     it('sends every type of activity to global webhooks', () => {
       let sendWebhook = new WebhookSender({
-        type: 'globalActivity',
+        type: 'custom',
       });
 
       let body = { foo: 'bar' };
 
       sendWebhook.send([
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+        { id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity'},
       ], body);
 
-      expect(got.post).to.be.calledTwice;
-      expect(got.post).to.be.calledWithMatch('http://other-url.com', {
+      expect(got.post).to.be.calledOnce;
+      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
         body,
         json: true,
       });
@@ -272,6 +271,41 @@ describe('webhooks', () => {
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
+        json: true,
+        body: {
+          type: 'scored',
+          user: {
+            _id: 'user-id',
+            _tmp: {foo: 'bar'},
+            stats: {
+              lvl: 5,
+              int: 10,
+              str: 5,
+              exp: 423,
+              toNextLevel: 40,
+              maxHealth: 50,
+              maxMP: 103,
+            },
+          },
+          task: {
+            text: 'text',
+          },
+          direction: 'up',
+          delta: 176,
+        },
+      });
+    });
+
+    it('sends task and stats data to globalActivity webhookd', () => {
+      taskScoredWebhook.send([{
+        id: 'globalActivity',
+        url: 'http://global-activity.com',
+        enabled: true,
+        type: 'globalActivity',
+      }], data);
+
+      expect(got.post).to.be.calledOnce;
+      expect(got.post).to.be.calledWithMatch('http://global-activity.com', {
         json: true,
         body: {
           type: 'scored',
