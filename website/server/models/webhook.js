@@ -35,7 +35,7 @@ export let schema = new Schema({
     type: String,
     required: true,
     enum: [
-      'global', // global webhooks send a request for every type of event
+      'globalActivity', // global webhooks send a request for every type of event
       'taskActivity', 'groupChatReceived',
       'userActiviy', 'questActivity',
     ],
@@ -92,7 +92,7 @@ schema.methods.formatOptions = function formatOptions (res) {
     if (!validator.isUUID(String(this.options.groupId))) {
       throw new BadRequest(res.t('groupIdRequired'));
     }
-  } else if (this.type === 'userActiviy') {
+  } else if (this.type === 'userActivity') {
     _.defaults(this.options, USER_ACTIVITY_DEFAULT_OPTIONS);
     this.options = _.pick(this.options, Object.keys(USER_ACTIVITY_DEFAULT_OPTIONS));
 
@@ -102,6 +102,9 @@ schema.methods.formatOptions = function formatOptions (res) {
     if (invalidOption) {
       throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
     }
+  } else {
+    // Discard all options
+    this.options = {};
   }
 };
 

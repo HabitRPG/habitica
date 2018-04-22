@@ -187,6 +187,25 @@ describe('webhooks', () => {
       });
     });
 
+    it('sends every type of activity to global webhooks', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'globalActivity',
+      });
+
+      let body = { foo: 'bar' };
+
+      sendWebhook.send([
+        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
+        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+      ], body);
+
+      expect(got.post).to.be.calledTwice;
+      expect(got.post).to.be.calledWithMatch('http://other-url.com', {
+        body,
+        json: true,
+      });
+    });
+
     it('sends multiple webhooks of the same type', () => {
       let sendWebhook = new WebhookSender({
         type: 'custom',

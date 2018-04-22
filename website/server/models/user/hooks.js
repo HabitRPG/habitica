@@ -295,20 +295,18 @@ schema.pre('save', true, function preSaveUser (next, done) {
     }
 
     // Handle unallocated stats points notifications (keep only one and up to date)
-    if (unallocatedPointsNotifications.length > 0) {
-      const pointsToAllocate = this.stats.points;
-      const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
+    const pointsToAllocate = this.stats.points;
+    const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
-      // Take the most recent notification
-      const lastExistingNotification = unallocatedPointsNotifications.length > 0 ?
-        unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1] :
-        null;
+    // Take the most recent notification
+    const lastExistingNotification = unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1];
 
-      // Decide if it's outdated or not
-      const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
+    // Decide if it's outdated or not
+    const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
 
-      // If there are points to allocate and the notification is outdated, add a new notifications
-      if (pointsToAllocate > 0 && !classNotEnabled && outdatedNotification) {
+    // If there are points to allocate and the notification is outdated, add a new notifications
+    if (pointsToAllocate > 0 && !classNotEnabled) {
+      if (outdatedNotification) {
         this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
       } else { // otherwise add back the last one
         this.notifications.push(lastExistingNotification);

@@ -223,4 +223,16 @@ describe('POST /user/webhook', () => {
       groupId: body.options.groupId,
     });
   });
+
+  it('discards extra properties in globalActivity options', async () => {
+    body.type = 'globalActivity';
+    body.options = {
+      foo: 'bar',
+    };
+
+    let webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options.foo).to.not.exist;
+    expect(webhook.options).to.eql({});
+  });
 });

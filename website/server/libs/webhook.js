@@ -35,9 +35,10 @@ export class WebhookSender {
 
   send (webhooks, data) {
     let hooks = webhooks.filter((hook) => {
-      return isValidWebhook(hook) &&
-        this.type === hook.type &&
-        this.webhookFilter(hook, data);
+      if (!isValidWebhook(hook)) return false;
+      if (this.type === 'globalActivity') return true;
+
+      return this.type === hook.type && this.webhookFilter(hook, data);
     });
 
     if (hooks.length < 1) {
