@@ -130,8 +130,8 @@ api.castSpell = {
 
       if (party && !spell.silent) {
         let message = `\`${user.profile.name} casts ${spell.text()}${targetType === 'user' ? ` on ${partyMembers.profile.name}` : ' for the party'}.\``;
-        party.sendChat(message);
-        await party.save();
+        const newChatMessage = party.sendChat(message);
+        await newChatMessage.save();
       }
     }
   },

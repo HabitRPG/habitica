@@ -4,6 +4,7 @@ import {
   generateUser,
   sleep,
 } from '../../../../helpers/api-v3-integration.helper';
+import { model as Chat } from '../../../../../website/server/models/chat';
 
 describe('POST /groups/:groupId/quests/accept', () => {
   const PET_QUEST = 'whale';
@@ -155,10 +156,11 @@ describe('POST /groups/:groupId/quests/accept', () => {
       // quest will start after everyone has accepted
       await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-      await questingGroup.sync();
-      expect(questingGroup.chat[0].text).to.exist;
-      expect(questingGroup.chat[0]._meta).to.exist;
-      expect(questingGroup.chat[0]._meta).to.have.all.keys(['participatingMembers']);
+      const groupChat = await Chat.find({ groupId: questingGroup._id }).exec();
+
+      expect(groupChat[0].text).to.exist;
+      expect(groupChat[0]._meta).to.exist;
+      expect(groupChat[0]._meta).to.have.all.keys(['participatingMembers']);
 
       let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;

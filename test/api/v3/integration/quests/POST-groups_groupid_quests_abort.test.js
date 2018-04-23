@@ -90,7 +90,7 @@ describe('POST /groups/:groupId/quests/abort', () => {
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
     await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-    let stub = sandbox.stub(Group.prototype, 'sendChat');
+    let stub = sandbox.spy(Group.prototype, 'sendChat');
 
     let res = await leader.post(`/groups/${questingGroup._id}/quests/abort`);
     await Promise.all([
