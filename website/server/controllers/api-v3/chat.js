@@ -184,7 +184,7 @@ api.postChat = {
 
     await Promise.all(toSave);
 
-    // real-time chat is only enabled for private groups (for now only for parties)
+    // @TODO: rethink if we want real-time
     if (group.privacy === 'private' && group.type === 'party') {
       // req.body.pusherSocketId is sent from official clients to identify the sender user's real time socket
       // see https://pusher.com/docs/server_api_guide/server_excluding_recipients

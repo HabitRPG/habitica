@@ -4,8 +4,7 @@
 
 
 /*
- * This migrations will iterate through all groups with a group plan a subscription and resync the free
- * subscription to all members
+ * This migration move ass chat off of groups and into their own model
  */
 
 import { model as Group } from '../../website/server/models/group';
