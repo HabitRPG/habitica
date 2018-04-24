@@ -32,7 +32,8 @@ describe('GET /groups/:groupId/chat', () => {
     it('returns Guild chat', async () => {
       const chat = await user.get(`/groups/${group._id}/chat`);
 
-      expect(chat).to.eql(group.chat);
+      expect(chat[0].id).to.eql(group.chat[0].id);
+      expect(chat[1].id).to.eql(group.chat[1].id);
     });
   });
 
