@@ -84,7 +84,7 @@
     "joinOthers": "<%= userCount %> 人ものユーザーが、それぞれの目標を達成するのを楽しんでいます!",
     "kazuiQuote": "[Habitica] をやる前は論文にいきづまってたし、同じように家事もできずに生活が乱れてて、語学や囲碁の理論の勉強もうまくいってなかった。やるべきことを、小さく分割して管理できるチェックリストにしたことで、やる気が出たし、つづけられるようになったんだ。",
     "landingend": "まだ決心がつきませんか?",
-    "landingend2": "See a more detailed list of [our features](/static/overview). Are you looking for a more private approach? Check out our [administrative packages](/static/plans), which are perfect for families, teachers, support groups, and businesses.",
+    "landingend2": "もっと詳しい説明は[機能一覧](/static/overview)を見てください。もっとプライベートな用途がお好みですか？ 家族や教育、サポートグループ、ビジネスでの利用には[管理パッケージ](/static/plans)が最適のプランです。",
     "landingp1": "市場にある多くの生産性向上ツールには、使いつづけようとするインセンティブがありません。\nHabitica はこの問題を、習慣づけを楽しくすることで解決しました!　自分自身の成功にはごほうびを、失敗にはペナルティーを...。Habitica は、日々の行動で目標を達成するためのやる気を提供します。",
     "landingp2": "あなたが良い習慣を続けている時や、日課を完了させた時、古くなったTo-Doを片付けたとき、Habiticaでは経験値とゴールドの報酬が即座に手に入ります。経験を積むとレベルアップすることができ、能力値を上昇させたり、クラスやペットなどの更なる機能をアンロックすることができます。ゴールドはちょっとした気分転換をもたらすゲーム内のアイテムや、あなた自身がモチベーション向上の為に設定した個人的な報酬と引き換えられます。ほんの小さな成功でもすぐに報酬が得られるため、あなたは物事を先延ばしにしづらくなります。",
     "landingp2header": "簡単に得られる喜び",
