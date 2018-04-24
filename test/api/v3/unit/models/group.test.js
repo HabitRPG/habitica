@@ -182,7 +182,7 @@ describe('Group Model', () => {
           await party.startQuest(questLeader);
           await party.save();
 
-          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.spy(Group.prototype, 'sendChat');
         });
 
         afterEach(() => sendChatStub.restore());
@@ -378,7 +378,7 @@ describe('Group Model', () => {
           await party.startQuest(questLeader);
           await party.save();
 
-          sendChatStub = sandbox.stub(Group.prototype, 'sendChat');
+          sendChatStub = sandbox.spy(Group.prototype, 'sendChat');
         });
 
         afterEach(() => sendChatStub.restore());
@@ -918,21 +918,8 @@ describe('Group Model', () => {
         sandbox.spy(User, 'update');
       });
 
-      it('puts message at top of chat array', () => {
-        let oldMessage = {
-          text: 'a message',
-        };
-        party.chat.push(oldMessage, oldMessage, oldMessage);
-
-        party.sendChat('a new message', {_id: 'user-id', profile: { name: 'user name' }});
-
-        expect(party.chat).to.have.a.lengthOf(4);
-        expect(party.chat[0].text).to.eql('a new message');
-        expect(party.chat[0].uuid).to.eql('user-id');
-      });
-
       it('formats message', () => {
-        party.sendChat('a new message', {
+        const chatMessage = party.sendChat('a new message', {
           _id: 'user-id',
           profile: { name: 'user name' },
           contributor: {
@@ -947,11 +934,11 @@ describe('Group Model', () => {
           },
         });
 
-        let chat = party.chat[0];
+        const chat = chatMessage;
 
         expect(chat.text).to.eql('a new message');
         expect(validator.isUUID(chat.id)).to.eql(true);
-        expect(chat.timestamp).to.be.a('number');
+        expect(chat.timestamp).to.be.a('date');
         expect(chat.likes).to.eql({});
         expect(chat.flags).to.eql({});
         expect(chat.flagCount).to.eql(0);
@@ -962,13 +949,11 @@ describe('Group Model', () => {
       });
 
       it('formats message as system if no user is passed in', () => {
-        party.sendChat('a system message');
-
-        let chat = party.chat[0];
+        const chat = party.sendChat('a system message');
 
         expect(chat.text).to.eql('a system message');
         expect(validator.isUUID(chat.id)).to.eql(true);
-        expect(chat.timestamp).to.be.a('number');
+        expect(chat.timestamp).to.be.a('date');
         expect(chat.likes).to.eql({});
         expect(chat.flags).to.eql({});
         expect(chat.flagCount).to.eql(0);
