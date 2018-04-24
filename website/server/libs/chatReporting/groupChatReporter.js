@@ -37,7 +37,7 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    const message = await Chat.findOne({id: this.req.params.chatId}).exec();
+    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
