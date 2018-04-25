@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
   timestamp: Date,
   user: String,
   text: String,
+  info: {type: mongoose.Schema.Types.Mixed},
   contributor: {type: mongoose.Schema.Types.Mixed},
   backer: {type: mongoose.Schema.Types.Mixed},
   uuid: String,
