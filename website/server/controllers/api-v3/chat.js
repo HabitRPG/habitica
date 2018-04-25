@@ -95,7 +95,7 @@ function getBannedWordsFromText (message) {
  *
  * @apiUse GroupNotFound
  * @apiUse GroupIdRequired
- * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
+ * @apiError (400) {NotAuthorized} chatPriviledgesRevoked You cannot do that because your chat privileges have been revoked.
  */
 api.postChat = {
   method: 'POST',
@@ -235,7 +235,7 @@ api.likeChat = {
     let group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({id: req.params.chatId}).exec();
+    let message = await Chat.findOne({_id: req.params.chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
     // @TODO correct this error type
     if (message.uuid === user._id) throw new NotFound(res.t('messageGroupChatLikeOwnMessage'));
@@ -330,7 +330,7 @@ api.clearChatFlags = {
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({id: chatId}).exec();
+    let message = await Chat.findOne({_id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     message.flagCount = 0;
@@ -458,7 +458,7 @@ api.deleteChat = {
     let group = await Group.getGroup({user, groupId, fields: 'chat'});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    let message = await Chat.findOne({id: chatId}).exec();
+    let message = await Chat.findOne({_id: chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     if (user._id !== message.uuid && !user.contributor.admin) {
