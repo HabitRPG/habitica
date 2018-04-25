@@ -95,7 +95,7 @@ function getBannedWordsFromText (message) {
  *
  * @apiUse GroupNotFound
  * @apiUse GroupIdRequired
- * @apiError (400) {NotFound} ChatPriviledgesRevoked Your chat privileges have been revoked
+ * @apiError (400) {NotAuthorized} chatPriviledgesRevoked You cannot do that because your chat privileges have been revoked.
  */
 api.postChat = {
   method: 'POST',
