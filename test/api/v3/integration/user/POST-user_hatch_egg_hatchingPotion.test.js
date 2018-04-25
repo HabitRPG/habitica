@@ -1,7 +1,10 @@
 import {
   generateUser,
   translate as t,
+  server,
+  sleep,
 } from '../../../../helpers/api-integration/v3';
+import { v4 as generateUUID } from 'uuid';
 
 describe('POST /user/hatch/:egg/:hatchingPotion', () => {
   let user;
@@ -26,6 +29,43 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
     expect(res).to.eql({
       message: t('messageHatched'),
       data: JSON.parse(JSON.stringify(user.items)),
+    });
+  });
+
+  context('sending user activity webhooks', () => {
+    before(async () => {
+      await server.start();
+    });
+
+    after(async () => {
+      await server.close();
+    });
+
+    it('sends user activity webhook when a new pet is hatched', async () => {
+      let uuid = generateUUID();
+
+      await user.post('/user/webhook', {
+        url: `http://localhost:${server.port}/webhooks/${uuid}`,
+        type: 'userActivity',
+        enabled: true,
+        options: {
+          petHatched: true,
+        },
+      });
+
+      await user.update({
+        'items.eggs.Wolf': 1,
+        'items.hatchingPotions.Base': 1,
+      });
+      let res = await user.post('/user/hatch/Wolf/Base');
+
+      await sleep();
+
+      let body = server.getWebhookData(uuid);
+
+      expect(body.type).to.eql('petHatched');
+      expect(body.pet).to.eql('Wolf-Base');
+      expect(body.message).to.eql(res.message);
     });
   });
 });
