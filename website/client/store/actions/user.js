@@ -1,4 +1,5 @@
 import { loadAsyncResource } from 'client/libs/asyncResource';
+import spellQueue from 'client/libs/spellQueue';
 import setProps from 'lodash/set';
 import axios from 'axios';
 
@@ -56,7 +57,11 @@ export async function set (store, changes) {
   // .catch((err) => console.error('set', err));
 }
 
-export async function sleep () {
+export async function sleep (store) {
+  const user = store.state.user.data;
+
+  user.preferences.sleep = !user.preferences.sleep;
+
   let response = await axios.post('/api/v3/user/sleep');
   return response.data.data;
 }
@@ -107,12 +112,25 @@ export function togglePinnedItem (store, params) {
   return addedItem;
 }
 
+export async function movePinnedItem (store, params) {
+  let response = await axios.post(`/api/v3/user/move-pinned-item/${params.path}/move/to/${params.position}`);
+  return response.data.data;
+}
+
 export function castSpell (store, params) {
+  if (params.pinType !== 'card' && !params.quantity) {
+    spellQueue.queue({key: params.key, targetId: params.targetId}, store);
+    return;
+  }
+
   let spellUrl = `/api/v3/user/class/cast/${params.key}`;
 
-  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+  const data = {};
 
-  return axios.post(spellUrl);
+  if (params.targetId) spellUrl += `?targetId=${params.targetId}`;
+  if (params.quantity) data.quantity = params.quantity;
+
+  return axios.post(spellUrl, data);
 }
 
 export function openMysteryItem () {

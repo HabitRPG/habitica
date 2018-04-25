@@ -9,15 +9,23 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    amazon-payments-modal
+    banned-account-modal
+    amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
       template(v-if="isUserLoaded")
+        div.resting-banner(v-if="showRestingBanner")
+          span.content
+            span.label {{ $t('innCheckOutBanner') }}
+            span.separator |
+            span.resume(@click="resumeDamage()") {{ $t('resumeDamage') }}
+          div.closepadding(@click="hideBanner()")
+            span.svg-icon.inline.icon-10(aria-hidden="true", v-html="icons.close")
         notifications-display
-        app-menu
+        app-menu(:class='{"restingInn": showRestingBanner}')
         .container-fluid
-          app-header
+          app-header(:class='{"restingInn": showRestingBanner}')
           buyModal(
             :item="selectedItemToBuy || {}",
             :withPin="true",
@@ -34,13 +42,15 @@ div
 
           div(:class='{sticky: user.preferences.stickyHeader}')
             router-view
-          app-footer
-          audio#sound(autoplay, ref="sound")
-            source#oggSource(type="audio/ogg", :src="sound.oggSource")
-            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+        app-footer
+        audio#sound(autoplay, ref="sound")
+          source#oggSource(type="audio/ogg", :src="sound.oggSource")
+          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
+  @import '~client/assets/scss/colors.scss';
+
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
@@ -53,7 +63,7 @@ div
     }
 
     h2 {
-      color: #fff;
+      color: $white;
       font-size: 32px;
       font-weight: bold;
     }
@@ -72,10 +82,10 @@ div
 
   .notification {
     border-radius: 1000px;
-    background-color: #24cc8f;
+    background-color: $green-10;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: .5em 1em;
-    color: #fff;
+    color: $white;
     margin-top: .5em;
     margin-bottom: .5em;
   }
@@ -93,20 +103,75 @@ div
   }
 </style>
 
-<style>
+<style lang='scss'>
+  @import '~client/assets/scss/colors.scss';
+
   /* @TODO: The modal-open class is not being removed. Let's try this for now */
   .modal, .modal-open {
     overflow-y: scroll !important;
   }
 
   .modal-backdrop.show {
-    opacity: 1 !important;
-    background-color: rgba(67, 40, 116, 0.9) !important;
+    opacity: .9 !important;
+    background-color: $purple-100 !important;
   }
 
   /* Push progress bar above modals */
   #nprogress .bar {
     z-index: 1043 !important; /* Must stay above nav bar */
+  }
+
+  .restingInn {
+    .navbar {
+      top: 40px;
+    }
+
+    #app-header {
+      margin-top: 96px !important;
+    }
+
+  }
+
+  .resting-banner {
+    width: 100%;
+    height: 40px;
+    background-color: $blue-10;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+
+    .content {
+      height: 24px;
+      line-height: 1.71;
+      text-align: center;
+      color: $white;
+
+      margin: auto;
+    }
+
+    .closepadding {
+      margin: 11px 24px;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      span svg path {
+        stroke: $blue-500;
+      }
+    }
+
+    .separator {
+      color: $blue-100;
+      margin: 0px 15px;
+    }
+
+    .resume {
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 </style>
 
@@ -128,6 +193,11 @@ import { setup as setupPayments } from 'client/libs/payments';
 import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
 
+import svgClose from 'assets/svg/close.svg';
+import bannedAccountModal from 'client/components/bannedAccountModal';
+
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
+
 export default {
   mixins: [notifications, spellsMixin],
   name: 'app',
@@ -140,9 +210,13 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    bannedAccountModal,
   },
   data () {
     return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -152,6 +226,7 @@ export default {
       },
       loading: true,
       currentTipNumber: 0,
+      bannerHidden: false,
     };
   },
   computed: {
@@ -172,13 +247,17 @@ export default {
 
       return this.$t(`tip${tipNumber}`);
     },
+    showRestingBanner () {
+      return !this.bannerHidden && this.user.preferences.sleep;
+    },
   },
   created () {
     this.$root.$on('playSound', (sound) => {
       let theme = this.user.preferences.sound;
 
-      if (!theme || theme === 'off')
+      if (!theme || theme === 'off') {
         return;
+      }
 
       let file =  `/static/audio/${theme}/${sound}`;
       this.sound = {
@@ -214,6 +293,8 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        this.checkForBannedUser(error);
+
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(error.response.data) !== -1) {
@@ -292,6 +373,11 @@ export default {
       document.title = title;
     });
 
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
+    });
+
     if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
       Promise.all([
@@ -314,7 +400,6 @@ export default {
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
-          Analytics.load();
         });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
@@ -338,6 +423,25 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
+    checkForBannedUser (error) {
+      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const errorMessage = error.response.data.message;
+
+      // Case where user is not logged in
+      if (!parseSettings) {
+        return;
+      }
+
+      const bannedMessage = this.$t('accountSuspended', {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: parseSettings.auth.apiId,
+      });
+
+      if (errorMessage !== bannedMessage) return;
+
+      this.$root.$emit('bv::show::modal', 'banned-account');
+    },
     initializeModalStack () {
       // Manage modals
       this.$root.$on('bv::show::modal', (modalId, data = {}) => {
@@ -426,7 +530,7 @@ export default {
       if (!item)
         return false;
 
-      if (item.purchaseType === 'card')
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
         return false;
 
       return true;
@@ -447,6 +551,10 @@ export default {
 
         this.$root.$emit('bv::show::modal', 'select-member-modal');
       }
+
+      if (item.purchaseType === 'debuffPotion') {
+        this.castStart(item, this.user);
+      }
     },
     async memberSelected (member) {
       await this.castStart(this.selectedSpellToBuy, member);
@@ -461,6 +569,12 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
+    },
+    hideBanner () {
+      this.bannerHidden = true;
+    },
+    resumeDamage () {
+      this.$store.dispatch('user:sleep');
     },
   },
 };

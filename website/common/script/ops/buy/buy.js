@@ -3,11 +3,11 @@ import get from 'lodash/get';
 import {
   BadRequest,
 } from '../../libs/errors';
-import buyHealthPotion from './buyHealthPotion';
-import buyArmoire from './buyArmoire';
-import buyGear from './buyGear';
+import {BuyArmoireOperation} from './buyArmoire';
+import {BuyHealthPotionOperation} from './buyHealthPotion';
+import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
-import buyQuest from './buyQuest';
+import {BuyQuestWithGoldOperation} from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
@@ -30,15 +30,21 @@ module.exports = function buy (user, req = {}, analytics) {
   let buyRes;
 
   switch (type) {
-    case 'armoire':
-      buyRes = buyArmoire(user, req, analytics);
+    case 'armoire': {
+      const buyOp = new BuyArmoireOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
       break;
-    case 'potion':
-      buyRes = buyHealthPotion(user, req, analytics);
+    case 'potion': {
+      const buyOp = new BuyHealthPotionOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'eggs':
     case 'hatchingPotions':
     case 'food':
@@ -52,15 +58,21 @@ module.exports = function buy (user, req = {}, analytics) {
     case 'mounts':
       buyRes = hourglassPurchase(user, req, analytics);
       break;
-    case 'quest':
-      buyRes = buyQuest(user, req, analytics);
+    case 'quest': {
+      const buyOp = new BuyQuestWithGoldOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
     case 'special':
       buyRes = buySpecialSpell(user, req, analytics);
       break;
-    default:
-      buyRes = buyGear(user, req, analytics);
+    default: {
+      const buyOp = new BuyMarketGearOperation(user, req, analytics);
+
+      buyRes = buyOp.purchase();
       break;
+    }
   }
 
   return buyRes;

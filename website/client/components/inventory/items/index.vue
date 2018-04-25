@@ -193,30 +193,27 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
 import each from 'lodash/each';
 import throttle from 'lodash/throttle';
-
+import moment from 'moment';
 import Item from 'client/components/inventory/item';
 import ItemRows from 'client/components/ui/itemRows';
 import CountBadge from 'client/components/ui/countBadge';
 
 import cardsModal from './cards-modal';
+
 import HatchedPetDialog from '../stable/hatchedPetDialog';
-
 import startQuestModal from '../../groups/startQuestModal';
-
-import createAnimal from 'client/libs/createAnimal';
-
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
-import moment from 'moment';
-
-const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+import { mapState } from 'client/libs/store';
+import createAnimal from 'client/libs/createAnimal';
 
 import notifications from 'client/mixins/notifications';
 import DragDropDirective from 'client/directives/dragdrop.directive';
 import MouseMoveDirective from 'client/directives/mouseposition.directive';
+
+const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
 const groups = [
   ['eggs', 'Pet_Egg_'],
@@ -321,14 +318,12 @@ export default {
 
       let specialArray = itemsByType.special;
 
-      if (this.user.purchased.plan.customerId) {
-        specialArray.push({
-          key: 'mysteryItem',
-          class: `inventory_present inventory_present_${moment().format('MM')}`,
-          text: this.$t('subscriberItemText'),
-          quantity: this.user.purchased.plan.mysteryItems.length,
-        });
-      }
+      specialArray.push({
+        key: 'mysteryItem',
+        class: `inventory_present inventory_present_${moment().format('MM')}`,
+        text: this.$t('subscriberItemText'),
+        quantity: this.user.purchased.plan.mysteryItems.length,
+      });
 
       for (let type in this.content.cardTypes) {
         let card = this.user.items.special[`${type}Received`] || [];
@@ -356,7 +351,10 @@ export default {
     },
     hatchPet (potion, egg) {
       this.$store.dispatch('common:hatch', {egg: egg.key, hatchingPotion: potion.key});
-      this.$root.$emit('hatchedPet::open', createAnimal(egg, potion, 'pet', this.content, this.user.items));
+      this.text(this.$t('hatchedPet', {egg: egg.text, potion: potion.text}));
+      if (this.user.preferences.suppressModals.hatchPet) return;
+      const newPet = createAnimal(egg, potion, 'pet', this.content, this.user.items);
+      this.$root.$emit('hatchedPet::open', newPet);
     },
     onDragEnd () {
       this.currentDraggingPotion = null;

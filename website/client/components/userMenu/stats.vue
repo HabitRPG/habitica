@@ -116,7 +116,7 @@
               popover-placement='right', :popover="$t('streaksFrozenText')")
             | {{ $t('streaksFrozen') }}
 
-      .col-4(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .col-4(v-if='hasClass')
           h3(v-once) {{ $t('characterBuild') }}
           h4(v-once) {{ $t('class') + ': ' }}
             span {{ classText }}&nbsp;
@@ -238,6 +238,9 @@ export default {
       };
 
       return classTexts[this.user.stats.class];
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
     },
   },
   methods: {

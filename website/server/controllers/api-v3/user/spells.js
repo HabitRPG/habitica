@@ -130,22 +130,23 @@ api.castSpell = {
 
       if (party && !spell.silent) {
         if (targetType === 'user') {
-          party.sendChat(`\`${common.i18n.t('chatCastSpellUser', {username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name}, 'en')}\``, null, null, {
+          const newChatMessage = party.sendChat(`\`${common.i18n.t('chatCastSpellUser', {username: user.profile.name, spell: spell.text(), target: partyMembers.profile.name}, 'en')}\``, null, null, {
             type: 'spell_cast_user',
             user: user.profile.name,
             class: klass,
             spell: spellId,
             target: partyMembers.profile.name,
           });
+          await newChatMessage.save();
         } else {
-          party.sendChat(`\`${common.i18n.t('chatCastSpellParty', {username: user.profile.name, spell: spell.text()}, 'en')}\``, null, null, {
+          const newChatMessage = party.sendChat(`\`${common.i18n.t('chatCastSpellParty', {username: user.profile.name, spell: spell.text()}, 'en')}\``, null, null, {
             type: 'spell_cast_party',
             user: user.profile.name,
             class: klass,
             spell: spellId,
           });
+          await newChatMessage.save();
         }
-        await party.save();
       }
     }
   },

@@ -149,7 +149,7 @@
     "taskAliasAlreadyUsed": "Dieser Aufgaben Alias wird bereits verwendet.",
     "taskNotFound": "Aufgabe nicht gefunden.",
     "invalidTaskType": "Aufgabenart muss eines der folgenden sein: \"Gewohnheit\", \"tägliche Aufgabe\", \"To-Do\", \"Belohnung\".",
-    "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
+    "invalidTasksType": "Aufgabenart muss eines der folgenden Werte haben: \"habits\", \"dailys\", \"todos\", \"rewards\".",
     "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "Eine Aufgabe, die zu einem Wettbewerb gehört, kann nicht gelöscht werden.",
     "checklistOnlyDailyTodo": "Checklisten sind nur für Tägliche Aufgaben und To-Do's verfügbar.",
@@ -176,7 +176,7 @@
     "taskApprovalHasBeenRequested": "Die Zustimmung wurde angefragt.",
     "taskApprovalWasNotRequested": "Only a task waiting for approval can be marked as needing more work",
     "approvals": "Zustimmungen",
-    "approvalRequired": "Needs Approval",
+    "approvalRequired": "Benötigt Zustimming",
     "repeatZero": "Die Tagesaufgabe ist nie fällig",
     "repeatType": "Wiederholungstyp",
     "repeatTypeHelpTitle": "Was für eine Art der Wiederholung ist dies?",
@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Falls diese Einstellung ausgewählt wird, wird Habitica Dich fragen, ob Du die Tagesaufgabe absichtlich nicht abgehakt hast, bevor der Schaden an deinem Avatar berechnet und angewandt wird. Dies kann Dich vor unbeabsichtigtem Schaden schützen.",
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist.",
     "searchTasks": "Durchsuche die Überschriften und Beschreibungen...",
-    "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu."
+    "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu.",
+    "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden."
 }

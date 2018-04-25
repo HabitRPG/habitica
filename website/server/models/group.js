@@ -7,10 +7,11 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import { model as Chat } from './chat';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
-import payments from '../libs/payments';
+import payments from '../libs/payments/payments';
 import { groupChatReceivedWebhook } from '../libs/webhook';
 import {
   InternalServerError,
@@ -28,8 +29,9 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
-import amazonPayments from '../libs/amazonPayments';
-import stripePayments from '../libs/stripePayments';
+import amazonPayments from '../libs/payments/amazon';
+import stripePayments from '../libs/payments/stripe';
+import { getGroupChat } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
 
 const questScrolls = shared.content.quests;
@@ -56,6 +58,9 @@ const MAX_UPDATE_RETRIES = 5;
 export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
+
+export const MAX_CHAT_COUNT = 200;
+export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -384,7 +389,13 @@ schema.statics.translateSystemMessages = _translateSystemMessages;
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
+  // Also only return chat if requested, eventually we don't want to return chat here
+  if (group && group.chat) {
+    await getGroupChat(group);
+  }
+
   group = _translateSystemMessages(group, user);
 
   let toJSON = group.toJSON();
@@ -520,8 +531,10 @@ schema.methods.getMemberCount = async function getMemberCount () {
 // info: An object containing relevant information about a system message,
 // so it can be translated to any language.
 export function chatDefaults (msg, user, info = {}) {
-  let message = {
-    id: shared.uuid(),
+  const id = shared.uuid();
+  const message = {
+    id,
+    _id: id,
     text: msg,
     info,
     timestamp: Number(new Date()),
@@ -574,34 +587,39 @@ function setUserStyles (newMessage, user) {
     userStyles.preferences.costume = userCopy.preferences.costume;
   }
 
-  userStyles.stats = {};
-  if (userCopy.stats && userCopy.stats.buffs) {
-    userStyles.stats.buffs = {
-      seafoam: userCopy.stats.buffs.seafoam,
-      shinySeed: userCopy.stats.buffs.shinySeed,
-      spookySparkles: userCopy.stats.buffs.spookySparkles,
-      snowball: userCopy.stats.buffs.snowball,
-    };
+  if (userCopy.stats) {
+    userStyles.stats = {};
+    userStyles.stats.class = userCopy.stats.class;
+    if (userCopy.stats.buffs) {
+      userStyles.stats.buffs = {
+        seafoam: userCopy.stats.buffs.seafoam,
+        shinySeed: userCopy.stats.buffs.shinySeed,
+        spookySparkles: userCopy.stats.buffs.spookySparkles,
+        snowball: userCopy.stats.buffs.snowball,
+      };
+    }
   }
 
   newMessage.userStyles = userStyles;
+  newMessage.markModified('userStyles');
 }
 
 schema.methods.sendChat = function sendChat (message, user, metaData, info = {}) {
   let newMessage = chatDefaults(message, user, info);
+  let newChatMessage = new Chat();
+  newChatMessage = Object.assign(newChatMessage, newMessage);
+  newChatMessage.groupId = this._id;
 
-  if (user) setUserStyles(newMessage, user);
+  if (user) setUserStyles(newChatMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
   if (metaData) {
-    newMessage._meta = metaData;
+    newChatMessage._meta = metaData;
   }
 
-  this.chat.unshift(newMessage);
-
-  const MAX_CHAT_COUNT = 200;
-  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+  // @TODO: Completely remove the code below after migration
+  // this.chat.unshift(newMessage);
 
   let maxCount = MAX_CHAT_COUNT;
 
@@ -613,7 +631,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData, info = {})
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
-    return;
+    return newChatMessage;
   }
 
   // Kick off chat notifications in the background.
@@ -658,7 +676,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData, info = {})
     pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
   }
 
-  return newMessage;
+  return newChatMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -777,12 +795,14 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`\`${shared.i18n.t('chatQuestStarted', {questName: quest.text('en')}, 'en')}\``, null, {
+  const newMessage = this.sendChat(`\`${shared.i18n.t('chatQuestStarted', {questName: quest.text('en')}, 'en')}\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   }, {
     type: 'quest_start',
     quest: quest.key,
   });
+
+  await newMessage.save();
 };
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
@@ -862,16 +882,15 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
 
 async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) {
   query._id = userId;
-  return await User.update(query, updates).exec()
-    .then((raw) => {
-      return raw;
-    }).catch((err) => {
-      if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry, query);
-      } else {
-        throw err;
-      }
-    });
+  try {
+    return await User.update(query, updates).exec();
+  } catch (err) {
+    if (numTry < MAX_UPDATE_RETRIES) {
+      return _updateUserWithRetries(userId, updates, ++numTry, query);
+    } else {
+      throw err;
+    }
+  }
 }
 
 // Participants: Grant rewards & achievements, finish quest.
@@ -921,34 +940,42 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  if (questK === 'lostMasterclasser4') {
+  let masterClasserQuests = [
+    'dilatoryDistress1',
+    'dilatoryDistress2',
+    'dilatoryDistress3',
+    'mayhemMistiflying1',
+    'mayhemMistiflying2',
+    'mayhemMistiflying3',
+    'stoikalmCalamity1',
+    'stoikalmCalamity2',
+    'stoikalmCalamity3',
+    'taskwoodsTerror1',
+    'taskwoodsTerror2',
+    'taskwoodsTerror3',
+    'lostMasterclasser1',
+    'lostMasterclasser2',
+    'lostMasterclasser3',
+    'lostMasterclasser4',
+  ];
+
+  if (masterClasserQuests.includes(questK)) {
     let lostMasterclasserQuery = {
       'achievements.lostMasterclasser': {$ne: true},
-      'achievements.quests.mayhemMistiflying1': {$gt: 0},
-      'achievements.quests.mayhemMistiflying2': {$gt: 0},
-      'achievements.quests.mayhemMistiflying3': {$gt: 0},
-      'achievements.quests.stoikalmCalamity1': {$gt: 0},
-      'achievements.quests.stoikalmCalamity2': {$gt: 0},
-      'achievements.quests.stoikalmCalamity3': {$gt: 0},
-      'achievements.quests.taskwoodsTerror1': {$gt: 0},
-      'achievements.quests.taskwoodsTerror2': {$gt: 0},
-      'achievements.quests.taskwoodsTerror3': {$gt: 0},
-      'achievements.quests.dilatoryDistress1': {$gt: 0},
-      'achievements.quests.dilatoryDistress2': {$gt: 0},
-      'achievements.quests.dilatoryDistress3': {$gt: 0},
-      'achievements.quests.lostMasterclasser1': {$gt: 0},
-      'achievements.quests.lostMasterclasser2': {$gt: 0},
-      'achievements.quests.lostMasterclasser3': {$gt: 0},
     };
+    masterClasserQuests.forEach(questName => {
+      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
+    });
     let lostMasterclasserUpdate = {
       $set: {'achievements.lostMasterclasser': true},
     };
-    promises.concat(participants.map(userId => {
+
+    promises = promises.concat(participants.map(userId => {
       return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
     }));
   }
 
-  return Promise.all(promises);
+  return await Promise.all(promises);
 };
 
 function _isOnQuest (user, progress, group) {
@@ -968,33 +995,37 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   let updates = {
     $inc: {'stats.hp': down},
   };
+  const promises = [];
 
   group.quest.progress.hp -= progress.up;
   if (CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE) {
-    group.sendChat(`\`${shared.i18n.t('chatBossDontAttack', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
+    const groupMessage = group.sendChat(`\`${shared.i18n.t('chatBossDontAttack', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
       type: 'boss_dont_attack',
       user: user.profile.name,
       quest: group.quest.key,
       userDamage: progress.up.toFixed(1),
     });
+    promises.push(groupMessage.save());
   } else {
-    group.sendChat(`\`${shared.i18n.t('chatBossDamage', {username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1)}, user.preferences.language)}\``, null, null, {
+    const groupMessage = group.sendChat(`\`${shared.i18n.t('chatBossDamage', {username: user.profile.name, bossName: quest.boss.name('en'), userDamage: progress.up.toFixed(1), bossDamage: Math.abs(down).toFixed(1)}, user.preferences.language)}\``, null, null, {
       type: 'boss_damage',
       user: user.profile.name,
       quest: group.quest.key,
       userDamage: progress.up.toFixed(1),
       bossDamage: Math.abs(down).toFixed(1),
     });
+    promises.push(groupMessage.save());
   }
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
-      group.sendChat(quest.boss.rage.effect('en'), null, null, {
+      const rageMessage = group.sendChat(quest.boss.rage.effect('en'), null, null, {
         type: 'boss_rage',
         quest: quest.key,
       });
+      promises.push(rageMessage.save());
       group.quest.progress.rage = 0;
 
       // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
@@ -1021,16 +1052,18 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    group.sendChat(`\`${shared.i18n.t('chatBossDefeated', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
+    const questFinishChat = group.sendChat(`\`${shared.i18n.t('chatBossDefeated', {bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
       type: 'boss_defeated',
       quest: quest.key,
     });
+    promises.push(questFinishChat.save());
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
   }
 
-  return await group.save();
+  promises.unshift(group.save());
+  return await Promise.all(promises);
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
@@ -1075,7 +1108,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  group.sendChat(`\`${shared.i18n.t('chatFindItems', {username: user.profile.name, items: foundText}, 'en')}\``, null, null, {
+  const foundChat = group.sendChat(`\`${shared.i18n.t('chatFindItems', {username: user.profile.name, items: foundText}, 'en')}\``, null, null, {
     type: 'user_found_items',
     user: user.profile.name,
     quest: quest.key,
@@ -1084,16 +1117,22 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   group.markModified('quest.progress.collect');
 
   // Still needs completing
-  if (_.find(quest.collect, (v, k) => {
+  const needsCompleted = _.find(quest.collect, (v, k) => {
     return group.quest.progress.collect[k] < v.count;
-  })) return await group.save();
+  });
+
+  if (needsCompleted) {
+    return await Promise.all([group.save(), foundChat.save()]);
+  }
 
   await group.finishQuest(quest);
-  group.sendChat(`\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``, null, null, {
+  const allItemsFoundChat = group.sendChat(`\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``, null, null, {
     type: 'all_items_found',
   });
 
-  return await group.save();
+  const promises = [group.save(), foundChat.save(), allItemsFoundChat.save()];
+
+  return await Promise.all(promises);
 };
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
@@ -1147,11 +1186,14 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
   let quest = shared.content.quests[tavern.quest.key];
 
+  const chatPromises = [];
+
   if (tavern.quest.progress.hp <= 0) {
-    tavern.sendChat(quest.completionChat('en'), null, null, {
+    const completeChat = tavern.sendChat(quest.completionChat('en'), null, null, {
       type: 'tavern_quest_completed',
       quest: quest.key,
     });
+    chatPromises.push(completeChat.save());
     await tavern.finishQuest(quest);
     _.assign(tavernQuest, {extra: null});
     return tavern.save();
@@ -1179,17 +1221,19 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       }
 
       if (!scene) {
-        tavern.sendChat(`\`${shared.i18n.t('tavernBossTired', {rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
+        const tiredChat = tavern.sendChat(`\`${shared.i18n.t('tavernBossTired', {rageName: quest.boss.rage.title('en'), bossName: quest.boss.name('en')}, 'en')}\``, null, null, {
           type: 'tavern_boss_rage_tired',
           quest: quest.key,
         });
+        chatPromises.push(tiredChat.save());
         tavern.quest.progress.rage = 0; // quest.boss.rage.value;
       } else {
-        tavern.sendChat(quest.boss.rage[scene]('en'), null, null, {
+        const rageChat = tavern.sendChat(quest.boss.rage[scene]('en'), null, null, {
           type: 'tavern_boss_rage',
           quest: quest.key,
           scene,
         });
+        chatPromises.push(rageChat.save());
         tavern.quest.extra.worldDmg[scene] = true;
         tavern.markModified('quest.extra.worldDmg');
         tavern.quest.progress.rage = 0;
@@ -1200,10 +1244,11 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
-      tavern.sendChat(quest.boss.desperation.text('en'), null, null, {
+      const progressChat = tavern.sendChat(quest.boss.desperation.text('en'), null, null, {
         type: 'tavern_boss_desperation',
         quest: quest.key,
       });
+      chatPromises.push(progressChat.save());
       tavern.quest.extra.desperate = true;
       tavern.quest.extra.def = quest.boss.desperation.def;
       tavern.quest.extra.str = quest.boss.desperation.str;
@@ -1211,7 +1256,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     _.assign(tavernQuest, tavern.quest.toObject());
-    return tavern.save();
+
+    chatPromises.unshift(tavern.save());
+    return Promise.all(chatPromises);
   }
 };
 

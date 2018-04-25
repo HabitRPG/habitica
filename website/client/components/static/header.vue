@@ -2,7 +2,8 @@
   nav.navbar.navbar-inverse.fixed-top.navbar-expand-sm
     .navbar-header
       router-link.nav-item(:to='!isUserLoggedIn ? "/static/home" : "/"')
-        .logo.svg-icon(v-html='icons.logo')
+        .logo.svg-icon(v-html='icons.purpleLogo', v-if='this.$route.name === "plans"')
+        .logo.svg-icon(v-html='icons.logo', v-else)
     .collapse.navbar-collapse
       ul.navbar-nav.mr-auto(v-if='$route.name !== "home"')
         router-link.nav-item(tag='li', to='/static/features')
@@ -152,6 +153,7 @@
 
 <script>
 import logo from 'assets/svg/logo.svg';
+import purpleLogo from 'assets/svg/purple-logo.svg';
 import * as Analytics from 'client/libs/analytics';
 
 export default {
@@ -159,6 +161,7 @@ export default {
     return {
       icons: Object.freeze({
         logo,
+        purpleLogo,
       }),
     };
   },

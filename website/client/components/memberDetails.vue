@@ -17,7 +17,7 @@
       .d-flex.flex-column.profile-name-character
         h3.character-name
           | {{member.profile.name}}
-          .is-buffed(v-if="isBuffed")
+          .is-buffed(v-if="isBuffed", v-b-tooltip.hover.bottom="$t('buffed')")
             .svg-icon(v-html="icons.buff")
         span.small-text.character-level {{ characterLevel }}
     .progress-container(v-b-tooltip.hover.bottom="$t('health')")

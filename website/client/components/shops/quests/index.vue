@@ -17,14 +17,12 @@
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hideLocked') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hideLocked",
           )
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page
@@ -400,7 +398,7 @@ export default {
     },
     async mounted () {
       const worldState = await this.$store.dispatch('worldState:getWorldState');
-      this.broken = worldState.worldBoss.extra.worldDmg.quests;
+      this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
     },
     computed: {
       ...mapState({

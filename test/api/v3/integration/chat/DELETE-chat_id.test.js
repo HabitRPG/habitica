@@ -53,16 +53,26 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
 
     it('allows creator to delete a their message', async () => {
       await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}`);
-      let messages = await user.get(`/groups/${groupWithChat._id}/chat/`);
-      expect(messages).is.an('array');
-      expect(messages).to.not.include(nextMessage);
+
+      const returnedMessages = await user.get(`/groups/${groupWithChat._id}/chat/`);
+      const messageFromUser = returnedMessages.find(returnedMessage => {
+        return returnedMessage.id === nextMessage.id;
+      });
+
+      expect(returnedMessages).is.an('array');
+      expect(messageFromUser).to.not.exist;
     });
 
     it('allows admin to delete another user\'s message', async () => {
       await admin.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}`);
-      let messages = await user.get(`/groups/${groupWithChat._id}/chat/`);
-      expect(messages).is.an('array');
-      expect(messages).to.not.include(nextMessage);
+
+      const returnedMessages = await user.get(`/groups/${groupWithChat._id}/chat/`);
+      const messageFromUser = returnedMessages.find(returnedMessage => {
+        return returnedMessage.id === nextMessage.id;
+      });
+
+      expect(returnedMessages).is.an('array');
+      expect(messageFromUser).to.not.exist;
     });
 
     it('returns empty when previous message parameter is passed and the last message was deleted', async () => {
@@ -71,9 +81,9 @@ describe('DELETE /groups/:groupId/chat/:chatId', () => {
     });
 
     it('returns the update chat when previous message parameter is passed and the chat is updated', async () => {
-      let deleteResult = await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}?previousMsg=${message.id}`);
+      const updatedChat = await user.del(`/groups/${groupWithChat._id}/chat/${nextMessage.id}?previousMsg=${message.id}`);
 
-      expect(deleteResult[0].id).to.eql(message.id);
+      expect(updatedChat[0].id).to.eql(message.id);
     });
   });
 });

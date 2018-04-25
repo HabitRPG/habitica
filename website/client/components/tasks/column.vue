@@ -8,14 +8,14 @@
     v-if='type === "reward"')
   .d-flex
     h2.tasks-column-title
-      | {{ $t(types[type].label) }}
+      | {{ $t(typeLabel) }}
       .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
-        v-for="filter in types[type].filters",
-        :class="{active: activeFilters[type].label === filter.label}",
+        v-for="filter in typeFilters",
+        :class="{active: activeFilter.label === filter}",
         @click="activateFilter(type, filter)",
-      ) {{ $t(filter.label) }}
+      ) {{ $t(filter) }}
   .tasks-list(ref="tasksWrapper")
     textarea.quick-add(
       :rows="quickAddRows",
@@ -26,19 +26,20 @@
     )
     transition(name="quick-add-tip-slide")
       .quick-add-tip.small-text(v-show="quickAddFocused", v-html="$t('addMultipleTip')")
-    clear-completed-todos(v-if="activeFilters[type].label === 'complete2'")
+    clear-completed-todos(v-if="activeFilter.label === 'complete2' && isUser === true")
     .column-background(
       v-if="isUser === true",
       :class="{'initial-description': initialColumnDescription}",
       ref="columnBackground",
     )
       .svg-icon(v-html="icons[type]", :class="`icon-${type}`", v-once)
-      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(types[type].label)})}}
+      h3(v-once) {{$t('theseAreYourTasks', {taskType: $t(typeLabel)})}}
       .small-text {{$t(`${type}sDesc`)}}
     draggable.sortable-tasks(
       ref="tasksList",
-      @update='sorted',
-      :options='{disabled: activeFilters[type].label === "scheduled"}',
+      @update='taskSorted',
+      :options='{disabled: activeFilter.label === "scheduled"}',
+      class="sortable-tasks"
     )
       task(
         v-for="task in taskList",
@@ -49,12 +50,19 @@
         :group='group',
       )
     template(v-if="hasRewardsList")
-      .reward-items
+      draggable(
+        ref="rewardsList",
+        @update="rewardSorted",
+        @start="rewardDragStart",
+        @end="rewardDragEnd",
+        class="reward-items",
+      )
         shopItem(
           v-for="reward in inAppRewards",
           :item="reward",
           :key="reward.key",
           :highlightBorder="reward.isSuggested",
+          :showPopover="showPopovers"
           @click="openBuyDialog(reward)",
           :popoverPosition="'left'"
         )
@@ -245,10 +253,10 @@
 <script>
 import Task from './task';
 import ClearCompletedTodos from './clearCompletedTodos';
-import sortBy from 'lodash/sortBy';
 import throttle from 'lodash/throttle';
+import isEmpty from 'lodash/isEmpty';
 import buyMixin from 'client/mixins/buy';
-import { mapState, mapActions } from 'client/libs/store';
+import { mapState, mapActions, mapGetters } from 'client/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from 'client/components/shops/quests/buyQuestModal.vue';
 
@@ -257,6 +265,12 @@ import { shouldDo } from 'common/script/cron';
 import inAppRewards from 'common/script/libs/inAppRewards';
 import spells from 'common/script/content/spells';
 import taskDefaults from 'common/script/libs/taskDefaults';
+
+import {
+  getTypeLabel,
+  getFilterLabels,
+  getActiveFilter,
+} from 'client/libs/store/helpers/filterTasks.js';
 
 import svgPin from 'assets/svg/pin.svg';
 import habitIcon from 'assets/svg/habit.svg';
@@ -274,44 +288,21 @@ export default {
     shopItem,
     draggable,
   },
-  props: ['type', 'isUser', 'searchText', 'selectedTags', 'taskListOverride', 'group'], // @TODO: maybe we should store the group on state?
+  // Set default values for props
+  // allows for better control of props values
+  // allows for better control of where this component is called
+  props: {
+    type: {},
+    isUser: {
+      type: Boolean,
+      default: false,
+    },
+    searchText: {},
+    selectedTags: {},
+    taskListOverride: {},
+    group: {},
+  }, // @TODO: maybe we should store the group on state?
   data () {
-    // @TODO refactor this so that filter functions aren't in data
-    const types = Object.freeze({
-      habit: {
-        label: 'habits',
-        filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'yellowred', filter: t => t.value < 1}, // weak
-          {label: 'greenblue', filter: t => t.value >= 1}, // strong
-        ],
-      },
-      daily: {
-        label: 'dailies',
-        filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'due', filter: t => !t.completed && shouldDo(new Date(), t, this.userPreferences)},
-          {label: 'notDue', filter: t => t.completed || !shouldDo(new Date(), t, this.userPreferences)},
-        ],
-      },
-      todo: {
-        label: 'todos',
-        filters: [
-          {label: 'remaining', filter: t => !t.completed, default: true}, // active
-          {label: 'scheduled', filter: t => !t.completed && t.date, sort: t => t.date},
-          {label: 'complete2', filter: t => t.completed},
-        ],
-      },
-      reward: {
-        label: 'rewards',
-        filters: [
-          {label: 'all', filter: () => true, default: true},
-          {label: 'custom', filter: () => true}, // all rewards made by the user
-          {label: 'wishlist', filter: () => false}, // not user tasks
-        ],
-      },
-    });
-
     const icons = Object.freeze({
       habit: habitIcon,
       daily: dailyIcon,
@@ -320,14 +311,15 @@ export default {
       pin: svgPin,
     });
 
-    let activeFilters = {};
-    for (let type in types) {
-      activeFilters[type] = types[type].filters.find(f => f.default === true);
-    }
+    let typeLabel = '';
+    let typeFilters = [];
+    let activeFilter = {};
 
     return {
-      types,
-      activeFilters,
+      typeLabel,
+      typeFilters,
+      activeFilter,
+
       icons,
       openedCompletedTodos: false,
 
@@ -335,49 +327,42 @@ export default {
       quickAddText: '',
       quickAddFocused: false,
       quickAddRows: 1,
+      showPopovers: true,
 
       selectedItemToBuy: {},
     };
   },
+  created () {
+    // Set Task Column Label
+    this.typeLabel = getTypeLabel(this.type);
+    // Get Category Filter Labels
+    this.typeFilters = getFilterLabels(this.type);
+    // Set default filter for task column
+    this.activateFilter(this.type);
+  },
   computed: {
     ...mapState({
-      tasks: 'tasks.data',
       user: 'user.data',
-      userPreferences: 'user.data.preferences',
     }),
-    onUserPage () {
-      let onUserPage = Boolean(this.taskList.length) && (!this.taskListOverride || this.taskListOverride.length === 0);
-
-      if (!onUserPage) {
-        this.activateFilter('daily', this.types.daily.filters[0]);
-        this.types.reward.filters = [];
-      }
-
-      return onUserPage;
-    },
+    ...mapGetters({
+      getFilteredTaskList: 'tasks:getFilteredTaskList',
+      getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
+      getUserPreferences: 'user:preferences',
+      getUserBuffs: 'user:buffs',
+    }),
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
-      const filter = this.activeFilters[this.type];
+      let filteredTaskList = this.isUser ?
+        this.getFilteredTaskList({
+          type: this.type,
+          filterType: this.activeFilter.label,
+        }) :
+        this.taskListOverride;
 
-      let taskList = this.tasks[`${this.type}s`];
-      if (this.taskListOverride) taskList = this.taskListOverride;
+      let taggedList = this.filterByTagList(filteredTaskList, this.selectedTags);
+      let searchedList = this.filterBySearchText(taggedList, this.searchText);
 
-      if (taskList.length > 0 && ['scheduled', 'due'].indexOf(filter.label) === -1) {
-        let taskListSorted = this.$store.dispatch('tasks:order', [
-          taskList,
-          this.user.tasksOrder,
-        ]);
-
-        taskList = taskListSorted[`${this.type}s`];
-      }
-
-      if (filter.sort) {
-        taskList = sortBy(taskList, filter.sort);
-      }
-
-      return taskList.filter(t => {
-        return this.filterTask(t);
-      });
+      return searchedList;
     },
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
@@ -393,7 +378,7 @@ export default {
       };
 
       for (let key in seasonalSkills) {
-        if (this.user.stats.buffs[key]) {
+        if (this.getUserBuffs(key)) {
           let debuff = seasonalSkills[key];
           let item = Object.assign({}, spells.special[debuff]);
           item.text = item.text();
@@ -406,7 +391,7 @@ export default {
       return rewards;
     },
     hasRewardsList () {
-      return this.isUser === true && this.type === 'reward' && this.activeFilters[this.type].label !== 'custom';
+      return this.isUser === true && this.type === 'reward' && this.activeFilter.label !== 'custom';
     },
     initialColumnDescription () {
       // Show the column description in the middle only if there are no elements (tasks or in app items)
@@ -414,14 +399,7 @@ export default {
         if (this.inAppRewards && this.inAppRewards.length >= 0) return false;
       }
 
-      return this.tasks[`${this.type}s`].length === 0;
-    },
-    dailyDueDefaultView () {
-      if (this.user.preferences.dailyDueDefaultView) {
-        this.activateFilter('daily', this.types.daily.filters[1]);
-      }
-
-      return this.user.preferences.dailyDueDefaultView;
+      return this.taskList.length === 0;
     },
     quickAddPlaceholder () {
       const type = this.$t(this.type);
@@ -431,16 +409,14 @@ export default {
       // 0 means the badge will not be shown
       // It is shown for the all and due views of dailies
       // and for the active and scheduled views of todos.
-      if (this.type === 'todo') {
-        if (this.activeFilters.todo.label !== 'complete2') return this.taskList.length;
+      if (this.type === 'todo' && this.activeFilter.label !== 'complete2') {
+        return this.taskList.length;
       } else if (this.type === 'daily') {
-        const activeFilter = this.activeFilters.daily.label;
-
-        if (activeFilter === 'due') {
+        if (this.activeFilter.label === 'due') {
           return this.taskList.length;
-        } else if (activeFilter === 'all') {
+        } else if (this.activeFilter.label === 'all') {
           return this.taskList.reduce((count, t) => {
-            return !t.completed && shouldDo(new Date(), t, this.userPreferences) ? count + 1 : count;
+            return !t.completed && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count;
           }, 0);
         }
       }
@@ -454,10 +430,6 @@ export default {
         this.setColumnBackgroundVisibility();
       }, 250),
       deep: true,
-    },
-    dailyDueDefaultView () {
-      if (!this.dailyDueDefaultView) return;
-      this.activateFilter('daily', this.types.daily.filters[1]);
     },
     quickAddFocused (newValue) {
       if (newValue) this.quickAddRows = this.quickAddText.split('\n').length;
@@ -487,11 +459,11 @@ export default {
       loadCompletedTodos: 'tasks:fetchCompletedTodos',
       createTask: 'tasks:create',
     }),
-    async sorted (data) {
+    async taskSorted (data) {
       const filteredList = this.taskList;
       const taskToMove = filteredList[data.oldIndex];
       const taskIdToMove = taskToMove._id;
-      let originTasks = this.tasks[`${this.type}s`];
+      let originTasks = this.getUnfilteredTaskList(this.type);
       if (this.taskListOverride) originTasks = this.taskListOverride;
 
       // Server
@@ -518,7 +490,7 @@ export default {
     },
     async moveTo (task, where) { // where is 'top' or 'bottom'
       const taskIdToMove = task._id;
-      const list = this.tasks[`${this.type}s`];
+      const list = this.getUnfilteredTaskList(this.type);
 
       const oldPosition = list.findIndex(t => t._id === taskIdToMove);
       const moved = list.splice(oldPosition, 1);
@@ -530,6 +502,23 @@ export default {
         position: newPosition,
       });
       this.user.tasksOrder[`${this.type}s`] = newOrder;
+    },
+    async rewardSorted (data) {
+      const rewardsList = this.inAppRewards;
+      const rewardToMove = rewardsList[data.oldIndex];
+
+      let newOrder = await this.$store.dispatch('user:movePinnedItem', {
+        path: rewardToMove.path,
+        position: data.newIndex,
+      });
+      this.user.pinnedItemsOrder = newOrder;
+    },
+    rewardDragStart () {
+      // We need to stop popovers from interfering with our dragging
+      this.showPopovers = false;
+    },
+    rewardDragEnd () {
+      this.showPopovers = true;
     },
     quickAdd (ev) {
       // Add a new line if Shift+Enter Pressed
@@ -551,19 +540,27 @@ export default {
         return task;
       });
 
-      this.quickAddText = null;
+      this.quickAddText = '';
       this.quickAddRows = 1;
       this.createTask(tasks);
     },
     editTask (task) {
       this.$emit('editTask', task);
     },
-    activateFilter (type, filter) {
-      if (type === 'todo' && filter.label === 'complete2') {
+    activateFilter (type, filter = '') {
+      // Needs a separate API call as this data may not reside in store
+      if (type === 'todo' && filter === 'complete2') {
         this.loadCompletedTodos();
       }
 
-      this.activeFilters[type] = filter;
+      // the only time activateFilter is called with filter==='' is when the component is first created
+      // this can be used to check If the user has set 'due' as default filter for daily
+      // and set the filter as 'due' only when the component first loads and not on subsequent reloads.
+      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+        filter = 'due';
+      }
+
+      this.activeFilter = getActiveFilter(type, filter);
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
@@ -591,35 +588,36 @@ export default {
         }
       });
     },
-    filterTask (task) {
-      // View
-      if (!this.activeFilters[task.type].filter(task)) return false;
-
-      // Tags
-      const selectedTags = this.selectedTags;
-
-      if (selectedTags && selectedTags.length > 0) {
-        const hasAllSelectedTag = selectedTags.every(tagId => {
-          return task.tags.indexOf(tagId) !== -1;
-        });
-
-        if (!hasAllSelectedTag) return false;
+    filterByTagList (taskList, tagList = []) {
+      let filteredTaskList = taskList;
+      // fitler requested tasks by tags
+      if (!isEmpty(tagList)) {
+        filteredTaskList = taskList.filter(
+          task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
+        );
       }
-
-      // Text
-      const searchText = this.searchText;
-
-      if (!searchText) return true;
-      if (task.text.toLowerCase().indexOf(searchText) !== -1) return true;
-      if (task.notes.toLowerCase().indexOf(searchText) !== -1) return true;
-
-      if (task.checklist && task.checklist.length) {
-        const checklistItemIndex = task.checklist.findIndex(({text}) => {
-          return text.toLowerCase().indexOf(searchText) !== -1;
-        });
-
-        return checklistItemIndex !== -1;
+      return filteredTaskList;
+    },
+    filterBySearchText (taskList, searchText = '') {
+      let filteredTaskList = taskList;
+      // filter requested tasks by search text
+      if (searchText) {
+        // to ensure broadest case insensitive search matching
+        let searchTextLowerCase = searchText.toLowerCase();
+        filteredTaskList = taskList.filter(
+          task => {
+            // eslint rule disabled for block to allow nested binary expression
+            /* eslint-disable no-extra-parens */
+            return (
+              task.text.toLowerCase().indexOf(searchTextLowerCase) > -1 ||
+              (task.notes && task.notes.toLowerCase().indexOf(searchTextLowerCase) > -1) ||
+              (task.checklist && task.checklist.length > 0 &&
+                task.checklist.some(checkItem => checkItem.text.toLowerCase().indexOf(searchTextLowerCase) > -1))
+            );
+            /* eslint-enable no-extra-parens */
+          });
       }
+      return filteredTaskList;
     },
     openBuyDialog (rewardItem) {
       if (rewardItem.locked) return;
@@ -648,6 +646,11 @@ export default {
       }
     },
     togglePinned (item) {
+      if (!item.pinType) {
+        this.error(this.$t('errorTemporaryItem'));
+        return;
+      }
+
       try {
         if (!this.$store.dispatch('user:togglePinnedItem', {type: item.pinType, path: item.path})) {
           this.text(this.$t('unpinnedItem', {item: item.text}));
