@@ -281,8 +281,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
       const firstLvlNotification = lvlUpNotifications[0];
       const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
 
-      const initialLvl = firstLvlNotification.initialLvl;
-      const finalLvl = lastLvlNotification.newLvl;
+      const initialLvl = firstLvlNotification.data.initialLvl;
+      const finalLvl = lastLvlNotification.data.newLvl;
 
       // Delayed so we don't block the user saving
       setTimeout(() => {
