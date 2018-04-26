@@ -917,7 +917,7 @@ api.hatch = {
     // Send webhook
     const petKey = `${req.params.egg}-${req.params.hatchingPotion}`;
 
-    userActivityWebhook.send(user.webhooks, {
+    userActivityWebhook.send(user, {
       type: 'petHatched',
       pet: petKey,
       message: hatchRes[1],
@@ -1005,7 +1005,7 @@ api.feed = {
     const petValue = feedRes[0];
 
     if (petValue === -1) { // evolved to mount
-      userActivityWebhook.send(user.webhooks, {
+      userActivityWebhook.send(user, {
         type: 'mountRaised',
         pet: req.params.pet,
         message: feedRes[1],

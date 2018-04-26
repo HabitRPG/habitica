@@ -33,7 +33,15 @@ export class WebhookSender {
     return true;
   }
 
-  send (webhooks, data) {
+  attachDefaultData (user, body) {
+    body.webhookType = this.type;
+    body.user = body.user || {};
+    body.user._id = user._id;
+  }
+
+  send (user, data) {
+    const webhooks = user.webhooks;
+
     let hooks = webhooks.filter((hook) => {
       if (!isValidWebhook(hook)) return false;
       if (hook.type === 'globalActivity') return true;
@@ -46,6 +54,7 @@ export class WebhookSender {
     }
 
     let body = this.transformData(data);
+    this.attachDefaultData(user, body);
 
     hooks.forEach((hook) => {
       sendWebhook(hook.url, body);

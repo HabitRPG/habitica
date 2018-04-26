@@ -176,7 +176,7 @@ api.createUserTasks = {
         });
       }
 
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'created',
         task,
       });
@@ -502,7 +502,7 @@ api.updateTask = {
     } else if (group && task.group.id && task.group.assignedUsers.length > 0) {
       await group.updateTask(savedTask);
     } else {
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'updated',
         task: savedTask,
       });
@@ -654,7 +654,7 @@ api.scoreTask = {
     let resJsonData = _.assign({delta, _tmp: user._tmp}, userStats);
     res.respond(200, resJsonData);
 
-    taskScoredWebhook.send(user.webhooks, {
+    taskScoredWebhook.send(user, {
       task,
       direction,
       delta,
@@ -861,7 +861,7 @@ api.scoreCheckListItem = {
 
     res.respond(200, savedTask);
 
-    taskActivityWebhook.send(user.webhooks, {
+    taskActivityWebhook.send(user, {
       type: 'checklistScored',
       task: savedTask,
       item,
@@ -1332,7 +1332,7 @@ api.deleteTask = {
     if (challenge) {
       challenge.removeTask(task);
     } else {
-      taskActivityWebhook.send(user.webhooks, {
+      taskActivityWebhook.send(user, {
         type: 'deleted',
         task,
       });

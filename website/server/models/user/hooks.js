@@ -286,7 +286,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 
       // Delayed so we don't block the user saving
       setTimeout(() => {
-        userActivityWebhook.send(this.webhooks, {
+        userActivityWebhook.send(this, {
           type: 'leveledUp',
           initialLvl,
           finalLvl,
