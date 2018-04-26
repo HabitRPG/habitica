@@ -34,7 +34,7 @@
     "communityGuidelines": "Community Guidelines",
     "communityGuidelinesRead1": "Please read our",
     "communityGuidelinesRead2": "before chatting.",
-    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic. Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
+    "bannedWordUsed": "Oops! Looks like this post contains a swearword, religious oath, or reference to an addictive substance or adult topic (<%= swearWordsUsed %>). Habitica has users from all backgrounds, so we keep our chat very clean. Feel free to edit your message so you can post it!",
     "bannedSlurUsed": "Your post contained inappropriate language, and your chat privileges have been revoked.",
     "party": "Echipă",
     "createAParty": "Creează o Echipă",

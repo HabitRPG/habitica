@@ -7,6 +7,7 @@ import {
 import shared from '../../common';
 import _  from 'lodash';
 import { model as Challenge} from './challenge';
+import { model as Chat } from './chat';
 import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -30,6 +31,7 @@ import {
 } from './subscriptionPlan';
 import amazonPayments from '../libs/payments/amazon';
 import stripePayments from '../libs/payments/stripe';
+import { getGroupChat } from '../libs/chat/group-chat';
 import { model as UserNotification } from './userNotification';
 import config from '../libs/config';
 
@@ -57,6 +59,9 @@ const MAX_UPDATE_RETRIES = 5;
 export const SPAM_MESSAGE_LIMIT = 2;
 export const SPAM_WINDOW_LENGTH = 60000; // 1 minute
 export const SPAM_MIN_EXEMPT_CONTRIB_LEVEL = 4;
+
+export const MAX_CHAT_COUNT = 200;
+export const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
 
 export let schema = new Schema({
   name: {type: String, required: true},
@@ -320,7 +325,13 @@ schema.statics.getGroups = async function getGroups (options = {}) {
 // unless the user is an admin or said chat is posted by that user
 // Not putting into toJSON because there we can't access user
 // It also removes the _meta field that can be stored inside a chat message
-schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
+schema.statics.toJSONCleanChat = async function groupToJSONCleanChat (group, user) {
+  // @TODO: Adding this here for support the old chat, but we should depreciate accessing chat like this
+  // Also only return chat if requested, eventually we don't want to return chat here
+  if (group && group.chat) {
+    await getGroupChat(group);
+  }
+
   let toJSON = group.toJSON();
 
   if (!user.contributor.admin) {
@@ -330,6 +341,11 @@ schema.statics.toJSONCleanChat = function groupToJSONCleanChat (group, user) {
       return user._id !== chatMsg.uuid && chatMsg.flagCount >= 2;
     });
   }
+
+  // Convert to timestamps because Android expects it
+  toJSON.chat.forEach(chat => {
+    chat.timestamp = chat.timestamp ? chat.timestamp.getTime() : new Date().getTime();
+  });
 
   return toJSON;
 };
@@ -452,8 +468,10 @@ schema.methods.getMemberCount = async function getMemberCount () {
 };
 
 export function chatDefaults (msg, user) {
-  let message = {
-    id: shared.uuid(),
+  const id = shared.uuid();
+  const message = {
+    id,
+    _id: id,
     text: msg,
     timestamp: Number(new Date()),
     likes: {},
@@ -519,6 +537,7 @@ function setUserStyles (newMessage, user) {
   }
 
   newMessage.userStyles = userStyles;
+  newMessage.markModified('userStyles');
 }
 
 function checkForChatApproval (group, message, user) {
@@ -534,21 +553,22 @@ function checkForChatApproval (group, message, user) {
 
 schema.methods.sendChat = function sendChat (message, user, metaData) {
   let newMessage = chatDefaults(message, user);
+  let newChatMessage = new Chat();
+  newChatMessage = Object.assign(newChatMessage, newMessage);
+  newChatMessage.groupId = this._id;
 
-  if (user) setUserStyles(newMessage, user);
+  if (user) setUserStyles(newChatMessage, user);
 
   checkForChatApproval(this, newMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
   if (metaData) {
-    newMessage._meta = metaData;
+    newChatMessage._meta = metaData;
   }
 
-  this.chat.unshift(newMessage);
-
-  const MAX_CHAT_COUNT = 200;
-  const MAX_SUBBED_GROUP_CHAT_COUNT = 400;
+  // @TODO: Completely remove the code below after migration
+  // this.chat.unshift(newMessage);
 
   let maxCount = MAX_CHAT_COUNT;
 
@@ -560,7 +580,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   // do not send notifications for guilds with more than 5000 users and for the tavern
   if (NO_CHAT_NOTIFICATIONS.indexOf(this._id) !== -1 || this.memberCount > LARGE_GROUP_COUNT_MESSAGE_CUTOFF) {
-    return;
+    return newChatMessage;
   }
 
   // Kick off chat notifications in the background.
@@ -605,7 +625,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
     pusher.trigger(`presence-group-${this._id}`, 'new-chat', newMessage);
   }
 
-  return newMessage;
+  return newChatMessage;
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -724,9 +744,11 @@ schema.methods.startQuest = async function startQuest (user) {
         });
     });
   });
-  this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
+  const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
+
+  await newMessage.save();
 };
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {
@@ -919,19 +941,22 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
   let updates = {
     $inc: {'stats.hp': down},
   };
+  const promises = [];
 
   group.quest.progress.hp -= progress.up;
   // TODO Create a party preferred language option so emits like this can be localized. Suggestion: Always display the English version too. Or, if English is not displayed to the players, at least include it in a new field in the chat object that's visible in the database - essential for admins when troubleshooting quests!
   let playerAttack = `${user.profile.name} attacks ${quest.boss.name('en')} for ${progress.up.toFixed(1)} damage.`;
   let bossAttack = CRON_SAFE_MODE || CRON_SEMI_SAFE_MODE ? `${quest.boss.name('en')} does not attack, because it respects the fact that there are some bugs\` \`post-maintenance and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!` : `${quest.boss.name('en')} attacks party for ${Math.abs(down).toFixed(1)} damage.`;
   // TODO Consider putting the safe mode boss attack message in an ENV var
-  group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
+  const groupMessage = group.sendChat(`\`${playerAttack}\` \`${bossAttack}\``);
+  promises.push(groupMessage.save());
 
   // If boss has Rage, increment Rage as well
   if (quest.boss.rage) {
     group.quest.progress.rage += Math.abs(down);
     if (group.quest.progress.rage >= quest.boss.rage.value) {
-      group.sendChat(quest.boss.rage.effect('en'));
+      const rageMessage = group.sendChat(quest.boss.rage.effect('en'));
+      promises.push(rageMessage.save());
       group.quest.progress.rage = 0;
 
       // TODO To make Rage effects more expandable, let's turn these into functions in quest.boss.rage
@@ -958,13 +983,15 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
 
   // Boss slain, finish quest
   if (group.quest.progress.hp <= 0) {
-    group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
+    const questFinishChat = group.sendChat(`\`You defeated ${quest.boss.name('en')}! Questing party members receive the rewards of victory.\``);
+    promises.push(questFinishChat.save());
 
     // Participants: Grant rewards & achievements, finish quest
     await group.finishQuest(shared.content.quests[group.quest.key]);
   }
 
-  return await group.save();
+  promises.unshift(group.save());
+  return await Promise.all(promises);
 };
 
 schema.methods._processCollectionQuest = async function processCollectionQuest (options) {
@@ -1009,18 +1036,24 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   }, []);
 
   foundText = foundText.join(', ');
-  group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
+  const foundChat = group.sendChat(`\`${user.profile.name} found ${foundText}.\``);
   group.markModified('quest.progress.collect');
 
   // Still needs completing
-  if (_.find(quest.collect, (v, k) => {
+  const needsCompleted = _.find(quest.collect, (v, k) => {
     return group.quest.progress.collect[k] < v.count;
-  })) return await group.save();
+  });
+
+  if (needsCompleted) {
+    return await Promise.all([group.save(), foundChat.save()]);
+  }
 
   await group.finishQuest(quest);
-  group.sendChat('`All items found! Party has received their rewards.`');
+  const allItemsFoundChat = group.sendChat('`All items found! Party has received their rewards.`');
 
-  return await group.save();
+  const promises = [group.save(), foundChat.save(), allItemsFoundChat.save()];
+
+  return await Promise.all(promises);
 };
 
 schema.statics.processQuestProgress = async function processQuestProgress (user, progress) {
@@ -1074,8 +1107,11 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
 
   let quest = shared.content.quests[tavern.quest.key];
 
+  const chatPromises = [];
+
   if (tavern.quest.progress.hp <= 0) {
-    tavern.sendChat(quest.completionChat('en'));
+    const completeChat = tavern.sendChat(quest.completionChat('en'));
+    chatPromises.push(completeChat.save());
     await tavern.finishQuest(quest);
     _.assign(tavernQuest, {extra: null});
     return tavern.save();
@@ -1103,10 +1139,12 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
       }
 
       if (!scene) {
-        tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
+        const tiredChat = tavern.sendChat(`\`${quest.boss.name('en')} tries to unleash ${quest.boss.rage.title('en')} but is too tired.\``);
+        chatPromises.push(tiredChat.save());
         tavern.quest.progress.rage = 0; // quest.boss.rage.value;
       } else {
-        tavern.sendChat(quest.boss.rage[scene]('en'));
+        const rageChat = tavern.sendChat(quest.boss.rage[scene]('en'));
+        chatPromises.push(rageChat.save());
         tavern.quest.extra.worldDmg[scene] = true;
         tavern.markModified('quest.extra.worldDmg');
         tavern.quest.progress.rage = 0;
@@ -1117,7 +1155,8 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     if (quest.boss.desperation && tavern.quest.progress.hp < quest.boss.desperation.threshold && !tavern.quest.extra.desperate) {
-      tavern.sendChat(quest.boss.desperation.text('en'));
+      const progressChat = tavern.sendChat(quest.boss.desperation.text('en'));
+      chatPromises.push(progressChat.save());
       tavern.quest.extra.desperate = true;
       tavern.quest.extra.def = quest.boss.desperation.def;
       tavern.quest.extra.str = quest.boss.desperation.str;
@@ -1125,7 +1164,9 @@ schema.statics.tavernBoss = async function tavernBoss (user, progress) {
     }
 
     _.assign(tavernQuest, tavern.quest.toObject());
-    return tavern.save();
+
+    chatPromises.unshift(tavern.save());
+    return Promise.all(chatPromises);
   }
 };
 

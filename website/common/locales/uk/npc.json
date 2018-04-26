@@ -61,7 +61,7 @@
     "sortByName": "Name",
     "quantity": "Quantity",
     "cost": "Cost",
-    "shops": "Shops",
+    "shops": "Магазини",
     "custom": "Custom",
     "wishlist": "Wishlist",
     "wrongItemType": "The item type \"<%= type %>\" is not valid.",

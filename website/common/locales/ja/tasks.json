@@ -212,5 +212,5 @@
     "repeatDayError": "曜日を最低1つは選択してください。",
     "searchTasks": "タイトルや内容で検索…",
     "sessionOutdated": "セッションが古くなっています。ページを更新するか、syncボタンを押して下さい。",
-    "errorTemporaryItem": "This item is temporary and cannot be pinned."
+    "errorTemporaryItem": "これは一時的なアイテムなので、ピン留めすることはできません。"
 }

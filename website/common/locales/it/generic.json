@@ -167,8 +167,8 @@
     "achievementBurnoutText": "Ha contribuito alla sconfitta degli Spiriti dell'Esaurimento durante l'evento Festival d'Autunno 2015!",
     "achievementBewilder": "Salvatore di Fantalata",
     "achievementBewilderText": "Ha contribuito alla sconfitta del Be-Wilder durante l'evento Spring Fling 2016!",
-    "achievementDysheartener": "Savior of the Shattered",
-    "achievementDysheartenerText": "Helped defeat the Dysheartener during the 2018 Valentine's Event!",
+    "achievementDysheartener": "Eroe degli Spezzati",
+    "achievementDysheartenerText": "Ha aiutato a sconfiggere il Dysheartener durante l'evento di San Valentino 2018!",
     "checkOutProgress": "Guarda i miei progressi su Habitica!",
     "cards": "Cartoline",
     "sentCardToUser": "Hai spedito una cartolina a <%= profileName %>",
@@ -278,7 +278,7 @@
     "spirituality": "Spiritualità",
     "time_management": "Gestione del tempo + Responsabilità",
     "recovery_support_groups": "Riabilitazione + Gruppi di supporto",
-    "dismissAll": "Dismiss All",
+    "dismissAll": "Nascondi tutto",
     "messages": "Messaggi",
     "emptyMessagesLine1": "Non hai alcun messaggio",
     "emptyMessagesLine2": "Invia un messaggio per creare una conversazione!",
@@ -287,5 +287,5 @@
     "selected": "Selezionato",
     "howManyToBuy": "Quanti vorresti comprarne?",
     "habiticaHasUpdated": "È disponibile un nuovo aggiornamento per Habitica. Ricarica la pagina per usare la versione più recente!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contatta il team dei moderatori"
 }

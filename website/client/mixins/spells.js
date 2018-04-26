@@ -92,9 +92,12 @@ export default {
 
       let spellText = typeof spell.text === 'function' ? spell.text() : spell.text;
 
-      let apiResult = await this.$store.dispatch('user:castSpell', {key: spell.key, targetId});
+      let apiResult = await this.$store.dispatch('user:castSpell', {
+        key: spell.key,
+        targetId,
+        pinType: spell.pinType,
+      });
       let msg = '';
-
 
       switch (type) {
         case 'task':
@@ -147,8 +150,7 @@ export default {
         }
       }
 
-      // @TODO:
-      if (!beforeQuestProgress) return apiResult;
+      if (!beforeQuestProgress) return;
       let questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
         let userQuest = this.quests[this.user.party.quest.key];
@@ -159,8 +161,7 @@ export default {
         }
       }
 
-
-      return apiResult;
+      return;
       // @TOOD: User.sync();
     },
     castCancel () {

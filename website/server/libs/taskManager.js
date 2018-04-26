@@ -89,11 +89,6 @@ export async function createTasks (req, res, options = {}) {
     let taskType = taskData.type;
     let newTask = new Tasks[taskType](Tasks.Task.sanitize(taskData));
 
-    // Attempt to round priority
-    if (newTask.priority && !Number.isNaN(Number.parseFloat(newTask.priority))) {
-      newTask.priority = Number(newTask.priority.toFixed(1));
-    }
-
     if (challenge) {
       newTask.challenge.id = challenge.id;
     } else if (group) {
@@ -153,6 +148,7 @@ export async function createTasks (req, res, options = {}) {
  * @param  options.user  The user that these tasks belong to
  * @param  options.challenge  The challenge that these tasks belong to
  * @param  options.group  The group that these tasks belong to
+ * @param  options.dueDate
  * @return The tasks found
  */
 export async function getTasks (req, res, options = {}) {

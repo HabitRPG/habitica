@@ -20,14 +20,14 @@
   "questGryphonUnlockText": "Unlocks purchasable Gryphon eggs in the Market",
 
   "questHedgehogText": "The Hedgebeast",
-  "questHedgehogNotes": "Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.",
+  "questHedgehogNotes": "Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>InspectorCaracal</strong> did just that. Oops.",
   "questHedgehogCompletion": "Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!",
   "questHedgehogBoss": "Hedgebeast",
   "questHedgehogDropHedgehogEgg": "Hedgehog (Egg)",
   "questHedgehogUnlockText": "Unlocks purchasable Hedgehog eggs in the Market",
 
   "questGhostStagText": "The Spirit of Spring",
-  "questGhostStagNotes": "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
+  "questGhostStagNotes": "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>InspectorCaracal</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
   "questGhostStagCompletion": "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake.",
   "questGhostStagBoss": "Ghost Stag",
   "questGhostStagDropDeerEgg": "Deer (Egg)",
@@ -97,7 +97,7 @@
   "questMoonstone1DropMoonstone2Quest": "Recidivate, Part 2: Recidivate the Necromancer (Scroll)",
 
   "questMoonstone2Text": "Recidivate, Part 2: Recidivate the Necromancer",
-  "questMoonstone2Notes": "The brave weaponsmith @Inventrix helps you fashion the enchanted moonstones into a chain. You’re ready to confront Recidivate at last, but as you enter the Swamps of Stagnation, a terrible chill sweeps over you.<br><br>Rotting breath whispers in your ear. \"Back again? How delightful...\" You spin and lunge, and under the light of the moonstone chain, your weapon strikes solid flesh. \"You may have bound me to the world once more,\" Recidivate snarls, \"but now it is time for you to leave it!\"",
+  "questMoonstone2Notes": "The brave weaponsmith @InspectorCaracal helps you fashion the enchanted moonstones into a chain. You’re ready to confront Recidivate at last, but as you enter the Swamps of Stagnation, a terrible chill sweeps over you.<br><br>Rotting breath whispers in your ear. \"Back again? How delightful...\" You spin and lunge, and under the light of the moonstone chain, your weapon strikes solid flesh. \"You may have bound me to the world once more,\" Recidivate snarls, \"but now it is time for you to leave it!\"",
   "questMoonstone2Boss": "The Necromancer",
   "questMoonstone2Completion": "Recidivate staggers backwards under your final blow, and for a moment, your heart brightens – but then she throws back her head and lets out a horrible laugh. What’s happening?",
   "questMoonstone2DropMoonstone3Quest": "Recidivate, Part 3: Recidivate Transformed (Scroll)",
@@ -119,7 +119,7 @@
   "questGoldenknight2Text": "The Golden Knight, Part 2: Gold Knight",
   "questGoldenknight2Notes": "Armed with dozens of Habiticans' testimonies, you finally confront the Golden Knight. You begin to recite the Habitcans' complaints to her, one by one. \"And @Pfeffernusse says that your constant bragging-\" The knight raises her hand to silence you and scoffs, \"Please, these people are merely jealous of my success. Instead of complaining, they should simply work as hard as I! Perhaps I shall show you the power you can attain through diligence such as mine!\" She raises her morningstar and prepares to attack you!",
   "questGoldenknight2Boss": "Gold Knight",
-  "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?",
+  "questGoldenknight2Completion": "The Golden Knight lowers her Morningstar in consternation. “I apologize for my rash outburst,” she says. “The truth is, it’s painful to think that I’ve been inadvertently hurting others, and it made me lash out in defense… but perhaps I can still apologize?”",
   "questGoldenknight2DropGoldenknight3Quest": "The Golden Knight Part 3: The Iron Knight (Scroll)",
 
   "questGoldenknight3Text": "The Golden Knight, Part 3: The Iron Knight",
@@ -342,7 +342,7 @@
   "questUnicornUnlockText": "Unlocks purchasable Unicorn eggs in the Market",
 
   "questSabretoothText": "The Sabre Cat",
-  "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @Inventrix and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoïkalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
+  "questSabretoothNotes": "A roaring monster is terrorizing Habitica! The creature stalks through the wilds and woods, then bursts forth to attack before vanishing again. It's been hunting innocent pandas and frightening the flying pigs into fleeing their pens to roost in the trees. @InspectorCaracal and @icefelis explain that the Zombie Sabre Cat was set free while they were excavating in the ancient, untouched ice-fields of the Stoïkalm Steppes. \"It was perfectly friendly at first – I don't know what happened. Please, you have to help us recapture it! Only a champion of Habitica can subdue this prehistoric beast!\"",
   "questSabretoothCompletion": "After a long and tiring battle, you wrestle the Zombie Sabre Cat to the ground. As you are finally able to approach, you notice a nasty cavity in one of its sabre teeth. Realising the true cause of the cat's wrath, you're able to get the cavity filled by @Fandekasp, and advise everyone to avoid feeding their friend sweets in future. The Sabre Cat flourishes, and in gratitude, its tamers send you a generous reward – a clutch of sabretooth eggs!",
   "questSabretoothBoss": "Zombie Sabre Cat",
   "questSabretoothDropSabretoothEgg": "Sabretooth (Egg)",
@@ -461,7 +461,7 @@
   "questFerretUnlockText": "Unlocks purchasable Ferret eggs in the Market",
 
   "questDustBunniesText": "The Feral Dust Bunnies",
-  "questDustBunniesNotes": "It's been a while since you've done any dusting in here, but you're not too worried—a little dust never hurt anyone, right? It's not until you stick your hand into one of the dustiest corners and feel something bite that you remember @Inventrix's warning: leaving harmless dust sit too long causes it to turn into vicious dust bunnies! You'd better defeat them before they cover all of Habitica in fine particles of dirt!",
+  "questDustBunniesNotes": "It's been a while since you've done any dusting in here, but you're not too worried—a little dust never hurt anyone, right? It's not until you stick your hand into one of the dustiest corners and feel something bite that you remember @InspectorCaracal's warning: leaving harmless dust sit too long causes it to turn into vicious dust bunnies! You'd better defeat them before they cover all of Habitica in fine particles of dirt!",
   "questDustBunniesCompletion": "The dust bunnies vanish into a puff of... well, dust. As it clears, you look around. You'd forgotten how nice this place looks when it's clean. You spy a small pile of gold where the dust used to be. Huh, you'd been wondering where that was!",
   "questDustBunniesBoss": "Feral Dust Bunnies",
 
@@ -687,5 +687,12 @@
   "dysheartenerArtCredit": "Artwork by @AnnDeLune",
 
   "hugabugText": "Hug a Bug Quest Bundle",
-  "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31."
+  "hugabugNotes": "Contains 'The CRITICAL BUG,' 'The Snail of Drudgery Sludge,' and 'Bye, Bye, Butterfry.' Available until March 31.",
+
+  "questSquirrelText": "The Sneaky Squirrel",
+  "questSquirrelNotes": "You wake up and find you’ve overslept! Why didn’t your alarm go off? … How did an acorn get stuck in the ringer?<br><br>When you try to make breakfast, the toaster is stuffed with acorns. When you go to retrieve your mount, @Shtut is there, trying unsuccessfully to unlock their stable. They look into the keyhole. “Is that an acorn in there?”<br><br>@randomdaisy cries out, “Oh no! I knew my pet squirrels had gotten out, but I didn’t know they’d made such trouble! Can you help me round them up before they make any more of a mess?”<br><br>Following the trail of mischievously placed oak nuts, you track and catch the wayward sciurines, with @Cantras helping secure each one safely at home. But just when you think your task is almost complete, an acorn bounces off your helm! You look up to see a mighty beast of a squirrel, crouched in defense of a prodigious pile of seeds.<br><br>“Oh dear,” says @randomdaisy, softly. “She’s always been something of a resource guarder. We’ll have to proceed very carefully!” You circle up with your party, ready for trouble!",
+  "questSquirrelCompletion": "With a gentle approach, offers of trade, and a few soothing spells, you’re able to coax the squirrel away from its hoard and back to the stables, which @Shtut has just finished de-acorning. They’ve set aside a few of the acorns on a worktable. “These ones are squirrel eggs! Maybe you can raise some that don’t play with their food quite so much.”",
+  "questSquirrelBoss": "Sneaky Squirrel",
+  "questSquirrelDropSquirrelEgg": "Squirrel (Egg)",
+  "questSquirrelUnlockText": "Unlocks purchasable Squirrel eggs in the Market"
 }

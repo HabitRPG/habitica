@@ -1,4 +1,3 @@
-import find from 'lodash/find';
 import nconf from 'nconf';
 
 import ChatReporter from './chatReporter';
@@ -9,6 +8,7 @@ import {
 import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
 import { model as Group } from '../../models/group';
+import { model as Chat } from '../../models/chat';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -37,7 +37,7 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    let message = find(group.chat, {id: this.req.params.chatId});
+    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 
@@ -68,13 +68,12 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async flagGroupMessage (group, message) {
-    let update = {$set: {}};
     // Log user ids that have flagged the message
     if (!message.flags) message.flags = {};
     // TODO fix error type
     if (message.flags[this.user._id] && !this.user.contributor.admin) throw new NotFound(this.res.t('messageGroupChatFlagAlreadyReported'));
     message.flags[this.user._id] = true;
-    update.$set[`chat.$.flags.${this.user._id}`] = true;
+    message.markModified('flags');
 
     // Log total number of flags (publicly viewable)
     if (!message.flagCount) message.flagCount = 0;
@@ -84,12 +83,8 @@ export default class GroupChatReporter extends ChatReporter {
     } else {
       message.flagCount++;
     }
-    update.$set['chat.$.flagCount'] = message.flagCount;
 
-    await Group.update(
-      {_id: group._id, 'chat.id': message.id},
-      update
-    ).exec();
+    await message.save();
   }
 
   async flag () {

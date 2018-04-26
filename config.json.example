@@ -98,9 +98,9 @@
     },
     "ITUNES_SHARED_SECRET": "aaaabbbbccccddddeeeeffff00001111",
     "EMAILS" : {
-        "COMMUNITY_MANAGER_EMAIL" : "leslie@habitica.com",
+        "COMMUNITY_MANAGER_EMAIL" : "admin@habitica.com",
         "TECH_ASSISTANCE_EMAIL" : "admin@habitica.com",
-        "PRESS_ENQUIRY_EMAIL" : "leslie@habitica.com"
+        "PRESS_ENQUIRY_EMAIL" : "admin@habitica.com"
     },
     "LOGGLY" : {
         "TOKEN" : "example-token",

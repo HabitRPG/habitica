@@ -270,6 +270,7 @@ api.createChallengeTasks = {
  * @apiGroup Task
  *
  * @apiParam (Query) {String="habits","dailys","todos","rewards","completedTodos"} type Optional query parameter to return just a type of tasks. By default all types will be returned except completed todos that must be requested separately. The "completedTodos" type returns only the 30 most recently completed.
+ * @apiParam (Query) [dueDate]
  *
  * @apiSuccess {Array} data An array of tasks
  *
@@ -457,7 +458,6 @@ api.updateTask = {
     let oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things don't get merged correctly. Bad for performances?
     let [updatedTaskObj] = common.ops.updateTask(task.toObject(), req);
-
     // Sanitize differently user tasks linked to a challenge
     let sanitizedObj;
 
@@ -470,6 +470,7 @@ api.updateTask = {
     }
 
     _.assign(task, sanitizedObj);
+
     // console.log(task.modifiedPaths(), task.toObject().repeat === tep)
     // repeat is always among modifiedPaths because mongoose changes the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
@@ -480,7 +481,6 @@ api.updateTask = {
     }
 
     setNextDue(task, user);
-
     let savedTask = await task.save();
 
     if (group && task.group.id && task.group.assignedUsers.length > 0) {
