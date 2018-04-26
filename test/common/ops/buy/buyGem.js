@@ -10,7 +10,6 @@ import {
 import i18n from '../../../../website/common/script/i18n';
 import {BuyGemOperation} from '../../../../website/common/script/ops/buy/buyGem';
 import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
-import purchase from '../../../../website/common/script/ops/buy/purchase';
 
 function buyGem (user, req, analytics) {
   let buyOp = new BuyGemOperation(user, req, analytics);

@@ -1,6 +1,5 @@
 import purchase from '../../../../website/common/script/ops/buy/purchase';
 import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
-import planGemLimits from '../../../../website/common/script/libs/planGemLimits';
 import {
   BadRequest,
   NotAuthorized,
@@ -126,8 +125,6 @@ describe('shared.ops.purchase', () => {
       user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
       user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
     });
-
-
 
     it('purchases eggs', () => {
       let type = 'eggs';
