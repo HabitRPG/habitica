@@ -75,7 +75,7 @@ export let taskScoredWebhook = new WebhookSender({
     let extendedStats = user.addComputedStatsToJSONObj(user.stats.toJSON());
 
     let userData = {
-      _id: user._id,
+      // _id: user._id, added automatically when the webhook is sent
       _tmp: user._tmp,
       stats: extendedStats,
     };
