@@ -590,7 +590,7 @@ export default {
     },
     filterByTagList (taskList, tagList = []) {
       let filteredTaskList = taskList;
-      // fitler requested tasks by tags
+      // filter requested tasks by tags
       if (!isEmpty(tagList)) {
         filteredTaskList = taskList.filter(
           task => tagList.every(tag => task.tags.indexOf(tag) !== -1)
