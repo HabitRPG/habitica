@@ -61,7 +61,9 @@ let api = {};
 api.getPatrons = {
   method: 'GET',
   url: '/hall/patrons',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
@@ -121,7 +123,9 @@ api.getPatrons = {
 api.getHeroes = {
   method: 'GET',
   url: '/hall/heroes',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let heroes = await User
       .find({

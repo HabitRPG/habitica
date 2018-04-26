@@ -196,13 +196,15 @@ api.assignTask = {
 
     if (canNotEditTasks(group, user, assignedUserId)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
+    let promises = [];
+
     // User is claiming the task
     if (user._id === assignedUserId) {
       let message = res.t('userIsClamingTask', {username: user.profile.name, task: task.text});
-      group.sendChat(message);
+      const newMessage = group.sendChat(message);
+      promises.push(newMessage.save());
     }
 
-    let promises = [];
     promises.push(group.syncTask(task, assignedUser));
     promises.push(group.save());
     await Promise.all(promises);

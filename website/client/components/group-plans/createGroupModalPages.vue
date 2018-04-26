@@ -126,14 +126,6 @@ export default {
       return Boolean(this.newGroup.name);
     },
   },
-  mounted () {
-    Analytics.track({
-      hitType: 'event',
-      eventCategory: 'group-plans-static',
-      eventAction: 'view',
-      eventLabel: 'create-group',
-    });
-  },
   methods: {
     changePage (page) {
       Analytics.track({

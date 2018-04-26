@@ -162,7 +162,7 @@ let api = {};
  * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
  * @apiParam (Body) {Object} challenge An object representing the challenge to be created
- * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs
+ * @apiParam (Body) {UUID} challenge.group The id of the group to which the challenge belongs
  * @apiParam (Body) {String} challenge.name The full name of the challenge
  * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
  * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose of the challenge; maximum 250 characters; if not supplied, challenge.name will be used
