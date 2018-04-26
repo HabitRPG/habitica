@@ -10,13 +10,16 @@ div
         .col-6
           button(type="button" aria-label="Close" class="close", @click='close()')
             span(aria-hidden="true") ×
-      .row
-        .form-group.col-6
-          input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
-        .col-5.offset-1
-          span.dropdown-label {{ $t('sortBy') }}
-          b-dropdown(:text="$t('sort')", right=true)
-            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption)', :key='sortOption.value') {{sortOption.text}}
+      .row.d-flex.align-items-center
+        .col-4
+          input.form-control.input-search(type="text", :placeholder="$t('search')", v-model='searchTerm')
+        .col
+          select.form-control()
+            option(v-for='sortOption in sortOptions', :value='sortOption.value') {{sortOption.text}}
+        .col-3
+          select.form-control()
+            option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
+
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
@@ -95,6 +98,10 @@ div
 
   .header-wrap {
     width: 100%;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
   }
 
   h1 {
@@ -200,75 +207,48 @@ export default {
       sortOptions: [
         {
           value: 'class',
-          text: this.$t('class'),
-          order: 'asc',
+          text: this.$t('sortClass'),
           param: 'stats.class',
         },
         {
           value: 'background',
-          text: this.$t('background'),
-          order: 'asc',
+          text: this.$t('sortBackground'),
           param: 'preferences.background',
         },
         {
-          value: 'date-joined-asc',
-          text: this.$t('sortDateJoinedAsc'),
-          order: 'asc',
+          value: 'date-joined',
+          text: this.$t('sortDateJoined'),
           param: 'auth.timestamps.created',
         },
         {
-          value: 'date-joined-desc',
-          text: this.$t('sortDateJoinedDesc'),
-          order: 'desc',
-          param: 'auth.timestamps.created',
-        },
-        {
-          value: 'login-asc',
-          text: this.$t('sortLoginAsc'),
-          order: 'asc',
+          value: 'login',
+          text: this.$t('sortLogin'),
           param: 'auth.timestamps.loggedin',
         },
         {
-          value: 'login-desc',
-          text: this.$t('sortLoginDesc'),
-          order: 'desc',
-          param: 'auth.timestamps.loggedin',
-        },
-        {
-          value: 'level-asc',
-          text: this.$t('sortLevelAsc'),
-          order: 'asc',
+          value: 'level',
+          text: this.$t('sortLevel'),
           param: 'stats.lvl',
         },
         {
-          value: 'level-desc',
-          text: this.$t('sortLevelDesc'),
-          order: 'desc',
-          param: 'stats.lvl',
-        },
-        {
-          value: 'name-asc',
-          text: this.$t('sortNameAsc'),
-          order: 'asc',
+          value: 'name',
+          text: this.$t('sortName'),
           param: 'profile.name',
         },
         {
-          value: 'name-desc',
-          text: this.$t('sortNameDesc'),
-          order: 'desc',
-          param: 'profile.name',
-        },
-        {
-          value: 'tier-asc',
-          text: this.$t('sortTierAsc'),
-          order: 'asc',
+          value: 'tier',
+          text: this.$t('sortTier'),
           param: 'contributor.level',
         },
+      ],
+      sortDirections: [
         {
-          value: 'tier-desc',
-          text: this.$t('sortTierDesc'),
-          order: 'desc',
-          param: 'contributor.level',
+          value: 'asc',
+          text: this.$t('ascendingAbbrev'),
+        },
+        {
+          value: 'desc',
+          text: this.$t('descendingAbbrev'),
         },
       ],
       searchTerm: '',
