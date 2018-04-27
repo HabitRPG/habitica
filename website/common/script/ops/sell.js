@@ -26,7 +26,7 @@ module.exports = function sell (user, req = {}) {
   }
 
   if (!key) {
-    throw new BadRequest(i18n.t('keyRequired', req.language));
+    throw new BadRequest(i18n.t('missingKeyParam', req.language));
   }
 
   if (ACCEPTEDTYPES.indexOf(type) === -1) {
