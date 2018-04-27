@@ -57,7 +57,6 @@
     "jquery": ">=3.0.0",
     "js2xmlparser": "^3.0.0",
     "lodash": "^4.17.10",
-    "memwatch-next": "^0.3.0",
     "merge-stream": "^1.0.0",
     "method-override": "^2.3.5",
     "moment": "^2.22.1",
@@ -188,6 +187,7 @@
     "webpack-hot-middleware": "^2.22.1"
   },
   "optionalDependencies": {
+    "memwatch-next": "^0.3.0",
     "node-rdkafka": "^2.3.0"
   }
 }
