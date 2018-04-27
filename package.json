@@ -113,7 +113,7 @@
   },
   "private": true,
   "engines": {
-    "node": "^8.9.4",
+    "node": "10",
     "npm": "^5.6.0"
   },
   "scripts": {
