@@ -579,6 +579,16 @@ api.exportChallengeCsv = {
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
+      /**
+       * Occasional error does not unlink a user's challenge tasks from that challenge's data
+       * after the user leaves that challenge, which previously caused a failure when exporting
+       * to a CSV. The following if statement makes sure that the task's attached user still
+       * belongs to the challenge.
+       * See more at https://github.com/HabitRPG/habitica/issues/8350
+       */
+      if (!resArray.map(line => line[0]).includes(task.userId)) {
+        return;
+      }
       while (task.userId !== lastUserId) {
         index++;
         lastUserId = resArray[index][0]; // resArray[index][0] is an user id
