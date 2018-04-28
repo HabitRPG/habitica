@@ -125,7 +125,7 @@ export async function createTasks (req, res, options = {}) {
 
   await owner.update(taskOrderUpdateQuery).exec();
 
-  // tasks with aliases need to be validated asyncronously
+  // tasks with aliases need to be validated asynchronously
   await _validateTaskAlias(toSave, res);
 
   toSave = toSave.map(task => task.save({ // If all tasks are valid (this is why it's not in the previous .map()), save everything, withough running validation again
