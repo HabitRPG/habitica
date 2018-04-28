@@ -75,6 +75,30 @@ describe('webhooks', () => {
       });
     });
 
+    it('adds default data (user and webhookType) to the body', () => {
+      let sendWebhook = new WebhookSender({
+        type: 'custom',
+      });
+      sandbox.spy(sendWebhook, 'attachDefaultData');
+
+      let body = { foo: 'bar' };
+
+      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      sendWebhook.send(user, body);
+
+      expect(sendWebhook.attachDefaultData).to.be.calledOnce;
+      expect(got.post).to.be.calledOnce;
+      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+        json: true,
+      });
+
+      expect(body).to.eql({
+        foo: 'bar',
+        user: {_id: user._id},
+        webhookType: 'custom',
+      });
+    });
+
     it('can pass in a data transformation function', () => {
       sandbox.spy(WebhookSender, 'defaultTransformData');
       let sendWebhook = new WebhookSender({
@@ -102,7 +126,7 @@ describe('webhooks', () => {
       });
     });
 
-    it('provieds a default filter function', () => {
+    it('provides a default filter function', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
       let sendWebhook = new WebhookSender({
         type: 'custom',

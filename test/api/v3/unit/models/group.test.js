@@ -1685,7 +1685,7 @@ describe('Group Model', () => {
         expect(groupChatReceivedWebhook.send).to.be.calledOnce;
 
         let args = groupChatReceivedWebhook.send.args[0];
-        let webhooks = args[0];
+        let webhooks = args[0].webhooks;
         let options = args[1];
 
         expect(webhooks).to.have.a.lengthOf(1);
@@ -1749,9 +1749,9 @@ describe('Group Model', () => {
         expect(groupChatReceivedWebhook.send).to.be.calledThrice;
 
         let args = groupChatReceivedWebhook.send.args;
-        expect(args.find(arg => arg[0][0].id === memberWithWebhook.webhooks[0].id)).to.be.exist;
-        expect(args.find(arg => arg[0][0].id === memberWithWebhook2.webhooks[0].id)).to.be.exist;
-        expect(args.find(arg => arg[0][0].id === memberWithWebhook3.webhooks[0].id)).to.be.exist;
+        expect(args.find(arg => arg[0].webhooks[0].id === memberWithWebhook.webhooks[0].id)).to.be.exist;
+        expect(args.find(arg => arg[0].webhooks[0].id === memberWithWebhook2.webhooks[0].id)).to.be.exist;
+        expect(args.find(arg => arg[0].webhooks[0].id === memberWithWebhook3.webhooks[0].id)).to.be.exist;
       });
     });
 
