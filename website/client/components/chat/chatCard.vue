@@ -3,7 +3,7 @@ div
   .mentioned-icon(v-if='isUserMentioned')
   .message-hidden(v-if='msg.flagCount === 1 && user.contributor.admin') {{ $t('messagedFlaggedNotHidden') }}
   .message-hidden(v-if='msg.flagCount > 1 && user.contributor.admin') {{ $t('messageHidden') }}
-  .message-hidden(v-if='approvalRequired', @click='approve()') {{ $t('approvalRequired') }}
+  .message-hidden(v-if='approvalRequired', @click='approve()') {{ $t('approvalIsRequired') }}
   .card-body
       h3.leader(
         :class='userLevelStyle(msg)',

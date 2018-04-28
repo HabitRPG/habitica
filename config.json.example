@@ -109,7 +109,6 @@
         "TOKEN" : "example-token",
         "SUBDOMAIN" : "exmaple-subdomain"
     },
-    "CHAT_APPROVAL_REQUIRED": "false",
     "KAFKA": {
       "GROUP_ID": "",
       "CLOUDKARAFKA_BROKERS": "",
@@ -118,4 +117,7 @@
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
     },
     "MIGRATION_CONNECT_STRING": "mongodb://localhost:27017/habitrpg?auto_reconnect=true"
+    "STACK_IMPACT_KEY": "aaaabbbbccccddddeeeeffffgggg111100002222",
+    "CHAT_APPROVAL_REQUIRED": "false",
+    "CHAT_APPROVAL_DAYS": "1"
 }
