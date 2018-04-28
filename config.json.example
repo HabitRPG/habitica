@@ -113,5 +113,7 @@
       "CLOUDKARAFKA_PASSWORD": "",
       "CLOUDKARAFKA_TOPIC_PREFIX": ""
     },
-    "STACK_IMPACT_KEY": "aaaabbbbccccddddeeeeffffgggg111100002222"
+    "STACK_IMPACT_KEY": "aaaabbbbccccddddeeeeffffgggg111100002222",
+    "CHAT_APPROVAL_REQUIRED": "false",
+    "CHAT_APPROVAL_DAYS": "1"
 }

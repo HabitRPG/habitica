@@ -11,6 +11,7 @@ const messages = {
   groupIdRequired: 'req.params.groupId must contain a groupId.',
   managerIdRequired: 'req.body.managerId must contain a user ID.',
   noSudoAccess: 'You don\'t have sudo access',
+  approvalNotRequired: 'Approval not required',
 };
 
 export default function (msgKey, vars = {}) {
