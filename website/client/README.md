@@ -1,8 +1,7 @@
-#Running
- - Open a terminal and type `npm run client:dev`
- - Open a second terminal and type `npm start`
+# Running
+For information about installing Habitica locally, see [Setting up Habitica Locally](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally) and for information about running the local client, refer to the ["Run Habitica" section](http://habitica.wikia.com/wiki/Setting_up_Habitica_Locally#Run_Habitica) in that page.
 
-#Preparation Reading
+# Preparation Reading
 - Vue 2 (https://vuejs.org)
 
 - Webpack (https://webpack.github.io/) is the build system and it includes plugins for code transformation, right now we have: BabelJS for ES6 transpilation, eslint for code style, less and postcss for css compilation. The code comes from https://github.com/vuejs-templates/webpack which is a Webpack template for Vue, with some small modifications to adapt it to our use case. Docs http://vuejs-templates.github.io/webpack/
@@ -18,3 +17,5 @@ The API is almost the same except that we don’t use mutations but only actions
 The project is developed directly in the `develop` branch as long as we’ll be able to avoid splitting it into a different branch.
 
 So far most of the work has been on the template, so there’s no complex logic to understand. The only thing I would suggest you to read about is Vuex for data management: it’s basically a Flux implementation: there’s a central store that hold the data for the entire app, and every change to the data must happen through an action, the data cannot be mutated directly.
+
+For further resources, see [Guidance for Blacksmiths](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.wikia.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).
