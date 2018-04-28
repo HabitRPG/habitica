@@ -755,8 +755,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
 
   User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
     users.forEach((user) => {
-      let { webhooks } = user;
-      groupChatReceivedWebhook.send(webhooks, {
+      console.log('sending webhook for', user._id)
+      groupChatReceivedWebhook.send(user, {
         group: this,
         chat,
       });

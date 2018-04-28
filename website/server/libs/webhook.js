@@ -114,6 +114,7 @@ export let groupChatReceivedWebhook = new WebhookSender({
     return hook.options.groupId === data.group.id;
   },
   transformData (data) {
+    console.log(data)
     let { group, chat } = data;
 
     let dataToSend = {

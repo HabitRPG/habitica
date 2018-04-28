@@ -209,7 +209,7 @@ describe('webhooks', () => {
       let body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity'},        
+        { id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity'},     
       ];
       sendWebhook.send(user, body);
 
