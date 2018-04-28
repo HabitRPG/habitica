@@ -18,6 +18,7 @@ import bannedWords from '../../libs/bannedWords';
 import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
+import apiMessages from '../../libs/apiMessages';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
   return { email, canSend: true };
@@ -489,7 +490,7 @@ api.deleteChat = {
  * @apiParam (Path) {UUID} groupId The group _id ('party' for the user party and 'habitrpg' for tavern are accepted)
  * @apiParam (Path) {UUID} chatId The chat message _id
  *
- * @apiSuccess {Object} data The approved <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js#L51' target='_blank'>chat message</a>
+ * @apiSuccess {Object} data The approved <a href='https://github.com/HabitRPG/habitica/blob/develop/website/server/models/chat.js' target='_blank'>chat message</a>
  *
  * @apiUse GroupNotFound
  * @apiUse MessageNotFound
@@ -516,10 +517,10 @@ api.approveChat = {
     const group = await Group.getGroup({user, groupId});
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const message = find(group.chat, {id: req.params.chatId});
+    const message = await Chat.findOne({_id: req.params.chatId}).exec();
     if (!message) throw new NotFound(res.t('messageGroupChatNotFound'));
 
-    if (!message.approvalRequired) throw new NotAuthorized(res.t('approvalNotRequired'));
+    if (!message.approvalRequired) throw new NotAuthorized(apiMessages('approvalNotRequired'));
 
     let update = {$set: {}};
     message.approvalRequired = false;

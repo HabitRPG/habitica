@@ -545,8 +545,8 @@ function checkForChatApproval (group, message, user) {
   if (group.privacy !== 'public') return;
 
   const userCreatedDate = moment(user.auth.timestamps.created);
-  const oneDayAgo = moment().startOf('day').subtract(1, 'days');
-  if (userCreatedDate.isBefore(oneDayAgo)) return;
+  const cutOffDate = moment().startOf('day').subtract(config.getChatApprovalDays(), 'days');
+  if (userCreatedDate.isBefore(cutOffDate)) return;
 
   message.approvalRequired = true;
 }
@@ -559,7 +559,7 @@ schema.methods.sendChat = function sendChat (message, user, metaData) {
 
   if (user) setUserStyles(newChatMessage, user);
 
-  checkForChatApproval(this, newMessage, user);
+  checkForChatApproval(this, newChatMessage, user);
 
   // Optional data stored in the chat message but not returned
   // to the users that can be stored for debugging purposes
