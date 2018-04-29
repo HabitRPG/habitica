@@ -18,16 +18,12 @@
         // b-form-input
       .row
         .col-12
-          .toggle#toggle(:class="!this.user.inbox.optOut && 'toggle--active'" @click="toggleOpt()")
-            .bar
-            .circle
-          b-popover(
-            target="toggle",
-            triggers="hover",
-            placement="right",
+          toggle-switch.float-right.align-with-tab(
+            :label="optTextSet.switchDescription",
+            :checked="!this.user.inbox.optOut"
+            :hoverText="optTextSet.popoverText",
+            @change="toggleOpt()"
           )
-            h4.popover-content-title {{PMAction}} {{$t('disabledPMPopoverTitle')}}
-            .popover-content-text {{$t('disabledPMPopoverText')}}
     .row(v-if="!this.user.inbox.optOut")
       .col-4.sidebar
         .search-section
@@ -174,68 +170,6 @@
     cursor: pointer;
   }
 
-  .toggle {
-    position: relative;
-
-    display: block;
-    float: left;
-
-    width: 36px;
-    margin-right: 0;
-    padding: 4px 0 6px 2px;
-
-    cursor: pointer;
-    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-
-    flex-shrink: 0;
-
-    .bar {
-      width: 100%;
-      height: 14px;
-
-      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-
-      border-radius: 30px;
-      background-color: rgb(189, 189, 189);
-    }
-
-    .circle {
-      line-height: 24px;
-
-      position: absolute;
-      top: 1px;
-      left: 0;
-
-      box-sizing: border-box;
-      width: 20px;
-      height: 20px;
-
-      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-
-      color: rgba(0, 0, 0, 0.87);
-      border-radius: 50%;
-      background-color: rgb(245, 245, 245);
-      box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
-
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    &--active {
-      .bar {
-        opacity: 0.5;
-        background-color: $purple-200;
-      }
-
-      .circle {
-        left: 100%;
-
-        margin-left: -20px;
-
-        background-color: $purple-200;
-      }
-    }
-  }
-
   .caption-disabled {
     display: flex;
     flex-direction: column;
@@ -263,6 +197,7 @@ import sortBy from 'lodash/sortBy';
 import groupBy from 'lodash/groupBy';
 import { mapState } from 'client/libs/store';
 import styleHelper from 'client/mixins/styleHelper';
+import toggleSwitch from 'client/components/ui/toggleSwitch';
 
 import messageIcon from 'assets/svg/message.svg';
 import chatMessage from '../chat/chatMessages';
@@ -272,6 +207,7 @@ export default {
   mixins: [styleHelper],
   components: {
     chatMessage,
+    toggleSwitch,
   },
   mounted () {
     this.$root.$on('habitica::new-inbox-message', (data) => {
@@ -376,10 +312,17 @@ export default {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
     },
-    PMAction() {
-      return this.user.inbox.optOut ?
-        this.$t('PMEnable') :
-        this.$t('PMDisable');
+    optTextSet() {
+      if (!this.user.inbox.optOut) {
+        return {
+          switchDescription: this.$t('PMDisableFull'),
+          popoverText: this.$t('PMEnabledOptPopoverText'),
+        };
+      }
+      return {
+        switchDescription: this.$t('PMEnableFull'),
+        popoverText: this.$t('PMDisabledOptPopoverText'),
+      };
     }
   },
   methods: {
