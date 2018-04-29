@@ -298,7 +298,7 @@
   "PMDisabledOptPopoverText": "Enable private messages so you can chat again!",
   "disabledPMCaptionTitle": "Private messages are disabled",
   "disabledPMCaptionLine1": "Private messages are disabled and no one can send them to you.",
-  "disabledPMCaptionLine2": "You can enable or disable private messages at any time.",
+  "disabledPMCaptionLine2": "You can enable this option at any time.",
   "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
   "letsgo": "Let's Go!",
   "selected": "Selected",
