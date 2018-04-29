@@ -24,6 +24,7 @@ describe('Webhook Model', () => {
               updated: true,
               deleted: true,
               scored: true,
+              checklistScored: true,
             },
           };
         });
@@ -36,6 +37,7 @@ describe('Webhook Model', () => {
           wh.formatOptions(res);
 
           expect(wh.options).to.eql({
+            checklistScored: false,
             created: false,
             updated: false,
             deleted: false,
@@ -51,6 +53,7 @@ describe('Webhook Model', () => {
           wh.formatOptions(res);
 
           expect(wh.options).to.eql({
+            checklistScored: true,
             created: false,
             updated: true,
             deleted: true,
@@ -67,6 +70,7 @@ describe('Webhook Model', () => {
 
           expect(wh.options.foo).to.not.exist;
           expect(wh.options).to.eql({
+            checklistScored: true,
             created: true,
             updated: true,
             deleted: true,
@@ -74,7 +78,155 @@ describe('Webhook Model', () => {
           });
         });
 
-        ['created', 'updated', 'deleted', 'scored'].forEach((option) => {
+        ['created', 'updated', 'deleted', 'scored', 'checklistScored'].forEach((option) => {
+          it(`validates that ${option} is a boolean`, (done) => {
+            config.options[option] = 'not a boolean';
+
+            try {
+              let wh = new Webhook(config);
+
+              wh.formatOptions(res);
+            } catch (err) {
+              expect(err).to.be.an.instanceOf(BadRequest);
+              expect(res.t).to.be.calledOnce;
+              expect(res.t).to.be.calledWith('webhookBooleanOption', { option });
+              done();
+            }
+          });
+        });
+      });
+
+      context('type is userActivity', () => {
+        let config;
+
+        beforeEach(() => {
+          config = {
+            type: 'userActivity',
+            url: 'https//exmaple.com/endpoint',
+            options: {
+              petHatched: true,
+              mountRaised: true,
+              leveledUp: true,
+            },
+          };
+        });
+
+        it('it provides default values for options', () => {
+          delete config.options;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            petHatched: false,
+            mountRaised: false,
+            leveledUp: false,
+          });
+        });
+
+        it('provides missing user options', () => {
+          delete config.options.petHatched;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            petHatched: false,
+            mountRaised: true,
+            leveledUp: true,
+          });
+        });
+
+        it('discards additional options', () => {
+          config.options.foo = 'another option';
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options.foo).to.not.exist;
+          expect(wh.options).to.eql({
+            petHatched: true,
+            mountRaised: true,
+            leveledUp: true,
+          });
+        });
+
+        ['petHatched', 'petHatched', 'leveledUp'].forEach((option) => {
+          it(`validates that ${option} is a boolean`, (done) => {
+            config.options[option] = 'not a boolean';
+
+            try {
+              let wh = new Webhook(config);
+
+              wh.formatOptions(res);
+            } catch (err) {
+              expect(err).to.be.an.instanceOf(BadRequest);
+              expect(res.t).to.be.calledOnce;
+              expect(res.t).to.be.calledWith('webhookBooleanOption', { option });
+              done();
+            }
+          });
+        });
+      });
+
+      context('type is questActivity', () => {
+        let config;
+
+        beforeEach(() => {
+          config = {
+            type: 'questActivity',
+            url: 'https//exmaple.com/endpoint',
+            options: {
+              questStarted: true,
+              questFinished: true,
+            },
+          };
+        });
+
+        it('it provides default values for options', () => {
+          delete config.options;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            questStarted: false,
+            questFinished: false,
+          });
+        });
+
+        it('provides missing user options', () => {
+          delete config.options.questStarted;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            questStarted: false,
+            questFinished: true,
+          });
+        });
+
+        it('discards additional options', () => {
+          config.options.foo = 'another option';
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options.foo).to.not.exist;
+          expect(wh.options).to.eql({
+            questStarted: true,
+            questFinished: true,
+          });
+        });
+
+        ['questStarted', 'questFinished'].forEach((option) => {
           it(`validates that ${option} is a boolean`, (done) => {
             config.options[option] = 'not a boolean';
 
@@ -139,6 +291,30 @@ describe('Webhook Model', () => {
             expect(res.t).to.be.calledWith('groupIdRequired');
             done();
           }
+        });
+      });
+
+
+      context('type is globalActivity', () => {
+        let config;
+
+        beforeEach(() => {
+          config = {
+            type: 'globalActivity',
+            url: 'https//exmaple.com/endpoint',
+            options: { },
+          };
+        });
+
+        it('discards additional objects', () => {
+          config.options.foo = 'another thing';
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options.foo).to.not.exist;
+          expect(wh.options).to.eql({});
         });
       });
     });
