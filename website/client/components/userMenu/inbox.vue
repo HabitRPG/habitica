@@ -26,8 +26,8 @@
             triggers="hover",
             placement="right",
           )
-            h4.popover-content-title {{popoverTitle}}
-            .popover-content-text {{popoverText}}
+            h4.popover-content-title {{PMAction}} {{$t('disabledPMPopoverTitle')}}
+            .popover-content-text {{$t('disabledPMPopoverText')}}
     .row(v-if="!this.user.inbox.optOut")
       .col-4.sidebar
         .search-section
@@ -61,10 +61,10 @@
       .col-12
         .caption-disabled
           .svg-icon.envelope(v-html="icons.messageIcon")
-          h3 Private messages are disabled
-          p.text-center Private messages are disabled and no one can send them to you.
-          p.text-center {{popoverText}}
-          button.btn.btn-primary(@click="toggleOpt()") Enable
+          h3 {{$t('disabledPMCaptionTitle')}}
+          p.text-center {{$t('disabledPMCaptionLine1')}}
+          p.text-center {{$t('disabledPMCaptionLine2')}}
+          button.btn.btn-primary(@click="toggleOpt()") {{$t('PMEnable')}}
 </template>
 
 <style lang="scss" scoped>
@@ -243,6 +243,15 @@
     padding: 20px;
 
     align-items: center;
+
+    .envelope {
+      width: 30px;
+      margin-top: 0;
+    }
+
+    h3 {
+      margin-top: 1em;
+    }
   }
 </style>
 
@@ -367,15 +376,10 @@ export default {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
     },
-    popoverTitle() {
-      let action = '';
-      this.user.inbox.optOut ?
-        action = 'Enable' :
-        action = 'Disable';
-      return `${action} private messages`
-    },
-    popoverText() {
-      return 'You can enable or disable private messaging at any time.';
+    PMAction() {
+      return this.user.inbox.optOut ?
+        this.$t('PMEnable') :
+        this.$t('PMDisable');
     }
   },
   methods: {
