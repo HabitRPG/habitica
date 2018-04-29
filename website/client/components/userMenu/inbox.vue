@@ -18,9 +18,16 @@
         // b-form-input
       .row
         .col-12
-          div.toggle(:class="!this.user.inbox.optOut && 'toggle--active'" @click="toggleOpt()")
-            div.bar
-            div.circle
+          .toggle#toggle(:class="!this.user.inbox.optOut && 'toggle--active'" @click="toggleOpt()")
+            .bar
+            .circle
+          b-popover(
+            target="toggle",
+            triggers="hover",
+            placement="right",
+          )
+            h4.popover-content-title {{popoverTitle}}
+            .popover-content-text {{popoverText}}
     .row(v-if="!this.user.inbox.optOut")
       .col-4.sidebar
         .search-section
@@ -52,7 +59,12 @@
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
     .row(v-else)
       .col-12
-        .h3.text-center You disabled private messages
+        .caption-disabled
+          .svg-icon.envelope(v-html="icons.messageIcon")
+          h3 Private messages are disabled
+          p.text-center Private messages are disabled and no one can send them to you.
+          p.text-center {{popoverText}}
+          button.btn.btn-primary(@click="toggleOpt()") Enable
 </template>
 
 <style lang="scss" scoped>
@@ -170,7 +182,6 @@
 
     width: 36px;
     margin-right: 0;
-    margin-left: 8px;
     padding: 4px 0 6px 2px;
 
     cursor: pointer;
@@ -223,6 +234,15 @@
         background-color: $purple-200;
       }
     }
+  }
+
+  .caption-disabled {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+
+    align-items: center;
   }
 </style>
 
@@ -282,7 +302,7 @@ export default {
       search: '',
       newMessage: '',
       activeChat: [],
-      circleClickEffectShown: false,
+      showPopover: false,
     };
   },
   filters: {
@@ -347,6 +367,16 @@ export default {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
     },
+    popoverTitle() {
+      let action = '';
+      this.user.inbox.optOut ?
+        action = 'Enable' :
+        action = 'Disable';
+      return `${action} private messages`
+    },
+    popoverText() {
+      return 'You can enable or disable private messaging at any time.';
+    }
   },
   methods: {
     toggleClick () {
