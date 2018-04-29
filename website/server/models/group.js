@@ -656,20 +656,19 @@ schema.methods.startQuest = async function startQuest (user) {
 
   await User.find({
     _id: {$in: Object.keys(this.quest.members)},
-    'party._id': this._id,
   })
-    .select('party.quest items.quests auth preferences.emailNotifications preferences.pushNotifications pushDevices profile.name webhooks')
+    .select('party.quest party._id items.quests auth preferences.emailNotifications preferences.pushNotifications pushDevices profile.name webhooks')
+    .lean()
     .exec()
     .then(partyMembers => {
       partyMembers.forEach(member => {
-        if (!member) {
+        if (!member.party || member.party._id !== this._id) {
           delete this.quest.members[member._id];
         } else {
           members.push(member);
         }
       });
     });
-
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -744,7 +743,7 @@ schema.methods.startQuest = async function startQuest (user) {
     }
 
     // Send webhooks
-    questActivityWebhook.send(user, {
+    questActivityWebhook.send(member, {
       type: 'questStarted',
       group: this,
       quest,
@@ -925,6 +924,31 @@ schema.methods.finishQuest = async function finishQuest (quest) {
       return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
     }));
   }
+
+  // Send webhooks in background
+  // @TODO move the find users part to a worker as well, not just the http request
+  User.find({
+    _id: {$in: participants},
+    webhooks: {
+      $elemMatch: {
+        type: 'questActivity',
+        'options.questFinished': true,
+      },
+    },
+  })
+    .select('_id webhooks')
+    .lean()
+    .exec()
+    .then(participantsWithWebhook => {
+      participantsWithWebhook.forEach(participantWithWebhook => {
+        // Send webhooks
+        questActivityWebhook.send(participantWithWebhook, {
+          type: 'questFinished',
+          group: this,
+          quest,
+        });
+      });
+    });
 
   return await Promise.all(promises);
 };

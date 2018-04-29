@@ -11,7 +11,10 @@ import {
 } from '../../../../../website/server/models/group';
 import { model as User } from '../../../../../website/server/models/user';
 import { quests as questScrolls } from '../../../../../website/common/script/content';
-import { groupChatReceivedWebhook } from '../../../../../website/server/libs/webhook';
+import {
+  groupChatReceivedWebhook,
+  questActivityWebhook,
+} from '../../../../../website/server/libs/webhook';
 import * as email from '../../../../../website/server/libs/email';
 import { TAVERN_ID } from '../../../../../website/common/script/';
 import shared from '../../../../../website/common';
@@ -21,6 +24,7 @@ describe('Group Model', () => {
 
   beforeEach(async () => {
     sandbox.stub(email, 'sendTxn');
+    sandbox.stub(questActivityWebhook, 'send');
 
     party = new Group({
       name: 'test party',
@@ -1189,6 +1193,47 @@ describe('Group Model', () => {
           expect(typeOfEmail).to.eql('quest-started');
         });
 
+        it('sends webhook to participating members that quest has started', async () => {
+          // should receive webhook
+          participatingMember.webhooks = [{
+            type: 'questActivity',
+            url: 'http://someurl.com',
+            options: {
+              questStarted: true,
+            },
+          }];
+          questLeader.webhooks = [{
+            type: 'questActivity',
+            url: 'http://someurl.com',
+            options: {
+              questStarted: true,
+            },
+          }];
+
+          await Promise.all([participatingMember.save(), questLeader.save()]);
+
+          await party.startQuest(nonParticipatingMember);
+
+          await sleep(0.5);
+
+          expect(questActivityWebhook.send).to.be.calledTwice; // for 2 participating members
+
+          let args = questActivityWebhook.send.args[0];
+          let webhooks = args[0].webhooks;
+          let webhookOwner = args[0]._id;
+          let options = args[1];
+
+          expect(webhooks).to.have.a.lengthOf(1);
+          if (webhookOwner === questLeader._id) {
+            expect(webhooks[0].id).to.eql(questLeader.webhooks[0].id);
+          } else {
+            expect(webhooks[0].id).to.eql(participatingMember.webhooks[0].id);
+          }
+          expect(webhooks[0].type).to.eql('questActivity');
+          expect(options.group).to.eql(party);
+          expect(options.quest.key).to.eql('whale');
+        });
+
         it('sends email only to members who have not opted out', async () => {
           participatingMember.preferences.emailNotifications.questStarted = false;
           questLeader.preferences.emailNotifications.questStarted = true;
@@ -1568,6 +1613,42 @@ describe('Group Model', () => {
           expect(updatedLeader.party.quest.progress.collectedItems).to.eql(0);
           expect(updatedLeader.party.quest.RSVPNeeded).to.eql(false);
         });
+      });
+
+      it('sends webhook to participating members that quest has finished', async () => {
+        // should receive webhook
+        participatingMember.webhooks = [{
+          type: 'questActivity',
+          url: 'http://someurl.com',
+          options: {
+            questFinished: true,
+          },
+        }];
+        questLeader.webhooks = [{
+          type: 'questActivity',
+          url: 'http://someurl.com',
+          options: {
+            questStarted: true, // will not receive the webhook
+          },
+        }];
+
+        await Promise.all([participatingMember.save(), questLeader.save()]);
+
+        await party.finishQuest(quest);
+
+        await sleep(0.5);
+
+        expect(questActivityWebhook.send).to.be.calledOnce;
+
+        let args = questActivityWebhook.send.args[0];
+        let webhooks = args[0].webhooks;
+        let options = args[1];
+
+        expect(webhooks).to.have.a.lengthOf(1);
+        expect(webhooks[0].id).to.eql(participatingMember.webhooks[0].id);
+        expect(webhooks[0].type).to.eql('questActivity');
+        expect(options.group).to.eql(party);
+        expect(options.quest.key).to.eql(quest.key);
       });
 
       context('World quests in Tavern', () => {
