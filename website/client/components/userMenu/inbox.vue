@@ -22,7 +22,7 @@
         // .col-8.to-form(v-if='displayCreate')
         //   strong To:
         // b-form-input
-    .row(v-if="!this.user.inbox.optOut")
+    .row
       .col-4.sidebar
         .search-section
           b-form-input(:placeholder="$t('search')", v-model='search')
@@ -51,14 +51,6 @@
         .new-message-row(v-if='selectedConversation.key')
           textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
-    .row(v-else)
-      .col-12
-        .caption-disabled
-          .svg-icon.envelope(v-html="icons.messageIcon")
-          h3 {{$t('disabledPMCaptionTitle')}}
-          p.text-center {{$t('disabledPMCaptionLine1')}}
-          p.text-center {{$t('disabledPMCaptionLine2')}}
-          button.btn.btn-primary(@click="toggleOpt()") {{$t('PMEnable')}}
 </template>
 
 <style lang="scss" scoped>
