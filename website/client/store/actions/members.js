@@ -77,6 +77,13 @@ export async function sendPrivateMessage (store, payload) {
   return response;
 }
 
+export async function togglePrivateMessagesOpt (store) {
+  let url = `${apiV3Prefix}/members/toggle-private-messages-opt`;
+  let response = await axios.post(url);
+  store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
+  return response;
+}
+
 export async function transferGems (store, payload) {
   let url = `${apiV3Prefix}/members/transfer-gems`;
   let data = {

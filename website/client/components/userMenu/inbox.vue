@@ -16,7 +16,12 @@
         // .col-8.to-form(v-if='displayCreate')
         //   strong To:
         // b-form-input
-    .row
+      .row
+        .col-12
+          div.toggle(:class="!this.user.inbox.optOut && 'toggle--active'" @click="toggleOpt()")
+            div.bar
+            div.circle
+    .row(v-if="!this.user.inbox.optOut")
       .col-4.sidebar
         .search-section
           b-form-input(:placeholder="$t('search')", v-model='search')
@@ -45,6 +50,9 @@
         .new-message-row(v-if='selectedConversation.key')
           textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
+    .row(v-else)
+      .col-12
+        .h3.text-center You disabled private messages
 </template>
 
 <style lang="scss" scoped>
@@ -153,6 +161,69 @@
   .conversation:hover {
     cursor: pointer;
   }
+
+  .toggle {
+    position: relative;
+
+    display: block;
+    float: left;
+
+    width: 36px;
+    margin-right: 0;
+    margin-left: 8px;
+    padding: 4px 0 6px 2px;
+
+    cursor: pointer;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+
+    flex-shrink: 0;
+
+    .bar {
+      width: 100%;
+      height: 14px;
+
+      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+
+      border-radius: 30px;
+      background-color: rgb(189, 189, 189);
+    }
+
+    .circle {
+      line-height: 24px;
+
+      position: absolute;
+      top: 1px;
+      left: 0;
+
+      box-sizing: border-box;
+      width: 20px;
+      height: 20px;
+
+      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+
+      color: rgba(0, 0, 0, 0.87);
+      border-radius: 50%;
+      background-color: rgb(245, 245, 245);
+      box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    &--active {
+      .bar {
+        opacity: 0.5;
+        background-color: $purple-200;
+      }
+
+      .circle {
+        left: 100%;
+
+        margin-left: -20px;
+
+        background-color: $purple-200;
+      }
+    }
+  }
 </style>
 
 <script>
@@ -211,6 +282,7 @@ export default {
       search: '',
       newMessage: '',
       activeChat: [],
+      circleClickEffectShown: false,
     };
   },
   filters: {
@@ -279,6 +351,9 @@ export default {
   methods: {
     toggleClick () {
       this.displayCreate = !this.displayCreate;
+    },
+    toggleOpt(){
+      this.$store.dispatch('members:togglePrivateMessagesOpt');
     },
     selectConversation (key) {
       let convoFound = this.conversations.find((conversation) => {
