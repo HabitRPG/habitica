@@ -511,29 +511,6 @@ api.sendPrivateMessage = {
 };
 
 /**
- * @api {post} /api/v3/members/toggle-private-messages-opt Opt-out / opt-in private messages
- * @apiDescription Opt-out / opt-in private messaging functionality
- * @apiName TogglePrivateMessagesOpt
- * @apiGroup Member
- *
- * @apiSuccess {Object} data An empty Object
- */
-api.togglePrivateMessagesOpt = {
-  method: 'POST',
-  url: '/members/toggle-private-messages-opt',
-  middlewares: [authWithHeaders()],
-  async handler (req, res) {
-    let user = res.locals.user;
-
-    user.inbox.optOut = !user.inbox.optOut;
-
-    await user.save();
-
-    res.respond(200, {});
-  },
-};
-
-/**
  * @api {post} /api/v3/members/transfer-gems Send a gem gift to a member
  * @apiName TransferGems
  * @apiGroup Member

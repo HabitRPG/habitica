@@ -149,3 +149,13 @@ export async function rebirth () {
 
   return result;
 }
+
+export async function togglePrivateMessagesOpt (store) {
+  let response = await axios.put('/api/v3/user',
+    {
+      'inbox.optOut': !store.state.user.data.inbox.optOut,
+    }
+  );
+  store.state.user.data.inbox.optOut = !store.state.user.data.inbox.optOut;
+  return response;
+}

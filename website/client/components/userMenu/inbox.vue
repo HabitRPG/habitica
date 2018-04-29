@@ -312,7 +312,7 @@ export default {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
     },
-    optTextSet() {
+    optTextSet () {
       if (!this.user.inbox.optOut) {
         return {
           switchDescription: this.$t('PMDisableFull'),
@@ -323,14 +323,14 @@ export default {
         switchDescription: this.$t('PMEnableFull'),
         popoverText: this.$t('PMDisabledOptPopoverText'),
       };
-    }
+    },
   },
   methods: {
     toggleClick () {
       this.displayCreate = !this.displayCreate;
     },
-    toggleOpt(){
-      this.$store.dispatch('members:togglePrivateMessagesOpt');
+    toggleOpt () {
+      this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
     selectConversation (key) {
       let convoFound = this.conversations.find((conversation) => {
