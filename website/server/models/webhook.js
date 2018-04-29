@@ -24,6 +24,11 @@ const USER_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   leveledUp: false,
 });
 
+const QUEST_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
+  questStarted: false,
+  questFinished: false,
+});
+
 export let schema = new Schema({
   id: {
     type: String,
@@ -95,6 +100,16 @@ schema.methods.formatOptions = function formatOptions (res) {
   } else if (this.type === 'userActivity') {
     _.defaults(this.options, USER_ACTIVITY_DEFAULT_OPTIONS);
     this.options = _.pick(this.options, Object.keys(USER_ACTIVITY_DEFAULT_OPTIONS));
+
+    let invalidOption = Object.keys(this.options)
+      .find(option => typeof this.options[option] !== 'boolean');
+
+    if (invalidOption) {
+      throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
+    }
+  } else if (this.type === 'questActivity') {
+    _.defaults(this.options, QUEST_ACTIVITY_DEFAULT_OPTIONS);
+    this.options = _.pick(this.options, Object.keys(QUEST_ACTIVITY_DEFAULT_OPTIONS));
 
     let invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');

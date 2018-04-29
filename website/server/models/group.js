@@ -12,7 +12,10 @@ import * as Tasks from './task';
 import validator from 'validator';
 import { removeFromArray } from '../libs/collectionManipulators';
 import payments from '../libs/payments/payments';
-import { groupChatReceivedWebhook } from '../libs/webhook';
+import {
+  groupChatReceivedWebhook,
+  questActivityWebhook,
+} from '../libs/webhook';
 import {
   InternalServerError,
   BadRequest,
@@ -648,20 +651,25 @@ schema.methods.startQuest = async function startQuest (user) {
   removeFromArray(nonUserQuestMembers, user._id);
 
   // remove any users from quest.members who aren't in the party
-  let partyId = this._id;
-  let questMembers = this.quest.members;
-  await Promise.all(Object.keys(this.quest.members).map(memberId => {
-    return User.findOne({_id: memberId, 'party._id': partyId})
-      .select('_id')
-      .lean()
-      .exec()
-      .then((member) => {
+  // and get the data necessary to send webhooks
+  const members = [];
+
+  await User.find({
+    _id: {$in: Object.keys(this.quest.members)},
+    'party._id': this._id,
+  })
+    .select('party.quest items.quests auth preferences.emailNotifications preferences.pushNotifications pushDevices profile.name webhooks')
+    .exec()
+    .then(partyMembers => {
+      partyMembers.forEach(member => {
         if (!member) {
-          delete questMembers[memberId];
+          delete this.quest.members[member._id];
+        } else {
+          members.push(member);
         }
-        return;
       });
-  }));
+    });
+
 
   if (userIsParticipating) {
     user.party.quest.key = this.quest.key;
@@ -670,20 +678,23 @@ schema.methods.startQuest = async function startQuest (user) {
     user.markModified('party.quest');
   }
 
+  const promises = [];
+
   // Remove the quest from the quest leader items (if they are the current user)
   if (this.quest.leader === user._id) {
     user.items.quests[this.quest.key] -= 1;
     user.markModified('items.quests');
+    promises.push(user.save());
   } else { // another user is starting the quest, update the leader separately
-    await User.update({_id: this.quest.leader}, {
+    promises.push(User.update({_id: this.quest.leader}, {
       $inc: {
         [`items.quests.${this.quest.key}`]: -1,
       },
-    }).exec();
+    }).exec());
   }
 
   // update the remaining users
-  await User.update({
+  promises.push(User.update({
     _id: { $in: nonUserQuestMembers },
   }, {
     $set: {
@@ -691,7 +702,9 @@ schema.methods.startQuest = async function startQuest (user) {
       'party.quest.progress.down': 0,
       'party.quest.completed': null,
     },
-  }, { multi: true }).exec();
+  }, { multi: true }).exec());
+
+  await Promise.all(promises);
 
   // update the users who are not participating
   // Do not block updates
@@ -703,38 +716,45 @@ schema.methods.startQuest = async function startQuest (user) {
     },
   }, { multi: true }).exec();
 
-  // send notifications in the background without blocking
-  User.find(
-    { _id: { $in: nonUserQuestMembers } },
-    'party.quest items.quests auth.facebook auth.local preferences.emailNotifications preferences.pushNotifications pushDevices profile.name'
-  ).exec().then((membersToNotify) => {
-    let membersToEmail = _.filter(membersToNotify, (member) => {
-      // send push notifications and filter users that disabled emails
-      return member.preferences.emailNotifications.questStarted !== false &&
-        member._id !== user._id;
-    });
-    sendTxnEmail(membersToEmail, 'quest-started', [
-      { name: 'PARTY_URL', content: '/party' },
-    ]);
-    let membersToPush = _.filter(membersToNotify, (member) => {
-      // send push notifications and filter users that disabled emails
-      return member.preferences.pushNotifications.questStarted !== false &&
-        member._id !== user._id;
-    });
-    _.each(membersToPush, (member) => {
-      sendPushNotification(member,
-        {
-          title: quest.text(),
-          message: `${shared.i18n.t('questStarted')}: ${quest.text()}`,
-          identifier: 'questStarted',
-        });
-    });
-  });
   const newMessage = this.sendChat(`\`Your quest, ${quest.text('en')}, has started.\``, null, {
     participatingMembers: this.getParticipatingQuestMembers().join(', '),
   });
-
   await newMessage.save();
+
+  const membersToEmail = [];
+  const pushTitle = quest.text();
+  const pushMessage = `${shared.i18n.t('questStarted')}: ${quest.text()}`;
+
+  // send notifications and webhooks in the background without blocking
+  members.forEach(member => {
+    if (member._id !== user._id) {
+      // send push notifications and filter users that disabled emails
+      if (member.preferences.emailNotifications.questStarted !== false) {
+        membersToEmail.push(member);
+      }
+
+      // send push notifications and filter users that disabled emails
+      if (member.preferences.pushNotifications.questStarted !== false) {
+        sendPushNotification(member, {
+          title: pushTitle,
+          message: pushMessage,
+          identifier: 'questStarted',
+        });
+      }
+    }
+
+    // Send webhooks
+    questActivityWebhook.send(user, {
+      type: 'questStarted',
+      group: this,
+      quest,
+    });
+  });
+
+  // Send emails in bulk
+  sendTxnEmail(membersToEmail, 'quest-started', [
+    { name: 'PARTY_URL', content: '/party' },
+  ]);
 };
 
 schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWebhooks (chat) {

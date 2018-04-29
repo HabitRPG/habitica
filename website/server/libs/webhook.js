@@ -108,6 +108,30 @@ export let userActivityWebhook = new WebhookSender({
   },
 });
 
+export let questActivityWebhook = new WebhookSender({
+  type: 'questActivity',
+  webhookFilter (hook, data) {
+    let { type } = data;
+    return hook.options[type];
+  },
+  transformData (data) {
+    let { group, quest, type } = data;
+
+    let dataToSend = {
+      type,
+      group: {
+        id: group.id,
+        name: group.name,
+      },
+      quest: {
+        key: quest.key,
+      },
+    };
+
+    return dataToSend;
+  },
+});
+
 export let groupChatReceivedWebhook = new WebhookSender({
   type: 'groupChatReceived',
   webhookFilter (hook, data) {
