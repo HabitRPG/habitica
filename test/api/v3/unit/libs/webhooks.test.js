@@ -4,6 +4,8 @@ import {
   taskScoredWebhook,
   groupChatReceivedWebhook,
   taskActivityWebhook,
+  questActivityWebhook,
+  userActivityWebhook,
 } from '../../../../../website/server/libs/webhook';
 import {
   generateUser,
@@ -27,6 +29,25 @@ describe('webhooks', () => {
         deleted: true,
         scored: true,
         checklistScored: true,
+      },
+    }, {
+      id: 'questActivity',
+      url: 'http://quest-activity.com',
+      enabled: true,
+      type: 'questActivity',
+      options: {
+        questStarted: true,
+        questFinised: true,
+      },
+    }, {
+      id: 'userActivity',
+      url: 'http://user-activity.com',
+      enabled: true,
+      type: 'userActivity',
+      options: {
+        petHatched: true,
+        mountRaised: true,
+        leveledUp: true,
       },
     }, {
       id: 'groupChatReceived',
@@ -313,6 +334,7 @@ describe('webhooks', () => {
         json: true,
         body: {
           type: 'scored',
+          webhookType: 'taskActivity',
           user: {
             _id: user._id,
             _tmp: {foo: 'bar'},
@@ -350,6 +372,7 @@ describe('webhooks', () => {
         json: true,
         body: {
           type: 'scored',
+          webhookType: 'taskActivity',
           user: {
             _id: user._id,
             _tmp: {foo: 'bar'},
@@ -403,6 +426,10 @@ describe('webhooks', () => {
           json: true,
           body: {
             type,
+            webhookType: 'taskActivity',
+            user: {
+              _id: user._id,
+            },
             task: data.task,
           },
         });
@@ -439,6 +466,10 @@ describe('webhooks', () => {
         expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
           json: true,
           body: {
+            webhookType: 'taskActivity',
+            user: {
+              _id: user._id,
+            },
             type: data.type,
             task: data.task,
             item: data.item,
@@ -451,6 +482,99 @@ describe('webhooks', () => {
         webhooks[0].options.checklistScored = false;
 
         taskActivityWebhook.send(user, data);
+
+        expect(got.post).to.not.be.called;
+      });
+    });
+  });
+
+  describe('userActivityWebhook', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        something: true,
+      };
+    });
+
+    ['petHatched', 'mountRaised', 'leveledUp'].forEach((type) => {
+      it(`sends ${type} webhooks`, () => {
+        data.type = type;
+
+        userActivityWebhook.send(user, data);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch(webhooks[2].url, {
+          json: true,
+          body: {
+            type,
+            webhookType: 'userActivity',
+            user: {
+              _id: user._id,
+            },
+            something: true,
+          },
+        });
+      });
+
+      it(`does not send webhook ${type} data if ${type} option is not true`, () => {
+        data.type = type;
+        webhooks[2].options[type] = false;
+
+        userActivityWebhook.send(user, data);
+
+        expect(got.post).to.not.be.called;
+      });
+    });
+  });
+
+  describe('questActivityWebhook', () => {
+    let data;
+
+    beforeEach(() => {
+      data = {
+        group: {
+          id: 'group-id',
+          name: 'some group',
+          otherData: 'foo',
+        },
+        quest: {
+          key: 'some-key',
+        },
+      };
+    });
+
+    ['questStarted', 'questFinised'].forEach((type) => {
+      it(`sends ${type} webhooks`, () => {
+        data.type = type;
+
+        questActivityWebhook.send(user, data);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch(webhooks[1].url, {
+          json: true,
+          body: {
+            type,
+            webhookType: 'questActivity',
+            user: {
+              _id: user._id,
+            },
+            group: {
+              id: 'group-id',
+              name: 'some group',
+            },
+            quest: {
+              key: 'some-key',
+            },
+          },
+        });
+      });
+
+      it(`does not send webhook ${type} data if ${type} option is not true`, () => {
+        data.type = type;
+        webhooks[1].options[type] = false;
+
+        userActivityWebhook.send(user, data);
 
         expect(got.post).to.not.be.called;
       });
@@ -477,6 +601,10 @@ describe('webhooks', () => {
       expect(got.post).to.be.calledWithMatch(webhooks[webhooks.length - 1].url, {
         json: true,
         body: {
+          webhookType: 'groupChatReceived',
+          user: {
+            _id: user._id,
+          },
           group: {
             id: 'group-id',
             name: 'some group',

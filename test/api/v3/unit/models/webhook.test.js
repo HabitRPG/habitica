@@ -172,6 +172,78 @@ describe('Webhook Model', () => {
         });
       });
 
+      context('type is questActivity', () => {
+        let config;
+
+        beforeEach(() => {
+          config = {
+            type: 'questActivity',
+            url: 'https//exmaple.com/endpoint',
+            options: {
+              questStarted: true,
+              questFinished: true,
+            },
+          };
+        });
+
+        it('it provides default values for options', () => {
+          delete config.options;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            questStarted: false,
+            questFinished: false,
+          });
+        });
+
+        it('provides missing user options', () => {
+          delete config.options.questStarted;
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options).to.eql({
+            questStarted: false,
+            questFinished: true,
+          });
+        });
+
+        it('discards additional options', () => {
+          config.options.foo = 'another option';
+
+          let wh = new Webhook(config);
+
+          wh.formatOptions(res);
+
+          expect(wh.options.foo).to.not.exist;
+          expect(wh.options).to.eql({
+            questStarted: true,
+            questFinished: true,
+          });
+        });
+
+        ['questStarted', 'questFinished'].forEach((option) => {
+          it(`validates that ${option} is a boolean`, (done) => {
+            config.options[option] = 'not a boolean';
+
+            try {
+              let wh = new Webhook(config);
+
+              wh.formatOptions(res);
+            } catch (err) {
+              expect(err).to.be.an.instanceOf(BadRequest);
+              expect(res.t).to.be.calledOnce;
+              expect(res.t).to.be.calledWith('webhookBooleanOption', { option });
+              done();
+            }
+          });
+        });
+      });
+
       context('type is groupChatReceived', () => {
         let config;
 
