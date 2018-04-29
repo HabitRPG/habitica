@@ -1,9 +1,9 @@
 <template lang="pug">
   b-modal#inbox-modal(title="", :hide-footer="true", size='lg')
-    .header-wrap.container(slot="modal-header")
-      .row
+    .header-wrap.container.align-items-center(slot="modal-header")
+      .row.align-items-center
         .col-4
-          .row
+          .row.align-items-center
             .col-2
               .svg-icon.envelope(v-html="icons.messageIcon")
             .col-6
@@ -13,17 +13,15 @@
             //  button.btn.btn-secondary(@click='toggleClick()') +
         .col-4.offset-4
           .svg-icon.close(v-html="icons.svgClose", @click='close()')
-        // .col-8.to-form(v-if='displayCreate')
-        //   strong To:
-        // b-form-input
-      .row
-        .col-12
-          toggle-switch.float-right.align-with-tab(
+          toggle-switch.float-right(
             :label="optTextSet.switchDescription",
             :checked="!this.user.inbox.optOut"
             :hoverText="optTextSet.popoverText",
             @change="toggleOpt()"
           )
+        // .col-8.to-form(v-if='displayCreate')
+        //   strong To:
+        // b-form-input
     .row(v-if="!this.user.inbox.optOut")
       .col-4.sidebar
         .search-section
@@ -66,18 +64,26 @@
 <style lang="scss" scoped>
   @import '~client/assets/scss/colors.scss';
 
+  .header-wrap {
+    padding: 0.5em;
+
+    h2 {
+      margin: 0;
+      line-height: 1;
+    }
+  }
+
   .envelope {
     color: $gray-400 !important;
-    margin-top: 1em;
+    margin: 0;
   }
 
   .close {
     margin-top: .5em;
     width: 15px;
-  }
-
-  h2 {
-    margin-top: .5em;
+    position: absolute;
+    top: -1.9em;
+    right: 0.3em;
   }
 
   .sidebar {
