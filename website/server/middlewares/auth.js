@@ -38,7 +38,7 @@ export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
     const userId = req.header('x-api-user');
     const apiToken = req.header('x-api-key');
-    const optional = options.optional === true || false;
+    const optional = options.optional || false;
 
     if (!userId || !apiToken) {
       if (optional) return next();
