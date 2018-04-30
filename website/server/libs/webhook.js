@@ -1,16 +1,9 @@
-import got from 'got';
 import { isURL } from 'validator';
-import logger from './logger';
 import nconf from 'nconf';
+import { v4 as uuid } from 'uuid';
+import Queue from '../../libs/queue';
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
-
-function sendWebhook (url, body) {
-  got.post(url, {
-    body,
-    json: true,
-  }).catch(err => logger.error(err));
-}
 
 function isValidWebhook (hook) {
   return hook.enabled && isURL(hook.url, {
@@ -57,7 +50,7 @@ export class WebhookSender {
     this.attachDefaultData(user, body);
 
     hooks.forEach((hook) => {
-      sendWebhook(hook.url, body);
+      Queue.sendMessage({url: hook.url, body}, `${hook.id}-${uuid()}`);
     });
   }
 }
