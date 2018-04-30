@@ -4,7 +4,7 @@
     "subDescription": "Köp Juveler med guld, få mystiska saker varje månad, behåll historiken över framsteg, begränsningen på fynd ökas till det dubbla och stöd utvecklarna. Klicka här för mer information.",
     "sendGems": "Skicka Diamanter",
     "buyGemsGold": "Köp Juveler med Guld",
-    "buyGemsGoldText": "Köpmannen Alexander kommer att sälja dig Diamanter till kostnaden av 20 Guld per Diamant. Hans månadsvisa transporter är först begränsade till 25 Diamanter per månad, men för varje tredje månad i följd som du har prenumererat så höjs begränsningen med 5 Diamanter, upp till ett maximalt antal av 50 Diamanter per månad!",
+    "buyGemsGoldText": "Köpmannen Alexander kommer att sälja dig Diamanter till kostnaden av 20 Guld per Diamant. Hans månadsvisa transporter är först begränsade till 25 Diamanter per månad, men för varje 3:e månad i följd som du har prenumererat så höjs begränsningen med 5 Diamanter, upp till ett maximalt antal av 50 Diamanter per månad!",
     "mustSubscribeToPurchaseGems": "Majoritieten prenumererar för att kunna köpa juveler med guld.",
     "reachedGoldToGemCap": "Du har nått Guld=>Diamant-omvandlingskapaciteten <%= convCap %> för denna månad. Vi har den för att förhindra missbruk/farmning. Kapaciteten återställs under de tre första dagarna av varje månad.",
     "retainHistory": "Behåll ytterligare historik över inlägg",
@@ -93,9 +93,9 @@
     "mysteryItemOpened": "Öppnade mystiskt föremål.",
     "mysterySet201402": "Bevingad Budbärare Uppsättning",
     "mysterySet201403": "Skogsvandrare Uppsättning",
-    "mysterySet201404": "Skymningsfjäril Set",
+    "mysterySet201404": "Skymningsfjärils-set",
     "mysterySet201405": "Eldutövar-set",
-    "mysterySet201406": "Bläckfisktrollkarl Set",
+    "mysterySet201406": "Bläckfisktrollkarlsset",
     "mysterySet201407": "Undervattensutforskare Set",
     "mysterySet201408": "Sol Trollkarls Set",
     "mysterySet201409": "Höstlöpare Set",
@@ -208,6 +208,6 @@
     "subscriptionAlreadySubscribed1": "För att se dina prenumerationsdetaljer och avbryta, förnya, eller ändra din prenumeration, var god gå till <a href='/user/settings/subscription'>Användarikon &gt; Inställningar &gt; Prenumeration</a>.",
     "purchaseAll": "Köp Alla",
     "gemsPurchaseNote": "Prenumeranter kan köpa diamanter för guld i Marknaden! För enkel tillgång kan du också nåla fast diamanter till din Belöningskolumn.",
-    "gemsRemaining": "resterande diamanter",
-    "notEnoughGemsToBuy": "Du kan inte köpa den mängden diamanter."
+    "gemsRemaining": "resterande juveler",
+    "notEnoughGemsToBuy": "Du kan inte köpa den mängden juveler."
 }
