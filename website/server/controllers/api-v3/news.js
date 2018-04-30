@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'APRIL SUBSCRIBER ITEMS: SPIFFY SQUIRRELS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR APRIL GOODIES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,17 +32,28 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>4/24/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>4/30/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="media">
+        <div class="media align-items-center">
+          <div class="promo_spring_fling_2018 mr-3"></div>
           <div class="media-body">
-            <h3>April Subscriber Items Revealed!</h3>
-            <p>The April Subscriber Items have been revealed: the Spiffy Squirrel Item Set! You only have until April 30 to <a href='/user/settings/subscription' target='_blank'>receive the item set when you subscribe</a>. If you're already an active subscriber, reload the site and then head to Inventory > Items to claim your gear!</p>
+            <div class="media">
+              <div class="media-body">
+                <h3>Last Chance for Spiffy Squirrel Set</h3>
+                <p>Reminder: this is the final day to <a href='/user/settings/subscription' target='_blank'>subscribe and receive the Spiffy Squirrel Set</a>! Subscribing also lets you buy gems for gold. The longer your subscription, the more gems you get!</p>
+              </div>
+              <div class="promo_mystery_201804"></div>
+            </div>
+            <p>Thanks so much for your support! You help keep Habitica running.</p>
+            <div class="small mb-3">by Beffymaroo</div>
+            <h3>Last Chance for Spring Fling Hatching Potions, Equipment, Avatar Skins and Hair Colors, and Seasonal Shop Items</h3>
+            <p>Spring Fling is coming to a close, so be sure to grab any exciting items you've had your eye on! This includes the <a href='/shops/market' target='_blank'>Shimmer and Rainbow Hatching Potions in the Market</a>. If they come back, it won't be until next year at the earliest, so don't delay!</p>
+            <p>Pastel Skins and Shimmer Hair colors will also disappear when the Gala ends. If you purchase them in User > Avatar, you can use them year-round!</p>
+            <p>Be sure to also get your limited edition Spring Fling equipment in your Rewards Column! When it returns next year, it will be in the Seasonal Shop and will be available for gems rather than gold.</p>
+            <p>And lastly, it's a great time to stock up on items from the <a href='/shops/seasonal' target='_blank'>Seasonal Shop</a> before it closes. This includes past Spring Fling equipment, the Egg Hunt Quest, and Shiny Seeds!</p>
+            <div class="small mb=3">by Scarvia, Awesome kitty, usnbfs, Lemoness, Balduranne, PainterProphet, Vikte, Lalaitha, DialFForFunky, Gerald the Pixel, Beffymaroo and SabreCat</div>
           </div>
-          <div class="promo_mystery_201804"></div>
         </div>
-        <p>Subscribers also receive the ability to buy gems for gold -- the longer you subscribe, the more gems you can buy per month! There are other perks as well, such as longer access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
-        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
