@@ -68,7 +68,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeSuccessExample
- * @apiSuccessExample {json} Sucessfull response with single challenge
+ * @apiSuccessExample {json} Successful response with single challenge
  {
    "data": {
      "group": {
@@ -112,7 +112,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeArrayExample
- * @apiSuccessExample {json} Sucessful response with array of challenges
+ * @apiSuccessExample {json} Successful response with array of challenges
  {
    "data": [{
      "group": {
@@ -161,7 +161,7 @@ let api = {};
  * @apiDescription Creates a challenge. Cannot create associated tasks with this route. See <a href="#api-Task-CreateChallengeTasks">CreateChallengeTasks</a>.
  *
  * @apiParam (Body) {Object} challenge An object representing the challenge to be created
- * @apiParam (Body) {UUID} challenge.groupId The id of the group to which the challenge belongs
+ * @apiParam (Body) {UUID} challenge.group The id of the group to which the challenge belongs
  * @apiParam (Body) {String} challenge.name The full name of the challenge
  * @apiParam (Body) {String} challenge.shortName A shortened name for the challenge, to be used as a tag
  * @apiParam (Body) {String} [challenge.summary] A short summary advertising the main purpose of the challenge; maximum 250 characters; if not supplied, challenge.name will be used
@@ -340,11 +340,18 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const CHALLENGES_PER_PAGE = 10;
+    const page = req.query.page;
+
+    const user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
+
+    const owned = req.query.owned;
+    if (!owned)  {
+      orOptions.push({leader: user._id});
+    }
 
     if (!req.query.member) {
       orOptions.push({
@@ -352,14 +359,46 @@ api.getUserChallenges = {
       }); // Challenges in groups where I'm a member
     }
 
-    let challenges = await Challenge.find({
-      $or: orOptions,
-    })
-      .sort('-createdAt')
-      // see below why we're not using populate
-      // .populate('group', basicGroupFields)
-      // .populate('leader', nameFields)
-      .exec();
+    let query = {
+      $and: [{$or: orOptions}],
+    };
+
+    if (owned && owned === 'not_owned') {
+      query.$and.push({leader: {$ne: user._id}});
+    }
+
+    if (owned && owned === 'owned') {
+      query.$and.push({leader: user._id});
+    }
+
+    if (req.query.search) {
+      const searchOr = {$or: []};
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      searchOr.$or.push({name: searchQuery});
+      searchOr.$or.push({description: searchQuery});
+      query.$and.push(searchOr);
+    }
+
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    let mongoQuery = Challenge.find(query)
+      .sort('-createdAt');
+
+    if (page) {
+      mongoQuery = mongoQuery
+        .limit(CHALLENGES_PER_PAGE)
+        .skip(CHALLENGES_PER_PAGE * page);
+    }
+
+    // see below why we're not using populate
+    // .populate('group', basicGroupFields)
+    // .populate('leader', nameFields)
+    const challenges = await mongoQuery.exec();
+
 
     let resChals = challenges.map(challenge => challenge.toJSON());
 
@@ -540,6 +579,16 @@ api.exportChallengeCsv = {
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
+      /**
+       * Occasional error does not unlink a user's challenge tasks from that challenge's data
+       * after the user leaves that challenge, which previously caused a failure when exporting
+       * to a CSV. The following if statement makes sure that the task's attached user still
+       * belongs to the challenge.
+       * See more at https://github.com/HabitRPG/habitica/issues/8350
+       */
+      if (!resArray.map(line => line[0]).includes(task.userId)) {
+        return;
+      }
       while (task.userId !== lastUserId) {
         index++;
         lastUserId = resArray[index][0]; // resArray[index][0] is an user id

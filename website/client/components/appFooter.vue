@@ -39,10 +39,8 @@
             router-link(to='/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac') {{ $t('reportBug') }}
           li
             a(href='https://trello.com/c/odmhIqyW/440-read-first-table-of-contents', target='_blank') {{ $t('requestFeature') }}
-          li
-            a(v-html='$t("communityExtensions")')
-          li
-            a(v-html='$t("communityForum")')
+          li(v-html='$t("communityExtensions")')
+          li(v-html='$t("communityForum")')
           li
             a(href='https://www.facebook.com/Habitica', target='_blank') {{ $t('communityFacebook') }}
           li
@@ -137,23 +135,6 @@
         margin-bottom: 7px;
       }
     }
-
-    &.expanded {
-      padding-left: 6em;
-      padding-right: 6em;
-      padding-top: 3em;
-      background: #e1e0e3;
-      color: #878190;
-      min-height: 408px;
-
-      a {
-        color: #878190;
-      }
-
-      .logo {
-        color: #c3c0c7;
-      }
-    }
   }
 
   h3 {
@@ -233,10 +214,29 @@
   }
 </style>
 
-<style>
+<style lang="scss">
   .facebook svg {
     width: 10px;
     margin: 0 auto;
+  }
+
+  footer {
+    &.expanded {
+      padding-left: 6em;
+      padding-right: 6em;
+      padding-top: 3em;
+      background: #e1e0e3;
+      color: #878190;
+      min-height: 408px;
+
+      a {
+        color: #878190;
+      }
+
+      .logo {
+        color: #c3c0c7;
+      }
+    }
   }
 </style>
 

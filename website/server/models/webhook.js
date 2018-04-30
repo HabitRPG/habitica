@@ -14,7 +14,19 @@ const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   created: false,
   updated: false,
   deleted: false,
+  checklistScored: false,
   scored: true,
+});
+
+const USER_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
+  petHatched: false,
+  mountRaised: false,
+  leveledUp: false,
+});
+
+const QUEST_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
+  questStarted: false,
+  questFinished: false,
 });
 
 export let schema = new Schema({
@@ -27,7 +39,11 @@ export let schema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['taskActivity', 'groupChatReceived'],
+    enum: [
+      'globalActivity', // global webhooks send a request for every type of event
+      'taskActivity', 'groupChatReceived',
+      'userActivity', 'questActivity',
+    ],
     default: 'taskActivity',
   },
   label: {
@@ -67,7 +83,7 @@ schema.plugin(baseModel, {
 schema.methods.formatOptions = function formatOptions (res) {
   if (this.type === 'taskActivity') {
     _.defaults(this.options, TASK_ACTIVITY_DEFAULT_OPTIONS);
-    this.options = _.pick(this.options, 'created', 'updated', 'deleted', 'scored');
+    this.options = _.pick(this.options, Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS));
 
     let invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
@@ -81,6 +97,29 @@ schema.methods.formatOptions = function formatOptions (res) {
     if (!validator.isUUID(String(this.options.groupId))) {
       throw new BadRequest(res.t('groupIdRequired'));
     }
+  } else if (this.type === 'userActivity') {
+    _.defaults(this.options, USER_ACTIVITY_DEFAULT_OPTIONS);
+    this.options = _.pick(this.options, Object.keys(USER_ACTIVITY_DEFAULT_OPTIONS));
+
+    let invalidOption = Object.keys(this.options)
+      .find(option => typeof this.options[option] !== 'boolean');
+
+    if (invalidOption) {
+      throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
+    }
+  } else if (this.type === 'questActivity') {
+    _.defaults(this.options, QUEST_ACTIVITY_DEFAULT_OPTIONS);
+    this.options = _.pick(this.options, Object.keys(QUEST_ACTIVITY_DEFAULT_OPTIONS));
+
+    let invalidOption = Object.keys(this.options)
+      .find(option => typeof this.options[option] !== 'boolean');
+
+    if (invalidOption) {
+      throw new BadRequest(res.t('webhookBooleanOption', { option: invalidOption }));
+    }
+  } else {
+    // Discard all options
+    this.options = {};
   }
 };
 

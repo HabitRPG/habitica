@@ -2,7 +2,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import paypalPayments from '../../../../../../website/server/libs/paypalPayments';
+import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import shared from '../../../../../../website/common';
 
 describe('payments : paypal #subscribe', () => {

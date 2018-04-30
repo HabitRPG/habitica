@@ -421,7 +421,8 @@ api.abortQuest = {
     if (user._id !== group.leader && user._id !== group.quest.leader) throw new NotAuthorized(res.t('onlyLeaderAbortQuest'));
 
     let questName = questScrolls[group.quest.key].text('en');
-    group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    const newChatMessage = group.sendChat(`\`${user.profile.name} aborted the party quest ${questName}.\``);
+    await newChatMessage.save();
 
     let memberUpdates = User.update({
       'party._id': groupId,

@@ -19,9 +19,11 @@ module.exports = {
   },
 
   availableSpells: [
+    'shinySeed',
   ],
 
   availableQuests: [
+    'egg',
   ],
 
   featuredSet: 'comfortingKittySet',

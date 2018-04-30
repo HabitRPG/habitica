@@ -3,7 +3,7 @@ import {
   authWithHeaders,
   authWithUrl,
 } from '../../../middlewares/auth';
-import stripePayments from '../../../libs/stripePayments';
+import stripePayments from '../../../libs/payments/stripe';
 
 let api = {};
 

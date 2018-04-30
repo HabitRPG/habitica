@@ -96,6 +96,7 @@
     "unlocked": "Se han desbloqueado objetos. ",
     "alreadyUnlocked": "El conjunto ya se ha desbloqueado por completo. ",
     "alreadyUnlockedPart": "El conjunto se ha desbloqueado parcialmente. ",
+    "invalidQuantity": "Quantity to purchase must be a number.",
     "USD": "(USD)",
     "newStuff": "Cosas nuevas, por Bailey",
     "newBaileyUpdate": "¡Nueva Actualización de Bailey!",

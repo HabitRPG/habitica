@@ -211,5 +211,6 @@
     "yesterDailiesDescription": "Jika pengaturan ini dipilih, Habitica akan bertanya kepadamu apakah kamu memang tidak menyelesaikan Keseharian sebelum avatar kamu mendapat damage. Ini dapat melindungimu dari damage yang tidak disengaja.",
     "repeatDayError": "Pastikan bahwa setidaknya ada satu hari dipilih dari minggu tersebut.",
     "searchTasks": "Cari judul dan deskripsi...",
-    "sessionOutdated": "Sesi kamu sudah tidak berlaku. Silakan muat ulang laman atau pilih sinkronkan."
+    "sessionOutdated": "Sesi kamu sudah tidak berlaku. Silakan muat ulang laman atau pilih sinkronkan.",
+    "errorTemporaryItem": "This item is temporary and cannot be pinned."
 }

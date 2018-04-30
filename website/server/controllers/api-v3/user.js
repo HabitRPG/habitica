@@ -12,6 +12,9 @@ import * as Tasks from '../../models/task';
 import _ from 'lodash';
 import * as passwordUtils from '../../libs/password';
 import {
+  userActivityWebhook,
+} from '../../libs/webhook';
+import {
   getUserInfo,
   sendTxn as txnEmail,
 } from '../../libs/email';
@@ -54,6 +57,11 @@ let api = {};
  * Stats (standard RPG stats, class, buffs, xp, etc..)
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ *
+ * @apiParam (Query) {UUID} userFields A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ *
+ * @apiExample {curl} Example use:
+ * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
  *
  * @apiSuccess {Object} data The user object
  *
@@ -901,8 +909,19 @@ api.hatch = {
   async handler (req, res) {
     let user = res.locals.user;
     let hatchRes = common.ops.hatch(user, req);
+
     await user.save();
+
     res.respond(200, ...hatchRes);
+
+    // Send webhook
+    const petKey = `${req.params.egg}-${req.params.hatchingPotion}`;
+
+    userActivityWebhook.send(user, {
+      type: 'petHatched',
+      pet: petKey,
+      message: hatchRes[1],
+    });
   },
 };
 
@@ -977,8 +996,21 @@ api.feed = {
   async handler (req, res) {
     let user = res.locals.user;
     let feedRes = common.ops.feed(user, req);
+
     await user.save();
+
     res.respond(200, ...feedRes);
+
+    // Send webhook
+    const petValue = feedRes[0];
+
+    if (petValue === -1) { // evolved to mount
+      userActivityWebhook.send(user, {
+        type: 'mountRaised',
+        pet: req.params.pet,
+        message: feedRes[1],
+      });
+    }
   },
 };
 
@@ -1761,6 +1793,70 @@ api.togglePinnedItem = {
       pinnedItems: userJson.pinnedItems,
       unpinnedItems: userJson.unpinnedItems,
     });
+  },
+};
+
+/**
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @apiName MovePinnedItem
+ * @apiGroup User
+ *
+ * @apiParam (Path) {String} path The unique item path used for pinning
+ * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list. -1 = bottom of the list.  (-1 means push to bottom). First position is 0
+ *
+ * @apiSuccess {Array} data The new pinned items order.
+ *
+ * @apiSuccessExample {json}
+ * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests","_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
+ *
+ * @apiUse TaskNotFound
+ */
+api.movePinnedItem = {
+  method: 'POST',
+  url: '/user/move-pinned-item/:path/move/to/:position',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    req.checkParams('path', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
+
+    let validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    let user = res.locals.user;
+    let path = req.params.path;
+    let position = Number(req.params.position);
+
+    // If something has been added or removed from the inAppRewards, we need
+    // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
+    // Uses the current pinnedItemsOrder to return these in the right order,
+    // the new reset array will be in the right order before we do the swap
+    let currentPinnedItems = common.inAppRewards(user);
+    if (user.pinnedItemsOrder.length !== currentPinnedItems.length) {
+      user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
+    }
+
+    // Adjust the order
+    let currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
+    let currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
+
+    if (currentIndex === -1) {
+      throw new BadRequest(res.t('wrongItemPath', req.language));
+    }
+
+    // Remove the one we will move
+    user.pinnedItemsOrder.splice(currentIndex, 1);
+
+    // reinsert the item in position (or just at the end)
+    if (position === -1) {
+      user.pinnedItemsOrder.push(currentPinnedItemPath);
+    } else {
+      user.pinnedItemsOrder.splice(position, 0, currentPinnedItemPath);
+    }
+
+    await user.save();
+    let userJson = user.toJSON();
+
+    res.respond(200, userJson.pinnedItemsOrder);
   },
 };
 

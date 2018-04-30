@@ -180,11 +180,42 @@ describe('POST /user/class/cast/:spellId', () => {
       members: 1,
     });
     await groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 13});
+
     await groupLeader.post('/user/class/cast/earth');
     await sleep(1);
-    await group.sync();
-    expect(group.chat[0]).to.exist;
-    expect(group.chat[0].uuid).to.equal('system');
+    const groupMessages = await groupLeader.get(`/groups/${group._id}/chat`);
+
+    expect(groupMessages[0]).to.exist;
+    expect(groupMessages[0].uuid).to.equal('system');
+  });
+
+  it('Ethereal Surge does not recover mp of other mages', async () => {
+    let group = await createAndPopulateGroup({
+      groupDetails: { type: 'party', privacy: 'private' },
+      members: 4,
+    });
+
+    let promises = [];
+    promises.push(group.groupLeader.update({'stats.mp': 200, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[0].update({'stats.mp': 0, 'stats.class': 'warrior', 'stats.lvl': 20}));
+    promises.push(group.members[1].update({'stats.mp': 0, 'stats.class': 'wizard', 'stats.lvl': 20}));
+    promises.push(group.members[2].update({'stats.mp': 0, 'stats.class': 'rogue', 'stats.lvl': 20}));
+    promises.push(group.members[3].update({'stats.mp': 0, 'stats.class': 'healer', 'stats.lvl': 20}));
+    await Promise.all(promises);
+
+    await group.groupLeader.post('/user/class/cast/mpheal');
+
+    promises = [];
+    promises.push(group.members[0].sync());
+    promises.push(group.members[1].sync());
+    promises.push(group.members[2].sync());
+    promises.push(group.members[3].sync());
+    await Promise.all(promises);
+
+    expect(group.members[0].stats.mp).to.be.greaterThan(0); // warrior
+    expect(group.members[1].stats.mp).to.equal(0); // wizard
+    expect(group.members[2].stats.mp).to.be.greaterThan(0); // rogue
+    expect(group.members[3].stats.mp).to.be.greaterThan(0); // healer
   });
 
   it('cast bulk', async () => {
@@ -197,7 +228,7 @@ describe('POST /user/class/cast/:spellId', () => {
     await groupLeader.post('/user/class/cast/earth', {quantity: 2});
 
     await sleep(1);
-    await group.sync();
+    group = await groupLeader.get(`/groups/${group._id}`);
 
     expect(group.chat[0]).to.exist;
     expect(group.chat[0].uuid).to.equal('system');

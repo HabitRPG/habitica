@@ -31,7 +31,7 @@
           option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
       hr
 
-      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .form-horizontal(v-if='hasClass')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
@@ -113,7 +113,7 @@
             li(v-for='network in SOCIAL_AUTH_NETWORKS')
               button.btn.btn-primary.mb-2(v-if='!user.auth[network.key].id', @click='socialAuth(network.key, user)') {{ $t('registerWithSocial', {network: network.name}) }}
               button.btn.btn-primary.mb-2(disabled='disabled', v-if='!hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('registeredWithSocial', {network: network.name}) }}
-              button.btn.btn-danger(@click='deleteSocialAuth(network.key)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
+              button.btn.btn-danger(@click='deleteSocialAuth(network)', v-if='hasBackupAuthOption(network.key) && user.auth[network.key].id') {{ $t('detachSocial', {network: network.name}) }}
           hr
           div(v-if='!user.auth.local.username')
             p {{ $t('addLocalAuth') }}
@@ -194,10 +194,12 @@ import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '../../../common/script/constants';
 import changeClass from  '../../../common/script/ops/changeClass';
+import notificationsMixin from '../../mixins/notifications';
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
 export default {
+  mixins: [notificationsMixin],
   components: {
     restoreModal,
     resetModal,
@@ -269,6 +271,9 @@ export default {
     },
     dayStart () {
       return this.user.preferences.dayStart;
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
     },
   },
   methods: {
@@ -356,16 +361,9 @@ export default {
     openDeleteModal () {
       this.$root.$emit('bv::show::modal', 'delete');
     },
-    async deleteSocialAuth (networkKey) {
-      // @TODO: What do we use this for?
-      // let networktoRemove = find(SOCIAL_AUTH_NETWORKS, function (network) {
-      //   return network.key === networkKey;
-      // });
-
-      await axios.get(`/api/v3/user/auth/social/${networkKey}`);
-      // @TODO:
-      // Notification.text(env.t("detachedSocial", {network: network.name}));
-      // User.sync();
+    async deleteSocialAuth (network) {
+      await axios.delete(`/api/v3/user/auth/social/${network.key}`);
+      this.text(this.$t('detachedSocial', {network: network.name}));
     },
     async socialAuth (network) {
       let auth = await hello(network).login({scope: 'email'});

@@ -296,6 +296,16 @@ describe('PUT /tasks/:id', () => {
 
       expect(fetchedDaily.text).to.eql('saved');
     });
+
+    // This is a special case for iOS requests
+    it('will round a priority (difficulty)', async () => {
+      daily = await user.put(`/tasks/${daily._id}`, {
+        alias: 'alias',
+        priority: 0.10000000000005,
+      });
+
+      expect(daily.priority).to.eql(0.1);
+    });
   });
 
   context('habits', () => {

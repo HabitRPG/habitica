@@ -26,7 +26,6 @@ export function hatch (store, params) {
 export async function feed (store, params) {
   const user = store.state.user.data;
   feedOp(user, {params});
-
   const response = await axios
     .post(`/api/v3/user/feed/${params.pet}/${params.food}`);
   return response.data;

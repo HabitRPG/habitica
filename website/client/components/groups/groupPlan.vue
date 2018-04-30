@@ -171,6 +171,8 @@ div
     color: #fff;
     padding: 2em;
     height: 356px;
+    margin-left: -12px;
+    margin-right: -12px;
 
     h1 {
       font-size: 48px;
@@ -340,7 +342,6 @@ export default {
         UPGRADE_GROUP: 'upgrade-group',
         PAY: 'pay',
       },
-      // @TODO: Import from payment library?
       PAYMENTS: {
         AMAZON: 'amazon',
         STRIPE: 'stripe',

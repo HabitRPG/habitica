@@ -9,7 +9,8 @@ div
         h2 {{$t('tipTitle', {tipNumber: currentTipNumber})}}
         p {{currentTip}}
   #app(:class='{"casting-spell": castingSpell}')
-    amazon-payments-modal
+    banned-account-modal
+    amazon-payments-modal(v-if='!isStaticPage')
     snackbars
     router-view(v-if="!isUserLoggedIn || isStaticPage")
     template(v-else)
@@ -42,9 +43,9 @@ div
           div(:class='{sticky: user.preferences.stickyHeader}')
             router-view
         app-footer
-          audio#sound(autoplay, ref="sound")
-            source#oggSource(type="audio/ogg", :src="sound.oggSource")
-            source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
+        audio#sound(autoplay, ref="sound")
+          source#oggSource(type="audio/ogg", :src="sound.oggSource")
+          source#mp3Source(type="audio/mp3", :src="sound.mp3Source")
 </template>
 
 <style lang='scss' scoped>
@@ -111,7 +112,7 @@ div
   }
 
   .modal-backdrop.show {
-    opacity: 1 !important;
+    opacity: .9 !important;
     background-color: $purple-100 !important;
   }
 
@@ -193,6 +194,9 @@ import amazonPaymentsModal from 'client/components/payments/amazonModal';
 import spellsMixin from 'client/mixins/spells';
 
 import svgClose from 'assets/svg/close.svg';
+import bannedAccountModal from 'client/components/bannedAccountModal';
+
+const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS.COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
   mixins: [notifications, spellsMixin],
@@ -206,6 +210,7 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
+    bannedAccountModal,
   },
   data () {
     return {
@@ -250,8 +255,9 @@ export default {
     this.$root.$on('playSound', (sound) => {
       let theme = this.user.preferences.sound;
 
-      if (!theme || theme === 'off')
+      if (!theme || theme === 'off') {
         return;
+      }
 
       let file =  `/static/audio/${theme}/${sound}`;
       this.sound = {
@@ -287,6 +293,8 @@ export default {
       return response;
     }, (error) => {
       if (error.response.status >= 400) {
+        this.checkForBannedUser(error);
+
         // Check for conditions to reset the user auth
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(error.response.data) !== -1) {
@@ -365,6 +373,11 @@ export default {
       document.title = title;
     });
 
+    this.$nextTick(() => {
+      // Load external scripts after the app has been rendered
+      Analytics.load();
+    });
+
     if (this.isUserLoggedIn && !this.isStaticPage) {
       // Load the user and the user tasks
       Promise.all([
@@ -387,7 +400,6 @@ export default {
         this.$nextTick(() => {
           // Load external scripts after the app has been rendered
           setupPayments();
-          Analytics.load();
         });
       }).catch((err) => {
         console.error('Impossible to fetch user. Clean up localStorage and refresh.', err); // eslint-disable-line no-console
@@ -411,6 +423,25 @@ export default {
     if (loadingScreen) document.body.removeChild(loadingScreen);
   },
   methods: {
+    checkForBannedUser (error) {
+      const AUTH_SETTINGS = localStorage.getItem('habit-mobile-settings');
+      const parseSettings = JSON.parse(AUTH_SETTINGS);
+      const errorMessage = error.response.data.message;
+
+      // Case where user is not logged in
+      if (!parseSettings) {
+        return;
+      }
+
+      const bannedMessage = this.$t('accountSuspended', {
+        communityManagerEmail: COMMUNITY_MANAGER_EMAIL,
+        userId: parseSettings.auth.apiId,
+      });
+
+      if (errorMessage !== bannedMessage) return;
+
+      this.$root.$emit('bv::show::modal', 'banned-account');
+    },
     initializeModalStack () {
       // Manage modals
       this.$root.$on('bv::show::modal', (modalId, data = {}) => {
@@ -499,7 +530,7 @@ export default {
       if (!item)
         return false;
 
-      if (item.purchaseType === 'card')
+      if (['card', 'debuffPotion'].includes(item.purchaseType))
         return false;
 
       return true;
@@ -519,6 +550,10 @@ export default {
         });
 
         this.$root.$emit('bv::show::modal', 'select-member-modal');
+      }
+
+      if (item.purchaseType === 'debuffPotion') {
+        this.castStart(item, this.user);
       }
     },
     async memberSelected (member) {

@@ -17,8 +17,7 @@
 
         div.form-group.clearfix
           h3.float-left(v-once) {{ $t('hidePinned') }}
-          toggle-switch.float-right.no-margin(
-            :label="''",
+          toggle-switch.float-right(
             v-model="hidePinned",
           )
     .standard-page
@@ -486,6 +485,10 @@
           return c.identifier === 'spells';
         })[0];
 
+        let questsCategory = _filter(categories, (c) => {
+          return c.identifier === 'quests';
+        })[0];
+
         let setCategories = _filter(categories, 'specialClass');
 
         let result = _groupBy(setCategories, 'specialClass');
@@ -493,6 +496,12 @@
         if (spellCategory) {
           result.spells = [
             spellCategory,
+          ];
+        }
+
+        if (questsCategory) {
+          result.quests = [
+            questsCategory,
           ];
         }
 

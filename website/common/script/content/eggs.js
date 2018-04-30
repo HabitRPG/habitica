@@ -350,6 +350,12 @@ let quests = {
     adjective: t('questEggBadgerAdjective'),
     canBuy: hasQuestAchievementFunction('badger'),
   },
+  Squirrel: {
+    text: t('questEggSquirrelText'),
+    mountText: t('questEggSquirrelMountText'),
+    adjective: t('questEggSquirrelAdjective'),
+    canBuy: hasQuestAchievementFunction('squirrel'),
+  },
 };
 
 applyEggDefaults(drops, {
