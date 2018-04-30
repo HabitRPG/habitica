@@ -1,4 +1,4 @@
-import buySpecialSpell from '../../../../website/common/script/ops/buy/buySpecialSpell';
+import {BuySpellOperation} from '../../../../website/common/script/ops/buy/buySpell';
 import {
   BadRequest,
   NotFound,
@@ -14,6 +14,11 @@ describe('shared.ops.buySpecialSpell', () => {
   let user;
   let analytics = {track () {}};
 
+  function buySpecialSpell (_user, _req, _analytics) {
+    const buyOp = new BuySpellOperation(_user, _req, _analytics);
+
+    return buyOp.purchase();
+  }
   beforeEach(() => {
     user = generateUser();
     sinon.stub(analytics, 'track');

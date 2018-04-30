@@ -864,7 +864,7 @@ api.buySpecialSpell = {
   url: '/user/buy-special-spell/:key',
   async handler (req, res) {
     let user = res.locals.user;
-    req.type = 'special';
+    req.type = 'spells';
     let buySpecialSpellRes = common.ops.buy(user, req);
     await user.save();
     res.respond(200, ...buySpecialSpellRes);
