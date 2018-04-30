@@ -164,7 +164,7 @@ module.exports = function getItemInfo (user, type, item, officialPinnedItems, la
         type: 'special',
         currency: 'gold',
         locked: false,
-        purchaseType: 'special',
+        purchaseType: 'spells',
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',

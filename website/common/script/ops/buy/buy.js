@@ -8,7 +8,7 @@ import {BuyHealthPotionOperation} from './buyHealthPotion';
 import {BuyMarketGearOperation} from './buyMarketGear';
 import buyMysterySet from './buyMysterySet';
 import {BuyQuestWithGoldOperation} from './buyQuest';
-import buySpecialSpell, {BuySpellOperation} from './buySpell';
+import {BuySpellOperation} from './buySpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
 import {BuyGemOperation} from './buyGem';
