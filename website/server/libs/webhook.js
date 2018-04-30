@@ -1,7 +1,7 @@
 import { isURL } from 'validator';
 import nconf from 'nconf';
 import { v4 as uuid } from 'uuid';
-import Queue from '../../libs/queue';
+import Queue from './queue';
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
 
@@ -50,7 +50,7 @@ export class WebhookSender {
     this.attachDefaultData(user, body);
 
     hooks.forEach((hook) => {
-      Queue.sendMessage({url: hook.url, body}, `${hook.id}-${uuid()}`);
+      Queue.sendWebhook({url: hook.url, body}, `${hook.id}-${uuid()}`);
     });
   }
 }

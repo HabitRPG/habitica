@@ -440,7 +440,9 @@ api.deleteUser = {
       ]);
     }
 
-    if (feedback) Queue.sendMessage({feedback, username: user.profile.name}, user._id);
+    if (feedback) {
+      Queue.sendAccountDeletionFeedback({feedback, username: user.profile.name}, user._id);
+    }
 
     res.analytics.track('account delete', {
       uuid: user._id,

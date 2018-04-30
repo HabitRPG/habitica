@@ -5,10 +5,6 @@ const GROUP_ID = nconf.get('KAFKA:GROUP_ID');
 const CLOUDKARAFKA_BROKERS = nconf.get('KAFKA:CLOUDKARAFKA_BROKERS');
 const CLOUDKARAFKA_USERNAME = nconf.get('KAFKA:CLOUDKARAFKA_USERNAME');
 const CLOUDKARAFKA_PASSWORD = nconf.get('KAFKA:CLOUDKARAFKA_PASSWORD');
-const CLOUDKARAFKA_TOPIC_PREFIX = nconf.get('KAFKA:CLOUDKARAFKA_TOPIC_PREFIX');
-
-const prefix = CLOUDKARAFKA_TOPIC_PREFIX;
-const topic = `${prefix}-default`;
 
 let Kafka;
 let producer;
@@ -36,7 +32,7 @@ function createProducer () {
   producer.connect();
 }
 
-if (Kafka && GROUP_ID && CLOUDKARAFKA_BROKERS && CLOUDKARAFKA_USERNAME && CLOUDKARAFKA_PASSWORD && CLOUDKARAFKA_TOPIC_PREFIX) {
+if (Kafka && GROUP_ID && CLOUDKARAFKA_BROKERS && CLOUDKARAFKA_USERNAME && CLOUDKARAFKA_PASSWORD) {
   createProducer();
 }
 
@@ -46,7 +42,7 @@ process.on('exit', () => {
 
 const api = {};
 
-api.sendMessage = function sendMessage (message, key) {
+function sendMessage ({topic, message, key}) {
   if (!producer || !producer.isConnected()) return;
 
   try {
@@ -54,6 +50,24 @@ api.sendMessage = function sendMessage (message, key) {
   } catch (err) {
     logger.error(err);
   }
+}
+
+const accountDeletionFeedback = `${nconf.get('KAFKA:CLOUDKARAFKA_TOPIC_PREFIX_ACCOUNT_DELETION_FEEDBACK')}-default`;
+api.sendAccountDeletionFeedback = function sendAccountDeletionFeedback (message, key) {
+  sendMessage({
+    topic: accountDeletionFeedback,
+    message,
+    key,
+  });
+};
+
+const webhookTopic = `${nconf.get('KAFKA:CLOUDKARAFKA_TOPIC_PREFIX_WEBHOOK')}-default`;
+api.sendWebhook = function sendWebhook (message, key) {
+  sendMessage({
+    topic: webhookTopic,
+    message,
+    key,
+  });
 };
 
 module.exports = api;
