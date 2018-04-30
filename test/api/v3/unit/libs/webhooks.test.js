@@ -1,4 +1,4 @@
-import got from 'got';
+import Queue from '../../../../../website/server/libs/queue';
 import {
   WebhookSender,
   taskScoredWebhook,
@@ -10,13 +10,12 @@ import {
 import {
   generateUser,
 } from '../../../../helpers/api-unit.helper.js';
-import { defer } from '../../../../helpers/api-unit.helper';
 
-describe('webhooks', () => {
+describe.only('webhooks', () => {
   let webhooks, user;
 
   beforeEach(() => {
-    sandbox.stub(got, 'post').returns(defer().promise);
+    sandbox.stub(Queue, 'sendWebhook');
 
     webhooks = [{
       id: 'taskActivity',
@@ -89,8 +88,8 @@ describe('webhooks', () => {
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.be.calledOnce;
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch(sinon.match.string, 'http://custom-url.com', {
         json: true,
         body,
       });
@@ -108,8 +107,8 @@ describe('webhooks', () => {
       sendWebhook.send(user, body);
 
       expect(sendWebhook.attachDefaultData).to.be.calledOnce;
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com', {
         json: true,
       });
 
@@ -137,8 +136,8 @@ describe('webhooks', () => {
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.not.be.called;
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com', {
         json: true,
         body: {
           foo: 'bar',
@@ -176,7 +175,7 @@ describe('webhooks', () => {
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultWebhookFilter).to.not.be.called;
-      expect(got.post).to.not.be.called;
+      expect(Queue.sendWebhook).to.not.be.called;
     });
 
     it('can pass in a webhook filter function that filters on data', () => {
@@ -196,8 +195,8 @@ describe('webhooks', () => {
       ];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com');
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com');
     });
 
     it('ignores disabled webhooks', () => {
@@ -210,7 +209,7 @@ describe('webhooks', () => {
       user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom'}];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.not.be.called;
+      expect(Queue.sendWebhook).to.not.be.called;
     });
 
     it('ignores webhooks with invalid urls', () => {
@@ -223,7 +222,7 @@ describe('webhooks', () => {
       user.webhooks = [{id: 'custom-webhook', url: 'httxp://custom-url!!!', enabled: true, type: 'custom'}];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.not.be.called;
+      expect(Queue.sendWebhook).to.not.be.called;
     });
 
     it('ignores webhooks of other types', () => {
@@ -239,8 +238,8 @@ describe('webhooks', () => {
       ];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com', {
         body,
         json: true,
       });
@@ -258,8 +257,8 @@ describe('webhooks', () => {
       ];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com', {
         body,
         json: true,
       });
@@ -278,12 +277,12 @@ describe('webhooks', () => {
       ];
       sendWebhook.send(user, body);
 
-      expect(got.post).to.be.calledTwice;
-      expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+      expect(Queue.sendWebhook).to.be.calledTwice;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://custom-url.com', {
         body,
         json: true,
       });
-      expect(got.post).to.be.calledWithMatch('http://other-url.com', {
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://other-url.com', {
         body,
         json: true,
       });
@@ -329,8 +328,8 @@ describe('webhooks', () => {
     it('sends task and stats data', () => {
       taskScoredWebhook.send(user, data);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[0].url, {
         json: true,
         body: {
           type: 'scored',
@@ -367,8 +366,8 @@ describe('webhooks', () => {
 
       taskScoredWebhook.send(user, data);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch('http://global-activity.com', {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch('http://global-activity.com', {
         json: true,
         body: {
           type: 'scored',
@@ -400,7 +399,7 @@ describe('webhooks', () => {
 
       taskScoredWebhook.send(user, data);
 
-      expect(got.post).to.not.be.called;
+      expect(Queue.sendWebhook).to.not.be.called;
     });
   });
 
@@ -421,8 +420,8 @@ describe('webhooks', () => {
 
         taskActivityWebhook.send(user, data);
 
-        expect(got.post).to.be.calledOnce;
-        expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
+        expect(Queue.sendWebhook).to.be.calledOnce;
+        expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[0].url, {
           json: true,
           body: {
             type,
@@ -441,7 +440,7 @@ describe('webhooks', () => {
 
         taskActivityWebhook.send(user, data);
 
-        expect(got.post).to.not.be.called;
+        expect(Queue.sendWebhook).to.not.be.called;
       });
     });
 
@@ -462,8 +461,8 @@ describe('webhooks', () => {
 
         taskActivityWebhook.send(user, data);
 
-        expect(got.post).to.be.calledOnce;
-        expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
+        expect(Queue.sendWebhook).to.be.calledOnce;
+        expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[0].url, {
           json: true,
           body: {
             webhookType: 'taskActivity',
@@ -483,7 +482,7 @@ describe('webhooks', () => {
 
         taskActivityWebhook.send(user, data);
 
-        expect(got.post).to.not.be.called;
+        expect(Queue.sendWebhook).to.not.be.called;
       });
     });
   });
@@ -503,8 +502,8 @@ describe('webhooks', () => {
 
         userActivityWebhook.send(user, data);
 
-        expect(got.post).to.be.calledOnce;
-        expect(got.post).to.be.calledWithMatch(webhooks[2].url, {
+        expect(Queue.sendWebhook).to.be.calledOnce;
+        expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[2].url, {
           json: true,
           body: {
             type,
@@ -523,7 +522,7 @@ describe('webhooks', () => {
 
         userActivityWebhook.send(user, data);
 
-        expect(got.post).to.not.be.called;
+        expect(Queue.sendWebhook).to.not.be.called;
       });
     });
   });
@@ -550,8 +549,8 @@ describe('webhooks', () => {
 
         questActivityWebhook.send(user, data);
 
-        expect(got.post).to.be.calledOnce;
-        expect(got.post).to.be.calledWithMatch(webhooks[1].url, {
+        expect(Queue.sendWebhook).to.be.calledOnce;
+        expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[1].url, {
           json: true,
           body: {
             type,
@@ -576,7 +575,7 @@ describe('webhooks', () => {
 
         userActivityWebhook.send(user, data);
 
-        expect(got.post).to.not.be.called;
+        expect(Queue.sendWebhook).to.not.be.called;
       });
     });
   });
@@ -597,8 +596,8 @@ describe('webhooks', () => {
 
       groupChatReceivedWebhook.send(user, data);
 
-      expect(got.post).to.be.calledOnce;
-      expect(got.post).to.be.calledWithMatch(webhooks[webhooks.length - 1].url, {
+      expect(Queue.sendWebhook).to.be.calledOnce;
+      expect(Queue.sendWebhook).to.be.calledWithMatch(webhooks[webhooks.length - 1].url, {
         json: true,
         body: {
           webhookType: 'groupChatReceived',
@@ -632,7 +631,7 @@ describe('webhooks', () => {
 
       groupChatReceivedWebhook.send(user, data);
 
-      expect(got.post).to.not.be.called;
+      expect(Queue.sendWebhook).to.not.be.called;
     });
   });
 });
