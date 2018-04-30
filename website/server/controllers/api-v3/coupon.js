@@ -118,7 +118,9 @@ api.enterCouponCode = {
 api.validateCoupon = {
   method: 'POST',
   url: '/coupons/validate/:code',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   async handler (req, res) {
     req.checkParams('code', res.t('couponCodeRequired')).notEmpty();
 

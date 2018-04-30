@@ -93,7 +93,9 @@ function hasBackupAuth (user, networkToRemove) {
  */
 api.registerLocal = {
   method: 'POST',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   url: '/user/auth/local/register',
   async handler (req, res) {
     let existingUser = res.locals.user; // If adding local auth to social user
@@ -299,7 +301,9 @@ function _passportProfile (network, accessToken) {
 // Called as a callback by Facebook (or other social providers). Internal route
 api.loginSocial = {
   method: 'POST',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
   url: '/user/auth/social', // this isn't the most appropriate url but must be the same as v2
   async handler (req, res) {
     let existingUser = res.locals.user;

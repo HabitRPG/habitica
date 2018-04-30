@@ -15,7 +15,7 @@ describe('auth middleware', () => {
 
   describe('auth with headers', () => {
     it('allows to specify a list of user field that we do not want to load', (done) => {
-      const authWithHeaders = authWithHeadersFactory(false, {
+      const authWithHeaders = authWithHeadersFactory({
         userFieldsToExclude: ['items', 'flags', 'auth.timestamps'],
       });
 
