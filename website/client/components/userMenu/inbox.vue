@@ -167,24 +167,6 @@
   .conversation:hover {
     cursor: pointer;
   }
-
-  .caption-disabled {
-    display: flex;
-    flex-direction: column;
-
-    padding: 20px;
-
-    align-items: center;
-
-    .envelope {
-      width: 30px;
-      margin-top: 0;
-    }
-
-    h3 {
-      margin-top: 1em;
-    }
-  }
 </style>
 
 <script>
