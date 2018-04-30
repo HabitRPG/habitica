@@ -34,10 +34,11 @@ function getUserFields (userFieldsToExclude, req) {
 
 // Authenticate a request through the x-api-user and x-api key header
 // If optional is true, don't error on missing authentication
-export function authWithHeaders (optional = false, options = {}) {
+export function authWithHeaders (options = {}) {
   return function authWithHeadersHandler (req, res, next) {
-    let userId = req.header('x-api-user');
-    let apiToken = req.header('x-api-key');
+    const userId = req.header('x-api-user');
+    const apiToken = req.header('x-api-key');
+    const optional = options.optional || false;
 
     if (!userId || !apiToken) {
       if (optional) return next();

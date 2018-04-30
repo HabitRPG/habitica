@@ -120,7 +120,7 @@
       .row.title-row
         .col-12.col-md-6
           h3(v-if='userLevel100Plus', v-once, v-html="$t('noMoreAllocate')")
-          h3(v-if='user.stats.points || userLevel100Plus')
+          h3
             | {{$t('pointsAvailable')}}
             .counter.badge(v-if='user.stats.points || userLevel100Plus')
               | {{user.stats.points}}&nbsp;
@@ -131,16 +131,21 @@
               v-model='user.preferences.automaticAllocation',
               @change='setAutoAllocate()'
             )
-
       .row
         .col-12.col-md-3(v-for='(statInfo, stat) in allocateStatsList')
           .box.white.row.col-12
-            .col-12
+            .col-12.col-md-8
               div(:class='stat') {{ $t(stats[stat].title) }}
               .number {{ user.stats[stat] }}
               .points {{$t('pts')}}
             .col-12.col-md-4
-              .up(v-if='user.stats.points', @click='allocate(stat)')
+              div
+                .up(v-if='user.stats.points', @click='allocate(stat)')
+              div
+                .down(@click='deallocate(stat)')
+      .row.save-row
+        .col-12.col-md-6.offset-md-3.text-center
+          button.btn.btn-primary(@click='saveAttributes()', :disabled='loading') {{ this.loading ?  $t('loading') : $t('save') }}
 </template>
 
 <script>
@@ -169,6 +174,7 @@
     },
     data () {
       return {
+        loading: false,
         equipTypes: {
           eyewear: this.$t('eyewear'),
           head: this.$t('headgearCapitalized'),
@@ -206,9 +212,17 @@
             popover: 'perText',
           },
         },
-
+        statsAtStart: {
+          str: 0,
+          int: 0,
+          con: 0,
+          per: 0,
+        },
         content: Content,
       };
+    },
+    mounted () {
+      this.statsAtStart = Object.assign({}, this.user.stats);
     },
     computed: {
       ...mapState({
@@ -271,14 +285,32 @@
 
         return display;
       },
-
       formatOutOfTotalDisplay (stat, totalStat) {
         let display = `${stat}/${totalStat}`;
         return display;
       },
       allocate (stat) {
         allocate(this.user, {query: { stat }});
-        axios.post(`/api/v3/user/allocate?stat=${stat}`);
+      },
+      deallocate (stat) {
+        if (this.user.stats[stat] === 0) return;
+        this.user.stats[stat] -= 1;
+        this.user.stats.points += 1;
+      },
+      async saveAttributes () {
+        this.loading = true;
+
+        const statUpdates = {};
+        ['str', 'int', 'per', 'con'].forEach(stat => {
+          const diff = this.user.stats[stat] - this.statsAtStart[stat];
+          statUpdates[stat] = diff;
+        });
+
+        await axios.post('/api/v3/user/allocate-bulk', {
+          stats: statUpdates,
+        });
+
+        this.loading = false;
       },
       allocateNow () {
         autoAllocate(this.user);
@@ -384,20 +416,27 @@
         margin-left: .5em;
       }
 
-      .up {
+      .up, .down {
         border: solid #a5a1ac;
         border-width: 0 3px 3px 0;
         display: inline-block;
         padding: 3px;
+      }
+
+      .up:hover, .down:hover {
+        cursor: pointer;
+      }
+
+      .up {
         transform: rotate(-135deg);
         -webkit-transform: rotate(-135deg);
         margin-top: 1em;
       }
 
-      .up:hover {
-        cursor: pointer;
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
       }
-
     }
   }
 
@@ -457,4 +496,7 @@
     margin-top: -0.2em !important;
   }
 
+  .save-row {
+    margin-top: 1em;
+  }
 </style>

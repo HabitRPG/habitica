@@ -68,7 +68,9 @@ api.getCoupons = {
 api.generateCoupons = {
   method: 'POST',
   url: '/coupons/generate/:event',
-  middlewares: [authWithHeaders(), ensureSudo],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  }), ensureSudo],
   async handler (req, res) {
     req.checkParams('event', apiError('eventRequired')).notEmpty();
     req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();
@@ -93,7 +95,9 @@ api.generateCoupons = {
 api.enterCouponCode = {
   method: 'POST',
   url: '/coupons/enter/:code',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -119,7 +123,10 @@ api.enterCouponCode = {
 api.validateCoupon = {
   method: 'POST',
   url: '/coupons/validate/:code',
-  middlewares: [authWithHeaders(true)],
+  middlewares: [authWithHeaders({
+    optional: true,
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('code', res.t('couponCodeRequired')).notEmpty();
 

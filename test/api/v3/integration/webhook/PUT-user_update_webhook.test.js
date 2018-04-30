@@ -96,6 +96,7 @@ describe('PUT /user/webhook/:id', () => {
     let webhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options});
 
     expect(webhook.options).to.eql({
+      checklistScored: false, // starting value
       created: true, // starting value
       updated: false,
       deleted: true,

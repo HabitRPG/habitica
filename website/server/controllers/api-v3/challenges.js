@@ -69,7 +69,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeSuccessExample
- * @apiSuccessExample {json} Sucessfull response with single challenge
+ * @apiSuccessExample {json} Successful response with single challenge
  {
    "data": {
      "group": {
@@ -113,7 +113,7 @@ let api = {};
 
 /**
  * @apiDefine ChallengeArrayExample
- * @apiSuccessExample {json} Sucessful response with array of challenges
+ * @apiSuccessExample {json} Successful response with array of challenges
  {
    "data": [{
      "group": {
@@ -184,7 +184,9 @@ let api = {};
 api.createChallenge = {
   method: 'POST',
   url: '/challenges',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -233,7 +235,9 @@ api.createChallenge = {
 api.joinChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/join',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -290,7 +294,9 @@ api.joinChallenge = {
 api.leaveChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/leave',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let keep = req.body.keep === 'remove-all' ? 'remove-all' : 'keep-all';
@@ -339,7 +345,9 @@ api.leaveChallenge = {
 api.getUserChallenges = {
   method: 'GET',
   url: '/challenges/user',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     const CHALLENGES_PER_PAGE = 10;
     const page = req.query.page;
@@ -440,7 +448,9 @@ api.getUserChallenges = {
 api.getGroupChallenges = {
   method: 'GET',
   url: '/challenges/groups/:groupId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -498,7 +508,9 @@ api.getGroupChallenges = {
 api.getChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -580,6 +592,16 @@ api.exportChallengeCsv = {
     let lastUserId;
     let index = -1;
     tasks.forEach(task => {
+      /**
+       * Occasional error does not unlink a user's challenge tasks from that challenge's data
+       * after the user leaves that challenge, which previously caused a failure when exporting
+       * to a CSV. The following if statement makes sure that the task's attached user still
+       * belongs to the challenge.
+       * See more at https://github.com/HabitRPG/habitica/issues/8350
+       */
+      if (!resArray.map(line => line[0]).includes(task.userId)) {
+        return;
+      }
       while (task.userId !== lastUserId) {
         index++;
         lastUserId = resArray[index][0]; // resArray[index][0] is an user id
@@ -642,7 +664,9 @@ api.exportChallengeCsv = {
 api.updateChallenge = {
   method: 'PUT',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -684,7 +708,9 @@ api.updateChallenge = {
 api.deleteChallenge = {
   method: 'DELETE',
   url: '/challenges/:challengeId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -729,7 +755,9 @@ api.deleteChallenge = {
 api.selectChallengeWinner = {
   method: 'POST',
   url: '/challenges/:challengeId/selectWinner/:winnerId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -778,7 +806,9 @@ api.selectChallengeWinner = {
 api.cloneChallenge = {
   method: 'POST',
   url: '/challenges/:challengeId/clone',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
