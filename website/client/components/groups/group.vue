@@ -9,8 +9,10 @@
     .row
       .col-12.col-md-6.title-details
         h1 {{group.name}}
-        strong.float-left(v-once) {{$t('groupLeader')}}:
-        user-link.mx-1.float-left(:user="group.leader")
+        div
+          span.mr-1.ml-0
+            strong(v-once) {{$t('groupLeader')}}:
+            user-link.mx-1(:user="group.leader")
       .col-12.col-md-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")

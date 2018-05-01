@@ -13,7 +13,8 @@
   "challengeWinner": "Was the winner in the following challenges",
   "challenges": "Challenges",
   "challengesLink": "<a href='http://habitica.wikia.com/wiki/Challenges' target='_blank'>Challenges</a>",
-
+  "challengePrize": "Challenge Prize",
+  "endDate": "Ends",
   "noChallenges": "No challenges yet, visit",
   "toCreate": "to create one.",
 
