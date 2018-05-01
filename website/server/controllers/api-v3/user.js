@@ -602,7 +602,7 @@ api.buy = {
     // @TODO: Remove this when mobile passes type in body
     let type = req.params.key;
     if (buySpecialKeys.indexOf(type) !== -1) {
-      req.type = 'special';
+      req.type = 'spells';
     } else if (buyKnownKeys.indexOf(type) === -1) {
       req.type = 'marketGear';
     }

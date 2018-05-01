@@ -111,7 +111,7 @@ describe('shared.ops.buy', () => {
       params: {
         key: 'thankyou',
       },
-      type: 'special',
+      type: 'spells',
     });
 
     expect(user.stats.gp).to.equal(1);
