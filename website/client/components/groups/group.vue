@@ -309,7 +309,7 @@ export default {
     questSidebarSection,
     communityGuidelines,
     sidebarSection,
-    userLink
+    userLink,
   },
   directives: {
     markdown: markdownDirective,
