@@ -61,48 +61,17 @@
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
         .button-container
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='isMember && !isParty') {{$t('donateGems')}} // Suggest removing the isMember restriction - it's okay if non-members donate to a public guild. Also probably allow it for parties if parties can buy imagery. -- Alys
-    .section-header(v-if='isParty')
-      quest-sidebar-section(@toggle='toggleQuestSection', :show='sections.quest', :group='group')
-    .section-header(v-if='!isParty')
-      .row
-        .col-10
-          h3(v-once) {{ $t('guildSummary') }}
-        .col-2
-          .toggle-up(@click="sections.summary = !sections.summary", v-if="sections.summary")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.summary = !sections.summary", v-if="!sections.summary")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.summary")
-        p(v-markdown='group.summary')
-    .section-header
-      .row
-        .col-10
-          h3 {{ $t('groupDescription') }}
-        .col-2
-          .toggle-up(@click="sections.description = !sections.description", v-if="sections.description")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.description = !sections.description", v-if="!sections.description")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.description")
-        p(v-markdown='group.description')
-    .section-header.challenge
-      .row
-        .col-10.information-header
-          h3(v-once)
-            | {{ $t('challenges') }}
-          #groupPrivateDescOrChallengeInfo.icon.tooltip-wrapper(:title="isParty ? $t('challengeDetails') : $t('privateDescription')")
-            .svg-icon(v-html='icons.information')
-          b-tooltip(
-            :title="isParty ? $t('challengeDetails') : $t('privateDescription')",
-            target="groupPrivateDescOrChallengeInfo",
-          )
-        .col-2
-          .toggle-up(@click="sections.challenges = !sections.challenges", v-if="sections.challenges")
-            .svg-icon(v-html="icons.upIcon")
-          .toggle-down(@click="sections.challenges = !sections.challenges", v-if="!sections.challenges")
-            .svg-icon(v-html="icons.downIcon")
-      .section(v-if="sections.challenges")
-        group-challenges(:groupId='searchId')
+    quest-sidebar-section(:group='group', v-if='isParty')
+    sidebar-section(:title="$t('guildSummary')", v-if='!isParty')
+      p(v-markdown='group.summary')
+    sidebar-section(:title="$t('groupDescription')")
+      p(v-markdown='group.description')
+    sidebar-section(
+      :title="$t('challenges')",
+      :tooltip="isParty ? $t('challengeDetails') : $t('privateDescription')"
+      :last="true"
+    )
+      group-challenges(:groupId='searchId')
     div.text-center
       button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
 </template>
@@ -270,29 +239,6 @@
     margin-right: .3em;
   }
 
-  .information-header {
-    h3, .tooltip-wrapper {
-      display: inline-block;
-    }
-
-    .tooltip-wrapper {
-      width: 15px;
-      margin-left: 1.2em;
-    }
-  }
-
-  .section-header {
-    border-top: 1px solid #e1e0e3;
-    margin-top: 1em;
-    padding-top: 1em;
-  }
-
-  .section-header.challenge {
-    border-bottom: 1px solid #e1e0e3;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
-  }
-
   .hr {
     width: 100%;
     height: 20px;
@@ -334,6 +280,7 @@ import groupGemsModal from 'client/components/groups/groupGemsModal';
 import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
 import communityGuidelines from './communityGuidelines';
+import sidebarSection from '../sidebarSection';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -342,10 +289,7 @@ import likedIcon from 'assets/svg/liked.svg';
 import reportIcon from 'assets/svg/report.svg';
 import gemIcon from 'assets/svg/gem.svg';
 import questIcon from 'assets/svg/quest.svg';
-import informationIcon from 'assets/svg/information.svg';
 import questBackground from 'assets/svg/quest-background-border.svg';
-import upIcon from 'assets/svg/up.svg';
-import downIcon from 'assets/svg/down.svg';
 import goldGuildBadgeIcon from 'assets/svg/gold-guild-badge-small.svg';
 import silverGuildBadgeIcon from 'assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from 'assets/svg/bronze-guild-badge-small.svg';
@@ -365,6 +309,7 @@ export default {
     groupGemsModal,
     questSidebarSection,
     communityGuidelines,
+    sidebarSection,
   },
   directives: {
     markdown: markdownDirective,
@@ -381,22 +326,13 @@ export default {
         gem: gemIcon,
         liked: likedIcon,
         questIcon,
-        information: informationIcon,
         questBackground,
-        upIcon,
-        downIcon,
         goldGuildBadgeIcon,
         silverGuildBadgeIcon,
         bronzeGuildBadgeIcon,
       }),
       members: [],
       selectedQuest: {},
-      sections: {
-        quest: true,
-        summary: true,
-        description: true,
-        challenges: true,
-      },
       newMessage: '',
       coords: {
         TOP: 0,
@@ -697,9 +633,6 @@ export default {
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
-    },
-    toggleQuestSection () {
-      this.sections.quest = !this.sections.quest;
     },
   },
 };

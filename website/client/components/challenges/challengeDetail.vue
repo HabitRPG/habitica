@@ -6,7 +6,7 @@
   challenge-member-progress-modal(:memberId='progressMemberId', :challengeId='challenge._id')
   .col-12.col-md-8.standard-page
     .row
-      .col-12.col-md-8
+      .col-12.col-md-6
         h1(v-markdown='challenge.name')
         div
           strong(v-once) {{$t('createdBy')}}:
@@ -19,7 +19,7 @@
           // span {{challenge.endDate}}
         .tags
           span.tag(v-for='tag in challenge.tags') {{tag}}
-      .col-12.col-md-4
+      .col-12.col-md-6.text-right
         .box(@click="showMemberModal()")
           .svg-icon.member-icon(v-html="icons.memberIcon")
           | {{challenge.memberCount}}
@@ -29,10 +29,10 @@
           | {{challenge.prize}}
           .details(v-once) {{$t('prize')}}
     .row.challenge-actions
-      .col-12.col-md-7.offset-md-5
-        span.view-progress
-          strong {{ $t('viewProgressOf') }}
+      .col-12.col-md-6
+        strong.view-progress {{ $t('viewProgressOf') }}
         member-search-dropdown(:text="$t('selectParticipant')", :members='members', :challengeId='challengeId', @member-selected='openMemberProgressModal')
+      .col-12.col-md-6.text-right
         span(v-if='isLeader || isAdmin')
           b-dropdown.create-dropdown(:text="$t('addTaskToChallenge')", :variant="'success'")
             b-dropdown-item(v-for="type in columns", :key="type", @click="createTask(type)")
@@ -56,24 +56,25 @@
         v-on:editTask="editTask",
         v-if='tasksByType[column].length > 0')
   .col-12.col-md-4.sidebar.standard-page
-    .acitons
-      div(v-if='canJoin')
-        button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
-      div(v-if='isMember')
-        button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='edit()') {{$t('editChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
-      div(v-if='isLeader || isAdmin')
-        button.btn.btn-secondary(v-once, @click='cloneChallenge()') {{$t('clone')}}
-    .description-section
-      h2 {{$t('challengeSummary')}}
+    .button-container(v-if='canJoin')
+      button.btn.btn-success(v-once, @click='joinChallenge()') {{$t('joinChallenge')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='edit()') {{$t('editChallenge')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='cloneChallenge()') {{$t('clone')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-primary(v-once, @click='exportChallengeCsv()') {{$t('exportChallengeCsv')}}
+    .button-container(v-if='isLeader || isAdmin')
+      button.btn.btn-danger(v-once, @click='closeChallenge()') {{$t('endChallenge')}}
+    sidebar-section(:title="$t('challengeSummary')")
       p(v-markdown='challenge.summary')
-      h2 {{$t('challengeDescription')}}
+    sidebar-section(
+      :title="$t('challengeDescription')"
+      :last="true"
+    )
       p(v-markdown='challenge.description')
+    .text-center(v-if='isMember')
+      button.btn.btn-danger(v-once, @click='leaveChallenge()') {{$t('leaveChallenge')}}
 </template>
 
 <style lang='scss' scoped>
@@ -89,6 +90,14 @@
 
   span {
     margin-left: .5em;
+  }
+
+  .button-container {
+    margin-bottom: 1em;
+
+    button {
+      width: 100%;
+    }
   }
 
   .calendar-icon {
@@ -138,35 +147,16 @@
     }
   }
 
-  .acitons {
-    width: 100%;
-
-    div, button {
-      width: 60%;
-      margin: 0 auto;
-      margin-bottom: .5em;
-      text-align: center;
-    }
-  }
-
   .description-section {
     margin-top: 2em;
   }
 
   .challenge-actions {
-    margin-top: 1em;
+    margin-bottom: 1em;
 
     .view-progress {
       margin-right: .5em;
     }
-  }
-</style>
-
-<style>
-  .create-dropdown button {
-    width: 100%;
-    font-size: 16px !important;
-    font-weight: bold !important;
   }
 </style>
 
@@ -189,6 +179,7 @@ import challengeModal from './challengeModal';
 import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
+import sidebarSection from '../sidebarSection';
 
 import taskDefaults from 'common/script/libs/taskDefaults';
 
@@ -208,6 +199,7 @@ export default {
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
+    sidebarSection,
     TaskColumn: Column,
     TaskModal,
   },
