@@ -12,7 +12,7 @@
           span.mr-1.ml-0
             strong(v-once) {{ $t('createdBy') }}:
             user-link.mx-1(:user="challenge.leader")
-          span.mr-1.ml-0(v-if="challenge.group")
+          span.mr-1.ml-0(v-if="challenge.group && challenge.group.name !== 'Tavern'")
             strong(v-once) {{ $t(challenge.group.type) }}:
             group-link.mx-1(:group="challenge.group")
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)

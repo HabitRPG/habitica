@@ -14,7 +14,7 @@
       .owner-item
         strong {{ $t('createdBy') }}:
         user-link.mx-1(:user="challenge.leader")
-      .owner-item(v-if="challenge.group")
+      .owner-item(v-if="challenge.group && challenge.group.name !== 'Tavern'")
         strong {{ $t(challenge.group.type) }}:
         group-link.mx-1(:group="challenge.group")
     .meta
