@@ -122,7 +122,7 @@ div
     computed: {
       ...mapState({user: 'user.data'}),
     },
-    data() {
+    data () {
       return {
         challenges: [],
         icons: Object.freeze({
@@ -136,24 +136,24 @@ div
     directives: {
       markdown: markdownDirective,
     },
-    mounted() {
+    mounted () {
       this.loadChallenges();
     },
     watch: {
-      async groupId() {
+      async groupId () {
         this.loadChallenges();
       },
     },
     methods: {
-      async loadChallenges() {
+      async loadChallenges () {
         this.groupIdForChallenges = this.groupId;
         if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
         this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', {groupId: this.groupIdForChallenges});
       },
-      createChallenge() {
+      createChallenge () {
         this.$root.$emit('bv::show::modal', 'challenge-modal');
       },
-      challengeCreated(challenge) {
+      challengeCreated (challenge) {
         if (challenge.group._id !== this.groupIdForChallenges) return;
         this.challenges.push(challenge);
       },

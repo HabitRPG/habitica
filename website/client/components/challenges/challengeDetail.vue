@@ -9,8 +9,8 @@
       .col-12.col-md-6
         h1(v-markdown='challenge.name')
         div
-          strong(v-once) {{$t('createdBy')}}:
-          span(v-if='challenge.leader && challenge.leader.profile') {{challenge.leader.profile.name}}
+          strong.float-left(v-once) {{ $t('createdBy') }}:
+          user-link.mx-1.float-left(:user="challenge.leader")
           // @TODO: make challenge.author a variable inside the createdBy string (helps with RTL languages)
           // @TODO: Implement in V2 strong.margin-left(v-once)
             .svg-icon.calendar-icon(v-html="icons.calendarIcon")
@@ -180,7 +180,7 @@ import challengeMemberProgressModal from './challengeMemberProgressModal';
 import challengeMemberSearchMixin from 'client/mixins/challengeMemberSearch';
 import leaveChallengeModal from './leaveChallengeModal';
 import sidebarSection from '../sidebarSection';
-
+import userLink from '../userLink';
 import taskDefaults from 'common/script/libs/taskDefaults';
 
 import gemIcon from 'assets/svg/gem.svg';
@@ -202,6 +202,7 @@ export default {
     sidebarSection,
     TaskColumn: Column,
     TaskModal,
+    userLink,
   },
   data () {
     return {

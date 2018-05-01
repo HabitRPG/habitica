@@ -81,7 +81,7 @@
         icons: {
           upIcon,
           downIcon,
-          information: informationIcon
+          information: informationIcon,
         },
       };
     },

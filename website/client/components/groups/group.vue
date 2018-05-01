@@ -9,8 +9,8 @@
     .row
       .col-12.col-md-6.title-details
         h1 {{group.name}}
-        strong.float-left(v-once) {{$t('groupLeader')}}
-        span.leader.float-left(v-if='group.leader.profile', @click='showMemberProfile(group.leader)') : {{group.leader.profile.name}}
+        strong.float-left(v-once) {{$t('groupLeader')}}:
+        user-link.mx-1.float-left(:user="group.leader")
       .col-12.col-md-6
         .row.icon-row
           .col-4.offset-4(v-bind:class="{ 'offset-8': isParty }")
@@ -91,10 +91,6 @@
 
   h1 {
     color: $purple-200;
-  }
-
-  .leader:hover {
-    cursor: pointer;
   }
 
   .button-container {
@@ -281,6 +277,7 @@ import questSidebarSection from 'client/components/groups/questSidebarSection';
 import markdownDirective from 'client/directives/markdown';
 import communityGuidelines from './communityGuidelines';
 import sidebarSection from '../sidebarSection';
+import userLink from '../userLink';
 
 import deleteIcon from 'assets/svg/delete.svg';
 import copyIcon from 'assets/svg/copy.svg';
@@ -310,6 +307,7 @@ export default {
     questSidebarSection,
     communityGuidelines,
     sidebarSection,
+    userLink
   },
   directives: {
     markdown: markdownDirective,
@@ -623,13 +621,6 @@ export default {
         return;
       }
       // $rootScope.$state.go('options.inventory.quests');
-    },
-    async showMemberProfile (leader) {
-      let heroDetails = await this.$store.dispatch('members:fetchMember', { memberId: leader._id });
-      this.$root.$emit('habitica:show-profile', {
-        user: heroDetails.data.data,
-        startingPage: 'profile',
-      });
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
