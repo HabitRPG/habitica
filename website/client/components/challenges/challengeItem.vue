@@ -26,9 +26,9 @@
           .svg-icon(v-html="icons.calendarIcon")
           strong.mx-1 {{ $t('endDate')}}:
           span {{challenge.endDate}}
-  .tags
-    span.tag.tag-blue(v-if='isLeader(challenge)') {{ $t('owned') }}
-    span.tag(v-for='category in challenge.categories', :class="{'tag-purple':isOfficial(category)}") {{ $t(category.name) }}
+  .categories
+    span.category-label.category-label-blue(v-if='isLeader(challenge)') {{ $t('owned') }}
+    span.category-label(v-for='category in challenge.categories', :class="{'category-label-purple':isOfficial(category)}") {{ $t(category.name) }}
   .challenge-description {{challenge.summary}}
   .well-wrapper(v-if="fullLayout")
     .well
@@ -104,7 +104,7 @@
       display: inline-block;
       float: right;
       padding: 1em 1.5em;
-      margin-left: 1.5em;
+      margin-left: 1em;
       background: #eefaf6;
       border-bottom-left-radius: .3em;
 
@@ -129,7 +129,7 @@
     .meta, .owner {
       display: flex;
       align-items: center;
-      overflow: visible;
+      flex-wrap: wrap;
     }
 
     .meta-item, .owner-item {
@@ -165,33 +165,15 @@
       width: 26px;
     }
 
-    .tags {
+    .categories {
+      clear: right;
       display: flex;
-      padding: 0 1em 1em;
+      padding: 0 1.5em 1em;
+      flex-wrap: wrap;
     }
 
-    .tag {
-      box-shadow: none !important;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      border-radius: 1em;
-      color: $gray-200;
-      background: $gray-500;
-      padding: .2em .8em;
-      margin-left: .3em;
-      font-weight: 600;
-      font-size: .9em
-    }
-
-    .tag-purple {
-      color: white;
-      background: $purple-300;
-    }
-
-    .tag-blue {
-      color: white;
-      background: $blue-50;
+    .category-label {
+      margin-top: .5em;
     }
 
     .challenge-description {

@@ -25,7 +25,11 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
               div.guild-bank(v-if='displayGemBank', v-once) {{$t('guildBank')}}
           .row
             .col-md-12
-              .category-label(v-for="category in guild.categorySlugs")
+              .category-label.category-label-blue(v-if='isLeader(guild)') {{ $t('owned') }}
+              .category-label(
+                v-for="category in guild.categorySlugs"
+                :class="{'category-label-purple': isOfficial(category)}"
+              )
                 | {{$t(category)}}
               span.recommend-text(v-if='showSuggested(guild._id)') Suggested because you’re new to Habitica.
 </template>
@@ -175,6 +179,13 @@ export default {
     async leave () {
       // @TODO: ask about challenges when we add challenges
       await this.$store.dispatch('guilds:leave', {groupId: this.guild._id, type: 'myGuilds'});
+    },
+    isLeader (guild) {
+      if (!guild.leader) return false;
+      return this.user._id === guild.leader;
+    },
+    isOfficial (category) {
+      return category === 'habitica_official';
     },
   },
 };
