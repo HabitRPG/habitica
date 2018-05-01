@@ -340,6 +340,15 @@ let armor = {
     set: 'fluttery',
     canOwn: ownsItem('armor_armoire_flutteryFrock'),
   },
+  cobblersCoveralls: {
+    text: t('armorArmoireCobblersCoverallsText'),
+    notes: t('armorArmoireCobblersCoverallsNotes', { attrs: 7 }),
+    value: 100,
+    per: 7,
+    str: 7,
+    set: 'cobbler',
+    canOwn: ownsItem('armor_armoire_cobblersCoveralls'),
+  },
 };
 
 let body = {
@@ -937,6 +946,15 @@ let shield = {
     // set: 'fluttery',
     canOwn: ownsItem('shield_armoire_flutteryFan'),
   },
+  fancyShoe: {
+    text: t('shieldArmoireFancyShoeText'),
+    notes: t('shieldArmoireFancyShoeNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    per: 7,
+    set: 'cobbler',
+    canOwn: ownsItem('shield_armoire_fancyShoe'),
+  },
 };
 
 let headAccessory = {
@@ -1228,6 +1246,15 @@ let weapon = {
     str: 5,
     set: 'fluttery',
     canOwn: ownsItem('weapon_armoire_flutteryArmy'),
+  },
+  cobblersHammer: {
+    text: t('weaponArmoireCobblersHammerText'),
+    notes: t('weaponArmoireCobblersHammerNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    set: 'cobbler',
+    canOwn: ownsItem('weapon_armoire_cobblersHammer'),
   },
 };
 
