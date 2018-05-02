@@ -37,14 +37,17 @@
              span(:class="userLevelStyle(conversation)") {{conversation.name}}
              span.timeago {{conversation.date | timeAgo}}
             div {{conversation.lastMessageText ? conversation.lastMessageText.substring(0, 30) : ''}}
-      .col-8.messages
+      .col-8.messages.d-flex.flex-column.justify-content-between
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4(v-once) Nothing Here Yet
           p(v-once) Select a conversation on the left
         .empty-messages.text-center(v-if='activeChat.length === 0 && selectedConversation.key')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
-        chat-message.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        chat-message.message-scroll(v-if="activeChat.length > 0", :chat.sync='activeChat', :inbox='true', ref="chatscroll")
+        .pm-disabled-caption.text-center(v-if="user.inbox.optOut && selectedConversation.key")
+          h4 {{$t('PMDisabledCaptionTitle')}}
+          p {{$t('PMDisabledCaptionText')}}
 
         // @TODO: Implement new message header here when we fix the above
 
@@ -97,7 +100,12 @@
 
   .message-scroll {
     max-height: 500px;
-    overflow: scroll;
+    overflow-x: scroll;
+
+    @media (min-width: 992px) {
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
   }
 
   .to-form input {
@@ -119,6 +127,27 @@
     .envelope {
       width: 30px;
       margin: 0 auto;
+    }
+  }
+
+  .pm-disabled-caption {
+
+    padding-top: 1em;
+    background-color: $gray-700;
+    z-index: 2;
+
+    h4, p {
+      color: $gray-300;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0.4em;
+    }
+
+    p {
+      font-size: 12px;
+      margin-bottom: 0;
     }
   }
 
@@ -147,7 +176,8 @@
 
   .conversations {
     max-height: 400px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .conversation {
@@ -295,12 +325,12 @@ export default {
     optTextSet () {
       if (!this.user.inbox.optOut) {
         return {
-          switchDescription: this.$t('PMDisableFull'),
+          switchDescription: this.$t('PMDisable'),
           popoverText: this.$t('PMEnabledOptPopoverText'),
         };
       }
       return {
-        switchDescription: this.$t('PMEnableFull'),
+        switchDescription: this.$t('PMEnable'),
         popoverText: this.$t('PMDisabledOptPopoverText'),
       };
     },
