@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %>requieren aprobación",
     "userCountRequestsApproval": "<%= userCount %> requieren aprobación",
     "youAreRequestingApproval": "Estás solicitando aprobación",
-    "chatPrivilegesRevoked": "Tus privilegios para chatear han sido revocados.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "No puedes crear un gremio público porque tus privilegios para chatear han sido revocados.",
     "cannotInviteWhenMuted": "No puedes invitar a nadie a un gremio o equipo porque tus privilegios para chatear han sido revocados.",
     "newChatMessagePlainNotification": "Nuevo mensaje en <%= groupName %> de <%= authorName %>. ¡Haz click aquí para abrir la pagina de chat!",

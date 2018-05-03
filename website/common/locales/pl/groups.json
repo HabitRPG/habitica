@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> prosi o zatwierdzenie",
     "userCountRequestsApproval": "<%= userCount %> prosi o zatwierdzenie",
     "youAreRequestingApproval": "Prosisz o zatwierdzenie",
-    "chatPrivilegesRevoked": "Twoje uprawnienia do czatu zostały wycofane.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "Nie możesz stworzyć publicznej gildii ponieważ twoje czatowe przywileje zostały wycofane.",
     "cannotInviteWhenMuted": "Nie możesz zaprosić nikogo do gildii lub drużyny ponieważ twoje czatowe przywileje zostały wycofane.",
     "newChatMessagePlainNotification": "Nowa wiadomość w <%= groupName %> od <%= authorName %>. Kliknij tu by otworzyć stronę czatu.",

@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %>がタスク承認をもとめています",
     "userCountRequestsApproval": "<%= userCount %>件のタスク承認依頼",
     "youAreRequestingApproval": "タスク承認を依頼中です",
-    "chatPrivilegesRevoked": "あなたのチャットの特権は取り消されました。",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "あなたのチャットの特権は取り消されているので、公共ギルドを作成することはできません。",
     "cannotInviteWhenMuted": "あなたのチャットの特権は取り消されているので、誰かをギルドやパーティーに招待することはできません。",
     "newChatMessagePlainNotification": "<%= groupName %> に <%= authorName %> からの新着メッセージがあります。ここをクリックするとチャットページが開きます!",

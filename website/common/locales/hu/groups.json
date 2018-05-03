@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> felhasználó jóváhagyást kér",
     "userCountRequestsApproval": "<%= userCount %> jóváhagyás kérése",
     "youAreRequestingApproval": "Jóváhagyást kértél",
-    "chatPrivilegesRevoked": "Üzenetküldési kiváltságaid visszavonásra kerültek.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "You cannot create a public guild because your chat privileges have been revoked.",
     "cannotInviteWhenMuted": "You cannot invite anyone to a guild or party because your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "Új üzenet a <%= groupName %> nevű csoportban<%= authorName %> felhasználótól. Kattints ide a chat megnyitásához!",

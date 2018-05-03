@@ -7,6 +7,7 @@
     "buyGemsGoldText": "Alexander le marchand vous vendra les gemmes au prix de 20 pièces d'or par gemme. Ses envois mensuels sont initialement plafonnés à 25 gemmes par mois, mais cette limite augmente de 5 gemmes tous les trois mois d'abonnement consécutifs, jusqu'à un maximum de 50 gemmes par mois !",
     "mustSubscribeToPurchaseGems": "Vous devez être abonné pour acheter des gemmes avec de l'or.",
     "reachedGoldToGemCap": "Vous avez atteint la limite de conversion or → gemme de <%= convCap %> pour ce mois. Ceci permet de limiter les abus et une accumulation de trophées qui ne seraient pas dans l'esprit du jeu. Le compte est remis à zéro chaque mois, au cours des trois premiers jours.",
+    "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Conservation de plus d'entrées de l'historique",
     "retainHistoryText": "Rend les Tâches à Faire effectuées et l'historique des tâches disponibles plus longtemps.",
     "doubleDrops": "Limite journalière de butin doublée",

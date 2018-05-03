@@ -252,7 +252,7 @@
     "weaponSpecialWinter2018HealerNotes": "This mistletoe ball is sure to enchant and delight passersby! Increases Intelligence by <%= int %>. Limited Edition 2017-2018 Winter Gear.",
     "weaponSpecialSpring2018RogueText": "Buoyant Bullrush",
     "weaponSpecialSpring2018RogueNotes": "What might appear to be cute cattails are actually quite effective weapons in the right wings. Increases Strength by <%= str %>. Limited Edition 2018 Spring Gear.",
-    "weaponSpecialSpring2018WarriorText": "Axe of Daybreak",
+    "weaponSpecialSpring2018WarriorText": "Сокира сяючого світанку",
     "weaponSpecialSpring2018WarriorNotes": "Made of bright gold, this axe is mighty enough to attack the reddest task! Increases Strength by <%= str %>. Limited Edition 2018 Spring Gear.",
     "weaponSpecialSpring2018MageText": "Tulip Stave",
     "weaponSpecialSpring2018MageNotes": "This magic flower never wilts! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018 Spring Gear.",
