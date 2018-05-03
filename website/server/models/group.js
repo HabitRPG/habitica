@@ -753,7 +753,7 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
     query.guilds = this._id;
   }
 
-  User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
+  /* User.find(query).select({webhooks: 1}).lean().exec().then((users) => {
     users.forEach((user) => {
       let { webhooks } = user;
       groupChatReceivedWebhook.send(webhooks, {
@@ -761,7 +761,7 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
         chat,
       });
     });
-  });
+  }); */
 };
 
 schema.statics.cleanQuestProgress = _cleanQuestProgress;
