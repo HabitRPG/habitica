@@ -106,16 +106,23 @@ export default {
   },
   methods: {
     async socialAuth (network) {
-      let auth = await hello(network).login({
-        scope: 'email',
-        redirect_uri: '', // eslint-disable-line camelcase
-      });
+      try {
+        let auth = await hello(network).login({
+          scope: 'email',
+          redirect_uri: '', // eslint-disable-line camelcase
+        });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      await this.finishAuth();
+        await this.finishAuth();
+      } catch (err) {
+        console.error(err); // eslint-disable-line no-console
+        // logout the user
+        await hello(network).logout();
+        this.socialAuth(network); // login again
+      }
     },
     async register () {
       if (!this.email) {
