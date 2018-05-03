@@ -14,12 +14,14 @@ div
         .col-4
           input.form-control.input-search(type="text", :placeholder="$t('search')", v-model='searchTerm')
         .col
-          select.form-control()
+          select.form-control(@change='changeSortOption($event)')
             option(v-for='sortOption in sortOptions', :value='sortOption.value') {{sortOption.text}}
         .col-3
-          select.form-control()
+          select.form-control(@change='changeSortDirection($event)')
             option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
 
+    .row.background-light(v-if='sortDirty')
+      p Apply Sort Options to Header
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
@@ -72,6 +74,12 @@ div
 
 <style lang='scss'>
   #members-modal {
+    .modal-header {
+      background-color: #edecee;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    }
+
     .small-text, .character-name {
       color: #878190;
     }
@@ -91,9 +99,8 @@ div
 </style>
 
 <style lang='scss' scoped>
-  header {
-    background-color: #edecee;
-    border-radius: 4px 4px 0 0;
+  .background-light {
+    background-color: #f9f9f9;
   }
 
   .header-wrap {
@@ -179,7 +186,6 @@ div
 </style>
 
 <script>
-// import sortBy from "lodash/sortBy";
 import orderBy from 'lodash/orderBy';
 import isEmpty from 'lodash/isEmpty';
 import { mapState } from 'client/libs/store';
@@ -200,45 +206,39 @@ export default {
   data () {
     return {
       sortOption: {},
+      sortDirty: false,
       selectedPage: 'members',
       members: [],
       invites: [],
       memberToRemove: {},
       sortOptions: [
         {
-          value: 'class',
+          value: 'stats.class',
           text: this.$t('sortClass'),
-          param: 'stats.class',
         },
         {
-          value: 'background',
+          value: 'preferences.background',
           text: this.$t('sortBackground'),
-          param: 'preferences.background',
         },
         {
-          value: 'date-joined',
+          value: 'auth.timestamps.created',
           text: this.$t('sortDateJoined'),
-          param: 'auth.timestamps.created',
         },
         {
-          value: 'login',
+          value: 'auth.timestamps.loggedin',
           text: this.$t('sortLogin'),
-          param: 'auth.timestamps.loggedin',
         },
         {
-          value: 'level',
+          value: 'stats.lvl',
           text: this.$t('sortLevel'),
-          param: 'stats.lvl',
         },
         {
-          value: 'name',
+          value: 'profile.name',
           text: this.$t('sortName'),
-          param: 'profile.name',
         },
         {
-          value: 'tier',
+          value: 'contributor.level',
           text: this.$t('sortTier'),
-          param: 'contributor.level',
         },
       ],
       sortDirections: [
@@ -298,7 +298,7 @@ export default {
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(sortedMembers, [this.sortOption.param], [this.sortOption.order]);
+        sortedMembers = orderBy(sortedMembers, [this.sortOption.value], [this.sortOption.order]);
       }
 
       return sortedMembers;
@@ -404,8 +404,17 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'members-modal');
     },
-    sort (option) {
-      this.sortOption = option;
+    changeSortOption (e) {
+      this.sortOption.value = e.target.value;
+      this.sort();
+    },
+    changeSortDirection (e) {
+      this.sortOption.order = e.target.value;
+      this.sort();
+    },
+    sort () {
+      this.sortDirty = true;
+      this.members = orderBy(this.members, [this.sortOption.value], [this.sortOption.order]);
     },
     async loadMoreMembers () {
       const lastMember = this.members[this.members.length - 1];
