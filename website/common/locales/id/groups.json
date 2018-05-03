@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> meminta izin",
     "userCountRequestsApproval": "<%= userCount %> permintaan izin",
     "youAreRequestingApproval": "Kamu sedang meminta izin",
-    "chatPrivilegesRevoked": "Hak obrolan kamu telah dicabut.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "You cannot create a public guild because your chat privileges have been revoked.",
     "cannotInviteWhenMuted": "You cannot invite anyone to a guild or party because your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "Ada pesan baru di <%= groupName %> oleh <%= authorName %>. Klik di sini untuk membuka halaman obrolan!",

@@ -22,8 +22,10 @@ export default {
       this.notify(this.$t(type, { val }), 'success');
     },
     exp (val) {
-      let message = getXPMessage(val);
-      this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
+      const message = getXPMessage(val);
+      if (message) {
+        this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
+      }
     },
     error (error) {
       this.notify(error, 'error', 'glyphicon glyphicon-exclamation-sign');

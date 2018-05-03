@@ -661,6 +661,20 @@ let backgrounds = {
       notes: t('backgroundTulipGardenNotes'),
     },
   },
+  backgrounds052018: {
+    champions_colosseum: {
+      text: t('backgroundChampionsColosseumText'),
+      notes: t('backgroundChampionsColosseumNotes'),
+    },
+    fantastical_shoe_store: {
+      text: t('backgroundFantasticalShoeStoreText'),
+      notes: t('backgroundFantasticalShoeStoreNotes'),
+    },
+    terraced_rice_field: {
+      text: t('backgroundTerracedRiceFieldText'),
+      notes: t('backgroundTerracedRiceFieldNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

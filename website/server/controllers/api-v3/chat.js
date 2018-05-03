@@ -61,7 +61,9 @@ function textContainsBannedSlur (message) {
 api.getChat = {
   method: 'GET',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
 
@@ -100,7 +102,9 @@ function getBannedWordsFromText (message) {
 api.postChat = {
   method: 'POST',
   url: '/groups/:groupId/chat',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -221,7 +225,9 @@ api.postChat = {
 api.likeChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/like',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -278,7 +284,9 @@ api.likeChat = {
 api.flagChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/:chatId/flag',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     const chatReporter = chatReporterFactory('Group', req, res);
     const message = await chatReporter.flag();
@@ -307,7 +315,9 @@ api.flagChat = {
 api.clearChatFlags = {
   method: 'Post',
   url: '/groups/:groupId/chat/:chatId/clearflags',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -377,7 +387,9 @@ api.clearChatFlags = {
 api.seenChat = {
   method: 'POST',
   url: '/groups/:groupId/chat/seen',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;
@@ -443,7 +455,9 @@ api.seenChat = {
 api.deleteChat = {
   method: 'DELETE',
   url: '/groups/:groupId/chat/:chatId',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   async handler (req, res) {
     let user = res.locals.user;
     let groupId = req.params.groupId;

@@ -118,7 +118,7 @@
     "winter2018MistletoeSet": "Curandeiro do Visco (Curandeiro)",
     "winter2018ReindeerSet": "Gatuno da Rena ( Gatuno)",
     "spring2018SunriseWarriorSet": "Guerreiro do Alvorecer (Guerreiro)",
-    "spring2018TulipMageSet": "Tulipa Magica (Mago)",
+    "spring2018TulipMageSet": "Tulipa Mágica (Mago)",
     "spring2018GarnetHealerSet": "Granada da Cura (Curandeiro)",
     "spring2018DucklingRogueSet": "Disfarce de Patinho (Ladino)",
     "eventAvailability": "Disponível para compra até <%= date(locale) %>.",

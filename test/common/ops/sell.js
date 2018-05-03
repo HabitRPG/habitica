@@ -36,7 +36,7 @@ describe('shared.ops.sell', () => {
       sell(user, {params: { type } });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('keyRequired'));
+      expect(err.message).to.equal(i18n.t('missingKeyParam'));
       done();
     }
   });
