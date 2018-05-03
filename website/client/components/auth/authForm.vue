@@ -105,7 +105,12 @@ export default {
     });
   },
   methods: {
+    // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
+      try {
+        await hello(network).logout();
+      } catch (e) {} // eslint-disable-line
+
       try {
         let auth = await hello(network).login({
           scope: 'email',
