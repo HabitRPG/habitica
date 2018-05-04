@@ -1,7 +1,7 @@
 <template lang="pug">
 b-modal#mount-raised-modal(:hide-header="true")
   div.content(v-if="mount != null")
-    div.dialog-header.title(v-once) {{ $t('raisedPet', {pet: mount.text()}) }}
+    div.dialog-header.title {{ $t('raisedPet', {pet: mount.text()}) }}
     div.inner-content
       div.pet-background
         .mount(:class="`Mount_Icon_${mount.key}`")
