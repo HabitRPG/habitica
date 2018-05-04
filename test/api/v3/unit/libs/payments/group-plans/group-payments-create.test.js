@@ -13,7 +13,7 @@ import {
   generateGroup,
 } from '../../../../../../helpers/api-unit.helper.js';
 
-describe('Purchasing a group plan for group', () => {
+describe.only('Purchasing a group plan for group', () => {
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS = 'iOS_subscription';
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL = 'normal_subscription';

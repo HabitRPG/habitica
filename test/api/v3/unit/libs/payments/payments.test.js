@@ -10,7 +10,7 @@ import {
   generateGroup,
 } from '../../../../../helpers/api-unit.helper.js';
 
-describe('payments/index', () => {
+describe.only('payments/index', () => {
   let user, group, data, plan;
 
   beforeEach(async () => {
