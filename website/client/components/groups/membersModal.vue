@@ -20,8 +20,8 @@ div
           select.form-control(@change='changeSortDirection($event)')
             option(v-for='sortDirection in sortDirections', :value='sortDirection.value') {{sortDirection.text}}
 
-    .row.background-light(v-if='sortDirty')
-      p Apply Sort Options to Header
+    .row.apply-options.d-flex.justify-content-center(v-if='sortDirty')
+      a(@click='applySortOptions()') {{ $t('applySortToHeader') }}
     .row(v-if='invites.length > 0')
       .col-6.offset-3.nav
         .nav-item(@click='viewMembers()', :class="{active: selectedPage === 'members'}") {{ $t('members') }}
@@ -76,16 +76,26 @@ div
   #members-modal {
     .modal-header {
       background-color: #edecee;
-      border-radius: 8px;
+      border-radius: 8px 8px 0 0;
       box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    }
+
+    .modal-footer {
+      background-color: #edecee;
+      border-radius: 0 0 8px 8px;
     }
 
     .small-text, .character-name {
       color: #878190;
     }
 
-    .no-padding-left, .modal-body {
+    .no-padding-left {
       padding-left: 0;
+    }
+
+    .modal-body {
+      padding-left: 0;
+      padding-right: 0;
     }
 
     .member-details {
@@ -99,8 +109,11 @@ div
 </style>
 
 <style lang='scss' scoped>
-  .background-light {
+  .apply-options {
+    padding: 1em;
+    margin: 0;
     background-color: #f9f9f9;
+    color: #2995cd;
   }
 
   .header-wrap {
@@ -298,7 +311,7 @@ export default {
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(sortedMembers, [this.sortOption.value], [this.sortOption.order]);
+        sortedMembers = orderBy(sortedMembers, [this.sortOption.value], [this.sortOption.direction]);
       }
 
       return sortedMembers;
@@ -409,12 +422,20 @@ export default {
       this.sort();
     },
     changeSortDirection (e) {
-      this.sortOption.order = e.target.value;
+      this.sortOption.direction = e.target.value;
       this.sort();
     },
     sort () {
       this.sortDirty = true;
-      this.members = orderBy(this.members, [this.sortOption.value], [this.sortOption.order]);
+      this.members = orderBy(this.members, [this.sortOption.value], [this.sortOption.direction]);
+    },
+    async applySortOptions () {
+      const settings = {
+        'party.order': this.sortOption.value,
+        'party.orderAscending': this.sortOption.direction,
+      };
+      await this.$store.dispatch('user:set', settings);
+      this.sortDirty = false;
     },
     async loadMoreMembers () {
       const lastMember = this.members[this.members.length - 1];

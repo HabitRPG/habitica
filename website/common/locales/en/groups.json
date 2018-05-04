@@ -116,6 +116,7 @@
   "sortTier": "Sort by Tier",
   "ascendingAbbrev": "Asc",
   "descendingAbbrev": "Desc",
+  "applySortToHeader": "Apply Sort Options to Party Header",
 
   "confirmGuild": "Create Guild for 4 Gems?",
   "leaveGroupCha": "Leave Guild challenges and...",
