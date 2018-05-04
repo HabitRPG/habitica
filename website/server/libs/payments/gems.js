@@ -61,17 +61,16 @@ async function buyGems (data) {
       ]);
     }
 
-    if (data.gift.member._id !== data.user._id) { // Only send push notifications if sending to a user other than yourself
-      if (data.gift.member.preferences.pushNotifications.giftedGems !== false) {
-        sendPushNotification(
-          data.gift.member,
-          {
-            title: shared.i18n.t('giftedGems', languages[1]),
-            message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
-            identifier: 'giftedGems',
-          }
-        );
-      }
+    // Only send push notifications if sending to a user other than yourself
+    if (data.gift.member._id !== data.user._id && data.gift.member.preferences.pushNotifications.giftedGems !== false) {
+      sendPushNotification(
+        data.gift.member,
+        {
+          title: shared.i18n.t('giftedGems', languages[1]),
+          message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
+          identifier: 'giftedGems',
+        }
+      );
     }
 
     await data.gift.member.save();
@@ -80,4 +79,4 @@ async function buyGems (data) {
   await data.user.save();
 }
 
-module.exports = buyGems;
+module.exports = { buyGems };

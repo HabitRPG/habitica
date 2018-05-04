@@ -9,7 +9,7 @@ import {
 } from '../../../../../../helpers/api-unit.helper.js';
 import i18n from '../../../../../../../website/common/script/i18n';
 
-describe.only('Canceling a subscription for group', () => {
+describe('Canceling a subscription for group', () => {
   let plan, group, user, data;
 
   beforeEach(async () => {
