@@ -7,17 +7,18 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import i18n from '../../i18n';
+import errorMessage from '../../libs/errorMessage';
 
 module.exports = function allocateBulk (user, req = {}) {
   const stats = get(req, 'body.stats');
-  if (!stats) throw new BadRequest(i18n.t('statsObjectRequired', req.language));
+  if (!stats) throw new BadRequest(errorMessage('statsObjectRequired'));
 
   const statKeys = Object.keys(stats);
   const invalidStats = statKeys.filter(statKey => {
     return ATTRIBUTES.indexOf(statKey) === -1;
   });
   if (invalidStats.length > 0) {
-    throw new BadRequest(i18n.t('invalidAttribute', {attr: invalidStats.join(',')}, req.language));
+    throw new BadRequest(errorMessage('invalidAttribute', {attr: invalidStats.join(',')}));
   }
 
   if (user.stats.points <= 0) {

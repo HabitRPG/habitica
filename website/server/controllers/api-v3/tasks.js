@@ -23,6 +23,7 @@ import common from '../../../common';
 import _ from 'lodash';
 import logger from '../../libs/logger';
 import moment from 'moment';
+import apiError from '../../libs/apiError';
 
 const MAX_SCORE_NOTES_LENGTH = 256;
 
@@ -430,7 +431,7 @@ api.updateTask = {
     let user = res.locals.user;
     let challenge;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -710,7 +711,7 @@ api.moveTask = {
   url: '/tasks/:taskId/move/to/:position',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('position', res.t('positionRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
@@ -783,7 +784,7 @@ api.addChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -841,7 +842,7 @@ api.scoreCheckListItem = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -897,7 +898,7 @@ api.updateChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -962,7 +963,7 @@ api.removeChecklistItem = {
     let challenge;
     let group;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1023,7 +1024,7 @@ api.addTagToTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     let userTags = user.tags.map(tag => tag.id);
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID().isIn(userTags);
 
@@ -1072,7 +1073,7 @@ api.removeTagFromTask = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty();
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1116,7 +1117,7 @@ api.unlinkAllTasks = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).notEmpty().isIn(['keep-all', 'remove-all']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1182,8 +1183,8 @@ api.unlinkOneTask = {
   url: '/tasks/unlink-one/:taskId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('taskId', res.t('taskIdRequired')).notEmpty().isUUID();
-    req.checkQuery('keep', res.t('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
+    req.checkParams('taskId', apiError('taskIdRequired')).notEmpty().isUUID();
+    req.checkQuery('keep', apiError('keepOrRemove')).notEmpty().isIn(['keep', 'remove']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

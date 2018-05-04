@@ -25,7 +25,7 @@ import payments from '../../libs/payments/payments';
 import stripePayments from '../../libs/payments/stripe';
 import amzLib from '../../libs/payments/amazon';
 import shared from '../../../common';
-import apiMessages from '../../libs/apiMessages';
+import apiError from '../../libs/apiError';
 
 const MAX_EMAIL_INVITES_BY_USER = 200;
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS:TECH_ASSISTANCE_EMAIL');
@@ -279,7 +279,7 @@ api.createGroupPlan = {
  *
  * @apiError (400) {BadRequest} groupTypesRequired Group types are required
  * @apiError (400) {BadRequest} guildsPaginateBooleanString Paginate query parameter must be a boolean (true or false)
- * @apiError (400) {BadRequest} guildsPageInteger Page query parameter must be a positive integer
+ * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiError (400) {BadRequest} guildsOnlyPaginate Only public guilds support pagination
  *
  * @apiSuccess {Object[]} data An array of the requested groups (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/group.js" target="_blank">/website/server/models/group.js</a>)
@@ -301,8 +301,8 @@ api.getGroups = {
 
     req.checkQuery('type', res.t('groupTypesRequired')).notEmpty();
     // pagination options, can only be used with public guilds
-    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiMessages('guildsPaginateBooleanString'));
-    req.checkQuery('page').optional().isInt({min: 0}, apiMessages('guildsPageInteger'));
+    req.checkQuery('paginate').optional().isIn(['true', 'false'], apiError('guildsPaginateBooleanString'));
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -311,7 +311,7 @@ api.getGroups = {
 
     let paginate = req.query.paginate === 'true' ? true : false;
     if (paginate && !_.includes(types, 'publicGuilds')) {
-      throw new BadRequest(apiMessages('guildsOnlyPaginate'));
+      throw new BadRequest(apiError('guildsOnlyPaginate'));
     }
 
     let groupFields = basicGroupFields.concat(' description memberCount balance');
@@ -389,7 +389,7 @@ api.getGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -449,7 +449,7 @@ api.updateGroup = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -515,7 +515,7 @@ api.joinGroup = {
     let user = res.locals.user;
     let inviter;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -687,7 +687,7 @@ api.rejectGroupInvite = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -763,10 +763,10 @@ api.leaveGroup = {
   })],
   async handler (req, res) {
     let user = res.locals.user;
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     // When removing the user from challenges, should we keep the tasks?
-    req.checkQuery('keep', res.t('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
-    req.checkBody('keepChallenges', res.t('remainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
+    req.checkQuery('keep', apiError('keepOrRemoveAll')).optional().isIn(['keep-all', 'remove-all']);
+    req.checkBody('keepChallenges', apiError('groupRemainOrLeaveChallenges')).optional().isIn(['remain-in-challenges', 'leave-challenges']);
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -853,7 +853,7 @@ api.removeGroupMember = {
   async handler (req, res) {
     let user = res.locals.user;
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     req.checkParams('memberId', res.t('userIdRequired')).notEmpty().isUUID();
 
     let validationErrors = req.validationErrors();
@@ -1175,7 +1175,7 @@ api.inviteToGroup = {
 
     if (user.flags.chatRevoked) throw new NotAuthorized(res.t('cannotInviteWhenMuted'));
 
-    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
 
     if (user.invitesSent >= MAX_EMAIL_INVITES_BY_USER) throw new NotAuthorized(res.t('inviteLimitReached', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
@@ -1239,8 +1239,8 @@ api.addGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -1290,8 +1290,8 @@ api.removeGroupManager = {
     let user = res.locals.user;
     let managerId = req.body.managerId;
 
-    req.checkParams('groupId', apiMessages('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
-    req.checkBody('managerId', apiMessages('managerIdRequired')).notEmpty();
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty(); // .isUUID(); can't be used because it would block 'habitrpg' or 'party'
+    req.checkBody('managerId', apiError('managerIdRequired')).notEmpty();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

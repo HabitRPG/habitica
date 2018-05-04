@@ -1,7 +1,7 @@
 import {
   NotAuthorized,
 } from '../libs/errors';
-import apiMessages from '../libs/apiMessages';
+import apiError from '../libs/apiError';
 
 export function ensureAdmin (req, res, next) {
   let user = res.locals.user;
@@ -17,7 +17,7 @@ export function ensureSudo (req, res, next) {
   let user = res.locals.user;
 
   if (!user.contributor.sudo) {
-    return next(new NotAuthorized(apiMessages('noSudoAccess')));
+    return next(new NotAuthorized(apiError('noSudoAccess')));
   }
 
   next();

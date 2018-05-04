@@ -7,6 +7,7 @@ import { ensureSudo } from '../../middlewares/ensureAccessRight';
 import { model as Coupon } from '../../models/coupon';
 import _ from 'lodash';
 import couponCode from 'coupon-code';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -71,8 +72,8 @@ api.generateCoupons = {
     userFieldsToExclude: ['inbox'],
   }), ensureSudo],
   async handler (req, res) {
-    req.checkParams('event', res.t('eventRequired')).notEmpty();
-    req.checkQuery('count', res.t('countRequired')).notEmpty().isNumeric();
+    req.checkParams('event', apiError('eventRequired')).notEmpty();
+    req.checkQuery('count', apiError('countRequired')).notEmpty().isNumeric();
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
