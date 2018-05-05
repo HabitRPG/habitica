@@ -11,9 +11,6 @@ ENV GOOGLE_CLIENT_ID 1035232791481-32vtplgnjnd1aufv3mcu1lthf31795fq.apps.googleu
 ENV NODE_ENV production
 ENV STRIPE_PUB_KEY pk_85fQ0yMECHNfHTSsZoxZXlPSwSNfA
 
-# Upgrade NPM to v5 (Yarn is needed because of this bug https://github.com/npm/npm/issues/16807)
-# The used solution is suggested here https://github.com/npm/npm/issues/16807#issuecomment-313591975
-RUN yarn global add npm@5
 # Install global packages
 RUN npm install -g gulp-cli mocha
 

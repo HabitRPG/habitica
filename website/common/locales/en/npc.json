@@ -104,6 +104,7 @@
   "unlocked": "Items have been unlocked",
   "alreadyUnlocked": "Full set already unlocked.",
   "alreadyUnlockedPart": "Full set already partially unlocked.",
+  "invalidQuantity": "Quantity to purchase must be a number.",
 
   "USD": "(USD)",
   "newStuff": "New Stuff by Bailey",

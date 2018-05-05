@@ -31,7 +31,7 @@
           option(v-for='sound in availableAudioThemes', :value='sound') {{ $t(`audioTheme_${sound}`) }}
       hr
 
-      .form-horizontal(v-if='user.flags.classSelected && !user.preferences.disableClasses')
+      .form-horizontal(v-if='hasClass')
         h5 {{ $t('characterBuild') }}
         h6(v-once) {{ $t('class') + ': ' }}
           // @TODO: what is classText
@@ -269,6 +269,9 @@ export default {
     },
     dayStart () {
       return this.user.preferences.dayStart;
+    },
+    hasClass () {
+      return this.$store.getters['members:hasClass'](this.user);
     },
   },
   methods: {

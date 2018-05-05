@@ -340,11 +340,18 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const CHALLENGES_PER_PAGE = 10;
+    const page = req.query.page || 0;
+
+    const user = res.locals.user;
     let orOptions = [
       {_id: {$in: user.challenges}}, // Challenges where the user is participating
-      {leader: user._id}, // Challenges where I'm the leader
     ];
+
+    const owned = req.query.owned;
+    if (!owned)  {
+      orOptions.push({leader: user._id});
+    }
 
     if (!req.query.member) {
       orOptions.push({
@@ -352,10 +359,36 @@ api.getUserChallenges = {
       }); // Challenges in groups where I'm a member
     }
 
-    let challenges = await Challenge.find({
-      $or: orOptions,
-    })
+    let query = {
+      $and: [{$or: orOptions}],
+    };
+
+    if (owned && owned === 'not_owned') {
+      query.$and.push({leader: {$ne: user._id}});
+    }
+
+    if (owned && owned === 'owned') {
+      query.$and.push({leader: user._id});
+    }
+
+    if (req.query.search) {
+      const searchOr = {$or: []};
+      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
+      searchOr.$or.push({name: searchQuery});
+      searchOr.$or.push({description: searchQuery});
+      query.$and.push(searchOr);
+    }
+
+    if (req.query.categories) {
+      let categorySlugs = req.query.categories.split(',');
+      query.categories = { $elemMatch: { slug: {$in: categorySlugs} } };
+    }
+
+    const challenges = await Challenge.find(query)
       .sort('-createdAt')
+      .limit(CHALLENGES_PER_PAGE)
+      .skip(CHALLENGES_PER_PAGE * page)
       // see below why we're not using populate
       // .populate('group', basicGroupFields)
       // .populate('leader', nameFields)

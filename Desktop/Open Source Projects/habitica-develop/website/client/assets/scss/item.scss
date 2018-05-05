@@ -1,0 +1,102 @@
+// TODO move to item component?
+
+.items > div {
+  display: inline-block;
+  margin-right: 24px;
+}
+
+.items > div:last-of-type {
+  margin-right: 0px;
+}
+
+.item-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.items-one-line .item-wrapper {
+  margin-bottom: 8px;
+}
+
+.item {
+  position: relative;
+  width: 94px;
+  height: 92px;
+  border-radius: 2px;
+  background: $white;
+  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
+  border: 1px solid transparent;
+
+  &-empty {
+    background: $gray-10;
+    box-shadow: none;
+    cursor: auto;
+  }
+
+  &-active {
+    background: $purple-500;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
+    border-color: $purple-500;
+  }
+
+  &.highlight {
+    box-shadow: 0 0 8px 8px rgba($black, 0.16), 0 5px 10px 0 rgba($black, 0.12) !important;
+  }
+
+  &.highlight-border {
+    border-color: $purple-500;
+  }
+
+  &.suggested {
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    border: solid 1px $suggested-item-color;
+  }
+
+  &.suggested:hover {
+    border: solid 1px $purple-500;
+  }
+}
+
+.flat .item {
+  box-shadow: none;
+  border: none;
+}
+
+.bordered-item .item {
+  background: $gray-700 !important;
+  margin: 0 auto;
+}
+
+.drawer-content .item:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.item .item-content {
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.item-label {
+  display: block;
+  width: 94px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: $gray-400;
+  margin-top: 4px;
+}
+
+.questPopover {
+  width: 200px;
+}

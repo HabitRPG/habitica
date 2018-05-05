@@ -1,0 +1,236 @@
+.daily-todo-control {
+
+  &:hover {
+    .svg-icon.check {
+      display: block;
+    }
+  }
+
+  .svg-icon.check {
+    display: none;
+
+    &.display-check-icon {
+      display: block;
+    }
+  }
+}
+
+.task {
+  // for editing rewards or when a task is created
+  &-purple {
+    background: $purple-300;
+
+    &-color {
+      color: $purple-300;
+    }
+
+    &-control-habit {
+      background: $purple-300;
+    }
+
+    &-modal-input {
+      color: $header-color !important;
+    }
+  }
+
+  &-worst {
+    background: $maroon-100;
+
+    &-color {
+      color: darken($maroon-100, 12%);
+    }
+
+    &-control-habit {
+      background: darken($maroon-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $maroon-500;
+      color: $maroon-100;
+    }
+
+    &-modal-input {
+      color: $maroon-500 !important;
+    }
+  }
+
+  &-worse {
+    background: $red-100;
+
+    &-color {
+      color: darken($red-100, 12%);
+    }
+
+    &-control-habit {
+      background: darken($red-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $red-500;
+      color: $red-100;
+    }
+
+    &-modal-input {
+      color: $red-500 !important;
+    }
+  }
+
+  &-bad {
+    background: $orange-100;
+
+    &-color {
+      color: darken($orange-100, 12%);
+    }
+
+    &-control-habit {
+      background: darken($orange-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $orange-500;
+      color: $orange-100;
+    }
+
+    &-modal-input {
+      color: $orange-500 !important;
+    }
+  }
+
+  &-neutral {
+    background: $yellow-100;
+
+    &-color {
+      color: darken($yellow-100, 12%);
+    }
+
+    &-control-habit {
+      background: darken($yellow-100, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $yellow-500;
+      color: $yellow-100;
+    }
+
+    &-modal-input {
+      color: $yellow-500 !important;
+    }
+  }
+
+  &-good {
+    background: $green-10;
+
+    &-color {
+      color: darken($green-10, 12%);
+    }
+
+    &-control-habit {
+      background: darken($green-10, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $green-500;
+      color: $green-10;
+    }
+
+    &-modal-input {
+      color: $green-500 !important;
+    }
+  }
+
+  &-better {
+    background: $teal-50;
+
+    &-color {
+      color: darken($teal-50, 12%);
+    }
+
+    &-control-habit {
+      background: darken($teal-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $teal-500;
+      color: $teal-50;
+    }
+
+    &-modal-input {
+      color: $teal-500 !important;
+    }
+  }
+
+  &-best {
+    background: $blue-50;
+
+    &-color {
+      color: darken($blue-50, 12%);
+    }
+
+    &-control-habit {
+      background: darken($blue-50, 12%);
+    }
+
+    &-control-daily-todo {
+      background: $blue-500;
+      color: $blue-50;
+    }
+
+    &-modal-input {
+      color: $blue-500 !important;
+    }
+  }
+
+  &-reward {
+    background: #FFF5E5
+  }
+
+  &-daily-todo-disabled {
+    background: $gray-500;
+
+    &-control-daily-todo {
+      background: $gray-400;
+      color: $gray-200;
+    }
+  }
+
+  &-daily-todo-content-disabled {
+    background: $gray-600;
+
+    .task-title, .task-notes {
+      color: $gray-300 !important;
+    }
+  }
+
+  &-habit-disabled {
+    background: $gray-700;
+    color: rgba(0, 0, 0, 0.12);
+
+    &-control-habit {
+      color: rgba(0, 0, 0, 0.12) !important;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+.task-control {
+  width: 28px;
+  height: 28px;
+}
+
+.habit-control {
+  border-radius: 100px;
+  color: $white;
+
+  .svg-icon {
+    width: 10px;
+    margin: 0 auto;
+  }
+
+  .positive {
+    margin-top: 9px;
+  }
+
+  .negative {
+    margin-top: 13px;
+  }
+}

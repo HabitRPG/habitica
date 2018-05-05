@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "¡Te quedaste sin Salud!",
+    "dontDespair": "¡No desesperes!",
+    "deathPenaltyDetails": "Has perdido un Nivel,  tu oro y una pieza de equipamiento, pero puedes recuperarlos todos con trabajo duro! Buena suerte--lo harás genial.",
+    "refillHealthTryAgain": "Rellena Salud & Vuelve a Intentarlo",
+    "dyingOftenTips": "¿Pasa esto a menudo? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>¡Aqui tienes ayuda!</a>",
+    "losingHealthWarning": "¡Cuidado, estás perdiendo salud!",
+    "losingHealthWarning2": "¡No dejes que tu salud baje a cero! Si lo haces, perderas un nivel, tu oro y una pieza de equipamiento.",
+    "toRegainHealth": "Para recuperar salud:",
+    "lowHealthTips1": "Sube de nivel y te curarás del todo.",
+    "lowHealthTips2": "Compra una Poción de Salud en la columna Recompensas para recuperar 15 puntos de salud.",
+    "losingHealthQuickly": "¿Estás perdiendo salud muy rápido?",
+    "lowHealthTips3": "Las tareas diarias que no cumples te dañan por la noche: no añadas demasiadas al principio.",
+    "lowHealthTips4": "Si tienes alguna tarea diaria que no sea necesario realizar un día concreto, haz clic en el icono del lápiz y desactiva ese día.",
+    "goodLuck": "¡Buena suerte!",
+    "cannotRevive": "No se puede revivir si el jugador no está muerto."
+}

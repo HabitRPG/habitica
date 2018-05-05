@@ -792,16 +792,15 @@ function _getUserUpdateForQuestReward (itemToAward, allAwardedItems) {
 
 async function _updateUserWithRetries (userId, updates, numTry = 1, query = {}) {
   query._id = userId;
-  return await User.update(query, updates).exec()
-    .then((raw) => {
-      return raw;
-    }).catch((err) => {
-      if (numTry < MAX_UPDATE_RETRIES) {
-        return _updateUserWithRetries(userId, updates, ++numTry, query);
-      } else {
-        throw err;
-      }
-    });
+  try {
+    return await User.update(query, updates).exec();
+  } catch (err) {
+    if (numTry < MAX_UPDATE_RETRIES) {
+      return _updateUserWithRetries(userId, updates, ++numTry, query);
+    } else {
+      throw err;
+    }
+  }
 }
 
 // Participants: Grant rewards & achievements, finish quest.
@@ -851,29 +850,37 @@ schema.methods.finishQuest = async function finishQuest (quest) {
     }
   });
 
-  if (questK === 'lostMasterclasser4') {
+  let masterClasserQuests = [
+    'dilatoryDistress1',
+    'dilatoryDistress2',
+    'dilatoryDistress3',
+    'mayhemMistiflying1',
+    'mayhemMistiflying2',
+    'mayhemMistiflying3',
+    'stoikalmCalamity1',
+    'stoikalmCalamity2',
+    'stoikalmCalamity3',
+    'taskwoodsTerror1',
+    'taskwoodsTerror2',
+    'taskwoodsTerror3',
+    'lostMasterclasser1',
+    'lostMasterclasser2',
+    'lostMasterclasser3',
+    'lostMasterclasser4',
+  ];
+
+  if (masterClasserQuests.includes(questK)) {
     let lostMasterclasserQuery = {
       'achievements.lostMasterclasser': {$ne: true},
-      'achievements.quests.mayhemMistiflying1': {$gt: 0},
-      'achievements.quests.mayhemMistiflying2': {$gt: 0},
-      'achievements.quests.mayhemMistiflying3': {$gt: 0},
-      'achievements.quests.stoikalmCalamity1': {$gt: 0},
-      'achievements.quests.stoikalmCalamity2': {$gt: 0},
-      'achievements.quests.stoikalmCalamity3': {$gt: 0},
-      'achievements.quests.taskwoodsTerror1': {$gt: 0},
-      'achievements.quests.taskwoodsTerror2': {$gt: 0},
-      'achievements.quests.taskwoodsTerror3': {$gt: 0},
-      'achievements.quests.dilatoryDistress1': {$gt: 0},
-      'achievements.quests.dilatoryDistress2': {$gt: 0},
-      'achievements.quests.dilatoryDistress3': {$gt: 0},
-      'achievements.quests.lostMasterclasser1': {$gt: 0},
-      'achievements.quests.lostMasterclasser2': {$gt: 0},
-      'achievements.quests.lostMasterclasser3': {$gt: 0},
     };
+    masterClasserQuests.forEach(questName => {
+      lostMasterclasserQuery[`achievements.quests.${questName}`] = {$gt: 0};
+    });
     let lostMasterclasserUpdate = {
       $set: {'achievements.lostMasterclasser': true},
     };
-    promises.concat(participants.map(userId => {
+
+    promises = promises.concat(participants.map(userId => {
       return _updateUserWithRetries(userId, lostMasterclasserUpdate, null, lostMasterclasserQuery);
     }));
   }

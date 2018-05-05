@@ -227,4 +227,53 @@ describe('GET challenges/user', () => {
       expect(foundChallengeIndex).to.eql(1);
     });
   });
+
+  context('filters and paging', () => {
+    let user, guild, member;
+    const categories = [{
+      slug: 'newCat',
+      name: 'New Category',
+    }];
+
+    before(async () => {
+      let { group, groupLeader, members } = await createAndPopulateGroup({
+        groupDetails: {
+          name: 'TestGuild',
+          type: 'guild',
+          privacy: 'public',
+        },
+        members: 1,
+      });
+
+      user = groupLeader;
+      guild = group;
+      member = members[0];
+
+      for (let i = 0; i < 11; i += 1) {
+        await generateChallenge(user, group); // eslint-disable-line
+      }
+    });
+
+    it('returns public guilds filtered by category', async () => {
+      const categoryChallenge = await generateChallenge(user, guild, {categories});
+      const challenges = await user.get(`/challenges/user?categories=${categories[0].slug}`);
+
+      expect(challenges[0]._id).to.eql(categoryChallenge._id);
+      expect(challenges.length).to.eql(1);
+    });
+
+    it('paginates challenges', async () => {
+      const challenges = await user.get('/challenges/user');
+      const challengesPaged = await user.get('/challenges/user?page=1&owned=owned');
+
+      expect(challenges.length).to.eql(10);
+      expect(challengesPaged.length).to.eql(2);
+    });
+
+    it('filters by owned', async () => {
+      const challenges = await member.get('/challenges/user?owned=owned');
+
+      expect(challenges.length).to.eql(0);
+    });
+  });
 });
