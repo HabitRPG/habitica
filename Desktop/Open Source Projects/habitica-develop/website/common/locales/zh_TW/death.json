@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "沒有生命值了!",
+    "dontDespair": "不要絕望！",
+    "deathPenaltyDetails": "你失去了一個等級、所有金幣和一件裝備，但是只要努力就可以把它們拿回來！",
+    "refillHealthTryAgain": "回復生命值，然後再試一次",
+    "dyingOftenTips": "這常常發生嗎? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>這裡有些密技！</a>",
+    "losingHealthWarning": "小心！你的生命值正在減少！",
+    "losingHealthWarning2": "別讓你的生命值降為零！你會因此損失一個等級、所有金幣和一件裝備。",
+    "toRegainHealth": "若要回復生命值：",
+    "lowHealthTips1": "等級提升而補足生命值！",
+    "lowHealthTips2": "從獎勵欄內購買治療藥水可以回復 15 點生命值。",
+    "losingHealthQuickly": "太容易失去生命值嗎？",
+    "lowHealthTips3": "未完成的每日任務會在隔天造成損害，所以要小心，不要一開始就增加太多每日任務！",
+    "lowHealthTips4": "如果你的每日任務在某些日子不用完成的話，你可以點選鉛筆按鈕去更改它。",
+    "goodLuck": "祝你好運！",
+    "cannotRevive": "不能在還沒有死亡的時候復活。"
+}

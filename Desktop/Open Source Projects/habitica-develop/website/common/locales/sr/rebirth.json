@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Reinkarnacija: Nova avantura!",
+    "rebirthUnlock": "Otključali ste reinkarnaciju. Ovaj predmet sa Pijace omogućava Vam da počnete novu igru, od 1. nivoa, a da pritom zadržite svoje zadatke, odlikovanja, zveri, itd. Upotrebite ovaj predmet da biste udahnuli novi život Habitica-u, ako verujete da ste već sve postigli, ili da iskusite nove funkcije iz pozicije početnika.",
+    "rebirthAchievement": "Započeli ste novu avanturu! Ovo Vam je <%= number %>. reinkarnacija, a najviši nivo koji ste dostigli je <%= level %>. Da biste dobili još odlikovanja za reinkarnaciju, započnite novu avanturu kad dostignete još viši nivo!",
+    "rebirthAchievement100": "You've begun a new adventure! This is Rebirth <%= number %> for you, and the highest Level you've attained is 100 or higher. To stack this Achievement, begin your next new adventure when you've reached at least 100!",
+    "rebirthBegan": "Započeo novu avanturu",
+    "rebirthText": "Korisnik je započeo <%= rebirths %> novih avantura",
+    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
+    "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Sfera za reinkarnaciju",
+    "reborn": "Reinkarniran, najviši nivo <%= reLevel %>",
+    "rebirthComplete": "You have been reborn!"
+}

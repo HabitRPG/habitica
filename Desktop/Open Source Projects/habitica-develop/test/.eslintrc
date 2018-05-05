@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "habitrpg/mocha",
+    "habitrpg/esnext"
+  ],
+  "env": {
+    "node": true,
+  },
+  "globals": {
+    "_": true,
+  }
+}

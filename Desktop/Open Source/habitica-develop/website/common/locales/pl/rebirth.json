@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Odrodzenie – nowa przygoda czeka!",
+    "rebirthUnlock": "Odblokowałeś opcję odrodzenia! Specjalna Kula, którą możesz kupić na targu, pozwoli Ci rozpocząć grę od nowa na poziomie 1, przy czym zachowasz wszystkie swoje zadania, chowańce, itd. Jeśli masz wrażenie, że wszystko już w tej grze osiągnąłeś, wykorzystaj tę funkcję aby ją odświeżyć. Poczuj się znów jak nowo narodzony!",
+    "rebirthAchievement": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to <%= level %>.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągnąłeś jeszcze wyższy Poziom!",
+    "rebirthAchievement100": "Rozpocząłeś nową przygodę! To Twoje Odrodzenie numer <%= number %>, a najwyższy poziom, jaki udało Ci się osiągnąć, to 100 lub wyżej.  Aby powielić to Osiągnięcie, rozpocznij następną przygodę, gdy osiągniesz poziom przynajmniej 100!",
+    "rebirthBegan": "Rozpoczął nową przygodę",
+    "rebirthText": "Rozpoczął <%= rebirths %> nowych przygód.",
+    "rebirthOrb": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu <%= level %>.",
+    "rebirthOrb100": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu Poziomu 100 lub wyższego",
+    "rebirthOrbNoLevel": "Wykorzystał Kulę Odrodzenia aby rozpocząć grę od nowa",
+    "rebirthPop": "Rozpocznij grę od nowa na poziomie 1 zachowując odznaki, przedmioty kolekcjonerskie, wyposażenie oraz wszystkie zadania wraz z historią.",
+    "rebirthName": "Kula Odrodzenia",
+    "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>",
+    "rebirthComplete": "Odrodziłeś się!"
+}

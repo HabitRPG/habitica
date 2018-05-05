@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Újjászületés: új kaland érhető el!",
+    "rebirthUnlock": "Feloldottad az Újjászületést! Ez a különleges Bolti tárgy lehetővé teszi, hogy új játékot kezdj az 1. szinttől, megtartva a feladataidat, kitűntetéseidet, háziállataidat és egyebeket. Használd arra, hogy új életet lehelj a Habitica-ba, ha úgy érzed, hogy már mindent elértél, vagy hogy új funkciókat tapasztalj meg a kezdő karakter friss szemeivel.",
+    "rebirthAchievement": "Új kalandot kezdtél! Ez a(z) <%= number %>. Újjászületésed. A legmagasabb szint, amit elértél: <%= level %>. Ahhoz, hogy halmozd ezt a Kitüntetést kezdj új kalandot, amikor elértél egy még magasabb Szintet!",
+    "rebirthAchievement100": "Már elkezdtél egy új kalandot! Ez a <%= number %>. Újjászületésed, és a legmagasabb szint amit elértél 100, vagy több. Hogy elrakd ezt a kitüntetést, kezdj egy új kalandot, amikor 100-as vagy magasabb szinten vagy!",
+    "rebirthBegan": "Új Kalandot kezdtél",
+    "rebirthText": "Eddig <%= rebirths %> Új Kalandot kezdtél",
+    "rebirthOrb": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj miután elérted a <%= level %> szintet.",
+    "rebirthOrb100": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj miután elérted a 100 szintet vagy magasabbat.",
+    "rebirthOrbNoLevel": "Használtad az Újjászületés gömbjét hogy új kalandot kezdj.",
+    "rebirthPop": "Kezd újra a karaktered 1. szinttől, megtartva a kitüntetéseket, gyűjteményeket, felszereléseket és a feladatelőzményeket. Azonnal megtörténik. ",
+    "rebirthName": "Újjászületés gömbje",
+    "reborn": "Újjászülettél, maximális szint <%= reLevel %>",
+    "rebirthComplete": "Újjászülettél!"
+}

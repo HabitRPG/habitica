@@ -1,0 +1,17 @@
+// Override for https://raw.githubusercontent.com/rstacruz/nprogress/master/nprogress.css
+
+#nprogress {
+  .bar {
+    background: $purple-400 !important;
+    height: 4px !important;
+  }
+
+  .peg {
+    box-shadow: 0 0 10px $purple-400, 0 0 5px $purple-400 !important;
+  }
+
+  .spinner-icon {
+    border-top-color: $purple-400 !important;
+    border-left-color: $purple-400 !important;
+  }
+}

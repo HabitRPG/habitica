@@ -1,0 +1,122 @@
+/* Comment out for holiday events */
+/* .npc_ian {
+  background: url("/npc_ian.gif") no-repeat;
+  width: 78px;
+  height: 135px;
+} */
+
+.quest_burnout {
+  background: url("~assets/images/quest_burnout.gif") no-repeat;
+  width: 219px;
+  height: 249px;
+}
+
+.quest_bewilder {
+  background: url("~assets/images/quest_bewilder.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
+.quest_lostMasterclasser4 {
+  background: url("~assets/images/quest_lostMasterclasser4.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
+.Gems {
+  display:inline-block;
+  margin-right:5px;
+  border-style:none;
+  margin-left:0px;
+  margin-top:2px;
+}
+
+.inline-gems {
+  vertical-align: middle;
+  margin-left: 0px;
+  display: inline-block;
+}
+
+/* Both */
+.customize-menu .locked {
+  background-color: #727272;
+}
+
+/* These sprites are oversized until a move to 105 avatar box happens*/
+
+/* Backer */
+.weapon_special_0, .head_special_0 {
+  width: 105px;
+  height: 105px;
+  margin-left: -3px;
+  margin-top: -18px;
+}
+.slim_armor_special_0, .broad_armor_special_0, .shield_special_0 {
+  width: 90px;
+  height: 90px;
+}
+
+/* Critical */
+.weapon_special_critical {
+  background: url("~assets/images/weapon_special_critical.gif") no-repeat;
+  width: 90px;
+  height: 90px;
+  margin-left:-12px;
+  margin-top:12px;
+}
+
+/* This is oversized until a move to 105 avatar box happens*/
+.weapon_special_1 {
+  margin-left: -12px;
+}
+.broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
+  width: 90px;
+  height: 90px;
+}
+
+.head_special_0 {
+  background: url("~assets/images/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+}
+.head_special_1 {
+  background: url("~assets/images/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
+  margin-top: 3px;
+}
+
+.broad_armor_special_0,.slim_armor_special_0 {
+  background: url("~assets/images/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+}
+.broad_armor_special_1,.slim_armor_special_1 {
+  background: url("~assets/images/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
+}
+
+.shield_special_0 {
+  background: url("~assets/images/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+}
+
+.weapon_special_0 {
+  background: url("~assets/images/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+}
+
+.Pet-Wolf-Cerberus {
+  width: 105px;
+  height: 72px;
+  background: url("~assets/images/BackerOnly-Pet-CerberusPup.gif") no-repeat;
+}
+
+/* FIXME figure out how to handle customize menu!!
+.customize-menu .f_head_0 {
+  width: 60px;
+  height: 60px;
+  background-position: -1917px -9px;
+}
+*/
+
+[class*="Mount_Head_"],
+[class*="Mount_Body_"] {
+  margin-top:18px; /* Sprite accommodates 105x123 box */
+}
+
+.Pet_Currency_Gem {
+  margin-top: 5px;
+  margin-bottom: 5px
+}

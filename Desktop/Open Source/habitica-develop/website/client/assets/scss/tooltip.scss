@@ -1,0 +1,17 @@
+.tooltip {
+  .arrow {
+    display: none;
+  }
+
+  .tooltip-inner {
+    font-size: 12px;
+    line-height: 1.33;
+    color: $white;
+    padding: 8px 12px;
+    margin-top: 8px;
+
+    border-radius: 4px;
+    background-color: rgba($gray-10, 0.96);
+    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  }
+}

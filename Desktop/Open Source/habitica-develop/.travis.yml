@@ -1,0 +1,37 @@
+language: node_js
+node_js:
+  - '6'
+sudo: required
+dist: precise
+services:
+  - mongodb
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+before_install:
+  - $CXX --version
+  - npm install -g npm@5
+  - if [ $REQUIRES_SERVER ]; then sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10; echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list; sudo apt-get update; sudo apt-get install mongodb-org-server; fi
+install:
+  - npm install &> npm.install.log || (cat npm.install.log; false)
+before_script:
+  - npm run test:build
+  - cp config.json.example config.json
+  - sleep 15
+script:
+  - npm run $TEST
+  - if [ $COVERAGE ]; then ./node_modules/.bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js; fi
+env:
+  global:
+    - CXX=g++-4.8
+    - DISABLE_REQUEST_LOGGING=true
+  matrix:
+    - TEST="lint"
+    - TEST="test:api-v3" REQUIRES_SERVER=true COVERAGE=true
+    - TEST="test:sanity"
+    - TEST="test:content" COVERAGE=true
+    - TEST="test:common" COVERAGE=true
+    - TEST="apidoc"

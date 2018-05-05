@@ -1,0 +1,35 @@
+.markdown {
+  > p {
+    margin-bottom: 0px;
+  }
+
+  h1 {
+    line-height: 1.17;
+  }
+
+  h3 {
+    color: $gray-10;
+  }
+
+  h1, h2, h3 {
+    font-weight: normal;
+  }
+
+  h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+  }
+
+  a {
+    color: $blue-10;
+
+    &:hover, &:active, &:focus {
+      color: $blue-10;
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="424" height="80" viewBox="0 0 424 80">
+    <defs>
+        <path id="a" d="M0 0h424v80H0z"/>
+        <path id="b" d="M0 0h10v10H0z"/>
+        <path id="c" d="M0 0h10v10H0z"/>
+        <path id="d" d="M0 0h10v10H0z"/>
+        <path id="e" d="M0 0h10v10H0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <use fill="#F9F9F9" xlink:href="#a"/>
+            <path stroke="#E1E0E3" stroke-width="4" d="M2 2h420v76H2z"/>
+            <path stroke="#C3C0C7" stroke-width="2" d="M1 1h422v78H1z"/>
+        </g>
+        <g transform="translate(0 70)">
+            <use fill="#EDECEE" xlink:href="#b"/>
+            <path stroke="#E1E0E3" stroke-width="4" d="M2 2h6v6H2z"/>
+            <path stroke="#C3C0C7" stroke-width="2" d="M1 1h8v8H1z"/>
+        </g>
+        <g transform="translate(414 70)">
+            <use fill="#EDECEE" xlink:href="#c"/>
+            <path stroke="#E1E0E3" stroke-width="4" d="M2 2h6v6H2z"/>
+            <path stroke="#C3C0C7" stroke-width="2" d="M1 1h8v8H1z"/>
+        </g>
+        <g transform="translate(414)">
+            <use fill="#EDECEE" xlink:href="#d"/>
+            <path stroke="#E1E0E3" stroke-width="4" d="M2 2h6v6H2z"/>
+            <path stroke="#C3C0C7" stroke-width="2" d="M1 1h8v8H1z"/>
+        </g>
+        <g>
+            <use fill="#EDECEE" xlink:href="#e"/>
+            <path stroke="#E1E0E3" stroke-width="4" d="M2 2h6v6H2z"/>
+            <path stroke="#C3C0C7" stroke-width="2" d="M1 1h8v8H1z"/>
+        </g>
+    </g>
+</svg>
