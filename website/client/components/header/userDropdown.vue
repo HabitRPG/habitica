@@ -22,9 +22,8 @@ menu-dropdown.item-user(:right="true")
       .dropdown-item.text-center
         h3.purple {{ $t('needMoreGems') }}
         span.small-text {{ $t('needMoreGemsInfo') }}
-      img.float-left.align-self-end(src='~assets/images/gem-rain.png')
-      button.btn.btn-primary.btn-lg.learn-button Learn More
-      img.float-right.align-self-end(src='~assets/images/gold-rain.png')
+      .learn-background.py-2.text-center
+        button.btn.btn-primary.btn-lg.learn-button {{ $t('learnMore') }}
 </template>
 
 <style lang='scss' scoped>
@@ -42,6 +41,11 @@ menu-dropdown.item-user(:right="true")
 
 .user-dropdown {
   width: 14.75em;
+}
+
+.learn-background {
+    background: url('~assets/images/gem-rain.png') bottom left no-repeat,
+                url('~assets/images/gold-rain.png') bottom right no-repeat;
 }
 
 .learn-button {

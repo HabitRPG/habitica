@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> beantragt eine Bestätigung",
     "userCountRequestsApproval": "<%= userCount %> beantragen eine Bestätigung",
     "youAreRequestingApproval": "Du beantragst eine Bestätigung",
-    "chatPrivilegesRevoked": "Dir wurden Deine Chat Privilegien entzogen.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "You cannot create a public guild because your chat privileges have been revoked.",
     "cannotInviteWhenMuted": "You cannot invite anyone to a guild or party because your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "Neue Nachricht in <%= groupName %> von <%= authorName %>. Hier geht's zur Chat Seite!",

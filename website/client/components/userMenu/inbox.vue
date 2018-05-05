@@ -23,7 +23,7 @@
         .empty-messages.text-center(v-if='filtersConversations.length === 0')
           .svg-icon.envelope(v-html="icons.messageIcon")
           h4(v-once) {{$t('emptyMessagesLine1')}}
-          p(v-once) {{$t('emptyMessagesLine2')}}
+          p(v-if="!user.flags.chatRevoked") {{$t('emptyMessagesLine2')}}
         .conversations(v-if='filtersConversations.length > 0')
           .conversation(v-for='conversation in filtersConversations', @click='selectConversation(conversation.key)',
             :class="{active: selectedConversation.key === conversation.key}")
@@ -34,15 +34,15 @@
       .col-8.messages
         .empty-messages.text-center(v-if='activeChat.length === 0 && !selectedConversation.key')
           .svg-icon.envelope(v-html="icons.messageIcon")
-          h4(v-once) Nothing Here Yet
-          p(v-once) Select a conversation on the left
+          h4 {{placeholderTexts.title}}
+          p(v-html="placeholderTexts.description")
         .empty-messages.text-center(v-if='activeChat.length === 0 && selectedConversation.key')
           p {{ $t('beginningOfConversation', {userName: selectedConversation.name})}}
         chat-message.message-scroll(:chat.sync='activeChat', :inbox='true', ref="chatscroll")
 
         // @TODO: Implement new message header here when we fix the above
 
-        .new-message-row(v-if='selectedConversation.key')
+        .new-message-row(v-if='selectedConversation.key && !user.flags.chatRevoked')
           textarea(v-model='newMessage')
           button.btn.btn-secondary(@click='sendPrivateMessage()') Send
 </template>
@@ -274,6 +274,18 @@ export default {
       return filter(this.conversations, (conversation) => {
         return conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
       });
+    },
+    placeholderTexts () {
+      if (this.user.flags.chatRevoked) {
+        return {
+          title: this.$t('PMPlaceholderTitleRevoked'),
+          description: this.$t('PMPlaceholderDescriptionRevoked'),
+        };
+      }
+      return {
+        title: this.$t('PMPlaceholderTitle'),
+        description: this.$t('PMPlaceholderDescription'),
+      };
     },
   },
   methods: {

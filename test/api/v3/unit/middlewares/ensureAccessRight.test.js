@@ -7,7 +7,7 @@ import {
 import i18n from '../../../../../website/common/script/i18n';
 import { ensureAdmin, ensureSudo } from '../../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../../website/server/libs/errors';
-import apiMessages from '../../../../../website/server/libs/apiMessages';
+import apiError from '../../../../../website/server/libs/apiError';
 
 describe('ensure access middlewares', () => {
   let res, req, next;
@@ -46,7 +46,7 @@ describe('ensure access middlewares', () => {
       ensureSudo(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(apiMessages('noSudoAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noSudoAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 

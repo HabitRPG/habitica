@@ -6,6 +6,9 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
+import {
+  userActivityWebhook,
+} from '../../libs/webhook';
 
 import schema from './schema';
 
@@ -241,41 +244,73 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // this.items.pets['JackOLantern-Base'] = 5;
   }
 
-  // Manage unallocated stats points notifications
-  if (this.isDirectSelected('stats') && this.isDirectSelected('notifications') && this.isDirectSelected('flags') && this.isDirectSelected('preferences')) {
+  // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
+  if ( // Make sure all the data is loaded
+    this.isDirectSelected('notifications') &&
+    this.isDirectSelected('webhooks') &&
+    this.isDirectSelected('stats') &&
+    this.isDirectSelected('flags') &&
+    this.isDirectSelected('preferences')
+  ) {
+    const lvlUpNotifications = [];
+    const unallocatedPointsNotifications = [];
+
+    this.notifications = this.notifications.filter(notification => {
+      // Remove corrupt notifications
+      if (!notification || !notification.type) return false;
+
+      // Remove level up notifications, as they're only used to send webhooks
+      // Sometimes there can be more than 1 notification
+      if (notification && notification.type === 'LEVELED_UP') {
+        lvlUpNotifications.push(notification);
+        return false;
+      }
+
+      // Remove all unsallocated stats points
+      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+        unallocatedPointsNotifications.push(notification);
+        return false;
+      }
+      // Keep all the others
+      return true;
+    });
+
+
+    // Send lvl up notifications
+    if (lvlUpNotifications.length > 0) {
+      const firstLvlNotification = lvlUpNotifications[0];
+      const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
+
+      const initialLvl = firstLvlNotification.data.initialLvl;
+      const finalLvl = lastLvlNotification.data.newLvl;
+
+      // Delayed so we don't block the user saving
+      setTimeout(() => {
+        userActivityWebhook.send(this, {
+          type: 'leveledUp',
+          initialLvl,
+          finalLvl,
+        });
+      }, 50);
+    }
+
+    // Handle unallocated stats points notifications (keep only one and up to date)
     const pointsToAllocate = this.stats.points;
     const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
-    // Sometimes there can be more than 1 notification
-    const existingNotifications = this.notifications.filter(notification => {
-      return notification && notification.type === 'UNALLOCATED_STATS_POINTS';
-    });
-
-    const existingNotificationsLength = existingNotifications.length;
     // Take the most recent notification
-    const lastExistingNotification = existingNotificationsLength > 0 ? existingNotifications[existingNotificationsLength - 1] : null;
+    const lastExistingNotification = unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1];
+
     // Decide if it's outdated or not
     const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
 
-    // If the notification is outdated, remove all the existing notifications, otherwise all of them except the last
-    let notificationsToRemove = outdatedNotification ? existingNotificationsLength : existingNotificationsLength - 1;
-
     // If there are points to allocate and the notification is outdated, add a new notifications
-    if (pointsToAllocate > 0 && !classNotEnabled && outdatedNotification) {
-      this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
-    }
-
-    // Remove the outdated notifications
-    if (notificationsToRemove > 0) {
-      let notificationsRemoved = 0;
-
-      this.notifications = this.notifications.filter(notification => {
-        if (notification && notification.type !== 'UNALLOCATED_STATS_POINTS') return true;
-        if (notificationsRemoved === notificationsToRemove) return true;
-
-        notificationsRemoved++;
-        return false;
-      });
+    if (pointsToAllocate > 0 && !classNotEnabled) {
+      if (outdatedNotification) {
+        this.addNotification('UNALLOCATED_STATS_POINTS', { points: pointsToAllocate });
+      } else { // otherwise add back the last one
+        this.notifications.push(lastExistingNotification);
+      }
     }
   }
 

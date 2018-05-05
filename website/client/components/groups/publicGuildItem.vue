@@ -104,12 +104,12 @@ router-link.card-link(:to="{ name: 'guild', params: { groupId: guild._id } }")
     .member-count {
       position: relative;
       top: -3.6em;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: bold;
-      line-height: 1.2;
+      line-height: 1.1;
       text-align: center;
       color: #b36213;
-      margin-top: 2.1em;
+      margin-top: 2.0em;
     }
 
     .gem-bank {

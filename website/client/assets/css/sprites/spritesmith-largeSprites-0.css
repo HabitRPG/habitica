@@ -1,4 +1,4 @@
-.promo_armoire_background_201804 {
+.promo_armoire_backgrounds_201805 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -142px -587px;
   width: 141px;
@@ -10,9 +10,9 @@
   width: 325px;
   height: 336px;
 }
-.promo_mystery_201803 {
+.promo_mystery_201804 {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -695px -337px;
+  background-position: -340px -383px;
   width: 114px;
   height: 90px;
 }
@@ -24,7 +24,7 @@
 }
 .promo_seasonalshop_spring {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -337px;
+  background-position: -340px -244px;
   width: 162px;
   height: 138px;
 }
@@ -48,7 +48,7 @@
 }
 .promo_take_this {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -476px;
+  background-position: -340px -474px;
   width: 114px;
   height: 87px;
 }
@@ -57,6 +57,12 @@
   background-position: 0px 0px;
   width: 531px;
   height: 243px;
+}
+.scene_todos {
+  background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -532px -337px;
+  width: 240px;
+  height: 195px;
 }
 .scene_video_games {
   background-image: url('~assets/images/sprites/spritesmith-largeSprites-0.png');

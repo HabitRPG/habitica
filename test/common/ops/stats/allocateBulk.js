@@ -7,6 +7,7 @@ import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
+import errorMessage from '../../../../website/common/script/libs/errorMessage';
 
 describe('shared.ops.allocateBulk', () => {
   let user;
@@ -27,7 +28,7 @@ describe('shared.ops.allocateBulk', () => {
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('invalidAttribute', {attr: 'invalid'}));
+      expect(err.message).to.equal(errorMessage('invalidAttribute', {attr: 'invalid'}));
       done();
     }
   });
@@ -37,7 +38,7 @@ describe('shared.ops.allocateBulk', () => {
       allocateBulk(user);
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(i18n.t('statsObjectRequired'));
+      expect(err.message).to.equal(errorMessage('statsObjectRequired'));
       done();
     }
   });
