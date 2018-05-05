@@ -252,7 +252,7 @@
     "userRequestsApproval": "<%= userName %> requests approval",
     "userCountRequestsApproval": "<%= userCount %> request approval",
     "youAreRequestingApproval": "You are requesting approval",
-    "chatPrivilegesRevoked": "Your chat privileges have been revoked.",
+    "chatPrivilegesRevoked": "You cannot do that because your chat privileges have been revoked.",
     "cannotCreatePublicGuildWhenMuted": "You cannot create a public guild because your chat privileges have been revoked.",
     "cannotInviteWhenMuted": "You cannot invite anyone to a guild or party because your chat privileges have been revoked.",
     "newChatMessagePlainNotification": "由 <%= authorName %>發出的新訊息在 <%= groupName %> 。點擊這裡打開聊天頁面！",

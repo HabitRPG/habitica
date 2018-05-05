@@ -4,7 +4,7 @@
 
 
 /*
- * This migration move ass chat off of groups and into their own model
+ * This migration moves chat off of groups and into their own model
  */
 
 import { model as Group } from '../../website/server/models/group';

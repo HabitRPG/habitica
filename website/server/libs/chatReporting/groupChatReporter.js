@@ -9,6 +9,7 @@ import { getGroupUrl, sendTxn } from '../email';
 import slack from '../slack';
 import { model as Group } from '../../models/group';
 import { model as Chat } from '../../models/chat';
+import apiError from '../apiError';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS:COMMUNITY_MANAGER_EMAIL');
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
@@ -24,7 +25,7 @@ export default class GroupChatReporter extends ChatReporter {
   }
 
   async validate () {
-    this.req.checkParams('groupId', this.res.t('groupIdRequired')).notEmpty();
+    this.req.checkParams('groupId', apiError('groupIdRequired')).notEmpty();
     this.req.checkParams('chatId', this.res.t('chatIdRequired')).notEmpty();
 
     let validationErrors = this.req.validationErrors();
@@ -37,7 +38,7 @@ export default class GroupChatReporter extends ChatReporter {
     });
     if (!group) throw new NotFound(this.res.t('groupNotFound'));
 
-    const message = await Chat.findOne({id: this.req.params.chatId}).exec();
+    const message = await Chat.findOne({_id: this.req.params.chatId}).exec();
     if (!message) throw new NotFound(this.res.t('messageGroupChatNotFound'));
     if (message.uuid === 'system') throw new BadRequest(this.res.t('messageCannotFlagSystemMessages', {communityManagerEmail: COMMUNITY_MANAGER_EMAIL}));
 

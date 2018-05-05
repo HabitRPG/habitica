@@ -3,7 +3,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 let api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG: USING HABITICA TO MAKE A DIFFERENCE, AND VIDEO GAMES BEHIND THE SCENES!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS, ARMOIRE ITEMS, AND OFFICIAL HABITICA CHALLENGES FOR MAY';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,21 +32,34 @@ api.getNews = {
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
           </div>
         </div>
-        <h2>4/19/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+        <h2>5/1/2018 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
         <hr/>
-        <div class="scene_positivity center-block"></div>
-        <h3>Use Case Spotlight: Making a Difference</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2018/04/12/use-case-spotlight-making-a-difference/' target='_blank'>Use Case Spotlight</a> is about Making a Difference! It features a number of great suggestions submitted by Habiticans in the <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6' target='_blank'>Use Case Spotlights Guild</a>. We hope it helps any of you who might be working to make a positive difference!</p>
-        <p>Plus, we're collecting user submissions for the next spotlight! How do you use Habitica to manage your Mental Health and Wellness? We’ll be featuring player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica to improve your life and get things done!</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="media align-items-center">
+        <div class="media">
           <div class="media-body">
-            <h3>Behind the Scenes: What We're Playing</h3>
-            <p>Like many of you Habiticans out there, our team loves video and mobile games, and in this special post we wanted to share what we're currently playing (besides Habitica, of course!) and what we love about these games.  Come check them out in <a href='https://habitica.wordpress.com/2018/04/19/behind-the-scenes-what-were-playing/' target='_blank'>this month's Behind the Scenes feature</a>!</p>
-            <div class="small mb-3">by Beffymaroo and the Habitica Staff</div>
+            <h3>New Backgrounds and Armoire Items</h3>
+            <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can tiptoe through a Terraced Rice Field, bask in the glory of the Champions' Colosseum, and look for fun new footwear in the Fantastical Shoe Store. Check them out under User Icon > Backgrounds!</p>
+            <p>Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the Cobbler Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
+            <div class="small mb-3">by Katy133, confusus, TheMushroomKing, khdarkwolf, RandomGryffindor, ChimeraLiani, and Mewrose</div>
+            <div class="media align-items-center">
+              <div class="scene_todos"></div>
+              <div class="media-body">
+                <h3>May 2018 Resolution Success Challenge and Take This Challenge</h3>
+                <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/2c524717-699e-4fd6-acb6-dd868bf537dd' target='_blank'>Review your Combat Tactics</a>, we're focusing on refining your strategy to help you stay motivated and keep moving forward as we're almost halfway through the year! It has a 15 gem prize, which will be awarded to five lucky winners on June 1st.</p>
+              </div>
+            </div>
           </div>
-          <div class="scene_video_games ml-3"></div>
+          <div class="promo_armoire_backgrounds_201805 ml-3"></div>
         </div>
+        <p>Congratulations to the winners of the April Challenge: V-Starr, Carlos Víquez, lilliburlero, NowyChris, and PizzaMyHeart!</p>
+        <div class="media">
+          <div class="media-body">
+            <p>The next Take This Challenge has also launched, "<a href='/challenges/4ee6bb54-1c29-487b-a2de-07e6be24cccd' target='_blank'>Keep Calm and Carry On!</a>", with a focus on deep breathing to settle stressful emotions. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
+            <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
+          </div>
+          <div class="promo_take_this"></div>
+        </div>
+        <p>Congratulations to the winners of the last Take This Challenge, "Test Thy Courage!": grand prize winner Nietos, and runners-up Teslectrik, Mflute, Kolthar, lilyandrosemary, and thewandererrae! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they didn't have all the pieces already. It is located in your Rewards column. Enjoy!</p>
+        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
       </div>
       `,
     });
@@ -64,7 +77,9 @@ api.getNews = {
  */
 api.tellMeLaterNews = {
   method: 'POST',
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({
+    userFieldsToExclude: ['inbox'],
+  })],
   url: '/news/tell-me-later',
   async handler (req, res) {
     const user = res.locals.user;

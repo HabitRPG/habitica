@@ -8,12 +8,12 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Shimmer',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Red',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Rainbow',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Golden',
     },
     {
       type: 'card',
@@ -31,14 +31,10 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.egg',
-    },
-    {
-      type: 'quests',
       path: 'quests.bunny',
     },
   ],
-  seasonal: 'springHealer',
+  seasonal: '',
   timeTravelers: [
     // TODO
   ],

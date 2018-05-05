@@ -5,6 +5,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import _ from 'lodash';
+import apiError from '../../libs/apiError';
 
 let api = {};
 
@@ -64,7 +65,7 @@ api.getPatrons = {
     userFieldsToExclude: ['inbox'],
   })],
   async handler (req, res) {
-    req.checkQuery('page', res.t('pageMustBeNumber')).optional().isNumeric();
+    req.checkQuery('page').optional().isInt({min: 0}, apiError('queryPageInteger'));
 
     let validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;

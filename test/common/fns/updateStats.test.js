@@ -117,6 +117,18 @@ describe('common.fns.updateStats', () => {
       expect(user.addNotification).to.be.calledWith('DROPS_ENABLED');
     });
 
+    it('add user notification when the user levels up', () => {
+      const initialLvl = user.stats.lvl;
+      updateStats(user, {
+        exp: 3000,
+      });
+      expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
+      expect(user.addNotification).to.be.calledWith('LEVELED_UP', {
+        initialLvl,
+        newLvl: user.stats.lvl,
+      });
+    });
+
     it('add user notification when rebirth is enabled', () => {
       user.stats.lvl = 51;
       updateStats(user, { });
