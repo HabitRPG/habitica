@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Genfødsel: Nyt Eventyr Tilgængelige!",
+    "rebirthUnlock": "Du åbnet op for Genfødsel! Denne specielle Markedsgenstand tillader dig at begynde et nyt spil fra niveau 1, mens du stadig beholder dine opgaver, præstationer, kæledyr og andet. Brug det til at puste nyt liv i Habitica hvis du føler du har nået alt, eller for at opleve nye funktioner med de friske øjne af en ny karakter!",
+    "rebirthAchievement": "Du har begyndt et nyt eventyr! Dette er Genfødsel nummer <%= number %> for dig, og det højeste Niveau du har opnået er <%= level %>. Hvis du vil slå denne Præstation skal du først begynde et nyt eventyr, når du har opnået et endnu højere Niveau!",
+    "rebirthAchievement100": "Du har begyndt et nyt eventyr! Dette er genfødsel nummer <%= number %> for dig, og det højeste niveau du har opnået er 100 eller højere. Hvis du vil slå denne præstation skal du begynde dit næste nye eventyr, når du har opnået mindst 100!",
+    "rebirthBegan": "Begyndte et Nyt Eventyr",
+    "rebirthText": "Begyndte <%= rebirths %> Nye Eventyr",
+    "rebirthOrb": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau <%= level %>.",
+    "rebirthOrb100": "Brugte en Genfødselskugle til at starte forfra efter at have opnået Niveau 100 eller mere",
+    "rebirthOrbNoLevel": "Brugte en Genfødselskugle til at starte forfra.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Genfødselskugle",
+    "reborn": "Genfødt, højeste Niveau <%= reLevel %>",
+    "rebirthComplete": "Du er blevet genfødt!"
+}

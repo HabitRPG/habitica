@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Elfogyott az életerőd!",
+    "dontDespair": "Ne ess kétségbe!",
+    "deathPenaltyDetails": "Elvesztettél egy szintet, az aranyad és egy darab felszerelési tárgyat, de mindet visszaszerezheted kemény munkával! Sok sikert, menni fog!",
+    "refillHealthTryAgain": "Töltsd újra az életerődet és próbáld újra",
+    "dyingOftenTips": "Gyakran előfordul? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Itt van néhány tipp!</a>",
+    "losingHealthWarning": "Vigyázz - életerőt vesztesz!",
+    "losingHealthWarning2": "Ne hagyd, hogy az életerőd elérje a nullát! Ha mégis eléri, elvesztesz egy szintet, az aranyad és egy darab felszerelési tárgyat.",
+    "toRegainHealth": "Hogy visszanyerd az életerőd:",
+    "lowHealthTips1": "Lépj szintet a teljes gyógyuláshoz!",
+    "lowHealthTips2": "Vásárolj gyógyitalt a jutalmak közül, hogy visszatölts 15 életerő pontot.",
+    "losingHealthQuickly": "Gyorsan fogy az életerőd?",
+    "lowHealthTips3": "A kihagyott napi feladatok az éjszaka folyamán sebzést okoznak, tehát vigyázz, hogy először ne hozz létre túl sok feladatot!",
+    "lowHealthTips4": "Ha egy napi feladatot nem kell bizonyos napokon elvégezned, kikapcsolhatod őket, a ceruza ikonra kattintva.",
+    "goodLuck": "Sok szerencsét!",
+    "cannotRevive": "Nem támasztható fel, ha nem halott"
+}

@@ -1,0 +1,20 @@
+<template lang="pug">
+div
+  button.btn.btn-primary(b-btn, @click="$root.$emit('bv::show::modal','new-party-modal')") {{ $t('viewMembers') }}
+
+  b-modal#new-party-modal(:title="$t('createGuild')", size='lg')
+    .header-wrap(slot="modal-header")
+      .row
+        .col-6
+          h1(v-once) {{$t('members')}}
+        .col-6
+          button(type="button" aria-label="Close" class="close")
+            span(aria-hidden="true") ×
+      .row
+        .form-group.col-6
+          input.form-control.search(type="text", :placeholder="$t('search')", v-model='searchTerm')
+        .col-4.offset-2
+          span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', @click='sort(sortOption.value)', :key='sortOption.value') {{sortOption.text}}
+</template>

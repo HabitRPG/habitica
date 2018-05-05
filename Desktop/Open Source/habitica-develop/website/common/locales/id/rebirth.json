@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Rebirth: Petualangan baru tersedia!",
+    "rebirthUnlock": "Kamu membuka fitur Rebirth! Item spesial ini memungkinkan kamu untuk memulai permainan baru di level 1 tapi tetap memiliki tugas-tugasmu, prestasi, hewan peliharaan, dan banyak lagi. Gunakan untuk memberi nafas kehidupan baru ke dalam Habitica jika kamu merasa sudah mencapai semuanya, atau menikmati fitur baru dari sudut pandang karakter pemula!",
+    "rebirthAchievement": "Kamu memulai petualangan baru! Ini adalah Lahir Kembali ke-<%= number %> untukmu, dan Level tertinggi yang kamu dapatkan adalah level <%= level %>. Untuk mengumpulkan Pencapaian ini, mulailah petualangan yang baru ketika kamu sudah mencapai Level yang lebih tinggi!",
+    "rebirthAchievement100": "Kamu memulai petualangan baru! Ini adalah Lahir Kembali ke-<%= number %> untukmu, dan Level tertinggi yang kamu capai adalah level 100 atau lebih. Untuk mengumpulkan Pencapaian ini, mulailah petualangan barumu ketika kamu mencapai paling tidak level 100!",
+    "rebirthBegan": "Mulai Petualangan Baru",
+    "rebirthText": "Telah memulai <%= rebirths %> Petualangan Baru",
+    "rebirthOrb": "Telah menggunakan Batu Kelahiran untuk memulai kembali setelah mencapai Level <%= level %>.",
+    "rebirthOrb100": "Telah menggunakan Batu Kelahiran untuk memulai kembali setelah mencapai Level 100 atau lebih.",
+    "rebirthOrbNoLevel": "Telah menggunakan Batu Kelahiran untuk memulai kembali dari awal.",
+    "rebirthPop": "Mengembalikan karaktermu ke Level 1 dengan tetap menyimpan pencapaian, barang-barang, perlengkapan, dan tugas-tugas dengan riwayat. Efeknya akan berlaku seketika itu juga.",
+    "rebirthName": "Batu Kelahiran",
+    "reborn": "Lahir kembali, level maksimal <%= reLevel %>",
+    "rebirthComplete": "Kamu telah lahir kembali!"
+}

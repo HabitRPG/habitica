@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Du hast alle Deine Lebenspunkte verloren!",
+    "dontDespair": "Nicht verzweifeln!",
+    "deathPenaltyDetails": "Du hast ein Level, Dein Gold und ein Stück Ausrüstung verloren, aber Du kannst alles durch harte Arbeit wieder zurückbekommen! Viel Glück -- Du schaffst das.",
+    "refillHealthTryAgain": "Lebenspunkte wiederherstellen & Nochmal versuchen",
+    "dyingOftenTips": "Passiert das öfters? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Hier gibt es einige Tipps!</a>",
+    "losingHealthWarning": "Vorsicht - Du verlierst Lebenspunkte!",
+    "losingHealthWarning2": "Lass Deine Lebenspunkte nicht auf null fallen! Sollte das passieren wirst Du ein Level, Dein Gold und einen Gegenstand Deiner Ausrüstung verlieren.",
+    "toRegainHealth": "Um Deine Lebenspunkte wiederherzustellen:",
+    "lowHealthTips1": "Steige ein Level auf um Dich vollständig zu heilen!",
+    "lowHealthTips2": "Kaufe Dir einen Heiltrank aus der Belohnungsspalte um 15 Lebenspunkte wiederherzustellen.",
+    "losingHealthQuickly": "Verlierst Du Deine Lebenspunkte zu schnell?",
+    "lowHealthTips3": "Unnvollständige tägliche Aufgaben schaden Dir über Nacht, also sei vorsichtig und füge anfangs nicht zu viele hinzu!",
+    "lowHealthTips4": "Wenn eine tägliche Aufgabe an einem gewissen Tag nicht erledigt werden muss, kannst Du sie deaktivieren, indem Du auf das Bleistiftsymbol klickst.",
+    "goodLuck": "Viel Glück!",
+    "cannotRevive": "Wiederbelebung ist nicht möglich, wenn Du nicht tot bist."
+}

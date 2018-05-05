@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "habitrpg/browser",
+    "habitrpg/esnext"
+  ],
+  "plugins": [
+    "html"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0
+  }
+}

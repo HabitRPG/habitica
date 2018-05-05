@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Znovuzrodenie: Čas na nové dobrodružstvo!",
+    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do Habitica vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
+    "rebirthAchievement": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie čislo <%= number %> a najvušší level, ktorý si dosiahol je <%= level %>. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí ešte vyššieho levelu!",
+    "rebirthAchievement100": "Začal si nové dobrodružstvo! Toto je tvoje znovuzrodenie číslo <%= number %> a najvyšší level, ktorý si získal je 100 alebo vyšší. Ak chceš tento odznak vylepšiť, začni nové dobrodružstvo po dosiahnutí aspoň levelu 100!",
+    "rebirthBegan": "Začal nové dobrodružstvo",
+    "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
+    "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
+    "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
+    "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Orb znovuzrodenia",
+    "reborn": "Znovuzrodený, najvyšší dosiahnutý level: <%= reLevel %>",
+    "rebirthComplete": "Bol si znovuzrodený!"
+}

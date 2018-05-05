@@ -1,0 +1,3 @@
+web:
+  volumes:
+    - '.:/usr/src/habitrpg'

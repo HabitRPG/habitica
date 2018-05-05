@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Znovuzrození: Je dostupné nové dobrodružství !",
+    "rebirthUnlock": "Odemkl jsi znovuzrození! Tento speciální předmět ti umožňuje začít novou hru na úrovni 1, zatímco ti zůstanou všechny úkoly, úspěchy, mazlíčci a ostatní věci. Pokud máš pocit, že už jsi zvládl vše, použij ho pro vdechnutí nového života do programu Habitica anebo pro vyzkoušení nových funkcí s novou postavou a s čistým štítem.",
+    "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%= number %> a nejvyšší úroveň, které jsi dosáhl je <%= level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",
+    "rebirthAchievement100": "Začal jsi nové dobrodružství! Toto je tvé <%= number %>. Znovuzrození. Dosáhl jsi úrovně 100 nebo vyšší. Aby sis udržel toto ocenění, začni další dobrodružství po dosažení nejméně sté úrovně!",
+    "rebirthBegan": "Začal nové dobrodružství",
+    "rebirthText": "Začal <%= rebirths %> nových dobrodružství",
+    "rebirthOrb": "Použil Kouli Znovozrození, aby začal znova, po dosáhnutí úrovně <%= level %>.",
+    "rebirthOrb100": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně 100 nebo vyšší.",
+    "rebirthOrbNoLevel": "Použil Kouli Znovozrození, aby začal znova.",
+    "rebirthPop": "Instantly restart your character at Level 1 while retaining achievements, collectibles, equipment, and tasks with history. This will take effect immediately.",
+    "rebirthName": "Koule znovuzrození",
+    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
+    "rebirthComplete": "Byl jste znovuzrozen!"
+}

@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Vous avez épuisé votre santé !",
+    "dontDespair": "Ne désespérez pas !",
+    "deathPenaltyDetails": "Vous avez perdu un niveau, tout votre or, et une pièce d'équipement, mais vous pouvez tous les récupérer en travaillant dur ! Bonne chance--vous y arriverez.",
+    "refillHealthTryAgain": "Reprendre vie et essayer à nouveau",
+    "dyingOftenTips": "Cela vous arrive trop souvent ? <a href='http://fr.habitica.wikia.com/wiki/Mort#Strat.C3.A9gies_pour_rester_en_vie' target='_blank'>Voici quelques astuces !</a>",
+    "losingHealthWarning": "Attention - Vous perdez de la Vie !",
+    "losingHealthWarning2": "Ne laissez pas votre santé tomber à zéro ! Si cela arrive, vous perdrez un niveau, votre or, et un élément d'équipement.",
+    "toRegainHealth": "Pour regagner de la Vie :",
+    "lowHealthTips1": "Gagnez un niveau pour guérir complètement !",
+    "lowHealthTips2": "Achetez une potion de guérison dans la colonne des récompenses pour regagner 15 points de vie.",
+    "losingHealthQuickly": "Vous perdez de la Vie rapidement ?",
+    "lowHealthTips3": "Les tâches Quotidiennes non accomplies vous infligent des dégâts pendant la nuit, faites attention à ne pas en créer trop au début !",
+    "lowHealthTips4": "Si une tâche Quotidienne n'est pas due certains jours, vous pouvez la désactiver en cliquant sur l'icône en forme de crayon.",
+    "goodLuck": "Bonne chance !",
+    "cannotRevive": "Impossible de ressusciter si vous n'êtes pas mort"
+}

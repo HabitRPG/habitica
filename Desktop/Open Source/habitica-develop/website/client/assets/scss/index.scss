@@ -1,0 +1,35 @@
+@import './bootstrap';
+
+// Variables and Functions
+@import './utils';
+@import './colors';
+
+* {
+  transition-duration: 0.15s;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
+}
+
+// Generic components
+@import './page';
+@import './loading-screen';
+
+// Global styles
+@import './misc';
+@import './typography';
+@import './markdown';
+@import './form';
+@import './button';
+@import './badge';
+@import './dropdown';
+@import './popover';
+@import './tooltip';
+@import './item';
+@import './stats';
+@import './icon';
+@import './task';
+@import './categories';
+@import './dragdrop';
+@import './banner';
+@import './progress-bar';
+@import './pin';

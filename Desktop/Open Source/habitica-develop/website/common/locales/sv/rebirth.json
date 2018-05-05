@@ -1,0 +1,15 @@
+{
+    "rebirthNew": "Pånyttfödelse: Nytt Äventyr Tillgängligt!",
+    "rebirthUnlock": "Du har låst upp Pånyttfödelse! Detta speciella marknadsföremål tillåter dig att börja ett nytt spel från nivå 1 utan att förlora alla dina uppgifter, bedrifter, husdjur med mera. Använd den för att blåsa nytt liv i Habitica om du känner att du redan har uppnått allt, eller för att uppleva nya funktioner utifrån en ny karaktärs synvinkel!",
+    "rebirthAchievement": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är <%= level %>. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått en ännu högre Level!",
+    "rebirthAchievement100": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är 100 eller högre. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått minst 100!",
+    "rebirthBegan": "Började på ett Nytt Äventyr",
+    "rebirthText": "Började <%= rebirths %> Nytt/Nya Äventyr",
+    "rebirthOrb": "Använde en Återfödelsens sfär för att starta om efter att ha uppnått Nivå <%= level %>.",
+    "rebirthOrb100": "Använd en Återfödelsens sfär för att starta om efter att ha uppnått Nivå 100 eller högre.",
+    "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om",
+    "rebirthPop": "Starta om din karaktär vid nivå 1 och behåll dina prestationer, samlarobjekt, utrustning och uppgifter med historik. Detta kommer att träda i kraft omedelbart.",
+    "rebirthName": "Pånyttfödelsesfär",
+    "reborn": "Pånyttfödd, max nivå <%= reLevel %>",
+    "rebirthComplete": "Du har återfötts!"
+}
