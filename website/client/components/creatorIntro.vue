@@ -171,11 +171,6 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock(v-if='option.locked')
               .svg-icon.gem(v-html='icons.gem')
               span 2
-          .col-12.text-center(v-if='!userOwnsSet("hair", baseHair5Keys, "beard")')
-            .gem-lock
-              .svg-icon.gem(v-html='icons.gem')
-              span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")}`)') {{ $t('purchaseAll') }}
         .col-12.customize-options(v-if='editing')
           .head_0.option(@click='set({"preferences.hair.mustache": 0})', :class="[{ active: user.preferences.hair.mustache === 0 }, 'hair_base_0_' + user.preferences.hair.color]")
           .option(v-for='option in baseHair6',
@@ -188,7 +183,7 @@ b-modal#avatar-modal(title="", :size='editing ? "lg" : "md"', :hide-header='true
             .gem-lock
               .svg-icon.gem(v-html='icons.gem')
               span 5
-            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
+            button.btn.btn-secondary.purchase-all(@click='unlock(`hair.beard.${baseHair5Keys.join(",hair.beard.")},hair.mustache.${baseHair6Keys.join(",hair.mustache.")}`)') {{ $t('purchaseAll') }}
     #extra.section.container.customize-section(v-if='activeTopPage === "extra"')
       .row.sub-menu
         .col-3.offset-1.text-center.sub-menu-item(@click='changeSubPage("glasses")', :class='{active: activeSubPage === "glasses"}')
