@@ -6,10 +6,9 @@
     :withPin="true",
     @change="resetItemToBuy($event)"
     v-if='type === "reward"')
-  .d-flex
-    h2.tasks-column-title
-      | {{ $t(typeLabel) }}
-      .badge.badge-pill.badge-purple.column-badge(v-if="badgeCount > 0") {{ badgeCount }}
+  .d-flex.align-items-center
+    h2.column-title {{ $t(typeLabel) }}
+    .badge.badge-pill.badge-purple.column-badge.mx-1(v-if="badgeCount > 0") {{ badgeCount }}
     .filters.d-flex.justify-content-end
       .filter.small-text(
         v-for="filter in typeFilters",
@@ -160,21 +159,22 @@
 
   .quick-add-tip-slide-enter, .quick-add-tip-slide-leave-to {
     max-height: 0;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 
-  .tasks-column-title {
-    margin-bottom: 8px;
-    position: relative;
+  .column-title {
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .column-badge {
-    top: -5px;
-    right: -24px;
+    position: static;
   }
 
   .filters {
-    flex-grow: 1;
+    margin-left: auto;
   }
 
   .filter {
@@ -183,6 +183,7 @@
     font-style: normal;
     padding: 8px;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       color: $purple-200;
@@ -590,7 +591,7 @@ export default {
     },
     filterByTagList (taskList, tagList = []) {
       let filteredTaskList = taskList;
-      // fitler requested tasks by tags
+      // filter requested tasks by tags
       if (!isEmpty(tagList)) {
         filteredTaskList = taskList.filter(
           task => tagList.every(tag => task.tags.indexOf(tag) !== -1)

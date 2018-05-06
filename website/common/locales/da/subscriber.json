@@ -7,6 +7,7 @@
     "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Skal abonnere for at kunne købe ædelsten med GP",
     "reachedGoldToGemCap": "Du har nået Guld>Ædelsten vekslemaksimum <%= convCap %> for denne måned. Vi har denne for at undgå misbrug/udbytning. Vekselmaksimumset nulstiller inden for de tre første dage af hver måned.",
+    "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
     "retainHistory": "Behold yderligere historik",
     "retainHistoryText": "Gør dine færdiggjorte To-Dos og opgavehistorik tilgængelige i længere tid.",
     "doubleDrops": "Loft på daglige drops fordoblet",

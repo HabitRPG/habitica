@@ -29,6 +29,7 @@ const NOTIFICATION_TYPES = [
   'NEW_INBOX_MESSAGE',
   'NEW_STUFF',
   'NEW_CHAT_MESSAGE',
+  'LEVELED_UP',
 ];
 
 const Schema = mongoose.Schema;

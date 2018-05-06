@@ -1,4 +1,3 @@
-import i18n from '../../i18n';
 import get from 'lodash/get';
 import {
   BadRequest,
@@ -11,6 +10,7 @@ import {BuyQuestWithGoldOperation} from './buyQuest';
 import buySpecialSpell from './buySpecialSpell';
 import purchaseOp from './purchase';
 import hourglassPurchase from './hourglassPurchase';
+import errorMessage from '../../libs/errorMessage';
 import {BuyGemOperation} from './buyGem';
 
 // @TODO: remove the req option style. Dependency on express structure is an anti-pattern
@@ -20,7 +20,7 @@ import {BuyGemOperation} from './buyGem';
 
 module.exports = function buy (user, req = {}, analytics) {
   let key = get(req, 'params.key');
-  if (!key) throw new BadRequest(i18n.t('missingKeyParam', req.language));
+  if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
   // @TODO: Slowly remove the need for key and use type instead
   // This should evenutally be the 'factory' function with vendor classes

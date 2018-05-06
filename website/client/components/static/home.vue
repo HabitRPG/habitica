@@ -652,7 +652,13 @@
         });
         this.$router.push('/register');
       },
+      // @TODO: Abstract hello in to action or lib
       async socialAuth (network) {
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
+
+
         const url = window.location.href;
 
         let auth = await hello(network).login({
