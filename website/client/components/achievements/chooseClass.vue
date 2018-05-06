@@ -232,7 +232,7 @@ export default {
           margin: '1.8em 1.5em',
         };
       }
-    }
+    },
   },
 };
 </script>
